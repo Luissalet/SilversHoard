@@ -3,6 +3,18 @@
 // playable page.
 import { L, STAT_NAMES, STATUS_NAMES, nameOf, typeName, toID } from "./dex.js";
 
+// Free-form lines the simulator writes in English.
+const MESSAGES_ES = [
+  [/^(.+) forfeited\.$/, "$1 se ha rendido."],
+  [/^(.+) lost due to inactivity\.$/, "$1 ha perdido por inactividad."],
+  [/^(.+) has been disqualified\.$/, "$1 ha sido descalificado."],
+  [/^Turn limit \((\d+)\) reached\.$/, "Se ha alcanzado el límite de $1 turnos."],
+];
+function messageEs(text) {
+  for (const [re, out] of MESSAGES_ES) if (re.test(text)) return text.replace(re, out);
+  return text;
+}
+
 export function newState() {
   return {
     turn: 0, gametype: "singles", gen: 9, tier: "", started: false, ended: false, winner: "", tie: false,
@@ -464,7 +476,7 @@ function applyRaw(state, line, { lang = "es", me = "p1" } = {}) {
       return { text: `${M(parts[1])}: ${effectName(parts[2], lang)}.`, kind: "minor" };
     case "-message":
     case "message":
-      return { text: parts.slice(1).join("|"), kind: "info" };
+      return { text: es ? messageEs(parts.slice(1).join("|")) : parts.slice(1).join("|"), kind: "info" };
     case "raw":
     case "html":
       return { text: parts.slice(1).join("|").replace(/<[^>]+>/g, ""), kind: "info" };

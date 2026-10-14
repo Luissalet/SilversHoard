@@ -88,7 +88,7 @@ export function useTrainers(deps = []) {
 
 export function TrainerSelect({ value, onChange, label, allowNone = false, exclude = [], id }) {
   const { t } = useApp();
-  const list = useTrainers();
+  const list = useTrainers([value]);   // re-read when the value changes: a trainer made a moment ago is not in the cached list yet
   const [q, setQ] = useState("");
   const shown = list.filter((tr) => !exclude.includes(tr.id) && (!q || `${tr.name} ${tr.title} ${tr.species.join(" ")}`.toLowerCase().includes(q.toLowerCase())));
   const current = list.find((tr) => tr.id === value);

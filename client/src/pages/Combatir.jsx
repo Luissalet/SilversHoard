@@ -7,12 +7,13 @@ import { AiFields, Avatar, FormatSelect, JobProgress, RulesFields, TeamStrip, Tr
 import { BattleRow } from "./Historial.jsx";
 
 function SeatEditor({ label, seat, onChange, allowHuman = true }) {
-  const { t } = useApp();
+  const { t, changed } = useApp();
   const list = useTrainers();
   const trainer = list.find((x) => x.id === seat.trainer_id);
   const [busy, run] = useBusy();
   const randomTrainer = () => run("rnd", async () => {
     const tr = await api.call("trainer_random", {});
+    changed();
     onChange({ ...seat, trainer_id: tr.id });
   });
   return (
