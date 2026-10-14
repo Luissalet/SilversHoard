@@ -15,9 +15,9 @@ A local Pokémon battle simulator for the Hoard family. It runs on Pokémon Show
 - **Series and tournaments.** The same two trainers N times (win rate, average turns, KOs, damage and survival of every Pokémon, the MVP of each side, one sample battle of each outcome), or a tournament between up to 64 trainers: single elimination with byes or a round robin with a table, best of 1, 3, 5 or 7. They run as background jobs.
 - **Gyms and leagues.** A gym has gym trainers (fought in order) and a leader, a type, a badge with its colour and rules (fixed level, level cap, minimum level, extra Showdown rules). Challenge it yourself or let your trainer's AI do it; between battles your team is healed; winning every battle gives the badge. A league needs its badges, then the Elite Four and the champion; whoever beats it enters the hall of fame. A challenge can use the gym's own generation or current rules.
 - **Friends.** Export a trainer, gym or league as a file (`.hoardtrainer`, `.hoardgym`, `.hoardleague`) for another Silver's Hoard, a share code to paste in a chat, the team as Showdown text, or a **playable page**: one HTML file with the battle engine and the AI inside. Your friend opens it in any browser, pastes or rolls a team and fights your gym or trainer; at the end the page gives a result code (and a result file with the replay). Importing it here records their battle and, when they won, their badge.
-- **Avatars.** Pick any of the 1,500 Showdown trainer sprites, upload a picture, turn a photo into a 96-px pixel-art sprite here (background removed, few colours, outline), or have Prospero's Hoard draw a trainer sprite from the photo with its image engine (a job; you pick among the results; Prospero must be running).
+- **Avatars.** Pick any of the 1,500 Showdown trainer sprites, upload a picture, turn a photo into a 96-px pixel-art sprite here (background removed, few colours, outline), or have Prospero's Hoard draw one with its image engine from up to four photos of the same person and/or a description (a job; each result gives the 96-px sprite and the drawing itself, you pick; Prospero must be running).
 - **Battle lines with AI.** The family's language model (through Hoard Hub: the Sparks, Faustus or Ollama) writes a trainer's four lines from its team and a personality you describe.
-- **Family.** Faustus's copilot on every page, an MCP server with 48 tools (`mcp_server.py`), events on the family bus, and the shared Hoard look.
+- **Family.** Faustus's copilot on every page, an MCP server with 49 tools (`mcp_server.py`), events on the family bus, and the shared Hoard look.
 
 ## What it does not do
 
@@ -41,7 +41,7 @@ Hoard Hub finds it through `faustus-plugin.json`. Data lives in `data/` (or `SIL
 
 ## For assistants
 
-`python mcp_server.py` is a stdio MCP bridge to the running app (it starts it when needed). The tools cover the whole app: `battle_start` / `battle_choose` to play, `series_start` and `tournament_start`, `challenge_start`, `canon_install`, `export` / `import`, `avatar_from_photo`, `trainer_dialogue_write` and the rest (`GET /api/agent/tools`).
+`python mcp_server.py` is a stdio MCP bridge to the running app (it starts it when needed). The tools cover the whole app: `battle_start` / `battle_choose` to play, `series_start` and `tournament_start`, `challenge_start`, `canon_install`, `export` / `import`, `avatar_from_photo`, `avatar_draw`, `trainer_dialogue_write` and the rest (`GET /api/agent/tools`).
 
 ## Credits
 

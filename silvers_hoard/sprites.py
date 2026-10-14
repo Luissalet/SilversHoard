@@ -138,7 +138,8 @@ class Sprites:
             raise SilverError("not_found", f"Avatar not found: {filename}")
         return path
 
-    def save_avatar(self, data: bytes, *, stem: str, pixelate: bool = False, remove_background: bool = False, size: int = 96) -> str:
+    def save_avatar(self, data: bytes, *, stem: str, pixelate: bool = False, remove_background: bool = False, size: int = 96,
+                    max_side: int = 256) -> str:
         """Store an uploaded picture as a PNG avatar (optionally turned into pixel art). Returns the file name."""
         if not data:
             raise SilverError("invalid", "The picture is empty.")
@@ -147,7 +148,7 @@ class Sprites:
         img = _open_image(data)
         if remove_background:
             img = cut_background(img)
-        img = to_sprite(img, size=size) if pixelate else _fit(img, 256)
+        img = to_sprite(img, size=size) if pixelate else _fit(img, max_side)
         buf = io.BytesIO()
         img.save(buf, "PNG", optimize=True)
         name = f"{re.sub(r'[^A-Za-z0-9_-]', '', stem)[:60] or 'avatar'}-{int(time.time() * 1000) % 10**10}.png"

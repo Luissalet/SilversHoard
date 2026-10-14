@@ -55,6 +55,12 @@ export default function Ajustes() {
       <Section title={t("prospero")}>
         <div className="panel space-y-3">
           <Field label={t("prospero_prompt")} hint={t("prospero_prompt_help")}><textarea className="field" rows={4} value={f.prospero_prompt} onChange={(e) => set("prospero_prompt", e.target.value)} /></Field>
+          <Field label={t("prospero_engine")} hint={t("prospero_engine_help")}>
+            <select className="field" value={f.prospero_engine || ""} onChange={(e) => set("prospero_engine", e.target.value)}>
+              <option value="">{t("prospero_engine_default")}</option>
+              <option value="qwen21">Qwen-Image 2.1</option><option value="flux">FLUX</option><option value="sdxl">SDXL</option>
+            </select>
+          </Field>
         </div>
       </Section>
       <Busy busy={busy.s} className="btn btn-primary" onClick={save}>{t("save")}</Busy>

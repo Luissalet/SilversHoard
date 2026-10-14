@@ -22,7 +22,7 @@ Battles: battle_start with two seats. A seat is {trainer_id} or {paste|team, nam
 Gym and league challenges: challenge_start (kind gym|league, a challenger trainer; auto=true lets the AI play the challenger). Winning every battle of a gym gives a badge; a league needs its badges and ends in the hall of fame.
 Many battles at once: series_start (the same two trainers N times: win rate, MVPs) and tournament_start (bracket or league table between trainers), both background jobs (job_get).
 Sharing: export (fmt file = .hoardtrainer/.hoardgym/.hoardleague, code = a share code for a chat, page = one HTML file a friend opens in a browser to fight the gym or trainer, paste = Showdown text). import takes any of those back, plus the result codes friends send after playing a page (records their badge).
-Avatars: trainer_sprites_search (Showdown trainer sprites) or avatar_from_photo (a photo on this computer into pixel art here, or drawn by Prospero's Hoard with mode=prospero, a background job)."""
+Avatars: trainer_sprites_search (Showdown trainer sprites), avatar_from_photo (a photo on this computer into pixel art here) or avatar_draw (Prospero's Hoard draws one from up to 4 photos and/or a description, a background job)."""
 
 
 def _d(first: str, detail: str = "", synonyms: str = "") -> str:
@@ -306,6 +306,13 @@ class AvatarPhotoArgs(BaseModel):
     remove_background: bool = True
 
 
+class AvatarDrawArgs(BaseModel):
+    paths: list[str] = Field(default_factory=list, max_length=4, description="Up to 4 photos of the same person on this computer.")
+    description: str = Field("", max_length=300, description="Who or what to draw (with or without photos): a name, a look, clothes.")
+    trainer_id: str = Field("", max_length=80, description="Set the first result as this trainer's avatar.")
+    count: int = Field(2, ge=1, le=4, description="How many pictures Prospero draws.")
+
+
 class SettingsSetArgs(BaseModel):
     player_name: Optional[str] = Field(None, max_length=60)
     default_format: Optional[str] = Field(None, max_length=120)
@@ -317,6 +324,7 @@ class SettingsSetArgs(BaseModel):
     node_path: Optional[str] = Field(None, max_length=500)
     sprite_downloads: Optional[bool] = None
     prospero_prompt: Optional[str] = Field(None, max_length=1000)
+    prospero_engine: Optional[Literal["", "auto", "qwen21", "flux", "sdxl"]] = Field(None, description="Image engine for drawn sprites; empty = Prospero's default.")
     series_default: Optional[int] = Field(None, ge=1, le=1000)
 
 
@@ -464,6 +472,10 @@ TOOLS: list[Tool] = [
     Tool("import", _d("Import a share code, result code, .hoard* file, playable page or Showdown team. Importar.",
                       "Result codes from friends record their badge or win here.", synonyms="código de amigo, resultado, cargar"),
          ImportArgs, WD, _import),
+    Tool("avatar_draw", _d("Have Prospero's Hoard draw a trainer sprite from up to 4 photos and/or a description (a job). Dibujar sprite.",
+                           "Each result is a 96-px pixel-art sprite plus the drawing itself; job_get gives them as candidates.",
+                           synonyms="sprite con ia, dibujar entrenador, sprite desde fotos, sprite de un famoso"), AvatarDrawArgs, WD,
+         lambda s, a: s.avatar_draw([_read_path(p) for p in a.paths], description=a.description, trainer_id=a.trainer_id, count=a.count), 120.0),
     Tool("avatar_from_photo", _d("Turn a photo into a trainer sprite: pixel art here or drawn by Prospero's Hoard (a job). Sprite desde foto.",
                                  synonyms="avatar, foto, sprite estilo pokémon, prospero"), AvatarPhotoArgs, WD,
          lambda s, a: s.avatar_from_photo(_read_path(a.path), trainer_id=a.trainer_id, mode=a.mode, remove_background=a.remove_background), 120.0),

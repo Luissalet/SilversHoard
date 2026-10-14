@@ -15,9 +15,9 @@ Un simulador de combates Pokémon local de la familia Hoard. Funciona con el mot
 - **Series y torneos.** Los mismos dos entrenadores N veces (porcentaje de victorias, turnos medios, KO, daño y supervivencia de cada Pokémon, el MVP de cada lado y un combate de ejemplo de cada resultado), o un torneo de hasta 64 entrenadores: eliminatoria con exentos o liguilla con clasificación, al mejor de 1, 3, 5 o 7. Van como trabajos en segundo plano.
 - **Gimnasios y ligas.** Un gimnasio tiene entrenadores (en orden) y un líder, un tipo, una medalla con su color y reglas (nivel fijo, nivel máximo, nivel mínimo, reglas extra de Showdown). Lo retas tú o dejas que lo haga la IA de tu entrenador; entre combates tu equipo se cura; ganar todos los combates da la medalla. Una liga pide sus medallas y luego el Alto Mando y el campeón; quien la supera entra en el Hall de la Fama. Un reto puede jugarse con la generación del gimnasio o con las reglas actuales.
 - **Amigos.** Exporta un entrenador, gimnasio o liga como archivo (`.hoardtrainer`, `.hoardgym`, `.hoardleague`) para otro Silver's Hoard, como código para pegar en un chat, el equipo como texto de Showdown, o como **página jugable**: un solo HTML con el motor de combate y la IA dentro. Tu amigo lo abre en cualquier navegador, pega o genera un equipo y combate contra tu gimnasio o entrenador; al acabar la página le da un código de resultado (y un archivo con la repetición). Al importarlo aquí queda su combate y, si ganó, su medalla.
-- **Imágenes.** Cualquiera de los 1.500 sprites de entrenador de Showdown, una imagen subida, una foto convertida aquí en un sprite de 96 px en pixel art (sin fondo, pocos colores, contorno), o un sprite de entrenador dibujado por Prospero's Hoard a partir de la foto con su motor de imagen (un trabajo; eliges entre los resultados; Prospero tiene que estar en marcha).
+- **Imágenes.** Cualquiera de los 1.500 sprites de entrenador de Showdown, una imagen subida, una foto convertida aquí en un sprite de 96 px en pixel art (sin fondo, pocos colores, contorno), o un entrenador dibujado por Prospero's Hoard con su motor de imagen a partir de hasta cuatro fotos de la misma persona y/o una descripción (un trabajo; cada resultado trae el sprite de 96 px y el dibujo, eliges tú; Prospero tiene que estar en marcha).
 - **Frases con IA.** El modelo de la familia (por Hoard Hub: las Sparks, Faustus u Ollama) escribe las cuatro frases de un entrenador a partir de su equipo y de la personalidad que describas.
-- **Familia.** El copiloto de Faustus en todas las páginas, un servidor MCP con 48 herramientas (`mcp_server.py`), eventos en el bus de la familia y el aspecto común de los Hoards.
+- **Familia.** El copiloto de Faustus en todas las páginas, un servidor MCP con 49 herramientas (`mcp_server.py`), eventos en el bus de la familia y el aspecto común de los Hoards.
 
 ## Qué no hace
 
@@ -41,7 +41,7 @@ Hoard Hub la encuentra por `faustus-plugin.json`. Los datos van en `data/` (o `S
 
 ## Para asistentes
 
-`python mcp_server.py` es un puente MCP por stdio a la app en marcha (la arranca si hace falta). Las herramientas cubren toda la app: `battle_start` / `battle_choose` para jugar, `series_start` y `tournament_start`, `challenge_start`, `canon_install`, `export` / `import`, `avatar_from_photo`, `trainer_dialogue_write` y el resto (`GET /api/agent/tools`).
+`python mcp_server.py` es un puente MCP por stdio a la app en marcha (la arranca si hace falta). Las herramientas cubren toda la app: `battle_start` / `battle_choose` para jugar, `series_start` y `tournament_start`, `challenge_start`, `canon_install`, `export` / `import`, `avatar_from_photo`, `avatar_draw`, `trainer_dialogue_write` y el resto (`GET /api/agent/tools`).
 
 ## Créditos
 

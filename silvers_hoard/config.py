@@ -36,6 +36,7 @@ DEFAULT_SETTINGS: dict[str, Any] = {
     "prospero_prompt": ("pixel art sprite of the person in the reference photo as a monster-trainer character from a 2000s handheld "
                         "role-playing game, full body, standing, facing the viewer, limited palette, crisp 1-pixel outlines, flat "
                         "plain white background, no text"),
+    "prospero_engine": "",        # image engine Prospero uses for sprites ("" = the project's default; qwen21, flux, sdxl)
     "series_default": 20,         # battles in a series when none is given
 }
 

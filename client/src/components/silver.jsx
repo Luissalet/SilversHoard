@@ -282,17 +282,24 @@ export function AvatarDialog({ trainer, onClose, onSaved }) {
     onSaved?.();
     onClose();
   });
+  const [description, setDescription] = useState("");
+  const [picked, setPicked] = useState(0);
   const upload = (mode) => {
     const file = fileRef.current?.files?.[0];
     if (!file) return;
     run(mode, async () => {
-      const r = await api.uploadAvatar(file, { trainerId: trainer.id, mode });
-      if (r.id && r.kind === "avatar") { setJobId(r.id); return; }
+      await api.uploadAvatar(file, { trainerId: trainer.id, mode });
       notify(t("avatar_saved"));
       onSaved?.();
-      if (mode !== "prospero") onClose();
+      onClose();
     });
   };
+  const draw = () => run("prospero", async () => {
+    const files = fileRef.current?.files || [];
+    setCandidates([]);
+    const r = await api.drawAvatar(files, { description, trainerId: trainer.id });
+    if (r.id) setJobId(r.id);
+  });
   return (
     <Modal title={t("avatar_title", { name: trainer.name })} onClose={onClose} wide>
       <Tabs value={tab} onChange={setTab} tabs={[{ id: "sprites", label: t("avatar_tab_sprites") }, { id: "photo", label: t("avatar_tab_photo") }]} />
@@ -312,20 +319,40 @@ export function AvatarDialog({ trainer, onClose, onSaved }) {
       )}
       {tab === "photo" && (
         <div className="space-y-3">
-          <input ref={fileRef} type="file" accept="image/*" className="field" />
-          <div className="grid gap-2 sm:grid-cols-3">
-            <Busy busy={busy.pixel} className="btn" onClick={() => upload("pixel")}>{t("avatar_pixel")}</Busy>
-            <Busy busy={busy.prospero} className="btn btn-primary" onClick={() => upload("prospero")}>{t("avatar_prospero")}</Busy>
-            <Busy busy={busy.upload} className="btn" onClick={() => upload("upload")}>{t("avatar_upload")}</Busy>
+          <input ref={fileRef} type="file" accept="image/*" multiple className="field" aria-label={t("avatar_photos")}
+            onChange={(e) => setPicked(Math.min(4, e.target.files?.length || 0))} />
+          <div className="grid gap-2 sm:grid-cols-2">
+            <Busy busy={busy.pixel} className="btn" disabled={!picked} onClick={() => upload("pixel")}>{t("avatar_pixel")}</Busy>
+            <Busy busy={busy.upload} className="btn" disabled={!picked} onClick={() => upload("upload")}>{t("avatar_upload")}</Busy>
           </div>
           <p className="help">{t("avatar_photo_help")}</p>
+          <div className="panel space-y-2">
+            <b>{t("avatar_prospero")}</b>
+            <input className="field" value={description} maxLength={300} onChange={(e) => setDescription(e.target.value)}
+              placeholder={t("avatar_description_ph")} aria-label={t("avatar_description")} />
+            <div className="flex flex-wrap items-center gap-2">
+              <Busy busy={busy.prospero || (job && job.status !== "done" && job.status !== "failed" && job.status !== "cancelled")} className="btn btn-primary"
+                disabled={!picked && !description.trim()} onClick={draw}>{t("avatar_draw")}</Busy>
+              <span className="help">{picked ? t("avatar_photos_n", { n: picked }) : t("avatar_no_photos")}</span>
+            </div>
+            <p className="help">{t("avatar_draw_help")}</p>
+          </div>
           {job && <JobProgress job={job} />}
           {candidates.length > 0 && (
             <div className="space-y-1">
               <b>{t("avatar_candidates")}</b>
-              <div className="sprite-grid">
+              <div className="candidate-grid">
                 {candidates.map((c) => (
-                  <button key={c.file} type="button" className="sprite-pick" onClick={() => choose(c.avatar)}><img src={c.url} alt="" className="pixelated" /></button>
+                  <div key={c.file} className="candidate">
+                    <button type="button" className="sprite-pick" onClick={() => choose(c.avatar)} title={t("avatar_use_sprite")}>
+                      <img src={c.url} alt="" className="pixelated" /><span>{t("avatar_sprite")}</span>
+                    </button>
+                    {c.drawing && (
+                      <button type="button" className="sprite-pick" onClick={() => choose(c.drawing.avatar)} title={t("avatar_use_drawing")}>
+                        <img src={c.drawing.url} alt="" /><span>{t("avatar_drawing")}</span>
+                      </button>
+                    )}
+                  </div>
                 ))}
               </div>
             </div>

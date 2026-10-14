@@ -14,7 +14,7 @@ ARGS = {
     "studio_projects": {"query", "limit", "offset"},
     "studio_create_project": {"name", "brief", "image_engine"},
     "studio_import": {"project", "path", "kind"},
-    "studio_generate_image": {"project", "prompt", "reference_asset_ids", "count", "aspect"},
+    "studio_generate_image": {"project", "prompt", "reference_asset_ids", "count", "aspect", "engine"},
     "studio_job": {"job_id", "wait_s"},
     "studio_cancel_job": {"job_id"},
 }
@@ -46,9 +46,12 @@ class FakeProspero:
         if tool == "studio_create_project":
             return {"ok": True, "result": {"id": "pj_1", "name": args["name"]}}
         if tool == "studio_import":
-            return {"ok": True, "result": {"id": "as_photo", "kind": "image"}}
+            self.imports = getattr(self, "imports", 0) + 1
+            return {"ok": True, "result": {"id": f"as_photo{self.imports}", "kind": "image"}}
         if tool == "studio_generate_image":
-            assert args["reference_asset_ids"] == ["as_photo"]
+            if args.get("aspect", "1:1") not in ("1:1", "9:16", "16:9", "2:3", "3:2", "4:5"):
+                return {"ok": False, "status": 400, "error": "aspect must be one of 1:1, 9:16, 16:9, 2:3, 3:2, 4:5"}
+            self.generated = args
             return {"ok": True, "result": {"job": {"id": "jb_1", "state": "queued", "progress": 0}}}
         if tool == "studio_job":
             self.polls += 1
@@ -90,9 +93,45 @@ def test_prospero_sprite_follows_the_contract(services, prospero):
     assert j.get("status") == "done", j
     result = j.get("result") or {}
     assert len(result["candidates"]) == 2
+    assert all(c["drawing"]["file"].endswith(".png") for c in result["candidates"])
+    assert prospero.generated["reference_asset_ids"] == ["as_photo1"]
+    assert "reference photo" in prospero.generated["prompt"]
     assert [a for _, a in prospero.fetched] == ["as_a", "as_b"]
     assert all(b == "http://prospero.test" for b, _ in prospero.fetched)
     tools = [t for t, _ in prospero.calls]
     assert tools[:4] == ["studio_projects", "studio_create_project", "studio_import", "studio_generate_image"]
     assert all("reason" in a for t, a in prospero.calls if t in WRITES)
     assert services.store.trainer(trainer_id)["avatar"] == result["candidates"][0]["avatar"]
+
+
+def run_job(services, out):
+    import time
+    job_id = (out.get("job") or out).get("id")
+    for _ in range(200):
+        j = services.job_get(job_id)
+        j = j.get("job") or j
+        if j.get("status") in ("done", "failed", "cancelled"):
+            return j
+        time.sleep(0.05)
+    raise AssertionError("job did not finish")
+
+
+def test_prospero_sprite_from_several_photos_and_a_description(services, prospero):
+    j = run_job(services, services.avatar_draw([picture(), picture(), picture()], description="black jacket, headphones"))
+    assert j["status"] == "done", j
+    assert prospero.generated["reference_asset_ids"] == ["as_photo1", "as_photo2", "as_photo3"]
+    assert "reference photos (black jacket, headphones)" in prospero.generated["prompt"]
+
+
+def test_prospero_sprite_from_a_description_only(services, prospero):
+    j = run_job(services, services.avatar_draw([], description="a sailor with a red cap"))
+    assert j["status"] == "done", j
+    assert "reference_asset_ids" not in prospero.generated
+    assert "a sailor with a red cap" in prospero.generated["prompt"]
+    assert not any(t == "studio_import" for t, _ in prospero.calls)
+
+
+def test_avatar_draw_needs_a_photo_or_a_description(services):
+    from silvers_hoard.errors import SilverError
+    with pytest.raises(SilverError):
+        services.avatar_draw([], description="  ")
