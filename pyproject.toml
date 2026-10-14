@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "silvers-hoard"
+version = "0.1.0"
+description = "Pokémon battle simulator of the Hoard family: trainers with AI, battles you play or watch, series, tournaments, gyms with badges, leagues, the games' leaders and champions, and playable pages to challenge friends."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+authors = [{ name = "Luissalet" }]
+dependencies = ["fastapi>=0.115", "uvicorn>=0.30", "pydantic>=2.7", "httpx>=0.27", "mcp>=1.10,<2", "python-multipart>=0.0.9", "pillow>=10.0", "psutil>=5.9"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-asyncio>=0.23"]
+
+[project.scripts]
+silvers-hoard = "silvers_hoard.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["silvers_hoard*"]
+
+[tool.setuptools.package-data]
+silvers_hoard = ["static/**/*", "presets/*.json", "hoard_link/**/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+asyncio_mode = "auto"
+filterwarnings = ["ignore::DeprecationWarning"]

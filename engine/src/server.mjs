@@ -1,0 +1,107 @@
+// The engine process the Python app talks to: one JSON request per line on stdin, one JSON answer per line on stdout
+// ({id, ok, result} or {id, ok: false, error: {code, message}}). Live battles stay in memory; the app keeps their snapshots,
+// so a restarted engine continues any battle with `match_start` + `snapshot`.
+import readline from 'node:readline';
+import * as core from './core.mjs';
+import {Match} from './match.mjs';
+import {playOut, series, summarize, tournament} from './stats.mjs';
+import {viewLines} from './match.mjs';
+import {freeze} from './ai.mjs';
+
+const matches = new Map();
+const MAX_OPEN = 64;
+
+function touch(id, m) {
+  matches.delete(id);
+  matches.set(id, m);
+  while (matches.size > MAX_OPEN) matches.delete(matches.keys().next().value);
+}
+
+function getMatch(id) {
+  const m = matches.get(id);
+  if (!m) throw new core.EngineError('match_not_loaded', `Battle ${id} is not loaded in the engine.`);
+  touch(id, m);
+  return m;
+}
+
+const handlers = {
+  ping: () => ({pong: true, versions: process.versions.node, open: matches.size}),
+  formats: (a) => ({formats: core.listFormats({gen: a.gen || 0, query: a.query || ''})}),
+  format_info: (a) => core.formatInfo(core.buildFormatId(a.format, a.rules)),
+  import_team: (a) => {
+    const sets = core.importTeam(a.text ?? a.sets);
+    return {sets, paste: core.exportTeam(sets)};
+  },
+  import_teams: (a) => ({teams: core.importTeams(a.text)}),
+  export_team: (a) => ({paste: core.exportTeam(a.sets || [])}),
+  validate: (a) => {
+    const formatId = core.buildFormatId(a.format, a.rules);
+    const sets = core.applyLevelRules(core.importTeam(a.sets), a.level_rules || {});
+    return {format: formatId, ...core.validateTeam(formatId, sets)};
+  },
+  random_team: (a) => core.randomTeam(a.format || 'gen9randombattle', a.seed || null),
+  summary: (a) => ({pokemon: core.teamSummary(core.importTeam(a.sets), a.format || 'gen9customgame')}),
+  dex_search: (a) => ({results: core.dexSearch(a.kind || 'species', a.query || '', {gen: a.gen || 9, limit: a.limit || 30, species: a.species || ''})}),
+  species: (a) => core.speciesInfo(a.name, a.gen || 9),
+  match_start: (a) => {
+    const m = new Match(a.spec, a.snapshot || null);
+    if (!a.snapshot) m.advance();
+    touch(m.id, m);
+    return {...m.state(a.view || 'host', a.since || 0), seed: m.spec.seed, snapshot: a.want_snapshot ? freeze(m.battle) : undefined};
+  },
+  match_loaded: (a) => ({loaded: matches.has(a.id)}),
+  match_choose: (a) => {
+    const m = getMatch(a.id);
+    m.choose(a.side, a.choice);
+    return {...m.state(a.view || 'host', a.since || 0), snapshot: freeze(m.battle)};
+  },
+  match_state: (a) => {
+    const m = getMatch(a.id);
+    return {...m.state(a.view || 'host', a.since || 0), snapshot: a.want_snapshot ? freeze(m.battle) : undefined};
+  },
+  match_forfeit: (a) => {
+    const m = getMatch(a.id);
+    m.forfeit(a.side);
+    return {...m.state(a.view || 'host', a.since || 0), snapshot: freeze(m.battle)};
+  },
+  match_log: (a) => {
+    const m = getMatch(a.id);
+    const lines = viewLines(m.battle.log, 0, a.view || 'omniscient');
+    return {lines, summary: summarize(viewLines(m.battle.log, 0, 'omniscient')), input_log: m.inputLog()};
+  },
+  match_close: (a) => ({closed: matches.delete(a.id)}),
+  play_out: (a) => playOut(a.spec, {keepLog: true}),
+  simulate: (a) => series(a.spec, Math.max(1, Math.min(Number(a.count) || 1, 200))),
+  tournament: (a) => tournament(a),
+  summarize: (a) => summarize(a.lines || []),
+};
+
+export async function handle(req) {
+  const fn = handlers[req.cmd];
+  if (!fn) return {id: req.id, ok: false, error: {code: 'unknown_command', message: `Unknown command: ${req.cmd}`}};
+  try {
+    const result = await fn(req.args || {});
+    return {id: req.id, ok: true, result};
+  } catch (e) {
+    return {id: req.id, ok: false, error: {code: e.code || 'engine_error', message: e.message || String(e), details: e.details || {}}};
+  }
+}
+
+const isMain = process.argv[1] && import.meta.url.endsWith(process.argv[1].replace(/\\/g, '/').split('/').pop());
+if (isMain) {
+  const rl = readline.createInterface({input: process.stdin, crlfDelay: Infinity});
+  const out = (obj) => process.stdout.write(JSON.stringify(obj) + '\n');
+  out({id: 0, ok: true, result: {ready: true, node: process.versions.node}});
+  rl.on('line', async (line) => {
+    if (!line.trim()) return;
+    let req;
+    try {
+      req = JSON.parse(line);
+    } catch (e) {
+      out({id: null, ok: false, error: {code: 'bad_json', message: e.message}});
+      return;
+    }
+    out(await handle(req));
+  });
+  rl.on('close', () => process.exit(0));
+}

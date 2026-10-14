@@ -1,0 +1,7439 @@
+{
+ "schema": 1,
+ "source": "In-game parties from the pret disassemblies (pokecrystal, pokefirered, pokeemerald); moves left empty there are the last four level-up moves, as the games do.",
+ "trainers": [
+  {
+   "key": "frlg-brock",
+   "name": "Brock",
+   "name_es": "Brock",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Kanto",
+   "game": "FireRed/LeafGreen",
+   "format": "gen3customgame",
+   "avatar": "brock-gen3",
+   "sets": [
+    {
+     "species": "Geodude",
+     "level": 12,
+     "item": "",
+     "moves": [
+      "Tackle",
+      "Defense Curl"
+     ],
+     "ivs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 0
+     }
+    },
+    {
+     "species": "Onix",
+     "level": 14,
+     "item": "",
+     "moves": [
+      "Tackle",
+      "Bind",
+      "Rock Tomb"
+     ],
+     "ivs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 0
+     }
+    }
+   ]
+  },
+  {
+   "key": "frlg-misty",
+   "name": "Misty",
+   "name_es": "Misty",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Kanto",
+   "game": "FireRed/LeafGreen",
+   "format": "gen3customgame",
+   "avatar": "misty-gen3",
+   "sets": [
+    {
+     "species": "Staryu",
+     "level": 18,
+     "item": "",
+     "moves": [
+      "Tackle",
+      "Harden",
+      "Recover",
+      "Water Pulse"
+     ],
+     "ivs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 0
+     }
+    },
+    {
+     "species": "Starmie",
+     "level": 21,
+     "item": "",
+     "moves": [
+      "Swift",
+      "Recover",
+      "Rapid Spin",
+      "Water Pulse"
+     ],
+     "ivs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 0
+     }
+    }
+   ]
+  },
+  {
+   "key": "frlg-ltsurge",
+   "name": "Lt. Surge",
+   "name_es": "Teniente Surge",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Kanto",
+   "game": "FireRed/LeafGreen",
+   "format": "gen3customgame",
+   "avatar": "ltsurge-gen3",
+   "sets": [
+    {
+     "species": "Voltorb",
+     "level": 21,
+     "item": "",
+     "moves": [
+      "Sonic Boom",
+      "Tackle",
+      "Screech",
+      "Shock Wave"
+     ],
+     "ivs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 0
+     }
+    },
+    {
+     "species": "Pikachu",
+     "level": 18,
+     "item": "",
+     "moves": [
+      "Quick Attack",
+      "Thunder Wave",
+      "Double Team",
+      "Shock Wave"
+     ],
+     "ivs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 0
+     }
+    },
+    {
+     "species": "Raichu",
+     "level": 24,
+     "item": "",
+     "moves": [
+      "Quick Attack",
+      "Thunder Wave",
+      "Double Team",
+      "Shock Wave"
+     ],
+     "ivs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 0
+     }
+    }
+   ]
+  },
+  {
+   "key": "frlg-erika",
+   "name": "Erika",
+   "name_es": "Erika",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Kanto",
+   "game": "FireRed/LeafGreen",
+   "format": "gen3customgame",
+   "avatar": "erika-gen3",
+   "sets": [
+    {
+     "species": "Victreebel",
+     "level": 29,
+     "item": "",
+     "moves": [
+      "Stun Spore",
+      "Acid",
+      "Poison Powder",
+      "Giga Drain"
+     ],
+     "ivs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 0
+     }
+    },
+    {
+     "species": "Tangela",
+     "level": 24,
+     "item": "",
+     "moves": [
+      "Poison Powder",
+      "Constrict",
+      "Ingrain",
+      "Giga Drain"
+     ],
+     "ivs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 0
+     }
+    },
+    {
+     "species": "Vileplume",
+     "level": 29,
+     "item": "",
+     "moves": [
+      "Sleep Powder",
+      "Acid",
+      "Stun Spore",
+      "Giga Drain"
+     ],
+     "ivs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 0
+     }
+    }
+   ]
+  },
+  {
+   "key": "frlg-koga",
+   "name": "Koga",
+   "name_es": "Koga",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Kanto",
+   "game": "FireRed/LeafGreen",
+   "format": "gen3customgame",
+   "avatar": "koga-gen3",
+   "sets": [
+    {
+     "species": "Koffing",
+     "level": 37,
+     "item": "",
+     "moves": [
+      "Self-Destruct",
+      "Sludge",
+      "Smokescreen",
+      "Toxic"
+     ],
+     "ivs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 0
+     }
+    },
+    {
+     "species": "Muk",
+     "level": 39,
+     "item": "",
+     "moves": [
+      "Minimize",
+      "Sludge",
+      "Acid Armor",
+      "Toxic"
+     ],
+     "ivs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 0
+     }
+    },
+    {
+     "species": "Koffing",
+     "level": 37,
+     "item": "",
+     "moves": [
+      "Self-Destruct",
+      "Sludge",
+      "Smokescreen",
+      "Toxic"
+     ],
+     "ivs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 0
+     }
+    },
+    {
+     "species": "Weezing",
+     "level": 43,
+     "item": "",
+     "moves": [
+      "Tackle",
+      "Sludge",
+      "Smokescreen",
+      "Toxic"
+     ],
+     "ivs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 0
+     }
+    }
+   ]
+  },
+  {
+   "key": "frlg-sabrina",
+   "name": "Sabrina",
+   "name_es": "Sabrina",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Kanto",
+   "game": "FireRed/LeafGreen",
+   "format": "gen3customgame",
+   "avatar": "sabrina-gen3",
+   "sets": [
+    {
+     "species": "Kadabra",
+     "level": 38,
+     "item": "",
+     "moves": [
+      "Psybeam",
+      "Reflect",
+      "Future Sight",
+      "Calm Mind"
+     ],
+     "ivs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 0
+     }
+    },
+    {
+     "species": "Mr. Mime",
+     "level": 37,
+     "item": "",
+     "moves": [
+      "Barrier",
+      "Psybeam",
+      "Baton Pass",
+      "Calm Mind"
+     ],
+     "ivs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 0
+     }
+    },
+    {
+     "species": "Venomoth",
+     "level": 38,
+     "item": "",
+     "moves": [
+      "Psybeam",
+      "Gust",
+      "Leech Life",
+      "Supersonic"
+     ],
+     "ivs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 0
+     }
+    },
+    {
+     "species": "Alakazam",
+     "level": 43,
+     "item": "",
+     "moves": [
+      "Psychic",
+      "Recover",
+      "Future Sight",
+      "Calm Mind"
+     ],
+     "ivs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 0
+     }
+    }
+   ]
+  },
+  {
+   "key": "frlg-blaine",
+   "name": "Blaine",
+   "name_es": "Blaine",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Kanto",
+   "game": "FireRed/LeafGreen",
+   "format": "gen3customgame",
+   "avatar": "blaine-gen3",
+   "sets": [
+    {
+     "species": "Growlithe",
+     "level": 42,
+     "item": "",
+     "moves": [
+      "Bite",
+      "Roar",
+      "Take Down",
+      "Fire Blast"
+     ],
+     "ivs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 0
+     }
+    },
+    {
+     "species": "Ponyta",
+     "level": 40,
+     "item": "",
+     "moves": [
+      "Stomp",
+      "Bounce",
+      "Fire Spin",
+      "Fire Blast"
+     ],
+     "ivs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 0
+     }
+    },
+    {
+     "species": "Rapidash",
+     "level": 42,
+     "item": "",
+     "moves": [
+      "Stomp",
+      "Bounce",
+      "Fire Spin",
+      "Fire Blast"
+     ],
+     "ivs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 0
+     }
+    },
+    {
+     "species": "Arcanine",
+     "level": 47,
+     "item": "",
+     "moves": [
+      "Bite",
+      "Roar",
+      "Take Down",
+      "Fire Blast"
+     ],
+     "ivs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 0
+     }
+    }
+   ]
+  },
+  {
+   "key": "frlg-giovanni",
+   "name": "Giovanni",
+   "name_es": "Giovanni",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Kanto",
+   "game": "FireRed/LeafGreen",
+   "format": "gen3customgame",
+   "avatar": "giovanni-gen3",
+   "sets": [
+    {
+     "species": "Rhyhorn",
+     "level": 45,
+     "item": "",
+     "moves": [
+      "Take Down",
+      "Rock Blast",
+      "Scary Face",
+      "Earthquake"
+     ],
+     "ivs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 0
+     }
+    },
+    {
+     "species": "Dugtrio",
+     "level": 42,
+     "item": "",
+     "moves": [
+      "Slash",
+      "Sand Tomb",
+      "Mud-Slap",
+      "Earthquake"
+     ],
+     "ivs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 0
+     }
+    },
+    {
+     "species": "Nidoqueen",
+     "level": 44,
+     "item": "",
+     "moves": [
+      "Body Slam",
+      "Double Kick",
+      "Poison Sting",
+      "Earthquake"
+     ],
+     "ivs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 0
+     }
+    },
+    {
+     "species": "Nidoking",
+     "level": 45,
+     "item": "",
+     "moves": [
+      "Thrash",
+      "Double Kick",
+      "Poison Sting",
+      "Earthquake"
+     ],
+     "ivs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 0
+     }
+    },
+    {
+     "species": "Rhyhorn",
+     "level": 50,
+     "item": "",
+     "moves": [
+      "Take Down",
+      "Rock Blast",
+      "Scary Face",
+      "Earthquake"
+     ],
+     "ivs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 0
+     }
+    }
+   ]
+  },
+  {
+   "key": "frlg-lorelei",
+   "name": "Lorelei",
+   "name_es": "Lorelei",
+   "class": "elite",
+   "class_es": "Alto Mando",
+   "region": "Kanto",
+   "game": "FireRed/LeafGreen",
+   "format": "gen3customgame",
+   "avatar": "lorelei-gen3",
+   "sets": [
+    {
+     "species": "Dewgong",
+     "level": 52,
+     "item": "",
+     "moves": [
+      "Ice Beam",
+      "Surf",
+      "Hail",
+      "Safeguard"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Cloyster",
+     "level": 51,
+     "item": "",
+     "moves": [
+      "Spikes",
+      "Protect",
+      "Hail",
+      "Dive"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Slowbro",
+     "level": 52,
+     "item": "",
+     "moves": [
+      "Ice Beam",
+      "Surf",
+      "Amnesia",
+      "Yawn"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Jynx",
+     "level": 54,
+     "item": "",
+     "moves": [
+      "Ice Punch",
+      "Double Slap",
+      "Lovely Kiss",
+      "Attract"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Lapras",
+     "level": 54,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Confuse Ray",
+      "Ice Beam",
+      "Surf",
+      "Body Slam"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    }
+   ]
+  },
+  {
+   "key": "frlg-lorelei-rematch",
+   "name": "Lorelei",
+   "name_es": "Lorelei",
+   "class": "elite",
+   "class_es": "Alto Mando",
+   "region": "Kanto",
+   "game": "FireRed/LeafGreen",
+   "format": "gen3customgame",
+   "avatar": "lorelei-gen3",
+   "sets": [
+    {
+     "species": "Dewgong",
+     "level": 64,
+     "item": "",
+     "moves": [
+      "Ice Beam",
+      "Surf",
+      "Signal Beam",
+      "Double Team"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Cloyster",
+     "level": 63,
+     "item": "",
+     "moves": [
+      "Ice Beam",
+      "Surf",
+      "Supersonic",
+      "Rain Dance"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Piloswine",
+     "level": 63,
+     "item": "",
+     "moves": [
+      "Blizzard",
+      "Earthquake",
+      "Double-Edge",
+      "Rock Slide"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Jynx",
+     "level": 66,
+     "item": "",
+     "moves": [
+      "Ice Beam",
+      "Psychic",
+      "Lovely Kiss",
+      "Attract"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Lapras",
+     "level": 66,
+     "item": "Cheri Berry",
+     "moves": [
+      "Ice Beam",
+      "Surf",
+      "Psychic",
+      "Thunder"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    }
+   ],
+   "variant": "Rematch",
+   "variant_es": "revancha"
+  },
+  {
+   "key": "frlg-bruno",
+   "name": "Bruno",
+   "name_es": "Bruno",
+   "class": "elite",
+   "class_es": "Alto Mando",
+   "region": "Kanto",
+   "game": "FireRed/LeafGreen",
+   "format": "gen3customgame",
+   "avatar": "bruno-gen3",
+   "sets": [
+    {
+     "species": "Onix",
+     "level": 51,
+     "item": "",
+     "moves": [
+      "Earthquake",
+      "Rock Tomb",
+      "Iron Tail",
+      "Roar"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Hitmonchan",
+     "level": 53,
+     "item": "",
+     "moves": [
+      "Sky Uppercut",
+      "Mach Punch",
+      "Rock Tomb",
+      "Counter"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Hitmonlee",
+     "level": 53,
+     "item": "",
+     "moves": [
+      "Mega Kick",
+      "Foresight",
+      "Brick Break",
+      "Facade"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Onix",
+     "level": 54,
+     "item": "",
+     "moves": [
+      "Double-Edge",
+      "Earthquake",
+      "Iron Tail",
+      "Sand Tomb"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Machamp",
+     "level": 56,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Cross Chop",
+      "Bulk Up",
+      "Scary Face",
+      "Rock Tomb"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    }
+   ]
+  },
+  {
+   "key": "frlg-bruno-rematch",
+   "name": "Bruno",
+   "name_es": "Bruno",
+   "class": "elite",
+   "class_es": "Alto Mando",
+   "region": "Kanto",
+   "game": "FireRed/LeafGreen",
+   "format": "gen3customgame",
+   "avatar": "bruno-gen3",
+   "sets": [
+    {
+     "species": "Steelix",
+     "level": 65,
+     "item": "",
+     "moves": [
+      "Earthquake",
+      "Iron Tail",
+      "Crunch",
+      "Rock Tomb"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Hitmonchan",
+     "level": 65,
+     "item": "",
+     "moves": [
+      "Sky Uppercut",
+      "Mach Punch",
+      "Rock Slide",
+      "Counter"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Hitmonlee",
+     "level": 65,
+     "item": "",
+     "moves": [
+      "Mega Kick",
+      "Foresight",
+      "Earthquake",
+      "Rock Slide"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Steelix",
+     "level": 66,
+     "item": "",
+     "moves": [
+      "Earthquake",
+      "Iron Tail",
+      "Crunch",
+      "Dragon Breath"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Machamp",
+     "level": 68,
+     "item": "Persim Berry",
+     "moves": [
+      "Cross Chop",
+      "Earthquake",
+      "Brick Break",
+      "Rock Slide"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    }
+   ],
+   "variant": "Rematch",
+   "variant_es": "revancha"
+  },
+  {
+   "key": "frlg-agatha",
+   "name": "Agatha",
+   "name_es": "Agatha",
+   "class": "elite",
+   "class_es": "Alto Mando",
+   "region": "Kanto",
+   "game": "FireRed/LeafGreen",
+   "format": "gen3customgame",
+   "avatar": "agatha-gen3",
+   "sets": [
+    {
+     "species": "Gengar",
+     "level": 54,
+     "item": "",
+     "moves": [
+      "Shadow Punch",
+      "Confuse Ray",
+      "Toxic",
+      "Double Team"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Golbat",
+     "level": 54,
+     "item": "",
+     "moves": [
+      "Confuse Ray",
+      "Poison Fang",
+      "Air Cutter",
+      "Bite"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Haunter",
+     "level": 53,
+     "item": "",
+     "moves": [
+      "Hypnosis",
+      "Dream Eater",
+      "Curse",
+      "Mean Look"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Arbok",
+     "level": 56,
+     "item": "",
+     "moves": [
+      "Sludge Bomb",
+      "Screech",
+      "Iron Tail",
+      "Bite"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Gengar",
+     "level": 58,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Shadow Ball",
+      "Sludge Bomb",
+      "Hypnosis",
+      "Nightmare"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    }
+   ]
+  },
+  {
+   "key": "frlg-agatha-rematch",
+   "name": "Agatha",
+   "name_es": "Agatha",
+   "class": "elite",
+   "class_es": "Alto Mando",
+   "region": "Kanto",
+   "game": "FireRed/LeafGreen",
+   "format": "gen3customgame",
+   "avatar": "agatha-gen3",
+   "sets": [
+    {
+     "species": "Gengar",
+     "level": 66,
+     "item": "",
+     "moves": [
+      "Shadow Ball",
+      "Psychic",
+      "Confuse Ray",
+      "Hypnosis"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Crobat",
+     "level": 66,
+     "item": "",
+     "moves": [
+      "Sludge Bomb",
+      "Air Cutter",
+      "Shadow Ball",
+      "Confuse Ray"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Misdreavus",
+     "level": 65,
+     "item": "",
+     "moves": [
+      "Shadow Ball",
+      "Psychic",
+      "Thunderbolt",
+      "Attract"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Arbok",
+     "level": 68,
+     "item": "",
+     "moves": [
+      "Sludge Bomb",
+      "Earthquake",
+      "Giga Drain",
+      "Double Team"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Gengar",
+     "level": 70,
+     "item": "Chesto Berry",
+     "moves": [
+      "Shadow Ball",
+      "Psychic",
+      "Thunderbolt",
+      "Sludge Bomb"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    }
+   ],
+   "variant": "Rematch",
+   "variant_es": "revancha"
+  },
+  {
+   "key": "frlg-lance",
+   "name": "Lance",
+   "name_es": "Lance",
+   "class": "elite",
+   "class_es": "Alto Mando",
+   "region": "Kanto",
+   "game": "FireRed/LeafGreen",
+   "format": "gen3customgame",
+   "avatar": "lance-gen3",
+   "sets": [
+    {
+     "species": "Gyarados",
+     "level": 56,
+     "item": "",
+     "moves": [
+      "Hyper Beam",
+      "Dragon Rage",
+      "Twister",
+      "Bite"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Dragonair",
+     "level": 54,
+     "item": "",
+     "moves": [
+      "Hyper Beam",
+      "Safeguard",
+      "Dragon Rage",
+      "Outrage"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Dragonair",
+     "level": 54,
+     "item": "",
+     "moves": [
+      "Hyper Beam",
+      "Safeguard",
+      "Thunder Wave",
+      "Outrage"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Aerodactyl",
+     "level": 58,
+     "item": "",
+     "moves": [
+      "Hyper Beam",
+      "Ancient Power",
+      "Wing Attack",
+      "Scary Face"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Dragonite",
+     "level": 60,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Hyper Beam",
+      "Safeguard",
+      "Outrage",
+      "Wing Attack"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    }
+   ]
+  },
+  {
+   "key": "frlg-lance-rematch",
+   "name": "Lance",
+   "name_es": "Lance",
+   "class": "elite",
+   "class_es": "Alto Mando",
+   "region": "Kanto",
+   "game": "FireRed/LeafGreen",
+   "format": "gen3customgame",
+   "avatar": "lance-gen3",
+   "sets": [
+    {
+     "species": "Gyarados",
+     "level": 68,
+     "item": "",
+     "moves": [
+      "Hyper Beam",
+      "Dragon Dance",
+      "Earthquake",
+      "Thunder Wave"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Dragonite",
+     "level": 66,
+     "item": "",
+     "moves": [
+      "Hyper Beam",
+      "Earthquake",
+      "Dragon Claw",
+      "Flamethrower"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Kingdra",
+     "level": 66,
+     "item": "",
+     "moves": [
+      "Hyper Beam",
+      "Dragon Dance",
+      "Surf",
+      "Ice Beam"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Aerodactyl",
+     "level": 70,
+     "item": "",
+     "moves": [
+      "Hyper Beam",
+      "Ancient Power",
+      "Aerial Ace",
+      "Earthquake"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Dragonite",
+     "level": 72,
+     "item": "Persim Berry",
+     "moves": [
+      "Hyper Beam",
+      "Outrage",
+      "Thunderbolt",
+      "Ice Beam"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    }
+   ],
+   "variant": "Rematch",
+   "variant_es": "revancha"
+  },
+  {
+   "key": "frlg-blue-squirtle",
+   "name": "Blue",
+   "name_es": "Azul",
+   "class": "champion",
+   "class_es": "Campeón",
+   "region": "Kanto",
+   "game": "FireRed/LeafGreen",
+   "format": "gen3customgame",
+   "avatar": "blue-gen3",
+   "sets": [
+    {
+     "species": "Pidgeot",
+     "level": 59,
+     "item": "",
+     "moves": [
+      "Aerial Ace",
+      "Feather Dance",
+      "Sand Attack",
+      "Whirlwind"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Alakazam",
+     "level": 57,
+     "item": "",
+     "moves": [
+      "Psychic",
+      "Future Sight",
+      "Recover",
+      "Reflect"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Rhydon",
+     "level": 59,
+     "item": "",
+     "moves": [
+      "Take Down",
+      "Earthquake",
+      "Rock Tomb",
+      "Scary Face"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Arcanine",
+     "level": 59,
+     "item": "",
+     "moves": [
+      "Extreme Speed",
+      "Flamethrower",
+      "Roar",
+      "Bite"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Exeggutor",
+     "level": 61,
+     "item": "",
+     "moves": [
+      "Giga Drain",
+      "Egg Bomb",
+      "Sleep Powder",
+      "Light Screen"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Blastoise",
+     "level": 63,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Hydro Pump",
+      "Rain Dance",
+      "Skull Bash",
+      "Bite"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    }
+   ],
+   "variant": "Squirtle",
+   "variant_es": "Squirtle"
+  },
+  {
+   "key": "frlg-blue-squirtle-rematch",
+   "name": "Blue",
+   "name_es": "Azul",
+   "class": "champion",
+   "class_es": "Campeón",
+   "region": "Kanto",
+   "game": "FireRed/LeafGreen",
+   "format": "gen3customgame",
+   "avatar": "blue-gen3",
+   "sets": [
+    {
+     "species": "Heracross",
+     "level": 72,
+     "item": "",
+     "moves": [
+      "Megahorn",
+      "Earthquake",
+      "Counter",
+      "Rock Tomb"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Alakazam",
+     "level": 73,
+     "item": "",
+     "moves": [
+      "Psychic",
+      "Shadow Ball",
+      "Calm Mind",
+      "Reflect"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Tyranitar",
+     "level": 72,
+     "item": "",
+     "moves": [
+      "Crunch",
+      "Earthquake",
+      "Thunderbolt",
+      "Aerial Ace"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Arcanine",
+     "level": 73,
+     "item": "",
+     "moves": [
+      "Extreme Speed",
+      "Overheat",
+      "Aerial Ace",
+      "Iron Tail"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Exeggutor",
+     "level": 73,
+     "item": "",
+     "moves": [
+      "Giga Drain",
+      "Psychic",
+      "Sleep Powder",
+      "Light Screen"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Blastoise",
+     "level": 75,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Hydro Pump",
+      "Ice Beam",
+      "Earthquake",
+      "Rain Dance"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    }
+   ],
+   "variant": "Squirtle Rematch",
+   "variant_es": "Squirtle revancha"
+  },
+  {
+   "key": "frlg-blue-bulbasaur",
+   "name": "Blue",
+   "name_es": "Azul",
+   "class": "champion",
+   "class_es": "Campeón",
+   "region": "Kanto",
+   "game": "FireRed/LeafGreen",
+   "format": "gen3customgame",
+   "avatar": "blue-gen3",
+   "sets": [
+    {
+     "species": "Pidgeot",
+     "level": 59,
+     "item": "",
+     "moves": [
+      "Aerial Ace",
+      "Feather Dance",
+      "Sand Attack",
+      "Whirlwind"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Alakazam",
+     "level": 57,
+     "item": "",
+     "moves": [
+      "Psychic",
+      "Future Sight",
+      "Recover",
+      "Reflect"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Rhydon",
+     "level": 59,
+     "item": "",
+     "moves": [
+      "Take Down",
+      "Earthquake",
+      "Rock Tomb",
+      "Scary Face"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Gyarados",
+     "level": 59,
+     "item": "",
+     "moves": [
+      "Hydro Pump",
+      "Dragon Rage",
+      "Bite",
+      "Thrash"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Arcanine",
+     "level": 61,
+     "item": "",
+     "moves": [
+      "Extreme Speed",
+      "Flamethrower",
+      "Roar",
+      "Bite"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Venusaur",
+     "level": 63,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Solar Beam",
+      "Synthesis",
+      "Sunny Day",
+      "Growth"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    }
+   ],
+   "variant": "Bulbasaur",
+   "variant_es": "Bulbasaur"
+  },
+  {
+   "key": "frlg-blue-bulbasaur-rematch",
+   "name": "Blue",
+   "name_es": "Azul",
+   "class": "champion",
+   "class_es": "Campeón",
+   "region": "Kanto",
+   "game": "FireRed/LeafGreen",
+   "format": "gen3customgame",
+   "avatar": "blue-gen3",
+   "sets": [
+    {
+     "species": "Heracross",
+     "level": 72,
+     "item": "",
+     "moves": [
+      "Megahorn",
+      "Earthquake",
+      "Counter",
+      "Rock Tomb"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Alakazam",
+     "level": 73,
+     "item": "",
+     "moves": [
+      "Psychic",
+      "Shadow Ball",
+      "Calm Mind",
+      "Reflect"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Tyranitar",
+     "level": 72,
+     "item": "",
+     "moves": [
+      "Crunch",
+      "Earthquake",
+      "Thunderbolt",
+      "Aerial Ace"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Gyarados",
+     "level": 73,
+     "item": "",
+     "moves": [
+      "Hydro Pump",
+      "Dragon Dance",
+      "Earthquake",
+      "Hyper Beam"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Arcanine",
+     "level": 73,
+     "item": "",
+     "moves": [
+      "Extreme Speed",
+      "Overheat",
+      "Aerial Ace",
+      "Iron Tail"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Venusaur",
+     "level": 75,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Solar Beam",
+      "Sludge Bomb",
+      "Earthquake",
+      "Sunny Day"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    }
+   ],
+   "variant": "Bulbasaur Rematch",
+   "variant_es": "Bulbasaur revancha"
+  },
+  {
+   "key": "frlg-blue-charmander",
+   "name": "Blue",
+   "name_es": "Azul",
+   "class": "champion",
+   "class_es": "Campeón",
+   "region": "Kanto",
+   "game": "FireRed/LeafGreen",
+   "format": "gen3customgame",
+   "avatar": "blue-gen3",
+   "sets": [
+    {
+     "species": "Pidgeot",
+     "level": 59,
+     "item": "",
+     "moves": [
+      "Aerial Ace",
+      "Feather Dance",
+      "Sand Attack",
+      "Whirlwind"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Alakazam",
+     "level": 57,
+     "item": "",
+     "moves": [
+      "Psychic",
+      "Future Sight",
+      "Recover",
+      "Reflect"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Rhydon",
+     "level": 59,
+     "item": "",
+     "moves": [
+      "Take Down",
+      "Earthquake",
+      "Rock Tomb",
+      "Scary Face"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Exeggutor",
+     "level": 59,
+     "item": "",
+     "moves": [
+      "Giga Drain",
+      "Egg Bomb",
+      "Sleep Powder",
+      "Light Screen"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Gyarados",
+     "level": 61,
+     "item": "",
+     "moves": [
+      "Hydro Pump",
+      "Dragon Rage",
+      "Bite",
+      "Thrash"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Charizard",
+     "level": 63,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Fire Blast",
+      "Aerial Ace",
+      "Slash",
+      "Fire Spin"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    }
+   ],
+   "variant": "Charmander",
+   "variant_es": "Charmander"
+  },
+  {
+   "key": "frlg-blue-charmander-rematch",
+   "name": "Blue",
+   "name_es": "Azul",
+   "class": "champion",
+   "class_es": "Campeón",
+   "region": "Kanto",
+   "game": "FireRed/LeafGreen",
+   "format": "gen3customgame",
+   "avatar": "blue-gen3",
+   "sets": [
+    {
+     "species": "Heracross",
+     "level": 72,
+     "item": "",
+     "moves": [
+      "Megahorn",
+      "Earthquake",
+      "Counter",
+      "Rock Tomb"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Alakazam",
+     "level": 73,
+     "item": "",
+     "moves": [
+      "Psychic",
+      "Shadow Ball",
+      "Calm Mind",
+      "Reflect"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Tyranitar",
+     "level": 72,
+     "item": "",
+     "moves": [
+      "Crunch",
+      "Earthquake",
+      "Thunderbolt",
+      "Aerial Ace"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Exeggutor",
+     "level": 73,
+     "item": "",
+     "moves": [
+      "Giga Drain",
+      "Psychic",
+      "Sleep Powder",
+      "Light Screen"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Gyarados",
+     "level": 73,
+     "item": "",
+     "moves": [
+      "Hydro Pump",
+      "Dragon Dance",
+      "Earthquake",
+      "Hyper Beam"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Charizard",
+     "level": 75,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Fire Blast",
+      "Dragon Claw",
+      "Aerial Ace",
+      "Earthquake"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    }
+   ],
+   "variant": "Charmander Rematch",
+   "variant_es": "Charmander revancha"
+  },
+  {
+   "key": "frlg-giovanni-boss",
+   "name": "Giovanni",
+   "name_es": "Giovanni",
+   "class": "boss",
+   "class_es": "Jefe",
+   "region": "Kanto",
+   "game": "FireRed/LeafGreen",
+   "format": "gen3customgame",
+   "avatar": "giovanni-gen3",
+   "sets": [
+    {
+     "species": "Nidorino",
+     "level": 37,
+     "item": "",
+     "moves": [
+      "Poison Sting",
+      "Horn Attack",
+      "Helping Hand",
+      "Fury Attack"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Kangaskhan",
+     "level": 35,
+     "item": "",
+     "moves": [
+      "Tail Whip",
+      "Fake Out",
+      "Mega Punch",
+      "Rage"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Rhyhorn",
+     "level": 37,
+     "item": "",
+     "moves": [
+      "Stomp",
+      "Fury Attack",
+      "Scary Face",
+      "Rock Blast"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Nidoqueen",
+     "level": 41,
+     "item": "",
+     "moves": [
+      "Poison Sting",
+      "Scratch",
+      "Tail Whip",
+      "Body Slam"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    }
+   ],
+   "variant": "Silph Co.",
+   "variant_es": "Silph S.A."
+  },
+  {
+   "key": "em-roxanne",
+   "name": "Roxanne",
+   "name_es": "Petra",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3customgame",
+   "avatar": "roxanne-gen3",
+   "sets": [
+    {
+     "species": "Geodude",
+     "level": 12,
+     "item": "",
+     "moves": [
+      "Tackle",
+      "Defense Curl",
+      "Rock Throw",
+      "Rock Tomb"
+     ],
+     "ivs": {
+      "hp": 12,
+      "atk": 12,
+      "def": 12,
+      "spa": 12,
+      "spd": 12,
+      "spe": 12
+     }
+    },
+    {
+     "species": "Geodude",
+     "level": 12,
+     "item": "",
+     "moves": [
+      "Tackle",
+      "Defense Curl",
+      "Rock Throw",
+      "Rock Tomb"
+     ],
+     "ivs": {
+      "hp": 12,
+      "atk": 12,
+      "def": 12,
+      "spa": 12,
+      "spd": 12,
+      "spe": 12
+     }
+    },
+    {
+     "species": "Nosepass",
+     "level": 15,
+     "item": "Oran Berry",
+     "moves": [
+      "Block",
+      "Harden",
+      "Tackle",
+      "Rock Tomb"
+     ],
+     "ivs": {
+      "hp": 24,
+      "atk": 24,
+      "def": 24,
+      "spa": 24,
+      "spd": 24,
+      "spe": 24
+     }
+    }
+   ],
+   "double": false
+  },
+  {
+   "key": "em-roxanne-rematch",
+   "name": "Roxanne",
+   "name_es": "Petra",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3doublescustomgame",
+   "avatar": "roxanne-gen3",
+   "sets": [
+    {
+     "species": "Aerodactyl",
+     "level": 47,
+     "item": "",
+     "moves": [
+      "Rock Slide",
+      "Hyper Beam",
+      "Supersonic",
+      "Protect"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Golem",
+     "level": 47,
+     "item": "",
+     "moves": [
+      "Focus Punch",
+      "Rollout",
+      "Earthquake",
+      "Explosion"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Omastar",
+     "level": 47,
+     "item": "",
+     "moves": [
+      "Protect",
+      "Ice Beam",
+      "Rock Slide",
+      "Surf"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Kabutops",
+     "level": 50,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Swords Dance",
+      "Ice Beam",
+      "Surf",
+      "Rock Slide"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Steelix",
+     "level": 50,
+     "item": "",
+     "moves": [
+      "Iron Tail",
+      "Explosion",
+      "Roar",
+      "Rock Slide"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Nosepass",
+     "level": 52,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Double Team",
+      "Explosion",
+      "Protect",
+      "Rock Slide"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    }
+   ],
+   "variant": "Rematch",
+   "double": true,
+   "variant_es": "revancha"
+  },
+  {
+   "key": "em-brawly",
+   "name": "Brawly",
+   "name_es": "Marcial",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3customgame",
+   "avatar": "brawly-gen3",
+   "sets": [
+    {
+     "species": "Machop",
+     "level": 16,
+     "item": "",
+     "moves": [
+      "Karate Chop",
+      "Low Kick",
+      "Seismic Toss",
+      "Bulk Up"
+     ],
+     "ivs": {
+      "hp": 12,
+      "atk": 12,
+      "def": 12,
+      "spa": 12,
+      "spd": 12,
+      "spe": 12
+     }
+    },
+    {
+     "species": "Meditite",
+     "level": 16,
+     "item": "",
+     "moves": [
+      "Focus Punch",
+      "Light Screen",
+      "Reflect",
+      "Bulk Up"
+     ],
+     "ivs": {
+      "hp": 12,
+      "atk": 12,
+      "def": 12,
+      "spa": 12,
+      "spd": 12,
+      "spe": 12
+     }
+    },
+    {
+     "species": "Makuhita",
+     "level": 19,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Arm Thrust",
+      "Vital Throw",
+      "Reversal",
+      "Bulk Up"
+     ],
+     "ivs": {
+      "hp": 24,
+      "atk": 24,
+      "def": 24,
+      "spa": 24,
+      "spd": 24,
+      "spe": 24
+     }
+    }
+   ],
+   "double": false
+  },
+  {
+   "key": "em-brawly-rematch",
+   "name": "Brawly",
+   "name_es": "Marcial",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3doublescustomgame",
+   "avatar": "brawly-gen3",
+   "sets": [
+    {
+     "species": "Hitmonlee",
+     "level": 46,
+     "item": "",
+     "moves": [
+      "Mega Kick",
+      "Focus Punch",
+      "Earthquake",
+      "Bulk Up"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Hitmonchan",
+     "level": 46,
+     "item": "",
+     "moves": [
+      "Sky Uppercut",
+      "Protect",
+      "Fire Punch",
+      "Ice Punch"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Machamp",
+     "level": 48,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Cross Chop",
+      "Rock Slide",
+      "Focus Punch",
+      "Bulk Up"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Medicham",
+     "level": 48,
+     "item": "",
+     "moves": [
+      "Focus Punch",
+      "Light Screen",
+      "Reflect",
+      "Psychic"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Hitmontop",
+     "level": 50,
+     "item": "",
+     "moves": [
+      "Pursuit",
+      "Counter",
+      "Protect",
+      "Triple Kick"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Hariyama",
+     "level": 52,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Fake Out",
+      "Focus Punch",
+      "Belly Drum",
+      "Earthquake"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    }
+   ],
+   "variant": "Rematch",
+   "double": true,
+   "variant_es": "revancha"
+  },
+  {
+   "key": "em-wattson",
+   "name": "Wattson",
+   "name_es": "Erico",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3customgame",
+   "avatar": "wattson-gen3",
+   "sets": [
+    {
+     "species": "Voltorb",
+     "level": 20,
+     "item": "",
+     "moves": [
+      "Rollout",
+      "Spark",
+      "Self-Destruct",
+      "Shock Wave"
+     ],
+     "ivs": {
+      "hp": 24,
+      "atk": 24,
+      "def": 24,
+      "spa": 24,
+      "spd": 24,
+      "spe": 24
+     }
+    },
+    {
+     "species": "Electrike",
+     "level": 20,
+     "item": "",
+     "moves": [
+      "Shock Wave",
+      "Leer",
+      "Quick Attack",
+      "Howl"
+     ],
+     "ivs": {
+      "hp": 24,
+      "atk": 24,
+      "def": 24,
+      "spa": 24,
+      "spd": 24,
+      "spe": 24
+     }
+    },
+    {
+     "species": "Magneton",
+     "level": 22,
+     "item": "",
+     "moves": [
+      "Supersonic",
+      "Shock Wave",
+      "Thunder Wave",
+      "Sonic Boom"
+     ],
+     "ivs": {
+      "hp": 27,
+      "atk": 27,
+      "def": 27,
+      "spa": 27,
+      "spd": 27,
+      "spe": 27
+     }
+    },
+    {
+     "species": "Manectric",
+     "level": 24,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Quick Attack",
+      "Thunder Wave",
+      "Shock Wave",
+      "Howl"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    }
+   ],
+   "double": false
+  },
+  {
+   "key": "em-wattson-rematch",
+   "name": "Wattson",
+   "name_es": "Erico",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3doublescustomgame",
+   "avatar": "wattson-gen3",
+   "sets": [
+    {
+     "species": "Electabuzz",
+     "level": 50,
+     "item": "",
+     "moves": [
+      "Swift",
+      "Focus Punch",
+      "Thunder Punch",
+      "Light Screen"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Raichu",
+     "level": 51,
+     "item": "",
+     "moves": [
+      "Thunder",
+      "Slam",
+      "Rain Dance",
+      "Protect"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Ampharos",
+     "level": 51,
+     "item": "",
+     "moves": [
+      "Thunder",
+      "Protect",
+      "Thunder Wave",
+      "Light Screen"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Electrode",
+     "level": 53,
+     "item": "",
+     "moves": [
+      "Rollout",
+      "Thunder",
+      "Explosion",
+      "Rain Dance"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Magneton",
+     "level": 53,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Supersonic",
+      "Protect",
+      "Thunder",
+      "Rain Dance"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Manectric",
+     "level": 55,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Bite",
+      "Thunder Wave",
+      "Thunder",
+      "Protect"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    }
+   ],
+   "variant": "Rematch",
+   "double": true,
+   "variant_es": "revancha"
+  },
+  {
+   "key": "em-flannery",
+   "name": "Flannery",
+   "name_es": "Candela",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3customgame",
+   "avatar": "flannery-gen3",
+   "sets": [
+    {
+     "species": "Numel",
+     "level": 24,
+     "item": "",
+     "moves": [
+      "Overheat",
+      "Take Down",
+      "Magnitude",
+      "Sunny Day"
+     ],
+     "ivs": {
+      "hp": 24,
+      "atk": 24,
+      "def": 24,
+      "spa": 24,
+      "spd": 24,
+      "spe": 24
+     }
+    },
+    {
+     "species": "Slugma",
+     "level": 24,
+     "item": "",
+     "moves": [
+      "Overheat",
+      "Smog",
+      "Light Screen",
+      "Sunny Day"
+     ],
+     "ivs": {
+      "hp": 24,
+      "atk": 24,
+      "def": 24,
+      "spa": 24,
+      "spd": 24,
+      "spe": 24
+     }
+    },
+    {
+     "species": "Camerupt",
+     "level": 26,
+     "item": "",
+     "moves": [
+      "Overheat",
+      "Tackle",
+      "Sunny Day",
+      "Attract"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Torkoal",
+     "level": 29,
+     "item": "White Herb",
+     "moves": [
+      "Overheat",
+      "Sunny Day",
+      "Body Slam",
+      "Attract"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    }
+   ],
+   "double": false
+  },
+  {
+   "key": "em-flannery-rematch",
+   "name": "Flannery",
+   "name_es": "Candela",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3doublescustomgame",
+   "avatar": "flannery-gen3",
+   "sets": [
+    {
+     "species": "Arcanine",
+     "level": 51,
+     "item": "",
+     "moves": [
+      "Helping Hand",
+      "Flamethrower",
+      "Sunny Day",
+      "Roar"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Magcargo",
+     "level": 53,
+     "item": "White Herb",
+     "moves": [
+      "Overheat",
+      "Attract",
+      "Light Screen",
+      "Rock Slide"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Houndoom",
+     "level": 51,
+     "item": "",
+     "moves": [
+      "Roar",
+      "Solar Beam",
+      "Taunt",
+      "Sunny Day"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Rapidash",
+     "level": 51,
+     "item": "",
+     "moves": [
+      "Flamethrower",
+      "Attract",
+      "Solar Beam",
+      "Bounce"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Camerupt",
+     "level": 53,
+     "item": "White Herb",
+     "moves": [
+      "Overheat",
+      "Sunny Day",
+      "Earthquake",
+      "Attract"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Torkoal",
+     "level": 55,
+     "item": "White Herb",
+     "moves": [
+      "Overheat",
+      "Sunny Day",
+      "Explosion",
+      "Attract"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    }
+   ],
+   "variant": "Rematch",
+   "double": true,
+   "variant_es": "revancha"
+  },
+  {
+   "key": "em-norman",
+   "name": "Norman",
+   "name_es": "Norman",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3customgame",
+   "avatar": "norman-gen3",
+   "sets": [
+    {
+     "species": "Spinda",
+     "level": 27,
+     "item": "",
+     "moves": [
+      "Teeter Dance",
+      "Psybeam",
+      "Facade",
+      "Encore"
+     ],
+     "ivs": {
+      "hp": 24,
+      "atk": 24,
+      "def": 24,
+      "spa": 24,
+      "spd": 24,
+      "spe": 24
+     }
+    },
+    {
+     "species": "Vigoroth",
+     "level": 27,
+     "item": "",
+     "moves": [
+      "Slash",
+      "Facade",
+      "Encore",
+      "Feint Attack"
+     ],
+     "ivs": {
+      "hp": 24,
+      "atk": 24,
+      "def": 24,
+      "spa": 24,
+      "spd": 24,
+      "spe": 24
+     }
+    },
+    {
+     "species": "Linoone",
+     "level": 29,
+     "item": "",
+     "moves": [
+      "Slash",
+      "Belly Drum",
+      "Facade",
+      "Headbutt"
+     ],
+     "ivs": {
+      "hp": 24,
+      "atk": 24,
+      "def": 24,
+      "spa": 24,
+      "spd": 24,
+      "spe": 24
+     }
+    },
+    {
+     "species": "Slaking",
+     "level": 31,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Counter",
+      "Yawn",
+      "Facade",
+      "Feint Attack"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    }
+   ],
+   "double": false
+  },
+  {
+   "key": "em-norman-rematch",
+   "name": "Norman",
+   "name_es": "Norman",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3doublescustomgame",
+   "avatar": "norman-gen3",
+   "sets": [
+    {
+     "species": "Slaking",
+     "level": 57,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Blizzard",
+      "Shadow Ball",
+      "Double-Edge",
+      "Fire Blast"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Blissey",
+     "level": 57,
+     "item": "",
+     "moves": [
+      "Protect",
+      "Sing",
+      "Skill Swap",
+      "Focus Punch"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Kangaskhan",
+     "level": 55,
+     "item": "",
+     "moves": [
+      "Fake Out",
+      "Dizzy Punch",
+      "Endure",
+      "Reversal"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Tauros",
+     "level": 57,
+     "item": "",
+     "moves": [
+      "Take Down",
+      "Protect",
+      "Fire Blast",
+      "Earthquake"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Spinda",
+     "level": 58,
+     "item": "",
+     "moves": [
+      "Teeter Dance",
+      "Skill Swap",
+      "Facade",
+      "Hypnosis"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Slaking",
+     "level": 60,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Hyper Beam",
+      "Flamethrower",
+      "Thunderbolt",
+      "Shadow Ball"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    }
+   ],
+   "variant": "Rematch",
+   "double": true,
+   "variant_es": "revancha"
+  },
+  {
+   "key": "em-winona",
+   "name": "Winona",
+   "name_es": "Alana",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3customgame",
+   "avatar": "winona-gen3",
+   "sets": [
+    {
+     "species": "Swablu",
+     "level": 29,
+     "item": "",
+     "moves": [
+      "Perish Song",
+      "Mirror Move",
+      "Safeguard",
+      "Aerial Ace"
+     ],
+     "ivs": {
+      "hp": 26,
+      "atk": 26,
+      "def": 26,
+      "spa": 26,
+      "spd": 26,
+      "spe": 26
+     }
+    },
+    {
+     "species": "Tropius",
+     "level": 29,
+     "item": "",
+     "moves": [
+      "Sunny Day",
+      "Aerial Ace",
+      "Solar Beam",
+      "Synthesis"
+     ],
+     "ivs": {
+      "hp": 26,
+      "atk": 26,
+      "def": 26,
+      "spa": 26,
+      "spd": 26,
+      "spe": 26
+     }
+    },
+    {
+     "species": "Pelipper",
+     "level": 30,
+     "item": "",
+     "moves": [
+      "Water Gun",
+      "Supersonic",
+      "Protect",
+      "Aerial Ace"
+     ],
+     "ivs": {
+      "hp": 26,
+      "atk": 26,
+      "def": 26,
+      "spa": 26,
+      "spd": 26,
+      "spe": 26
+     }
+    },
+    {
+     "species": "Skarmory",
+     "level": 31,
+     "item": "",
+     "moves": [
+      "Sand Attack",
+      "Fury Attack",
+      "Steel Wing",
+      "Aerial Ace"
+     ],
+     "ivs": {
+      "hp": 27,
+      "atk": 27,
+      "def": 27,
+      "spa": 27,
+      "spd": 27,
+      "spe": 27
+     }
+    },
+    {
+     "species": "Altaria",
+     "level": 33,
+     "item": "Oran Berry",
+     "moves": [
+      "Earthquake",
+      "Dragon Breath",
+      "Dragon Dance",
+      "Aerial Ace"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    }
+   ],
+   "double": false
+  },
+  {
+   "key": "em-winona-rematch",
+   "name": "Winona",
+   "name_es": "Alana",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3doublescustomgame",
+   "avatar": "winona-gen3",
+   "sets": [
+    {
+     "species": "Noctowl",
+     "level": 53,
+     "item": "",
+     "moves": [
+      "Hypnosis",
+      "Psychic",
+      "Reflect",
+      "Dream Eater"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Tropius",
+     "level": 54,
+     "item": "",
+     "moves": [
+      "Sunny Day",
+      "Aerial Ace",
+      "Solar Beam",
+      "Earthquake"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Pelipper",
+     "level": 55,
+     "item": "",
+     "moves": [
+      "Surf",
+      "Supersonic",
+      "Protect",
+      "Aerial Ace"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Dragonite",
+     "level": 55,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Hyper Beam",
+      "Thunderbolt",
+      "Earthquake",
+      "Ice Beam"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Skarmory",
+     "level": 58,
+     "item": "",
+     "moves": [
+      "Whirlwind",
+      "Spikes",
+      "Steel Wing",
+      "Aerial Ace"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Altaria",
+     "level": 60,
+     "item": "Chesto Berry",
+     "moves": [
+      "Sky Attack",
+      "Rest",
+      "Dragon Dance",
+      "Earthquake"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    }
+   ],
+   "variant": "Rematch",
+   "double": true,
+   "variant_es": "revancha"
+  },
+  {
+   "key": "em-tateliza",
+   "name": "Tate & Liza",
+   "name_es": "Vito y Leti",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3doublescustomgame",
+   "avatar": "tateandliza-gen3",
+   "sets": [
+    {
+     "species": "Claydol",
+     "level": 41,
+     "item": "",
+     "moves": [
+      "Earthquake",
+      "Ancient Power",
+      "Psychic",
+      "Light Screen"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Xatu",
+     "level": 41,
+     "item": "",
+     "moves": [
+      "Psychic",
+      "Sunny Day",
+      "Confuse Ray",
+      "Calm Mind"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Lunatone",
+     "level": 42,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Light Screen",
+      "Psychic",
+      "Hypnosis",
+      "Calm Mind"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Solrock",
+     "level": 42,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Sunny Day",
+      "Solar Beam",
+      "Psychic",
+      "Flamethrower"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    }
+   ],
+   "double": true
+  },
+  {
+   "key": "em-tateliza-rematch",
+   "name": "Tate & Liza",
+   "name_es": "Vito y Leti",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3doublescustomgame",
+   "avatar": "tateandliza-gen3",
+   "sets": [
+    {
+     "species": "Hypno",
+     "level": 63,
+     "item": "",
+     "moves": [
+      "Hypnosis",
+      "Dream Eater",
+      "Headbutt",
+      "Protect"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Claydol",
+     "level": 64,
+     "item": "",
+     "moves": [
+      "Earthquake",
+      "Explosion",
+      "Psychic",
+      "Light Screen"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Slowking",
+     "level": 63,
+     "item": "",
+     "moves": [
+      "Yawn",
+      "Psychic",
+      "Calm Mind",
+      "Protect"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Xatu",
+     "level": 64,
+     "item": "Chesto Berry",
+     "moves": [
+      "Psychic",
+      "Rest",
+      "Confuse Ray",
+      "Calm Mind"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Lunatone",
+     "level": 65,
+     "item": "Chesto Berry",
+     "moves": [
+      "Earthquake",
+      "Psychic",
+      "Rest",
+      "Calm Mind"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Solrock",
+     "level": 65,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Sunny Day",
+      "Solar Beam",
+      "Psychic",
+      "Flamethrower"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    }
+   ],
+   "variant": "Rematch",
+   "double": true,
+   "variant_es": "revancha"
+  },
+  {
+   "key": "em-juan",
+   "name": "Juan",
+   "name_es": "Galano",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3customgame",
+   "avatar": "juan-gen3",
+   "sets": [
+    {
+     "species": "Luvdisc",
+     "level": 41,
+     "item": "",
+     "moves": [
+      "Water Pulse",
+      "Attract",
+      "Sweet Kiss",
+      "Flail"
+     ],
+     "ivs": {
+      "hp": 24,
+      "atk": 24,
+      "def": 24,
+      "spa": 24,
+      "spd": 24,
+      "spe": 24
+     }
+    },
+    {
+     "species": "Whiscash",
+     "level": 41,
+     "item": "",
+     "moves": [
+      "Rain Dance",
+      "Water Pulse",
+      "Amnesia",
+      "Earthquake"
+     ],
+     "ivs": {
+      "hp": 24,
+      "atk": 24,
+      "def": 24,
+      "spa": 24,
+      "spd": 24,
+      "spe": 24
+     }
+    },
+    {
+     "species": "Sealeo",
+     "level": 43,
+     "item": "",
+     "moves": [
+      "Encore",
+      "Body Slam",
+      "Aurora Beam",
+      "Water Pulse"
+     ],
+     "ivs": {
+      "hp": 24,
+      "atk": 24,
+      "def": 24,
+      "spa": 24,
+      "spd": 24,
+      "spe": 24
+     }
+    },
+    {
+     "species": "Crawdaunt",
+     "level": 43,
+     "item": "",
+     "moves": [
+      "Water Pulse",
+      "Crabhammer",
+      "Taunt",
+      "Leer"
+     ],
+     "ivs": {
+      "hp": 24,
+      "atk": 24,
+      "def": 24,
+      "spa": 24,
+      "spd": 24,
+      "spe": 24
+     }
+    },
+    {
+     "species": "Kingdra",
+     "level": 46,
+     "item": "Chesto Berry",
+     "moves": [
+      "Water Pulse",
+      "Double Team",
+      "Ice Beam",
+      "Rest"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    }
+   ],
+   "double": false
+  },
+  {
+   "key": "em-juan-rematch",
+   "name": "Juan",
+   "name_es": "Galano",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3doublescustomgame",
+   "avatar": "juan-gen3",
+   "sets": [
+    {
+     "species": "Lapras",
+     "level": 61,
+     "item": "",
+     "moves": [
+      "Hydro Pump",
+      "Perish Song",
+      "Ice Beam",
+      "Confuse Ray"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Whiscash",
+     "level": 63,
+     "item": "",
+     "moves": [
+      "Rain Dance",
+      "Water Pulse",
+      "Double Team",
+      "Fissure"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Politoed",
+     "level": 61,
+     "item": "",
+     "moves": [
+      "Hypnosis",
+      "Rain Dance",
+      "Hydro Pump",
+      "Perish Song"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Walrein",
+     "level": 63,
+     "item": "",
+     "moves": [
+      "Water Pulse",
+      "Body Slam",
+      "Protect",
+      "Sheer Cold"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Crawdaunt",
+     "level": 63,
+     "item": "Chesto Berry",
+     "moves": [
+      "Rest",
+      "Guillotine",
+      "Taunt",
+      "Double Team"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Kingdra",
+     "level": 66,
+     "item": "Chesto Berry",
+     "moves": [
+      "Water Pulse",
+      "Double Team",
+      "Ice Beam",
+      "Rest"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    }
+   ],
+   "variant": "Rematch",
+   "double": true,
+   "variant_es": "revancha"
+  },
+  {
+   "key": "em-sidney",
+   "name": "Sidney",
+   "name_es": "Sixto",
+   "class": "elite",
+   "class_es": "Alto Mando",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3customgame",
+   "avatar": "sidney-gen3",
+   "sets": [
+    {
+     "species": "Mightyena",
+     "level": 46,
+     "item": "",
+     "moves": [
+      "Roar",
+      "Double-Edge",
+      "Sand Attack",
+      "Crunch"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Shiftry",
+     "level": 48,
+     "item": "",
+     "moves": [
+      "Torment",
+      "Double Team",
+      "Swagger",
+      "Extrasensory"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Cacturne",
+     "level": 46,
+     "item": "",
+     "moves": [
+      "Leech Seed",
+      "Feint Attack",
+      "Needle Arm",
+      "Cotton Spore"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Crawdaunt",
+     "level": 48,
+     "item": "",
+     "moves": [
+      "Surf",
+      "Swords Dance",
+      "Strength",
+      "Facade"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Absol",
+     "level": 49,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Aerial Ace",
+      "Rock Slide",
+      "Swords Dance",
+      "Slash"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    }
+   ]
+  },
+  {
+   "key": "em-phoebe",
+   "name": "Phoebe",
+   "name_es": "Fátima",
+   "class": "elite",
+   "class_es": "Alto Mando",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3customgame",
+   "avatar": "phoebe-gen3",
+   "sets": [
+    {
+     "species": "Dusclops",
+     "level": 48,
+     "item": "",
+     "moves": [
+      "Shadow Punch",
+      "Confuse Ray",
+      "Curse",
+      "Protect"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Banette",
+     "level": 49,
+     "item": "",
+     "moves": [
+      "Shadow Ball",
+      "Grudge",
+      "Will-O-Wisp",
+      "Feint Attack"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Sableye",
+     "level": 50,
+     "item": "",
+     "moves": [
+      "Shadow Ball",
+      "Double Team",
+      "Night Shade",
+      "Feint Attack"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Banette",
+     "level": 49,
+     "item": "",
+     "moves": [
+      "Shadow Ball",
+      "Psychic",
+      "Thunderbolt",
+      "Facade"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Dusclops",
+     "level": 51,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Shadow Ball",
+      "Ice Beam",
+      "Rock Slide",
+      "Earthquake"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    }
+   ]
+  },
+  {
+   "key": "em-glacia",
+   "name": "Glacia",
+   "name_es": "Nívea",
+   "class": "elite",
+   "class_es": "Alto Mando",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3customgame",
+   "avatar": "glacia-gen3",
+   "sets": [
+    {
+     "species": "Sealeo",
+     "level": 50,
+     "item": "",
+     "moves": [
+      "Encore",
+      "Body Slam",
+      "Hail",
+      "Ice Ball"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Glalie",
+     "level": 50,
+     "item": "",
+     "moves": [
+      "Light Screen",
+      "Crunch",
+      "Icy Wind",
+      "Ice Beam"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Sealeo",
+     "level": 52,
+     "item": "",
+     "moves": [
+      "Attract",
+      "Double-Edge",
+      "Hail",
+      "Blizzard"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Glalie",
+     "level": 52,
+     "item": "",
+     "moves": [
+      "Shadow Ball",
+      "Explosion",
+      "Hail",
+      "Ice Beam"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Walrein",
+     "level": 53,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Surf",
+      "Body Slam",
+      "Ice Beam",
+      "Sheer Cold"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    }
+   ]
+  },
+  {
+   "key": "em-drake",
+   "name": "Drake",
+   "name_es": "Dracón",
+   "class": "elite",
+   "class_es": "Alto Mando",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3customgame",
+   "avatar": "drake-gen3",
+   "sets": [
+    {
+     "species": "Shelgon",
+     "level": 52,
+     "item": "",
+     "moves": [
+      "Rock Tomb",
+      "Dragon Claw",
+      "Protect",
+      "Double-Edge"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Altaria",
+     "level": 54,
+     "item": "",
+     "moves": [
+      "Double-Edge",
+      "Dragon Breath",
+      "Dragon Dance",
+      "Aerial Ace"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Kingdra",
+     "level": 53,
+     "item": "",
+     "moves": [
+      "Smokescreen",
+      "Dragon Dance",
+      "Surf",
+      "Body Slam"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Flygon",
+     "level": 53,
+     "item": "",
+     "moves": [
+      "Flamethrower",
+      "Crunch",
+      "Dragon Breath",
+      "Earthquake"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    },
+    {
+     "species": "Salamence",
+     "level": 55,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Flamethrower",
+      "Dragon Claw",
+      "Rock Slide",
+      "Crunch"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    }
+   ]
+  },
+  {
+   "key": "em-wallace",
+   "name": "Wallace",
+   "name_es": "Plubio",
+   "class": "champion",
+   "class_es": "Campeón",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3customgame",
+   "avatar": "wallace-gen3",
+   "sets": [
+    {
+     "species": "Wailord",
+     "level": 57,
+     "item": "",
+     "moves": [
+      "Rain Dance",
+      "Water Spout",
+      "Double-Edge",
+      "Blizzard"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Tentacruel",
+     "level": 55,
+     "item": "",
+     "moves": [
+      "Toxic",
+      "Hydro Pump",
+      "Sludge Bomb",
+      "Ice Beam"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Ludicolo",
+     "level": 56,
+     "item": "",
+     "moves": [
+      "Giga Drain",
+      "Surf",
+      "Leech Seed",
+      "Double Team"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Whiscash",
+     "level": 56,
+     "item": "",
+     "moves": [
+      "Earthquake",
+      "Surf",
+      "Amnesia",
+      "Hyper Beam"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Gyarados",
+     "level": 56,
+     "item": "",
+     "moves": [
+      "Dragon Dance",
+      "Earthquake",
+      "Hyper Beam",
+      "Surf"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Milotic",
+     "level": 58,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Recover",
+      "Surf",
+      "Ice Beam",
+      "Toxic"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    }
+   ]
+  },
+  {
+   "key": "em-steven",
+   "name": "Steven",
+   "name_es": "Máximo",
+   "class": "legend",
+   "class_es": "Leyenda",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3customgame",
+   "avatar": "steven-gen3",
+   "sets": [
+    {
+     "species": "Skarmory",
+     "level": 77,
+     "item": "",
+     "moves": [
+      "Toxic",
+      "Aerial Ace",
+      "Spikes",
+      "Steel Wing"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Claydol",
+     "level": 75,
+     "item": "",
+     "moves": [
+      "Reflect",
+      "Light Screen",
+      "Ancient Power",
+      "Earthquake"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Aggron",
+     "level": 76,
+     "item": "",
+     "moves": [
+      "Thunder",
+      "Earthquake",
+      "Solar Beam",
+      "Dragon Claw"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Cradily",
+     "level": 76,
+     "item": "",
+     "moves": [
+      "Giga Drain",
+      "Ancient Power",
+      "Ingrain",
+      "Confuse Ray"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Armaldo",
+     "level": 76,
+     "item": "",
+     "moves": [
+      "Water Pulse",
+      "Ancient Power",
+      "Aerial Ace",
+      "Slash"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    },
+    {
+     "species": "Metagross",
+     "level": 78,
+     "item": "Sitrus Berry",
+     "moves": [
+      "Earthquake",
+      "Psychic",
+      "Meteor Mash",
+      "Shadow Ball"
+     ],
+     "ivs": {
+      "hp": 31,
+      "atk": 31,
+      "def": 31,
+      "spa": 31,
+      "spd": 31,
+      "spe": 31
+     }
+    }
+   ],
+   "variant": "Meteor Falls",
+   "variant_es": "Cascada Meteoro"
+  },
+  {
+   "key": "em-wally",
+   "name": "Wally",
+   "name_es": "Blasco",
+   "class": "rival",
+   "class_es": "Rival",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3customgame",
+   "avatar": "wally-gen3",
+   "sets": [
+    {
+     "species": "Altaria",
+     "level": 44,
+     "item": "",
+     "moves": [
+      "Aerial Ace",
+      "Safeguard",
+      "Dragon Breath",
+      "Dragon Dance"
+     ],
+     "ivs": {
+      "hp": 18,
+      "atk": 18,
+      "def": 18,
+      "spa": 18,
+      "spd": 18,
+      "spe": 18
+     }
+    },
+    {
+     "species": "Delcatty",
+     "level": 43,
+     "item": "",
+     "moves": [
+      "Sing",
+      "Assist",
+      "Charm",
+      "Feint Attack"
+     ],
+     "ivs": {
+      "hp": 18,
+      "atk": 18,
+      "def": 18,
+      "spa": 18,
+      "spd": 18,
+      "spe": 18
+     }
+    },
+    {
+     "species": "Roselia",
+     "level": 44,
+     "item": "",
+     "moves": [
+      "Magical Leaf",
+      "Leech Seed",
+      "Giga Drain",
+      "Toxic"
+     ],
+     "ivs": {
+      "hp": 18,
+      "atk": 18,
+      "def": 18,
+      "spa": 18,
+      "spd": 18,
+      "spe": 18
+     }
+    },
+    {
+     "species": "Magneton",
+     "level": 41,
+     "item": "",
+     "moves": [
+      "Supersonic",
+      "Thunderbolt",
+      "Tri Attack",
+      "Screech"
+     ],
+     "ivs": {
+      "hp": 18,
+      "atk": 18,
+      "def": 18,
+      "spa": 18,
+      "spd": 18,
+      "spe": 18
+     }
+    },
+    {
+     "species": "Gardevoir",
+     "level": 45,
+     "item": "",
+     "moves": [
+      "Double Team",
+      "Calm Mind",
+      "Psychic",
+      "Future Sight"
+     ],
+     "ivs": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+     }
+    }
+   ],
+   "variant": "Victory Road",
+   "variant_es": "Calle Victoria"
+  },
+  {
+   "key": "em-may-mudkip",
+   "name": "May",
+   "name_es": "Aura",
+   "class": "rival",
+   "class_es": "Rival",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3customgame",
+   "avatar": "may-gen3",
+   "sets": [
+    {
+     "species": "Tropius",
+     "level": 31,
+     "item": "",
+     "moves": [
+      "Stomp",
+      "Sweet Scent",
+      "Whirlwind",
+      "Magical Leaf"
+     ],
+     "ivs": {
+      "hp": 18,
+      "atk": 18,
+      "def": 18,
+      "spa": 18,
+      "spd": 18,
+      "spe": 18
+     }
+    },
+    {
+     "species": "Slugma",
+     "level": 32,
+     "item": "",
+     "moves": [
+      "Ember",
+      "Rock Throw",
+      "Harden",
+      "Amnesia"
+     ],
+     "ivs": {
+      "hp": 18,
+      "atk": 18,
+      "def": 18,
+      "spa": 18,
+      "spd": 18,
+      "spe": 18
+     }
+    },
+    {
+     "species": "Pelipper",
+     "level": 32,
+     "item": "",
+     "moves": [
+      "Wing Attack",
+      "Supersonic",
+      "Mist",
+      "Protect"
+     ],
+     "ivs": {
+      "hp": 18,
+      "atk": 18,
+      "def": 18,
+      "spa": 18,
+      "spd": 18,
+      "spe": 18
+     }
+    },
+    {
+     "species": "Grovyle",
+     "level": 34,
+     "item": "",
+     "moves": [
+      "Fury Cutter",
+      "Pursuit",
+      "Screech",
+      "Leaf Blade"
+     ],
+     "ivs": {
+      "hp": 24,
+      "atk": 24,
+      "def": 24,
+      "spa": 24,
+      "spd": 24,
+      "spe": 24
+     }
+    }
+   ],
+   "variant": "Mudkip",
+   "variant_es": "Mudkip"
+  },
+  {
+   "key": "em-brendan-mudkip",
+   "name": "Brendan",
+   "name_es": "Bruno",
+   "class": "rival",
+   "class_es": "Rival",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3customgame",
+   "avatar": "brendan-gen3",
+   "sets": [
+    {
+     "species": "Tropius",
+     "level": 31,
+     "item": "",
+     "moves": [
+      "Stomp",
+      "Sweet Scent",
+      "Whirlwind",
+      "Magical Leaf"
+     ],
+     "ivs": {
+      "hp": 18,
+      "atk": 18,
+      "def": 18,
+      "spa": 18,
+      "spd": 18,
+      "spe": 18
+     }
+    },
+    {
+     "species": "Slugma",
+     "level": 32,
+     "item": "",
+     "moves": [
+      "Ember",
+      "Rock Throw",
+      "Harden",
+      "Amnesia"
+     ],
+     "ivs": {
+      "hp": 18,
+      "atk": 18,
+      "def": 18,
+      "spa": 18,
+      "spd": 18,
+      "spe": 18
+     }
+    },
+    {
+     "species": "Pelipper",
+     "level": 32,
+     "item": "",
+     "moves": [
+      "Wing Attack",
+      "Supersonic",
+      "Mist",
+      "Protect"
+     ],
+     "ivs": {
+      "hp": 18,
+      "atk": 18,
+      "def": 18,
+      "spa": 18,
+      "spd": 18,
+      "spe": 18
+     }
+    },
+    {
+     "species": "Grovyle",
+     "level": 34,
+     "item": "",
+     "moves": [
+      "Fury Cutter",
+      "Pursuit",
+      "Screech",
+      "Leaf Blade"
+     ],
+     "ivs": {
+      "hp": 24,
+      "atk": 24,
+      "def": 24,
+      "spa": 24,
+      "spd": 24,
+      "spe": 24
+     }
+    }
+   ],
+   "variant": "Mudkip",
+   "variant_es": "Mudkip"
+  },
+  {
+   "key": "em-may-treecko",
+   "name": "May",
+   "name_es": "Aura",
+   "class": "rival",
+   "class_es": "Rival",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3customgame",
+   "avatar": "may-gen3",
+   "sets": [
+    {
+     "species": "Tropius",
+     "level": 31,
+     "item": "",
+     "moves": [
+      "Stomp",
+      "Sweet Scent",
+      "Whirlwind",
+      "Magical Leaf"
+     ],
+     "ivs": {
+      "hp": 18,
+      "atk": 18,
+      "def": 18,
+      "spa": 18,
+      "spd": 18,
+      "spe": 18
+     }
+    },
+    {
+     "species": "Pelipper",
+     "level": 32,
+     "item": "",
+     "moves": [
+      "Wing Attack",
+      "Supersonic",
+      "Mist",
+      "Protect"
+     ],
+     "ivs": {
+      "hp": 18,
+      "atk": 18,
+      "def": 18,
+      "spa": 18,
+      "spd": 18,
+      "spe": 18
+     }
+    },
+    {
+     "species": "Ludicolo",
+     "level": 32,
+     "item": "",
+     "moves": [
+      "Absorb",
+      "Astonish",
+      "Growl",
+      "Nature Power"
+     ],
+     "ivs": {
+      "hp": 18,
+      "atk": 18,
+      "def": 18,
+      "spa": 18,
+      "spd": 18,
+      "spe": 18
+     }
+    },
+    {
+     "species": "Combusken",
+     "level": 34,
+     "item": "",
+     "moves": [
+      "Peck",
+      "Sand Attack",
+      "Bulk Up",
+      "Quick Attack"
+     ],
+     "ivs": {
+      "hp": 24,
+      "atk": 24,
+      "def": 24,
+      "spa": 24,
+      "spd": 24,
+      "spe": 24
+     }
+    }
+   ],
+   "variant": "Treecko",
+   "variant_es": "Treecko"
+  },
+  {
+   "key": "em-brendan-treecko",
+   "name": "Brendan",
+   "name_es": "Bruno",
+   "class": "rival",
+   "class_es": "Rival",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3customgame",
+   "avatar": "brendan-gen3",
+   "sets": [
+    {
+     "species": "Tropius",
+     "level": 31,
+     "item": "",
+     "moves": [
+      "Stomp",
+      "Sweet Scent",
+      "Whirlwind",
+      "Magical Leaf"
+     ],
+     "ivs": {
+      "hp": 18,
+      "atk": 18,
+      "def": 18,
+      "spa": 18,
+      "spd": 18,
+      "spe": 18
+     }
+    },
+    {
+     "species": "Pelipper",
+     "level": 32,
+     "item": "",
+     "moves": [
+      "Wing Attack",
+      "Supersonic",
+      "Mist",
+      "Protect"
+     ],
+     "ivs": {
+      "hp": 18,
+      "atk": 18,
+      "def": 18,
+      "spa": 18,
+      "spd": 18,
+      "spe": 18
+     }
+    },
+    {
+     "species": "Ludicolo",
+     "level": 32,
+     "item": "",
+     "moves": [
+      "Absorb",
+      "Astonish",
+      "Growl",
+      "Nature Power"
+     ],
+     "ivs": {
+      "hp": 18,
+      "atk": 18,
+      "def": 18,
+      "spa": 18,
+      "spd": 18,
+      "spe": 18
+     }
+    },
+    {
+     "species": "Combusken",
+     "level": 34,
+     "item": "",
+     "moves": [
+      "Peck",
+      "Sand Attack",
+      "Bulk Up",
+      "Quick Attack"
+     ],
+     "ivs": {
+      "hp": 24,
+      "atk": 24,
+      "def": 24,
+      "spa": 24,
+      "spd": 24,
+      "spe": 24
+     }
+    }
+   ],
+   "variant": "Treecko",
+   "variant_es": "Treecko"
+  },
+  {
+   "key": "em-may-torchic",
+   "name": "May",
+   "name_es": "Aura",
+   "class": "rival",
+   "class_es": "Rival",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3customgame",
+   "avatar": "may-gen3",
+   "sets": [
+    {
+     "species": "Tropius",
+     "level": 31,
+     "item": "",
+     "moves": [
+      "Stomp",
+      "Sweet Scent",
+      "Whirlwind",
+      "Magical Leaf"
+     ],
+     "ivs": {
+      "hp": 18,
+      "atk": 18,
+      "def": 18,
+      "spa": 18,
+      "spd": 18,
+      "spe": 18
+     }
+    },
+    {
+     "species": "Ludicolo",
+     "level": 32,
+     "item": "",
+     "moves": [
+      "Absorb",
+      "Astonish",
+      "Growl",
+      "Nature Power"
+     ],
+     "ivs": {
+      "hp": 18,
+      "atk": 18,
+      "def": 18,
+      "spa": 18,
+      "spd": 18,
+      "spe": 18
+     }
+    },
+    {
+     "species": "Slugma",
+     "level": 32,
+     "item": "",
+     "moves": [
+      "Ember",
+      "Rock Throw",
+      "Harden",
+      "Amnesia"
+     ],
+     "ivs": {
+      "hp": 18,
+      "atk": 18,
+      "def": 18,
+      "spa": 18,
+      "spd": 18,
+      "spe": 18
+     }
+    },
+    {
+     "species": "Marshtomp",
+     "level": 34,
+     "item": "",
+     "moves": [
+      "Mud Shot",
+      "Foresight",
+      "Mud Sport",
+      "Take Down"
+     ],
+     "ivs": {
+      "hp": 24,
+      "atk": 24,
+      "def": 24,
+      "spa": 24,
+      "spd": 24,
+      "spe": 24
+     }
+    }
+   ],
+   "variant": "Torchic",
+   "variant_es": "Torchic"
+  },
+  {
+   "key": "em-brendan-torchic",
+   "name": "Brendan",
+   "name_es": "Bruno",
+   "class": "rival",
+   "class_es": "Rival",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3customgame",
+   "avatar": "brendan-gen3",
+   "sets": [
+    {
+     "species": "Tropius",
+     "level": 31,
+     "item": "",
+     "moves": [
+      "Stomp",
+      "Sweet Scent",
+      "Whirlwind",
+      "Magical Leaf"
+     ],
+     "ivs": {
+      "hp": 18,
+      "atk": 18,
+      "def": 18,
+      "spa": 18,
+      "spd": 18,
+      "spe": 18
+     }
+    },
+    {
+     "species": "Ludicolo",
+     "level": 32,
+     "item": "",
+     "moves": [
+      "Absorb",
+      "Astonish",
+      "Growl",
+      "Nature Power"
+     ],
+     "ivs": {
+      "hp": 18,
+      "atk": 18,
+      "def": 18,
+      "spa": 18,
+      "spd": 18,
+      "spe": 18
+     }
+    },
+    {
+     "species": "Slugma",
+     "level": 32,
+     "item": "",
+     "moves": [
+      "Ember",
+      "Rock Throw",
+      "Harden",
+      "Amnesia"
+     ],
+     "ivs": {
+      "hp": 18,
+      "atk": 18,
+      "def": 18,
+      "spa": 18,
+      "spd": 18,
+      "spe": 18
+     }
+    },
+    {
+     "species": "Marshtomp",
+     "level": 34,
+     "item": "",
+     "moves": [
+      "Mud Shot",
+      "Foresight",
+      "Mud Sport",
+      "Take Down"
+     ],
+     "ivs": {
+      "hp": 24,
+      "atk": 24,
+      "def": 24,
+      "spa": 24,
+      "spd": 24,
+      "spe": 24
+     }
+    }
+   ],
+   "variant": "Torchic",
+   "variant_es": "Torchic"
+  },
+  {
+   "key": "em-maxie",
+   "name": "Maxie",
+   "name_es": "Magno",
+   "class": "boss",
+   "class_es": "Jefe",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3customgame",
+   "avatar": "maxie-gen3",
+   "sets": [
+    {
+     "species": "Mightyena",
+     "level": 42,
+     "item": "",
+     "moves": [
+      "Swagger",
+      "Scary Face",
+      "Take Down",
+      "Taunt"
+     ],
+     "ivs": {
+      "hp": 18,
+      "atk": 18,
+      "def": 18,
+      "spa": 18,
+      "spd": 18,
+      "spe": 18
+     }
+    },
+    {
+     "species": "Crobat",
+     "level": 43,
+     "item": "",
+     "moves": [
+      "Wing Attack",
+      "Confuse Ray",
+      "Air Cutter",
+      "Mean Look"
+     ],
+     "ivs": {
+      "hp": 18,
+      "atk": 18,
+      "def": 18,
+      "spa": 18,
+      "spd": 18,
+      "spe": 18
+     }
+    },
+    {
+     "species": "Camerupt",
+     "level": 44,
+     "item": "",
+     "moves": [
+      "Take Down",
+      "Amnesia",
+      "Rock Slide",
+      "Earthquake"
+     ],
+     "ivs": {
+      "hp": 18,
+      "atk": 18,
+      "def": 18,
+      "spa": 18,
+      "spd": 18,
+      "spe": 18
+     }
+    }
+   ],
+   "variant": "Mossdeep",
+   "variant_es": "Algaria"
+  },
+  {
+   "key": "em-archie",
+   "name": "Archie",
+   "name_es": "Aquiles",
+   "class": "boss",
+   "class_es": "Jefe",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3customgame",
+   "avatar": "archie-gen3",
+   "sets": [
+    {
+     "species": "Mightyena",
+     "level": 41,
+     "item": "",
+     "moves": [
+      "Roar",
+      "Swagger",
+      "Scary Face",
+      "Take Down"
+     ],
+     "ivs": {
+      "hp": 18,
+      "atk": 18,
+      "def": 18,
+      "spa": 18,
+      "spd": 18,
+      "spe": 18
+     }
+    },
+    {
+     "species": "Crobat",
+     "level": 41,
+     "item": "",
+     "moves": [
+      "Bite",
+      "Wing Attack",
+      "Confuse Ray",
+      "Air Cutter"
+     ],
+     "ivs": {
+      "hp": 18,
+      "atk": 18,
+      "def": 18,
+      "spa": 18,
+      "spd": 18,
+      "spe": 18
+     }
+    },
+    {
+     "species": "Sharpedo",
+     "level": 43,
+     "item": "",
+     "moves": [
+      "Screech",
+      "Slash",
+      "Taunt",
+      "Swagger"
+     ],
+     "ivs": {
+      "hp": 18,
+      "atk": 18,
+      "def": 18,
+      "spa": 18,
+      "spd": 18,
+      "spe": 18
+     }
+    }
+   ]
+  },
+  {
+   "key": "gsc-falkner",
+   "name": "Falkner",
+   "name_es": "Pegaso",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Johto",
+   "game": "Crystal",
+   "format": "gen2customgame",
+   "avatar": "falkner-gen2",
+   "sets": [
+    {
+     "species": "Pidgey",
+     "level": 7,
+     "item": "",
+     "moves": [
+      "Tackle",
+      "Mud-Slap"
+     ]
+    },
+    {
+     "species": "Pidgeotto",
+     "level": 9,
+     "item": "",
+     "moves": [
+      "Tackle",
+      "Mud-Slap",
+      "Gust"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "gsc-bugsy",
+   "name": "Bugsy",
+   "name_es": "Antón",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Johto",
+   "game": "Crystal",
+   "format": "gen2customgame",
+   "avatar": "bugsy-gen2",
+   "sets": [
+    {
+     "species": "Metapod",
+     "level": 14,
+     "item": "",
+     "moves": [
+      "Tackle",
+      "String Shot",
+      "Harden"
+     ]
+    },
+    {
+     "species": "Kakuna",
+     "level": 14,
+     "item": "",
+     "moves": [
+      "Poison Sting",
+      "String Shot",
+      "Harden"
+     ]
+    },
+    {
+     "species": "Scyther",
+     "level": 16,
+     "item": "",
+     "moves": [
+      "Quick Attack",
+      "Leer",
+      "Fury Cutter"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "gsc-whitney",
+   "name": "Whitney",
+   "name_es": "Blanca",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Johto",
+   "game": "Crystal",
+   "format": "gen2customgame",
+   "avatar": "whitney-gen2",
+   "sets": [
+    {
+     "species": "Clefairy",
+     "level": 18,
+     "item": "",
+     "moves": [
+      "Double Slap",
+      "Mimic",
+      "Encore",
+      "Metronome"
+     ]
+    },
+    {
+     "species": "Miltank",
+     "level": 20,
+     "item": "",
+     "moves": [
+      "Rollout",
+      "Attract",
+      "Stomp",
+      "Milk Drink"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "gsc-morty",
+   "name": "Morty",
+   "name_es": "Morti",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Johto",
+   "game": "Crystal",
+   "format": "gen2customgame",
+   "avatar": "morty-gen2",
+   "sets": [
+    {
+     "species": "Gastly",
+     "level": 21,
+     "item": "",
+     "moves": [
+      "Lick",
+      "Spite",
+      "Mean Look",
+      "Curse"
+     ]
+    },
+    {
+     "species": "Haunter",
+     "level": 21,
+     "item": "",
+     "moves": [
+      "Hypnosis",
+      "Mimic",
+      "Curse",
+      "Night Shade"
+     ]
+    },
+    {
+     "species": "Gengar",
+     "level": 25,
+     "item": "",
+     "moves": [
+      "Hypnosis",
+      "Shadow Ball",
+      "Mean Look",
+      "Dream Eater"
+     ]
+    },
+    {
+     "species": "Haunter",
+     "level": 23,
+     "item": "",
+     "moves": [
+      "Spite",
+      "Mean Look",
+      "Mimic",
+      "Night Shade"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "gsc-chuck",
+   "name": "Chuck",
+   "name_es": "Aníbal",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Johto",
+   "game": "Crystal",
+   "format": "gen2customgame",
+   "avatar": "chuck-gen2",
+   "sets": [
+    {
+     "species": "Primeape",
+     "level": 27,
+     "item": "",
+     "moves": [
+      "Leer",
+      "Rage",
+      "Karate Chop",
+      "Fury Swipes"
+     ]
+    },
+    {
+     "species": "Poliwrath",
+     "level": 30,
+     "item": "",
+     "moves": [
+      "Hypnosis",
+      "Mind Reader",
+      "Surf",
+      "Dynamic Punch"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "gsc-jasmine",
+   "name": "Jasmine",
+   "name_es": "Yasmina",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Johto",
+   "game": "Crystal",
+   "format": "gen2customgame",
+   "avatar": "jasmine-gen2",
+   "sets": [
+    {
+     "species": "Magnemite",
+     "level": 30,
+     "item": "",
+     "moves": [
+      "Thunderbolt",
+      "Supersonic",
+      "Sonic Boom",
+      "Thunder Wave"
+     ]
+    },
+    {
+     "species": "Magnemite",
+     "level": 30,
+     "item": "",
+     "moves": [
+      "Thunderbolt",
+      "Supersonic",
+      "Sonic Boom",
+      "Thunder Wave"
+     ]
+    },
+    {
+     "species": "Steelix",
+     "level": 35,
+     "item": "",
+     "moves": [
+      "Screech",
+      "Sunny Day",
+      "Rock Throw",
+      "Iron Tail"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "gsc-pryce",
+   "name": "Pryce",
+   "name_es": "Fredo",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Johto",
+   "game": "Crystal",
+   "format": "gen2customgame",
+   "avatar": "pryce-gen2",
+   "sets": [
+    {
+     "species": "Seel",
+     "level": 27,
+     "item": "",
+     "moves": [
+      "Headbutt",
+      "Icy Wind",
+      "Aurora Beam",
+      "Rest"
+     ]
+    },
+    {
+     "species": "Dewgong",
+     "level": 29,
+     "item": "",
+     "moves": [
+      "Headbutt",
+      "Icy Wind",
+      "Aurora Beam",
+      "Rest"
+     ]
+    },
+    {
+     "species": "Piloswine",
+     "level": 31,
+     "item": "",
+     "moves": [
+      "Icy Wind",
+      "Fury Attack",
+      "Mist",
+      "Blizzard"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "gsc-clair",
+   "name": "Clair",
+   "name_es": "Débora",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Johto",
+   "game": "Crystal",
+   "format": "gen2customgame",
+   "avatar": "clair-gen2",
+   "sets": [
+    {
+     "species": "Dragonair",
+     "level": 37,
+     "item": "",
+     "moves": [
+      "Thunder Wave",
+      "Surf",
+      "Slam",
+      "Dragon Breath"
+     ]
+    },
+    {
+     "species": "Dragonair",
+     "level": 37,
+     "item": "",
+     "moves": [
+      "Thunder Wave",
+      "Thunderbolt",
+      "Slam",
+      "Dragon Breath"
+     ]
+    },
+    {
+     "species": "Dragonair",
+     "level": 37,
+     "item": "",
+     "moves": [
+      "Thunder Wave",
+      "Ice Beam",
+      "Slam",
+      "Dragon Breath"
+     ]
+    },
+    {
+     "species": "Kingdra",
+     "level": 40,
+     "item": "",
+     "moves": [
+      "Smokescreen",
+      "Surf",
+      "Hyper Beam",
+      "Dragon Breath"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "gsc-brock",
+   "name": "Brock",
+   "name_es": "Brock",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Kanto",
+   "game": "Crystal",
+   "format": "gen2customgame",
+   "avatar": "brock-gen2",
+   "sets": [
+    {
+     "species": "Graveler",
+     "level": 41,
+     "item": "",
+     "moves": [
+      "Defense Curl",
+      "Rock Slide",
+      "Rollout",
+      "Earthquake"
+     ]
+    },
+    {
+     "species": "Rhyhorn",
+     "level": 41,
+     "item": "",
+     "moves": [
+      "Fury Attack",
+      "Scary Face",
+      "Earthquake",
+      "Horn Drill"
+     ]
+    },
+    {
+     "species": "Omastar",
+     "level": 42,
+     "item": "",
+     "moves": [
+      "Bite",
+      "Surf",
+      "Protect",
+      "Spike Cannon"
+     ]
+    },
+    {
+     "species": "Onix",
+     "level": 44,
+     "item": "",
+     "moves": [
+      "Bind",
+      "Rock Slide",
+      "Bide",
+      "Sandstorm"
+     ]
+    },
+    {
+     "species": "Kabutops",
+     "level": 42,
+     "item": "",
+     "moves": [
+      "Slash",
+      "Surf",
+      "Endure",
+      "Giga Drain"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "gsc-misty",
+   "name": "Misty",
+   "name_es": "Misty",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Kanto",
+   "game": "Crystal",
+   "format": "gen2customgame",
+   "avatar": "misty-gen2",
+   "sets": [
+    {
+     "species": "Golduck",
+     "level": 42,
+     "item": "",
+     "moves": [
+      "Surf",
+      "Disable",
+      "Psych Up",
+      "Psychic"
+     ]
+    },
+    {
+     "species": "Quagsire",
+     "level": 42,
+     "item": "",
+     "moves": [
+      "Surf",
+      "Amnesia",
+      "Earthquake",
+      "Rain Dance"
+     ]
+    },
+    {
+     "species": "Lapras",
+     "level": 44,
+     "item": "",
+     "moves": [
+      "Surf",
+      "Perish Song",
+      "Blizzard",
+      "Rain Dance"
+     ]
+    },
+    {
+     "species": "Starmie",
+     "level": 47,
+     "item": "",
+     "moves": [
+      "Surf",
+      "Confuse Ray",
+      "Recover",
+      "Ice Beam"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "gsc-ltsurge",
+   "name": "Lt. Surge",
+   "name_es": "Teniente Surge",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Kanto",
+   "game": "Crystal",
+   "format": "gen2customgame",
+   "avatar": "ltsurge-gen2",
+   "sets": [
+    {
+     "species": "Raichu",
+     "level": 44,
+     "item": "",
+     "moves": [
+      "Thunder Wave",
+      "Quick Attack",
+      "Thunderbolt",
+      "Thunder"
+     ]
+    },
+    {
+     "species": "Electrode",
+     "level": 40,
+     "item": "",
+     "moves": [
+      "Screech",
+      "Double Team",
+      "Swift",
+      "Explosion"
+     ]
+    },
+    {
+     "species": "Magneton",
+     "level": 40,
+     "item": "",
+     "moves": [
+      "Lock-On",
+      "Double Team",
+      "Swift",
+      "Zap Cannon"
+     ]
+    },
+    {
+     "species": "Electrode",
+     "level": 40,
+     "item": "",
+     "moves": [
+      "Screech",
+      "Double Team",
+      "Swift",
+      "Explosion"
+     ]
+    },
+    {
+     "species": "Electabuzz",
+     "level": 46,
+     "item": "",
+     "moves": [
+      "Quick Attack",
+      "Thunder Punch",
+      "Light Screen",
+      "Thunder"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "gsc-erika",
+   "name": "Erika",
+   "name_es": "Erika",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Kanto",
+   "game": "Crystal",
+   "format": "gen2customgame",
+   "avatar": "erika-gen2",
+   "sets": [
+    {
+     "species": "Tangela",
+     "level": 42,
+     "item": "",
+     "moves": [
+      "Vine Whip",
+      "Bind",
+      "Giga Drain",
+      "Sleep Powder"
+     ]
+    },
+    {
+     "species": "Jumpluff",
+     "level": 41,
+     "item": "",
+     "moves": [
+      "Mega Drain",
+      "Leech Seed",
+      "Cotton Spore",
+      "Giga Drain"
+     ]
+    },
+    {
+     "species": "Victreebel",
+     "level": 46,
+     "item": "",
+     "moves": [
+      "Sunny Day",
+      "Synthesis",
+      "Acid",
+      "Razor Leaf"
+     ]
+    },
+    {
+     "species": "Bellossom",
+     "level": 46,
+     "item": "",
+     "moves": [
+      "Sunny Day",
+      "Synthesis",
+      "Petal Dance",
+      "Solar Beam"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "gsc-janine",
+   "name": "Janine",
+   "name_es": "Sachiko",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Kanto",
+   "game": "Crystal",
+   "format": "gen2customgame",
+   "avatar": "janine-gen2",
+   "sets": [
+    {
+     "species": "Crobat",
+     "level": 36,
+     "item": "",
+     "moves": [
+      "Screech",
+      "Supersonic",
+      "Confuse Ray",
+      "Wing Attack"
+     ]
+    },
+    {
+     "species": "Weezing",
+     "level": 36,
+     "item": "",
+     "moves": [
+      "Smog",
+      "Sludge Bomb",
+      "Toxic",
+      "Explosion"
+     ]
+    },
+    {
+     "species": "Weezing",
+     "level": 36,
+     "item": "",
+     "moves": [
+      "Smog",
+      "Sludge Bomb",
+      "Toxic",
+      "Explosion"
+     ]
+    },
+    {
+     "species": "Ariados",
+     "level": 33,
+     "item": "",
+     "moves": [
+      "Scary Face",
+      "Giga Drain",
+      "String Shot",
+      "Night Shade"
+     ]
+    },
+    {
+     "species": "Venomoth",
+     "level": 39,
+     "item": "",
+     "moves": [
+      "Foresight",
+      "Double Team",
+      "Gust",
+      "Psychic"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "gsc-sabrina",
+   "name": "Sabrina",
+   "name_es": "Sabrina",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Kanto",
+   "game": "Crystal",
+   "format": "gen2customgame",
+   "avatar": "sabrina-gen2",
+   "sets": [
+    {
+     "species": "Espeon",
+     "level": 46,
+     "item": "",
+     "moves": [
+      "Sand Attack",
+      "Quick Attack",
+      "Swift",
+      "Psychic"
+     ]
+    },
+    {
+     "species": "Mr. Mime",
+     "level": 46,
+     "item": "",
+     "moves": [
+      "Barrier",
+      "Reflect",
+      "Baton Pass",
+      "Psychic"
+     ]
+    },
+    {
+     "species": "Alakazam",
+     "level": 48,
+     "item": "",
+     "moves": [
+      "Recover",
+      "Future Sight",
+      "Psychic",
+      "Reflect"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "gsc-blaine",
+   "name": "Blaine",
+   "name_es": "Blaine",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Kanto",
+   "game": "Crystal",
+   "format": "gen2customgame",
+   "avatar": "blaine-gen2",
+   "sets": [
+    {
+     "species": "Magcargo",
+     "level": 45,
+     "item": "",
+     "moves": [
+      "Curse",
+      "Smog",
+      "Flamethrower",
+      "Rock Slide"
+     ]
+    },
+    {
+     "species": "Magmar",
+     "level": 45,
+     "item": "",
+     "moves": [
+      "Thunder Punch",
+      "Fire Punch",
+      "Sunny Day",
+      "Confuse Ray"
+     ]
+    },
+    {
+     "species": "Rapidash",
+     "level": 50,
+     "item": "",
+     "moves": [
+      "Quick Attack",
+      "Fire Spin",
+      "Fury Attack",
+      "Fire Blast"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "gsc-blue",
+   "name": "Blue",
+   "name_es": "Azul",
+   "class": "leader",
+   "class_es": "Líder de gimnasio",
+   "region": "Kanto",
+   "game": "Crystal",
+   "format": "gen2customgame",
+   "avatar": "blue-gen2",
+   "sets": [
+    {
+     "species": "Pidgeot",
+     "level": 56,
+     "item": "",
+     "moves": [
+      "Quick Attack",
+      "Whirlwind",
+      "Wing Attack",
+      "Mirror Move"
+     ]
+    },
+    {
+     "species": "Alakazam",
+     "level": 54,
+     "item": "",
+     "moves": [
+      "Disable",
+      "Recover",
+      "Psychic",
+      "Reflect"
+     ]
+    },
+    {
+     "species": "Rhydon",
+     "level": 56,
+     "item": "",
+     "moves": [
+      "Fury Attack",
+      "Sandstorm",
+      "Rock Slide",
+      "Earthquake"
+     ]
+    },
+    {
+     "species": "Gyarados",
+     "level": 58,
+     "item": "",
+     "moves": [
+      "Twister",
+      "Hydro Pump",
+      "Rain Dance",
+      "Hyper Beam"
+     ]
+    },
+    {
+     "species": "Exeggutor",
+     "level": 58,
+     "item": "",
+     "moves": [
+      "Sunny Day",
+      "Leech Seed",
+      "Egg Bomb",
+      "Solar Beam"
+     ]
+    },
+    {
+     "species": "Arcanine",
+     "level": 58,
+     "item": "",
+     "moves": [
+      "Roar",
+      "Swift",
+      "Flamethrower",
+      "Extreme Speed"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "gsc-will",
+   "name": "Will",
+   "name_es": "Mento",
+   "class": "elite",
+   "class_es": "Alto Mando",
+   "region": "Johto",
+   "game": "Crystal",
+   "format": "gen2customgame",
+   "avatar": "will-gen2",
+   "sets": [
+    {
+     "species": "Xatu",
+     "level": 40,
+     "item": "",
+     "moves": [
+      "Quick Attack",
+      "Future Sight",
+      "Confuse Ray",
+      "Psychic"
+     ]
+    },
+    {
+     "species": "Jynx",
+     "level": 41,
+     "item": "",
+     "moves": [
+      "Double Slap",
+      "Lovely Kiss",
+      "Ice Punch",
+      "Psychic"
+     ]
+    },
+    {
+     "species": "Exeggutor",
+     "level": 41,
+     "item": "",
+     "moves": [
+      "Reflect",
+      "Leech Seed",
+      "Egg Bomb",
+      "Psychic"
+     ]
+    },
+    {
+     "species": "Slowbro",
+     "level": 41,
+     "item": "",
+     "moves": [
+      "Curse",
+      "Amnesia",
+      "Body Slam",
+      "Psychic"
+     ]
+    },
+    {
+     "species": "Xatu",
+     "level": 42,
+     "item": "",
+     "moves": [
+      "Quick Attack",
+      "Future Sight",
+      "Confuse Ray",
+      "Psychic"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "gsc-koga",
+   "name": "Koga",
+   "name_es": "Koga",
+   "class": "elite",
+   "class_es": "Alto Mando",
+   "region": "Johto",
+   "game": "Crystal",
+   "format": "gen2customgame",
+   "avatar": "koga-gen2",
+   "sets": [
+    {
+     "species": "Ariados",
+     "level": 40,
+     "item": "",
+     "moves": [
+      "Double Team",
+      "Spider Web",
+      "Baton Pass",
+      "Giga Drain"
+     ]
+    },
+    {
+     "species": "Venomoth",
+     "level": 41,
+     "item": "",
+     "moves": [
+      "Supersonic",
+      "Gust",
+      "Psychic",
+      "Toxic"
+     ]
+    },
+    {
+     "species": "Forretress",
+     "level": 43,
+     "item": "",
+     "moves": [
+      "Protect",
+      "Swift",
+      "Explosion",
+      "Spikes"
+     ]
+    },
+    {
+     "species": "Muk",
+     "level": 42,
+     "item": "",
+     "moves": [
+      "Minimize",
+      "Acid Armor",
+      "Sludge Bomb",
+      "Toxic"
+     ]
+    },
+    {
+     "species": "Crobat",
+     "level": 44,
+     "item": "",
+     "moves": [
+      "Double Team",
+      "Quick Attack",
+      "Wing Attack",
+      "Toxic"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "gsc-bruno",
+   "name": "Bruno",
+   "name_es": "Bruno",
+   "class": "elite",
+   "class_es": "Alto Mando",
+   "region": "Johto",
+   "game": "Crystal",
+   "format": "gen2customgame",
+   "avatar": "bruno-gen2",
+   "sets": [
+    {
+     "species": "Hitmontop",
+     "level": 42,
+     "item": "",
+     "moves": [
+      "Pursuit",
+      "Quick Attack",
+      "Dig",
+      "Detect"
+     ]
+    },
+    {
+     "species": "Hitmonlee",
+     "level": 42,
+     "item": "",
+     "moves": [
+      "Swagger",
+      "Double Kick",
+      "High Jump Kick",
+      "Foresight"
+     ]
+    },
+    {
+     "species": "Hitmonchan",
+     "level": 42,
+     "item": "",
+     "moves": [
+      "Thunder Punch",
+      "Ice Punch",
+      "Fire Punch",
+      "Mach Punch"
+     ]
+    },
+    {
+     "species": "Onix",
+     "level": 43,
+     "item": "",
+     "moves": [
+      "Bind",
+      "Earthquake",
+      "Sandstorm",
+      "Rock Slide"
+     ]
+    },
+    {
+     "species": "Machamp",
+     "level": 46,
+     "item": "",
+     "moves": [
+      "Rock Slide",
+      "Foresight",
+      "Vital Throw",
+      "Cross Chop"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "gsc-karen",
+   "name": "Karen",
+   "name_es": "Karen",
+   "class": "elite",
+   "class_es": "Alto Mando",
+   "region": "Johto",
+   "game": "Crystal",
+   "format": "gen2customgame",
+   "avatar": "karen-gen2",
+   "sets": [
+    {
+     "species": "Umbreon",
+     "level": 42,
+     "item": "",
+     "moves": [
+      "Sand Attack",
+      "Confuse Ray",
+      "Feint Attack",
+      "Mean Look"
+     ]
+    },
+    {
+     "species": "Vileplume",
+     "level": 42,
+     "item": "",
+     "moves": [
+      "Stun Spore",
+      "Acid",
+      "Moonlight",
+      "Petal Dance"
+     ]
+    },
+    {
+     "species": "Gengar",
+     "level": 45,
+     "item": "",
+     "moves": [
+      "Lick",
+      "Spite",
+      "Curse",
+      "Destiny Bond"
+     ]
+    },
+    {
+     "species": "Murkrow",
+     "level": 44,
+     "item": "",
+     "moves": [
+      "Quick Attack",
+      "Whirlwind",
+      "Pursuit",
+      "Feint Attack"
+     ]
+    },
+    {
+     "species": "Houndoom",
+     "level": 47,
+     "item": "",
+     "moves": [
+      "Roar",
+      "Pursuit",
+      "Flamethrower",
+      "Crunch"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "gsc-lance",
+   "name": "Lance",
+   "name_es": "Lance",
+   "class": "champion",
+   "class_es": "Campeón",
+   "region": "Johto",
+   "game": "Crystal",
+   "format": "gen2customgame",
+   "avatar": "lance-gen2",
+   "sets": [
+    {
+     "species": "Gyarados",
+     "level": 44,
+     "item": "",
+     "moves": [
+      "Flail",
+      "Rain Dance",
+      "Surf",
+      "Hyper Beam"
+     ]
+    },
+    {
+     "species": "Dragonite",
+     "level": 47,
+     "item": "",
+     "moves": [
+      "Thunder Wave",
+      "Twister",
+      "Thunder",
+      "Hyper Beam"
+     ]
+    },
+    {
+     "species": "Dragonite",
+     "level": 47,
+     "item": "",
+     "moves": [
+      "Thunder Wave",
+      "Twister",
+      "Blizzard",
+      "Hyper Beam"
+     ]
+    },
+    {
+     "species": "Aerodactyl",
+     "level": 46,
+     "item": "",
+     "moves": [
+      "Wing Attack",
+      "Ancient Power",
+      "Rock Slide",
+      "Hyper Beam"
+     ]
+    },
+    {
+     "species": "Charizard",
+     "level": 46,
+     "item": "",
+     "moves": [
+      "Flamethrower",
+      "Wing Attack",
+      "Slash",
+      "Hyper Beam"
+     ]
+    },
+    {
+     "species": "Dragonite",
+     "level": 50,
+     "item": "",
+     "moves": [
+      "Fire Blast",
+      "Safeguard",
+      "Outrage",
+      "Hyper Beam"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "gsc-red",
+   "name": "Red",
+   "name_es": "Rojo",
+   "class": "legend",
+   "class_es": "Leyenda",
+   "region": "Kanto",
+   "game": "Crystal",
+   "format": "gen2customgame",
+   "avatar": "red-gen2",
+   "sets": [
+    {
+     "species": "Pikachu",
+     "level": 81,
+     "item": "",
+     "moves": [
+      "Charm",
+      "Quick Attack",
+      "Thunderbolt",
+      "Thunder"
+     ]
+    },
+    {
+     "species": "Espeon",
+     "level": 73,
+     "item": "",
+     "moves": [
+      "Mud-Slap",
+      "Reflect",
+      "Swift",
+      "Psychic"
+     ]
+    },
+    {
+     "species": "Snorlax",
+     "level": 75,
+     "item": "",
+     "moves": [
+      "Amnesia",
+      "Snore",
+      "Rest",
+      "Body Slam"
+     ]
+    },
+    {
+     "species": "Venusaur",
+     "level": 77,
+     "item": "",
+     "moves": [
+      "Sunny Day",
+      "Giga Drain",
+      "Synthesis",
+      "Solar Beam"
+     ]
+    },
+    {
+     "species": "Charizard",
+     "level": 77,
+     "item": "",
+     "moves": [
+      "Flamethrower",
+      "Wing Attack",
+      "Slash",
+      "Fire Spin"
+     ]
+    },
+    {
+     "species": "Blastoise",
+     "level": 77,
+     "item": "",
+     "moves": [
+      "Rain Dance",
+      "Surf",
+      "Blizzard",
+      "Whirlpool"
+     ]
+    }
+   ],
+   "variant": "Mt. Silver",
+   "variant_es": "Monte Plateado"
+  },
+  {
+   "key": "gsc-silver-meganium",
+   "name": "Silver",
+   "name_es": "Plata",
+   "class": "rival",
+   "class_es": "Rival",
+   "region": "Johto",
+   "game": "Crystal",
+   "format": "gen2customgame",
+   "avatar": "silver-gen2",
+   "sets": [
+    {
+     "species": "Sneasel",
+     "level": 45,
+     "item": "",
+     "moves": [
+      "Quick Attack",
+      "Screech",
+      "Feint Attack",
+      "Fury Cutter"
+     ]
+    },
+    {
+     "species": "Crobat",
+     "level": 48,
+     "item": "",
+     "moves": [
+      "Toxic",
+      "Bite",
+      "Confuse Ray",
+      "Wing Attack"
+     ]
+    },
+    {
+     "species": "Magneton",
+     "level": 45,
+     "item": "",
+     "moves": [
+      "Thunder",
+      "Sonic Boom",
+      "Thunder Wave",
+      "Swift"
+     ]
+    },
+    {
+     "species": "Gengar",
+     "level": 46,
+     "item": "",
+     "moves": [
+      "Mean Look",
+      "Curse",
+      "Shadow Ball",
+      "Confuse Ray"
+     ]
+    },
+    {
+     "species": "Alakazam",
+     "level": 46,
+     "item": "",
+     "moves": [
+      "Recover",
+      "Future Sight",
+      "Psychic",
+      "Reflect"
+     ]
+    },
+    {
+     "species": "Meganium",
+     "level": 50,
+     "item": "",
+     "moves": [
+      "Giga Drain",
+      "Body Slam",
+      "Light Screen",
+      "Safeguard"
+     ]
+    }
+   ],
+   "variant": "Meganium",
+   "variant_es": "Meganium"
+  },
+  {
+   "key": "gsc-silver-typhlosion",
+   "name": "Silver",
+   "name_es": "Plata",
+   "class": "rival",
+   "class_es": "Rival",
+   "region": "Johto",
+   "game": "Crystal",
+   "format": "gen2customgame",
+   "avatar": "silver-gen2",
+   "sets": [
+    {
+     "species": "Sneasel",
+     "level": 45,
+     "item": "",
+     "moves": [
+      "Quick Attack",
+      "Screech",
+      "Feint Attack",
+      "Fury Cutter"
+     ]
+    },
+    {
+     "species": "Crobat",
+     "level": 48,
+     "item": "",
+     "moves": [
+      "Toxic",
+      "Bite",
+      "Confuse Ray",
+      "Wing Attack"
+     ]
+    },
+    {
+     "species": "Magneton",
+     "level": 45,
+     "item": "",
+     "moves": [
+      "Thunder",
+      "Sonic Boom",
+      "Thunder Wave",
+      "Swift"
+     ]
+    },
+    {
+     "species": "Gengar",
+     "level": 46,
+     "item": "",
+     "moves": [
+      "Mean Look",
+      "Curse",
+      "Shadow Ball",
+      "Confuse Ray"
+     ]
+    },
+    {
+     "species": "Alakazam",
+     "level": 46,
+     "item": "",
+     "moves": [
+      "Recover",
+      "Future Sight",
+      "Psychic",
+      "Reflect"
+     ]
+    },
+    {
+     "species": "Typhlosion",
+     "level": 50,
+     "item": "",
+     "moves": [
+      "Smokescreen",
+      "Quick Attack",
+      "Fire Blast",
+      "Swift"
+     ]
+    }
+   ],
+   "variant": "Typhlosion",
+   "variant_es": "Typhlosion"
+  },
+  {
+   "key": "gsc-silver-feraligatr",
+   "name": "Silver",
+   "name_es": "Plata",
+   "class": "rival",
+   "class_es": "Rival",
+   "region": "Johto",
+   "game": "Crystal",
+   "format": "gen2customgame",
+   "avatar": "silver-gen2",
+   "sets": [
+    {
+     "species": "Sneasel",
+     "level": 45,
+     "item": "",
+     "moves": [
+      "Quick Attack",
+      "Screech",
+      "Feint Attack",
+      "Fury Cutter"
+     ]
+    },
+    {
+     "species": "Crobat",
+     "level": 48,
+     "item": "",
+     "moves": [
+      "Toxic",
+      "Bite",
+      "Confuse Ray",
+      "Wing Attack"
+     ]
+    },
+    {
+     "species": "Magneton",
+     "level": 45,
+     "item": "",
+     "moves": [
+      "Thunder",
+      "Sonic Boom",
+      "Thunder Wave",
+      "Swift"
+     ]
+    },
+    {
+     "species": "Gengar",
+     "level": 46,
+     "item": "",
+     "moves": [
+      "Mean Look",
+      "Curse",
+      "Shadow Ball",
+      "Confuse Ray"
+     ]
+    },
+    {
+     "species": "Alakazam",
+     "level": 46,
+     "item": "",
+     "moves": [
+      "Recover",
+      "Future Sight",
+      "Psychic",
+      "Reflect"
+     ]
+    },
+    {
+     "species": "Feraligatr",
+     "level": 50,
+     "item": "",
+     "moves": [
+      "Surf",
+      "Rain Dance",
+      "Slash",
+      "Screech"
+     ]
+    }
+   ],
+   "variant": "Feraligatr",
+   "variant_es": "Feraligatr"
+  }
+ ],
+ "leagues": [
+  {
+   "key": "kanto-frlg",
+   "name": "Kanto League",
+   "name_es": "Liga Kanto",
+   "region": "Kanto",
+   "game": "FireRed/LeafGreen",
+   "format": "gen3customgame",
+   "gyms": [
+    {
+     "leader": "frlg-brock",
+     "city": "Pewter City",
+     "city_es": "Ciudad Plateada",
+     "type": "Rock",
+     "badge": "Boulder Badge",
+     "badge_es": "Medalla Roca"
+    },
+    {
+     "leader": "frlg-misty",
+     "city": "Cerulean City",
+     "city_es": "Ciudad Celeste",
+     "type": "Water",
+     "badge": "Cascade Badge",
+     "badge_es": "Medalla Cascada"
+    },
+    {
+     "leader": "frlg-ltsurge",
+     "city": "Vermilion City",
+     "city_es": "Ciudad Carmín",
+     "type": "Electric",
+     "badge": "Thunder Badge",
+     "badge_es": "Medalla Trueno"
+    },
+    {
+     "leader": "frlg-erika",
+     "city": "Celadon City",
+     "city_es": "Ciudad Azulona",
+     "type": "Grass",
+     "badge": "Rainbow Badge",
+     "badge_es": "Medalla Arcoíris"
+    },
+    {
+     "leader": "frlg-koga",
+     "city": "Fuchsia City",
+     "city_es": "Ciudad Fucsia",
+     "type": "Poison",
+     "badge": "Soul Badge",
+     "badge_es": "Medalla Alma"
+    },
+    {
+     "leader": "frlg-sabrina",
+     "city": "Saffron City",
+     "city_es": "Ciudad Azafrán",
+     "type": "Psychic",
+     "badge": "Marsh Badge",
+     "badge_es": "Medalla Pantano"
+    },
+    {
+     "leader": "frlg-blaine",
+     "city": "Cinnabar Island",
+     "city_es": "Isla Canela",
+     "type": "Fire",
+     "badge": "Volcano Badge",
+     "badge_es": "Medalla Volcán"
+    },
+    {
+     "leader": "frlg-giovanni",
+     "city": "Viridian City",
+     "city_es": "Ciudad Verde",
+     "type": "Ground",
+     "badge": "Earth Badge",
+     "badge_es": "Medalla Tierra"
+    }
+   ],
+   "elite_four": [
+    "frlg-lorelei",
+    "frlg-bruno",
+    "frlg-agatha",
+    "frlg-lance"
+   ],
+   "champion": "frlg-blue-squirtle"
+  },
+  {
+   "key": "johto-crystal",
+   "name": "Johto League",
+   "name_es": "Liga Johto",
+   "region": "Johto",
+   "game": "Crystal",
+   "format": "gen2customgame",
+   "gyms": [
+    {
+     "leader": "gsc-falkner",
+     "city": "Violet City",
+     "city_es": "Ciudad Malva",
+     "type": "Flying",
+     "badge": "Zephyr Badge",
+     "badge_es": "Medalla Céfiro"
+    },
+    {
+     "leader": "gsc-bugsy",
+     "city": "Azalea Town",
+     "city_es": "Pueblo Azalea",
+     "type": "Bug",
+     "badge": "Hive Badge",
+     "badge_es": "Medalla Colmena"
+    },
+    {
+     "leader": "gsc-whitney",
+     "city": "Goldenrod City",
+     "city_es": "Ciudad Trigal",
+     "type": "Normal",
+     "badge": "Plain Badge",
+     "badge_es": "Medalla Planicie"
+    },
+    {
+     "leader": "gsc-morty",
+     "city": "Ecruteak City",
+     "city_es": "Ciudad Iris",
+     "type": "Ghost",
+     "badge": "Fog Badge",
+     "badge_es": "Medalla Niebla"
+    },
+    {
+     "leader": "gsc-chuck",
+     "city": "Cianwood City",
+     "city_es": "Ciudad Orquídea",
+     "type": "Fighting",
+     "badge": "Storm Badge",
+     "badge_es": "Medalla Tormenta"
+    },
+    {
+     "leader": "gsc-jasmine",
+     "city": "Olivine City",
+     "city_es": "Ciudad Olivo",
+     "type": "Steel",
+     "badge": "Mineral Badge",
+     "badge_es": "Medalla Mineral"
+    },
+    {
+     "leader": "gsc-pryce",
+     "city": "Mahogany Town",
+     "city_es": "Pueblo Caoba",
+     "type": "Ice",
+     "badge": "Glacier Badge",
+     "badge_es": "Medalla Glaciar"
+    },
+    {
+     "leader": "gsc-clair",
+     "city": "Blackthorn City",
+     "city_es": "Ciudad Endrino",
+     "type": "Dragon",
+     "badge": "Rising Badge",
+     "badge_es": "Medalla Dragón"
+    }
+   ],
+   "elite_four": [
+    "gsc-will",
+    "gsc-koga",
+    "gsc-bruno",
+    "gsc-karen"
+   ],
+   "champion": "gsc-lance"
+  },
+  {
+   "key": "hoenn-emerald",
+   "name": "Hoenn League",
+   "name_es": "Liga Hoenn",
+   "region": "Hoenn",
+   "game": "Emerald",
+   "format": "gen3customgame",
+   "gyms": [
+    {
+     "leader": "em-roxanne",
+     "city": "Rustboro City",
+     "city_es": "Ciudad Férrica",
+     "type": "Rock",
+     "badge": "Stone Badge",
+     "badge_es": "Medalla Piedra"
+    },
+    {
+     "leader": "em-brawly",
+     "city": "Dewford Town",
+     "city_es": "Pueblo Azuliza",
+     "type": "Fighting",
+     "badge": "Knuckle Badge",
+     "badge_es": "Medalla Puño"
+    },
+    {
+     "leader": "em-wattson",
+     "city": "Mauville City",
+     "city_es": "Ciudad Malvalona",
+     "type": "Electric",
+     "badge": "Dynamo Badge",
+     "badge_es": "Medalla Dinamo"
+    },
+    {
+     "leader": "em-flannery",
+     "city": "Lavaridge Town",
+     "city_es": "Pueblo Lavacalda",
+     "type": "Fire",
+     "badge": "Heat Badge",
+     "badge_es": "Medalla Calor"
+    },
+    {
+     "leader": "em-norman",
+     "city": "Petalburg City",
+     "city_es": "Ciudad Petalia",
+     "type": "Normal",
+     "badge": "Balance Badge",
+     "badge_es": "Medalla Equilibrio"
+    },
+    {
+     "leader": "em-winona",
+     "city": "Fortree City",
+     "city_es": "Ciudad Arborada",
+     "type": "Flying",
+     "badge": "Feather Badge",
+     "badge_es": "Medalla Pluma"
+    },
+    {
+     "leader": "em-tateliza",
+     "city": "Mossdeep City",
+     "city_es": "Ciudad Algaria",
+     "type": "Psychic",
+     "badge": "Mind Badge",
+     "badge_es": "Medalla Mente"
+    },
+    {
+     "leader": "em-juan",
+     "city": "Sootopolis City",
+     "city_es": "Arrecípolis",
+     "type": "Water",
+     "badge": "Rain Badge",
+     "badge_es": "Medalla Lluvia"
+    }
+   ],
+   "elite_four": [
+    "em-sidney",
+    "em-phoebe",
+    "em-glacia",
+    "em-drake"
+   ],
+   "champion": "em-wallace"
+  },
+  {
+   "key": "kanto-crystal",
+   "name": "Kanto Gyms (Crystal)",
+   "name_es": "Gimnasios de Kanto (Cristal)",
+   "region": "Kanto",
+   "game": "Crystal",
+   "format": "gen2customgame",
+   "gyms": [
+    {
+     "leader": "gsc-brock",
+     "city": "Pewter City",
+     "city_es": "Ciudad Plateada",
+     "type": "Rock",
+     "badge": "Boulder Badge",
+     "badge_es": "Medalla Roca"
+    },
+    {
+     "leader": "gsc-misty",
+     "city": "Cerulean City",
+     "city_es": "Ciudad Celeste",
+     "type": "Water",
+     "badge": "Cascade Badge",
+     "badge_es": "Medalla Cascada"
+    },
+    {
+     "leader": "gsc-ltsurge",
+     "city": "Vermilion City",
+     "city_es": "Ciudad Carmín",
+     "type": "Electric",
+     "badge": "Thunder Badge",
+     "badge_es": "Medalla Trueno"
+    },
+    {
+     "leader": "gsc-erika",
+     "city": "Celadon City",
+     "city_es": "Ciudad Azulona",
+     "type": "Grass",
+     "badge": "Rainbow Badge",
+     "badge_es": "Medalla Arcoíris"
+    },
+    {
+     "leader": "gsc-janine",
+     "city": "Fuchsia City",
+     "city_es": "Ciudad Fucsia",
+     "type": "Poison",
+     "badge": "Soul Badge",
+     "badge_es": "Medalla Alma"
+    },
+    {
+     "leader": "gsc-sabrina",
+     "city": "Saffron City",
+     "city_es": "Ciudad Azafrán",
+     "type": "Psychic",
+     "badge": "Marsh Badge",
+     "badge_es": "Medalla Pantano"
+    },
+    {
+     "leader": "gsc-blaine",
+     "city": "Seafoam Islands",
+     "city_es": "Islas Espuma",
+     "type": "Fire",
+     "badge": "Volcano Badge",
+     "badge_es": "Medalla Volcán"
+    },
+    {
+     "leader": "gsc-blue",
+     "city": "Viridian City",
+     "city_es": "Ciudad Verde",
+     "type": "Various",
+     "badge": "Earth Badge",
+     "badge_es": "Medalla Tierra"
+    }
+   ],
+   "elite_four": [],
+   "champion": "gsc-red"
+  }
+ ]
+}

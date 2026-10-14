@@ -1,0 +1,34 @@
+{
+  "name": "silvers-hoard",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Pokémon battle simulator of the Hoard family: trainers, AI battles, gyms, leagues, tournaments and playable pages for friends.",
+  "scripts": {
+    "client": "vite",
+    "build": "vite build && vite build --config vite.play.config.js",
+    "build:app": "vite build",
+    "build:play": "vite build --config vite.play.config.js",
+    "start": "python -m silvers_hoard",
+    "test": "python -m pytest -q && node --test engine/test/engine.test.mjs",
+    "test:engine": "node --test engine/test/engine.test.mjs",
+    "mcp": "python mcp_server.py"
+  },
+  "dependencies": {
+    "@pkmn/randoms": "0.10.11",
+    "@pkmn/sets": "5.2.0",
+    "@pkmn/sim": "0.10.11",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.3.3",
+    "@vitejs/plugin-react": "4.7.0",
+    "tailwindcss": "4.3.3",
+    "vite": "6.4.4",
+    "vite-plugin-singlefile": "2.3.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

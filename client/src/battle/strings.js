@@ -1,0 +1,60 @@
+// Words of the battle screen, Spanish (castellano de España) first, English second. Shared by the app and the playable page.
+const S = {
+  log: ["Registro", "Log"],
+  turn_n: ["Turno {n}", "Turn {n}"],
+  waiting_start: ["Preparando el combate…", "Setting up the battle…"],
+  your_move: ["¿Qué hará {name}?", "What will {name} do?"],
+  choose_lead: ["Elige el orden: el primero sale a combatir", "Choose the order: the first one leads"],
+  choose_n: ["Elige {n} Pokémon, en orden", "Choose {n} Pokémon, in order"],
+  start_battle: ["Empezar", "Start"],
+  reset: ["Borrar", "Clear"],
+  choose_switch: ["¿Quién sale?", "Who comes in?"],
+  switch_to: ["Cambiar", "Switch"],
+  moves: ["Movimientos", "Moves"],
+  team: ["Equipo", "Team"],
+  trapped: ["No puede huir ni cambiar", "Can't escape or switch"],
+  choose_target: ["¿A quién?", "Target?"],
+  ally: ["aliado", "ally"],
+  waiting: ["Esperando al rival…", "Waiting for the opponent…"],
+  chosen: ["Elección enviada", "Choice sent"],
+  cancel: ["Cancelar", "Cancel"],
+  forfeit: ["Rendirse", "Forfeit"],
+  play: ["Reproducir", "Play"],
+  pause: ["Pausa", "Pause"],
+  step: ["Paso", "Step"],
+  to_end: ["Ir al final", "Skip to end"],
+  restart: ["Desde el principio", "From the start"],
+  speed: ["Velocidad", "Speed"],
+  terastallize: ["Teracristalizar ({type})", "Terastallize ({type})"],
+  mega: ["Megaevolucionar", "Mega Evolve"],
+  dynamax: ["Dinamax", "Dynamax"],
+  zmove: ["Movimiento Z", "Z-Move"],
+  ultra: ["Ultraexplosión", "Ultra Burst"],
+  power: ["Potencia", "Power"],
+  accuracy: ["Precisión", "Accuracy"],
+  physical: ["Físico", "Physical"],
+  special: ["Especial", "Special"],
+  status_cat: ["Estado", "Status"],
+  pp: ["PP", "PP"],
+  fainted: ["Debilitado", "Fainted"],
+  active_now: ["En combate", "In battle"],
+  winner: ["¡Gana {name}!", "{name} wins!"],
+  tie: ["Empate", "Tie"],
+  turns: ["{n} turnos", "{n} turns"],
+  hp: ["PS", "HP"],
+  lv: ["Nv.", "Lv."],
+  slot_n: ["Posición {n}", "Slot {n}"],
+  weather: ["Tiempo", "Weather"],
+  field: ["Campo", "Field"],
+  you: ["Tú", "You"],
+  doubles_slot: ["{name} (posición {n})", "{name} (slot {n})"],
+};
+
+export function battleT(lang) {
+  const i = lang === "en" ? 1 : 0;
+  return (key, vars) => {
+    let v = (S[key] || [key, key])[i];
+    if (vars) for (const [k, x] of Object.entries(vars)) v = v.replaceAll(`{${k}}`, String(x));
+    return v;
+  };
+}

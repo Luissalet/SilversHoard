@@ -1,0 +1,16 @@
+import {Battle, Teams, PRNG} from '@pkmn/sim';
+import {TeamGenerators} from '@pkmn/randoms';
+Teams.setGeneratorFactory(TeamGenerators);
+const b = new Battle({formatid:'gen9customgame', seed: '1,2,3,4', p1:{name:'A', team: Teams.pack(Teams.generate('gen9randombattle'))}, p2:{name:'B', team: Teams.pack(Teams.generate('gen9randombattle'))}});
+b.makeChoices('team 1','team 1');
+const snap = b.toJSON();
+const s1 = JSON.stringify(snap);
+const c1 = Battle.fromJSON(snap); 
+console.log('mutated', JSON.stringify(snap) !== s1);
+const c2 = Battle.fromJSON(snap);
+c1.prng = new PRNG('5,6,7,8'); c1.makeChoices('move 1','move 1');
+c2.prng = new PRNG('9,10,11,12'); c2.makeChoices('move 1','move 1');
+console.log(c1.sides.map(s=>s.active[0].hp), c2.sides.map(s=>s.active[0].hp), b.sides.map(s=>s.active[0].hp));
+console.log(typeof b.sides[0].active[0].getActionSpeed, b.sides[0].active[0].getActionSpeed?.());
+console.log(c1.log.length, b.log.length, s1.length);
+c1.choose('p1','move 9') ; console.log('choose invalid ->', c1.sides[0].choice.error);

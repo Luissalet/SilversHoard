@@ -1,0 +1,123 @@
+"""Routes for the bundled web UI and for programs that only read.
+
+Everything that changes data goes through ``POST /api/ui/call`` with ``{name, arguments}`` (the same tool handlers the assistant
+uses, uncapped). Pictures and files travel on their own routes: sprites (downloaded once from the sprite server and cached),
+avatars, exported files, and the uploads (photos, files to import)."""
+
+from __future__ import annotations
+
+import mimetypes
+import time
+from typing import Any
+
+from fastapi import APIRouter, File, Form, Request, UploadFile
+from fastapi.responses import FileResponse
+from pydantic import BaseModel, Field
+
+from ..agent_tools import TOOLS_BY_NAME, tool_catalog
+from ..errors import SilverError
+from ..hoard_link import family
+from .deps import services, tool
+
+router = APIRouter(prefix="/api")
+MAX_UPLOAD = 20 * 1024 * 1024
+CACHE = {"Cache-Control": "public, max-age=604800"}
+
+
+class CallBody(BaseModel):
+    name: str = Field(..., min_length=1, max_length=100)
+    arguments: dict[str, Any] | None = None
+
+
+@router.get("/overview")
+def overview(request: Request):
+    return services(request).overview()
+
+
+@router.get("/ui/tools")
+def ui_tools():
+    return {"tools": [t["name"] for t in tool_catalog()]}
+
+
+@router.post("/ui/call")
+def ui_call(request: Request, body: CallBody):
+    if body.name not in TOOLS_BY_NAME:
+        raise SilverError("not_found", f"Unknown tool: {body.name}")
+    t0 = time.monotonic()
+    ok, error = False, ""
+    try:
+        result = tool(request, body.name, body.arguments)
+        ok = True
+        return result
+    except Exception as exc:  # noqa: BLE001 - re-raised: the app's handlers shape the response
+        error = str(exc)[:200]
+        raise
+    finally:
+        family.record_call(body.name, ok, int((time.monotonic() - t0) * 1000), caller="ui", error=error)
+
+
+def _file(path, *, cache: bool = True, download: str = ""):
+    ctype = mimetypes.guess_type(path.name)[0] or "application/octet-stream"
+    headers = dict(CACHE) if cache else {"Cache-Control": "no-store"}
+    headers["X-Content-Type-Options"] = "nosniff"
+    if download:
+        return FileResponse(path, media_type=ctype, headers=headers, filename=download)
+    return FileResponse(path, media_type=ctype, headers=headers)
+
+
+@router.get("/sprites/pokemon/{sprite_id}")
+def pokemon_sprite(request: Request, sprite_id: str, set: str = "", back: bool = False, shiny: bool = False):
+    return _file(services(request).sprites.pokemon(sprite_id.removesuffix(".png").removesuffix(".gif"), set_=set, back=back, shiny=shiny))
+
+
+@router.get("/sprites/trainers/{name}")
+def trainer_sprite(request: Request, name: str):
+    return _file(services(request).sprites.trainer(name.removesuffix(".png")))
+
+
+@router.get("/sprites/items/{item_id}")
+def item_sprite(request: Request, item_id: str):
+    return _file(services(request).sprites.item_icon(item_id.removesuffix(".png")))
+
+
+@router.get("/sprites/stats")
+def sprite_stats(request: Request):
+    return services(request).sprites.stats()
+
+
+@router.get("/avatars/{filename}")
+def avatar(request: Request, filename: str):
+    return _file(services(request).sprites.avatar_path(filename), cache=False)
+
+
+@router.get("/avatars")
+def avatars(request: Request):
+    return {"avatars": services(request).sprites.avatars()}
+
+
+@router.post("/avatars/upload")
+async def avatar_upload(request: Request, file: UploadFile = File(...), trainer_id: str = Form(""), mode: str = Form("pixel"),
+                        remove_background: bool = Form(True)):
+    data = await file.read(MAX_UPLOAD + 1)
+    if len(data) > MAX_UPLOAD:
+        raise SilverError("too_large", "The picture is larger than 20 MB.")
+    return services(request).avatar_from_photo(data, trainer_id=trainer_id, mode=mode, remove_background=remove_background)
+
+
+@router.post("/import/upload")
+async def import_upload(request: Request, file: UploadFile = File(...), name: str = Form(""), format: str = Form("")):
+    data = await file.read(MAX_UPLOAD + 1)
+    if len(data) > MAX_UPLOAD:
+        raise SilverError("too_large", "The file is larger than 20 MB.")
+    return services(request).import_any(data, name=name, format_=format)
+
+
+@router.get("/exports/{filename}")
+def export_file(request: Request, filename: str, download: bool = True):
+    path = services(request).export_file(filename)
+    return _file(path, cache=False, download=filename if download else "")
+
+
+@router.get("/events")
+def events(request: Request, after: float = 0.0):
+    return {"events": [e for e in services(request).events if e["t"] > after], "now": time.time()}

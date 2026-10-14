@@ -1,0 +1,23 @@
+@import "tailwindcss";
+html, body { background: var(--hoard-deep, #1c1415); color: var(--hoard-text, #ece1e2); }
+body { margin: 0; font-family: var(--hoard-font-sans); font-size: 14px; }
+.p-wrap { max-width: 1240px; margin: 0 auto; padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+.p-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.p-target { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
+.p-target h1 { font-family: var(--hoard-font-serif); font-size: 26px; margin: 0; color: var(--hoard-accent); }
+.p-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); align-items: start; }
+.p-leader { display: flex; align-items: center; gap: 14px; }
+.p-leader h2 { font-size: 20px; margin: 0; }
+.p-avatar { width: 96px; height: 96px; object-fit: contain; flex: none; }
+.p-quote { font-style: italic; color: var(--hoard-text-muted); border-left: 3px solid var(--hoard-accent); padding-left: 10px; }
+.p-team { display: flex; flex-wrap: wrap; gap: 2px; }
+.p-team img { width: 56px; height: 56px; object-fit: contain; }
+.p-between { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; padding: 26px; }
+.p-final { display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; padding: 26px; }
+.p-final h2 { font-family: var(--hoard-font-serif); font-size: 26px; margin: 0; }
+.p-final.is-won h2 { color: #f2cf6a; }
+.p-final textarea { font-family: var(--hoard-font-mono); font-size: 12px; }
+.p-badge-win { animation: p-spin 1.2s ease-out; filter: drop-shadow(0 0 24px #f2cf6a99); }
+@keyframes p-spin { from { transform: rotateY(540deg) scale(0.2); opacity: 0; } to { transform: rotateY(0) scale(1); opacity: 1; } }
+.p-foot { text-align: center; padding: 6px 0 12px; }
+.gym-badge { flex: none; }
