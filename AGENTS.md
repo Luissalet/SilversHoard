@@ -9,7 +9,7 @@ npm ci                                   # the engine's packages (@pkmn/sim...) 
 npm run build                            # the app UI into silvers_hoard/static and the playable page into static/play/play.html
 python -m silvers_hoard                  # http://127.0.0.1:5230 (SILVER_DATA_DIR=<folder> for a scratch copy)
 python -m pytest                         # app tests (they start the real engine: Node.js and npm ci needed)
-npm run test:engine                      # engine tests: AI legal in gens 1-9, singles and doubles; snapshots; series; tournaments
+npm run test:engine                      # engine tests: AI legal in gens 1-9, singles and doubles; snapshots; series; tournaments; real time
 node engine/scripts/build_canon.mjs <pret files> silvers_hoard/presets/canon.json   # rebuild the in-game teams
 python engine/scripts/build_names_es.py <PokeAPI csv> client/src/battle/names-es.js # rebuild the Spanish names
 python scripts/make_icon.py --family "../Icons"                                     # the icon from the family dragon
@@ -19,6 +19,7 @@ python scripts/make_icon.py --family "../Icons"                                 
 
 - The UI, the REST agent route and MCP call the same handlers in `agent_tools.py`. A new tool needs a pydantic argument model, a first description line of at most 110 characters (English, then Spanish keywords) and a test.
 - Everything about a battle happens in the engine (`engine/src`): `core.mjs` (formats, teams, Pokédex), `ai.mjs` (the trainers), `match.mjs` (one battle and its views), `stats.mjs` (summaries, series, tournaments). The same files run in the playable page, so they must stay browser-safe (no Node modules outside `server.mjs` and `cli.mjs`).
+- Real time lives in `engine/src/realtime` (rules, simulator, AI) and `client/src/battle/rt` (screen). It must stay deterministic and browser-safe: randomness only from `makeRng` generators seeded from the spec, fixed ticks, `Math.sqrt` instead of `Math.hypot`, no trigonometry or `Math.random` in the simulation; the engine replays a screen's inputs to store a result, so any difference between Node and the browser breaks results. `engine/test/realtime.test.mjs` checks replays and cooldowns.
 - The AI reads the battle through a deep copy (`freeze` + `Battle.fromJSON`); it must never change the live battle (`engine/test` checks it).
 - Live battles keep a snapshot in the database after every choice; a restarted engine resumes them. `since` counts lines of the live log; finished battles store the omniscient log.
 - No Pokémon art ships with the app: sprites come from the Showdown sprite server on first use and stay in `data/cache/sprites`.
