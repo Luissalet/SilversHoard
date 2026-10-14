@@ -18,6 +18,21 @@ function fmtTime(s) {
   return `${Math.floor(v / 60)}:${String(v % 60).padStart(2, "0")}`;
 }
 
+const SOURCES = {
+  sandstorm: ["tormenta de arena", "sandstorm"], hail: ["granizo", "hail"], recoil: ["retroceso", "recoil"], trap: ["atrapado", "trapped"],
+  brn: ["quemadura", "burn"], psn: ["veneno", "poison"], tox: ["veneno grave", "bad poison"], curse: ["maldición", "curse"],
+};
+
+/** What hurt a Pokémon, in words: a weather, a status, or the move, ability or item of that id. */
+function sourceName(id, b, lang) {
+  if (SOURCES[id]) return L(SOURCES[id], lang);
+  for (const [kind, table] of [["move", b.dex.moves], ["item", b.dex.items], ["ability", b.dex.abilities]]) {
+    const e = table.get(id);
+    if (e?.exists) return nameOf(kind, e.name, lang);
+  }
+  return id;
+}
+
 /** One line of the log for an event, in Spanish or English. */
 function logLine(e, b, lang, tr) {
   const side = (i) => b.sides[i];
@@ -46,7 +61,7 @@ function logLine(e, b, lang, tr) {
     case "terrain": return { sec, k: "info", text: es ? `Cambia el campo (${e.secs} s)` : `The terrain changed (${e.secs} s)` };
     case "hazard": return { sec, k: "info", text: `${nameOf("move", { stealthrock: "Stealth Rock", spikes: "Spikes", toxicspikes: "Toxic Spikes", stickyweb: "Sticky Web" }[e.id] || e.id, lang)} → ${side(e.s).name}` };
     case "heal": return e.amount >= 1 ? { sec, k: "minor", text: `${who(e.s)} +${Math.max(1, Math.round((e.amount / Math.max(1, e.maxhp)) * 100))}%` } : null;
-    case "chip": return { sec, k: "minor", text: `${who(e.s)} −${Math.max(1, Math.round((e.amount / Math.max(1, e.maxhp)) * 100))}% (${e.source})` };
+    case "chip": return { sec, k: "minor", text: `${who(e.s)} −${Math.max(1, Math.round((e.amount / Math.max(1, e.maxhp)) * 100))}% (${sourceName(e.source, b, lang)})` };
     case "forfeit": return { sec, k: "big", text: es ? `${side(e.s).name} se rinde` : `${side(e.s).name} forfeited` };
     case "end": return { sec, k: "big", text: e.winner === 0 || e.winner === 1 ? tr("rt_winner", { name: side(e.winner).name }) : tr("rt_tie") };
     default: return null;

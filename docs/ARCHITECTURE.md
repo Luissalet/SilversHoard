@@ -8,8 +8,10 @@ MCP client ──stdio── mcp_server.py ──/api/agent/call──►       
                                                                 ├── SQLite data/silver.db            (live battles in memory)
                                                                 ├── jobs: node engine/src/cli.mjs  (series, tournaments, watched battles)
                                                                 ├── sprites: Showdown sprite server → data/cache/sprites
+                                                                ├── walking sprites (real time): PMDCollab SpriteCollab → data/cache/pmd
                                                                 └── family: Hoard Hub (copilot, events, LLM, Prospero)
 playable page (static/play/play.html) = React battle screen + engine/src (core, ai, match) inlined, data slot filled on export
+real-time screen (client/src/battle/rt, lazy chunk) = engine/src/realtime run in the browser; the app replays its inputs with the same files
 ```
 
 ## Engine (`engine/src`, ES modules, also bundled into the playable page)
@@ -36,6 +38,18 @@ playable page (static/play/play.html) = React battle screen + engine/src (core, 
 - `battle/` — shared by the app and the playable page: `protocol.js` (protocol reducer + sentences in Spanish/English), `player.js` (timed playback, seek, skip), `Arena.jsx` (field, sprites with Web Animations, HP cards, field effects, trainer bubbles, log), `Controls.jsx` (team preview, moves, targets, gimmicks, switches, forced switches, replay bar), `dex.js` (types, sprite ids, Spanish names, sprite URLs).
 - `pages/` — Inicio, Combatir (battle / series / tournament), Combate, Trabajo (series stats, bracket, table), Entrenadores, Entrenador (team cards, team builder, text, AI, lines, battles), Gimnasios / Gimnasio (editor, challenge, badge holders), Ligas / Liga, Personajes, Historial, Medallas, Compartir, Ajustes.
 - `play/` — the playable page: target card, the friend's team (paste, random, trainer file), validation with the gym's rules, the stages one after another, result code and result file.
+
+## Real time (`engine/src/realtime`, `client/src/battle/rt`, `silvers_hoard/pmd.py`)
+
+- `za-data.mjs` — Legends: Z-A's base cooldowns of its 337 moves (Serebii, Bulbapedia), its power changes for fast and multi-hit moves, hits per use, and the Speed rule's constants.
+- `moves.mjs` — `rtMove(id, gen)`: a move as real time uses it: base cooldown (Z-A's, else `derivedCooldown` from PP, power and kind, mean error 1.3 s against Z-A's table), `finalCooldown` (3 s off per 100 Speed over 25, floor 3 s, priority 3 s), wind-up ticks, shape (`strike`, `dash`, `shot`, `beam`, `wave`, `cone`, `burst`, `drop`, `self`, `field`), reach and the effects the simulator applies. `cooldownTable` for screens and tools.
+- `team.mjs` — format id, generation and sets for real time without core.mjs's random-team generator (keeps the browser chunk smaller).
+- `sim.mjs` — `RtBattle`: 30 ticks per second, a 28 × 17 m arena, one Pokémon per side. Each tick every seat gives an input `{mx, my, use, dodge, sw}` (people from the screen, AI seats from `brain.mjs`); acts are `approach` (walk into range), `windup`, `dash`, `roll` (invulnerable), `recover` (after recharge moves) and `switch`. Damage is the turn-based formula with abilities and items; one-stage timed boosts, timed statuses, residual effects every 4 s, weather, terrain, screens, hazards, protection, substitutes, pivots and forced switches. `view()` is what the screen draws; `summary()` has the classic summary's shape plus `mode`, `seconds` and `reason`; `eventLines` writes the stored English log. `rtRun(spec, {inputs, forfeit, tick})` and `fastForward` replay. Determinism: seeded generators (`makeRng`), fixed ticks, `Math.sqrt` instead of `Math.hypot`, no trigonometry; Node and Chrome give identical summaries.
+- `brain.mjs` — the AI's reflexes: reaction time, dodge chance and switching by level; move scores (expected damage, setup, status, protection, recovery, hazards) weighted by style; spacing for melee or ranged moves; picking the next Pokémon by matchup.
+- Engine commands: `rt_check` (validate a spec, first view), `rt_team` (a team's real stats and cooldowns), `rt_cooldowns`, `rt_play_out` (AI vs AI), `rt_replay` (inputs, or a forfeit at a tick). `stats.mjs` plays series and tournaments in either mode.
+- App: battles carry `mode` and `replay` ({time_limit, inputs, tick}); a live real-time battle saves its inputs every 5 s (`battle_rt_save`) and ends with `battle_rt_finish`, which replays them in the engine and stores that result; watched ones run `rt_play_out` as a background job while the screen replays the same battle. Runs (gym and league challenges) keep their mode for every stage.
+- `pmd.py` — downloads SpriteCollab's `AnimData.xml` and sheets of a Pokémon (forms through the tracker, shiny under `0000/0001`), works out each animation's ground anchor from its `-Shadow.png`, caches meta and sheets; routes `/api/sprites/pmd/{dex}` and `/api/sprites/pmd-sheet/{key}/{anim}`; starting a real-time battle prefetches both teams.
+- Client: `RtScreen.jsx` (loop, keyboard and gamepad through `input.js`, HUD, pause and forfeit, result, replay with speeds), `render.js` (canvas: court, trainers, depth-sorted sprites with `pmd.js`'s animator, projectiles, telegraphs, effects, floating numbers), `ModeFields.jsx` (the mode switch in battles, challenges, series and tournaments), `CooldownsTab.jsx` (the trainer page's real-time tab). Words in `rt/strings.js`, merged into the app's dictionary.
 
 ## Data formats
 
