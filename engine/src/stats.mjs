@@ -1,6 +1,7 @@
 // What a finished battle says in numbers (KOs, damage, survivors), and batches of AI-vs-AI battles (series and tournaments).
 import {Match, viewLines} from './match.mjs';
 import {makeRng} from './ai.mjs';
+import {eventLines, rtRun} from './realtime/sim.mjs';
 
 function nameOf(ident) {
   // "p1a: Garchomp" -> ["p1", "Garchomp"]
@@ -76,18 +77,28 @@ export function playOut(spec, {keepLog = true} = {}) {
   return {summary: summarize(lines), lines: keepLog ? lines : null, errors: m.errors, seed: m.spec.seed, turns: m.battle.turn};
 }
 
+/** One AI-vs-AI battle in real time (Legends: Z-A rules), in the same shape as `playOut`. */
+export function rtPlayOut(spec) {
+  const b = rtRun({...spec, seed: Array.isArray(spec.seed) ? spec.seed.join(',') : String(spec.seed || Date.now())});
+  return {summary: b.summary(), lines: eventLines(b), errors: [], seed: b.seed, turns: 0, seconds: b.t / 30};
+}
+
+const playAny = (spec, opts) => (spec.mode === 'realtime' ? rtPlayOut(spec) : playOut(spec, opts));
+
 /** `count` battles between the same two trainers: win rates, average turns, MVPs; the log of one battle of each outcome. */
 export function series(spec, count = 10, onProgress = () => {}) {
   const rng = makeRng(spec.seed || Date.now());
   const results = {p1: 0, p2: 0, tie: 0};
   const perMon = {};
   let turns = 0;
+  let seconds = 0;
   const samples = {};
   const battles = [];
   for (let i = 0; i < count; i++) {
     const seed = [0, 1, 2, 3].map(() => Math.floor(rng() * 65536));
-    const r = playOut({...spec, seed}, {keepLog: true});
+    const r = playAny({...spec, seed}, {keepLog: true});
     const w = r.summary.winner_side || 'tie';
+    seconds += r.seconds || 0;
     results[w] = (results[w] || 0) + 1;
     turns += r.summary.turns;
     for (const side of ['p1', 'p2']) {
@@ -101,13 +112,14 @@ export function series(spec, count = 10, onProgress = () => {}) {
       }
     }
     if (!samples[w]) samples[w] = {seed: r.seed, lines: r.lines, summary: r.summary};
-    battles.push({seed: r.seed, winner_side: w, turns: r.summary.turns});
+    battles.push({seed: r.seed, winner_side: w, turns: r.summary.turns, seconds: r.seconds || 0});
     onProgress((i + 1) / count);
   }
   const mons = Object.values(perMon).map((m) => ({...m, damage: Math.round((m.damage / m.battles) * 100) / 100,
     kos_per_battle: Math.round((m.kos / m.battles) * 100) / 100, survival: Math.round((1 - m.fainted / m.battles) * 100) / 100}));
   mons.sort((a, b) => b.kos_per_battle - a.kos_per_battle || b.damage - a.damage);
   return {count, wins: results, win_rate: {p1: results.p1 / count, p2: results.p2 / count}, avg_turns: Math.round((turns / count) * 10) / 10,
+    avg_seconds: Math.round((seconds / count) * 10) / 10, mode: spec.mode === 'realtime' ? 'realtime' : 'classic',
     mvp: {p1: mons.find((m) => m.side === 'p1') || null, p2: mons.find((m) => m.side === 'p2') || null}, pokemon: mons, battles, samples};
 }
 
@@ -115,7 +127,7 @@ export function series(spec, count = 10, onProgress = () => {}) {
  * A tournament between trainers, played by the AI: kind "bracket" (single elimination, byes for the best seeds) or "league" (everyone
  * against everyone, 3 points a win, 1 a tie). entrants: [{id, name, sets, ai}]. best_of: battles per pairing (odd).
  */
-export function tournament({format, rules, level_rules, entrants, kind = 'bracket', best_of = 1, seed}, onProgress = () => {}) {
+export function tournament({format, rules, level_rules, entrants, kind = 'bracket', best_of = 1, seed, mode = 'classic', time_limit = 0}, onProgress = () => {}) {
   const rng = makeRng(seed || Date.now());
   const bo = Math.max(1, Number(best_of) | 0) | 1;
   const matches = [];
@@ -126,10 +138,10 @@ export function tournament({format, rules, level_rules, entrants, kind = 'bracke
     const games = [];
     for (let g = 0; g < bo && wa <= bo / 2 && wb <= bo / 2; g++) {
       const s = [0, 1, 2, 3].map(() => Math.floor(rng() * 65536));
-      const r = playOut({format, rules, level_rules, seed: s, p1: {name: a.name, sets: a.sets, ai: a.ai}, p2: {name: b.name, sets: b.sets, ai: b.ai}});
+      const r = playAny({format, rules, level_rules, mode, time_limit, seed: s, p1: {name: a.name, sets: a.sets, ai: a.ai}, p2: {name: b.name, sets: b.sets, ai: b.ai}});
       const w = r.summary.winner_side;
       if (w === 'p1') wa++; else if (w === 'p2') wb++;
-      games.push({seed: s, winner: w === 'p1' ? a.id : w === 'p2' ? b.id : '', turns: r.summary.turns, lines: r.lines, summary: r.summary});
+      games.push({seed: mode === 'realtime' ? r.seed : s, winner: w === 'p1' ? a.id : w === 'p2' ? b.id : '', turns: r.summary.turns, seconds: r.seconds || 0, lines: r.lines, summary: r.summary});
       played++;
       onProgress(played);
     }

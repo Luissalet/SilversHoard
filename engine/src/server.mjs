@@ -7,6 +7,8 @@ import {Match} from './match.mjs';
 import {playOut, series, summarize, tournament} from './stats.mjs';
 import {viewLines} from './match.mjs';
 import {freeze} from './ai.mjs';
+import {RtBattle, eventLines, prepareRtTeam, rtRun} from './realtime/sim.mjs';
+import {cooldownTable} from './realtime/moves.mjs';
 
 const matches = new Map();
 const MAX_OPEN = 64;
@@ -74,7 +76,22 @@ const handlers = {
   simulate: (a) => series(a.spec, Math.max(1, Math.min(Number(a.count) || 1, 200))),
   tournament: (a) => tournament(a),
   summarize: (a) => summarize(a.lines || []),
+  // real time (Legends: Z-A rules): the screen runs the battle; the engine checks the teams, plays AI-vs-AI battles and
+  // replays a battle from its seed and the people's inputs to get the result the app stores
+  rt_check: (a) => {
+    const b = new RtBattle(a.spec);
+    return {seed: b.seed, format: b.formatId, gen: b.gen, view: b.view()};
+  },
+  rt_team: (a) => ({pokemon: prepareRtTeam(core.importTeam(a.sets), {format: a.format || 'gen9customgame', levelRules: a.level_rules || {}})}),
+  rt_cooldowns: (a) => ({moves: cooldownTable(a.moves || [], {gen: a.gen || 9, speed: a.speed || 0})}),
+  rt_play_out: (a) => rtResult(rtRun(a.spec), a),
+  rt_replay: (a) => rtResult(rtRun(a.spec, {inputs: a.inputs || [], forfeit: a.forfeit || '', tick: a.tick || 0}), a),
 };
+
+function rtResult(b, a = {}) {
+  return {summary: b.summary(), lines: eventLines(b), seed: b.seed, seconds: b.t / 30, ended: b.ended, winner_side: b.summary().winner_side,
+    inputs: b.inputLog, events: a.want_events ? b.events : undefined};
+}
 
 export async function handle(req) {
   const fn = handlers[req.cmd];
