@@ -1169,35 +1169,67 @@ class Services:
         return self._job("avatar", f"Sprite desde foto ({stem})", {"trainer_id": trainer_id, "photo": src},
                          lambda jid, progress, cancelled: self._prospero_sprite(src_path, trainer_id, progress, cancelled))
 
-    def _prospero_call(self, tool: str, args: dict[str, Any], timeout: float = 120.0) -> Any:
+    PROSPERO_REASON = "Silver's Hoard: a trainer sprite drawn from the user's photo"
+
+    def _prospero_call(self, tool: str, args: dict[str, Any], timeout: float = 120.0, write: bool = False) -> Any:
+        if write:
+            args = {**args, "reason": self.PROSPERO_REASON}
         res = family.call("prospero", tool, args, timeout=timeout)
         if not res.get("ok"):
             raise SilverError("unavailable", f"Prospero's Hoard did not answer {tool}: {res.get('error') or res.get('status')}",
                               hint="Start Hoard Hub and Prospero's Hoard (with ComfyUI), or use the pixel-art filter.")
         return res.get("result")
 
+    @staticmethod
+    def _prospero_url() -> str:
+        """Where Prospero listens, as the hub knows it (its port can be adapted at launch)."""
+        import urllib.request
+        try:
+            with urllib.request.urlopen(family._hub().rstrip("/") + "/api/apps/prospero", timeout=10) as r:
+                url = str(json.loads(r.read()).get("url") or "")
+        except Exception:  # noqa: BLE001 - fall back to the default port
+            url = ""
+        return (url or "http://127.0.0.1:8815").rstrip("/")
+
+    @staticmethod
+    def _prospero_file(base: str, asset_id: str) -> bytes:
+        """The picture itself, by asset id (tool results are capped in size, so pictures are not read through the hub)."""
+        import urllib.parse
+        import urllib.request
+        with urllib.request.urlopen(f"{base}/api/assets/{urllib.parse.quote(asset_id, safe='')}/file", timeout=60) as r:
+            data = r.read(30_000_000)
+        if not data:
+            raise SilverError("unavailable", "Prospero sent an empty picture.")
+        return data
+
     def _prospero_sprite(self, photo: str, trainer_id: str, progress: Callable[[float], None], cancelled: Callable[[], bool]) -> dict[str, Any]:
         progress(0.02)
-        projects = self._prospero_call("studio_projects", {"query": "Silver's Hoard"}) or {}
+        projects = self._prospero_call("studio_projects", {"query": "Silver's Hoard", "limit": 20}) or {}
         items = (projects.get("items") if isinstance(projects, dict) else None) or []
         project = next((p["id"] for p in items if p.get("name") == "Silver's Hoard"), "")
         if not project:
-            created = self._prospero_call("studio_create_project", {"name": "Silver's Hoard", "brief": "Trainer sprites made from photos for the battle simulator."})
-            project = created.get("id")
-        imported = self._prospero_call("studio_import", {"project": project, "path": photo})
+            created = self._prospero_call("studio_create_project", {"name": "Silver's Hoard",
+                                                                    "brief": "Trainer sprites made from photos for the battle simulator."}, write=True) or {}
+            project = created.get("id") or (created.get("project") or {}).get("id")
+        if not project:
+            raise SilverError("unavailable", "Prospero did not create the project for the sprites.")
+        imported = self._prospero_call("studio_import", {"project": project, "path": str(Path(photo).resolve()), "kind": "image"}, write=True) or {}
         asset = imported.get("id") or (imported.get("asset") or {}).get("id")
         if not asset:
             raise SilverError("unavailable", "Prospero did not import the photo.")
         progress(0.1)
         gen = self._prospero_call("studio_generate_image", {"project": project, "prompt": self.settings["prospero_prompt"],
-                                                            "reference_asset_ids": [asset], "count": 2, "aspect": "1:1"}, timeout=180)
+                                                            "reference_asset_ids": [asset], "count": 2, "aspect": "1:1"},
+                                  timeout=180, write=True) or {}
         job = (gen.get("job") or {}) if isinstance(gen, dict) else {}
         job_id = job.get("id")
+        if not job_id:
+            raise SilverError("unavailable", "Prospero did not queue the picture.")
         deadline = time.monotonic() + 3600
-        while job_id and job.get("state") not in ("done", "failed", "cancelled"):
+        while job.get("state") not in ("done", "failed", "cancelled"):
             if cancelled():
                 try:
-                    self._prospero_call("studio_cancel_job", {"job_id": job_id})
+                    self._prospero_call("studio_cancel_job", {"job_id": job_id}, write=True)
                 finally:
                     raise SilverError("cancelled", "Cancelled.")
             if time.monotonic() > deadline:
@@ -1207,20 +1239,21 @@ class Services:
             if isinstance(p, (int, float)):
                 progress(0.1 + 0.8 * min(1.0, p if p <= 1 else p / 100))
         if job.get("state") != "done":
-            raise SilverError("unavailable", f"Prospero's render ended as {job.get('state')}: {job.get('error') or ''}".strip())
+            raise SilverError("unavailable", f"Prospero's render ended as {job.get('state')}: {job.get('error') or job.get('message') or ''}".strip())
+        base = self._prospero_url()
         files = []
-        for a in job.get("assets") or []:
-            path = a.get("path") or a.get("file") or ""
-            if path and Path(path).exists():
-                data = Path(path).read_bytes()
-                name = self.sprites.save_avatar(data, stem=f"{trainer_id or 'prospero'}-ai", pixelate=True, remove_background=True)
-                files.append({"file": name, "url": f"/api/avatars/{name}", "avatar": f"file:{name}", "prospero_asset": a.get("id")})
+        for aid in (job.get("asset_ids") or [a.get("id") for a in job.get("assets") or []])[:4]:
+            if not aid:
+                continue
+            data = self._prospero_file(base, aid)
+            name = self.sprites.save_avatar(data, stem=f"{trainer_id or 'prospero'}-ai", pixelate=True, remove_background=True)
+            files.append({"file": name, "url": f"/api/avatars/{name}", "avatar": f"file:{name}", "prospero_asset": aid})
         if not files:
-            raise SilverError("unavailable", "Prospero finished but its pictures are not reachable from here.")
+            raise SilverError("unavailable", "Prospero finished without pictures.")
         if trainer_id:
             self.store.update_trainer(trainer_id, {"avatar": files[0]["avatar"]})
         progress(1.0)
-        return {"candidates": files, "project": project}
+        return {"candidates": files, "project": project, "prospero_job": job_id}
 
     # ------------------------------------------------------------ settings
     def settings_set(self, changes: dict[str, Any]) -> dict[str, Any]:
