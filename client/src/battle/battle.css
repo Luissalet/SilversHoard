@@ -115,6 +115,9 @@
   .b-mons.foe { top: 20%; }
 }
 
+/* below 900px the player's trainer is hidden and their card reaches the middle: the turn goes to the free bottom-left corner */
+@media (max-width: 899px) { .b-turn { left: 8px; transform: none; } }
+
 /* log */
 .b-log { background: var(--b-surface); border: 1px solid var(--b-line); border-radius: 12px; padding: 8px 10px; max-height: 560px; overflow-y: auto; font-size: 12.8px; line-height: 1.45; }
 .b-log.compact { max-height: 260px; }

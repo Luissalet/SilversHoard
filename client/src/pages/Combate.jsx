@@ -28,6 +28,34 @@ function RunStrip({ run }) {
   );
 }
 
+/** A friend's result that came as a short code: who played, who won and each stage, without a replay to show. */
+function FriendResult({ battle }) {
+  const { t } = useApp();
+  const stages = battle.summary?.stages || [];
+  const side = (key) => (
+    <div className={`series-side${battle.winner_side === key ? " is-winner" : ""}`}>
+      <Avatar url={battle[key].avatar_url} name={battle[key].name} size={72} />
+      <b>{battle[key].name}</b>
+    </div>
+  );
+  return (
+    <div className="space-y-3">
+      <div className="panel series-score">
+        {side("p1")}
+        <div className="series-mid"><span className="help">vs</span><b>{t("turns_n", { n: battle.turns || 0 })}</b></div>
+        {side("p2")}
+      </div>
+      {stages.length > 1 && (
+        <div className="run-strip">
+          {stages.map((st, i) => (
+            <span key={i} className={`run-stage ${st.won ? "won" : "lost"}`}>{st.won ? t("won") : t("lost")} · {st.name} · {t("turns_n", { n: st.turns || 0 })}</span>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function Combate({ param }) {
   const { t, lang, sprites, settings, notify, toastError, changed, go, confirm } = useApp();
   const [speedMs, setSpeedMs] = useStored("silver-speed", settings.playback_ms || 900);
@@ -144,7 +172,9 @@ export default function Combate({ param }) {
       </div>
       <RunStrip run={battle.run} />
       {battle.kind === "friend" && !battle.log_length && <div className="banner banner-info">{t("no_replay")}</div>}
-      {battle.status === "running" ? (
+      {battle.kind === "friend" && !battle.log_length ? (
+        <FriendResult battle={battle} />
+      ) : battle.status === "running" ? (
         <Empty title={t("ai_playing")}><span className="flex items-center justify-center gap-2"><Spinner /> {t("ai_playing_help")}</span></Empty>
       ) : battle.status === "failed" ? (
         <ErrorBox error={{ message: battle.summary?.error || t("battle_failed") }} onRetry={reload} />
