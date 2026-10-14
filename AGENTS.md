@@ -1,13 +1,13 @@
 # Working on Silver's Hoard
 
-Pokémon battle simulator of the Hoard family (package `silvers_hoard`, service `silvers-hoard`, app id `silver`, port 5206). Read [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) first.
+Pokémon battle simulator of the Hoard family (package `silvers_hoard`, service `silvers-hoard`, app id `silver`, port 5230). Read [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) first.
 
 ## Commands
 
 ```bash
 npm ci                                   # the engine's packages (@pkmn/sim...) and the client's
 npm run build                            # the app UI into silvers_hoard/static and the playable page into static/play/play.html
-python -m silvers_hoard                  # http://127.0.0.1:5206 (SILVER_DATA_DIR=<folder> for a scratch copy)
+python -m silvers_hoard                  # http://127.0.0.1:5230 (SILVER_DATA_DIR=<folder> for a scratch copy)
 python -m pytest                         # app tests (they start the real engine: Node.js and npm ci needed)
 npm run test:engine                      # engine tests: AI legal in gens 1-9, singles and doubles; snapshots; series; tournaments
 node engine/scripts/build_canon.mjs <pret files> silvers_hoard/presets/canon.json   # rebuild the in-game teams

@@ -26,12 +26,12 @@
     "PYTHON"
   ],
   "defaults": {
-    "APP_URL": "http://127.0.0.1:5206",
+    "APP_URL": "http://127.0.0.1:5230",
     "TOKEN_FILE": "{SILVER_DIR}/data/mcp-token",
     "PYTHON": "{SILVER_DIR}/venv/Scripts/python.exe"
   },
   "app": {
-    "url_default": "http://127.0.0.1:5206",
+    "url_default": "http://127.0.0.1:5230",
     "ui_url": "{APP_URL}",
     "health": {
       "path": "/api/health",
@@ -59,7 +59,7 @@
       "cwd": "{SILVER_DIR}",
       "env": {
         "PORT_STRICT": "1",
-        "SILVER_PORT": "5206"
+        "SILVER_PORT": "5230"
       },
       "readiness": {
         "url": "{APP_URL}/api/health",

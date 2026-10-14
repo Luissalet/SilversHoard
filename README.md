@@ -33,7 +33,7 @@ A local Pokémon battle simulator for the Hoard family. It runs on Pokémon Show
 npm ci                       # Node.js 20 or newer: the engine and the client
 npm run build                # the UI and the playable page template
 python -m venv venv && venv/Scripts/pip install -r requirements.txt   # or venv/bin/pip on Linux and macOS
-venv/Scripts/python -m silvers_hoard    # http://127.0.0.1:5206
+venv/Scripts/python -m silvers_hoard    # http://127.0.0.1:5230
 ```
 
 Hoard Hub finds it through `faustus-plugin.json`. Data lives in `data/` (or `SILVER_DATA_DIR`): `silver.db`, avatars, exports and the sprite cache.

@@ -47,7 +47,7 @@ def services(tmp_path):
 @pytest.fixture
 def client(services):
     app = create_app(services.config, services=services)
-    with TestClient(app, base_url="http://127.0.0.1:5206") as c:
+    with TestClient(app, base_url="http://127.0.0.1:5230") as c:
         yield c
 
 

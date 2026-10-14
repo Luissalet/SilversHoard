@@ -12,7 +12,7 @@ from silvers_hoard.hoard_link.bridge import CatalogBridge
 
 
 def main() -> int:
-    CatalogBridge(app="silver", service="silvers-hoard", package="silvers_hoard", default_port=5206, data_dir_env="SILVER_DATA_DIR",
+    CatalogBridge(app="silver", service="silvers-hoard", package="silvers_hoard", default_port=5230, data_dir_env="SILVER_DATA_DIR",
                   title="Silver's Hoard", root=__file__, default_timeout=900.0).run_bridge()
     return 0
 

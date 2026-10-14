@@ -16,7 +16,7 @@ export default defineConfig({
     host: '127.0.0.1',
     port: Number(process.env.VITE_PORT || 5173),
     proxy: {
-      '/api': `http://127.0.0.1:${process.env.SILVER_PORT || process.env.PORT || 5206}`,
+      '/api': `http://127.0.0.1:${process.env.SILVER_PORT || process.env.PORT || 5230}`,
     },
   },
 });

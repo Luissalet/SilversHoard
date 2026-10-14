@@ -7,4 +7,4 @@ The battles run on the Pokémon Showdown simulator (``@pkmn/sim``) in a Node pro
 __version__ = "0.1.0"
 SERVICE = "silvers-hoard"
 APP_ID = "silver"
-DEFAULT_PORT = 5206
+DEFAULT_PORT = 5230
