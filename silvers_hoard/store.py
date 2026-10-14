@@ -159,10 +159,19 @@ CREATE TABLE jobs (
 );
 """
 
+# Real-time battles (Legends: Z-A rules): the battle's mode, and what replays it (seed, time limit and the inputs of the people
+# who played; the AI replays itself from the seed). Gym and league challenges remember the mode they are played in.
+SCHEMA_V2 = """
+ALTER TABLE battles ADD COLUMN mode TEXT NOT NULL DEFAULT 'classic';
+ALTER TABLE battles ADD COLUMN replay_json TEXT NOT NULL DEFAULT '{}';
+ALTER TABLE runs ADD COLUMN mode TEXT NOT NULL DEFAULT 'classic';
+"""
+
 TRAINER_JSON = {"team_json": "team", "dialogue_json": "dialogue", "tags_json": "tags"}
 GYM_JSON = {"rules_json": "rules", "level_rules_json": "level_rules", "trainers_json": "trainers"}
 LEAGUE_JSON = {"rules_json": "rules", "level_rules_json": "level_rules", "gyms_json": "gyms", "elite_json": "elite_four"}
-BATTLE_JSON = {"rules_json": "rules", "level_rules_json": "level_rules", "p1_json": "p1", "p2_json": "p2", "summary_json": "summary"}
+BATTLE_JSON = {"rules_json": "rules", "level_rules_json": "level_rules", "p1_json": "p1", "p2_json": "p2", "summary_json": "summary",
+               "replay_json": "replay"}
 RUN_JSON = {"challenger_json": "challenger", "stages_json": "stages"}
 BADGE_JSON = {"proof_json": "proof"}
 HALL_JSON = {"team_json": "team"}
@@ -192,7 +201,7 @@ def _encode(values: dict[str, Any], json_cols: dict[str, str]) -> dict[str, Any]
 
 class Store:
     def __init__(self, path: Path):
-        self.db = Database(path, migrations=[SCHEMA_V1])
+        self.db = Database(path, migrations=[SCHEMA_V1, SCHEMA_V2])
 
     def close(self) -> None:
         self.db.close()
@@ -374,7 +383,7 @@ class Store:
         if job_id:
             where.append("job_id = ?")
             params.append(job_id)
-        cols = ("id, kind, status, format, rules_json, level_rules_json, p1_json, p2_json, winner_side, winner_name, turns, summary_json, seed, "
+        cols = ("id, kind, status, mode, format, rules_json, level_rules_json, p1_json, p2_json, winner_side, winner_name, turns, summary_json, seed, "
                 "run_id, job_id, title, created_at, updated_at") if light else "*"
         rows = self.db.query(f"SELECT {cols} FROM battles WHERE {' AND '.join(where)} ORDER BY updated_at DESC LIMIT ? OFFSET ?", (*params, limit, offset))
         return [_decode(r, BATTLE_JSON) for r in rows]

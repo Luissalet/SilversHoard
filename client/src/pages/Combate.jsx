@@ -8,8 +8,10 @@ import { useBattlePlayer } from "../battle/player.js";
 import { Busy, Empty, ErrorBox, Icon, ICONS, Spinner, useBusy, useLoad, useStored } from "../components/ui.jsx";
 import { useContextProvider, usePoll } from "../components/hooks.js";
 import { Avatar, GymBadge, useSeats } from "../components/silver.jsx";
+// the real-time screen carries the battle engine: loaded only when a real-time battle opens
+const CombateRt = React.lazy(() => import("./CombateRt.jsx"));
 
-function RunStrip({ run }) {
+export function RunStrip({ run }) {
   const { t } = useApp();
   if (!run) return null;
   return (
@@ -142,6 +144,13 @@ export default function Combate({ param }) {
 
   if (error && !battle) return <ErrorBox error={error} onRetry={reload} />;
   if (!battle) return <div className="flex items-center gap-2"><Spinner /> {t("loading")}</div>;
+  if (battle.mode === "realtime") {
+    return (
+      <React.Suspense fallback={<div className="flex items-center gap-2"><Spinner /> {t("rt_loading")}</div>}>
+        <CombateRt battle={battle} setData={setData} />
+      </React.Suspense>
+    );
+  }
 
   const live = battle.status === "live";
   const requestSide = live && player.caughtUp ? humans.find((s) => battle.requests?.[s] && !battle.requests[s].done) || humans.find((s) => battle.requests?.[s]) : null;

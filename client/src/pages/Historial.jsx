@@ -16,10 +16,11 @@ export function BattleRow({ b, onDelete }) {
         <span className={`vs-side ${won("p2") ? "is-winner" : ""}`}><Avatar url={b.p2.avatar_url} name={b.p2.name} size={34} /><span className="trunc">{b.p2.name}</span></span>
       </a>
       <span className="hide-sm chip">{t(`kind_${b.kind}`)}</span>
+      {b.mode === "realtime" && <span className="hide-sm chip chip-rt">{t("rt_chip")}</span>}
       <span className={`chip ${b.status === "live" ? "chip-accent" : b.status === "running" ? "chip-amber" : b.status === "failed" ? "chip-danger" : ""}`}>
         {b.status === "ended" ? (b.winner_name ? t("winner_short", { name: b.winner_name }) : t("tie")) : t(`status_${b.status}`)}
       </span>
-      <span className="hide-sm help num w-[70px] text-right">{b.turns ? t("turns_n", { n: b.turns }) : ""}</span>
+      <span className="hide-sm help num w-[70px] text-right">{b.turns ? t("turns_n", { n: b.turns }) : b.mode === "realtime" && b.summary?.seconds ? t("rt_seconds_n", { n: Math.round(b.summary.seconds) }) : ""}</span>
       <span className="hide-sm help w-[90px] text-right"><Rel ts={b.updated_at} /></span>
       {onDelete && b.status !== "live" && <button type="button" className="btn btn-sm btn-icon btn-ghost" onClick={() => onDelete(b)} aria-label={t("delete")}><Icon d={ICONS.trash} size={14} /></button>}
     </div>

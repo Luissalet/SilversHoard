@@ -10,8 +10,8 @@
     "build:app": "vite build",
     "build:play": "vite build --config vite.play.config.js",
     "start": "python -m silvers_hoard",
-    "test": "python -m pytest -q && node --test engine/test/engine.test.mjs",
-    "test:engine": "node --test engine/test/engine.test.mjs",
+    "test": "python -m pytest -q && node --test \"engine/test/*.test.mjs\"",
+    "test:engine": "node --test \"engine/test/*.test.mjs\"",
     "mcp": "python mcp_server.py"
   },
   "dependencies": {

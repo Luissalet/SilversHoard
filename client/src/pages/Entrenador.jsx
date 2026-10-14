@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { api } from "../api.js";
 import { useApp } from "../context.js";
 import { Busy, ErrorBox, Field, Icon, ICONS, Modal, Section, Spinner, Tabs, useBusy, useLoad, useStored } from "../components/ui.jsx";
+import CooldownsTab from "../battle/rt/CooldownsTab.jsx";
 import { useContextProvider, useCopilotRefresh } from "../components/hooks.js";
 import { AiFields, Avatar, AvatarDialog, ExportDialog, FormatSelect, GymBadge, RecordChip, TeamCards, TrainerSelect, originLabel } from "../components/silver.jsx";
 import { BattleRow } from "./Historial.jsx";
@@ -140,7 +141,7 @@ function LinesTab({ tr, reload }) {
 }
 
 export default function Entrenador({ param }) {
-  const { t, notify, confirm, changed, go, settings } = useApp();
+  const { t, lang, notify, confirm, changed, go, settings } = useApp();
   const { data: tr, error, reload } = useLoad(() => api.call("trainer_get", { id: param }), [param]);
   useCopilotRefresh(reload);
   const [tab, setTab] = useStored("silver-trainer-tab", "team");
@@ -180,10 +181,11 @@ export default function Entrenador({ param }) {
       {tr.badges?.length > 0 && (
         <div className="flex flex-wrap items-center gap-2">{tr.badges.map((b) => <span key={b.id} className="badge-pill" title={`${b.gym_name}`}><GymBadge color={b.badge_color} size={22} label={b.badge} /> {b.badge || b.gym_name}</span>)}</div>
       )}
-      <Tabs value={tab} onChange={setTab} tabs={[{ id: "team", label: t("tab_team") }, { id: "details", label: t("tab_details") }, { id: "lines", label: t("tab_lines") }, { id: "battles", label: t("tab_battles") }]} />
+      <Tabs value={tab} onChange={setTab} tabs={[{ id: "team", label: t("tab_team") }, { id: "details", label: t("tab_details") }, { id: "lines", label: t("tab_lines") }, { id: "realtime", label: t("mode_realtime_short") }, { id: "battles", label: t("tab_battles") }]} />
       {tab === "team" && <TeamTab tr={tr} reload={reload} />}
       {tab === "details" && <DetailsTab tr={tr} reload={reload} />}
       {tab === "lines" && <LinesTab tr={tr} reload={reload} />}
+      {tab === "realtime" && <CooldownsTab trainerId={tr.id} t={t} lang={lang} />}
       {tab === "battles" && (tr.battles?.length ? <div className="panel divide-list p-0">{tr.battles.map((b) => <BattleRow key={b.id} b={b} />)}</div> : <p className="help">{t("no_battles")}</p>)}
       {dialog === "avatar" && <AvatarDialog trainer={tr} onClose={() => setDialog("")} onSaved={() => { reload(); changed(); }} />}
       {dialog === "export" && <ExportDialog kind="trainer" id={tr.id} name={tr.name} onClose={() => setDialog("")} />}
