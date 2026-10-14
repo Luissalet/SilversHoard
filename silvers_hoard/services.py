@@ -1025,12 +1025,12 @@ class Services:
                     "sprite_set": self.settings["sprite_set"]}
             html = sharing.playable_page(PLAY_TEMPLATE, data)
             filename = sharing.safe_filename(f"{name} - Silver", "html")
-            (exports / filename).write_text(html, encoding="utf-8")
+            (exports / filename).write_text(html, encoding="utf-8", newline="\n")
             return {"file": filename, "bytes": len(html.encode("utf-8")), "url": f"/api/exports/{filename}", "name": name}
         ext = {"trainer": "hoardtrainer", "gym": "hoardgym", "league": "hoardleague"}[kind]
         filename = sharing.safe_filename(name, ext)
         text = json.dumps(wrapped, ensure_ascii=False, indent=1)
-        (exports / filename).write_text(text, encoding="utf-8")
+        (exports / filename).write_text(text, encoding="utf-8", newline="\n")
         return {"file": filename, "bytes": len(text.encode("utf-8")), "url": f"/api/exports/{filename}", "name": name}
 
     def _import_avatar(self, av: dict[str, Any], stem: str) -> str:
