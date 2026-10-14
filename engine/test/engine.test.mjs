@@ -2,7 +2,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {Battle} from '@pkmn/sim';
-import {applyLevelRules, buildFormatId, exportTeam, importTeam, randomTeam, validateTeam} from '../src/core.mjs';
+import {applyLevelRules, buildFormatId, exportTeam, importTeam, randomTeam, seedArray, validateTeam} from '../src/core.mjs';
 import {chooseFor, makeRng} from '../src/ai.mjs';
 import {Match, viewLines} from '../src/match.mjs';
 import {playOut, series, summarize, tournament} from '../src/stats.mjs';
@@ -89,4 +89,16 @@ test('the line protocol answers errors as data', async () => {
   assert.equal(bad.error.code, 'invalid_format');
   const unknown = await handle({id: 2, cmd: 'fly'});
   assert.equal(unknown.error.code, 'unknown_command');
+});
+
+test('seeds given as text: a list of four numbers, any word, or an array give the same battle each time', () => {
+  for (const seed of ['1,2,3,4', 'gym rematch', 'a,b', [1, 2, 3, 4]]) {
+    const spec = () => ({format: 'gen9customgame', seed, p1: {name: 'A', sets: importTeam(TEAM), ai: {level: 'normal'}},
+      p2: {name: 'B', sets: importTeam(TEAM), ai: {level: 'normal'}}});
+    const a = playOut(spec());
+    const b = playOut(spec());
+    assert.equal(a.summary.turns, b.summary.turns);
+    assert.equal(a.summary.winner_side, b.summary.winner_side);
+  }
+  assert.deepEqual(seedArray('1,2,3,4'), [1, 2, 3, 4]);
 });

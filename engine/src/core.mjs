@@ -208,7 +208,8 @@ export function randomTeam(formatId = 'gen9randombattle', seed = null) {
 
 export function seedArray(seed) {
   if (Array.isArray(seed)) return seed.slice(0, 4).map((n) => (Number(n) >>> 0) % 65536);
-  if (typeof seed === 'string' && seed.includes(',')) return seed;
+  if (typeof seed === 'string' && /^\s*\d+\s*(,\s*\d+\s*){3}$/.test(seed)) return seed.split(',').map((n) => (Number(n) >>> 0) % 65536);
+  if (typeof seed === 'string' && seed.startsWith('sodium,')) return seed;
   let h = 2166136261;
   for (const ch of String(seed)) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); }
   const out = [];

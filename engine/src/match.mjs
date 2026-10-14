@@ -83,7 +83,7 @@ export class Match {
     if (snapshot) {
       this.battle = Battle.fromJSON(snapshot);
     } else {
-      const seed = spec.seed ? seedArray(spec.seed).join(',') : PRNG.generateSeed();
+      const seed = spec.seed ? [seedArray(spec.seed)].flat().join(',') : PRNG.generateSeed();
       this.spec.seed = seed;
       const options = {formatid: this.formatId, seed};
       for (const id of ['p1', 'p2']) {
