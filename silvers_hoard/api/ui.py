@@ -104,6 +104,18 @@ async def avatar_upload(request: Request, file: UploadFile = File(...), trainer_
     return services(request).avatar_from_photo(data, trainer_id=trainer_id, mode=mode, remove_background=remove_background)
 
 
+@router.post("/avatars/draw")
+async def avatar_draw(request: Request, files: list[UploadFile] = File(default=[]), description: str = Form(""), trainer_id: str = Form(""),
+                      count: int = Form(2)):
+    photos = []
+    for f in files[:4]:
+        data = await f.read(MAX_UPLOAD + 1)
+        if len(data) > MAX_UPLOAD:
+            raise SilverError("too_large", "A picture is larger than 20 MB.")
+        photos.append(data)
+    return services(request).avatar_draw(photos, description=description, trainer_id=trainer_id, count=count)
+
+
 @router.post("/import/upload")
 async def import_upload(request: Request, file: UploadFile = File(...), name: str = Form(""), format: str = Form("")):
     data = await file.read(MAX_UPLOAD + 1)

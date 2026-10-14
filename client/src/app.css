@@ -55,6 +55,9 @@ a.league-card:hover { border-color: var(--hoard-border-hover); }
 .sprite-pick span { max-width: 100%; }
 .sprite-pick:hover { border-color: var(--accent); color: var(--ink); }
 
+.candidate-grid { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(196px, 1fr)); }
+.candidate { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 6px; border: 1px solid var(--line); border-radius: var(--hoard-radius-lg); }
+
 .export-grid { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(min(190px, 100%), 1fr)); }
 .export-option { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: 12px; border: 1px solid var(--line); border-radius: var(--hoard-radius-lg); background: var(--surface-2); color: var(--ink); font: inherit; text-align: left; cursor: pointer; }
 .export-option svg { color: var(--accent); }
