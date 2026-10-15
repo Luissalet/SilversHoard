@@ -25,6 +25,7 @@ Many battles at once: series_start (the same two trainers N times: win rate, MVP
 Levels: level_rules {level: 50} (or 100) on battle_start, series_start and tournament_start, or level on challenge_start, equalizes every Pokémon of both sides at that level, so teams of different levels fight on even terms.
 Real time: battle_start, challenge_start, series_start and tournament_start take mode=realtime for battles after Pokémon Legends: Z-A (the same trainers and teams on a 2D arena, no turns: every move has a cooldown in seconds instead of PP, a wind-up and a range; attacks can be dodged; one-stage stat changes that wear off; three switches that come back after each KO). A person plays it on the app's screen; two AI seats play it in the background. rt_cooldowns shows how a team's moves translate (Z-A's own cooldowns, or derived from PP and power); rt_rules explains the rules. battle_get of a real-time battle returns English event lines and the spec + inputs that replay it exactly.
 Sharing: export (fmt file = .hoardtrainer/.hoardgym/.hoardleague, code = a share code for a chat, page = one HTML file a friend opens in a browser to fight the gym or trainer, paste = Showdown text). import takes any of those back, plus the result codes friends send after playing a page (records their badge).
+progress_get shows a trainer's record, streaks, MVPs, achievements and Pokédex (progress_list ranks them).
 damage_calc measures one Pokémon's moves against another (rolls, crits, KOs) with the game's own formula.
 Avatars: trainer_sprites_search (Showdown trainer sprites), avatar_from_photo (a photo on this computer into pixel art here) or avatar_draw (Prospero's Hoard draws one from up to 4 photos and/or a description in the games' art style, with the references of avatar_style_get; a background job)."""
 
@@ -374,6 +375,10 @@ class FactorySwapArgs(BaseModel):
     take: int = Field(-1, ge=-1, le=5, description="Index of the beaten rival's Pokémon to take.")
 
 
+class ProgressArgs(BaseModel):
+    trainer_id: str = IdField
+
+
 class FacilitiesArgs(BaseModel):
     trainer_id: str = Field("", max_length=80, description="Records and open streak of this trainer (empty = everybody's).")
 
@@ -648,6 +653,11 @@ TOOLS: list[Tool] = [
     Tool("factory_swap", _d("Battle Factory: after a win, swap one rental for one of the beaten rival's, or keep. Cambiar alquiler.",
                             "factory.offer has the rival's Pokémon (phase swap); give/take are indexes, -1/-1 keeps the team. The next battle starts at once.",
                             synonyms="cambio, intercambio de alquiler"), FactorySwapArgs, W, lambda s, a: s.factory_swap(a.id, a.give, a.take), 180.0),
+    Tool("progress_get", _d("A trainer's progress: record, streaks, MVPs, achievements and Pokédex of used and beaten. Progreso.",
+                            "Worked out from its battles, challenges, facility streaks, badges and hall of fame: wins/losses by kind, current and best streak, KOs, per-species KOs (MVP), 22 achievements (unlocked or not), and the species it used, saw and knocked out.",
+                            synonyms="estadísticas, logros, récords, pokédex, mvp, racha"), ProgressArgs, R, lambda s, a: s.progress_get(a.trainer_id)),
+    Tool("progress_list", _d("Every own trainer ranked by wins, with best streak, facility record and achievements. Clasificación.",
+                             synonyms="ranking, clasificación, mejores entrenadores"), Empty, R, lambda s, a: s.progress_list()),
     Tool("challenges_list", _d("Gym and league challenges and facility streaks with their stages and results. Retos.", synonyms="progreso, retos activos"),
          ChallengesArgs, R, lambda s, a: {"challenges": s.runs_list(a.status, a.kind)}),
     Tool("badges_list", _d("Badges earned (here or by friends through result codes). Medallas.", synonyms="medallas, estuche"),

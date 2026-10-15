@@ -10,6 +10,7 @@ const D = {
   nav_gyms: ["Gimnasios", "Gyms"],
   nav_leagues: ["Ligas", "Leagues"],
   nav_facilities: ["Instalaciones", "Facilities"],
+  nav_progress: ["Progreso", "Progress"],
   nav_canon: ["Personajes", "Characters"],
   nav_history: ["Historial", "History"],
   nav_badges: ["Medallas", "Badges"],

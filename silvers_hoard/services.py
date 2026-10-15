@@ -19,7 +19,7 @@ from pathlib import Path
 from typing import Any, Callable, Optional
 
 from . import APP_ID, __version__
-from . import facilities, game_leagues, sharing
+from . import facilities, game_leagues, progress, sharing
 from .config import AI_LEVELS, AI_STYLES, REPO_ROOT, Config, Settings, find_node
 from .engine import Engine
 from .errors import SilverError
@@ -1546,6 +1546,32 @@ class Services:
 
     def hall_list(self, league_id: str = "") -> list[dict[str, Any]]:
         return self.store.hall(league_id=league_id)
+
+    # ------------------------------------------------------------ progress: record, streaks, achievements, Pokédex
+    def progress_get(self, trainer_id: str) -> dict[str, Any]:
+        """One trainer's progress from its stored battles, challenges, facility streaks, badges and hall of fame entries."""
+        t = self.store.trainer(trainer_id)
+        battles = self.store.battles(trainer_id=trainer_id, status="ended", limit=100_000)
+        runs = self.store.runs(challenger_id=trainer_id, limit=100_000)
+        badges = self.store.badges(challenger_trainer_id=trainer_id)
+        hall = [h for h in self.store.hall() if h.get("trainer_id") == trainer_id]
+        rental = frozenset(f["id"] for f in facilities.FACILITIES if f.get("rental"))
+        out = progress.compute(t, battles, runs, badges, hall, rental_ids=rental)
+        out["avatar_url"] = self.avatar_url(t.get("avatar") or "")
+        return out
+
+    def progress_list(self) -> dict[str, Any]:
+        """Every trainer that is not an in-game one, ranked by wins: record, best streak, facility record, achievements unlocked."""
+        rows = []
+        for t in self.store.trainers(limit=5000):
+            if t.get("origin") == "canon":
+                continue
+            p = self.progress_get(t["id"])
+            rows.append({"trainer_id": t["id"], "name": t["name"], "avatar_url": p["avatar_url"], "record": p["record"], "win_rate": p["win_rate"],
+                         "best_streak": p["streaks"]["best"], "facility_best": p["facilities"]["best"], "badges": p["challenges"]["badges"],
+                         "unlocked": p["unlocked"], "achievements": len(p["achievements"]), "used": len(p["pokedex"]["used"])})
+        rows.sort(key=lambda r: (-r["record"]["wins"], -r["unlocked"], r["name"]))
+        return {"trainers": rows}
 
     # ------------------------------------------------------------ background work: series and tournaments
     def _job(self, kind: str, title: str, args: dict[str, Any], work: Callable[[str, Callable[[float], None], Callable[[], bool]], dict[str, Any]]) -> dict[str, Any]:

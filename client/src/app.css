@@ -178,3 +178,9 @@ a.league-card:hover { border-color: var(--hoard-border-hover); }
 .facility-boss { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; }
 .rental { width: 100%; text-align: left; display: block; cursor: pointer; }
 .rental.is-on { outline: 2px solid var(--accent); }
+/* progress */
+.stat-tile { padding: 10px 12px; }
+.achievement { padding: 10px 12px; opacity: .55; }
+.achievement.is-on { opacity: 1; outline: 2px solid var(--accent); }
+.dex-grid { display: flex; flex-wrap: wrap; gap: 4px; }
+.dex-cell { display: inline-flex; width: 48px; height: 48px; align-items: center; justify-content: center; border-radius: 8px; background: var(--surface-2); }
