@@ -26,14 +26,17 @@ function shade(hex, a) {
 
 export class ArenaRenderer {
   /** sides: [{mons: [{num, forme, shiny, species, sprite_id, base_look, mega_info}], avatarUrl, name}]; rocks: [{x, y, r}];
-   * humans: which sides a person plays (doubles: their controlled Pokémon and locked foe get markers). */
-  constructor(canvas, { sides, sprites, base = "", texts, rocks = [], humans = [false, false] }) {
+   * humans: which sides a person plays (doubles: their controlled Pokémon and locked foe get markers).
+   * offline: there is no app behind the page (the friends' playable page), so no walking sprites are asked for: the static battle
+   * sprites, or a white dot while they load, draw the Pokémon. */
+  constructor(canvas, { sides, sprites, base = "", texts, rocks = [], humans = [false, false], offline = false }) {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
     this.sides = sides;
     this.sprites = sprites;
     this.audio = { speed: 1, cryUrl: null };
     this.base = base;
+    this.offline = !!offline;
     this.texts = texts;
     this.rocks = rocks || [];
     this.humans = humans || [false, false];
@@ -61,6 +64,7 @@ export class ArenaRenderer {
 
   /** Load every walking sprite (resolves when all are in or after `timeout`), reporting progress. */
   async preload(onProgress = () => {}, timeout = 15000) {
+    if (this.offline) return;
     const jobs = [];
     this.sides.forEach((s, si) => s.mons.forEach((m, mi) => {
       jobs.push([si, mi, m.num, (m.base_look || m).forme, m.shiny, this.anims]);

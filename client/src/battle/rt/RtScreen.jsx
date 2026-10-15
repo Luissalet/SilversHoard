@@ -285,8 +285,10 @@ function hasPad() {
 /**
  * battle: the app's battle (battle_get) with `rt` {spec, inputs, tick, human}. onFinish(inputs, tick, forfeitSide) -> Promise of
  * the stored battle. seats: {p1, p2} with avatarUrl. base: prefix of the app's routes ("" in the app).
+ * offline: the friends' playable page, with no app behind it: no walking sprites, cries or music are asked for. onContinue /
+ * continueLabel: a button on the end card that takes the page on (the next battle, the result code).
  */
-export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish, onSave, onAgain, base = "" }) {
+export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish, onSave, onAgain, base = "", offline = false, onContinue = null, continueLabel = "" }) {
   const tr = useMemo(() => rtT(lang), [lang]);
   const spec = battle.rt.spec;
   const humans = battle.rt.human || [false, false];
@@ -379,11 +381,11 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     window.__silverRt = { RtBattle, fastForward, inputFrame, get battle() { return sim.current?.b; } };
     const view = state.b.view();
     const renderer = new ArenaRenderer(canvasRef.current, {
-      sides: view.sides.map((s, i) => ({ name: s.name, mons: s.mons, avatarUrl: seats?.[s.id]?.avatarUrl || "" })), sprites, base, texts, rocks: view.rocks,
+      sides: view.sides.map((s, i) => ({ name: s.name, mons: s.mons, avatarUrl: seats?.[s.id]?.avatarUrl || "" })), sprites, base, texts, rocks: view.rocks, offline,
       humans: live ? humans : [false, false],
     });
     renderer.eventIndex = state.b.events.length;
-    renderer.audio.cryUrl = (species) => appCryUrl(species, base);
+    renderer.audio.cryUrl = offline ? null : (species) => appCryUrl(species, base);
     state.renderer = renderer;
     state.logIndex = 0;
     setHud(view);
@@ -565,8 +567,8 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
   useEffect(() => { if (sim.current?.renderer) sim.current.renderer.audio.speed = live ? 1 : speed; }, [speed, live, phase]);
   const musicUrl = `${base}/api/music/${pickTrack(battle.id, 0)}`;
   useEffect(() => {
-    if (["running", "playing", "paused", "replay-paused"].includes(phase)) music.play(musicUrl);
-  }, [phase, musicUrl]);
+    if (!offline && ["running", "playing", "paused", "replay-paused"].includes(phase)) music.play(musicUrl);
+  }, [phase, musicUrl, offline]);
   useEffect(() => () => music.stop({ fade: 0.8 }), []);
   useEffect(() => {
     if (phase !== "ended" && phase !== "done") return;
@@ -664,7 +666,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
             <div className="rt-overlay is-end">
               <div className="rt-card">
                 <b className="rt-big">
-                  {winnerIdx === 0 || winnerIdx === 1 ? (people === 1 && live ? (winnerIdx === mySide ? tr("rt_win") : tr("rt_lose")) : tr("rt_winner", { name: view.sides[winnerIdx].name })) : tr("rt_tie")}
+                  {winnerIdx === 0 || winnerIdx === 1 ? (people === 1 && (live || offline) ? (winnerIdx === mySide ? tr("rt_win") : tr("rt_lose")) : tr("rt_winner", { name: view.sides[winnerIdx].name })) : tr("rt_tie")}
                 </b>
                 <div className="help">{tr(`rt_reason_${view.reason || "ko"}`)} · {fmtTime(view.seconds)}</div>
                 {error && <div className="banner banner-danger">{String(error.message || error)}</div>}
@@ -676,7 +678,8 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
                 <div className="flex flex-wrap justify-center gap-2">
                   <button type="button" className="btn" onClick={restart}>{tr("rt_replay")}</button>
                   {onAgain && <button type="button" className="btn btn-primary" onClick={onAgain}>{tr("rt_again")}</button>}
-                  {stored == null && live ? null : <button type="button" className="btn" onClick={() => setPhase("closed")}>{tr("rt_close")}</button>}
+                  {onContinue ? <button type="button" className="btn btn-primary" autoFocus disabled={live && stored == null && !error} onClick={() => onContinue(stored)}>{continueLabel || tr("rt_close")}</button>
+                    : stored == null && live ? null : <button type="button" className="btn" onClick={() => setPhase("closed")}>{tr("rt_close")}</button>}
                 </div>
               </div>
             </div>
@@ -702,7 +705,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
             ))}
           </div>
         )}
-        <div className="help rt-credit">{tr("rt_sprites_note")}</div>
+        {!offline && <div className="help rt-credit">{tr("rt_sprites_note")}</div>}
       </div>
       <div className="b-log rt-log" aria-live="off" ref={logRef}>
         {log.slice(-120).map((l, i) => (
