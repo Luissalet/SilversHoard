@@ -6,6 +6,7 @@ import { useApp } from "../context.js";
 import { Busy, ErrorBox, ICONS, Icon, Section, Spinner, useBusy, useLoad } from "../components/ui.jsx";
 import { useCopilotRefresh } from "../components/hooks.js";
 import { GymBadge } from "../components/silver.jsx";
+import { League, WeekVote } from "./FriendsLeague.jsx";
 
 function Entry({ e, t, busy, onRemove }) {
   const result = e.won ? t("lb_won") : t("lb_reached", { n: Math.min(e.battles_won + 1, e.battles || 1), total: e.battles || 1 });
@@ -72,6 +73,8 @@ export default function Amigos() {
         <p className="help">{t("weekly_help")}</p>
         {boards(weekly, t("weekly_empty"))}
       </Section>
+      <League />
+      <WeekVote />
       <Section title={t("lb_all")}>
         {boards(all, t("lb_empty"))}
       </Section>

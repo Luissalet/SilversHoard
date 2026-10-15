@@ -59,6 +59,10 @@ DEFAULT_SETTINGS: dict[str, Any] = {
     "neural_ai_model": "Kakuna",
     "neural_ai_gpu": "",
     "neural_ai_port": 8857,
+    # live battles with a friend on another computer (pvp.py): the port of the room server Silver opens on the network while a
+    # room is open, and the address friends outside your network reach it at ("" = only links on your network are given)
+    "pvp_port": 5240,
+    "pvp_public_url": "",
 }
 MODES = ("classic", "realtime")
 
@@ -200,6 +204,10 @@ class Settings:
                 raise SilverError("invalid", "default_level is 0, 50 or 100")
             if key == "rt_time_limit":
                 value = max(30, min(int(value), 1800))
+            if key == "pvp_port":
+                value = max(1024, min(int(value), 65535))
+            if key == "pvp_public_url" and value and not re.match(r"^https?://[^\s/]+(/[^\s]*)?$", value):
+                raise SilverError("invalid", "pvp_public_url is an http:// or https:// address (or empty)")
             if key == "neural_ai_port":
                 value = max(1024, min(int(value), 65535))
             if key == "neural_ai_model" and not re.match(r"^[A-Za-z][A-Za-z0-9_]{1,60}$", value):

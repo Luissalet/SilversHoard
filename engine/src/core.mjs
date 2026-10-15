@@ -4,6 +4,7 @@ import {Dex, Teams, TeamValidator, toID, PRNG} from '@pkmn/sim';
 import {Teams as SetTeams, Sets} from '@pkmn/sets';
 import {TeamGenerators} from '@pkmn/randoms';
 import {calcStat, evsFromPoints, pointsFromEvs, STAT_IDS} from './points.mjs';
+import {championsSets, isChampions} from './champions.mjs';   // registers the Pokémon Champions formats on @pkmn/sim
 
 Teams.setGeneratorFactory(TeamGenerators);
 
@@ -156,7 +157,7 @@ function clampInt(v, lo, hi, dflt) {
 /** Fill what a battle needs and people often leave out (ability, tera type), for the generation of the format. */
 export function completeSets(sets, formatId) {
   const dex = Dex.forFormat(Dex.formats.get(formatId, true));
-  return sets.map((raw) => {
+  const out = sets.map((raw) => {
     const s = cleanSet(raw);
     const sp = dex.species.get(s.species);
     if (!sp.exists) throw new EngineError('unknown_species', `Unknown Pokémon: ${s.species}`, {species: s.species});
@@ -165,6 +166,8 @@ export function completeSets(sets, formatId) {
     if (!s.moves.length) throw new EngineError('invalid_team', `${s.species} has no moves.`, {species: s.species});
     return s;
   });
+  // Pokémon Champions reads the EVs field as stat points (champions.mjs)
+  return isChampions(formatId) ? championsSets(out) : out;
 }
 
 /** Level rules of a gym or battle: {level} fixes every level, {level_cap} lowers the ones above, {level_min} raises the ones below. */

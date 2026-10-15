@@ -12,6 +12,7 @@ class SilverError(AppError):
 
     STATUS = {
         "not_found": 404,
+        "forbidden": 403,
         "invalid": 400,
         "invalid_team": 400,
         "invalid_format": 400,
