@@ -224,3 +224,20 @@ def test_a_job_cancelled_while_queued_never_starts(services):
     time.sleep(0.3)
     assert "waiting" not in ran
     assert (services.job_get(qid).get("job") or services.job_get(qid))["status"] == "cancelled"
+
+
+def test_a_hub_hiccup_while_waiting_does_not_fail_the_sprite(services, prospero, monkeypatch):
+    import silvers_hoard.services as sv
+    monkeypatch.setattr(sv.time, "sleep", lambda s: None)
+    real = prospero.call
+    misses = {"n": 0}
+
+    def flaky(app, tool, arguments=None, timeout=120.0):
+        if tool == "studio_job" and not str((arguments or {}).get("job_id", "")).startswith("jb_cut_") and misses["n"] < 2:
+            misses["n"] += 1
+            return {"ok": False, "status": None, "error": "hub not reachable at http://127.0.0.1:8810"}
+        return real(app, tool, arguments, timeout)
+    monkeypatch.setattr(services_mod.family, "call", flaky)
+    j = run_job(services, services.avatar_draw([], description="a fisherman", style=False))
+    assert j["status"] == "done", j
+    assert misses["n"] == 2
