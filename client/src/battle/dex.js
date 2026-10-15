@@ -51,7 +51,9 @@ export function spriteId(species) {
 }
 
 /** Where pictures come from: the app's cached sprite routes, or the Showdown sprite server straight (the playable page). */
-export function makeSprites({ base = "", server = "", set = "gen5ani" } = {}) {
+const PORTRAITS = "https://raw.githubusercontent.com/PMDCollab/SpriteCollab/master/portrait";
+
+export function makeSprites({ base = "", server = "", set = "gen5ani", dexNum = null } = {}) {
   const SETS = { gen5: ["gen5", "png"], gen5ani: ["gen5ani", "gif"], ani: ["ani", "gif"], home: ["home", "png"], dex: ["dex", "png"] };
   const pokemon = (species, { back = false, shiny = false, spriteid } = {}) => {
     const id = spriteid || spriteId(species);
@@ -75,10 +77,18 @@ export function makeSprites({ base = "", server = "", set = "gen5ani" } = {}) {
     if (avatar.startsWith("file:")) return `${base}/api/avatars/${avatar.slice(5)}`;
     return avatar;
   };
+  // a Pokémon's portrait with an emotion (SpriteCollab): through the app, which picks the forme and a close emotion and caches it;
+  // on the playable page straight from SpriteCollab by Pokédex number (the page then falls back to "Normal" itself)
+  const portrait = (species, emotion = "Normal", { num = 0 } = {}) => {
+    if (!species) return "";
+    if (!server) return `${base}/api/sprites/portrait?species=${encodeURIComponent(species)}&emotion=${encodeURIComponent(emotion)}`;
+    const n = num || (dexNum ? dexNum(species) : 0);
+    return n > 0 ? `${PORTRAITS}/${String(n).padStart(4, "0")}/${emotion}.png` : "";
+  };
   const pixelated = set === "gen5" || set === "gen5ani";
   // how much the pictures of each set are enlarged on the field: [own side (back), opposing side (front)]
   const SCALE = { gen5: [1.75, 1.4], gen5ani: [1.75, 1.4], ani: [1.05, 0.9], home: [0.62, 0.5], dex: [1.1, 0.9] };
-  return { pokemon, fallback, trainer, pixelated, scale: SCALE[set] || SCALE.gen5 };
+  return { pokemon, fallback, trainer, portrait, pixelated, scale: SCALE[set] || SCALE.gen5 };
 }
 
 export const STAT_NAMES = {

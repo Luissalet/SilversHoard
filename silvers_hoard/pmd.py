@@ -33,6 +33,16 @@ TRACKER_TTL_S = 7 * 24 * 3600
 NEGATIVE_TTL_S = 3 * 24 * 3600
 MAX_BYTES = 8 * 1024 * 1024
 FORM_ID = re.compile(r"^[a-z0-9]{0,40}$")
+# the portraits' emotions (SpriteCollab's portrait sheet order) and what to show when a Pokémon does not have one
+EMOTIONS = ["Normal", "Happy", "Pain", "Angry", "Worried", "Sad", "Crying", "Shouting", "Teary-Eyed", "Determined", "Joyous", "Inspired",
+            "Surprised", "Dizzy", "Sigh", "Stunned"]
+EMOTION_FALLBACK = {
+    "Happy": ["Joyous", "Inspired"], "Joyous": ["Happy", "Inspired"], "Inspired": ["Joyous", "Happy"], "Pain": ["Dizzy", "Stunned", "Sad"],
+    "Angry": ["Determined", "Shouting"], "Shouting": ["Angry", "Determined"], "Determined": ["Angry", "Shouting", "Inspired"],
+    "Worried": ["Sad", "Surprised"], "Sad": ["Teary-Eyed", "Crying", "Worried"], "Crying": ["Teary-Eyed", "Sad", "Pain"],
+    "Teary-Eyed": ["Crying", "Sad"], "Surprised": ["Stunned", "Worried"], "Dizzy": ["Pain", "Stunned"], "Sigh": ["Sad", "Worried"],
+    "Stunned": ["Surprised", "Pain"],
+}
 
 
 def _toid(text: str) -> str:
@@ -97,6 +107,7 @@ class PmdSprites:
         self._locks: dict[str, threading.Lock] = {}
         self._guard = threading.Lock()
         self._forms: Optional[dict[str, dict[str, str]]] = None
+        self._portraits: Optional[dict[str, Any]] = None
 
     def _lock(self, key: str) -> threading.Lock:
         with self._guard:
@@ -145,6 +156,94 @@ class PmdSprites:
                     log.warning("pmd tracker: %s", exc)
             self._forms = out
             return out
+
+    # ------------------------------------------------------------ portraits
+    def portrait_index(self) -> dict[str, Any]:
+        """{species id: [folder, [emotions], {form id: [folder, [emotions]]}]} from SpriteCollab's tracker (its portrait files), reduced
+        and cached for a week."""
+        if self._portraits is not None:
+            return self._portraits
+        path = self.cache_dir / "portraits.json"
+        if path.exists() and time.time() - path.stat().st_mtime < TRACKER_TTL_S:
+            try:
+                self._portraits = json.loads(path.read_text("utf-8"))
+                return self._portraits
+            except ValueError:
+                pass
+        with self._lock("portraits"):
+            out: dict[str, Any] = {}
+            raw = self._get(f"{self._base()}/tracker.json") if self.settings.get("pmd_sprites", True) else None
+            if raw:
+                try:
+                    for dex, entry in json.loads(raw.decode("utf-8")).items():
+                        name = _toid(entry.get("name", ""))
+                        if not name or dex == "0000":
+                            continue
+                        forms = {}
+                        for fid, f in (entry.get("subgroups") or {}).items():
+                            emos = [e for e in (f.get("portrait_files") or {}) if e in EMOTIONS]
+                            if fid != "0000" and _toid(f.get("name", "")) and emos:
+                                forms[_toid(f["name"])] = [f"{dex}/{fid}", emos]
+                        base = [e for e in (entry.get("portrait_files") or {}) if e in EMOTIONS]
+                        if base or forms:
+                            out[name] = [dex, base, forms]
+                    self.cache_dir.mkdir(parents=True, exist_ok=True)
+                    write_bytes_atomic(path, json.dumps(out, separators=(",", ":")).encode("utf-8"), fsync=False)
+                except (ValueError, AttributeError) as exc:
+                    log.warning("pmd portraits: %s", exc)
+            self._portraits = out
+            return out
+
+    def _portrait_target(self, species: str, emotion: str) -> Optional[tuple[str, str]]:
+        """(folder, emotion file) for a species as the simulator names it ("Charizard-Mega-X", "Mr. Mime"), its forme's portrait when
+        SpriteCollab draws one with that emotion (or a close one), else the base species'."""
+        idx = self.portrait_index()
+        s = str(species or "").strip().lower()
+        cands: list[tuple[str, str]] = [(_toid(s), "")]
+        for i, ch in enumerate(s):
+            if ch == "-":
+                cands.append((_toid(s[:i]), _toid(s[i + 1:])))
+        want = [emotion, *EMOTION_FALLBACK.get(emotion, []), "Normal"]
+        for name, form in cands:
+            entry = idx.get(name)
+            if not entry:
+                continue
+            dex, base, forms = entry
+            places = ([forms[form]] if form and form in forms else []) + [[dex, base]]
+            # the closest emotion first (the forme's face, then the species'), so a sad Mega shows the sad base face, not a calm Mega
+            for e in want:
+                for folder, emos in places:
+                    if e in emos:
+                        return folder, e
+        return None
+
+    def portrait(self, species: str, emotion: str = "Normal") -> Path:
+        """A Pokémon's 40 px portrait with an emotion (SpriteCollab, CC BY-NC 4.0), downloaded the first time and cached."""
+        if emotion not in EMOTIONS:
+            raise SilverError("invalid", f"emotion is one of {', '.join(EMOTIONS)}")
+        if not self.settings.get("pmd_sprites", True):
+            raise SilverError("not_found", "Mystery Dungeon sprites are off in the settings.")
+        target = self._portrait_target(species, emotion)
+        if not target:
+            raise SilverError("not_found", f"No portrait for {species}")
+        folder, emo = target
+        key = folder.replace("/", "-")
+        path = self.cache_dir / "portrait" / key / f"{emo}.png"
+        if path.exists():
+            return path
+        miss = self.cache_dir / "portrait" / f"{key}-{emo}.404"
+        if miss.exists() and time.time() - miss.stat().st_mtime < NEGATIVE_TTL_S:
+            raise SilverError("not_found", f"No portrait for {species}")
+        with self._lock(f"portrait:{key}:{emo}"):
+            if path.exists():
+                return path
+            png = self._get(f"{self._base()}/portrait/{folder}/{emo}.png")
+            path.parent.mkdir(parents=True, exist_ok=True)
+            if not png or len(png) > 1024 * 1024 or png[:4] != b"\x89PNG":
+                miss.write_text("404")
+                raise SilverError("not_found", f"No portrait for {species}")
+            write_bytes_atomic(path, png, fsync=False)
+            return path
 
     def folder(self, dex: int, form: str = "", shiny: bool = False) -> str:
         sub = "0000"

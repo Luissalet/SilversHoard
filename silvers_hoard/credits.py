@@ -41,7 +41,7 @@ SOURCES: list[dict[str, str]] = [
      "licence": "credit to the artist", "licence_es": "crédito al artista", "url": TRAINERS_URL},
     {"id": "showdown-sprites", "what": "Pokémon sprites, cries and battle music", "what_es": "Sprites de Pokémon, gritos y música de combate",
      "by": "Showdown's sprite and audio servers (cries and tracks belong to their game studios and composers)", "by_es": "los servidores de sprites y audio de Showdown (gritos y pistas son de sus estudios y compositores)", "licence": "©", "url": "https://play.pokemonshowdown.com/sprites/"},
-    {"id": "spritecollab", "what": "Walking sprites of the real-time arena", "what_es": "Sprites que caminan en la arena en tiempo real",
+    {"id": "spritecollab", "what": "Walking sprites of the real-time arena and the Pokémon's portraits with emotions", "what_es": "Sprites que caminan en la arena en tiempo real y retratos de los Pokémon con emociones",
      "by": "PMDCollab's SpriteCollab, by its many artists (each Pokémon's below)", "by_es": "SpriteCollab de PMDCollab, de sus muchos artistas (los de cada Pokémon, abajo)", "licence": "CC BY-NC 4.0", "url": "https://sprites.pmdcollab.org/"},
     {"id": "pokesurvivor", "what": "Lining walking sprites up by their shadow", "what_es": "Alinear los sprites que caminan por su sombra",
      "by": "PokéSurvivor's sprite tools", "by_es": "las herramientas de sprites de PokéSurvivor", "licence": "MIT", "url": ""},
@@ -92,8 +92,9 @@ def parse_credit_names(text: str) -> dict[str, str]:
     return out
 
 
-def pmd_credits(tracker: dict[str, Any], names: dict[str, str]) -> dict[str, list[str]]:
-    """{sprite folder ("0006", "0006/0001", "0006/0000/0001"): [artists, the main one first]} from SpriteCollab's tracker."""
+def pmd_credits(tracker: dict[str, Any], names: dict[str, str], kind: str = "sprite") -> dict[str, list[str]]:
+    """{sprite folder ("0006", "0006/0001", "0006/0000/0001"): [artists, the main one first]} from SpriteCollab's tracker; kind
+    "portrait" gives the artists of the portraits instead of the walking sprites."""
     out: dict[str, list[str]] = {}
 
     def who(ref: str) -> str:
@@ -101,8 +102,8 @@ def pmd_credits(tracker: dict[str, Any], names: dict[str, str]) -> dict[str, lis
         return names.get(ref) or ("" if ref.startswith("<@") else ref)
 
     def walk(prefix: str, entry: dict[str, Any]) -> None:
-        credit = entry.get("sprite_credit") or {}
-        if entry.get("sprite_files") and credit.get("primary"):
+        credit = entry.get(f"{kind}_credit") or {}
+        if entry.get(f"{kind}_files") and credit.get("primary"):
             people = [who(credit.get("primary")), *(who(x) for x in credit.get("secondary") or [])]
             people = list(dict.fromkeys(p for p in people if p))
             if people:
@@ -193,14 +194,14 @@ class Credits:
         found = parse_trainer_index(body.decode("utf-8", "replace")) if body else {}
         return found or None
 
-    def _fetch_pmd(self) -> Optional[dict[str, list[str]]]:
+    def _fetch_pmd(self, kind: str = "sprite") -> Optional[dict[str, list[str]]]:
         base = self._pmd_base().rstrip("/")
         raw = self._get(f"{base}/tracker.json")
         if not raw:
             return None
         names = self._get(f"{base}/credit_names.txt")
         try:
-            return pmd_credits(json.loads(raw.decode("utf-8")), parse_credit_names(names.decode("utf-8", "replace")) if names else {}) or None
+            return pmd_credits(json.loads(raw.decode("utf-8")), parse_credit_names(names.decode("utf-8", "replace")) if names else {}, kind) or None
         except (ValueError, AttributeError) as exc:
             log.warning("credits tracker: %s", exc)
             return None
@@ -210,6 +211,9 @@ class Credits:
 
     def pmd(self, wait: bool = False) -> dict[str, list[str]]:
         return self._load("pmd", PMD_TTL_S, self._fetch_pmd, wait)
+
+    def portraits(self, wait: bool = False) -> dict[str, list[str]]:
+        return self._load("pmd_portraits", PMD_TTL_S, lambda: self._fetch_pmd("portrait"), wait)
 
     def trainer(self, name: str, wait: bool = False) -> str:
         return self.trainers(wait).get(str(name or "").lower(), "")
@@ -234,6 +238,12 @@ class Credits:
         for people in p.values():
             for a in people:
                 walkers[a] = walkers.get(a, 0) + 1
+        faces: dict[str, int] = {}
+        q = self.portraits(wait)
+        for people in q.values():
+            for a in people:
+                faces[a] = faces.get(a, 0) + 1
         top = lambda d: [{"artist": a, "sprites": n} for a, n in sorted(d.items(), key=lambda x: (-x[1], x[0].lower()))]
         return {"sources": SOURCES, "trainer_sprites": {"credited": len(t), "artists": top(artists)},
-                "walking_sprites": {"folders": len(p), "artists": top(walkers)}}
+                "walking_sprites": {"folders": len(p), "artists": top(walkers)},
+                "portraits": {"folders": len(q), "artists": top(faces)}}

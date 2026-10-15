@@ -1,7 +1,7 @@
 // The page a friend opens: the gym (or trainer) inside it, a team of their own, and the battles, all in the browser with the same
 // engine and AI as the app. At the end it gives a result code to send back.
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { applyLevelRules, buildFormatId, exportTeam, importTeam, randomTeam, teamSummary, validateTeam, formatInfo } from "../../../engine/src/core.mjs";
+import { applyLevelRules, buildFormatId, dexNum, exportTeam, importTeam, randomTeam, teamSummary, validateTeam, formatInfo } from "../../../engine/src/core.mjs";
 import { Match, viewLines } from "../../../engine/src/match.mjs";
 import Arena from "../battle/Arena.jsx";
 import Controls from "../battle/Controls.jsx";
@@ -48,7 +48,7 @@ export default function PlayApp({ data }) {
 function Challenge({ data, lang, setLang, t }) {
   const kind = data.kind;
   const target = kind === "gym" ? data.payload.gym : data.payload.trainer;
-  const sprites = useMemo(() => makeSprites({ server: data.sprite_server || "https://play.pokemonshowdown.com/sprites", set: data.sprite_set || "gen5ani" }), [data]);
+  const sprites = useMemo(() => makeSprites({ server: data.sprite_server || "https://play.pokemonshowdown.com/sprites", set: data.sprite_set || "gen5ani", dexNum }), [data]);
   const all = useMemo(() => (kind === "gym" ? [...(target.trainers || []), target.leader] : [target]), [kind, target]);
   // a gym with a map: the friend walks it and fights whoever they meet, the leader last; seq is the order the battles came in
   const walkMap = useMemo(() => (kind === "gym" && target.map?.w
@@ -352,7 +352,7 @@ function BattleView({ t, lang, sprites, me, opp, fid, levelRules, onEnd, seed = 
       ended.current = true;
       const won = st.winner_side === "p1";
       const line = won ? opp.dialogue?.lose : opp.dialogue?.win;
-      if (line) setTimeout(() => setBubble({ side: "p2", text: line }), 600);
+      if (line) setTimeout(() => setBubble({ side: "p2", text: line, mood: won ? "lose" : "win" }), 600);
       const lines = viewLines(m.battle.log, 0, "omniscient");
       // the battle's own record (seed, teams, every choice) and the AI's random-number key: the app replays it to check the result
       const record = { input: m.inputLog(), rng: m.id, forfeit: forfeited.current ? "p1" : "" };
@@ -371,7 +371,7 @@ function BattleView({ t, lang, sprites, me, opp, fid, levelRules, onEnd, seed = 
       p2: { name: opp.name, sets: opp.team, ai } });
     matchRef.current.advance();
     sync();
-    if (opp.dialogue?.intro) setBubble({ side: "p2", text: opp.dialogue.intro });
+    if (opp.dialogue?.intro) setBubble({ side: "p2", text: opp.dialogue.intro, mood: "intro" });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {

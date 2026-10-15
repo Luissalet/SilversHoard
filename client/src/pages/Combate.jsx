@@ -107,7 +107,7 @@ export default function Combate({ param }) {
     else player.push(lines.slice(player.total));
     loaded.current = battle.id + battle.status;
     lengthRef.current = battle.log_length || lines.length;
-    if (fresh && seats.p2?.dialogue?.intro) setBubble({ side: "p2", text: seats.p2.dialogue.intro });
+    if (fresh && seats.p2?.dialogue?.intro) setBubble({ side: "p2", text: seats.p2.dialogue.intro, mood: "intro" });
   }, [battle?.id, battle?.status]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // a watched battle: wait for the AIs to finish, then play it
@@ -143,7 +143,7 @@ export default function Combate({ param }) {
     if (!w) return;
     const loser = w === "p1" ? "p2" : "p1";
     const line = seats[w]?.dialogue?.win || seats[loser]?.dialogue?.lose;
-    if (line) setBubble({ side: seats[w]?.dialogue?.win ? w : loser, text: line });
+    if (line) setBubble({ side: seats[w]?.dialogue?.win ? w : loser, text: line, mood: seats[w]?.dialogue?.win ? "win" : "lose" });
   }, [player.state.ended, player.caughtUp]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const choose = useCallback((side, choice) => run("choose", async () => {
