@@ -39,6 +39,11 @@
 .b-stage.w-sand::before { background: repeating-linear-gradient(170deg, transparent 0 18px, #e5c27e55 18px 20px); animation-duration: 0.5s; }
 @keyframes b-fall { from { transform: translate(0, 0); } to { transform: translate(-12px, 40px); } }
 
+/* Showdown's backdrop and its weather / terrain overlays (Settings > battle field) */
+.b-backdrop, .b-layer { position: absolute; inset: 0; z-index: 0; pointer-events: none; background-size: cover; background-position: center; }
+.b-backdrop { opacity: 0.85; }
+.b-layer { background-position: center top; transition: opacity 0.4s; }
+.b-stage.has-backdrop .b-platform { opacity: 0.55; }
 .b-platform { position: absolute; border-radius: 50%; z-index: 1; background: radial-gradient(closest-side, #d8e6b0cc, #9ab27a99 60%, transparent); }
 .b-platform.foe { width: 34%; height: 11%; right: 9%; top: 44%; }
 .b-platform.me { width: 44%; height: 14%; left: 3%; bottom: 2%; }

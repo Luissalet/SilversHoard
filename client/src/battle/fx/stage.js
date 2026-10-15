@@ -5,6 +5,7 @@
 // finishes before the damage shows. Loaded lazily; nothing here changes the battle.
 import { Vfx } from "../rt/vfx.js";
 import { fitTiming, planHit, planMove } from "./plan.js";
+import { readFxStyle } from "./setting.js";
 
 const H = 0.6;   // the painter flies projectiles this many meters over the ground
 const WEATHER = { raindance: "raindance", primordialsea: "primordialsea", sunnyday: "sunnyday", desolateland: "desolateland", sandstorm: "sandstorm", hail: "hail",
@@ -32,6 +33,10 @@ export class FxStage {
     this.raf = 0;
     this.last = 0;
     this.dead = false;
+    // Showdown's own move animations (ps/): loaded on demand when the "animation style" setting asks for them
+    this.ps = null;
+    this.psLoading = null;
+    if (readFxStyle() === "showdown") this.loadPs();
     this.frame = this.frame.bind(this);
     this.measure();
     this.watch = typeof ResizeObserver !== "undefined" ? new ResizeObserver(() => { this.measure(); this.placeMons(); }) : null;
@@ -75,6 +80,43 @@ export class FxStage {
     return out;
   }
 
+  loadPs() {
+    if (this.psLoading || typeof window === "undefined") return this.psLoading;
+    this.psLoading = import("./ps/runner.js").then((m) => { if (!this.dead) this.ps = new m.PsRunner(this.host); }).catch(() => { /* our own effects carry on */ });
+    return this.psLoading;
+  }
+
+  /** The Showdown runner when the setting asks for Showdown's animations and it is loaded (it starts loading on the first ask). */
+  psActive() {
+    if (readFxStyle() !== "showdown") return null;
+    if (!this.ps) this.loadPs();
+    return this.ps;
+  }
+
+  /**
+   * A move with Showdown's animation: played by the runner at its own pace (its natural length at normal speed, shorter when the
+   * replay runs faster). Returns the ms the line must last, or -1 to fall back to our own effect.
+   */
+  cuePs(anim, { speedMs }) {
+    const ps = this.psActive();
+    if (!ps || !ps.has(anim.move)) return -1;
+    if (speedMs < 260) { ps.finish(); return 0; }
+    const all = this.actives();
+    const posOf = (t) => all.find((a) => a.side === t.side && a.slot === t.slot) || null;
+    const spread = (anim.spread || []).map(posOf).filter(Boolean);
+    const named = anim.target ? posOf(anim.target) : null;
+    const foes = all.filter((a) => a.side !== anim.side);
+    const target = named || spread[0] || foes[0] || null;
+    const ms = ps.playMove({ move: anim.move, user: { side: anim.side, slot: anim.slot }, target, miss: !!anim.miss });
+    if (!ms) return -1;
+    this.begin();
+    const want = Math.max(250, Math.min(2800, ms * (Math.max(260, speedMs) / 900)));
+    this.ts = ms / want;
+    anim.ps = true;           // the arena skips its own hop: Showdown's animation moves the sprite
+    this.wake();
+    return want + 60;
+  }
+
   // ------------------------------------------------------------ cues
   /**
    * One protocol cue from the battle player ({type: "move"|"hit"|"heal"|"status"|"boost"|"unboost"|"faint"|..., side, slot, ...}).
@@ -83,10 +125,25 @@ export class FxStage {
   cue(anim, { budgetMs = 900, speedMs = 900 } = {}) {
     if (this.dead || !anim) return 0;
     const type = anim.type;
-    if (type === "move") return this.cueMove(anim, { budgetMs, speedMs });
+    if (type === "move") {
+      if (anim.move && !anim.still) {
+        const w = this.cuePs(anim, { speedMs });
+        if (w >= 0) return w;
+      }
+      return this.cueMove(anim, { budgetMs, speedMs });
+    }
     const at = this.anchor(anim.side, anim.slot);
     if (!at) return 0;
     this.ts = Math.max(1, Math.min(3, 900 / Math.max(120, speedMs)));
+    const ps = this.psActive();
+    if (ps) {
+      // with Showdown's animations: its status animations, and no bursts of ours on top of its moves
+      if (type === "status" && ps.hasStatus(anim.status) && speedMs >= 260 && !ps.busy()) {
+        if (ps.playStatus({ status: anim.status, side: anim.side, slot: anim.slot })) this.wake();
+        return 0;
+      }
+      if (type === "hit" && !(anim.delta > 0) && ps.has(anim.move)) return 0;
+    }
     const me = { x: at.x, y: at.y, fx: 1, fy: 0 };
     let steps = null;
     if (type === "hit" && anim.delta > 0) steps = [{ at: 0, ev: { k: "heal", s: 0 } }];
@@ -161,6 +218,7 @@ export class FxStage {
 
   /** Drop every effect at once (a jump in the replay, the end of the battle). */
   clear() {
+    this.ps?.finish();
     this.begin();
     this.vfx.parts = [];
     this.vfx.fx = [];
@@ -178,7 +236,7 @@ export class FxStage {
 
   busy() {
     const v = this.vfx;
-    return this.queue.length > 0 || this.flights.length > 0 || v.parts.length > 0 || v.fx.length > 0 || v.rays.size > 0 || !!this.view.weather.id || this.view.sides.length > 0;
+    return !!this.ps?.busy() || this.queue.length > 0 || this.flights.length > 0 || v.parts.length > 0 || v.fx.length > 0 || v.rays.size > 0 || !!this.view.weather.id || this.view.sides.length > 0;
   }
 
   frame(now) {
@@ -186,7 +244,7 @@ export class FxStage {
     if (this.dead) return;
     const real = this.last ? Math.min(0.05, (now - this.last) / 1000) : 0.016;
     this.last = now;
-    this.advance(real * (this.queue.length || this.flights.length || this.vfx.fx.length ? this.ts : 1));
+    this.advance(real * (this.queue.length || this.flights.length || this.vfx.fx.length || this.ps?.busy() ? this.ts : 1));
     this.paint(false);
     if (this.busy()) this.raf = requestAnimationFrame(this.frame);
     else { this.paint(true); this.resetShake(); }
@@ -205,6 +263,7 @@ export class FxStage {
     }
     this.view.projectiles = live;
     this.vfx.update(dt, this.view);
+    this.ps?.advance(dt * 1000);
   }
 
   run(step) {
@@ -229,10 +288,14 @@ export class FxStage {
     if (blank) return;
     this.vfx.drawUnder(ctxU);
     this.vfx.drawOver(ctxO, this.view, this.battle);
-    // screen shake moves the whole arena a few pixels
+    this.ps?.draw(ctxU, ctxO, { w: this.w, h: this.h, dpr: this.dpr });
+    // screen shake moves the whole arena a few pixels (and Showdown's Earthquake and kin shake it up and down)
     const k = Math.min(1, this.vfx.shake * 3) * 7;
-    if (k > 0.3) this.host.style.transform = `translate(${((Math.random() - 0.5) * 2 * k).toFixed(1)}px, ${((Math.random() - 0.5) * 2 * k * 0.6).toFixed(1)}px)`;
-    else this.resetShake();
+    const q = this.ps ? this.ps.quake() : 0;
+    if (k > 0.3 || Math.abs(q) > 0.3) {
+      const jx = k > 0.3 ? (Math.random() - 0.5) * 2 * k : 0, jy = k > 0.3 ? (Math.random() - 0.5) * 2 * k * 0.6 : 0;
+      this.host.style.transform = `translate(${jx.toFixed(1)}px, ${(jy + q).toFixed(1)}px)`;
+    } else this.resetShake();
   }
 
   resetShake() {
@@ -244,6 +307,7 @@ export class FxStage {
     if (this.raf && typeof cancelAnimationFrame !== "undefined") cancelAnimationFrame(this.raf);
     this.raf = 0;
     this.watch?.disconnect();
+    this.ps?.finish();
     this.paint(true);
     this.resetShake();
   }

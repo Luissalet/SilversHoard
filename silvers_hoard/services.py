@@ -25,6 +25,7 @@ from .engine import Engine
 from .errors import SilverError
 from .hoard_link import family
 from .hoard_link.tokens import read_or_create_token
+from .fxcache import FxCache
 from .pmd import PmdSprites
 from .smogon import Smogon
 from .sounds import Sounds
@@ -88,6 +89,7 @@ class Services:
         self.sounds = Sounds(config.sprites_dir.parent / "audio", self.settings, http_get=http_get)
         self.pmd = PmdSprites(config.sprites_dir.parent / "pmd", self.settings, http_get or _http_get)
         self.smogon = Smogon(config.sprites_dir.parent / "smogon", http_get or _http_get, enabled=lambda: bool(self.settings["smogon_data"]))
+        self.fx = FxCache(config.sprites_dir.parent / "fx", self.settings, http_get=http_get)
         self.pool = ThreadPoolExecutor(max_workers=2, thread_name_prefix="silver-job")
         self._cancel: dict[str, bool] = {}
         self._battle_locks: dict[str, threading.Lock] = {}

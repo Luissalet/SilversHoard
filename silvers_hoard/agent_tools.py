@@ -29,6 +29,7 @@ progress_get shows a trainer's record, streaks, MVPs, achievements and Pokédex 
 sets_popular gives Smogon's sets and the ladder usage of a species (for the team builder); usage_top and sample_team rank the format's Pokémon and build a team from them.
 damage_calc measures one Pokémon's moves against another (rolls, crits, KOs) with the game's own formula.
 battle_video records a finished battle's replay as an MP4 clip with its sound (a job; lumiere=true sends it to the video editor).
+Move animations: the turn-based screen plays Pokémon Showdown's own animation of each move (934) or Silver's effects, as the viewer picks in Settings; fx_cache shows the cached effect pictures and prefetch=true downloads them all for battles without internet.
 battle_explain says why the AI chose each move (the options it weighed with expected damage and KOs, the threat it was under, the expert's play-outs) and, in a live battle, what the expert would do now on your side.
 Avatars: trainer_sprites_search (Showdown trainer sprites), avatar_from_photo (a photo on this computer into pixel art here) or avatar_draw (Prospero's Hoard draws one from up to 4 photos and/or a description in the games' art style, with the references of avatar_style_get; a background job). avatar_poses_draw draws a trainer's own sprite again from behind (shown on the player's side of a battle) and in a victory pose (shown when it wins); avatar_pose_set picks another candidate."""
 
@@ -517,6 +518,10 @@ class AvatarStyleArgs(BaseModel):
     remove: list[str] = Field(default_factory=list, max_length=20, description="Style pictures to remove (file names from avatar_style_get).")
 
 
+class FxCacheArgs(BaseModel):
+    prefetch: bool = Field(False, description="Download every picture the move animations use now (for battles without internet later).")
+
+
 class SettingsSetArgs(BaseModel):
     player_name: Optional[str] = Field(None, max_length=60)
     default_format: Optional[str] = Field(None, max_length=120)
@@ -792,6 +797,12 @@ TOOLS: list[Tool] = [
     Tool("avatar_from_photo", _d("Turn a photo into a trainer sprite: pixel art here or drawn by Prospero's Hoard (a job). Sprite desde foto.",
                                  synonyms="avatar, foto, sprite estilo pokémon, prospero"), AvatarPhotoArgs, WD,
          lambda s, a: s.avatar_from_photo(_read_path(a.path), trainer_id=a.trainer_id, mode=a.mode, remove_background=a.remove_background), 120.0),
+    Tool("fx_cache", _d("Pictures of the move animations (Showdown's effects): what is cached; prefetch downloads them all. Efectos.",
+                        "The turn-based screen plays Pokémon Showdown's own animation of each move (934 of them) when the animation style "
+                        "setting is Showdown's (the default; the other style is Silver's effects). Its effect pictures come from Showdown "
+                        "on first use and stay in data/cache/fx.",
+                        synonyms="animaciones de movimientos, efectos visuales, descargar efectos, sin conexión, showdown"), FxCacheArgs, W,
+         lambda s, a: s.fx.prefetch() if a.prefetch else s.fx.stats(), 120.0),
     Tool("settings_get", _d("Settings: your name, default format and AI, sprites, playback speed. Ajustes.", synonyms="configuración"),
          Empty, R, lambda s, a: s.settings.snapshot()),
     Tool("settings_set", _d("Change settings. Cambiar ajustes.", synonyms="configurar, nombre del jugador"), SettingsSetArgs, W,
