@@ -20,11 +20,13 @@ from .services import Services
 AGENT_INSTRUCTIONS = """Silver's Hoard is a Pokémon battle simulator (Pokémon Showdown's engine, every generation). It keeps trainers (a name, a team, an AI level and style, an avatar and battle lines), gyms (a leader plus optional gym trainers, a badge and rules), leagues (gyms, an Elite Four and a champion) and every battle with its full log.
 Start with silver_overview. Teams come in as Showdown export text (paste), packed teams or JSON; team_import parses, team_validate checks a format's rules. canon_list shows the in-game teams of leaders, Elite Four, champions and rivals of Crystal, FireRed/LeafGreen and Emerald, and canon_install adds a trainer or a whole league (its gyms, badges, Elite Four and champion). characters_list and character_get cover 154 characters of all nine generations with every team they used game by game (first battle, rematches, tournaments) and all their sprites; character_install makes a trainer from one team and one sprite, or an own team for the character (custom).
 Battles: battle_start with two seats. A seat is {trainer_id} or {paste|team, name}; human=true means a person plays it from the app (or you, with battle_choose), otherwise the AI plays (ai_level random|easy|normal|hard|expert, ai_style balanced|aggressive|defensive|setup|stall). Two AI seats = a watched battle that plays out in the background; read it with battle_get (lines are the Showdown protocol log). battle_choose sends a Showdown choice for a person's seat ("move 1", "move 2 terastallize", "switch 3", "team 123456"; doubles: "move 1 1, move 2 -1"); battle_get returns the pending request with the legal options.
-Gym and league challenges: challenge_start (kind gym|league, a challenger trainer; auto=true lets the AI play the challenger). Winning every battle of a gym gives a badge; a league needs its badges and ends in the hall of fame.
+Gym and league challenges: challenge_start (kind gym|league, a challenger trainer; auto=true lets the AI play the challenger). Winning every battle of a gym gives a badge; a league needs its badges and ends in the hall of fame. Battle facilities (facilities_list): challenge_start kind=facility starts a win streak against one rival after another with the facility's bosses on their battles; the record is the longest streak. In the Battle Factory (factory3, factory4, factory9) there is no own team: factory_pick takes 3 of 6 rentals each round and factory_swap trades one for the beaten rival's after a win.
 Many battles at once: series_start (the same two trainers N times: win rate, MVPs) and tournament_start (bracket or league table between trainers), both background jobs (job_get).
 Levels: level_rules {level: 50} (or 100) on battle_start, series_start and tournament_start, or level on challenge_start, equalizes every Pokémon of both sides at that level, so teams of different levels fight on even terms.
 Real time: battle_start, challenge_start, series_start and tournament_start take mode=realtime for battles after Pokémon Legends: Z-A (the same trainers and teams on a 2D arena, no turns: every move has a cooldown in seconds instead of PP, a wind-up and a range; attacks can be dodged; one-stage stat changes that wear off; three switches that come back after each KO; a Mega Power gauge for Plus moves and Mega Evolution; lock-on held or free aim; doubles formats field two Pokémon per trainer, a person moving one while the AI drives its partner, with spread moves, Helping Hand and Follow Me) and rt_arena=rocks (default: 3-6 rocks that block walking and projectiles) or open. A person plays it on the app's screen; two AI seats play it in the background. rt_cooldowns shows how a team's moves translate (Z-A's own cooldowns, or derived from PP and power); rt_rules explains the rules. battle_get of a real-time battle returns English event lines and the spec + inputs that replay it exactly.
 Sharing: export (fmt file = .hoardtrainer/.hoardgym/.hoardleague, code = a share code for a chat, page = one HTML file a friend opens in a browser to fight the gym or trainer, turn by turn or in real time as friend_mode says, paste = Showdown text). import takes any of those back, plus the result codes friends send after playing a page (records their badge; real-time battles in it are replayed and checked first).
+progress_get shows a trainer's record, streaks, MVPs, achievements and Pokédex (progress_list ranks them).
+damage_calc measures one Pokémon's moves against another (rolls, crits, KOs) with the game's own formula.
 Avatars: trainer_sprites_search (Showdown trainer sprites), avatar_from_photo (a photo on this computer into pixel art here) or avatar_draw (Prospero's Hoard draws one from up to 4 photos and/or a description in the games' art style, with the references of avatar_style_get; a background job)."""
 
 
@@ -67,6 +69,37 @@ class DexArgs(BaseModel):
 class SpeciesArgs(BaseModel):
     name: str = Field(..., min_length=1, max_length=60)
     gen: int = Field(9, ge=1, le=9)
+
+
+Boosts = dict[Literal["atk", "def", "spa", "spd", "spe", "accuracy", "evasion"], int]
+PokemonSpec = Field(..., description="One Pokémon: Showdown export text or a set {species, item, ability, nature, evs, ivs, level, moves, teraType}.")
+
+
+class DamageCalcArgs(BaseModel):
+    attacker: str | dict[str, Any] = PokemonSpec
+    defender: str | dict[str, Any] = PokemonSpec
+    format: str = Field("", max_length=120, description="Its generation's rules apply (empty = generation 9).")
+    moves: list[str] = Field(default_factory=list, max_length=8, description="Empty = the attacker's own moves.")
+    attacker_boosts: Optional[Boosts] = None
+    defender_boosts: Optional[Boosts] = None
+    attacker_tera: str = Field("", max_length=20, description="A type, or 'yes' for the set's own Tera type (generation 9).")
+    defender_tera: str = Field("", max_length=20)
+    attacker_mega: bool = Field(False, description="Mega Evolve (or Ultra Burst) first when the item allows it.")
+    defender_mega: bool = False
+    weather: Optional[Literal["", "sun", "rain", "sand", "hail", "snow"]] = Field(None, description="Left out = what the abilities set; '' = none.")
+    terrain: Optional[Literal["", "electric", "grassy", "psychic", "misty"]] = Field(None, description="Left out = what the abilities set; '' = none.")
+    screens: list[Literal["reflect", "lightscreen", "auroraveil"]] = Field(default_factory=list, max_length=3, description="On the defender's side.")
+    defender_hp: Optional[int] = Field(None, ge=1, le=100, description="HP left, % of max (default full).")
+
+
+def _damage_calc(s: Services, a: DamageCalcArgs) -> Any:
+    args = a.model_dump(exclude_none=True)
+    for key in ("attacker_tera", "defender_tera"):
+        if args.get(key) == "yes":
+            args[key] = True
+        elif not args.get(key):
+            args.pop(key, None)
+    return s.engine.call("damage_calc", args)
 
 
 class TeamTextArgs(BaseModel):
@@ -318,20 +351,40 @@ class BattlesArgs(BaseModel):
 
 
 class ChallengeArgs(BaseModel):
-    kind: Literal["gym", "league"]
+    kind: Literal["gym", "league", "facility"] = Field(..., description="facility = a win streak at a battle facility (target_id from facilities_list).")
     target_id: str = IdField
     challenger_id: str = IdField
     auto: bool = Field(False, description="The AI plays the challenger too (the whole challenge runs by itself).")
     ignore_badges: bool = False
     format: str = Field("", max_length=120, description="Play every battle in this format instead of the gym's (e.g. gen9nationaldexag for a modern team against a gen 2 gym).")
     mode: Mode = ModeField
-    level: int = Field(0, ge=0, le=100, description="Equalize every Pokémon of every battle at this level (50 or 100); 0 = the gym's own level rules.")
+    level: int = Field(0, ge=0, le=100, description="Equalize every Pokémon of every battle at this level (50 or 100); 0 = the gym's own level rules (a facility: 50).")
     rt_arena: RtArena = RtArenaField
+    stop_at: int = Field(0, ge=0, le=10_000, description="facility with auto: stop the streak after this many wins (0 = until it is lost).")
 
 
 class ChallengesArgs(BaseModel):
     status: Literal["", "active", "won", "lost", "abandoned"] = ""
-    kind: Literal["", "gym", "league"] = ""
+    kind: Literal["", "gym", "league", "facility"] = ""
+
+
+class FactoryPickArgs(BaseModel):
+    id: str = IdField
+    picks: list[int] = Field(..., min_length=1, max_length=6, description="Indexes (0-5) of the rentals to take, in battle order.")
+
+
+class FactorySwapArgs(BaseModel):
+    id: str = IdField
+    give: int = Field(-1, ge=-1, le=5, description="Index of your rental to give away (-1 = keep the team).")
+    take: int = Field(-1, ge=-1, le=5, description="Index of the beaten rival's Pokémon to take.")
+
+
+class ProgressArgs(BaseModel):
+    trainer_id: str = IdField
+
+
+class FacilitiesArgs(BaseModel):
+    trainer_id: str = Field("", max_length=80, description="Records and open streak of this trainer (empty = everybody's).")
 
 
 class BadgesArgs(BaseModel):
@@ -489,6 +542,9 @@ TOOLS: list[Tool] = [
          lambda s, a: {"results": s.dex_search(a.kind, a.query, a.gen, a.limit, a.species)}),
     Tool("species_info", _d("A Pokémon's types, base stats, abilities, evolutions and learnable moves. Ficha de Pokémon.",
                             synonyms="estadísticas base, tipos, evoluciones, movimientos que aprende"), SpeciesArgs, R, lambda s, a: s.species(a.name, a.gen)),
+    Tool("damage_calc", _d("Damage of each move of one Pokémon against another: the 16 rolls, crits, KOs. Calculadora de daño.",
+                           "Measured with the simulator's own formula of the format's generation: abilities (type-changing ones too), items, stat boosts, Tera, Mega Evolution, weather, terrain and screens count; weather and terrain left out = what the abilities set. Each move: rolls, min-max (and % of HP), crit range, rolls that KO, hits to KO.",
+                           synonyms="calculadora, cuánto quita, rango de daño, ohko, 2hko, cálculo de daño"), DamageCalcArgs, R, _damage_calc),
     Tool("team_import", _d("Parse a team (Showdown text, packed or JSON) into sets and back to clean text. Leer equipo.",
                            synonyms="importar equipo, pokepaste, showdown"), TeamTextArgs, R, lambda s, a: s.import_team(a.text)),
     Tool("team_validate", _d("Check a team against a format's rules (Showdown's validator). Validar equipo.",
@@ -521,10 +577,11 @@ TOOLS: list[Tool] = [
                                       synonyms="avatar, imagen de entrenador, red, cynthia"), SpritesArgs, R,
          lambda s, a: {"sprites": s.trainer_sprites(a.query, a.limit)}),
     Tool("canon_list", _d("In-game teams of leaders, Elite Four, champions and rivals (Crystal, FRLG, Emerald). Equipos de los juegos.",
+                          "leagues also lists whole leagues of more games built from the characters' teams: kanto-rgb, johto-hgss, hoenn-oras, sinnoh-pt, unova-bw, unova-b2w2, kalos-xy, alola-sm, alola-usum (Elite Four and champion only), galar-sw, paldea-sv.",
                           synonyms="líderes de gimnasio, alto mando, campeón, rojo, red, plata, personajes, ligas oficiales"), CanonArgs, R,
          lambda s, a: s.canon_list(a.query, a.region)),
     Tool("canon_install", _d("Add an in-game trainer, or a whole league with gyms, badges, Elite Four and champion. Instalar liga.",
-                             synonyms="importar personaje, liga kanto, liga johto, liga hoenn"), CanonInstallArgs, WD, _canon_install),
+                             synonyms="importar personaje, liga kanto, liga johto, liga hoenn, liga sinnoh, liga teselia, liga kalos, liga alola, galar, paldea"), CanonInstallArgs, WD, _canon_install),
     Tool("stat_points", _d("Stat points as in Pokémon Champions (66, 32 per stat) for a team, and the stats they give. Puntos de stats.",
                            "Reads the points from the EVs (HOME's rule: 4 EVs the first, 8 each more) and writes them back as EVs.",
                            synonyms="ev, evs, puntos de entrenamiento, champions, repartir puntos, stats"), StatPointsArgs, WD,
@@ -592,11 +649,26 @@ TOOLS: list[Tool] = [
     Tool("challenge_start", _d("Challenge a gym or a league with a trainer (you play, or the AI with auto). Retar gimnasio.",
                                synonyms="reto, medalla, alto mando, desafío"), ChallengeArgs, W,
          lambda s, a: s.run_start(kind=a.kind, target_id=a.target_id, challenger_id=a.challenger_id, auto=a.auto, ignore_badges=a.ignore_badges,
-                                  format_override=a.format, mode=a.mode, level=a.level, rt_arena=a.rt_arena), 180.0),
+                                  format_override=a.format, mode=a.mode, level=a.level, rt_arena=a.rt_arena, stop_at=a.stop_at), 180.0),
     Tool("challenge_next", _d("Start the next battle of an active challenge. Siguiente combate del reto.", synonyms="continuar reto"),
          IdArg, W, lambda s, a: s.run_next(a.id), 180.0),
     Tool("challenge_abandon", _d("Give up an active challenge. Abandonar reto.", synonyms="rendirse"), IdArg, W, lambda s, a: s.run_abandon(a.id)),
-    Tool("challenges_list", _d("Gym and league challenges with their stages and results. Retos.", synonyms="progreso, retos activos"),
+    Tool("facilities_list", _d("Battle facilities (Tower, Subway, Maison, Tree) with bosses and streak records. Instalaciones.",
+                               "challenge_start kind=facility target_id=<id> starts a streak: one rival after another at level 50, 3 Pokémon each (4 in doubles) picked at team preview, the facility's bosses on their battle (Palmer 21/49, Ingo and Emmet 21/49, the Chatelaines 20/50, Red and Blue 20/50, Anabel 35/70, Leon every 10). challenge_next starts the next battle; a loss ends the streak.",
+                               synonyms="torre batalla, metro batalla, batalla chatelet, árbol batalla, rachas, frente batalla"), FacilitiesArgs, R,
+         lambda s, a: s.facilities_list(a.trainer_id)),
+    Tool("factory_pick", _d("Battle Factory: take 3 of the 6 rental Pokémon and start the round. Elegir alquiler.",
+                            "challenges_list / challenge_start show them in factory.rentals (phase pick). The next battle starts at once.",
+                            synonyms="fábrica batalla, pokémon de alquiler"), FactoryPickArgs, W, lambda s, a: s.factory_pick(a.id, a.picks), 180.0),
+    Tool("factory_swap", _d("Battle Factory: after a win, swap one rental for one of the beaten rival's, or keep. Cambiar alquiler.",
+                            "factory.offer has the rival's Pokémon (phase swap); give/take are indexes, -1/-1 keeps the team. The next battle starts at once.",
+                            synonyms="cambio, intercambio de alquiler"), FactorySwapArgs, W, lambda s, a: s.factory_swap(a.id, a.give, a.take), 180.0),
+    Tool("progress_get", _d("A trainer's progress: record, streaks, MVPs, achievements and Pokédex of used and beaten. Progreso.",
+                            "Worked out from its battles, challenges, facility streaks, badges and hall of fame: wins/losses by kind, current and best streak, KOs, per-species KOs (MVP), 22 achievements (unlocked or not), and the species it used, saw and knocked out.",
+                            synonyms="estadísticas, logros, récords, pokédex, mvp, racha"), ProgressArgs, R, lambda s, a: s.progress_get(a.trainer_id)),
+    Tool("progress_list", _d("Every own trainer ranked by wins, with best streak, facility record and achievements. Clasificación.",
+                             synonyms="ranking, clasificación, mejores entrenadores"), Empty, R, lambda s, a: s.progress_list()),
+    Tool("challenges_list", _d("Gym and league challenges and facility streaks with their stages and results. Retos.", synonyms="progreso, retos activos"),
          ChallengesArgs, R, lambda s, a: {"challenges": s.runs_list(a.status, a.kind)}),
     Tool("badges_list", _d("Badges earned (here or by friends through result codes). Medallas.", synonyms="medallas, estuche"),
          BadgesArgs, R, lambda s, a: {"badges": s.badges_list(a.trainer_id, a.gym_id)}),
