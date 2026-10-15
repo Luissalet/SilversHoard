@@ -1,7 +1,8 @@
 // The look of moves in the real-time arena: continuous rays for beams (ice crystals, zigzag lightning, flame and water jets,
 // psychic rings, dragon helixes…), shaped projectiles (fireballs, ice shards, leaves, rocks, shadow orbs, stars, crescents),
 // melee marks (claws, punches, bites), drops from the sky (lightning, falling rocks), ground quakes with screen shake, hit bursts
-// by type, auras for boosts and heals, status particles and weather. Drawing only: it reads the battle's view and events and
+// by type, auras for boosts and heals, status particles and weather; pink sparks and echoing rings for Plus moves, a burst of
+// light for Mega Evolution. Drawing only: it reads the battle's view and events and
 // never changes the battle, so it may use Math.random freely.
 import { TYPE_COLORS } from "../dex.js";
 
@@ -218,6 +219,25 @@ export class Vfx {
         this.emit(12, () => ({ x: d.x + rnd(-0.5, 0.5), y: d.y + rnd(-0.2, 0.2), z: rnd(0, 0.8), vz: rnd(0.3, 1.2), life: 1.1, color: "#ffffff", size: rnd(0.25, 0.45), kind: "smoke", alpha: 0.5 }));
         break;
       }
+      case "plus": {
+        // a Plus move: pink sparks and rings that echo out from the user
+        const a = side(e.s);
+        for (let i = 0; i < 3; i++) this.fx.push({ kind: "ring", x: a.x, y: a.y, z: H, t: -i * 0.12, life: 0.45, r0: 0.3, r1: 1.5 + i * 0.35, color: "#ff5fc8" });
+        this.emit(22, () => ({ x: a.x + rnd(-0.6, 0.6), y: a.y + rnd(-0.25, 0.25), z: rnd(0, 0.9), vz: rnd(1, 2.6), drag: 1.5, life: rnd(0.5, 0.9),
+          color: pick(["#ff5fc8", "#ff9be0", "#ffd6f2"]), size: rnd(0.12, 0.24), kind: pick(["glow", "star"]), vr: rnd(-4, 4) }));
+        break;
+      }
+      case "mega": {
+        // Mega Evolution: a column of light, rings in the colours of the Mega symbol and a shake
+        const a = side(e.s);
+        const cols = ["#ff5fc8", "#ffd66b", "#6fe3ff", "#9b6bff"];
+        cols.forEach((c, i) => this.fx.push({ kind: "ring", x: a.x, y: a.y, z: 0.05, t: -i * 0.1, life: 0.7, r0: 0.4, r1: 2.6, color: c, flat: true }));
+        this.fx.push({ kind: "aura", x: a.x, y: a.y, t: 0, life: 1.2, color: "#ffb3ea" });
+        this.emit(40, () => ({ x: a.x + rnd(-0.7, 0.7), y: a.y + rnd(-0.3, 0.3), z: rnd(0, 0.4), vz: rnd(2.5, 5), drag: 1.2, life: rnd(0.6, 1.1),
+          color: pick(cols.concat(["#ffffff"])), size: rnd(0.14, 0.3), kind: pick(["glow", "star", "spark"]), vr: rnd(-5, 5) }));
+        this.shake = Math.max(this.shake, 0.12);
+        break;
+      }
       case "sub": case "substitute": break;
       default: break;
     }
@@ -336,6 +356,11 @@ export class Vfx {
       if (pr) { ray.hx = pr.x; ray.hy = pr.y; } else if (ray.gone < 0) ray.gone = 0;
       if (ray.gone >= 0) ray.gone += dt;
       if (ray.gone > 0.3) this.rays.delete(id);
+    }
+    // Plus projectiles and beams shed pink sparks
+    for (const p of view.projectiles) {
+      if (p.plus && Math.random() < 0.7) this.emit(1, { x: p.x + rnd(-0.15, 0.15), y: p.y + rnd(-0.15, 0.15), z: H + rnd(-0.15, 0.15), vx: rnd(-0.6, 0.6), vy: rnd(-0.6, 0.6),
+        life: rnd(0.25, 0.45), color: pick(["#ff5fc8", "#ffd6f2"]), size: rnd(0.1, 0.2), kind: "glow" });
     }
     // trails behind shaped projectiles
     for (const p of view.projectiles) {

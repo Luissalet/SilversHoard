@@ -49,8 +49,15 @@ function logLine(e, b, lang, tr) {
       return { sec, k: e.eff > 1 || e.crit ? "big" : "dmg", text: `${who(e.s)} −${Math.max(1, Math.round((e.dmg / Math.max(1, e.maxhp)) * 100))}% ${extra}`.trim() };
     }
     case "miss": return { sec, k: "minor", text: es ? `${who(1 - e.s)} esquiva el ataque` : `${who(1 - e.s)} dodged` };
-    case "fizzle": return { sec, k: "minor", text: es ? `${mv(b.dex.moves.get(e.move).name)} de ${monName(e.s)} no alcanza a nadie` : `${who(e.s)}'s ${mv(b.dex.moves.get(e.move).name)} hit nothing` };
-    case "protected": return { sec, k: "minor", text: es ? `${who(e.s)} se protege` : `${who(e.s)} protected itself` };
+    case "fizzle": return e.rock
+      ? { sec, k: "minor", text: es ? `${mv(b.dex.moves.get(e.move).name)} de ${monName(e.s)} choca contra una roca` : `${who(e.s)}'s ${mv(b.dex.moves.get(e.move).name)} hit a rock` }
+      : { sec, k: "minor", text: es ? `${mv(b.dex.moves.get(e.move).name)} de ${monName(e.s)} no alcanza a nadie` : `${who(e.s)}'s ${mv(b.dex.moves.get(e.move).name)} hit nothing` };
+    case "protected": return e.pierced
+      ? { sec, k: "effect", text: es ? `¡El ataque Plus atraviesa la protección de ${monName(e.s)}!` : `The Plus attack pierces ${who(e.s)}'s protection!` }
+      : { sec, k: "minor", text: es ? `${who(e.s)} se protege` : `${who(e.s)} protected itself` };
+    case "plus": return { sec, k: "effect", text: es ? `${who(e.s)}: ¡${mv(e.name)} Plus!` : `${who(e.s)}: ${mv(e.name)} Plus!` };
+    case "mega": return { sec, k: "big", text: es ? `¡${e.from} de ${side(e.s).name} megaevoluciona!` : `${side(e.s).name}'s ${e.from} Mega Evolved!` };
+    case "mega_end": return { sec, k: "info", text: es ? `${monName(e.s, e.slot)} vuelve a su forma` : `${monName(e.s, e.slot)} went back to its usual forme` };
     case "immune": return { sec, k: "minor", text: es ? `No afecta a ${monName(e.s)}` : `It doesn't affect ${monName(e.s)}` };
     case "status": return { sec, k: "effect", text: `${who(e.s)}: ${L(STATUS_NAMES[e.status] || [e.status, e.status], lang)}` };
     case "boost": return e.same ? null : { sec, k: "minor", text: `${who(e.s)}: ${L(STAT_SHORT[e.stat] || [e.stat, e.stat], lang)} ${e.stage > 0 ? "↑" : e.stage < 0 ? "↓" : "="}` };
@@ -77,7 +84,19 @@ function HpBar({ mon }) {
   );
 }
 
-function SideBar({ side, align, lang, tr, avatarUrl }) {
+/** The trainer's Mega Power gauge: three segments; a full one pays for a Plus move, all three for Mega Evolution. */
+function Gauge({ side, tr }) {
+  const segs = [0, 1, 2].map((i) => Math.max(0, Math.min(1, (side.gauge || 0) - i)));
+  return (
+    <div className={`rt-gauge ${side.mega ? "is-mega" : ""}`} title={tr("rt_gauge_help")} role="meter" aria-label={tr("rt_gauge")}
+      aria-valuemin={0} aria-valuemax={3} aria-valuenow={Math.round((side.gauge || 0) * 10) / 10}>
+      {segs.map((f, i) => <span key={i} className={`rt-gauge-seg ${f >= 1 ? "is-full" : ""}`}><i style={{ width: `${f * 100}%` }} /></span>)}
+      {side.mega && <b className="rt-gauge-tag">MEGA</b>}
+    </div>
+  );
+}
+
+function SideBar({ side, align, lang, tr, avatarUrl, gauge }) {
   const mon = side.mons[side.active];
   const boosts = Object.entries(mon?.boosts || {}).filter(([, v]) => v);
   return (
@@ -89,9 +108,11 @@ function SideBar({ side, align, lang, tr, avatarUrl }) {
           {side.mons.map((m, i) => <span key={i} className={`rt-ball ${m.fainted ? "is-out" : ""} ${i === side.active ? "is-on" : ""}`} title={`${m.name} ${m.hp}/${m.maxhp}`} />)}
           <span className="rt-switches" title={tr("rt_switches_help")}>{"⇄".repeat(side.switches_left)}<span className="rt-switches-off">{"⇄".repeat(Math.max(0, 3 - side.switches_left))}</span></span>
         </div>
+        {gauge && <Gauge side={side} tr={tr} />}
         {mon && (
           <div className="rt-mon">
             <b className="trunc">{mon.name}</b> <span className="help">Nv.{mon.level}</span>
+            {mon.is_mega && <span className="rt-tag rt-tag-mega">{tr("rt_mega_on")}</span>}
             {mon.status && <span className="rt-status" style={{ background: STATUS_COLORS[mon.status] }}>{L(STATUS_NAMES[mon.status], lang)}</span>}
             {side.confused && <span className="rt-tag">{tr("rt_confused")}</span>}
             {side.trapped && <span className="rt-tag">{tr("rt_trapped")}</span>}
@@ -107,7 +128,7 @@ function SideBar({ side, align, lang, tr, avatarUrl }) {
   );
 }
 
-function MoveButton({ m, i, lang, tr, onUse, keyHint, disabled, pos = "" }) {
+function MoveButton({ m, i, lang, tr, onUse, keyHint, disabled, pos = "", plus = false }) {
   const ready = m.cd <= 0 && !m.blocked;
   const frac = m.total ? Math.min(1, m.cd / m.total) : 0;
   const color = TYPE_COLORS[m.type] || "#888";
@@ -116,7 +137,7 @@ function MoveButton({ m, i, lang, tr, onUse, keyHint, disabled, pos = "" }) {
     tr("rt_base_cd", { n: m.cooldown, src: tr(m.za ? "rt_src_za" : "rt_src_derived") }), tr("rt_windup", { n: (m.windup / TPS).toFixed(2) }),
     m.no_effect ? tr("rt_no_effect") : "", blocked].filter(Boolean).join("\n");
   return (
-    <button type="button" className={`rt-move ${ready ? "is-ready" : ""} ${pos ? `rt-pos-${pos}` : ""}`} style={{ "--type": color, "--cd": frac }} disabled={disabled}
+    <button type="button" className={`rt-move ${ready ? "is-ready" : ""} ${pos ? `rt-pos-${pos}` : ""} ${plus ? "is-plus" : ""}`} style={{ "--type": color, "--cd": frac }} disabled={disabled}
       onClick={() => onUse(i)} title={title} aria-label={`${nameOf("move", m.name, lang)}${ready ? "" : `, ${Math.ceil(m.cd)} s`}`}>
       <span className="rt-move-sweep" aria-hidden="true" />
       <span className="rt-move-key">{keyHint}</span>
@@ -131,9 +152,10 @@ function MoveButton({ m, i, lang, tr, onUse, keyHint, disabled, pos = "" }) {
 // The four moves sit in a diamond like the X A B Y buttons of Legends: Z-A (slot 0 top, 1 right, 2 bottom, 3 left).
 const DIAMOND = ["top", "right", "bottom", "left"];
 
-function Pad({ side, si, lang, tr, partyOpen, cursor, focus, onUse, onRoll, onSwitch, onParty, keys, sprites }) {
+function Pad({ side, si, lang, tr, partyOpen, cursor, focus, plus, gauge, onUse, onRoll, onSwitch, onParty, onPlus, onMega, keys, sprites }) {
   const mon = side.mons[side.active];
   const showParty = partyOpen || side.need;
+  const plusOn = gauge && (plus || side.mega);
   return (
     <div className={`rt-pad ${focus ? "is-focus" : ""}`}>
       {side.need && <div className="rt-need">{tr("rt_choose_next")}</div>}
@@ -153,9 +175,12 @@ function Pad({ side, si, lang, tr, partyOpen, cursor, focus, onUse, onRoll, onSw
           </div>
         </div>
         {!side.need && mon && !mon.fainted && (
-          <div className="rt-diamond">
-            {mon.moves.map((m, i) => <MoveButton key={i} m={m} i={i} lang={lang} tr={tr} pos={DIAMOND[i]} keyHint={keys.moves[i]} onUse={(j) => onUse(si, j)} />)}
-            <div className="rt-diamond-hub" aria-hidden="true"><span className="rt-key">{keys.focus}</span><span className="rt-hub-label">{focus ? tr("rt_focus_on") : tr("rt_focus")}</span></div>
+          <div className={`rt-diamond ${plusOn ? "is-plus" : ""}`}>
+            {mon.moves.map((m, i) => <MoveButton key={i} m={m} i={i} lang={lang} tr={tr} pos={DIAMOND[i]} keyHint={keys.moves[i]} plus={plusOn} onUse={(j) => onUse(si, j)} />)}
+            <div className="rt-diamond-hub" aria-hidden="true">
+              {!side.mega && <span className="rt-key">{plusOn ? keys.plus : keys.focus}</span>}
+              <span className="rt-hub-label">{plusOn ? (side.mega ? tr("rt_mega_on") : tr("rt_plus_armed")) : focus ? tr("rt_focus_on") : tr("rt_focus")}</span>
+            </div>
           </div>
         )}
         <div className="rt-pad-side">
@@ -165,6 +190,21 @@ function Pad({ side, si, lang, tr, partyOpen, cursor, focus, onUse, onRoll, onSw
           <button type="button" className={`btn btn-sm ${showParty ? "btn-primary" : ""}`} onClick={() => onParty(si)} disabled={side.need}>
             {tr("rt_party_open")}
           </button>
+          {gauge && (
+            <>
+              <Gauge side={side} tr={tr} />
+              <button type="button" className={`btn btn-sm rt-plus-btn ${plusOn ? "is-on" : ""}`} aria-pressed={!!plusOn} title={tr("rt_plus_help")}
+                disabled={side.need || side.mega || !side.plus_ready} onClick={() => onPlus(si)}>
+                {tr("rt_plus")} <span className="rt-key">{keys.plus}</span>
+              </button>
+              {mon?.mega_info && !side.mega_used && (
+                <button type="button" className={`btn btn-sm rt-mega-btn ${side.can_mega ? "is-ready" : ""}`} title={tr("rt_mega_help")} disabled={!side.can_mega}
+                  onClick={() => onMega(si)}>
+                  {tr("rt_mega")} <span className="rt-key">{keys.mega}</span>
+                </button>
+              )}
+            </>
+          )}
         </div>
       </div>
     </div>
@@ -172,11 +212,11 @@ function Pad({ side, si, lang, tr, partyOpen, cursor, focus, onUse, onRoll, onSw
 }
 
 const KEY_HINTS = {
-  solo: { moves: ["I", "L", "K", "J"], roll: "␣", focus: "⇧", party: "Q · E · R", slots: ["1", "2", "3", "4", "5", "6"] },
-  p1: { moves: ["1", "2", "3", "4"], roll: "␣", focus: "⇧", party: "Q · E · R", slots: ["1", "2", "3", "4", "5", "6"] },
-  p2: { moves: ["U", "I", "O", "P"], roll: "↵", focus: "⇧", party: "[ · ] · \\", slots: ["U", "I", "O", "P", "[", "]"] },
-  pad: { moves: ["X", "A", "B", "Y"], roll: "Y", focus: "ZL", party: "◀ ▶ ▲", slots: ["", "", "", "", "", ""] },
-  simple: { moves: ["A", "B", "X", "Y"], roll: "RB", focus: "", party: "◀ ▶ ▲", slots: ["", "", "", "", "", ""] },
+  solo: { moves: ["I", "L", "K", "J"], roll: "␣", focus: "⇧", plus: "F", mega: "M", party: "Q · E · R", slots: ["1", "2", "3", "4", "5", "6"] },
+  p1: { moves: ["1", "2", "3", "4"], roll: "␣", focus: "⇧", plus: "F", mega: "G", party: "Q · E · R", slots: ["1", "2", "3", "4", "5", "6"] },
+  p2: { moves: ["U", "I", "O", "P"], roll: "↵", focus: "⇧", plus: "K", mega: "L", party: "[ · ] · \\", slots: ["U", "I", "O", "P", "[", "]"] },
+  pad: { moves: ["X", "A", "B", "Y"], roll: "Y", focus: "ZL", plus: "ZL + +", mega: "R", party: "◀ ▶ ▲", slots: ["", "", "", "", "", ""] },
+  simple: { moves: ["A", "B", "X", "Y"], roll: "RB", focus: "", plus: "−", mega: "L", party: "◀ ▶ ▲", slots: ["", "", "", "", "", ""] },
 };
 
 const LAYOUT_KEY = "silver-rt-controls";
@@ -208,6 +248,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
   const [party, setParty] = useState([false, false]);
   const [cursor, setCursor] = useState([0, 0]);
   const [focus, setFocus] = useState([false, false]);
+  const [plus, setPlus] = useState([false, false]);
   const [layout, setLayoutState] = useState(readLayout);
   const [pad, setPad] = useState(hasPad);
   const setLayout = (v) => {
@@ -228,13 +269,14 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     move: (n) => nameOf("move", n, lang), crit: tr("rt_crit"), super: tr("rt_super"), weak: tr("rt_weak"), dodged: tr("rt_dodged"),
     blocked: tr("rt_blocked"), immune: tr("rt_immune"), flinch: tr("rt_flinch"), status: (s) => L(STATUS_NAMES[s] || [s, s], lang),
     statusColor: (s) => STATUS_COLORS[s] || "#fff", stat: (k) => L(STAT_SHORT[k] || [k, k], lang),
+    mega: tr("rt_mega_float"), megaEnd: tr("rt_mega_end_float"), plus: tr("rt_plus"),
   }), [lang, tr]);
 
   // build the battle, catch up a live one, load the sprites
   const build = useCallback((untilTick = 0) => {
     const b = new RtBattle(spec);
     const recorded = battle.rt.inputs || [];
-    const state = { b, inputs: makeInputs(humans, readLayout()), held: new Set(), acc: 0, last: 0, logIndex: 0, saveAt: 0, savedLen: 0, replay: null };
+    const state = { b, inputs: makeInputs(humans, readLayout()), held: new Set(), acc: 0, last: 0, logIndex: 0, saveAt: 0, savedLen: 0, replay: null, plusScan: 0 };
     if (live) {
       if (recorded.length || battle.rt.tick) {
         fastForward(b, recorded, battle.rt.tick || 0);
@@ -255,7 +297,9 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
         setCursor((c) => { const n = [...c]; n[i] = at ?? 0; return n; });
       };
       inp.onPause = () => setPhase((ph) => (ph === "running" ? "paused" : ph === "paused" ? "running" : ph));
+      inp.onPlus = (armed) => setPlus((p) => { const n = [...p]; n[i] = armed; return n; });
     });
+    state.plusScan = b.events.length;
     return state;
   }, [spec, battle.rt, live]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -273,7 +317,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     window.__silverRt = { RtBattle, fastForward, inputFrame, get battle() { return sim.current?.b; } };
     const view = state.b.view();
     const renderer = new ArenaRenderer(canvasRef.current, {
-      sides: view.sides.map((s, i) => ({ name: s.name, mons: s.mons, avatarUrl: seats?.[s.id]?.avatarUrl || "" })), sprites, base, texts,
+      sides: view.sides.map((s, i) => ({ name: s.name, mons: s.mons, avatarUrl: seats?.[s.id]?.avatarUrl || "" })), sprites, base, texts, rocks: view.rocks,
     });
     renderer.eventIndex = state.b.events.length;
     state.renderer = renderer;
@@ -346,6 +390,12 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
             if (st.renderer) st.renderer.focus = f;
             if (f[0] !== st.lastFocus?.[0] || f[1] !== st.lastFocus?.[1]) { st.lastFocus = f; setFocus(f); }
             st.b.step(input);
+            // an armed Plus lasts until the battle uses it (or there is no full segment for it)
+            for (; st.plusScan < st.b.events.length; st.plusScan++) {
+              const e = st.b.events[st.plusScan];
+              if ((e.k === "plus" || e.k === "mega") && st.inputs[e.s]?.plusArmed) st.inputs[e.s].setPlus(false);
+            }
+            st.inputs.forEach((inp, i) => { if (inp?.plusArmed && !st.b.plusReady(st.b.sides[i])) inp.setPlus(false); });
           } else {
             st.b.step(inputFrame(st.b, st.replay.byTick.get(st.b.t + 1) || [], st.replay.held));
           }
@@ -426,6 +476,8 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
   };
   const onUse = (si, i) => queue(si, { use: i });
   const onRoll = (si) => queue(si, { dodge: true });
+  const onPlus = (si) => { const inp = sim.current?.inputs[si]; if (inp && phaseRef.current === "running") inp.setPlus(!inp.plusArmed); };
+  const onMega = (si) => queue(si, { mega: true });
   const onSwitch = (si, i) => { queue(si, { sw: i }); const inp = sim.current?.inputs[si]; if (inp) { inp.partyOpen = false; setParty((p) => { const n = [...p]; n[si] = false; return n; }); } };
   const onParty = (si) => { const inp = sim.current?.inputs[si]; if (inp) { inp.partyOpen = !inp.partyOpen; setParty((p) => { const n = [...p]; n[si] = inp.partyOpen; return n; }); } };
 
@@ -453,13 +505,13 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
       <div className="b-main">
         {view && (
           <div className="rt-top">
-            <SideBar side={view.sides[0]} align="left" lang={lang} tr={tr} avatarUrl={seats?.p1?.avatarUrl} />
+            <SideBar side={view.sides[0]} align="left" lang={lang} tr={tr} avatarUrl={seats?.p1?.avatarUrl} gauge={view.version >= 2} />
             <div className="rt-clock">
               <div className="rt-time num" aria-label={tr("rt_time")}>{fmtTime(view.time_limit - view.seconds)}</div>
               {view.weather && <span className="chip">{nameOf("move", { sunnyday: "Sunny Day", raindance: "Rain Dance", sandstorm: "Sandstorm", snow: "Snowscape", hail: "Hail" }[view.weather.id] || view.weather.id, lang)} {Math.ceil(view.weather.left)} s</span>}
               {view.terrain && <span className="chip">{nameOf("move", { electricterrain: "Electric Terrain", grassyterrain: "Grassy Terrain", psychicterrain: "Psychic Terrain", mistyterrain: "Misty Terrain" }[view.terrain.id] || view.terrain.id, lang)} {Math.ceil(view.terrain.left)} s</span>}
             </div>
-            <SideBar side={view.sides[1]} align="right" lang={lang} tr={tr} avatarUrl={seats?.p2?.avatarUrl} />
+            <SideBar side={view.sides[1]} align="right" lang={lang} tr={tr} avatarUrl={seats?.p2?.avatarUrl} gauge={view.version >= 2} />
           </div>
         )}
         <div className="rt-stage" ref={wrapRef}>
@@ -475,11 +527,17 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
                   {people === 2 ? (<><dd>{tr("rt_keys_p1")}</dd><dd>{tr("rt_keys_p2")}</dd></>) : (
                     <>
                       <dt>{tr("rt_ctrl_move")}</dt><dd>{tr("rt_keys_move")}</dd>
-                      <dt>{tr("rt_ctrl_focus")}</dt><dd>{tr("rt_keys_focus")}</dd>
+                      <dt>{tr("rt_ctrl_focus")}</dt><dd>{tr(layout === "simple" ? "rt_keys_focus_simple" : "rt_keys_focus")}</dd>
                       <dt>{tr("rt_ctrl_moves")}</dt><dd>{tr(layout === "simple" ? "rt_keys_moves_simple" : "rt_keys_moves")}</dd>
                       <dt>{tr("rt_ctrl_roll")}</dt><dd>{tr(layout === "simple" ? "rt_keys_roll_simple" : "rt_keys_roll")}</dd>
                       <dt>{tr("rt_ctrl_switch")}</dt><dd>{tr("rt_keys_switch")}</dd>
-                      <dt>{tr("rt_ctrl_pause")}</dt><dd>{tr("rt_keys_pause")}</dd>
+                      {view?.version >= 2 && (
+                        <>
+                          <dt>{tr("rt_ctrl_plus")}</dt><dd>{tr(layout === "simple" ? "rt_keys_plus_simple" : "rt_keys_plus")}</dd>
+                          <dt>{tr("rt_ctrl_mega")}</dt><dd>{tr(layout === "simple" ? "rt_keys_mega_simple" : "rt_keys_mega")}</dd>
+                        </>
+                      )}
+                      <dt>{tr("rt_ctrl_pause")}</dt><dd>{tr(layout === "simple" ? "rt_keys_pause_simple" : "rt_keys_pause")}</dd>
                     </>
                   )}
                 </dl>
@@ -548,8 +606,8 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
         {live && view && (
           <div className={`rt-pads ${people === 2 ? "two" : ""}`}>
             {view.sides.map((s, i) => humans[i] && (
-              <Pad key={i} side={s} si={i} lang={lang} tr={tr} partyOpen={party[i]} cursor={cursor[i]} focus={focus[i]} onUse={onUse} onRoll={onRoll}
-                onSwitch={onSwitch} onParty={onParty} keys={KEY_HINTS[people === 1 && pad ? (layout === "simple" ? "simple" : "pad") : schemes[i]]} sprites={sprites} />
+              <Pad key={i} side={s} si={i} lang={lang} tr={tr} partyOpen={party[i]} cursor={cursor[i]} focus={focus[i]} plus={plus[i]} gauge={view.version >= 2}
+                onUse={onUse} onRoll={onRoll} onSwitch={onSwitch} onParty={onParty} onPlus={onPlus} onMega={onMega} keys={KEY_HINTS[people === 1 && pad ? (layout === "simple" ? "simple" : "pad") : schemes[i]]} sprites={sprites} />
             ))}
           </div>
         )}
