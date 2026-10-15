@@ -29,10 +29,12 @@ const loader = () => `<script>
 
 /** The inline module script of a page and where it sits, or null. */
 export function moduleScript(html) {
-  const start = html.indexOf(MODULE_OPEN);
+  // `<script type="module">`, with or without more attributes (Vite adds `crossorigin` in some builds)
+  const start = html.indexOf(MODULE_OPEN.slice(0, -1));
   if (start < 0) return null;
-  const end = html.indexOf('</script>', start);
-  return {start, end, code: html.slice(start + MODULE_OPEN.length, end)};
+  const open = html.indexOf('>', start) + 1;
+  const end = html.indexOf('</script>', open);
+  return {start, end, code: html.slice(open, end)};
 }
 
 /** The page with its inline module script packed, or the page unchanged when it has no inline module script. */

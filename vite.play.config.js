@@ -10,6 +10,8 @@ import { packPlayPlugin } from './scripts/pack_play.mjs';
 export default defineConfig({
   root: 'client',
   plugins: [react(), tailwindcss(), viteSingleFile({ removeViteModuleLoader: true }), packPlayPlugin()],
+  // the simulator copies battles (the AI's look-ahead) through State, which names references by class name: minifying must keep them
+  esbuild: { keepNames: true },
   build: {
     outDir: '../silvers_hoard/static/play',
     emptyOutDir: true,

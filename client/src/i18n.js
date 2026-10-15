@@ -491,6 +491,7 @@ const D = {
   badge_holders: ["Quién tiene la medalla", "Who has the badge"],
   no_badge_holders: ["Nadie todavía.", "Nobody yet."],
   from_friend: ["Amigo", "Friend"],
+  badge_verified: ["comprobada repitiendo sus combates", "checked by replaying its battles"],
   here: ["Aquí", "Here"],
 
   // leagues

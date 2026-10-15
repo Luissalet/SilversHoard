@@ -28,7 +28,7 @@ export default function Medallas() {
               <div key={name} className="badge-case">
                 <b>{name}</b>
                 <div className="flex flex-wrap gap-2">
-                  {list.map((b) => <a key={b.id} href={`#/gimnasio/${b.gym_id}`} className="badge-slot" title={`${b.gym_name} · ${b.source === "friend" ? t("from_friend") : t("here")}`}><GymBadge image={b.badge_image} color={b.badge_color} size={40} label={b.badge} /><span className="help trunc">{b.badge || b.gym_name}</span></a>)}
+                  {list.map((b) => <a key={b.id} href={`#/gimnasio/${b.gym_id}`} className="badge-slot" title={`${b.gym_name} · ${b.source === "friend" ? t("from_friend") : t("here")}${b.proof?.verified ? ` · ${t("badge_verified")}` : ""}`}><GymBadge image={b.badge_image} color={b.badge_color} size={40} label={b.badge} /><span className="help trunc">{b.badge || b.gym_name}</span></a>)}
                 </div>
               </div>
             ))}

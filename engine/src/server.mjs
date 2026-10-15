@@ -8,6 +8,7 @@ import {playOut, series, summarize, tournament} from './stats.mjs';
 import {viewLines} from './match.mjs';
 import {chooseFor, freeze, makeRng} from './ai.mjs';
 import {masterAvailable} from './master.mjs';
+import {replayCheck} from './replay.mjs';
 import {RtBattle, eventLines, prepareRtTeam, rtRun} from './realtime/sim.mjs';
 import {cooldownTable} from './realtime/moves.mjs';
 import {damageCalc} from './calc.mjs';
@@ -94,6 +95,8 @@ const handlers = {
     return {turn: b.turn, advice: trace.choice ? compactTrace(trace) : null};
   },
   match_close: (a) => ({closed: matches.delete(a.id)}),
+  // a friend's turn-based battle from a playable page, played again from its record (replay.mjs)
+  replay_check: (a) => replayCheck(a),
   play_out: (a) => playOut(a.spec, {keepLog: true}),
   simulate: (a) => series(a.spec, Math.max(1, Math.min(Number(a.count) || 1, 200))),
   tournament: (a) => tournament(a),
