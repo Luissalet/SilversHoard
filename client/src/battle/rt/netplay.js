@@ -1,7 +1,8 @@
 // Real time between two computers (a live-battle room, silvers_hoard/pvp.py): both screens run the same simulator from the same seed
 // in lockstep. Every tick each screen reads its own person's input and sends it to the room; a tick runs only when both inputs for it
 // are in. An input runs `delay` ticks after it is read, so the round trip to the other computer is hidden behind it. The room keeps
-// every frame, so a screen that reconnects (or reloads) catches up from the start.
+// every frame, so a screen that reconnects (or reloads) catches up from the start. A spectator (seat 2) only listens: the room sends
+// it both players' frames and its screen runs the battle from them, a few ticks behind the players.
 
 /** An input (SeatInput.take) as a frame: [mx, my, use, dodge, sw, focus, plus, mega, ctl, tgt]. */
 export function packFrame(q) {
@@ -26,7 +27,7 @@ export function battleHash(b) {
 }
 
 export class NetLink {
-  /** url: the room's WebSocket; seat 0 (host) or 1 (friend); on(event, data): "peer" (bool), "ff" (side), "desync" (tick), "closed",
+  /** url: the room's WebSocket; seat 0 (host), 1 (friend) or 2 (a spectator); on(event, data): "peer" (bool), "ff" (side), "desync" (tick), "closed",
    * "status" ("connecting" | "open" | "lost"). */
   constructor({ url, seat, delay = 4, on = () => {} }) {
     this.url = url;
@@ -41,6 +42,8 @@ export class NetLink {
     this.closed = false;
     this.tries = 0;
     this.hello = false;
+    this.watch = seat === 2;
+    this.both = [[], []];  // a spectator's copy of both players' frames
   }
 
   connect() {
@@ -53,7 +56,17 @@ export class NetLink {
     ws.onmessage = (ev) => {
       let m;
       try { m = JSON.parse(ev.data); } catch { return; }
-      if (m.k === "hello") {
+      if (m.k === "hello" && this.watch) {
+        if (typeof m.delay === "number") this.delay = m.delay;
+        [0, 1].forEach((s) => { const got = (m.frames && m.frames[s]) || []; if (got.length > this.both[s].length) this.both[s] = got.slice(); });
+        this.peer = !!m.peer;
+        this.hello = true;
+        this.on("peer", this.peer);
+      } else if (m.k === "in" && this.watch) {
+        const s = m.seat === 1 ? 1 : 0;
+        const from = m.from | 0;
+        (m.frames || []).forEach((f, i) => { if (from + i === this.both[s].length + 1) this.both[s].push(f); });
+      } else if (m.k === "hello") {
         if (typeof m.delay === "number") this.delay = m.delay;
         const mine = (m.frames && m.frames[this.seat]) || [];
         const theirs = (m.frames && m.frames[1 - this.seat]) || [];
@@ -95,19 +108,23 @@ export class NetLink {
 
   /** This screen's input for the next tick it has not read yet. */
   push(frame) {
+    if (this.watch) return;
     this.local.push(frame);
     this.flush();
   }
 
   flush() {
-    if (this.sent >= this.local.length) return;
+    if (this.watch || this.sent >= this.local.length) return;
     if (this.send({ k: "in", from: this.sent + 1, frames: this.local.slice(this.sent) })) this.sent = this.local.length;
   }
 
   /** Both inputs of tick t are in. */
-  ready(t) { return t <= this.local.length && t <= this.remote.length; }
+  ready(t) { return this.watch ? t <= this.both[0].length && t <= this.both[1].length : t <= this.local.length && t <= this.remote.length; }
 
-  frame(t) { return [this.seat === 0 ? this.local[t - 1] : this.remote[t - 1], this.seat === 0 ? this.remote[t - 1] : this.local[t - 1]]; }
+  frame(t) {
+    if (this.watch) return [this.both[0][t - 1], this.both[1][t - 1]];
+    return [this.seat === 0 ? this.local[t - 1] : this.remote[t - 1], this.seat === 0 ? this.remote[t - 1] : this.local[t - 1]];
+  }
 
   close() {
     this.closed = true;

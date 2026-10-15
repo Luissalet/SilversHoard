@@ -63,6 +63,8 @@ DEFAULT_SETTINGS: dict[str, Any] = {
     # room is open, and the address friends outside your network reach it at ("" = only links on your network are given)
     "pvp_port": 5240,
     "pvp_public_url": "",
+    # the code in your lobby address (/lobby?c=…), which lists your open rooms to the friends you gave it; "" = made on first use
+    "pvp_lobby_code": "",
 }
 MODES = ("classic", "realtime")
 
@@ -206,6 +208,8 @@ class Settings:
                 value = max(30, min(int(value), 1800))
             if key == "pvp_port":
                 value = max(1024, min(int(value), 65535))
+            if key == "pvp_lobby_code" and value and not re.match(r"^[A-Za-z0-9]{8,40}$", value):
+                raise SilverError("invalid", "pvp_lobby_code is 8 to 40 letters and digits (or empty for a new one)")
             if key == "pvp_public_url" and value and not re.match(r"^https?://[^\s/]+(/[^\s]*)?$", value):
                 raise SilverError("invalid", "pvp_public_url is an http:// or https:// address (or empty)")
             if key == "neural_ai_port":

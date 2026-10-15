@@ -336,10 +336,24 @@ class PvpOpenArgs(BaseModel):
     level_rules: dict[str, int] = Field(default_factory=dict, description="{level: 50|100} equalizes both teams.")
     rt_arena: RtArena = Field("rocks", description="Real time: open, rocks or custom:<id>.")
     time_limit: int = Field(300, ge=30, le=1800, description="Real time: seconds.")
+    listed: bool = Field(True, description="Show the room in your lobby to the friends who have your lobby address (pvp_lobby).")
 
 
 class RoomArg(BaseModel):
     room: str = Field(..., min_length=1, max_length=40, description="The room id pvp_open returned.")
+
+
+class FriendAddArgs(BaseModel):
+    url: str = Field(..., min_length=10, max_length=400, description="The friend's lobby address: http(s)://host:port/lobby?c=CODE (their pvp_lobby).")
+    name: str = Field("", max_length=40, description="How to call them (empty: their computer's address).")
+
+
+class FriendIdArg(BaseModel):
+    id: str = Field(..., min_length=1, max_length=20, description="The friend's id from pvp_friends.")
+
+
+class FriendsRoomsArgs(BaseModel):
+    refresh: bool = Field(False, description="Ask every friend again now (otherwise answers up to 15 s old are reused).")
 
 
 class RoomGetArgs(BaseModel):
@@ -978,7 +992,7 @@ TOOLS: list[Tool] = [
                         "screens run in lockstep through the room. The room server listens on pvp_port.",
                         synonyms="pvp, jugar con un amigo, en línea, online, sala, partida en directo, multijugador"), PvpOpenArgs, W,
          lambda s, a: s.pvp.open(trainer_id=a.trainer_id, mode=a.mode, format_=a.format, level_rules=a.level_rules, rt_arena=a.rt_arena,
-                                 time_limit=a.time_limit)),
+                                 time_limit=a.time_limit, listed=a.listed)),
     Tool("pvp_get", _d("A live-battle room: status (waiting, ready, live, ended), the friend and their team, links. Sala en directo.",
                        synonyms="estado de la sala, ¿se ha unido?"), RoomGetArgs, R,
          lambda s, a: s.pvp.get(a.room) if a.room else {"rooms": s.pvp.list()}),
@@ -986,6 +1000,21 @@ TOOLS: list[Tool] = [
                          "Open the returned battle in the app (#/combate/<id>) to play your side."), RoomArg, W, lambda s, a: s.pvp.start(a.room), 120.0),
     Tool("pvp_close", _d("Close a live-battle room (its link stops working). Cerrar sala.", synonyms="cancelar sala"), RoomArg, W,
          lambda s, a: s.pvp.close(a.room)),
+    Tool("pvp_lobby", _d("Your lobby address: one link listing your open rooms to join or watch. Mi vestíbulo.",
+                         "Give it once to the friends who should see your rooms without being sent each link; they add it with pvp_friend_add "
+                         "(or just open it in a browser). It answers while the room server runs (it starts with a room).",
+                         synonyms="vestíbulo, lobby, salas abiertas, matchmaking, buscar rival, emparejamiento"), Empty, R,
+         lambda s, a: s.pvp.lobby_links()),
+    Tool("pvp_lobby_new_code", _d("Change your lobby code: the old lobby address stops working. Cambiar código del vestíbulo."), Empty, W,
+         lambda s, a: s.pvp.lobby_new_code()),
+    Tool("pvp_friends", _d("Your friends' open rooms from their lobbies: join or watch. Salas de mis amigos.",
+                           "Each friend's lobby is asked (3 s each); offline means their computer is off or they have no room open.",
+                           synonyms="salas de amigos, buscar partida, emparejamiento, espectador, mirar combate, matchmaking"), FriendsRoomsArgs, R,
+         lambda s, a: s.pvp.friends_rooms(refresh=a.refresh)),
+    Tool("pvp_friend_add", _d("Add a friend's lobby address so their open rooms show up here. Añadir amigo.",
+                              "They also show in the Hub's Today view.",
+                              synonyms="añadir vestíbulo de un amigo"), FriendAddArgs, W, lambda s, a: s.pvp.friend_add(a.name, a.url)),
+    Tool("pvp_friend_remove", _d("Forget a friend's lobby address. Quitar amigo."), FriendIdArg, W, lambda s, a: s.pvp.friend_remove(a.id)),
     Tool("friends_league", _d("The friends' league: points from the results friends bring back, by season. Liga de amigos.",
                               "Per friend and gym or trainer the best result counts: full win 3 (+1 replay-checked), each battle won 1, the week's challenge +1.",
                               synonyms="clasificación de amigos, temporada, puntos, ranking"), SeasonArg, R, lambda s, a: s.friends.league(a.season)),

@@ -14,7 +14,7 @@ from . import APP_ID, SERVICE, __version__
 from .api import ROUTERS
 from .config import Config
 from .errors import SilverError
-from .hoard_link import family
+from .hoard_link import fam_agenda, family
 from .hoard_link.agentkit import format_issues, issues_of
 from .hoard_link.guard import install_guard
 from .hoard_link.service import health_router, install_error_handlers, install_pwa, install_spa
@@ -41,6 +41,17 @@ def create_app(config: Config | None = None, services: Services | None = None) -
     app.state.config = config
     family.configure(APP_ID, str(config.data_dir), token_file=str(config.token_path))
     install_guard(app, port_getter=lambda: config.port, allowed_env="SILVER_ALLOWED_HOSTS", allowed_hosts=config.allowed_hosts)
+
+    def agenda(date_from, date_to, _sphere):
+        # the Hub's Today view: friends' live-battle rooms open right now (pvp.py); nothing outside today
+        import datetime as _dt
+
+        svc = getattr(app.state, "services", None)
+        if not svc or not (date_from <= _dt.date.today() <= date_to):
+            return []
+        return svc.pvp.agenda()
+
+    fam_agenda.install_fastapi(app, agenda, token_file=str(config.token_path))
     install_error_handlers(app)
 
     @app.exception_handler(SilverError)

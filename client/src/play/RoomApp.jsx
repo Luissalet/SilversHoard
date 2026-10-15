@@ -1,6 +1,7 @@
 // The friend's side of a live battle (a room on someone's Silver's Hoard, silvers_hoard/pvp.py): pick a name and a team, join, wait for
 // the host to start, then play. Turn by turn the host's app runs the battle and this page shows only this side's view and sends this
 // side's choices; in real time this page runs the same simulator as the host's screen, in step through the room's WebSocket.
+// Opened with a room's watch link, the page is for a spectator: it shows the battle read only (WatchRoom).
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { buildFormatId, dexNum, exportTeam, formatInfo, importTeam, randomTeam } from "../../../engine/src/core.mjs";
 import Arena from "../battle/Arena.jsx";
@@ -24,6 +25,10 @@ async function roomCall(room, path, body) {
 }
 
 export default function RoomApp({ data }) {
+  return data.room?.role === "watch" ? <WatchRoom data={data} /> : <PlayRoom data={data} />;
+}
+
+function PlayRoom({ data }) {
   const [lang, setLang] = useState(() => (typeof navigator !== "undefined" && !String(navigator.language || "es").startsWith("es") ? "en" : "es"));
   const t = playT(lang);
   useEffect(() => { document.documentElement.lang = lang; }, [lang]);
@@ -227,6 +232,144 @@ function RoomRt({ t, lang, sprites, room, state, hostAvatar, onDone }) {
     seat: 1, delay: room.input_delay || 4, peerName: rt.spec.p1.name }), [room, rt]);
   const onFinish = useCallback(async (inputs, tick, forfeit) => {
     // the host's app stores the official result; this page shows what its own copy of the battle says
+    const b = rtRun(rt.spec, { inputs, forfeit: forfeit || "", tick });
+    const summary = b.summary();
+    const ended = { ...battle, status: "ended", winner_side: summary.winner_side, summary: { seconds: b.t / 30 }, rt: { ...battle.rt, inputs: inputs.slice(), tick: b.t } };
+    setBattle(ended);
+    return ended;
+  }, [rt, battle]);
+  return <RtScreen key={battle.id} battle={battle} lang={lang} sprites={sprites} seats={seats} offline net={net} onFinish={onFinish}
+    onContinue={onDone} continueLabel={t("battle_continue")} />;
+}
+
+/** A spectator: the room's public view, turn by turn polled from the room, in real time both players' frames through the WebSocket. */
+function WatchRoom({ data }) {
+  const [lang, setLang] = useState(() => (typeof navigator !== "undefined" && !String(navigator.language || "es").startsWith("es") ? "en" : "es"));
+  const t = playT(lang);
+  useEffect(() => { document.documentElement.lang = lang; }, [lang]);
+  const room = data.room;
+  const host = room.host || {};
+  const sprites = useMemo(() => makeSprites({ server: data.sprite_server || "https://play.pokemonshowdown.com/sprites", set: data.sprite_set || "gen5ani", dexNum }), [data]);
+  const hostAvatar = avatarSrc(sprites, host.avatar);
+  const [state, setState] = useState(null);
+  const [error, setError] = useState("");
+  const [phase, setPhase] = useState("waiting");     // waiting, battle, done
+  const pull = useCallback(async () => {
+    const s = await roomCall(room, "/watch");
+    setState(s);
+    return s;
+  }, [room]);
+  useEffect(() => {
+    if (phase !== "waiting") return undefined;
+    let stop = false;
+    const tick = () => pull().then((s) => {
+      if (stop) return;
+      if (s.status === "live" && s.battle) setPhase("battle");
+      else if (s.status === "ended") setPhase("done");
+    }).catch((e) => setError(e.message));
+    tick();
+    const h = setInterval(tick, 2000);
+    return () => { stop = true; clearInterval(h); };
+  }, [phase, pull]);
+  const guestName = state?.guest?.name || "";
+  const header = (
+    <header className="p-head">
+      <div className="p-target">
+        {hostAvatar && <img src={hostAvatar} alt="" className="p-avatar pixelated" onError={(e) => { e.currentTarget.style.display = "none"; }} />}
+        <div className="min-w-0">
+          <h1>{t("watch_title", { name: host.name || "" })}</h1>
+          <div className="help">{[guestName ? t("watch_vs", { a: host.name, b: guestName }) : "", t(room.mode === "realtime" ? "mode_realtime" : "mode_turns"), room.format,
+            state?.spectators ? t("watch_count", { n: state.spectators }) : ""].filter(Boolean).join(" · ")}</div>
+        </div>
+      </div>
+      <button type="button" className="btn btn-sm" onClick={() => setLang(lang === "es" ? "en" : "es")}>{t("language")}</button>
+    </header>
+  );
+  if (phase === "battle" && state?.battle) {
+    return (
+      <div className="p-wrap">
+        {header}
+        <p className="help">{t("watch_note")}</p>
+        {state.battle.mode === "realtime"
+          ? <WatchRt t={t} lang={lang} sprites={sprites} room={room} state={state} hostAvatar={hostAvatar} onDone={() => pull().then(() => setPhase("done"))} />
+          : <WatchTurns lang={lang} sprites={sprites} room={room} host={host} hostAvatar={hostAvatar} guest={guestName} onEnd={(s) => { setState(s); setPhase("done"); }} />}
+      </div>
+    );
+  }
+  if (phase === "done") {
+    const b = state?.battle || {};
+    return (
+      <div className="p-wrap">
+        {header}
+        <div className="panel p-final">
+          <h2>{b.winner_name ? t("watch_won", { name: b.winner_name }) : t("room_tie")}</h2>
+          <p className="help">{t("watch_done_help", { name: host.name })}</p>
+        </div>
+        <footer className="help p-foot">{t("made_with")}</footer>
+      </div>
+    );
+  }
+  return (
+    <div className="p-wrap">
+      {header}
+      <div className="panel p-between">
+        <b>{state?.status === "ready" ? t("watch_ready", { a: host.name, b: guestName }) : t("watch_waiting", { name: host.name })}</b>
+        {error && <div className="banner banner-warn">{error}</div>}
+      </div>
+      <footer className="help p-foot">{t("made_with")}</footer>
+    </div>
+  );
+}
+
+function WatchTurns({ lang, sprites, room, host, hostAvatar, guest, onEnd }) {
+  const player = useBattlePlayer({ lang, me: "p1", speedMs: 850 });
+  const sinceRef = useRef(0);
+  const last = useRef(null);
+  const [b, setB] = useState(null);
+  const [err, setErr] = useState("");
+  const seats = useMemo(() => ({ p1: { name: host.name, avatarUrl: hostAvatar }, p2: { name: guest, avatarUrl: "" } }), [host, hostAvatar, guest]);
+  useEffect(() => {
+    let stop = false;
+    const tick = async () => {
+      if (stop) return;
+      try {
+        const s = await roomCall(room, `/watch?since=${sinceRef.current}`);
+        last.current = s;
+        const x = s.battle;
+        if (x) {
+          if (x.lines?.length) player.push(x.lines);
+          sinceRef.current = x.log_length || sinceRef.current;
+          setB(x);
+        }
+      } catch (e) { setErr(e.message); }
+      if (!stop && last.current?.battle?.status === "live") setTimeout(tick, 1500);
+    };
+    tick();
+    return () => { stop = true; };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (b && b.status !== "live" && player.state.ended && player.caughtUp) {
+      const h = setTimeout(() => onEnd(last.current), 2600);
+      return () => clearTimeout(h);
+    }
+    return undefined;
+  }, [b?.status, player.state.ended, player.caughtUp]); // eslint-disable-line react-hooks/exhaustive-deps
+  return (
+    <>
+      {err && <div className="banner banner-warn">{err}</div>}
+      <Arena player={player} seats={seats} me="p1" sprites={sprites} lang={lang} />
+    </>
+  );
+}
+
+function WatchRt({ t, lang, sprites, room, state, hostAvatar, onDone }) {
+  const rt = state.battle.rt;
+  const seats = useMemo(() => ({ p1: { name: rt.spec.p1.name, avatarUrl: hostAvatar }, p2: { name: rt.spec.p2.name, avatarUrl: "" } }), [rt, hostAvatar]);
+  const [battle, setBattle] = useState(() => ({ id: state.battle.id, status: "live", format: rt.spec.format, kind: "pvp", summary: null,
+    rt: { spec: rt.spec, inputs: [], tick: 0, human: [false, false], time_limit: rt.time_limit, arena: rt.arena } }));
+  const net = useMemo(() => ({ url: `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/api/room/${room.id}/ws?k=${encodeURIComponent(room.key)}`,
+    seat: 2, delay: room.input_delay || 4, peerName: rt.spec.p1.name }), [room, rt]);
+  const onFinish = useCallback(async (inputs, tick, forfeit) => {
     const b = rtRun(rt.spec, { inputs, forfeit: forfeit || "", tick });
     const summary = b.summary();
     const ended = { ...battle, status: "ended", winner_side: summary.winner_side, summary: { seconds: b.t / 30 }, rt: { ...battle.rt, inputs: inputs.slice(), tick: b.t } };

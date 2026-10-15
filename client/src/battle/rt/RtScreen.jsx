@@ -385,6 +385,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
   // net (a live battle with a friend on another computer): {url, seat, peerName}; this screen plays only its own seat, the other
   // arrives through the room (netplay.js)
   const humans = net ? [net.seat === 0, net.seat === 1] : battle.rt.human || [false, false];
+  const watching = !!net && net.seat === 2;   // a spectator: both players' inputs come through the room
   const live = battle.status === "live";
   const people = humans.filter(Boolean).length;
   const canvasRef = useRef(null);
@@ -556,7 +557,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     const st = sim.current;
     if (!st || !live || st.finishing) return;
     st.finishing = true;
-    if (forfeitSide && st.net && forfeitSide === (net.seat === 0 ? "p1" : "p2")) st.net.send({ k: "ff" });
+    if (forfeitSide && st.net && !watching && forfeitSide === (net.seat === 0 ? "p1" : "p2")) st.net.send({ k: "ff" });
     if (forfeitSide && !st.b.ended) st.b.forfeit(forfeitSide);
     setPhase("saving");
     try {
@@ -599,7 +600,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
             // lockstep: read this person's input `delay` ticks ahead, run the next tick once the other person's input for it is in
             const nl = st.net;
             const me = net.seat;
-            while (nl.local.length < st.b.t + 1 + nl.delay) {
+            while (!watching && nl.local.length < st.b.t + 1 + nl.delay) {
               const q = st.inputs[me].take(st.held, st.b.sides[me].mons.length);
               nl.push(packFrame(q));
               const f = st.inputs.map((x) => !!x?.focus);
@@ -619,7 +620,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
               if ((e.k === "plus" || e.k === "mega") && st.inputs[e.s]?.plusArmed) st.inputs[e.s].setPlus(false);
             }
             if (st.b.doubles && st.inputs[me]) st.inputs[me].effCtl = st.b.leadOf(st.b.sides[me]).pos;
-            if (st.b.t - st.hashAt >= 60) { st.hashAt = st.b.t; nl.send({ k: "hash", t: st.b.t, h: battleHash(st.b) }); }
+            if (!watching && st.b.t - st.hashAt >= 60) { st.hashAt = st.b.t; nl.send({ k: "hash", t: st.b.t, h: battleHash(st.b) }); }
             // a screen that reloaded runs the ticks it missed without waiting for the clock
             if (nl.ready(st.b.t + 1 + 2 * nl.delay)) st.acc += 1 / TPS;
           } else if (live) {
@@ -693,7 +694,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
       const st = sim.current;
       if (!st || ["INPUT", "TEXTAREA", "SELECT"].includes(e.target?.tagName)) return;
       if (e.code === "Escape" && !st.inputs.some((x) => x?.partyOpen)) {
-        if (st.net) { setNetState((n) => ({ ...n, menu: !n.menu })); e.preventDefault(); return; }
+        if (st.net) { if (!watching) setNetState((n) => ({ ...n, menu: !n.menu })); e.preventDefault(); return; }
         if (phaseRef.current === "running") setPhase("paused");
         else if (phaseRef.current === "paused") setPhase("running");
         e.preventDefault();
@@ -841,9 +842,9 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
                     {CONTROL_LAYOUTS.map((v) => <button key={v} type="button" aria-pressed={layout === v} onClick={() => setLayout(v)}>{tr(`rt_layout_${v}`)}</button>)}
                   </div>
                 </div>
-                {net && !netState.peer ? <div className="help rt-net-wait">{tr("rt_net_waiting", { name: net.peerName || "…" })}</div>
-                  : <button type="button" className="btn btn-primary" autoFocus onClick={() => setPhase("running")}>{tr("rt_start")}</button>}
-                {net && <div className="help">{tr("rt_net_note")}</div>}
+                {net && !watching && !netState.peer ? <div className="help rt-net-wait">{tr("rt_net_waiting", { name: net.peerName || "…" })}</div>
+                  : <button type="button" className="btn btn-primary" autoFocus onClick={() => setPhase("running")}>{tr(watching ? "rt_watch_start" : "rt_start")}</button>}
+                {net && <div className="help">{tr(watching ? "rt_watch_note" : "rt_net_note")}</div>}
               </div>
             </div>
           )}
@@ -866,10 +867,10 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
           )}
           {phase === "saving" && <div className="rt-overlay"><div className="rt-card"><b>{tr("rt_saving")}</b></div></div>}
           {net && live && phase === "running" && (netState.stalled || !netState.peer || netState.status !== "open") && (
-            <div className="rt-net-banner">{netState.status !== "open" ? tr("rt_net_reconnecting") : tr("rt_net_waiting", { name: net.peerName || "…" })}</div>
+            <div className="rt-net-banner">{netState.status !== "open" ? tr("rt_net_reconnecting") : watching ? tr("rt_watch_wait") : tr("rt_net_waiting", { name: net.peerName || "…" })}</div>
           )}
           {net && netState.desync > 0 && <div className="rt-net-banner is-bad">{tr("rt_net_desync")}</div>}
-          {net && live && phase === "running" && netState.menu && (
+          {net && !watching && live && phase === "running" && netState.menu && (
             <div className="rt-net-menu">
               <button type="button" className="btn btn-sm" onClick={() => { setSure(-1); setNetState((n) => ({ ...n, menu: false })); }}>{tr("rt_resume")}</button>
               <button type="button" className="btn btn-sm btn-danger" onClick={() => (sure === net.seat ? finish(net.seat === 0 ? "p1" : "p2") : setSure(net.seat))}>
