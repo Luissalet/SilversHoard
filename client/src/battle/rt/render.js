@@ -1,7 +1,8 @@
 // Draws a real-time battle on a canvas: the court (with its rocks), the trainers at each end, the Pokémon (walking sprites lined up
 // by their feet, depth-sorted, in their Mega forme while Mega Evolved, with an arrow for their facing when they are not locked
 // on), projectiles, telegraphed areas, effects and floating numbers. It reads the battle's view each frame and its new events to
-// start animations; it never changes the battle.
+// start animations; it never changes the battle. In doubles there are four Pokémon: each has its HP bar with its slot (a / b),
+// the one a person controls has a marker over its head and the foe it locks on a reticle (turning while the lock-on is held).
 import { TYPE_COLORS } from "../dex.js";
 import { Animator, dirRow, image, loadMeta } from "./pmd.js";
 import { Vfx } from "./vfx.js";
@@ -24,8 +25,9 @@ function shade(hex, a) {
 }
 
 export class ArenaRenderer {
-  /** sides: [{mons: [{num, forme, shiny, species, sprite_id, base_look, mega_info}], avatarUrl, name}]; rocks: [{x, y, r}] */
-  constructor(canvas, { sides, sprites, base = "", texts, rocks = [] }) {
+  /** sides: [{mons: [{num, forme, shiny, species, sprite_id, base_look, mega_info}], avatarUrl, name}]; rocks: [{x, y, r}];
+   * humans: which sides a person plays (doubles: their controlled Pokémon and locked foe get markers). */
+  constructor(canvas, { sides, sprites, base = "", texts, rocks = [], humans = [false, false] }) {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
     this.sides = sides;
@@ -34,6 +36,7 @@ export class ArenaRenderer {
     this.base = base;
     this.texts = texts;
     this.rocks = rocks || [];
+    this.humans = humans || [false, false];
     this.anims = sides.map((s) => s.mons.map(() => null));
     this.megaAnims = sides.map((s) => s.mons.map(() => null));
     const look = (m) => m.base_look || m;
@@ -43,10 +46,12 @@ export class ArenaRenderer {
     this.trainers = sides.map((s) => (s.avatarUrl ? image(s.avatarUrl) : null));
     this.floats = [];
     this.effects = [];
-    this.flash = [0, 0];
-    this.labels = [null, null];
-    this.fade = [{ slot: -1, t: 0 }, { slot: -1, t: 0 }];
-    this.lastActive = [-1, -1];
+    // per Pokémon on the field: key = side in singles, side * 2 + slot in doubles
+    this.flash = [0, 0, 0, 0];
+    this.labels = [null, null, null, null];
+    this.fade = [0, 1, 2, 3].map(() => ({ slot: -1, t: 0 }));
+    this.lastActive = [-1, -1, -1, -1];
+    this.heads = [];
     this.eventIndex = 0;
     this.time = 0;
     this.court = null;
@@ -227,81 +232,96 @@ export class ArenaRenderer {
     for (; this.eventIndex < ev.length; this.eventIndex++) this.onEvent(ev[this.eventIndex], battle);
   }
 
-  posOf(battle, si) {
-    const s = battle.sides[si];
+  /** The Pokémon of side `si` (in doubles, of its slot `u`) in the battle itself. */
+  unitOf(battle, si, u = 0) {
+    return battle.doubles ? battle.sides[si].units[u || 0] : battle.sides[si];
+  }
+
+  posOf(battle, si, u = 0) {
+    const s = this.unitOf(battle, si, u);
     return { x: s.x, y: s.y };
   }
 
-  float(battle, si, text, color, { size = 1, dy = 0 } = {}) {
-    const p = this.posOf(battle, si);
+  float(battle, si, text, color, { size = 1, dy = 0, u = 0 } = {}) {
+    const p = this.posOf(battle, si, u);
     this.floats.push({ x: p.x, y: p.y, text, color, t: 0, life: 1.1, size, dy });
   }
 
   onEvent(e, battle) {
     const T = this.texts;
-    const anim = (si) => this.animOf(si, battle.sides[si].active, !!battle.sides[si].mons[battle.sides[si].active]?.megaOn);
+    const u = e.u || 0;
+    const key = battle.doubles ? e.s * 2 + u : e.s;
+    const anim = (si) => { const w = this.unitOf(battle, si, u); return this.animOf(si, w.active, !!w.mons[w.active]?.megaOn); };
     const s = e.s;
+    const float = (si, text, color, opts = {}) => this.float(battle, si, text, color, { ...opts, u });
     this.vfx.onEvent(e, battle);
     playRtEvent(e, this.audio);
     switch (e.k) {
       case "windup": {
         const a = anim(s);
         if (a) a.play(["strike", "dash"].includes(e.shape) ? "Attack" : ["self", "field"].includes(e.shape) ? "Charge" : "Shoot", { speed: e.ticks ? 1 : 1.6 });
-        this.labels[s] = { text: T.move(e.name), type: e.type, t: 0 };
+        this.labels[key] = { text: T.move(e.name), type: e.type, t: 0 };
         break;
       }
+      case "helping": float(s, T.helping || "+", "#ffd166", { size: 0.85, dy: -0.6 }); break;
+      case "follow": float(s, T.follow || "!", "#ff9f43", { size: 0.85, dy: -0.6 }); break;
       case "hit": {
-        this.flash[s] = 1;
+        this.flash[key] = 1;
         const a = anim(s);
         if (a && e.hp > 0) a.play("Hurt");
         const pct = Math.max(1, Math.round((e.dmg / Math.max(1, e.maxhp)) * 100));
-        this.float(battle, s, `−${pct}%`, e.eff > 1 ? "#ffd54a" : e.eff < 1 ? "#c9d2dc" : "#ffffff", { size: e.crit || e.eff > 1 ? 1.3 : 1 });
-        if (e.crit) this.float(battle, s, T.crit, "#ff8a65", { size: 0.8, dy: -0.7 });
-        else if (e.eff > 1 && e.hit === 0) this.float(battle, s, T.super, "#ffd54a", { size: 0.8, dy: -0.7 });
-        else if (e.eff < 1 && e.eff > 0 && e.hit === 0) this.float(battle, s, T.weak, "#c9d2dc", { size: 0.75, dy: -0.7 });
+        float(s, `−${pct}%`, e.eff > 1 ? "#ffd54a" : e.eff < 1 ? "#c9d2dc" : "#ffffff", { size: e.crit || e.eff > 1 ? 1.3 : 1 });
+        if (e.crit) float(s, T.crit, "#ff8a65", { size: 0.8, dy: -0.7 });
+        else if (e.eff > 1 && e.hit === 0) float(s, T.super, "#ffd54a", { size: 0.8, dy: -0.7 });
+        else if (e.eff < 1 && e.eff > 0 && e.hit === 0) float(s, T.weak, "#c9d2dc", { size: 0.75, dy: -0.7 });
         break;
       }
-      case "chip": this.float(battle, s, `−${Math.max(1, Math.round((e.amount / Math.max(1, e.maxhp)) * 100))}%`, "#e8a0a0", { size: 0.75 }); break;
-      case "heal": this.float(battle, s, `+${Math.max(1, Math.round((e.amount / Math.max(1, e.maxhp)) * 100))}%`, "#7ee08f", { size: 0.9 }); break;
-      case "miss": this.float(battle, 1 - s, T.dodged, "#bfe3ff", { size: 0.85 }); break;
+      case "chip": float(s, `−${Math.max(1, Math.round((e.amount / Math.max(1, e.maxhp)) * 100))}%`, "#e8a0a0", { size: 0.75 }); break;
+      case "heal": float(s, `+${Math.max(1, Math.round((e.amount / Math.max(1, e.maxhp)) * 100))}%`, "#7ee08f", { size: 0.9 }); break;
+      case "miss": {
+        // over the one that got away: the other side's Pokémon (in doubles, the one the attacker aimed at)
+        if (battle.doubles) { const t = battle.foe(this.unitOf(battle, s, u)); this.float(battle, t.index, T.dodged, "#bfe3ff", { size: 0.85, u: t.pos }); }
+        else this.float(battle, 1 - s, T.dodged, "#bfe3ff", { size: 0.85 });
+        break;
+      }
       case "protected": {
-        this.float(battle, s, T.blocked, "#9fd3ff", { size: 0.85 });
-        const p = this.posOf(battle, s);
+        float(s, T.blocked, "#9fd3ff", { size: 0.85 });
+        const p = this.posOf(battle, s, u);
         this.effects.push({ kind: "shield", x: p.x, y: p.y, t: 0, life: 0.45 });
         break;
       }
-      case "immune": this.float(battle, s, T.immune, "#c9d2dc", { size: 0.8 }); break;
-      case "flinch": this.float(battle, s, T.flinch, "#ffcf7a", { size: 0.85 }); break;
-      case "status": this.float(battle, s, T.status(e.status), T.statusColor(e.status), { size: 0.85 }); break;
-      case "boost": if (!e.same) this.float(battle, s, `${T.stat(e.stat)} ${e.stage > 0 ? "↑" : e.stage < 0 ? "↓" : "="}`, e.stage > 0 ? "#ffb15c" : "#7fb2ff", { size: 0.8, dy: -0.4 }); break;
+      case "immune": float(s, T.immune, "#c9d2dc", { size: 0.8 }); break;
+      case "flinch": float(s, T.flinch, "#ffcf7a", { size: 0.85 }); break;
+      case "status": float(s, T.status(e.status), T.statusColor(e.status), { size: 0.85 }); break;
+      case "boost": if (!e.same) float(s, `${T.stat(e.stat)} ${e.stage > 0 ? "↑" : e.stage < 0 ? "↓" : "="}`, e.stage > 0 ? "#ffb15c" : "#7fb2ff", { size: 0.8, dy: -0.4 }); break;
       case "faint": {
         const a = this.animOf(s, e.slot, !!battle.sides[s].mons[e.slot]?.megaOn);
         if (a) a.play("Faint", { hold: true });
-        this.fade[s] = { slot: e.slot, t: 0, at: e.t, mega: false };
+        this.fade[key] = { slot: e.slot, t: 0, at: e.t, mega: false };
         break;
       }
       case "mega": {
-        this.flash[s] = 1;
-        this.float(battle, s, T.mega, "#ffb3ea", { size: 1.1, dy: -0.5 });
+        this.flash[key] = 1;
+        float(s, T.mega, "#ffb3ea", { size: 1.1, dy: -0.5 });
         break;
       }
       case "mega_end": {
         // a Mega Pokémon that faints keeps its Mega look while it fades out
-        if (this.fade[s].slot === e.slot && this.fade[s].at === e.t) {
-          this.fade[s].mega = true;
+        if (this.fade[key].slot === e.slot && this.fade[key].at === e.t) {
+          this.fade[key].mega = true;
           this.megaAnims[s]?.[e.slot]?.play("Faint", { hold: true });
-        } else this.float(battle, s, T.megaEnd, "#e6d3ff", { size: 0.8, dy: -0.5 });
+        } else float(s, T.megaEnd, "#e6d3ff", { size: 0.8, dy: -0.5 });
         break;
       }
-      case "plus": this.float(battle, s, `${T.plus}!`, "#ff8fdc", { size: 0.85, dy: -0.9 }); break;
+      case "plus": float(s, `${T.plus}!`, "#ff8fdc", { size: 0.85, dy: -0.9 }); break;
       case "switch": {
-        const p = this.posOf(battle, s);
+        const p = this.posOf(battle, s, u);
         this.effects.push({ kind: "beam", x: p.x, y: p.y, from: TRAINER[s], t: 0, life: 0.4 });
-        this.fade[s] = { slot: -1, t: 0 };
+        this.fade[key] = { slot: -1, t: 0 };
         break;
       }
       case "recall": {
-        const p = this.posOf(battle, s);
+        const p = this.posOf(battle, s, u);
         this.effects.push({ kind: "beam", x: p.x, y: p.y, from: TRAINER[s], t: 0, life: 0.5, red: true });
         break;
       }
@@ -310,7 +330,7 @@ export class ArenaRenderer {
         if (e.rock) this.effects.push({ kind: "dust", x: e.x, y: e.y, t: 0, life: 0.45 });
         break;
       case "roll": {
-        const p = this.posOf(battle, s);
+        const p = this.posOf(battle, s, u);
         this.effects.push({ kind: "dust", x: p.x, y: p.y, t: 0, life: 0.35 });
         break;
       }
@@ -365,13 +385,28 @@ export class ArenaRenderer {
     // area effects under the Pokémon
     this.drawEffects(dt, true);
     this.vfx.drawUnder(ctx);
+    // every Pokémon on the field: one per side in singles, a side's two slots in doubles (their own place and act, the side's party)
+    const fighters = view.doubles
+      ? view.sides.flatMap((sd, si) => sd.units.filter((w) => !w.vacant).map((w) => ({ side: { ...sd, ...w }, si, key: si * 2 + w.pos })))
+      : view.sides.map((side, si) => ({ side, si, key: si }));
     // facing arrows of Pokémon that are not locked on: their moves go that way
-    view.sides.forEach((side, si) => { if (!side.focus && view.version >= 2) this.drawFacing(side, si); });
+    for (const { side, si } of fighters) if (!side.focus && view.version >= 2) this.drawFacing(side, si);
     // Pokémon, sorted by depth
-    const order = view.sides.map((side, si) => ({ side, si })).sort((a, b) => a.side.y - b.side.y);
-    for (const { side, si } of order) this.drawMon(view, side, si, dt);
-    // lock-on (ZL / Shift held): a turning reticle on the opponent, as in Legends: Z-A
-    (this.focus || []).forEach((on, si) => { if (on && view.sides[1 - si]) this.drawReticle(view.sides[1 - si], si); });
+    const order = fighters.slice().sort((a, b) => a.side.y - b.side.y);
+    for (const { side, si, key } of order) this.drawMon(view, side, si, dt, key);
+    if (view.doubles) {
+      // doubles: a marker over the Pokémon a person controls and a reticle on the foe it locks on (turning while ZL / Shift is held)
+      view.sides.forEach((sd, si) => {
+        if (!this.humans[si]) return;
+        const lead = sd.units[sd.ctl];
+        const foe = view.sides[1 - si]?.units[lead?.aim ?? 0];
+        if (lead && !lead.vacant) this.drawControlled({ ...sd, ...lead }, si);
+        if (foe && !foe.vacant && !foe.need) this.drawReticle(foe, si, !!this.focus?.[si]);
+      });
+    } else {
+      // lock-on (ZL / Shift held): a turning reticle on the opponent, as in Legends: Z-A
+      (this.focus || []).forEach((on, si) => { if (on && view.sides[1 - si]) this.drawReticle(view.sides[1 - si], si); });
+    }
     // projectiles, rays, melee marks, particles
     this.vfx.drawOver(ctx, view, battle);
     this.drawEffects(dt, false);
@@ -429,14 +464,37 @@ export class ArenaRenderer {
     ctx.restore();
   }
 
-  drawReticle(side, by) {
+  /** Doubles: the Pokémon a person moves gets a bobbing chevron in its side's colour over its head. */
+  drawControlled(side, si) {
+    const ctx = this.ctx;
+    const s = this.scale;
+    const x = this.px(side.x);
+    const y = this.py(side.y) - (this.heads[si * 2 + (side.pos || 0)] ?? 2.6 * s) - (0.25 + Math.sin(this.time * 5) * 0.08) * s;
+    const w = 0.42 * s;
+    ctx.save();
+    ctx.fillStyle = `rgba(${SIDE_RGB[si]},0.95)`;
+    ctx.strokeStyle = "rgba(0,0,0,0.7)";
+    ctx.lineWidth = Math.max(1, s * 0.05);
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x - w, y - w * 1.1);
+    ctx.lineTo(x, y - w * 0.6);
+    ctx.lineTo(x + w, y - w * 1.1);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  drawReticle(side, by, turning = true) {
     const ctx = this.ctx;
     const s = this.scale;
     const x = this.px(side.x);
     const y = this.py(side.y) - 0.7 * s;
     const r = 1.25 * s;
-    const t = this.time * 2.2;
+    const t = turning ? this.time * 2.2 : 0;
     ctx.save();
+    if (!turning) { ctx.globalAlpha = 0.55; ctx.setLineDash([s * 0.18, s * 0.12]); }
     ctx.strokeStyle = by === 0 ? "rgba(120,200,255,0.95)" : "rgba(255,120,120,0.95)";
     ctx.lineWidth = Math.max(2, s * 0.08);
     for (let i = 0; i < 4; i++) {
@@ -458,16 +516,16 @@ export class ArenaRenderer {
     ctx.restore();
   }
 
-  drawMon(view, side, si, dt) {
+  drawMon(view, side, si, dt, key = si) {
     const ctx = this.ctx;
     const s = this.scale;
     const mon = side.mons[side.active];
     if (!mon) return;
-    const fade = this.fade[si];
+    const fade = this.fade[key];
     const mega = !!mon.is_mega || (mon.fainted && fade.slot === side.active && !!fade.mega);
     const lookKey = `${side.active}:${mega ? 1 : 0}`;
-    if (this.lastActive[si] !== lookKey) {
-      this.lastActive[si] = lookKey;
+    if (this.lastActive[key] !== lookKey) {
+      this.lastActive[key] = lookKey;
       const a = this.animOf(si, side.active, mega);
       if (a && !mon.fainted) a.start("Idle", false);
     }
@@ -514,7 +572,7 @@ export class ArenaRenderer {
       else a.loop("Idle");
       a.update(dt);
       const row = dirRow(side.fx, side.fy);
-      drawn = a.draw(ctx, x, y, row, this.k, { alpha, flash: this.flash[si] });
+      drawn = a.draw(ctx, x, y, row, this.k, { alpha, flash: this.flash[key] });
       headY = y - a.height(this.k) - 0.3 * s;
     }
     if (!drawn) {
@@ -536,6 +594,15 @@ export class ArenaRenderer {
         ctx.fill();
       }
     }
+    if (side.follow && !mon.fainted) {
+      // Follow Me / Rage Powder: a pulsing orange ring that draws the foes' attacks
+      const k = 1.4 + Math.sin(this.time * 8) * 0.12;
+      ctx.strokeStyle = `rgba(255,159,67,${0.85 * alpha})`;
+      ctx.lineWidth = Math.max(2, s * 0.09);
+      ctx.beginPath();
+      ctx.ellipse(x, y, side.r * s * k, side.r * s * 0.5 * k, 0, 0, Math.PI * 2);
+      ctx.stroke();
+    }
     if (side.protect) {
       ctx.strokeStyle = "rgba(140,210,255,0.9)";
       ctx.lineWidth = Math.max(2, s * 0.08);
@@ -554,18 +621,32 @@ export class ArenaRenderer {
     ctx.fillRect(x - bw / 2 - 1, headY - bh - 1, bw + 2, bh + 2);
     ctx.fillStyle = frac > 0.5 ? "#4cc46a" : frac > 0.2 ? "#e7b52c" : "#e2473f";
     ctx.fillRect(x - bw / 2, headY - bh, bw * frac, bh);
+    if (view.doubles) {
+      // doubles: the slot's letter next to its HP bar, in the side's colour
+      const sz = Math.max(9, Math.round(0.42 * s));
+      ctx.font = `800 ${sz}px system-ui, sans-serif`;
+      ctx.textAlign = "right";
+      ctx.textBaseline = "middle";
+      ctx.lineWidth = Math.max(2, s * 0.07);
+      ctx.strokeStyle = "rgba(0,0,0,0.8)";
+      const letter = side.pos ? "b" : "a";
+      ctx.strokeText(letter, x - bw / 2 - 3, headY - bh / 2);
+      ctx.fillStyle = `rgb(${SIDE_RGB[si]})`;
+      ctx.fillText(letter, x - bw / 2 - 3, headY - bh / 2);
+    }
+    this.heads[key] = y - headY;
     if (side.act?.kind === "windup") {
-      const label = this.labels[si];
+      const label = this.labels[key];
       ctx.fillStyle = "rgba(0,0,0,0.6)";
       ctx.fillRect(x - bw / 2 - 1, headY + 2, bw + 2, bh * 0.7 + 2);
       ctx.fillStyle = TYPE_COLORS[label?.type] || "#fff";
       const total = Math.max(1, side.act.total || 1);
       ctx.fillRect(x - bw / 2, headY + 3, bw * Math.min(1, 1 - side.act.left / total), bh * 0.7);
     }
-    const label = this.labels[si];
+    const label = this.labels[key];
     if (label) {
       label.t += dt;
-      if (label.t > 1.3) this.labels[si] = null;
+      if (label.t > 1.3) this.labels[key] = null;
       else {
         const a2 = Math.min(1, (1.3 - label.t) * 3);
         ctx.font = `700 ${Math.round(0.46 * s)}px system-ui, sans-serif`;

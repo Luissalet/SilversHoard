@@ -69,7 +69,7 @@ export class Vfx {
     this.shake = 0;
     this.weatherT = 0;
     this.statusT = 0;
-    this.pendingDrop = [null, null];
+    this.pendingDrop = {};
     this.lastBalls = new Map();
   }
 
@@ -141,7 +141,10 @@ export class Vfx {
 
   // ------------------------------------------------------------ events
   onEvent(e, battle) {
-    const side = (i) => battle.sides[i];
+    // the Pokémon of an event: the side's in singles, the slot's (e.u) in doubles; its foe: the other side's, or the one it aims at
+    const side = (i) => (battle.doubles ? battle.sides[i].units[e.u || 0] : battle.sides[i]);
+    const foeOf = (i) => (battle.doubles ? battle.foe(side(i)) : battle.sides[1 - i]);
+    const dropKey = `${e.s}:${e.u || 0}`;
     switch (e.k) {
       case "shot": {
         const ray = RAYS[e.move] || (e.shape === "beam" && !BALLS[e.move] ? "generic" : null);
@@ -166,25 +169,25 @@ export class Vfx {
           this.emit(16, () => ({ x: a.x + rnd(-0.6, 0.6), y: a.y + rnd(-0.25, 0.25), z: rnd(0, 0.5), vz: rnd(1.5, 3), life: rnd(0.5, 0.9),
             color: heal ? pick(["#7ee08f", "#d7ffd9"]) : pick([TYPE_COLORS[e.type] || "#ffffff", "#ffffff"]), size: rnd(0.1, 0.2), kind: heal ? "plus" : "glow" }));
         } else if (e.shape === "field") {
-          const f = side(1 - e.s);
+          const f = foeOf(e.s);
           this.fx.push({ kind: "ring", x: f.x, y: f.y, z: 0.05, t: 0, life: 0.6, r0: 0.3, r1: 2, color: TYPE_COLORS[e.type] || "#ffffff", flat: true });
         }
         break;
       }
       case "windup": {
         if (e.shape === "drop") {
-          this.pendingDrop[e.s] = e.move;
+          this.pendingDrop[dropKey] = e.move;
           if (DROPS[e.move] === "bolt") this.fx.push({ kind: "cloud", x: e.tx, y: e.ty, t: 0, life: (e.ticks || 18) / 30 + 0.6 });
         }
         if (e.ticks > 6 && ["beam", "shot"].includes(e.shape)) {
           const a = side(e.s);
-          this.fx.push({ kind: "charge", s: e.s, t: 0, life: e.ticks / 30, color: TYPE_COLORS[e.type] || "#ffffff", x: a.x, y: a.y });
+          this.fx.push({ kind: "charge", s: e.s, u: e.u || 0, t: 0, life: e.ticks / 30, color: TYPE_COLORS[e.type] || "#ffffff", x: a.x, y: a.y });
         }
         break;
       }
       case "area": {
-        const isDrop = this.pendingDrop[e.s] === e.move;
-        if (isDrop) this.pendingDrop[e.s] = null;
+        const isDrop = this.pendingDrop[dropKey] === e.move;
+        if (isDrop) this.pendingDrop[dropKey] = null;
         const kind = isDrop ? DROPS[e.move] || "ring" : e.arc === -1 ? BURSTS[e.move] || "ring" : BURSTS[e.move] || "cone";
         this.area(kind, e, isDrop);
         break;
@@ -399,7 +402,8 @@ export class Vfx {
     this.statusT += dt;
     if (this.statusT > 0.22) {
       this.statusT = 0;
-      for (const side of view.sides) {
+      const fighters = view.doubles ? view.sides.flatMap((sd) => sd.units.filter((u) => !u.vacant).map((u) => ({ ...u, mons: sd.mons }))) : view.sides;
+      for (const side of fighters) {
         const mon = side.mons[side.active];
         if (!mon || mon.fainted || side.need) continue;
         const st = mon.status;
@@ -595,7 +599,7 @@ export class Vfx {
         ctx.arc(this.px(f.x), this.py(f.y, 0.8), rr, 0, TAU);
         ctx.fill();
       } else if (f.kind === "charge") {
-        const side = battle.sides[f.s];
+        const side = battle.doubles ? battle.sides[f.s].units[f.u || 0] : battle.sides[f.s];
         const cx = this.px(side.x + side.fx * 0.8), cy = this.py(side.y + side.fy * 0.8, H);
         const rr = 0.55 * s * Math.min(1, p * 1.3);
         const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, rr * 1.6);

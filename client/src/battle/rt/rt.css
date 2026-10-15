@@ -31,7 +31,7 @@
 .rt-canvas { display: block; margin: 0 auto; max-width: 100%; image-rendering: pixelated; }
 .rt-overlay { position: absolute; inset: 0; display: grid; place-items: center; background: #0008; z-index: 5; padding: 12px; }
 .rt-overlay.is-end { background: #000a; }
-.rt-card { background: var(--b-surface); border: 1px solid var(--b-line); border-radius: 14px; padding: 16px 20px; display: flex; flex-direction: column; gap: 10px; align-items: center; text-align: center; max-width: 520px; box-shadow: 0 16px 40px #0008; }
+.rt-card { background: var(--b-surface); border: 1px solid var(--b-line); border-radius: 14px; padding: 16px 20px; display: flex; flex-direction: column; gap: 10px; align-items: center; text-align: center; max-width: 520px; max-height: 100%; overflow-y: auto; box-shadow: 0 16px 40px #0008; }
 .rt-big { font-size: 22px; }
 .rt-controls { display: grid; grid-template-columns: auto auto; gap: 3px 14px; text-align: left; font-size: 13px; margin: 0; }
 .rt-controls dt { color: var(--b-muted); }
@@ -106,3 +106,19 @@
   box-shadow: 0 0 14px -3px #ff5fc8; }
 .rt-move.is-plus { border-color: #ff5fc8; box-shadow: 0 0 0 1px #ff5fc8aa, 0 0 16px -3px #ff5fc8; }
 .rt-diamond.is-plus .rt-diamond-hub { border-style: solid; border-color: #ff5fc8; color: #ffd6f2; box-shadow: 0 0 16px -4px #ff5fc8; }
+
+/* Doubles: both Pokémon of a side, their slot letters, the controlled one and the locked foe */
+.rt-duo { display: flex; flex-direction: column; gap: 4px; margin-top: 2px; }
+.rt-duo-mon { padding: 2px 4px; border-radius: 7px; border: 1px solid transparent; }
+.rt-duo-mon.is-ctl { border-color: var(--b-accent); background: color-mix(in srgb, var(--b-accent) 10%, transparent); }
+.rt-slot { display: inline-grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; font-size: 11px; font-weight: 800; line-height: 1;
+  background: var(--b-surface-2); color: var(--b-ink); border: 1px solid var(--b-line); text-transform: lowercase; }
+.rt-sidebar.left .rt-slot { border-color: #5aaaff; }
+.rt-sidebar.right .rt-slot, .rt-slot.is-foe { border-color: #ff5f5f; }
+.rt-tag-ctl { color: #bfe6ff; border-color: #5aaaff; }
+.rt-duo-bar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 13px; }
+.rt-duo-bar .btn { margin-right: 8px; }
+.rt-party-btn { position: relative; }
+.rt-party-slot { position: absolute; top: 2px; left: 2px; }
+.rt-party-slot.is-ctl { background: var(--b-accent); color: #111; }
+.rt-doubles-note { grid-column: 1 / -1; color: var(--b-accent); }

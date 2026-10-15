@@ -7,6 +7,9 @@
 // The "simple" layout keeps the earlier one: always locked on, A B X Y fire moves 1-4, RB rolls, L Mega Evolves, - arms Plus.
 // Two people share the keyboard: the first WASD, 1-4, Space, left Shift, F / G, Q/E/R; the second the arrows, U I O P, Enter,
 // right Shift, K / L, Backspace / [ ] \.
+// Doubles: the person moves one of their two Pokémon; Tab or C swaps which (L on a gamepad, the left stick click in the simple
+// layout) and X cycles the foe it locks on (the right stick click). With two people: C / X and ; / '. Tab no longer opens the
+// party there (Q / E / R do).
 // Taps between two ticks are queued so none is lost.
 
 const SCHEMES = {
@@ -16,19 +19,19 @@ const SCHEMES = {
     moves: [["Digit1", "KeyI", "Numpad8"], ["Digit2", "KeyL", "Numpad6"], ["Digit3", "KeyK", "Numpad2"], ["Digit4", "KeyJ", "Numpad4"]],
     focus: ["ShiftLeft", "ShiftRight"], roll: ["Space"], plus: ["KeyF"], mega: ["KeyM"],
     prev: ["KeyQ"], next: ["KeyE"], send: ["KeyR"], party: ["Tab"],
-    slots: ["Digit1", "Digit2", "Digit3", "Digit4", "Digit5", "Digit6"],
+    slots: ["Digit1", "Digit2", "Digit3", "Digit4", "Digit5", "Digit6"], swap: ["Tab", "KeyC"], target: ["KeyX"],
   },
   p1: {
     up: ["KeyW"], down: ["KeyS"], left: ["KeyA"], right: ["KeyD"],
     moves: [["Digit1"], ["Digit2"], ["Digit3"], ["Digit4"]], focus: ["ShiftLeft"], roll: ["Space"], plus: ["KeyF"], mega: ["KeyG"],
     prev: ["KeyQ"], next: ["KeyE"], send: ["KeyR"], party: [],
-    slots: ["Digit1", "Digit2", "Digit3", "Digit4", "Digit5", "Digit6"],
+    slots: ["Digit1", "Digit2", "Digit3", "Digit4", "Digit5", "Digit6"], swap: ["KeyC"], target: ["KeyX"],
   },
   p2: {
     up: ["ArrowUp"], down: ["ArrowDown"], left: ["ArrowLeft"], right: ["ArrowRight"],
     moves: [["KeyU"], ["KeyI"], ["KeyO"], ["KeyP"]], focus: ["ShiftRight"], roll: ["Enter", "NumpadEnter"], plus: ["KeyK"], mega: ["KeyL"],
     prev: ["BracketLeft"], next: ["BracketRight"], send: ["Backslash", "Backspace"], party: [],
-    slots: ["KeyU", "KeyI", "KeyO", "KeyP", "BracketLeft", "BracketRight"],
+    slots: ["KeyU", "KeyI", "KeyO", "KeyP", "BracketLeft", "BracketRight"], swap: ["Semicolon"], target: ["Quote"],
   },
 };
 
@@ -53,6 +56,21 @@ export class SeatInput {
     this.onParty = null;     // (open, cursor) -> the screen shows the party bar
     this.onPause = null;
     this.onPlus = null;      // (armed) -> the screen lights the diamond
+    // doubles: the slot this person moves and the foe slot they lock on (sent every tick; the battle records changes)
+    this.doubles = false;
+    this.ctl = 0;
+    this.tgt = 0;
+    this.effCtl = 0;         // the slot the battle really gives control of (the other one when this one is empty)
+  }
+
+  /** Doubles: control the other Pokémon. */
+  swap() {
+    this.ctl = 1 - (this.effCtl ?? this.ctl);
+  }
+
+  /** Doubles: lock on the other foe. */
+  cycleTarget() {
+    this.tgt = 1 - this.tgt;
   }
 
   setPlus(armed) {
@@ -74,6 +92,8 @@ export class SeatInput {
   key(code, down, held, partySize = 6) {
     const k = this.keys;
     if (!down) return false;
+    if (this.doubles && k.swap.includes(code)) { this.swap(); return true; }
+    if (this.doubles && k.target.includes(code)) { this.cycleTarget(); return true; }
     if (k.party.includes(code)) { if (this.partyOpen) this.closeParty(); else this.openParty(); return true; }
     if (k.prev.includes(code)) { this.openParty((this.partyCursor + partySize - 1) % partySize); return true; }
     if (k.next.includes(code)) { this.openParty((this.partyCursor + 1) % partySize); return true; }
@@ -109,6 +129,7 @@ export class SeatInput {
     // the simple layout is always locked on (the old feel); the Z-A one locks on while the focus key is held
     const out = { mx: Math.round(mx * 100) / 100, my: Math.round(my * 100) / 100, ...this.queue, focus: this.layout === "simple" || focus,
       plus: this.plusArmed && this.queue.use >= 0 };
+    if (this.doubles) { out.ctl = this.ctl; out.tgt = this.tgt; }
     this.queue = { use: -1, dodge: false, sw: -1, mega: false };
     return out;
   }
@@ -121,7 +142,12 @@ export class SeatInput {
     const edge = (i) => { const now = b(i); const was = this.padPrev[i]; this.padPrev[i] = now; return now && !was; };
     const focus = b(6);
     const hit = {};
-    for (const i of [0, 1, 2, 3, 4, 5, 7, 8, 9, 12, 13, 14, 15]) hit[i] = edge(i);
+    for (const i of [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15]) hit[i] = edge(i);
+    // doubles: L (simple layout: left stick click) swaps the Pokémon you control; the right stick click cycles the locked foe
+    if (this.doubles) {
+      if (hit[this.layout === "za" ? 4 : 10]) this.swap();
+      if (hit[11]) this.cycleTarget();
+    }
     if (this.layout === "za") {
       // ZL + X A B Y: the move in that corner of the diamond; without ZL, Y rolls (and B, the dash: there is no running here)
       for (const [btn, slot] of Object.entries(FACE_TO_SLOT)) {
