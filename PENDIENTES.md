@@ -20,7 +20,3 @@ Solo lo que no se puede cerrar desde aquí. Los errores encontrados se arreglan,
   (Faustus caído y Ollama sin modelos descargados), así que el ajuste sigue apagado y se usan las frases escritas.
 - **Primera sala en directo con otro ordenador.** Windows pregunta una vez si deja pasar a Python por el puerto de las salas
   (5240); hay que aceptarlo en el equipo de Luis para que un amigo de fuera de casa entre.
-- **Un dibujo en «Estilo Pokémon (sin pixelar)» con Prospero en marcha.** El encargo, las referencias (solo imágenes propias),
-  la indicación y el resultado (dibujo hasta 1024 px como imagen del entrenador) están probados contra el contrato de Prospero; no
-  se ha lanzado uno de verdad porque Prospero y ComfyUI estaban apagados (Prospero tampoco aparece en las apps del Hub). Hay que
-  ver con Prospero en marcha si el estilo sale como el arte oficial o hace falta afinar `prospero_prompt_art` en Ajustes.
