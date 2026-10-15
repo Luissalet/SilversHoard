@@ -21,7 +21,16 @@ PNG_1PX = bytes.fromhex("89504e470d0a1a0a0000000d4948445200000001000000010806000
                         "1f15c4890000000d49444154789c6360f8cfc0f01f0005000201e2a1d2b40000000049454e44ae426082")
 
 
+MP3_FAKE = b"ID3\x03\x00\x00\x00\x00\x00\x00" + b"\xff\xfb\x90\x00" * 8
+
+
 def fake_http(url):
+    if "/audio/" in url:
+        if "missing" in url or "nocry" in url:
+            return 404, b"", "text/html"
+        if "webpage" in url:
+            return 200, b"<html>not audio</html>", "text/html"
+        return 200, MP3_FAKE, "audio/mpeg"
     if "missing" in url:
         return 404, b"", "text/html"
     return 200, PNG_1PX, "image/png"

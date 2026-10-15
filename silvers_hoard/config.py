@@ -34,6 +34,8 @@ DEFAULT_SETTINGS: dict[str, Any] = {
     "node_path": "",              # empty: `node` from PATH
     "sprite_downloads": True,     # fetch missing sprites from the Showdown sprite server and keep them in data/cache/sprites
     "sprite_server": "https://play.pokemonshowdown.com/sprites",
+    "sound_downloads": True,      # fetch Pokémon cries and battle music from the Showdown audio server and keep them in data/cache/audio
+    "audio_server": "https://play.pokemonshowdown.com/audio",
     "prospero_prompt": ("anime-style full-body trainer illustration in the art style of a 2010s handheld monster-catching role-playing "
                         "game, standing, facing the viewer, cel shading with two or three tones, clean dark outlines, limited palette, "
                         "flat plain white background, no text, no frame"),
@@ -192,6 +194,8 @@ class Settings:
                 if len(names) > 3 or any(not re.match(r"^[a-z0-9][a-z0-9-]{0,60}$", n) for n in names):
                     raise SilverError("invalid", "prospero_style_sprites: up to 3 trainer sprite names separated by commas")
                 value = ",".join(names)
+            if key == "audio_server" and not value.startswith("https://"):
+                raise SilverError("invalid", "audio_server must be an https:// address")
             if key == "sprite_server" and not value.startswith("https://"):
                 raise SilverError("invalid", "sprite_server must be an https:// address")
             clean[key] = value
