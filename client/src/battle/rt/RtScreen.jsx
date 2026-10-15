@@ -92,11 +92,11 @@ function HpBar({ mon }) {
   );
 }
 
-/** The trainer's Mega Power gauge: three segments; a full one pays for a Plus move, all three for Mega Evolution. */
+/** The trainer's Mega Power gauge: three segments; all three for Mega Evolution (and, in rules versions 2-3, one pays for a Plus move). */
 function Gauge({ side, tr }) {
   const segs = [0, 1, 2].map((i) => Math.max(0, Math.min(1, (side.gauge || 0) - i)));
   return (
-    <div className={`rt-gauge ${side.mega ? "is-mega" : ""}`} title={tr("rt_gauge_help")} role="meter" aria-label={tr("rt_gauge")}
+    <div className={`rt-gauge ${side.mega ? "is-mega" : ""}`} title={tr(side.plus_moves === false ? "rt_gauge_help_v4" : "rt_gauge_help")} role="meter" aria-label={tr("rt_gauge")}
       aria-valuemin={0} aria-valuemax={3} aria-valuenow={Math.round((side.gauge || 0) * 10) / 10}>
       {segs.map((f, i) => <span key={i} className={`rt-gauge-seg ${f >= 1 ? "is-full" : ""}`}><i style={{ width: `${f * 100}%` }} /></span>)}
       {side.mega && <b className="rt-gauge-tag">MEGA</b>}
@@ -197,7 +197,8 @@ function Pad({ side, si, lang, tr, partyOpen, cursor, focus, plus, gauge, onUse,
   const waiting = side.units ? side.units.find((u) => u.pos === side.ctl && u.need) || side.units.find((u) => u.need) : null;
   const need = side.units ? !!waiting : side.need;
   const showParty = partyOpen || need;
-  const plusOn = gauge && (plus || (side.mega && mon?.is_mega));
+  const plusMoves = side.plus_moves !== false;
+  const plusOn = gauge && plusMoves && (plus || (side.mega && mon?.is_mega));
   const onField = (m, i) => (side.units ? m.field >= 0 : i === side.active);
   const locked = side.units && foes ? foes.units[side.units[side.ctl]?.aim ?? 0] : null;
   const lockedMon = locked && !locked.vacant ? foes.mons[locked.active] : null;
@@ -233,7 +234,7 @@ function Pad({ side, si, lang, tr, partyOpen, cursor, focus, plus, gauge, onUse,
             {mon.moves.map((m, i) => <MoveButton key={i} m={m} i={i} lang={lang} tr={tr} pos={DIAMOND[i]} keyHint={keys.moves[i]} plus={plusOn} onUse={(j) => onUse(si, j)} />)}
             <div className="rt-diamond-hub" aria-hidden="true">
               {!(side.mega && mon?.is_mega) && <span className="rt-key">{plusOn ? keys.plus : keys.focus}</span>}
-              <span className="rt-hub-label">{plusOn ? (side.mega && mon?.is_mega ? tr("rt_mega_on") : tr("rt_plus_armed")) : focus ? tr("rt_focus_on") : tr("rt_focus")}</span>
+              <span className="rt-hub-label">{side.mega && mon?.is_mega ? tr("rt_mega_on") : plusOn ? tr("rt_plus_armed") : focus ? tr("rt_focus_on") : tr("rt_focus")}</span>
             </div>
           </div>
         )}
@@ -247,12 +248,14 @@ function Pad({ side, si, lang, tr, partyOpen, cursor, focus, plus, gauge, onUse,
           {gauge && (
             <>
               <Gauge side={side} tr={tr} />
-              <button type="button" className={`btn btn-sm rt-plus-btn ${plusOn ? "is-on" : ""}`} aria-pressed={!!plusOn} title={tr("rt_plus_help")}
-                disabled={need || (side.mega && mon?.is_mega) || !side.plus_ready} onClick={() => onPlus(si)}>
-                {tr("rt_plus")} <span className="rt-key">{keys.plus}</span>
-              </button>
+              {plusMoves && (
+                <button type="button" className={`btn btn-sm rt-plus-btn ${plusOn ? "is-on" : ""}`} aria-pressed={!!plusOn} title={tr("rt_plus_help")}
+                  disabled={need || (side.mega && mon?.is_mega) || !side.plus_ready} onClick={() => onPlus(si)}>
+                  {tr("rt_plus")} <span className="rt-key">{keys.plus}</span>
+                </button>
+              )}
               {(side.units ? side.units.some((u) => !u.vacant && side.mons[u.active]?.mega_info) : mon?.mega_info) && !side.mega_used && (
-                <button type="button" className={`btn btn-sm rt-mega-btn ${side.can_mega ? "is-ready" : ""}`} title={tr("rt_mega_help")} disabled={!side.can_mega}
+                <button type="button" className={`btn btn-sm rt-mega-btn ${side.can_mega ? "is-ready" : ""}`} title={tr(plusMoves ? "rt_mega_help" : "rt_mega_help_v4")} disabled={!side.can_mega}
                   onClick={() => onMega(si)}>
                   {tr("rt_mega")} <span className="rt-key">{keys.mega}</span>
                 </button>
@@ -353,6 +356,8 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     }
     state.inputs.forEach((inp, i) => {
       if (!inp) return;
+      // rules version 4 has no Plus moves: F / ZL + + / − do nothing
+      if (!b.plusMoves) inp.setPlus = () => {};
       if (b.doubles) {
         // doubles: pick up the controlled slot and the locked foe where a reloaded battle left them
         inp.doubles = true;
@@ -621,7 +626,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
                 <b className="rt-big">{tr("rt_ready")}</b>
                 <dl className="rt-controls">
                   {view?.doubles && <dd className="rt-doubles-note">{tr("rt_doubles_note")}</dd>}
-                  {people === 2 ? (<><dd>{tr("rt_keys_p1")}</dd><dd>{tr("rt_keys_p2")}</dd>{view?.doubles && <dd>{tr("rt_keys_doubles_two")}</dd>}</>) : (
+                  {people === 2 ? (<><dd>{tr(view?.plus_moves === false ? "rt_keys_p1_v4" : "rt_keys_p1")}</dd><dd>{tr(view?.plus_moves === false ? "rt_keys_p2_v4" : "rt_keys_p2")}</dd>{view?.doubles && <dd>{tr("rt_keys_doubles_two")}</dd>}</>) : (
                     <>
                       <dt>{tr("rt_ctrl_move")}</dt><dd>{tr("rt_keys_move")}</dd>
                       <dt>{tr("rt_ctrl_focus")}</dt><dd>{tr(layout === "simple" ? "rt_keys_focus_simple" : "rt_keys_focus")}</dd>
@@ -636,7 +641,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
                       )}
                       {view?.version >= 2 && (
                         <>
-                          <dt>{tr("rt_ctrl_plus")}</dt><dd>{tr(layout === "simple" ? "rt_keys_plus_simple" : "rt_keys_plus")}</dd>
+                          {view.plus_moves !== false && <><dt>{tr("rt_ctrl_plus")}</dt><dd>{tr(layout === "simple" ? "rt_keys_plus_simple" : "rt_keys_plus")}</dd></>}
                           <dt>{tr("rt_ctrl_mega")}</dt><dd>{tr(layout === "simple" ? "rt_keys_mega_simple" : "rt_keys_mega")}</dd>
                         </>
                       )}

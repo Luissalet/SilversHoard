@@ -9,6 +9,7 @@ import pytest
 
 from conftest import TEAM, needs_engine
 from silvers_hoard import sharing
+from silvers_hoard.services import RT_RULES_VERSION
 
 pytestmark = needs_engine
 
@@ -74,7 +75,7 @@ def test_export_option_is_validated_and_carried(call, client, services, world):
     assert spec["inputSchema"]["properties"]["friend_mode"]["enum"] == ["choose", "turns", "realtime"]
     gym = services.store.gym(world["gym"]["id"])
     info = services._rt_page_info("gym", gym)
-    assert info["format"] == "gen9customgame" and info["arena"] == "rocks" and info["version"] == 3 and info["time_limit"] == 60
+    assert info["format"] == "gen9customgame" and info["arena"] == "rocks" and info["version"] == RT_RULES_VERSION and info["time_limit"] == 60
     assert set(info["keys"]) == {world["weak"]["id"], world["weak2"]["id"]}
     for mode, has_rt in (("choose", True), ("realtime", True), ("turns", False)):
         page = call("export", {"kind": "gym", "id": world["gym"]["id"], "fmt": "page", "friend_mode": mode})

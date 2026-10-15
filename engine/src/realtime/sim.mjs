@@ -33,9 +33,10 @@ const TRAINER = [{x: 1.6, y: ARENA.h / 2}, {x: ARENA.w - 1.6, y: ARENA.h / 2}];
 
 // Rules versions. 1: the first real-time rules (always locked on the foe, open arena, no Mega Evolution). 2: free aim when not
 // focusing, the Mega Power gauge with Plus moves and Mega Evolution. 3: doubles formats field two Pokémon per trainer (singles
-// formats play exactly as in version 2). A spec without `version` is version 1, so battles stored before version 2 replay as
-// they were played; the app stores `version` with every new battle.
-export const RULES_VERSION = 3;
+// formats play exactly as in version 2). 4: no Plus moves: the gauge is only for Mega Evolution, and a Mega Evolved Pokémon's
+// moves are ordinary ones (everything else as in version 3). A spec without `version` is version 1, so battles stored before
+// version 2 replay as they were played; the app stores `version` with every new battle.
+export const RULES_VERSION = 4;
 export const ARENAS = ['open', 'rocks'];
 // The Mega Power gauge, per trainer: three segments in integer units so every engine counts the same. It fills a segment every
 // 15 s (and a little faster when the trainer's Pokémon deal damage); a Plus move spends one; Mega Evolution needs it full and
@@ -207,6 +208,8 @@ export class RtBattle {
     this.rng = makeRng(`${this.seed}:battle`);
     this.timeLimit = Math.max(30, Math.min(1800, Number(spec.time_limit) || DEFAULT_TIME_LIMIT)) * TPS;
     this.version = Math.max(1, Math.min(RULES_VERSION, Math.floor(Number(spec.version) || 1)));
+    // Plus moves exist in rules versions 2 and 3 only
+    this.plusMoves = this.version >= 2 && this.version < 4;
     this.arena = spec.arena === 'rocks' ? 'rocks' : 'open';
     this.rocks = this.arena === 'rocks' ? placeRocks(this.seed) : [];
     this.t = 0;
@@ -844,7 +847,7 @@ export class RtBattle {
   /** Does this move go out as a Plus move? Always while Mega Evolved; otherwise when asked for and a gauge segment is full
    * (it spends the segment). Rules version 2 only. */
   plusFor(side, want) {
-    if (this.version < 2) return false;
+    if (!this.plusMoves) return false;
     if (side.mega >= 0 && side.mega === side.active) return true;
     if (!want || side.gauge < GAUGE_SEGMENT) return false;
     side.gauge -= GAUGE_SEGMENT;
@@ -852,7 +855,7 @@ export class RtBattle {
   }
 
   /** A gauge segment is full for a Plus move (not counting Mega Evolution, where every move is one). */
-  plusReady(side) { return this.version >= 2 && side.mega < 0 && side.gauge >= GAUGE_SEGMENT; }
+  plusReady(side) { return this.plusMoves && side.mega < 0 && side.gauge >= GAUGE_SEGMENT; }
 
   /** Can this trainer Mega Evolve its active Pokémon now? Its Mega Stone (or Rayquaza's Dragon Ascent), a full gauge, once per
    * battle, not in the middle of a move. */
@@ -1957,7 +1960,7 @@ export class RtBattle {
   view() {
     return {
       t: this.t, seconds: this.t / TPS, time_limit: this.timeLimit / TPS, ended: this.ended, winner: this.winner, reason: this.reason,
-      version: this.version, arena: this.arena, rocks: this.rocks.map((r) => ({...r})),
+      version: this.version, plus_moves: this.plusMoves, arena: this.arena, rocks: this.rocks.map((r) => ({...r})),
       ...(this.doubles ? {doubles: true} : {}),
       weather: this.weather && this.weather.until > this.t ? {id: this.weather.id, left: (this.weather.until - this.t) / TPS} : null,
       terrain: this.terrain && this.terrain.until > this.t ? {id: this.terrain.id, left: (this.terrain.until - this.t) / TPS} : null,
@@ -1971,7 +1974,8 @@ export class RtBattle {
           id: s.id, name: s.name, ai: !!s.ai, ...this.unitView(s), switches_left: s.switchesLeft,
           cond: Object.fromEntries(Object.entries(s.cond).filter(([, v]) => v > this.t).map(([k, v]) => [k, (v - this.t) / TPS])),
           hazards: {...s.hazards}, gauge: s.gauge / GAUGE_SEGMENT, mega: s.mega >= 0, mega_used: s.megaUsed, can_mega: this.canMega(s),
-          plus_ready: this.version >= 2 && ((s.mega >= 0 && s.mega === s.active) || s.gauge >= GAUGE_SEGMENT),
+          plus_moves: this.plusMoves,
+          plus_ready: this.plusMoves && ((s.mega >= 0 && s.mega === s.active) || s.gauge >= GAUGE_SEGMENT),
           mons: s.mons.map((x, i) => {
             const u = holder(i);
             const on = u && !x.fainted;

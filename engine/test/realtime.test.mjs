@@ -285,6 +285,42 @@ test('Mega Evolution: a full gauge, the Mega forme, every move Plus, back when t
   assert.equal(b.inputLog.every((row) => row.length === 10), true);
 });
 
+test('rules version 4: no Plus moves; the gauge only Mega Evolves, and a Mega Evolved Pokémon moves as usual', () => {
+  const v4 = (extra = {}) => v2({version: 4, ...extra});
+  const play = (plus, version) => {
+    const b = new RtBattle(version === 4 ? v4({seed: 'plus'}) : v2({seed: 'plus'}));
+    for (let i = 0; i < 16 * TPS; i++) b.step({p1: idle, p2: idle});
+    b.step({p1: {...idle, use: 2, plus}, p2: idle});   // Water Gun: neutral on Blissey
+    for (let i = 0; i < 2 * TPS; i++) b.step({p1: idle, p2: idle});
+    return b;
+  };
+  const armed = play(true, 4);
+  const plain = play(false, 4);
+  assert.ok(!armed.events.some((e) => e.k === 'plus'), 'an armed Plus does nothing');
+  const hit = (b) => b.events.find((e) => e.k === 'hit' && e.s === 1);
+  assert.equal(hit(armed).dmg, hit(plain).dmg, 'same damage');
+  assert.equal(armed.sides[0].gauge, plain.sides[0].gauge, 'no segment spent');
+  const v = armed.view();
+  assert.equal(v.plus_moves, false);
+  assert.equal(v.sides[0].plus_moves, false);
+  assert.equal(v.sides[0].plus_ready, false);
+  assert.equal(new RtBattle(v2()).view().plus_moves, true, 'version 2 keeps them');
+  // Mega Evolution still works, without Plus moves
+  const b = new RtBattle(v4({seed: 'mega4'}));
+  const me = b.sides[0];
+  while (!b.canMega(me) && b.t < 60 * TPS) b.step({p1: idle, p2: idle});
+  assert.ok(b.canMega(me), 'the gauge fills');
+  b.step({p1: {...idle, mega: true}, p2: idle});
+  assert.ok(b.view().sides[0].mons[0].is_mega);
+  b.step({p1: {...idle, use: 3}, p2: idle});
+  for (let i = 0; i < TPS; i++) b.step({p1: idle, p2: idle});
+  assert.ok(!b.events.some((e) => e.k === 'plus'), 'no Plus while Mega Evolved');
+  // the AI never arms one either
+  const ai = new RtBattle(v4({seed: 'ai4', p1: {name: 'A', sets: importTeam(MEGA), ai: {level: 'hard'}}, p2: {name: 'B', sets: importTeam(WALL), ai: {level: 'hard'}}}));
+  for (let i = 0; i < 90 * TPS && !ai.ended; i++) ai.step({});
+  assert.ok(!ai.events.some((e) => e.k === 'plus'));
+});
+
 test('Plus moves: a gauge segment for more damage, more secondary effects, more healing and through protection', () => {
   const play = (plus) => {
     const b = new RtBattle(v2({seed: 'plus'}));
