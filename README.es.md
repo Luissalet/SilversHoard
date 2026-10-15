@@ -84,3 +84,5 @@ Es un proyecto de fans sin relación con Nintendo, Game Freak, Creatures ni The 
 ## Licencia
 
 MIT (código). Ver [LICENSE](LICENSE).
+
+Las imágenes propias conservan su categoría (arte, foto, dibujo o sprite), crédito, fuente y título al compartir e importar entrenadores por código, archivo o página. Los mismos datos viajan con los entrenadores incluidos en gimnasios y ligas; siguen admitidos los archivos anteriores sin estos campos.

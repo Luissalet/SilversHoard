@@ -2481,7 +2481,11 @@ class Services:
                         data = buf.getvalue()
                         if len(data) <= max_bytes:
                             break
-                return {"kind": "image", "mime": "image/png", "data": base64.b64encode(data).decode("ascii")}
+                known = self._avatar_meta().get(avatar[5:]) or {}
+                metadata = {k: known[k] for k in ("credit", "source", "title") if known.get(k)}
+                metadata["kind"] = self.avatar_kind(avatar)
+                return {"kind": "image", "mime": "image/png", "data": base64.b64encode(data).decode("ascii"),
+                        "metadata": metadata}
             except SilverError:
                 return {}
         return {}
@@ -2602,7 +2606,14 @@ class Services:
             return f"sd:{str(av['name']).lower()}"
         if av.get("kind") == "image" and av.get("data"):
             try:
-                return "file:" + self.sprites.save_avatar(base64.b64decode(av["data"]), stem=stem, max_side=1024)
+                name = self.sprites.save_avatar(base64.b64decode(av["data"]), stem=stem, max_side=1024)
+                metadata = av.get("metadata")
+                if isinstance(metadata, dict):
+                    fields = {k: metadata[k] for k in ("credit", "source", "title") if isinstance(metadata.get(k), str)}
+                    if metadata.get("kind") in ("photo", "art", "image", "sprite", "drawing", "pose"):
+                        fields["kind"] = metadata["kind"]
+                    self._avatar_meta_set(name, **fields)
+                return "file:" + name
             except (SilverError, ValueError):
                 return ""
         return ""
