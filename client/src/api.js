@@ -67,6 +67,8 @@ export const api = {
     form.append("style", style ? "true" : "false");
     return request("POST", "/api/avatars/draw", { form });
   },
+  uploadBadge: (file, { gymId = "", removeBackground = false } = {}) =>
+    upload("/api/badges/upload", { file, gym_id: gymId, remove_background: removeBackground ? "true" : "false" }),
   uploadImport: (file, { name = "", format = "" } = {}) => upload("/api/import/upload", { file, name, format }),
   exportUrl: (file) => `/api/exports/${encodeURIComponent(file)}`,
 };

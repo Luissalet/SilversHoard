@@ -6,6 +6,7 @@ import { useApp } from "../context.js";
 import { TYPE_COLORS, nameOf, spriteId, typeName } from "../battle/dex.js";
 import { Bar, Busy, CopyButton, Field, Icon, ICONS, Modal, Spinner, Tabs, useBusy } from "./ui.jsx";
 import { usePoll } from "./hooks.js";
+import { BadgeArt } from "./badges.jsx";
 
 export const AI_LEVELS = ["random", "easy", "normal", "hard", "expert"];
 export const AI_STYLES = ["balanced", "aggressive", "defensive", "setup", "stall"];
@@ -46,6 +47,9 @@ export function TypeChip({ type }) {
   return <span className="b-type" style={{ background: TYPE_COLORS[type] || "#777" }}>{typeName(type, lang)}</span>;
 }
 
+const STAT_SHORT = { hp: ["PS", "HP"], atk: ["Atq", "Atk"], def: ["Def", "Def"], spa: ["AtE", "SpA"], spd: ["DfE", "SpD"], spe: ["Vel", "Spe"] };
+const statShort = (k, lang) => (STAT_SHORT[k] || [k, k])[lang === "en" ? 1 : 0];
+
 export function TeamCards({ summary = [] }) {
   const { lang, t } = useApp();
   return (
@@ -66,6 +70,8 @@ export function TeamCards({ summary = [] }) {
                 <span key={j} className="move-pill" style={{ "--type": TYPE_COLORS[mv.type] || "#777" }} title={mv.power ? `${mv.power}` : ""}>{nameOf("move", mv.name, lang)}</span>
               ))}
             </div>
+            {m.points_total > 0 && <div className="sp-line" title={Object.entries(m.stats || {}).map(([k, v]) => `${statShort(k, lang)} ${v}`).join(" · ")}>
+              {t("sp_line", { list: Object.entries(m.points).filter(([, v]) => v).map(([k, v]) => `${v} ${statShort(k, lang)}`).join(" · ") })}</div>}
           </div>
         </div>
       ))}
@@ -163,20 +169,8 @@ export function RulesFields({ rules = [], levelRules = {}, onRules, onLevelRules
   );
 }
 
-export function GymBadge({ color = "#c0c0c0", size = 34, label = "" }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 40 40" role="img" aria-label={label} className="gym-badge">
-      <defs>
-        <linearGradient id={`bg-${color.replace("#", "")}`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#fff" stopOpacity="0.85" />
-          <stop offset="0.35" stopColor={color} />
-          <stop offset="1" stopColor={color} stopOpacity="0.65" />
-        </linearGradient>
-      </defs>
-      <path d="M20 2l15 8.7v18.6L20 38 5 29.3V10.7z" fill={`url(#bg-${color.replace("#", "")})`} stroke="#0008" strokeWidth="1.5" />
-      <path d="M20 9l8.5 4.9v9.8L20 28.6l-8.5-4.9v-9.8z" fill="#fff3" stroke="#fff8" strokeWidth="1" />
-    </svg>
-  );
+export function GymBadge({ color = "#c0c0c0", size = 34, label = "", image = "" }) {
+  return <BadgeArt color={color} size={size} label={label} image={image} />;
 }
 
 export function JobProgress({ job }) {

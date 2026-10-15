@@ -3,6 +3,7 @@
 import {Dex, Teams, TeamValidator, toID, PRNG} from '@pkmn/sim';
 import {Teams as SetTeams, Sets} from '@pkmn/sets';
 import {TeamGenerators} from '@pkmn/randoms';
+import {calcStat, evsFromPoints, pointsFromEvs, STAT_IDS} from './points.mjs';
 
 Teams.setGeneratorFactory(TeamGenerators);
 
@@ -227,8 +228,27 @@ export function teamSummary(sets, formatId = 'gen9customgame') {
       species: sp.exists ? sp.name : s.species, exists: !!sp.exists, num: sp.num || 0, types: sp.types || [],
       base_stats: sp.baseStats || {}, sprite_id: sp.spriteid || toID(s.species), nickname: s.name, level: s.level,
       item: s.item, ability: s.ability, moves: s.moves.map((m) => { const mv = dex.moves.get(m); return {name: mv.exists ? mv.name : m, type: mv.type || '', category: mv.category || '', power: mv.basePower || 0, exists: !!mv.exists}; }),
-      tera_type: s.teraType || '', shiny: !!s.shiny,
+      tera_type: s.teraType || '', shiny: !!s.shiny, nature: s.nature, evs: s.evs, ivs: s.ivs, ...statPoints(s, sp, dex),
     };
+  });
+}
+
+/** A set's stat points (Champions' 66 / 32 system, read from its EVs) and its stats at its level. */
+function statPoints(s, sp, dex) {
+  const {points, total} = pointsFromEvs(s.evs);
+  const nat = s.nature ? dex.natures.get(s.nature) : null;
+  const mult = (k) => (nat?.exists && nat.plus === k ? 1.1 : nat?.exists && nat.minus === k ? 0.9 : 1);
+  const stats = {};
+  if (sp.exists) for (const k of STAT_IDS) stats[k] = calcStat(k, sp.baseStats[k], {level: s.level, ev: s.evs[k], iv: s.ivs[k], nature: mult(k)});
+  return {points, points_total: total, stats};
+}
+
+/** Give every set of `sets` the stat points in `spreads` (index -> {hp, atk, ...}); points become EVs (HOME's rule). */
+export function applyStatPoints(sets, spreads = {}) {
+  return sets.map((raw, i) => {
+    const s = cleanSet(raw);
+    const p = spreads[i] ?? spreads[String(i)];
+    return p ? {...s, evs: evsFromPoints(p)} : s;
   });
 }
 

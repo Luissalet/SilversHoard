@@ -27,7 +27,7 @@ export default function Ligas() {
             <a key={lg.id} href={`#/liga/${lg.id}`} className="league-card">
               <div className="min-w-0 flex-1 space-y-2">
                 <div><b className="text-[16px]">{lg.name}</b><div className="help">{lg.description}</div></div>
-                <div className="flex flex-wrap gap-1">{lg.gym_list.map((g) => <GymBadge key={g.id} color={g.badge_color} size={26} label={g.badge} />)}</div>
+                <div className="flex flex-wrap gap-1">{lg.gym_list.map((g) => <GymBadge key={g.id} image={g.badge_image} color={g.badge_color} size={26} label={g.badge} />)}</div>
                 <div className="flex flex-wrap items-center gap-2">
                   {lg.elite_list.map((e) => <Avatar key={e.id} url={e.avatar_url} name={e.name} size={34} />)}
                   {lg.champion && <span className="league-champ"><Avatar url={lg.champion.avatar_url} name={lg.champion.name} size={44} /><span className="help">{lg.champion.name}</span></span>}

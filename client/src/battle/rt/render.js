@@ -258,6 +258,8 @@ export class ArenaRenderer {
     // Pokémon, sorted by depth
     const order = view.sides.map((side, si) => ({ side, si })).sort((a, b) => a.side.y - b.side.y);
     for (const { side, si } of order) this.drawMon(view, side, si, dt);
+    // lock-on (ZL / Shift held): a turning reticle on the opponent, as in Legends: Z-A
+    (this.focus || []).forEach((on, si) => { if (on && view.sides[1 - si]) this.drawReticle(view.sides[1 - si], si); });
     // projectiles, rays, melee marks, particles
     this.vfx.drawOver(ctx, view, battle);
     this.drawEffects(dt, false);
@@ -279,6 +281,35 @@ export class ArenaRenderer {
     }
     ctx.restore();
     this.flash = this.flash.map((v) => Math.max(0, v - dt * 5));
+  }
+
+  drawReticle(side, by) {
+    const ctx = this.ctx;
+    const s = this.scale;
+    const x = this.px(side.x);
+    const y = this.py(side.y) - 0.7 * s;
+    const r = 1.25 * s;
+    const t = this.time * 2.2;
+    ctx.save();
+    ctx.strokeStyle = by === 0 ? "rgba(120,200,255,0.95)" : "rgba(255,120,120,0.95)";
+    ctx.lineWidth = Math.max(2, s * 0.08);
+    for (let i = 0; i < 4; i++) {
+      const a = t + (i * Math.PI) / 2;
+      ctx.beginPath();
+      ctx.arc(x, y, r, a, a + 0.9);
+      ctx.stroke();
+    }
+    ctx.lineWidth = Math.max(1.5, s * 0.05);
+    for (let i = 0; i < 4; i++) {
+      const a = -t * 0.6 + (i * Math.PI) / 2 + Math.PI / 4;
+      const cx = x + Math.cos(a) * r * 1.25;
+      const cy = y + Math.sin(a) * r * 1.25;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(x + Math.cos(a) * r * 1.02, y + Math.sin(a) * r * 1.02);
+      ctx.stroke();
+    }
+    ctx.restore();
   }
 
   drawMon(view, side, si, dt) {

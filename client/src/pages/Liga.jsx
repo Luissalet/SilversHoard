@@ -37,7 +37,7 @@ function LeagueEditor({ lg, onSaved, onCancel }) {
           {(gyms.data?.gyms || []).map((g) => (
             <label key={g.id} className={`pick ${f.gyms.includes(g.id) ? "is-on" : ""}`}>
               <input type="checkbox" checked={f.gyms.includes(g.id)} onChange={() => set("gyms", f.gyms.includes(g.id) ? f.gyms.filter((x) => x !== g.id) : [...f.gyms, g.id])} />
-              <GymBadge color={g.badge_color} size={24} /><span className="trunc">{g.name}</span>
+              <GymBadge image={g.badge_image} color={g.badge_color} size={24} /><span className="trunc">{g.name}</span>
               {f.gyms.includes(g.id) && <span className="chip num">{f.gyms.indexOf(g.id) + 1}</span>}
             </label>
           ))}

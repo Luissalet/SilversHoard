@@ -8,6 +8,7 @@ import Controls from "../battle/Controls.jsx";
 import { makeSprites, TYPE_COLORS, typeName } from "../battle/dex.js";
 import { useBattlePlayer } from "../battle/player.js";
 import { playT } from "./strings.js";
+import { BadgeArt } from "../components/badges.jsx";
 
 const RESULT_PREFIX = "SILVERWIN1-";
 
@@ -25,13 +26,8 @@ function avatarSrc(sprites, avatar) {
   return sprites.trainer(avatar);
 }
 
-function Badge({ color = "#c0c0c0", size = 64 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 40 40" aria-hidden="true" className="gym-badge">
-      <path d="M20 2l15 8.7v18.6L20 38 5 29.3V10.7z" fill={color} stroke="#0008" strokeWidth="1.5" />
-      <path d="M20 9l8.5 4.9v9.8L20 28.6l-8.5-4.9v-9.8z" fill="#fff4" stroke="#fff8" strokeWidth="1" />
-    </svg>
-  );
+function Badge({ color = "#c0c0c0", size = 64, image = "" }) {
+  return <BadgeArt color={color} size={size} image={image} />;
 }
 
 function TeamIcons({ sets, sprites }) {
@@ -143,7 +139,7 @@ function Challenge({ data, lang, setLang, t }) {
   const header = (
     <header className="p-head">
       <div className="p-target">
-        {kind === "gym" ? <Badge color={target.badge_color || TYPE_COLORS[target.type] || "#c0c0c0"} size={56} /> : null}
+        {kind === "gym" ? <Badge image={target.badge_image} color={target.badge_color || TYPE_COLORS[target.type] || "#c0c0c0"} size={56} /> : null}
         <div className="min-w-0">
           <h1>{target.name}</h1>
           <div className="help">{[kind === "gym" ? target.city : target.title, kind === "gym" ? target.badge : "", owner ? t("from", { name: owner }) : ""].filter(Boolean).join(" · ")}</div>
@@ -195,7 +191,7 @@ function Challenge({ data, lang, setLang, t }) {
       <div className="p-wrap">
         {header}
         <div className={`panel p-final ${won ? "is-won" : ""}`}>
-          {won && kind === "gym" && <div className="p-badge-win"><Badge color={target.badge_color || TYPE_COLORS[target.type] || "#c0c0c0"} size={120} /></div>}
+          {won && kind === "gym" && <div className="p-badge-win"><Badge image={target.badge_image} color={target.badge_color || TYPE_COLORS[target.type] || "#c0c0c0"} size={120} /></div>}
           <h2>{won ? (kind === "gym" ? t("won_all", { badge: target.badge || t("badge") }) : t("won_trainer", { name: target.name })) : t("lost_to", { name: last?.opponent || target.name })}</h2>
           <div className="space-y-2 w-full">
             <b>{t("result_code")}</b>

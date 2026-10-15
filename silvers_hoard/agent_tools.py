@@ -4,6 +4,7 @@ Teams, codes and files that come from friends are data: tools import them and ne
 
 from __future__ import annotations
 
+import base64
 from pathlib import Path
 from typing import Any, Literal, Optional
 
@@ -161,10 +162,20 @@ class CanonInstallArgs(BaseModel):
     league_key: str = Field("", max_length=60, description="A whole league: its gyms, badges, Elite Four and champion.")
 
 
+class StatPointsArgs(BaseModel):
+    trainer_id: str = Field("", max_length=80, description="Read (and with save, change) this trainer's team.")
+    team: Any = Field(None, description="Or a team as sets/JSON/paste.")
+    paste: str = Field("", max_length=20000)
+    format: str = Field("", max_length=120)
+    points: dict[str, dict[str, int]] = Field(default_factory=dict, description="Slot (0-5) -> {hp, atk, def, spa, spd, spe} points; 66 in all, 32 per stat.")
+    save: bool = Field(False, description="Store the new points on the trainer.")
+
+
 class CharactersArgs(BaseModel):
     query: str = Field("", max_length=60, description="Name (English or Spanish), game or a Pokémon of the team.")
     gen: int = Field(0, ge=0, le=9, description="Only teams of this generation (0 = all).")
-    game: str = Field("", max_length=12, description="Game code, e.g. HGSS, B2W2, SV.")
+    game: str = Field("", max_length=12, description="Game card id (rb, y, gsc, rs, e, frlg, dp, pt, hgss, bw, b2w2, xy, oras, sm, usum, lgpe, swsh, bdsp, sv, za, stadium, stadium2) or a game code.")
+    category: Literal["", "leaders", "elite", "champions", "trials", "rivals", "villains", "facilities", "tournaments", "others"] = ""
 
 
 class CharacterKeyArg(BaseModel):
@@ -195,6 +206,20 @@ class GymSaveArgs(BaseModel):
     level_rules: Optional[dict[str, int]] = None
     leader_id: Optional[str] = Field(None, max_length=80)
     trainers: Optional[list[str]] = Field(None, max_length=20, description="Gym trainers fought before the leader, in order.")
+    badge_image: Optional[str] = Field(None, max_length=200, description="Badge picture: shape:<hexagon|boulder|drop|bolt|leaf|flame|heart|star|flake|wing|gear|fist|eye|moon|scale|shell|rainbow|crown>, file:<from badge_image_set or badge_draw> or '' for the plain badge.")
+
+
+class BadgeImageArgs(BaseModel):
+    gym_id: str = Field("", max_length=80, description="Put the picture on this gym at once.")
+    path: str = Field("", max_length=500, description="A picture on this computer to use as the badge.")
+    data_base64: str = Field("", max_length=14_000_000, description="Or the picture itself, base64.")
+    remove_background: bool = False
+
+
+class BadgeDrawArgs(BaseModel):
+    gym_id: str = Field("", max_length=80, description="The gym (its type and badge name fill the description in; the first picture goes on it).")
+    description: str = Field("", max_length=300, description="What the badge looks like.")
+    count: int = Field(2, ge=1, le=4)
 
 
 class LeagueSaveArgs(BaseModel):
@@ -339,7 +364,7 @@ class TournamentArgs(BaseModel):
 
 
 class JobsArgs(BaseModel):
-    kind: Literal["", "series", "tournament", "avatar"] = ""
+    kind: Literal["", "series", "tournament", "avatar", "badge"] = ""
     status: Literal["", "queued", "running", "done", "failed", "cancelled"] = ""
 
 
@@ -419,6 +444,18 @@ def _import(s: Services, a: ImportArgs) -> Any:
     return s.import_any(content, name=a.name, format_=a.format)
 
 
+def _badge_image_set(s: Services, a: BadgeImageArgs) -> Any:
+    if a.path:
+        data = Path(a.path).expanduser().read_bytes() if Path(a.path).expanduser().is_file() else b""
+        if not data:
+            raise SilverError("not_found", f"No picture at {a.path}")
+    elif a.data_base64:
+        data = base64.b64decode(a.data_base64)
+    else:
+        raise SilverError("invalid", "Give path or data_base64.")
+    return s.badge_upload(data, gym_id=a.gym_id, remove_background=a.remove_background)
+
+
 def _canon_install(s: Services, a: CanonInstallArgs) -> Any:
     if a.league_key:
         return {"league": s.canon_install_league(a.league_key)}
@@ -478,10 +515,14 @@ TOOLS: list[Tool] = [
          lambda s, a: s.canon_list(a.query, a.region)),
     Tool("canon_install", _d("Add an in-game trainer, or a whole league with gyms, badges, Elite Four and champion. Instalar liga.",
                              synonyms="importar personaje, liga kanto, liga johto, liga hoenn"), CanonInstallArgs, WD, _canon_install),
+    Tool("stat_points", _d("Stat points as in Pokémon Champions (66, 32 per stat) for a team, and the stats they give. Puntos de stats.",
+                           "Reads the points from the EVs (HOME's rule: 4 EVs the first, 8 each more) and writes them back as EVs.",
+                           synonyms="ev, evs, puntos de entrenamiento, champions, repartir puntos, stats"), StatPointsArgs, WD,
+         lambda s, a: s.stat_points(trainer_id=a.trainer_id, team=a.team, paste=a.paste, format_=a.format, points=a.points, save=a.save)),
     Tool("characters_list", _d("Characters of all generations (leaders, champions, rivals) with their game teams and sprites. Personajes.",
                                "Teams, levels, held items and bag items from Bulbapedia, one per game and battle (first battle, rematch, tournaments...).",
                                synonyms="lance, cintia, cynthia, rojo, azul, equipos por juego, revancha, sprites por juego"), CharactersArgs, R,
-         lambda s, a: s.characters_list(a.query, a.gen, a.game)),
+         lambda s, a: s.characters_list(a.query, a.gen, a.game, a.category)),
     Tool("character_get", _d("One character: every team it used game by game (levels, items, bag items) and its sprites. Ver personaje.",
                              synonyms="equipos de lance, sprites de un personaje"), CharacterKeyArg, R, lambda s, a: s.character_get(a.key)),
     Tool("character_install", _d("Make a trainer from a character: one game team and one sprite, or an own team. Crear desde personaje.",
@@ -496,6 +537,13 @@ TOOLS: list[Tool] = [
     Tool("gym_save", _d("Create or change a gym: leader, gym trainers, badge, type, format and level rules. Crear gimnasio.",
                         synonyms="nuevo gimnasio, editar gimnasio, reglas de nivel"), GymSaveArgs, WD,
          lambda s, a: s.gym_save(a.id, **a.model_dump(exclude_none=True, exclude={"id"}))),
+    Tool("badge_image_set", _d("Use a picture of your own as a gym badge (from a path or base64). Imagen de medalla.",
+                                "Kept as a transparent PNG up to 256 px; travels with the gym in files and playable pages.",
+                                synonyms="medalla, imagen de medalla, subir medalla"), BadgeImageArgs, WD, _badge_image_set),
+    Tool("badge_draw", _d("Have Prospero's Hoard draw gym badges from a description (a job). Dibujar medalla.",
+                          "Returns a job; its result lists the candidates (badge_image values for gym_save). Prospero must be running.",
+                          synonyms="generar medalla, dibujar medalla, medalla con ia"), BadgeDrawArgs, WD,
+         lambda s, a: s.badge_draw(description=a.description, gym_id=a.gym_id, count=a.count)),
     Tool("leagues_list", _d("Leagues with their gyms, Elite Four, champion and hall of fame. Ligas.", synonyms="liga pokémon, alto mando"),
          Empty, R, lambda s, a: {"leagues": s.leagues_list()}),
     Tool("league_get", _d("One league in detail. Ver liga.", synonyms="hall de la fama"), IdArg, R, lambda s, a: s.league_get(a.id)),

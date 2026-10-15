@@ -167,6 +167,13 @@ ALTER TABLE battles ADD COLUMN replay_json TEXT NOT NULL DEFAULT '{}';
 ALTER TABLE runs ADD COLUMN mode TEXT NOT NULL DEFAULT 'classic';
 """
 
+# Gym badges with a picture: one of the drawn shapes (shape:<id>), an uploaded or drawn picture (file:<name> in the avatars
+# folder), and the earned badge keeps the picture it was won with.
+SCHEMA_V3 = """
+ALTER TABLE gyms ADD COLUMN badge_image TEXT NOT NULL DEFAULT '';
+ALTER TABLE badges ADD COLUMN badge_image TEXT NOT NULL DEFAULT '';
+"""
+
 TRAINER_JSON = {"team_json": "team", "dialogue_json": "dialogue", "tags_json": "tags"}
 GYM_JSON = {"rules_json": "rules", "level_rules_json": "level_rules", "trainers_json": "trainers"}
 LEAGUE_JSON = {"rules_json": "rules", "level_rules_json": "level_rules", "gyms_json": "gyms", "elite_json": "elite_four"}
@@ -201,7 +208,7 @@ def _encode(values: dict[str, Any], json_cols: dict[str, str]) -> dict[str, Any]
 
 class Store:
     def __init__(self, path: Path):
-        self.db = Database(path, migrations=[SCHEMA_V1, SCHEMA_V2])
+        self.db = Database(path, migrations=[SCHEMA_V1, SCHEMA_V2, SCHEMA_V3])
 
     def close(self) -> None:
         self.db.close()

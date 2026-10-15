@@ -14,6 +14,19 @@ const [scrapePath = here('bulbapedia_parties.json.gz'), esPath = here('names_es.
 const OUT = outArg || path.join(root, 'silvers_hoard/presets/characters.json.gz');
 const readMaybeGz = (f) => { const b = fs.readFileSync(f); return (f.endsWith('.gz') ? zlib.gunzipSync(b) : b).toString('utf8'); };
 const scrape = JSON.parse(readMaybeGz(scrapePath));
+// a second scrape (Frontier Brains, villains' admins, more rivals and the player characters) adds the pages the first one lacks
+for (const extra of [here('bulbapedia_parties_2.json.gz')]) {
+  if (scrapePath !== extra && fs.existsSync(extra)) for (const [k, v] of Object.entries(JSON.parse(readMaybeGz(extra)))) if (!(k in scrape)) scrape[k] = v;
+}
+// battle facility teams ({{lop/facility}} rows: Frontier Brains, Battle Tower, Tree, Maison, Subway), read apart, join their page
+const FAC = here('bulbapedia_facilities.json.gz');
+if (fs.existsSync(FAC)) {
+  for (const [k, v] of Object.entries(JSON.parse(readMaybeGz(FAC)))) {
+    if (!v.parties?.length) continue;
+    if (scrape[k]?.parties) scrape[k].parties.push(...v.parties);
+    else scrape[k] = v;
+  }
+}
 const ES = esPath && fs.existsSync(esPath) ? JSON.parse(fs.readFileSync(esPath, 'utf8')) : {};
 const LABELS = labelsPath && fs.existsSync(labelsPath) ? JSON.parse(fs.readFileSync(labelsPath, 'utf8')) : {};
 const SPRITES = JSON.parse(fs.readFileSync(path.join(root, 'silvers_hoard/presets/trainer_sprites.json'), 'utf8'));
@@ -30,6 +43,9 @@ const GAMES = {
   FRLG: G(3, 'FireRed and LeafGreen', 'Rojo Fuego y Verde Hoja', ['frlg', 'gen3'], 32),
   DP: G(4, 'Diamond and Pearl', 'Diamante y Perla', ['gen4dp', 'gen4'], 40), Pt: G(4, 'Platinum', 'Platino', ['gen4'], 41),
   HGSS: G(4, 'HeartGold and SoulSilver', 'Oro HeartGold y Plata SoulSilver', ['gen4'], 42),
+  PtHGSS: G(4, 'Platinum, HeartGold and SoulSilver', 'Platino, Oro HeartGold y Plata SoulSilver', ['gen4'], 42),
+  BWB2W2: G(5, 'Black, White, Black 2 and White 2', 'Negro, Blanco, Negro 2 y Blanco 2', ['gen5bw', 'gen5bw2', ''], 51),
+  XYORAS: G(6, 'X, Y, Omega Ruby and Alpha Sapphire', 'X, Y, Rubí Omega y Zafiro Alfa', ['gen6xy', 'gen6'], 61),
   BW: G(5, 'Black and White', 'Negro y Blanco', ['gen5bw', 'gen5'], 50), Bl: G(5, 'Black', 'Negro', ['gen5bw', 'gen5'], 50),
   W: G(5, 'White', 'Blanco', ['gen5bw', 'gen5'], 50),
   B2W2: G(5, 'Black 2 and White 2', 'Negro 2 y Blanco 2', ['gen5bw2', ''], 51), B2: G(5, 'Black 2', 'Negro 2', ['gen5bw2', ''], 51),
@@ -46,7 +62,7 @@ const GAMES = {
   BDSP: G(8, 'Brilliant Diamond and Shining Pearl', 'Diamante Brillante y Perla Reluciente', ['', 'gen4dp'], 81),
   SV: G(9, 'Scarlet and Violet', 'Escarlata y Púrpura', ['', 's', 'v'], 90), ZA: G(9, 'Legends: Z-A', 'Leyendas Pokémon: Z-A', [''], 91),
 };
-const GAME_ALIASES = {Yellow: 'Y', 'Black and White': 'BW', 'Pokémon X and Y': 'XY', 'X and Y': 'XY'};
+const GAME_ALIASES = {Yellow: 'Y', 'Black and White': 'BW', 'Pokémon X and Y': 'XY', 'X and Y': 'XY', 'Pokémon Omega Ruby and Alpha Sapphire': 'ORAS'};
 
 // Sprite suffix → label. Pokémon Masters EX and similar keep a number.
 const SPRITE_LABELS = {
@@ -77,7 +93,7 @@ const BASE_OVERRIDES = {'Steven Stone': 'steven', 'Professor Kukui': 'kukui', Ku
 const NAME_OVERRIDES = {'Professor Kukui': 'Kukui'};
 const SKIP = new Set(['Barry', 'Serena', 'Rose (game)', 'Rose']);  // empty duplicates, or a different Rose
 
-// Bag items the leaders use, from the text above the party.
+// Bag items (potions and the like): battles here use held items only, so sentences about them leave the note.
 const BAG = {
   'Full Restore': 'Restaurar Todo', 'Max Potion': 'Poción Máxima', 'Hyper Potion': 'Hiperpoción', 'Super Potion': 'Superpoción', Potion: 'Poción',
   'Full Heal': 'Cura Total', 'Max Revive': 'Revivir Máximo', Revive: 'Revivir', 'X Attack': 'Ataque X', 'X Defense': 'Defensa X', 'X Defend': 'Defensa X',
@@ -86,25 +102,8 @@ const BAG = {
   'Sacred Ash': 'Ceniza Sagrada', Antidote: 'Antídoto', 'Paralyze Heal': 'Antiparalizador', Awakening: 'Despertar', 'Burn Heal': 'Antiquemar',
   'Ice Heal': 'Antihielo', 'Fresh Water': 'Agua Fresca', 'Moomoo Milk': 'Leche Mu-mu',
 };
-const COUNTS = {a: 1, an: 1, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10};
-function bagItems(note) {
-  const out = [];
-  const names = Object.keys(BAG).sort((a, b) => b.length - a.length);
-  const taken = [];
-  for (const item of names) {
-    const re = new RegExp(`(?:\\b(a|an|one|two|three|four|five|six|seven|eight|nine|ten|\\d+)\\s+)?${item.replace(/[.]/g, '\\.')}(?:e?s)?\\b(\\s+per Pokémon)?`, 'gi');
-    let m;
-    while ((m = re.exec(note))) {
-      if (taken.some(([a, b]) => m.index < b && a < m.index + m[0].length)) continue;
-      taken.push([m.index, m.index + m[0].length]);
-      const n = m[1] ? (COUNTS[m[1].toLowerCase()] || Number(m[1]) || 1) : 1;
-      const prev = out.find((x) => x.item === item);
-      if (prev) prev.count = Math.max(prev.count, n);
-      else out.push({item, item_es: BAG[item], count: n, per_pokemon: !!m[2]});
-    }
-  }
-  return out;
-}
+const BAG_RE = new RegExp(`\\b(${Object.keys(BAG).map((k) => k.replace(/[.]/g, '\\.')).join('|')})(e?s)?\\b`, 'i');
+const withoutBag = (note) => note.split(/(?<=[.!?])\s+/).filter((x) => !BAG_RE.test(x)).join(' ').trim();
 
 const stats = {characters: 0, variants: 0, merged: 0, sets: 0, droppedMoves: 0, droppedSpecies: 0, droppedItems: 0, droppedAbilities: 0, skippedParties: 0, labels: new Set()};
 const dropped = {moves: {}, species: {}, items: {}, abilities: {}};
@@ -160,6 +159,7 @@ function makeSet(mon, dex) {
   const {level: lv, range} = level(mon.l);
   const g = (mon.g || '').toLowerCase();
   const out = {species: sp.name, level: lv, moves};
+  if (Array.isArray(mon.ev) && mon.ev.some(Boolean)) out.evs = Object.fromEntries(['hp', 'atk', 'def', 'spa', 'spd', 'spe'].map((k, j) => [k, Math.min(255, mon.ev[j] || 0)]));
   if (item) out.item = item;
   if (ability) out.ability = ability;
   if (nature) out.nature = nature;
@@ -177,6 +177,47 @@ const GAME_NAMES = new Set([...Object.values(GAMES).map((g) => gameId(g.en)), ..
   'Ultra Sun', 'Ultra Moon', 'Sun', 'Moon', 'Black', 'White', 'Black 2', 'White 2', 'X', 'Y'].map(gameId)]);
 const isGameName = (x) => GAME_NAMES.has(gameId(x));
 const NOT_LABELS = new Set(['Pokémon', 'Role', 'Party', 'battle', 'battles']);
+// Game cards: the codes of the party template grouped as the games are sold (a team of 'Sun, Moon, Ultra Sun and Ultra Moon' is in both).
+const CARDS = [
+  ['rb', ['RGB'], 1], ['y', ['Y'], 1], ['stadium', ['Stadium'], 1], ['gsc', ['GSC'], 2], ['stadium2', ['Stadium2'], 2],
+  ['rs', ['RS', 'Ru', 'Sa', 'RSE'], 3], ['e', ['E', 'RSE'], 3], ['frlg', ['FRLG'], 3], ['dp', ['DP'], 4], ['pt', ['Pt', 'PtHGSS'], 4], ['hgss', ['HGSS', 'PtHGSS'], 4],
+  ['bw', ['BW', 'Bl', 'W', 'BWB2W2'], 5], ['b2w2', ['B2W2', 'B2', 'W2', 'BWB2W2'], 5], ['xy', ['XY', 'XYORAS'], 6], ['oras', ['ORAS', 'OR', 'AS', 'XYORAS'], 6],
+  ['sm', ['SM', 'Su', 'M', 'SMUSUM', 'SUS', 'MUM'], 7], ['usum', ['USUM', 'US', 'UM', 'SMUSUM', 'SUS', 'MUM'], 7], ['lgpe', ['PE'], 7],
+  ['swsh', ['SwSh', 'Sw', 'Sh'], 8], ['bdsp', ['BDSP'], 8], ['sv', ['SV'], 9], ['za', ['ZA'], 9],
+];
+const CARD_NAMES = {rb: 'RGB', y: 'Y', stadium: 'Stadium', gsc: 'GSC', stadium2: 'Stadium2', rs: 'RS', e: 'E', frlg: 'FRLG', dp: 'DP', pt: 'Pt', hgss: 'HGSS',
+  bw: 'BW', b2w2: 'B2W2', xy: 'XY', oras: 'ORAS', sm: 'SM', usum: 'USUM', lgpe: 'PE', swsh: 'SwSh', bdsp: 'BDSP', sv: 'SV', za: 'ZA'};
+const cardsOf = (code) => CARDS.filter(([, codes]) => codes.includes(code)).map(([id]) => id);
+
+// The role a team plays in its game, for the game page's sections.
+const RIVALS = new Set(['blue', 'silver', 'brendan', 'may', 'wally', 'barry', 'cheren', 'bianca', 'n', 'hugh', 'shauna', 'calem', 'serena', 'tierno', 'trevor',
+  'hau', 'gladion', 'hop', 'bede', 'marnie', 'nemona', 'arven', 'penny', 'kieran', 'carmine', 'klara', 'avery', 'lucas', 'dawn', 'hilbert', 'hilda', 'nate',
+  'rosa', 'elio', 'selene', 'victor', 'gloria', 'florian', 'juliana', 'kris', 'ethan', 'lyra', 'lillie']);
+const VILLAINS = new Set(['giovanni', 'archie', 'maxie', 'cyrus', 'ghetsis', 'colress', 'lysandre', 'guzma', 'lusamine', 'rose', 'xerosic', 'archer', 'ariana',
+  'proton', 'petrel', 'courtney', 'tabitha', 'matt', 'shelly', 'mars', 'jupiter', 'saturn', 'charon', 'zinzolin', 'aliana', 'celosia', 'bryony', 'mable',
+  'plumeria', 'faba', 'oleana', 'giacomo', 'mela', 'atticus', 'ortega', 'eri', 'sordward', 'shielbert']);
+// Generation I parties carry no class: their role by character.
+const KNOWN = {brock: 'leaders', misty: 'leaders', ltsurge: 'leaders', erika: 'leaders', koga: 'leaders', sabrina: 'leaders', blaine: 'leaders', viola: 'leaders',
+  lorelei: 'elite', bruno: 'elite', agatha: 'elite', lance: 'elite', drayton: 'elite', lacey: 'elite', crispin: 'elite', amarys: 'elite', rika: 'elite',
+  poppy: 'elite', hassel: 'elite', larry: 'elite', steven: 'champions', kukui: 'champions'};
+function categoryOf(key, cls, labels, tag) {
+  const c = tag ? '' : cls.toLowerCase();
+  const L = labels.join(' | ');
+  if (/battle (tower|tree|maison|chateau|subway|frontier|agency|factory|hall|castle|arcade|palace|pike|pyramid|dome|arena)|master (class|rank)|royal dome/i.test(L)
+    || /^(marquis|marchioness|duke|duchess|grand duchess|frontier brain|tower tycoon|factory head|arcade star|castle valet|hall matron|subway boss|chatelaine|battle chatelaine|salon maiden|dome ace|palace maven|arena tycoon|pike queen|pyramid king)$/i.test(c)) return 'facilities';
+  if (/world tournament|star tournament|leaders tournament|champions tournament|mix tournament|driftveil|academy ace|league club room|type expert|champion tournament|battle royal/i.test(L)) return 'tournaments';
+  if (/champion battle|title defense|champion assessment/i.test(L)) return 'champions';
+  if (/gym battle/i.test(L)) return 'leaders';
+  if (/champion/.test(c)) return 'champions';
+  if (c === 'elite four') return 'elite';
+  if (/^(gym )?leaders?$/.test(c)) return 'leaders';
+  if (/captain|kahuna/.test(c) || /trial/i.test(L)) return 'trials';
+  if (/boss|team |magma|aqua|galactic|plasma|flare|skull|rocket|admin|commander|aether president/.test(c) || VILLAINS.has(key)) return 'villains';
+  if (c === 'rival' || RIVALS.has(key)) return 'rivals';
+  if (!c && !tag && KNOWN[key]) return KNOWN[key];
+  return 'others';
+}
+
 const tidyKey = (s) => toID(s).slice(0, 40);
 const characters = [];
 for (const [page, entry] of Object.entries(scrape)) {
@@ -222,9 +263,10 @@ for (const [page, entry] of Object.entries(scrape)) {
       continue;
     }
     variants.push({
+      games: cardsOf(code), category: p.facility ? 'facilities' : categoryOf(base, cleanTemplates(p.cls), labelsEn, p.tpl === 'Party/2'),
       _sig: sig, id: '', game: code, game_name: game.en, game_name_es: game.es, gen: game.gen, order: game.order, format: `gen${game.gen}${doubles ? 'doubles' : ''}customgame`,
       labels: labelsEn, labels_alt: [], trainer_class: cleanTemplates(p.cls), location: cleanTemplates(p.location),
-      note: note.slice(0, 300), bag: bagItems(note), sprite, sets, side: /side series/i.test(p.path[0] || ''),
+      note: withoutBag(note).slice(0, 300), sprite, sets, ...(sets.length > 6 ? {pool: sets.length} : {}), side: /side series/i.test(p.path[0] || ''),
     });
   }
   if (!variants.length) continue;
@@ -249,7 +291,7 @@ for (const [page, entry] of Object.entries(scrape)) {
     v.id = id;
     delete v._sig;
   }
-  const esName = ES[page] || ES[title] || ES[nameEn];
+  const esName = ES[page] || ES[title] || ES[nameEn] || entry.es;
   characters.push({key, name: nameEn, name_es: esName && !/^(err|\d{3} )/.test(esName) ? esName : nameEn, base_sprite: SPRITES.includes(base) ? base : sprites[0]?.id || '',
     sprites, variants, games: [...new Set(variants.map((v) => v.game))]});
   stats.characters++;
@@ -263,7 +305,11 @@ for (const c of characters) for (const v of c.variants) {
   v.labels_alt_es = v.labels_alt.map((l) => l.split(' · ').map((x) => LABELS[x] || (missing.add(x), x)).join(' · '));
 }
 
-const out = {schema: 1, source: 'Teams, levels, held items and bag items from Bulbapedia (bulbapedia.bulbagarden.net, CC BY-NC-SA 2.5), checked against the Pokémon Showdown dex of each generation. Trainer sprites from Pokémon Showdown.',
+const games = CARDS.map(([id, , gen]) => {
+  const g = GAMES[CARD_NAMES[id]];
+  return {id, gen, name: g.en, name_es: g.es, side: /Stadium/.test(g.en)};
+});
+const out = {schema: 2, games, categories: ['leaders', 'elite', 'champions', 'trials', 'rivals', 'villains', 'facilities', 'tournaments', 'others'], source: 'Teams, levels and held items from Bulbapedia (bulbapedia.bulbagarden.net, CC BY-NC-SA 2.5), checked against the Pokémon Showdown dex of each generation. Trainer sprites from Pokémon Showdown.',
   characters};
 fs.writeFileSync(OUT, OUT.endsWith('.gz') ? zlib.gzipSync(JSON.stringify(out), {level: 9}) : JSON.stringify(out));
 const top = (o) => Object.entries(o).sort((a, b) => b[1] - a[1]).slice(0, 25);

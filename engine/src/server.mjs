@@ -44,6 +44,11 @@ const handlers = {
   },
   random_team: (a) => core.randomTeam(a.format || 'gen9randombattle', a.seed || null),
   summary: (a) => ({pokemon: core.teamSummary(core.importTeam(a.sets), a.format || 'gen9customgame')}),
+  stat_points: (a) => {
+    let sets;
+    try { sets = core.applyStatPoints(core.importTeam(a.sets), a.points || {}); } catch (e) { if (e instanceof RangeError) throw new core.EngineError('invalid', e.message); throw e; }
+    return {sets, pokemon: core.teamSummary(sets, a.format || 'gen9customgame')};
+  },
   dex_search: (a) => ({results: core.dexSearch(a.kind || 'species', a.query || '', {gen: a.gen || 9, limit: a.limit || 30, species: a.species || ''})}),
   species: (a) => core.speciesInfo(a.name, a.gen || 9),
   damage_calc: (a) => damageCalc(a),
