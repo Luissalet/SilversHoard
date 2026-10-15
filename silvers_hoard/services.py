@@ -269,11 +269,13 @@ class Services:
         return {"trainer_id": trainer_id, "saved": bool(t and points and save), "format": fmt, "pokemon": res["pokemon"],
                 "sets": res["sets"], "limits": {"total": 66, "per_stat": 32}}
 
-    def dex_search(self, kind: str, query: str = "", gen: int = 9, limit: int = 30, species: str = "") -> list[dict[str, Any]]:
-        return self.engine.call("dex_search", {"kind": kind, "query": query, "gen": gen, "limit": limit, "species": species})["results"]
+    def dex_search(self, kind: str, query: str = "", gen: int = 9, limit: int = 30, species: str = "",
+                   format: str = "") -> list[dict[str, Any]]:
+        return self.engine.call("dex_search", {"kind": kind, "query": query, "gen": gen, "limit": limit, "species": species,
+                                               "format": format})["results"]
 
-    def species(self, name: str, gen: int = 9) -> dict[str, Any]:
-        return self.engine.call("species", {"name": name, "gen": gen})
+    def species(self, name: str, gen: int = 9, format: str = "") -> dict[str, Any]:
+        return self.engine.call("species", {"name": name, "gen": gen, "format": format})
 
     # ------------------------------------------------------------ trainers
     def _clean_ai(self, level: Optional[str], style: Optional[str]) -> tuple[str, str]:

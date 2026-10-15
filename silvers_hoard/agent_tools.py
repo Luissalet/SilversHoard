@@ -69,12 +69,14 @@ class DexArgs(BaseModel):
     query: str = Field("", max_length=60)
     gen: int = Field(9, ge=1, le=9)
     species: str = Field("", max_length=60, description="kind=moves: only moves this Pokémon can learn.")
+    format: str = Field("", max_length=80, description="kind=moves with species: a National Dex format also counts moves learned in earlier games.")
     limit: int = Field(30, ge=1, le=1000)
 
 
 class SpeciesArgs(BaseModel):
     name: str = Field(..., min_length=1, max_length=60)
     gen: int = Field(9, ge=1, le=9)
+    format: str = Field("", max_length=80, description="A National Dex format also counts moves learned in earlier games.")
 
 
 Boosts = dict[Literal["atk", "def", "spa", "spd", "spe", "accuracy", "evasion"], int]
@@ -857,9 +859,9 @@ TOOLS: list[Tool] = [
                             synonyms="reglas, ou, vgc, custom game, generación"), FormatsArgs, R, lambda s, a: s.formats(a.gen, a.query)),
     Tool("dex_search", _d("Search the Pokédex: Pokémon, moves, items, abilities or natures of a generation. Buscar en la Pokédex.",
                           synonyms="pokédex, movimientos, objetos, habilidades, naturalezas, aprende"), DexArgs, R,
-         lambda s, a: {"results": s.dex_search(a.kind, a.query, a.gen, a.limit, a.species)}),
+         lambda s, a: {"results": s.dex_search(a.kind, a.query, a.gen, a.limit, a.species, a.format)}),
     Tool("species_info", _d("A Pokémon's types, base stats, abilities, evolutions and learnable moves. Ficha de Pokémon.",
-                            synonyms="estadísticas base, tipos, evoluciones, movimientos que aprende"), SpeciesArgs, R, lambda s, a: s.species(a.name, a.gen)),
+                            synonyms="estadísticas base, tipos, evoluciones, movimientos que aprende"), SpeciesArgs, R, lambda s, a: s.species(a.name, a.gen, a.format)),
     Tool("damage_calc", _d("Damage of each move of one Pokémon against another: rolls, multi-hit, crits, KOs. Calculadora de daño.",
                            "Measured with the simulator's own formula of the format's generation: abilities (type-changing ones too), items, stat boosts, Tera, Mega Evolution, weather, terrain and screens count; weather and terrain left out = what the abilities set. Each move: per-strike rolls (39 in gen 1–2), multi-hit min–max (Skill Link, Loaded Dice, 2–5), crit range, OHKO chance.",
                            synonyms="calculadora, cuánto quita, rango de daño, ohko, 2hko, cálculo de daño"), DamageCalcArgs, R, _damage_calc),

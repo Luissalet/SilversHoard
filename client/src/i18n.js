@@ -358,6 +358,7 @@ const D = {
   tb_move_sort_power: ["Por potencia", "By power"],
   tb_move_sort_type: ["Por tipo", "By type"],
   tb_move_count: ["{n} movimientos", "{n} moves"],
+  tb_move_count_one: ["1 movimiento", "1 move"],
   tb_move_used: ["Ya lo tiene en otro hueco", "Already in another slot"],
   tb_move_none: ["Ningún movimiento coincide.", "No move matches."],
   tb_move_typed: ["O escríbelo (como en Showdown)", "Or type it (as in Showdown)"],

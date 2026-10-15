@@ -260,14 +260,14 @@ export function applyStatPoints(sets, spreads = {}) {
 
 // ---------------------------------------------------------------- pokédex
 /** Search species, moves, items, abilities or natures of a generation: [{id, name, ...}] best match first. */
-export function dexSearch(kind, query = '', {gen = 9, limit = 30, species = ''} = {}) {
+export function dexSearch(kind, query = '', {gen = 9, limit = 30, species = '', format = ''} = {}) {
   const dex = Dex.forGen(gen);
   const q = toID(query);
   const table = {species: dex.species, moves: dex.moves, items: dex.items, abilities: dex.abilities, natures: dex.natures}[kind];
   if (!table) throw new EngineError('invalid', `Unknown kind: ${kind}`);
   let pool = table.all().filter((e) => e.exists && !(e.isNonstandard && ['CAP', 'Custom', 'LGPE', 'Future'].includes(e.isNonstandard)));
   if (kind === 'moves' && species) {
-    const learn = learnableMoves(species, gen);
+    const learn = learnableMoves(species, gen, {natdex: isNatDexFormat(format)});
     if (learn) pool = pool.filter((m) => learn.has(m.id));
   }
   const scored = [];
@@ -294,21 +294,26 @@ function dexEntry(kind, e) {
   return {id: e.id, name: e.name, plus: e.plus || '', minus: e.minus || ''};
 }
 
-export function learnableMoves(species, gen = 9) {
+/** A National Dex format (gen9nationaldex, gen9nationaldexag, ...) lets a Pokémon use moves its line learned in earlier games. */
+export const isNatDexFormat = (format) => toID(format).includes('nationaldex');
+
+/** The ids of the moves a Pokémon can learn in a generation, or null for an unknown Pokémon.
+ * National Dex formats use the National Dex movepool. A Pokémon that is not in the generation's own Pokédex
+ * (Scolipede in Scarlet and Violet) has no movepool of that generation, so it gets the National Dex one too. */
+export function learnableMoves(species, gen = 9, {natdex = false} = {}) {
   const dex = Dex.forGen(gen);
-  try {
-    const pool = dex.species.getMovePool(dex.species.get(species).id);
-    return pool && pool.size ? pool : null;
-  } catch {
-    return null;
-  }
+  const sp = dex.species.get(species);
+  if (!sp.exists) return null;
+  const pool = (nd) => { try { return dex.species.getMovePool(sp.id, nd); } catch { return new Set(); } };
+  const own = pool(natdex);
+  return own.size || natdex ? own : pool(true);
 }
 
-export function speciesInfo(name, gen = 9) {
+export function speciesInfo(name, gen = 9, format = '') {
   const dex = Dex.forGen(gen);
   const sp = dex.species.get(name);
   if (!sp.exists) throw new EngineError('unknown_species', `Unknown Pokémon: ${name}`);
-  const pool = learnableMoves(sp.id, gen);
+  const pool = learnableMoves(sp.id, gen, {natdex: isNatDexFormat(format)});
   return {
     ...dexEntry('species', sp), weightkg: sp.weightkg, evos: sp.evos || [], prevo: sp.prevo || '', formes: sp.otherFormes || [],
     moves: pool ? [...pool].map((id) => dex.moves.get(id)).filter((m) => m.exists).map((m) => dexEntry('moves', m)).sort((a, b) => b.power - a.power) : [],
