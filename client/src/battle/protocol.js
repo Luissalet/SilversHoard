@@ -18,8 +18,14 @@ function messageEs(text) {
 export function newState() {
   return {
     turn: 0, gametype: "singles", gen: 9, tier: "", started: false, ended: false, winner: "", tie: false,
-    sides: { p1: newSide("p1"), p2: newSide("p2") }, field: { weather: "", terrain: "", pseudo: {} }, preview: false,
+    sides: { p1: newSide("p1"), p2: newSide("p2") }, field: { weather: "", terrain: "", pseudo: {} }, preview: false, fx: freshFx(),
   };
+}
+
+// What the move being played told so far: the damage lines that follow read it for their effect (the move that caused the hit,
+// a critical hit, how effective it was). Cleared when the turn ends.
+function freshFx() {
+  return { move: "", crit: false, eff: 1 };
 }
 
 function newSide(id) {
@@ -214,8 +220,12 @@ function applyRaw(state, line, { lang = "es", me = "p1" } = {}) {
       state.started = true;
       state.preview = false;
       return { text: T("¡Empieza el combate!", "The battle starts!"), kind: "turn" };
+    case "upkeep":
+      state.fx = freshFx();
+      return null;
     case "turn":
       state.turn = Number(parts[1]) || state.turn + 1;
+      state.fx = freshFx();
       return { text: T(`Turno ${state.turn}`, `Turn ${state.turn}`), kind: "turn" };
     case "switch":
     case "drag":
@@ -266,8 +276,11 @@ function applyRaw(state, line, { lang = "es", me = "p1" } = {}) {
       const { side, slot } = parseIdent(parts[1]);
       if (state.sides[side]) state.sides[side].lastMove = move;
       const target = parts[3] ? parseIdent(parts[3]) : null;
+      state.fx = { move: toID(move), crit: false, eff: 1 };
+      const spread = typeof kw.spread === "string" ? kw.spread.split(",").map((x) => parseIdent(`${x.trim()}: `)).filter((x) => x.side) : [];
       return { text: T(`¡${M(parts[1])} usó ${nameOf("move", move, lang)}!`, `${M(parts[1])} used ${move}!`), kind: "move",
-        anim: { type: "move", side, slot, target: target && target.side ? { side: target.side, slot: target.slot } : null, miss: !!kw.miss } };
+        anim: { type: "move", side, slot, target: target && target.side ? { side: target.side, slot: target.slot } : null, miss: !!kw.miss,
+          move: toID(move), spread: spread.map((x) => ({ side: x.side, slot: x.slot })), still: !!kw.still } };
     }
     case "-damage":
     case "-heal":
@@ -281,9 +294,13 @@ function applyRaw(state, line, { lang = "es", me = "p1" } = {}) {
       const pct = Math.round(Math.abs(before - after) * 100);
       const { side, slot } = parseIdent(parts[1]);
       const from = kw.from ? effectName(kw.from, lang) : "";
+      // why it was hit: the move that caused it (none for poison, weather, recoil...), a critical hit, how effective it was
+      const cause = cmd === "-damage"
+        ? { move: kw.from ? "" : state.fx.move, source: kw.from ? toID(cleanEffect(kw.from).name) : "", crit: state.fx.crit, eff: state.fx.eff } : null;
+      if (cause) { state.fx.crit = false; state.fx.eff = 1; }
       let text;
       if (cmd === "-damage") {
-        if (!pct && !from) return { text: "", kind: "damage", anim: { type: "hit", side, slot, delta: 0 } };
+        if (!pct && !from) return { text: "", kind: "damage", anim: { type: "hit", side, slot, delta: 0, ...cause } };
         text = from ? T(`${M(parts[1])} se resiente por ${from} (−${pct}%).`, `${M(parts[1])} was hurt by ${from} (−${pct}%).`)
           : T(`${M(parts[1])} perdió el ${pct}% de su salud.`, `${M(parts[1])} lost ${pct}% of its health.`);
       } else if (cmd === "-heal") {
@@ -292,7 +309,7 @@ function applyRaw(state, line, { lang = "es", me = "p1" } = {}) {
       } else {
         text = "";
       }
-      return { text, kind: cmd === "-heal" ? "heal" : "damage", anim: { type: cmd === "-heal" ? "heal" : "hit", side, slot, delta: after - before } };
+      return { text, kind: cmd === "-heal" ? "heal" : "damage", anim: { type: cmd === "-heal" ? "heal" : "hit", side, slot, delta: after - before, ...cause } };
     }
     case "faint": {
       const mon = findMon(state, parts[1]);
@@ -400,12 +417,15 @@ function applyRaw(state, line, { lang = "es", me = "p1" } = {}) {
       return { text: c ? (es ? `¡${M(parts[1])} ${c[0]}!` : `${M(parts[1])} ${c[1]}`) : T(`${M(parts[1])} no puede moverse (${effectName(parts[2], lang)}).`, `${M(parts[1])} can't move (${effectName(parts[2], lang)}).`), kind: "minor" };
     }
     case "-supereffective":
+      state.fx.eff = 2;
       return { text: T("¡Es muy eficaz!", "It's super effective!"), kind: "effect" };
     case "-resisted":
+      state.fx.eff = 0.5;
       return { text: T("No es muy eficaz…", "It's not very effective…"), kind: "effect" };
     case "-immune":
       return { text: T(`No afecta a ${monLabel(parts[1])}…`, `It doesn't affect ${monLabel(parts[1])}…`), kind: "effect" };
     case "-crit":
+      state.fx.crit = true;
       return { text: T("¡Un golpe crítico!", "A critical hit!"), kind: "effect" };
     case "-miss":
       return { text: parts[2] ? T(`¡${M(parts[2])} esquivó el ataque!`, `${M(parts[2])} avoided the attack!`) : T("¡Falló!", "It missed!"), kind: "effect" };

@@ -419,7 +419,7 @@ export class Vfx {
     const w = view.weather?.id;
     if (!w) return;
     this.weatherT += dt;
-    const A = { w: 28, h: 17 };
+    const A = this.weatherArea || { w: 28, h: 17 };   // the turn-based screen sets its own (smaller) field
     const rate = { raindance: 70, primordialsea: 110, snow: 30, hail: 30, sandstorm: 60, sunnyday: 4, desolateland: 6 }[w] || 0;
     let n = 0;
     while (this.weatherT > 1 / rate && n < 8) { this.weatherT -= 1 / rate; n++; }

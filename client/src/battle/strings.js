@@ -47,6 +47,7 @@ const S = {
   weather: ["Tiempo", "Weather"],
   field: ["Campo", "Field"],
   you: ["Tú", "You"],
+  move_fx: ["Animaciones de movimientos", "Move animations"],
   doubles_slot: ["{name} (posición {n})", "{name} (slot {n})"],
 };
 
