@@ -20,3 +20,11 @@ test('pack_play: the packed page runs the same script and keeps the data slot', 
   assert.ok(loader > packed.indexOf('<div id="root"></div>') && loader < packed.indexOf('</body>'), 'the loader runs after #root');
   assert.equal(packPage('<html><body></body></html>'), '<html><body></body></html>', 'nothing to pack');
 });
+
+test('pack_play: a module script with more attributes (crossorigin) is packed too', () => {
+  const page = PAGE.replace('<script type="module">', '<script type="module" crossorigin>');
+  assert.equal(moduleScript(page).code, CODE);
+  const packed = packPage(page);
+  assert.equal(unpackPage(packed), CODE);
+  assert.ok(!packed.includes('crossorigin>'), 'the whole tag is replaced');
+});

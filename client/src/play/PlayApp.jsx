@@ -130,8 +130,11 @@ function Challenge({ data, lang, setLang, t }) {
       kind, gym_id: kind === "gym" ? target.source_id : "", gym_name: kind === "gym" ? target.name : "", trainer_id: kind === "trainer" ? target.source_id : "",
       trainer_name: kind === "trainer" ? target.name : "", challenger: name.trim(), won, turns: results.reduce((a, r) => a + r.turns, 0),
       date: new Date().toISOString(), team: sets, team_paste: sets ? exportTeam(sets) : "",
-      stages: results.map((r) => (r.rt ? { name: r.opponent, won: r.won, turns: 0, mode: "realtime", rt: r.rt } : { name: r.opponent, won: r.won, turns: r.turns })),
-      ...(withRt ? { v: 2 } : {}),
+      // each battle travels with its record (the real-time replay, or the turn-based input log): the app plays it again
+      stages: results.map((r) => (r.rt ? { name: r.opponent, won: r.won, turns: 0, mode: "realtime", rt: r.rt }
+        : { name: r.opponent, won: r.won, turns: r.turns, ...(r.input ? { input: r.input, rng: r.rng, forfeit: r.forfeit || "" } : {}) })),
+      ai_version: data.ai_version || "",
+      ...(withRt ? { v: 2 } : results.some((r) => r.input) ? { v: 3 } : {}),
     };
     (async () => {
       try {
@@ -285,6 +288,7 @@ function BattleView({ t, lang, sprites, me, opp, fid, levelRules, onEnd }) {
   const [busy, setBusy] = useState(false);
   const [bubble, setBubble] = useState(null);
   const ended = useRef(false);
+  const forfeited = useRef(false);
   const seats = useMemo(() => ({
     p1: { name: me.name, avatarUrl: "" },
     p2: { name: opp.name, avatarUrl: avatarSrc(sprites, opp.avatar), dialogue: opp.dialogue || {} },
@@ -293,6 +297,8 @@ function BattleView({ t, lang, sprites, me, opp, fid, levelRules, onEnd }) {
   const sync = useCallback(() => {
     const m = matchRef.current;
     const st = m.state("p1", sinceRef.current);
+    // an AI that fails falls back to a default choice: the console says why (the battle goes on)
+    if (st.errors?.length) console.warn("silver-ai " + st.errors.join(" | "));
     sinceRef.current = st.log_length;
     player.push(st.lines);
     setRequest(st.requests.p1 || null);
@@ -302,7 +308,9 @@ function BattleView({ t, lang, sprites, me, opp, fid, levelRules, onEnd }) {
       const line = won ? opp.dialogue?.lose : opp.dialogue?.win;
       if (line) setTimeout(() => setBubble({ side: "p2", text: line }), 600);
       const lines = viewLines(m.battle.log, 0, "omniscient");
-      setTimeout(() => onEnd({ won, turns: m.battle.turn, opponent: opp.name, lines }), 2600);
+      // the battle's own record (seed, teams, every choice) and the AI's random-number key: the app replays it to check the result
+      const record = { input: m.inputLog(), rng: m.id, forfeit: forfeited.current ? "p1" : "" };
+      setTimeout(() => onEnd({ won, turns: m.battle.turn, opponent: opp.name, lines, ...record }), 2600);
     }
   }, [player, onEnd, opp]);
 
@@ -337,7 +345,7 @@ function BattleView({ t, lang, sprites, me, opp, fid, levelRules, onEnd }) {
       setBusy(false);
     }, 30);
   };
-  const forfeit = () => { matchRef.current.forfeit("p1"); sync(); };
+  const forfeit = () => { forfeited.current = true; matchRef.current.forfeit("p1"); sync(); };
   return (
     <Arena player={player} seats={seats} me="p1" sprites={sprites} lang={lang} bubble={bubble}>
       {request && player.caughtUp && !busy ? <Controls request={request} lang={lang} sprites={sprites} gametype={player.state.gametype} onChoose={choose} onForfeit={forfeit} />
