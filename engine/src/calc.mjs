@@ -42,7 +42,10 @@ function koText(min, max, hp) {
 export function damageCalc(a) {
   const {id: formatId, gen} = singlesFormat(a.format);
   const atkSet = completeSets([oneSet(a.attacker, 'attacking')], formatId)[0];
-  const defSet = completeSets([oneSet(a.defender, 'defending')], formatId)[0];
+  // the defender only takes hits: a Pokémon given without moves gets a harmless one so the simulator accepts it
+  const defIn = oneSet(a.defender, 'defending');
+  if (!(defIn.moves || []).filter(Boolean).length) defIn.moves = ['Splash'];
+  const defSet = completeSets([defIn], formatId)[0];
   const b = new Battle({formatid: formatId, seed: [1, 2, 3, 4]});
   b.send = () => {};
   b.setPlayer('p1', {name: 'A', team: prepareTeam([atkSet], formatId, {})});
