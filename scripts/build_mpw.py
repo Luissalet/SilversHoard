@@ -4,7 +4,8 @@ Usage: python scripts/build_mpw.py <folder with the unzipped "MyPixelWorld Speci
 Writes three modules that hold the pictures as data URLs, so the friends' playable page has them without a network:
 - client/src/battle/fx/mpw-backdrops.gen.js: the three 640x360 battle backgrounds (turn-based backdrops);
 - client/src/battle/rt/mpw-fx.gen.js: the seven 4-frame attack effects (96x96 frames) the real-time hits can play;
-- client/src/battle/overworld/mpw-tiles.gen.js: the 16x16 tiles a gym map can be drawn with (one per kind of map tile)."""
+- client/src/battle/overworld/mpw-tiles.gen.js: the 16x16 tiles a gym map can be drawn with (one per kind of map tile) and the
+  buildings that can stand on a map (Pokémon Center, shop, gyms, houses)."""
 
 import base64
 import io
@@ -19,7 +20,10 @@ BACKDROPS = {"bg-mpw-meadow.png": "background1.png", "bg-mpw-beach.png": "backgr
 FX = {"ice": "attack1.png", "flash": "attack2.png", "water": "attack3.png", "blast": "attack4.png", "flame": "attack5.png",
       "vines": "attack6.png", "claws": "attack7.png"}
 # map tile -> (column, row, rows tall) in tileset.png (16 px cells); "o" and "*" are drawn over the floor, "*" stands two tiles tall
-TILES = {".": (1, 0, 1), "#": (6, 2, 1), "~": (8, 0, 1), "o": (12, 0, 1), "*": (0, 22, 2), "=": (13, 20, 1), ",": (3, 0, 1)}
+TILES = {".": (1, 0, 1), "#": (6, 2, 1), "~": (8, 0, 1), "o": (12, 0, 1), "*": (0, 22, 2), "=": (13, 20, 1), ",": (3, 0, 1), "_": (11, 0, 1)}
+# map building -> (column, row, width, height) in tileset.png, in 16 px cells (gymmap.PROPS has the same sizes)
+PROPS = {"center": (24, 10, 6, 6), "shop": (24, 16, 5, 5), "gym": (30, 0, 7, 7), "gym_fire": (37, 0, 7, 7), "gym_water": (44, 0, 7, 7),
+         "house": (30, 9, 5, 5), "house_purple": (30, 16, 5, 5), "bighouse": (35, 7, 7, 7), "bighouse_green": (35, 14, 7, 7)}
 
 
 def data_url(im: Image.Image) -> str:
@@ -28,10 +32,14 @@ def data_url(im: Image.Image) -> str:
     return "data:image/png;base64," + base64.b64encode(buf.getvalue()).decode()
 
 
-def write(path: Path, comment: str, name: str, entries: dict[str, str]) -> None:
+def write(path: Path, comment: str, name: str, entries: dict[str, str], more: tuple[str, str, dict[str, str]] | None = None) -> None:
     lines = [HEAD, f"// {comment}", f"export const {name} = {{"]
     lines += [f'  "{k}": "{v}",' for k, v in entries.items()]
     lines.append("};")
+    if more:
+        lines += [f"// {more[0]}", f"export const {more[1]} = {{"]
+        lines += [f'  "{k}": "{v}",' for k, v in more[2].items()]
+        lines.append("};")
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"wrote {path} ({path.stat().st_size // 1024} KB)")
 
@@ -43,7 +51,9 @@ def main(pack: Path) -> None:
           {k: data_url(Image.open(pack / "attack effects" / v).convert("RGBA")) for k, v in FX.items()})
     sheet = Image.open(pack / "tileset" / "tileset.png").convert("RGBA")
     write(ROOT / "overworld" / "mpw-tiles.gen.js", "Gym map tiles: 16 px wide, one or two tiles tall.", "MPW_TILES",
-          {k: data_url(sheet.crop((c * 16, r * 16, c * 16 + 16, (r + n) * 16))) for k, (c, r, n) in TILES.items()})
+          {k: data_url(sheet.crop((c * 16, r * 16, c * 16 + 16, (r + n) * 16))) for k, (c, r, n) in TILES.items()},
+          ("Buildings that stand on a map, by kind (their size in tiles is the picture's size / 16).", "MPW_PROPS",
+           {k: data_url(sheet.crop((c * 16, r * 16, (c + w) * 16, (r + h) * 16))) for k, (c, r, w, h) in PROPS.items()}))
 
 
 if __name__ == "__main__":

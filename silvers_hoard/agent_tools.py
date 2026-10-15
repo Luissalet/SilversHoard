@@ -261,7 +261,7 @@ class GymSaveArgs(BaseModel):
     badge_image: Optional[str] = Field(None, max_length=200, description="Badge picture: shape:<hexagon|boulder|drop|bolt|leaf|flame|heart|star|flake|wing|gear|fist|eye|moon|scale|shell|rainbow|crown>, file:<from badge_image_set or badge_draw> or '' for the plain badge.")
     rt_arena: Optional[str] = Field(None, max_length=90, description="Where its real-time battles are fought: '' (the challenger picks), open, rocks or custom:<arena id>.")
     backdrop: Optional[str] = Field(None, max_length=120, description="Backdrop of its turn-based battles: a backdrop file name (bg-volcanocave.png, bg-icecave.jpg…), file:<picture> from backdrop_image_set, or '' for the usual one.")
-    map: Optional[dict[str, Any]] = Field(None, description="The map walked to the leader: {w, h, tiles (w*h chars: . floor, # wall, ~ water, o boulder, * plant, = carpet, , grass), start: [x, y], leader: {x, y, facing}, trainers: [{id, x, y, facing, sight}], look: colors | pixel (pixel-art tiles)} (gym_map_generate makes one); {} removes it.")
+    map: Optional[dict[str, Any]] = Field(None, description="The map walked to the leader: {w, h, tiles (w*h chars: . floor, # wall, ~ water, o boulder, * plant, = carpet, , grass, _ ice (you slide until something stops you), ^ v < > arrow tiles (they carry you that way), s switch (opens every door), d door), start: [x, y], leader: {x, y, facing}, trainers: [{id, x, y, facing, sight, turns (looks each way in turn)}], props: [{kind: center | shop | gym | gym_fire | gym_water | house | house_purple | bighouse | bighouse_green, x, y}] (solid buildings, top-left corner), look: colors | pixel (pixel-art tiles)} (gym_map_generate makes one); {} removes it.")
 
 
 class BadgeImageArgs(BaseModel):
@@ -492,6 +492,7 @@ class ChallengeNextArgs(BaseModel):
 class GymMapArgs(BaseModel):
     trainer_ids: list[str] = Field(default_factory=list, max_length=20, description="The gym's trainers, in order.")
     seed: str = Field("", max_length=40)
+    puzzle: Literal["", "ice", "arrows", "switches"] = Field("", description="A puzzle of the games on the way: ice you slide on, arrow tiles that push you, or doors opened by a switch.")
 
 
 class ChallengesArgs(BaseModel):
@@ -1036,7 +1037,7 @@ TOOLS: list[Tool] = [
                              synonyms="recorrido del gimnasio, mapa del reto"), IdArg, R, lambda s, a: s.run_get(a.id)),
     Tool("gym_map_generate", _d("An automatic gym map for these trainers: walls, a winding way, the leader at the top. Generar mapa.",
                                 "gym_save map= stores it (edit it first if you like).", synonyms="mapa del gimnasio, plano"),
-         GymMapArgs, R, lambda s, a: {"map": gymmap.generate(a.trainer_ids, a.seed or None)}),
+         GymMapArgs, R, lambda s, a: {"map": gymmap.generate(a.trainer_ids, a.seed or None, a.puzzle)}),
     Tool("challenge_abandon", _d("Give up an active challenge. Abandonar reto.", synonyms="rendirse"), IdArg, W, lambda s, a: s.run_abandon(a.id)),
     Tool("facilities_list", _d("Battle facilities (Tower, Subway, Maison, Tree) with bosses and streak records. Instalaciones.",
                                "challenge_start kind=facility target_id=<id> starts a streak: one rival after another at level 50, 3 Pokémon each (4 in doubles) picked at team preview, the facility's bosses on their battle (Palmer 21/49, Ingo and Emmet 21/49, the Chatelaines 20/50, Red and Blue 20/50, Anabel 35/70, Leon every 10). challenge_next starts the next battle; a loss ends the streak.",

@@ -1,18 +1,55 @@
 // A gym's map, walked tile by tile as in the games (keyboard, gamepad or the on-screen pad). A trainer who sees you calls out, walks
 // up and their battle starts; talking to the leader only works once every trainer is beaten. Drawn on a canvas with tiles coloured
 // from the gym's type and the people as their trainer sprites. The same component runs in the app and on the friends' playable page.
+// Puzzles move you as in the games (the app checks maps with the same rules, gymmap.py _move): on ice you slide until something
+// stops you, arrow tiles carry you the way they point, a switch opens every door. Some trainers turn on the spot, looking each way
+// in turn. Buildings (Pokémon Center, shop, houses, gyms) stand on the map as solid props.
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "./overworld.css";
-import { MPW_TILES } from "./mpw-tiles.gen.js";
+import { MPW_PROPS, MPW_TILES } from "./mpw-tiles.gen.js";
 
 const STEP = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
 const WALKABLE = new Set([".", "=", ","]);
+const PASSABLE = new Set([".", "=", ",", "_", "^", "v", "<", ">", "s"]);
+const ARROWS = { "^": "up", v: "down", "<": "left", ">": "right" };
+const TURN = { up: "right", right: "down", down: "left", left: "up" };
+// buildings: size in tiles (the same as gymmap.PROPS)
+export const PROPS = { center: [6, 6], shop: [5, 5], gym: [7, 7], gym_fire: [7, 7], gym_water: [7, 7], house: [5, 5], house_purple: [5, 5],
+  bighouse: [7, 7], bighouse_green: [7, 7] };
+const PROP_ROOF = { center: "#d9443b", shop: "#2f74d0", gym: "#3d4a5c", gym_fire: "#3d4a5c", gym_water: "#3d4a5c", house: "#3f8f4a",
+  house_purple: "#6b4fa0", bighouse: "#6b4fa0", bighouse_green: "#3f8f4a" };
 const MOVE_MS = 150;
+const SLIDE_MS = 85;
+
+/** One move with the puzzles' rules: the tiles you pass (the last one is where you stop) and whether the doors are open after it. */
+export function movePath({ tile, blocked, x, y, dir, opened }) {
+  const passable = (px, py, op) => !blocked(px, py) && (PASSABLE.has(tile(px, py)) || (tile(px, py) === "d" && op));
+  let [dx, dy] = STEP[dir];
+  let nx = x + dx, ny = y + dy;
+  if (!passable(nx, ny, opened)) return null;
+  const path = [];
+  const seen = new Set();
+  let d = dir;
+  for (;;) {
+    path.push([nx, ny]);
+    const c = tile(nx, ny);
+    if (c === "s") opened = true;
+    if (ARROWS[c]) d = ARROWS[c];
+    else if (c !== "_") break;
+    const key = `${nx},${ny},${d}`;
+    if (seen.has(key)) break;
+    seen.add(key);
+    [dx, dy] = STEP[d];
+    if (!passable(nx + dx, ny + dy, opened)) break;
+    nx += dx; ny += dy;
+  }
+  return { path, opened, sliding: path.length > 1 };
+}
 
 const TEXTS = {
-  es: { move: "Flechas o WASD para andar · Intro o E para hablar · también con mando", spotted: "¡{name} te ha visto!", leader_wait: "{name}: «Vence antes a todos mis entrenadores.»",
+  es: { opened: "¡Clic! Se han abierto las puertas.", move: "Flechas o WASD para andar · Intro o E para hablar · también con mando", spotted: "¡{name} te ha visto!", leader_wait: "{name}: «Vence antes a todos mis entrenadores.»",
     leader_go: "{name}: «Has llegado hasta aquí. ¡Veamos qué sabes hacer!»", beaten: "{name}: «Ya me has ganado.»", talk: "{name}: «¡A combatir!»", left: "Entrenadores por vencer: {n}" },
-  en: { move: "Arrows or WASD to walk · Enter or E to talk · a gamepad works too", spotted: "{name} spotted you!", leader_wait: "{name}: “Beat all my trainers first.”",
+  en: { opened: "Click! The doors opened.", move: "Arrows or WASD to walk · Enter or E to talk · a gamepad works too", spotted: "{name} spotted you!", leader_wait: "{name}: “Beat all my trainers first.”",
     leader_go: "{name}: “You made it this far. Let's see what you've got!”", beaten: "{name}: “You already beat me.”", talk: "{name}: “Let's battle!”", left: "Trainers left: {n}" },
 };
 
@@ -59,10 +96,19 @@ export default function Overworld({ map, people = {}, player = {}, beaten = [], 
     let saved = null;
     try { saved = saveKey ? JSON.parse(localStorage.getItem(saveKey) || "null") : null; } catch { saved = null; }
     const start = saved && Number.isInteger(saved.x) ? saved : { x: map.start[0], y: map.start[1], facing: "up" };
-    state.current = { x: start.x, y: start.y, facing: start.facing || "up", from: null, t0: 0, locked: false, held: null,
+    state.current = { x: start.x, y: start.y, facing: start.facing || "up", from: null, t0: 0, locked: false, held: null, opened: !!saved?.opened, moving: false, stepMs: MOVE_MS,
       npc: Object.fromEntries((map.trainers || []).map((t) => [t.id, { x: t.x, y: t.y, facing: t.facing, from: null, t0: 0, bang: 0 }])) };
   }
   const tile = (x, y) => (x < 0 || y < 0 || x >= map.w || y >= map.h ? "#" : map.tiles[y * map.w + x]);
+  // the tiles under the buildings
+  const propCells = useMemo(() => {
+    const out = new Set();
+    for (const p of map.props || []) {
+      const [pw, ph] = PROPS[p.kind] || [1, 1];
+      for (let i = 0; i < pw; i++) for (let j = 0; j < ph; j++) out.add(`${p.x + i},${p.y + j}`);
+    }
+    return out;
+  }, [map]);
   const occupied = useCallback((x, y) => {
     const s = state.current;
     if (map.leader.x === x && map.leader.y === y) return "leader";
@@ -71,19 +117,21 @@ export default function Overworld({ map, people = {}, player = {}, beaten = [], 
   }, [map]);
   const save = useCallback(() => {
     const s = state.current;
-    try { if (saveKey) localStorage.setItem(saveKey, JSON.stringify({ x: s.x, y: s.y, facing: s.facing })); } catch { /* not critical */ }
+    try { if (saveKey) localStorage.setItem(saveKey, JSON.stringify({ x: s.x, y: s.y, facing: s.facing, opened: s.opened })); } catch { /* not critical */ }
   }, [saveKey]);
+  const see = (x, y) => (PASSABLE.has(tile(x, y)) || (tile(x, y) === "d" && state.current.opened)) && !propCells.has(`${x},${y}`);
 
   // a trainer who sees you: "!", then they walk up to you and the battle starts
   const spot = useCallback(() => {
     const s = state.current;
     for (const t of map.trainers || []) {
       if (beatenSet.has(t.id)) continue;
-      const [dx, dy] = STEP[t.facing];
+      const facing = s.npc[t.id].facing;   // turning trainers look a different way each moment
+      const [dx, dy] = STEP[facing];
       let x = t.x, y = t.y;
       for (let i = 0; i < t.sight; i++) {
         x += dx; y += dy;
-        if (!WALKABLE.has(tile(x, y))) break;
+        if (!see(x, y)) break;
         if (x === s.x && y === s.y) {
           s.locked = true;
           s.npc[t.id].bang = performance.now();
@@ -93,7 +141,7 @@ export default function Overworld({ map, people = {}, player = {}, beaten = [], 
           const walk = () => {
             const p = s.npc[t.id];
             if (k >= steps) {
-              s.facing = { up: "down", down: "up", left: "right", right: "left" }[t.facing];
+              s.facing = { up: "down", down: "up", left: "right", right: "left" }[facing];
               save();
               setTimeout(() => onBattle?.(t.id), 350);
               return;
@@ -112,15 +160,40 @@ export default function Overworld({ map, people = {}, player = {}, beaten = [], 
 
   const tryMove = useCallback((dir) => {
     const s = state.current;
-    if (s.locked || busy || (s.from && performance.now() - s.t0 < MOVE_MS)) return;
+    if (s.locked || busy || s.moving || (s.from && performance.now() - s.t0 < s.stepMs)) return;
     s.facing = dir;
-    const [dx, dy] = STEP[dir];
-    const nx = s.x + dx, ny = s.y + dy;
-    if (!WALKABLE.has(tile(nx, ny)) || occupied(nx, ny)) return;
-    s.from = [s.x, s.y]; s.t0 = performance.now(); s.x = nx; s.y = ny;
+    const res = movePath({ tile, blocked: (x, y) => !!occupied(x, y) || propCells.has(`${x},${y}`), x: s.x, y: s.y, dir, opened: s.opened });
+    if (!res) return;
     setMsg("");
-    setTimeout(() => { if (!spot()) save(); }, MOVE_MS);
-  }, [busy, occupied, spot, save]); // eslint-disable-line react-hooks/exhaustive-deps
+    // walk (or slide) tile by tile along the path; a trainer may spot you once you stop
+    const ms = res.sliding ? SLIDE_MS : MOVE_MS;
+    s.moving = true;
+    s.stepMs = ms;
+    let i = 0;
+    const step = () => {
+      const [nx, ny] = res.path[i];
+      const d = ARROWS[tile(s.x, s.y)];
+      if (d) s.facing = d;
+      s.from = [s.x, s.y]; s.t0 = performance.now(); s.x = nx; s.y = ny;
+      if (tile(nx, ny) === "s" && !s.opened) { s.opened = true; setMsg(tx.opened); }
+      i++;
+      if (i < res.path.length) setTimeout(step, ms);
+      else setTimeout(() => { s.moving = false; s.stepMs = MOVE_MS; if (!spot()) save(); }, ms);
+    };
+    step();
+  }, [busy, occupied, spot, save, propCells]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // trainers who turn on the spot look each way in turn, and may catch you as they do
+  useEffect(() => {
+    if (!(map.trainers || []).some((t) => t.turns)) return undefined;
+    const h = setInterval(() => {
+      const s = state.current;
+      if (s.locked || busy) return;
+      for (const t of map.trainers || []) if (t.turns && !beatenSet.has(t.id)) s.npc[t.id].facing = TURN[s.npc[t.id].facing];
+      if (!s.moving) spot();
+    }, 1800);
+    return () => clearInterval(h);
+  }, [map, beatenSet, busy, spot]);
 
   const talk = useCallback(() => {
     const s = state.current;
@@ -188,15 +261,17 @@ export default function Overworld({ map, people = {}, player = {}, beaten = [], 
       const x = cv.getContext("2d");
       x.setTransform(dpr, 0, 0, dpr, 0, 0);
       x.imageSmoothingEnabled = false;
-      const pixel = map.look === "pixel" && Object.keys(MPW_TILES).every((k) => imgOf(imgs.current, MPW_TILES[k]));
+      const pixel = map.look === "pixel" && Object.keys(MPW_TILES).every((k) => imgOf(imgs.current, MPW_TILES[k]))
+        && (map.props || []).every((p) => !MPW_PROPS[p.kind] || imgOf(imgs.current, MPW_PROPS[p.kind]));
       if (pixel) {
         const floor = imgOf(imgs.current, MPW_TILES["."]);
         for (let ty = 0; ty < map.h; ty++) {
           for (let tx2 = 0; tx2 < map.w; tx2++) {
             const c = map.tiles[ty * map.w + tx2];
             const px = tx2 * ts, py = ty * ts;
-            if (OVER.has(c) || c === ".") x.drawImage(floor, px, py, ts, ts);
-            if (c !== "." && !OVER.has(c)) x.drawImage(imgOf(imgs.current, MPW_TILES[c]), px, py, ts, ts);
+            const own = MPW_TILES[c] ? imgOf(imgs.current, MPW_TILES[c]) : null;
+            if (OVER.has(c) || c === "." || !own) x.drawImage(floor, px, py, ts, ts);
+            if (c !== "." && !OVER.has(c) && own) x.drawImage(own, px, py, ts, ts);
           }
         }
         // boulders and plants after the floor, row by row, so a tall plant covers the tile above it
@@ -238,13 +313,61 @@ export default function Overworld({ map, people = {}, player = {}, beaten = [], 
           }
         }
       }
+      // puzzle tiles, in both looks: ice shine, arrows, the switch and the doors
+      for (let ty = 0; ty < map.h; ty++) {
+        for (let tx2 = 0; tx2 < map.w; tx2++) {
+          const c = map.tiles[ty * map.w + tx2];
+          const px = tx2 * ts, py = ty * ts;
+          if (c === "_" && !pixel) {
+            x.fillStyle = "#cfeaf6"; x.fillRect(px, py, ts, ts);
+            x.strokeStyle = "rgba(255,255,255,.8)"; x.lineWidth = Math.max(1, ts * 0.06);
+            x.beginPath(); x.moveTo(px + ts * 0.2, py + ts * 0.7); x.lineTo(px + ts * 0.5, py + ts * 0.3); x.moveTo(px + ts * 0.5, py + ts * 0.8); x.lineTo(px + ts * 0.75, py + ts * 0.45); x.stroke();
+          } else if (ARROWS[c]) {
+            x.fillStyle = "#e9e3d2"; x.fillRect(px + ts * 0.08, py + ts * 0.08, ts * 0.84, ts * 0.84);
+            x.strokeStyle = "#8a7f66"; x.lineWidth = Math.max(1, ts * 0.05); x.strokeRect(px + ts * 0.08, py + ts * 0.08, ts * 0.84, ts * 0.84);
+            const [dx, dy] = STEP[ARROWS[c]];
+            const cx = px + ts / 2, cy = py + ts / 2;
+            x.fillStyle = "#d9443b";
+            x.beginPath();
+            x.moveTo(cx + dx * ts * 0.32, cy + dy * ts * 0.32);
+            x.lineTo(cx - dx * ts * 0.1 - dy * ts * 0.28, cy - dy * ts * 0.1 + dx * ts * 0.28);
+            x.lineTo(cx - dx * ts * 0.1 + dy * ts * 0.28, cy - dy * ts * 0.1 - dx * ts * 0.28);
+            x.closePath(); x.fill();
+          } else if (c === "s") {
+            const on = state.current.opened;
+            x.fillStyle = "#5a5f6b"; x.fillRect(px + ts * 0.22, py + ts * 0.22, ts * 0.56, ts * 0.56);
+            x.fillStyle = on ? "#7ee08f" : "#e8c45a"; x.beginPath(); x.arc(px + ts / 2, py + ts / 2, ts * 0.18, 0, Math.PI * 2); x.fill();
+          } else if (c === "d") {
+            if (state.current.opened) {
+              x.fillStyle = "rgba(0,0,0,.18)"; x.fillRect(px, py + ts * 0.85, ts, ts * 0.15);
+            } else {
+              x.fillStyle = "#8a5a2b"; x.fillRect(px, py, ts, ts);
+              x.fillStyle = "#6b4520"; for (let k = 0; k < 3; k++) x.fillRect(px + ts * (0.15 + k * 0.3), py + ts * 0.1, ts * 0.08, ts * 0.8);
+              x.fillStyle = "#e8c45a"; x.fillRect(px + ts * 0.42, py + ts * 0.45, ts * 0.16, ts * 0.12);
+            }
+          }
+        }
+      }
+      // buildings: the tileset's own pictures, or a roof, a wall and a door in plain shapes
+      for (const p of map.props || []) {
+        const [pw, ph] = PROPS[p.kind] || [1, 1];
+        const im = pixel && MPW_PROPS[p.kind] ? imgOf(imgs.current, MPW_PROPS[p.kind]) : null;
+        const px = p.x * ts, py = p.y * ts, bw = pw * ts, bh = ph * ts;
+        x.fillStyle = "rgba(0,0,0,.22)"; x.fillRect(px + ts * 0.2, py + bh - ts * 0.15, bw, ts * 0.25);
+        if (im) { x.drawImage(im, px, py, bw, bh); continue; }
+        x.fillStyle = "#efe6d0"; x.fillRect(px + ts * 0.2, py + bh * 0.45, bw - ts * 0.4, bh * 0.55);
+        x.fillStyle = PROP_ROOF[p.kind] || "#888"; x.beginPath(); x.moveTo(px, py + bh * 0.5); x.lineTo(px + bw * 0.12, py); x.lineTo(px + bw * 0.88, py); x.lineTo(px + bw, py + bh * 0.5); x.closePath(); x.fill();
+        x.fillStyle = "#6b4520"; x.fillRect(px + bw / 2 - ts * 0.45, py + bh - ts * 1.1, ts * 0.9, ts * 1.1);
+        x.fillStyle = "#9fd3ff"; x.fillRect(px + ts * 0.6, py + bh * 0.62, ts * 0.9, ts * 0.7); x.fillRect(px + bw - ts * 1.5, py + bh * 0.62, ts * 0.9, ts * 0.7);
+        if (p.kind === "center") { x.fillStyle = "#fff"; x.fillRect(px + bw / 2 - ts * 0.35, py + bh * 0.22, ts * 0.7, ts * 0.2); x.fillRect(px + bw / 2 - ts * 0.1, py + bh * 0.22 - ts * 0.25, ts * 0.2, ts * 0.7); }
+      }
       // the entrance
       x.fillStyle = "rgba(255,255,255,.25)";
       x.fillRect(map.start[0] * ts + ts * 0.15, map.start[1] * ts + ts * 0.15, ts * 0.7, ts * 0.7);
       const now = performance.now();
       const at = (p) => {
         if (!p.from) return [p.x, p.y];
-        const k = Math.min(1, (now - p.t0) / MOVE_MS);
+        const k = Math.min(1, (now - p.t0) / (p.stepMs || MOVE_MS));
         return [p.from[0] + (p.x - p.from[0]) * k, p.from[1] + (p.y - p.from[1]) * k];
       };
       const drawPerson = (px, py, url, facing, alpha = 1, crown = false, bang = 0) => {
@@ -263,7 +386,9 @@ export default function Overworld({ map, people = {}, player = {}, beaten = [], 
         x.moveTo(ax + dx * ts * 0.12, ay + dy * ts * 0.12);
         x.lineTo(ax - dy * ts * 0.1, ay + dx * ts * 0.1);
         x.lineTo(ax + dy * ts * 0.1, ay - dx * ts * 0.1);
+        x.closePath();
         x.fill();
+        x.strokeStyle = "rgba(0,0,0,.55)"; x.lineWidth = Math.max(1, ts / 24); x.stroke();   // readable on light floors too
         if (crown) { x.fillStyle = "#e8c45a"; x.font = `${Math.round(ts * 0.5)}px sans-serif`; x.textAlign = "center"; x.fillText("♛", cx, foot - hpx - 2); }
         if (bang && now - bang < 1200) { x.fillStyle = "#fff"; x.strokeStyle = "#222"; x.lineWidth = 3; x.font = `bold ${Math.round(ts * 0.7)}px sans-serif`; x.textAlign = "center"; x.strokeText("!", cx, foot - hpx - 2); x.fillText("!", cx, foot - hpx - 2); }
         x.globalAlpha = 1;
