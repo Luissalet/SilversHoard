@@ -11,6 +11,8 @@ import sys
 from pathlib import Path
 
 SPANISH = "7"
+# Newer games list moves they dropped with a stock "this move can't be used" line; older games still describe them.
+PLACEHOLDERS = ("no se puede usar, por lo que", "dummy data")
 
 
 def toid(text: str) -> str:
@@ -27,6 +29,8 @@ def table(folder: Path, base: str, flavor: str, key: str) -> dict:
     best: dict[str, tuple[int, str]] = {}
     for row in csv.DictReader(open(folder / f"{flavor}.csv", encoding="utf-8")):
         if row["language_id"] != SPANISH or row[key] not in ids:
+            continue
+        if any(p in row["flavor_text"].lower() for p in PLACEHOLDERS):
             continue
         group = int(row["version_group_id"])
         sid = toid(ids[row[key]])
