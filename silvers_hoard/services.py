@@ -2408,8 +2408,6 @@ class Services:
         headless Chrome or Edge that captures the tab's picture and the page's sound (effects, cries, music) as it plays. The clip
         lands in the exports folder as MP4 (WebM without ffmpeg); lumiere=True also hands it to Lumiere's Hoard, the video editor."""
         b = self.store.battle(id_)
-        if (b.get("mode") or "classic") == "realtime":
-            raise SilverError("invalid", "Real-time battles are not recorded yet; a classic battle's replay is.")
         if b["status"] != "ended" or not b.get("log_text"):
             raise SilverError("conflict", "Only a finished battle with its replay can be recorded.", hint="Wait for the battle to end.")
         if speed not in self.VIDEO_SPEEDS:
@@ -2439,8 +2437,13 @@ class Services:
         done = threading.Event()
         state: dict[str, Any] = {"error": "", "info": {}}
         lines = len(str(b.get("log_text") or "").split("\n"))
-        # a generous ceiling: every line at the slowest pause, plus the start and the end
-        deadline = time.monotonic() + min(3600.0, 60 + lines * 1.6 * self.VIDEO_SPEEDS[speed] / 1000)
+        # a generous ceiling: every line at the slowest pause (a real-time battle: its length at the replay's speed), plus the start
+        # and the end
+        if (b.get("mode") or "classic") == "realtime":
+            seconds = float((b.get("summary") or {}).get("seconds") or 0) or (b.get("replay") or {}).get("tick", 0) / 30 or 600
+            deadline = time.monotonic() + min(3600.0, 90 + seconds * 1.5 / (2 if self.VIDEO_SPEEDS[speed] < 700 else 1))
+        else:
+            deadline = time.monotonic() + min(3600.0, 60 + lines * 1.6 * self.VIDEO_SPEEDS[speed] / 1000)
         progress(0.02)
         import psutil
         me = psutil.Process()

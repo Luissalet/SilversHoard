@@ -1,4 +1,5 @@
-"""Battle videos: what is refused (unfinished, real-time, unknown speed or size, no browser), the job and the export file name."""
+"""Battle videos: what is refused (unfinished, without a replay, unknown speed or size, no browser), the job and the export file
+name, and real-time battles recorded too."""
 import pytest
 
 from silvers_hoard.errors import SilverError
@@ -18,7 +19,7 @@ def test_what_is_refused(services, monkeypatch):
         services.battle_video(live)
     assert e.value.code == "conflict"
     with pytest.raises(SilverError):
-        services.battle_video(ended(services, mode="realtime"))
+        services.battle_video(ended(services, mode="realtime", log_text=""))
     bid = ended(services)
     with pytest.raises(SilverError):
         services.battle_video(bid, speed="ludicrous")
@@ -48,6 +49,19 @@ def test_the_job_and_its_file(services, monkeypatch):
     assert services.export_file("Ana vs Bea 123456.mp4").stat().st_size == 64
     with pytest.raises(SilverError):
         services.export_file("../silver.db")
+
+
+def test_realtime_battles_are_recorded(services, monkeypatch):
+    monkeypatch.setattr(type(services), "video_status", lambda self: {"playwright": True, "browser": "chrome", "ffmpeg": "", "hint": ""})
+    seen = {}
+
+    def fake(self, b, speed, size, lang, lumiere, status, progress, cancelled):
+        seen.update(mode=b.get("mode"), speed=speed)
+        return {"file": "x.webm"}
+    monkeypatch.setattr(type(services), "_record_video", fake)
+    bid = ended(services, mode="realtime", summary={"seconds": 42})
+    j = run_job(services, services.battle_video(bid, speed="fast"))
+    assert j["status"] == "done" and seen == {"mode": "realtime", "speed": "fast"}
 
 
 def test_status_says_what_is_missing(services):

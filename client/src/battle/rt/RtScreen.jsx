@@ -287,8 +287,10 @@ function hasPad() {
  * the stored battle. seats: {p1, p2} with avatarUrl. base: prefix of the app's routes ("" in the app).
  * offline: the friends' playable page, with no app behind it: no walking sprites, cries or music are asked for. onContinue /
  * continueLabel: a button on the end card that takes the page on (the next battle, the result code).
+ * video: the replay recorded as a clip (Video.jsx): {playing, speed, onProgress(fraction), onDone()}; it waits paused until
+ * `playing`, then plays at `speed` and reports how far it is and when it has ended.
  */
-export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish, onSave, onAgain, base = "", offline = false, onContinue = null, continueLabel = "" }) {
+export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish, onSave, onAgain, base = "", offline = false, onContinue = null, continueLabel = "", video = null }) {
   const tr = useMemo(() => rtT(lang), [lang]);
   const spec = battle.rt.spec;
   const humans = battle.rt.human || [false, false];
@@ -313,7 +315,9 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     try { localStorage.setItem(LAYOUT_KEY, v); } catch { /* private window: the choice lasts this battle */ }
     sim.current?.inputs.forEach((inp) => { if (inp) inp.layout = v; });
   };
-  const [speed, setSpeed] = useState(1);
+  const [speed, setSpeed] = useState(video?.speed || 1);
+  const videoRef = useRef(video);
+  videoRef.current = video;
   const [error, setError] = useState(null);
   const [result, setResult] = useState(null);
   const [sure, setSure] = useState(-1);
@@ -395,7 +399,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     renderer.preload((n, total) => !cancelled && setProgress([n, total])).then(() => {
       if (cancelled) return;
       setCredits([...renderer.credits].slice(0, 12));
-      setPhase(live ? (state.b.ended ? "ended" : "ready") : "playing");
+      setPhase(live ? (state.b.ended ? "ended" : "ready") : videoRef.current && !videoRef.current.playing ? "replay-paused" : "playing");
     });
     return () => { cancelled = true; };
   }, [battle.id]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -483,6 +487,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
       if (now - lastHud > HUD_MS) {
         lastHud = now;
         setHud(st.b.view());
+        if (videoRef.current?.onProgress) videoRef.current.onProgress(st.b.t / Math.max(1, battle.rt.tick || (battle.summary?.seconds || 0) * TPS || st.b.t));
         if (st.logIndex < st.b.events.length) {
           const fresh = st.b.events.slice(st.logIndex).map((e) => logLine(e, st.b, lang, tr)).filter(Boolean);
           st.logIndex = st.b.events.length;
@@ -572,6 +577,9 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     if (!offline && ["running", "playing", "paused", "replay-paused"].includes(phase)) music.play(musicUrl);
   }, [phase, musicUrl, offline]);
   useEffect(() => () => music.stop({ fade: 0.8 }), []);
+  // recording a clip: start when the recorder is ready, say when the replay is over
+  useEffect(() => { if (video?.playing) setPhase((p) => (p === "replay-paused" ? "playing" : p)); }, [video?.playing]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { if (phase === "done") videoRef.current?.onDone?.(); }, [phase]);
   useEffect(() => {
     if (phase !== "ended" && phase !== "done") return;
     const w = sim.current?.b?.view().winner;

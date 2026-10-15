@@ -9,6 +9,8 @@ import { useBattlePlayer } from "../battle/player.js";
 import { useSeats } from "../components/silver.jsx";
 import { battleEnd, genOfFormat, music, pickTrack, unlock } from "../audio.js";
 import { installTap } from "../video/tap.js";
+// the real-time arena carries the battle engine: it comes with CombateRt's chunk, only when a real-time battle is recorded
+const RtScreen = React.lazy(() => import("./CombateRt.jsx").then((m) => ({ default: m.RtScreen })));
 
 const TAIL_MS = 3500;      // the end screen (winner, victory pose, jingle) stays this long
 
@@ -28,6 +30,14 @@ export default function Video({ param, query }) {
   const player = useBattlePlayer({ lang, me: "p1", speedMs });
   const seats = useSeats(battle);
   const run = useRef({ started: false, ended: false, recorder: null, t0: 0, sound: false });
+  const [rtPlaying, setRtPlaying] = useState(false);
+  const realtime = battle?.mode === "realtime";
+  const stopSoon = () => {
+    const r = run.current;
+    if (r.ended) return;
+    r.ended = true;
+    setTimeout(() => { if (r.recorder && r.recorder.state !== "inactive") r.recorder.stop(); }, TAIL_MS);
+  };
 
   useEffect(() => {
     document.body.classList.add("video-mode");
@@ -49,13 +59,14 @@ export default function Video({ param, query }) {
     if (r.started || !battle) return;
     r.started = true;
     r.t0 = performance.now();
+    if (battle.mode === "realtime") { setRtPlaying(true); return; }   // the arena plays its own music
     music.play(`/api/music/${pickTrack(battle.id, genOfFormat(battle.format))}`);
     player.play();
   };
 
   useEffect(() => {
     if (!battle) return;
-    player.load(battle.lines || [], { playing: false });
+    if (battle.mode !== "realtime") player.load(battle.lines || [], { playing: false });
     window.videoRecord = () => {
       (async () => {
         try {
@@ -93,7 +104,7 @@ export default function Video({ param, query }) {
   // progress, then the end: the jingle and the winner's screen stay a moment before the recording stops
   useEffect(() => {
     const r = run.current;
-    if (!r.started) return;
+    if (!r.started || realtime) return;
     if (player.total) window.__videoProgress?.(player.applied / player.total);
     if (r.ended || !player.state.ended || !player.caughtUp) return;
     r.ended = true;
@@ -110,7 +121,12 @@ export default function Video({ param, query }) {
         <b>{battle.p1?.name}</b><span>vs</span><b>{battle.p2?.name}</b>
         <span className="help">{battle.format_info?.name || battle.format}</span>
       </div>
-      <Arena player={player} seats={seats} me="p1" sprites={sprites} lang={lang} />
+      {realtime ? (
+        <React.Suspense fallback={null}>
+          <RtScreen battle={battle} lang={lang} sprites={sprites} seats={seats}
+            video={{ playing: rtPlaying, speed: speedMs < 700 ? 2 : 1, onProgress: (x) => window.__videoProgress?.(x), onDone: stopSoon }} />
+        </React.Suspense>
+      ) : <Arena player={player} seats={seats} me="p1" sprites={sprites} lang={lang} />}
     </div>
   );
 }

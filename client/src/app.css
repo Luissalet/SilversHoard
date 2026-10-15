@@ -220,3 +220,7 @@ body.video-mode .b-fx-toggle, body.video-mode .snd-btn { display: none !importan
 /* credits page */
 .credit-artists { display: flex; flex-wrap: wrap; gap: 6px; }
 .credit-sources td { vertical-align: top; }
+
+/* a real-time battle recorded as a clip: the arena and its bars only */
+.video-stage .rt-wrap { grid-template-columns: minmax(0, 1fr); }
+.video-stage .rt-log, .video-stage .b-replay, .video-stage .rt-pads, .video-stage .rt-card .btn { display: none !important; }
