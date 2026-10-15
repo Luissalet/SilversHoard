@@ -261,7 +261,7 @@ class GymSaveArgs(BaseModel):
     badge_image: Optional[str] = Field(None, max_length=200, description="Badge picture: shape:<hexagon|boulder|drop|bolt|leaf|flame|heart|star|flake|wing|gear|fist|eye|moon|scale|shell|rainbow|crown>, file:<from badge_image_set or badge_draw> or '' for the plain badge.")
     rt_arena: Optional[str] = Field(None, max_length=90, description="Where its real-time battles are fought: '' (the challenger picks), open, rocks or custom:<arena id>.")
     backdrop: Optional[str] = Field(None, max_length=120, description="Backdrop of its turn-based battles: a backdrop file name (bg-volcanocave.png, bg-icecave.jpg…), file:<picture> from backdrop_image_set, or '' for the usual one.")
-    map: Optional[dict[str, Any]] = Field(None, description="The map walked to the leader: {w, h, tiles (w*h chars: . floor, # wall, ~ water, o boulder, * plant, = carpet, , grass), start: [x, y], leader: {x, y, facing}, trainers: [{id, x, y, facing, sight}]} (gym_map_generate makes one); {} removes it.")
+    map: Optional[dict[str, Any]] = Field(None, description="The map walked to the leader: {w, h, tiles (w*h chars: . floor, # wall, ~ water, o boulder, * plant, = carpet, , grass), start: [x, y], leader: {x, y, facing}, trainers: [{id, x, y, facing, sight}], look: colors | pixel (pixel-art tiles)} (gym_map_generate makes one); {} removes it.")
 
 
 class BadgeImageArgs(BaseModel):

@@ -6,7 +6,7 @@ import { battleT } from "./strings.js";
 import SoundButton from "./SoundControl.jsx";
 import AbilityBanner from "./AbilityBanner.jsx";
 import { useBackdropSetting, useMoveFxSetting, usePrefersReducedMotion } from "./fx/setting.js";
-import { backdropFileUrl, backdropUrl, fieldLayer, seedOf, weatherLayer } from "./fx/backdrop.js";
+import { backdropFileUrl, backdropUrl, fieldLayer, pixelBackdropUrl, seedOf, weatherLayer } from "./fx/backdrop.js";
 
 const WEATHER_CLASS = { raindance: "w-rain", primordialsea: "w-rain", sunnyday: "w-sun", desolateland: "w-sun", sandstorm: "w-sand", hail: "w-snow",
   snowscape: "w-snow", snow: "w-snow", deltastream: "w-wind" };
@@ -206,11 +206,12 @@ export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "
 
   // Showdown's backdrop for the format's generation (one per battle, kept in replays) and its weather and terrain overlays
   const [backdropPref] = useBackdropSetting();
-  const showdownField = backdropPref === "showdown";
+  const showdownField = backdropPref !== "silver";
   // a gym's own backdrop (its designer chose it) shows whatever the setting; otherwise the one Showdown would pick
   const bdUrl = useMemo(() => (backdrop ? backdropFileUrl(backdrop)
+    : backdropPref === "pixel" ? pixelBackdropUrl(seedOf(`${st.sides.p1.name}|${st.sides.p2.name}|${st.tier}`))
     : showdownField ? backdropUrl({ gen: st.gen, seed: seedOf(`${st.sides.p1.name}|${st.sides.p2.name}|${st.tier}`) }) : ""),
-  [backdrop, showdownField, st.gen, st.sides.p1.name, st.sides.p2.name, st.tier]);
+  [backdrop, backdropPref, showdownField, st.gen, st.sides.p1.name, st.sides.p2.name, st.tier]);
   const wLayer = showdownField ? weatherLayer(st.field.weather) : null;
   const fLayer = showdownField ? fieldLayer([st.field.terrain, ...Object.entries(st.field.pseudo || {}).filter(([, on]) => on).map(([k]) => k)]) : null;
 

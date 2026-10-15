@@ -3,6 +3,7 @@
 // from the gym's type and the people as their trainer sprites. The same component runs in the app and on the friends' playable page.
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "./overworld.css";
+import { MPW_TILES } from "./mpw-tiles.gen.js";
 
 const STEP = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
 const WALKABLE = new Set([".", "=", ","]);
@@ -23,6 +24,9 @@ function palette(color = "#9aa0a6") {
   const mix = (k, to) => `rgb(${Math.round(r + (to - r) * k)},${Math.round(g + (to - g) * k)},${Math.round(b + (to - b) * k)})`;
   return { floorA: mix(0.78, 235), floorB: mix(0.72, 225), wall: mix(0.45, 40), wallTop: mix(0.25, 70), carpet: mix(0.1, 120), accent: color };
 }
+
+// map.look "pixel": Scarloxy's 16 px tiles (MyPixelWorld Special Packs #01, CC BY 4.0) instead of shapes in the gym's colours
+const OVER = new Set(["o", "*"]);   // drawn over the floor; the plant stands two tiles tall
 
 function imgOf(cache, url) {
   if (!url) return null;
@@ -184,7 +188,27 @@ export default function Overworld({ map, people = {}, player = {}, beaten = [], 
       const x = cv.getContext("2d");
       x.setTransform(dpr, 0, 0, dpr, 0, 0);
       x.imageSmoothingEnabled = false;
-      for (let ty = 0; ty < map.h; ty++) {
+      const pixel = map.look === "pixel" && Object.keys(MPW_TILES).every((k) => imgOf(imgs.current, MPW_TILES[k]));
+      if (pixel) {
+        const floor = imgOf(imgs.current, MPW_TILES["."]);
+        for (let ty = 0; ty < map.h; ty++) {
+          for (let tx2 = 0; tx2 < map.w; tx2++) {
+            const c = map.tiles[ty * map.w + tx2];
+            const px = tx2 * ts, py = ty * ts;
+            if (OVER.has(c) || c === ".") x.drawImage(floor, px, py, ts, ts);
+            if (c !== "." && !OVER.has(c)) x.drawImage(imgOf(imgs.current, MPW_TILES[c]), px, py, ts, ts);
+          }
+        }
+        // boulders and plants after the floor, row by row, so a tall plant covers the tile above it
+        for (let ty = 0; ty < map.h; ty++) {
+          for (let tx2 = 0; tx2 < map.w; tx2++) {
+            const c = map.tiles[ty * map.w + tx2];
+            if (c === "o") x.drawImage(imgOf(imgs.current, MPW_TILES.o), tx2 * ts, ty * ts, ts, ts);
+            else if (c === "*") x.drawImage(imgOf(imgs.current, MPW_TILES["*"]), tx2 * ts, (ty - 1) * ts, ts, ts * 2);
+          }
+        }
+      }
+      for (let ty = 0; !pixel && ty < map.h; ty++) {
         for (let tx2 = 0; tx2 < map.w; tx2++) {
           const c = map.tiles[ty * map.w + tx2];
           const px = tx2 * ts, py = ty * ts;

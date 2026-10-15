@@ -47,7 +47,8 @@
     "live-pvp",
     "champions-formats",
     "friends-league",
-    "weekly-vote"
+    "weekly-vote",
+    "pixel-art-style"
   ],
   "x-family": {
     "copilot": true

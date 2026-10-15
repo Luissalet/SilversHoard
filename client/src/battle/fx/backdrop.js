@@ -4,6 +4,7 @@
 // weather classes of its battle.css; the pictures themselves are downloaded on first use (the app's /api/fx cache, or straight from
 // Showdown on the friends' playable page). Backdrops by Kyle Dove and the artists in pokemonshowdown.com/credits.
 import { fxUrl } from "./ps/url.js";
+import { MPW_BACKDROPS } from "./mpw-backdrops.gen.js";
 
 export const BACKDROPS_GEN3 = ["bg-gen3.png", "bg-gen3-cave.png", "bg-gen3-ocean.png", "bg-gen3-sand.png", "bg-gen3-forest.png", "bg-gen3-arena.png"];
 export const BACKDROPS_GEN4 = ["bg-gen4.png", "bg-gen4-cave.png", "bg-gen4-snow.png", "bg-gen4-indoors.png", "bg-gen4-water.png"];
@@ -44,8 +45,11 @@ export function backdropPath(gen, seed) {
   return `sprites/gen6bgs/${BACKDROPS[n % BACKDROPS.length]}`;
 }
 
+// Scarloxy's pixel-art battle backgrounds (MyPixelWorld Special Packs #01, CC BY 4.0), bundled with the app: no download.
+export const PIXEL_BACKDROPS = Object.keys(MPW_BACKDROPS);
+
 /** Every backdrop a gym can pick (gym_save backdrop), by file name. */
-export const ALL_BACKDROPS = [...BACKDROPS, ...BACKDROPS_GEN5, ...BACKDROPS_GEN4, ...BACKDROPS_GEN3];
+export const ALL_BACKDROPS = [...BACKDROPS, ...BACKDROPS_GEN5, ...BACKDROPS_GEN4, ...BACKDROPS_GEN3, ...PIXEL_BACKDROPS];
 
 /** The path of a backdrop chosen by file name: the generation 6+ ones live with the sprites, the older ones with the effects. */
 export function backdropFilePath(name) {
@@ -63,18 +67,25 @@ export function backdropUrl({ gen, seed, local = isLocalApp() }) {
   return fxUrl(backdropPath(gen, seed), { local });
 }
 
+/** One of the pixel-art backgrounds for a battle (the same one in its replays). */
+export function pixelBackdropUrl(seed) {
+  return MPW_BACKDROPS[PIXEL_BACKDROPS[Math.abs(Number(seed) || 0) % PIXEL_BACKDROPS.length]];
+}
+
 /** URL of a gym's own backdrop: a battle backdrop by file name, file:<picture uploaded to the app>, or the picture itself as it travels
  * to a friend ({kind: "image", mime, data}). */
 export function backdropFileUrl(name, { local = isLocalApp() } = {}) {
   if (name && typeof name === "object") return name.kind === "image" && name.data ? `data:${name.mime || "image/png"};base64,${name.data}` : "";
   const n = String(name || "");
   if (n.startsWith("file:")) return `/api/avatars/${encodeURIComponent(n.slice(5))}`;
+  if (MPW_BACKDROPS[n]) return MPW_BACKDROPS[n];
   return n ? fxUrl(backdropFilePath(n), { local }) : "";
 }
 
 /** A short label for a gym's backdrop. */
 export function backdropLabel(name, own = "") {
   const n = String(name || "");
+  if (MPW_BACKDROPS[n]) return `pixel art · ${n.slice(7, -4)}`;
   return n.startsWith("file:") ? own : n.replace(/^bg-|\.(png|jpg)$/g, "");
 }
 

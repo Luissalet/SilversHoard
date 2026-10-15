@@ -701,6 +701,7 @@ const D = {
   backdrop: ["Campo de los combates por turnos", "Turn-based battle field"],
   backdrop_showdown: ["Fondos de Pokémon Showdown", "Pokémon Showdown's backdrops"],
   backdrop_silver: ["Degradado de Silver", "Silver's gradient"],
+  backdrop_pixel: ["Pixel art (pradera, playa y nieve)", "Pixel art (meadow, beach and snow)"],
   backdrop_help: ["Con los de Showdown cada combate tiene uno de sus fondos según la generación del formato (siempre el mismo en sus repeticiones), y el tiempo atmosférico, los campos y las salas se ven con sus capas a pantalla completa. Se descargan una vez y quedan en caché.", "With Showdown's, each battle gets one of its backdrops for the format's generation (always the same one in its replays), and weather, terrains and rooms show with its full-field layers. They are downloaded once and cached."],
   fx_style_silver: ["Las de Silver", "Silver's"],
   fx_style_help: ["Las de Showdown son las animaciones propias de cada movimiento de su cliente (934 movimientos: Rayo Hielo con sus carámbanos, Terremoto sacudiendo el campo, el Pokémon que embiste…); los dibujos de efectos se descargan una vez y quedan en caché. Los movimientos que no tienen la suya usan las de Silver, que son las mismas que en tiempo real.", "Showdown's are the animations its client has for each move (934 moves: Ice Beam with its icicles, Earthquake shaking the field, the Pokémon charging in…); the effect pictures are downloaded once and cached. Moves without one use Silver's, the same as in real time."],

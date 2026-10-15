@@ -6,6 +6,7 @@
 // never changes the battle, so it may use Math.random freely.
 import { TYPE_COLORS } from "../dex.js";
 import { KENNEY } from "./kenney.gen.js";
+import { MPW_FX } from "./mpw-fx.gen.js";
 
 const H = 0.6;          // projectiles fly this many meters over the ground
 const TAU = Math.PI * 2;
@@ -22,14 +23,37 @@ const has = (id, words) => words.some((w) => id.includes(w));
 // Textured particles: Kenney's Particle Pack (CC0) shapes, tinted to the particle's colour on a small canvas (cached), added with
 // "lighter" for light (glows, sparks, stars, bubbles) and laid normally for smoke. The setting "plain" keeps the drawn shapes.
 const PARTICLE_KEY = "silver-rt-particles";
+// "pixel" adds Scarloxy's 4-frame pixel-art impacts (MyPixelWorld Special Packs #01, CC BY 4.0) on top of the textured particles.
+const okParticles = (v) => (v === "plain" || v === "pixel" ? v : "textured");
 export function particleStyle() {
-  try { return localStorage.getItem(PARTICLE_KEY) === "plain" ? "plain" : "textured"; } catch { return "textured"; }
+  try { return okParticles(localStorage.getItem(PARTICLE_KEY)); } catch { return "textured"; }
 }
 export function setParticleStyle(v) {
-  try { localStorage.setItem(PARTICLE_KEY, v === "plain" ? "plain" : "textured"); } catch { /* the default stays */ }
-  textured = v !== "plain";
+  try { localStorage.setItem(PARTICLE_KEY, okParticles(v)); } catch { /* the default stays */ }
+  textured = okParticles(v) !== "plain";
+  pixelHits = okParticles(v) === "pixel";
 }
 let textured = particleStyle() !== "plain";
+let pixelHits = particleStyle() === "pixel";
+const SHEETS = {};
+function sheet(name) {
+  if (typeof Image === "undefined" || !MPW_FX[name]) return null;
+  let s = SHEETS[name];
+  if (!s) { s = new Image(); s.src = MPW_FX[name]; SHEETS[name] = s; }
+  return s.complete && s.naturalWidth ? s : null;
+}
+/** Which pixel-art impact a hit plays, from its move and type ("" for none). */
+export function pixelHitOf(move, type) {
+  const id = String(move || "");
+  if (BURSTS[id] === "explode") return "blast";
+  if (type === "Fire") return MELEE.some(([, w]) => has(id, w)) ? "flame" : "blast";
+  if (type === "Water") return "water";
+  if (type === "Ice") return "ice";
+  if (type === "Grass" || type === "Bug") return "vines";
+  if (["slash", "bite"].includes(melee(id))) return "claws";
+  if (["Electric", "Psychic", "Fairy", "Normal", "Steel", "Dragon"].includes(type)) return "flash";
+  return "";
+}
 const TEX = {};
 const TINTS = new Map();
 function texture(name) {
@@ -237,6 +261,8 @@ export class Vfx {
       case "hit": {
         const d = side(e.s);
         this.burst(e.type, d.x, d.y, { power: e.crit || e.eff > 1 ? 1.5 : 1 });
+        const px = pixelHits && (e.hit === 0 || e.hit === undefined) ? pixelHitOf(e.move, e.type) : "";
+        if (px) this.fx.push({ kind: "pixel", sheet: px, x: d.x, y: d.y, t: 0, life: 0.36, big: e.crit || e.eff > 1 });
         if (e.crit || e.eff > 1) this.shake = Math.max(this.shake, e.crit ? 0.18 : 0.1);
         break;
       }
@@ -563,7 +589,17 @@ export class Vfx {
     for (const f of this.fx) {
       if (f.t < 0) continue;
       const p = f.t / f.life, a = 1 - p;
-      if (f.kind.startsWith("melee-")) this.drawMelee(ctx, f, p, a);
+      if (f.kind === "pixel") {
+        const img = sheet(f.sheet);
+        if (img) {
+          const frame = Math.min(3, Math.floor(p * 4));
+          const size = s * (f.big ? 2.6 : 2.1);
+          const sm = ctx.imageSmoothingEnabled;
+          ctx.imageSmoothingEnabled = false;
+          ctx.drawImage(img, frame * 96, 0, 96, 96, this.px(f.x) - size / 2, this.py(f.y, H) - size / 2, size, size);
+          ctx.imageSmoothingEnabled = sm;
+        }
+      } else if (f.kind.startsWith("melee-")) this.drawMelee(ctx, f, p, a);
       else if (f.kind === "bolt") this.drawBolt(ctx, f, p, a);
       else if (f.kind === "cloud") {
         const cx = this.px(f.x), cy = this.py(f.y, 3.2);
