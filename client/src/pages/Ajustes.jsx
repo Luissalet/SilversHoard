@@ -89,6 +89,8 @@ export default function Ajustes() {
           <p className="help">{t("sprite_downloads_help")} {stats.data ? t("sprite_cache", { n: stats.data.cached, mb: (stats.data.bytes / 1048576).toFixed(1) }) : ""}</p>
             <label className="flex items-center gap-2"><Switch checked={f.smogon_data !== false} onChange={(v) => set("smogon_data", v)} label={t("smogon_data")} /> {t("smogon_data")}</label>
             <p className="help">{t("smogon_data_help")}</p>
+            <label className="flex items-center gap-2"><Switch checked={!!f.ai_hidden_info} onChange={(v) => set("ai_hidden_info", v)} label={t("ai_hidden_info")} /> {t("ai_hidden_info")}</label>
+            <p className="help">{t("ai_hidden_info_help")}</p>
             <p className="help"><a className="btn-link" href="#/creditos">{t("credits_link")}</a></p>
         </div>
       </Section>

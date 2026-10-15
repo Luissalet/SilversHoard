@@ -933,11 +933,46 @@ class Services:
         if not sets:
             raise SilverError("empty_team", f"{name} has no team.")
         level, style = self._clean_ai(level, style)
+        hidden = spec.get("ai_hidden")
+        hidden = bool(self.settings["ai_hidden_info"]) if hidden is None else bool(hidden)
+        ai = {"level": level, "style": style, **({"hidden": True} if hidden else {})}
         return {"trainer_id": spec.get("trainer_id") or "", "name": name, "avatar": avatar, "avatar_url": self.avatar_url(avatar), "human": human,
-                "ai": None if human else {"level": level, "style": style}, "sets": sets, "dialogue": dialogue, "format": fmt}
+                "ai": None if human else ai, "sets": sets, "dialogue": dialogue, "format": fmt}
+
+    def _beliefs(self, sets: list[dict[str, Any]], fmt: str) -> dict[str, Any]:
+        """What an AI that does not see the other team guesses about each of its species: the most used moves, item, ability, Tera
+        type and spread of the format's usage statistics (data.pkmn.cc, when allowed); empty without them (it then guesses alone)."""
+        if not self.settings["smogon_data"]:
+            return {}
+        out: dict[str, Any] = {}
+        for s in sets[:24]:
+            species = str(s.get("species") or s.get("name") or "").strip()
+            if not species or species in out:
+                continue
+            try:
+                found = self.smogon.sets(species, fmt)
+            except SilverError:
+                continue
+            u = found.get("usage") or {}
+            first = lambda key: ((u.get(key) or [[""]])[0] or [""])[0]
+            moves = [m for m, _ in (u.get("moves") or []) if m and m != "Nothing"]
+            if not moves and found.get("sets"):
+                moves = list(found["sets"][0].get("moves") or [])
+            if moves or first("items") or first("abilities"):
+                out[species] = {"moves": moves[:8], "item": first("items") if first("items") != "Nothing" else "", "ability": first("abilities"),
+                                "tera": first("teraTypes") if first("teraTypes") != "Nothing" else "", "spread": first("spreads")}
+        return out
+
+    def _hide_from(self, s1: dict[str, Any], s2: dict[str, Any], fmt: str) -> None:
+        """Give each AI seat that does not see the other team its guesses about that team's species."""
+        for me, other in ((s1, s2), (s2, s1)):
+            if me.get("ai") and me["ai"].get("hidden"):
+                me["ai"]["beliefs"] = self._beliefs(other.get("sets") or [], fmt)
 
     def _public_seat(self, seat: dict[str, Any]) -> dict[str, Any]:
         out = {k: v for k, v in seat.items() if k != "sets"}
+        if isinstance(out.get("ai"), dict) and "beliefs" in out["ai"]:
+            out["ai"] = {k: v for k, v in out["ai"].items() if k != "beliefs"}
         out["avatar_poses"] = self.pose_urls(seat.get("avatar") or "")
         return out
 
@@ -963,6 +998,7 @@ class Services:
         info = self.format_info(fmt, rules)
         if info.get("random"):
             fmt = f"gen{info['gen']}customgame"
+        self._hide_from(s1, s2, fmt)
         spec = {"format": fmt, "rules": rules, "level_rules": level_rules, "max_turns": self.settings["max_turns"], "trace": True,
                 "p1": {"name": s1["name"], "sets": s1["sets"], "ai": s1["ai"]}, "p2": {"name": s2["name"], "sets": s2["sets"], "ai": s2["ai"]}}
         if seed:
@@ -1148,7 +1184,9 @@ class Services:
             with self._lock_for(id_):
                 self._ensure_loaded(b)
                 for s in sides:
-                    r = self.engine.call("match_advice", {"id": id_, "side": s}, timeout=90)
+                    other = b.get("p2" if s == "p1" else "p1") or {}
+                    r = self.engine.call("match_advice", {"id": id_, "side": s, "hidden": True,
+                                                          "beliefs": self._beliefs(other.get("sets") or [], b["format"])}, timeout=90)
                     if r.get("advice"):
                         found[s] = {**r["advice"], "text": self._note_text(r["advice"], b, advice=True)}
             out["advice"] = found
@@ -1176,6 +1214,8 @@ class Services:
             return f"{round((x or 0) * 100)}%"
         who = (b.get(n.get("side") or "") or {}).get("name") or n.get("side") or "?"
         head = f"Turn {n.get('turn')}, {who}" + (" (advice from the expert AI)" if advice else f" ({n.get('level')} AI, {n.get('style')})")
+        if n.get("hidden") and not advice:
+            head += " [not seeing the other team]"
         if n.get("kind") == "preview":
             return f"{head}: team order {n.get('choice')}."
         parts = []

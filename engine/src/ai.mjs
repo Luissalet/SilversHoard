@@ -5,6 +5,7 @@
 // pairings of both slots' best options. "master" searches thousands of futures with poke-engine (master.mjs, Node only) and plays
 // as the expert when that search is not available.
 import {Battle, PRNG, toID} from '@pkmn/sim';
+import {believe} from './belief.mjs';
 
 export const LEVELS = ['random', 'easy', 'normal', 'hard', 'expert', 'master'];
 export const STYLES = ['balanced', 'aggressive', 'defensive', 'setup', 'stall'];
@@ -458,7 +459,9 @@ function expertChoice(battle, side, req, opts, w, rng) {
   const foeReq = requestOf(foeSide);
   let theirs = [{choice: null, weight: 1}];
   if (foeReq && !foeReq.wait && foeReq.active) {
-    const foeOpts = slotOptions(scratch, sideOf(scratch, foeSide.id), 0, foeReq, {level: 'hard'}, STYLE_WEIGHTS.balanced);
+    // the opponent's likely answers (never a switch to a Pokémon this side has not seen)
+    const foeOpts = slotOptions(scratch, sideOf(scratch, foeSide.id), 0, foeReq, {level: 'hard'}, STYLE_WEIGHTS.balanced)
+      .filter((o) => !(o.kind === 'switch' && opts.unseen?.has(o.slot)));
     const top = foeOpts.filter((o) => o.kind !== 'switch').slice(0, 3);
     const sw = foeOpts.filter((o) => o.kind === 'switch').slice(0, 2);
     theirs = [...top, ...sw].map((o, i) => ({choice: o.choice, weight: i === 0 ? 0.45 : 0.55 / Math.max(1, top.length + sw.length - 1)}));
@@ -540,7 +543,11 @@ function doublesExpertChoice(battle, side, req, opts, w, rng) {
   if (foeReq && !foeReq.wait && foeReq.active) {
     // the opponent's likely answers: its best pairing, then the same with one slot switched to its second idea
     const fSide = sideOf(scratch, foeSide.id);
-    const lists = foeReq.active.map((_, slot) => slotShortlist(scratch, fSide, slot, foeReq, {level: 'hard'}, STYLE_WEIGHTS.balanced, 2));
+    const lists = foeReq.active.map((_, slot) => {
+      const l = slotShortlist(scratch, fSide, slot, foeReq, {level: 'hard'}, STYLE_WEIGHTS.balanced, 2);
+      const fair = l.filter((o) => !(o.kind === 'switch' && opts.unseen?.has(o.slot)));
+      return fair.length ? fair : l;
+    });
     const top = pairings(lists.map((l) => l.slice(0, 1)), 1)[0];
     const alts = lists.map((l, i) => (l.length > 1 ? pairings(lists.map((m, j) => (j === i ? [l[1]] : m.slice(0, 1))), 1)[0] : null));
     const answers = [top, ...alts].filter(Boolean);
@@ -580,15 +587,28 @@ function doublesExpertChoice(battle, side, req, opts, w, rng) {
 // ---------------------------------------------------------------- entry point
 /**
  * The choice of side `sideId` right now, or null when it has nothing to choose.
- * opts: {level: random|easy|normal|hard|expert|master, style: balanced|aggressive|defensive|setup|stall, rng, trace}
+ * opts: {level: random|easy|normal|hard|expert|master, style: balanced|aggressive|defensive|setup|stall, rng, trace, hidden, beliefs}
+ * With `hidden`, the side does not see the opponent's team: it decides on a copy of the battle where the opponent's Pokémon keep
+ * only what the battle has shown and the rest is guessed (belief.mjs; `beliefs` are the usage statistics the app sends).
  * With `trace` (an object), it is filled with why: each slot's ranked options (expected damage, KO, accuracy; a switch's damage
  * taken and dealt), the threat on the slot, who is faster and, for the expert, each candidate turn played out. Tracing reads the
  * battle again on a copy and never changes the choice nor the random numbers it uses.
  */
 export function chooseFor(battle, sideId, opts = {}) {
-  const choice = chooseInner(battle, sideId, opts);
+  let view = battle;
+  if (opts.hidden) {
+    try {
+      const seen = believe(battle, sideId, opts.beliefs || {});
+      view = seen.battle;
+      opts = {...opts, unseen: seen.unseen};
+    } catch (e) {
+      if (opts.trace) opts.trace.belief_error = String(e?.message || e).slice(0, 200);
+    }
+  }
+  const choice = chooseInner(view, sideId, opts);
   if (opts.trace && choice) {
-    try { fillTrace(battle, sideId, opts, choice); } catch (e) { opts.trace.error = String(e?.message || e); }
+    try { fillTrace(view, sideId, opts, choice); } catch (e) { opts.trace.error = String(e?.message || e); }
+    if (opts.hidden) opts.trace.hidden = true;
   }
   return choice;
 }

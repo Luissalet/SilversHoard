@@ -54,6 +54,8 @@ const D = {
   tags: ["Etiquetas", "Tags"],
   owner: ["Autor", "Author"],
   by: ["de {name}", "by {name}"],
+  ai_hidden_info: ["La IA no ve tu equipo", "The AI does not see your team"],
+  ai_hidden_info_help: ["La IA solo sabe lo que el combate ha enseñado de tu equipo (los Pokémon de la vista previa o que has sacado, los movimientos, objetos y habilidades que se han visto) y adivina el resto con las estadísticas de uso del formato, como en el ranking. Los consejos de «¿Qué haría la experta?» tampoco ven el equipo rival.", "The AI only knows what the battle has shown of your team (the Pokémon in team preview or sent in, the moves, items and abilities seen) and guesses the rest from the format's usage statistics, as on the ladder. The expert's advice does not see the other team either."],
   credits: ["Créditos", "Credits"],
   credits_link: ["Créditos: de dónde sale cada cosa y quién dibujó cada sprite", "Credits: where everything comes from and who drew each sprite"],
   sprite_by: ["Sprite de {name}", "Sprite by {name}"],
