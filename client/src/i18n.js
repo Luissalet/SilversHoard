@@ -6,6 +6,7 @@ import CUP_STRINGS from "./pages/cup-strings.js";
 import ARENA_STRINGS from "./pages/arena-strings.js";
 import TRAINING_STRINGS from "./training-strings.js";
 import PVP_STRINGS from "./pages/pvp-strings.js";
+import FRIENDS_STRINGS from "./pages/friends-strings.js";
 
 const D = {
   // shell
@@ -751,6 +752,7 @@ Object.assign(D, CUP_STRINGS);
 Object.assign(D, ARENA_STRINGS);
 Object.assign(D, TRAINING_STRINGS);
 Object.assign(D, PVP_STRINGS);
+Object.assign(D, FRIENDS_STRINGS);
 
 export function saveLang(lang) {
   try {

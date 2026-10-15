@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any
 
-from fastapi import Body, FastAPI, Query, WebSocket
+from fastapi import Body, FastAPI, Form, Query, Request, WebSocket
 from fastapi.responses import HTMLResponse, JSONResponse, PlainTextResponse, Response
 
 from . import sharing
@@ -37,6 +37,25 @@ def room_app(services: "Services") -> FastAPI:
         data = pvp.page_data(room_id, k)
         html = sharing.playable_page(PLAY_TEMPLATE, data)
         return HTMLResponse(html, headers={"Cache-Control": "no-store", "Referrer-Policy": "no-referrer"})
+
+    def lang_of(request: Request) -> str:
+        return "es" if str(request.headers.get("accept-language") or "es").lower().startswith("es") else "en"
+
+    @app.get("/v/{poll_id}", response_class=HTMLResponse)
+    def vote_page(poll_id: str, request: Request, k: str = Query("")) -> HTMLResponse:
+        return HTMLResponse(services.friends.vote_page(poll_id, k, lang=lang_of(request)), headers={"Cache-Control": "no-store", "Referrer-Policy": "no-referrer"})
+
+    @app.post("/v/{poll_id}", response_class=HTMLResponse)
+    def vote(poll_id: str, request: Request, k: str = Query(""), name: str = Form(""), option: str = Form("")) -> HTMLResponse:
+        lang = lang_of(request)
+        try:
+            services.friends.vote(poll_id, key=k, name=name, option=option)
+            msg = "¡Voto guardado! Puedes cambiarlo votando otra vez con el mismo nombre." if lang == "es" else "Vote saved! Vote again with the same name to change it."
+        except SilverError as exc:
+            if exc.code in ("forbidden", "not_found"):
+                raise
+            msg = exc.message
+        return HTMLResponse(services.friends.vote_page(poll_id, k, lang=lang, message=msg, voted=option), headers={"Cache-Control": "no-store"})
 
     @app.get("/api/room/{room_id}")
     def state(room_id: str, k: str = Query(""), since: int = Query(0)) -> dict[str, Any]:

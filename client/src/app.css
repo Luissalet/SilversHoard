@@ -307,3 +307,13 @@ body.video-mode .b-fx-toggle, body.video-mode .snd-btn { display: none !importan
 .gmap-tool.is-missing { border-style: dashed; opacity: 0.8; }
 .gmap-scroll { overflow: auto; max-width: 100%; }
 .gmap-grid { display: block; touch-action: none; cursor: crosshair; user-select: none; }
+
+/* friends' league and the week's vote (FriendsLeague.jsx) */
+.lg-table { width: 100%; border-collapse: collapse; }
+.lg-table th, .lg-table td { padding: 8px 12px; border-bottom: 1px solid rgba(255, 255, 255, .07); text-align: left; }
+.lg-table th { font-size: 12px; font-weight: 600; opacity: .7; }
+.lg-table .num { text-align: right; }
+.poll-bar { position: relative; display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 8px; background: rgba(255, 255, 255, .04); overflow: hidden; }
+.poll-bar i { position: absolute; inset: 0 auto 0 0; background: rgba(227, 66, 79, .22); transition: width .3s; }
+.poll-bar span, .poll-bar b { position: relative; }
+.poll-bar span { flex: 1; min-width: 0; }

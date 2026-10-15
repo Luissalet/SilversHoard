@@ -111,7 +111,10 @@ class Pvp:
                 self.rooms.pop(rid, None)
 
     def links(self, r: Room) -> dict[str, Any]:
-        path = f"/r/{r.id}?k={r.guest_key}"
+        return self.links_for(f"/r/{r.id}?k={r.guest_key}")
+
+    def links_for(self, path: str) -> dict[str, Any]:
+        """Where friends reach a path of the room server: this computer's network addresses, and the public address if set."""
         public = str(self.s.settings.get("pvp_public_url") or "").rstrip("/")
         lan = [f"http://{ip}:{self.port}{path}" for ip in lan_addresses()]
         return {"lan": lan, "public": f"{public}{path}" if public else "", "local": f"http://127.0.0.1:{self.port}{path}",

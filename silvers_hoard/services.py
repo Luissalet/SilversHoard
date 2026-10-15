@@ -38,6 +38,7 @@ from .fxcache import FxCache
 from .neural import NeuralAI
 from .pmd import PmdSprites
 from .pvp import Pvp
+from .friends import Friends
 from .smogon import Smogon
 from .sounds import Sounds
 from .sprites import Sprites, _http_get
@@ -122,6 +123,7 @@ class Services:
         self.benchmarks = Benchmarks(self)
         self.training = Training(self)
         self.pvp = Pvp(self)
+        self.friends = Friends(self)
         self.neural = NeuralAI(self.settings, config.sprites_dir.parent / "neural", config.data_dir / "logs")
         self._neural_env()
         self.pool = ThreadPoolExecutor(max_workers=2, thread_name_prefix="silver-job")
@@ -2798,6 +2800,8 @@ class Services:
             verdict = self.validate_team(fmt, team, rules, level_rules)
             if not verdict.get("ok"):
                 raise SilverError("invalid", "The friend's team does not follow the rules of this challenge: " + "; ".join(verdict.get("problems") or [])[:300])
+        if weekly and weekly.get("rule"):
+            self._check_week_rule(weekly["rule"], fmt, team, rules, level_rules)
         rt_fmt = self._rt_format(fmt)
         p_friend = {"trainer_id": "", "name": challenger, "avatar": "", "avatar_url": "", "human": True, "ai": None, "sets": team}
         replays: dict[int, dict[str, Any]] = {}
@@ -2910,7 +2914,25 @@ class Services:
         """The week's challenge of a gym or a trainer: everyone who plays its page that week fights with the same seed and the same AI
         luck (battle i of the page uses ``seed-i`` for both), so results compare fairly; the replay checks it."""
         week = week or self.current_week()
-        return {"week": week, "seed": hashlib.sha1(f"silver-weekly:{kind}:{obj['id']}:{week}".encode()).hexdigest()[:16]}
+        out = {"week": week, "seed": hashlib.sha1(f"silver-weekly:{kind}:{obj['id']}:{week}".encode()).hexdigest()[:16]}
+        # the rule friends voted for that week (friends.py): a Pokémon the team must include, or a team-building rule
+        rule = self.friends.week_rule(week)
+        if rule:
+            out["rule"] = {"kind": rule["kind"], "value": rule["value"]}
+        return out
+
+    def _check_week_rule(self, rule: dict[str, Any], fmt: str, team: list[dict[str, Any]], rules: list[str], level_rules: dict[str, Any]) -> None:
+        """The week's voted rule, checked on the team a friend's result brings back."""
+        if rule["kind"] == "pokemon":
+            want = re.sub(r"[^a-z0-9]", "", str(rule["value"]).lower())
+            have = {re.sub(r"[^a-z0-9]", "", str(x.get("species") or "").lower()) for x in team}
+            base = {h.split("mega")[0] for h in have}
+            if want not in have and want not in base:
+                raise SilverError("invalid", f"The week's challenge asks for {rule['value']} in the team, and this one does not have it.")
+        else:
+            verdict = self.validate_team(fmt, team, [*rules, rule["value"]], level_rules)
+            if not verdict.get("ok"):
+                raise SilverError("invalid", f"The team does not follow the week's rule ({rule['value']}): " + "; ".join(verdict.get("problems") or [])[:300])
 
     @staticmethod
     def _result_fingerprint(r: dict[str, Any]) -> str:
