@@ -199,6 +199,14 @@ class Sprites:
             raise SilverError("not_found", f"No icon for {item_id}")
         return path
 
+    def pokemon_icons(self) -> Path:
+        """Showdown's sheet with every Pokémon's menu icon (40x30 each, 12 a row, in National Dex order): one picture for a whole
+        crowd of a mass battle while their walking sprites load."""
+        path = self.fetch("pokemonicons-sheet.png")
+        if not path:
+            raise SilverError("not_found", "No Pokémon icon sheet (downloads off or offline).")
+        return path
+
     def stats(self) -> dict[str, Any]:
         files = [p for p in self.cache_dir.rglob("*") if p.is_file() and p.suffix in (".png", ".gif", ".webp")] if self.cache_dir.exists() else []
         return {"cached": len(files), "bytes": sum(p.stat().st_size for p in files), "downloads": self.downloads, "misses": self.misses,
