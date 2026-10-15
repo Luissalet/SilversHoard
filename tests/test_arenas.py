@@ -56,3 +56,39 @@ def test_a_real_time_battle_keeps_the_arena_it_was_played_on(call):
     call("arena_save", {"id": a["id"], "rocks": []})      # editing the arena later does not change the battle
     again = call("battle_get", {"id": bt["id"]})["rt"]["spec"]["arena"]
     assert len(again["rocks"]) == 3
+
+
+def test_a_gym_backdrop_of_your_own_travels_inside_the_gym(call, client):
+    import base64
+    import io
+    import os
+
+    from PIL import Image
+
+    buf = io.BytesIO()   # a big photo that does not compress: it is shrunk until it can travel
+    Image.frombytes("RGB", (1600, 900), os.urandom(1600 * 900 * 3)).save(buf, "PNG")
+    up = client.post("/api/backdrops/upload", files={"file": ("foto.png", buf.getvalue(), "image/png")}).json()
+    assert up["backdrop"].startswith("file:backdrop-") and client.get(up["url"]).status_code == 200
+    pic = Image.open(io.BytesIO(client.get(up["url"]).content))
+    assert max(pic.size) <= 800 and len(client.get(up["url"]).content) <= 400_000
+    leader = call("trainer_create", {"name": "Pino", "paste": TEAM})
+    gym = call("gym_save", {"name": "Gimnasio Propio", "leader_id": leader["id"], "backdrop": up["backdrop"]})
+    assert gym["backdrop"] == up["backdrop"]
+    assert call("gym_save", {"id": gym["id"], "backdrop": "file:no-such.png"}, status=404)
+    # the tool puts a picture on a gym at once
+    small = io.BytesIO()
+    Image.new("RGB", (320, 180), (30, 90, 160)).save(small, "PNG")
+    t = call("backdrop_image_set", {"gym_id": gym["id"], "data_base64": base64.b64encode(small.getvalue()).decode()})
+    assert call("gym_get", {"id": gym["id"]})["backdrop"] == t["backdrop"] != up["backdrop"]
+    # the file carries the picture itself; importing it stores a copy here
+    f = call("export", {"kind": "gym", "id": gym["id"], "fmt": "file"})
+    raw = client.get(f["url"]).content
+    bd = json.loads(raw)["gym"]["backdrop"]
+    assert bd["kind"] == "image" and base64.b64decode(bd["data"])[:4] == b"\x89PNG"
+    g2 = client.post("/api/import/upload", files={"file": (f["file"], raw, "application/json")}).json()["gym"]
+    assert g2["backdrop"].startswith("file:backdrop-") and g2["backdrop"] != t["backdrop"]
+    assert client.get(f"/api/avatars/{g2['backdrop'][5:]}").status_code == 200
+    # and the playable page has it inline
+    page = client.post("/api/ui/call", json={"name": "export", "arguments": {"kind": "gym", "id": gym["id"], "fmt": "page"}})
+    if page.status_code == 200:   # the page template exists once the client is built
+        assert bd["data"][:200] in client.get(page.json()["url"]).text

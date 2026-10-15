@@ -69,6 +69,7 @@ export const api = {
   },
   uploadBadge: (file, { gymId = "", removeBackground = false } = {}) =>
     upload("/api/badges/upload", { file, gym_id: gymId, remove_background: removeBackground ? "true" : "false" }),
+  uploadBackdrop: (file, { gymId = "" } = {}) => upload("/api/backdrops/upload", { file, gym_id: gymId }),
   uploadImport: (file, { name = "", format = "" } = {}) => upload("/api/import/upload", { file, name, format }),
   exportUrl: (file) => `/api/exports/${encodeURIComponent(file)}`,
 };
