@@ -35,9 +35,84 @@ function koText(min, max, hp) {
 }
 
 /**
+ * How many times a multi-hit move strikes, with the weights the simulator uses (Skill Link, Loaded Dice, gen 2–4 vs 5+).
+ * Each entry is `{hits, weight}`; weights are relative within that move.
+ */
+function hitDistribution(mv, atk, gen) {
+  const ability = toID(atk.ability);
+  const item = toID(atk.item);
+  if (!mv.multihit) return {counts: [{hits: 1, weight: 1}], min: 1, max: 1};
+  if (typeof mv.multihit === 'number') {
+    const n = mv.multihit;
+    if (n === 10 && item === 'loadeddice') {
+      return {counts: [4, 5, 6, 7, 8, 9, 10].map((hits) => ({hits, weight: 1})), min: 4, max: 10};
+    }
+    return {counts: [{hits: n, weight: 1}], min: n, max: n};
+  }
+  const [lo, hi] = mv.multihit;
+  if (ability === 'skilllink') return {counts: [{hits: hi, weight: 1}], min: hi, max: hi};
+  if (lo === 2 && hi === 5) {
+    if (gen >= 5) {
+      if (item === 'loadeddice') return {counts: [{hits: 4, weight: 1}, {hits: 5, weight: 1}], min: 4, max: 5};
+      // 35-35-15-15 out of 100 → 7-7-3-3 out of 20
+      return {counts: [{hits: 2, weight: 7}, {hits: 3, weight: 7}, {hits: 4, weight: 3}, {hits: 5, weight: 3}], min: 2, max: 5};
+    }
+    // gen 2–4: 3/8, 3/8, 1/8, 1/8
+    return {counts: [{hits: 2, weight: 3}, {hits: 3, weight: 3}, {hits: 4, weight: 1}, {hits: 5, weight: 1}], min: 2, max: 5};
+  }
+  const counts = [];
+  for (let hits = lo; hits <= hi; hits++) counts.push({hits, weight: 1});
+  return {counts, min: lo, max: hi};
+}
+
+/** Ways a sequence of independent hit-damage lists (one array per strike) totals at least `hp`. */
+function ohkoFromHits(hitRolls, hp) {
+  let dp = new Map([[0, 1]]);
+  for (const rolls of hitRolls) {
+    const next = new Map();
+    for (const [dmg, ways] of dp) {
+      for (const roll of rolls) {
+        const nd = Math.min(hp, dmg + roll);
+        next.set(nd, (next.get(nd) || 0) + ways);
+      }
+    }
+    dp = next;
+  }
+  let total = 0;
+  let ohko = 0;
+  for (const [dmg, ways] of dp) {
+    total += ways;
+    if (dmg >= hp) ohko += ways;
+  }
+  return {ohko, total};
+}
+
+/**
+ * Exact OHKO chance over a hit-count distribution. `perHit` is an array of roll lists indexed by strike (1-based stored at
+ * index hit-1); when every strike shares one list, pass that list once and set `identical`.
+ */
+function ohkoChance(perHit, dist, hp, identical) {
+  let space = 0;
+  let ohko = 0;
+  for (const {hits, weight} of dist.counts) {
+    const hitRolls = identical
+      ? Array.from({length: hits}, () => perHit[0])
+      : perHit.slice(0, hits);
+    const {ohko: o, total} = ohkoFromHits(hitRolls, hp);
+    space += weight * total;
+    ohko += weight * o;
+  }
+  if (!space) return {ohko_rolls: 0, roll_space: 0, ohko_chance: null};
+  return {ohko_rolls: ohko, roll_space: space, ohko_chance: ohko / space};
+}
+
+/**
  * {attacker, defender, format?, moves?, attacker_boosts?, defender_boosts?, attacker_tera?, defender_tera?, attacker_mega?, defender_mega?, weather?, terrain?,
  *  screens?: ['reflect', ...], defender_hp?: 0-100} → {attacker, defender, defender_hp, moves: [{move, type, category, rolls, min, max,
- *  min_pct, max_pct, crit_min, crit_max, ohko_rolls, ko}]}
+ *  min_pct, max_pct, crit_min, crit_max, ohko_rolls, roll_space, ohko_chance, hits_min, hits_max, ko}]}
+ *
+ * Rolls: gen 1–2 enumerate the 39 factors `random(217, 256)`; gen 3+ the 16 modern rolls. Multi-hit moves keep those as the
+ * per-strike rolls and combine them (independent strikes, Skill Link / Loaded Dice / 2–5 weights) for min/max and OHKO.
  */
 export function damageCalc(a) {
   const {id: formatId, gen} = singlesFormat(a.format);
@@ -79,6 +154,8 @@ export function damageCalc(a) {
   const moveIds = (a.moves && a.moves.length ? a.moves : atk.moveSlots.map((m) => m.id)).map(toID).filter(Boolean).slice(0, 8);
   const tr = b.trunc;
   const realRandomizer = b.randomizer.bind(b);
+  const realRandom = b.random.bind(b);
+  const realRandomChance = b.randomChance.bind(b);
   // the move as it is used: type changes (Pixilate, Weather Ball, Tera Blast...) and move changes run as in a real turn
   const prepared = (id) => {
     const move = b.dex.getActiveMove(id);
@@ -93,39 +170,89 @@ export function damageCalc(a) {
     } catch { /* the plain move */ }
     return move;
   };
+  /** One strike's damage for every damage roll of this generation (39 in gen 1–2, 16 from gen 3). */
+  const measureStrike = (id, crit, hit) => {
+    const rolls = [];
+    b.randomChance = () => false; // willCrit below decides critical hits; do not let a stray roll crit mid-enumeration
+    if (gen <= 2) {
+      for (let r = 217; r <= 255; r++) {
+        b.random = (from, to) => (from === 217 && to === 256 ? r : realRandom(from, to));
+        const move = prepared(id);
+        move.willCrit = crit;
+        if (hit) move.hit = hit;
+        let d;
+        try { d = b.actions.getDamage(atk, def, move, true); } catch { d = 0; }
+        rolls.push(typeof d === 'number' ? d : 0);
+      }
+      b.random = realRandom;
+    } else {
+      for (let r = 15; r >= 0; r--) {
+        b.randomizer = (base) => tr(tr(base * (100 - r)) / 100);
+        const move = prepared(id);
+        move.willCrit = crit;
+        if (hit) move.hit = hit;
+        let d;
+        try { d = b.actions.getDamage(atk, def, move, true); } catch { d = 0; }
+        rolls.push(typeof d === 'number' ? d : 0);
+      }
+      b.randomizer = realRandomizer;
+    }
+    b.randomChance = realRandomChance;
+    return rolls;
+  };
+  const sameRolls = (a, b) => a.length === b.length && a.every((v, i) => v === b[i]);
   const out = [];
   for (const id of moveIds) {
     const mv = b.dex.moves.get(id);
     if (!mv.exists) { out.push({move: id, error: 'unknown move'}); continue; }
     const used = prepared(id);
     const row = {move: mv.name, id: mv.id, type: used.type, category: used.category, power: used.basePower || 0};
-    if (used.category === 'Status') { out.push({...row, hits: 0, rolls: [], min: 0, max: 0, min_pct: 0, max_pct: 0, crit_min: 0, crit_max: 0, ohko_rolls: 0, ko: koText(0, 0, hp), immune: false}); continue; }
-    const measure = (crit) => {
-      const rolls = [];
-      for (let r = 15; r >= 0; r--) {
-        b.randomizer = (base) => tr(tr(base * (100 - r)) / 100);
-        const move = prepared(id);
-        move.willCrit = crit;
-        let d;
-        try { d = b.actions.getDamage(atk, def, move, true); } catch { d = 0; }
-        rolls.push(typeof d === 'number' ? d : 0);
-      }
-      b.randomizer = realRandomizer;
-      return rolls;
-    };
-    let rolls = measure(false);
-    const crit = measure(true);
-    let hits = 1;
-    if (Array.isArray(mv.multihit)) hits = toID(atk.ability) === 'skilllink' ? mv.multihit[1] : mv.multihit[0];
-    else if (typeof mv.multihit === 'number') hits = mv.multihit;
-    if (hits > 1) rolls = rolls.map((x) => x * hits);
-    const min = Math.min(...rolls);
-    const max = Math.max(...rolls);
+    if (used.category === 'Status') {
+      out.push({
+        ...row, hits: 0, hits_min: 0, hits_max: 0, rolls: [], min: 0, max: 0, min_pct: 0, max_pct: 0,
+        crit_min: 0, crit_max: 0, ohko_rolls: 0, roll_space: 0, ohko_chance: null, ko: koText(0, 0, hp), immune: false,
+      });
+      continue;
+    }
+    // ModifyMove (Skill Link, Parental Bond…) may fix or widen multihit on the used move
+    const dist = hitDistribution({multihit: used.multihit ?? mv.multihit}, atk, gen);
+    // measure each strike: Triple Kick / Triple Axel change power with move.hit; most multi-hits share one distribution
+    const perHit = [];
+    const perCrit = [];
+    for (let hit = 1; hit <= dist.max; hit++) {
+      perHit.push(measureStrike(id, false, dist.max > 1 ? hit : 0));
+      perCrit.push(measureStrike(id, true, dist.max > 1 ? hit : 0));
+    }
+    const identical = perHit.every((r) => sameRolls(r, perHit[0]));
+    const rolls = perHit[0];
+    let min;
+    let max;
+    let critMin;
+    let critMax;
+    if (identical) {
+      const lo = Math.min(...rolls);
+      const hi = Math.max(...rolls);
+      min = dist.min * lo;
+      max = dist.max * hi;
+      critMin = dist.min * Math.min(...perCrit[0]);
+      critMax = dist.max * Math.max(...perCrit[0]);
+    } else {
+      // fewest hits with each strike's lowest roll; most hits with each strike's highest
+      min = perHit.slice(0, dist.min).reduce((s, r) => s + Math.min(...r), 0);
+      max = perHit.slice(0, dist.max).reduce((s, r) => s + Math.max(...r), 0);
+      critMin = perCrit.slice(0, dist.min).reduce((s, r) => s + Math.min(...r), 0);
+      critMax = perCrit.slice(0, dist.max).reduce((s, r) => s + Math.max(...r), 0);
+    }
+    const ohko = ohkoChance(identical ? [rolls] : perHit, dist, hp, identical);
     out.push({
-      ...row, hits, rolls, min, max,
+      ...row,
+      hits: dist.min === dist.max ? dist.max : dist.min,
+      hits_min: dist.min,
+      hits_max: dist.max,
+      rolls, min, max,
       min_pct: Math.round((1000 * min) / def.maxhp) / 10, max_pct: Math.round((1000 * max) / def.maxhp) / 10,
-      crit_min: Math.min(...crit) * hits, crit_max: Math.max(...crit) * hits,
-      ohko_rolls: rolls.filter((x) => x >= hp).length,
+      crit_min: critMin, crit_max: critMax,
+      ohko_rolls: ohko.ohko_rolls, roll_space: ohko.roll_space, ohko_chance: ohko.ohko_chance,
       ko: koText(min, max, hp),
       immune: max === 0 && !def.runImmunity(b.dex.getActiveMove(id)),
     });

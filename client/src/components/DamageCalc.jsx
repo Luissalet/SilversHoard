@@ -74,8 +74,12 @@ export function koLabel(m, lang) {
   if (m.category === "Status") return s("status_move");
   if (m.immune) return s("immune");
   if (!m.max) return s("no_ko");
-  if (m.ohko_rolls >= 16) return s("ohko_sure");
-  if (m.ohko_rolls > 0) return s("ohko_chance", { p: Math.round((m.ohko_rolls / 16) * 100) });
+  // gen 1–2 have 39 rolls; multi-hit OHKO uses roll_space / ohko_chance (never hard-coded /16)
+  if (m.ohko_chance === 1 || (m.roll_space > 0 && m.ohko_rolls >= m.roll_space)) return s("ohko_sure");
+  if (m.ohko_chance > 0 || (m.ohko_rolls > 0 && m.roll_space > 0)) {
+    const p = m.ohko_chance != null ? Math.round(m.ohko_chance * 100) : Math.round((m.ohko_rolls / m.roll_space) * 100);
+    return s("ohko_chance", {p});
+  }
   const n = m.ko?.hits;
   const sure = m.ko?.hits_sure;
   if (!n) return s("no_ko");
