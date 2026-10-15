@@ -173,3 +173,6 @@ a.league-card:hover { border-color: var(--hoard-border-hover); }
 .badge-choice:hover { border-color: var(--accent); color: var(--ink); }
 .badge-choice.is-on { border-color: var(--accent); background: var(--accent-soft); color: var(--ink); }
 .gym-badge-img { object-fit: contain; flex: none; }
+
+/* battle facilities */
+.facility-boss { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; }

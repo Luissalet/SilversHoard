@@ -19,7 +19,7 @@ from pathlib import Path
 from typing import Any, Callable, Optional
 
 from . import APP_ID, __version__
-from . import sharing
+from . import facilities, sharing
 from .config import AI_LEVELS, AI_STYLES, REPO_ROOT, Config, Settings, find_node
 from .engine import Engine
 from .errors import SilverError
@@ -810,6 +810,8 @@ class Services:
             sets = self._team_from(spec.get("team"), spec.get("paste") or "")
             name, avatar, dialogue, fmt = spec.get("name") or default_name, spec.get("avatar") or "", {}, ""
             level, style = spec.get("ai_level") or self.settings["default_ai_level"], spec.get("ai_style") or self.settings["default_ai_style"]
+        if spec.get("team_size"):
+            sets = sets[: int(spec["team_size"])]
         if not sets:
             raise SilverError("empty_team", f"{name} has no team.")
         level, style = self._clean_ai(level, style)
@@ -1140,13 +1142,23 @@ class Services:
                 t = self.store.trainer(st["trainer_id"], deleted=True)
                 stages.append({**st, "name": t["name"], "title": t["title"], "avatar_url": self.avatar_url(t["avatar"])})
             except SilverError:
-                stages.append({**st, "name": st.get("name", "?")})
+                stages.append({**st, "name": st.get("name", "?"), "avatar_url": self.avatar_url(st.get("avatar", ""))})
         out["stages"] = stages
+        if r["kind"] == "facility":
+            out["streak"] = sum(1 for st in stages if st.get("result") == "won")
+            f = facilities.get(r["target_id"]) or {}
+            nxt = r["step"] + 1
+            out["round"] = (nxt - 1) // facilities.ROUND + 1
+            out["round_battle"] = (nxt - 1) % facilities.ROUND + 1
+            out["next_boss"] = next(({"at": b[0], "key": b[1], "label_es": b[3], "label": b[4]} for b in f.get("bosses", []) if b[0] >= nxt), None)
+            if light and len(stages) > 12:
+                out["stages"] = stages[-12:]
+                out["stages_offset"] = len(stages) - 12
         out["current"] = stages[r["step"]] if r["status"] == "active" and r["step"] < len(stages) else None
         return out
 
     def run_start(self, *, kind: str, target_id: str, challenger_id: str, auto: bool = False, ignore_badges: bool = False,
-                  format_override: str = "", mode: str = "classic", level: int = 0) -> dict[str, Any]:
+                  format_override: str = "", mode: str = "classic", level: int = 0, stop_at: int = 0) -> dict[str, Any]:
         if mode not in ("classic", "realtime"):
             raise SilverError("invalid", "mode is classic or realtime")
         if level not in (0, 50, 100) and not 1 <= int(level) <= 100:
@@ -1158,6 +1170,25 @@ class Services:
             g = self.store.gym(target_id)
             stage_ids = [*(g.get("trainers") or []), g["leader_id"]]
             target_name = g["name"]
+        elif kind == "facility":
+            f = facilities.get(target_id)
+            if not f:
+                raise SilverError("not_found", f"No facility {target_id}", hint="facilities_list shows them.")
+            if len(challenger["team"]) < f["size"]:
+                raise SilverError("invalid", f"{challenger['name']} needs {f['size']} Pokémon for {f['name']}.")
+            open_run = next((x for x in self.store.runs(status="active", kind="facility", challenger_id=challenger_id, limit=200)
+                             if x["target_id"] == target_id), None)
+            if open_run:
+                raise SilverError("conflict", f"{challenger['name']} already has a streak going at {f['name']}.",
+                                  hint="challenge_next continues it; challenge_abandon ends it.", run_id=open_run["id"])
+            rid = self.store.add_run({"kind": "facility", "target_id": target_id, "target_name": f["name_es"], "challenger_id": challenger_id,
+                                      "challenger": {"name": challenger["name"], "avatar": challenger["avatar"], "team": challenger["team"],
+                                                     "auto": auto, "format_override": format_override, "level": int(level or 50),
+                                                     "stop_at": int(stop_at or 0)},
+                                      "stages": [], "step": 0, "status": "active", "mode": mode})
+            self.emit("run.started", {"id": rid, "kind": "facility", "target": f["name_es"]})
+            self._run_battle(rid)
+            return self.run_view(self.store.run(rid))
         elif kind == "league":
             lg = self.store.league(target_id)
             have = {b["gym_id"] for b in self.store.badges(challenger_trainer_id=challenger_id)}
@@ -1169,7 +1200,7 @@ class Services:
             stage_ids = [*(lg.get("elite_four") or []), lg["champion_id"]]
             target_name = lg["name"]
         else:
-            raise SilverError("invalid", "kind is gym or league")
+            raise SilverError("invalid", "kind is gym, league or facility")
         stage_ids = [s for s in stage_ids if s]
         if not stage_ids:
             raise SilverError("invalid", "There is nobody to fight here.")
@@ -1182,7 +1213,85 @@ class Services:
         self._run_battle(rid)
         return self.run_view(self.store.run(rid))
 
+    def _facility_rules(self, r: dict[str, Any]) -> tuple[str, list[str], dict[str, Any]]:
+        f = facilities.get(r["target_id"]) or {}
+        ch = r.get("challenger") or {}
+        fmt = ch.get("format_override") or ""
+        if not fmt:
+            try:
+                fmt = self.store.trainer(r["challenger_id"], deleted=True)["format"] or self.settings["default_format"]
+            except SilverError:
+                fmt = self.settings["default_format"]
+        info = self.format_info(fmt)
+        if f.get("gametype") == "doubles" and info.get("game_type", "singles") != "doubles":
+            fmt = f"gen{info.get('gen') or 9}doublescustomgame"
+            info = self.format_info(fmt)
+        elif info.get("random"):
+            fmt = f"gen{info.get('gen') or 9}customgame"
+            info = self.format_info(fmt)
+        picked = f"Picked Team Size = {f.get('size', 3)}"
+        rules = [picked] if info.get("team_preview") else ["Team Preview", picked]
+        level = int(ch.get("level") or 50)
+        return fmt, rules, {"level": level}
+
+    def _facility_stage(self, r: dict[str, Any]) -> dict[str, Any]:
+        """The next rival of a streak: the facility's boss on its battle, now and then one of its special trainers, else a trainer of
+        the era with random sets of that generation. Seeded by the run and the battle number, so a streak replays the same rivals."""
+        f = facilities.get(r["target_id"])
+        if not f:
+            raise SilverError("not_found", f"No facility {r['target_id']}")
+        number = r["step"] + 1
+        rng = facilities.rng(f"{r['id']}:{number}")
+        boss = facilities.boss_at(f, number)
+        special = None
+        if not boss and f.get("specials") and number > facilities.ROUND and rng.random() < 0.2:
+            special = rng.choice(f["specials"])
+        if boss or special:
+            key, vid = (boss[1], boss[2]) if boss else special
+            try:
+                c = self._character(key)
+                v = next(x for x in c["variants"] if x["id"] == vid)
+                sets = facilities.pick_sets(v["sets"], f["size"], rng)
+                title = (v.get("trainer_class") or "") if not boss else boss[3]
+                return {"trainer_id": "", "battle_id": "", "result": "", "number": number, "boss": bool(boss), "name": c.get("name_es") or c["name"],
+                        "title": title, "avatar": f"sd:{v.get('sprite') or c.get('base_sprite') or key}", "character": key,
+                        "seat": {"team": sets, "ai_level": "expert", "ai_style": rng.choice(["balanced", "aggressive", "setup"])}}
+            except (SilverError, StopIteration):
+                pass   # the data has no such team: a generated rival takes the slot
+        t = facilities.filler_trainer(f, rng)
+        team = self.random_team(facilities.random_format(f), f"{r['id']}:{number}")["sets"]
+        return {"trainer_id": "", "battle_id": "", "result": "", "number": number, "boss": False, "name": t["name"], "title": t["title"],
+                "avatar": t["avatar"], "seat": {"team": team[: f["size"]], "ai_level": facilities.ai_level_for(number),
+                                                "ai_style": rng.choice(["balanced", "aggressive", "defensive", "setup"])}}
+
+    def facilities_list(self, trainer_id: str = "") -> dict[str, Any]:
+        """The facilities with their rules and bosses, and each one's record (longest streak) and open streak, for one trainer or all."""
+        runs = self.store.runs(kind="facility", challenger_id=trainer_id, limit=5000)
+        out = []
+        for f in facilities.FACILITIES:
+            mine = [r for r in runs if r["target_id"] == f["id"]]
+            wins = [sum(1 for st in r.get("stages") or [] if st.get("result") == "won") for r in mine]
+            best_i = max(range(len(mine)), key=lambda i: wins[i]) if mine else None
+            active = next((r for r in mine if r["status"] == "active"), None)
+            bosses = []
+            for at, key, _vid, label_es, label in f["bosses"]:
+                try:
+                    c = self._character(key)
+                    bosses.append({"at": at, "key": key, "name": c.get("name_es") or c["name"], "label_es": label_es, "label": label,
+                                   "avatar_url": self.avatar_url(f"sd:{c.get('base_sprite') or key}")})
+                except SilverError:
+                    continue
+            out.append({"id": f["id"], "name": f["name"], "name_es": f["name_es"], "gen": f["gen"], "game": f["game"], "gametype": f["gametype"],
+                        "size": f["size"], "round": facilities.ROUND, "bosses": bosses,
+                        "record": wins[best_i] if best_i is not None else 0,
+                        "record_holder": (mine[best_i].get("challenger") or {}).get("name", "") if best_i is not None else "",
+                        "streaks": len(mine), "active_run_id": active["id"] if active else "",
+                        "active_streak": sum(1 for st in (active or {}).get("stages") or [] if st.get("result") == "won")})
+        return {"facilities": out, "trainer_id": trainer_id}
+
     def _run_rules(self, r: dict[str, Any]) -> tuple[str, list[str], dict[str, Any]]:
+        if r["kind"] == "facility":
+            return self._facility_rules(r)
         level = int((r.get("challenger") or {}).get("level") or 0)
         if level:
             fmt, rules, _ = self._run_rules({**r, "challenger": {**(r.get("challenger") or {}), "level": 0}})
@@ -1199,8 +1308,13 @@ class Services:
 
     def _run_battle(self, rid: str) -> Optional[str]:
         r = self.store.run(rid)
+        if r["kind"] == "facility" and r["status"] == "active" and r["step"] >= len(r["stages"]):
+            self.store.update_run(rid, {"stages": [*r["stages"], self._facility_stage(r)]})
+            r = self.store.run(rid)
         if r["status"] != "active" or r["step"] >= len(r["stages"]):
             return None
+        if r["kind"] == "facility":
+            return self._facility_battle(r)
         stage = r["stages"][r["step"]]
         fmt, rules, level_rules = self._run_rules(r)
         auto = bool((r.get("challenger") or {}).get("auto"))
@@ -1212,6 +1326,23 @@ class Services:
         stages = r["stages"]
         stages[r["step"]]["battle_id"] = b["id"]
         self.store.update_run(rid, {"stages": stages})
+        return b["id"]
+
+    def _facility_battle(self, r: dict[str, Any]) -> str:
+        stage = r["stages"][r["step"]]
+        fmt, rules, level_rules = self._run_rules(r)
+        auto = bool((r.get("challenger") or {}).get("auto"))
+        seat = {**(stage.get("seat") or {}), "name": stage["name"], "avatar": stage.get("avatar", ""), "human": False}
+        p1 = {"trainer_id": r["challenger_id"], "human": not auto}
+        if (r.get("mode") or "classic") == "realtime":   # no team preview in real time: the first Pokémon of the team, as many as the rival's
+            p1["team_size"] = (facilities.get(r["target_id"]) or {}).get("size", 3)
+        b = self.battle_start(p1=p1, p2=seat, format_=fmt, rules=rules, level_rules=level_rules,
+                              kind="facility", run_id=r["id"], title=f"{r['target_name']} · {stage['number']} · {stage['name']}",
+                              mode=r.get("mode") or "classic")
+        r = self.store.run(r["id"])
+        stages = r["stages"]
+        stages[r["step"]]["battle_id"] = b["id"]
+        self.store.update_run(r["id"], {"stages": stages})
         return b["id"]
 
     def _advance_run(self, rid: str, b: dict[str, Any]) -> None:
@@ -1229,6 +1360,14 @@ class Services:
             self.emit("run.lost", {"id": rid})
             return
         step += 1
+        if r["kind"] == "facility":
+            self.store.update_run(rid, {"stages": stages, "step": step})
+            self.emit("run.streak", {"id": rid, "streak": step})
+            ch = r.get("challenger") or {}
+            stop = int(ch.get("stop_at") or 0)
+            if ch.get("auto") and (not stop or step < stop):
+                self._run_battle(rid)
+            return
         if step >= len(stages):
             self.store.update_run(rid, {"stages": stages, "step": step, "status": "won"})
             ch = r.get("challenger") or {}
@@ -1251,7 +1390,7 @@ class Services:
         r = self.store.run(rid)
         if r["status"] != "active":
             raise SilverError("ended", "This challenge is over.")
-        cur = r["stages"][r["step"]]
+        cur = r["stages"][r["step"]] if r["step"] < len(r["stages"]) else {}
         if cur.get("battle_id"):
             b = self.store.battle(cur["battle_id"])
             if b["status"] in ("live", "running"):

@@ -41,7 +41,7 @@ export default function Medallas() {
             {runs.data.challenges.map((r) => (
               <div key={r.id} className="row-item">
                 <Avatar url={r.challenger_avatar_url} name={r.challenger_name} size={30} />
-                <span className="min-w-0 flex-1 trunc"><b>{r.challenger_name}</b> → {r.target_name} <span className="help">({r.stages.filter((s) => s.result === "won").length}/{r.stages.length})</span></span>
+                <span className="min-w-0 flex-1 trunc"><b>{r.challenger_name}</b> → {r.target_name} <span className="help">({r.kind === "facility" ? t("run_streak", { n: r.streak || 0 }) : `${r.stages.filter((s) => s.result === "won").length}/${r.stages.length}`})</span></span>
                 <span className={`chip ${r.status === "won" ? "chip-ok" : r.status === "lost" ? "chip-danger" : "chip-accent"}`}>{t(`run_${r.status}`)}</span>
                 {r.status === "active" && <Busy busy={busy[r.id]} className="btn btn-sm btn-primary" onClick={() => next(r)}>{t("continue")}</Busy>}
                 {r.status === "active" && <Busy busy={busy[`a${r.id}`]} className="btn btn-sm" onClick={() => abandon(r)}>{t("abandon")}</Busy>}
