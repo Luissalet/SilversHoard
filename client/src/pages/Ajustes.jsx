@@ -85,6 +85,15 @@ export default function Ajustes() {
           <p className="help">{t("rt_pmd_sprites_help")} {t("rt_sprites_note")}</p>
         </div>
       </Section>
+      <Section title={t("pvp_settings")}>
+        <div className="panel space-y-3">
+          <p className="help">{t("pvp_settings_help")}</p>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Field label={t("pvp_port")}><input className="field" type="number" min={1024} max={65535} value={f.pvp_port || 5240} onChange={(e) => set("pvp_port", Number(e.target.value))} /></Field>
+            <Field label={t("pvp_public_url")}><input className="field" value={f.pvp_public_url || ""} placeholder="https://" onChange={(e) => set("pvp_public_url", e.target.value)} /></Field>
+          </div>
+        </div>
+      </Section>
       <Section title={t("sprites")}>
         <div className="panel space-y-3">
           <Field label={t("sprite_set")}>

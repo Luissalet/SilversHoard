@@ -7,6 +7,7 @@ import { AiFields, Avatar, FormatSelect, JobProgress, RulesFields, TeamStrip, Tr
 import { BattleRow } from "./Historial.jsx";
 import ModeFields, { useCustomArenas, withEqualLevel } from "../battle/rt/ModeFields.jsx";
 import TeamBenchmark from "../components/TeamBenchmark.jsx";
+import LiveRoom from "./LiveRoom.jsx";
 
 function SeatEditor({ label, seat, onChange, allowHuman = true }) {
   const { t, changed } = useApp();
@@ -333,6 +334,7 @@ export default function Combatir({ query }) {
         { id: "tournament", label: t("tab_tournament") },
         { id: "training", label: t("tab_training") },
         { id: "benchmark", label: t("tab_benchmark") },
+        { id: "live", label: t("tab_live") },
       ]} />
       {tab === "single" && <SingleBattle />}
       {tab === "series" && <SeriesForm />}
@@ -340,6 +342,7 @@ export default function Combatir({ query }) {
       {tab === "tournament" && <CupList />}
       {tab === "training" && <TrainingForm />}
       {tab === "benchmark" && <TeamBenchmark />}
+      {tab === "live" && <LiveRoom />}
     </div>
   );
 }

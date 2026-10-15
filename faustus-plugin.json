@@ -43,7 +43,8 @@
     "boss-phases",
     "custom-backdrops",
     "unbound-save-import",
-    "community-music"
+    "community-music",
+    "live-pvp"
   ],
   "x-family": {
     "copilot": true

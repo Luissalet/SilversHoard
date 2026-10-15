@@ -1,6 +1,6 @@
 // A real-time battle (Legends: Z-A rules): its header and the arena screen. Live battles are played here; watched and finished
 // ones replay from their seed and inputs (a watched battle starts replaying at once, while the app records it).
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { api } from "../api.js";
 import { useApp } from "../context.js";
 import RtScreen from "../battle/rt/RtScreen.jsx";
@@ -16,7 +16,18 @@ export default function CombateRt({ battle, setData }) {
   const { t, lang, sprites, changed, go, settings } = useApp();
   const seats = useSeats(battle);
   const title = battle.title || `${battle.p1.name} vs ${battle.p2.name}`;
-  const humans = ["p1", "p2"].filter((s) => battle[s]?.human);
+  const humans = ["p1", "p2"].filter((s) => battle[s]?.human && !battle[s]?.remote);
+  // a live battle against a friend on another computer: this screen plays its side and the friend's arrives through the room
+  const remote = battle.p2?.remote ? "p2" : battle.p1?.remote ? "p1" : "";
+  const [net, setNet] = useState(null);
+  useEffect(() => {
+    if (!remote || battle.status !== "live") return;
+    api.call("pvp_get", {}).then((r) => {
+      const room = (r.rooms || []).find((x) => x.battle_id === battle.id);
+      if (room) setNet({ url: room.ws, seat: remote === "p2" ? 0 : 1, delay: room.input_delay, peerName: battle[remote].name });
+      else setNet({ missing: true });
+    }).catch(() => setNet({ missing: true }));
+  }, [battle.id, remote]); // eslint-disable-line react-hooks/exhaustive-deps
 
   usePoll(async () => {
     const b = await api.call("battle_get", { id: battle.id });
@@ -64,6 +75,7 @@ export default function CombateRt({ battle, setData }) {
             {battle.status === "live" && <span className="chip chip-accent">{t("status_live")}</span>}
             {battle.status === "ended" && <span className="chip chip-ok">{battle.winner_name ? t("winner_is", { name: battle.winner_name }) : t("tie")}</span>}
             {humans.length === 2 && <span className="chip">{t("hotseat")}</span>}
+            {remote && <span className="chip chip-accent">{t("pvp_chip", { name: battle[remote].name })}</span>}
           </div>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -75,8 +87,12 @@ export default function CombateRt({ battle, setData }) {
       </div>
       <RunStrip run={battle.run} />
       <CupStrip cup={battle.cup} battle={battle} />
-      <RtScreen key={battle.id} battle={battle} lang={lang} sprites={sprites} seats={seats} onFinish={onFinish} onSave={onSave} musicSource={settings?.music_source}
-        onAgain={!battle.run && !battle.cup && battle.kind !== "friend" ? again : null} />
+      {remote && battle.status === "live" && net?.missing && <div className="banner banner-warn">{t("pvp_room_gone")}</div>}
+      {remote && battle.status === "live" && !net ? null : (
+        <RtScreen key={battle.id} battle={battle} lang={lang} sprites={sprites} seats={seats} onFinish={onFinish} onSave={onSave} musicSource={settings?.music_source}
+          net={net?.url ? net : null}
+          onAgain={!battle.run && !battle.cup && battle.kind !== "friend" && battle.kind !== "pvp" ? again : null} />
+      )}
     </div>
   );
 }

@@ -329,6 +329,23 @@ class TrainingArgs(BaseModel):
     time_limit: int = Field(300, ge=30, le=1800)
 
 
+class PvpOpenArgs(BaseModel):
+    trainer_id: str = Field(..., min_length=1, max_length=80, description="Your trainer for the live battle (you play it).")
+    mode: Literal["classic", "realtime"] = Field("classic", description="classic (turn by turn) or realtime.")
+    format: str = Field("", max_length=120, description="Empty: the trainer's format.")
+    level_rules: dict[str, int] = Field(default_factory=dict, description="{level: 50|100} equalizes both teams.")
+    rt_arena: RtArena = Field("rocks", description="Real time: open, rocks or custom:<id>.")
+    time_limit: int = Field(300, ge=30, le=1800, description="Real time: seconds.")
+
+
+class RoomArg(BaseModel):
+    room: str = Field(..., min_length=1, max_length=40, description="The room id pvp_open returned.")
+
+
+class RoomGetArgs(BaseModel):
+    room: str = Field("", max_length=40, description="A room id; empty lists every open room.")
+
+
 class BattleStartArgs(BaseModel):
     p1: Seat
     p2: Seat
@@ -676,7 +693,7 @@ class SettingsSetArgs(BaseModel):
     default_format: Optional[str] = Field(None, max_length=120)
     default_ai_level: Optional[Level] = None
     default_ai_style: Optional[Style] = None
-    sprite_set: Optional[Literal["gen5", "gen5ani", "ani", "home", "dex"]] = None
+    sprite_set: Optional[Literal["gen5", "gen5ani", "ani", "home", "dex", "champions", "za", "sv"]] = Field(None, description="champions, za and sv are the 3D-model sets (downloaded when chosen; other formes fall back to gen 5).")
     playback_ms: Optional[int] = Field(None, ge=0, le=5000)
     max_turns: Optional[int] = Field(None, ge=20, le=2000)
     node_path: Optional[str] = Field(None, max_length=500)
@@ -699,6 +716,8 @@ class SettingsSetArgs(BaseModel):
     neural_ai_model: Optional[str] = Field(None, max_length=60, description="Pretrained policy (Kakuna by default).")
     neural_ai_gpu: Optional[str] = Field(None, max_length=2, description="GPU index as nvidia-smi numbers them; empty = the first.")
     neural_ai_port: Optional[int] = Field(None, ge=1024, le=65535)
+    pvp_port: Optional[int] = Field(None, ge=1024, le=65535, description="Port of the room server for live battles with friends (pvp_open).")
+    pvp_public_url: Optional[str] = Field(None, max_length=300, description="Address friends outside your network reach the room server at (a tunnel, or your public IP with the port open); empty = local network links only.")
 
 
 class NeuralArgs(BaseModel):
@@ -906,6 +925,20 @@ TOOLS: list[Tool] = [
          lambda s, a: s.battle_choose(a.id, a.side, a.choice, since=a.since), 120.0),
     Tool("battle_forfeit", _d("Give up a live battle for one side. Rendirse.", synonyms="abandonar combate"), ForfeitArgs, W,
          lambda s, a: s.battle_forfeit(a.id, a.side, since=a.since)),
+    Tool("pvp_open", _d("Open a room for a live battle with a friend on another computer. Combate en directo con un amigo.",
+                        "Returns links (local network and pvp_public_url) for the friend: they open it in a browser, bring a team and join; "
+                        "then pvp_start. Turn by turn the app runs the battle and each side sees only its own view; in real time both "
+                        "screens run in lockstep through the room. The room server listens on pvp_port.",
+                        synonyms="pvp, jugar con un amigo, en línea, online, sala, partida en directo, multijugador"), PvpOpenArgs, W,
+         lambda s, a: s.pvp.open(trainer_id=a.trainer_id, mode=a.mode, format_=a.format, level_rules=a.level_rules, rt_arena=a.rt_arena,
+                                 time_limit=a.time_limit)),
+    Tool("pvp_get", _d("A live-battle room: status (waiting, ready, live, ended), the friend and their team, links. Sala en directo.",
+                       synonyms="estado de la sala, ¿se ha unido?"), RoomGetArgs, R,
+         lambda s, a: s.pvp.get(a.room) if a.room else {"rooms": s.pvp.list()}),
+    Tool("pvp_start", _d("Start the live battle of a room once the friend joined. Empezar combate en directo.",
+                         "Open the returned battle in the app (#/combate/<id>) to play your side."), RoomArg, W, lambda s, a: s.pvp.start(a.room), 120.0),
+    Tool("pvp_close", _d("Close a live-battle room (its link stops working). Cerrar sala.", synonyms="cancelar sala"), RoomArg, W,
+         lambda s, a: s.pvp.close(a.room)),
     Tool("training_start", _d("Real-time training against a dummy that never faints: try cooldowns, reach, rolls and combos. Entrenamiento.",
                               "The dummy stands still, walks, dodges or fights back (pattern); a knockout heals it. Open the returned battle in the app "
                               "(#/combate/<id>) to play; the screen shows damage per second. Nothing counts for records, progress or medals.",

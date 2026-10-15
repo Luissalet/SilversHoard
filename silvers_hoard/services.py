@@ -37,6 +37,7 @@ from . import gymmap
 from .fxcache import FxCache
 from .neural import NeuralAI
 from .pmd import PmdSprites
+from .pvp import Pvp
 from .smogon import Smogon
 from .sounds import Sounds
 from .sprites import Sprites, _http_get
@@ -120,6 +121,7 @@ class Services:
         self.arenas = Arenas(self)
         self.benchmarks = Benchmarks(self)
         self.training = Training(self)
+        self.pvp = Pvp(self)
         self.neural = NeuralAI(self.settings, config.sprites_dir.parent / "neural", config.data_dir / "logs")
         self._neural_env()
         self.pool = ThreadPoolExecutor(max_workers=2, thread_name_prefix="silver-job")
@@ -167,6 +169,7 @@ class Services:
         self.pool.shutdown(wait=False, cancel_futures=True)
         self.engine.stop()
         self.neural.stop()   # only the server this app started; it frees the GPU
+        self.pvp.stop()
         self.store.close()
 
     def emit(self, kind: str, data: dict[str, Any]) -> None:
@@ -1086,7 +1089,18 @@ class Services:
         phase = self._phase_of(dialogue)
         ai = {"level": level, "style": style, **({"hidden": True} if hidden else {}), **({"phase": phase} if phase else {})}
         return {"trainer_id": spec.get("trainer_id") or "", "name": name, "avatar": avatar, "avatar_url": self.avatar_url(avatar), "human": human,
-                "ai": None if human else ai, "sets": sets, "dialogue": dialogue, "format": fmt}
+                "ai": None if human else ai, "sets": sets, "dialogue": dialogue, "format": fmt,
+                **({"remote": True} if human and spec.get("remote") else {})}
+
+    @staticmethod
+    def _host_view(b: dict[str, Any]) -> str:
+        """What this app's screen sees of a battle: everything, except in a live battle against a friend on another computer
+        (pvp.py), where it sees its own side only."""
+        if (b.get("p2") or {}).get("remote"):
+            return "p1"
+        if (b.get("p1") or {}).get("remote"):
+            return "p2"
+        return "host"
 
     def _beliefs(self, sets: list[dict[str, Any]], fmt: str) -> dict[str, Any]:
         """What an AI that does not see the other team guesses about each of its species: the most used moves, item, ability, Tera
@@ -1220,6 +1234,8 @@ class Services:
             out["banter_pending"] = id_ in self._banter_busy
         if (b.get("mode") or "classic") == "realtime":
             return self._rt_view(b, out, since)
+        if view == "host":
+            view = self._host_view(b)
         if b["status"] == "live":
             with self._lock_for(id_):
                 self._ensure_loaded(b)
@@ -1245,8 +1261,10 @@ class Services:
             out["cup"] = self.cups.battle_link(b["run_id"])
         return out
 
-    def battle_choose(self, id_: str, side: str, choice: str, since: int = 0) -> dict[str, Any]:
+    def battle_choose(self, id_: str, side: str, choice: str, since: int = 0, remote: bool = False) -> dict[str, Any]:
         b = self.store.battle(id_)
+        if (b.get(side) or {}).get("remote") and not remote:
+            raise SilverError("forbidden", "Your friend plays that side from their own computer.")
         if b["status"] != "live":
             raise SilverError("ended", "This battle is over.")
         if b.get("mode") == "realtime":
@@ -1256,15 +1274,18 @@ class Services:
             raise SilverError("invalid", "side is p1 or p2")
         with self._lock_for(id_):
             self._ensure_loaded(b)
-            state = self.engine.call("match_choose", {"id": id_, "side": side, "choice": choice, "since": since, "view": "host"}, timeout=120)
+            state = self.engine.call("match_choose", {"id": id_, "side": side, "choice": choice, "since": since,
+                                                      "view": side if remote else self._host_view(b)}, timeout=120)
             self.store.update_battle(id_, {"snapshot": state.pop("snapshot", "") or "", "turns": state.get("turn") or 0})
             self._keep_notes(id_, state.pop("notes", None))
             if state.get("ended"):
                 self._finish(id_)
         return self._with_state(id_, state)
 
-    def battle_forfeit(self, id_: str, side: str, since: int = 0) -> dict[str, Any]:
+    def battle_forfeit(self, id_: str, side: str, since: int = 0, remote: bool = False) -> dict[str, Any]:
         b = self.store.battle(id_)
+        if (b.get(side) or {}).get("remote") and not remote:
+            raise SilverError("forbidden", "Your friend plays that side from their own computer.")
         if b["status"] != "live":
             raise SilverError("ended", "This battle is over.")
         if b.get("mode") == "realtime":
@@ -1272,7 +1293,7 @@ class Services:
             return self.rt_finish(id_, inputs=replay.get("inputs") or [], tick=int(replay.get("tick") or 0), forfeit=side)
         with self._lock_for(id_):
             self._ensure_loaded(b)
-            state = self.engine.call("match_forfeit", {"id": id_, "side": side, "since": since, "view": "host"})
+            state = self.engine.call("match_forfeit", {"id": id_, "side": side, "since": since, "view": side if remote else self._host_view(b)})
             state.pop("snapshot", None)
             self._keep_notes(id_, state.pop("notes", None))
             self._finish(id_)
@@ -1320,7 +1341,7 @@ class Services:
             raise SilverError("invalid", "This replay has no saved turn decisions for practice.",
                               hint="Finish a new turn-based battle, then open its replay.")
         point = self.engine.call("practice_snapshot", {"input": record, "turn": turn, "side": side})
-        seats = {s: {**source[s], "trainer_id": "", "human": s == side,
+        seats = {s: {**{k: v for k, v in source[s].items() if k != "remote"}, "trainer_id": "", "human": s == side,
                      "ai": None if s == side else {**(source[s].get("ai") or {"level": "normal", "style": "balanced"}), "hidden": True}}
                  for s in ("p1", "p2")}
         practice = {"source_id": id_, "turn": turn, "side": side}

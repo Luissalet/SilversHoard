@@ -20,7 +20,7 @@ const RESULT_PREFIX_RT = "SILVERWIN2-";    // a result with real-time battles in
 const LONG_CODE = 6000;                     // characters; longer than this and the page pushes the file
 const readPref = (key) => { try { return localStorage.getItem(key) || ""; } catch { return ""; } };
 
-function avatarSrc(sprites, avatar) {
+export function avatarSrc(sprites, avatar) {
   return sprites.trainer(avatar);
 }
 
@@ -28,7 +28,7 @@ function Badge({ color = "#c0c0c0", size = 64, image = "" }) {
   return <BadgeArt color={color} size={size} image={image} />;
 }
 
-function TeamIcons({ sets, sprites }) {
+export function TeamIcons({ sets, sprites }) {
   return (
     <div className="p-team">
       {sets.map((s, i) => <img key={i} src={sprites.pokemon(s.species)} alt={s.species} title={s.species} className={sprites.pixelated ? "pixelated" : ""}
