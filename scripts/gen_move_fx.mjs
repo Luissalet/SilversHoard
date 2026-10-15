@@ -45,7 +45,7 @@ const file = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'clie
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const text = render();
   if (process.argv.includes('--check')) {
-    if (!fs.existsSync(file) || fs.readFileSync(file, 'utf8') !== text) {
+    if (!fs.existsSync(file) || fs.readFileSync(file, 'utf8').replace(/\r\n/g, '\n') !== text) {
       console.error('client/src/battle/fx/move-data.js is out of date: run node scripts/gen_move_fx.mjs');
       process.exit(1);
     }
