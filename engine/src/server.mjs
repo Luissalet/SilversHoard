@@ -88,7 +88,9 @@ const handlers = {
     const req = side.activeRequest;
     if (b.ended || !req || req.wait || side.isChoiceDone()) return {turn: b.turn, advice: null};
     const trace = {};
-    chooseFor(b, a.side, {level: a.level || 'expert', style: a.style || 'balanced', rng: makeRng(`advice:${b.turn}:${a.side}`), trace});
+    // a person sees only what the battle has shown of the other team: the advice does too (unless the app says otherwise)
+    chooseFor(b, a.side, {level: a.level || 'expert', style: a.style || 'balanced', rng: makeRng(`advice:${b.turn}:${a.side}`), trace,
+      hidden: a.hidden !== false, beliefs: a.beliefs || {}});
     return {turn: b.turn, advice: trace.choice ? compactTrace(trace) : null};
   },
   match_close: (a) => ({closed: matches.delete(a.id)}),

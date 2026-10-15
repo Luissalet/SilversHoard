@@ -30,6 +30,7 @@ const S = {
   sw_detail: ["recibiría ~{take}, quitaría ~{give}", "would take ~{take}, deal ~{give}"],
   sends: ["{who} saca a {mon}", "{who} sends in {mon}"],
   search: ["Futuros explorados: {n} (búsqueda en árbol de Montecarlo). Atención de la búsqueda y victoria estimada:", "Futures searched: {n} (Monte Carlo tree search). Share of the search and estimated win:"],
+  hidden: ["sin ver tu equipo", "not seeing your team"],
   fallback: ["La búsqueda no estaba disponible: jugó como la experta.", "The search was not available: it played as the expert."],
   playouts: ["Turnos simulados (más alto, mejor; entre paréntesis, el peor caso)", "Turns played out (higher is better; worst case in brackets)"],
   level: ["IA {level} · {style}", "{level} AI · {style}"],
@@ -88,6 +89,7 @@ function Note({ note, names, lang, advice }) {
       <div className="ai-note-head">
         <b>{advice ? s("advice_title") : names[note.side] || note.side}</b>
         {!advice && <span className="chip">{s("level", { level: L(LEVELS[note.level] || [note.level, note.level], lang), style: L(STYLES[note.style] || [note.style, note.style], lang) })}</span>}
+        {!advice && note.hidden && <span className="chip">{s("hidden")}</span>}
       </div>
       {(note.slots || []).map((sl) => {
         const p = sl.picked || {};

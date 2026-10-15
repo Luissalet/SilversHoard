@@ -291,6 +291,7 @@ class Seat(BaseModel):
     human: bool = Field(False, description="A person (or you with battle_choose) plays this seat.")
     ai_level: Optional[Level] = None
     ai_style: Optional[Style] = None
+    ai_hidden: Optional[bool] = Field(None, description="The AI sees only what the battle shows of the other team (guessing the rest from usage statistics). Default: the ai_hidden_info setting.")
 
 
 Mode = Literal["classic", "realtime"]
@@ -541,6 +542,7 @@ class SettingsSetArgs(BaseModel):
     max_turns: Optional[int] = Field(None, ge=20, le=2000)
     node_path: Optional[str] = Field(None, max_length=500)
     sprite_downloads: Optional[bool] = None
+    ai_hidden_info: Optional[bool] = Field(None, description="AIs see only what the battle has shown of the opponent's team.")
     smogon_data: Optional[bool] = Field(None, description="Fetch popular sets and usage statistics from data.pkmn.cc when asked for.")
     sound_downloads: Optional[bool] = None
     prospero_prompt: Optional[str] = Field(None, max_length=1000)
