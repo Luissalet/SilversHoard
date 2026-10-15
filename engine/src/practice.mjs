@@ -29,5 +29,6 @@ export function practiceSnapshot(input, turn, side) {
   if (!ready()) throw new EngineError('invalid', 'There is no move decision for that side at this turn.');
   // Recorded inputs are committed in pairs. A side's pending choice must never carry into the exercise.
   for (const s of b.sides) s.clearChoice();
-  return {snapshot: JSON.parse(JSON.stringify(b.toJSON())), seed: start.seed, turn: b.turn};
+  return {snapshot: JSON.parse(JSON.stringify(b.toJSON())), input: b.inputLog.slice(), seed: start.seed, turn: b.turn,
+    format: b.format.id, seats: Object.fromEntries(b.sides.map(s => [s.id, {name:s.name, sets:structuredClone(s.team)}]))};
 }

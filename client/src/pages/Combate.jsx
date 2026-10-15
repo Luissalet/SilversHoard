@@ -13,6 +13,7 @@ import { Avatar, GymBadge, useSeats } from "../components/silver.jsx";
 import AiNotes from "../components/AiNotes.jsx";
 import VideoExport from "../components/VideoExport.jsx";
 import { CupStrip } from "./Copa.jsx";
+import { SaveExercise, ExerciseProgress } from "../components/Training.jsx";
 // the real-time screen carries the battle engine: loaded only when a real-time battle opens
 // After the app is rebuilt the old chunk name is gone; reload once to pick up the new one instead of showing a blank page.
 const CombateRt = React.lazy(() => import("./CombateRt.jsx").then((m) => {
@@ -248,8 +249,8 @@ export default function Combate({ param }) {
           <h2>{t("practice_title")}</h2>
           <p className="help">{t("practice_branch", { n: battle.practice.turn })}</p>
           <div className="flex flex-wrap gap-3 items-center">
-            <a className="btn" href={`#/combate/${battle.practice.source_id}`}>{t("practice_original")}</a>
-            {battle.status === "ended" && <Busy busy={busy.compare} onClick={compare}>{t("practice_compare")}</Busy>}
+            {battle.practice.source_id && <a className="btn" href={`#/combate/${battle.practice.source_id}`}>{t("practice_original")}</a>}
+            {battle.practice.source_id && battle.status === "ended" && <Busy busy={busy.compare} onClick={compare}>{t("practice_compare")}</Busy>}
           </div>
           {comparison && <dl className="flex flex-wrap gap-5">
             {["original", "branch"].map((key) => <div key={key}>
@@ -257,6 +258,7 @@ export default function Combate({ param }) {
               <dd>{comparison[key].winner_name ? t("winner_is", { name: comparison[key].winner_name }) : t("tie")} · {comparison[key].turns === 1 ? t("practice_one_turn") : t("turns_n", { n: comparison[key].turns })}</dd>
             </div>)}
           </dl>}
+          {battle.practice.exercise_id && <ExerciseProgress battle={battle}/>}
         </section>
       )}
       {battle.kind === "friend" && !battle.log_length && <div className="banner banner-info">{t("no_replay")}</div>}
@@ -297,6 +299,7 @@ export default function Combate({ param }) {
               <Busy busy={busy.practice} disabled={!Number.isInteger(practiceTurn) || practiceTurn < 1} onClick={practice}>{t("practice_start")}</Busy>
             </div>
             <ErrorBox error={practiceError} />
+            <SaveExercise key={`${battle.id}:${practiceTurn}:${practiceSide}`} battle={battle} turn={practiceTurn} side={practiceSide}/>
           </>}
         </section>
       )}

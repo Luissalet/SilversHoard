@@ -4,6 +4,7 @@ import RT_STRINGS from "./battle/rt/strings.js";
 import { SND } from "./sound-strings.js";
 import CUP_STRINGS from "./pages/cup-strings.js";
 import ARENA_STRINGS from "./pages/arena-strings.js";
+import TRAINING_STRINGS from "./training-strings.js";
 
 const D = {
   // shell
@@ -656,7 +657,7 @@ const D = {
   no_challenges: ["Sin retos.", "No challenges."],
 
   // share
-  share_help: ["Pega un código, un resultado de un amigo o un equipo de Showdown, o sube un archivo .hoardtrainer, .hoardgym, .hoardleague o una página jugable.", "Paste a code, a friend's result or a Showdown team, or upload a .hoardtrainer, .hoardgym, .hoardleague file or a playable page."],
+  share_help: ["Pega un código, un ejercicio, un resultado de un amigo o un equipo de Showdown, o sube un archivo .hoardtrainer, .hoardgym, .hoardleague, .silverexercise o una página jugable.", "Paste a code, an exercise, a friend's result or a Showdown team, or upload a .hoardtrainer, .hoardgym, .hoardleague, .silverexercise file or a playable page."],
   import_paste: ["Pegar", "Paste"],
   import_paste_ph: ["SILVER1-…, SILVERWIN1-…, JSON, un equipo de Showdown o un enlace de pokepast.es", "SILVER1-…, SILVERWIN1-…, JSON, a Showdown team or a pokepast.es link"],
   name_if_team: ["Nombre (si es un equipo)", "Name (if it is a team)"],
@@ -739,6 +740,7 @@ Object.assign(D, RT_STRINGS);
 Object.assign(D, SND);
 Object.assign(D, CUP_STRINGS);
 Object.assign(D, ARENA_STRINGS);
+Object.assign(D, TRAINING_STRINGS);
 
 export function saveLang(lang) {
   try {

@@ -1,5 +1,11 @@
 # Silver's Hoard — architecture
 
+## Portable training exercises
+
+`training.py` reconstructs an engine `practice_snapshot`, stores only its committed input prefix and canonical teams/format, then creates ordinary `kind=practice` attempts. `practice.mjs` returns the canonical prefix alongside its deep snapshot; future decisions never enter the package. V7 adds only `exercises`; attempt metadata lives in existing battle replay JSON and never attaches trainer/challenge IDs. Goal evaluation uses completed turns from the saved position. A three-attempt streak at the latest completed attempt's level suggests one step between random and expert; manual play remains independent of this rule. `exercise_get` explains level, sample count and outcomes.
+
+Six typed tools share UI/REST/MCP handlers: `exercises_list`, `exercise_create/get/start/export/archive`. Generic import recognizes schema1 exercise JSON before the existing sharing parser; engine reconstruction validates it before writing, ignoring noncanonical format/team metadata. Export uses `.silverexercise` through the existing export route. The Share page owns the exercise library and existing replay controls own creation and attempt progress. No new simulator, text model or GPU dependency is added.
+
 ## Replay practice
 
 New played and individually watched classic battles retain the simulator's `input_log` in the existing `replay` JSON field when they finish. `practice.mjs` replays only the committed prefix before the chosen turn and clears pending choices, then returns a deep snapshot. `battle_practice` creates a separate live battle from it with a human seat, a hidden-information AI opponent and source/turn/side metadata. Practice-only per-decision AI seeds survive snapshot reloads. Trainer IDs and challenge run IDs are not attached to the branch, so practice cannot award badges or alter trainer records. `battle_compare` reads both results without changing either.

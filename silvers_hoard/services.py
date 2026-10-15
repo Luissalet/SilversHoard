@@ -40,6 +40,7 @@ from .smogon import Smogon
 from .sounds import Sounds
 from .sprites import Sprites, _http_get
 from .store import Store
+from .training import Training
 
 log = logging.getLogger("silver")
 
@@ -109,6 +110,7 @@ class Services:
         self.cups = Cups(self)
         self.arenas = Arenas(self)
         self.benchmarks = Benchmarks(self)
+        self.training = Training(self)
         self.neural = NeuralAI(self.settings, config.sprites_dir.parent / "neural", config.data_dir / "logs")
         self._neural_env()
         self.pool = ThreadPoolExecutor(max_workers=2, thread_name_prefix="silver-job")
@@ -1293,6 +1295,8 @@ class Services:
         practice = (branch.get("replay") or {}).get("practice")
         if not practice:
             raise SilverError("invalid", "Choose a practice battle to compare with its original.")
+        if practice.get("exercise_id"):
+            raise SilverError("invalid", "This is an independent exercise. Use exercise_get to see its goal and attempts.")
         source = self.store.battle(practice["source_id"])
         def result(b):
             return {"id": b["id"], "status": b["status"], "turns": b["turns"], "winner_side": b["winner_side"],
@@ -2417,6 +2421,12 @@ class Services:
         pokepast.es link."""
         if isinstance(content, str) and self.POKEPASTE.match(content):
             return self.import_pokepaste(content, name=name, format_=format_)
+        try:
+            candidate = json.loads(content) if isinstance(content, str) else content
+        except ValueError:
+            candidate = None
+        if isinstance(candidate, dict) and candidate.get("kind") == "silvers-hoard/exercise":
+            return {"kind": "exercise", "exercise": self.training.import_(json.dumps(candidate))}
         kind, payload = sharing.parse_any(content)
         if kind == "result":
             return {"kind": "result", **self.import_result(payload)}
@@ -2785,7 +2795,7 @@ class Services:
         return {"res": res, "opp": opp, "ai_checked": same}
 
     def export_file(self, filename: str) -> Path:
-        if not sharing.re.match(r"^[\w\- ]+\.(html|hoardtrainer|hoardgym|hoardleague|mp4|webm)$", filename, flags=sharing.re.UNICODE):
+        if not sharing.re.match(r"^[\w\- ]+\.(html|hoardtrainer|hoardgym|hoardleague|silverexercise|mp4|webm)$", filename, flags=sharing.re.UNICODE):
             raise SilverError("invalid", "Not an export file.")
         path = self.config.exports_dir / filename
         if not path.exists():
