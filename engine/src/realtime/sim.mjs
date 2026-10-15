@@ -256,6 +256,8 @@ export class RtBattle {
     this.winner = -1;            // -1 none yet, 0/1 side, 2 tie
     this.reason = '';
     this.doubles = this.version >= 3 && Dex.formats.get(this.formatId, true).gameType === 'doubles';
+    // training (singles): the second seat is a dummy; nobody faints, a knockout sets the Pokémon back to full health instead
+    this.training = !this.doubles && spec.training ? {pattern: String(spec.training.pattern || 'still')} : null;
     this.sides = ['p1', 'p2'].map((id, i) => this.makeSide(id, i, spec[id] || {}));
     if (!this.doubles) {
       // singles: each trainer is its own (only) slot
@@ -586,6 +588,19 @@ export class RtBattle {
     return options.length ? options[0].slot : -1;
   }
 
+  /** A trainer's change of tactics (seat.ai.phase {when: half | last, level, style, line}): once its team's HP falls to half, or
+   * when only its last Pokémon is left, it plays with the phase's level and style from then on. Teams of one have no phase. */
+  checkPhase(tr) {
+    const ph = tr.ai.phase;
+    if (tr.phased || !ph || tr.mons.length < 2) return;
+    const reached = ph.when === 'last' ? tr.mons.filter((m) => !m.fainted).length === 1
+      : tr.mons.reduce((a, m) => a + (m.fainted ? 0 : m.hp), 0) * 2 <= tr.mons.reduce((a, m) => a + m.maxhp, 0);
+    if (!reached) return;
+    tr.phased = true;
+    tr.ai = {...tr.ai, level: ph.level || tr.ai.level, style: ph.style || tr.ai.style};
+    this.ev('phase', {s: tr.index, line: String(ph.line || '').slice(0, 280), level: tr.ai.level, style: tr.ai.style});
+  }
+
   // ------------------------------------------------------------ the loop
   /** One tick. `inputs` = {p1: {mx, my, use, dodge, sw, focus, plus, mega, ctl, tgt} | null, p2: ...} for the seats people
    * play; AI seats decide here. `focus` (held lock-on) defaults to true, `plus` (the move goes out as a Plus move) and `mega` to
@@ -595,6 +610,7 @@ export class RtBattle {
     this.t++;
     if (this.doubles) {
       for (const tr of this.sides) {
+        if (tr.ai?.phase) this.checkPhase(tr);
         if (tr.ai) {
           const plan = tr.units.map((u) => think(this, u));
           tr.units.forEach((u, i) => this.applyInput(u, plan[i] || {}));
@@ -606,6 +622,7 @@ export class RtBattle {
       }
     } else {
       for (const side of this.sides) {
+        if (side.ai?.phase) this.checkPhase(side);
         let input = side.ai ? think(this, side) : inputs[side.id] || null;
         if (!side.ai && input) input = this.record(side, input);   // a person's input as the log keeps it, so a replay plays the same
         this.applyInput(side, input || {});
@@ -1867,6 +1884,18 @@ export class RtBattle {
   faint(side, by, byMon = null) {
     const m = this.mon(side);
     if (m.fainted) return;
+    if (this.training) {
+      // training: nobody faints (the dummy, and your own Pokémon worn down by recoil or Life Orb); it stands up again, healed, its stat
+      // changes and status gone
+      m.hp = m.maxhp;
+      m.status = '';
+      m.statusUntil = 0;
+      m.toxN = 0;
+      for (const k of BOOSTABLE) { m.boosts[k] = 0; m.boostUntil[k] = 0; }
+      side.act = null;
+      this.ev('dummy_reset', {...this.at(side), slot: side.active, species: m.species, hp: m.hp, maxhp: m.maxhp});
+      return;
+    }
     m.hp = 0;
     m.fainted = true;
     side.act = null;
@@ -1993,7 +2022,7 @@ export class RtBattle {
   view() {
     return {
       t: this.t, seconds: this.t / TPS, time_limit: this.timeLimit / TPS, ended: this.ended, winner: this.winner, reason: this.reason,
-      version: this.version, plus_moves: this.plusMoves, arena: this.arena, rocks: this.rocks.map((r) => ({...r})), floor: this.floor,
+      version: this.version, plus_moves: this.plusMoves, arena: this.arena, ...(this.training ? {training: {...this.training}} : {}), rocks: this.rocks.map((r) => ({...r})), floor: this.floor,
       ...(this.arenaName ? {arena_name: this.arenaName} : {}),
       ...(this.doubles ? {doubles: true} : {}),
       weather: this.weather && this.weather.until > this.t ? {id: this.weather.id, left: (this.weather.until - this.t) / TPS} : null,

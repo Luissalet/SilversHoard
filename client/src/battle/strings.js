@@ -39,6 +39,7 @@ const S = {
   fainted: ["Debilitado", "Fainted"],
   active_now: ["En combate", "In battle"],
   winner: ["¡Gana {name}!", "{name} wins!"],
+  phase_change: ["¡Cambio de táctica!", "Change of tactics!"],
   tie: ["Empate", "Tie"],
   turns: ["{n} turnos", "{n} turns"],
   hp: ["PS", "HP"],

@@ -419,6 +419,14 @@ function applyRaw(state, line, { lang = "es", me = "p1" } = {}) {
       const word = cmd === "-mega" ? T("megaevolucionó", "has Mega Evolved") : cmd === "-primal" ? T("recuperó su forma primigenia", "underwent Primal Reversion") : T("liberó su poder", "regained its true power");
       return { text: es ? `¡${M(parts[1])} ${word}!` : `${M(parts[1])} ${word}!`, kind: "big", anim: { type: "tera", side, slot } };
     }
+    case "silverphase": {
+      // Silver's own line: a trainer changes tactics (its phase), with what it says
+      const sid = parts[1] === "p2" ? "p2" : "p1";
+      const who = state.sides[sid]?.name || sid;
+      const line = parts.slice(2).join("|").trim();
+      return { text: line ? `${who}: «${line}»` : T(`¡${who} cambia de táctica!`, `${who} changes tactics!`), kind: "big",
+        anim: { type: "phase", side: sid, slot: 0, line } };
+    }
     case "-zpower":
       return { text: T(`¡${M(parts[1])} desata su poder Z!`, `${M(parts[1])} surrounded itself with its Z-Power!`), kind: "big" };
     case "cant": {

@@ -62,7 +62,8 @@ _CLASS_ES = {
 }
 STATIC_DIR = Path(__file__).resolve().parent / "static"
 PLAY_TEMPLATE = STATIC_DIR / "play" / "play.html"
-DIALOGUE_KEYS = ("intro", "win", "lose", "last")
+DIALOGUE_KEYS = ("intro", "win", "lose", "last", "phase", "phase_when", "phase_level", "phase_style")
+PHASE_WHEN = ("half", "last")
 # Real-time battles: the rules version stored with every new battle (1 = the first rules, which battles stored without one keep:
 # always locked on, no Mega Evolution; 2 = free aim, the Mega Power gauge, Plus moves and Mega Evolution; 3 = doubles formats
 # field two Pokémon per trainer, singles play as in 2; 4 = no Plus moves, the gauge only for Mega Evolution) and the arenas.
@@ -397,7 +398,26 @@ class Services:
         raise SilverError("invalid", "avatar must be sd:<trainer sprite name> or file:<uploaded file>")
 
     def _clean_dialogue(self, d: Optional[dict[str, Any]]) -> dict[str, str]:
-        return {k: str((d or {}).get(k) or "").strip()[:280] for k in DIALOGUE_KEYS if (d or {}).get(k)}
+        """The trainer's lines, and its change of tactics: phase_when (half: its team's HP falls to half; last: its last Pokémon),
+        phase_level and phase_style (what its AI turns into then) and phase (what it says)."""
+        out = {k: str((d or {}).get(k) or "").strip()[:280] for k in DIALOGUE_KEYS if (d or {}).get(k)}
+        if out.get("phase_when") and out["phase_when"] not in PHASE_WHEN:
+            raise SilverError("invalid", "phase_when is half or last")
+        if out.get("phase_level") and out["phase_level"] not in AI_LEVELS:
+            raise SilverError("invalid", f"phase_level must be one of {', '.join(AI_LEVELS)}")
+        if out.get("phase_style") and out["phase_style"] not in AI_STYLES:
+            raise SilverError("invalid", f"phase_style must be one of {', '.join(AI_STYLES)}")
+        return out
+
+    @staticmethod
+    def _phase_of(dialogue: Optional[dict[str, Any]]) -> Optional[dict[str, str]]:
+        """The change of tactics the engine plays (match.mjs phaseOf does the same on the playable page)."""
+        d = dialogue or {}
+        if d.get("phase_when") not in PHASE_WHEN:
+            return None
+        line = d.get("phase") or (d.get("last") if d["phase_when"] == "last" else "") or ""
+        return {"when": d["phase_when"], **({"level": d["phase_level"]} if d.get("phase_level") else {}),
+                **({"style": d["phase_style"]} if d.get("phase_style") else {}), **({"line": str(line)[:280]} if line else {})}
 
     def trainers_trash(self, ids: list[str]) -> dict[str, Any]:
         return {"trashed": self.store.trash_trainers(ids)}
@@ -1049,7 +1069,8 @@ class Services:
             self.neural.ensure()   # its server starts in the background; until it answers, the side plays as the expert
         hidden = spec.get("ai_hidden")
         hidden = bool(self.settings["ai_hidden_info"]) if hidden is None else bool(hidden)
-        ai = {"level": level, "style": style, **({"hidden": True} if hidden else {})}
+        phase = self._phase_of(dialogue)
+        ai = {"level": level, "style": style, **({"hidden": True} if hidden else {}), **({"phase": phase} if phase else {})}
         return {"trainer_id": spec.get("trainer_id") or "", "name": name, "avatar": avatar, "avatar_url": self.avatar_url(avatar), "human": human,
                 "ai": None if human else ai, "sets": sets, "dialogue": dialogue, "format": fmt}
 
@@ -1121,6 +1142,9 @@ class Services:
             spec["seed"] = seed
         watch = not s1["human"] and not s2["human"]
         kind = kind or ("watch" if watch else "play")
+        if self.settings.get("pmd_sprites", True) and self.config.background:
+            # the faces the screen shows for lines, knockouts and the result, fetched while the battle starts
+            self.pool.submit(self.pmd.prefetch_portraits, [str(x.get("species") or "") for x in s1["sets"] + s2["sets"]])
         bid = self.store.add_battle({"kind": kind, "status": "running" if watch else "live", "format": fmt, "rules": rules, "level_rules": level_rules,
                                      "p1": s1, "p2": s2, "run_id": run_id, "title": title, "seed": json.dumps(seed) if seed else ""})
         spec["id"] = bid
@@ -1429,13 +1453,37 @@ class Services:
         return {"id": b["id"], "seed": b.get("seed") or b["id"], "format": b["format"], "level_rules": b.get("level_rules") or {},
                 "time_limit": int(replay.get("time_limit") or self.settings.get("rt_time_limit") or 300), "p1": seat(b.get("p1") or {}),
                 "p2": seat(b.get("p2") or {}), "version": int(replay.get("version") or 1),
-                "arena": replay.get("arena") if replay.get("arena") in RT_ARENAS or isinstance(replay.get("arena"), dict) else "open"}
+                "arena": replay.get("arena") if replay.get("arena") in RT_ARENAS or isinstance(replay.get("arena"), dict) else "open",
+                **({"training": replay["training"]} if replay.get("training") else {})}
+
+    TRAINING_PATTERNS = ("still", "walk", "dodge", "fight")
+    TRAINING_DUMMY = ("Sudowoodo @ Leftovers\nAbility: Sturdy\nLevel: 100\nEVs: 252 HP / 252 Def / 4 SpD\nImpish Nature\n"
+                      "- Rock Slide\n- Wood Hammer\n- Sucker Punch\n- Earthquake\n")
+
+    def training_start(self, *, trainer_id: str, pattern: str = "still", dummy_id: str = "", format_: str = "", arena: str = "open",
+                       time_limit: int = 300, level_rules: Optional[dict[str, Any]] = None) -> dict[str, Any]:
+        """Real-time training: your trainer against a dummy that never faints (a knockout heals it back), standing still, walking in
+        circles, rolling away from attacks or fighting back like the easy AI. The dummy is a Sudowoodo or the team of `dummy_id`.
+        Nothing is counted: no record, no progress, no medals."""
+        if pattern not in self.TRAINING_PATTERNS:
+            raise SilverError("invalid", f"pattern is one of {', '.join(self.TRAINING_PATTERNS)}")
+        foe = {"trainer_id": dummy_id} if dummy_id else {"paste": self.TRAINING_DUMMY, "name": "Muñeco de entrenamiento"}
+        return self._rt_start(p1={"trainer_id": trainer_id, "human": True}, p2=foe, format_=format_, level_rules=level_rules,
+                              kind="training", title="Entrenamiento", time_limit=time_limit, arena=arena, training={"pattern": pattern})
 
     def _rt_start(self, *, p1: dict[str, Any], p2: dict[str, Any], format_: str = "", level_rules: Optional[dict[str, Any]] = None,
-                  kind: str = "", run_id: str = "", title: str = "", seed: Any = None, time_limit: int = 0, arena: str = "rocks") -> dict[str, Any]:
+                  kind: str = "", run_id: str = "", title: str = "", seed: Any = None, time_limit: int = 0, arena: str = "rocks",
+                  training: Optional[dict[str, Any]] = None) -> dict[str, Any]:
         arena = self.arenas.spec(_rt_arena(arena))
         s1, s2 = self._seat(p1, "Jugador 1"), self._seat(p2, "Jugador 2")
+        if training:
+            # a training battle counts for nobody: the seats keep the names and teams but no trainer ids
+            s1["trainer_id"] = s2["trainer_id"] = ""
+            s2["human"] = False
+            s2["ai"] = {"level": "dummy", "style": "balanced", "pattern": training["pattern"]}
         fmt = self._rt_format(format_ or s1["format"] or s2["format"] or self.settings["default_format"])
+        if training and self.format_info(fmt, []).get("game_type") == "doubles":
+            raise SilverError("invalid", "Training is for singles.", hint="Pick a singles format.")
         level_rules = level_rules or {}
         limit = max(30, min(int(time_limit or self.settings.get("rt_time_limit") or 300), 1800))
         watch = not s1["human"] and not s2["human"]
@@ -1443,7 +1491,8 @@ class Services:
         seed_text = str(seed) if seed else ""
         bid = self.store.add_battle({"kind": kind, "mode": "realtime", "status": "running" if watch else "live", "format": fmt, "rules": [],
                                      "level_rules": level_rules, "p1": s1, "p2": s2, "run_id": run_id, "title": title, "seed": seed_text,
-                                     "replay": {"time_limit": limit, "inputs": [], "tick": 0, "version": RT_RULES_VERSION, "arena": arena}})
+                                     "replay": {"time_limit": limit, "inputs": [], "tick": 0, "version": RT_RULES_VERSION, "arena": arena,
+                                                **({"training": training} if training else {})}})
         if not seed_text:
             self.store.update_battle(bid, {"seed": bid})
         spec = self._rt_spec(self.store.battle(bid))
@@ -1456,6 +1505,7 @@ class Services:
             mons = [m for side in (check.get("view") or {}).get("sides", []) for m in side.get("mons", [])]
             megas = [{**m["mega_info"], "shiny": m.get("shiny")} for m in mons if m.get("mega_info")]
             self.pool.submit(self.pmd.prefetch, mons + megas)
+            self.pool.submit(self.pmd.prefetch_portraits, [m.get("species") for m in mons] + [m.get("species") for m in megas])
         if watch:
             def work() -> None:
                 try:
@@ -2772,7 +2822,8 @@ class Services:
                 or forfeit not in ("", "p1")):
             raise SilverError("invalid", f"The record of the battle against {opp['name']} inside the code is damaged.")
         res = self.engine.run_job("replay_check", {"input": record, "format": fmt, "rules": rules, "level_rules": level_rules, "p1_sets": team,
-                                                   "p2_sets": opp["team"], "ai": {"level": opp["ai_level"], "style": opp["ai_style"]}, "rng_id": rng,
+                                                   "p2_sets": opp["team"], "ai": {"level": opp["ai_level"], "style": opp["ai_style"],
+                                                   **({"phase": self._phase_of(opp.get("dialogue"))} if self._phase_of(opp.get("dialogue")) else {})}, "rng_id": rng,
                                                    "forfeit": forfeit, **({"expect_seed": expect_seed} if expect_seed else {})}, timeout=900)
         if res.get("problems"):
             raise SilverError("invalid", f"The battle against {opp['name']} does not replay: {'; '.join(res['problems'])[:300]}.",

@@ -85,6 +85,7 @@ function chooseAim(b, side, c, rng, opts) {
 }
 
 function cfg(side) {
+  if (side.ai?.level === 'dummy') return {lv: LEVELS.easy, st: STYLES.balanced, level: 'easy'};   // a dummy that fights back
   return {lv: LEVELS[side.ai?.level] || LEVELS.normal, st: STYLES[side.ai?.style] || STYLES.balanced, level: side.ai?.level || 'normal'};
 }
 
@@ -251,7 +252,24 @@ function scoreMove(b, side, slot, c, rng) {
 /** The input of an AI seat for this tick (in doubles, of one slot). `opts.lead`: this slot is a person's partner, following the
  * slot the person controls: it attacks the person's locked foe unless the other is clearly better, stays near, dodges, and
  * leaves switching, Plus moves and Mega Evolution to the person. */
+/** The training dummy's patterns: stand still, walk in circles, roll away from what comes at it. "fight" plays as the easy AI. */
+function dummy(b, side, pattern) {
+  const input = {mx: 0, my: 0, use: -1, dodge: false, sw: -1};
+  if (side.need) { input.sw = side.mons.findIndex((m) => !m.fainted); return input; }
+  if (pattern === 'walk' && !side.act) {
+    const a = (b.t / TPS) * 0.9;
+    input.mx = Math.round(Math.cos(a) * 1000) / 1000;
+    input.my = Math.round(Math.sin(a) * 1000) / 1000;
+  }
+  if (pattern === 'dodge' && (!side.act || side.act.kind === 'approach') && b.t >= side.rollReady) {
+    const d = danger(b, side);
+    if (d) { input.dodge = true; input.mx = d.dir.x; input.my = d.dir.y; }
+  }
+  return input;
+}
+
 export function think(b, side, opts = {}) {
+  if (side.ai?.level === 'dummy' && side.ai.pattern !== 'fight') return dummy(b, side, side.ai.pattern || 'still');
   const partner = !!opts.lead;
   const c = partner ? {lv: LEVELS.hard, st: STYLES.balanced, level: 'hard'} : cfg(side);
   const rng = side.aiRng;

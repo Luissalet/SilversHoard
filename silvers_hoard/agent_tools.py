@@ -134,6 +134,10 @@ class Dialogue(BaseModel):
     win: str = Field("", max_length=280)
     lose: str = Field("", max_length=280)
     last: str = Field("", max_length=280)
+    phase_when: Literal["", "half", "last"] = Field("", description="Change of tactics: half = when its team's HP falls to half; last = with its last Pokémon; '' = never.")
+    phase_level: Literal["", "random", "easy", "normal", "hard", "expert", "master", "neural"] = Field("", description="AI level from then on ('' = the same).")
+    phase_style: Literal["", "balanced", "aggressive", "defensive", "setup", "stall"] = Field("", description="AI style from then on ('' = the same).")
+    phase: str = Field("", max_length=280, description="What it says when it changes tactics (shown with its Pokémon's face).")
 
 
 class TrainerCreateArgs(BaseModel):
@@ -309,6 +313,15 @@ ModeField = Field("classic", description="classic = turns (Showdown's engine); r
 TimeLimitField = Field(0, ge=0, le=1800, description="realtime: seconds before time is called (0 = the settings' value, 300).")
 RtArena = Annotated[str, StringConstraints(pattern=r"^(open|rocks|custom:[A-Za-z0-9_]{1,80})$")]
 RtArenaField = Field("rocks", description="realtime: the arena. rocks = 3-6 rocks from the seed (block walking and projectiles); open = no obstacles; custom:<id> = an arena from the arena designer (arenas_list).")
+
+
+class TrainingArgs(BaseModel):
+    trainer_id: str = Field(..., min_length=1, max_length=80, description="Your trainer (you play it).")
+    pattern: Literal["still", "walk", "dodge", "fight"] = Field("still", description="The dummy: still, walk (in circles), dodge (rolls away from attacks) or fight (attacks like the easy AI).")
+    dummy_id: str = Field("", max_length=80, description="A trainer whose team is the dummy (default: a Sudowoodo).")
+    format: str = Field("", max_length=120)
+    rt_arena: RtArena = Field("open", description="open, rocks or custom:<id>.")
+    time_limit: int = Field(300, ge=30, le=1800)
 
 
 class BattleStartArgs(BaseModel):
@@ -749,7 +762,9 @@ TOOLS: list[Tool] = [
                                        notes=a.notes, tags=a.tags)),
     Tool("trainer_update", _d("Change a trainer: name, team, format, AI, avatar, lines, notes, favourite. Editar entrenador.",
                               synonyms="cambiar equipo, renombrar"), TrainerUpdateArgs, WD,
-         lambda s, a: s.trainer_update(a.id, a.model_dump(exclude_none=True, exclude={"id"}))),
+         lambda s, a: s.trainer_update(a.id, {**a.model_dump(exclude_none=True, exclude={"id", "dialogue"}),
+                                              # only the lines given change: the others (and the change of tactics) stay
+                                              **({"dialogue": a.dialogue.model_dump(exclude_unset=True)} if a.dialogue else {})})),
     Tool("trainer_random", _d("Create a trainer with a random team and a random trainer sprite. Entrenador aleatorio.",
                               synonyms="npc al azar, rival aleatorio"), TrainerRandomArgs, WD,
          lambda s, a: s.trainer_random(name=a.name, format_=a.format, ai_level=a.ai_level or "", seed=a.seed)),
@@ -832,6 +847,12 @@ TOOLS: list[Tool] = [
          lambda s, a: s.battle_choose(a.id, a.side, a.choice, since=a.since), 120.0),
     Tool("battle_forfeit", _d("Give up a live battle for one side. Rendirse.", synonyms="abandonar combate"), ForfeitArgs, W,
          lambda s, a: s.battle_forfeit(a.id, a.side, since=a.since)),
+    Tool("training_start", _d("Real-time training against a dummy that never faints: try cooldowns, reach, rolls and combos. Entrenamiento.",
+                              "The dummy stands still, walks, dodges or fights back (pattern); a knockout heals it. Open the returned battle in the app "
+                              "(#/combate/<id>) to play; the screen shows damage per second. Nothing counts for records, progress or medals.",
+                              synonyms="muñeco, practicar tiempo real, entrenar, dps"), TrainingArgs, W,
+         lambda s, a: s.training_start(trainer_id=a.trainer_id, pattern=a.pattern, dummy_id=a.dummy_id, format_=a.format, arena=a.rt_arena,
+                                       time_limit=a.time_limit)),
     Tool("battle_rt_finish", _d("End a real-time battle: the app replays its inputs and stores the result. Terminar combate en tiempo real.",
                                 "Used by the battle screen; a forfeit stops the replay at `tick`.", synonyms="tiempo real, resultado, rendirse"),
          RtFinishArgs, W, lambda s, a: s.rt_finish(a.id, inputs=a.inputs, tick=a.tick, forfeit=a.forfeit), 600.0),

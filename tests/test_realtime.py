@@ -229,3 +229,19 @@ def test_portraits_pick_the_forme_and_a_close_emotion(tmp_path):
         pmd.portrait("Missingno", "Normal")
     with pytest.raises(SilverError):
         pmd.portrait("Charizard", "Bored")
+
+
+@needs_engine
+def test_training_counts_for_nobody(call):
+    me = call("trainer_create", {"name": "Practicante", "paste": "Garchomp @ Choice Scarf\nAbility: Rough Skin\n- Earthquake\n- Outrage\n- Stone Edge\n- Fire Fang\n"})
+    b = call("training_start", {"trainer_id": me["id"], "pattern": "dodge", "time_limit": 30})
+    assert b["kind"] == "training" and b["mode"] == "realtime" and b["status"] == "live"
+    spec = b["rt"]["spec"]
+    assert spec["training"] == {"pattern": "dodge"} and spec["p2"]["ai"]["level"] == "dummy" and spec["p2"]["sets"][0]["species"] == "Sudowoodo"
+    assert b["p1"]["trainer_id"] == "" and b["p1"]["name"] == "Practicante"
+    assert call("training_start", {"trainer_id": me["id"], "pattern": "dance"}, status=400)
+    # the screen's end: forfeiting stores the battle, and the trainer's record does not move
+    call("battle_rt_finish", {"id": b["id"], "inputs": [], "tick": 30, "forfeit": "p1"})
+    rec = call("trainer_get", {"id": me["id"]})["record"]
+    assert rec["wins"] + rec["losses"] == 0
+    assert call("battle_get", {"id": b["id"]})["status"] == "ended"
