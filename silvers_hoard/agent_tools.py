@@ -23,7 +23,7 @@ Battles: battle_start with two seats. A seat is {trainer_id} or {paste|team, nam
 Gym and league challenges: challenge_start (kind gym|league, a challenger trainer; auto=true lets the AI play the challenger). Winning every battle of a gym gives a badge; a league needs its badges and ends in the hall of fame.
 Many battles at once: series_start (the same two trainers N times: win rate, MVPs) and tournament_start (bracket or league table between trainers), both background jobs (job_get).
 Levels: level_rules {level: 50} (or 100) on battle_start, series_start and tournament_start, or level on challenge_start, equalizes every Pokémon of both sides at that level, so teams of different levels fight on even terms.
-Real time: battle_start, challenge_start, series_start and tournament_start take mode=realtime for battles after Pokémon Legends: Z-A (the same trainers and teams on a 2D arena, no turns: every move has a cooldown in seconds instead of PP, a wind-up and a range; attacks can be dodged; one-stage stat changes that wear off; three switches that come back after each KO; a Mega Power gauge for Plus moves and Mega Evolution; lock-on held or free aim) and rt_arena=rocks (default: 3-6 rocks that block walking and projectiles) or open. A person plays it on the app's screen; two AI seats play it in the background. rt_cooldowns shows how a team's moves translate (Z-A's own cooldowns, or derived from PP and power); rt_rules explains the rules. battle_get of a real-time battle returns English event lines and the spec + inputs that replay it exactly.
+Real time: battle_start, challenge_start, series_start and tournament_start take mode=realtime for battles after Pokémon Legends: Z-A (the same trainers and teams on a 2D arena, no turns: every move has a cooldown in seconds instead of PP, a wind-up and a range; attacks can be dodged; one-stage stat changes that wear off; three switches that come back after each KO; a Mega Power gauge for Plus moves and Mega Evolution; lock-on held or free aim; doubles formats field two Pokémon per trainer, a person moving one while the AI drives its partner, with spread moves, Helping Hand and Follow Me) and rt_arena=rocks (default: 3-6 rocks that block walking and projectiles) or open. A person plays it on the app's screen; two AI seats play it in the background. rt_cooldowns shows how a team's moves translate (Z-A's own cooldowns, or derived from PP and power); rt_rules explains the rules. battle_get of a real-time battle returns English event lines and the spec + inputs that replay it exactly.
 Sharing: export (fmt file = .hoardtrainer/.hoardgym/.hoardleague, code = a share code for a chat, page = one HTML file a friend opens in a browser to fight the gym or trainer, paste = Showdown text). import takes any of those back, plus the result codes friends send after playing a page (records their badge).
 Avatars: trainer_sprites_search (Showdown trainer sprites), avatar_from_photo (a photo on this computer into pixel art here) or avatar_draw (Prospero's Hoard draws one from up to 4 photos and/or a description in the games' art style, with the references of avatar_style_get; a background job)."""
 
@@ -252,7 +252,7 @@ class Seat(BaseModel):
 
 
 Mode = Literal["classic", "realtime"]
-ModeField = Field("classic", description="classic = turns (Showdown's engine); realtime = Legends: Z-A rules (cooldowns, 2D arena).")
+ModeField = Field("classic", description="classic = turns (Showdown's engine); realtime = Legends: Z-A rules (cooldowns, 2D arena; doubles formats put two Pokémon per trainer on it).")
 TimeLimitField = Field(0, ge=0, le=1800, description="realtime: seconds before time is called (0 = the settings' value, 300).")
 RtArena = Literal["open", "rocks"]
 RtArenaField = Field("rocks", description="realtime: the arena. rocks = 3-6 rocks from the seed (block walking and projectiles); open = no obstacles.")
@@ -272,7 +272,7 @@ class BattleStartArgs(BaseModel):
 
 class RtFinishArgs(BaseModel):
     id: str = IdField
-    inputs: list[list[Any]] = Field(default_factory=list, max_length=200_000, description="The screen's input log: [tick, side, mx, my, move, roll, switch, focus, plus, mega] (older rows have the first seven).")
+    inputs: list[list[Any]] = Field(default_factory=list, max_length=200_000, description="The screen's input log: [tick, side, mx, my, move, roll, switch, focus, plus, mega] plus [ctl, tgt] in doubles (controlled slot, locked foe slot; older rows have the first seven).")
     tick: int = Field(0, ge=0, le=60 * 30 * 30)
     forfeit: Literal["", "p1", "p2"] = ""
 

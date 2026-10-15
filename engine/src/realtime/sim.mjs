@@ -463,6 +463,7 @@ export class RtBattle {
     m.boosts = {atk: 0, def: 0, spa: 0, spd: 0, spe: 0};
     side.x = HOME[side.index].x + (side.index ? -1 : 1) * 0.5;
     side.y = HOME[side.index].y + (this.doubles ? SLOT_Y[side.pos] : 0) + (first ? 0 : (this.rng() - 0.5) * 2);
+    if (this.doubles && this.rocks.length) this.outOfRocks(side);   // the slots' spawn points can touch a rock
     const foe = this.foe(side);
     const d = norm((foe.x ?? HOME[1 - side.index].x) - side.x, (foe.y ?? HOME[1 - side.index].y) - side.y);
     side.fx = d.x || (side.index ? -1 : 1); side.fy = d.y;
