@@ -441,7 +441,7 @@ class ExportArgs(BaseModel):
 
 
 class ImportArgs(BaseModel):
-    content: str = Field("", max_length=20_000_000, description="A share code, result code, .hoard* JSON, playable page HTML or Showdown team.")
+    content: str = Field("", max_length=20_000_000, description="A share code, result code, .hoard* JSON, playable page HTML, Showdown team or pokepast.es link.")
     path: str = Field("", max_length=1000, description="Or a file on this computer to read.")
     name: str = Field("", max_length=60, description="Name for a plain team.")
     format: str = Field("", max_length=120)
@@ -751,7 +751,11 @@ TOOLS: list[Tool] = [
     Tool("export", _d("Export a trainer, gym or league: file, share code, playable HTML page or Showdown text. Enviar a un amigo.",
                       "page = one HTML file a friend opens in any browser to fight it (friend_mode: choose, turns or realtime); it gives them a result code to send back.",
                       synonyms="compartir, enviar entrenador, código, html jugable"), ExportArgs, R, lambda s, a: s.export(a.kind, a.id, fmt=a.fmt, friend_mode=a.friend_mode)),
-    Tool("import", _d("Import a share code, result code, .hoard* file, playable page or Showdown team. Importar.",
+    Tool("pokepaste_export", _d("Publish a trainer's team on pokepast.es and give its link (public). Enlace de pokepaste.",
+                                 "Anyone with the link can read the team; import takes pokepast.es links back.",
+                                 synonyms="pokepaste, enlace del equipo, compartir equipo por enlace"), IdArg, WD,
+         lambda s, a: s.pokepaste_export(a.id), 60.0),
+    Tool("import", _d("Import a share code, result code, .hoard* file, playable page, Showdown team or pokepast.es link. Importar.",
                       "Result codes from friends record their badge or win here.", synonyms="código de amigo, resultado, cargar"),
          ImportArgs, WD, _import),
     Tool("avatar_draw", _d("Have Prospero's Hoard draw a trainer sprite from up to 4 photos and/or a description (a job). Dibujar sprite.",

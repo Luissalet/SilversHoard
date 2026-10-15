@@ -89,6 +89,7 @@ class Services:
         self.sounds = Sounds(config.sprites_dir.parent / "audio", self.settings, http_get=http_get)
         self.pmd = PmdSprites(config.sprites_dir.parent / "pmd", self.settings, http_get or _http_get)
         self.smogon = Smogon(config.sprites_dir.parent / "smogon", http_get or _http_get, enabled=lambda: bool(self.settings["smogon_data"]))
+        self._http_get = http_get or _http_get
         self.fx = FxCache(config.sprites_dir.parent / "fx", self.settings, http_get=http_get)
         self.pool = ThreadPoolExecutor(max_workers=2, thread_name_prefix="silver-job")
         self._cancel: dict[str, bool] = {}
@@ -2014,8 +2015,70 @@ class Services:
                                    "rules": [str(r)[:80] for r in p.get("rules") or []][:20], "level_rules": p.get("level_rules") or {},
                                    "leader_id": leader, "trainers": trainers, "origin": origin, "owner": str(p.get("owner") or "")[:60]})
 
+    # ------------------------------------------------------------ teams by pokepast.es link
+    POKEPASTE = re.compile(r"^\s*(?:https?://)?(?:www\.)?pokepast\.es/([0-9a-fA-F]{6,32})(?:/(?:json|raw))?/?\s*$")
+
+    def import_pokepaste(self, url: str, *, name: str = "", format_: str = "") -> dict[str, Any]:
+        """A team from a pokepast.es link, as a new trainer (its title as the name; the format named in its notes when the app
+        knows it)."""
+        m = self.POKEPASTE.match(url or "")
+        if not m:
+            raise SilverError("invalid", "Not a pokepast.es link.")
+        pid = m.group(1).lower()
+        try:
+            status, body, _ = self._http_get(f"https://pokepast.es/{pid}/json")
+        except Exception as exc:  # noqa: BLE001 - offline or blocked
+            raise SilverError("unavailable", f"pokepast.es did not answer: {exc}") from None
+        if status == 404:
+            raise SilverError("not_found", "That paste does not exist on pokepast.es.")
+        if status != 200:
+            raise SilverError("unavailable", f"pokepast.es answered {status}.")
+        data = json.loads(body.decode("utf-8"))
+        fmt = format_
+        found = re.search(r"Format:\s*([A-Za-z0-9]+)", str(data.get("notes") or ""))
+        if not fmt and found:
+            try:
+                self.format_info(found.group(1).lower())
+                fmt = found.group(1).lower()
+            except SilverError:
+                fmt = ""
+        title = " ".join(str(data.get("title") or "").split())[:60]
+        t = self.trainer_create(name=name or title or f"pokepast.es {pid[:6]}", paste=str(data.get("paste") or ""), format_=fmt, origin="own")
+        return {"kind": "trainer", "trainer": t, "source": f"https://pokepast.es/{pid}", "author": str(data.get("author") or "")[:60]}
+
+    def _pokepaste_post(self, fields: dict[str, str]) -> str:
+        """POST /create on pokepast.es; the answer redirects to the new paste."""
+        import httpx
+        with httpx.Client(timeout=20.0, follow_redirects=False, headers={"User-Agent": "SilversHoard/0.1 (local battle simulator)"}) as client:
+            r = client.post("https://pokepast.es/create", data=fields)
+        location = r.headers.get("location") or ""
+        if r.status_code not in (301, 302, 303, 307, 308) or not location:
+            raise SilverError("unavailable", f"pokepast.es did not create the paste ({r.status_code}).")
+        return location
+
+    def pokepaste_export(self, trainer_id: str) -> dict[str, Any]:
+        """Publish a trainer's team on pokepast.es (public: anyone with the link can read it) and give its link."""
+        t = self.store.trainer(trainer_id)
+        if not t.get("team"):
+            raise SilverError("empty_team", f"{t['name']} has no team.")
+        fields = {"paste": self.export_team(t["team"]), "title": str(t["name"])[:100],
+                  "author": str(self.settings["player_name"] or "")[:60], "notes": f"Format: {t['format']}"}
+        try:
+            location = self._pokepaste_post(fields)
+        except SilverError:
+            raise
+        except Exception as exc:  # noqa: BLE001 - offline or blocked
+            raise SilverError("unavailable", f"pokepast.es did not answer: {exc}") from None
+        pid = location.rstrip("/").rsplit("/", 1)[-1]
+        url = location if location.startswith("http") else f"https://pokepast.es/{pid}"
+        self.emit("trainer.pokepaste", {"id": trainer_id, "url": url})
+        return {"url": url, "name": t["name"]}
+
     def import_any(self, content: Any, *, name: str = "", format_: str = "") -> dict[str, Any]:
-        """Import a share code, a result code, a .hoardtrainer/.hoardgym/.hoardleague file, a playable page or Showdown team text."""
+        """Import a share code, a result code, a .hoardtrainer/.hoardgym/.hoardleague file, a playable page, Showdown team text or a
+        pokepast.es link."""
+        if isinstance(content, str) and self.POKEPASTE.match(content):
+            return self.import_pokepaste(content, name=name, format_=format_)
         kind, payload = sharing.parse_any(content)
         if kind == "result":
             return {"kind": "result", **self.import_result(payload)}

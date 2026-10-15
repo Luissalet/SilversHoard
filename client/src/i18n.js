@@ -147,6 +147,9 @@ const D = {
   job_kind_avatar: ["Sprite dibujado por Prospero's Hoard", "Sprite drawn by Prospero's Hoard"],
   smogon_data: ["Sets populares y estadísticas de uso", "Popular sets and usage statistics"],
   smogon_data_help: ["El editor de equipos ofrece los sets de Smogon y el uso de cada Pokémon en el ranking de Showdown (data.pkmn.cc); se descargan al pedirlos y se guardan una semana.", "The team builder offers Smogon's sets and each Pokémon's usage on Showdown's ladder (data.pkmn.cc); they are downloaded when asked for and kept for a week."],
+  export_pokepaste: ["Enlace de pokepast.es", "pokepast.es link"],
+  export_pokepaste_help: ["Publica el equipo en pokepast.es y te da un enlace para pegar en foros o chats. Para traer uno, pega su enlace en Importar.", "Publishes the team on pokepast.es and gives you a link for forums or chats. To bring one in, paste its link in Import."],
+  export_pokepaste_confirm: ["El equipo quedará publicado en pokepast.es: cualquiera con el enlace podrá verlo.", "The team will be published on pokepast.es: anyone with the link can see it."],
   job_kind_video: ["Vídeo de un combate", "Battle video"],
   job_kind_badge: ["Medalla dibujada por Prospero's Hoard", "Badge drawn by Prospero's Hoard"],
 
@@ -582,7 +585,7 @@ const D = {
   // share
   share_help: ["Pega un código, un resultado de un amigo o un equipo de Showdown, o sube un archivo .hoardtrainer, .hoardgym, .hoardleague o una página jugable.", "Paste a code, a friend's result or a Showdown team, or upload a .hoardtrainer, .hoardgym, .hoardleague file or a playable page."],
   import_paste: ["Pegar", "Paste"],
-  import_paste_ph: ["SILVER1-…, SILVERWIN1-…, JSON o un equipo de Showdown", "SILVER1-…, SILVERWIN1-…, JSON or a Showdown team"],
+  import_paste_ph: ["SILVER1-…, SILVERWIN1-…, JSON, un equipo de Showdown o un enlace de pokepast.es", "SILVER1-…, SILVERWIN1-…, JSON, a Showdown team or a pokepast.es link"],
   name_if_team: ["Nombre (si es un equipo)", "Name (if it is a team)"],
   format_if_team: ["Formato (si es un equipo)", "Format (if it is a team)"],
   import_file: ["Subir archivo", "Upload a file"],
