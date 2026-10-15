@@ -29,7 +29,6 @@ const RT = {
   rt_you_control: ["Controlas", "You control"],
   rt_partner_ai: ["Compañero (IA)", "Partner (AI)"],
   rt_locked_foe: ["Rival fijado", "Locked foe"],
-  rt_slot: ["Hueco {slot}", "Slot {slot}"],
   rt_choose_next_slot: ["¡Elige quién sale en el hueco {slot}!", "Choose who comes in to slot {slot}!"],
   rt_helping_float: ["¡Ayuda!", "Helping!"],
   rt_follow_float: ["¡Aquí!", "Over here!"],
