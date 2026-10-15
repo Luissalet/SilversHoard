@@ -31,6 +31,7 @@ from .hoard_link.tokens import read_or_create_token
 from .credits import Credits
 from .arenas import CUSTOM as ARENA_CUSTOM, Arenas, same as arenas_same
 from .cups import Cups
+from . import gymmap
 from .fxcache import FxCache
 from .neural import NeuralAI
 from .pmd import PmdSprites
@@ -149,6 +150,7 @@ class Services:
     def stop(self) -> None:
         for k in list(self._cancel):
             self._cancel[k] = True
+        self.cups.stopped = True
         self.pool.shutdown(wait=False, cancel_futures=True)
         self.engine.stop()
         self.neural.stop()   # only the server this app started; it frees the GPU
@@ -885,6 +887,16 @@ class Services:
                 self.arenas.spec(values["rt_arena"])   # it exists
         if v.get("backdrop") is not None:
             values["backdrop"] = self._check_backdrop(v["backdrop"])
+        if v.get("map") is not None:
+            trainers = values.get("trainers") if "trainers" in values else (self.store.gym(id_).get("trainers") if id_ else [])
+            values["map"] = gymmap.clean(v["map"], list(trainers or []))
+        elif "trainers" in values and id_:
+            old = self.store.gym(id_).get("map") or {}
+            if old.get("w"):   # the trainers changed: the map must still hold all of them, else it goes
+                try:
+                    values["map"] = gymmap.clean(old, values["trainers"])
+                except SilverError:
+                    values["map"] = {}
         if id_:
             self.store.update_gym(id_, values)
         else:
@@ -1535,6 +1547,7 @@ class Services:
     def run_view(self, r: dict[str, Any], *, light: bool = False) -> dict[str, Any]:
         out = {k: v for k, v in r.items() if k != "challenger"}
         out["challenger_name"] = (r.get("challenger") or {}).get("name", "")
+        out["map"] = bool((r.get("challenger") or {}).get("map"))
         if r.get("kind") == "gym":   # the backdrop the gym's turn-based battles show
             with contextlib.suppress(SilverError):
                 out["backdrop"] = self.store.gym(r["target_id"], deleted=True).get("backdrop") or ""
@@ -1567,7 +1580,9 @@ class Services:
         return out
 
     def run_start(self, *, kind: str, target_id: str, challenger_id: str, auto: bool = False, ignore_badges: bool = False,
-                  format_override: str = "", mode: str = "classic", level: int = 0, rt_arena: str = "rocks", stop_at: int = 0) -> dict[str, Any]:
+                  format_override: str = "", mode: str = "classic", level: int = 0, rt_arena: str = "rocks", stop_at: int = 0,
+                  walk_map: bool = True) -> dict[str, Any]:
+        walk = False
         if mode not in ("classic", "realtime"):
             raise SilverError("invalid", "mode is classic or realtime")
         rt_arena = _rt_arena(rt_arena)
@@ -1582,6 +1597,7 @@ class Services:
             target_name = g["name"]
             if g.get("rt_arena"):   # the gym fights on its own arena
                 rt_arena = _rt_arena(g["rt_arena"])
+            walk = bool((g.get("map") or {}).get("w")) and not auto and walk_map
         elif kind == "facility":
             f = facilities.get(target_id)
             if not f:
@@ -1621,11 +1637,13 @@ class Services:
             raise SilverError("invalid", "There is nobody to fight here.")
         rid = self.store.add_run({"kind": kind, "target_id": target_id, "target_name": target_name, "challenger_id": challenger_id,
                                   "challenger": {"name": challenger["name"], "avatar": challenger["avatar"], "team": challenger["team"], "auto": auto,
-                                                 "format_override": format_override, "level": int(level or 0), "rt_arena": rt_arena},
+                                                 "format_override": format_override, "level": int(level or 0), "rt_arena": rt_arena,
+                                                 **({"map": True} if walk else {})},
                                   "stages": [{"trainer_id": s, "battle_id": "", "result": ""} for s in stage_ids], "step": 0, "status": "active",
                                   "mode": mode})
         self.emit("run.started", {"id": rid, "kind": kind, "target": target_name})
-        self._run_battle(rid)
+        if not walk:   # on a map the first battle starts when somebody sees you
+            self._run_battle(rid)
         return self.run_view(self.store.run(rid))
 
     def _facility_rules(self, r: dict[str, Any]) -> tuple[str, list[str], dict[str, Any]]:
@@ -1866,10 +1884,13 @@ class Services:
         self._run_battle(rid)
         return self.run_view(self.store.run(rid))
 
-    def run_next(self, rid: str) -> dict[str, Any]:
+    def run_next(self, rid: str, stage: str = "") -> dict[str, Any]:
         r = self.store.run(rid)
         if r["status"] != "active":
             raise SilverError("ended", "This challenge is over.")
+        if (r.get("challenger") or {}).get("map"):
+            self._map_stage(r, stage)
+            r = self.store.run(rid)
         phase = (r.get("challenger") or {}).get("phase") if r["kind"] == "facility" else ""
         if phase == "pick":
             raise SilverError("conflict", "Pick the rental Pokémon first.", hint="factory_pick with the indexes of three of the six rentals.")
@@ -1882,6 +1903,47 @@ class Services:
                 return self.run_view(r)
         self._run_battle(rid)
         return self.run_view(self.store.run(rid))
+
+    def _map_stage(self, r: dict[str, Any], stage: str) -> None:
+        """A challenge on a gym map: the battle is with whoever you met (a trainer id, or "leader"), so that stage moves to the current
+        step. The leader only fights once every trainer is beaten."""
+        stages, step = r["stages"], r["step"]
+        cur = stages[step] if step < len(stages) else {}
+        if cur.get("battle_id"):
+            with contextlib.suppress(SilverError):
+                if self.store.battle(cur["battle_id"])["status"] in ("live", "running"):
+                    return   # that battle is still on
+        if not stage:
+            raise SilverError("invalid", "On a gym map, say who you met: stage is a trainer id or leader.", hint="challenge_get shows the map.")
+        last = len(stages) - 1
+        if stage == "leader":
+            if step < last:
+                raise SilverError("conflict", "The leader waits until every trainer of the gym is beaten.")
+            return
+        j = next((i for i in range(step, last) if stages[i]["trainer_id"] == stage), None)
+        if j is None:
+            raise SilverError("conflict", "That trainer was already beaten, or is not in this gym.")
+        if j != step:
+            stages[step], stages[j] = stages[j], stages[step]
+            self.store.update_run(r["id"], {"stages": stages})
+
+    def run_get(self, rid: str) -> dict[str, Any]:
+        """One challenge with its stages; on a gym map also the map and the people on it (for walking it)."""
+        r = self.store.run(rid)
+        out = self.run_view(r)
+        if (r.get("challenger") or {}).get("map") and r["kind"] == "gym":
+            g = self.store.gym(r["target_id"], deleted=True)
+            out["map"] = g.get("map") or {}
+            out["gym"] = {"id": g["id"], "name": g["name"], "type": g["type"], "badge_color": g.get("badge_color") or ""}
+            people = {}
+            for st in r["stages"]:
+                with contextlib.suppress(SilverError):
+                    t = self.store.trainer(st["trainer_id"], deleted=True)
+                    people["leader" if st["trainer_id"] == g["leader_id"] else st["trainer_id"]] = {"name": t["name"], "avatar_url": self.avatar_url(t["avatar"])}
+            out["people"] = people
+            out["player"] = {"name": (r.get("challenger") or {}).get("name", ""), "avatar_url": self.avatar_url((r.get("challenger") or {}).get("avatar", ""))}
+            out["beaten"] = [st["trainer_id"] for st in r["stages"] if st.get("result") == "won"]
+        return out
 
     def run_abandon(self, rid: str) -> dict[str, Any]:
         r = self.store.run(rid)
@@ -2045,6 +2107,7 @@ class Services:
 
         def work(jid: str, progress: Callable[[float], None], cancelled: Callable[[], bool]) -> dict[str, Any]:
             res = self.engine.run_job("tournament", {"format": fmt, "rules": rules or [], "level_rules": level_rules or {}, "entrants": entrants,
+                                                     "max_turns": self.settings["max_turns"],
                                                      "kind": kind, "best_of": best_of, "mode": "realtime" if rt else "classic", "time_limit": limit,
                                                      "arena": arena, "version": RT_RULES_VERSION},
                                      progress=progress, cancelled=cancelled, timeout=12 * 3600)
@@ -2123,7 +2186,15 @@ class Services:
                 "leader": self._trainer_payload(self.store.trainer(g["leader_id"], deleted=True)),
                 "trainers": [self._trainer_payload(t) for t in self._gym_trainers(g)], "source_id": g["id"],
                 **({"rt_arena": self.arenas.export_value(g["rt_arena"])} if g.get("rt_arena") else {}),
-                **({"backdrop": g["backdrop"]} if g.get("backdrop") else {})}
+                **({"backdrop": g["backdrop"]} if g.get("backdrop") else {}),
+                **({"map": self._map_payload(g)} if (g.get("map") or {}).get("w") else {})}
+
+    def _map_payload(self, g: dict[str, Any]) -> dict[str, Any]:
+        """A gym map as it travels: the trainers by their place in the gym (0, 1…) instead of this app's ids."""
+        m = dict(g["map"])
+        order = list(g.get("trainers") or [])
+        m["trainers"] = [{**t, "id": order.index(t["id"])} for t in m.get("trainers") or [] if t["id"] in order]
+        return m
 
     def _gym_trainers(self, g: dict[str, Any]) -> list[dict[str, Any]]:
         """The gym's trainers before its leader, in the order the gym lists them (the store hands them back by recency)."""
@@ -2224,6 +2295,16 @@ class Services:
                                       "avatar": self._import_avatar(p.get("avatar") or {}, str(p.get("name") or "friend")),
                                       "dialogue": self._clean_dialogue(p.get("dialogue")), "notes": str(p.get("notes") or "")[:4000], "tags": ["amigo"]})
 
+    @staticmethod
+    def _import_map(m: Any, trainers: list[str]) -> dict[str, Any]:
+        if not isinstance(m, dict) or not m.get("w"):
+            return {}
+        try:
+            people = [{**t, "id": trainers[int(t["id"])]} for t in m.get("trainers") or []]
+            return gymmap.clean({**m, "trainers": people}, trainers)
+        except (SilverError, ValueError, TypeError, IndexError, KeyError):
+            return {}   # a map that does not fit is left out; the gym still works without it
+
     def _import_gym(self, p: dict[str, Any], origin: str = "friend") -> str:
         leader = self._import_trainer(p["leader"], origin)
         trainers = [self._import_trainer(t, origin) for t in p.get("trainers") or []]
@@ -2234,6 +2315,7 @@ class Services:
                                    "rules": [str(r)[:80] for r in p.get("rules") or []][:20], "level_rules": p.get("level_rules") or {},
                                    "leader_id": leader, "trainers": trainers, "origin": origin, "owner": str(p.get("owner") or "")[:60],
                                    "rt_arena": self.arenas.import_value(p.get("rt_arena")),
+                                   "map": self._import_map(p.get("map"), trainers),
                                    "backdrop": self._check_backdrop(p.get("backdrop") or "") if self.BACKDROP.match(str(p.get("backdrop") or "x")) else ""})
 
     # ------------------------------------------------------------ teams by pokepast.es link
@@ -2430,6 +2512,12 @@ class Services:
         else:
             raise SilverError("invalid", "Unknown result.")
         order = self._stage_trainers(kind, obj)
+        walked = r.get("order")   # a gym map: the battles came in the order the friend met the trainers, the leader last
+        if kind == "gym" and isinstance(walked, list) and walked:
+            by_id = {t["id"]: t for t in order}
+            if sorted(map(str, walked)) != sorted(by_id) or walked[-1] != order[-1]["id"]:
+                raise SilverError("invalid", "The order of the battles in this result is damaged.")
+            order = [by_id[i] for i in walked]
         fp = self._result_fingerprint(r)
         self._check_new_result(fp)
         week = str(r.get("weekly") or "")

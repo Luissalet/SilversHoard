@@ -1,0 +1,10 @@
+/* A gym map walked tile by tile (Overworld.jsx), in the app and on the playable page. */
+.ow { display: flex; flex-direction: column; gap: 8px; }
+.ow-stage { position: relative; width: 100%; overflow: auto; display: flex; justify-content: center; }
+.ow-canvas { display: block; border-radius: 8px; outline: none; }
+.ow-msg { position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%); max-width: 90%; padding: 8px 14px; border-radius: 10px; background: rgba(15, 12, 14, 0.88); color: #fff; border: 2px solid rgba(255, 255, 255, 0.6); font-size: 14px; }
+.ow-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+.ow-pad { display: grid; grid-template-columns: repeat(3, 34px); grid-template-rows: repeat(3, 30px); gap: 3px; }
+.ow-key { border: 1px solid var(--line); border-radius: 7px; background: var(--surface); color: inherit; font-size: 13px; touch-action: none; }
+.ow-key.up { grid-column: 2; grid-row: 1; } .ow-key.left { grid-column: 1; grid-row: 2; } .ow-key.talk { grid-column: 2; grid-row: 2; font-weight: 700; }
+.ow-key.right { grid-column: 3; grid-row: 2; } .ow-key.down { grid-column: 2; grid-row: 3; }

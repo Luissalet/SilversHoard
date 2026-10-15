@@ -19,6 +19,7 @@ def test_seeding_puts_the_best_seeds_apart_and_gives_them_the_byes():
 
 
 def _trainers(call, n):
+    call("settings_set", {"max_turns": 40})   # a stalled game ends in a tie soon (ties do not count; a cup still finishes)
     return [call("trainer_random", {"seed": f"cup{i}", "ai_level": "easy"})["id"] for i in range(n)]
 
 
@@ -63,14 +64,24 @@ def test_your_matches_wait_for_you_and_the_rest_goes_on(call):
 
 @needs_engine
 def test_simulate_your_match_and_random_draw(call):
-    me = call("trainer_create", {"name": "Luis", "paste": TEAM})["id"]
+    me = call("trainer_create", {"name": "Luis", "paste": TEAM, "ai_level": "easy"})["id"]
     _trainers(call, 4)
     c = call("cup_start", {"human_id": me, "random_count": 4, "ai_level": "easy", "pace": 0, "best_of": 3})
     assert len(c["entrants"]) == 4 and me in [e["id"] for e in c["entrants"]] and c["spec"]["best_of"] == 3
     c = wait_for(lambda: (x := call("cup_get", {"id": c["id"]}))["my_match"] and not x["simulating"] and x)
     r = call("cup_simulate", {"id": c["id"]})
     assert r["simulating"]
-    done = wait_for(lambda: (x := call("cup_get", {"id": c["id"]}))["status"] == "done" and x, timeout=400)
+
+    def drive():
+        # if the AI wins your first match for you, the final is yours too: send it to the simulator as well
+        x = call("cup_get", {"id": c["id"]})
+        if x["status"] == "done":
+            return x
+        if x["my_match"] and not x["simulating"] and not x["my_match"]["battle_id"]:
+            call("cup_simulate", {"id": c["id"]})
+        return None
+
+    done = wait_for(drive, timeout=400)
     first = [m for m in done["rounds"][0] if me in (m["a"], m["b"])][0]
     assert max(first["wins"]) == 2 and all(g["simulated"] for g in first["games"])
     assert call("cup_start", {"random_count": 4, "random_from": "zzz-nadie"}, status=404)

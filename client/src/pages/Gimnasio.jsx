@@ -10,6 +10,7 @@ import { TYPE_COLORS, typeName } from "../battle/dex.js";
 import ModeFields from "../battle/rt/ModeFields.jsx";
 import { useCustomArenas } from "../battle/rt/ModeFields.jsx";
 import { ALL_BACKDROPS, backdropFileUrl } from "../battle/fx/backdrop.js";
+import GymMapEditor from "./GymMap.jsx";
 
 const TYPES = Object.keys(TYPE_COLORS).filter((x) => !["Stellar", "???"].includes(x));
 
@@ -22,11 +23,14 @@ export function ChallengeDialog({ kind, target, onClose }) {
   const [auto, setAuto] = useState(false);
   const [ignore, setIgnore] = useState(false);
   const [modern, setModern] = useState(false);
+  const hasMap = kind === "gym" && !!target.map?.w;
+  const [walk, setWalk] = useState(true);
   const [busy, run] = useBusy();
   const start = () => run("s", async () => {
     const r = await api.call("challenge_start", { kind, target_id: target.id, challenger_id: challenger, auto, ignore_badges: ignore, format: modern ? "gen9nationaldexag" : "", mode, level: Number(equal) || 0,
-      ...(mode === "realtime" ? { rt_arena: arena } : {}) });
+      ...(mode === "realtime" ? { rt_arena: arena } : {}), ...(hasMap ? { walk_map: walk } : {}) });
     changed();
+    if (r.map) { go(`#/recorrido/${r.id}`); return; }
     const first = r.stages[0]?.battle_id;
     go(first ? `#/combate/${first}` : "#/combatir");
   });
@@ -36,6 +40,7 @@ export function ChallengeDialog({ kind, target, onClose }) {
       <TrainerSelect value={challenger} onChange={setChallenger} label={t("challenger")} />
       <label className="flex items-center gap-2"><Switch checked={auto} onChange={setAuto} label={t("challenge_auto")} /> {t("challenge_auto")}</label>
       <p className="help">{auto ? t("challenge_auto_help") : t("challenge_you_help")}</p>
+      {hasMap && !auto && <label className="flex items-center gap-2"><Switch checked={walk} onChange={setWalk} label={t("gmap_walk_option")} /> {t("gmap_walk_option")}</label>}
       {kind === "league" && <label className="flex items-center gap-2"><Switch checked={ignore} onChange={setIgnore} label={t("ignore_badges")} /> {t("ignore_badges")}</label>}
       <label className="flex items-center gap-2"><Switch checked={modern} onChange={setModern} label={t("modern_rules")} /> {t("modern_rules")}</label>
       <p className="help">{modern ? t("modern_rules_help") : t("gym_rules_help", { format: target.format })}</p>
@@ -107,7 +112,7 @@ function GymEditor({ gym, onSaved, onCancel }) {
   const list = useTrainers();
   const [f, setF] = useState(() => ({ name: gym?.name || "", city: gym?.city || "", type: gym?.type || "", badge: gym?.badge || "", badge_color: gym?.badge_color || "#c0c0c0", badge_image: gym?.badge_image || "",
     description: gym?.description || "", format: gym?.format || "", rules: gym?.rules || [], level_rules: gym?.level_rules || {}, leader_id: gym?.leader_id || "", trainers: gym?.trainers || [],
-    rt_arena: gym?.rt_arena || "", backdrop: gym?.backdrop || "" }));
+    rt_arena: gym?.rt_arena || "", backdrop: gym?.backdrop || "", map: gym?.map || {} }));
   const arenas = useCustomArenas();
   const [add, setAdd] = useState("");
   const [busy, run] = useBusy();
@@ -176,6 +181,13 @@ function GymEditor({ gym, onSaved, onCancel }) {
           </Field>
         </div>
         {f.backdrop && <div className="gym-backdrop-preview" style={{ backgroundImage: `url(${backdropFileUrl(f.backdrop)})` }} aria-hidden="true" />}
+      </div>
+      <div className="space-y-2">
+        <span className="label">{t("gmap_title")}</span>
+        <p className="help">{t("gmap_section_help")}</p>
+        <GymMapEditor gymId={gym?.id || ""} trainerIds={f.trainers} value={f.map} onChange={(m) => set("map", m)}
+          people={Object.fromEntries([...f.trainers.map((id) => [id, list.find((x) => x.id === id)]), ["leader", list.find((x) => x.id === f.leader_id)]]
+            .filter(([, tr]) => tr).map(([k, tr]) => [k, { name: tr.name, avatarUrl: tr.avatar_url }]))} />
       </div>
       <div className="flex gap-2"><Busy busy={busy.s} className="btn btn-primary" disabled={!f.name || !f.leader_id} onClick={save}>{t("save")}</Busy><button type="button" className="btn" onClick={onCancel}>{t("cancel")}</button></div>
     </div>

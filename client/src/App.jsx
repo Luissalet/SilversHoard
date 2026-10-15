@@ -23,6 +23,7 @@ import Historial from "./pages/Historial.jsx";
 import Trabajo from "./pages/Trabajo.jsx";
 import Copa from "./pages/Copa.jsx";
 import Arenas, { ArenaEditor } from "./pages/Arenas.jsx";
+import Recorrido from "./pages/Recorrido.jsx";
 import Medallas from "./pages/Medallas.jsx";
 import Progreso from "./pages/Progreso.jsx";
 import Creditos from "./pages/Creditos.jsx";
@@ -62,6 +63,7 @@ const PAGES = [
   { path: "gimnasio", key: "nav_gyms", component: Gimnasio, hidden: true, parent: "gimnasios" },
   { path: "arenas", key: "nav_arenas", icon: I.arena, component: Arenas },
   { path: "arena", key: "nav_arenas", component: ArenaEditor, hidden: true, parent: "arenas" },
+  { path: "recorrido", key: "nav_gyms", component: Recorrido, hidden: true, parent: "gimnasios" },
   { path: "ligas", key: "nav_leagues", icon: I.trophy, component: Ligas },
   { path: "liga", key: "nav_leagues", component: Liga, hidden: true, parent: "ligas" },
   { path: "instalaciones", key: "nav_facilities", icon: I.tower, component: Instalaciones },

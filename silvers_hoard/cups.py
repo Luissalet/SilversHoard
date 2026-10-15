@@ -96,6 +96,7 @@ class Cups:
         self._locks: dict[str, threading.Lock] = {}
         self._guard = threading.Lock()
         self._running: set[str] = set()
+        self.stopped = False   # the app is closing: no new matches start
 
     def _lock(self, cid: str) -> threading.Lock:
         with self._guard:
@@ -216,6 +217,8 @@ class Cups:
         """Plays every match that does not need you, one after another (a background thread), until only yours are left or the cup is
         over. Nothing happens if it is already doing it."""
         with self._guard:
+            if self.stopped:
+                return {"simulating": False}
             if cid in self._running:
                 return {"simulating": True}
             c = self.svc.store.cup(cid)
@@ -227,7 +230,7 @@ class Cups:
 
     def _loop(self, cid: str) -> None:
         try:
-            while True:
+            while not self.stopped:
                 c = self.svc.store.cup(cid)
                 if c["status"] != "active":
                     return
@@ -275,6 +278,8 @@ class Cups:
         svc = self.svc
         rng = random.Random(f"{cid}:{r}:{i}")
         for _ in range(MAX_GAMES):
+            if self.stopped:
+                return
             c = svc.store.cup(cid)
             m = c["rounds"][r][i]
             if c["status"] != "active" or m["state"] == "done":
@@ -285,7 +290,7 @@ class Cups:
             arena = svc.arenas.spec(spec["rt_arena"]) if rt else ""
             res = svc.engine.run_job("tournament", {"format": spec["format"], "rules": spec["rules"], "level_rules": spec["level_rules"],
                                                     "entrants": [a, b], "kind": "bracket", "best_of": 1, "mode": spec["mode"],
-                                                    "time_limit": spec["time_limit"], "arena": arena,
+                                                    "time_limit": spec["time_limit"], "arena": arena, "max_turns": svc.settings["max_turns"],
                                                     "version": spec.get("version") or 0}, timeout=3 * 3600)
             g = ((res.get("matches") or [{}])[0].get("games") or [{}])[0]
             summary = g.get("summary") or {}
