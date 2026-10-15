@@ -5,6 +5,7 @@ The UI, the REST agent route and the MCP bridge all call these methods through `
 from __future__ import annotations
 
 import base64
+import contextlib
 import hashlib
 import io
 import json
@@ -64,12 +65,25 @@ class Services:
     # ------------------------------------------------------------ lifecycle
     def start(self) -> None:
         # work that was running when the app stopped will not finish: say so instead of leaving it "running" forever
+        orphans = []
         for job in self.store.jobs(status="running") + self.store.jobs(status="queued"):
             self.store.update_job(job["id"], {"status": "failed", "error": "The app stopped while this was running."})
+            if (job.get("args") or {}).get("prospero_job"):
+                orphans.append(job["args"]["prospero_job"])
+        if orphans:   # a sprite render Prospero is still doing for nobody: stop it, the GPU is better free
+            threading.Thread(target=self._cancel_prospero_jobs, args=(orphans,), name="silver-orphans", daemon=True).start()
         for b in self.store.battles(status="running", limit=500):
             self.store.update_battle(b["id"], {"status": "failed"})
         if self.config.background:
             threading.Thread(target=self._warm, name="silver-warm", daemon=True).start()
+
+    def _cancel_prospero_jobs(self, ids: list[str]) -> None:
+        for pid in ids:
+            try:
+                self._prospero_call("studio_cancel_job", {"job_id": pid}, write=True)
+                log.info("cancelled the orphaned Prospero render %s", pid)
+            except SilverError as exc:
+                log.info("could not cancel the Prospero render %s: %s", pid, exc.message)
 
     def _warm(self) -> None:
         try:
@@ -1364,7 +1378,7 @@ class Services:
         title = f"Sprite dibujado ({description[:40] or f'{len(paths)} foto(s)'})"
         return self._job("avatar", title, {"trainer_id": trainer_id, "photos": len(paths), "description": description, "styles": len(styles)},
                          lambda jid, progress, cancelled: self._prospero_sprite(paths, description, trainer_id, count, progress, cancelled,
-                                                                                styles=styles))
+                                                                                styles=styles, silver_job=jid))
 
     # ------------------------------------------------------------ art-style references for drawn sprites
     MAX_STYLE_REFS = 3
@@ -1490,6 +1504,8 @@ class Services:
             raise SilverError("unavailable", "Prospero sent an empty picture.")
         return data
 
+    PROSPERO_RETRY_S = 5.0   # pause before asking Prospero again after it (or the hub) did not answer
+
     def _prospero_wait(self, job: dict[str, Any], cancelled: Callable[[], bool], progress: Callable[[float], None]) -> dict[str, Any]:
         """Poll one Prospero job until it ends; cancelling here cancels it there."""
         job_id = job.get("id")
@@ -1511,7 +1527,7 @@ class Services:
                 misses += 1
                 if misses >= 6:
                     raise
-                time.sleep(5)
+                time.sleep(self.PROSPERO_RETRY_S)
                 job = {"id": job_id, "state": "unknown"}
                 continue
             p = job.get("progress")
@@ -1564,7 +1580,7 @@ class Services:
             pass
 
     def _prospero_sprite(self, photos: list[str], description: str, trainer_id: str, count: int, progress: Callable[[float], None],
-                         cancelled: Callable[[], bool], *, styles: Optional[list[str]] = None) -> dict[str, Any]:
+                         cancelled: Callable[[], bool], *, styles: Optional[list[str]] = None, silver_job: str = "") -> dict[str, Any]:
         progress(0.02)
         projects = self._prospero_call("studio_projects", {"query": "Silver's Hoard", "limit": 20}) or {}
         items = (projects.get("items") if isinstance(projects, dict) else None) or []
@@ -1605,6 +1621,9 @@ class Services:
         job_id = job.get("id")
         if not job_id:
             raise SilverError("unavailable", "Prospero did not queue the picture.")
+        if silver_job:   # so a restart of this app can cancel the render it leaves behind
+            with contextlib.suppress(Exception):
+                self.store.update_job(silver_job, {"args": {**self.store.job(silver_job).get("args", {}), "prospero_job": job_id}})
         job = self._prospero_wait(job, cancelled, lambda p: progress(0.1 + 0.7 * p))
         base = self._prospero_url()
         files = []
