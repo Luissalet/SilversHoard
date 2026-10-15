@@ -11,6 +11,7 @@ const LEVELS = {
   normal: {react: 0.45, dodge: 0.3, aim: 0.6, switching: false, spread: 0.2},
   hard: {react: 0.25, dodge: 0.6, aim: 0.85, switching: true, spread: 0.05},
   expert: {react: 0.15, dodge: 0.85, aim: 1, switching: true, spread: 0},
+  master: {react: 0.15, dodge: 0.85, aim: 1, switching: true, spread: 0},     // the turn-based search has no real-time form
 };
 const STYLES = {
   balanced: {damage: 1, setup: 1, status: 1, protect: 1, heal: 1, range: 1},

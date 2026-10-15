@@ -14,7 +14,11 @@ export function compactTrace(trace) {
     slots: (trace.slots || []).map((s) => ({slot: s.slot, mon: s.mon, hp: round(s.hp), faster: s.faster,
       threat: s.threat ? {...s.threat, frac: round(s.threat.frac)} : null, picked: compactOption(s.picked),
       options: (s.options || []).slice(0, 5).map(compactOption)})),
-    playouts: (trace.playouts || []).slice(0, 4).map((p) => ({choice: p.choice, label: p.label, mean: round(p.mean), worst: round(p.worst)})),
+    playouts: (trace.playouts || []).slice(0, 4).map((p) => ({choice: p.choice, label: p.label, kind: p.kind, name: p.name, species: p.species, gimmick: p.gimmick,
+      mean: round(p.mean), worst: round(p.worst)})),
+    ...(trace.search ? {search: {iterations: trace.search.iterations, options: trace.search.options.slice(0, 4).map((p) => ({choice: p.choice,
+      label: p.label, kind: p.kind, name: p.name, species: p.species, gimmick: p.gimmick, share: round(p.share), win: round(p.win)}))}} : {}),
+    ...(trace.fallback ? {fallback: trace.fallback} : {}),
     ...(trace.error ? {error: trace.error} : {})};
 }
 

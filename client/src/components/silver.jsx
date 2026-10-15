@@ -8,7 +8,7 @@ import { Bar, Busy, CopyButton, Field, Icon, ICONS, Modal, Spinner, Tabs, useBus
 import { usePoll } from "./hooks.js";
 import { BadgeArt } from "./badges.jsx";
 
-export const AI_LEVELS = ["random", "easy", "normal", "hard", "expert"];
+export const AI_LEVELS = ["random", "easy", "normal", "hard", "expert", "master"];
 export const AI_STYLES = ["balanced", "aggressive", "defensive", "setup", "stall"];
 
 export function Avatar({ url, name = "", size = 48, pixelated = true, className = "" }) {
