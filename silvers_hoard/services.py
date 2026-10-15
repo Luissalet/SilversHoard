@@ -28,6 +28,7 @@ from .errors import SilverError
 from .hoard_link import family
 from .hoard_link.tokens import read_or_create_token
 from .credits import Credits
+from .cups import Cups
 from .fxcache import FxCache
 from .pmd import PmdSprites
 from .smogon import Smogon
@@ -98,6 +99,7 @@ class Services:
         self._http_get = http_get or _http_get
         self.credits = Credits(config.sprites_dir.parent / "credits", self.settings, http_get or _http_get, self.pmd._base)
         self.fx = FxCache(config.sprites_dir.parent / "fx", self.settings, http_get=http_get)
+        self.cups = Cups(self)
         self.pool = ThreadPoolExecutor(max_workers=2, thread_name_prefix="silver-job")
         self._cancel: dict[str, bool] = {}
         self._battle_locks: dict[str, threading.Lock] = {}
@@ -118,6 +120,7 @@ class Services:
             threading.Thread(target=self._cancel_prospero_jobs, args=(orphans,), name="silver-orphans", daemon=True).start()
         for b in self.store.battles(status="running", limit=500):
             self.store.update_battle(b["id"], {"status": "failed"})
+        self.cups.recover()   # matches the AI was playing when the app stopped are ready again
         if self.config.background:
             threading.Thread(target=self._warm, name="silver-warm", daemon=True).start()
 
@@ -1095,6 +1098,8 @@ class Services:
                 out["run"] = self.run_view(self.store.run(b["run_id"]), light=True)
             except SilverError:
                 pass
+        if (b.get("run_id") or "").startswith("cup_"):
+            out["cup"] = self.cups.battle_link(b["run_id"])
         return out
 
     def battle_choose(self, id_: str, side: str, choice: str, since: int = 0) -> dict[str, Any]:
@@ -1143,6 +1148,8 @@ class Services:
                 out["run"] = self.run_view(self.store.run(b["run_id"]), light=True)
             except SilverError:
                 pass
+        if (b.get("run_id") or "").startswith("cup_"):
+            out["cup"] = self.cups.battle_link(b["run_id"])
         return out
 
     def _finish(self, id_: str) -> None:
@@ -1273,7 +1280,9 @@ class Services:
             if tid and b["kind"] not in ("series", "tournament"):
                 self.store.record_result(tid, "tie" if not w else "win" if w == side else "loss")
         self.emit("battle.ended", {"id": id_, "winner": b.get("winner_name"), "kind": b["kind"]})
-        if b.get("run_id"):
+        if (b.get("run_id") or "").startswith("cup_"):
+            self.cups.on_battle_end(b["run_id"], b)
+        elif b.get("run_id"):
             self._advance_run(b["run_id"], b)
 
     # ------------------------------------------------------------ real-time battles (Legends: Z-A rules)
@@ -1348,6 +1357,8 @@ class Services:
                 out["run"] = self.run_view(self.store.run(b["run_id"]), light=True)
             except SilverError:
                 pass
+        if (b.get("run_id") or "").startswith("cup_"):
+            out["cup"] = self.cups.battle_link(b["run_id"])
         return out
 
     def rt_save(self, id_: str, *, inputs: list[list[Any]], tick: int) -> dict[str, Any]:
