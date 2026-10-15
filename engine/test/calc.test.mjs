@@ -62,3 +62,9 @@ test('moves are measured as used: Mega Evolution, type-changing abilities, Weath
   const none = damageCalc({attacker: peli, defender: 'Charizard\n- Ember', weather: ''});
   assert.equal(none.moves[0].type, 'Normal');
 });
+
+test('a defender given as just a species works', () => {
+  const r = damageCalc({attacker: CHOMP, defender: {species: 'Gyarados', level: 50}});
+  assert.equal(r.defender.species, 'Gyarados');
+  assert.ok(r.moves.find((m) => m.id === 'outrage').max > 0);
+});
