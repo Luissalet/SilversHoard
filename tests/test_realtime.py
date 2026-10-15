@@ -1,6 +1,7 @@
 """Real-time battles (Legends: Z-A rules): started, watched, finished from the screen's inputs, in series, tournaments and gyms."""
 
 from conftest import TEAM, needs_engine, wait_for
+from silvers_hoard.services import RT_RULES_VERSION
 
 pytestmark = needs_engine
 
@@ -51,7 +52,7 @@ def test_arena_rules_version_and_old_battles(call, services):
     seats = {"p1": {"trainer_id": me["id"], "human": True}, "p2": {"trainer_id": foe["id"]}, "mode": "realtime"}
     bt = call("battle_start", seats)
     spec = bt["rt"]["spec"]
-    assert spec["arena"] == "rocks" and spec["version"] == 3 and bt["rt"]["arena"] == "rocks", "new battles: rocks and the current rules"
+    assert spec["arena"] == "rocks" and spec["version"] == RT_RULES_VERSION and bt["rt"]["arena"] == "rocks", "new battles: rocks and the current rules"
     assert call("battle_start", {**seats, "rt_arena": "open"})["rt"]["spec"]["arena"] == "open"
     call("battle_start", {**seats, "rt_arena": "lava"}, status=400)
     with __import__("pytest").raises(Exception):
@@ -84,7 +85,7 @@ def test_series_tournament_and_gym_in_real_time(call):
     assert res["result"]["mode"] == "realtime" and res["result"]["count"] == 3 and res["result"]["avg_seconds"] > 0
     assert all(x["mode"] == "realtime" for x in res["battles"])
     sample = call("battle_get", {"id": res["battles"][0]["id"]})["rt"]["spec"]
-    assert sample["arena"] == "rocks" and sample["version"] == 3, "series battles replay with their arena and rules"
+    assert sample["arena"] == "rocks" and sample["version"] == RT_RULES_VERSION, "series battles replay with their arena and rules"
     tour = call("tournament_start", {"trainer_ids": [a["id"], b["id"], c["id"]], "mode": "realtime", "time_limit": 45})
     tres = wait_for(lambda: (j := call("job_get", {"id": tour["id"]}))["status"] == "done" and j)
     assert tres["result"]["champion"] and all(x["mode"] == "realtime" for x in tres["battles"])
@@ -126,7 +127,7 @@ def test_doubles_in_real_time(call, services):
     foe = call("trainer_random", {"ai_level": "hard", "seed": "rt-dbl"})
     seats = {"p1": {"trainer_id": me["id"], "human": True}, "p2": {"trainer_id": foe["id"]}, "mode": "realtime"}
     bt = call("battle_start", {**seats, "format": "gen9doublescustomgame", "seed": "dbl-api", "time_limit": 40})
-    assert bt["format"] == "gen9doublescustomgame" and bt["rt"]["spec"]["version"] == 3
+    assert bt["format"] == "gen9doublescustomgame" and bt["rt"]["spec"]["version"] == RT_RULES_VERSION
     # the screen's rows carry the controlled slot and the locked foe slot; the server replays them and stores that result
     inputs = [[1, 0, 1, 0, -1, 0, -1, 1, 0, 0, 0, 0], [10, 0, 1, 0.5, 0, 0, -1, 1, 0, 0, 1, 1], [40, 0, -1, 0, 2, 0, -1, 1, 0, 0, 0, 1],
               [80, 0, 0, 0, 1, 1, -1, 0, 0, 0, 1, 0], [120, 0, 0.5, -0.5, 3, 0, -1, 1, 0, 0, 0, 0]]
