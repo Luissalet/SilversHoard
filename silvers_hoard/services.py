@@ -21,12 +21,13 @@ from pathlib import Path
 from typing import Any, Callable, Optional
 
 from . import APP_ID, __version__
-from . import facilities, game_leagues, progress, sharing
+from . import facilities, game_leagues, progress, sharing, unbound_save
 from .config import AI_LEVELS, AI_STYLES, REPO_ROOT, Config, Settings, find_node
 from .engine import master_status
 from .engine import Engine
 from .errors import SilverError
 from .hoard_link import family
+from .hoard_link.atomic import write_bytes_atomic
 from .hoard_link.tokens import read_or_create_token
 from .credits import Credits
 from .arenas import CUSTOM as ARENA_CUSTOM, Arenas, same as arenas_same
@@ -63,11 +64,16 @@ _CLASS_ES = {
 }
 STATIC_DIR = Path(__file__).resolve().parent / "static"
 PLAY_TEMPLATE = STATIC_DIR / "play" / "play.html"
-DIALOGUE_KEYS = ("intro", "win", "lose", "last")
+# lines a trainer says: at the start, its last Pokémon, winning, losing, and during the battle when it knocks out, loses a Pokémon,
+# lands a super-effective hit or switches (shown in the app and on the playable page)
+LINE_KEYS = ("intro", "win", "lose", "last", "on_ko", "on_faint", "on_super", "on_switch")
+DIALOGUE_KEYS = (*LINE_KEYS, "phase", "phase_when", "phase_level", "phase_style")
+PHASE_WHEN = ("half", "last")
 # Real-time battles: the rules version stored with every new battle (1 = the first rules, which battles stored without one keep:
 # always locked on, no Mega Evolution; 2 = free aim, the Mega Power gauge, Plus moves and Mega Evolution; 3 = doubles formats
-# field two Pokémon per trainer, singles play as in 2; 4 = no Plus moves, the gauge only for Mega Evolution) and the arenas.
-RT_RULES_VERSION = 4
+# field two Pokémon per trainer, singles play as in 2; 4 = no Plus moves, the gauge only for Mega Evolution; 5 = the ultimate
+# gauge) and the arenas.
+RT_RULES_VERSION = 5
 RT_ARENAS = ("open", "rocks")
 
 
@@ -96,6 +102,9 @@ class Services:
         config.paths.ensure()
         for folder in (config.avatars_dir, config.sprites_dir, config.exports_dir):
             folder.mkdir(parents=True, exist_ok=True)
+        self._banter_guard = threading.Lock()
+        self._banter_busy: set[str] = set()
+        self._banter_queue: dict[str, list[dict[str, Any]]] = {}
         self.token = read_or_create_token(config.token_path)
         self.settings = Settings(config.settings_path)
         self.store = Store(config.db_path)
@@ -399,7 +408,26 @@ class Services:
         raise SilverError("invalid", "avatar must be sd:<trainer sprite name> or file:<uploaded file>")
 
     def _clean_dialogue(self, d: Optional[dict[str, Any]]) -> dict[str, str]:
-        return {k: str((d or {}).get(k) or "").strip()[:280] for k in DIALOGUE_KEYS if (d or {}).get(k)}
+        """The trainer's lines, and its change of tactics: phase_when (half: its team's HP falls to half; last: its last Pokémon),
+        phase_level and phase_style (what its AI turns into then) and phase (what it says)."""
+        out = {k: str((d or {}).get(k) or "").strip()[:280] for k in DIALOGUE_KEYS if (d or {}).get(k)}
+        if out.get("phase_when") and out["phase_when"] not in PHASE_WHEN:
+            raise SilverError("invalid", "phase_when is half or last")
+        if out.get("phase_level") and out["phase_level"] not in AI_LEVELS:
+            raise SilverError("invalid", f"phase_level must be one of {', '.join(AI_LEVELS)}")
+        if out.get("phase_style") and out["phase_style"] not in AI_STYLES:
+            raise SilverError("invalid", f"phase_style must be one of {', '.join(AI_STYLES)}")
+        return out
+
+    @staticmethod
+    def _phase_of(dialogue: Optional[dict[str, Any]]) -> Optional[dict[str, str]]:
+        """The change of tactics the engine plays (match.mjs phaseOf does the same on the playable page)."""
+        d = dialogue or {}
+        if d.get("phase_when") not in PHASE_WHEN:
+            return None
+        line = d.get("phase") or (d.get("last") if d["phase_when"] == "last" else "") or ""
+        return {"when": d["phase_when"], **({"level": d["phase_level"]} if d.get("phase_level") else {}),
+                **({"style": d["phase_style"]} if d.get("phase_style") else {}), **({"line": str(line)[:280]} if line else {})}
 
     def trainers_trash(self, ids: list[str]) -> dict[str, Any]:
         return {"trashed": self.store.trash_trainers(ids)}
@@ -449,11 +477,13 @@ class Services:
         language = "castellano de España" if lang == "es" else "English"
         prompt = (f"Write the battle lines of a Pokémon trainer for a fan battle simulator, in {language}. Trainer: {t['name']}"
                   f"{' (' + t['title'] + ')' if t['title'] else ''}. Team: {team}. Personality: {personality or 'infer it from the team and title'}. "
-                  "Return JSON with keys intro (said before the battle), win (when the trainer wins), lose (when the trainer loses) and last "
-                  "(when sending the last Pokémon). One or two short sentences each, in character, no emojis, no quotes.")
+                  "Return JSON with keys intro (said before the battle), win (when the trainer wins), lose (when the trainer loses), last "
+                  "(when sending the last Pokémon), on_ko (when its Pokémon knocks out a foe), on_faint (when one of its Pokémon faints), "
+                  "on_super (when it lands a super-effective hit) and on_switch (when it switches Pokémon). One or two short sentences each "
+                  "(on_* only one, short), in character, no emojis, no quotes.")
         res = family.chat([{"role": "user", "content": prompt}],
-                          json={"type": "object", "properties": {k: {"type": "string"} for k in DIALOGUE_KEYS}, "required": list(DIALOGUE_KEYS)},
-                          effort="low", max_tokens=600, timeout=180)
+                          json={"type": "object", "properties": {k: {"type": "string"} for k in LINE_KEYS}, "required": list(LINE_KEYS)},
+                          effort="low", max_tokens=800, timeout=180)
         if not res.get("ok"):
             raise SilverError("unavailable", f"No language model answered: {res.get('detail') or res.get('error')}",
                               hint="Start Hoard Hub and a model (Faustus, the Sparks or Ollama), or write the lines by hand.")
@@ -463,9 +493,11 @@ class Services:
                 lines = json.loads(res.get("text") or "{}")
             except ValueError:
                 lines = {}
-        dialogue = self._clean_dialogue(lines)
+        dialogue = self._clean_dialogue({k: v for k, v in lines.items() if k in LINE_KEYS})
         if not dialogue:
             raise SilverError("unavailable", "The model did not return the lines.")
+        # the change of tactics (phase_*) stays as it was
+        dialogue = {**{k: v for k, v in (t.get("dialogue") or {}).items() if k not in LINE_KEYS}, **dialogue}
         self.store.update_trainer(id_, {"dialogue": dialogue})
         return {"dialogue": dialogue, "model": res.get("model")}
 
@@ -1051,7 +1083,8 @@ class Services:
             self.neural.ensure()   # its server starts in the background; until it answers, the side plays as the expert
         hidden = spec.get("ai_hidden")
         hidden = bool(self.settings["ai_hidden_info"]) if hidden is None else bool(hidden)
-        ai = {"level": level, "style": style, **({"hidden": True} if hidden else {})}
+        phase = self._phase_of(dialogue)
+        ai = {"level": level, "style": style, **({"hidden": True} if hidden else {}), **({"phase": phase} if phase else {})}
         return {"trainer_id": spec.get("trainer_id") or "", "name": name, "avatar": avatar, "avatar_url": self.avatar_url(avatar), "human": human,
                 "ai": None if human else ai, "sets": sets, "dialogue": dialogue, "format": fmt}
 
@@ -1123,6 +1156,9 @@ class Services:
             spec["seed"] = seed
         watch = not s1["human"] and not s2["human"]
         kind = kind or ("watch" if watch else "play")
+        if self.settings.get("pmd_sprites", True) and self.config.background:
+            # the faces the screen shows for lines, knockouts and the result, fetched while the battle starts
+            self.pool.submit(self.pmd.prefetch_portraits, [str(x.get("species") or "") for x in s1["sets"] + s2["sets"]])
         bid = self.store.add_battle({"kind": kind, "status": "running" if watch else "live", "format": fmt, "rules": rules, "level_rules": level_rules,
                                      "p1": s1, "p2": s2, "run_id": run_id, "title": title, "seed": json.dumps(seed) if seed else ""})
         spec["id"] = bid
@@ -1152,6 +1188,7 @@ class Services:
                                                "winner_name": (r.get("summary") or {}).get("winner", ""), "turns": r.get("turns") or 0,
                                                "seed": str(r.get("seed") or ""), "replay": {"input": r.get("input_log") or []}})
                 self._after_end(bid)
+                self._banter_later(bid, r.get("notes") or [])
             except Exception as exc:  # noqa: BLE001 - the battle row says what happened
                 log.exception("watch battle %s", bid)
                 self.store.update_battle(bid, {"status": "failed", "summary": {"error": str(getattr(exc, "message", exc))[:300]}})
@@ -1177,6 +1214,10 @@ class Services:
         summary = b.get("summary") or {}
         out.update({"rules": b.get("rules") or [], "level_rules": b.get("level_rules") or {},
                     "summary": {k: v for k, v in summary.items() if k != "ai_notes"}, "ai_notes_count": len(summary.get("ai_notes") or [])})
+        banter = self.banter_of(id_)
+        if banter or id_ in self._banter_busy:
+            out["banter"] = banter
+            out["banter_pending"] = id_ in self._banter_busy
         if (b.get("mode") or "classic") == "realtime":
             return self._rt_view(b, out, since)
         if b["status"] == "live":
@@ -1314,6 +1355,111 @@ class Services:
         summary = dict(b.get("summary") or {})
         summary["ai_notes"] = [*(summary.get("ai_notes") or []), *notes][-self.MAX_NOTES:]
         self.store.update_battle(id_, {"summary": summary})
+        self._banter_later(id_, notes)
+
+    # ------------------------------------------------------------ the rival talks (the AI comments its moves in character)
+    MAX_BANTER = 80
+
+    def _banter_path(self, id_: str) -> Path:
+        return self.config.data_dir / "banter" / f"{re.sub(r'[^A-Za-z0-9_-]', '', id_)[:80]}.json"
+
+    def banter_of(self, id_: str) -> list[dict[str, Any]]:
+        try:
+            return json.loads(self._banter_path(id_).read_text("utf-8"))
+        except (OSError, ValueError):
+            return []
+
+    def _banter_later(self, id_: str, notes: list[dict[str, Any]]) -> None:
+        """With the ai_banter setting on, the family's language model turns the AI's new decisions into lines of its trainer, in the
+        background: the turn never waits for it (battle_get hands out the lines as they come)."""
+        if not self.settings.get("ai_banter") or not notes:
+            return
+        with self._banter_guard:
+            if id_ in self._banter_busy:
+                self._banter_queue.setdefault(id_, []).extend(notes)
+                return
+            self._banter_busy.add(id_)
+        self.pool.submit(self._banter_run, id_, list(notes))
+
+    def _banter_run(self, id_: str, notes: list[dict[str, Any]]) -> None:
+        try:
+            while notes:
+                try:
+                    self._banter(id_, notes)
+                except Exception as exc:  # noqa: BLE001 - lines are decoration; the battle goes on without them
+                    log.info("banter %s: %s", id_, exc)
+                with self._banter_guard:
+                    notes = self._banter_queue.pop(id_, [])
+        finally:
+            with self._banter_guard:
+                self._banter_busy.discard(id_)
+
+    def _banter(self, id_: str, notes: list[dict[str, Any]]) -> None:
+        b = self.store.battle(id_)
+        have = self.banter_of(id_)
+        if len(have) >= self.MAX_BANTER:
+            return
+        done = {(x.get("turn"), x.get("side")) for x in have}
+        # one line per trainer and turn: its last decision of that turn, a move or a switch (not the forced replacement after a K.O.)
+        picks: dict[tuple[Any, Any], dict[str, Any]] = {}
+        for n in notes:
+            key = (n.get("turn"), n.get("side"))
+            if key in done or n.get("side") not in ("p1", "p2") or n.get("kind") in ("switch_in", "team") or not n.get("turn"):
+                continue
+            picks[key] = n
+        if not picks:
+            return
+        def seat(side: str) -> str:
+            s = b.get(side) or {}
+            tr = self.store.trainer(s["trainer_id"], deleted=True) if s.get("trainer_id") else {}
+            who = s.get("name") or side
+            extra = " ".join(x for x in (tr.get("title") or "", (tr.get("dialogue") or {}).get("intro") or "") if x)
+            return f"{who}{' — ' + extra if extra else ''}"
+        def what(n: dict[str, Any]) -> str:
+            slot = (n.get("slots") or [{}])[0]
+            picked = slot.get("picked") or {}
+            parts = [f"turn {n.get('turn')}", f"trainer {n.get('side')}: {seat(n['side'])}", f"its Pokémon {slot.get('mon') or '?'}"]
+            if picked.get("kind") == "switch" or str(n.get("choice", "")).startswith("switch"):
+                parts.append(f"switches to {picked.get('species') or picked.get('name') or 'another Pokémon'}")
+            else:
+                parts.append(f"uses {picked.get('name') or n.get('choice')}" + (f" on {picked['target']}" if picked.get("target") else ""))
+                if picked.get("ko"):
+                    parts.append("expecting a knockout")
+            threat = slot.get("threat") or {}
+            if threat.get("move"):
+                parts.append(f"fearing {threat.get('foe')}'s {threat.get('move')}")
+            return "; ".join(parts)
+        items = list(picks.items())[: self.MAX_BANTER - len(have)][:8]
+        prompt = ("You write what Pokémon trainers say in a fan battle simulator, in castellano de España, in character, as they make each move. "
+                  "For each decision below write one short line (at most 14 words) the trainer says aloud, no emojis, no quotes, never "
+                  "mentioning AI or numbers. Return JSON {\"lines\": [{\"i\": index, \"line\": text}]}.\n"
+                  + "\n".join(f"{i}. {what(n)}" for i, (_, n) in enumerate(items)))
+        res = family.chat([{"role": "user", "content": prompt}],
+                          json={"type": "object", "properties": {"lines": {"type": "array", "items": {"type": "object", "properties": {
+                              "i": {"type": "integer"}, "line": {"type": "string"}}, "required": ["i", "line"]}}}, "required": ["lines"]},
+                          effort="low", max_tokens=700, timeout=120)
+        if not res.get("ok"):
+            return
+        data = res.get("json") if isinstance(res.get("json"), dict) else {}
+        if not data:
+            try:
+                data = json.loads(res.get("text") or "{}")
+            except ValueError:
+                data = {}
+        fresh = []
+        for x in data.get("lines") or []:
+            try:
+                (turn, side), _ = items[int(x.get("i"))]
+            except (TypeError, ValueError, IndexError):
+                continue
+            line = " ".join(str(x.get("line") or "").split()).strip("\"'«» ")[:160]
+            if line:
+                fresh.append({"turn": turn, "side": side, "line": line})
+        if fresh:
+            path = self._banter_path(id_)
+            path.parent.mkdir(parents=True, exist_ok=True)
+            merged = sorted([*self.banter_of(id_), *fresh], key=lambda x: (x.get("turn") or 0, x.get("side") or ""))[: self.MAX_BANTER]
+            write_bytes_atomic(path, json.dumps(merged, ensure_ascii=False).encode("utf-8"), fsync=False)
 
     def battle_explain(self, id_: str, *, side: str = "", turn: int = 0, from_turn: int = 0, advice: bool = True, limit: int = 6) -> dict[str, Any]:
         """Why the AI seats chose what they chose: one note per decision (the options it weighed with expected damage and KOs, the threat
@@ -1433,13 +1579,37 @@ class Services:
         return {"id": b["id"], "seed": b.get("seed") or b["id"], "format": b["format"], "level_rules": b.get("level_rules") or {},
                 "time_limit": int(replay.get("time_limit") or self.settings.get("rt_time_limit") or 300), "p1": seat(b.get("p1") or {}),
                 "p2": seat(b.get("p2") or {}), "version": int(replay.get("version") or 1),
-                "arena": replay.get("arena") if replay.get("arena") in RT_ARENAS or isinstance(replay.get("arena"), dict) else "open"}
+                "arena": replay.get("arena") if replay.get("arena") in RT_ARENAS or isinstance(replay.get("arena"), dict) else "open",
+                **({"training": replay["training"]} if replay.get("training") else {})}
+
+    TRAINING_PATTERNS = ("still", "walk", "dodge", "fight")
+    TRAINING_DUMMY = ("Sudowoodo @ Leftovers\nAbility: Sturdy\nLevel: 100\nEVs: 252 HP / 252 Def / 4 SpD\nImpish Nature\n"
+                      "- Rock Slide\n- Wood Hammer\n- Sucker Punch\n- Earthquake\n")
+
+    def training_start(self, *, trainer_id: str, pattern: str = "still", dummy_id: str = "", format_: str = "", arena: str = "open",
+                       time_limit: int = 300, level_rules: Optional[dict[str, Any]] = None) -> dict[str, Any]:
+        """Real-time training: your trainer against a dummy that never faints (a knockout heals it back), standing still, walking in
+        circles, rolling away from attacks or fighting back like the easy AI. The dummy is a Sudowoodo or the team of `dummy_id`.
+        Nothing is counted: no record, no progress, no medals."""
+        if pattern not in self.TRAINING_PATTERNS:
+            raise SilverError("invalid", f"pattern is one of {', '.join(self.TRAINING_PATTERNS)}")
+        foe = {"trainer_id": dummy_id} if dummy_id else {"paste": self.TRAINING_DUMMY, "name": "Muñeco de entrenamiento"}
+        return self._rt_start(p1={"trainer_id": trainer_id, "human": True}, p2=foe, format_=format_, level_rules=level_rules,
+                              kind="training", title="Entrenamiento", time_limit=time_limit, arena=arena, training={"pattern": pattern})
 
     def _rt_start(self, *, p1: dict[str, Any], p2: dict[str, Any], format_: str = "", level_rules: Optional[dict[str, Any]] = None,
-                  kind: str = "", run_id: str = "", title: str = "", seed: Any = None, time_limit: int = 0, arena: str = "rocks") -> dict[str, Any]:
+                  kind: str = "", run_id: str = "", title: str = "", seed: Any = None, time_limit: int = 0, arena: str = "rocks",
+                  training: Optional[dict[str, Any]] = None) -> dict[str, Any]:
         arena = self.arenas.spec(_rt_arena(arena))
         s1, s2 = self._seat(p1, "Jugador 1"), self._seat(p2, "Jugador 2")
+        if training:
+            # a training battle counts for nobody: the seats keep the names and teams but no trainer ids
+            s1["trainer_id"] = s2["trainer_id"] = ""
+            s2["human"] = False
+            s2["ai"] = {"level": "dummy", "style": "balanced", "pattern": training["pattern"]}
         fmt = self._rt_format(format_ or s1["format"] or s2["format"] or self.settings["default_format"])
+        if training and self.format_info(fmt, []).get("game_type") == "doubles":
+            raise SilverError("invalid", "Training is for singles.", hint="Pick a singles format.")
         level_rules = level_rules or {}
         limit = max(30, min(int(time_limit or self.settings.get("rt_time_limit") or 300), 1800))
         watch = not s1["human"] and not s2["human"]
@@ -1447,7 +1617,8 @@ class Services:
         seed_text = str(seed) if seed else ""
         bid = self.store.add_battle({"kind": kind, "mode": "realtime", "status": "running" if watch else "live", "format": fmt, "rules": [],
                                      "level_rules": level_rules, "p1": s1, "p2": s2, "run_id": run_id, "title": title, "seed": seed_text,
-                                     "replay": {"time_limit": limit, "inputs": [], "tick": 0, "version": RT_RULES_VERSION, "arena": arena}})
+                                     "replay": {"time_limit": limit, "inputs": [], "tick": 0, "version": RT_RULES_VERSION, "arena": arena,
+                                                **({"training": training} if training else {})}})
         if not seed_text:
             self.store.update_battle(bid, {"seed": bid})
         spec = self._rt_spec(self.store.battle(bid))
@@ -1460,6 +1631,7 @@ class Services:
             mons = [m for side in (check.get("view") or {}).get("sides", []) for m in side.get("mons", [])]
             megas = [{**m["mega_info"], "shiny": m.get("shiny")} for m in mons if m.get("mega_info")]
             self.pool.submit(self.pmd.prefetch, mons + megas)
+            self.pool.submit(self.pmd.prefetch_portraits, [m.get("species") for m in mons] + [m.get("species") for m in megas])
         if watch:
             def work() -> None:
                 try:
@@ -1555,6 +1727,7 @@ class Services:
                 "Lock-on: holding focus (Shift / ZL) keeps the Pokémon facing the foe, so walking strafes and moves aim at the foe (and a move out of range walks up to it first). Without focus the Pokémon faces where it walks; moves go along that facing, snapping to the foe only within 30 degrees of it, so projectiles, beams and cones can miss and strikes and dashes lunge forward and only land if they reach. The AI always locks on; the simple control layout always sends focus.",
                 "Arena (rt_arena): open, or rocks (the default for new battles): 3 to 6 round rocks placed from the battle's seed, mirrored left to right, away from the spawn points and the centre line. They block walking, rolls and dashes, and stop projectiles and beams (and cones behind them); blasts that fall from the sky and quakes ignore them. The AI walks around them and avoids firing into them.",
                 "Mega Power gauge: three segments per trainer, filling one every 8 s and faster when dealing damage (a whole HP bar dealt = 0.8 of a segment); battles stored with rules version 2 fill one every 15 s (0.4 for a whole HP bar).",
+                "Ultimate (rules version 5): each trainer has an ultimate gauge that fills when its Pokémon deal damage (a whole HP bar dealt = half the gauge), take it (0.3) and knock out (a quarter). Full, the Plus key (F; ZL + + on a gamepad) unleashes the active Pokémon's ultimate: a 150-power attack of its first type, physical or special after its better attacking stat, that falls on the foe 0.9 s later in a 2.6 m circle drawn on the ground, so it can be rolled out of; it uses no move slot and no cooldown, and the gauge empties.",
                 "No Plus moves (rules version 4): the gauge is only for Mega Evolution. Battles stored with rules versions 2 and 3 keep theirs (a full segment armed a Plus move: x1.2 damage, x1.3 if super effective, more side effects and healing, larger areas, a quarter of the damage through protection; every move of a Mega Evolved Pokémon was one).",
                 "Mega Evolution: with a full gauge, a Pokémon holding its Mega Stone (or Rayquaza with Dragon Ascent) can Mega Evolve once per battle, from generation 6 formats on: the Mega forme's stats, types and ability, HP kept in proportion; it stays Mega while the gauge drains a segment every 8 s; when it empties (or the Pokémon leaves or faints) it goes back to its usual forme.",
                 "Doubles (doubles formats, rules version 3): each trainer has two Pokémon on the field at once, slot a above the centre line and slot b below it. A person moves one of them (the controlled one: moves 1-4 and roll are its own) and swaps which with Tab / C (gamepad L, or the left stick click in the simple layout); the partner is driven by the AI: it stays within reach, dodges, keeps 4 m from its partner, and attacks the person's locked foe unless the other foe is clearly better. X (the right stick click) switches the foe it locks on, shown with a reticle. The AI trainers play both of their Pokémon the same way and pick targets by the damage they can deal and by who threatens them.",
@@ -1589,7 +1762,9 @@ class Services:
         out["map"] = bool((r.get("challenger") or {}).get("map"))
         if r.get("kind") == "gym":   # the backdrop the gym's turn-based battles show
             with contextlib.suppress(SilverError):
-                out["backdrop"] = self.store.gym(r["target_id"], deleted=True).get("backdrop") or ""
+                gym = self.store.gym(r["target_id"], deleted=True)
+                out["backdrop"] = gym.get("backdrop") or ""
+                out["type"] = gym.get("type") or ""   # the music of its battles can follow it
         if out.get("mode") == "realtime":
             out["rt_arena"] = (r.get("challenger") or {}).get("rt_arena") or "rocks"
         out["challenger_avatar_url"] = self.avatar_url((r.get("challenger") or {}).get("avatar", ""))
@@ -2416,9 +2591,28 @@ class Services:
         self.emit("trainer.pokepaste", {"id": trainer_id, "url": url})
         return {"url": url, "name": t["name"]}
 
+    def unbound_save_import(self, data: bytes, *, name: str = "", format_: str = "") -> dict[str, Any]:
+        """The party of a Pokémon Unbound save file (.sav / .srm) as a new trainer: species and formes, held items, the ability each
+        one really has (Unbound's own, hidden ones included), moves, levels, natures, EVs, IVs, nicknames and shininess, played as
+        generation 8 custom games like the Unbound Battle Frontier trainers. Eggs and anything Showdown does not know are left out and
+        listed in ``skipped``."""
+        try:
+            party = unbound_save.read_party(data)
+        except unbound_save.NotASave as exc:
+            raise SilverError("invalid", str(exc), hint="Pick the .sav (or .srm) file your emulator writes for Pokémon Unbound 2.1.") from None
+        if not party["sets"]:
+            raise SilverError("empty_team", "The save has no Pokémon in the party.")
+        t = self.trainer_create(name=name or party["player"] or "Mi partida de Unbound", paste=unbound_save.showdown(party["sets"]),
+                                format_=format_ or "gen8customgame", origin="own",
+                                notes="Equipo importado de una partida de Pokémon Unbound." + (f" No se pudo traer: {', '.join(party['skipped'])}." if party["skipped"] else ""))
+        self.emit("trainer.unbound_import", {"id": t["id"], "count": len(party["sets"])})
+        return {"kind": "trainer", "trainer": t, "player": party["player"], "skipped": party["skipped"]}
+
     def import_any(self, content: Any, *, name: str = "", format_: str = "") -> dict[str, Any]:
-        """Import a share code, a result code, a .hoardtrainer/.hoardgym/.hoardleague file, a playable page, Showdown team text or a
-        pokepast.es link."""
+        """Import a share code, a result code, a .hoardtrainer/.hoardgym/.hoardleague file, a playable page, Showdown team text, a
+        pokepast.es link or a Pokémon Unbound save file (its party)."""
+        if isinstance(content, (bytes, bytearray)) and unbound_save.looks_like_save(bytes(content)):
+            return self.unbound_save_import(bytes(content), name=name, format_=format_)
         if isinstance(content, str) and self.POKEPASTE.match(content):
             return self.import_pokepaste(content, name=name, format_=format_)
         try:
@@ -2782,7 +2976,8 @@ class Services:
                 or forfeit not in ("", "p1")):
             raise SilverError("invalid", f"The record of the battle against {opp['name']} inside the code is damaged.")
         res = self.engine.run_job("replay_check", {"input": record, "format": fmt, "rules": rules, "level_rules": level_rules, "p1_sets": team,
-                                                   "p2_sets": opp["team"], "ai": {"level": opp["ai_level"], "style": opp["ai_style"]}, "rng_id": rng,
+                                                   "p2_sets": opp["team"], "ai": {"level": opp["ai_level"], "style": opp["ai_style"],
+                                                   **({"phase": self._phase_of(opp.get("dialogue"))} if self._phase_of(opp.get("dialogue")) else {})}, "rng_id": rng,
                                                    "forfeit": forfeit, **({"expect_seed": expect_seed} if expect_seed else {})}, timeout=900)
         if res.get("problems"):
             raise SilverError("invalid", f"The battle against {opp['name']} does not replay: {'; '.join(res['problems'])[:300]}.",

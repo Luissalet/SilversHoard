@@ -10,7 +10,18 @@ function ResultView({ r }) {
   const { t } = useApp();
   if (!r) return null;
   if (r.kind === "exercise") return <p className="banner banner-info" role="status">{t("training_imported",{name:r.exercise.title})}</p>;
-  if (r.kind === "trainer") return <div className="banner banner-info">{t("imported_trainer", { name: r.trainer.name })} <a className="btn-link" href={`#/entrenador/${r.trainer.id}`}>{t("open")}</a></div>;
+  if (r.kind === "trainer") {
+    return (
+      <div className="banner banner-info">
+        {t("imported_trainer", { name: r.trainer.name })} <a className="btn-link" href={`#/entrenador/${r.trainer.id}`}>{t("open")}</a>
+        {r.player !== undefined && <> {t("imported_save", { n: r.trainer.team.length })}</>}
+        {r.skipped?.length > 0 && <> {t("imported_save_skipped", { list: r.skipped.map((s) => {
+          const m = String(s).match(/^(\d+): (egg|move|item|ability|species)(?: #(\d+))?$/);
+          return m ? t(`ub_skip_${m[2]}`, { slot: m[1], id: m[3] || "" }) : s;
+        }).join(", ") })}</>}
+      </div>
+    );
+  }
   if (r.kind === "gym") return <div className="banner banner-info">{t("imported_gym", { name: r.gym.name })} <a className="btn-link" href={`#/gimnasio/${r.gym.id}`}>{t("open")}</a></div>;
   if (r.kind === "league") return <div className="banner banner-info">{t("imported_league", { name: r.league.name })} <a className="btn-link" href={`#/liga/${r.league.id}`}>{t("open")}</a></div>;
   if (r.kind === "result") {
@@ -56,7 +67,7 @@ export default function Compartir() {
         </div>
         <div className="panel space-y-3">
           <h2>{t("import_file")}</h2>
-          <input ref={fileRef} type="file" className="field" accept=".hoardtrainer,.hoardgym,.hoardleague,.silverexercise,.html,.json,.txt" />
+          <input ref={fileRef} type="file" className="field" accept=".hoardtrainer,.hoardgym,.hoardleague,.silverexercise,.html,.json,.txt,.sav,.srm" />
           <Busy busy={busy.f} className="btn btn-primary" onClick={importFile}><Icon d={ICONS.upload} size={14} /> {t("import")}</Busy>
           <p className="help">{t("import_file_help")}</p>
         </div>

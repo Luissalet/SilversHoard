@@ -5,6 +5,7 @@
 // light for Mega Evolution. Drawing only: it reads the battle's view and events and
 // never changes the battle, so it may use Math.random freely.
 import { TYPE_COLORS } from "../dex.js";
+import { KENNEY } from "./kenney.gen.js";
 
 const H = 0.6;          // projectiles fly this many meters over the ground
 const TAU = Math.PI * 2;
@@ -17,6 +18,47 @@ function rgba(hex, a) {
 }
 
 const has = (id, words) => words.some((w) => id.includes(w));
+
+// Textured particles: Kenney's Particle Pack (CC0) shapes, tinted to the particle's colour on a small canvas (cached), added with
+// "lighter" for light (glows, sparks, stars, bubbles) and laid normally for smoke. The setting "plain" keeps the drawn shapes.
+const PARTICLE_KEY = "silver-rt-particles";
+export function particleStyle() {
+  try { return localStorage.getItem(PARTICLE_KEY) === "plain" ? "plain" : "textured"; } catch { return "textured"; }
+}
+export function setParticleStyle(v) {
+  try { localStorage.setItem(PARTICLE_KEY, v === "plain" ? "plain" : "textured"); } catch { /* the default stays */ }
+  textured = v !== "plain";
+}
+let textured = particleStyle() !== "plain";
+const TEX = {};
+const TINTS = new Map();
+function texture(name) {
+  if (typeof Image === "undefined" || !KENNEY[name]) return null;
+  let t = TEX[name];
+  if (!t) { t = new Image(); t.src = KENNEY[name]; TEX[name] = t; }
+  return t.complete && t.naturalWidth ? t : null;
+}
+function tinted(name, color) {
+  const key = `${name}|${color}`;
+  const hit = TINTS.get(key);
+  if (hit) return hit;
+  const img = texture(name);
+  if (!img || typeof document === "undefined") return null;
+  const c = document.createElement("canvas");
+  c.width = img.naturalWidth;
+  c.height = img.naturalHeight;
+  const g = c.getContext("2d");
+  g.drawImage(img, 0, 0);
+  g.globalCompositeOperation = "source-in";
+  g.fillStyle = color || "#ffffff";
+  g.fillRect(0, 0, c.width, c.height);
+  if (TINTS.size > 300) TINTS.clear();
+  TINTS.set(key, c);
+  return c;
+}
+// particle kind -> [texture, blend, size in particle radii]
+const TEXTURED = { glow: ["glow", "lighter", 3.4], spark: ["spark", "lighter", 2.8], star: ["star", "lighter", 3.0], smoke: ["smoke", "source-over", 2.6],
+  bubble: ["circle", "lighter", 2.4], "ring-dot": ["circle", "lighter", 2.4], streak: null };
 
 // Beams drawn as a ray from the user to the head of the beam.
 const RAYS = {
@@ -438,7 +480,9 @@ export class Vfx {
 
   shakeOffset() {
     if (this.shake <= 0) return [0, 0];
-    const k = this.shake * this.r.scale;
+    // "trauma": the offset grows with the square of the shake, so small hits barely move the screen and big ones rock it
+    const trauma = Math.min(1, this.shake / 0.3);
+    const k = 0.32 * trauma * trauma * this.r.scale;
     return [rnd(-k, k), rnd(-k, k) * 0.6];
   }
 
@@ -623,6 +667,21 @@ export class Vfx {
   drawPart(ctx, p, s) {
     const a = (1 - p.t / p.life) * (p.alpha ?? 1);
     const x = this.px(p.x), y = this.py(p.y, p.z), r = p.size * s;
+    const tex = textured && TEXTURED[p.kind];
+    if (tex) {
+      const c = tinted(tex[0], p.color);
+      if (c) {
+        const size = r * tex[2] * (p.kind === "smoke" ? 1 + p.t / p.life : 1);
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, Math.min(1, a));
+        ctx.globalCompositeOperation = tex[1];
+        ctx.translate(x, y);
+        if (p.rot) ctx.rotate(p.rot);
+        ctx.drawImage(c, -size / 2, -size / 2, size, size);
+        ctx.restore();
+        return;
+      }
+    }
     switch (p.kind) {
       case "glow": {
         const g = ctx.createRadialGradient(x, y, 0, x, y, r * 1.6);

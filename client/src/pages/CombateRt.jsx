@@ -13,7 +13,7 @@ import { CupStrip } from "./Copa.jsx";
 export { RtScreen };     // the video page records a real-time replay with it (same chunk)
 
 export default function CombateRt({ battle, setData }) {
-  const { t, lang, sprites, changed, go } = useApp();
+  const { t, lang, sprites, changed, go, settings } = useApp();
   const seats = useSeats(battle);
   const title = battle.title || `${battle.p1.name} vs ${battle.p2.name}`;
   const humans = ["p1", "p2"].filter((s) => battle[s]?.human);
@@ -75,7 +75,7 @@ export default function CombateRt({ battle, setData }) {
       </div>
       <RunStrip run={battle.run} />
       <CupStrip cup={battle.cup} battle={battle} />
-      <RtScreen key={battle.id} battle={battle} lang={lang} sprites={sprites} seats={seats} onFinish={onFinish} onSave={onSave}
+      <RtScreen key={battle.id} battle={battle} lang={lang} sprites={sprites} seats={seats} onFinish={onFinish} onSave={onSave} musicSource={settings?.music_source}
         onAgain={!battle.run && !battle.cup && battle.kind !== "friend" ? again : null} />
     </div>
   );

@@ -36,7 +36,9 @@ const TRAINER = [{x: 1.6, y: ARENA.h / 2}, {x: ARENA.w - 1.6, y: ARENA.h / 2}];
 // formats play exactly as in version 2). 4: no Plus moves: the gauge is only for Mega Evolution, and a Mega Evolved Pokémon's
 // moves are ordinary ones (everything else as in version 3). A spec without `version` is version 1, so battles stored before
 // version 2 replay as they were played; the app stores `version` with every new battle.
-export const RULES_VERSION = 4;
+// 5: the ultimate gauge: dealing and taking damage and knockouts fill it, and when it is full the trainer unleashes its active
+// Pokémon's ultimate, a 150-power blast of its own type that falls on the foe after a telegraphed wind-up.
+export const RULES_VERSION = 5;
 export const ARENAS = ['open', 'rocks'];   // and custom arenas: {name, floor, rocks: [{x, y, r}]} from the arena designer
 export const FLOORS = ['grass', 'sand', 'ice', 'cave', 'indoor', 'water'];   // how a custom arena's ground looks (the rules are the same)
 export const MAX_ROCKS = 16;
@@ -53,6 +55,12 @@ const GAUGE_HIT = 1440;                          // dealing a whole HP bar of da
 // segment most battles ended before anyone could Mega Evolve.
 const GAUGE_FILL_V3 = GAUGE_SEGMENT / (8 * TPS);   // 15 per tick
 const GAUGE_HIT_V3 = 2880;
+// The ultimate gauge (rules version 5), per trainer, in integer units.
+export const ULT_MAX = 10000;
+export const ULT_SLOT = 9;                       // the input's `use` for the ultimate (moves are 0-3)
+const ULT_DEAL = 5000;                           // dealing a whole HP bar of damage: half the gauge
+const ULT_TAKE = 3000;                           // taking it: 0.3
+const ULT_KO = 2500;                             // a knockout
 export const PLUS = {damage: 1.2, superDamage: 1.3, secondary: 1.67, heal: 4 / 3, area: 1.2, pierce: 0.25};
 const AIM_ASSIST = Math.sqrt(3) / 2;             // cos 30°: not focusing, a move snaps to the foe within 30° of the facing (no trigonometry: sqrt is exact everywhere)
 const STRIKE_LUNGE = 0.6;                        // not focusing: a strike lunges this far forward
@@ -63,7 +71,7 @@ const ROCK_PASS = 2.3;                           // free space kept between rock
 // slots; where each Pokémon stands and what it is doing belongs to its slot.
 export const SPREAD = 0.75;                      // a spread move that hits more than one Pokémon does three quarters of the damage
 const SLOT_Y = [-3, 3];                          // the two slots start 3 m above and below the centre line
-const SHARED = ['id', 'index', 'name', 'ai', 'aiRng', 'mons', 'cond', 'hazards', 'switchesLeft', 'gauge', 'mega', 'megaUsed'];
+const SHARED = ['id', 'index', 'name', 'ai', 'aiRng', 'mons', 'cond', 'hazards', 'switchesLeft', 'gauge', 'mega', 'megaUsed', 'ult'];
 const SPREAD_TARGETS = new Set(['allAdjacent', 'allAdjacentFoes']);
 // Support moves that only mean something in doubles; in singles they keep having no effect (moves.mjs NO_EFFECT).
 export const DOUBLES_MOVES = {
@@ -256,6 +264,8 @@ export class RtBattle {
     this.winner = -1;            // -1 none yet, 0/1 side, 2 tie
     this.reason = '';
     this.doubles = this.version >= 3 && Dex.formats.get(this.formatId, true).gameType === 'doubles';
+    // training (singles): the second seat is a dummy; nobody faints, a knockout sets the Pokémon back to full health instead
+    this.training = !this.doubles && spec.training ? {pattern: String(spec.training.pattern || 'still')} : null;
     this.sides = ['p1', 'p2'].map((id, i) => this.makeSide(id, i, spec[id] || {}));
     if (!this.doubles) {
       // singles: each trainer is its own (only) slot
@@ -362,7 +372,7 @@ export class RtBattle {
     return {id, index, name: String(seat.name || (index ? 'Player 2' : 'Player 1')).slice(0, 40), ai: seat.ai || null,
       aiRng: makeRng(`${this.seed}:${id}:ai`), mons, active: 0, x: HOME[index].x, y: HOME[index].y, fx: index ? -1 : 1, fy: 0,
       act: null, rollReady: 0, switchesLeft: MAX_SWITCHES, need: false, needSince: 0, vol: {}, cond: {}, hazards: {}, wish: null,
-      lastInput: null, brain: {}, moving: false, focus: true, gauge: 0, mega: -1, megaUsed: false};
+      lastInput: null, brain: {}, moving: false, focus: true, gauge: 0, mega: -1, megaUsed: false, ult: 0};
   }
 
   // ------------------------------------------------------------ helpers
@@ -586,6 +596,19 @@ export class RtBattle {
     return options.length ? options[0].slot : -1;
   }
 
+  /** A trainer's change of tactics (seat.ai.phase {when: half | last, level, style, line}): once its team's HP falls to half, or
+   * when only its last Pokémon is left, it plays with the phase's level and style from then on. Teams of one have no phase. */
+  checkPhase(tr) {
+    const ph = tr.ai.phase;
+    if (tr.phased || !ph || tr.mons.length < 2) return;
+    const reached = ph.when === 'last' ? tr.mons.filter((m) => !m.fainted).length === 1
+      : tr.mons.reduce((a, m) => a + (m.fainted ? 0 : m.hp), 0) * 2 <= tr.mons.reduce((a, m) => a + m.maxhp, 0);
+    if (!reached) return;
+    tr.phased = true;
+    tr.ai = {...tr.ai, level: ph.level || tr.ai.level, style: ph.style || tr.ai.style};
+    this.ev('phase', {s: tr.index, line: String(ph.line || '').slice(0, 280), level: tr.ai.level, style: tr.ai.style});
+  }
+
   // ------------------------------------------------------------ the loop
   /** One tick. `inputs` = {p1: {mx, my, use, dodge, sw, focus, plus, mega, ctl, tgt} | null, p2: ...} for the seats people
    * play; AI seats decide here. `focus` (held lock-on) defaults to true, `plus` (the move goes out as a Plus move) and `mega` to
@@ -595,6 +618,7 @@ export class RtBattle {
     this.t++;
     if (this.doubles) {
       for (const tr of this.sides) {
+        if (tr.ai?.phase) this.checkPhase(tr);
         if (tr.ai) {
           const plan = tr.units.map((u) => think(this, u));
           tr.units.forEach((u, i) => this.applyInput(u, plan[i] || {}));
@@ -606,6 +630,7 @@ export class RtBattle {
       }
     } else {
       for (const side of this.sides) {
+        if (side.ai?.phase) this.checkPhase(side);
         let input = side.ai ? think(this, side) : inputs[side.id] || null;
         if (!side.ai && input) input = this.record(side, input);   // a person's input as the log keeps it, so a replay plays the same
         this.applyInput(side, input || {});
@@ -696,7 +721,8 @@ export class RtBattle {
       this.ev('roll', {...this.at(side)});
       return;
     }
-    if (input.use >= 0 && !busy) this.tryUse(side, input.use, !!input.plus);
+    if (input.use === ULT_SLOT) { if (this.version >= 5) this.tryUlt(side); }
+    else if (input.use >= 0 && !busy) this.tryUse(side, input.use, !!input.plus);
     // walking
     side.moving = false;
     if (!side.act) {
@@ -791,6 +817,47 @@ export class RtBattle {
     return norm(t.x * 0.9 + dir.x * 0.1, t.y * 0.9 + dir.y * 0.1);
   }
 
+  /** The profile of the move in `slot`, or the Pokémon's ultimate (ULT_SLOT). */
+  prof(m, slot) { return slot === ULT_SLOT ? m.ultProfile : m.profiles[slot]; }
+
+  /** The ultimate of a Pokémon: its own type, physical or special after its better attacking stat, 150 power, falling on the foe
+   * like a blast from the sky (a telegraphed area, so it can be rolled out of), no contact, no recharge. */
+  ultimateOf(m) {
+    const base = rtMove('hyperbeam', this.gen) || rtMove('tackle', this.gen);
+    const type = (m.types && m.types[0]) || 'Normal';
+    const physical = (m.stats?.atk || 0) >= (m.stats?.spa || 0);
+    return {...base, id: 'silverultimate', name: 'Ultimate', type, category: this.gen <= 3 ? base.category : physical ? 'Physical' : 'Special',
+      power: 150, hits: 1, shape: 'drop', reach: 16, arc: 0, speed: 0, radius: 2.6, windup: Math.round(0.9 * TPS), contact: false,
+      flags: {}, crit: 0, drain: null, recoil: null, heal: null, status: '', volatile: '', boosts: null, selfBoosts: null, secondaries: [],
+      recharge: false, selfdestruct: false, forceSwitch: false, selfSwitch: false, ohko: false, damage: null, noEffect: false, target: 'normal'};
+  }
+
+  /** The ultimate gauge is full and the trainer's Pokémon can unleash it now (rules version 5). */
+  ultReady(side) {
+    return this.version >= 5 && side.ult >= ULT_MAX && this.onField(side) && !this.mon(side).fainted && this.onField(this.foe(side));
+  }
+
+  ultGain(side, n) {
+    if (this.version < 5 || n <= 0) return;
+    side.ult = Math.min(ULT_MAX, side.ult + Math.floor(n));
+  }
+
+  /** Unleash the ultimate: the gauge empties and the wind-up starts (aimed at the foe, whether focusing or not). */
+  tryUlt(side) {
+    if (!this.ultReady(side) || (side.act && side.act.kind !== 'approach')) return false;
+    const m = this.mon(side);
+    m.ultProfile = this.ultimateOf(m);
+    side.ult = 0;
+    const foe = this.foe(side);
+    this.face(side, foe.x - side.x, foe.y - side.y);
+    this.ev('ultimate', {...this.at(side), slot: side.active, species: m.species, type: m.ultProfile.type, category: m.ultProfile.category});
+    const focus = side.focus;
+    side.focus = true;
+    this.startWindup(side, ULT_SLOT, false);
+    side.focus = focus;
+    return true;
+  }
+
   usable(side, slot) {
     const m = this.mon(side);
     const p = m.profiles[slot];
@@ -833,7 +900,7 @@ export class RtBattle {
 
   startWindup(side, slot, plus = false) {
     const m = this.mon(side);
-    const p = m.profiles[slot];
+    const p = this.prof(m, slot);
     const foe = this.foe(side);
     let w = p.windup;
     if (m.ability === 'prankster' && p.category === 'Status') w = 0;
@@ -947,7 +1014,7 @@ export class RtBattle {
     if (!a) return false;
     if (a.kind === 'roll') return true;
     if (a.kind === 'windup') {
-      const p = this.mon(side).profiles[a.slot];
+      const p = this.prof(this.mon(side), a.slot);
       return ['fly', 'bounce', 'dig', 'dive', 'phantomforce', 'shadowforce'].includes(p?.id) && this.t - a.start > 3;
     }
     return false;
@@ -971,7 +1038,7 @@ export class RtBattle {
       return;
     }
     if (a.kind === 'approach') {
-      const p = this.mon(side).profiles[a.slot];
+      const p = this.prof(this.mon(side), a.slot);
       if (!this.onField(foe) || this.t >= a.end || this.usable(side, a.slot)) { side.act = null; return; }
       const reach = this.reachFor(side, foe, p);
       const d = dist(side, foe);
@@ -983,7 +1050,7 @@ export class RtBattle {
       return;
     }
     if (a.kind === 'windup') {
-      const p = this.mon(side).profiles[a.slot];
+      const p = this.prof(this.mon(side), a.slot);
       if (p.shape === 'strike' && this.onField(foe) && !a.free) this.face(side, foe.x - side.x, foe.y - side.y);
       if (this.t >= a.end) this.execute(side);
       return;
@@ -995,12 +1062,12 @@ export class RtBattle {
       const touched = a.hit ? null : this.firstFoe(side, foe, (f) => this.onField(f) && !this.semiInvulnerable(f) && dist(side, f) <= this.radius(side) + this.radius(f) + 0.35);
       if (touched) {
         a.hit = true;
-        this.resolveHit(side, touched, this.mon(side).profiles[a.slot], a.helped ? {mon: side.active, plus: a.plus, helped: true} : {mon: side.active, plus: a.plus});
+        this.resolveHit(side, touched, this.prof(this.mon(side), a.slot), a.helped ? {mon: side.active, plus: a.plus, helped: true} : {mon: side.active, plus: a.plus});
         this.finishMove(side, a.slot);
         return;
       }
       if (a.traveled >= a.max || this.t >= a.end) {
-        if (!a.hit) this.ev('miss', {...this.at(side), move: this.mon(side).profiles[a.slot].id});
+        if (!a.hit) this.ev('miss', {...this.at(side), move: this.prof(this.mon(side), a.slot).id});
         this.finishMove(side, a.slot);
       }
     }
@@ -1011,11 +1078,13 @@ export class RtBattle {
     const m = this.mon(side);
     const slot = side.act.slot;
     const act = side.act;
-    const p = m.profiles[slot];
+    const p = this.prof(m, slot);
     const foe = this.foe(side);
     m.uses++;
-    side.vol.lastSlot = slot;
-    if (this.hasItem(m, 'choiceband', 'choicespecs', 'choicescarf')) m.choiceLock = slot;
+    if (slot !== ULT_SLOT) {
+      side.vol.lastSlot = slot;
+      if (this.hasItem(m, 'choiceband', 'choicespecs', 'choicescarf')) m.choiceLock = slot;
+    }
     if (m.ability === 'protean' || m.ability === 'libero') { side.vol.types = [p.type]; }
     this.ev('use', {...this.at(side), move: p.id, name: p.name, type: p.type, shape: p.shape, category: p.category});
     if (this.doubles && DOUBLES_MOVES[p.id]) { this.supportMove(side, p); this.finishMove(side, slot); return; }
@@ -1032,7 +1101,7 @@ export class RtBattle {
     }
     this.performShape(side, foe, p, act);
     if (side.act === act) this.finishMove(side, slot);
-    else if (side.act?.kind !== 'dash') m.cds[slot] = this.cooldownTicks(side, p);
+    else if (side.act?.kind !== 'dash' && slot !== ULT_SLOT) m.cds[slot] = this.cooldownTicks(side, p);
   }
 
   performShape(side, foe, p, act) {
@@ -1143,8 +1212,8 @@ export class RtBattle {
 
   finishMove(side, slot) {
     const m = this.mon(side);
-    const p = m.profiles[slot];
-    m.cds[slot] = this.cooldownTicks(side, p);
+    const p = this.prof(m, slot);
+    if (slot !== ULT_SLOT) m.cds[slot] = this.cooldownTicks(side, p);
     side.act = null;
     if (m.fainted) return;
     if (p.recharge) { side.act = {kind: 'recover', end: this.t + 2 * TPS}; this.ev('recharge', {...this.at(side)}); }
@@ -1218,7 +1287,7 @@ export class RtBattle {
       if (this.t < mk.at) { keep.push(mk); continue; }
       const owner = this.doubles ? this.unitAt(mk.s, mk.u) : this.sides[mk.s];
       const m = owner.mons[mk.mon];
-      const p = m.profiles[mk.slot];
+      const p = this.prof(m, mk.slot);
       this.ev('area', this.doubles ? {s: mk.s, u: mk.u, move: p.id, x: mk.x, y: mk.y, r: mk.r, arc: -1, type: p.type} : {s: mk.s, move: p.id, x: mk.x, y: mk.y, r: mk.r, arc: -1, type: p.type});
       const ctx = mk.plus ? {mon: mk.mon, plus: true} : {mon: mk.mon};
       if (mk.helped) ctx.helped = true;
@@ -1516,6 +1585,10 @@ export class RtBattle {
     }
     if (total <= 0) return;
     if (this.version >= 2 && att.index !== def.index) this.gaugeGain(att, total, dm.maxhp);   // hitting the partner fills nothing
+    if (this.version >= 5 && att.index !== def.index && p.id !== 'silverultimate') {
+      this.ultGain(att, (ULT_DEAL * total) / Math.max(1, dm.maxhp));
+      this.ultGain(def, (ULT_TAKE * total) / Math.max(1, dm.maxhp));
+    }
     if (hits > 1) this.ev('hits', {...this.at(def), n: hits});
     // a hit during the target's wind-up can make it flinch
     const flinchAll = p.secondaries.some((s) => s.volatile === 'flinch');
@@ -1594,7 +1667,7 @@ export class RtBattle {
     if (m.ability === 'innerfocus') return;
     if (side.act && side.act.kind === 'windup') {
       const slot = side.act.slot;
-      m.cds[slot] = this.cooldownTicks(side, m.profiles[slot]);
+      if (slot !== ULT_SLOT) m.cds[slot] = this.cooldownTicks(side, m.profiles[slot]);
       this.marks = this.marks.filter((mk) => !(mk.s === side.index && mk.slot === slot));
       side.act = null;
       this.ev('flinch', {...this.at(side)});
@@ -1867,6 +1940,18 @@ export class RtBattle {
   faint(side, by, byMon = null) {
     const m = this.mon(side);
     if (m.fainted) return;
+    if (this.training) {
+      // training: nobody faints (the dummy, and your own Pokémon worn down by recoil or Life Orb); it stands up again, healed, its stat
+      // changes and status gone
+      m.hp = m.maxhp;
+      m.status = '';
+      m.statusUntil = 0;
+      m.toxN = 0;
+      for (const k of BOOSTABLE) { m.boosts[k] = 0; m.boostUntil[k] = 0; }
+      side.act = null;
+      this.ev('dummy_reset', {...this.at(side), slot: side.active, species: m.species, hp: m.hp, maxhp: m.maxhp});
+      return;
+    }
     m.hp = 0;
     m.fainted = true;
     side.act = null;
@@ -1874,6 +1959,7 @@ export class RtBattle {
     const foeKo = by && (!this.doubles || by.index !== side.index);   // knocking out one's own partner is not a KO
     if (foeKo && byMon) byMon.kos++;
     else if (foeKo) this.mon(by).kos++;
+    if (foeKo) this.ultGain(by, ULT_KO);
     this.ev('faint', {...this.at(side), slot: side.active, species: m.species, by: by ? by.index : -1});
     if (side.mega === side.active) { this.megaEnd(side); side.gauge = 0; }
     // Z-A Battle Club: the switch count comes back after every knockout
@@ -1993,7 +2079,7 @@ export class RtBattle {
   view() {
     return {
       t: this.t, seconds: this.t / TPS, time_limit: this.timeLimit / TPS, ended: this.ended, winner: this.winner, reason: this.reason,
-      version: this.version, plus_moves: this.plusMoves, arena: this.arena, rocks: this.rocks.map((r) => ({...r})), floor: this.floor,
+      version: this.version, plus_moves: this.plusMoves, arena: this.arena, ...(this.training ? {training: {...this.training}} : {}), rocks: this.rocks.map((r) => ({...r})), floor: this.floor,
       ...(this.arenaName ? {arena_name: this.arenaName} : {}),
       ...(this.doubles ? {doubles: true} : {}),
       weather: this.weather && this.weather.until > this.t ? {id: this.weather.id, left: (this.weather.until - this.t) / TPS} : null,
@@ -2007,7 +2093,7 @@ export class RtBattle {
         const out = {
           id: s.id, name: s.name, ai: !!s.ai, ...this.unitView(s), switches_left: s.switchesLeft,
           cond: Object.fromEntries(Object.entries(s.cond).filter(([, v]) => v > this.t).map(([k, v]) => [k, (v - this.t) / TPS])),
-          hazards: {...s.hazards}, gauge: s.gauge / GAUGE_SEGMENT, mega: s.mega >= 0, mega_used: s.megaUsed, can_mega: this.canMega(s),
+          hazards: {...s.hazards}, gauge: s.gauge / GAUGE_SEGMENT, ...(this.version >= 5 ? {ult: s.ult / ULT_MAX, ult_ready: this.ultReady(s)} : {}), mega: s.mega >= 0, mega_used: s.megaUsed, can_mega: this.canMega(s),
           plus_moves: this.plusMoves,
           plus_ready: this.plusMoves && ((s.mega >= 0 && s.mega === s.active) || s.gauge >= GAUGE_SEGMENT),
           mons: s.mons.map((x, i) => {

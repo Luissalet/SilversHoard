@@ -19,6 +19,9 @@ const S = {
   trainers_help: ["Muchos no son de los juegos: Showdown pide dar crédito a su artista. {n} sprites con autor.", "Many are not from the games: Showdown asks to credit their artist. {n} sprites with an author."],
   walking: ["Sprites de la arena en tiempo real (SpriteCollab)", "Real-time arena sprites (SpriteCollab)"],
   walking_help: ["CC BY-NC 4.0. {n} sprites de Pokémon y formas con autor.", "CC BY-NC 4.0. {n} Pokémon and form sprites with an author."],
+  faces: ["Retratos con emoción (SpriteCollab)", "Portraits with emotions (SpriteCollab)"],
+  faces_help: ["CC BY-NC 4.0. Las caras que acompañan a las frases, los K.O., las megaevoluciones y el resultado: {n} Pokémon y formas con autor.",
+    "CC BY-NC 4.0. The faces next to trainers' lines, K.O.s, Mega Evolutions and results: {n} Pokémon and forms with an author."],
   sprites_n: ["{n} sprites", "{n} sprites"],
   more: ["Ver todos ({n})", "Show all ({n})"],
   less: ["Ver menos", "Show fewer"],
@@ -67,6 +70,7 @@ export default function Creditos() {
   if (!data) return <Spinner />;
   const tr = data.trainer_sprites;
   const wk = data.walking_sprites;
+  const pf = data.portraits || { folders: 0, artists: [] };
   return (
     <div className="space-y-5">
       <div>
@@ -112,6 +116,12 @@ export default function Creditos() {
         <div className="panel space-y-2">
           <p className="help">{s("walking_help", { n: wk.folders })}</p>
           {wk.artists.length ? <Artists list={wk.artists} lang={lang} s={s} /> : <p className="help">{s("offline")}</p>}
+        </div>
+      </Section>
+      <Section title={s("faces")} count={pf.artists.length}>
+        <div className="panel space-y-2">
+          <p className="help">{s("faces_help", { n: pf.folders })}</p>
+          {pf.artists.length ? <Artists list={pf.artists} lang={lang} s={s} /> : <p className="help">{s("offline")}</p>}
         </div>
       </Section>
     </div>

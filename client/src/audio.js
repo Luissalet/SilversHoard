@@ -408,12 +408,42 @@ const TRACKS = {
 };
 const OTHER = ["bw-trainer", "bw-rival", "bw2-rival", "bw2-kanto-gym-leader"];
 
-/** The track of a battle: always the same for the same battle id, and one that fits the generation (1-7; newer ones use a default set). */
-export function pickTrack(id, gen = 0) {
+// PokeRogue's original tracks (Settings > music source; CC BY-NC-SA 4.0, by its community composers): a gym's battles sound like its
+// type, an Elite Four like the abyss, the champion like the end of the road, and other battles get its two battle themes or a lively
+// biome (`pr-<name>` on the music route)
+const PR_TYPE = { Fire: ["volcano"], Water: ["sea", "seabed"], Grass: ["forest", "tall_grass"], Bug: ["jungle"], Ice: ["ice_cave", "snowy_forest"],
+  Electric: ["power_plant"], Ground: ["desert", "wasteland"], Rock: ["rocky_coast", "ruins"], Ghost: ["graveyard"], Psychic: ["space"],
+  Dark: ["slum", "abyss"], Fairy: ["fairy_cave"], Steel: ["construction_site", "laboratory"], Poison: ["swamp", "underground_well"],
+  Flying: ["island"], Dragon: ["volcano", "space"], Fighting: ["metropolis"], Normal: ["plains", "metropolis"] };
+const PR_BATTLE = ["battle_trainer_afd", "battle_rival_3_afd", "metropolis", "plains", "forest", "sea", "cave", "lake"];
+
+/** The track of a battle: always the same for the same battle id. Showdown's: one that fits the generation (1-7; newer ones use a
+ * default set). PokeRogue's (`source: "pokerogue"`): the champion and the Elite Four have their own, a gym's battles follow the gym's
+ * `type`, and the rest get its battle themes or a lively biome. */
+export function pickTrack(id, gen = 0, { source = "showdown", role = "", type = "" } = {}) {
   let h = 0;
   for (const ch of String(id || "")) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+  if (source === "pokerogue") {
+    const list = role === "champion" ? ["end"] : role === "elite" ? ["abyss", "space"] : (type && PR_TYPE[type]) || PR_BATTLE;
+    return `pr-${list[h % list.length]}`;
+  }
   const list = TRACKS[gen] || OTHER;
   return list[h % list.length];
+}
+
+/** Who a battle of a gym or league challenge is against: the gym's leader, an Elite Four member or the champion ("" otherwise). */
+export function battleRole(battle) {
+  const run = battle?.run;
+  const stages = run?.stages || [];
+  const i = stages.findIndex((s) => s.battle_id === battle.id);
+  if (!run || i < 0) return "";
+  if (run.kind === "gym") return i === stages.length - 1 ? "gym" : "";
+  if (run.kind === "league") return i === stages.length - 1 ? "champion" : "elite";
+  return "";
+}
+/** The type of the gym a challenge battle belongs to ("" otherwise). */
+export function battleType(battle) {
+  return battle?.run?.kind === "gym" ? battle.run.type || "" : "";
 }
 
 /** The battle is over: the music fades out and the victory (true) or defeat (false) cue plays; null: a tie, only the fade. */

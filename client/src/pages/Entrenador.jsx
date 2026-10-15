@@ -128,9 +128,36 @@ function LinesTab({ tr, reload }) {
   return (
     <div className="panel space-y-3 max-w-3xl">
       <p className="help">{t("lines_help")}</p>
-      {["intro", "last", "win", "lose"].map((k) => (
+      {["intro", "last", "win", "lose", "on_ko", "on_faint", "on_super", "on_switch"].map((k) => (
         <Field key={k} label={t(`line_${k}`)}><input className="field" value={d[k] || ""} maxLength={280} onChange={(e) => setD((x) => ({ ...x, [k]: e.target.value }))} /></Field>
       ))}
+      <div className="border-t pt-3 space-y-2" style={{ borderColor: "var(--line)" }}>
+        <span className="label">{t("phase_title")}</span>
+        <p className="help">{t("phase_help")}</p>
+        <div className="grid gap-3 sm:grid-cols-3">
+          <Field label={t("phase_when")}>
+            <select className="field" value={d.phase_when || ""} onChange={(e) => setD((x) => ({ ...x, phase_when: e.target.value }))}>
+              <option value="">{t("phase_when_none")}</option>
+              <option value="half">{t("phase_when_half")}</option>
+              <option value="last">{t("phase_when_last")}</option>
+            </select>
+          </Field>
+          <Field label={t("phase_level")}>
+            <select className="field" value={d.phase_level || ""} disabled={!d.phase_when} onChange={(e) => setD((x) => ({ ...x, phase_level: e.target.value }))}>
+              <option value="">{t("phase_same")}</option>
+              {["easy", "normal", "hard", "expert", "master", "neural"].map((l) => <option key={l} value={l}>{t(`lvl_${l}`)}</option>)}
+            </select>
+          </Field>
+          <Field label={t("phase_style")}>
+            <select className="field" value={d.phase_style || ""} disabled={!d.phase_when} onChange={(e) => setD((x) => ({ ...x, phase_style: e.target.value }))}>
+              <option value="">{t("phase_same")}</option>
+              {["balanced", "aggressive", "defensive", "setup", "stall"].map((st) => <option key={st} value={st}>{t(`style_${st}`)}</option>)}
+            </select>
+          </Field>
+        </div>
+        <Field label={t("line_phase")}><input className="field" value={d.phase || ""} maxLength={280} disabled={!d.phase_when} placeholder={t("line_phase_ph")}
+          onChange={(e) => setD((x) => ({ ...x, phase: e.target.value }))} /></Field>
+      </div>
       <div className="flex flex-wrap gap-2"><Busy busy={busy.s} className="btn btn-primary" onClick={save}>{t("save")}</Busy></div>
       <div className="border-t pt-3 space-y-2" style={{ borderColor: "var(--line)" }}>
         <Field label={t("personality")} hint={t("personality_help")}><input className="field" value={personality} onChange={(e) => setPersonality(e.target.value)} placeholder={t("personality_ph")} /></Field>

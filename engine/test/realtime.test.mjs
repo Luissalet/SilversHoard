@@ -618,3 +618,72 @@ test('rules version 3 fills the Mega Power gauge a segment every 8 s, version 2 
     assert.ok(b.sides[0].gauge >= GAUGE_SEGMENT, `v${version}: a segment after ${secs} s`);
   }
 });
+
+// ---------------------------------------------------------------- training
+const DUMMY = 'Sudowoodo @ Leftovers\nAbility: Sturdy\nLevel: 100\n- Rock Slide\n- Wood Hammer\n- Sucker Punch\n- Earthquake\n';
+
+test('training: the dummy never faints, heals back at a knockout, and its patterns replay the same', () => {
+  const base = {seed: 'train', version: 4, arena: 'open', format: 'gen9customgame', time_limit: 40, training: {pattern: 'still'},
+    p1: {name: 'Me', sets: importTeam(TEAM), ai: {level: 'expert', style: 'aggressive'}},
+    p2: {name: 'Dummy', sets: importTeam(DUMMY), ai: {level: 'dummy', style: 'balanced', pattern: 'still'}}};
+  const still = rtRun(base);
+  assert.equal(still.reason, 'time', 'nobody is knocked out: the time runs out');
+  assert.ok(still.events.some((e) => e.k === 'dummy_reset'), 'the dummy went down and stood up again');
+  assert.ok(!still.events.some((e) => e.k === 'faint'), 'nobody faints in training, not even from recoil');
+  assert.ok(!still.events.some((e) => (e.k === 'use' || e.k === 'roll') && e.s === 1), 'a still dummy never moves a finger');
+  assert.equal(still.view().training.pattern, 'still');
+  // walking: it moves around but never attacks; fighting back: it uses moves
+  const walk = rtRun({...base, p2: {...base.p2, ai: {...base.p2.ai, pattern: 'walk'}}});
+  assert.ok(walk.events.every((e) => e.k !== 'use' || e.s !== 1));
+  const fight = rtRun({...base, p2: {...base.p2, ai: {...base.p2.ai, pattern: 'fight'}}});
+  assert.ok(fight.events.some((e) => e.k === 'use' && e.s === 1), 'the fighting dummy attacks');
+  // the same spec plays the same battle again, and without `training` the Sudowoodo faints as usual
+  assert.equal(JSON.stringify(rtRun(base).events), JSON.stringify(still.events));
+  const normal = rtRun({...base, training: undefined, time_limit: 120});
+  assert.ok(normal.events.some((e) => e.k === 'faint' && e.s === 1));
+});
+
+// ---------------------------------------------------------------- rules version 5: the ultimate
+const FP_A = 'Charizard @ Charizardite X\nAbility: Blaze\nEVs: 252 HP / 252 Def\n- Roost\n- Dragon Tail\n- Will-O-Wisp\n- Earthquake\n\nSkarmory @ Leftovers\nAbility: Sturdy\nEVs: 252 HP / 252 Def\n- Roost\n- Brave Bird\n- Spikes\n- Whirlwind\n';
+const FP_B = 'Chansey @ Eviolite\nAbility: Natural Cure\nEVs: 252 HP / 252 Def\n- Seismic Toss\n- Soft-Boiled\n- Toxic\n- Thunder Wave\n\nToxapex @ Black Sludge\nAbility: Regenerator\n- Scald\n- Recover\n- Toxic Spikes\n- Haze\n';
+const fpSpec = (version) => ({seed: 'v4-fingerprint-long', version, arena: 'rocks', format: 'gen9customgame', time_limit: 120,
+  p1: {name: 'X', sets: importTeam(FP_A), ai: {level: 'expert', style: 'balanced'}}, p2: {name: 'Y', sets: importTeam(FP_B), ai: {level: 'hard', style: 'stall'}}});
+const sha1 = (x) => createHash('sha1').update(JSON.stringify(x)).digest('hex');
+
+test('rules version 4 battles play exactly as before the ultimate existed', () => {
+  // fingerprints taken with the simulator before rules version 5 (a 2-minute battle with a Mega Evolution, and a short one)
+  assert.equal(sha1(rtRun(fpSpec(4)).events), 'e47c9bea8fceaa707cb2ce02916208f1c10a3875');
+  const A = 'Charizard @ Charizardite X\nAbility: Blaze\nEVs: 252 Atk / 252 Spe\nJolly Nature\n- Dragon Dance\n- Flare Blitz\n- Dragon Claw\n- Earthquake\n\nGengar @ Life Orb\nAbility: Cursed Body\n- Shadow Ball\n- Sludge Bomb\n- Focus Blast\n- Thunderbolt\n';
+  const B = 'Lucario @ Lucarionite\nAbility: Justified\n- Close Combat\n- Meteor Mash\n- Extreme Speed\n- Swords Dance\n\nBlissey @ Leftovers\nAbility: Natural Cure\n- Soft-Boiled\n- Seismic Toss\n- Thunder Wave\n- Ice Beam\n';
+  const short = {seed: 'v4-fingerprint', version: 4, arena: 'rocks', format: 'gen9customgame', time_limit: 200,
+    p1: {name: 'X', sets: importTeam(A), ai: {level: 'expert', style: 'aggressive'}}, p2: {name: 'Y', sets: importTeam(B), ai: {level: 'hard', style: 'balanced'}}};
+  assert.equal(sha1(rtRun(short).events), 'f90d394d3e00cc771ccabe0c70a928b735481a36');
+});
+
+test('rules version 5: damage fills the ultimate gauge, the AI unleashes it, it falls where it was telegraphed and replays the same', () => {
+  const one = rtRun(fpSpec(5));
+  const ults = one.events.filter((e) => e.k === 'ultimate');
+  assert.ok(ults.length >= 1, 'the AI unleashes its ultimate');
+  const u = ults[0];
+  assert.ok(one.events.some((e) => e.k === 'use' && e.move === 'silverultimate' && e.s === u.s));
+  assert.ok(one.events.some((e) => e.k === 'area' && e.move === 'silverultimate' && e.r === 2.6));
+  assert.equal(JSON.stringify(rtRun(fpSpec(5)).events), JSON.stringify(one.events));
+  assert.equal(rtRun(fpSpec(4)).events.filter((e) => e.k === 'ultimate').length, 0, 'version 4 has no ultimate');
+  // a person: the key does nothing until the gauge is full; then the ultimate goes out, the gauge empties, and the log replays it
+  const human = {...fpSpec(5), seed: 'ult-person', p1: {...fpSpec(5).p1, ai: null}};
+  const b = new RtBattle(human);
+  assert.equal(b.view().sides[0].ult, 0);
+  b.step({p1: {use: 9}});
+  assert.ok(!b.events.some((e) => e.k === 'ultimate'), 'an empty gauge does nothing');
+  let fired = false;
+  while (!b.ended && b.t < 120 * TPS) {
+    const me = b.sides[0], foe = b.sides[1];
+    const input = {mx: Math.sign(foe.x - me.x) * 0.6, my: 0, use: b.t % 13 === 0 ? (b.t / 13) % 4 : -1, focus: true};
+    if (me.need) input.sw = me.mons.findIndex((m) => !m.fainted);
+    if (b.view().sides[0].ult_ready) { input.use = 9; fired = true; }
+    b.step({p1: input});
+  }
+  assert.ok(fired && b.events.some((e) => e.k === 'ultimate' && e.s === 0));
+  const again = rtRun(human, {inputs: b.inputLog});
+  assert.equal(JSON.stringify(again.events), JSON.stringify(b.events));
+});

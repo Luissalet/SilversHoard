@@ -21,8 +21,10 @@ const KEYFRAMES = {
   // `lunge` ({dx, dy} in px, from the effect layer) sends a striking Pokémon toward its target instead of the small default hop
   // `ps`: Showdown's animation of the move already moves the sprite, so no hop of our own
   move: (back, a) => a?.ps ? [{ transform: "none" }, { transform: "none" }] : [{ transform: "translate(0,0)" }, { transform: a?.lunge ? `translate(${a.lunge.dx}px,${a.lunge.dy}px)` : back ? "translate(26px,-14px)" : "translate(-26px,14px)", offset: 0.4 }, { transform: "translate(0,0)" }],
-  hit: () => [{ transform: "translateX(0)", filter: "brightness(1)" }, { transform: "translateX(-7px)", filter: "brightness(2.2)" }, { transform: "translateX(6px)", filter: "brightness(1)" },
-    { transform: "translateX(-4px)", filter: "brightness(1.8)" }, { transform: "translateX(0)", filter: "brightness(1)" }],
+  // a hit: the sprite flashes white (brightness with no colour) and shakes
+  hit: () => [{ transform: "translateX(0)", filter: "brightness(1)" }, { transform: "translateX(-7px)", filter: "brightness(4) saturate(0)", offset: 0.12 },
+    { transform: "translateX(6px)", filter: "brightness(1)", offset: 0.35 }, { transform: "translateX(-4px)", filter: "brightness(3) saturate(0)", offset: 0.55 },
+    { transform: "translateX(0)", filter: "brightness(1)" }],
   heal: () => [{ filter: "drop-shadow(0 0 0 #6fe08a)" }, { filter: "drop-shadow(0 0 14px #6fe08a)" }, { filter: "drop-shadow(0 0 0 #6fe08a)" }],
   faint: () => [{ transform: "translateY(0)", opacity: 1 }, { transform: "translateY(40px)", opacity: 0 }],
   switch: () => [{ transform: "scale(0.4)", opacity: 0, filter: "brightness(3)" }, { transform: "scale(1)", opacity: 1, filter: "brightness(1)" }],
@@ -137,7 +139,22 @@ export function LogPanel({ log, lang, compact }) {
  * props: player (useBattlePlayer), seats {p1: {name, avatarUrl, backUrl, winUrl, dialogue}, p2}, me ('p1'|'p2' at the bottom), sprites (makeSprites),
  * lang, exact (show HP numbers), children (controls under the field), bubble ({side, text}) for a trainer line.
  */
-export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "es", exact = true, children, bubble, toolbar, backdrop = "" }) {
+/** A Pokémon's portrait with an emotion (SpriteCollab); falls back to its "Normal" face, then to nothing. */
+export function Portrait({ sprites, species, emotion = "Normal", num = 0, className = "" }) {
+  const [step, setStep] = useState(0);
+  useEffect(() => { setStep(0); }, [species, emotion]);
+  if (!species || !sprites?.portrait || step > 1) return null;
+  const src = sprites.portrait(species, step === 0 ? emotion : "Normal", { num });
+  if (!src) return null;
+  return <img className={`b-portrait ${className}`} src={src} alt="" draggable={false} onError={() => setStep((s) => s + 1)} />;
+}
+
+// how a Pokémon looks when its trainer speaks (bubble.mood), and on the result screen
+const MOOD = { intro: "Determined", win: "Joyous", lose: "Sad", last: "Determined", on_ko: "Joyous", on_faint: "Sad", on_super: "Happy",
+  on_switch: "Determined", banter: "Normal" };
+const other = (side) => (side === "p1" ? "p2" : "p1");
+
+export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "es", exact = true, children, bubble, toolbar, backdrop = "", banter = null }) {
   const t = battleT(lang);
   const st = player.state;
   const foe = me === "p1" ? "p2" : "p1";
@@ -197,6 +214,65 @@ export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "
   const fLayer = showdownField ? fieldLayer([st.field.terrain, ...Object.entries(st.field.pseudo || {}).filter(([, on]) => on).map(([k]) => k)]) : null;
 
   const winnerSide = ended && !st.tie ? (st.sides.p1.name === st.winner ? "p1" : st.sides.p2.name === st.winner ? "p2" : "") : "";
+  // the face of a side's Pokémon on the field (or the last one that was)
+  const leadOf = (sid) => activeOf(sid, 0) || st.sides[sid].team.find((m) => m.active) || st.sides[sid].team[st.sides[sid].team.length - 1] || null;
+  // a portrait that pops up for a moment: in pain at a K.O., determined when it Mega Evolves, uses a Z-Move or Terastallizes
+  const [pop, setPop] = useState(null);
+  useEffect(() => {
+    if (!anim || !["faint", "tera", "phase"].includes(anim.type)) return undefined;
+    const mon = activeOf(anim.side, anim.slot ?? 0) || leadOf(anim.side);
+    if (!mon) return undefined;
+    // a change of tactics: the band crosses the field with the trainer's line, for longer so it can be read
+    const phase = anim.type === "phase";
+    setPop({ id: anim.id, side: anim.side, species: mon.species, emotion: anim.type === "faint" ? "Pain" : phase ? "Angry" : "Determined",
+      cut: anim.type !== "faint", line: phase ? anim.line || t("phase_change") : "" });
+    const h = setTimeout(() => setPop((p) => (p && p.id === anim.id ? null : p)), anim.type === "faint" ? 1500 : phase ? 3200 : 1300);
+    return () => clearTimeout(h);
+  }, [anim?.id]); // eslint-disable-line react-hooks/exhaustive-deps
+  // what the trainers say on their own during the battle: their lines for a knockout, a fainted Pokémon, a super-effective hit or a
+  // switch (seats[side].dialogue.on_*), and the lines the family's model wrote for the AI's moves (banter: [{turn, side, line}])
+  const [auto, setAuto] = useState(null);
+  const talk = useRef({ at: 0, faint: { p1: 0, p2: 0 }, switched: { p1: 0, p2: 0 }, lastSwitch: { p1: 0, p2: 0 }, shown: new Set() });
+  const say = (side, text, mood) => {
+    const k = talk.current;
+    if (!text || Date.now() - k.at < 2500) return false;
+    k.at = Date.now();
+    setAuto({ id: `${side}${Date.now()}`, side, text, mood });
+    return true;
+  };
+  useEffect(() => {
+    if (!anim) return;
+    const k = talk.current;
+    const line = (side, key) => seats[side]?.dialogue?.[key] || "";
+    if (anim.type === "faint") {
+      k.faint[anim.side] = anim.id;
+      const o = other(anim.side);
+      const first = anim.id % 2 ? [o, "on_ko"] : [anim.side, "on_faint"];
+      const second = anim.id % 2 ? [anim.side, "on_faint"] : [o, "on_ko"];
+      if (!say(first[0], line(...first), first[1])) say(second[0], line(...second), second[1]);
+    } else if (anim.type === "super") {
+      if (anim.id % 2 === 0) say(other(anim.side), line(other(anim.side), "on_super"), "on_super");
+    } else if (anim.type === "switch") {
+      const n = (k.switched[anim.side] += 1);
+      const replacing = k.faint[anim.side] > k.lastSwitch[anim.side];
+      k.lastSwitch[anim.side] = anim.id;
+      if (n > slots.length && !replacing) say(anim.side, line(anim.side, "on_switch"), "on_switch");
+    }
+  }, [anim?.id]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (!banter?.length || !st.turn) return;
+    const k = talk.current;
+    const fresh = banter.filter((x) => (x.turn === st.turn || x.turn === st.turn - 1) && !k.shown.has(`${x.turn}${x.side}`));
+    const pick = fresh[fresh.length - 1];
+    if (pick && say(pick.side, pick.line, "banter")) k.shown.add(`${pick.turn}${pick.side}`);
+  }, [st.turn, banter?.length]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (!auto) return undefined;
+    const h = setTimeout(() => setAuto((a) => (a && a.id === auto.id ? null : a)), 3200);
+    return () => clearTimeout(h);
+  }, [auto?.id]); // eslint-disable-line react-hooks/exhaustive-deps
+  const said = bubble && bubble.text ? bubble : auto;
+  const bubbleMon = said && said.text ? leadOf(said.side) : null;
   return (
     <div className="b-wrap">
       <div className="b-main">
@@ -251,12 +327,29 @@ export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "
             ))}
           </div>
 
-          {bubble && bubble.text && <div className={`b-bubble ${bubble.side === me ? "me" : "foe"}`}>{bubble.text}</div>}
+          {said && said.text && (
+            <div key={said.id || said.text} className={`b-bubble ${said.side === me ? "me" : "foe"}`}>
+              {bubbleMon && <Portrait sprites={sprites} species={bubbleMon.species} emotion={MOOD[said.mood] || "Normal"} />}
+              <span>{said.text}</span>
+            </div>
+          )}
+          {pop && !ended && (
+            <div key={pop.id} className={`b-pop-portrait ${pop.side === me ? "me" : "foe"}${pop.cut ? " is-cut" : ""}${pop.line ? " has-line" : ""}`} aria-hidden="true">
+              <Portrait sprites={sprites} species={pop.species} emotion={pop.emotion} />
+              {pop.line && <span className="b-pop-line">{pop.line}</span>}
+            </div>
+          )}
           {ended && (
             <div className="b-result">
               <b>{st.tie ? t("tie") : t("winner", { name: st.winner })}</b>
               <span>{t("turns", { n: st.turn })}</span>
               {winnerSide && seats[winnerSide]?.avatarUrl && <img src={seats[winnerSide].winUrl || seats[winnerSide].avatarUrl} alt="" className={sprites.pixelated ? "pixelated" : ""} />}
+              {winnerSide && (
+                <div className="b-result-faces">
+                  {leadOf(winnerSide) && <Portrait sprites={sprites} species={leadOf(winnerSide).species} emotion={MOOD.win} />}
+                  {leadOf(winnerSide === "p1" ? "p2" : "p1") && <Portrait sprites={sprites} species={leadOf(winnerSide === "p1" ? "p2" : "p1").species} emotion="Crying" className="is-loser" />}
+                </div>
+              )}
             </div>
           )}
           {!st.started && !st.preview && player.total === 0 && <div className="b-loading">{t("waiting_start")}</div>}

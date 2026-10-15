@@ -419,6 +419,14 @@ function applyRaw(state, line, { lang = "es", me = "p1" } = {}) {
       const word = cmd === "-mega" ? T("megaevolucionó", "has Mega Evolved") : cmd === "-primal" ? T("recuperó su forma primigenia", "underwent Primal Reversion") : T("liberó su poder", "regained its true power");
       return { text: es ? `¡${M(parts[1])} ${word}!` : `${M(parts[1])} ${word}!`, kind: "big", anim: { type: "tera", side, slot } };
     }
+    case "silverphase": {
+      // Silver's own line: a trainer changes tactics (its phase), with what it says
+      const sid = parts[1] === "p2" ? "p2" : "p1";
+      const who = state.sides[sid]?.name || sid;
+      const line = parts.slice(2).join("|").trim();
+      return { text: line ? `${who}: «${line}»` : T(`¡${who} cambia de táctica!`, `${who} changes tactics!`), kind: "big",
+        anim: { type: "phase", side: sid, slot: 0, line } };
+    }
     case "-zpower":
       return { text: T(`¡${M(parts[1])} desata su poder Z!`, `${M(parts[1])} surrounded itself with its Z-Power!`), kind: "big" };
     case "cant": {
@@ -426,9 +434,11 @@ function applyRaw(state, line, { lang = "es", me = "p1" } = {}) {
       const c = CANT[toID(reason)];
       return { text: c ? (es ? `¡${M(parts[1])} ${c[0]}!` : `${M(parts[1])} ${c[1]}`) : T(`${M(parts[1])} no puede moverse (${effectName(parts[2], lang)}).`, `${M(parts[1])} can't move (${effectName(parts[2], lang)}).`), kind: "minor" };
     }
-    case "-supereffective":
+    case "-supereffective": {
       state.fx.eff = 2;
-      return { text: T("¡Es muy eficaz!", "It's super effective!"), kind: "effect" };
+      const { side, slot } = parseIdent(parts[1] || "");
+      return { text: T("¡Es muy eficaz!", "It's super effective!"), kind: "effect", ...(side ? { anim: { type: "super", side, slot } } : {}) };
+    }
     case "-resisted":
       state.fx.eff = 0.5;
       return { text: T("No es muy eficaz…", "It's not very effective…"), kind: "effect" };

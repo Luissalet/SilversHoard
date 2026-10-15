@@ -7,6 +7,7 @@ import { AiFields, FormatSelect, MonIcon } from "../components/silver.jsx";
 import { SoundSliders } from "../battle/SoundControl.jsx";
 import NeuralAi from "../components/NeuralAi.jsx";
 import { useBackdropSetting, useFxStyleSetting, useMoveFxSetting } from "../battle/fx/setting.js";
+import { particleStyle, setParticleStyle } from "../battle/rt/vfx.js";
 
 export default function Ajustes() {
   const { t, lang, notify, refreshOv, ov } = useApp();
@@ -55,6 +56,12 @@ export default function Ajustes() {
             <option value="silver">{t("fx_style_silver")}</option>
           </select>
         </Field>
+        <Field label={t("rt_particles")} hint={t("rt_particles_help")}>
+          <select className="field" defaultValue={particleStyle()} onChange={(e) => setParticleStyle(e.target.value)}>
+            <option value="textured">{t("rt_particles_textured")}</option>
+            <option value="plain">{t("rt_particles_plain")}</option>
+          </select>
+        </Field>
         <Field label={t("backdrop")} hint={t("backdrop_help")}>
           <select className="field" value={backdrop} onChange={(e) => setBackdrop(e.target.value)}>
             <option value="showdown">{t("backdrop_showdown")}</option>
@@ -82,7 +89,7 @@ export default function Ajustes() {
         <div className="panel space-y-3">
           <Field label={t("sprite_set")}>
             <select className="field" value={f.sprite_set} onChange={(e) => set("sprite_set", e.target.value)}>
-              {["gen5ani", "gen5", "ani", "home", "dex"].map((s) => <option key={s} value={s}>{t(`set_${s}`)}</option>)}
+              {["gen5ani", "gen5", "ani", "home", "dex", "champions", "za", "sv"].map((s) => <option key={s} value={s}>{t(`set_${s}`)}</option>)}
             </select>
           </Field>
           <div className="flex gap-2">{["Pikachu", "Charizard", "Garchomp", "Koraidon"].map((s) => <MonIcon key={s} species={s} size={64} />)}</div>
@@ -92,12 +99,20 @@ export default function Ajustes() {
             <p className="help">{t("smogon_data_help")}</p>
             <label className="flex items-center gap-2"><Switch checked={!!f.ai_hidden_info} onChange={(v) => set("ai_hidden_info", v)} label={t("ai_hidden_info")} /> {t("ai_hidden_info")}</label>
             <p className="help">{t("ai_hidden_info_help")}</p>
+            <label className="flex items-center gap-2"><Switch checked={!!f.ai_banter} onChange={(v) => set("ai_banter", v)} label={t("ai_banter")} /> {t("ai_banter")}</label>
+            <p className="help">{t("ai_banter_help")}</p>
             <p className="help"><a className="btn-link" href="#/creditos">{t("credits_link")}</a></p>
         </div>
       </Section>
       <Section title={t("snd_title")}>
         <div className="panel space-y-3">
           <SoundSliders lang={lang} />
+          <Field label={t("music_source")} hint={t("music_source_help")}>
+            <select className="field" value={f.music_source || "showdown"} onChange={(e) => set("music_source", e.target.value)}>
+              <option value="showdown">{t("music_source_showdown")}</option>
+              <option value="pokerogue">{t("music_source_pokerogue")}</option>
+            </select>
+          </Field>
           <label className="flex items-center gap-2"><Switch checked={f.sound_downloads !== false} onChange={(v) => set("sound_downloads", v)} label={t("snd_downloads")} /> {t("snd_downloads")}</label>
           <p className="help">{t("snd_help")} {t("snd_downloads_help")} {audioStats.data ? t("snd_cache", { n: audioStats.data.cached, mb: (audioStats.data.bytes / 1048576).toFixed(1) }) : ""}</p>
         </div>

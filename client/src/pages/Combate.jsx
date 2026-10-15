@@ -6,7 +6,7 @@ import Arena from "../battle/Arena.jsx";
 import Controls, { ReplayBar } from "../battle/Controls.jsx";
 import { useBattlePlayer } from "../battle/player.js";
 import { appCryUrl } from "../battle/sfx.js";
-import { battleEnd, genOfFormat, music, pickTrack } from "../audio.js";
+import { battleEnd, battleRole, battleType, genOfFormat, music, pickTrack } from "../audio.js";
 import { Busy, Empty, ErrorBox, Field, Icon, ICONS, Spinner, useBusy, useLoad, useStored } from "../components/ui.jsx";
 import { useContextProvider, usePoll } from "../components/hooks.js";
 import { Avatar, GymBadge, useSeats } from "../components/silver.jsx";
@@ -108,8 +108,14 @@ export default function Combate({ param }) {
     else player.push(lines.slice(player.total));
     loaded.current = battle.id + battle.status;
     lengthRef.current = battle.log_length || lines.length;
-    if (fresh && seats.p2?.dialogue?.intro) setBubble({ side: "p2", text: seats.p2.dialogue.intro });
+    if (fresh && seats.p2?.dialogue?.intro) setBubble({ side: "p2", text: seats.p2.dialogue.intro, mood: "intro" });
   }, [battle?.id, battle?.status]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // the rival talks: the lines the family's model writes for the AI's moves arrive while the battle is played back
+  usePoll(async () => {
+    const b = await api.call("battle_get", { id: param, since: lengthRef.current });
+    setData((old) => (old ? { ...old, banter: b.banter, banter_pending: b.banter_pending } : old));
+  }, 4000, !!battle?.banter_pending);
 
   // a watched battle: wait for the AIs to finish, then play it
   usePoll(async () => {
@@ -126,7 +132,7 @@ export default function Combate({ param }) {
   // battle music: one track per battle (it fits the format's generation), looped while the battle plays; it fades out at the end
   // with a short victory or defeat cue, and starts again when an ended battle is replayed from the start
   const musicOn = !!battle && battle.mode !== "realtime" && (battle.status === "live" || battle.status === "ended") && !(battle.kind === "friend" && !battle.log_length);
-  const trackUrl = battle ? `/api/music/${pickTrack(battle.id, genOfFormat(battle.format))}` : "";
+  const trackUrl = battle ? `/api/music/${pickTrack(battle.id, genOfFormat(battle.format), { source: settings.music_source, role: battleRole(battle), type: battleType(battle) })}` : "";
   useEffect(() => {
     if (musicOn && !player.state.ended) music.play(trackUrl);
   }, [musicOn, trackUrl, player.state.ended]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -144,7 +150,7 @@ export default function Combate({ param }) {
     if (!w) return;
     const loser = w === "p1" ? "p2" : "p1";
     const line = seats[w]?.dialogue?.win || seats[loser]?.dialogue?.lose;
-    if (line) setBubble({ side: seats[w]?.dialogue?.win ? w : loser, text: line });
+    if (line) setBubble({ side: seats[w]?.dialogue?.win ? w : loser, text: line, mood: seats[w]?.dialogue?.win ? "win" : "lose" });
   }, [player.state.ended, player.caughtUp]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const choose = useCallback((side, choice) => run("choose", async () => {
@@ -269,7 +275,7 @@ export default function Combate({ param }) {
       ) : battle.status === "failed" ? (
         <ErrorBox error={{ message: battle.summary?.error || t("battle_failed") }} onRetry={reload} />
       ) : (
-        <Arena player={player} seats={seats} me={me} sprites={sprites} lang={lang} bubble={bubble} backdrop={battle.run?.backdrop || ""}
+        <Arena player={player} seats={seats} me={me} sprites={sprites} lang={lang} bubble={bubble} backdrop={battle.run?.backdrop || ""} banter={battle.banter}
           toolbar={!live || !player.caughtUp ? <ReplayBar player={player} lang={lang} speedMs={speedMs} onSpeed={setSpeedMs} /> : null}>
           {request && (
             <Controls request={request} lang={lang} sprites={sprites} gametype={player.state.gametype} busy={busy.choose}

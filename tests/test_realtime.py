@@ -191,3 +191,57 @@ def test_walking_sprites_are_downloaded_once(tmp_path):
     assert "Idle" in meta["a"] and pmd.sheet("0037-0001", "Walk").exists()
     n = len(seen)
     assert pmd.meta(37, form="Alola") == meta and len(seen) == n, "cached after the first time"
+
+
+def test_portraits_pick_the_forme_and_a_close_emotion(tmp_path):
+    import io
+    import json
+
+    import pytest
+    from PIL import Image
+
+    from silvers_hoard.errors import SilverError
+    from silvers_hoard.pmd import PmdSprites
+
+    face = io.BytesIO()
+    Image.new("RGBA", (40, 40), (200, 120, 40, 255)).save(face, "PNG")
+    tracker = {"0006": {"name": "Charizard", "portrait_files": {"Normal": 1, "Happy": 1, "Sad": 1},
+                        "subgroups": {"0000": {"name": ""}, "0001": {"name": "Mega_X", "portrait_files": {"Normal": 1, "Determined": 1}}}},
+               "0122": {"name": "Mr_Mime", "portrait_files": {"Normal": 1}}}
+    seen = []
+
+    def http(url):
+        seen.append(url)
+        if url.endswith("tracker.json"):
+            return 200, json.dumps(tracker).encode(), "application/json"
+        return 200, face.getvalue(), "image/png"
+
+    pmd = PmdSprites(tmp_path / "pmd", {"pmd_sprites": True, "pmd_server": "https://example.test"}, http)
+    assert pmd.portrait("Charizard-Mega-X", "Determined").parent.name == "0006-0001"
+    assert pmd.portrait("Charizard", "Joyous").name == "Happy.png"          # no Joyous face: the closest one
+    assert pmd.portrait("Charizard-Mega-X", "Crying").parent.name == "0006"   # the Mega has no sad face: the base species' Sad
+    assert pmd.portrait("Charizard-Mega-X", "Crying").name == "Sad.png"
+    assert pmd.portrait("Mr. Mime", "Pain").name == "Normal.png"
+    n = len(seen)
+    pmd.portrait("Charizard", "Joyous")
+    assert len(seen) == n, "cached after the first time"
+    with pytest.raises(SilverError):
+        pmd.portrait("Missingno", "Normal")
+    with pytest.raises(SilverError):
+        pmd.portrait("Charizard", "Bored")
+
+
+@needs_engine
+def test_training_counts_for_nobody(call):
+    me = call("trainer_create", {"name": "Practicante", "paste": "Garchomp @ Choice Scarf\nAbility: Rough Skin\n- Earthquake\n- Outrage\n- Stone Edge\n- Fire Fang\n"})
+    b = call("training_start", {"trainer_id": me["id"], "pattern": "dodge", "time_limit": 30})
+    assert b["kind"] == "training" and b["mode"] == "realtime" and b["status"] == "live"
+    spec = b["rt"]["spec"]
+    assert spec["training"] == {"pattern": "dodge"} and spec["p2"]["ai"]["level"] == "dummy" and spec["p2"]["sets"][0]["species"] == "Sudowoodo"
+    assert b["p1"]["trainer_id"] == "" and b["p1"]["name"] == "Practicante"
+    assert call("training_start", {"trainer_id": me["id"], "pattern": "dance"}, status=400)
+    # the screen's end: forfeiting stores the battle, and the trainer's record does not move
+    call("battle_rt_finish", {"id": b["id"], "inputs": [], "tick": 30, "forfeit": "p1"})
+    rec = call("trainer_get", {"id": me["id"]})["record"]
+    assert rec["wins"] + rec["losses"] == 0
+    assert call("battle_get", {"id": b["id"]})["status"] == "ended"

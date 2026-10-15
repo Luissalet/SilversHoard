@@ -89,6 +89,12 @@ def pmd_meta(request: Request, dex: int, form: str = "", shiny: bool = False):
     return {**meta, "credit": s.credits.walking(str(meta.get("key") or ""))}
 
 
+@router.get("/sprites/portrait")
+def pmd_portrait(request: Request, species: str = "", emotion: str = "Normal"):
+    """A Pokémon's portrait with an emotion (Normal, Happy, Pain, Angry, Sad, Crying, Determined, Joyous…), for lines and results."""
+    return _file(services(request).pmd.portrait(species[:60], emotion))
+
+
 @router.get("/sprites/pmd-sheet/{key}/{anim}")
 def pmd_sheet(request: Request, key: str, anim: str):
     return _file(services(request).pmd.sheet(key, anim.removesuffix(".png")))
