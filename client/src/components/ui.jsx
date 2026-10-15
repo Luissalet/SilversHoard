@@ -410,7 +410,8 @@ export function useLoad(fn, deps) {
     load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
-  return { ...state, reload: load, setData: (data) => setState((s) => ({ ...s, data })) };
+  // setData takes the new data or, like React's setState, a function of the current data
+  return { ...state, reload: load, setData: (data) => setState((s) => ({ ...s, data: typeof data === "function" ? data(s.data) : data })) };
 }
 
 // Busy flags keyed by name; a failing action shows the backend's error and hint in a toast.
