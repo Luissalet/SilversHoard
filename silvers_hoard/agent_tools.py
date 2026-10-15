@@ -16,6 +16,7 @@ from .hoard_link.agentkit import call_tool as _call_tool
 from .hoard_link.agentkit import tool_catalog as _catalog
 from .hoard_link.agentkit import uncapped  # noqa: F401 - re-exported for the UI routes
 from . import gymmap
+from .mass_sharing import export_page as mass_export_page
 from .services import Services
 
 AGENT_INSTRUCTIONS = """Silver's Hoard is a Pokémon battle simulator (Pokémon Showdown's engine, every generation). It keeps trainers (a name, a team, an AI level and style, an avatar and battle lines), gyms (a leader plus optional gym trainers, a badge and rules), leagues (gyms, an Elite Four and a champion) and every battle with its full log.
@@ -1121,6 +1122,8 @@ TOOLS: list[Tool] = [
          MassStartArgs, W,
          lambda s, a: s.mass.start(preset=a.preset, again=a.again, mode=a.mode, teams=[t.model_dump() for t in a.teams], level=a.level,
                                    floor=a.floor, time_limit=a.time_limit, title=a.title, seed=a.seed), 240.0),
+    Tool("mass_export", _d("Export a saved mass battle as one HTML replay page. Compartir batalla campal."), MassIdArg, W,
+         lambda s, a: mass_export_page(s, a.id)),
     Tool("mass_get", _d("A mass battle: its spec, result, ranking and best Pokémon. Ver batalla campal."), MassIdArg, R, lambda s, a: s.mass.get(a.id)),
     Tool("mass_list", _d("Mass battles already fought, newest first. Batallas campales."), Empty, R, lambda s, a: {"battles": s.mass.list()}),
     Tool("mass_delete", _d("Delete a mass battle. Borrar batalla campal."), MassIdArg, W, lambda s, a: s.mass.delete(a.id)),

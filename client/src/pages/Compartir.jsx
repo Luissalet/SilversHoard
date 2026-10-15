@@ -5,6 +5,7 @@ import { useApp } from "../context.js";
 import { Busy, Field, Icon, ICONS, Section, useBusy } from "../components/ui.jsx";
 import { FormatSelect } from "../components/silver.jsx";
 import { ExerciseLibrary } from "../components/Training.jsx";
+import { MassShare } from "../components/MassShare.jsx";
 
 function ResultView({ r }) {
   const { t } = useApp();
@@ -74,6 +75,7 @@ export default function Compartir() {
       </div>
       <ResultView r={result} />
       <ExerciseLibrary/>
+      <MassShare/>
       <Section title={t("how_sharing_works")}>
         <div className="panel space-y-2 max-w-3xl">
           <p><b>{t("export_page")}.</b> {t("how_page")}</p>
