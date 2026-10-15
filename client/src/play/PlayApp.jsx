@@ -10,18 +10,14 @@ import { useBattlePlayer } from "../battle/player.js";
 import { battleEnd } from "../audio.js";
 import { playT } from "./strings.js";
 import { BadgeArt } from "../components/badges.jsx";
+import RtScreen from "../battle/rt/RtScreen.jsx";
+import { RULES_VERSION, rtRun } from "../../../engine/src/realtime/sim.mjs";
+import { deflateB64, newSeed, packRtInputs } from "./rtcode.js";
 
-const RESULT_PREFIX = "SILVERWIN1-";
-
-async function deflateB64(text) {
-  const bytes = new TextEncoder().encode(text);
-  if (typeof CompressionStream === "undefined") throw new Error("CompressionStream unavailable");
-  const stream = new Blob([bytes]).stream().pipeThrough(new CompressionStream("deflate"));
-  const buf = new Uint8Array(await new Response(stream).arrayBuffer());
-  let bin = "";
-  for (let i = 0; i < buf.length; i += 0x8000) bin += String.fromCharCode.apply(null, buf.subarray(i, i + 0x8000));
-  return btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
-}
+const RESULT_PREFIX = "SILVERWIN1-";       // a result of battles played turn by turn
+const RESULT_PREFIX_RT = "SILVERWIN2-";    // a result with real-time battles in it: they carry their replay
+const LONG_CODE = 6000;                     // characters; longer than this and the page pushes the file
+const readPref = (key) => { try { return localStorage.getItem(key) || ""; } catch { return ""; } };
 
 function avatarSrc(sprites, avatar) {
   return sprites.trainer(avatar);
@@ -66,6 +62,13 @@ function Challenge({ data, lang, setLang, t }) {
   const [results, setResults] = useState([]);
   const [code, setCode] = useState({ short: "", full: "" });
   const [copied, setCopied] = useState(false);
+  // how the friend may fight: the owner chose when exporting (turns, real time, or "choose": the friend picks for each battle)
+  const rtInfo = data.rt && typeof data.rt === "object" ? data.rt : null;
+  const allowed = !rtInfo || data.mode === "turns" ? "turns" : data.mode === "realtime" ? "realtime" : "choose";
+  const [pick, setPick] = useState(() => (readPref("silver-play-mode") === "realtime" ? "realtime" : "turns"));
+  const battleMode = allowed === "choose" ? pick : allowed;
+  const [stageMode, setStageMode] = useState("turns");
+  const setPickSaved = (v) => { setPick(v); try { localStorage.setItem("silver-play-mode", v); } catch { /* not critical */ } };
   const fid = useMemo(() => { try { return buildFormatId(format, rules); } catch { return "gen9nationaldexag"; } }, [format, rules]);
   const info = useMemo(() => { try { return formatInfo(fid); } catch { return { gen: 9, name: fid }; } }, [fid]);
   const owner = data.from || data.payload.owner || target.owner || "";
@@ -106,6 +109,7 @@ function Challenge({ data, lang, setLang, t }) {
     try { localStorage.setItem("silver-play-name", name.trim()); } catch { /* not critical */ }
     setResults([]);
     setStage(0);
+    setStageMode(battleMode);
     setPhase("battle");
   };
 
@@ -121,15 +125,21 @@ function Challenge({ data, lang, setLang, t }) {
   useEffect(() => {
     if (phase !== "done") return;
     const won = results.length === stages.length && results.every((r) => r.won);
+    const withRt = results.some((r) => r.rt);
     const base = {
       kind, gym_id: kind === "gym" ? target.source_id : "", gym_name: kind === "gym" ? target.name : "", trainer_id: kind === "trainer" ? target.source_id : "",
       trainer_name: kind === "trainer" ? target.name : "", challenger: name.trim(), won, turns: results.reduce((a, r) => a + r.turns, 0),
-      date: new Date().toISOString(), team: sets, team_paste: sets ? exportTeam(sets) : "", stages: results.map((r) => ({ name: r.opponent, won: r.won, turns: r.turns })),
+      date: new Date().toISOString(), team: sets, team_paste: sets ? exportTeam(sets) : "",
+      stages: results.map((r) => (r.rt ? { name: r.opponent, won: r.won, turns: 0, mode: "realtime", rt: r.rt } : { name: r.opponent, won: r.won, turns: r.turns })),
+      ...(withRt ? { v: 2 } : {}),
     };
     (async () => {
       try {
-        const short = RESULT_PREFIX + await deflateB64(JSON.stringify(base));
-        const full = RESULT_PREFIX + await deflateB64(JSON.stringify({ ...base, log: results.flatMap((r) => r.lines) }));
+        // battles played in real time travel with their replay (seed, arena, inputs): the app plays them again to check the result
+        const prefix = withRt ? RESULT_PREFIX_RT : RESULT_PREFIX;
+        const log = results.flatMap((r) => r.lines);
+        const full = prefix + await deflateB64(JSON.stringify({ ...base, log }));
+        const short = withRt && !log.length ? full : prefix + await deflateB64(JSON.stringify(base));
         setCode({ short, full });
       } catch {
         setCode({ short: "", full: "" });
@@ -156,7 +166,9 @@ function Challenge({ data, lang, setLang, t }) {
       <div className="p-wrap">
         {header}
         <div className="help">{t("stage", { n: stage + 1, total: stages.length })}</div>
-        <BattleView key={stage} t={t} lang={lang} sprites={sprites} me={{ name: name.trim(), sets }} opp={opp} fid={fid} levelRules={levelRules} onEnd={onBattleEnd} />
+        {stageMode === "realtime" && rtInfo
+          ? <RtBattleView key={stage} t={t} lang={lang} sprites={sprites} me={{ name: name.trim(), sets }} opp={opp} rtInfo={rtInfo} levelRules={levelRules} onEnd={onBattleEnd} />
+          : <BattleView key={stage} t={t} lang={lang} sprites={sprites} me={{ name: name.trim(), sets }} opp={opp} fid={fid} levelRules={levelRules} onEnd={onBattleEnd} />}
       </div>
     );
   }
@@ -170,7 +182,9 @@ function Challenge({ data, lang, setLang, t }) {
           <img src={avatarSrc(sprites, opp.avatar)} alt="" className="p-avatar pixelated" onError={(e) => { e.currentTarget.style.display = "none"; }} />
           <b>{t("next", { name: opp.name })}</b>
           {opp.dialogue?.intro && <p className="p-quote">“{opp.dialogue.intro}”</p>}
-          <button type="button" className="btn btn-primary" onClick={() => { setStage((s) => s + 1); setPhase("battle"); }}>{t("start")}</button>
+          {allowed === "choose" && <ModePicker t={t} value={pick} onChange={setPickSaved} />}
+          {allowed !== "choose" && rtInfo && <p className="help">{t(allowed === "realtime" ? "mode_realtime_only" : "mode_turns_only")}</p>}
+          <button type="button" className="btn btn-primary" onClick={() => { setStage((s) => s + 1); setStageMode(battleMode); setPhase("battle"); }}>{t("start")}</button>
         </div>
       </div>
     );
@@ -197,10 +211,12 @@ function Challenge({ data, lang, setLang, t }) {
           <div className="space-y-2 w-full">
             <b>{t("result_code")}</b>
             <p className="help">{t("result_help", { name: owner || target.name })}</p>
+            {results.some((r) => r.rt) && !code.short && <div className="banner banner-warn">{t("rt_code_unavailable")}</div>}
+            {code.short.length > LONG_CODE && <div className="banner banner-info">{t("code_long", { n: code.short.length })}</div>}
             <textarea className="field" rows={4} readOnly value={code.short} onFocus={(e) => e.target.select()} />
             <div className="flex flex-wrap gap-2">
-              <button type="button" className="btn btn-primary" onClick={copy} disabled={!code.short}>{copied ? t("copied") : t("copy")}</button>
-              <button type="button" className="btn" onClick={file} disabled={!code.full}>{t("download_result")}</button>
+              <button type="button" className={`btn ${code.short.length > LONG_CODE ? "" : "btn-primary"}`} onClick={copy} disabled={!code.short}>{copied ? t("copied") : t("copy")}</button>
+              <button type="button" className={`btn ${code.short.length > LONG_CODE ? "btn-primary" : ""}`} onClick={file} disabled={!code.full}>{code.short.length > LONG_CODE ? t("download_code_file") : t("download_result")}</button>
               <button type="button" className="btn" onClick={() => setPhase("setup")}>{t("retry")}</button>
             </div>
           </div>
@@ -232,7 +248,9 @@ function Challenge({ data, lang, setLang, t }) {
             {levelRules.level_cap && <span className="chip">{t("level_cap", { n: levelRules.level_cap })}</span>}
             {levelRules.level_min && <span className="chip">{t("level_min", { n: levelRules.level_min })}</span>}
             {rules.map((r) => <span key={r} className="chip">{r}</span>)}
+            {allowed === "realtime" && <span className="chip chip-rt">{t("mode_chip_realtime")}</span>}
           </div>
+          {allowed !== "choose" && rtInfo && <p className="help">{t(allowed === "realtime" ? "mode_realtime_only" : "mode_turns_only")}</p>}
           {kind === "gym" && <p className="help">{stages.length > 1 ? t("then_leader", { n: stages.length - 1 }) : t("only_leader")}</p>}
           {target.description && <p className="help">{target.description}</p>}
         </section>
@@ -246,6 +264,7 @@ function Challenge({ data, lang, setLang, t }) {
           {tab === "random" && <button type="button" className="btn btn-sm" onClick={roll}>{t("roll")}</button>}
           {tab === "file" && <><input type="file" className="field" accept=".hoardtrainer,.json" onChange={(e) => loadFile(e.target.files?.[0])} /><p className="help">{t("file_help")}</p></>}
           {sets && <><TeamIcons sets={sets} sprites={sprites} /><div className="help">{t("team_ok")}</div></>}
+          {allowed === "choose" && <ModePicker t={t} value={pick} onChange={setPickSaved} />}
           {problems.length > 0 && <div className="banner banner-warn"><b>{t("problems")}</b><ul className="list-disc pl-5">{problems.map((p, i) => <li key={i}>{p}</li>)}</ul></div>}
           <div className="flex flex-wrap gap-2">
             {tab === "paste" && <button type="button" className="btn" onClick={() => check(paste)} disabled={!paste.trim()}>{t("check")}</button>}
@@ -330,4 +349,57 @@ function BattleView({ t, lang, sprites, me, opp, fid, levelRules, onEnd }) {
 function alertless(e) {
   // a rejected choice is shown in the console only; the controls stay so the person picks again
   console.warn(e && e.message ? e.message : e);
+}
+
+/** Turn by turn or real time, when the owner left the choice to the friend. */
+function ModePicker({ t, value, onChange }) {
+  return (
+    <div className="space-y-1 w-full">
+      <span className="label">{t("battle_mode")}</span>
+      <div className="seg" role="group" aria-label={t("battle_mode")}>
+        {["turns", "realtime"].map((v) => <button key={v} type="button" aria-pressed={value === v} onClick={() => onChange(v)}>{t(`mode_${v}`)}</button>)}
+      </div>
+      <div className="help">{t(`mode_${value}_help`)}</div>
+    </div>
+  );
+}
+
+/** One battle in real time: the app's arena screen on the page's own copy of the simulator. The battle is recorded as its seed and the
+ * friend's inputs; the page replays it itself to get the result (the way the app will), and puts the replay in the result code. */
+function RtBattleView({ t, lang, sprites, me, opp, rtInfo, levelRules, onEnd }) {
+  const seats = useMemo(() => ({ p1: { name: me.name, avatarUrl: "" }, p2: { name: opp.name, avatarUrl: avatarSrc(sprites, opp.avatar) } }), [me.name, opp, sprites]);
+  const spec = useMemo(() => {
+    const seed = newSeed();
+    return {
+      id: `play-${seed}`, seed, format: rtInfo.format, level_rules: levelRules, time_limit: rtInfo.time_limit, version: Math.min(rtInfo.version || RULES_VERSION, RULES_VERSION),
+      arena: rtInfo.arena === "open" ? "open" : "rocks",
+      p1: { name: me.name, sets: me.sets, ai: null }, p2: { name: opp.name, sets: opp.team, ai: opp.ai || { level: "normal", style: "balanced" } },
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  const [battle, setBattle] = useState(() => ({
+    id: spec.id, status: "live", format: spec.format, kind: "friend", summary: null, rt: { spec, inputs: [], tick: 0, human: [true, false], time_limit: spec.time_limit, arena: spec.arena },
+  }));
+  const outcome = useRef(null);
+
+  const onFinish = useCallback(async (inputs, tick, forfeit) => {
+    // the result is what the replay says: the same run the app does on import
+    const b = rtRun(spec, { inputs, forfeit: forfeit || "", tick });
+    const summary = b.summary();
+    const won = summary.winner_side === "p1";
+    let rt = null;
+    try {
+      rt = { trainer: opp.source_id, key: (rtInfo.keys || {})[opp.source_id] || "", v: spec.version, arena: spec.arena, seed: spec.seed, limit: spec.time_limit,
+        inputs: await packRtInputs(inputs), tick: Math.max(0, Math.round(tick)), forfeit: forfeit || "" };
+    } catch { /* no compression in this browser: the page says it cannot give a code */ }
+    outcome.current = { won, turns: 0, seconds: Math.round(b.t / 30), opponent: opp.name, lines: [], mode: "realtime", rt };
+    const ended = { id: spec.id, status: "ended", format: spec.format, kind: "friend", winner_side: summary.winner_side, summary: { seconds: b.t / 30 },
+      rt: { spec, inputs: inputs.slice(), tick: b.t, human: [true, false], time_limit: spec.time_limit, arena: spec.arena } };
+    setBattle(ended);
+    return ended;
+  }, [spec, opp, rtInfo]);
+
+  return (
+    <RtScreen key={spec.id} battle={battle} lang={lang} sprites={sprites} seats={seats} offline onFinish={onFinish}
+      onContinue={() => onEnd(outcome.current || { won: false, turns: 0, opponent: opp.name, lines: [], mode: "realtime", rt: null })} continueLabel={t("battle_continue")} />
+  );
 }

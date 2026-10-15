@@ -211,10 +211,21 @@ export function ExportDialog({ kind, id, name, onClose }) {
   const { t } = useApp();
   const [busy, run] = useBusy();
   const [result, setResult] = useState(null);
-  const make = (fmt) => run(fmt, async () => setResult({ fmt, ...(await api.call("export", { kind, id, fmt })) }));
+  const [friendMode, setFriendMode] = useState(() => { try { return localStorage.getItem("silver-friend-mode") || "choose"; } catch { return "choose"; } });
+  const pickMode = (v) => { setFriendMode(v); try { localStorage.setItem("silver-friend-mode", v); } catch { /* the choice lasts this window */ } };
+  const make = (fmt) => run(fmt, async () => setResult({ fmt, ...(await api.call("export", { kind, id, fmt, ...(fmt === "page" ? { friend_mode: friendMode } : {}) })) }));
   return (
     <Modal title={t("export_title", { name })} onClose={onClose} wide>
       <p className="help">{t(`export_help_${kind}`)}</p>
+      {kind !== "league" && (
+        <div className="space-y-1">
+          <span className="label">{t("export_friend_mode")}</span>
+          <div className="seg" role="group" aria-label={t("export_friend_mode")}>
+            {["choose", "turns", "realtime"].map((v) => <button key={v} type="button" aria-pressed={friendMode === v} onClick={() => pickMode(v)}>{t(`export_mode_${v}`)}</button>)}
+          </div>
+          <div className="help">{t(`export_mode_help_${friendMode}`)}</div>
+        </div>
+      )}
       <div className="export-grid">
         {kind !== "league" && (
           <button type="button" className="export-option" onClick={() => make("page")} disabled={busy.page}>
