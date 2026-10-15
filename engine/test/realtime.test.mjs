@@ -571,3 +571,14 @@ test('doubles: AI vs AI in every level plays to the end and replays the same', (
     assert.ok(eventLines(one)[0].endsWith('|doubles'));
   }
 });
+
+test('rules version 3 fills the Mega Power gauge a segment every 8 s, version 2 every 15 s', () => {
+  for (const [version, secs] of [[3, 8], [2, 15]]) {
+    const b = new RtBattle({seed: `gauge${version}`, format: 'gen9customgame', version, arena: 'open',
+      p1: {name: 'A', sets: importTeam('Snorlax\n- Rest\n'), ai: null}, p2: {name: 'B', sets: importTeam('Snorlax\n- Rest\n'), ai: null}});
+    for (let t = 0; t < secs * TPS - 2; t++) b.step({});
+    assert.ok(b.sides[0].gauge < GAUGE_SEGMENT, `v${version}: not yet a segment just before ${secs} s`);
+    for (let t = 0; t < 4; t++) b.step({});
+    assert.ok(b.sides[0].gauge >= GAUGE_SEGMENT, `v${version}: a segment after ${secs} s`);
+  }
+});

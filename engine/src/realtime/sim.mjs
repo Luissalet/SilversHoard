@@ -46,6 +46,10 @@ const GAUGE_MAX = GAUGE_SEGMENT * GAUGE_SEGMENTS;
 const GAUGE_FILL = GAUGE_SEGMENT / (15 * TPS);   // 8 per tick
 const GAUGE_DRAIN = GAUGE_SEGMENT / (8 * TPS);   // 15 per tick
 const GAUGE_HIT = 1440;                          // dealing a whole HP bar of damage: 0.4 of a segment
+// From rules version 3 the gauge fills faster (a segment every 8 s, a whole HP bar of damage 0.8 of a segment): with 15 s per
+// segment most battles ended before anyone could Mega Evolve.
+const GAUGE_FILL_V3 = GAUGE_SEGMENT / (8 * TPS);   // 15 per tick
+const GAUGE_HIT_V3 = 2880;
 export const PLUS = {damage: 1.2, superDamage: 1.3, secondary: 1.67, heal: 4 / 3, area: 1.2, pierce: 0.25};
 const AIM_ASSIST = Math.sqrt(3) / 2;             // cos 30°: not focusing, a move snaps to the foe within 30° of the facing (no trigonometry: sqrt is exact everywhere)
 const STRIKE_LUNGE = 0.6;                        // not focusing: a strike lunges this far forward
@@ -898,7 +902,7 @@ export class RtBattle {
       if (side.mega >= 0) {
         side.gauge = Math.max(0, side.gauge - GAUGE_DRAIN);
         if (side.gauge <= 0) this.megaEnd(side);
-      } else side.gauge = Math.min(GAUGE_MAX, side.gauge + GAUGE_FILL);
+      } else side.gauge = Math.min(GAUGE_MAX, side.gauge + (this.version >= 3 ? GAUGE_FILL_V3 : GAUGE_FILL));
     }
   }
 
@@ -1706,7 +1710,7 @@ export class RtBattle {
   /** Dealing damage fills the trainer's gauge a little faster (not while it is Mega Evolved and draining). */
   gaugeGain(side, dmg, maxhp) {
     if (side.mega >= 0) return;
-    side.gauge = Math.min(GAUGE_MAX, side.gauge + Math.floor((GAUGE_HIT * dmg) / Math.max(1, maxhp)));
+    side.gauge = Math.min(GAUGE_MAX, side.gauge + Math.floor(((this.version >= 3 ? GAUGE_HIT_V3 : GAUGE_HIT) * dmg) / Math.max(1, maxhp)));
   }
 
   heal(side, amount, source) {
