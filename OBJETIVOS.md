@@ -17,12 +17,9 @@ Lo que falta por construir, de más a menos valor. Lo que ya hace está en el [R
    motor ya corre en el navegador; falta la pantalla en la página y que el código de resultado lleve las pulsaciones para
    repetirlo aquí.
 8. **Tiempo real en dobles.** Dos Pokémon por entrenador en la arena, con objetivo elegible.
-9. **Megaevolución y movimientos Plus en tiempo real**, como en Leyendas Z-A (barra de megaenergía, versiones mejoradas).
-10. **Arena más ligera.** La pantalla de tiempo real carga los datos completos de `@pkmn/sim` (unos 6 MB); con `@pkmn/dex` y
+9. **Arena más ligera.** La pantalla de tiempo real carga los datos completos de `@pkmn/sim` (unos 6 MB); con `@pkmn/dex` y
     solo las generaciones en uso bajaría a la mitad.
-11. **Sprites dibujados con varias poses.** Pedir a Prospero la misma persona de frente (entrenador rival) y de espaldas (lado
+10. **Sprites dibujados con varias poses.** Pedir a Prospero la misma persona de frente (entrenador rival) y de espaldas (lado
     del jugador), y una pose de victoria para el final del combate.
-12. **Los personajes que faltan.** Los equipos de la Torre Batalla de Diamante Brillante y Perla Reluciente, Noland, Argenta
+11. **Los personajes que faltan.** Los equipos de la Torre Batalla de Diamante Brillante y Perla Reluciente, Noland, Argenta
     y Thorton (sus tablas usan otra plantilla en la wiki) y los de Leyendas Pokémon: Arceus.
-13. **Fijar al rival con efecto en tiempo real.** Hoy Mayús / ZL fija la mira y enciende los movimientos; en Z-A además el
-    Pokémon se mueve de cara al rival (desplazamiento lateral): hace falta una entrada más en el simulador y en las repeticiones.
