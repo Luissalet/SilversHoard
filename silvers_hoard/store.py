@@ -345,15 +345,17 @@ class Store:
     def trainer(self, id_: str, *, deleted: bool = False) -> dict[str, Any]:
         return self._get("trainers", id_, TRAINER_JSON, "Trainer", deleted=deleted)
 
-    def trainers(self, *, query: str = "", origin: str = "", deleted: bool = False, limit: int = 500, ids: Optional[list[str]] = None) -> list[dict[str, Any]]:
+    def trainers(self, *, query: str = "", origin: str | tuple[str, ...] = "", deleted: bool = False, limit: int = 500,
+                 ids: Optional[list[str]] = None) -> list[dict[str, Any]]:
         where = ["deleted_at IS NOT NULL" if deleted else "deleted_at IS NULL"]
         params: list[Any] = []
         if query:
             where.append("(name LIKE ? OR title LIKE ? OR owner LIKE ? OR team_json LIKE ? OR tags_json LIKE ?)")
             params += [f"%{query}%"] * 5
         if origin:
-            where.append("origin = ?")
-            params.append(origin)
+            origins = (origin,) if isinstance(origin, str) else tuple(origin)
+            where.append(f"origin IN ({','.join('?' * len(origins))})")
+            params += origins
         if ids is not None:
             if not ids:
                 return []
