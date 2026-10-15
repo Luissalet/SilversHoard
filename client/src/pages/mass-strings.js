@@ -82,7 +82,52 @@ const MASS = {
   mass_follow_best: ["Seguir al mejor", "Follow the best"],
   mass_whole_field: ["Todo el campo", "Whole field"],
   mass_following: ["Siguiendo a uno: doble clic o «Todo el campo» para volver.", "Following one: double-click or «Whole field» to go back."],
+  mass_play: ["Jugar con un Pokémon", "Play as a Pokémon"],
+  mass_play_help: ["Elige a quién llevas tú; el resto sigue con su IA y la batalla es la misma que viste, hasta que tú la cambies. WASD o flechas (o el stick) para moverte, 1-4 (o I L K J, o A B X Y del mando) para lanzar sus movimientos hacia el ratón (o al rival más cercano si no lo mueves), clic para el primero, Espacio (o RB) para rodar: durante la voltereta nada te toca. Esc pausa.",
+    "Choose the one you lead; everybody else keeps their AI and the battle is the one you watched until you change it. WASD or the arrows (or the stick) to move, 1-4 (or I L K J, or the pad's A B X Y) to fire its moves at the mouse (or at the nearest foe if you do not move it), click for the first one, Space (or RB) to roll: nothing hits you during the roll. Esc pauses."],
+  mass_pick_search: ["Busca por nombre o equipo", "Search by name or team"],
+  mass_pick_more: ["… y {n} más: escribe para filtrar.", "… and {n} more: type to filter."],
+  mass_watch_only: ["Solo mirar", "Just watch"],
+  mass_you: ["TÚ", "YOU"],
+  mass_dodge: ["¡Esquiva!", "Dodge!"],
+  mass_keys: ["WASD mover · 1-4 movimientos hacia el ratón · clic = el 1 · Espacio rodar · Esc pausa", "WASD move · 1-4 moves at the mouse · click = 1 · Space roll · Esc pause"],
+  mass_you_fell: ["Te han debilitado. Ahora puedes acelerar o ir al final.", "You were knocked out. You can speed up or skip to the end now."],
+  mass_your_result: ["Tu partida con {name}: puesto {place} de {n} · {kos} K.O. · {dmg} de daño", "Your run with {name}: place {place} of {n} · {kos} KOs · {dmg} damage"],
+  mass_team_won: ["Tu bando gana.", "Your side wins."],
+  mass_team_lost: ["Tu bando no gana.", "Your side does not win."],
+  mass_play_saving: ["El motor está repitiendo tu partida para comprobarla…", "The engine is replaying your run to check it…"],
+  mass_play_saved: ["Partida guardada: el motor la ha repetido y acaba igual.", "Run saved: the engine replayed it and it ends the same."],
+  mass_play_bad: ["No se ha podido guardar la partida: {msg}", "The run could not be saved: {msg}"],
+  mass_plays: ["Partidas jugadas", "Played runs"],
+  mass_plays_none: ["Nadie la ha jugado todavía: pulsa «Jugar con un Pokémon».", "Nobody has played it yet: press «Play as a Pokémon»."],
+  mass_place: ["Puesto", "Place"],
+  mass_player: ["Quién", "Who"],
+  mass_watch_play: ["Ver", "Watch"],
+  mass_watch_ai: ["Ver la batalla de la IA", "Watch the AI's battle"],
+  mass_replay_of: ["Repetición: {who} con {name}", "Replay: {who} with {name}"],
+  mass_source_friend: ["amigo", "friend"],
+  mass_video_help: ["Se graba la batalla con su sonido en un navegador sin ventana y queda como MP4 en la carpeta de exportaciones. La cámara sigue la acción (o a quien la jugó). Lenta = como pasó; normal = el doble de rápido; rápida = cuatro veces.",
+    "The battle is recorded with its sound in a windowless browser and saved as an MP4 in the exports folder. The camera follows the action (or whoever played it). Slow = as it happened; normal = twice as fast; fast = four times."],
+  mass_page: ["Página para amigos", "Page for friends"],
+  mass_page_done: ["Página lista: mándale el archivo. Te devolverá un código SILVERMASS1- que pegas en Compartir > Importar.", "Page ready: send them the file. They will send back a SILVERMASS1- code to paste in Share > Import."],
+  mass_download: ["Descargar", "Download"],
+  mass_from: ["De {name}", "From {name}"],
+  mass_auto_cam: ["Cámara automática", "Auto camera"],
+  mass_choose_other: ["Elegir otro Pokémon", "Choose another Pokémon"],
+  mass_play_again: ["Jugar otra vez", "Play again"],
+  mass_code_title: ["Código para {name}", "Code for {name}"],
+  mass_code_help: ["Mándaselo a {name}: lo pega en Importar de su Silver's Hoard, la app repite tu partida para comprobarla y queda registrada.", "Send it to {name}: they paste it in Import in their Silver's Hoard; the app replays your run to check it and records it."],
+  mass_name_ph: ["Tu nombre", "Your name"],
+  mass_page_intro: ["{name} te manda una batalla campal: mírala o juega con uno de sus Pokémon.", "{name} sends you a mass battle: watch it or play one of its Pokémon."],
+  mass_imported_play: ["Partida de {name} con {pokemon} comprobada y guardada: puesto {place} de {n}, {kos} K.O.", "{name}'s run with {pokemon} checked and saved: place {place} of {n}, {kos} KOs."],
+  mass_imported_page: ["Batalla campal añadida: {name}.", "Mass battle added: {name}."],
   mass_camera_help: ["Rueda para acercar, arrastra para moverte, clic en un Pokémon para seguirlo; espacio pausa.", "Wheel to zoom, drag to move, click a Pokémon to follow it; space pauses."],
 };
 
 export default MASS;
+
+/** The words alone, for the playable page (it has no app dictionary): t(key, vars). */
+export function massT(lang) {
+  const i = lang === "en" ? 1 : 0;
+  return (key, vars = {}) => String(MASS[key]?.[i] ?? key).replace(/\{(\w+)\}/g, (_, k) => (vars[k] ?? ""));
+}

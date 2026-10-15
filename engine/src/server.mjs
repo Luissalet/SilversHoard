@@ -128,7 +128,7 @@ const handlers = {
   rt_play_out: (a) => rtResult(rtRun(a.spec), a),
   rt_replay: (a) => rtResult(rtRun(a.spec, {inputs: a.inputs || [], forfeit: a.forfeit || '', tick: a.tick || 0}), a),
   mass_compose: (a) => composeMass(a),
-  mass_run: (a) => { const b = massRun(a.spec); return {summary: b.summary(), hash: b.hash(), ticks: b.t}; },
+  mass_run: (a) => { const b = massRun(a.spec, {inputs: a.inputs || []}); return {summary: b.summary(), hash: b.hash(), ticks: b.t}; },
 };
 
 function rtResult(b, a = {}) {

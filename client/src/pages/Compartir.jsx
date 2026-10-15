@@ -24,6 +24,16 @@ function ResultView({ r }) {
   }
   if (r.kind === "gym") return <div className="banner banner-info">{t("imported_gym", { name: r.gym.name })} <a className="btn-link" href={`#/gimnasio/${r.gym.id}`}>{t("open")}</a></div>;
   if (r.kind === "league") return <div className="banner banner-info">{t("imported_league", { name: r.league.name })} <a className="btn-link" href={`#/liga/${r.league.id}`}>{t("open")}</a></div>;
+  if (r.kind === "mass_result") {
+    const p = r.play || {};
+    return (
+      <div className="banner banner-info">
+        {t("mass_imported_play", { name: p.challenger, pokemon: p.name, place: p.place, n: p.of, kos: p.kos })}{" "}
+        <a className="btn-link" href={`#/campal/${r.mass_id}?play=${p.id}`}>{t("mass_watch_play")}</a>
+      </div>
+    );
+  }
+  if (r.kind === "mass") return <div className="banner banner-info">{t("mass_imported_page", { name: r.mass.title })} <a className="btn-link" href={`#/campal/${r.mass.id}`}>{t("open")}</a></div>;
   if (r.kind === "result") {
     return (
       <div className={`banner ${r.won ? "banner-info" : "banner-warn"}`}>

@@ -1,12 +1,15 @@
 // Mass battles ("batalla campal", silvers_hoard/mass.py): ready-made battles like the battle royale videos (a whole Pokédex, the
 // starters, every legendary, the generations in teams, a giant against a crowd), a builder for your own (everybody against
 // everybody, teams, or many against a few, with whole generations, the strongest of each, groups, names or your trainers' teams)
-// and the battles already fought. #/campal/<id> watches one.
+// and the battles already fought. #/campal/<id> watches one, lets you play one of its Pokémon (the engine replays your input log
+// and keeps the run), lists the runs played on it (yours and friends'), makes a page for friends and records a video.
 import React, { useState } from "react";
 import { api } from "../api.js";
 import { useApp } from "../context.js";
 import { Busy, Empty, Field, Rel, Section, Spinner, useBusy, useLoad, useStored } from "../components/ui.jsx";
 import { TrainerSelect } from "../components/silver.jsx";
+import VideoExport from "../components/VideoExport.jsx";
+import UnitPicker from "../battle/mass/UnitPicker.jsx";
 import "../battle/mass/mass.css";
 
 // the screen carries the battle engine: it comes with the real-time chunk (CombateRt.jsx), only when a battle is watched
@@ -21,14 +24,24 @@ const COLORS = ["#3d8bfd", "#e5484d", "#30a46c", "#f5a524", "#8e4ec6", "#12a594"
 const newTeam = (i, kind = "dex") => ({ kind, gens: [i % 9 + 1], count: 15, list: "", trainer_id: "", name: "", color: COLORS[i % COLORS.length], shiny: false,
   boss: { hp: 0, size: 0, power: 0 } });
 
-export default function Campal({ param }) {
-  return param ? <Watch id={param} /> : <Home />;
+export default function Campal({ param, query }) {
+  return param ? <Watch id={param} query={query} /> : <Home />;
 }
 
-function Watch({ id }) {
-  const { t, go, lang, sprites, toastError } = useApp();
-  const { data, error } = useLoad(() => api.call("mass_get", { id }), [id]);
+function Watch({ id, query }) {
+  const { t, go, lang, sprites, toastError, notify } = useApp();
+  const { data, error, reload } = useLoad(() => api.call("mass_get", { id }), [id]);
   const [busy, run] = useBusy();
+  // what the screen shows: the AI's battle, picking a Pokémon, playing it, or a played run again
+  const [view, setView] = useState(() => (query?.get("play") ? { kind: "replay", play: query.get("play") } : { kind: "watch" }));
+  const [run2, setRun2] = useState(0);
+  const [page, setPage] = useState(null);
+  const [replay, setReplay] = useState(null);
+  React.useEffect(() => {
+    if (view.kind !== "replay") return;
+    setReplay(null);
+    api.call("mass_play_get", { id, play_id: view.play }).then(setReplay).catch((e) => { toastError(e); setView({ kind: "watch" }); });
+  }, [view.kind, view.play]); // eslint-disable-line react-hooks/exhaustive-deps
   if (error) return <div className="banner banner-warn">{String(error.message || error)}</div>;
   if (!data) return <Spinner label={t("mass_loading")} />;
   const again = () => run("again", async () => {
@@ -37,18 +50,77 @@ function Watch({ id }) {
       go(`#/campal/${out.id}`);
     } catch (e) { toastError(e); }
   });
+  const exportPage = () => run("page", async () => {
+    try { setPage(await api.call("mass_export", { id })); } catch (e) { toastError(e); }
+  });
+  const removePlay = (pid) => run(`rm${pid}`, async () => { await api.call("mass_play_delete", { id, play_id: pid }); reload(); });
+  const onPlayed = async ({ unit, inputs, hash }) => {
+    const out = await api.call("mass_play", { id, unit, inputs, hash });
+    notify(t("mass_play_saved"));
+    reload();
+    return out;
+  };
+  const plays = data.plays || [];
   return (
     <div className="space-y-3">
       <div className="flex flex-wrap items-center gap-2">
         <h1 className="page-title">{data.title}</h1>
         <span className="chip">{t(`mass_mode_${data.mode}`)}</span>
         <span className="chip">{t("mass_units", { n: data.units })}</span>
+        {data.from && <span className="chip">{t("mass_from", { name: data.from })}</span>}
         {busy.again && <Spinner label={t("mass_running")} />}
       </div>
-      <React.Suspense fallback={<Spinner label={t("mass_loading")} />}>
-        <MassScreen key={data.id} doc={data} t={t} lang={lang} sprites={sprites}
-          onCheck={(hash) => api.call("mass_check", { id, hash })} onAgain={again} onBack={() => go("#/campal")} />
-      </React.Suspense>
+      <div className="flex flex-wrap items-center gap-2">
+        <div className="seg" role="group">
+          <button type="button" aria-pressed={view.kind === "watch"} onClick={() => setView({ kind: "watch" })}>{t("mass_watch_ai")}</button>
+          <button type="button" aria-pressed={view.kind === "pick" || view.kind === "play"} onClick={() => setView({ kind: "pick" })}>{t("mass_play")}</button>
+        </div>
+        <Busy busy={busy.page} className="btn btn-sm" onClick={exportPage}>{t("mass_page")}</Busy>
+        <VideoExport tool="mass_video" args={{ id, play_id: view.kind === "replay" ? view.play : "" }} help={t("mass_video_help")} />
+        {page && (
+          <span className="help">
+            {t("mass_page_done")} <a className="btn btn-sm" href={api.exportUrl(page.file)} download={page.file}>{t("mass_download")}</a>
+          </span>
+        )}
+      </div>
+      {view.kind === "pick" && <div className="panel"><UnitPicker spec={data.spec} t={t} onPick={(unit) => { setRun2((n) => n + 1); setView({ kind: "play", unit }); }} onCancel={() => setView({ kind: "watch" })} /></div>}
+      {view.kind === "replay" && replay && <p className="help">{t("mass_replay_of", { who: replay.challenger, name: replay.name })}</p>}
+      {view.kind !== "pick" && (view.kind !== "replay" || replay) && (
+        <React.Suspense fallback={<Spinner label={t("mass_loading")} />}>
+          <MassScreen key={`${data.id}:${view.kind}:${view.unit ?? view.play ?? ""}:${run2}`} doc={data} t={t} lang={lang} sprites={sprites}
+            play={view.kind === "play" ? { unit: view.unit } : null}
+            replay={view.kind === "replay" && replay ? { unit: replay.unit, inputs: replay.inputs } : null}
+            onPlayed={view.kind === "play" ? onPlayed : null}
+            onCheck={view.kind === "watch" ? (hash) => api.call("mass_check", { id, hash }) : null}
+            onAgain={view.kind === "play" ? () => setRun2((n) => n + 1) : view.kind === "watch" ? again : null}
+            onBack={() => (view.kind === "watch" ? go("#/campal") : setView({ kind: "watch" }))} />
+        </React.Suspense>
+      )}
+      <Section title={t("mass_plays")} count={plays.length}>
+        {!plays.length ? <Empty title={t("mass_plays_none")} /> : (
+          <div className="panel p-0 overflow-x-auto">
+            <table className="mass-rank">
+              <thead><tr><th>{t("mass_place")}</th><th>{t("mass_player")}</th><th>{t("mass_pokemon")}</th>{data.mode !== "ffa" && <th>{t("mass_team")}</th>}<th>{t("mass_kos_h")}</th><th>{t("mass_damage")}</th><th /></tr></thead>
+              <tbody>
+                {plays.map((p) => (
+                  <tr key={p.id}>
+                    <td className="num">{p.place}/{p.of}{p.alive ? " ★" : ""}</td>
+                    <td>{p.challenger}{p.source === "friend" ? <span className="help"> · {t("mass_source_friend")}</span> : null}</td>
+                    <td>{p.name}</td>
+                    {data.mode !== "ffa" && <td>{p.team_name}{p.team_won ? " ✓" : ""}</td>}
+                    <td className="num">{p.kos}</td>
+                    <td className="num">{p.dealt}</td>
+                    <td className="whitespace-nowrap">
+                      <button type="button" className="btn btn-sm" onClick={() => setView({ kind: "replay", play: p.id })}>{t("mass_watch_play")}</button>{" "}
+                      <Busy busy={busy[`rm${p.id}`]} className="btn btn-sm" onClick={() => removePlay(p.id)}>{t("mass_delete")}</Busy>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </Section>
     </div>
   );
 }
@@ -92,6 +164,8 @@ function Home() {
                 <span className="chip">{t(`mass_mode_${b.mode}`)}</span>
                 <span className="help">{t("mass_units", { n: b.units })}</span>
                 <span className="help">{b.winner_name ? t("mass_won_by", { name: b.winner_name }) : t("mass_tie")}</span>
+                {b.played > 0 && <span className="chip">{t("mass_plays")}: {b.played}</span>}
+                {b.from && <span className="chip">{t("mass_from", { name: b.from })}</span>}
                 <span className="help ml-auto"><Rel ts={b.created_at} /></span>
                 <Busy busy={busy[`rm${b.id}`]} className="btn btn-sm" onClick={() => remove(b.id)}>{t("mass_delete")}</Busy>
               </div>

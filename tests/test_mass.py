@@ -1,6 +1,12 @@
 """Mass battles (mass.py): ready-made battles, building one from rosters and trainers' teams, the engine running it, keeping it on
-disk, fighting it again with another seed, the screen's check, and the limits."""
+disk, fighting it again with another seed, the screen's check, the limits, a person playing one Pokémon (here, by the tool and on a
+friend's page with its code), the friend's page itself and the input log as it travels."""
+import json
+import re
+
 from conftest import TEAM, needs_engine
+
+from silvers_hoard import sharing
 
 pytestmark = needs_engine
 
@@ -70,3 +76,65 @@ def test_every_preset_fits_and_battles_are_never_dropped(call, services):
     for k in range(3):
         call("mass_start", {"preset": "starters", "seed": f"keep{k}"})
     assert call("mass_get", {"id": first["id"]})["id"] == first["id"]
+
+
+# a short game: walk right for a second, fire the first move at the middle of the field, roll, then stand
+ROWS = [[1, 1000, 0, -1, 0, 0, 0], [31, 0, 0, 0, 1500, 900, 0], [80, 0, -1000, -1, 0, 0, 1], [90, 0, 0, -1, 0, 0, 0]]
+
+
+def test_the_input_log_travels_packed():
+    assert sharing.decode_mass_inputs(sharing.encode_mass_inputs(ROWS)) == ROWS
+    assert sharing.decode_mass_inputs("") == []
+    for bad in ([[5, 0, 0, -1, 0, 0, 0], [4, 0, 0, -1, 0, 0, 0]],      # the ticks go back
+                [[1, 2000, 0, -1, 0, 0, 0]],                           # off the stick
+                [[1, 0, 0, 7, 0, 0, 0]],                               # no fifth move
+                [[1, 0, 0, -1, 0, 0]]):                                 # a column short
+        try:
+            sharing.check_mass_rows(bad)
+        except sharing.SilverError:
+            continue
+        raise AssertionError(bad)
+
+
+def test_a_person_plays_one_pokemon(call):
+    out = call("mass_start", {"mode": "boss", "seed": "played", "teams": [{"kind": "species", "species": ["Mewtwo"]}, {"kind": "starters"}]})
+    first = call("mass_play", {"id": out["id"], "unit": 5, "inputs": ROWS})
+    assert first["unit"] == 5 and first["name"] == "Cyndaquil" and first["of"] == 28 and first["source"] == "app"
+    assert 1 <= first["place"] <= 28 and first["summary"]["player"]["inputs"] == 4
+    # the same log replays to the same fingerprint; a screen that ended elsewhere is refused
+    again = call("mass_play", {"id": out["id"], "unit": 5, "inputs": ROWS, "hash": first["hash"], "challenger": "Otra"})
+    assert again["hash"] == first["hash"] and again["place"] == first["place"]
+    call("mass_play", {"id": out["id"], "unit": 5, "inputs": ROWS, "hash": "nope"}, status=409)
+    call("mass_play", {"id": out["id"], "unit": 99, "inputs": ROWS}, status=400)
+    got = call("mass_get", {"id": out["id"]})
+    assert len(got["plays"]) == 2 and "inputs" not in got["plays"][0]
+    assert call("mass_list")["battles"][0]["played"] == 2
+    run = call("mass_play_get", {"id": out["id"], "play_id": first["id"]})
+    assert run["inputs"] == ROWS
+    call("mass_play_delete", {"id": out["id"], "play_id": again["id"]})
+    assert [p["id"] for p in call("mass_get", {"id": out["id"]})["plays"]] == [first["id"]]
+
+
+def test_a_friends_page_and_its_code(call, services):
+    out = call("mass_start", {"preset": "starters", "seed": "page"})
+    call("mass_play", {"id": out["id"], "unit": 0, "inputs": ROWS})
+    page = call("mass_export", {"id": out["id"]})
+    assert call("mass_export", {"id": out["id"]})["file"] != page["file"]        # every export is a file of its own
+    html = (services.config.exports_dir / page["file"]).read_text(encoding="utf-8")
+    data = json.loads(re.search(r'<script id="silver-data" type="application/json">(.*?)</script>', html, re.S).group(1))
+    assert data["kind"] == "mass" and data["mass"]["id"] == out["id"] and len(data["mass"]["spec"]["teams"][0]["units"]) == 27
+    assert data["mass"]["hash"] == out["hash"] and data["mass"]["plays"][0]["unit"] == 0
+    # what the page gives back after the friend plays: replayed here and kept as the friend's run
+    hash_ = services.engine.call("mass_run", {"spec": {**data["mass"]["spec"], "player": {"unit": 3}}, "inputs": ROWS})["hash"]
+    code = sharing.pack_code(sharing.MASS_RESULT_PREFIX, {"kind": "mass", "v": 1, "mass_id": out["id"], "title": out["title"], "challenger": "Ana",
+                                                           "unit": 3, "inputs": sharing.encode_mass_inputs(ROWS), "hash": hash_})
+    got = call("import", {"content": "Mi partida: " + code})
+    assert got["kind"] == "mass_result" and got["play"]["challenger"] == "Ana" and got["play"]["source"] == "friend"
+    call("import", {"content": code}, status=409)                     # a code counts once
+    tampered = sharing.pack_code(sharing.MASS_RESULT_PREFIX, {"kind": "mass", "mass_id": out["id"], "challenger": "Ana", "unit": 4,
+                                                               "inputs": sharing.encode_mass_inputs(ROWS), "hash": hash_})
+    call("import", {"content": tampered}, status=409)                 # another Pokémon: the replay does not end there
+    # the page itself brings the battle into another app
+    imported = call("import", {"content": html})
+    assert imported["kind"] == "mass" and imported["mass"]["id"] != out["id"] and imported["mass"]["hash"] == out["hash"]
+    assert call("mass_start", {"again": imported["mass"]["id"]})["units"] == 27

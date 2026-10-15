@@ -8,6 +8,9 @@
   the badge here. A friend can play each battle turn by turn or in real time (the owner may restrict it when exporting): a result
   that has real-time battles is ``SILVERWIN2-...``, and carries, for each such battle, what the app needs to replay it with the
   real-time simulator (rules version, seed, arena, time limit, the input log); the app only believes what the replay says.
+* Mass battle pages: the same kind of page with a mass battle inside (``"kind": "mass"``). The friend watches it or plays one of its
+  Pokémon; a played battle gives a ``SILVERMASS1-...`` code with the person's input log, which the app replays to the same
+  fingerprint before it records the result. Importing the page itself adds the battle to the app.
 """
 
 from __future__ import annotations
@@ -33,6 +36,9 @@ MAX_CODE = 400_000
 MAX_UNPACKED = 24_000_000          # a code never inflates to more than this (a bomb of zeros would fill the memory)
 RT_MAX_ROWS = 60_000               # input rows of one real-time battle (a 30-minute battle changing every tick has 54,000)
 RT_ROW = 9
+MASS_RESULT_PREFIX = "SILVERMASS1-"   # a mass battle played on a page: who played which Pokémon and how (the input log)
+MASS_ROW = 7                           # [tick, mx, my, slot, ax, ay, roll]
+MASS_MAX_ROWS = 60_000
 PLACEHOLDER = "__SILVER_DATA__"
 DATA_TAG = '<script id="silver-data" type="application/json">'
 
@@ -126,6 +132,63 @@ def decode_rt_inputs(text: Any) -> list[list[Any]]:
     return rows
 
 
+def encode_mass_inputs(rows: list[list[Any]]) -> str:
+    """A mass battle's input log as it travels: the rows (tick, mx, my, slot, ax, ay, roll; integers) as one flat list with the
+    tick as the difference from the previous row; JSON, deflated, base64url (client/src/play/rtcode.js packs it the same way)."""
+    flat: list[int] = []
+    prev = 0
+    for row in rows:
+        r = [int(v) for v in row[:MASS_ROW]]
+        flat += [r[0] - prev, *r[1:]]
+        prev = r[0]
+    return _b64(zlib.compress(json.dumps(flat, separators=(",", ":")).encode("ascii"), 9))
+
+
+def check_mass_rows(rows: Any) -> list[list[int]]:
+    """An input log of a mass battle, checked: rows of seven integers, ticks that never go back, axes within ±1000, a move slot
+    from -1 to 3, an aim point that is not negative and a roll of 0 or 1."""
+    bad = SilverError("invalid", "The input log of the played battle is damaged.")
+    if not isinstance(rows, list) or len(rows) > MASS_MAX_ROWS:
+        raise bad
+    out: list[list[int]] = []
+    last = 0
+    for row in rows:
+        if not isinstance(row, list) or len(row) != MASS_ROW or not all(type(v) is int for v in row):
+            raise bad
+        t, mx, my, slot, ax, ay, roll = row
+        if t < 1 or t < last or abs(mx) > 1000 or abs(my) > 1000 or not -1 <= slot <= 3 or ax < 0 or ay < 0 or roll not in (0, 1):
+            raise bad
+        last = t
+        out.append(list(row))
+    return out
+
+
+def decode_mass_inputs(text: Any) -> list[list[int]]:
+    """The rows ``encode_mass_inputs`` packed, checked."""
+    bad = SilverError("invalid", "The input log of the played battle is damaged.")
+    if not isinstance(text, str):
+        raise bad
+    if not text:
+        return []
+    try:
+        flat = json.loads(_inflate(_unb64(text), 16_000_000).decode("ascii"))
+    except SilverError:
+        raise
+    except Exception:  # noqa: BLE001 - any decoding error means a damaged code
+        raise bad from None
+    if not isinstance(flat, list) or len(flat) % MASS_ROW or not all(type(v) is int for v in flat):
+        raise bad
+    rows: list[list[int]] = []
+    tick = 0
+    for i in range(0, len(flat), MASS_ROW):
+        dt, *rest = flat[i:i + MASS_ROW]
+        if dt < 0:
+            raise bad
+        tick += dt
+        rows.append([tick, *rest])
+    return check_mass_rows(rows)
+
+
 def fingerprint(obj: Any) -> str:
     return hashlib.sha256(json.dumps(obj, sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest()[:16]
 
@@ -163,7 +226,12 @@ def parse_any(text_or_bytes: Any) -> tuple[str, Any]:
         m = re.search(r'<script id="silver-data" type="application/json">(.*?)</script>', stripped, re.S)
         if not m or m.group(1).strip() == PLACEHOLDER:
             raise SilverError("invalid", "This page is not a Silver's Hoard gym or trainer.")
-        return detect(json.loads(m.group(1)).get("payload") or {})
+        data = json.loads(m.group(1))
+        if data.get("kind") == "mass" and isinstance(data.get("mass"), dict):
+            return "mass_page", data["mass"]
+        return detect(data.get("payload") or {})
+    if MASS_RESULT_PREFIX in stripped:
+        return "mass_result", unpack_code(MASS_RESULT_PREFIX, stripped)
     if RESULT_PREFIX_RT in stripped:
         return "result", unpack_code(RESULT_PREFIX_RT, stripped)
     if RESULT_PREFIX in stripped:

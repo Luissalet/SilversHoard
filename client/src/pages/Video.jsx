@@ -1,6 +1,7 @@
 // Video: one finished battle's replay alone on a 16:9 stage, for recording a clip (battle_video). The app's headless browser opens
 // #/video/<id>?record=1 and calls window.videoRecord(): the tab's picture and the page's own sound (effects, cries, music) go into
 // one MediaRecorder whose chunks are handed to the recorder as they come. A person opening the page just watches the replay.
+// A mass battle (#/video/mass_<id>?mspeed=2&play=<run>) is recorded the same way with its own screen (mass.py: video).
 import React, { useEffect, useRef, useState } from "react";
 import { api } from "../api.js";
 import { useApp } from "../context.js";
@@ -11,6 +12,7 @@ import { battleEnd, genOfFormat, music, pickTrack, unlock } from "../audio.js";
 import { installTap } from "../video/tap.js";
 // the real-time arena carries the battle engine: it comes with CombateRt's chunk, only when a real-time battle is recorded
 const RtScreen = React.lazy(() => import("./CombateRt.jsx").then((m) => ({ default: m.RtScreen })));
+const MassScreen = React.lazy(() => import("./CombateRt.jsx").then((m) => ({ default: m.MassScreen })));
 
 const TAIL_MS = 3500;      // the end screen (winner, victory pose, jingle) stays this long
 
@@ -21,7 +23,104 @@ function toBase64(buf) {
   return btoa(s);
 }
 
+/** Start a MediaRecorder on this tab's picture and the page's own sound; chunks go to the recorder, then onStart runs. */
+function startRecording(run, onStart, delay = 400) {
+  (async () => {
+    try {
+      const audio = installTap();
+      unlock();
+      const tab = await navigator.mediaDevices.getDisplayMedia({ video: { frameRate: 30 }, audio: false, preferCurrentTab: true,
+        selfBrowserSurface: "include" });
+      const stream = new MediaStream([...tab.getVideoTracks(), ...audio.getAudioTracks()]);
+      const type = ["video/webm;codecs=vp9,opus", "video/webm;codecs=vp8,opus", "video/webm"].find((x) => MediaRecorder.isTypeSupported(x));
+      const rec = new MediaRecorder(stream, { mimeType: type, videoBitsPerSecond: 8_000_000, audioBitsPerSecond: 160_000 });
+      let chain = Promise.resolve();
+      rec.ondataavailable = (e) => {
+        if (!e.data || !e.data.size) return;
+        chain = chain.then(() => e.data.arrayBuffer()).then((b) => window.__videoChunk?.(toBase64(b)));
+      };
+      rec.onstop = () => {
+        tab.getTracks().forEach((t) => t.stop());
+        chain.then(() => window.__videoDone?.({ seconds: (performance.now() - run.current.t0) / 1000, sound: audio.getAudioTracks().length > 0 }));
+      };
+      run.current.recorder = rec;
+      run.current.sound = audio.getAudioTracks().length > 0;
+      rec.start(1000);
+      setTimeout(onStart, delay);   // a moment of the opening frame before the battle starts
+    } catch (e) {
+      window.__videoError?.(e.message || String(e));
+    }
+  })();
+  return true;
+}
+
 export default function Video({ param, query }) {
+  if (String(param || "").startsWith("mass_")) return <MassVideo id={param} query={query} />;
+  return <BattleVideo param={param} query={query} />;
+}
+
+/** A mass battle (or one played run of it) on the 16:9 stage, its camera directing itself (or following whoever played). */
+function MassVideo({ id, query }) {
+  const { t, lang, setLang, sprites } = useApp();
+  const rate = Math.max(1, Math.min(8, Number(query?.get("mspeed")) || 2));
+  const playId = query?.get("play") || "";
+  const recording = query?.get("record") === "1";
+  const [doc, setDoc] = useState(null);
+  const [run2, setRun2] = useState(null);
+  const [playing, setPlaying] = useState(false);
+  const run = useRef({ started: false, ended: false, recorder: null, t0: 0 });
+  useEffect(() => {
+    document.body.classList.add("video-mode");
+    return () => document.body.classList.remove("video-mode");
+  }, []);
+  useEffect(() => {
+    const wanted = query?.get("lang");
+    if (wanted && wanted !== lang && ["es", "en"].includes(wanted)) setLang(wanted);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    const fail = (e) => window.__videoError?.(e.message || String(e));
+    api.call("mass_get", { id }).then(setDoc).catch(fail);
+    if (playId) api.call("mass_play_get", { id, play_id: playId }).then(setRun2).catch(fail);
+  }, [id, playId]);
+  const ready = doc && (!playId || run2);
+  const start = () => {
+    const r = run.current;
+    if (r.started) return;
+    r.started = true;
+    r.t0 = performance.now();
+    setPlaying(true);
+  };
+  useEffect(() => {
+    if (!ready) return undefined;
+    // the tab capture takes a moment to deliver frames: the intro waits for it, so the title and the countdown are in the clip
+    window.videoRecord = () => startRecording(run, start, 1500);
+    window.__videoReady = true;
+    if (!recording) setTimeout(start, 800);
+    return () => { window.__videoReady = false; };
+  }, [ready]); // eslint-disable-line react-hooks/exhaustive-deps
+  const done = () => {
+    const r = run.current;
+    if (r.ended) return;
+    r.ended = true;
+    setTimeout(() => { if (r.recorder && r.recorder.state !== "inactive") r.recorder.stop(); }, TAIL_MS);
+  };
+  if (!ready) return <div className="video-stage" />;
+  const ticks = Math.round(((run2?.seconds ?? doc.summary?.seconds) || 0) * 30);
+  return (
+    <div className="video-stage">
+      <div className="video-title">
+        <b>{doc.title}</b>
+        {run2 && <span className="help">{t("mass_replay_of", { who: run2.challenger, name: run2.name })}</span>}
+      </div>
+      <React.Suspense fallback={null}>
+        <MassScreen doc={doc} t={t} sprites={sprites} replay={run2 ? { unit: run2.unit, inputs: run2.inputs } : null}
+          video={{ playing, speed: rate, ticks, onProgress: (x) => window.__videoProgress?.(x), onDone: done }} />
+      </React.Suspense>
+    </div>
+  );
+}
+
+function BattleVideo({ param, query }) {
   const { lang, setLang, sprites } = useApp();
   const speedMs = Math.max(200, Math.min(3000, Number(query?.get("speed")) || 900));
   const recording = query?.get("record") === "1";
@@ -67,35 +166,7 @@ export default function Video({ param, query }) {
   useEffect(() => {
     if (!battle) return;
     if (battle.mode !== "realtime") player.load(battle.lines || [], { playing: false });
-    window.videoRecord = () => {
-      (async () => {
-        try {
-          const audio = installTap();
-          unlock();
-          const tab = await navigator.mediaDevices.getDisplayMedia({ video: { frameRate: 30 }, audio: false, preferCurrentTab: true,
-            selfBrowserSurface: "include" });
-          const stream = new MediaStream([...tab.getVideoTracks(), ...audio.getAudioTracks()]);
-          const type = ["video/webm;codecs=vp9,opus", "video/webm;codecs=vp8,opus", "video/webm"].find((x) => MediaRecorder.isTypeSupported(x));
-          const rec = new MediaRecorder(stream, { mimeType: type, videoBitsPerSecond: 8_000_000, audioBitsPerSecond: 160_000 });
-          let chain = Promise.resolve();
-          rec.ondataavailable = (e) => {
-            if (!e.data || !e.data.size) return;
-            chain = chain.then(() => e.data.arrayBuffer()).then((b) => window.__videoChunk?.(toBase64(b)));
-          };
-          rec.onstop = () => {
-            tab.getTracks().forEach((t) => t.stop());
-            chain.then(() => window.__videoDone?.({ seconds: (performance.now() - run.current.t0) / 1000, sound: audio.getAudioTracks().length > 0 }));
-          };
-          run.current.recorder = rec;
-          run.current.sound = audio.getAudioTracks().length > 0;
-          rec.start(1000);
-          setTimeout(start, 400);   // a moment of the opening frame before the battle starts
-        } catch (e) {
-          window.__videoError?.(e.message || String(e));
-        }
-      })();
-      return true;
-    };
+    window.videoRecord = () => startRecording(run, start);
     window.__videoReady = true;
     if (!recording) setTimeout(start, 800);
     return () => { window.__videoReady = false; music.stop({ fade: 0.3 }); };

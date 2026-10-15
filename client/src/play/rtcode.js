@@ -70,3 +70,20 @@ export function newSeed() {
   }
   return `pg-${hex}`;
 }
+
+/** A mass battle's input log as it travels in a SILVERMASS1- code: rows [tick, mx, my, slot, ax, ay, roll] (integers) as one flat
+ * list with the tick as the difference from the previous row, deflated, base64url (silvers_hoard/sharing.py: decode_mass_inputs). */
+export async function packMassInputs(rows) {
+  const flat = [];
+  let prev = 0;
+  for (const r of rows) {
+    flat.push(r[0] - prev, r[1], r[2], r[3], r[4], r[5], r[6]);
+    prev = r[0];
+  }
+  return deflateB64(JSON.stringify(flat));
+}
+
+/** A whole object as a code: JSON, deflated, base64url, after a prefix (the app's sharing.unpack_code reads it). */
+export async function packCode(prefix, obj) {
+  return prefix + await deflateB64(JSON.stringify(obj));
+}

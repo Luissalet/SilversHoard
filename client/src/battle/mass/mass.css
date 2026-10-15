@@ -35,3 +35,16 @@
 .mass-rank th, .mass-rank td { padding: 3px 6px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.07); }
 .mass-team-edit { border-left: 4px solid; padding: 8px 10px; border-radius: 8px; background: rgba(255, 255, 255, 0.03); }
 .mass-preset b { display: block; min-height: 2.6em; }
+/* playing one of the Pokémon, the picker, runs */
+.mass-stage.is-playing .mass-canvas { cursor: crosshair; }
+.mass-follow.is-mine { border: 1px solid #ffd54a; }
+.mass-follow-hp { margin: 3px 0; height: 6px; }
+.mass-moves kbd { font: 700 10px/1 system-ui, sans-serif; background: #ffd54a; color: #222; border-radius: 3px; padding: 1px 3px; }
+.mass-feed > div.is-mine { outline: 1px solid #ffd54a; }
+.mass-toast { position: absolute; left: 50%; top: 12px; transform: translateX(-50%); background: rgba(0, 0, 0, 0.75); padding: 6px 12px; border-radius: 8px; font-weight: 600; pointer-events: none; }
+.mass-mine { background: rgba(255, 213, 74, 0.12); border: 1px solid rgba(255, 213, 74, 0.5); border-radius: 8px; padding: 6px 10px; }
+.mass-rank tr.is-mine td { background: rgba(255, 213, 74, 0.14); }
+.mass-pick-grid { display: grid; gap: 6px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); max-height: 420px; overflow: auto; }
+.mass-pick { display: grid; text-align: left; gap: 1px; padding: 6px 8px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.12); border-left-width: 4px; background: rgba(255, 255, 255, 0.03); }
+.mass-pick:hover { background: rgba(255, 255, 255, 0.08); }
+.mass-pick.is-boss b { color: #ffd54a; }
