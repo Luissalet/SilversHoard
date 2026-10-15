@@ -3,6 +3,7 @@
 // playable page.
 import { L, STAT_NAMES, STATUS_NAMES, nameOf, typeName, toID } from "./dex.js";
 import { officialText } from "./text/logtext.js";
+import {protocolAbility} from "../../../engine/src/ability-events.mjs";
 
 // Free-form lines the simulator writes in English.
 const MESSAGES_ES = [
@@ -162,6 +163,8 @@ const CANT = {
 /** Applies one protocol line to `state`. Returns {text, kind, anim} for the log and the animations (or null for silent lines). */
 export function applyLine(state, line, opts = {}) {
   let out = applyRaw(state, line, opts);
+  const ability = protocolAbility(line);
+  if (ability) out = {...out, ability};
   // the simulator's own message for the effect of a move, ability or item, the field, the weather… (the parser reads every line)
   const official = officialText(state, line, opts);
   if (official) {

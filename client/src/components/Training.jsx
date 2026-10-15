@@ -2,6 +2,41 @@ import React, { useState } from "react";
 import { api } from "../api.js";
 import { useApp } from "../context.js";
 import { Busy, ErrorBox, Field, useBusy, useLoad } from "./ui.jsx";
+import { nameOf } from "../battle/dex.js";
+
+export function PracticeSuggestions({battle, side}) {
+  const {t, lang, go, changed} = useApp();
+  const [result, setResult] = useState(null);
+  const [items, setItems] = useState([]);
+  const [error, setError] = useState(null);
+  const [busy, run] = useBusy();
+  const analyse = () => run("analyse", async()=>{
+    setError(null);
+    try {
+      const r = await api.call("practice_suggestions",{id:battle.id, side, start_turn:result?.next_turn || 1});
+      setResult(r); setItems(old=>[...old,...r.suggestions].sort((a,b)=>b.heuristic_gap-a.heuristic_gap));
+    } catch(e) { setError(e); }
+  });
+  const label = o => {
+    if (o.kind === "switch") return t("suggest_switch_to",{name:o.name});
+    const move = nameOf("move",o.name,lang);
+    return `${move}${o.gimmick?` · ${t(`suggest_${o.gimmick}`)}`:""}${o.target?` → ${o.target}`:""}`;
+  };
+  return <div className="space-y-3 border-t border-line pt-4">
+    <h3>{t("suggest_title")}</h3><p className="help max-w-prose">{t("suggest_help")}</p>
+    {(!result || result.next_turn) && <Busy busy={busy.analyse} onClick={analyse}>{t(result?"suggest_more":"suggest_analyse")}</Busy>}
+    <ErrorBox error={error}/>
+    {result && <p className="help" role="status">{t("suggest_range",{from:result.start_turn,to:result.end_turn,n:result.analysed,skipped:result.skipped})} {!result.next_turn && t("suggest_finished")}</p>}
+    {result && !items.length && <p className="help">{t("suggest_empty")}</p>}
+    {items.map(item=><article key={item.id} className="space-y-3 py-3 border-b border-line">
+      <h4>{t("training_position",{n:item.turn,side:item.side.toUpperCase()})} · {item.slots.map(s=>s.mon).join(" / ")}</h4>
+      <dl className="grid gap-2 sm:grid-cols-2"><div><dt className="help">{t("suggest_played")}</dt><dd>{item.slots.map(s=>label(s.actual)).join(" + ")}</dd></div><div><dt className="help">{t("suggest_alternative")}</dt><dd>{item.slots.map(s=>label(s.recommended)).join(" + ")}</dd></div></dl>
+      <p className="help">{t(`suggest_reason_${item.reason}`)} {t("suggest_gap",{n:item.heuristic_gap})}</p>
+      <div className="flex flex-wrap gap-2"><Busy busy={busy[item.id]} onClick={()=>run(item.id,async()=>{const b=await api.call("battle_practice",{id:battle.id,turn:item.turn,side});changed();go(`#/combate/${b.id}`);})}>{t("practice_start")}</Busy><button className="btn" onClick={()=>setItems(old=>old.filter(s=>s.id !== item.id))}>{t("suggest_discard")}</button></div>
+      <SaveExercise battle={battle} turn={item.turn} side={side}/>
+    </article>)}
+  </div>;
+}
 
 function goalText(t, e) {
   return e.goal === "survive" ? t("training_survival", {n:e.target_turns}) : e.target_turns ? t("training_within", {n:e.target_turns}) : `${t("training_win")} · ${t("training_untimed")}`;

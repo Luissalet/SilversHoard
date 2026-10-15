@@ -73,7 +73,7 @@ PHASE_WHEN = ("half", "last")
 # always locked on, no Mega Evolution; 2 = free aim, the Mega Power gauge, Plus moves and Mega Evolution; 3 = doubles formats
 # field two Pokémon per trainer, singles play as in 2; 4 = no Plus moves, the gauge only for Mega Evolution; 5 = the ultimate
 # gauge) and the arenas.
-RT_RULES_VERSION = 5
+RT_RULES_VERSION = 6
 RT_ARENAS = ("open", "rocks")
 
 
@@ -1311,6 +1311,20 @@ class Services:
         except SilverError:
             pass
         self._after_end(id_)
+
+    def practice_suggestions(self, id_: str, **options) -> dict[str, Any]:
+        from .practice_suggestions import suggest
+        return suggest(self, id_, **options)
+
+    def battle_abilities(self, id_: str) -> dict[str, Any]:
+        b = self.store.battle(id_)
+        if b.get("mode") == "realtime":
+            replay = b.get("replay") or {}
+            result = self.engine.run_job("battle_abilities", {"spec":self._rt_spec(b),
+                "inputs":replay.get("inputs") or [], "tick":replay.get("tick") or 0}, timeout=600)
+        else:
+            result = self.engine.call("battle_abilities", {"lines":self.battle_get(id_).get("lines") or []})
+        return {"battle_id":id_, **result}
 
     def battle_practice(self, id_: str, *, turn: int, side: str = "p1") -> dict[str, Any]:
         """Open a separate playable branch before this turn's decisions; the source battle stays untouched."""

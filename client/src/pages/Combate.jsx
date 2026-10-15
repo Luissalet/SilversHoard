@@ -13,7 +13,7 @@ import { Avatar, GymBadge, useSeats } from "../components/silver.jsx";
 import AiNotes from "../components/AiNotes.jsx";
 import VideoExport from "../components/VideoExport.jsx";
 import { CupStrip } from "./Copa.jsx";
-import { SaveExercise, ExerciseProgress } from "../components/Training.jsx";
+import { SaveExercise, ExerciseProgress, PracticeSuggestions } from "../components/Training.jsx";
 // the real-time screen carries the battle engine: loaded only when a real-time battle opens
 // After the app is rebuilt the old chunk name is gone; reload once to pick up the new one instead of showing a blank page.
 const CombateRt = React.lazy(() => import("./CombateRt.jsx").then((m) => {
@@ -306,6 +306,7 @@ export default function Combate({ param }) {
             </div>
             <ErrorBox error={practiceError} />
             <SaveExercise key={`${battle.id}:${practiceTurn}:${practiceSide}`} battle={battle} turn={practiceTurn} side={practiceSide}/>
+            <PracticeSuggestions key={`${battle.id}:${practiceSide}`} battle={battle} side={practiceSide}/>
           </>}
         </section>
       )}

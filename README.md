@@ -4,13 +4,16 @@ A local Pokémon battle simulator for the Hoard family. It runs on Pokémon Show
 
 [Versión en español](README.es.md)
 
-110 shared tools: the exercise additions are `exercises_list`, `exercise_create`, `exercise_get`, `exercise_start`, `exercise_export` and `exercise_archive`; ordinary `import` reads their text and files.
+112 shared tools, including `practice_suggestions`, `battle_abilities` and the six exercise tools; ordinary `import` reads exercise text and files.
 
 ![Battle](docs/screens/battle.png)
 
 ![Real time](docs/screens/realtime.png)
 
 ## What it does
+
+- **Suggested practice positions.** A finished classic replay with decisions can compare either side's recorded choices with a balanced expert trainer, using only information revealed at that time. Analyse ten-turn sections, continue through the whole replay, inspect the actual move and alternative (including target and special transformation), practise or save an exercise, or dismiss a suggestion. Differences are heuristic trainer scores, not win probabilities or proof of a mistake. Singles and doubles are supported; decisions without a comparable option are counted as skipped. Analysis runs separately from the live engine and does not change the source or records.
+- **Ability activation banners.** Both battle screens and exported playable pages show a lateral notice with the Pokémon and the activated ability, in Spanish or English. They use public activation events, keep damage animations, deduplicate related messages, support reduced motion and clear on seeking/restarting. `battle_abilities` reads the same revealed activations with turn or tick. New real-time battles use rules v6: Mold Breaker follows the dex's breakable flag for immunities, defensive damage modifiers, Sturdy and status immunity; Thunder Wave can trigger electric absorption, two Magic Bounce users reflect once, and Mist no longer pretends to be an ability. Replays v1–5 retain their rules. Checks cover representative entry, immunity, absorption, contact, status and bypass effects; real time remains its own adapted simulator, not complete parity with every classic ability.
 
 - **Saved exercises.** From a finished classic replay with saved decisions, choose a turn and side and save a goal: win (optionally within a number of turns), or survive a number of turns or win earlier. Share its text or `.silverexercise` file and import it through Share in another library: it contains the starting position and past decisions, never the future or a link requiring the original battle. Each attempt is a separate practice battle, resumable after restart, with its own result and no records, badges or cup advancement. The exercise list shows attempts and explains the suggested difficulty: after three completed successes or failures at the same level, move one level up or down (random through expert). Manual difficulty, including the existing master level, remains available. Exercises can be archived and restored. This practice requires a turn decision record; old replays, imported results, samples and real-time battles cannot supply one.
 
@@ -30,7 +33,7 @@ A local Pokémon battle simulator for the Hoard family. It runs on Pokémon Show
 - **Progress.** Each trainer's record (by kind of battle), current and best streak, KOs, star Pokémon, facility records, badges, 22 achievements and a Pokédex of the species it used, saw and knocked out, all worked out from what is stored; and every own trainer ranked by wins. In the Pokédex, the knocked-out tab shows every species seen, the ones still to knock out as silhouettes.
 - **Avatars.** Pick any of the 1,500 Showdown trainer sprites, upload a picture, turn a photo into a 96-px pixel-art sprite here (background removed, few colours, outline), or have Prospero's Hoard draw the trainer: from up to four photos of the same person and/or a description, in the games' anime art style taken from style references (three Black and White trainer sprites by default; add your own pictures, such as official art or anime stills, in Settings), cut out with background matting and returned both as the drawing and as the 96-px sprite (a job; Prospero must be running). Prospero can then draw your own sprite again from behind, shown on your side of a battle, and in a victory pose, shown when it wins (Poses tab; they belong to that sprite).
 - **Battle lines with AI.** The family's language model (through Hoard Hub: the Sparks, Faustus or Ollama) writes a trainer's four lines from its team and a personality you describe. Trainers also have four lines they say by themselves during a battle (when their Pokémon knocks one out, when one of theirs faints, on a super-effective hit and when they switch), in the app and on the playable page; and with the setting The AI comments its moves, the model writes an in-character line for each AI move in the background (one per turn, never holding the battle up).
-- **Family.** Faustus's copilot on every page, an MCP server with 110 tools (`mcp_server.py`), events on the family bus, and the shared Hoard look.
+- **Family.** Faustus's copilot on every page, an MCP server with 112 tools (`mcp_server.py`), events on the family bus, and the shared Hoard look.
 
 ## What it does not do
 

@@ -11,10 +11,12 @@ import {chooseFor, freeze, makeRng} from './ai.mjs';
 import {masterAvailable} from './master.mjs';
 import {neuralAvailable} from './neural.mjs';
 import {replayCheck} from './replay.mjs';
-import {RtBattle, eventLines, prepareRtTeam, rtRun} from './realtime/sim.mjs';
+import {RtBattle, eventLines, prepareRtTeam, rtRun, fastForward} from './realtime/sim.mjs';
+import {protocolAbilities, realtimeAbilities} from './ability-events.mjs';
 import {cooldownTable} from './realtime/moves.mjs';
 import {damageCalc} from './calc.mjs';
 import {practiceSnapshot} from './practice.mjs';
+import {practiceSuggestions} from './practice-suggestions.mjs';
 
 const matches = new Map();
 const MAX_OPEN = 64;
@@ -58,6 +60,13 @@ const handlers = {
   species: (a) => core.speciesInfo(a.name, a.gen || 9),
   damage_calc: (a) => damageCalc(a),
   practice_snapshot: (a) => practiceSnapshot(a.input, a.turn, a.side),
+  practice_suggestions: (a) => practiceSuggestions(a.input, a.side, a.start_turn, a.turn_count, a.min_gap),
+  battle_abilities: (a) => {
+    if (!a.spec) return {activations:protocolAbilities(a.lines || []), mode:'turns'};
+    const b = new RtBattle(a.spec);
+    fastForward(b, a.inputs || [], a.tick || 0);
+    return {activations:realtimeAbilities(b), mode:'realtime', version:b.version, tick:b.t};
+  },
   match_start: (a) => {
     const m = new Match(a.spec, a.snapshot || null);
     if (!a.snapshot) m.advance();
