@@ -213,7 +213,8 @@ export function ExportDialog({ kind, id, name, onClose }) {
   const [result, setResult] = useState(null);
   const [friendMode, setFriendMode] = useState(() => { try { return localStorage.getItem("silver-friend-mode") || "choose"; } catch { return "choose"; } });
   const pickMode = (v) => { setFriendMode(v); try { localStorage.setItem("silver-friend-mode", v); } catch { /* the choice lasts this window */ } };
-  const make = (fmt) => run(fmt, async () => setResult({ fmt, ...(await api.call("export", { kind, id, fmt, ...(fmt === "page" ? { friend_mode: friendMode } : {}) })) }));
+  const [weekly, setWeekly] = useState(false);
+  const make = (fmt) => run(fmt, async () => setResult({ fmt, ...(await api.call("export", { kind, id, fmt, ...(fmt === "page" ? { friend_mode: weekly ? "turns" : friendMode, weekly } : {}) })) }));
   const { confirm } = useApp();
   const pokepaste = async () => {
     if (!(await confirm({ title: t("export_pokepaste"), message: t("export_pokepaste_confirm"), confirmLabel: t("export_pokepaste") }))) return;
@@ -226,9 +227,14 @@ export function ExportDialog({ kind, id, name, onClose }) {
         <div className="space-y-1">
           <span className="label">{t("export_friend_mode")}</span>
           <div className="seg" role="group" aria-label={t("export_friend_mode")}>
-            {["choose", "turns", "realtime"].map((v) => <button key={v} type="button" aria-pressed={friendMode === v} onClick={() => pickMode(v)}>{t(`export_mode_${v}`)}</button>)}
+            {["choose", "turns", "realtime"].map((v) => <button key={v} type="button" aria-pressed={(weekly ? "turns" : friendMode) === v} disabled={weekly && v !== "turns"}
+              onClick={() => pickMode(v)}>{t(`export_mode_${v}`)}</button>)}
           </div>
-          <div className="help">{t(`export_mode_help_${friendMode}`)}</div>
+          <div className="help">{t(`export_mode_help_${weekly ? "turns" : friendMode}`)}</div>
+          <label className="flex items-start gap-2 pt-1">
+            <input type="checkbox" checked={weekly} onChange={(e) => setWeekly(e.target.checked)} />
+            <span><b>{t("export_weekly")}</b><span className="help block">{t("export_weekly_help")}</span></span>
+          </label>
         </div>
       )}
       <div className="export-grid">
@@ -259,7 +265,7 @@ export function ExportDialog({ kind, id, name, onClose }) {
       {Object.values(busy).some(Boolean) && <div className="flex items-center gap-2"><Spinner /> <span className="help">{t("working")}</span></div>}
       {result && (result.fmt === "page" || result.fmt === "file") && (
         <div className="banner banner-info flex flex-wrap items-center gap-2">
-          <span className="min-w-0 flex-1 trunc">{result.file} · {Math.round(result.bytes / 1024)} KB</span>
+          <span className="min-w-0 flex-1 trunc">{result.file} · {Math.round(result.bytes / 1024)} KB{result.week ? ` · ${t("weekly_this", { week: result.week })}` : ""}</span>
           <a className="btn btn-primary btn-sm" href={api.exportUrl(result.file)} download={result.file}><Icon d={ICONS.download} size={14} /> {t("download")}</a>
           {result.fmt === "page" && <a className="btn btn-sm" href={`${api.exportUrl(result.file)}?download=false`} target="_blank" rel="noreferrer"><Icon d={ICONS.external} size={14} /> {t("open_page")}</a>}
         </div>

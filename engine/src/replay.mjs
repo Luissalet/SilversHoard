@@ -3,9 +3,10 @@
 // teams must be the ones it expects (the friend's team from the code, the opponent as the app has it, with the challenge's level
 // rules), every choice must be legal, and the result is whatever the replay says. With `ai`, it also asks the AI what it would
 // have chosen at each of its decisions (same random numbers as the page's) and counts the choices that differ: with the same AI
-// version there should be none, so a code whose opponent was made to play badly is caught.
+// version there should be none, so a code whose opponent was made to play badly is caught. With `expect_seed` (the week's challenge)
+// the battle must have been played with exactly that seed and AI key, so everyone that week faced the same luck.
 import {Battle} from '@pkmn/sim';
-import {buildFormatId, EngineError} from './core.mjs';
+import {buildFormatId, EngineError, seedArray} from './core.mjs';
 import {MAX_TURNS_DEFAULT, prepareTeam, viewLines} from './match.mjs';
 import {chooseFor, makeRng} from './ai.mjs';
 
@@ -16,8 +17,9 @@ function parseLine(line, prefix) {
 }
 
 /**
- * a: {input: [lines], format, rules, level_rules, p1_sets, p2_sets, ai: {level, style} | null, rng_id, forfeit: '' | 'p1'}
- * Returns {ok, problems, winner_side, turns, ended, ai_decisions, ai_mismatches, lines}.
+ * a: {input: [lines], format, rules, level_rules, p1_sets, p2_sets, ai: {level, style} | null, rng_id, forfeit: '' | 'p1', expect_seed?}
+ * Returns {ok, problems, winner_side, turns, ended, ai_decisions, ai_mismatches, hp_left, lines}; hp_left is the friend's team's HP
+ * left at the end, in percent of the whole team.
  */
 export function replayCheck(a) {
   const input = (Array.isArray(a.input) ? a.input : []).map(String).slice(0, MAX_LINES);
@@ -33,6 +35,11 @@ export function replayCheck(a) {
   if (start.formatid !== fid) problems.push(`format ${start.formatid} instead of ${fid}`);
   if (p2.team !== prepareTeam(a.p2_sets || [], fid, a.level_rules || {})) problems.push("the opponent's team is not the one this app has");
   if (a.p1_sets && p1.team !== prepareTeam(a.p1_sets, fid, a.level_rules || {})) problems.push("the friend's team is not the one in the code");
+  if (a.expect_seed) {
+    const same = (x) => [x].flat().join(',');
+    if (same(start.seed) !== same(seedArray(String(a.expect_seed)))) problems.push("not played with this week's seed");
+    if (String(a.rng_id || '') !== String(a.expect_seed)) problems.push("not played with this week's AI luck");
+  }
   const b = new Battle({formatid: start.formatid, seed: start.seed, p1: {name: p1.name, team: p1.team}, p2: {name: p2.name, team: p2.team}});
   b.send = () => {};
   const rng = a.ai ? makeRng(`${a.rng_id}:p2`) : null;
@@ -82,6 +89,8 @@ export function replayCheck(a) {
   if (!b.ended && a.forfeit === 'p1') b.lose(b.sides[0]);
   if (!b.ended && b.turn > MAX_TURNS_DEFAULT) b.tie();
   const winnerSide = b.ended ? (b.sides.find((s) => s && s.name === b.winner)?.id || '') : '';
+  const team = b.sides[0].pokemon;
+  const hpLeft = team.length ? Math.round(1000 * team.reduce((n, p) => n + (p.fainted || !p.maxhp ? 0 : p.hp / p.maxhp), 0) / team.length) / 10 : 0;
   return {ok: !problems.length && !!b.ended, problems, ended: !!b.ended, winner_side: winnerSide, turns: b.turn,
-    ai_decisions: decisions, ai_mismatches: mismatches, lines: viewLines(b.log, 0, 'omniscient')};
+    ai_decisions: decisions, ai_mismatches: mismatches, hp_left: hpLeft, lines: viewLines(b.log, 0, 'omniscient')};
 }

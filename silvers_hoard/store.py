@@ -174,6 +174,35 @@ ALTER TABLE gyms ADD COLUMN badge_image TEXT NOT NULL DEFAULT '';
 ALTER TABLE badges ADD COLUMN badge_image TEXT NOT NULL DEFAULT '';
 """
 
+# Friends' results from playable pages, one row per imported result code: the leaderboard ranks them per gym or trainer. `week` is
+# set when the page was the week's challenge (same seed and AI luck for everyone that week); `fingerprint` stops a code counting twice.
+SCHEMA_V4 = """
+CREATE TABLE friend_results (
+  id TEXT PRIMARY KEY,
+  kind TEXT NOT NULL,
+  target_id TEXT NOT NULL,
+  target_name TEXT NOT NULL DEFAULT '',
+  challenger TEXT NOT NULL,
+  won INTEGER NOT NULL DEFAULT 0,
+  battles INTEGER NOT NULL DEFAULT 0,
+  battles_won INTEGER NOT NULL DEFAULT 0,
+  turns INTEGER NOT NULL DEFAULT 0,
+  hp_left REAL NOT NULL DEFAULT 0,
+  verified INTEGER NOT NULL DEFAULT 0,
+  week TEXT NOT NULL DEFAULT '',
+  mode TEXT NOT NULL DEFAULT 'classic',
+  battle_id TEXT NOT NULL DEFAULT '',
+  badge_id TEXT NOT NULL DEFAULT '',
+  fingerprint TEXT NOT NULL DEFAULT '',
+  played_at TEXT NOT NULL DEFAULT '',
+  created_at REAL NOT NULL,
+  updated_at REAL NOT NULL
+);
+CREATE INDEX friend_results_target ON friend_results(target_id);
+CREATE INDEX friend_results_week ON friend_results(week);
+CREATE INDEX friend_results_fingerprint ON friend_results(fingerprint);
+"""
+
 TRAINER_JSON = {"team_json": "team", "dialogue_json": "dialogue", "tags_json": "tags"}
 GYM_JSON = {"rules_json": "rules", "level_rules_json": "level_rules", "trainers_json": "trainers"}
 LEAGUE_JSON = {"rules_json": "rules", "level_rules_json": "level_rules", "gyms_json": "gyms", "elite_json": "elite_four"}
@@ -208,7 +237,7 @@ def _encode(values: dict[str, Any], json_cols: dict[str, str]) -> dict[str, Any]
 
 class Store:
     def __init__(self, path: Path):
-        self.db = Database(path, migrations=[SCHEMA_V1, SCHEMA_V2, SCHEMA_V3])
+        self.db = Database(path, migrations=[SCHEMA_V1, SCHEMA_V2, SCHEMA_V3, SCHEMA_V4])
 
     def close(self) -> None:
         self.db.close()
@@ -454,6 +483,29 @@ class Store:
     def hall(self, *, league_id: str = "") -> list[dict[str, Any]]:
         rows = self.db.query("SELECT * FROM hall WHERE (? = '' OR league_id = ?) ORDER BY earned_at DESC", (league_id, league_id))
         return [_decode(r, HALL_JSON) for r in rows]
+
+    # ------------------------------------------------------------ friends' results (the leaderboard)
+    def add_friend_result(self, values: dict[str, Any]) -> str:
+        return self._insert("friend_results", "fr", values, {})
+
+    def friend_result_by_fingerprint(self, fingerprint: str) -> Optional[dict[str, Any]]:
+        return _decode(self.db.one("SELECT * FROM friend_results WHERE fingerprint = ?", (fingerprint,)), {})
+
+    def friend_results(self, *, kind: str = "", target_id: str = "", week: str = "", limit: int = 5000) -> list[dict[str, Any]]:
+        where = ["1 = 1"]
+        params: list[Any] = []
+        for col, val in (("kind", kind), ("target_id", target_id), ("week", week)):
+            if val:
+                where.append(f"{col} = ?")
+                params.append(val)
+        rows = self.db.query(f"SELECT * FROM friend_results WHERE {' AND '.join(where)} ORDER BY created_at DESC LIMIT ?", (*params, limit))
+        return [_decode(r, {}) for r in rows]
+
+    def friend_weeks(self) -> list[str]:
+        return [r["week"] for r in self.db.query("SELECT DISTINCT week FROM friend_results WHERE week != '' ORDER BY week DESC")]
+
+    def delete_friend_results(self, ids: list[str]) -> int:
+        return sum(self.db.execute("DELETE FROM friend_results WHERE id = ?", (i,)).rowcount for i in ids)
 
     # ------------------------------------------------------------ jobs
     def job(self, id_: str) -> dict[str, Any]:

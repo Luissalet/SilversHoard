@@ -11,8 +11,8 @@ const FRIEND = importTeam('Garchomp\nAbility: Rough Skin\n- Earthquake\n- Dragon
 const GYM = importTeam('Heatran\n- Flamethrower\n- Earth Power\n\nBlissey\n- Seismic Toss\n- Soft-Boiled');
 
 /** A page's battle: no seed given, the friend picking moves with its own little random habit. */
-function pageBattle(level = 'hard', seed = 3) {
-  const m = new Match({format: 'gen9customgame', level_rules: {level: 50}, p1: {name: 'Amiga', sets: FRIEND, ai: null},
+function pageBattle(level = 'hard', seed = 3, weekly = '') {
+  const m = new Match({...(weekly ? {id: weekly, seed: weekly} : {}), format: 'gen9customgame', level_rules: {level: 50}, p1: {name: 'Amiga', sets: FRIEND, ai: null},
     p2: {name: 'Líder', sets: GYM, ai: {level, style: 'balanced'}}});
   const rng = makeRng(seed);
   m.advance();
@@ -71,4 +71,22 @@ test('a forfeit by the friend is a loss', () => {
   const r = replayCheck({...args(m), level_rules: {}, forfeit: 'p1'});
   assert.equal(r.winner_side, 'p2');
   assert.ok(r.ok);
+});
+
+test("the week's challenge: the same seed and AI luck for everyone, and the HP left", () => {
+  const week = 'abcdef0123456789-0';
+  const m = pageBattle('hard', 5, week);
+  const r = replayCheck(args(m, {expect_seed: week}));
+  assert.ok(r.ok, JSON.stringify(r.problems));
+  assert.equal(r.ai_mismatches, 0);
+  assert.ok(r.hp_left >= 0 && r.hp_left <= 100);
+  if (r.winner_side === 'p1') assert.ok(r.hp_left > 0);
+  // the same battle again from the same seed: the same luck, so the same ending with the same choices
+  const again = pageBattle('hard', 5, week);
+  assert.deepEqual(again.inputLog(), m.inputLog());
+  // a battle played with another seed, or claimed for another week
+  const other = pageBattle('hard', 5);
+  assert.ok(replayCheck(args(other, {expect_seed: week})).problems.some((p) => p.includes("this week's seed")));
+  assert.ok(replayCheck(args(m, {expect_seed: 'abcdef0123456789-1'})).problems.length >= 1);
+  assert.ok(replayCheck(args(m, {expect_seed: week, rng_id: 'other'})).problems.some((p) => p.includes("AI luck")));
 });

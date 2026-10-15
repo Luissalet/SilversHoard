@@ -15,7 +15,9 @@ function ResultView({ r }) {
     return (
       <div className={`banner ${r.won ? "banner-info" : "banner-warn"}`}>
         {r.won ? t("friend_won", { name: r.challenger, target: r.gym?.name || r.trainer?.name }) : t("friend_lost", { name: r.challenger, target: r.gym?.name || r.trainer?.name })}{" "}
-        {r.verified_real_time > 0 && <>{t("friend_verified", { n: r.verified_real_time })}{" "}</>}
+        {r.verified ? <>{t("friend_checked")}{" "}</> : r.verified_real_time > 0 && <>{t("friend_verified", { n: r.verified_real_time })}{" "}</>}
+        {r.week && <>{t("friend_week", { week: r.week })}{" "}</>}
+        <a className="btn-link" href="#/amigos">{t("see_leaderboard")}</a>{" · "}
         {r.battle_id && <a className="btn-link" href={`#/combate/${r.battle_id}`}>{t("replay")}</a>}
       </div>
     );
