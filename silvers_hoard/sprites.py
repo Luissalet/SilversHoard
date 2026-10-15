@@ -190,17 +190,29 @@ def _fit(img, size: int):
 
 
 def cut_background(img, tolerance: int = 34):
-    """Make the plain background transparent: flood from the four corners over pixels close to the corner colour."""
+    """Make the plain background transparent: flood from the edges (every few pixels along the four sides, wherever the edge
+    has the background colour, taken from the corners) over pixels close to that colour."""
     from PIL import ImageDraw
 
     img = img.convert("RGBA")
     w, h = img.size
     mask_img = img.copy()
     marker = (255, 0, 255, 0)
-    for xy in ((0, 0), (w - 1, 0), (0, h - 1), (w - 1, h - 1)):
+    corners = [img.getpixel(xy)[:3] for xy in ((0, 0), (w - 1, 0), (0, h - 1), (w - 1, h - 1))]
+    bg = max(set(corners), key=corners.count)
+
+    def close(c) -> bool:
+        return all(abs(int(a) - int(b)) <= tolerance for a, b in zip(c[:3], bg))
+
+    step = max(1, min(w, h) // 64)
+    seeds = [(x, y) for x in range(0, w, step) for y in (0, h - 1)] + [(x, y) for y in range(0, h, step) for x in (0, w - 1)]
+    for xy in seeds:
+        px = mask_img.getpixel(xy)
+        if px == marker or not close(px):
+            continue
         try:
             ImageDraw.floodfill(mask_img, xy, marker, thresh=tolerance)
-        except Exception:  # noqa: BLE001 - a corner that cannot be filled is left as it is
+        except Exception:  # noqa: BLE001 - a seed that cannot be filled is left as it is
             continue
     px_src = img.load()
     px_mask = mask_img.load()
@@ -212,7 +224,7 @@ def cut_background(img, tolerance: int = 34):
     return img
 
 
-def to_sprite(img, size: int = 96, colors: int = 24):
+def to_sprite(img, size: int = 96, colors: int = 32):
     """Pixel art in the style of handheld-game trainer sprites: crop to the subject, shrink to ``size`` px with few colours,
     1-pixel dark outline around the opaque part."""
     from PIL import Image
@@ -223,9 +235,18 @@ def to_sprite(img, size: int = 96, colors: int = 24):
         img = img.crop(bbox)
     w, h = img.size
     scale = (size - 4) / max(w, h)
-    small = img.resize((max(1, round(w * scale)), max(1, round(h * scale))), Image.Resampling.BOX)
+    # premultiplied resize: the colour of transparent pixels (often the white background) must not bleed into the edges
+    small = img.convert("RGBa").resize((max(1, round(w * scale)), max(1, round(h * scale))), Image.Resampling.BOX).convert("RGBA")
     alpha = small.getchannel("A").point(lambda a: 255 if a >= 128 else 0)
-    rgb = small.convert("RGB").quantize(colors=colors, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE).convert("RGB")
+    rgb = small.convert("RGB")
+    # the palette comes from the visible pixels only: counting the transparent ones spends colours on the background and
+    # pulls skin and clothes towards grey
+    opaque = [px for px, a in zip(rgb.getdata(), alpha.getdata()) if a]
+    if opaque:
+        sample = Image.new("RGB", (len(opaque), 1))
+        sample.putdata(opaque)
+        palette = sample.quantize(colors=colors, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
+        rgb = rgb.quantize(palette=palette, dither=Image.Dither.NONE).convert("RGB")
     sprite = Image.new("RGBA", (size, size), (0, 0, 0, 0))
     ox = (size - small.width) // 2
     oy = size - small.height - 2
