@@ -48,7 +48,8 @@
     "champions-formats",
     "friends-league",
     "weekly-vote",
-    "pixel-art-style"
+    "pixel-art-style",
+    "reborn-animations"
   ],
   "x-family": {
     "copilot": true

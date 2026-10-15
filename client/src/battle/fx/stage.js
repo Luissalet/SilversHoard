@@ -34,9 +34,11 @@ export class FxStage {
     this.last = 0;
     this.dead = false;
     // Showdown's own move animations (ps/): loaded on demand when the "animation style" setting asks for them
-    this.ps = null;
-    this.psLoading = null;
-    if (readFxStyle() === "showdown") this.loadPs();
+    this.ps = null;            // the runner of the style in use (Showdown's or Reborn's), or null for Silver's effects
+    this.psStyle = "";
+    this.runners = {};
+    this.loading = {};
+    this.loadPs(readFxStyle());
     this.frame = this.frame.bind(this);
     this.measure();
     this.watch = typeof ResizeObserver !== "undefined" ? new ResizeObserver(() => { this.measure(); this.placeMons(); }) : null;
@@ -80,16 +82,24 @@ export class FxStage {
     return out;
   }
 
-  loadPs() {
-    if (this.psLoading || typeof window === "undefined") return this.psLoading;
-    this.psLoading = import("./ps/runner.js").then((m) => { if (!this.dead) this.ps = new m.PsRunner(this.host); }).catch(() => { /* our own effects carry on */ });
-    return this.psLoading;
+  loadPs(style) {
+    if (style !== "showdown" && style !== "reborn") return null;
+    if (this.loading[style] || typeof window === "undefined") return this.loading[style] || null;
+    const chunk = style === "reborn" ? import("./reborn/runner.js").then((m) => new m.RebornRunner(this.host))
+      : import("./ps/runner.js").then((m) => new m.PsRunner(this.host));
+    this.loading[style] = chunk.then((r) => { if (!this.dead) this.runners[style] = r; }).catch(() => { /* our own effects carry on */ });
+    return this.loading[style];
   }
 
-  /** The Showdown runner when the setting asks for Showdown's animations and it is loaded (it starts loading on the first ask). */
+  /** The runner of the animation style the setting asks for (Showdown's or Reborn's) once loaded (it starts loading on the first ask), or null. */
   psActive() {
-    if (readFxStyle() !== "showdown") return null;
-    if (!this.ps) this.loadPs();
+    const style = readFxStyle();
+    if (style !== this.psStyle || !this.ps) {
+      this.ps?.finish();
+      this.ps = this.runners[style] || null;
+      this.psStyle = this.ps ? style : "";
+      if (!this.ps) this.loadPs(style);
+    }
     return this.ps;
   }
 

@@ -112,6 +112,13 @@ def battle_music(request: Request, track: str):
     return _file(services(request).sounds.music(track))
 
 
+@router.get("/reborn/{kind}/{name}")
+def reborn_file(request: Request, kind: str, name: str):
+    """A file of Pokémon Reborn's move animations (anim: the frames, sheet: its picture, sound: a Reborn sound), downloaded once
+    from pokerogue-assets and cached; only the ones the index lists."""
+    return _file(services(request).reborn.get(kind, name))
+
+
 @router.get("/fx/stats")
 def fx_stats(request: Request):
     return services(request).fx.stats()

@@ -291,6 +291,25 @@ export function sfx(name, opts = {}) {
 }
 export const hasCue = (name) => !!CUES[name];
 
+/** A recorded effect at `url` (an animation's sound) on the effects volume; rate changes its pitch. Silent when it cannot load. */
+export function sample(url, { vol = 1, rate = 1 } = {}) {
+  if (!url || silent() || cfg.sfx <= 0) return;
+  const c = ensure();
+  if (!c || !bus) return;
+  if (c.state === "suspended") c.resume().catch(() => {});
+  loadCry(url).then((buf) => {
+    if (!buf || silent()) return;
+    const src = c.createBufferSource();
+    const g = c.createGain();
+    src.buffer = buf;
+    src.playbackRate.value = Math.max(0.5, Math.min(2, rate));
+    g.gain.value = Math.max(0, Math.min(1, vol)) * 0.8;
+    src.connect(g);
+    g.connect(bus.sfx);
+    src.start();
+  });
+}
+
 // ---------------------------------------------------------------------------------------------------------- cries
 const cryCache = new Map();
 const cryVoices = [];

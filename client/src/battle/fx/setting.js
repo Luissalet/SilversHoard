@@ -7,7 +7,8 @@ export const MOVE_FX_KEY = "silver-move-fx";
 export const FX_STYLE_KEY = "silver-fx-style";
 export const BACKDROP_KEY = "silver-backdrop";
 // "showdown": Pokémon Showdown's own animation of each move (934 of them) where it has one; "silver": the app's effects for every move
-export const FX_STYLES = ["showdown", "silver"];
+// "reborn": Pokémon Reborn's animations (748 moves, downloaded on first use), Silver's for the rest
+export const FX_STYLES = ["showdown", "reborn", "silver"];
 const okStyle = (v) => (FX_STYLES.includes(v) ? v : "showdown");
 
 /** [on, setOn]: whether the moves animate (default on). */

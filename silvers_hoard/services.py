@@ -35,6 +35,7 @@ from .benchmarks import Benchmarks
 from .cups import Cups
 from . import gymmap
 from .fxcache import FxCache
+from .rebornfx import RebornCache
 from .neural import NeuralAI
 from .pmd import PmdSprites
 from .pvp import Pvp
@@ -118,6 +119,7 @@ class Services:
         self._http_get = http_get or _http_get
         self.credits = Credits(config.sprites_dir.parent / "credits", self.settings, http_get or _http_get, self.pmd._base)
         self.fx = FxCache(config.sprites_dir.parent / "fx", self.settings, http_get=http_get)
+        self.reborn = RebornCache(config.sprites_dir.parent / "reborn", self.settings, http_get=http_get)
         self.cups = Cups(self)
         self.arenas = Arenas(self)
         self.benchmarks = Benchmarks(self)
