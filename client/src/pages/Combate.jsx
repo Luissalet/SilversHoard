@@ -84,7 +84,9 @@ export default function Combate({ param }) {
   const { t, lang, sprites, settings, notify, toastError, changed, go, confirm } = useApp();
   const [speedMs, setSpeedMs] = useStored("silver-speed", settings.playback_ms || 900);
   const { data: battle, error, reload, setData } = useLoad(() => api.call("battle_get", { id: param, since: 0 }), [param]);
-  const humans = battle ? ["p1", "p2"].filter((s) => battle[s]?.human) : [];
+  // a friend playing from another computer (a live-battle room) is not a seat of this screen: it sees and plays its own side only
+  const humans = battle ? ["p1", "p2"].filter((s) => battle[s]?.human && !battle[s]?.remote) : [];
+  const remote = battle ? ["p1", "p2"].find((s) => battle[s]?.remote) || "" : "";
   const me = humans[0] || "p1";
   const player = useBattlePlayer({ lang, me, speedMs, cryUrl: appCryUrl });
   const loaded = useRef("");
@@ -116,6 +118,17 @@ export default function Combate({ param }) {
     const b = await api.call("battle_get", { id: param, since: lengthRef.current });
     setData((old) => (old ? { ...old, banter: b.banter, banter_pending: b.banter_pending } : old));
   }, 4000, !!battle?.banter_pending);
+
+  // a live battle with a friend: their moves arrive while this screen waits
+  usePoll(async () => {
+    const b = await api.call("battle_get", { id: param, since: lengthRef.current });
+    if ((b.log_length || 0) !== lengthRef.current || b.status !== "live") {
+      lengthRef.current = b.log_length;
+      player.push(b.lines || []);
+      setData({ ...b, lines: [] });
+      if (b.status !== "live") changed();
+    } else setData((old) => (old ? { ...old, requests: b.requests } : old));
+  }, 1200, !!remote && battle?.status === "live");
 
   // a watched battle: wait for the AIs to finish, then play it
   usePoll(async () => {
@@ -214,7 +227,7 @@ export default function Combate({ param }) {
   }
 
   const live = battle.status === "live";
-  const requestSide = live && player.caughtUp ? humans.find((s) => battle.requests?.[s] && !battle.requests[s].done) || humans.find((s) => battle.requests?.[s]) : null;
+  const requestSide = live && player.caughtUp ? humans.find((s) => battle.requests?.[s] && !battle.requests[s].done) || (remote ? null : humans.find((s) => battle.requests?.[s])) : null;
   const request = requestSide ? battle.requests[requestSide] : null;
   const title = battle.title || `${battle.p1.name} vs ${battle.p2.name}`;
   const runActive = battle.run && battle.run.status === "active";
@@ -233,6 +246,7 @@ export default function Combate({ param }) {
             {live && <span className="chip chip-accent">{t("status_live")}</span>}
             {battle.status === "ended" && <span className="chip chip-ok">{battle.winner_name ? t("winner_is", { name: battle.winner_name }) : t("tie")}</span>}
             {humans.length === 2 && <span className="chip">{t("hotseat")}</span>}
+            {remote && <span className="chip chip-accent">{t("pvp_chip", { name: battle[remote].name })}</span>}
           </div>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -244,7 +258,7 @@ export default function Combate({ param }) {
             ? <a className="btn btn-primary" href={`#/combate/${battle.run.current.battle_id}`}>{t("run_go_current")}</a>
             : <Busy busy={busy.next} className="btn btn-primary" onClick={nextStage}>{t("next_stage")}</Busy>)}
           {battle.status === "ended" && battle.log_length > 0 && <VideoExport battle={battle} />}
-          {battle.status === "ended" && !battle.run && !battle.cup && battle.kind !== "friend" && <Busy busy={busy.rematch} className="btn" onClick={rematch}>{t("rematch")}</Busy>}
+          {battle.status === "ended" && !battle.run && !battle.cup && battle.kind !== "friend" && battle.kind !== "pvp" && <Busy busy={busy.rematch} className="btn" onClick={rematch}>{t("rematch")}</Busy>}
           <a className="btn" href="#/combatir">{t("new_battle")}</a>
         </div>
       </div>
@@ -281,7 +295,7 @@ export default function Combate({ param }) {
             <Controls request={request} lang={lang} sprites={sprites} gametype={player.state.gametype} busy={busy.choose}
               sideLabel={humans.length === 2 ? battle[requestSide].name : ""} onChoose={(c) => choose(requestSide, c)} onForfeit={() => forfeit(requestSide)} />
           )}
-          {live && !request && player.caughtUp && <div className="b-controls"><div className="b-wait">{t("waiting_ai")}</div></div>}
+          {live && !request && player.caughtUp && <div className="b-controls"><div className="b-wait">{remote ? t("pvp_waiting_friend", { name: battle[remote].name }) : t("waiting_ai")}</div></div>}
         </Arena>
       )}
       {battle.status !== "running" && battle.status !== "failed" && (

@@ -11,6 +11,7 @@ import { appCryUrl } from "../sfx.js";
 import { battleEnd, battleRole, battleType, genOfFormat, music, pickTrack } from "../../audio.js";
 import { CONTROL_LAYOUTS, makeInputs } from "./input.js";
 import { rtT } from "./strings.js";
+import { NetLink, battleHash, packFrame, unpackFrame } from "./netplay.js";
 import "./rt.css";
 
 const SAVE_EVERY_TICKS = 5 * TPS;
@@ -364,10 +365,12 @@ function TrainingPanel({ stats, tr, lang }) {
   );
 }
 
-export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish, onSave, onAgain, base = "", offline = false, onContinue = null, continueLabel = "", video = null, musicSource = "showdown" }) {
+export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish, onSave, onAgain, base = "", offline = false, onContinue = null, continueLabel = "", video = null, musicSource = "showdown", net = null }) {
   const tr = useMemo(() => rtT(lang), [lang]);
   const spec = battle.rt.spec;
-  const humans = battle.rt.human || [false, false];
+  // net (a live battle with a friend on another computer): {url, seat, peerName}; this screen plays only its own seat, the other
+  // arrives through the room (netplay.js)
+  const humans = net ? [net.seat === 0, net.seat === 1] : battle.rt.human || [false, false];
   const live = battle.status === "live";
   const people = humans.filter(Boolean).length;
   const canvasRef = useRef(null);
@@ -396,6 +399,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
   const [error, setError] = useState(null);
   const [result, setResult] = useState(null);
   const [sure, setSure] = useState(-1);
+  const [netState, setNetState] = useState({ peer: false, status: "connecting", stalled: false, desync: 0, menu: false });
   const logRef = useRef(null);
   const phaseRef = useRef(phase);
   phaseRef.current = phase;
@@ -414,7 +418,10 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     const recorded = battle.rt.inputs || [];
     const state = { b, inputs: makeInputs(humans, readLayout()), held: new Set(), acc: 0, last: 0, logIndex: 0, saveAt: 0, savedLen: 0, replay: null, plusScan: 0 };
     for (const inp of state.inputs) if (inp) inp.ultMode = b.version >= 5;
-    if (live) {
+    if (live && net) {
+      state.net = new NetLink({ url: net.url, seat: net.seat, delay: net.delay || 4, on: (k, v) => netEvent.current(k, v) });
+      state.hashAt = 0;
+    } else if (live) {
       if (recorded.length || battle.rt.tick) {
         fastForward(b, recorded, battle.rt.tick || 0);
         b.inputLog = recorded.slice();
@@ -443,12 +450,23 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
         setParty((p) => { const n = [...p]; n[i] = open; return n; });
         setCursor((c) => { const n = [...c]; n[i] = at ?? 0; return n; });
       };
-      inp.onPause = () => setPhase((ph) => (ph === "running" ? "paused" : ph === "paused" ? "running" : ph));
+      inp.onPause = net ? () => setNetState((n) => ({ ...n, menu: !n.menu })) : () => setPhase((ph) => (ph === "running" ? "paused" : ph === "paused" ? "running" : ph));
       inp.onPlus = (armed) => setPlus((p) => { const n = [...p]; n[i] = armed; return n; });
     });
     state.plusScan = b.events.length;
     return state;
   }, [spec, battle.rt, live]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // what the room says (the other person came or went, gave up, a mismatch): read through a ref so the link keeps one handler
+  const netEvent = useRef(() => {});
+  netEvent.current = (k, v) => {
+    if (k === "peer") setNetState((n) => ({ ...n, peer: v }));
+    else if (k === "status") setNetState((n) => ({ ...n, status: v }));
+    else if (k === "desync") setNetState((n) => ({ ...n, desync: v }));
+    else if (k === "ff" && sim.current && !sim.current.b.ended) finishRef.current?.(v);
+  };
+  const finishRef = useRef(null);
+  useEffect(() => () => sim.current?.net?.close(), []);
 
   useEffect(() => {
     let cancelled = false;
@@ -460,6 +478,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
       return undefined;
     }
     sim.current = state;
+    state.net?.connect();
     // for checks from the browser console (and the app's QA): the running battle and the classes that rebuild it
     window.__silverRt = { RtBattle, fastForward, inputFrame, get battle() { return sim.current?.b; } };
     const view = state.b.view();
@@ -505,6 +524,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     const st = sim.current;
     if (!st || !live || st.finishing) return;
     st.finishing = true;
+    if (forfeitSide && st.net && forfeitSide === (net.seat === 0 ? "p1" : "p2")) st.net.send({ k: "ff" });
     if (forfeitSide && !st.b.ended) st.b.forfeit(forfeitSide);
     setPhase("saving");
     try {
@@ -515,7 +535,8 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
       setError(e);
       setPhase("ended");
     }
-  }, [live, onFinish]);
+  }, [live, onFinish]); // eslint-disable-line react-hooks/exhaustive-deps
+  finishRef.current = finish;
 
   // the loop: fixed 30 ticks per second, drawing every frame
   useEffect(() => {
@@ -536,7 +557,34 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
         let n = 0;
         while (st.acc >= 1 / TPS && n++ < 12 && !st.b.ended) {
           st.acc -= 1 / TPS;
-          if (live) {
+          if (live && st.net) {
+            // lockstep: read this person's input `delay` ticks ahead, run the next tick once the other person's input for it is in
+            const nl = st.net;
+            const me = net.seat;
+            while (nl.local.length < st.b.t + 1 + nl.delay) {
+              const q = st.inputs[me].take(st.held, st.b.sides[me].mons.length);
+              nl.push(packFrame(q));
+              const f = st.inputs.map((x) => !!x?.focus);
+              if (st.renderer) st.renderer.focus = f;
+              if (f[me] !== st.lastFocus?.[me]) { st.lastFocus = f; setFocus(f); }
+            }
+            if (!nl.ready(st.b.t + 1)) {
+              st.acc = Math.min(st.acc, 2 / TPS);
+              if (!st.stalledSince) st.stalledSince = now;
+              break;
+            }
+            if (st.stalledSince) { st.stalledSince = 0; if (st.stallShown) { st.stallShown = false; setNetState((x) => ({ ...x, stalled: false })); } }
+            const [f1, f2] = nl.frame(st.b.t + 1);
+            st.b.step({ [st.b.sides[0].id]: unpackFrame(f1), [st.b.sides[1].id]: unpackFrame(f2) });
+            for (; st.plusScan < st.b.events.length; st.plusScan++) {
+              const e = st.b.events[st.plusScan];
+              if ((e.k === "plus" || e.k === "mega") && st.inputs[e.s]?.plusArmed) st.inputs[e.s].setPlus(false);
+            }
+            if (st.b.doubles && st.inputs[me]) st.inputs[me].effCtl = st.b.leadOf(st.b.sides[me]).pos;
+            if (st.b.t - st.hashAt >= 60) { st.hashAt = st.b.t; nl.send({ k: "hash", t: st.b.t, h: battleHash(st.b) }); }
+            // a screen that reloaded runs the ticks it missed without waiting for the clock
+            if (nl.ready(st.b.t + 1 + 2 * nl.delay)) st.acc += 1 / TPS;
+          } else if (live) {
             const input = {};
             st.b.sides.forEach((side, i) => { if (st.inputs[i]) input[side.id] = st.inputs[i].take(st.held, side.mons.length); });
             const f = st.inputs.map((x) => !!x?.focus);
@@ -554,6 +602,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
             st.b.step(inputFrame(st.b, st.replay.byTick.get(st.b.t + 1) || [], st.replay.held));
           }
         }
+        if (st.stalledSince && !st.stallShown && now - st.stalledSince > 600) { st.stallShown = true; setNetState((x) => ({ ...x, stalled: true })); }
         if (live && st.b.t - st.saveAt >= SAVE_EVERY_TICKS && st.b.inputLog.length !== st.savedLen) {
           st.saveAt = st.b.t;
           st.savedLen = st.b.inputLog.length;
@@ -588,6 +637,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
       const st = sim.current;
       if (!st || ["INPUT", "TEXTAREA", "SELECT"].includes(e.target?.tagName)) return;
       if (e.code === "Escape" && !st.inputs.some((x) => x?.partyOpen)) {
+        if (st.net) { setNetState((n) => ({ ...n, menu: !n.menu })); e.preventDefault(); return; }
         if (phaseRef.current === "running") setPhase("paused");
         else if (phaseRef.current === "paused") setPhase("running");
         e.preventDefault();
@@ -600,7 +650,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
       if (used || ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Tab", "Backspace"].includes(e.code)) e.preventDefault();
     };
     const up = (e) => sim.current?.held.delete(e.code);
-    const blur = () => { sim.current?.held.clear(); if (phaseRef.current === "running") setPhase("paused"); };
+    const blur = () => { sim.current?.held.clear(); if (phaseRef.current === "running" && !sim.current?.net) setPhase("paused"); };
     window.addEventListener("keydown", down);
     window.addEventListener("keyup", up);
     window.addEventListener("blur", blur);
@@ -733,7 +783,9 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
                     {CONTROL_LAYOUTS.map((v) => <button key={v} type="button" aria-pressed={layout === v} onClick={() => setLayout(v)}>{tr(`rt_layout_${v}`)}</button>)}
                   </div>
                 </div>
-                <button type="button" className="btn btn-primary" autoFocus onClick={() => setPhase("running")}>{tr("rt_start")}</button>
+                {net && !netState.peer ? <div className="help rt-net-wait">{tr("rt_net_waiting", { name: net.peerName || "…" })}</div>
+                  : <button type="button" className="btn btn-primary" autoFocus onClick={() => setPhase("running")}>{tr("rt_start")}</button>}
+                {net && <div className="help">{tr("rt_net_note")}</div>}
               </div>
             </div>
           )}
@@ -755,11 +807,23 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
             </div>
           )}
           {phase === "saving" && <div className="rt-overlay"><div className="rt-card"><b>{tr("rt_saving")}</b></div></div>}
+          {net && live && phase === "running" && (netState.stalled || !netState.peer || netState.status !== "open") && (
+            <div className="rt-net-banner">{netState.status !== "open" ? tr("rt_net_reconnecting") : tr("rt_net_waiting", { name: net.peerName || "…" })}</div>
+          )}
+          {net && netState.desync > 0 && <div className="rt-net-banner is-bad">{tr("rt_net_desync")}</div>}
+          {net && live && phase === "running" && netState.menu && (
+            <div className="rt-net-menu">
+              <button type="button" className="btn btn-sm" onClick={() => { setSure(-1); setNetState((n) => ({ ...n, menu: false })); }}>{tr("rt_resume")}</button>
+              <button type="button" className="btn btn-sm btn-danger" onClick={() => (sure === net.seat ? finish(net.seat === 0 ? "p1" : "p2") : setSure(net.seat))}>
+                {sure === net.seat ? tr("rt_forfeit_sure") : tr("rt_forfeit")}
+              </button>
+            </div>
+          )}
           {ended && view && (
             <div className="rt-overlay is-end">
               <div className="rt-card">
                 <b className="rt-big">
-                  {winnerIdx === 0 || winnerIdx === 1 ? (people === 1 && (live || offline) ? (winnerIdx === mySide ? tr("rt_win") : tr("rt_lose")) : tr("rt_winner", { name: view.sides[winnerIdx].name })) : tr("rt_tie")}
+                  {winnerIdx === 0 || winnerIdx === 1 ? (people === 1 && (live || offline || net) ? (winnerIdx === mySide ? tr("rt_win") : tr("rt_lose")) : tr("rt_winner", { name: view.sides[winnerIdx].name })) : tr("rt_tie")}
                 </b>
                 <div className="help">{tr(`rt_reason_${view.reason || "ko"}`)} · {fmtTime(view.seconds)}</div>
                 {error && <div className="banner banner-danger">{String(error.message || error)}</div>}

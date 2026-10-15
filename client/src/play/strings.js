@@ -56,6 +56,20 @@ const S = {
     "The code is long ({n} characters) because it carries the replay of your real-time battle: better download the file and send it as it is."],
   download_code_file: ["Descargar el código como archivo", "Download the code as a file"],
   made_with: ["Hecho con Silver's Hoard · motor de Pokémon Showdown", "Made with Silver's Hoard · Pokémon Showdown engine"],
+  // a live-battle room (a friend's Silver's Hoard serves this page)
+  room_title: ["Combate en directo contra {name}", "Live battle against {name}"],
+  room_help: ["{name} te ha invitado a un combate en directo. Pon tu nombre, trae tu equipo (pégalo, sácalo al azar o carga un archivo) y únete; cuando {name} lo empiece, jugáis cada uno desde vuestro ordenador.",
+    "{name} invited you to a live battle. Enter your name, bring your team (paste it, roll a random one or load a file) and join; when {name} starts it, you each play from your own computer."],
+  room_join: ["Unirme", "Join"],
+  room_waiting: ["Esperando a que {name} empiece el combate…", "Waiting for {name} to start the battle…"],
+  room_joined_as: ["Te has unido como {name} con {list}.", "You joined as {name} with {list}."],
+  room_their_turn: ["Esperando a {name}…", "Waiting for {name}…"],
+  room_forfeit_q: ["¿Rendirte? El combate se da por perdido.", "Give up? The battle counts as lost."],
+  room_won: ["¡Has ganado a {name}!", "You beat {name}!"],
+  room_lost: ["{name} ha ganado esta vez.", "{name} won this time."],
+  room_tie: ["Empate.", "A tie."],
+  room_done_help: ["El combate queda guardado en el Silver's Hoard de quien te invitó. Si quieres la revancha, que abra otra sala y te mande el enlace.",
+    "The battle is stored on the Silver's Hoard of whoever invited you. For a rematch, ask them to open another room and send you the link."],
 };
 
 export function playT(lang) {
