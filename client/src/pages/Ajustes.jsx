@@ -7,6 +7,7 @@ import { AiFields, FormatSelect, MonIcon } from "../components/silver.jsx";
 import { SoundSliders } from "../battle/SoundControl.jsx";
 import NeuralAi from "../components/NeuralAi.jsx";
 import { useBackdropSetting, useFxStyleSetting, useMoveFxSetting } from "../battle/fx/setting.js";
+import { particleStyle, setParticleStyle } from "../battle/rt/vfx.js";
 
 export default function Ajustes() {
   const { t, lang, notify, refreshOv, ov } = useApp();
@@ -53,6 +54,12 @@ export default function Ajustes() {
           <select className="field" value={fxStyle} disabled={!moveFx} onChange={(e) => setFxStyle(e.target.value)}>
             <option value="showdown">{t("fx_style_showdown")}</option>
             <option value="silver">{t("fx_style_silver")}</option>
+          </select>
+        </Field>
+        <Field label={t("rt_particles")} hint={t("rt_particles_help")}>
+          <select className="field" defaultValue={particleStyle()} onChange={(e) => setParticleStyle(e.target.value)}>
+            <option value="textured">{t("rt_particles_textured")}</option>
+            <option value="plain">{t("rt_particles_plain")}</option>
           </select>
         </Field>
         <Field label={t("backdrop")} hint={t("backdrop_help")}>
