@@ -216,3 +216,7 @@ body.video-mode .b-fx-toggle, body.video-mode .snd-btn { display: none !importan
 /* popular sets (SmogonSets in the team builder) */
 .smogon-moves { margin: 0; padding-left: 1.1em; font-size: 12.5px; }
 .smogon-moves li { margin: 1px 0; }
+
+/* credits page */
+.credit-artists { display: flex; flex-wrap: wrap; gap: 6px; }
+.credit-sources td { vertical-align: top; }

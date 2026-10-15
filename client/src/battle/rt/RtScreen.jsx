@@ -299,6 +299,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
   const sim = useRef(null);
   const [phase, setPhase] = useState("loading");
   const [progress, setProgress] = useState([0, 0]);
+  const [credits, setCredits] = useState([]);
   const [hud, setHud] = useState(null);
   const [log, setLog] = useState([]);
   const [party, setParty] = useState([false, false]);
@@ -393,6 +394,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     state.logIndex = state.b.events.length;
     renderer.preload((n, total) => !cancelled && setProgress([n, total])).then(() => {
       if (cancelled) return;
+      setCredits([...renderer.credits].slice(0, 12));
       setPhase(live ? (state.b.ended ? "ended" : "ready") : "playing");
     });
     return () => { cancelled = true; };
@@ -705,7 +707,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
             ))}
           </div>
         )}
-        {!offline && <div className="help rt-credit">{tr("rt_sprites_note")}</div>}
+        {!offline && <div className="help rt-credit">{tr("rt_sprites_note")}{credits.length ? `: ${credits.join(", ")}` : ""}</div>}
       </div>
       <div className="b-log rt-log" aria-live="off" ref={logRef}>
         {log.slice(-120).map((l, i) => (

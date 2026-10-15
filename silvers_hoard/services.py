@@ -26,6 +26,7 @@ from .engine import Engine
 from .errors import SilverError
 from .hoard_link import family
 from .hoard_link.tokens import read_or_create_token
+from .credits import Credits
 from .fxcache import FxCache
 from .pmd import PmdSprites
 from .smogon import Smogon
@@ -91,6 +92,7 @@ class Services:
         self.pmd = PmdSprites(config.sprites_dir.parent / "pmd", self.settings, http_get or _http_get)
         self.smogon = Smogon(config.sprites_dir.parent / "smogon", http_get or _http_get, enabled=lambda: bool(self.settings["smogon_data"]))
         self._http_get = http_get or _http_get
+        self.credits = Credits(config.sprites_dir.parent / "credits", self.settings, http_get or _http_get, self.pmd._base)
         self.fx = FxCache(config.sprites_dir.parent / "fx", self.settings, http_get=http_get)
         self.pool = ThreadPoolExecutor(max_workers=2, thread_name_prefix="silver-job")
         self._cancel: dict[str, bool] = {}
@@ -250,6 +252,7 @@ class Services:
         out = {k: v for k, v in t.items() if k not in ("team",)}
         out["team"] = t.get("team") or []
         out["avatar_url"] = self.avatar_url(t.get("avatar", ""))
+        out["avatar_credit"] = self.credits.trainer(t["avatar"][3:]) if str(t.get("avatar") or "").startswith("sd:") else ""
         out["avatar_poses"] = self.pose_urls(t.get("avatar", ""))
         out["species"] = [s.get("species") for s in out["team"]]
         out["record"] = {"wins": t.get("wins", 0), "losses": t.get("losses", 0), "ties": t.get("ties", 0)}
@@ -372,6 +375,26 @@ class Services:
             return json.loads((PRESETS_DIR / "trainer_sprites.json").read_text(encoding="utf-8"))
         except (OSError, ValueError):
             return []
+
+    def credits_get(self, *, species: str = "", sprite: str = "") -> dict[str, Any]:
+        """Who drew what: one trainer sprite's artist, one Pokémon's walking-sprite artists (SpriteCollab), or the whole list of
+        sources with the artists of both kinds of sprites. Downloads the artist lists the first time (then a month / a week)."""
+        if sprite:
+            name = sprite.strip().lower().removeprefix("sd:").removesuffix(".png")
+            if not re.match(r"^[a-z0-9][a-z0-9._-]{0,60}$", name):
+                raise SilverError("invalid", f"Not a trainer sprite: {sprite}")
+            return {"sprite": name, "artist": self.credits.trainer(name, wait=True), "url": self.avatar_url(f"sd:{name}"),
+                    "note": "" if self.credits.trainer(name) else "No author on Showdown's index: the games' own art (or not credited)."}
+        if species:
+            info = self.engine.call("species", {"name": species, "gen": 9})
+            num = int(info.get("num") or 0)
+            if num <= 0:
+                raise SilverError("not_found", f"{species} has no Pokédex number.")
+            form = info["name"].split("-", 1)[1] if "-" in info["name"] else ""
+            folder = self.pmd.folder(num, form)
+            return {"species": info["name"], "num": num, "folder": folder, "artists": self.credits.walking(folder, wait=True),
+                    "licence": "CC BY-NC 4.0", "source": "PMDCollab SpriteCollab"}
+        return self.credits.summary(wait=True)
 
     def trainer_sprites(self, query: str = "", limit: int = 120) -> list[str]:
         q = query.lower().strip()
@@ -620,7 +643,9 @@ class Services:
 
     def character_get(self, key: str) -> dict[str, Any]:
         c = self._character(key)
-        sprites = [{**sp, "avatar": f"sd:{sp['id']}", "url": self.avatar_url(f"sd:{sp['id']}")} for sp in c["sprites"]]
+        artists = self.credits.trainers()
+        sprites = [{**sp, "avatar": f"sd:{sp['id']}", "url": self.avatar_url(f"sd:{sp['id']}"), "artist": artists.get(sp["id"].lower(), "")}
+                   for sp in c["sprites"]]
         variants = []
         for v in c["variants"]:
             variants.append({**v, "trainer_class_es": _CLASS_ES.get(v["trainer_class"], v["trainer_class"]), "label": self._variant_label(v, "en"), "label_es": self._variant_label(v, "es"), "sprite_url": self.avatar_url(f"sd:{v['sprite']}") if v["sprite"] else "",

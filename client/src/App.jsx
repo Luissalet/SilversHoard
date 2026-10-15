@@ -23,6 +23,7 @@ import Historial from "./pages/Historial.jsx";
 import Trabajo from "./pages/Trabajo.jsx";
 import Medallas from "./pages/Medallas.jsx";
 import Progreso from "./pages/Progreso.jsx";
+import Creditos from "./pages/Creditos.jsx";
 import Video from "./pages/Video.jsx";
 import Compartir from "./pages/Compartir.jsx";
 import Ajustes from "./pages/Ajustes.jsx";
@@ -62,6 +63,7 @@ const PAGES = [
   { path: "historial", key: "nav_history", icon: I.history, component: Historial },
   { path: "medallas", key: "nav_badges", icon: I.badge, component: Medallas },
   { path: "progreso", key: "nav_progress", icon: I.chart, component: Progreso },
+  { path: "creditos", key: "nav_settings", component: Creditos, hidden: true, parent: "ajustes" },
   { path: "compartir", key: "nav_share", icon: I.share, component: Compartir },
   { path: "ajustes", key: "nav_settings", icon: I.settings, component: Ajustes },
   // a battle's replay alone on a 16:9 stage, recorded as a clip by battle_video: no sidebar, no page chrome
@@ -225,6 +227,7 @@ export default function App() {
             <div className="flex items-center gap-2">
               <button type="button" className="btn btn-sm" onClick={() => changeLang(lang === "es" ? "en" : "es")}>{t("language")}</button>
               {ov?.version && <span className="help">v{ov.version}</span>}
+              <a className="help btn-link" href="#/creditos">{t("credits")}</a>
             </div>
           </div>
         </aside>

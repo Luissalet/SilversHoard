@@ -84,7 +84,9 @@ def item_sprite(request: Request, item_id: str):
 @router.get("/sprites/pmd/{dex}")
 def pmd_meta(request: Request, dex: int, form: str = "", shiny: bool = False):
     """Geometry of a Pokémon's walking sprites for the real-time arena (downloads its sheets the first time)."""
-    return services(request).pmd.meta(dex, form=form, shiny=shiny)
+    s = services(request)
+    meta = s.pmd.meta(dex, form=form, shiny=shiny)
+    return {**meta, "credit": s.credits.walking(str(meta.get("key") or ""))}
 
 
 @router.get("/sprites/pmd-sheet/{key}/{anim}")

@@ -87,6 +87,9 @@ export default function Personaje({ param, query }) {
         <div className="min-w-0 space-y-1">
           <h1>{name}{lang !== "en" && c.name !== c.name_es ? <span className="help"> · {c.name}</span> : null}</h1>
           <div className="help">{t("chars_teams_n", { n: c.variants.length })} · {t("chars_sprites_n", { n: c.sprites.length })}</div>
+          {c.sprites.find((x) => x.id === spriteId)?.artist && (
+            <div className="help"><a className="btn-link" href="#/creditos">{t("sprite_by", { name: c.sprites.find((x) => x.id === spriteId).artist })}</a></div>
+          )}
           <a className="btn-link" href={c.bulbapedia} target="_blank" rel="noreferrer">Bulbapedia ↗</a>
         </div>
       </div>
@@ -94,7 +97,7 @@ export default function Personaje({ param, query }) {
       <Section title={t("char_look")} count={c.sprites.length} sub={t("char_look_help")}>
         <div className="char-sprites" role="radiogroup" aria-label={t("char_look")}>
           {c.sprites.map((s) => (
-            <button key={s.id} type="button" role="radio" aria-checked={s.id === spriteId} className={`sprite-pick ${s.id === spriteId ? "is-on" : ""}`} onClick={() => setSprite(s.id)} title={s.id}>
+            <button key={s.id} type="button" role="radio" aria-checked={s.id === spriteId} className={`sprite-pick ${s.id === spriteId ? "is-on" : ""}`} onClick={() => setSprite(s.id)} title={s.artist ? `${s.id} · ${t("sprite_by", { name: s.artist })}` : s.id}>
               <img src={s.url} alt="" loading="lazy" className="pixelated" />
               <span>{lang === "en" ? s.label : s.label_es}</span>
             </button>
