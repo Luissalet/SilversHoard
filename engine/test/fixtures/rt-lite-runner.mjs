@@ -7,6 +7,8 @@ import {Dex} from '@pkmn/sim';
 import {rtMove} from '../../src/realtime/moves.mjs';
 import {rtFormatId, rtGen} from '../../src/realtime/team.mjs';
 import {prepareRtTeam, rtRun} from '../../src/realtime/sim.mjs';
+// the Pokémon Champions formats: the screen loads them before a battle in one of those formats (RtScreen), the engine at start
+import '../../src/champions.mjs';
 
 const hash = (v) => createHash('sha256').update(typeof v === 'string' ? v : JSON.stringify(v)).digest('hex');
 // The descriptions are the one thing the stubs take out of the data objects (functions never reach JSON).
