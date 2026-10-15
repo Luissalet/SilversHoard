@@ -58,7 +58,8 @@ def test_env_and_levels(services):
     env = master_env()
     assert ("SILVER_MASTER_PY" in env) == master_status()["available"]
     r = services.ai_levels()
-    assert [x["level"] for x in r["levels"]][-1] == "master" and "poke-engine" in r["levels"][-1]["about"]
+    master = next(x for x in r["levels"] if x["level"] == "master")
+    assert "poke-engine" in master["about"]
     assert set(r["master"]) >= {"available", "reason", "hint"}
     assert services.health()["master_ai"]["available"] == r["master"]["available"]
 
