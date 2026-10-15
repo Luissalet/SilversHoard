@@ -418,6 +418,7 @@ class SettingsSetArgs(BaseModel):
     max_turns: Optional[int] = Field(None, ge=20, le=2000)
     node_path: Optional[str] = Field(None, max_length=500)
     sprite_downloads: Optional[bool] = None
+    sound_downloads: Optional[bool] = None
     prospero_prompt: Optional[str] = Field(None, max_length=1000)
     prospero_style_sprites: Optional[str] = Field(None, max_length=200, description="Trainer sprites used as art-style references.")
     prospero_engine: Optional[Literal["", "auto", "qwen21", "flux", "sdxl"]] = Field(None, description="Image engine for drawn sprites; empty = Prospero's default.")

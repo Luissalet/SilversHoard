@@ -26,6 +26,7 @@ from .errors import SilverError
 from .hoard_link import family
 from .hoard_link.tokens import read_or_create_token
 from .pmd import PmdSprites
+from .sounds import Sounds
 from .sprites import Sprites, _http_get
 from .store import Store
 
@@ -82,6 +83,7 @@ class Services:
         self.store = Store(config.db_path)
         self.engine = engine or Engine(lambda: find_node(self.settings.get("node_path", "")), config.engine_dir, REPO_ROOT)
         self.sprites = Sprites(config.sprites_dir, config.avatars_dir, self.settings, http_get=http_get)
+        self.sounds = Sounds(config.sprites_dir.parent / "audio", self.settings, http_get=http_get)
         self.pmd = PmdSprites(config.sprites_dir.parent / "pmd", self.settings, http_get or _http_get)
         self.pool = ThreadPoolExecutor(max_workers=2, thread_name_prefix="silver-job")
         self._cancel: dict[str, bool] = {}

@@ -92,6 +92,23 @@ def pmd_sheet(request: Request, key: str, anim: str):
     return _file(services(request).pmd.sheet(key, anim.removesuffix(".png")))
 
 
+@router.get("/cries/{cry_id}")
+def pokemon_cry(request: Request, cry_id: str):
+    """A Pokémon's cry (species or form id), downloaded once and cached; 404 when there is none (the client stays silent)."""
+    return _file(services(request).sounds.cry(cry_id))
+
+
+@router.get("/music/{track}")
+def battle_music(request: Request, track: str):
+    """One of the whitelisted battle tracks, downloaded once and cached."""
+    return _file(services(request).sounds.music(track))
+
+
+@router.get("/sound/stats")
+def sound_stats(request: Request):
+    return services(request).sounds.stats()
+
+
 @router.get("/sprites/stats")
 def sprite_stats(request: Request):
     return services(request).sprites.stats()
