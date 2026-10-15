@@ -2,6 +2,13 @@
 // takes them in (i18n.js), and the battle screen reads them through rtT.
 const RT = {
   rt_mode: ["Modo de combate", "Battle mode"],
+  eq_title: ["Niveles", "Levels"],
+  eq_off: ["Como vienen", "As they are"],
+  eq_level: ["Igualado a {n}", "Equalized at {n}"],
+  eq_help_off: ["Cada Pokémon combate con su nivel.", "Every Pokémon fights at its own level."],
+  eq_help_on: ["Todos los Pokémon de los dos lados combaten a nivel {n}, con sus estadísticas recalculadas.", "Every Pokémon on both sides fights at level {n}, with its stats worked out again."],
+  eq_chip: ["Nv. {n} igualado", "Lv. {n} equalized"],
+  eq_default: ["Niveles por defecto", "Default levels"],
   mode_classic: ["Clásico (por turnos)", "Classic (turns)"],
   mode_realtime: ["Tiempo real", "Real time"],
   mode_classic_short: ["Clásico", "Classic"],

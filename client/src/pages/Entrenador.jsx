@@ -35,12 +35,12 @@ function FightDialog({ trainer, onClose }) {
   );
 }
 
-function TeamTab({ tr, reload }) {
+function TeamTab({ tr, reload, startVisual = false }) {
   const { t, notify, changed } = useApp();
   const [paste, setPaste] = useState(tr.paste || "");
   const [editing, setEditing] = useState(false);
   const [check, setCheck] = useState(null);
-  const [visual, setVisual] = useState(false);
+  const [visual, setVisual] = useState(startVisual);
   const [busy, run] = useBusy();
   useEffect(() => { if (!editing) setPaste(tr.paste || ""); }, [tr.paste, editing]);
   const saveSets = async (sets) => {
@@ -140,11 +140,12 @@ function LinesTab({ tr, reload }) {
   );
 }
 
-export default function Entrenador({ param }) {
+export default function Entrenador({ param, query }) {
   const { t, lang, notify, confirm, changed, go, settings } = useApp();
   const { data: tr, error, reload } = useLoad(() => api.call("trainer_get", { id: param }), [param]);
   useCopilotRefresh(reload);
   const [tab, setTab] = useStored("silver-trainer-tab", "team");
+  useEffect(() => { if (query?.get("builder") === "1") setTab("team"); }, []);   // eslint-disable-line react-hooks/exhaustive-deps
   const [dialog, setDialog] = useState("");
   const [busy, run] = useBusy();
   if (error && !tr) return <ErrorBox error={error} onRetry={reload} />;
@@ -182,7 +183,7 @@ export default function Entrenador({ param }) {
         <div className="flex flex-wrap items-center gap-2">{tr.badges.map((b) => <span key={b.id} className="badge-pill" title={`${b.gym_name}`}><GymBadge color={b.badge_color} size={22} label={b.badge} /> {b.badge || b.gym_name}</span>)}</div>
       )}
       <Tabs value={tab} onChange={setTab} tabs={[{ id: "team", label: t("tab_team") }, { id: "details", label: t("tab_details") }, { id: "lines", label: t("tab_lines") }, { id: "realtime", label: t("mode_realtime_short") }, { id: "battles", label: t("tab_battles") }]} />
-      {tab === "team" && <TeamTab tr={tr} reload={reload} />}
+      {tab === "team" && <TeamTab tr={tr} reload={reload} startVisual={query?.get("builder") === "1"} />}
       {tab === "details" && <DetailsTab tr={tr} reload={reload} />}
       {tab === "lines" && <LinesTab tr={tr} reload={reload} />}
       {tab === "realtime" && <CooldownsTab trainerId={tr.id} t={t} lang={lang} />}

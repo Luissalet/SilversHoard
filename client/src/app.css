@@ -111,3 +111,24 @@ a.league-card:hover { border-color: var(--hoard-border-hover); }
 .tb-set { display: flex; flex-direction: column; gap: 10px; padding: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--hoard-radius-lg); }
 .tb-head { display: flex; gap: 12px; align-items: flex-start; }
 .tb-more summary { cursor: pointer; }
+
+.char-grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); }
+.char-card { display: flex; gap: 12px; align-items: flex-start; padding: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--hoard-radius-lg); color: var(--ink); min-width: 0; text-decoration: none; transition: border-color 0.12s; }
+.char-card:hover { border-color: var(--hoard-border-hover); }
+.char-gens { display: flex; flex-wrap: wrap; gap: 4px; }
+.char-gens .chip { font-size: 11px; padding: 0 6px; }
+.char-head { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+.char-head .avatar { width: 112px; height: 112px; }
+.char-sprites { display: grid; gap: 6px; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); }
+.char-sprites .sprite-pick { text-align: center; }
+.sprite-pick.is-on { border-color: var(--accent); background: var(--accent-soft); color: var(--ink); }
+.char-game { display: flex; flex-direction: column; gap: 6px; }
+.char-variant { display: flex; gap: 10px; align-items: flex-start; padding: 8px 10px; border: 1px solid var(--line); border-radius: var(--hoard-radius-lg); background: var(--surface); color: var(--ink); font: inherit; text-align: left; cursor: pointer; min-width: 0; width: 100%; }
+.char-variant:hover { border-color: var(--hoard-border-hover); }
+.char-variant.is-on { border-color: var(--accent); background: linear-gradient(135deg, var(--accent-soft), var(--surface) 70%); }
+.char-variant .avatar { width: 44px; height: 44px; }
+.char-mons { display: flex; flex-wrap: wrap; gap: 4px 10px; }
+.char-mon { display: inline-flex; align-items: center; gap: 2px; font-size: 12px; color: var(--muted); }
+.char-mon b { color: var(--ink); font-weight: 600; }
+.char-bag { display: flex; flex-wrap: wrap; gap: 4px; }
+.char-actions { position: sticky; bottom: 0; z-index: 5; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 10px 72px 10px 12px; background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px); border: 1px solid var(--line); border-radius: var(--hoard-radius-lg); }

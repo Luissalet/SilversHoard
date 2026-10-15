@@ -12,6 +12,7 @@ python -m pytest                         # app tests (they start the real engine
 npm run test:engine                      # engine tests: AI legal in gens 1-9, singles and doubles; snapshots; series; tournaments; real time
 node engine/scripts/build_canon.mjs <pret files> silvers_hoard/presets/canon.json   # rebuild the in-game teams
 python engine/scripts/build_names_es.py <PokeAPI csv> client/src/battle/names-es.js # rebuild the Spanish names
+node scripts/build_characters.mjs                                                   # rebuild the characters (Bulbapedia teams) from scripts/characters
 python scripts/make_icon.py --family "../Icons"                                     # the icon from the family dragon
 ```
 

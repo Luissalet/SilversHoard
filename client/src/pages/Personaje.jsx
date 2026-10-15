@@ -1,0 +1,147 @@
+// One character: choose its look (every Showdown sprite it has, game by game) and one of the teams it used in each game and
+// battle (first battle, rematches, tournaments…), then make a trainer from them, or start an own team for the character.
+import React, { useMemo, useState } from "react";
+import { api } from "../api.js";
+import { useApp } from "../context.js";
+import { Busy, ErrorBox, Section, Spinner, useBusy, useLoad } from "../components/ui.jsx";
+import { Avatar, MonIcon, RecordChip } from "../components/silver.jsx";
+
+function VariantRow({ v, on, onPick, lang, t }) {
+  const labels = lang === "en" ? v.labels : v.labels_es;
+  const alt = lang === "en" ? v.labels_alt : v.labels_alt_es;
+  const title = [...labels, v.with ? `${lang === "en" ? "with" : "con"} ${v.with}` : ""].filter(Boolean).join(" · ") || (lang === "en" ? v.game_name : v.game_name_es);
+  return (
+    <button type="button" className={`char-variant ${on ? "is-on" : ""}`} aria-pressed={on} onClick={onPick}>
+      <Avatar url={v.sprite_url} name={title} size={44} />
+      <div className="min-w-0 flex-1 space-y-1">
+        <div className="flex flex-wrap items-center gap-2">
+          <b>{title}</b>
+          {v.trainer_class && <span className="help">{lang === "en" ? v.trainer_class : v.trainer_class_es}</span>}
+          {v.location && <span className="help">· {v.location}</span>}
+          {on && <span className="chip">{t("char_selected")}</span>}
+        </div>
+        <div className="char-mons">
+          {v.sets.map((s, i) => (
+            <span key={i} className="char-mon" title={[s.species, s.ability, s.item, ...(s.moves || [])].filter(Boolean).join(" · ")}>
+              <MonIcon species={s.species} size={30} />
+              <b>{s.species}</b>&nbsp;{t("char_level", { n: s.level })}{s.item ? ` · ${s.item}` : ""}
+            </span>
+          ))}
+        </div>
+        {v.sets.some((s) => s.level_range) && <div className="help">{t("char_level_range", { a: v.sets.find((s) => s.level_range).level_range[0], b: v.sets.find((s) => s.level_range).level_range[1], n: v.sets[0].level })}</div>}
+        {v.bag?.length > 0 && (
+          <div className="char-bag">
+            <span className="help">{t("char_bag")}:</span>
+            {v.bag.map((b) => <span key={b.item} className="chip">{b.count}× {lang === "en" ? b.item : b.item_es}{b.per_pokemon ? ` ${t("char_per_mon")}` : ""}</span>)}
+          </div>
+        )}
+        {alt?.length > 0 && <div className="help">{t("char_also", { list: alt.join(" / ") })}</div>}
+        {v.note && <div className="help" title={t("char_note_en")}>{v.note}</div>}
+      </div>
+    </button>
+  );
+}
+
+export default function Personaje({ param, query }) {
+  const { t, lang, notify, changed, go } = useApp();
+  const { data: c, error, reload } = useLoad(() => api.call("character_get", { key: param }), [param]);
+  const [variantId, setVariantId] = useState("");
+  const [sprite, setSprite] = useState("");
+  const [gen, setGen] = useState(Number(query?.get("gen")) || 0);
+  const [busy, run] = useBusy();
+
+  const variant = useMemo(() => {
+    if (!c) return null;
+    return c.variants.find((v) => v.id === variantId) || [...c.variants].reverse().find((v) => !v.side && (!gen || v.gen === gen)) || c.variants[c.variants.length - 1];
+  }, [c, variantId, gen]);
+  const spriteId = sprite || variant?.sprite || c?.base_sprite || "";
+  const spriteUrl = c?.sprites.find((s) => s.id === spriteId)?.url || c?.avatar_url;
+
+  const groups = useMemo(() => {
+    const out = [];
+    for (const v of c?.variants || []) {
+      if (gen && v.gen !== gen) continue;
+      const key = `${v.side ? "z" : "a"}${v.game}`;
+      let g = out.find((x) => x.key === key);
+      if (!g) out.push((g = { key, game: lang === "en" ? v.game_name : v.game_name_es, gen: v.gen, side: v.side, list: [] }));
+      g.list.push(v);
+    }
+    return out;
+  }, [c, gen, lang]);
+
+  if (error) return <ErrorBox error={error} onRetry={reload} />;
+  if (!c) return <Spinner />;
+  const name = lang === "en" ? c.name : c.name_es;
+  const gens = [...new Set(c.variants.map((v) => v.gen))].sort((a, b) => a - b);
+
+  const install = (custom, empty = false) => run(custom ? (empty ? "e" : "c") : "a", async () => {
+    const r = await api.call("character_install", { key: c.key, variant: empty ? "" : variant?.id || "", sprite: spriteId, custom, lang });
+    changed();
+    notify(r.trainer.existing ? t("char_exists") : t("char_created"));
+    go(`#/entrenador/${r.trainer.id}${custom ? "?builder=1" : ""}`);
+  });
+
+  return (
+    <div className="space-y-5">
+      <a className="btn-link" href="#/personajes">← {t("char_back")}</a>
+      <div className="char-head">
+        <Avatar url={spriteUrl} name={name} size={112} />
+        <div className="min-w-0 space-y-1">
+          <h1>{name}{lang !== "en" && c.name !== c.name_es ? <span className="help"> · {c.name}</span> : null}</h1>
+          <div className="help">{t("chars_teams_n", { n: c.variants.length })} · {t("chars_sprites_n", { n: c.sprites.length })}</div>
+          <a className="btn-link" href={c.bulbapedia} target="_blank" rel="noreferrer">Bulbapedia ↗</a>
+        </div>
+      </div>
+
+      <Section title={t("char_look")} count={c.sprites.length} sub={t("char_look_help")}>
+        <div className="char-sprites" role="radiogroup" aria-label={t("char_look")}>
+          {c.sprites.map((s) => (
+            <button key={s.id} type="button" role="radio" aria-checked={s.id === spriteId} className={`sprite-pick ${s.id === spriteId ? "is-on" : ""}`} onClick={() => setSprite(s.id)} title={s.id}>
+              <img src={s.url} alt="" loading="lazy" className="pixelated" />
+              <span>{lang === "en" ? s.label : s.label_es}</span>
+            </button>
+          ))}
+        </div>
+      </Section>
+
+      <Section title={t("char_teams")} count={c.variants.length} sub={t("char_teams_help")}
+        actions={gens.length > 1 && (
+          <div className="seg" role="group" aria-label={t("chars_gen")}>
+            {[0, ...gens].map((g) => <button key={g} type="button" aria-pressed={gen === g} onClick={() => setGen(g)}>{g ? t("chars_gen_n", { n: g }) : t("all")}</button>)}
+          </div>
+        )}>
+        <div className="space-y-4">
+          {groups.map((g) => (
+            <div key={g.key} className="char-game">
+              <h3>{g.game} <span className="help">· {t("chars_gen_n", { n: g.gen })}{g.side ? ` · ${t("char_side")}` : ""}</span></h3>
+              {g.list.map((v) => <VariantRow key={v.id} v={v} on={v.id === variant?.id} onPick={() => { setVariantId(v.id); setSprite(""); }} lang={lang} t={t} />)}
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {c.installed.length > 0 && (
+        <Section title={t("char_made")} count={c.installed.length}>
+          <div className="trainer-grid">
+            {c.installed.map((tr) => (
+              <a key={tr.id} className="trainer-card" href={`#/entrenador/${tr.id}`}>
+                <Avatar url={tr.avatar_url} name={tr.name} size={56} />
+                <div className="min-w-0 flex-1 space-y-1"><b className="trunc block">{tr.name}</b><div className="help trunc">{tr.title}</div><RecordChip record={tr.record} /></div>
+              </a>
+            ))}
+          </div>
+        </Section>
+      )}
+
+      <p className="help">{t("char_source")}: {c.source}</p>
+
+      <div className="char-actions">
+        <Avatar url={spriteUrl} name={name} size={40} />
+        <div className="min-w-0 flex-1"><b>{name}</b><div className="help trunc">{variant ? (lang === "en" ? variant.label : variant.label_es) : ""}</div></div>
+        <Busy busy={busy.a} className="btn btn-primary" onClick={() => install(false)} title={t("char_add_help")}>{t("char_add")}</Busy>
+        <Busy busy={busy.c} className="btn" onClick={() => install(true)} title={t("char_custom_help")}>{t("char_custom")}</Busy>
+        <Busy busy={busy.e} className="btn btn-ghost" onClick={() => install(true, true)}>{t("char_custom_empty")}</Busy>
+      </div>
+    </div>
+  );
+}

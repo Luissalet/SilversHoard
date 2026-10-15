@@ -5,8 +5,9 @@ Lo que falta por construir, de más a menos valor. Lo que ya hace está en el [R
 1. **Combates en directo entre amigos.** Hoy un amigo juega contra la IA de tu gimnasio en la página jugable. Siguiente paso:
    dos personas en dos equipos distintos, con el Hub como intermediario o un enlace temporal.
 2. **Códigos de resultado firmados.** Firmar el código con una clave del gimnasio para que una medalla no se pueda inventar.
-3. **Más personajes de los juegos.** Primera generación (Rojo/Azul/Amarillo, desensamblado pret completo) y, cuando sus
-   desensamblados lo permitan, Platino y Oro HeartGold/Plata SoulSilver.
+3. **Ligas listas de más juegos.** Los personajes de las nueve generaciones ya están con sus equipos juego a juego; falta
+   montar con ellos las ligas completas (gimnasios, medallas, Alto Mando y campeón) de Rojo/Azul, Platino, HGSS, Negro/Blanco,
+   X/Y, Sol/Luna, Espada/Escudo y Escarlata/Púrpura, como ya existen las de Cristal, RFVH y Esmeralda.
 4. **IA experta en dobles.** La búsqueda por copias del combate solo se usa en individuales; en dobles juega como difícil.
 5. **Calculadora de daño en el editor de equipos.** Rango de daño de cada movimiento contra un rival elegido.
 6. **Repeticiones en vídeo.** Exportar un combate como clip para el editor de vídeo de la familia.
@@ -20,3 +21,5 @@ Lo que falta por construir, de más a menos valor. Lo que ya hace está en el [R
     solo las generaciones en uso bajaría a la mitad.
 12. **Sprites dibujados con varias poses.** Pedir a Prospero la misma persona de frente (entrenador rival) y de espaldas (lado
     del jugador), y una pose de victoria para el final del combate.
+13. **Objetos de la bolsa en combate.** Los personajes traen sus Restaurar Todo, Hiperpociones y demás; la IA podría usarlos
+    como en los juegos (una vez por Pokémon, por debajo de cierto PS).

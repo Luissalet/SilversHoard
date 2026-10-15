@@ -13,13 +13,14 @@ const TYPES = Object.keys(TYPE_COLORS).filter((x) => !["Stellar", "???"].include
 export function ChallengeDialog({ kind, target, onClose }) {
   const { t, go, changed, settings } = useApp();
   const [mode, setMode] = useState(settings?.default_mode || "classic");
+  const [equal, setEqual] = useState(settings?.default_level || 0);
   const [challenger, setChallenger] = useState("");
   const [auto, setAuto] = useState(false);
   const [ignore, setIgnore] = useState(false);
   const [modern, setModern] = useState(false);
   const [busy, run] = useBusy();
   const start = () => run("s", async () => {
-    const r = await api.call("challenge_start", { kind, target_id: target.id, challenger_id: challenger, auto, ignore_badges: ignore, format: modern ? "gen9nationaldexag" : "", mode });
+    const r = await api.call("challenge_start", { kind, target_id: target.id, challenger_id: challenger, auto, ignore_badges: ignore, format: modern ? "gen9nationaldexag" : "", mode, level: Number(equal) || 0 });
     changed();
     const first = r.stages[0]?.battle_id;
     go(first ? `#/combate/${first}` : "#/combatir");
@@ -33,7 +34,7 @@ export function ChallengeDialog({ kind, target, onClose }) {
       {kind === "league" && <label className="flex items-center gap-2"><Switch checked={ignore} onChange={setIgnore} label={t("ignore_badges")} /> {t("ignore_badges")}</label>}
       <label className="flex items-center gap-2"><Switch checked={modern} onChange={setModern} label={t("modern_rules")} /> {t("modern_rules")}</label>
       <p className="help">{modern ? t("modern_rules_help") : t("gym_rules_help", { format: target.format })}</p>
-      <ModeFields t={t} mode={mode} onMode={setMode} />
+      <ModeFields t={t} mode={mode} onMode={setMode} level={equal} onLevel={setEqual} />
     </Modal>
   );
 }

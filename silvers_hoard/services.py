@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import base64
 import contextlib
+import gzip
 import hashlib
 import io
 import json
@@ -31,6 +32,19 @@ from .store import Store
 log = logging.getLogger("silver")
 
 PRESETS_DIR = Path(__file__).resolve().parent / "presets"
+_CLASS_ES = {
+    "Champion": "Campeón", "Top Champion": "Campeón Supremo", "BB League Champion": "Campeón de la Liga Arándano", "Elite Four": "Alto Mando",
+    "Leader": "Líder de gimnasio", "Leaders": "Líderes de gimnasio", "Gym Leader": "Líder de gimnasio", "PKMN Trainer": "Entrenador Pokémon",
+    "Pokémon Trainer": "Entrenador Pokémon", "Pokemon Trainer": "Entrenador Pokémon", "Rival": "Rival", "Boss": "Jefe", "Team Rocket Boss": "Jefe del Team Rocket",
+    "Rocket Boss": "Jefe del Team Rocket", "Team Rainbow Rocket": "Team Rainbow Rocket", "Captain": "Capitán de prueba", "Island Kahuna": "Kahuna",
+    "Pokémon Professor": "Profesor Pokémon", "Marquis": "Marqués", "Marchioness": "Marquesa", "Duke": "Duque", "Duchess": "Duquesa",
+    "Grand Duchess": "Gran Duquesa", "Team Plasma": "Equipo Plasma", "Successor": "Sucesor", "Team Skull": "Team Skull", "Team Skull Boss": "Jefe del Team Skull",
+    "Magma Leader": "Líder del Equipo Magma", "Aqua Leader": "Líder del Equipo Aqua", "Galactic Boss": "Jefe del Equipo Galaxia",
+    "Team Galactic Boss": "Jefe del Equipo Galaxia", "Team Galactic": "Equipo Galaxia", "Team Flare": "Team Flare", "Team Flare Boss": "Jefe del Team Flare",
+    "Team Magma": "Equipo Magma", "Team Aqua": "Equipo Aqua", "Passerby": "Transeúnte", "Masked Man": "Hombre enmascarado", "World Police": "Policía Internacional",
+    "Aether President": "Presidenta de la Fundación Æther", "Pro Wrestler": "Luchador profesional", "Strange Lady": "Señora extraña", "Sootopolitan": "Arrecípolis",
+    "Battleship": "Acorazado",
+}
 STATIC_DIR = Path(__file__).resolve().parent / "static"
 PLAY_TEMPLATE = STATIC_DIR / "play" / "play.html"
 DIALOGUE_KEYS = ("intro", "win", "lose", "last")
@@ -61,6 +75,7 @@ class Services:
         self._locks_guard = threading.Lock()
         self.events: list[dict[str, Any]] = []
         self._canon: Optional[dict[str, Any]] = None
+        self._characters: Optional[dict[str, Any]] = None
 
     # ------------------------------------------------------------ lifecycle
     def start(self) -> None:
@@ -412,6 +427,115 @@ class Services:
         })
         self.emit("league.installed", {"id": lid, "key": key})
         return self.league_get(lid)
+
+    # ------------------------------------------------------------ characters: every team a character used, game by game
+    def characters(self) -> dict[str, Any]:
+        if self._characters is None:
+            data = json.loads(gzip.decompress((PRESETS_DIR / "characters.json.gz").read_bytes()).decode("utf-8"))
+            data["by_key"] = {c["key"]: c for c in data["characters"]}
+            self._characters = data
+        return self._characters
+
+    def _character(self, key: str) -> dict[str, Any]:
+        c = self.characters()["by_key"].get((key or "").strip().lower())
+        if not c:
+            raise SilverError("not_found", f"No character {key}", hint="characters_list shows the keys (e.g. lance, cynthia, blue).")
+        return c
+
+    def _variant_label(self, v: dict[str, Any], lang: str = "es") -> str:
+        labels = v["labels_es"] if lang == "es" else v["labels"]
+        parts = [v["game_name_es"] if lang == "es" else v["game_name"], *labels]
+        if v.get("with"):
+            parts.append(("con " if lang == "es" else "with ") + v["with"])
+        return " · ".join(parts)
+
+    def characters_list(self, query: str = "", gen: int = 0, game: str = "") -> dict[str, Any]:
+        data = self.characters()
+        q = query.strip().lower()
+        made: dict[str, int] = {}
+        for t in self.store.trainers_by_canon_prefix("char:"):
+            k = t["canon_key"].split(":")[1]
+            made[k] = made.get(k, 0) + 1
+        out = []
+        for c in data["characters"]:
+            variants = [v for v in c["variants"] if (not gen or v["gen"] == gen) and (not game or v["game"].lower() == game.lower())]
+            if not variants:
+                continue
+            if q:
+                hay = f"{c['name']} {c['name_es']} {c['key']} " + " ".join(f"{v['game_name']} {v['game_name_es']} {' '.join(x['species'] for x in v['sets'])}" for v in variants)
+                if q not in hay.lower():
+                    continue
+            ace = next((v for v in reversed(variants) if not v.get("side")), variants[-1])
+            out.append({"key": c["key"], "name": c["name"], "name_es": c["name_es"], "avatar_url": self.avatar_url(f"sd:{c['base_sprite']}") if c["base_sprite"] else "",
+                        "teams": len(variants), "sprites": len(c["sprites"]), "games": list(dict.fromkeys(v["game"] for v in variants)),
+                        "gens": sorted({v["gen"] for v in variants}), "species": [x["species"] for x in ace["sets"]],
+                        "installed": made.get(c["key"], 0)})
+        return {"characters": out, "total": len(data["characters"]), "source": data.get("source", "")}
+
+    def character_get(self, key: str) -> dict[str, Any]:
+        c = self._character(key)
+        sprites = [{**sp, "avatar": f"sd:{sp['id']}", "url": self.avatar_url(f"sd:{sp['id']}")} for sp in c["sprites"]]
+        variants = []
+        for v in c["variants"]:
+            variants.append({**v, "trainer_class_es": _CLASS_ES.get(v["trainer_class"], v["trainer_class"]), "label": self._variant_label(v, "en"), "label_es": self._variant_label(v, "es"), "sprite_url": self.avatar_url(f"sd:{v['sprite']}") if v["sprite"] else "",
+                             "species": [x["species"] for x in v["sets"]], "levels": [x["level"] for x in v["sets"]], "max_level": max(x["level"] for x in v["sets"])})
+        installed = [self.trainer_view(t) for t in self.store.trainers_by_canon_prefix(f"char:{c['key']}:")]
+        return {"key": c["key"], "name": c["name"], "name_es": c["name_es"], "base_sprite": c["base_sprite"], "avatar_url": self.avatar_url(f"sd:{c['base_sprite']}") if c["base_sprite"] else "",
+                "sprites": sprites, "variants": variants, "installed": installed,
+                "bulbapedia": "https://bulbapedia.bulbagarden.net/wiki/" + c["name"].replace(" ", "_"), "source": self.characters().get("source", "")}
+
+    def character_install(self, key: str, *, variant: str = "", sprite: str = "", name: str = "", custom: bool = False,
+                          ai_level: str = "", ai_style: str = "", lang: str = "es") -> dict[str, Any]:
+        """A trainer from a character: one of its game teams (or an empty team of your own when custom), with the sprite you choose."""
+        c = self._character(key)
+        v = None
+        if variant:
+            v = next((x for x in c["variants"] if x["id"] == variant), None)
+            if not v:
+                raise SilverError("not_found", f"{c['name']} has no team {variant}", hint="character_get lists the team ids.")
+        elif not custom:
+            v = c["variants"][-1]
+        if sprite:
+            if sprite.startswith("sd:"):
+                sprite = sprite[3:]
+            if sprite not in {sp["id"] for sp in c["sprites"]} and sprite not in self._trainer_sprite_names():
+                raise SilverError("invalid", f"Unknown trainer sprite {sprite}")
+        else:
+            sprite = (v or {}).get("sprite") or c["base_sprite"]
+        canon_key = f"char:{c['key']}:{v['id'] if v and not custom else 'own'}:{sprite}"
+        if not custom and not name:
+            existing = self.store.trainer_by_canon(canon_key)
+            if existing:
+                return {**self.trainer_view(existing), "existing": True}
+        lang_es = lang != "en"
+        display = c["name_es"] if lang_es else c["name"]
+        if custom:
+            title = "Equipo propio" if lang_es else "Own team"
+            default_name = f"{display} ({title.lower()})"
+        else:
+            title = f"{_CLASS_ES.get(v['trainer_class'], v['trainer_class']) if lang_es else v['trainer_class']} · {v['game_name_es'] if lang_es else v['game_name']}".strip(" ·")
+            default_name = f"{display} ({self._variant_label(v, 'es' if lang_es else 'en')})"
+        notes = []
+        if v:
+            notes.append(self._variant_label(v, "es"))
+            if v.get("location"):
+                notes.append(f"Lugar: {v['location']}")
+            if v.get("bag"):
+                notes.append("Objetos en la bolsa: " + ", ".join(f"{b['count']}× {b['item_es']}" + (" por Pokémon" if b["per_pokemon"] else "") for b in v["bag"]))
+            if v.get("note"):
+                notes.append(f"Bulbapedia: {v['note']}")
+        notes.append("Equipo de Bulbapedia (CC BY-NC-SA); sprite de Pokémon Showdown." if v else "Sprite de Pokémon Showdown.")
+        sets = [{k: x for k, x in s.items() if k != "level_range"} for s in (v["sets"] if v else [])] if (v and not custom) or (v and custom and variant) else []
+        fmt = v["format"] if v else self.settings["default_format"]
+        level, style = self._clean_ai(ai_level or "hard", ai_style or "balanced")
+        tags = [c["name"], *([v["game_name_es"], f"Gen {v['gen']}"] if v else [])]
+        id_ = self.store.add_trainer({
+            "name": (name or default_name).strip()[:60], "title": title[:60], "owner": self.settings["player_name"] if custom else "",
+            "origin": "own" if custom else "canon", "format": fmt, "team": sets, "ai_level": level, "ai_style": style, "avatar": self._check_avatar(f"sd:{sprite}") if sprite else "",
+            "dialogue": {}, "notes": "\n".join(notes)[:4000], "tags": [str(x)[:30] for x in tags][:20], "canon_key": canon_key,
+        })
+        self.emit("trainer.created", {"id": id_, "name": name or default_name, "character": c["key"]})
+        return self.trainer_view(self.store.trainer(id_))
 
     # ------------------------------------------------------------ gyms and leagues
     def _check_trainers(self, ids: list[str]) -> list[str]:
@@ -891,9 +1015,11 @@ class Services:
         return out
 
     def run_start(self, *, kind: str, target_id: str, challenger_id: str, auto: bool = False, ignore_badges: bool = False,
-                  format_override: str = "", mode: str = "classic") -> dict[str, Any]:
+                  format_override: str = "", mode: str = "classic", level: int = 0) -> dict[str, Any]:
         if mode not in ("classic", "realtime"):
             raise SilverError("invalid", "mode is classic or realtime")
+        if level not in (0, 50, 100) and not 1 <= int(level) <= 100:
+            raise SilverError("invalid", "level is 0 (as they are) or 1-100 (usually 50 or 100)")
         challenger = self.store.trainer(challenger_id)
         if format_override:
             self.format_info(format_override)
@@ -918,7 +1044,7 @@ class Services:
             raise SilverError("invalid", "There is nobody to fight here.")
         rid = self.store.add_run({"kind": kind, "target_id": target_id, "target_name": target_name, "challenger_id": challenger_id,
                                   "challenger": {"name": challenger["name"], "avatar": challenger["avatar"], "team": challenger["team"], "auto": auto,
-                                                 "format_override": format_override},
+                                                 "format_override": format_override, "level": int(level or 0)},
                                   "stages": [{"trainer_id": s, "battle_id": "", "result": ""} for s in stage_ids], "step": 0, "status": "active",
                                   "mode": mode})
         self.emit("run.started", {"id": rid, "kind": kind, "target": target_name})
@@ -926,6 +1052,10 @@ class Services:
         return self.run_view(self.store.run(rid))
 
     def _run_rules(self, r: dict[str, Any]) -> tuple[str, list[str], dict[str, Any]]:
+        level = int((r.get("challenger") or {}).get("level") or 0)
+        if level:
+            fmt, rules, _ = self._run_rules({**r, "challenger": {**(r.get("challenger") or {}), "level": 0}})
+            return fmt, rules, {"level": level}
         override = (r.get("challenger") or {}).get("format_override") or ""
         if override:
             base = self._run_rules({**r, "challenger": {}})

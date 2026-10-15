@@ -54,6 +54,7 @@ export default function CombateRt({ battle, setData }) {
             <span className="chip chip-rt">{t("rt_chip")}</span>
             <span className="chip">{battle.format_info?.name || battle.format}</span>
             <span className="chip">{t(`kind_${battle.kind}`)}</span>
+            {battle.level_rules?.level ? <span className="chip">{t("eq_chip", { n: battle.level_rules.level })}</span> : null}
             {battle.status === "running" && <span className="chip chip-amber">{t("status_running")}</span>}
             {battle.status === "live" && <span className="chip chip-accent">{t("status_live")}</span>}
             {battle.status === "ended" && <span className="chip chip-ok">{battle.winner_name ? t("winner_is", { name: battle.winner_name }) : t("tie")}</span>}

@@ -42,6 +42,7 @@ DEFAULT_SETTINGS: dict[str, Any] = {
     "prospero_engine": "",        # image engine Prospero uses for sprites ("" = the project's default; qwen21, flux, sdxl)
     "series_default": 20,         # battles in a series when none is given
     "default_mode": "classic",    # classic (turns, Showdown's engine) or realtime (Legends: Z-A rules: cooldowns, a 2D arena)
+    "default_level": 0,           # 0: every Pokémon at its own level; 50 or 100: new battles equalize both teams to that level
     "rt_time_limit": 300,         # seconds of a real-time battle; then more Pokémon standing wins, then more HP left
     "pmd_sprites": True,          # real-time arena: walking sprites from PMDCollab's SpriteCollab, downloaded once and cached
     "pmd_server": "https://raw.githubusercontent.com/PMDCollab/SpriteCollab/master",
@@ -180,6 +181,8 @@ class Settings:
                 value = max(1, min(int(value), 1000))
             if key == "default_mode" and value not in MODES:
                 raise SilverError("invalid", "default_mode is classic or realtime")
+            if key == "default_level" and value not in (0, 50, 100):
+                raise SilverError("invalid", "default_level is 0, 50 or 100")
             if key == "rt_time_limit":
                 value = max(30, min(int(value), 1800))
             if key == "pmd_server" and not value.startswith("https://"):

@@ -16,6 +16,7 @@ import Gimnasio from "./pages/Gimnasio.jsx";
 import Ligas from "./pages/Ligas.jsx";
 import Liga from "./pages/Liga.jsx";
 import Personajes from "./pages/Personajes.jsx";
+import Personaje from "./pages/Personaje.jsx";
 import Historial from "./pages/Historial.jsx";
 import Trabajo from "./pages/Trabajo.jsx";
 import Medallas from "./pages/Medallas.jsx";
@@ -49,6 +50,7 @@ const PAGES = [
   { path: "ligas", key: "nav_leagues", icon: I.trophy, component: Ligas },
   { path: "liga", key: "nav_leagues", component: Liga, hidden: true, parent: "ligas" },
   { path: "personajes", key: "nav_canon", icon: I.book, component: Personajes },
+  { path: "personaje", key: "nav_canon", component: Personaje, hidden: true, parent: "personajes" },
   { path: "historial", key: "nav_history", icon: I.history, component: Historial },
   { path: "medallas", key: "nav_badges", icon: I.badge, component: Medallas },
   { path: "compartir", key: "nav_share", icon: I.share, component: Compartir },
