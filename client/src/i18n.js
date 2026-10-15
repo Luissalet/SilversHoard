@@ -3,6 +3,7 @@
 import RT_STRINGS from "./battle/rt/strings.js";
 import { SND } from "./sound-strings.js";
 import CUP_STRINGS from "./pages/cup-strings.js";
+import ARENA_STRINGS from "./pages/arena-strings.js";
 
 const D = {
   // shell
@@ -719,6 +720,7 @@ export function initialLang() {
 Object.assign(D, RT_STRINGS);
 Object.assign(D, SND);
 Object.assign(D, CUP_STRINGS);
+Object.assign(D, ARENA_STRINGS);
 
 export function saveLang(lang) {
   try {

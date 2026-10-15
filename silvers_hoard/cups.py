@@ -145,6 +145,8 @@ class Cups:
                 "best_of": max(1, int(best_of) | 1), "rt_arena": _rt_arena(rt_arena), "ai_level": ai_level or "",
                 "time_limit": max(30, min(int(time_limit or svc.settings["rt_time_limit"]), 1800)), "pace": max(0.0, min(float(pace), 10.0)),
                 "seeding": seeding, "version": RT_RULES_VERSION if mode == "realtime" else 0}
+        if mode == "realtime":
+            svc.arenas.spec(spec["rt_arena"])   # a custom arena must exist
         rounds = build_rounds([e["id"] for e in entrants])
         cid = svc.store.add_cup({"title": (title or f"Copa de {len(entrants)}")[:80], "status": "active", "spec": spec, "entrants": entrants,
                                  "rounds": rounds, "human_id": human_id or "", "champion": ""})
@@ -280,9 +282,10 @@ class Cups:
             spec = c["spec"]
             a, b = self._seat(m["a"], spec["ai_level"]), self._seat(m["b"], spec["ai_level"])
             rt = spec["mode"] == "realtime"
+            arena = svc.arenas.spec(spec["rt_arena"]) if rt else ""
             res = svc.engine.run_job("tournament", {"format": spec["format"], "rules": spec["rules"], "level_rules": spec["level_rules"],
                                                     "entrants": [a, b], "kind": "bracket", "best_of": 1, "mode": spec["mode"],
-                                                    "time_limit": spec["time_limit"], "arena": spec["rt_arena"],
+                                                    "time_limit": spec["time_limit"], "arena": arena,
                                                     "version": spec.get("version") or 0}, timeout=3 * 3600)
             g = ((res.get("matches") or [{}])[0].get("games") or [{}])[0]
             summary = g.get("summary") or {}
@@ -295,7 +298,7 @@ class Cups:
                                         "seed": str(g.get("seed")) if rt else json.dumps(g.get("seed")), "run_id": cid,
                                         "title": f"{c['title']} · {a['name']} vs {b['name']}", "mode": spec["mode"],
                                         "replay": {"time_limit": spec["time_limit"], "inputs": [], "version": spec.get("version") or 0,
-                                                   "arena": spec["rt_arena"]} if rt else {}})
+                                                   "arena": arena} if rt else {}})
             side = "a" if g.get("winner") == a["id"] else "b" if g.get("winner") == b["id"] else ""
             with self._lock(cid):
                 c = svc.store.cup(cid)

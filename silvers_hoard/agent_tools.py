@@ -6,9 +6,9 @@ from __future__ import annotations
 
 import base64
 from pathlib import Path
-from typing import Any, Literal, Optional
+from typing import Annotated, Any, Literal, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, StringConstraints
 
 from .errors import SilverError
 from .hoard_link.agentkit import Empty, Tool, ann
@@ -249,6 +249,8 @@ class GymSaveArgs(BaseModel):
     leader_id: Optional[str] = Field(None, max_length=80)
     trainers: Optional[list[str]] = Field(None, max_length=20, description="Gym trainers fought before the leader, in order.")
     badge_image: Optional[str] = Field(None, max_length=200, description="Badge picture: shape:<hexagon|boulder|drop|bolt|leaf|flame|heart|star|flake|wing|gear|fist|eye|moon|scale|shell|rainbow|crown>, file:<from badge_image_set or badge_draw> or '' for the plain badge.")
+    rt_arena: Optional[str] = Field(None, max_length=90, description="Where its real-time battles are fought: '' (the challenger picks), open, rocks or custom:<arena id>.")
+    backdrop: Optional[str] = Field(None, max_length=50, description="Backdrop of its turn-based battles: a backdrop file name (bg-volcanocave.png, bg-icecave.jpg…) or '' for the usual one.")
 
 
 class BadgeImageArgs(BaseModel):
@@ -297,8 +299,8 @@ class Seat(BaseModel):
 Mode = Literal["classic", "realtime"]
 ModeField = Field("classic", description="classic = turns (Showdown's engine); realtime = Legends: Z-A rules (cooldowns, 2D arena; doubles formats put two Pokémon per trainer on it).")
 TimeLimitField = Field(0, ge=0, le=1800, description="realtime: seconds before time is called (0 = the settings' value, 300).")
-RtArena = Literal["open", "rocks"]
-RtArenaField = Field("rocks", description="realtime: the arena. rocks = 3-6 rocks from the seed (block walking and projectiles); open = no obstacles.")
+RtArena = Annotated[str, StringConstraints(pattern=r"^(open|rocks|custom:[A-Za-z0-9_]{1,80})$")]
+RtArenaField = Field("rocks", description="realtime: the arena. rocks = 3-6 rocks from the seed (block walking and projectiles); open = no obstacles; custom:<id> = an arena from the arena designer (arenas_list).")
 
 
 class BattleStartArgs(BaseModel):
@@ -470,6 +472,14 @@ class CupSimulateArgs(BaseModel):
     id: str = IdField
     round: Optional[int] = Field(None, ge=0, le=6, description="With match: that match. Without: your current match.")
     match: Optional[int] = Field(None, ge=0, le=63)
+
+
+class ArenaSaveArgs(BaseModel):
+    id: str = Field("", max_length=80, description="Empty creates an arena.")
+    name: Optional[str] = Field(None, max_length=60)
+    floor: Optional[Literal["grass", "sand", "ice", "cave", "indoor", "water"]] = None
+    rocks: Optional[list[dict[str, float]]] = Field(None, max_length=16, description="Up to 16 rocks {x, y, r} in metres on the 28 x 17 m field (r 0.4-3), off the spots at (5, 8.5) and (23, 8.5) where the Pokémon come in.")
+    mirror: bool = Field(False, description="Also put each rock's left-right mirror image.")
 
 
 class JobsArgs(BaseModel):
@@ -847,6 +857,16 @@ TOOLS: list[Tool] = [
     Tool("cup_abandon", _d("Stop a cup where it is. Abandonar copa.", synonyms="cancelar copa"), IdArg, W, lambda s, a: s.cups.abandon(a.id)),
     Tool("cups_delete", _d("Delete cups and the battles they stored. Borrar copas.", synonyms="limpiar copas"), IdsArg, D,
          lambda s, a: s.cups.delete(a.ids)),
+    Tool("arenas_list", _d("Arenas drawn in the arena designer for real-time battles, with the gyms that use them. Arenas.",
+                           synonyms="arenas propias, campos de combate, escenarios"), Empty, R, lambda s, a: {"arenas": s.arenas.list()}),
+    Tool("arena_get", _d("One arena: its rocks, floor and the gyms that fight on it. Ver arena.", synonyms="arena"), IdArg, R,
+         lambda s, a: s.arenas.get(a.id)),
+    Tool("arena_save", _d("Create or change an arena for real-time battles: rocks placed by hand and its floor. Diseñar arena.",
+                          "Battles use it with rt_arena=custom:<id>; gym_save rt_arena puts a gym on it. A battle keeps the arena "
+                          "it was played on, so later edits never change a replay.", synonyms="editor de arenas, crear arena, poner rocas"),
+         ArenaSaveArgs, WD, lambda s, a: s.arenas.save(a.id, name=a.name, floor=a.floor, rocks=a.rocks, mirror=a.mirror)),
+    Tool("arenas_delete", _d("Delete arenas; gyms on them go back to the challenger's choice. Borrar arenas.", synonyms="quitar arena"),
+         IdsArg, D, lambda s, a: s.arenas.delete(a.ids)),
     Tool("jobs_list", _d("Series, tournaments and sprite drawings, running or finished. Trabajos.", synonyms="progreso, cola"),
          JobsArgs, R, lambda s, a: {"jobs": s.jobs_list(a.kind, a.status)}),
     Tool("job_get", _d("One job with its result (series stats, tournament bracket or table) and battles. Resultado.",

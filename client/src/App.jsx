@@ -22,6 +22,7 @@ import Personaje from "./pages/Personaje.jsx";
 import Historial from "./pages/Historial.jsx";
 import Trabajo from "./pages/Trabajo.jsx";
 import Copa from "./pages/Copa.jsx";
+import Arenas, { ArenaEditor } from "./pages/Arenas.jsx";
 import Medallas from "./pages/Medallas.jsx";
 import Progreso from "./pages/Progreso.jsx";
 import Creditos from "./pages/Creditos.jsx";
@@ -39,6 +40,7 @@ const I = {
   gym: "M3 21h18M5 21V10l7-5 7 5v11M9 21v-6h6v6M12 9.5h.01",
   trophy: "M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0zM7 6H4a3 3 0 003 4M17 6h3a3 3 0 01-3 4",
   tower: "M7 21V9l5-6 5 6v12M5 21h14M10 21v-4h4v4M10 11h4M10 14h4",
+  arena: "M3 5h18v14H3zM12 5v14M12 9.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5M6.5 9a1.5 1.5 0 100 3 1.5 1.5 0 000-3",
   chart: "M4 20V10M10 20V4M16 20v-7M22 20H2",
   book: "M4 4h6a2 2 0 012 2v14a2 2 0 00-2-2H4zM20 4h-6a2 2 0 00-2 2v14a2 2 0 012-2h6z",
   history: "M3 12a9 9 0 109-9 9 9 0 00-7 3.4M3 4v4h4M12 7v5l3 3",
@@ -58,6 +60,8 @@ const PAGES = [
   { path: "entrenador", key: "nav_trainers", component: Entrenador, hidden: true, parent: "entrenadores" },
   { path: "gimnasios", key: "nav_gyms", icon: I.gym, component: Gimnasios },
   { path: "gimnasio", key: "nav_gyms", component: Gimnasio, hidden: true, parent: "gimnasios" },
+  { path: "arenas", key: "nav_arenas", icon: I.arena, component: Arenas },
+  { path: "arena", key: "nav_arenas", component: ArenaEditor, hidden: true, parent: "arenas" },
   { path: "ligas", key: "nav_leagues", icon: I.trophy, component: Ligas },
   { path: "liga", key: "nav_leagues", component: Liga, hidden: true, parent: "ligas" },
   { path: "instalaciones", key: "nav_facilities", icon: I.tower, component: Instalaciones },

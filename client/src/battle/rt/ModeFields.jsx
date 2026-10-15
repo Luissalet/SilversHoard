@@ -1,7 +1,8 @@
 // Choose how a battle is played: classic (turns) or real time (Legends: Z-A rules), the time limit and the arena (open or with
 // rocks) of a real-time battle, and
 // whether every Pokémon is levelled to 50 or 100 ("igualado") so a level 88 does not crush a level 44.
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { api } from "../../api.js";
 
 export const EQUAL_LEVELS = [0, 50, 100];
 
@@ -28,17 +29,43 @@ export function LevelFields({ t, level, onLevel }) {
 
 export const ARENAS = ["open", "rocks"];
 
+let arenasCache = null;
+/** The arenas drawn in the arena designer (arenas_list), read once per page load and again after one is saved. */
+export function useCustomArenas() {
+  const [list, setList] = useState(arenasCache || []);
+  useEffect(() => {
+    let alive = true;
+    if (!arenasCache) {
+      api.call("arenas_list", {}).then((r) => { arenasCache = r.arenas || []; if (alive) setList(arenasCache); }).catch(() => {});
+    }
+    return () => { alive = false; };
+  }, []);
+  return list;
+}
+export function forgetCustomArenas() { arenasCache = null; }
+
 export function ArenaFields({ t, arena, onArena, compact = false }) {
-  const value = ARENAS.includes(arena) ? arena : "rocks";
+  const custom = useCustomArenas();
+  const isCustom = String(arena || "").startsWith("custom:");
+  const value = isCustom ? "custom" : ARENAS.includes(arena) ? arena : "rocks";
+  const current = isCustom ? custom.find((a) => a.value === arena) : null;
   return (
     <div className="space-y-1">
       <div className="flex flex-wrap items-center gap-2">
         <span className="help">{t("rt_arena")}</span>
         <div className="seg" role="group" aria-label={t("rt_arena")}>
           {ARENAS.map((v) => <button key={v} type="button" aria-pressed={value === v} onClick={() => onArena(v)}>{t(`rt_arena_${v}`)}</button>)}
+          {custom.length > 0 && <button type="button" aria-pressed={value === "custom"} onClick={() => onArena(isCustom ? arena : custom[0].value)}>{t("rt_arena_custom")}</button>}
         </div>
+        {isCustom && (
+          <select className="field max-w-xs" value={arena} onChange={(e) => onArena(e.target.value)} aria-label={t("rt_arena_custom")}>
+            {!current && <option value={arena}>?</option>}
+            {custom.map((a) => <option key={a.id} value={a.value}>{a.name}</option>)}
+          </select>
+        )}
+        <a className="help btn-link" href="#/arenas">{t("arena_design")}</a>
       </div>
-      {!compact && <p className="help">{t(`rt_arena_help_${value}`)}</p>}
+      {!compact && <p className="help">{isCustom ? t("rt_arena_help_custom", { n: current?.rocks?.length ?? 0 }) : t(`rt_arena_help_${value}`)}</p>}
     </div>
   );
 }

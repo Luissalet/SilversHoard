@@ -44,6 +44,15 @@ export function backdropPath(gen, seed) {
   return `sprites/gen6bgs/${BACKDROPS[n % BACKDROPS.length]}`;
 }
 
+/** Every backdrop a gym can pick (gym_save backdrop), by file name. */
+export const ALL_BACKDROPS = [...BACKDROPS, ...BACKDROPS_GEN5, ...BACKDROPS_GEN4, ...BACKDROPS_GEN3];
+
+/** The path of a backdrop chosen by file name: the generation 6+ ones live with the sprites, the older ones with the effects. */
+export function backdropFilePath(name) {
+  const n = String(name || "");
+  return BACKDROPS.includes(n) ? `sprites/gen6bgs/${n}` : `fx/${n}`;
+}
+
 /** The friends' playable page has no app behind it: there the pictures come straight from Showdown. */
 export function isLocalApp() {
   try { return !document.getElementById("silver-data"); } catch { return true; }
@@ -52,6 +61,11 @@ export function isLocalApp() {
 /** URL of the backdrop for a battle. */
 export function backdropUrl({ gen, seed, local = isLocalApp() }) {
   return fxUrl(backdropPath(gen, seed), { local });
+}
+
+/** URL of a backdrop chosen by file name (a gym's own). */
+export function backdropFileUrl(name, { local = isLocalApp() } = {}) {
+  return fxUrl(backdropFilePath(name), { local });
 }
 
 /** The weather overlay: {url, opacity} or null (Showdown shows it at 0.5, 0.9 for the strong weathers). */

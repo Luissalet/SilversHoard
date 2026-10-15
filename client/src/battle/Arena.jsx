@@ -5,7 +5,7 @@ import { L, STATUS_COLORS, STATUS_SHORT, STATUS_SHORT_EN, STAT_SHORT, TYPE_COLOR
 import { battleT } from "./strings.js";
 import SoundButton from "./SoundControl.jsx";
 import { useBackdropSetting, useMoveFxSetting, usePrefersReducedMotion } from "./fx/setting.js";
-import { backdropUrl, fieldLayer, seedOf, weatherLayer } from "./fx/backdrop.js";
+import { backdropFileUrl, backdropUrl, fieldLayer, seedOf, weatherLayer } from "./fx/backdrop.js";
 
 const WEATHER_CLASS = { raindance: "w-rain", primordialsea: "w-rain", sunnyday: "w-sun", desolateland: "w-sun", sandstorm: "w-sand", hail: "w-snow",
   snowscape: "w-snow", snow: "w-snow", deltastream: "w-wind" };
@@ -137,7 +137,7 @@ export function LogPanel({ log, lang, compact }) {
  * props: player (useBattlePlayer), seats {p1: {name, avatarUrl, backUrl, winUrl, dialogue}, p2}, me ('p1'|'p2' at the bottom), sprites (makeSprites),
  * lang, exact (show HP numbers), children (controls under the field), bubble ({side, text}) for a trainer line.
  */
-export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "es", exact = true, children, bubble, toolbar }) {
+export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "es", exact = true, children, bubble, toolbar, backdrop = "" }) {
   const t = battleT(lang);
   const st = player.state;
   const foe = me === "p1" ? "p2" : "p1";
@@ -189,8 +189,10 @@ export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "
   // Showdown's backdrop for the format's generation (one per battle, kept in replays) and its weather and terrain overlays
   const [backdropPref] = useBackdropSetting();
   const showdownField = backdropPref === "showdown";
-  const bdUrl = useMemo(() => (showdownField ? backdropUrl({ gen: st.gen, seed: seedOf(`${st.sides.p1.name}|${st.sides.p2.name}|${st.tier}`) }) : ""),
-    [showdownField, st.gen, st.sides.p1.name, st.sides.p2.name, st.tier]);
+  // a gym's own backdrop (its designer chose it) shows whatever the setting; otherwise the one Showdown would pick
+  const bdUrl = useMemo(() => (backdrop ? backdropFileUrl(backdrop)
+    : showdownField ? backdropUrl({ gen: st.gen, seed: seedOf(`${st.sides.p1.name}|${st.sides.p2.name}|${st.tier}`) }) : ""),
+  [backdrop, showdownField, st.gen, st.sides.p1.name, st.sides.p2.name, st.tier]);
   const wLayer = showdownField ? weatherLayer(st.field.weather) : null;
   const fLayer = showdownField ? fieldLayer([st.field.terrain, ...Object.entries(st.field.pseudo || {}).filter(([, on]) => on).map(([k]) => k)]) : null;
 

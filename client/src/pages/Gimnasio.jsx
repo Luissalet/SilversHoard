@@ -8,6 +8,8 @@ import { Avatar, ExportDialog, FormatSelect, GymBadge, JobProgress, RulesFields,
 import { BADGE_SHAPES, TYPE_SHAPE } from "../components/badges.jsx";
 import { TYPE_COLORS, typeName } from "../battle/dex.js";
 import ModeFields from "../battle/rt/ModeFields.jsx";
+import { useCustomArenas } from "../battle/rt/ModeFields.jsx";
+import { ALL_BACKDROPS, backdropFileUrl } from "../battle/fx/backdrop.js";
 
 const TYPES = Object.keys(TYPE_COLORS).filter((x) => !["Stellar", "???"].includes(x));
 
@@ -104,7 +106,9 @@ function GymEditor({ gym, onSaved, onCancel }) {
   const { t, notify, changed } = useApp();
   const list = useTrainers();
   const [f, setF] = useState(() => ({ name: gym?.name || "", city: gym?.city || "", type: gym?.type || "", badge: gym?.badge || "", badge_color: gym?.badge_color || "#c0c0c0", badge_image: gym?.badge_image || "",
-    description: gym?.description || "", format: gym?.format || "", rules: gym?.rules || [], level_rules: gym?.level_rules || {}, leader_id: gym?.leader_id || "", trainers: gym?.trainers || [] }));
+    description: gym?.description || "", format: gym?.format || "", rules: gym?.rules || [], level_rules: gym?.level_rules || {}, leader_id: gym?.leader_id || "", trainers: gym?.trainers || [],
+    rt_arena: gym?.rt_arena || "", backdrop: gym?.backdrop || "" }));
+  const arenas = useCustomArenas();
   const [add, setAdd] = useState("");
   const [busy, run] = useBusy();
   const set = (k, v) => setF((x) => ({ ...x, [k]: v }));
@@ -152,6 +156,27 @@ function GymEditor({ gym, onSaved, onCancel }) {
       </div>
       <Field label={t("format")}><FormatSelect id="gym-format" value={f.format} onChange={(v) => set("format", v)} /></Field>
       <RulesFields rules={f.rules} levelRules={f.level_rules} onRules={(v) => set("rules", v)} onLevelRules={(v) => set("level_rules", v)} />
+      <div className="space-y-2">
+        <span className="label">{t("gym_battle")}</span>
+        <div className="grid gap-3 sm:grid-cols-2">
+          <Field label={t("gym_rt_arena")} hint={t("gym_rt_arena_help")}>
+            <select className="field" value={f.rt_arena} onChange={(e) => set("rt_arena", e.target.value)}>
+              <option value="">{t("gym_rt_arena_any")}</option>
+              <option value="open">{t("rt_arena_open")}</option>
+              <option value="rocks">{t("rt_arena_rocks")}</option>
+              {arenas.map((a) => <option key={a.id} value={a.value}>{a.name}</option>)}
+              {f.rt_arena.startsWith("custom:") && !arenas.some((a) => a.value === f.rt_arena) && <option value={f.rt_arena}>{gym?.rt_arena_name || "?"}</option>}
+            </select>
+          </Field>
+          <Field label={t("gym_backdrop")} hint={t("gym_backdrop_help")}>
+            <select className="field" value={f.backdrop} onChange={(e) => set("backdrop", e.target.value)}>
+              <option value="">{t("gym_backdrop_auto")}</option>
+              {ALL_BACKDROPS.map((b) => <option key={b} value={b}>{b.replace(/^bg-|\.(png|jpg)$/g, "")}</option>)}
+            </select>
+          </Field>
+        </div>
+        {f.backdrop && <div className="gym-backdrop-preview" style={{ backgroundImage: `url(${backdropFileUrl(f.backdrop)})` }} aria-hidden="true" />}
+      </div>
       <div className="flex gap-2"><Busy busy={busy.s} className="btn btn-primary" disabled={!f.name || !f.leader_id} onClick={save}>{t("save")}</Busy><button type="button" className="btn" onClick={onCancel}>{t("cancel")}</button></div>
     </div>
   );
@@ -182,6 +207,8 @@ export default function Gimnasio({ param, query }) {
           <div className="help">{[g.city, g.badge].filter(Boolean).join(" · ")}</div>
           <div className="mt-1 flex flex-wrap gap-1.5">{g.type && <TypeChip type={g.type} />}<span className="chip">{g.format}</span>
             {g.level_rules?.level && <span className="chip">{t("level_fixed")}: {g.level_rules.level}</span>}{g.level_rules?.level_cap && <span className="chip">{t("level_cap")}: {g.level_rules.level_cap}</span>}
+            {g.rt_arena && <span className="chip chip-rt">{t("gym_rt_arena")}: {g.rt_arena_name || t(`rt_arena_${g.rt_arena}`)}</span>}
+            {g.backdrop && <span className="chip">{t("gym_backdrop")}: {g.backdrop.replace(/^bg-|\.(png|jpg)$/g, "")}</span>}
             {(g.rules || []).map((r) => <span key={r} className="chip">{r}</span>)}</div>
         </div>
         <div className="flex flex-wrap gap-2">

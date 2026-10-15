@@ -265,7 +265,7 @@ export default function Combate({ param }) {
       ) : battle.status === "failed" ? (
         <ErrorBox error={{ message: battle.summary?.error || t("battle_failed") }} onRetry={reload} />
       ) : (
-        <Arena player={player} seats={seats} me={me} sprites={sprites} lang={lang} bubble={bubble}
+        <Arena player={player} seats={seats} me={me} sprites={sprites} lang={lang} bubble={bubble} backdrop={battle.run?.backdrop || ""}
           toolbar={!live || !player.caughtUp ? <ReplayBar player={player} lang={lang} speedMs={speedMs} onSpeed={setSpeedMs} /> : null}>
           {request && (
             <Controls request={request} lang={lang} sprites={sprites} gametype={player.state.gametype} busy={busy.choose}
