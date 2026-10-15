@@ -81,10 +81,15 @@ def encode_rt_inputs(rows: list[list[Any]]) -> str:
     focus, plus, mega) as one flat list of integers, nine per row without the side (always the first seat): ticks since the
     previous row, the two axes in thousandths, then the rest; JSON, deflated, base64url."""
     flat: list[int] = []
+    wide = any(len(row) > 10 for row in rows)   # doubles: the controlled slot and the locked foe too, after a -11 marker
+    if wide:
+        flat.append(-11)
     prev = 0
     for row in rows:
         r = [*row, *[1, 0, 0][len(row) - 7:]]   # rows with fewer than ten columns read as focused, no Plus, no Mega
         flat += [int(r[0]) - prev, round(float(r[2]) * 1000), round(float(r[3]) * 1000), int(r[4]), int(r[5]), int(r[6]), int(r[7]), int(r[8]), int(r[9])]
+        if wide:
+            flat += [int(r[10]) if len(r) > 10 else 0, int(r[11]) if len(r) > 11 else 0]
         prev = int(r[0])
     return _b64(zlib.compress(json.dumps(flat, separators=(",", ":")).encode("ascii"), 9))
 
@@ -100,18 +105,24 @@ def decode_rt_inputs(text: Any) -> list[list[Any]]:
         raise
     except Exception:  # noqa: BLE001 - any decoding error means a damaged code
         raise bad from None
-    if not isinstance(flat, list) or len(flat) % RT_ROW or len(flat) // RT_ROW > RT_MAX_ROWS:
+    # a doubles log starts with -11: eleven integers per row (the nine below plus the controlled slot and the locked foe)
+    wide = isinstance(flat, list) and bool(flat) and flat[0] == -11
+    width = RT_ROW + 2 if wide else RT_ROW
+    body = flat[1:] if wide else flat
+    if not isinstance(flat, list) or len(body) % width or len(body) // width > RT_MAX_ROWS:
         raise bad
     rows: list[list[Any]] = []
     tick = 0
-    for i in range(0, len(flat), RT_ROW):
-        dt, mx, my, use, dodge, sw, focus, plus, mega = flat[i:i + RT_ROW]
-        if not all(type(v) is int for v in (dt, mx, my, use, dodge, sw, focus, plus, mega)):
+    for i in range(0, len(body), width):
+        chunk = body[i:i + width]
+        if not all(type(v) is int for v in chunk):
             raise bad
+        dt, mx, my, use, dodge, sw, focus, plus, mega = chunk[:RT_ROW]
+        extra = chunk[RT_ROW:]
         tick += dt
-        if dt < 0 or tick < 1 or abs(mx) > 1000 or abs(my) > 1000 or not -1 <= use <= 3 or not -1 <= sw <= 5 or any(v not in (0, 1) for v in (dodge, focus, plus, mega)):
+        if dt < 0 or tick < 1 or abs(mx) > 1000 or abs(my) > 1000 or not -1 <= use <= 3 or not -1 <= sw <= 5 or any(v not in (0, 1) for v in (dodge, focus, plus, mega, *extra)):
             raise bad
-        rows.append([tick, 0, mx / 1000, my / 1000, use, dodge, sw, focus, plus, mega])
+        rows.append([tick, 0, mx / 1000, my / 1000, use, dodge, sw, focus, plus, mega, *extra])
     return rows
 
 

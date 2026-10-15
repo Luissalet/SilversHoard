@@ -74,7 +74,7 @@ def test_export_option_is_validated_and_carried(call, client, services, world):
     assert spec["inputSchema"]["properties"]["friend_mode"]["enum"] == ["choose", "turns", "realtime"]
     gym = services.store.gym(world["gym"]["id"])
     info = services._rt_page_info("gym", gym)
-    assert info["format"] == "gen9customgame" and info["arena"] == "rocks" and info["version"] == 2 and info["time_limit"] == 60
+    assert info["format"] == "gen9customgame" and info["arena"] == "rocks" and info["version"] == 3 and info["time_limit"] == 60
     assert set(info["keys"]) == {world["weak"]["id"], world["weak2"]["id"]}
     for mode, has_rt in (("choose", True), ("realtime", True), ("turns", False)):
         page = call("export", {"kind": "gym", "id": world["gym"]["id"], "fmt": "page", "friend_mode": mode})
@@ -239,3 +239,11 @@ def test_codes_do_not_inflate_without_limit():
     assert "too long" in str(exc.value)
     assert sharing.parse_any(sharing.pack_code(sharing.RESULT_PREFIX_RT, {"a": 1})) == ("result", {"a": 1})
     assert sharing.parse_any(sharing.pack_code(sharing.RESULT_PREFIX, {"a": 2})) == ("result", {"a": 2})
+
+
+def test_doubles_input_rows_round_trip():
+    from silvers_hoard import sharing
+    rows = [[3, 0, 0.5, -1.0, -1, 0, -1, 1, 0, 0, 1, 0], [9, 0, 0.0, 0.0, 2, 0, -1, 1, 1, 0, 0, 1]]
+    assert sharing.decode_rt_inputs(sharing.encode_rt_inputs(rows)) == rows
+    singles = [[3, 0, 0.5, -1.0, -1, 0, -1, 1, 0, 0]]
+    assert sharing.decode_rt_inputs(sharing.encode_rt_inputs(singles)) == singles

@@ -56,3 +56,9 @@ test('seeds are short and different', () => {
   assert.notEqual(a, newSeed());
   assert.ok(a.length <= 24 && /^pg-[0-9a-f]{16}$/.test(a));
 });
+
+test('doubles rows keep the controlled slot and the locked foe', async () => {
+  const rows = [[5, 0, 0.5, -1, -1, 0, -1, 1, 0, 0, 1, 0], [9, 0, 0, 0, 2, 0, -1, 1, 1, 0, 0, 1]];
+  const back = await unpackRtInputs(await packRtInputs(rows));
+  assert.deepEqual(back, rows);
+});
