@@ -39,8 +39,11 @@ function sourceName(id, b, lang) {
 /** One line of the log for an event, in Spanish or English. */
 function logLine(e, b, lang, tr) {
   const side = (i) => b.sides[i];
-  const monName = (i, slot) => side(i)?.mons[slot ?? side(i).active]?.name || "?";
-  const who = (i) => (lang === "en" ? `${side(i).name}'s ${monName(i)}` : `${monName(i)} de ${side(i).name}`);
+  // in doubles an event says its slot (e.u): the Pokémon is the one in that slot
+  const activeOf = (i, u) => (b.doubles ? side(i)?.units[u || 0]?.active : side(i)?.active);
+  const monName = (i, slot, u = e.u) => side(i)?.mons[slot ?? activeOf(i, u)]?.name || "?";
+  const who = (i, u = e.u) => (lang === "en" ? `${side(i).name}'s ${monName(i, undefined, u)}` : `${monName(i, undefined, u)} de ${side(i).name}`);
+  const dodger = () => { const t = b.doubles ? b.foe(side(e.s).units[e.u || 0]) : null; return t ? who(t.index, t.pos) : who(1 - e.s, 0); };
   const mv = (name) => nameOf("move", name, lang);
   const sec = (e.t / TPS).toFixed(1);
   const es = lang !== "en";
@@ -51,7 +54,9 @@ function logLine(e, b, lang, tr) {
       const extra = [e.crit ? tr("rt_crit") : "", e.eff > 1 ? tr("rt_super") : e.eff < 1 && e.eff > 0 ? tr("rt_weak") : ""].filter(Boolean).join(" ");
       return { sec, k: e.eff > 1 || e.crit ? "big" : "dmg", text: `${who(e.s)} −${Math.max(1, Math.round((e.dmg / Math.max(1, e.maxhp)) * 100))}% ${extra}`.trim() };
     }
-    case "miss": return { sec, k: "minor", text: es ? `${who(1 - e.s)} esquiva el ataque` : `${who(1 - e.s)} dodged` };
+    case "miss": return { sec, k: "minor", text: es ? `${dodger()} esquiva el ataque` : `${dodger()} dodged` };
+    case "helping": return { sec, k: "effect", text: es ? `${who(e.s)} se prepara para ayudar a su compañero` : `${who(e.s)} is ready to help its partner` };
+    case "follow": return { sec, k: "effect", text: es ? `¡${who(e.s)} atrae todas las miradas!` : `${who(e.s)} became the centre of attention!` };
     case "fizzle": return e.rock
       ? { sec, k: "minor", text: es ? `${mv(b.dex.moves.get(e.move).name)} de ${monName(e.s)} choca contra una roca` : `${who(e.s)}'s ${mv(b.dex.moves.get(e.move).name)} hit a rock` }
       : { sec, k: "minor", text: es ? `${mv(b.dex.moves.get(e.move).name)} de ${monName(e.s)} no alcanza a nadie` : `${who(e.s)}'s ${mv(b.dex.moves.get(e.move).name)} hit nothing` };
@@ -99,20 +104,51 @@ function Gauge({ side, tr }) {
   );
 }
 
-function SideBar({ side, align, lang, tr, avatarUrl, gauge }) {
+/** Doubles: the two Pokémon on a trainer's side of the field, each with its slot letter, HP and state. */
+function DoublesMons({ side, lang, tr, human }) {
+  return (
+    <div className="rt-duo">
+      {side.units.map((u) => {
+        const mon = u.vacant ? null : side.mons[u.active];
+        const mine = human && u.pos === side.ctl;
+        return (
+          <div key={u.pos} className={`rt-mon rt-duo-mon ${mine ? "is-ctl" : ""}`} title={mine ? tr("rt_you_control") : human ? tr("rt_partner_ai") : ""}>
+            <span className="rt-slot">{u.pos ? "b" : "a"}</span>
+            {mon ? (
+              <>
+                <b className="trunc">{mon.name}</b>
+                {mine && <span className="rt-tag rt-tag-ctl">{tr("rt_you_control")}</span>}
+                {mon.is_mega && <span className="rt-tag rt-tag-mega">{tr("rt_mega_on")}</span>}
+                {mon.status && <span className="rt-status" style={{ background: STATUS_COLORS[mon.status] }}>{L(STATUS_NAMES[mon.status], lang)}</span>}
+                {u.follow && <span className="rt-tag">{tr("rt_follow_float")}</span>}
+                {u.helped && <span className="rt-tag up">×1,5</span>}
+                <HpBar mon={mon} />
+                <span className="rt-hp-num num">{mon.fainted ? 0 : mon.hp}/{mon.maxhp}</span>
+              </>
+            ) : <span className="help">{tr("rt_empty_slot")}</span>}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function SideBar({ side, align, lang, tr, avatarUrl, gauge, human = false }) {
   const mon = side.mons[side.active];
   const boosts = Object.entries(mon?.boosts || {}).filter(([, v]) => v);
+  const onField = (m, i) => (side.units ? m.field >= 0 : i === side.active);
   return (
     <div className={`rt-sidebar ${align}`}>
       {avatarUrl ? <img className="rt-avatar" src={avatarUrl} alt="" /> : null}
       <div className="min-w-0 flex-1">
         <div className="rt-name trunc">{side.name}</div>
         <div className="rt-party" aria-label={tr("rt_party")}>
-          {side.mons.map((m, i) => <span key={i} className={`rt-ball ${m.fainted ? "is-out" : ""} ${i === side.active ? "is-on" : ""}`} title={`${m.name} ${m.hp}/${m.maxhp}`} />)}
+          {side.mons.map((m, i) => <span key={i} className={`rt-ball ${m.fainted ? "is-out" : ""} ${onField(m, i) ? "is-on" : ""}`} title={`${m.name} ${m.hp}/${m.maxhp}`} />)}
           <span className="rt-switches" title={tr("rt_switches_help")}>{"⇄".repeat(side.switches_left)}<span className="rt-switches-off">{"⇄".repeat(Math.max(0, 3 - side.switches_left))}</span></span>
         </div>
         {gauge && <Gauge side={side} tr={tr} />}
-        {mon && (
+        {side.units && <DoublesMons side={side} lang={lang} tr={tr} human={human} />}
+        {!side.units && mon && (
           <div className="rt-mon">
             <b className="trunc">{mon.name}</b> <span className="help">Nv.{mon.level}</span>
             {mon.is_mega && <span className="rt-tag rt-tag-mega">{tr("rt_mega_on")}</span>}
@@ -155,20 +191,35 @@ function MoveButton({ m, i, lang, tr, onUse, keyHint, disabled, pos = "", plus =
 // The four moves sit in a diamond like the X A B Y buttons of Legends: Z-A (slot 0 top, 1 right, 2 bottom, 3 left).
 const DIAMOND = ["top", "right", "bottom", "left"];
 
-function Pad({ side, si, lang, tr, partyOpen, cursor, focus, plus, gauge, onUse, onRoll, onSwitch, onParty, onPlus, onMega, keys, sprites }) {
+function Pad({ side, si, lang, tr, partyOpen, cursor, focus, plus, gauge, onUse, onRoll, onSwitch, onParty, onPlus, onMega, onSwap, onTarget, keys, sprites, foes }) {
   const mon = side.mons[side.active];
-  const showParty = partyOpen || side.need;
-  const plusOn = gauge && (plus || side.mega);
+  // doubles: a slot waiting for a Pokémon (the switch goes there; the controlled one first)
+  const waiting = side.units ? side.units.find((u) => u.pos === side.ctl && u.need) || side.units.find((u) => u.need) : null;
+  const need = side.units ? !!waiting : side.need;
+  const showParty = partyOpen || need;
+  const plusOn = gauge && (plus || (side.mega && mon?.is_mega));
+  const onField = (m, i) => (side.units ? m.field >= 0 : i === side.active);
+  const locked = side.units && foes ? foes.units[side.units[side.ctl]?.aim ?? 0] : null;
+  const lockedMon = locked && !locked.vacant ? foes.mons[locked.active] : null;
   return (
     <div className={`rt-pad ${focus ? "is-focus" : ""}`}>
-      {side.need && <div className="rt-need">{tr("rt_choose_next")}</div>}
+      {need && <div className="rt-need">{waiting ? tr("rt_choose_next_slot", { slot: waiting.pos ? "b" : "a" }) : tr("rt_choose_next")}</div>}
+      {side.units && (
+        <div className="rt-duo-bar">
+          <span className="help">{tr("rt_you_control")}</span> <b>{mon && !mon.fainted ? mon.name : "—"}</b> <span className="rt-slot">{side.ctl ? "b" : "a"}</span>
+          <button type="button" className="btn btn-sm" onClick={() => onSwap(si)}>{tr("rt_swap")} <span className="rt-key">{keys.swap}</span></button>
+          <span className="help">{tr("rt_locked_foe")}</span> <b>{lockedMon ? lockedMon.name : "—"}</b>{locked && <span className="rt-slot is-foe">{locked.pos ? "b" : "a"}</span>}
+          <button type="button" className="btn btn-sm" onClick={() => onTarget(si)}>{tr("rt_next_target")} <span className="rt-key">{keys.target}</span></button>
+        </div>
+      )}
       <div className="rt-pad-main">
         <div className="rt-party-strip" role="group" aria-label={tr("rt_party")}>
           {side.mons.map((m, i) => (
-            <button key={i} type="button" className={`rt-party-btn ${i === side.active ? "is-active" : ""} ${showParty && i === cursor ? "is-cursor" : ""}`}
-              disabled={m.fainted || i === side.active || (!side.need && side.switches_left <= 0)} onClick={() => onSwitch(si, i)} title={`${m.name} ${m.hp}/${m.maxhp}`}>
+            <button key={i} type="button" className={`rt-party-btn ${onField(m, i) ? "is-active" : ""} ${showParty && i === cursor ? "is-cursor" : ""}`}
+              disabled={m.fainted || onField(m, i) || (!need && side.switches_left <= 0)} onClick={() => onSwitch(si, i)} title={`${m.name} ${m.hp}/${m.maxhp}`}>
               <img src={sprites.pokemon(m.species, { spriteid: m.sprite_id })} alt="" className={sprites.pixelated ? "pixelated" : ""} onError={(ev) => { ev.currentTarget.style.visibility = "hidden"; }} />
               <span className="rt-key">{keys.slots[i]}</span>
+              {side.units && m.field >= 0 && <span className={`rt-slot rt-party-slot ${m.field === side.ctl ? "is-ctl" : ""}`}>{m.field ? "b" : "a"}</span>}
               <HpBar mon={m} />
             </button>
           ))}
@@ -177,30 +228,30 @@ function Pad({ side, si, lang, tr, partyOpen, cursor, focus, plus, gauge, onUse,
             <span className="help">{keys.party}</span>
           </div>
         </div>
-        {!side.need && mon && !mon.fainted && (
+        {!side.need && mon && !mon.fainted && !(side.units && side.units[side.ctl]?.vacant) && (
           <div className={`rt-diamond ${plusOn ? "is-plus" : ""}`}>
             {mon.moves.map((m, i) => <MoveButton key={i} m={m} i={i} lang={lang} tr={tr} pos={DIAMOND[i]} keyHint={keys.moves[i]} plus={plusOn} onUse={(j) => onUse(si, j)} />)}
             <div className="rt-diamond-hub" aria-hidden="true">
-              {!side.mega && <span className="rt-key">{plusOn ? keys.plus : keys.focus}</span>}
-              <span className="rt-hub-label">{plusOn ? (side.mega ? tr("rt_mega_on") : tr("rt_plus_armed")) : focus ? tr("rt_focus_on") : tr("rt_focus")}</span>
+              {!(side.mega && mon?.is_mega) && <span className="rt-key">{plusOn ? keys.plus : keys.focus}</span>}
+              <span className="rt-hub-label">{plusOn ? (side.mega && mon?.is_mega ? tr("rt_mega_on") : tr("rt_plus_armed")) : focus ? tr("rt_focus_on") : tr("rt_focus")}</span>
             </div>
           </div>
         )}
         <div className="rt-pad-side">
-          <button type="button" className="btn btn-sm" onClick={() => onRoll(si)} disabled={side.roll_ready > 0 || side.need}>
+          <button type="button" className="btn btn-sm" onClick={() => onRoll(si)} disabled={side.roll_ready > 0 || need}>
             {tr("rt_roll")} <span className="rt-key">{keys.roll}</span>{side.roll_ready > 0 ? ` ${side.roll_ready.toFixed(1)}` : ""}
           </button>
-          <button type="button" className={`btn btn-sm ${showParty ? "btn-primary" : ""}`} onClick={() => onParty(si)} disabled={side.need}>
+          <button type="button" className={`btn btn-sm ${showParty ? "btn-primary" : ""}`} onClick={() => onParty(si)} disabled={need}>
             {tr("rt_party_open")}
           </button>
           {gauge && (
             <>
               <Gauge side={side} tr={tr} />
               <button type="button" className={`btn btn-sm rt-plus-btn ${plusOn ? "is-on" : ""}`} aria-pressed={!!plusOn} title={tr("rt_plus_help")}
-                disabled={side.need || side.mega || !side.plus_ready} onClick={() => onPlus(si)}>
+                disabled={need || (side.mega && mon?.is_mega) || !side.plus_ready} onClick={() => onPlus(si)}>
                 {tr("rt_plus")} <span className="rt-key">{keys.plus}</span>
               </button>
-              {mon?.mega_info && !side.mega_used && (
+              {(side.units ? side.units.some((u) => !u.vacant && side.mons[u.active]?.mega_info) : mon?.mega_info) && !side.mega_used && (
                 <button type="button" className={`btn btn-sm rt-mega-btn ${side.can_mega ? "is-ready" : ""}`} title={tr("rt_mega_help")} disabled={!side.can_mega}
                   onClick={() => onMega(si)}>
                   {tr("rt_mega")} <span className="rt-key">{keys.mega}</span>
@@ -215,11 +266,11 @@ function Pad({ side, si, lang, tr, partyOpen, cursor, focus, plus, gauge, onUse,
 }
 
 const KEY_HINTS = {
-  solo: { moves: ["I", "L", "K", "J"], roll: "␣", focus: "⇧", plus: "F", mega: "M", party: "Q · E · R", slots: ["1", "2", "3", "4", "5", "6"] },
-  p1: { moves: ["1", "2", "3", "4"], roll: "␣", focus: "⇧", plus: "F", mega: "G", party: "Q · E · R", slots: ["1", "2", "3", "4", "5", "6"] },
-  p2: { moves: ["U", "I", "O", "P"], roll: "↵", focus: "⇧", plus: "K", mega: "L", party: "[ · ] · \\", slots: ["U", "I", "O", "P", "[", "]"] },
-  pad: { moves: ["X", "A", "B", "Y"], roll: "Y", focus: "ZL", plus: "ZL + +", mega: "R", party: "◀ ▶ ▲", slots: ["", "", "", "", "", ""] },
-  simple: { moves: ["A", "B", "X", "Y"], roll: "RB", focus: "", plus: "−", mega: "L", party: "◀ ▶ ▲", slots: ["", "", "", "", "", ""] },
+  solo: { moves: ["I", "L", "K", "J"], roll: "␣", focus: "⇧", plus: "F", mega: "M", party: "Q · E · R", slots: ["1", "2", "3", "4", "5", "6"], swap: "Tab · C", target: "X" },
+  p1: { moves: ["1", "2", "3", "4"], roll: "␣", focus: "⇧", plus: "F", mega: "G", party: "Q · E · R", slots: ["1", "2", "3", "4", "5", "6"], swap: "C", target: "X" },
+  p2: { moves: ["U", "I", "O", "P"], roll: "↵", focus: "⇧", plus: "K", mega: "L", party: "[ · ] · \\", slots: ["U", "I", "O", "P", "[", "]"], swap: "Ñ", target: "´" },
+  pad: { moves: ["X", "A", "B", "Y"], roll: "Y", focus: "ZL", plus: "ZL + +", mega: "R", party: "◀ ▶ ▲", slots: ["", "", "", "", "", ""], swap: "L", target: "R3" },
+  simple: { moves: ["A", "B", "X", "Y"], roll: "RB", focus: "", plus: "−", mega: "L", party: "◀ ▶ ▲", slots: ["", "", "", "", "", ""], swap: "L3", target: "R3" },
 };
 
 const LAYOUT_KEY = "silver-rt-controls";
@@ -272,7 +323,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     move: (n) => nameOf("move", n, lang), crit: tr("rt_crit"), super: tr("rt_super"), weak: tr("rt_weak"), dodged: tr("rt_dodged"),
     blocked: tr("rt_blocked"), immune: tr("rt_immune"), flinch: tr("rt_flinch"), status: (s) => L(STATUS_NAMES[s] || [s, s], lang),
     statusColor: (s) => STATUS_COLORS[s] || "#fff", stat: (k) => L(STAT_SHORT[k] || [k, k], lang),
-    mega: tr("rt_mega_float"), megaEnd: tr("rt_mega_end_float"), plus: tr("rt_plus"),
+    mega: tr("rt_mega_float"), megaEnd: tr("rt_mega_end_float"), plus: tr("rt_plus"), helping: tr("rt_helping_float"), follow: tr("rt_follow_float"),
   }), [lang, tr]);
 
   // build the battle, catch up a live one, load the sprites
@@ -295,6 +346,14 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     }
     state.inputs.forEach((inp, i) => {
       if (!inp) return;
+      if (b.doubles) {
+        // doubles: pick up the controlled slot and the locked foe where a reloaded battle left them
+        inp.doubles = true;
+        const tr0 = b.sides[i];
+        inp.ctl = tr0.ctl || 0;
+        inp.tgt = tr0.tgt || 0;
+        inp.effCtl = b.leadOf(tr0).pos;
+      }
       inp.onParty = (open, at) => {
         setParty((p) => { const n = [...p]; n[i] = open; return n; });
         setCursor((c) => { const n = [...c]; n[i] = at ?? 0; return n; });
@@ -321,6 +380,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     const view = state.b.view();
     const renderer = new ArenaRenderer(canvasRef.current, {
       sides: view.sides.map((s, i) => ({ name: s.name, mons: s.mons, avatarUrl: seats?.[s.id]?.avatarUrl || "" })), sprites, base, texts, rocks: view.rocks,
+      humans: live ? humans : [false, false],
     });
     renderer.eventIndex = state.b.events.length;
     renderer.audio.cryUrl = (species) => appCryUrl(species, base);
@@ -400,6 +460,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
               if ((e.k === "plus" || e.k === "mega") && st.inputs[e.s]?.plusArmed) st.inputs[e.s].setPlus(false);
             }
             st.inputs.forEach((inp, i) => { if (inp?.plusArmed && !st.b.plusReady(st.b.sides[i])) inp.setPlus(false); });
+            if (st.b.doubles) st.inputs.forEach((inp, i) => { if (inp) inp.effCtl = st.b.leadOf(st.b.sides[i]).pos; });
           } else {
             st.b.step(inputFrame(st.b, st.replay.byTick.get(st.b.t + 1) || [], st.replay.held));
           }
@@ -483,6 +544,8 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
   const onPlus = (si) => { const inp = sim.current?.inputs[si]; if (inp && phaseRef.current === "running") inp.setPlus(!inp.plusArmed); };
   const onMega = (si) => queue(si, { mega: true });
   const onSwitch = (si, i) => { queue(si, { sw: i }); const inp = sim.current?.inputs[si]; if (inp) { inp.partyOpen = false; setParty((p) => { const n = [...p]; n[si] = false; return n; }); } };
+  const onSwap = (si) => { const inp = sim.current?.inputs[si]; if (inp && phaseRef.current === "running") inp.swap(); };
+  const onTarget = (si) => { const inp = sim.current?.inputs[si]; if (inp && phaseRef.current === "running") inp.cycleTarget(); };
   const onParty = (si) => { const inp = sim.current?.inputs[si]; if (inp) { inp.partyOpen = !inp.partyOpen; setParty((p) => { const n = [...p]; n[si] = inp.partyOpen; return n; }); } };
 
   const restart = () => {
@@ -491,7 +554,8 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     st.renderer.eventIndex = 0;
     st.renderer.floats = [];
     st.renderer.effects = [];
-    st.renderer.lastActive = [-1, -1];
+    st.renderer.lastActive = [-1, -1, -1, -1];
+    st.renderer.fade = [0, 1, 2, 3].map(() => ({ slot: -1, t: 0 }));
     sim.current = st;
     setLog([]);
     setPhase("playing");
@@ -523,13 +587,14 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
       <div className="b-main">
         {view && (
           <div className="rt-top">
-            <SideBar side={view.sides[0]} align="left" lang={lang} tr={tr} avatarUrl={seats?.p1?.avatarUrl} gauge={view.version >= 2} />
+            <SideBar side={view.sides[0]} align="left" lang={lang} tr={tr} avatarUrl={seats?.p1?.avatarUrl} gauge={view.version >= 2} human={live && humans[0]} />
             <div className="rt-clock">
               <div className="rt-time num" aria-label={tr("rt_time")}>{fmtTime(view.time_limit - view.seconds)}</div>
+              {view.doubles && <span className="chip">{tr("rt_doubles")}</span>}
               {view.weather && <span className="chip">{nameOf("move", { sunnyday: "Sunny Day", raindance: "Rain Dance", sandstorm: "Sandstorm", snow: "Snowscape", hail: "Hail" }[view.weather.id] || view.weather.id, lang)} {Math.ceil(view.weather.left)} s</span>}
               {view.terrain && <span className="chip">{nameOf("move", { electricterrain: "Electric Terrain", grassyterrain: "Grassy Terrain", psychicterrain: "Psychic Terrain", mistyterrain: "Misty Terrain" }[view.terrain.id] || view.terrain.id, lang)} {Math.ceil(view.terrain.left)} s</span>}
             </div>
-            <SideBar side={view.sides[1]} align="right" lang={lang} tr={tr} avatarUrl={seats?.p2?.avatarUrl} gauge={view.version >= 2} />
+            <SideBar side={view.sides[1]} align="right" lang={lang} tr={tr} avatarUrl={seats?.p2?.avatarUrl} gauge={view.version >= 2} human={live && humans[1]} />
           </div>
         )}
         <div className="rt-stage" ref={wrapRef}>
@@ -543,13 +608,20 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
               <div className="rt-card">
                 <b className="rt-big">{tr("rt_ready")}</b>
                 <dl className="rt-controls">
-                  {people === 2 ? (<><dd>{tr("rt_keys_p1")}</dd><dd>{tr("rt_keys_p2")}</dd></>) : (
+                  {view?.doubles && <dd className="rt-doubles-note">{tr("rt_doubles_note")}</dd>}
+                  {people === 2 ? (<><dd>{tr("rt_keys_p1")}</dd><dd>{tr("rt_keys_p2")}</dd>{view?.doubles && <dd>{tr("rt_keys_doubles_two")}</dd>}</>) : (
                     <>
                       <dt>{tr("rt_ctrl_move")}</dt><dd>{tr("rt_keys_move")}</dd>
                       <dt>{tr("rt_ctrl_focus")}</dt><dd>{tr(layout === "simple" ? "rt_keys_focus_simple" : "rt_keys_focus")}</dd>
                       <dt>{tr("rt_ctrl_moves")}</dt><dd>{tr(layout === "simple" ? "rt_keys_moves_simple" : "rt_keys_moves")}</dd>
                       <dt>{tr("rt_ctrl_roll")}</dt><dd>{tr(layout === "simple" ? "rt_keys_roll_simple" : "rt_keys_roll")}</dd>
                       <dt>{tr("rt_ctrl_switch")}</dt><dd>{tr("rt_keys_switch")}</dd>
+                      {view?.doubles && (
+                        <>
+                          <dt>{tr("rt_ctrl_swap")}</dt><dd>{tr("rt_keys_swap")}</dd>
+                          <dt>{tr("rt_ctrl_target")}</dt><dd>{tr("rt_keys_target")}</dd>
+                        </>
+                      )}
                       {view?.version >= 2 && (
                         <>
                           <dt>{tr("rt_ctrl_plus")}</dt><dd>{tr(layout === "simple" ? "rt_keys_plus_simple" : "rt_keys_plus")}</dd>
@@ -626,7 +698,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
           <div className={`rt-pads ${people === 2 ? "two" : ""}`}>
             {view.sides.map((s, i) => humans[i] && (
               <Pad key={i} side={s} si={i} lang={lang} tr={tr} partyOpen={party[i]} cursor={cursor[i]} focus={focus[i]} plus={plus[i]} gauge={view.version >= 2}
-                onUse={onUse} onRoll={onRoll} onSwitch={onSwitch} onParty={onParty} onPlus={onPlus} onMega={onMega} keys={KEY_HINTS[people === 1 && pad ? (layout === "simple" ? "simple" : "pad") : schemes[i]]} sprites={sprites} />
+                onUse={onUse} onRoll={onRoll} onSwitch={onSwitch} onParty={onParty} onPlus={onPlus} onMega={onMega} onSwap={onSwap} onTarget={onTarget} foes={view.sides[1 - i]} keys={KEY_HINTS[people === 1 && pad ? (layout === "simple" ? "simple" : "pad") : schemes[i]]} sprites={sprites} />
             ))}
           </div>
         )}
