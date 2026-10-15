@@ -17,7 +17,12 @@ export function nameOf(kind, english, lang) {
   if (!english) return "";
   if (lang !== "es") return english;
   const table = NAMES_ES[KIND[kind] || kind] || {};
-  return table[toID(english)] || english;
+  const own = table[toID(english)];
+  if (own) return own;
+  // "Hidden Power Fighting" (the protocol names its type) → "Poder Oculto Lucha"
+  const hp = (KIND[kind] || kind) === "moves" ? /^hidden ?power ?([a-z]+)$/i.exec(String(english).trim()) : null;
+  if (hp) return `${table.hiddenpower || "Hidden Power"} ${nameOf("type", hp[1], lang)}`;
+  return english;
 }
 
 export const typeName = (type, lang) => nameOf("type", type, lang);

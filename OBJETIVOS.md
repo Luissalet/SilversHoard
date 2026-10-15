@@ -12,12 +12,10 @@ Lo que falta por construir, de más a menos valor. Lo que ya hace está en el [R
    real necesitan reproducir sus entradas en la arena sin ventana con el mismo ritmo.
 5. **IA que no ve el equipo rival.** Hoy la IA conoce los dos equipos, como un entrenador del juego. Un nivel
    «de ranking» que solo vea lo revelado y prediga el resto con las estadísticas de uso de `smogon.py`.
-6. **Log con los textos oficiales en castellano de Showdown** (`data/text/es`, MIT: 203 plantillas, mensajes propios de 268 movimientos). Ágora #557.
-7. **Modo Champions real** con los mods `champions` / `championsregmb` / `gen9legends` de Showdown 0.11 (fórmula de PS y SP, PP ≤ 20, formatos Reg M); `@pkmn/sim` 0.10.11 no los trae. Ágora #558.
-8. **Créditos visibles** por especie (SpriteCollab) y por sprite de entrenador (Showdown pide crédito al artista). Ágora #560.
-9. **Tiempo real: hitstop, temblor, aviso en el suelo antes de los movimientos de área y cut-in** al megaevolucionar, usar Z o teracristalizar (ideas de PokéBonk, código propio). Ágora #561.
-10. **Clasificación entre amigos verificada re-simulando la repetición y reto de la semana** con semilla fija. Ágora #562.
-11. **Pokémon Unbound jugable**: habilidades cambiadas (PUSE, MIT) y los entrenadores especiales de su Frontera re-derivados. Ágora #563.
-12. **Animaciones de PokeRogue/Reborn** como estilo de alta fidelidad con sonido (785 con crédito; reproductor propio). Ágora #564.
-13. **Más niveles de IA**: heurística de poke-env, poke-engine como IA maestra. Ágora #565.
-14. **Equipos por enlace con pokepast.es.** Ágora #566.
+6. **Modo Champions real** con los mods `champions` / `championsregmb` / `gen9legends` de Showdown 0.11 (fórmula de PS y SP, PP ≤ 20, formatos Reg M); `@pkmn/sim` 0.10.11 no los trae. Ágora #558.
+7. **Créditos visibles** por especie (SpriteCollab) y por sprite de entrenador (Showdown pide crédito al artista). Ágora #560.
+8. **Tiempo real: hitstop, temblor, aviso en el suelo antes de los movimientos de área y cut-in** al megaevolucionar, usar Z o teracristalizar (ideas de PokéBonk, código propio). Ágora #561.
+9. **Clasificación entre amigos verificada re-simulando la repetición y reto de la semana** con semilla fija. Ágora #562.
+10. **Pokémon Unbound jugable**: habilidades cambiadas (PUSE, MIT) y los entrenadores especiales de su Frontera re-derivados. Ágora #563.
+11. **Animaciones de PokeRogue/Reborn** como estilo de alta fidelidad con sonido (785 con crédito; reproductor propio). Ágora #564.
+12. **Más niveles de IA**: heurística de poke-env, poke-engine como IA maestra. Ágora #565.

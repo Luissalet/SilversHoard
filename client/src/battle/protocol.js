@@ -2,6 +2,7 @@
 // each line into a sentence for the log (Spanish or English) plus an animation hint. Pure JavaScript, shared by the app and the
 // playable page.
 import { L, STAT_NAMES, STATUS_NAMES, nameOf, typeName, toID } from "./dex.js";
+import { officialText } from "./text/logtext.js";
 
 // Free-form lines the simulator writes in English.
 const MESSAGES_ES = [
@@ -160,7 +161,16 @@ const CANT = {
 
 /** Applies one protocol line to `state`. Returns {text, kind, anim} for the log and the animations (or null for silent lines). */
 export function applyLine(state, line, opts = {}) {
-  const out = applyRaw(state, line, opts);
+  let out = applyRaw(state, line, opts);
+  // the simulator's own message for the effect of a move, ability or item, the field, the weather… (the parser reads every line)
+  const official = officialText(state, line, opts);
+  if (official) {
+    if (!out) out = { text: official, kind: "minor" };
+    else if (typeof out.text === "string") {
+      const pct = out.text.match(/ \(([−+]\d+%)\)\.?$/);
+      out.text = official + (pct ? ` (${pct[1]})` : "");
+    }
+  }
   if (out && out.text && opts.lang !== "en") out.text = out.text.replace(/\b([aA]) el\b/g, "$1l").replace(/\b([dD])e el\b/g, "$1el");
   return out;
 }
@@ -302,10 +312,10 @@ function applyRaw(state, line, { lang = "es", me = "p1" } = {}) {
       if (cmd === "-damage") {
         if (!pct && !from) return { text: "", kind: "damage", anim: { type: "hit", side, slot, delta: 0, ...cause } };
         text = from ? T(`${M(parts[1])} se resiente por ${from} (−${pct}%).`, `${M(parts[1])} was hurt by ${from} (−${pct}%).`)
-          : T(`${M(parts[1])} perdió el ${pct}% de su salud.`, `${M(parts[1])} lost ${pct}% of its health.`);
+          : T(`${M(parts[1])} ha perdido el ${pct}% de su salud.`, `${M(parts[1])} lost ${pct}% of its health.`);
       } else if (cmd === "-heal") {
         text = from ? T(`${M(parts[1])} recuperó salud gracias a ${from} (+${pct}%).`, `${M(parts[1])} restored HP with ${from} (+${pct}%).`)
-          : T(`${M(parts[1])} recuperó salud (+${pct}%).`, `${M(parts[1])} restored HP (+${pct}%).`);
+          : T(`${M(parts[1])} ha recuperado salud (+${pct}%).`, `${M(parts[1])} restored HP (+${pct}%).`);
       } else {
         text = "";
       }
