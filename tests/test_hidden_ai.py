@@ -43,4 +43,5 @@ def test_a_battle_without_seeing_and_fair_advice(call, services):
     assert turns and all(n.get("hidden") for n in turns)
     assert any("not seeing the other team" in t for t in r["text"])
     adv = call("battle_explain", {"id": b["id"], "side": "p1", "limit": 1})["advice"]["p1"]
-    assert adv["kind"] == "turn" and adv.get("hidden") is True
+    # the random seed sometimes knocks out the first Pokémon, and then the advice is which one to send in
+    assert adv["kind"] in ("turn", "switch_in") and adv.get("hidden") is True
