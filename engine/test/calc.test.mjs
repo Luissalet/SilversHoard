@@ -101,8 +101,10 @@ test('multi-hit moves use every hit count and independent rolls, Skill Link alwa
   assert.equal(plain.rolls.length, 16);
   assert.equal(plain.min, 224);   // 2 × 112
   assert.equal(plain.max, 680);   // 5 × 136
-  assert.ok(plain.ohko_chance > 0, 'five strong rolls can KO 323 HP');
-  assert.ok(plain.ohko_chance < 1);
+  // 2 hits never KO 323; 3–5 always do → weights 7+3+3 of 20 = 0.65 (not ~1 from weighting by 16^h)
+  assert.equal(plain.ohko_chance, 0.65);
+  assert.equal(plain.roll_space, 20);
+  assert.equal(plain.ohko_rolls, 13);
   const linked = damageCalc({
     attacker: {species: 'Cloyster', ability: 'Skill Link', moves: ['Icicle Spear']}, defender: def,
   }).moves[0];

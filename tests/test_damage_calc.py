@@ -30,4 +30,5 @@ def test_damage_calc_gen1_rolls_and_multihit_range(call):
                                  "defender": {"species": "Dragonite", "ability": "Inner Focus", "moves": ["Splash"]},
                                  "moves": ["Icicle Spear"]})["moves"][0]
     assert multi["hits_min"] == 2 and multi["hits_max"] == 5 and multi["min"] == 224 and multi["max"] == 680
-    assert multi["ohko_chance"] is not None and 0 < multi["ohko_chance"] < 1
+    # 2 hits never KO; 3–5 always → 13/20 (must not overweight 5-hit sequences)
+    assert multi["ohko_chance"] == 0.65 and multi["roll_space"] == 20 and multi["ohko_rolls"] == 13
