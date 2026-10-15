@@ -10,7 +10,5 @@ Lo que falta por construir, de más a menos valor. Lo que ya hace está en el [R
    terminar los modos y el pulido.
 4. **Arena más ligera.** La pantalla de tiempo real carga los datos completos de `@pkmn/sim` (unos 6 MB); con `@pkmn/dex` y
    solo las generaciones en uso bajaría a la mitad.
-5. **Los personajes que faltan.** Los equipos de la Torre Batalla de Diamante Brillante y Perla Reluciente, Noland, Argenta
-   y Thorton (sus tablas usan otra plantilla en la wiki) y los de Leyendas Pokémon: Arceus.
-6. **Vídeo de combates en tiempo real.** Hoy se graban las repeticiones de los combates por turnos; los de tiempo
+5. **Vídeo de combates en tiempo real.** Hoy se graban las repeticiones de los combates por turnos; los de tiempo
    real necesitan reproducir sus entradas en la arena sin ventana con el mismo ritmo.

@@ -27,6 +27,71 @@ if (fs.existsSync(FAC)) {
     else scrape[k] = v;
   }
 }
+// Battle Tower teams of the remakes ({{lop/facility8}} rows: species, ability, item, four moves and the six stats at level 50).
+// The wiki gives stats, not natures and EVs, so each set gets the nature and EVs that give exactly those stats (IVs 31).
+const FAC8 = here('bulbapedia_facility8.json.gz');
+const STAT_KEYS = ['hp', 'atk', 'def', 'spa', 'spd', 'spe'];
+function spreadFor(species, stats, dex) {
+  const sp = dex.species.get(species);
+  if (!sp.exists || stats.some((x) => !Number.isFinite(x))) return null;
+  // per stat: the highest IV, then the fewest EVs, that give the stat (some sets lower an IV on purpose, e.g. 0 Sp. Atk)
+  const fit = (key, mult, want) => {
+    for (let iv = 31; iv >= 0; iv--) {
+      for (let ev = 0; ev <= 252; ev += 4) {
+        const core = Math.floor(((2 * sp.baseStats[key] + iv + Math.floor(ev / 4)) * 50) / 100);
+        const v = key === 'hp' ? core + 60 : Math.floor(Math.round((core + 5) * mult * 1000) / 1000);
+        if (v === want) return {iv, ev};
+      }
+    }
+    return null;
+  };
+  let best = null;
+  for (const nature of dex.natures.all()) {
+    const evs = [], ivs = [];
+    let cost = 0;
+    for (let k = 0; k < 6; k++) {
+      const key = STAT_KEYS[k];
+      const r = fit(key, nature.plus === key ? 1.1 : nature.minus === key ? 0.9 : 1, stats[k]);
+      if (!r) break;
+      evs.push(r.ev); ivs.push(r.iv); cost += (31 - r.iv) * 100 + r.ev;
+    }
+    if (evs.length < 6 || evs.reduce((a, b) => a + b, 0) > 510) continue;
+    if (!best || cost < best.cost) best = {nature: nature.name, evs, ivs, cost};
+  }
+  return best;
+}
+const plainName = (s) => String(s || '').replace(/\{\{color2\|[^|}]*\|([^|}]*)(?:\|[^}]*)?\}\}/g, '$1').replace(/\{\{[^}]*\}\}/g, '').replace(/\[\[(?:[^|\]]*\|)?([^\]]*)\]\]/g, '$1').trim();
+if (fs.existsSync(FAC8)) {
+  const dex8 = Dex.forGen(8);
+  for (const [k, v] of Object.entries(JSON.parse(readMaybeGz(FAC8)))) {
+    const parties = [];
+    for (const p of v.parties) {
+      const h = p.head || {};
+      for (const team of p.teams) {
+        const mons = team.rows.map((r) => {
+          const cells = r.filter((c) => !/^[a-z]+=/i.test(c));
+          const [, species, ability, item, m1, , m2, , m3, , m4] = cells;
+          const stats = cells.slice(-6).map(Number);
+          const spread = spreadFor(species, stats, dex8);
+          return {s: species, a: ability, i: item, m: [m1, m2, m3, m4].filter(Boolean), l: '50',
+            ...(spread ? {n: spread.nature, ev: spread.evs, iv: spread.ivs} : {})};
+        });
+        const path = [...p.path.map((x) => x.replace(/\{\{g\|([^|}]*)\}\}/g, '$1')), ...(team.label ? [team.label] : [])];
+        const party = {path, tpl: p.tpl, game: h.game || 'BDSP', sprite: h.sprite || '', name: plainName(h.name), cls: h.class || '', location: h.location || '',
+          note: '', facility: true, mons};
+        if (p.tpl === 'Party/2') {   // a tag battle: the first two rows are the first trainer's, the last two the second's
+          party.mons = mons.slice(0, 2);
+          party.mons2 = mons.slice(2);
+          party.name2 = plainName(h.name2);
+        }
+        parties.push(party);
+      }
+    }
+    if (!parties.length) continue;
+    if (scrape[k]?.parties) scrape[k].parties.push(...parties);
+    else scrape[k] = {title: k, status: 200, parties};
+  }
+}
 const ES = esPath && fs.existsSync(esPath) ? JSON.parse(fs.readFileSync(esPath, 'utf8')) : {};
 const LABELS = labelsPath && fs.existsSync(labelsPath) ? JSON.parse(fs.readFileSync(labelsPath, 'utf8')) : {};
 const SPRITES = JSON.parse(fs.readFileSync(path.join(root, 'silvers_hoard/presets/trainer_sprites.json'), 'utf8'));
@@ -61,6 +126,8 @@ const GAMES = {
   SwSh: G(8, 'Sword and Shield', 'Espada y Escudo', [''], 80), Sw: G(8, 'Sword', 'Espada', [''], 80), Sh: G(8, 'Shield', 'Escudo', [''], 80),
   BDSP: G(8, 'Brilliant Diamond and Shining Pearl', 'Diamante Brillante y Perla Reluciente', ['', 'gen4dp'], 81),
   SV: G(9, 'Scarlet and Violet', 'Escarlata y Púrpura', ['', 's', 'v'], 90), ZA: G(9, 'Legends: Z-A', 'Leyendas Pokémon: Z-A', [''], 91),
+  // Legends: Arceus is a generation 8 game, but its Hisuian Pokémon and moves only exist in the generation 9 dex
+  LA: {...G(8, 'Legends: Arceus', 'Leyendas Pokémon: Arceus', ['la', ''], 85), dex: 9},
 };
 const GAME_ALIASES = {Yellow: 'Y', 'Black and White': 'BW', 'Pokémon X and Y': 'XY', 'X and Y': 'XY', 'Pokémon Omega Ruby and Alpha Sapphire': 'ORAS'};
 
@@ -160,6 +227,7 @@ function makeSet(mon, dex) {
   const g = (mon.g || '').toLowerCase();
   const out = {species: sp.name, level: lv, moves};
   if (Array.isArray(mon.ev) && mon.ev.some(Boolean)) out.evs = Object.fromEntries(['hp', 'atk', 'def', 'spa', 'spd', 'spe'].map((k, j) => [k, Math.min(255, mon.ev[j] || 0)]));
+  if (Array.isArray(mon.iv) && mon.iv.some((x) => x !== 31)) out.ivs = Object.fromEntries(['hp', 'atk', 'def', 'spa', 'spd', 'spe'].map((k, j) => [k, mon.iv[j] ?? 31]));
   if (item) out.item = item;
   if (ability) out.ability = ability;
   if (nature) out.nature = nature;
@@ -183,10 +251,10 @@ const CARDS = [
   ['rs', ['RS', 'Ru', 'Sa', 'RSE'], 3], ['e', ['E', 'RSE'], 3], ['frlg', ['FRLG'], 3], ['dp', ['DP'], 4], ['pt', ['Pt', 'PtHGSS'], 4], ['hgss', ['HGSS', 'PtHGSS'], 4],
   ['bw', ['BW', 'Bl', 'W', 'BWB2W2'], 5], ['b2w2', ['B2W2', 'B2', 'W2', 'BWB2W2'], 5], ['xy', ['XY', 'XYORAS'], 6], ['oras', ['ORAS', 'OR', 'AS', 'XYORAS'], 6],
   ['sm', ['SM', 'Su', 'M', 'SMUSUM', 'SUS', 'MUM'], 7], ['usum', ['USUM', 'US', 'UM', 'SMUSUM', 'SUS', 'MUM'], 7], ['lgpe', ['PE'], 7],
-  ['swsh', ['SwSh', 'Sw', 'Sh'], 8], ['bdsp', ['BDSP'], 8], ['sv', ['SV'], 9], ['za', ['ZA'], 9],
+  ['swsh', ['SwSh', 'Sw', 'Sh'], 8], ['bdsp', ['BDSP'], 8], ['la', ['LA'], 8], ['sv', ['SV'], 9], ['za', ['ZA'], 9],
 ];
 const CARD_NAMES = {rb: 'RGB', y: 'Y', stadium: 'Stadium', gsc: 'GSC', stadium2: 'Stadium2', rs: 'RS', e: 'E', frlg: 'FRLG', dp: 'DP', pt: 'Pt', hgss: 'HGSS',
-  bw: 'BW', b2w2: 'B2W2', xy: 'XY', oras: 'ORAS', sm: 'SM', usum: 'USUM', lgpe: 'PE', swsh: 'SwSh', bdsp: 'BDSP', sv: 'SV', za: 'ZA'};
+  bw: 'BW', b2w2: 'B2W2', xy: 'XY', oras: 'ORAS', sm: 'SM', usum: 'USUM', lgpe: 'PE', swsh: 'SwSh', bdsp: 'BDSP', la: 'LA', sv: 'SV', za: 'ZA'};
 const cardsOf = (code) => CARDS.filter(([, codes]) => codes.includes(code)).map(([id]) => id);
 
 // The role a team plays in its game, for the game page's sections.
@@ -245,7 +313,7 @@ for (const [page, entry] of Object.entries(scrape)) {
       else if (!(n1 && (n1.includes(firstWord) || firstWord.includes(n1)))) { stats.skippedParties++; continue; }
     }
     if (!mons.length) { stats.skippedParties++; (stats.skippedWhy ||= []).push(`${page}: empty ${p.path.join('/')}`); continue; }
-    const dex = Dex.forGen(game.gen);
+    const dex = Dex.forGen(game.dex || game.gen);
     const sets = mons.map((m) => makeSet(m, dex)).filter(Boolean);
     const doubles = base === 'tateandliza';
     if (!sets.length) { stats.skippedParties++; continue; }
@@ -264,7 +332,7 @@ for (const [page, entry] of Object.entries(scrape)) {
     }
     variants.push({
       games: cardsOf(code), category: p.facility ? 'facilities' : categoryOf(base, cleanTemplates(p.cls), labelsEn, p.tpl === 'Party/2'),
-      _sig: sig, id: '', game: code, game_name: game.en, game_name_es: game.es, gen: game.gen, order: game.order, format: `gen${game.gen}${doubles ? 'doubles' : ''}customgame`,
+      _sig: sig, id: '', game: code, game_name: game.en, game_name_es: game.es, gen: game.gen, order: game.order, format: `gen${game.dex || game.gen}${doubles ? 'doubles' : ''}customgame`,
       labels: labelsEn, labels_alt: [], trainer_class: cleanTemplates(p.cls), location: cleanTemplates(p.location),
       note: withoutBag(note).slice(0, 300), sprite, sets, ...(sets.length > 6 ? {pool: sets.length} : {}), side: /side series/i.test(p.path[0] || ''),
     });
