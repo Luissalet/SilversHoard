@@ -21,7 +21,7 @@ ENGINE_DIR = REPO_ROOT / "engine"
 
 AI_LEVELS = ("random", "easy", "normal", "hard", "expert", "master", "neural")
 AI_STYLES = ("balanced", "aggressive", "defensive", "setup", "stall")
-SPRITE_SETS = ("gen5", "gen5ani", "ani", "home", "dex")
+SPRITE_SETS = ("gen5", "gen5ani", "ani", "home", "dex", "champions", "za", "sv")
 
 DEFAULT_SETTINGS: dict[str, Any] = {
     "player_name": "",            # the name your own trainers carry when you send them to friends
@@ -35,9 +35,12 @@ DEFAULT_SETTINGS: dict[str, Any] = {
     "sprite_downloads": True,     # fetch missing sprites from the Showdown sprite server and keep them in data/cache/sprites
     "sprite_server": "https://play.pokemonshowdown.com/sprites",
     "smogon_data": True,
+    "ai_banter": False,           # the AI trainers comment their moves in character, written by the family's language model as the battle goes
     "ai_hidden_info": False,       # the AI sees only what the battle has shown of the opponent's team (guessing the rest)           # popular sets and usage stats from data.pkmn.cc, fetched when asked for, kept in data/cache/smogon
     "sound_downloads": True,      # fetch Pokémon cries and battle music from the Showdown audio server and keep them in data/cache/audio
     "audio_server": "https://play.pokemonshowdown.com/audio",
+    "music_source": "showdown",   # battle music: showdown (its trainer and rival themes) or pokerogue (its community's original tracks)
+    "pokerogue_audio": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/beta/audio/bgm",
     "prospero_prompt": ("anime-style full-body trainer illustration in the art style of a 2010s handheld monster-catching role-playing "
                         "game, standing, facing the viewer, cel shading with two or three tones, clean dark outlines, limited palette, "
                         "flat plain white background, no text, no frame"),
@@ -181,6 +184,8 @@ class Settings:
                 raise SilverError("invalid", f"default_ai_level must be one of {', '.join(AI_LEVELS)}")
             if key == "default_ai_style" and value not in AI_STYLES:
                 raise SilverError("invalid", f"default_ai_style must be one of {', '.join(AI_STYLES)}")
+            if key == "music_source" and value not in ("showdown", "pokerogue"):
+                raise SilverError("invalid", "music_source is showdown or pokerogue")
             if key == "sprite_set" and value not in SPRITE_SETS:
                 raise SilverError("invalid", f"sprite_set must be one of {', '.join(SPRITE_SETS)}")
             if key == "playback_ms":

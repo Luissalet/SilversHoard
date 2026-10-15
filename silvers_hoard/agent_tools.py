@@ -135,6 +135,14 @@ class Dialogue(BaseModel):
     win: str = Field("", max_length=280)
     lose: str = Field("", max_length=280)
     last: str = Field("", max_length=280)
+    on_ko: str = Field("", max_length=280, description="Said when its Pokémon knocks out a foe.")
+    on_faint: str = Field("", max_length=280, description="Said when one of its Pokémon faints.")
+    on_super: str = Field("", max_length=280, description="Said when it lands a super-effective hit.")
+    on_switch: str = Field("", max_length=280, description="Said when it switches Pokémon.")
+    phase_when: Literal["", "half", "last"] = Field("", description="Change of tactics: half = when its team's HP falls to half; last = with its last Pokémon; '' = never.")
+    phase_level: Literal["", "random", "easy", "normal", "hard", "expert", "master", "neural"] = Field("", description="AI level from then on ('' = the same).")
+    phase_style: Literal["", "balanced", "aggressive", "defensive", "setup", "stall"] = Field("", description="AI style from then on ('' = the same).")
+    phase: str = Field("", max_length=280, description="What it says when it changes tactics (shown with its Pokémon's face).")
 
 
 class TrainerCreateArgs(BaseModel):
@@ -310,6 +318,15 @@ ModeField = Field("classic", description="classic = turns (Showdown's engine); r
 TimeLimitField = Field(0, ge=0, le=1800, description="realtime: seconds before time is called (0 = the settings' value, 300).")
 RtArena = Annotated[str, StringConstraints(pattern=r"^(open|rocks|custom:[A-Za-z0-9_]{1,80})$")]
 RtArenaField = Field("rocks", description="realtime: the arena. rocks = 3-6 rocks from the seed (block walking and projectiles); open = no obstacles; custom:<id> = an arena from the arena designer (arenas_list).")
+
+
+class TrainingArgs(BaseModel):
+    trainer_id: str = Field(..., min_length=1, max_length=80, description="Your trainer (you play it).")
+    pattern: Literal["still", "walk", "dodge", "fight"] = Field("still", description="The dummy: still, walk (in circles), dodge (rolls away from attacks) or fight (attacks like the easy AI).")
+    dummy_id: str = Field("", max_length=80, description="A trainer whose team is the dummy (default: a Sudowoodo).")
+    format: str = Field("", max_length=120)
+    rt_arena: RtArena = Field("open", description="open, rocks or custom:<id>.")
+    time_limit: int = Field(300, ge=30, le=1800)
 
 
 class BattleStartArgs(BaseModel):
@@ -568,6 +585,13 @@ class ImportArgs(BaseModel):
     format: str = Field("", max_length=120)
 
 
+class UnboundSaveArgs(BaseModel):
+    path: str = Field("", max_length=1000, description="The save file on this computer (.sav or .srm of Pokémon Unbound 2.1).")
+    data_base64: str = Field("", max_length=400_000, description="Or the save itself, base64.")
+    name: str = Field("", max_length=60, description="The new trainer's name (default: the player's name in the save).")
+    format: str = Field("", max_length=120, description="Default gen8customgame, as Unbound's Battle Frontier trainers.")
+
+
 class AvatarPhotoArgs(BaseModel):
     path: str = Field(..., min_length=1, max_length=1000, description="A photo on this computer.")
     trainer_id: str = Field("", max_length=80, description="Set it as this trainer's avatar.")
@@ -658,6 +682,9 @@ class SettingsSetArgs(BaseModel):
     node_path: Optional[str] = Field(None, max_length=500)
     sprite_downloads: Optional[bool] = None
     ai_hidden_info: Optional[bool] = Field(None, description="AIs see only what the battle has shown of the opponent's team.")
+    music_source: Optional[Literal["showdown", "pokerogue"]] = Field(None, description="Battle music: showdown (trainer and rival themes) or pokerogue (its community's original tracks, CC BY-NC-SA 4.0: by gym type, Elite Four, champion).")
+    pokerogue_audio: Optional[str] = Field(None, max_length=300, description="Where PokeRogue's battle tracks are downloaded from.")
+    ai_banter: Optional[bool] = Field(None, description="AI trainers comment their moves in character as the battle goes (the family's language model writes the lines in the background; battle_get returns them as banter).")
     smogon_data: Optional[bool] = Field(None, description="Fetch popular sets and usage statistics from data.pkmn.cc when asked for.")
     sound_downloads: Optional[bool] = None
     prospero_prompt: Optional[str] = Field(None, max_length=1000)
@@ -690,6 +717,16 @@ def _read_path(path: str, limit: int = 20 * 1024 * 1024) -> bytes:
     if p.stat().st_size > limit:
         raise SilverError("too_large", "The file is too large.")
     return p.read_bytes()
+
+
+def _unbound_save(s: Services, a: UnboundSaveArgs) -> Any:
+    if a.path:
+        data = _read_path(a.path, limit=1024 * 1024)
+    elif a.data_base64:
+        data = base64.b64decode(a.data_base64)
+    else:
+        raise SilverError("invalid", "Give path or data_base64.")
+    return s.unbound_save_import(data, name=a.name, format_=a.format)
 
 
 def _import(s: Services, a: ImportArgs) -> Any:
@@ -772,7 +809,9 @@ TOOLS: list[Tool] = [
                                        notes=a.notes, tags=a.tags)),
     Tool("trainer_update", _d("Change a trainer: name, team, format, AI, avatar, lines, notes, favourite. Editar entrenador.",
                               synonyms="cambiar equipo, renombrar"), TrainerUpdateArgs, WD,
-         lambda s, a: s.trainer_update(a.id, a.model_dump(exclude_none=True, exclude={"id"}))),
+         lambda s, a: s.trainer_update(a.id, {**a.model_dump(exclude_none=True, exclude={"id", "dialogue"}),
+                                              # only the lines given change: the others (and the change of tactics) stay
+                                              **({"dialogue": a.dialogue.model_dump(exclude_unset=True)} if a.dialogue else {})})),
     Tool("trainer_random", _d("Create a trainer with a random team and a random trainer sprite. Entrenador aleatorio.",
                               synonyms="npc al azar, rival aleatorio"), TrainerRandomArgs, WD,
          lambda s, a: s.trainer_random(name=a.name, format_=a.format, ai_level=a.ai_level or "", seed=a.seed)),
@@ -867,6 +906,12 @@ TOOLS: list[Tool] = [
          lambda s, a: s.battle_choose(a.id, a.side, a.choice, since=a.since), 120.0),
     Tool("battle_forfeit", _d("Give up a live battle for one side. Rendirse.", synonyms="abandonar combate"), ForfeitArgs, W,
          lambda s, a: s.battle_forfeit(a.id, a.side, since=a.since)),
+    Tool("training_start", _d("Real-time training against a dummy that never faints: try cooldowns, reach, rolls and combos. Entrenamiento.",
+                              "The dummy stands still, walks, dodges or fights back (pattern); a knockout heals it. Open the returned battle in the app "
+                              "(#/combate/<id>) to play; the screen shows damage per second. Nothing counts for records, progress or medals.",
+                              synonyms="muñeco, practicar tiempo real, entrenar, dps"), TrainingArgs, W,
+         lambda s, a: s.training_start(trainer_id=a.trainer_id, pattern=a.pattern, dummy_id=a.dummy_id, format_=a.format, arena=a.rt_arena,
+                                       time_limit=a.time_limit)),
     Tool("battle_rt_finish", _d("End a real-time battle: the app replays its inputs and stores the result. Terminar combate en tiempo real.",
                                 "Used by the battle screen; a forfeit stops the replay at `tick`.", synonyms="tiempo real, resultado, rendirse"),
          RtFinishArgs, W, lambda s, a: s.rt_finish(a.id, inputs=a.inputs, tick=a.tick, forfeit=a.forfeit), 600.0),
@@ -993,6 +1038,11 @@ TOOLS: list[Tool] = [
     Tool("import", _d("Import a share code, result code, .hoard* file, playable page, Showdown team or pokepast.es link. Importar.",
                       "Result codes from friends record their badge or win here.", synonyms="código de amigo, resultado, cargar"),
          ImportArgs, WD, _import),
+    Tool("unbound_save_import", _d("A Pokémon Unbound save file's party as a new trainer. Importar equipo de mi partida de Unbound.",
+                                   "Reads the .sav/.srm: species, items, Unbound's abilities, moves, levels, natures, EVs, IVs, nicknames; "
+                                   "eggs and unknown ids are listed in skipped. import also takes save files.",
+                                   synonyms="partida guardada, archivo de guardado, sav, emulador, mi equipo de unbound"),
+         UnboundSaveArgs, WD, _unbound_save),
     Tool("avatar_draw", _d("Have Prospero's Hoard draw a trainer sprite from up to 4 photos and/or a description (a job). Dibujar sprite.",
                            "Each result is a 96-px pixel-art sprite plus the drawing itself; job_get gives them as candidates.",
                            synonyms="sprite con ia, dibujar entrenador, sprite desde fotos, sprite de un famoso"), AvatarDrawArgs, WD,

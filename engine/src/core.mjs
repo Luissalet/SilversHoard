@@ -73,6 +73,9 @@ export function listFormats({gen = 0, query = ''} = {}) {
   return out.map(({rank, ...f}) => f);
 }
 
+/** National Pokédex number of a species (0 when unknown). */
+export const dexNum = (species) => Dex.species.get(String(species || '')).num || 0;
+
 export const genOf = (formatId) => Dex.formats.get(formatId, true).gen || Number(String(formatId).match(/^gen(\d)/)?.[1] || 9);
 
 // ---------------------------------------------------------------- teams

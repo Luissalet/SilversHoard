@@ -27,6 +27,32 @@ export function compactTrace(trace) {
 
 export const MAX_TURNS_DEFAULT = 300;
 
+const PHASE_WHEN = new Set(['half', 'last']);
+/** A trainer's change of tactics from its lines (dialogue keys phase_when, phase_level, phase_style and the line phase):
+ * {when: 'half' (its team's HP falls to half) | 'last' (its last Pokémon), level, style, line}, or null. */
+export function phaseOf(dialogue) {
+  const d = dialogue || {};
+  if (!PHASE_WHEN.has(d.phase_when)) return null;
+  return {when: d.phase_when, ...(d.phase_level ? {level: String(d.phase_level)} : {}), ...(d.phase_style ? {style: String(d.phase_style)} : {}),
+    ...(d.phase || d.last ? {line: String(d.phase || (d.phase_when === 'last' ? d.last : '') || '').slice(0, 280)} : {})};
+}
+
+/** Has a side of a turn-based battle reached its phase? Only for teams of two or more. */
+export function phaseReached(battle, sideId, when) {
+  const s = battle.sides.find((x) => x && x.id === sideId);
+  const mons = s ? s.pokemon : [];
+  if (mons.length < 2) return false;
+  if (when === 'last') return mons.filter((p) => !p.fainted && p.hp > 0).length === 1;
+  const total = mons.reduce((a, p) => a + (p.maxhp || 0), 0);
+  const left = mons.reduce((a, p) => a + (p.fainted ? 0 : p.hp || 0), 0);
+  return total > 0 && left * 2 <= total;
+}
+
+/** The AI a side plays with once its phase has come: its level and style replaced by the phase's. */
+export function phaseAi(ai, on) {
+  return on && ai?.phase ? {...ai, level: ai.phase.level || ai.level, style: ai.phase.style || ai.style} : ai;
+}
+
 function seatName(name, fallback) {
   const clean = String(name || '').replace(/[|\n\r]/g, ' ').trim().slice(0, 40);
   return clean || fallback;
@@ -117,6 +143,8 @@ export class Match {
       this.battle = new Battle(options);
     }
     this.battle.send = () => {};
+    // a change of tactics happens once; a battle picked up from a snapshot finds it in its log
+    this.phased = Object.fromEntries(['p1', 'p2'].map((id) => [id, this.battle.log.some((l) => l.startsWith(`|silverphase|${id}`))]));
   }
 
   isAi(side) {
@@ -137,7 +165,12 @@ export class Match {
         if (!side || b.ended) continue;
         const req = side.activeRequest;
         if (!req || req.wait || side.isChoiceDone() || !this.isAi(side.id)) continue;
-        const ai = this.seats[side.id].ai;
+        let ai = this.seats[side.id].ai;
+        if (ai.phase && !this.phased[side.id] && phaseReached(b, side.id, ai.phase.when)) {
+          this.phased[side.id] = true;
+          b.add('silverphase', side.id, String(ai.phase.line || '').replace(/[|\r\n]/g, ' ').slice(0, 280));
+        }
+        ai = phaseAi(ai, this.phased[side.id]);
         let choice = null;
         const trace = this.spec.trace ? {} : null;
         try {

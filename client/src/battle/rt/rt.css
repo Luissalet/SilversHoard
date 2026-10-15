@@ -66,6 +66,20 @@
 .rt-progress { flex: 1; min-width: 80px; height: 6px; border-radius: 4px; background: var(--b-surface-2); overflow: hidden; }
 .rt-progress > span { display: block; height: 100%; background: var(--b-accent); }
 .rt-log { max-height: 640px; }
+.rt-ult { display: flex; align-items: center; gap: 6px; }
+.rt-ult-bar { width: 84px; height: 7px; border-radius: 4px; background: #0006; overflow: hidden; border: 1px solid #fff3; }
+.rt-ult-bar i { display: block; height: 100%; background: linear-gradient(90deg, #ff9f43, #ff4d4d); }
+.rt-ult.is-ready .rt-ult-bar i { background: linear-gradient(90deg, #ffd166, #ff4d4d, #ffd166); animation: rt-ult-glow 0.9s linear infinite; background-size: 200% 100%; }
+@keyframes rt-ult-glow { to { background-position: -200% 0; } }
+.rt-ult.is-ready .rt-ult-btn { border-color: #ffb347; box-shadow: 0 0 10px #ff9f4388; }
+.rt-training { border: 1px solid var(--line, #3a3030); border-radius: 10px; padding: 10px 12px; display: grid; gap: 8px; align-content: start; }
+.rt-training-head { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.rt-training-nums { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.rt-training-nums > div { display: grid; gap: 1px; }
+.rt-training-nums b { font-size: 20px; }
+.rt-training-moves { width: 100%; font-size: 12.5px; border-collapse: collapse; }
+.rt-training-moves td { padding: 2px 4px; border-top: 1px solid var(--line, #3a3030); }
+.rt-training-moves td.num { text-align: right; width: 4.5em; }
 .rt-sec { color: var(--b-muted); font-size: 11px; margin-right: 4px; }
 .rt-credit { font-size: 11px; opacity: 0.7; }
 .chip-rt { background: color-mix(in srgb, #5aaaff 22%, transparent); color: #9fd0ff; }

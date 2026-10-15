@@ -7,7 +7,7 @@
 // the battle must have been played with exactly that seed and AI key, so everyone that week faced the same luck.
 import {Battle} from '@pkmn/sim';
 import {buildFormatId, EngineError, seedArray} from './core.mjs';
-import {MAX_TURNS_DEFAULT, prepareTeam, viewLines} from './match.mjs';
+import {MAX_TURNS_DEFAULT, phaseAi, phaseReached, prepareTeam, viewLines} from './match.mjs';
 import {chooseFor, makeRng} from './ai.mjs';
 
 const MAX_LINES = 20000;
@@ -44,16 +44,19 @@ export function replayCheck(a) {
   b.send = () => {};
   const rng = a.ai ? makeRng(`${a.rng_id}:p2`) : null;
   let decisions = 0;
+  let phased = false;   // the opponent's change of tactics, as the page's Match makes it
   let mismatches = 0;
   // the AI's decision at this moment (on the page it chose before the person): normalised the way the record writes choices
   const aiCheck = (recorded) => {
     const s = b.sides[1];
     if (!a.ai || !s.activeRequest || s.activeRequest.wait) return;
     decisions++;
+    if (a.ai.phase && !phased && phaseReached(b, 'p2', a.ai.phase.when)) phased = true;
+    const ai = phaseAi(a.ai, phased);
     let mine = null;
     // the page plays the master as the expert (its search needs the app): so does the check
-    const level = a.ai.level === 'master' ? 'expert' : a.ai.level;
-    try { mine = chooseFor(b, 'p2', {level, style: a.ai.style, rng}); } catch { mine = null; }
+    const level = ai.level === 'master' ? 'expert' : ai.level;
+    try { mine = chooseFor(b, 'p2', {level, style: ai.style, rng}); } catch { mine = null; }
     let norm = '';
     try {
       if (mine && s.choose(mine)) norm = s.getChoice();

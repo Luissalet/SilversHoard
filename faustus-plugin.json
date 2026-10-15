@@ -36,7 +36,14 @@
     "cups",
     "arena-designer",
     "gym-maps",
-    "neural-ai"
+    "neural-ai",
+    "portraits",
+    "hit-feel",
+    "training-dummy",
+    "boss-phases",
+    "custom-backdrops",
+    "unbound-save-import",
+    "community-music"
   ],
   "x-family": {
     "copilot": true
