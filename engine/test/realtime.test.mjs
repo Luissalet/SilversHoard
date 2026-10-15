@@ -136,6 +136,16 @@ test('old replays: battles recorded before focus, rocks and Mega Evolution repla
     assert.equal(b.events.length, rec.events, rec.name);
     assert.equal(createHash('sha256').update(JSON.stringify(b.events)).digest('hex'), rec.digest, `${rec.name}: the same events`);
   }
+  // battles recorded with rules version 2 (free aim, rocks, gauge, Plus, Mega Evolution; a doubles format played as singles)
+  const v2fix = JSON.parse(readFileSync(new URL('./fixtures/rt-v2.json', import.meta.url), 'utf8'));
+  assert.equal(v2fix.battles.length, 4);
+  for (const rec of v2fix.battles) {
+    const b = rtRun(rec.spec, {inputs: rec.inputs});
+    assert.deepEqual(b.summary(), rec.summary, rec.name);
+    assert.equal(b.t, rec.ticks, rec.name);
+    assert.equal(b.events.length, rec.events, rec.name);
+    assert.equal(createHash('sha256').update(JSON.stringify(b.events)).digest('hex'), rec.digest, `${rec.name}: the same events`);
+  }
   // seven-column rows read as focused, no Plus, no Mega
   const b = new RtBattle({...fixture.battles[1].spec, version: 2});
   const frame = inputFrame(b, [[1, 0, 0.5, 0, 2, 0, -1]], [null, null]);
