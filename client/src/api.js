@@ -53,12 +53,18 @@ export const api = {
   call,
   uploadAvatar: (file, { trainerId = "", mode = "pixel", removeBackground = true } = {}) =>
     upload("/api/avatars/upload", { file, trainer_id: trainerId, mode, remove_background: removeBackground ? "true" : "false" }),
-  drawAvatar: (files, { description = "", trainerId = "", count = 2 } = {}) => {
+  uploadStyleRefs: (files) => {
+    const form = new FormData();
+    for (const f of [...files].slice(0, 3)) form.append("files", f);
+    return request("POST", "/api/style-refs", { form });
+  },
+  drawAvatar: (files, { description = "", trainerId = "", count = 2, style = true } = {}) => {
     const form = new FormData();
     for (const f of [...files].slice(0, 4)) form.append("files", f);
     form.append("description", description);
     form.append("trainer_id", trainerId);
     form.append("count", String(count));
+    form.append("style", style ? "true" : "false");
     return request("POST", "/api/avatars/draw", { form });
   },
   uploadImport: (file, { name = "", format = "" } = {}) => upload("/api/import/upload", { file, name, format }),

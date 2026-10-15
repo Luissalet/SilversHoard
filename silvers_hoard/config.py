@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import copy
+import re
 import os
 import shutil
 import threading
@@ -24,7 +25,7 @@ SPRITE_SETS = ("gen5", "gen5ani", "ani", "home", "dex")
 
 DEFAULT_SETTINGS: dict[str, Any] = {
     "player_name": "",            # the name your own trainers carry when you send them to friends
-    "default_format": "gen9customgame",
+    "default_format": "gen9nationaldexag",   # anything goes: every Pokémon, item and move, Mega, Z and Terastal, no tier bans
     "default_ai_level": "normal",
     "default_ai_style": "balanced",
     "sprite_set": "gen5ani",      # gen5 (pixel art), gen5ani (animated pixel art, gen5 for newer species), ani (3D), home, dex
@@ -33,17 +34,14 @@ DEFAULT_SETTINGS: dict[str, Any] = {
     "node_path": "",              # empty: `node` from PATH
     "sprite_downloads": True,     # fetch missing sprites from the Showdown sprite server and keep them in data/cache/sprites
     "sprite_server": "https://play.pokemonshowdown.com/sprites",
-    "prospero_prompt": ("pixel art sprite of the person in the reference photo as a monster-trainer character from a 2000s handheld "
-                        "role-playing game, full body, standing, facing the viewer, limited palette, crisp 1-pixel outlines, flat "
-                        "plain white background, no text"),
+    "prospero_prompt": ("anime-style full-body trainer illustration in the art style of a 2010s handheld monster-catching role-playing "
+                        "game, standing, facing the viewer, cel shading with two or three tones, clean dark outlines, limited palette, "
+                        "flat plain white background, no text, no frame"),
+    # Showdown trainer sprites (names) Prospero gets as art-style references; generic Black/White trainer classes
+    "prospero_style_sprites": "backpacker,acetrainer,pilot",
     "prospero_engine": "",        # image engine Prospero uses for sprites ("" = the project's default; qwen21, flux, sdxl)
     "series_default": 20,         # battles in a series when none is given
-    "default_mode": "classic",    # classic (turns, Showdown's engine) or realtime (Legends: Z-A rules: cooldowns, a 2D arena)
-    "rt_time_limit": 300,         # seconds of a real-time battle; then more Pokémon standing wins, then more HP left
-    "pmd_sprites": True,          # real-time arena: walking sprites from PMDCollab's SpriteCollab, downloaded once and cached
-    "pmd_server": "https://raw.githubusercontent.com/PMDCollab/SpriteCollab/master",
 }
-MODES = ("classic", "realtime")
 
 
 @dataclass
@@ -80,6 +78,11 @@ class Config:
         return self.data_dir / "avatars"
 
     @property
+    def style_refs_dir(self) -> Path:
+        """Pictures the user adds as art-style references for drawn sprites (official art, anime stills, sprites)."""
+        return self.data_dir / "style_refs"
+
+    @property
     def exports_dir(self) -> Path:
         return self.data_dir / "exports"
 
@@ -108,6 +111,15 @@ def find_node(configured: str = "") -> str:
     return ""
 
 
+# earlier defaults: a stored value equal to one of these is an old default, not a choice, and gives way to the new one
+PREVIOUS_DEFAULTS = {
+    "default_format": ["gen9customgame"],
+    "prospero_prompt": ["pixel art sprite of the person in the reference photo as a monster-trainer character from a 2000s handheld "
+                        "role-playing game, full body, standing, facing the viewer, limited palette, crisp 1-pixel outlines, flat "
+                        "plain white background, no text"],
+}
+
+
 class Settings:
     """Thread-safe JSON settings with defaults; ``update`` validates and writes atomically."""
 
@@ -115,7 +127,8 @@ class Settings:
         self.path = path
         self._lock = threading.RLock()
         stored = read_json(path, default={}) or {}
-        self._data = {**copy.deepcopy(DEFAULT_SETTINGS), **{k: v for k, v in stored.items() if k in DEFAULT_SETTINGS}}
+        stored = {k: v for k, v in stored.items() if k in DEFAULT_SETTINGS and v not in PREVIOUS_DEFAULTS.get(k, [])}
+        self._data = {**copy.deepcopy(DEFAULT_SETTINGS), **stored}
 
     def __getitem__(self, key: str) -> Any:
         with self._lock:
@@ -160,16 +173,16 @@ class Settings:
                 value = max(20, min(int(value), 2000))
             if key == "series_default":
                 value = max(1, min(int(value), 1000))
-            if key == "default_mode" and value not in MODES:
-                raise SilverError("invalid", "default_mode is classic or realtime")
-            if key == "rt_time_limit":
-                value = max(30, min(int(value), 1800))
-            if key == "pmd_server" and not value.startswith("https://"):
-                raise SilverError("invalid", "pmd_server must be an https:// address")
+            if key == "prospero_style_sprites":
+                names = [n.strip().lower() for n in value.split(",") if n.strip()]
+                if len(names) > 3 or any(not re.match(r"^[a-z0-9][a-z0-9-]{0,60}$", n) for n in names):
+                    raise SilverError("invalid", "prospero_style_sprites: up to 3 trainer sprite names separated by commas")
+                value = ",".join(names)
             if key == "sprite_server" and not value.startswith("https://"):
                 raise SilverError("invalid", "sprite_server must be an https:// address")
             clean[key] = value
         with self._lock:
             self._data.update(clean)
-            write_json_atomic(self.path, self._data)
+            # only what differs from the defaults is stored, so a better default reaches everybody who did not change it
+            write_json_atomic(self.path, {k: v for k, v in self._data.items() if v != DEFAULT_SETTINGS.get(k)})
             return copy.deepcopy(self._data)

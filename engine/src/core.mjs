@@ -24,7 +24,7 @@ export class EngineError extends Error {
 // Rules a gym or a battle can add on top of a Showdown format. Level rules are applied to the sets themselves (Showdown only
 // applies "Adjust Level" in its validator); the rest travel in the format id after "@@@" as Showdown custom rules.
 export function buildFormatId(format, rules = []) {
-  const base = toID(format || 'gen9customgame') || 'gen9customgame';
+  const base = toID(format || 'gen9nationaldexag') || 'gen9nationaldexag';
   const extra = (rules || []).map((r) => String(r).trim()).filter(Boolean);
   const raw = extra.length ? `${base}@@@${extra.join(',')}` : base;
   let id;

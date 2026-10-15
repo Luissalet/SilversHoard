@@ -21,9 +21,8 @@ Start with silver_overview. Teams come in as Showdown export text (paste), packe
 Battles: battle_start with two seats. A seat is {trainer_id} or {paste|team, name}; human=true means a person plays it from the app (or you, with battle_choose), otherwise the AI plays (ai_level random|easy|normal|hard|expert, ai_style balanced|aggressive|defensive|setup|stall). Two AI seats = a watched battle that plays out in the background; read it with battle_get (lines are the Showdown protocol log). battle_choose sends a Showdown choice for a person's seat ("move 1", "move 2 terastallize", "switch 3", "team 123456"; doubles: "move 1 1, move 2 -1"); battle_get returns the pending request with the legal options.
 Gym and league challenges: challenge_start (kind gym|league, a challenger trainer; auto=true lets the AI play the challenger). Winning every battle of a gym gives a badge; a league needs its badges and ends in the hall of fame.
 Many battles at once: series_start (the same two trainers N times: win rate, MVPs) and tournament_start (bracket or league table between trainers), both background jobs (job_get).
-Real time: battle_start, challenge_start, series_start and tournament_start take mode=realtime for battles after Pokémon Legends: Z-A (the same trainers and teams on a 2D arena, no turns: every move has a cooldown in seconds instead of PP, a wind-up and a range; attacks can be dodged; one-stage stat changes that wear off; three switches that come back after each KO). A person plays it on the app's screen; two AI seats play it in the background. rt_cooldowns shows how a team's moves translate (Z-A's own cooldowns, or derived from PP and power); rt_rules explains the rules. battle_get of a real-time battle returns English event lines and the spec + inputs that replay it exactly.
 Sharing: export (fmt file = .hoardtrainer/.hoardgym/.hoardleague, code = a share code for a chat, page = one HTML file a friend opens in a browser to fight the gym or trainer, paste = Showdown text). import takes any of those back, plus the result codes friends send after playing a page (records their badge).
-Avatars: trainer_sprites_search (Showdown trainer sprites), avatar_from_photo (a photo on this computer into pixel art here) or avatar_draw (Prospero's Hoard draws one from up to 4 photos and/or a description, a background job)."""
+Avatars: trainer_sprites_search (Showdown trainer sprites), avatar_from_photo (a photo on this computer into pixel art here) or avatar_draw (Prospero's Hoard draws one from up to 4 photos and/or a description in the games' art style, with the references of avatar_style_get; a background job)."""
 
 
 def _d(first: str, detail: str = "", synonyms: str = "") -> str:
@@ -100,7 +99,7 @@ class TrainerCreateArgs(BaseModel):
     name: str = Field(..., min_length=1, max_length=60)
     paste: str = Field("", max_length=200_000, description="The team as Showdown export text.")
     team: Optional[list[dict[str, Any]]] = Field(None, description="Or the team as a list of sets.")
-    format: str = Field("", max_length=120, description="Empty = the default format of the settings (gen9customgame).")
+    format: str = Field("", max_length=120, description="Empty = the default of the settings (gen9nationaldexag: anything goes, Mega, Z and Terastal).")
     title: str = Field("", max_length=60, description="Trainer class or title shown under the name.")
     ai_level: Optional[Level] = None
     ai_style: Optional[Style] = None
@@ -204,11 +203,6 @@ class Seat(BaseModel):
     ai_style: Optional[Style] = None
 
 
-Mode = Literal["classic", "realtime"]
-ModeField = Field("classic", description="classic = turns (Showdown's engine); realtime = Legends: Z-A rules (cooldowns, 2D arena).")
-TimeLimitField = Field(0, ge=0, le=1800, description="realtime: seconds before time is called (0 = the settings' value, 300).")
-
-
 class BattleStartArgs(BaseModel):
     p1: Seat
     p2: Seat
@@ -216,29 +210,6 @@ class BattleStartArgs(BaseModel):
     rules: list[str] = Field(default_factory=list, max_length=20)
     level_rules: dict[str, int] = Field(default_factory=dict)
     seed: Optional[str] = Field(None, max_length=60, description="Same seed and choices = same battle.")
-    mode: Mode = ModeField
-    time_limit: int = TimeLimitField
-
-
-class RtFinishArgs(BaseModel):
-    id: str = IdField
-    inputs: list[list[Any]] = Field(default_factory=list, max_length=200_000, description="The screen's input log: [tick, side, mx, my, move, roll, switch].")
-    tick: int = Field(0, ge=0, le=60 * 30 * 30)
-    forfeit: Literal["", "p1", "p2"] = ""
-
-
-class RtSaveArgs(BaseModel):
-    id: str = IdField
-    inputs: list[list[Any]] = Field(default_factory=list, max_length=200_000)
-    tick: int = Field(0, ge=0, le=60 * 30 * 30)
-
-
-class RtCooldownArgs(BaseModel):
-    trainer_id: str = Field("", max_length=80)
-    paste: str = Field("", max_length=200_000)
-    team: Optional[list[dict[str, Any]]] = None
-    format: str = Field("", max_length=120)
-    level_rules: dict[str, int] = Field(default_factory=dict)
 
 
 class BattleGetArgs(BaseModel):
@@ -273,8 +244,7 @@ class ChallengeArgs(BaseModel):
     challenger_id: str = IdField
     auto: bool = Field(False, description="The AI plays the challenger too (the whole challenge runs by itself).")
     ignore_badges: bool = False
-    format: str = Field("", max_length=120, description="Play every battle in this format instead of the gym's (e.g. gen9customgame for a modern team against a gen 2 gym).")
-    mode: Mode = ModeField
+    format: str = Field("", max_length=120, description="Play every battle in this format instead of the gym's (e.g. gen9nationaldexag for a modern team against a gen 2 gym).")
 
 
 class ChallengesArgs(BaseModel):
@@ -298,8 +268,6 @@ class SeriesArgs(BaseModel):
     format: str = Field("", max_length=120)
     rules: list[str] = Field(default_factory=list, max_length=20)
     level_rules: dict[str, int] = Field(default_factory=dict)
-    mode: Mode = ModeField
-    time_limit: int = TimeLimitField
 
 
 class TournamentArgs(BaseModel):
@@ -311,8 +279,6 @@ class TournamentArgs(BaseModel):
     level_rules: dict[str, int] = Field(default_factory=dict)
     title: str = Field("", max_length=80)
     ai_level: Optional[Level] = Field(None, description="Same AI for everybody; empty = each trainer's own.")
-    mode: Mode = ModeField
-    time_limit: int = TimeLimitField
 
 
 class JobsArgs(BaseModel):
@@ -345,6 +311,13 @@ class AvatarDrawArgs(BaseModel):
     description: str = Field("", max_length=300, description="Who or what to draw (with or without photos): a name, a look, clothes.")
     trainer_id: str = Field("", max_length=80, description="Set the first result as this trainer's avatar.")
     count: int = Field(2, ge=1, le=4, description="How many pictures Prospero draws.")
+    style: bool = Field(True, description="Send the art-style references too (avatar_style_get), so it is drawn in the games' style.")
+
+
+class AvatarStyleArgs(BaseModel):
+    sprites: Optional[str] = Field(None, max_length=200, description="Showdown trainer sprite names, comma separated (up to 3); empty = none.")
+    add_paths: list[str] = Field(default_factory=list, max_length=3, description="Pictures on this computer to add as style references.")
+    remove: list[str] = Field(default_factory=list, max_length=20, description="Style pictures to remove (file names from avatar_style_get).")
 
 
 class SettingsSetArgs(BaseModel):
@@ -358,11 +331,9 @@ class SettingsSetArgs(BaseModel):
     node_path: Optional[str] = Field(None, max_length=500)
     sprite_downloads: Optional[bool] = None
     prospero_prompt: Optional[str] = Field(None, max_length=1000)
+    prospero_style_sprites: Optional[str] = Field(None, max_length=200, description="Trainer sprites used as art-style references.")
     prospero_engine: Optional[Literal["", "auto", "qwen21", "flux", "sdxl"]] = Field(None, description="Image engine for drawn sprites; empty = Prospero's default.")
     series_default: Optional[int] = Field(None, ge=1, le=1000)
-    default_mode: Optional[Mode] = None
-    rt_time_limit: Optional[int] = Field(None, ge=30, le=1800)
-    pmd_sprites: Optional[bool] = None
 
 
 def _seat(s: Seat) -> dict[str, Any]:
@@ -464,8 +435,7 @@ TOOLS: list[Tool] = [
     Tool("trash_list", _d("What is in the trash. Ver papelera.", synonyms="borrados"), Empty, R, lambda s, a: s.trash_list()),
     Tool("battle_start", _d("Start a battle: two seats (trainer or team; person or AI). Two AIs = a watched battle. Empezar combate.",
                             synonyms="combatir, pelea, simular combate, npc contra npc, jugar"), BattleStartArgs, W,
-         lambda s, a: s.battle_start(p1=_seat(a.p1), p2=_seat(a.p2), format_=a.format, rules=a.rules, level_rules=a.level_rules, seed=a.seed,
-                                     mode=a.mode, time_limit=a.time_limit), 180.0),
+         lambda s, a: s.battle_start(p1=_seat(a.p1), p2=_seat(a.p2), format_=a.format, rules=a.rules, level_rules=a.level_rules, seed=a.seed), 180.0),
     Tool("battle_get", _d("A battle: protocol log (from since), pending choices of person seats, result. Ver combate.",
                           synonyms="estado del combate, log, repetición"), BattleGetArgs, R, lambda s, a: s.battle_get(a.id, since=a.since)),
     Tool("battle_choose", _d("Send a person seat's choice: 'move 1', 'move 2 terastallize', 'switch 3', 'team 123456'. Elegir.",
@@ -473,16 +443,6 @@ TOOLS: list[Tool] = [
          lambda s, a: s.battle_choose(a.id, a.side, a.choice, since=a.since), 120.0),
     Tool("battle_forfeit", _d("Give up a live battle for one side. Rendirse.", synonyms="abandonar combate"), ForfeitArgs, W,
          lambda s, a: s.battle_forfeit(a.id, a.side, since=a.since)),
-    Tool("battle_rt_finish", _d("End a real-time battle: the app replays its inputs and stores the result. Terminar combate en tiempo real.",
-                                "Used by the battle screen; a forfeit stops the replay at `tick`.", synonyms="tiempo real, resultado, rendirse"),
-         RtFinishArgs, W, lambda s, a: s.rt_finish(a.id, inputs=a.inputs, tick=a.tick, forfeit=a.forfeit), 600.0),
-    Tool("battle_rt_save", _d("Keep the inputs of a live real-time battle so a reload resumes it. Guardar combate en tiempo real.",
-                              synonyms="tiempo real, guardar partida"), RtSaveArgs, W, lambda s, a: s.rt_save(a.id, inputs=a.inputs, tick=a.tick)),
-    Tool("rt_cooldowns", _d("A team's moves in real time: Z-A cooldown or one derived from PP, Speed-adjusted, wind-up. Recargas.",
-                            synonyms="tiempo real, PP, enfriamiento, recarga, leyendas z-a"), RtCooldownArgs, R,
-         lambda s, a: s.rt_cooldowns(trainer_id=a.trainer_id, team=a.team, paste=a.paste, format_=a.format, level_rules=a.level_rules), 60.0),
-    Tool("rt_rules", _d("How the real-time mode works (Legends: Z-A rules) and what it does not cover. Reglas del tiempo real.",
-                        synonyms="tiempo real, leyendas z-a, reglas, controles"), Empty, R, lambda s, a: s.rt_rules()),
     Tool("battles_list", _d("Battles: live, watched, gym, league, series, tournament, from friends. Historial de combates.",
                             synonyms="historial, repeticiones"), BattlesArgs, R,
          lambda s, a: {"battles": s.battles_list(a.kind, a.status, a.trainer_id, a.limit, a.offset)}),
@@ -491,7 +451,7 @@ TOOLS: list[Tool] = [
     Tool("challenge_start", _d("Challenge a gym or a league with a trainer (you play, or the AI with auto). Retar gimnasio.",
                                synonyms="reto, medalla, alto mando, desafío"), ChallengeArgs, W,
          lambda s, a: s.run_start(kind=a.kind, target_id=a.target_id, challenger_id=a.challenger_id, auto=a.auto, ignore_badges=a.ignore_badges,
-                                  format_override=a.format, mode=a.mode), 180.0),
+                                  format_override=a.format), 180.0),
     Tool("challenge_next", _d("Start the next battle of an active challenge. Siguiente combate del reto.", synonyms="continuar reto"),
          IdArg, W, lambda s, a: s.run_next(a.id), 180.0),
     Tool("challenge_abandon", _d("Give up an active challenge. Abandonar reto.", synonyms="rendirse"), IdArg, W, lambda s, a: s.run_abandon(a.id)),
@@ -503,12 +463,11 @@ TOOLS: list[Tool] = [
          lambda s, a: {"hall": s.hall_list(a.league_id)}),
     Tool("series_start", _d("Play the same two AI trainers N times: win rate, average turns, MVPs (a job). Serie de combates.",
                             synonyms="simular muchas veces, probabilidad de ganar, estadísticas"), SeriesArgs, W,
-         lambda s, a: s.series_start(p1=_seat(a.p1), p2=_seat(a.p2), count=a.count, format_=a.format, rules=a.rules, level_rules=a.level_rules,
-                                     mode=a.mode, time_limit=a.time_limit)),
+         lambda s, a: s.series_start(p1=_seat(a.p1), p2=_seat(a.p2), count=a.count, format_=a.format, rules=a.rules, level_rules=a.level_rules)),
     Tool("tournament_start", _d("A tournament between trainers played by the AI: bracket or league table (a job). Torneo.",
                                 synonyms="copa, eliminatoria, liguilla, todos contra todos"), TournamentArgs, W,
          lambda s, a: s.tournament_start(trainer_ids=a.trainer_ids, kind=a.kind, best_of=a.best_of, format_=a.format, rules=a.rules,
-                                         level_rules=a.level_rules, title=a.title, ai_level=a.ai_level or "", mode=a.mode, time_limit=a.time_limit)),
+                                         level_rules=a.level_rules, title=a.title, ai_level=a.ai_level or "")),
     Tool("jobs_list", _d("Series, tournaments and sprite drawings, running or finished. Trabajos.", synonyms="progreso, cola"),
          JobsArgs, R, lambda s, a: {"jobs": s.jobs_list(a.kind, a.status)}),
     Tool("job_get", _d("One job with its result (series stats, tournament bracket or table) and battles. Resultado.",
@@ -524,7 +483,15 @@ TOOLS: list[Tool] = [
     Tool("avatar_draw", _d("Have Prospero's Hoard draw a trainer sprite from up to 4 photos and/or a description (a job). Dibujar sprite.",
                            "Each result is a 96-px pixel-art sprite plus the drawing itself; job_get gives them as candidates.",
                            synonyms="sprite con ia, dibujar entrenador, sprite desde fotos, sprite de un famoso"), AvatarDrawArgs, WD,
-         lambda s, a: s.avatar_draw([_read_path(p) for p in a.paths], description=a.description, trainer_id=a.trainer_id, count=a.count), 120.0),
+         lambda s, a: s.avatar_draw([_read_path(p) for p in a.paths], description=a.description, trainer_id=a.trainer_id, count=a.count,
+                                    style=a.style), 120.0),
+    Tool("avatar_style_get", _d("The art-style references drawn sprites follow: your pictures, then trainer sprites. Estilo de los sprites.",
+                                 synonyms="referencias de estilo, estilo anime, estilo de los juegos"), Empty, R,
+         lambda s, a: s.avatar_style_get()),
+    Tool("avatar_style_set", _d("Change the style references: trainer sprite names, pictures to add or remove. Cambiar estilo.",
+                                 "Up to 3 are used: your pictures first (official art, anime stills), then the sprites.",
+                                 synonyms="añadir referencia de estilo, arte oficial, estilo anime"), AvatarStyleArgs, WD,
+         lambda s, a: s.avatar_style_set(sprites=a.sprites, add=[(Path(p).name, _read_path(p)) for p in a.add_paths], remove=a.remove)),
     Tool("avatar_from_photo", _d("Turn a photo into a trainer sprite: pixel art here or drawn by Prospero's Hoard (a job). Sprite desde foto.",
                                  synonyms="avatar, foto, sprite estilo pokémon, prospero"), AvatarPhotoArgs, WD,
          lambda s, a: s.avatar_from_photo(_read_path(a.path), trainer_id=a.trainer_id, mode=a.mode, remove_background=a.remove_background), 120.0),

@@ -119,7 +119,7 @@ export function FormatSelect({ value, onChange, id }) {
   const listId = `${id || "fmt"}-list`;
   return (
     <>
-      <input id={id} className="field" list={listId} value={value || ""} onChange={(e) => onChange(e.target.value)} placeholder="gen9customgame" />
+      <input id={id} className="field" list={listId} value={value || ""} onChange={(e) => onChange(e.target.value)} placeholder="gen9nationaldexag" />
       <datalist id={listId}>{formats.filter((f) => !f.random).map((f) => <option key={f.id} value={f.id}>{f.name}</option>)}</datalist>
       <span className="help mt-1 block">{t("format_help")}</span>
     </>
@@ -284,6 +284,7 @@ export function AvatarDialog({ trainer, onClose, onSaved }) {
   });
   const [description, setDescription] = useState("");
   const [picked, setPicked] = useState(0);
+  const [gameStyle, setGameStyle] = useState(true);
   const upload = (mode) => {
     const file = fileRef.current?.files?.[0];
     if (!file) return;
@@ -297,7 +298,7 @@ export function AvatarDialog({ trainer, onClose, onSaved }) {
   const draw = () => run("prospero", async () => {
     const files = fileRef.current?.files || [];
     setCandidates([]);
-    const r = await api.drawAvatar(files, { description, trainerId: trainer.id });
+    const r = await api.drawAvatar(files, { description, trainerId: trainer.id, style: gameStyle });
     if (r.id) setJobId(r.id);
   });
   return (
@@ -330,6 +331,7 @@ export function AvatarDialog({ trainer, onClose, onSaved }) {
             <b>{t("avatar_prospero")}</b>
             <input className="field" value={description} maxLength={300} onChange={(e) => setDescription(e.target.value)}
               placeholder={t("avatar_description_ph")} aria-label={t("avatar_description")} />
+            <label className="flex items-center gap-2"><input type="checkbox" checked={gameStyle} onChange={(e) => setGameStyle(e.target.checked)} /> {t("avatar_game_style")}</label>
             <div className="flex flex-wrap items-center gap-2">
               <Busy busy={busy.prospero || (job && job.status !== "done" && job.status !== "failed" && job.status !== "cancelled")} className="btn btn-primary"
                 disabled={!picked && !description.trim()} onClick={draw}>{t("avatar_draw")}</Busy>

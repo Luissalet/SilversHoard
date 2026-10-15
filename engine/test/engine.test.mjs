@@ -102,3 +102,30 @@ test('seeds given as text: a list of four numbers, any word, or an array give th
   }
   assert.deepEqual(seedArray('1,2,3,4'), [1, 2, 3, 4]);
 });
+
+test('the AI uses Mega Evolution, Z-moves and Terastal in a format that has them all', () => {
+  const sets = importTeam(`Blacephalon @ Firium Z
+Ability: Beast Boost
+EVs: 252 SpA / 252 Spe
+Timid Nature
+- Fire Blast
+- Shadow Ball
+
+Altaria @ Altarianite
+Ability: Natural Cure
+EVs: 252 Atk / 252 Spe
+Jolly Nature
+- Double-Edge
+- Earthquake`);
+  let mega = 0, z = 0;
+  for (let i = 0; i < 4; i++) {
+    const r = playOut({format: 'gen9nationaldexag', seed: [i, 7, 7, 7], p1: {name: 'A', sets, ai: {level: 'hard'}},
+      p2: {name: 'B', sets: randomTeam('gen9randombattle', 'z' + i).sets, ai: {level: 'hard'}}}, {keepLog: true});
+    const log = r.lines.join('\n');
+    mega += /\|-mega\|/.test(log);
+    z += /\|-zpower\|/.test(log);
+    assert.deepEqual(r.errors, []);
+  }
+  assert.ok(mega > 0, 'mega evolution');
+  assert.ok(z > 0, 'z-move');
+});

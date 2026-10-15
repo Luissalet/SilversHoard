@@ -280,10 +280,16 @@ function slotOptions(scratch, side, slot, req, opts, w, {allowSwitch = true} = {
         }
         if (bonus > 0) out.push({choice: `${choice} ${gimmick}`, score: score + bonus, kind: 'gimmick', move: m.id});
       }
+      // Z-move: once a battle, scored as the move with its Z power (Inferno Overdrive from Fire Blast: 185 instead of 110)
+      if (active.canZMove && active.canZMove[i] && opts.level !== 'easy' && mv.category !== 'Status') {
+        const zbp = mv.zMove?.basePower || 0;
+        const bp = mv.basePower || 0;
+        if (zbp && bp) out.push({choice: `${choice} zmove`, score: score * Math.min(2.2, zbp / bp) + 0.02, kind: 'gimmick', move: m.id});
+      }
     }
   }
   if (!out.length) out.push({choice: 'move 1', score: 0.01, kind: 'struggle'});
-  if (allowSwitch && !active.trapped && opts.level !== 'easy') {
+  if (allowSwitch && !active.trapped && !active.maybeTrapped && opts.level !== 'easy') {
     for (const n of benchFor(side, req)) {
       const mon = side.pokemon[n - 1];
       const take = Math.max(0, ...foes.map((f) => bestThreat(scratch, f, mon).frac));
@@ -494,7 +500,7 @@ function randomChoice(side, req, rng) {
     const reqMon = req.side?.pokemon?.[slot];
     if (String(reqMon?.condition || '').endsWith(' fnt') || reqMon?.commanding) { parts.push('pass'); continue; }
     const moves = (active.moves || []).map((m, i) => ({m, i})).filter(({m}) => !m.disabled);
-    const bench = active.trapped ? [] : benchFor(side, req).filter((n) => !used.has(n));
+    const bench = active.trapped || active.maybeTrapped ? [] : benchFor(side, req).filter((n) => !used.has(n));
     if (bench.length && rng() < 0.12) {
       const n = pick(bench, rng);
       used.add(n);

@@ -56,7 +56,7 @@ function Challenge({ data, lang, setLang, t }) {
   const target = kind === "gym" ? data.payload.gym : data.payload.trainer;
   const sprites = useMemo(() => makeSprites({ server: data.sprite_server || "https://play.pokemonshowdown.com/sprites", set: data.sprite_set || "gen5ani" }), [data]);
   const stages = useMemo(() => (kind === "gym" ? [...(target.trainers || []), target.leader] : [target]), [kind, target]);
-  const format = target.format || (kind === "gym" ? target.leader.format : "gen9customgame");
+  const format = target.format || (kind === "gym" ? target.leader.format : "gen9nationaldexag");
   const rules = target.rules || [];
   const levelRules = target.level_rules || {};
   const [name, setName] = useState(() => { try { return localStorage.getItem("silver-play-name") || ""; } catch { return ""; } });
@@ -69,7 +69,7 @@ function Challenge({ data, lang, setLang, t }) {
   const [results, setResults] = useState([]);
   const [code, setCode] = useState({ short: "", full: "" });
   const [copied, setCopied] = useState(false);
-  const fid = useMemo(() => { try { return buildFormatId(format, rules); } catch { return "gen9customgame"; } }, [format, rules]);
+  const fid = useMemo(() => { try { return buildFormatId(format, rules); } catch { return "gen9nationaldexag"; } }, [format, rules]);
   const info = useMemo(() => { try { return formatInfo(fid); } catch { return { gen: 9, name: fid }; } }, [fid]);
   const owner = data.from || data.payload.owner || target.owner || "";
 
