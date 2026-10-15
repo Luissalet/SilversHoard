@@ -179,7 +179,7 @@ function TournamentForm() {
         <Field label={t("same_ai")}>
           <select className="field" value={level} onChange={(e) => setLevel(e.target.value)}>
             <option value="">{t("each_own_ai")}</option>
-            {["easy", "normal", "hard", "expert", "master"].map((l) => <option key={l} value={l}>{t(`lvl_${l}`)}</option>)}
+            {["easy", "normal", "hard", "expert", "master", "neural"].map((l) => <option key={l} value={l}>{t(`lvl_${l}`)}</option>)}
           </select>
         </Field>
       </div>

@@ -5,6 +5,7 @@ import { useApp } from "../context.js";
 import { Busy, Field, Icon, ICONS, Section, Switch, useBusy, useLoad } from "../components/ui.jsx";
 import { AiFields, FormatSelect, MonIcon } from "../components/silver.jsx";
 import { SoundSliders } from "../battle/SoundControl.jsx";
+import NeuralAi from "../components/NeuralAi.jsx";
 import { useBackdropSetting, useFxStyleSetting, useMoveFxSetting } from "../battle/fx/setting.js";
 
 export default function Ajustes() {
@@ -107,6 +108,7 @@ export default function Ajustes() {
           <Field label={t("node_path")} hint={t("node_path_help")}><input className="field" value={f.node_path} onChange={(e) => set("node_path", e.target.value)} placeholder="node" /></Field>
         </div>
       </Section>
+      <NeuralAi f={f} set={set} />
       <Section title={t("prospero")}>
         <div className="panel space-y-3">
           <Field label={t("prospero_prompt")} hint={t("prospero_prompt_help")}><textarea className="field" rows={4} value={f.prospero_prompt} onChange={(e) => set("prospero_prompt", e.target.value)} /></Field>

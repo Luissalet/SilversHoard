@@ -60,6 +60,9 @@ SOURCES: list[dict[str, str]] = [
      "licence": "MIT (tools); data © Smogon", "licence_es": "MIT (herramientas); datos © Smogon", "url": "https://data.pkmn.cc/"},
     {"id": "poke-engine", "what": "The master AI's search", "what_es": "La búsqueda de la IA maestra", "by": "poke-engine (pmariglia)", "licence": "MIT",
      "url": "https://github.com/pmariglia/poke-engine"},
+    {"id": "metamon", "what": "The neural AI's policy (optional, run from its own environment)", "what_es": "La política de la IA neuronal (opcional, en su propio entorno)",
+     "by": "metamon and amago (UT Austin Robot Perception and Learning Lab)", "by_es": "metamon y amago (UT Austin Robot Perception and Learning Lab)",
+     "licence": "MIT", "url": "https://github.com/UT-Austin-RPL/metamon"},
     {"id": "za", "what": "Real-time rules and move cooldowns", "what_es": "Reglas del tiempo real y recargas de los movimientos",
      "by": "Pokémon Legends: Z-A as documented by Serebii and Bulbapedia", "by_es": "Leyendas Pokémon: Z-A según Serebii y Bulbapedia", "licence": "—", "url": "https://www.serebii.net/legendsz-a/"},
 ]

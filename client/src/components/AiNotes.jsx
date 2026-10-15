@@ -32,6 +32,8 @@ const S = {
   search: ["Futuros explorados: {n} (búsqueda en árbol de Montecarlo). Atención de la búsqueda y victoria estimada:", "Futures searched: {n} (Monte Carlo tree search). Share of the search and estimated win:"],
   hidden: ["sin ver tu equipo", "not seeing your team"],
   fallback: ["La búsqueda no estaba disponible: jugó como la experta.", "The search was not available: it played as the expert."],
+  neural_fallback: ["La red neuronal no juega este combate o no estaba en marcha: jugó como la experta.", "The neural network does not play this battle or was not running: it played as the expert."],
+  neural: ["Lo eligió la red neuronal ({ms} ms); así lo valoraría la IA experta:", "The neural network chose it ({ms} ms); this is how the expert AI would weigh it:"],
   playouts: ["Turnos simulados (más alto, mejor; entre paréntesis, el peor caso)", "Turns played out (higher is better; worst case in brackets)"],
   level: ["IA {level} · {style}", "{level} AI · {style}"],
   advice: ["¿Qué haría la experta?", "What would the expert do?"],
@@ -40,7 +42,7 @@ const S = {
   prev: ["Turno anterior", "Previous turn"],
   next: ["Turno siguiente", "Next turn"],
 };
-const LEVELS = { random: ["aleatoria", "random"], easy: ["fácil", "easy"], normal: ["normal", "normal"], hard: ["difícil", "hard"], expert: ["experta", "expert"], master: ["maestra", "master"] };
+const LEVELS = { random: ["aleatoria", "random"], easy: ["fácil", "easy"], normal: ["normal", "normal"], hard: ["difícil", "hard"], expert: ["experta", "expert"], master: ["maestra", "master"], neural: ["neuronal", "neural"] };
 const STYLES = { balanced: ["equilibrada", "balanced"], aggressive: ["agresiva", "aggressive"], defensive: ["defensiva", "defensive"], setup: ["de mejoras", "setup"], stall: ["de desgaste", "stall"] };
 const GIMMICKS = { terastallize: ["teracristalización", "Terastallization"], mega: ["megaevolución", "Mega Evolution"], megax: ["megaevolución X", "Mega Evolution X"],
   megay: ["megaevolución Y", "Mega Evolution Y"], ultra: ["ultraexplosión", "Ultra Burst"], dynamax: ["dinamax", "Dynamax"], zmove: ["movimiento Z", "Z-Move"] };
@@ -121,6 +123,8 @@ function Note({ note, names, lang, advice }) {
         </div>
       )}
       {note.fallback && note.level === "master" && !advice && <p className="help">{s("fallback")}</p>}
+      {note.fallback && note.level === "neural" && !advice && <p className="help">{s("neural_fallback")}</p>}
+      {note.neural && !advice && <p className="help">{s("neural", { ms: note.neural.ms })}</p>}
       {(note.playouts || []).length > 1 && (
         <div className="ai-note-playouts">
           <span className="help">{s("playouts")}</span>
