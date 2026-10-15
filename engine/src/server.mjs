@@ -5,6 +5,7 @@ import readline from 'node:readline';
 import * as core from './core.mjs';
 import {Match, compactTrace} from './match.mjs';
 import {playOut, series, summarize, tournament} from './stats.mjs';
+import {teamBenchmark} from './benchmark.mjs';
 import {viewLines} from './match.mjs';
 import {chooseFor, freeze, makeRng} from './ai.mjs';
 import {masterAvailable} from './master.mjs';
@@ -103,6 +104,7 @@ const handlers = {
   play_out: (a) => playOut(a.spec, {keepLog: true}),
   simulate: (a) => series(a.spec, Math.max(1, Math.min(Number(a.count) || 1, 200))),
   tournament: (a) => tournament(a),
+  benchmark: (a) => teamBenchmark(a),
   summarize: (a) => summarize(a.lines || []),
   // real time (Legends: Z-A rules): the screen runs the battle; the engine checks the teams, plays AI-vs-AI battles and
   // replays a battle from its seed and the people's inputs to get the result the app stores

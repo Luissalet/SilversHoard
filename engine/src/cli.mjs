@@ -1,6 +1,7 @@
 // One-shot runs for long work (series of battles, tournaments) so the live engine process stays free:
 // `node src/cli.mjs < request.json` with {cmd, args}; progress goes to stderr as {"progress": x} lines, the answer to stdout.
 import {series, tournament, tournamentBattles} from './stats.mjs';
+import {teamBenchmark} from './benchmark.mjs';
 import {handle} from './server.mjs';
 
 let raw = '';
@@ -17,6 +18,8 @@ process.stdin.on('end', async () => {
     else if (req.cmd === 'tournament') {
       const total = tournamentBattles(a.entrants || [], a.kind, a.best_of);
       result = tournament(a, (n) => progress(total ? Math.min(1, n / total) : 1));
+    } else if (req.cmd === 'benchmark') {
+      result = teamBenchmark(a, progress);
     } else {
       const r = await handle(req);
       process.stdout.write(JSON.stringify(r));

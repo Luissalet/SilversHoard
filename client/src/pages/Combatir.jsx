@@ -6,6 +6,7 @@ import { Busy, Empty, Field, Icon, ICONS, Rel, Section, Switch, Tabs, useBusy, u
 import { AiFields, Avatar, FormatSelect, JobProgress, RulesFields, TeamStrip, TrainerSelect, useTrainers } from "../components/silver.jsx";
 import { BattleRow } from "./Historial.jsx";
 import ModeFields, { withEqualLevel } from "../battle/rt/ModeFields.jsx";
+import TeamBenchmark from "../components/TeamBenchmark.jsx";
 
 function SeatEditor({ label, seat, onChange, allowHuman = true }) {
   const { t, changed } = useApp();
@@ -281,11 +282,17 @@ export default function Combatir({ query }) {
           </div>
         </Section>
       )}
-      <Tabs value={tab} onChange={setTab} tabs={[{ id: "single", label: t("tab_single") }, { id: "series", label: t("tab_series") }, { id: "tournament", label: t("tab_tournament") }]} />
+      <Tabs value={tab} onChange={setTab} tabs={[
+        { id: "single", label: t("tab_single") },
+        { id: "series", label: t("tab_series") },
+        { id: "tournament", label: t("tab_tournament") },
+        { id: "benchmark", label: t("tab_benchmark") },
+      ]} />
       {tab === "single" && <SingleBattle />}
       {tab === "series" && <SeriesForm />}
       {tab === "tournament" && <TournamentForm />}
       {tab === "tournament" && <CupList />}
+      {tab === "benchmark" && <TeamBenchmark />}
     </div>
   );
 }
