@@ -143,9 +143,10 @@ class Pvp:
     def links_for(self, path: str) -> dict[str, Any]:
         """Where friends reach a path of the room server: this computer's network addresses, and the public address if set."""
         public = str(self.s.settings.get("pvp_public_url") or "").rstrip("/")
-        lan = [f"http://{ip}:{self.port}{path}" for ip in lan_addresses()]
-        return {"lan": lan, "public": f"{public}{path}" if public else "", "local": f"http://127.0.0.1:{self.port}{path}",
-                "port": self.port, "path": path}
+        port = self.port or int(self.s.settings.get("pvp_port") or 5240)     # before the first room the server is not up yet
+        lan = [f"http://{ip}:{port}{path}" for ip in lan_addresses()]
+        return {"lan": lan, "public": f"{public}{path}" if public else "", "local": f"http://127.0.0.1:{port}{path}",
+                "port": port, "path": path}
 
     def view(self, r: Room, *, host: bool = True) -> dict[str, Any]:
         out: dict[str, Any] = {"id": r.id, "mode": r.mode, "format": r.format, "level_rules": r.level_rules, "status": r.status,

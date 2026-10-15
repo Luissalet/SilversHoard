@@ -170,6 +170,8 @@ def test_lobby_and_friends(call, rooms, services, monkeypatch):
 
     from silvers_hoard import pvp as pvp_mod
 
+    services.pvp.port = 0       # no room yet: the lobby address still names the rooms port
+    assert call("pvp_lobby", {})["port"] == 5240 and ":5240/lobby?c=" in call("pvp_lobby", {})["local"]
     me = call("trainer_create", {"name": "Luis", "paste": TEAM})
     room = call("pvp_open", {"trainer_id": me["id"], "format": "gen9customgame"})
     hidden = call("pvp_open", {"trainer_id": me["id"], "format": "gen9customgame", "listed": False})
