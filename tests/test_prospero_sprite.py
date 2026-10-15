@@ -227,8 +227,7 @@ def test_a_job_cancelled_while_queued_never_starts(services):
 
 
 def test_a_hub_hiccup_while_waiting_does_not_fail_the_sprite(services, prospero, monkeypatch):
-    import silvers_hoard.services as sv
-    monkeypatch.setattr(sv.time, "sleep", lambda s: None)
+    monkeypatch.setattr(Services, "PROSPERO_RETRY_S", 0.0)
     real = prospero.call
     misses = {"n": 0}
 
@@ -241,3 +240,17 @@ def test_a_hub_hiccup_while_waiting_does_not_fail_the_sprite(services, prospero,
     j = run_job(services, services.avatar_draw([], description="a fisherman", style=False))
     assert j["status"] == "done", j
     assert misses["n"] == 2
+
+
+def test_the_render_of_a_sprite_job_is_remembered_and_cancelled_after_a_restart(services, prospero):
+    import time
+    j = run_job(services, services.avatar_draw([], description="a gardener", style=False))
+    assert j["args"]["prospero_job"] == "jb_1"
+    jid = services.store.add_job({"kind": "avatar", "title": "left behind", "status": "running", "args": {"prospero_job": "jb_left"}})
+    services.start()                                   # what a restart does with the work it finds unfinished
+    for _ in range(100):
+        if any(t == "studio_cancel_job" and a.get("job_id") == "jb_left" for t, a in prospero.calls):
+            break
+        time.sleep(0.02)
+    assert any(t == "studio_cancel_job" and a.get("job_id") == "jb_left" for t, a in prospero.calls)
+    assert services.store.job(jid)["status"] == "failed"

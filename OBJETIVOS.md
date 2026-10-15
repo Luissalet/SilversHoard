@@ -18,3 +18,5 @@ Lo que falta por construir, de más a menos valor. Lo que ya hace está en el [R
 10. **Megaevolución y movimientos Plus en tiempo real**, como en Leyendas Z-A (barra de megaenergía, versiones mejoradas).
 11. **Arena más ligera.** La pantalla de tiempo real carga los datos completos de `@pkmn/sim` (unos 6 MB); con `@pkmn/dex` y
     solo las generaciones en uso bajaría a la mitad.
+12. **Sprites dibujados con varias poses.** Pedir a Prospero la misma persona de frente (entrenador rival) y de espaldas (lado
+    del jugador), y una pose de victoria para el final del combate.
