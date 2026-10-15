@@ -33,7 +33,7 @@ damage_calc measures one Pokémon's moves against another (rolls, crits, KOs) wi
 battle_video records a finished battle's replay as an MP4 clip with its sound (a job; lumiere=true sends it to the video editor).
 Move animations: the turn-based screen plays Pokémon Showdown's own animation of each move (934) or Silver's effects, as the viewer picks in Settings; fx_cache shows the cached effect pictures and prefetch=true downloads them all for battles without internet.
 battle_explain says why the AI chose each move (the options it weighed with expected damage and KOs, the threat it was under, the expert's play-outs) and, in a live battle, what the expert would do now on your side.
-Avatars: trainer_sprites_search (Showdown trainer sprites), avatar_from_photo (a photo on this computer into pixel art here) or avatar_draw (Prospero's Hoard draws one from up to 4 photos and/or a description in the games' art style, with the references of avatar_style_get; a background job). avatar_poses_draw draws a trainer's own sprite again from behind (shown on the player's side of a battle) and in a victory pose (shown when it wins); avatar_pose_set picks another candidate."""
+Avatars: trainer_sprites_search (Showdown trainer sprites), official_art_search (the games' official artwork from the Pokémon Wiki), avatar_images (your own pictures), avatar_from_url (a picture on the internet, as it is), avatar_from_photo (a picture on this computer: as it is, or into pixel art here) or avatar_draw (Prospero's Hoard draws one from up to 4 photos and/or a description in the games' art style, with the references of avatar_style_get; a background job). avatar_poses_draw draws a trainer's own sprite again from behind (shown on the player's side of a battle) and in a victory pose (shown when it wins); avatar_pose_set picks another candidate."""
 
 
 def _d(first: str, detail: str = "", synonyms: str = "") -> str:
@@ -249,6 +249,30 @@ class CharacterInstallArgs(BaseModel):
     ai_level: str = Field("", max_length=12)
     ai_style: str = Field("", max_length=12)
     lang: Literal["es", "en"] = "es"
+    avatar: str = Field("", max_length=120, description="Instead of a sprite: file:<name>, a picture of your own (avatar_images; its official art after avatar_from_url or the app's picture dialog).")
+    art: str = Field("", max_length=200, description="The official artwork that avatar is (its wiki file name), so the same choice gives back the same trainer.")
+
+
+class OwnImagesArgs(BaseModel):
+    query: str = Field("", max_length=80, description="A trainer's name, a kind (photo, art, drawing, sprite, pose, image) or a title.")
+    kind: Literal["", "photo", "art", "image", "drawing", "sprite", "pose"] = ""
+    limit: int = Field(120, ge=1, le=400)
+
+
+class OfficialArtArgs(BaseModel):
+    query: str = Field("", max_length=80, description="A character or trainer class: Lance, Cynthia, Ace Trainer…")
+    page: str = Field("", max_length=120, description="One page of the wiki by title (one of the pages found), instead of the query.")
+    limit: int = Field(40, ge=1, le=80)
+    refresh: bool = Field(False, description="Ask the wiki again instead of the week-long cache.")
+
+
+class AvatarUrlArgs(BaseModel):
+    url: str = Field(..., min_length=8, max_length=1000, description="The picture's address (https://…).")
+    trainer_id: str = Field("", max_length=80, description="Set it as this trainer's picture.")
+    kind: Literal["image", "photo", "art"] = "image"
+    credit: str = Field("", max_length=200, description="Whose picture it is (shown under the trainer's picture).")
+    title: str = Field("", max_length=200)
+    cut_background: bool = Field(False, description="Make a plain background transparent.")
 
 
 class GymSaveArgs(BaseModel):
@@ -673,6 +697,9 @@ class AvatarPhotoArgs(BaseModel):
     trainer_id: str = Field("", max_length=80, description="Set it as this trainer's avatar.")
     mode: Literal["pixel", "upload", "prospero"] = "pixel"
     remove_background: bool = True
+    cut_background: bool = Field(False, description="upload: make a plain background transparent (the picture is otherwise kept as it is, up to 1024 px).")
+    kind: Literal["", "photo", "art", "image"] = ""
+    credit: str = Field("", max_length=200)
 
 
 class AvatarDrawArgs(BaseModel):
@@ -681,6 +708,7 @@ class AvatarDrawArgs(BaseModel):
     trainer_id: str = Field("", max_length=80, description="Set the first result as this trainer's avatar.")
     count: int = Field(2, ge=1, le=4, description="How many pictures Prospero draws.")
     style: bool = Field(True, description="Send the art-style references too (avatar_style_get), so it is drawn in the games' style.")
+    look: Literal["sprite", "art"] = Field("sprite", description="sprite: the trainer gets the 96 px pixel-art sprite; art: drawn as the games' official artwork, not pixelated, and the trainer gets the drawing (style references: only your own pictures).")
 
 
 class SetsArgs(BaseModel):
@@ -764,6 +792,7 @@ class SettingsSetArgs(BaseModel):
     smogon_data: Optional[bool] = Field(None, description="Fetch popular sets and usage statistics from data.pkmn.cc when asked for.")
     sound_downloads: Optional[bool] = None
     prospero_prompt: Optional[str] = Field(None, max_length=1000)
+    prospero_prompt_art: Optional[str] = Field(None, max_length=1000, description="The style line of drawings in the official artwork look (avatar_draw look=art).")
     prospero_style_sprites: Optional[str] = Field(None, max_length=200, description="Trainer sprites used as art-style references.")
     prospero_engine: Optional[Literal["", "auto", "qwen21", "flux", "sdxl"]] = Field(None, description="Image engine for drawn sprites; empty = Prospero's default.")
     series_default: Optional[int] = Field(None, ge=1, le=1000)
@@ -927,7 +956,23 @@ TOOLS: list[Tool] = [
                                  "Same team and sprite twice gives back the trainer already made; custom always makes a new one.",
                                  synonyms="añadir lance, equipo propio, elegir sprite, elegir equipo por juego"), CharacterInstallArgs, WD,
          lambda s, a: {"trainer": s.character_install(a.key, variant=a.variant, sprite=a.sprite, name=a.name, custom=a.custom,
-                                                      ai_level=a.ai_level, ai_style=a.ai_style, lang=a.lang)}),
+                                                      ai_level=a.ai_level, ai_style=a.ai_style, lang=a.lang, avatar=a.avatar, art=a.art)}),
+    Tool("official_art_search", _d("Official artwork of a character or trainer class from the Pokémon Wiki, game by game. Arte oficial.",
+                                   "Finds «<name> (game)» or «<name>» (else the wiki's search) and lists its tall full-body art: label (game), "
+                                   "size, thumb, full (at most 1200 px tall) and url. The wiki's image server answers browsers only: the app's "
+                                   "picture dialog fetches the one chosen; avatar_from_url tries from here.",
+                                   synonyms="arte oficial, ilustración oficial, artwork, imagen oficial de lance, dibujo oficial"), OfficialArtArgs, R,
+         lambda s, a: s.official_art_search(query=a.query, page=a.page, limit=a.limit, refresh=a.refresh), 60.0),
+    Tool("avatar_images", _d("Your own pictures: uploaded, photos, official art you chose, drawn sprites and drawings, poses. Mis imágenes.",
+                             "Each picture once (same bytes, one entry), newest first, with the trainers that use it.",
+                             synonyms="tus imágenes, mis fotos, imágenes subidas, galería de avatares"), OwnImagesArgs, R,
+         lambda s, a: s.avatar_images(query=a.query, kind=a.kind, limit=a.limit)),
+    Tool("avatar_from_url", _d("A picture on the internet as a trainer's picture, as it is (up to 1024 px). Imagen desde enlace.",
+                               "Some image servers answer browsers only (the Pokémon Wiki's): then the error says so and the app's picture "
+                               "dialog, which fetches it in the page, is the way.",
+                               synonyms="poner imagen de internet, foto desde url, enlace de imagen"), AvatarUrlArgs, WD,
+         lambda s, a: s.avatar_from_url(a.url, trainer_id=a.trainer_id, kind=a.kind, credit=a.credit, title=a.title,
+                                        cut_background=a.cut_background), 60.0),
     Tool("gyms_list", _d("Gyms with leader, type, badge and rules. Lista de gimnasios.", synonyms="gimnasios, medallas, líderes"),
          TrainersArgs, R, lambda s, a: {"gyms": s.gyms_list(a.query)}),
     Tool("gym_get", _d("One gym: leader, gym trainers, rules and who earned its badge. Ver gimnasio.", synonyms="medallas ganadas"),
@@ -1181,10 +1226,12 @@ TOOLS: list[Tool] = [
                                    synonyms="partida guardada, archivo de guardado, sav, emulador, mi equipo de unbound"),
          UnboundSaveArgs, WD, _unbound_save),
     Tool("avatar_draw", _d("Have Prospero's Hoard draw a trainer sprite from up to 4 photos and/or a description (a job). Dibujar sprite.",
-                           "Each result is a 96-px pixel-art sprite plus the drawing itself; job_get gives them as candidates.",
-                           synonyms="sprite con ia, dibujar entrenador, sprite desde fotos, sprite de un famoso"), AvatarDrawArgs, WD,
+                           "Each result is a 96-px pixel-art sprite plus the drawing itself; job_get gives them as candidates. look=art draws "
+                           "it as the games' official artwork, not pixelated, and gives the trainer the drawing.",
+                           synonyms="sprite con ia, dibujar entrenador, sprite desde fotos, sprite de un famoso, estilo pokémon sin pixelar, "
+                                    "arte estilo pokémon"), AvatarDrawArgs, WD,
          lambda s, a: s.avatar_draw([_read_path(p) for p in a.paths], description=a.description, trainer_id=a.trainer_id, count=a.count,
-                                    style=a.style), 120.0),
+                                    style=a.style, look=a.look), 120.0),
     Tool("sets_popular", _d("Smogon's popular sets of a species and its ladder usage (items, abilities, moves, teammates). Sets populares.",
                             "From data.pkmn.cc, fetched when asked for and cached; the nearest format with data is used.",
                             synonyms="sets de smogon, set competitivo, estadísticas de uso, qué set lleva"), SetsArgs, R,
@@ -1231,7 +1278,8 @@ TOOLS: list[Tool] = [
          lambda s, a: s.avatar_style_set(sprites=a.sprites, add=[(Path(p).name, _read_path(p)) for p in a.add_paths], remove=a.remove)),
     Tool("avatar_from_photo", _d("Turn a photo into a trainer sprite: pixel art here or drawn by Prospero's Hoard (a job). Sprite desde foto.",
                                  synonyms="avatar, foto, sprite estilo pokémon, prospero"), AvatarPhotoArgs, WD,
-         lambda s, a: s.avatar_from_photo(_read_path(a.path), trainer_id=a.trainer_id, mode=a.mode, remove_background=a.remove_background), 120.0),
+         lambda s, a: s.avatar_from_photo(_read_path(a.path), trainer_id=a.trainer_id, mode=a.mode, remove_background=a.remove_background,
+                                          cut_background=a.cut_background, kind=a.kind, credit=a.credit), 120.0),
     Tool("fx_cache", _d("Pictures of the move animations (Showdown's effects): what is cached; prefetch downloads them all. Efectos.",
                         "The turn-based screen plays Pokémon Showdown's own animation of each move (934 of them) when the animation style "
                         "setting is Showdown's (the default; the other style is Silver's effects). Its effect pictures come from Showdown "

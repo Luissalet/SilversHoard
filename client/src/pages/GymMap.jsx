@@ -2,13 +2,30 @@
 // every gym trainer where they stand (looking one way, with a line of sight, turning on the spot if you like), place buildings outside
 // the gym, or start from an automatic layout (with a puzzle if you like). The app checks the map when the gym is saved (gymmap.py):
 // everybody on floor, every trainer and the leader reachable from the entrance with the puzzles' rules.
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { api } from "../api.js";
 import { useApp } from "../context.js";
 import { Busy, Field, useBusy } from "../components/ui.jsx";
 import { Avatar } from "../components/silver.jsx";
 import { MPW_PROPS, MPW_TILES } from "../battle/overworld/mpw-tiles.gen.js";
 import { PROPS } from "../battle/overworld/Overworld.jsx";
+import { PIXEL_MAX } from "../smooth-art.js";
+
+// which of these pictures are not pixel art (drawings, photos, official art): those are smoothed when scaled
+function useSmoothUrls(urls) {
+  const [smooth, setSmooth] = useState(() => new Set());
+  const key = urls.filter(Boolean).sort().join("|");
+  useEffect(() => {
+    let alive = true;
+    for (const url of new Set(urls.filter(Boolean))) {
+      const im = new Image();
+      im.onload = () => { if (alive && Math.max(im.naturalWidth, im.naturalHeight) > PIXEL_MAX) setSmooth((s) => new Set(s).add(url)); };
+      im.src = url;
+    }
+    return () => { alive = false; };
+  }, [key]); // eslint-disable-line react-hooks/exhaustive-deps
+  return smooth;
+}
 
 const TILES = [[".", "#e8e2d4"], ["#", "#4a4038"], ["~", "#3f7fb5"], ["o", "#8f8a7c"], ["*", "#3f8f4a"], ["=", "#b04848"], [",", "#5c9c4c"],
   ["_", "#cfeaf6"], ["^", "#e9e3d2"], ["v", "#e9e3d2"], ["<", "#e9e3d2"], [">", "#e9e3d2"], ["s", "#5a5f6b"], ["d", "#8a5a2b"]];
@@ -48,6 +65,7 @@ export default function GymMapEditor({ gymId, trainerIds, people, value, onChang
   const [painting, setPainting] = useState(false);
   const map = value && value.w ? value : null;
   const placed = useMemo(() => new Set((map?.trainers || []).map((x) => x.id)), [map]);
+  const smooth = useSmoothUrls(Object.values(people || {}).map((p) => p?.avatarUrl));
   const auto = () => run("gen", async () => {
     const out = await api.call("gym_map_generate", { trainer_ids: trainerIds, seed: String(Date.now()), puzzle });
     onChange(out.map);
@@ -183,7 +201,8 @@ export default function GymMapEditor({ gymId, trainerIds, people, value, onChang
                 return <rect x={Math.min(p.x, p.x + dx * p.sight) + (dx < 0 ? 0 : dx ? 1 : 0)} y={Math.min(p.y, p.y + dy * p.sight) + (dy < 0 ? 0 : dy ? 1 : 0)}
                   width={dx ? p.sight : 1} height={dy ? p.sight : 1} fill="rgba(255,200,0,.18)" />;
               })()}
-              <image href={people[p.id]?.avatarUrl || ""} x={p.x - 0.25} y={p.y - 0.6} width={1.5} height={1.5} preserveAspectRatio="xMidYMax meet" style={{ imageRendering: "pixelated" }} />
+              <image href={people[p.id]?.avatarUrl || ""} x={p.x - 0.25} y={p.y - 0.6} width={1.5} height={1.5} preserveAspectRatio="xMidYMax meet"
+                style={{ imageRendering: smooth.has(people[p.id]?.avatarUrl) ? "auto" : "pixelated" }} />
               <text x={p.x + 0.85} y={p.y + 0.95} fontSize={0.42} fill="#fff" stroke="#000" strokeWidth={0.06} paintOrder="stroke">{ARROW[p.facing]}</text>
             </g>
           ))}

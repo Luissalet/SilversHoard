@@ -5,6 +5,7 @@ import { api } from "../api.js";
 import { useApp } from "../context.js";
 import { TYPE_COLORS, nameOf, spriteId, typeName } from "../battle/dex.js";
 import { Bar, Busy, CopyButton, Field, Icon, ICONS, Modal, Spinner, Tabs, useBusy } from "./ui.jsx";
+import { ImageViewer } from "./viewer.jsx";
 import { usePoll } from "./hooks.js";
 import { BadgeArt } from "./badges.jsx";
 
@@ -286,30 +287,190 @@ export function ExportDialog({ kind, id, name, onClose }) {
   );
 }
 
-export function AvatarDialog({ trainer, onClose, onSaved }) {
+// A picture another site serves (the Pokémon Wiki's art, a link pasted by you), fetched by the page itself: some image servers
+// answer browsers and turn the app's server away, so the bytes travel from here.
+export async function fetchPicture(url) {
+  const r = await fetch(url, { mode: "cors", credentials: "omit" });
+  if (!r.ok) throw new Error(`HTTP ${r.status}`);
+  const blob = await r.blob();
+  if (!blob.type.startsWith("image/")) throw new Error("not a picture");
+  return blob;
+}
+
+const ART_CREDIT = "Pokémon Wiki (Fandom) · © Nintendo, Creatures, GAME FREAK";
+
+/** "Sprite by X" for a Showdown sprite, "Art: X" for official art or a picture of your own with a credit. */
+export function creditLabel(t, tr) {
+  if (!tr?.avatar_credit) return "";
+  return tr.avatar_kind && tr.avatar_kind !== "sprite" ? t("art_by", { name: tr.avatar_credit }) : t("sprite_by", { name: tr.avatar_credit });
+}
+
+/** The official artwork of a character or trainer class from the Pokémon Wiki: search, the pages found, the pictures (thumbs from
+ * the wiki itself). onOpen(index, items) shows one big; selected marks the one in use (Personaje). */
+export function OfficialArtGrid({ query: initial = "", onOpen, selected = "", compact = false, onLoaded }) {
+  const { t, lang } = useApp();
+  const [q, setQ] = useState(initial);
+  const [page, setPage] = useState("");
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  useEffect(() => { setQ(initial); setPage(""); }, [initial]);
+  useEffect(() => {
+    if (!q.trim() && !page) { setData(null); return undefined; }
+    let alive = true;
+    const h = setTimeout(() => {
+      setLoading(true);
+      setError("");
+      api.call("official_art_search", { query: q, page, limit: 60 })
+        .then((r) => { if (alive) { setData(r); onLoaded?.(r); } })
+        .catch((e) => { if (alive) setError(e.message || String(e)); })
+        .finally(() => alive && setLoading(false));
+    }, 350);
+    return () => { alive = false; clearTimeout(h); };
+  }, [q, page]); // eslint-disable-line react-hooks/exhaustive-deps
+  const items = (data?.images || []).map((im) => ({
+    ...im, url: im.full, thumb: im.thumb, title: lang === "en" ? im.label : im.label_es, sub: im.page, credit: ART_CREDIT, href: im.page_url,
+  }));
+  return (
+    <div className="space-y-2">
+      {!compact && (
+        <input className="field" value={q} onChange={(e) => { setQ(e.target.value); setPage(""); }} placeholder={t("art_search")} aria-label={t("art_search")} />
+      )}
+      {data?.pages?.length > 1 && (
+        <div className="flex flex-wrap gap-1" role="group" aria-label={t("art_pages")}>
+          {data.pages.slice(0, 8).map((p) => (
+            <button key={p} type="button" className={`chip chip-btn ${p === data.page ? "is-on" : ""}`} aria-pressed={p === data.page} onClick={() => setPage(p)}>{p}</button>
+          ))}
+        </div>
+      )}
+      {loading && <Spinner />}
+      {error && <p className="help" role="alert">{error}</p>}
+      {!loading && data && items.length === 0 && <p className="help">{t("art_none", { q: data.page || q })}</p>}
+      <div className="sprite-grid art-grid">
+        {items.map((it, i) => (
+          <button key={it.file} type="button" className={`sprite-pick art-pick ${selected === it.file ? "is-on" : ""}`} aria-pressed={selected === it.file}
+            onClick={() => onOpen?.(i, items)} title={`${it.title} · ${it.width} × ${it.height}`}>
+            <img src={it.thumb} alt={it.title} loading="lazy" referrerPolicy="no-referrer" />
+            <span className="trunc">{it.title}</span>
+          </button>
+        ))}
+      </div>
+      <p className="help">{t("art_help")}</p>
+    </div>
+  );
+}
+
+const KINDS = ["", "photo", "art", "drawing", "sprite", "pose", "image"];
+
+function OwnImages({ trainer, onOpen }) {
+  const { t } = useApp();
+  const [q, setQ] = useState("");
+  const [kind, setKind] = useState("");
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    const h = setTimeout(() => api.call("avatar_images", { query: q, kind, limit: 200 }).then(setData).catch(() => setData({ images: [] })), 200);
+    return () => clearTimeout(h);
+  }, [q, kind]);
+  const items = (data?.images || []).map((im) => ({
+    ...im, title: im.trainers.length ? im.trainers.join(", ") : im.title || t(`kind1_${im.kind}`),
+    sub: [t(`kind1_${im.kind}`), im.title && im.trainers.length ? im.title : "", im.in_use.length ? t("in_use_by", { names: im.in_use.join(", ") }) : ""].filter(Boolean).join(" · "),
+  }));
+  return (
+    <div className="space-y-2">
+      <input className="field" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t("own_search")} aria-label={t("own_search")} />
+      <div className="flex flex-wrap gap-1" role="group" aria-label={t("own_kind")}>
+        {KINDS.map((k) => (
+          <button key={k || "all"} type="button" className={`chip chip-btn ${kind === k ? "is-on" : ""}`} aria-pressed={kind === k} onClick={() => setKind(k)}>
+            {k ? t(`kind_${k}`) : t("all")}
+          </button>
+        ))}
+      </div>
+      {!data ? <Spinner /> : items.length === 0 ? <p className="help">{q ? t("own_none_q", { q }) : t("own_none")}</p> : (
+        <div className="sprite-grid">
+          {items.map((it, i) => (
+            <button key={it.file} type="button" className={`sprite-pick ${trainer?.avatar === it.avatar ? "is-on" : ""}`} onClick={() => onOpen(i, items)} title={it.sub}>
+              <img src={it.url} alt="" loading="lazy" className="pixelated" />
+              <span className="trunc">{it.title}</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+const LOOK_KEY = "silver-draw-look";
+
+export function AvatarDialog({ trainer, onClose, onSaved, initialTab = "" }) {
   const { t, notify, toastError, sprites } = useApp();
-  const [tab, setTab] = useState("sprites");
+  const ownNow = String(trainer?.avatar || "").startsWith("file:");
+  const [tab, setTab] = useState(initialTab || (ownNow ? "mine" : "sprites"));
   const [q, setQ] = useState(trainer?.name?.split(" ")[0]?.toLowerCase() || "");
-  const [names, setNames] = useState([]);
+  const [names, setNames] = useState(null);
   const [artists, setArtists] = useState({});
   const [busy, run] = useBusy();
   const [jobId, setJobId] = useState("");
   const [candidates, setCandidates] = useState([]);
+  const [viewer, setViewer] = useState(null);
+  const [link, setLink] = useState("");
+  const [cut, setCut] = useState(false);
+  const [drag, setDrag] = useState(false);
   const fileRef = useRef(null);
+  const pickRef = useRef(null);
   useEffect(() => {
-    const h = setTimeout(() => api.call("trainer_sprites_search", { query: q, limit: 160 }).then((r) => { setNames(r.sprites); setArtists(r.artists || {}); }).catch(() => {}), 200);
+    const h = setTimeout(() => api.call("trainer_sprites_search", { query: q, limit: 160 }).then((r) => { setNames(r.sprites); setArtists(r.artists || {}); }).catch(() => setNames([])), 200);
     return () => clearTimeout(h);
   }, [q]);
+  const [look, setLook] = useState(() => { try { return localStorage.getItem(LOOK_KEY) || "art"; } catch { return "art"; } });
+  const pickLook = (v) => { setLook(v); try { localStorage.setItem(LOOK_KEY, v); } catch { /* per-viewer convenience */ } };
   const job = useJob(jobId, (j) => {
     if (j.status === "done") { setCandidates(j.result?.candidates || []); notify(t("prospero_done")); onSaved?.(); }
     else toastError({ message: j.error || t("job_failed") });
   });
+  const finish = () => { notify(t("avatar_saved")); onSaved?.(); onClose(); };
   const choose = (avatar) => run("save", async () => {
     await api.call("trainer_update", { id: trainer.id, avatar });
-    notify(t("avatar_saved"));
-    onSaved?.();
-    onClose();
+    finish();
   });
+  // a picture as it is: no pixels, no drawing, nothing generated
+  const useBlob = (blob, extra = {}) => run("upload", async () => {
+    await api.uploadAvatar(blob, { trainerId: trainer.id, mode: "upload", cutBackground: cut, kind: "image", ...extra });
+    finish();
+  });
+  const useUrl = (url, extra = {}) => run("upload", async () => {
+    let blob = null;
+    try { blob = await fetchPicture(url); } catch { blob = null; }
+    if (blob) await api.uploadAvatar(blob, { trainerId: trainer.id, mode: "upload", cutBackground: cut, kind: "image", source: url, ...extra });
+    else await api.call("avatar_from_url", { url, trainer_id: trainer.id, kind: extra.kind || "image", credit: extra.credit || "", title: extra.title || "", cut_background: cut });
+    finish();
+  });
+  const styleRef = (url, name) => run("style", async () => {
+    const blob = await fetchPicture(url);
+    const ext = (blob.type.split("/")[1] || "png").replace("jpeg", "jpg");
+    await api.uploadStyleRefs([new File([blob], `${String(name || "style").replace(/[^A-Za-z0-9_-]+/g, "-").slice(0, 40)}.${ext}`, { type: blob.type })]);
+    notify(t("style_ref_added"));
+  });
+  useEffect(() => {
+    // Ctrl+V: a copied picture, or the address of one (outside the text fields)
+    const onPaste = (e) => {
+      const file = [...(e.clipboardData?.files || [])].find((f) => f.type.startsWith("image/"));
+      if (file) { e.preventDefault(); useBlob(file, { kind: "image" }); return; }
+      const text = (e.clipboardData?.getData("text") || "").trim();
+      const inField = e.target instanceof HTMLElement && e.target.closest("input, textarea");
+      if (!inField && /^https?:\/\/\S+$/.test(text)) { e.preventDefault(); useUrl(text); }
+    };
+    window.addEventListener("paste", onPaste);
+    return () => window.removeEventListener("paste", onPaste);
+  }); // eslint-disable-line react-hooks/exhaustive-deps
+  const onDrop = (e) => {
+    e.preventDefault();
+    setDrag(false);
+    const file = [...(e.dataTransfer?.files || [])].find((f) => f.type.startsWith("image/"));
+    if (file) return useBlob(file, { kind: "image" });
+    const url = (e.dataTransfer?.getData("text/uri-list") || e.dataTransfer?.getData("text") || "").trim().split("\n")[0];
+    if (/^https?:\/\//.test(url)) useUrl(url);
+    return undefined;
+  };
   const [description, setDescription] = useState("");
   const [picked, setPicked] = useState(0);
   const [gameStyle, setGameStyle] = useState(true);
@@ -317,81 +478,147 @@ export function AvatarDialog({ trainer, onClose, onSaved }) {
     const file = fileRef.current?.files?.[0];
     if (!file) return;
     run(mode, async () => {
-      await api.uploadAvatar(file, { trainerId: trainer.id, mode });
-      notify(t("avatar_saved"));
-      onSaved?.();
-      onClose();
+      await api.uploadAvatar(file, { trainerId: trainer.id, mode, kind: "photo", cutBackground: cut });
+      finish();
     });
   };
   const draw = () => run("prospero", async () => {
     const files = fileRef.current?.files || [];
     setCandidates([]);
-    const r = await api.drawAvatar(files, { description, trainerId: trainer.id, style: gameStyle });
+    const r = await api.drawAvatar(files, { description, trainerId: trainer.id, style: gameStyle, look });
     if (r.id) setJobId(r.id);
   });
+  const spriteItems = (names || []).map((n) => ({ url: sprites.trainer(`sd:${n}`), title: n, avatar: `sd:${n}`,
+    sub: artists[n] ? t("sprite_by", { name: artists[n] }) : t("avatar_tab_sprites") }));
+  const candidateItems = candidates.flatMap((c) => [
+    { url: c.url, title: t("avatar_sprite"), avatar: c.avatar },
+    ...(c.drawing ? [{ url: c.drawing.url, title: t("avatar_drawing"), avatar: c.drawing.avatar }] : []),
+  ]);
+  const useButton = (item, label) => (
+    <Busy busy={busy.save || busy.upload} className="btn btn-primary" onClick={() => (item.avatar ? choose(item.avatar) : useUrl(item.url, {
+      kind: "art", credit: item.credit || "", title: item.file || item.title || "",
+    }))}>{label}</Busy>
+  );
   return (
     <Modal title={t("avatar_title", { name: trainer.name })} onClose={onClose} wide>
-      <Tabs value={tab} onChange={setTab} tabs={[{ id: "sprites", label: t("avatar_tab_sprites") }, { id: "photo", label: t("avatar_tab_photo") },
-        { id: "poses", label: t("avatar_tab_poses") }]} />
-      {tab === "poses" && <PosesPanel trainer={trainer} onSaved={onSaved} />}
-      {tab === "sprites" && (
-        <div className="space-y-2">
-          <input className="field" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t("avatar_search")} aria-label={t("avatar_search")} />
-          <div className="sprite-grid">
-            {names.map((n) => (
-              <button key={n} type="button" className="sprite-pick" onClick={() => choose(`sd:${n}`)} title={artists[n] ? `${n} · ${t("sprite_by", { name: artists[n] })}` : n} disabled={busy.save}>
-                <img src={sprites.trainer(`sd:${n}`)} alt={n} loading="lazy" className="pixelated" />
-                <span className="trunc">{n}</span>
-              </button>
-            ))}
-          </div>
-          <p className="help">{t("avatar_sprites_help")}</p>
+      <div className={`avatar-dialog ${drag ? "is-drag" : ""}`} onDragOver={(e) => { e.preventDefault(); setDrag(true); }} onDragLeave={() => setDrag(false)} onDrop={onDrop}>
+        <div className="avatar-upload-bar">
+          <Busy busy={busy.upload} className="btn btn-primary" onClick={() => pickRef.current?.click()}><Icon d={ICONS.upload} size={14} /> {t("avatar_upload_any")}</Busy>
+          <input ref={pickRef} type="file" accept="image/*" hidden onChange={(e) => { const f = e.target.files?.[0]; e.target.value = ""; if (f) useBlob(f, { kind: "image" }); }} />
+          <form className="avatar-link" onSubmit={(e) => { e.preventDefault(); if (link.trim()) useUrl(link.trim()); }}>
+            <input className="field" value={link} onChange={(e) => setLink(e.target.value)} placeholder={t("avatar_link_ph")} aria-label={t("avatar_link_ph")} inputMode="url" />
+            <button type="submit" className="btn" disabled={!/^https?:\/\/\S+$/.test(link.trim()) || busy.upload}>{t("avatar_link_use")}</button>
+          </form>
+          <label className="flex items-center gap-2 help"><input type="checkbox" checked={cut} onChange={(e) => setCut(e.target.checked)} /> {t("avatar_cut_bg")}</label>
+          <p className="help w-full">{t("avatar_upload_help")}</p>
         </div>
-      )}
-      {tab === "photo" && (
-        <div className="space-y-3">
-          <input ref={fileRef} type="file" accept="image/*" multiple className="field" aria-label={t("avatar_photos")}
-            onChange={(e) => setPicked(Math.min(4, e.target.files?.length || 0))} />
-          <div className="grid gap-2 sm:grid-cols-2">
-            <Busy busy={busy.pixel} className="btn" disabled={!picked} onClick={() => upload("pixel")}>{t("avatar_pixel")}</Busy>
-            <Busy busy={busy.upload} className="btn" disabled={!picked} onClick={() => upload("upload")}>{t("avatar_upload")}</Busy>
-          </div>
-          <p className="help">{t("avatar_photo_help")}</p>
-          <div className="panel space-y-2">
-            <b>{t("avatar_prospero")}</b>
-            <input className="field" value={description} maxLength={300} onChange={(e) => setDescription(e.target.value)}
-              placeholder={t("avatar_description_ph")} aria-label={t("avatar_description")} />
-            <label className="flex items-center gap-2"><input type="checkbox" checked={gameStyle} onChange={(e) => setGameStyle(e.target.checked)} /> {t("avatar_game_style")}</label>
-            <div className="flex flex-wrap items-center gap-2">
-              <Busy busy={busy.prospero || (job && job.status !== "done" && job.status !== "failed" && job.status !== "cancelled")} className="btn btn-primary"
-                disabled={!picked && !description.trim()} onClick={draw}>{t("avatar_draw")}</Busy>
-              <span className="help">{picked ? t("avatar_photos_n", { n: picked }) : t("avatar_no_photos")}</span>
-            </div>
-            <p className="help">{t("avatar_draw_help")}</p>
-          </div>
-          {job && <JobProgress job={job} />}
-          {candidates.length > 0 && (
-            <div className="space-y-1">
-              <b>{t("avatar_candidates")}</b>
-              <div className="candidate-grid">
-                {candidates.map((c) => (
-                  <div key={c.file} className="candidate">
-                    <button type="button" className="sprite-pick" onClick={() => choose(c.avatar)} title={t("avatar_use_sprite")}>
-                      <img src={c.url} alt="" className="pixelated" /><span>{t("avatar_sprite")}</span>
-                    </button>
-                    {c.drawing && (
-                      <button type="button" className="sprite-pick" onClick={() => choose(c.drawing.avatar)} title={t("avatar_use_drawing")}>
-                        <img src={c.drawing.url} alt="" /><span>{t("avatar_drawing")}</span>
-                      </button>
-                    )}
-                  </div>
-                ))}
+        <Tabs value={tab} onChange={setTab} tabs={[{ id: "sprites", label: t("avatar_tab_sprites") }, { id: "art", label: t("avatar_tab_art") },
+          { id: "mine", label: t("avatar_tab_mine") }, { id: "photo", label: t("avatar_tab_photo") }, { id: "poses", label: t("avatar_tab_poses") }]} />
+        {tab === "poses" && <PosesPanel trainer={trainer} onSaved={onSaved} />}
+        {tab === "sprites" && (
+          <div className="space-y-2">
+            <input className="field" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t("avatar_search")} aria-label={t("avatar_search")} />
+            {names && names.length === 0 && (
+              <div className="panel space-y-2">
+                <p>{t("avatar_sprites_none", { q })}</p>
+                <div className="flex flex-wrap gap-2">
+                  <button type="button" className="btn btn-sm" onClick={() => pickRef.current?.click()}>{t("avatar_upload_any")}</button>
+                  <button type="button" className="btn btn-sm" onClick={() => setTab("mine")}>{t("avatar_tab_mine")}</button>
+                  <button type="button" className="btn btn-sm" onClick={() => setTab("art")}>{t("avatar_tab_art")}</button>
+                </div>
               </div>
+            )}
+            <div className="sprite-grid">
+              {spriteItems.map((it, i) => (
+                <button key={it.avatar} type="button" className={`sprite-pick ${trainer.avatar === it.avatar ? "is-on" : ""}`} onClick={() => setViewer({ items: spriteItems, index: i })}
+                  onDoubleClick={() => choose(it.avatar)} title={`${it.title} · ${it.sub}`} disabled={busy.save}>
+                  <img src={it.url} alt={it.title} loading="lazy" className="pixelated" />
+                  <span className="trunc">{it.title}</span>
+                </button>
+              ))}
             </div>
-          )}
-        </div>
+            <p className="help">{t("avatar_sprites_help")} {t("avatar_click_big")}</p>
+          </div>
+        )}
+        {tab === "art" && <OfficialArtGrid query={trainer.name || ""} onOpen={(index, items) => setViewer({ items, index, art: true })} />}
+        {tab === "mine" && <OwnImages trainer={trainer} onOpen={(index, items) => setViewer({ items, index })} />}
+        {tab === "photo" && (
+          <div className="space-y-3">
+            <input ref={fileRef} type="file" accept="image/*" multiple className="field" aria-label={t("avatar_photos")}
+              onChange={(e) => setPicked(Math.min(4, e.target.files?.length || 0))} />
+            <div className="grid gap-2 sm:grid-cols-2">
+              <Busy busy={busy.upload} className="btn" disabled={!picked} onClick={() => upload("upload")}>{t("avatar_upload")}</Busy>
+              <Busy busy={busy.pixel} className="btn" disabled={!picked} onClick={() => upload("pixel")}>{t("avatar_pixel")}</Busy>
+            </div>
+            <p className="help">{t("avatar_photo_help")}</p>
+            <div className="panel space-y-2">
+              <b>{t("avatar_prospero")}</b>
+              <div className="seg" role="group" aria-label={t("draw_look")}>
+                {["art", "sprite"].map((v) => <button key={v} type="button" aria-pressed={look === v} onClick={() => pickLook(v)}>{t(`draw_look_${v}`)}</button>)}
+              </div>
+              <p className="help">{t(`draw_look_${look}_help`)}</p>
+              <input className="field" value={description} maxLength={300} onChange={(e) => setDescription(e.target.value)}
+                placeholder={t("avatar_description_ph")} aria-label={t("avatar_description")} />
+              <label className="flex items-center gap-2"><input type="checkbox" checked={gameStyle} onChange={(e) => setGameStyle(e.target.checked)} /> {t(look === "art" ? "avatar_game_style_art" : "avatar_game_style")}</label>
+              <div className="flex flex-wrap items-center gap-2">
+                <Busy busy={busy.prospero || (job && job.status !== "done" && job.status !== "failed" && job.status !== "cancelled")} className="btn btn-primary"
+                  disabled={!picked && !description.trim()} onClick={draw}>{t(look === "art" ? "avatar_draw_art" : "avatar_draw")}</Busy>
+                <span className="help">{picked ? t("avatar_photos_n", { n: picked }) : t("avatar_no_photos")}</span>
+              </div>
+              <p className="help">{t("avatar_draw_help")}</p>
+            </div>
+            {job && <JobProgress job={job} />}
+            {candidates.length > 0 && (
+              <div className="space-y-1">
+                <b>{t("avatar_candidates")}</b>
+                <div className="candidate-grid">
+                  {candidates.map((c) => (
+                    <div key={c.file} className="candidate">
+                      <button type="button" className="sprite-pick" onClick={() => setViewer({ items: candidateItems, index: candidateItems.findIndex((x) => x.avatar === c.avatar) })}
+                        onDoubleClick={() => choose(c.avatar)} title={t("avatar_use_sprite")}>
+                        <img src={c.url} alt="" className="pixelated" /><span>{t("avatar_sprite")}</span>
+                      </button>
+                      {c.drawing && (
+                        <button type="button" className="sprite-pick" onClick={() => setViewer({ items: candidateItems, index: candidateItems.findIndex((x) => x.avatar === c.drawing.avatar) })}
+                          onDoubleClick={() => choose(c.drawing.avatar)} title={t("avatar_use_drawing")}>
+                          <img src={c.drawing.url} alt="" /><span>{t("avatar_drawing")}</span>
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+        {drag && <div className="avatar-drop-hint" aria-hidden="true">{t("avatar_drop_here")}</div>}
+      </div>
+      {viewer && (
+        <ImageViewer items={viewer.items} index={viewer.index} onClose={() => setViewer(null)}
+          actions={(item) => (
+            <>
+              {useButton(item, viewer.art ? t("art_use") : item.avatar?.startsWith("sd:") ? t("avatar_use_this_sprite") : t("avatar_use_this"))}
+              {(viewer.art || item.kind === "art") && (
+                <Busy busy={busy.style} className="btn" onClick={() => styleRef(item.url, item.file || item.title)}>{t("art_as_style")}</Busy>
+              )}
+            </>
+          )} />
       )}
     </Modal>
+  );
+}
+
+/** The trainer's picture big: front, and its poses when it has them; a button changes it. */
+export function TrainerPictureViewer({ trainer, onClose, onChange }) {
+  const { t } = useApp();
+  const poses = trainer.avatar_poses || {};
+  const items = [
+    { url: trainer.avatar_url, title: trainer.name, sub: t("pose_front"), credit: creditLabel(t, trainer) },
+    ...["back", "win"].filter((p) => poses[p]).map((p) => ({ url: poses[p], title: trainer.name, sub: t(`pose_${p}`) })),
+  ];
+  return (
+    <ImageViewer items={items} onClose={onClose}
+      actions={() => <button type="button" className="btn btn-primary" onClick={onChange}><Icon d={ICONS.pencil} size={14} /> {t("change_avatar")}</button>} />
   );
 }
 
@@ -401,6 +628,7 @@ function PosesPanel({ trainer, onSaved }) {
   const [info, setInfo] = useState(null);
   const [jobId, setJobId] = useState("");
   const [candidates, setCandidates] = useState({});
+  const [viewing, setViewing] = useState(-1);
   const [busy, run] = useBusy();
   const load = () => api.call("avatar_poses_get", { trainer_id: trainer.id }).then(setInfo).catch((e) => toastError(e));
   useEffect(() => { load(); }, [trainer.id]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -422,14 +650,16 @@ function PosesPanel({ trainer, onSaved }) {
   });
   if (!info) return <Spinner />;
   if (!info.can_draw) return <p className="help">{t("poses_own_only")}</p>;
+  const views = [{ url: info.avatar_url, title: t("pose_front") }, ...["back", "win"].filter((p) => info.poses[p]).map((p) => ({ url: info.poses[p], title: t(`pose_${p}`) }))];
+  const big = (url) => setViewing(Math.max(0, views.findIndex((v) => v.url === url)));
   return (
     <div className="space-y-3">
       <p className="help">{t("poses_help")}</p>
       <div className="pose-row">
-        <figure className="pose-cell"><img src={info.avatar_url} alt="" className="pixelated" /><figcaption>{t("pose_front")}</figcaption></figure>
+        <figure className="pose-cell"><button type="button" className="pose-view" onClick={() => big(info.avatar_url)} aria-label={t("avatar_view")}><img src={info.avatar_url} alt="" className="pixelated" /></button><figcaption>{t("pose_front")}</figcaption></figure>
         {["back", "win"].map((p) => (
           <figure key={p} className="pose-cell">
-            {info.poses[p] ? <img src={info.poses[p]} alt="" className="pixelated" /> : <div className="pose-empty" aria-hidden="true">?</div>}
+            {info.poses[p] ? <button type="button" className="pose-view" onClick={() => big(info.poses[p])} aria-label={t("avatar_view")}><img src={info.poses[p]} alt="" className="pixelated" /></button> : <div className="pose-empty" aria-hidden="true">?</div>}
             <figcaption>{t(`pose_${p}`)}</figcaption>
             {info.poses[p] && <button type="button" className="btn btn-sm" disabled={busy[p]} onClick={() => pick(p, "")}>{t("pose_drop")}</button>}
           </figure>
@@ -453,6 +683,7 @@ function PosesPanel({ trainer, onSaved }) {
           </div>
         </div>
       ))}
+      {viewing >= 0 && <ImageViewer items={views} index={viewing} onClose={() => setViewing(-1)} />}
     </div>
   );
 }

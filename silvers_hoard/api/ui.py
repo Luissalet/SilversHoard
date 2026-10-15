@@ -158,11 +158,13 @@ def avatars(request: Request):
 
 @router.post("/avatars/upload")
 async def avatar_upload(request: Request, file: UploadFile = File(...), trainer_id: str = Form(""), mode: str = Form("pixel"),
-                        remove_background: bool = Form(True)):
+                        remove_background: bool = Form(True), cut_background: bool = Form(False), kind: str = Form(""),
+                        credit: str = Form(""), source: str = Form(""), title: str = Form("")):
     data = await file.read(MAX_UPLOAD + 1)
     if len(data) > MAX_UPLOAD:
         raise SilverError("too_large", "The picture is larger than 20 MB.")
-    return services(request).avatar_from_photo(data, trainer_id=trainer_id, mode=mode, remove_background=remove_background)
+    return services(request).avatar_from_photo(data, trainer_id=trainer_id, mode=mode, remove_background=remove_background,
+                                               cut_background=cut_background, kind=kind, credit=credit, source=source, title=title)
 
 
 @router.post("/badges/upload")
@@ -183,14 +185,14 @@ async def backdrop_upload(request: Request, file: UploadFile = File(...), gym_id
 
 @router.post("/avatars/draw")
 async def avatar_draw(request: Request, files: list[UploadFile] = File(default=[]), description: str = Form(""), trainer_id: str = Form(""),
-                      count: int = Form(2), style: bool = Form(True)):
+                      count: int = Form(2), style: bool = Form(True), look: str = Form("sprite")):
     photos = []
     for f in files[:4]:
         data = await f.read(MAX_UPLOAD + 1)
         if len(data) > MAX_UPLOAD:
             raise SilverError("too_large", "A picture is larger than 20 MB.")
         photos.append(data)
-    return services(request).avatar_draw(photos, description=description, trainer_id=trainer_id, count=count, style=style)
+    return services(request).avatar_draw(photos, description=description, trainer_id=trainer_id, count=count, style=style, look=look)
 
 
 @router.get("/style-refs/{filename}")

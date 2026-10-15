@@ -6,6 +6,7 @@ import "../battle/battle.css";
 import "./play.css";
 import PlayApp from "./PlayApp.jsx";
 import RoomApp from "./RoomApp.jsx";
+import { installSmoothArt } from "../smooth-art.js";
 
 function readData() {
   try {
@@ -18,5 +19,6 @@ function readData() {
 }
 
 const data = readData();
+installSmoothArt();
 // a live-battle room served by a friend's Silver's Hoard (pvp.py), or a playable page with a gym or trainer inside
 createRoot(document.getElementById("root")).render(data?.kind === "room" ? <RoomApp data={data} /> : <PlayApp data={data} />);

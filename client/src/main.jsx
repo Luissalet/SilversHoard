@@ -6,8 +6,10 @@ import "./index.css";
 import "./battle/battle.css";
 import "./app.css";
 import { installCopilot } from "./copilot-context.js";
+import { installSmoothArt } from "./smooth-art.js";
 
 installCopilot();
+installSmoothArt();
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>

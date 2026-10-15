@@ -211,3 +211,5 @@ main { overflow-x: clip; }
 .hide-sm { }
 @media (max-width: 767px) { .hide-sm { display: none !important; } }
 
+/* drawings, photos and official artwork are smoothed when scaled; pixel art keeps its pixels (smooth-art.js marks them) */
+img.is-art, img.pixelated.is-art { image-rendering: auto !important; }
