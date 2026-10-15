@@ -275,6 +275,11 @@ class Store:
     def trainer_by_canon(self, key: str) -> Optional[dict[str, Any]]:
         return _decode(self.db.one("SELECT * FROM trainers WHERE canon_key = ? AND deleted_at IS NULL", (key,)), TRAINER_JSON)
 
+    def trainers_by_canon_prefix(self, prefix: str) -> list[dict[str, Any]]:
+        rows = self.db.query("SELECT * FROM trainers WHERE canon_key LIKE ? ESCAPE '\\' AND deleted_at IS NULL ORDER BY created_at",
+                           (prefix.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_") + "%",))
+        return [_decode(r, TRAINER_JSON) for r in rows]
+
     def add_trainer(self, values: dict[str, Any]) -> str:
         return self._insert("trainers", "tr", values, TRAINER_JSON)
 

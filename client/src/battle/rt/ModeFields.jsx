@@ -1,9 +1,35 @@
-// Choose how a battle is played: classic (turns) or real time (Legends: Z-A rules), and the time limit of a real-time battle.
+// Choose how a battle is played: classic (turns) or real time (Legends: Z-A rules), the time limit of a real-time battle, and
+// whether every Pokémon is levelled to 50 or 100 ("igualado") so a level 88 does not crush a level 44.
 import React from "react";
 
-export default function ModeFields({ t, mode, onMode, timeLimit, onTimeLimit, compact = false }) {
+export const EQUAL_LEVELS = [0, 50, 100];
+
+/** The level rules a battle sends: the extra rules the person set, with the equalized level on top when chosen. */
+export function withEqualLevel(levelRules, level) {
+  const clean = Object.fromEntries(Object.entries(levelRules || {}).filter(([, v]) => v));
+  if (!level) return clean;
+  return { level: Number(level) };
+}
+
+export function LevelFields({ t, level, onLevel }) {
   return (
     <div className="space-y-2">
+      <span className="label">{t("eq_title")}</span>
+      <div className="seg" role="group" aria-label={t("eq_title")}>
+        {EQUAL_LEVELS.map((v) => (
+          <button key={v} type="button" aria-pressed={Number(level || 0) === v} onClick={() => onLevel(v)}>{v ? t("eq_level", { n: v }) : t("eq_off")}</button>
+        ))}
+      </div>
+      <p className="help">{Number(level) ? t("eq_help_on", { n: level }) : t("eq_help_off")}</p>
+    </div>
+  );
+}
+
+export default function ModeFields({ t, mode, onMode, timeLimit, onTimeLimit, compact = false, level, onLevel }) {
+  return (
+    <div className="space-y-3">
+      {onLevel && <LevelFields t={t} level={level} onLevel={onLevel} />}
+      <div className="space-y-2">
       <span className="label">{t("rt_mode")}</span>
       <div className="seg" role="group" aria-label={t("rt_mode")}>
         <button type="button" aria-pressed={mode !== "realtime"} onClick={() => onMode("classic")}>{t("mode_classic")}</button>
@@ -20,6 +46,7 @@ export default function ModeFields({ t, mode, onMode, timeLimit, onTimeLimit, co
           )}
         </>
       )}
+      </div>
     </div>
   );
 }

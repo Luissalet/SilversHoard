@@ -3,6 +3,7 @@
 // events to start animations; it never changes the battle.
 import { TYPE_COLORS } from "../dex.js";
 import { Animator, dirRow, image, loadMeta } from "./pmd.js";
+import { Vfx } from "./vfx.js";
 
 const ARENA = { w: 28, h: 17 };
 const MARGIN_X = 2.6;
@@ -39,6 +40,7 @@ export class ArenaRenderer {
     this.eventIndex = 0;
     this.time = 0;
     this.court = null;
+    this.vfx = new Vfx(this);
     this.resize(canvas.clientWidth || 900);
   }
 
@@ -147,6 +149,7 @@ export class ArenaRenderer {
     const T = this.texts;
     const anim = (si) => this.anims[si]?.[battle.sides[si].active];
     const s = e.s;
+    this.vfx.onEvent(e, battle);
     switch (e.k) {
       case "windup": {
         const a = anim(s);
@@ -163,8 +166,6 @@ export class ArenaRenderer {
         if (e.crit) this.float(battle, s, T.crit, "#ff8a65", { size: 0.8, dy: -0.7 });
         else if (e.eff > 1 && e.hit === 0) this.float(battle, s, T.super, "#ffd54a", { size: 0.8, dy: -0.7 });
         else if (e.eff < 1 && e.eff > 0 && e.hit === 0) this.float(battle, s, T.weak, "#c9d2dc", { size: 0.75, dy: -0.7 });
-        const p = this.posOf(battle, s);
-        this.effects.push({ kind: "spark", x: p.x, y: p.y, color: TYPE_COLORS[e.type] || "#fff", t: 0, life: 0.35 });
         break;
       }
       case "chip": this.float(battle, s, `−${Math.max(1, Math.round((e.amount / Math.max(1, e.maxhp)) * 100))}%`, "#e8a0a0", { size: 0.75 }); break;
@@ -197,8 +198,7 @@ export class ArenaRenderer {
         this.effects.push({ kind: "beam", x: p.x, y: p.y, from: TRAINER[s], t: 0, life: 0.5, red: true });
         break;
       }
-      case "area": this.effects.push({ kind: e.arc === -1 ? "ring" : "cone", x: e.x, y: e.y, fx: e.fx, fy: e.fy, r: e.r, arc: e.arc, color: TYPE_COLORS[e.type] || "#fff", t: 0, life: 0.4 }); break;
-      case "impact": case "fizzle": this.effects.push({ kind: "spark", x: e.x, y: e.y, color: "#ffffff", t: 0, life: 0.25, small: e.k === "fizzle" }); break;
+      case "fizzle": this.effects.push({ kind: "spark", x: e.x, y: e.y, color: "#ffffff", t: 0, life: 0.25, small: true }); break;
       case "roll": {
         const p = this.posOf(battle, s);
         this.effects.push({ kind: "dust", x: p.x, y: p.y, t: 0, life: 0.35 });
@@ -213,7 +213,11 @@ export class ArenaRenderer {
     const view = battle.view();
     this.time += dt;
     this.consume(battle);
+    this.vfx.update(dt, view);
     ctx.imageSmoothingEnabled = false;
+    const [shx, shy] = this.vfx.shakeOffset();
+    ctx.save();
+    ctx.translate(shx, shy);
     this.drawCourt(view);
     const s = this.scale;
     // trainers
@@ -250,34 +254,12 @@ export class ArenaRenderer {
     }
     // area effects under the Pokémon
     this.drawEffects(dt, true);
+    this.vfx.drawUnder(ctx);
     // Pokémon, sorted by depth
     const order = view.sides.map((side, si) => ({ side, si })).sort((a, b) => a.side.y - b.side.y);
     for (const { side, si } of order) this.drawMon(view, side, si, dt);
-    // projectiles
-    for (const p of view.projectiles) {
-      const col = TYPE_COLORS[p.type] || "#fff";
-      const sp = Math.sqrt(p.vx * p.vx + p.vy * p.vy) || 1;
-      const ux = p.vx / sp, uy = p.vy / sp;
-      const len = p.shape === "beam" ? 1.6 : 0.7;
-      const g = ctx.createLinearGradient(this.px(p.x - ux * len), this.py(p.y - uy * len), this.px(p.x), this.py(p.y));
-      g.addColorStop(0, shade(col, 0));
-      g.addColorStop(1, shade(col, 0.85));
-      ctx.strokeStyle = g;
-      ctx.lineCap = "round";
-      ctx.lineWidth = p.r * s * (p.shape === "beam" ? 1.6 : 1.2);
-      ctx.beginPath();
-      ctx.moveTo(this.px(p.x - ux * len), this.py(p.y - uy * len));
-      ctx.lineTo(this.px(p.x), this.py(p.y));
-      ctx.stroke();
-      const rg = ctx.createRadialGradient(this.px(p.x), this.py(p.y), 0, this.px(p.x), this.py(p.y), p.r * s * 1.3);
-      rg.addColorStop(0, "rgba(255,255,255,0.95)");
-      rg.addColorStop(0.45, shade(col, 0.9));
-      rg.addColorStop(1, shade(col, 0));
-      ctx.fillStyle = rg;
-      ctx.beginPath();
-      ctx.arc(this.px(p.x), this.py(p.y), p.r * s * 1.3, 0, Math.PI * 2);
-      ctx.fill();
-    }
+    // projectiles, rays, melee marks, particles
+    this.vfx.drawOver(ctx, view, battle);
     this.drawEffects(dt, false);
     // floating texts
     ctx.textAlign = "center";
@@ -295,6 +277,7 @@ export class ArenaRenderer {
       ctx.fillText(f.text, this.px(f.x), this.py(y));
       ctx.globalAlpha = 1;
     }
+    ctx.restore();
     this.flash = this.flash.map((v) => Math.max(0, v - dt * 5));
   }
 

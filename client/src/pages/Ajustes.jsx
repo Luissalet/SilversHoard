@@ -28,6 +28,13 @@ export default function Ajustes() {
         <Field label={t("player_name")} hint={t("player_name_help")}><input className="field" value={f.player_name} onChange={(e) => set("player_name", e.target.value)} /></Field>
         <Field label={t("default_format")}><FormatSelect id="set-format" value={f.default_format} onChange={(v) => set("default_format", v)} /></Field>
         <AiFields level={f.default_ai_level} style={f.default_ai_style} onLevel={(v) => set("default_ai_level", v)} onStyle={(v) => set("default_ai_style", v)} />
+        <Field label={t("eq_default")}>
+          <select className="field" value={f.default_level || 0} onChange={(e) => set("default_level", Number(e.target.value))}>
+            <option value={0}>{t("eq_off")}</option>
+            <option value={50}>{t("eq_level", { n: 50 })}</option>
+            <option value={100}>{t("eq_level", { n: 100 })}</option>
+          </select>
+        </Field>
         <div className="grid gap-3 sm:grid-cols-3">
           <Field label={t("playback_ms")}><input className="field" type="number" min={0} max={5000} step={50} value={f.playback_ms} onChange={(e) => set("playback_ms", Number(e.target.value))} /></Field>
           <Field label={t("max_turns")}><input className="field" type="number" min={20} max={2000} value={f.max_turns} onChange={(e) => set("max_turns", Number(e.target.value))} /></Field>

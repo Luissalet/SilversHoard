@@ -5,7 +5,7 @@ import { useApp } from "../context.js";
 import { Busy, Empty, Field, Icon, ICONS, Rel, Section, Switch, Tabs, useBusy, useStored } from "../components/ui.jsx";
 import { AiFields, Avatar, FormatSelect, JobProgress, RulesFields, TeamStrip, TrainerSelect, useTrainers } from "../components/silver.jsx";
 import { BattleRow } from "./Historial.jsx";
-import ModeFields from "../battle/rt/ModeFields.jsx";
+import ModeFields, { withEqualLevel } from "../battle/rt/ModeFields.jsx";
 
 function SeatEditor({ label, seat, onChange, allowHuman = true }) {
   const { t, changed } = useApp();
@@ -51,13 +51,14 @@ function SingleBattle() {
   const [more, setMore] = useState(false);
   const [mode, setMode] = useStored("silver-mode", settings.default_mode || "classic");
   const [timeLimit, setTimeLimit] = useStored("silver-rt-limit", settings.rt_time_limit || 300);
+  const [equal, setEqual] = useStored("silver-equal-level", settings.default_level || 0);
   const [busy, run] = useBusy();
   const list = useTrainers();
   const t1 = list.find((x) => x.id === p1.trainer_id);
   useEffect(() => { if (t1 && !format) setFormat(t1.format); }, [t1?.id]); // eslint-disable-line react-hooks/exhaustive-deps
   const start = () => run("start", async () => {
     const clean = (s) => ({ trainer_id: s.trainer_id, human: !!s.human, ...(s.ai_level ? { ai_level: s.ai_level } : {}), ...(s.ai_style ? { ai_style: s.ai_style } : {}) });
-    const b = await api.call("battle_start", { p1: clean(p1), p2: clean(p2), format: format || "", rules, level_rules: Object.fromEntries(Object.entries(levelRules).filter(([, v]) => v)),
+    const b = await api.call("battle_start", { p1: clean(p1), p2: clean(p2), format: format || "", rules, level_rules: withEqualLevel(levelRules, equal),
       mode, ...(mode === "realtime" ? { time_limit: Number(timeLimit) || 0 } : {}) });
     changed();
     go(`#/combate/${b.id}`);
@@ -77,7 +78,7 @@ function SingleBattle() {
             <p className="help">{both ? t("mode_watch") : p1.human && p2.human ? t("mode_hotseat") : t("mode_play")}</p>
           </div>
         </div>
-        <ModeFields t={t} mode={mode} onMode={setMode} timeLimit={timeLimit} onTimeLimit={setTimeLimit} />
+        <ModeFields t={t} mode={mode} onMode={setMode} timeLimit={timeLimit} onTimeLimit={setTimeLimit} level={equal} onLevel={setEqual} />
         <button type="button" className="btn-link" onClick={() => setMore((m) => !m)}>{more ? t("less_rules") : t("more_rules")}</button>
         {more && <RulesFields rules={rules} levelRules={levelRules} onRules={setRules} onLevelRules={setLevelRules} />}
         <div className="flex flex-wrap gap-2">
@@ -98,9 +99,10 @@ function SeriesForm() {
   const [count, setCount] = useState(settings.series_default || 20);
   const [format, setFormat] = useState("");
   const [mode, setMode] = useStored("silver-mode", settings.default_mode || "classic");
+  const [equal, setEqual] = useStored("silver-equal-level", settings.default_level || 0);
   const [busy, run] = useBusy();
   const start = () => run("s", async () => {
-    const job = await api.call("series_start", { p1: { trainer_id: a }, p2: { trainer_id: b }, count: Number(count), format, mode });
+    const job = await api.call("series_start", { p1: { trainer_id: a }, p2: { trainer_id: b }, count: Number(count), format, mode, level_rules: withEqualLevel({}, equal) });
     go(`#/trabajo/${job.id}`);
   });
   return (
@@ -114,7 +116,7 @@ function SeriesForm() {
         <Field label={t("series_count")}><input className="field" type="number" min={1} max={1000} value={count} onChange={(e) => setCount(e.target.value)} /></Field>
         <Field label={t("format")}><FormatSelect id="series-format" value={format} onChange={setFormat} /></Field>
       </div>
-      <ModeFields t={t} mode={mode} onMode={setMode} compact />
+      <ModeFields t={t} mode={mode} onMode={setMode} compact level={equal} onLevel={setEqual} />
       <Busy busy={busy.s} className="btn btn-primary" disabled={!a || !b} onClick={start}>{t("series_start")}</Busy>
     </div>
   );
@@ -123,6 +125,7 @@ function SeriesForm() {
 function TournamentForm() {
   const { t, go, settings } = useApp();
   const [mode, setMode] = useStored("silver-mode", settings.default_mode || "classic");
+  const [equal, setEqual] = useStored("silver-equal-level", settings.default_level || 0);
   const list = useTrainers();
   const [picked, setPicked] = useState([]);
   const [q, setQ] = useState("");
@@ -135,7 +138,7 @@ function TournamentForm() {
   const shown = list.filter((x) => !q || `${x.name} ${x.title} ${(x.tags || []).join(" ")}`.toLowerCase().includes(q.toLowerCase()));
   const toggle = (id) => setPicked((p) => (p.includes(id) ? p.filter((x) => x !== id) : [...p, id]));
   const start = () => run("t", async () => {
-    const job = await api.call("tournament_start", { trainer_ids: picked, kind, best_of: Number(bestOf), format, title, mode, ...(level ? { ai_level: level } : {}) });
+    const job = await api.call("tournament_start", { trainer_ids: picked, kind, best_of: Number(bestOf), format, title, mode, level_rules: withEqualLevel({}, equal), ...(level ? { ai_level: level } : {}) });
     go(`#/trabajo/${job.id}`);
   });
   return (

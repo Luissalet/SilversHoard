@@ -1,13 +1,64 @@
-// The in-game teams of the leaders, Elite Four, champions, rivals and bosses (Crystal, FireRed/LeafGreen, Emerald): add one
-// trainer, or a whole league with its gyms and badges.
+// Characters: every leader, Elite Four member, champion, rival and boss of the nine generations with all the teams they used
+// game by game, and their sprites (open one in Personaje.jsx). Below, the exact in-game teams of Crystal, FireRed/LeafGreen and
+// Emerald with the whole leagues they make up.
 import React, { useState } from "react";
 import { api } from "../api.js";
 import { useApp } from "../context.js";
-import { Busy, ErrorBox, Section, Spinner, useBusy, useLoad, useStored } from "../components/ui.jsx";
+import { Busy, ErrorBox, Section, Spinner, Tabs, useBusy, useLoad, useStored } from "../components/ui.jsx";
 import { Avatar, GymBadge, TeamStrip } from "../components/silver.jsx";
 import { TYPE_COLORS } from "../battle/dex.js";
 
 export default function Personajes() {
+  const { t } = useApp();
+  const [tab, setTab] = useStored("silver-chars-tab", "all");
+  return (
+    <div className="space-y-5">
+      <div className="page-head">
+        <div className="min-w-0"><h1>{t("nav_canon")}</h1><p className="help">{tab === "all" ? t("chars_help") : t("canon_help")}</p></div>
+      </div>
+      <Tabs tabs={[{ id: "all", label: t("chars_tab") }, { id: "exact", label: t("chars_exact_tab") }]} value={tab} onChange={setTab} />
+      {tab === "all" ? <AllCharacters /> : <ExactTeams />}
+    </div>
+  );
+}
+
+function AllCharacters() {
+  const { t, lang } = useApp();
+  const [q, setQ] = useState("");
+  const [gen, setGen] = useStored("silver-chars-gen", 0);
+  const { data, error, loading, reload } = useLoad(() => api.call("characters_list", { query: q, gen: Number(gen) || 0 }), [q, gen]);
+  const list = data?.characters || [];
+  return (
+    <div className="space-y-4">
+      <div className="flex flex-wrap items-center gap-2">
+        <input className="field max-w-xs" placeholder={t("search_canon")} value={q} onChange={(e) => setQ(e.target.value)} aria-label={t("search_canon")} />
+        <div className="seg" role="group" aria-label={t("chars_gen")}>
+          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((g) => <button key={g} type="button" aria-pressed={Number(gen) === g} onClick={() => setGen(g)}>{g ? g : t("all")}</button>)}
+        </div>
+        {data && <span className="help">{list.length} / {data.total}</span>}
+      </div>
+      {error && <ErrorBox error={error} onRetry={reload} />}
+      {loading && !data ? <Spinner /> : !list.length ? <p className="help">{t("chars_none")}</p> : (
+        <div className="char-grid">
+          {list.map((c) => (
+            <a key={c.key} className="char-card" href={`#/personaje/${c.key}${gen ? `?gen=${gen}` : ""}`}>
+              <Avatar url={c.avatar_url} name={c.name} size={72} />
+              <div className="min-w-0 flex-1 space-y-1">
+                <b className="trunc block">{lang === "en" ? c.name : c.name_es}</b>
+                <div className="help">{t("chars_teams_n", { n: c.teams })} · {t("chars_sprites_n", { n: c.sprites })}{c.installed ? ` · ${t("chars_made_n", { n: c.installed })}` : ""}</div>
+                <TeamStrip species={c.species} size={26} />
+                <div className="char-gens">{c.gens.map((g) => <span key={g} className="chip">{t("chars_gen_n", { n: g })}</span>)}</div>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+      <p className="help">{data?.source}</p>
+    </div>
+  );
+}
+
+function ExactTeams() {
   const { t, lang, notify, changed, go } = useApp();
   const [q, setQ] = useState("");
   const [region, setRegion] = useStored("silver-canon-region", "");
@@ -19,9 +70,6 @@ export default function Personajes() {
   for (const tr of data?.trainers || []) (groups[`${tr.game} · ${tr.region}`] ||= []).push(tr);
   return (
     <div className="space-y-5">
-      <div className="page-head">
-        <div className="min-w-0"><h1>{t("nav_canon")}</h1><p className="help">{t("canon_help")}</p></div>
-      </div>
       <Section title={t("leagues_ready")}>
         <div className="league-list">
           {(data?.leagues || []).map((lg) => (
