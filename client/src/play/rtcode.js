@@ -4,15 +4,20 @@
 // [tick, side, mx, my, move, roll, switch, focus, plus, mega]; here it is [ticks since the previous row, mx and my in thousandths,
 // move, roll, switch, focus, plus, mega].
 
-/** The integers of a log (rows of the first seat only; rows with fewer than ten columns read as focused, no Plus, no Mega). */
+/** The integers of a log (rows of the first seat only; rows with fewer than ten columns read as focused, no Plus, no Mega).
+ * A doubles log (rows with the controlled slot and the locked foe, twelve columns) starts with the marker -11 and has eleven
+ * integers per row: the nine above plus ctl and tgt. */
 export function flatRtInputs(rows) {
   const flat = [];
+  const wide = rows.some((row) => row[1] === 0 && row.length > 10);
+  if (wide) flat.push(-11);
   let prev = 0;
   for (const row of rows) {
     if (row[1] !== 0) continue;
     const r = [...row];
     while (r.length < 10) r.push(r.length === 7 ? 1 : 0);
     flat.push(r[0] - prev, Math.round(r[2] * 1000), Math.round(r[3] * 1000), r[4], r[5] ? 1 : 0, r[6], r[7] ? 1 : 0, r[8] ? 1 : 0, r[9] ? 1 : 0);
+    if (wide) flat.push(r[10] ? 1 : 0, r[11] ? 1 : 0);
     prev = r[0];
   }
   return flat;
@@ -40,12 +45,16 @@ export async function unpackRtInputs(text) {
   const bytes = Uint8Array.from(bin, (c) => c.charCodeAt(0));
   const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("deflate"));
   const flat = JSON.parse(await new Response(stream).text());
+  const wide = flat[0] === -11;
+  const width = wide ? 11 : 9;
   const rows = [];
   let tick = 0;
-  for (let i = 0; i < flat.length; i += 9) {
-    const [dt, mx, my, use, dodge, sw, focus, plus, mega] = flat.slice(i, i + 9);
+  for (let i = wide ? 1 : 0; i < flat.length; i += width) {
+    const [dt, mx, my, use, dodge, sw, focus, plus, mega, ctl, tgt] = flat.slice(i, i + width);
     tick += dt;
-    rows.push([tick, 0, mx / 1000, my / 1000, use, dodge, sw, focus, plus, mega]);
+    const row = [tick, 0, mx / 1000, my / 1000, use, dodge, sw, focus, plus, mega];
+    if (wide) row.push(ctl, tgt);
+    rows.push(row);
   }
   return rows;
 }
