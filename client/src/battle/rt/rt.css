@@ -20,6 +20,10 @@
 .rt-hp { position: relative; height: 7px; flex: 1 1 100%; background: #0006; border-radius: 4px; overflow: hidden; }
 .rt-hp > span { position: absolute; inset: 0 auto 0 0; border-radius: 4px; transition: width 0.15s linear; }
 .rt-hp-num { font-size: 11.5px; color: var(--b-muted); }
+/* the HP just lost: a white chunk that waits a moment and drains behind the bar */
+.rt-hp > .rt-hp-lag { position: absolute; inset: 0 auto 0 0; border-radius: 4px; background: #fff; opacity: 0.85; transition: width 0.55s ease-in 0.45s; }
+.rt-face { width: 28px; height: 28px; flex: none; image-rendering: pixelated; border-radius: 6px; border: 1px solid #fff4; background: #0003; object-fit: cover; }
+.rt-face.is-out { filter: grayscale(1) brightness(0.6); }
 .rt-status { font-size: 11px; color: #111; font-weight: 700; padding: 0 5px; border-radius: 4px; text-transform: uppercase; }
 .rt-tag { font-size: 11px; padding: 0 5px; border-radius: 4px; background: var(--b-surface-2); color: var(--b-ink); border: 1px solid var(--b-line); }
 .rt-tag.up { color: #ffb15c; }

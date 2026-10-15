@@ -126,6 +126,16 @@ const BURSTS = {
 
 const melee = (id) => (MELEE.find(([, words]) => has(id, words)) || ["impact"])[0];
 
+// Signature looks, as the pixel-art battle videos draw them: hypnotic rings on the ground, a giant tongue, mallets, gears, chains,
+// life drained along a tether, will-o'-wisps, a meteor shower, mirror images and orbs gathering before a shadowy shot.
+const HYPNO = { hypnosis: "#e48ff2", sing: "#9fd7ff", grasswhistle: "#a7e06f", yawn: "#f0c8ff", lovelykiss: "#ff8fbf", supersonic: "#d8d8ff",
+  confuseray: "#ffe27a", perishsong: "#c9a6ff", sweetkiss: "#ffb3d1", teeterdance: "#ffd1ea" };
+const HAMMERS = { woodhammer: "wood", hammerarm: "fist", icehammer: "ice", gigatonhammer: "steel", crabhammer: "claw", dragonhammer: "dragon" };
+const DRAINS = { absorb: "#7ac74c", megadrain: "#7ac74c", gigadrain: "#7ac74c", leechlife: "#a6b91a", hornleech: "#7ac74c", drainpunch: "#c22e28",
+  drainingkiss: "#ff8fbf", paraboliccharge: "#f7d02c", oblivionwing: "#e0405a", bitterblade: "#ff7a3c", leechseed: "#7ac74c" };
+const GEARS = new Set(["geargrind", "shiftgear", "gearup", "geartwist"]);
+const CHAINS = new Set(["hex", "bind", "wrap", "infestation", "snaptrap", "anchorshot", "spiritshackle", "meanlook", "block"]);
+
 export class Vfx {
   constructor(renderer) {
     this.r = renderer;
@@ -224,6 +234,10 @@ export class Vfx {
       }
       case "use": {
         const a = side(e.s);
+        if (HYPNO[e.move]) for (let i = 0; i < 4; i++) this.fx.push({ kind: "ring", x: a.x, y: a.y, z: 0.05, t: -i * 0.13, life: 0.95, r0: 0.4, r1: 5, color: HYPNO[e.move], flat: true });
+        if (e.move === "doubleteam" || e.move === "minimize") this.fx.push({ kind: "clones", s: e.s, u: e.u || 0, t: 0, life: 0.9 });
+        if (e.move === "willowisp") { const f = foeOf(e.s); for (let i = 0; i < 3; i++) this.fx.push({ kind: "wisp", x0: a.x, y0: a.y, x1: f.x + rnd(-0.4, 0.4), y1: f.y + rnd(-0.2, 0.2), t: -i * 0.1, life: 0.65, ph: i * 2.1 }); }
+        if (GEARS.has(e.move) && e.shape === "self") this.fx.push({ kind: "gears", x: a.x, y: a.y, t: 0, life: 0.9, color: "#9db8e0" });
         if (e.shape === "strike" || e.shape === "dash") {
           const kind = melee(e.move);
           const reach = e.shape === "dash" ? 1.2 : 1.4;
@@ -245,6 +259,10 @@ export class Vfx {
           this.pendingDrop[dropKey] = e.move;
           if (DROPS[e.move] === "bolt") this.fx.push({ kind: "cloud", x: e.tx, y: e.ty, t: 0, life: (e.ticks || 18) / 30 + 0.6 });
         }
+        if (e.ticks > 4 && e.shape === "shot" && (e.type === "Ghost" || e.type === "Dark" || e.type === "Poison")) {
+          const a = side(e.s);
+          this.fx.push({ kind: "orbit", s: e.s, u: e.u || 0, t: 0, life: Math.max(0.35, e.ticks / 30), color: e.type === "Poison" ? "#a33ea1" : e.type === "Dark" ? "#4a3a52" : "#5b3d8f", x: a.x, y: a.y });
+        }
         if (e.ticks > 6 && ["beam", "shot"].includes(e.shape)) {
           const a = side(e.s);
           this.fx.push({ kind: "charge", s: e.s, u: e.u || 0, t: 0, life: e.ticks / 30, color: TYPE_COLORS[e.type] || "#ffffff", x: a.x, y: a.y });
@@ -260,6 +278,15 @@ export class Vfx {
       }
       case "hit": {
         const d = side(e.s);
+        const first = e.hit === 0 || e.hit === undefined;
+        const from = e.from === 0 || e.from === 1 ? e.from : 1 - e.s;
+        const att = battle.doubles ? battle.sides[from].units.find((w) => !w.vacant) || battle.sides[from].units[0] : battle.sides[from];
+        if (first && e.move === "lick") this.fx.push({ kind: "tongue", s: from, ax: att.x, ay: att.y, x: d.x, y: d.y, t: 0, life: 0.45 });
+        if (first && HAMMERS[e.move]) { this.fx.push({ kind: "hammer", x: d.x, y: d.y, t: 0, life: 0.5, look: HAMMERS[e.move], side: d.x < att.x ? 1 : -1 }); this.shake = Math.max(this.shake, 0.16); }
+        if (first && DRAINS[e.move]) this.fx.push({ kind: "drain", x0: d.x, y0: d.y, s: from, t: 0, life: 0.85, color: DRAINS[e.move] });
+        if (GEARS.has(e.move)) this.fx.push({ kind: "gears", x: d.x, y: d.y, t: 0, life: 0.5, color: "#c9cfdc" });
+        if (first && CHAINS.has(e.move)) this.fx.push({ kind: "chains", x: d.x, y: d.y, t: 0, life: 0.75, color: e.move === "hex" || e.move === "spiritshackle" || e.move === "meanlook" ? "#8a5cd6" : "#b8a77a" });
+        if (first && (e.move === "dracometeor" || e.move === "meteorbeam")) for (let i = 0; i < 4; i++) this.fx.push({ kind: "meteor", x: d.x + rnd(-1.4, 1.4), y: d.y + rnd(-0.7, 0.7), t: -i * 0.09, life: 0.45, color: e.move === "dracometeor" ? "#ff8a3c" : "#ffe08a" });
         this.burst(e.type, d.x, d.y, { power: e.crit || e.eff > 1 ? 1.5 : 1 });
         const px = pixelHits && (e.hit === 0 || e.hit === undefined) ? pixelHitOf(e.move, e.type) : "";
         if (px) this.fx.push({ kind: "pixel", sheet: px, x: d.x, y: d.y, t: 0, life: 0.36, big: e.crit || e.eff > 1 });
@@ -693,11 +720,201 @@ export class Vfx {
         if (Math.random() < 0.6) { const ang = rnd(0, TAU); const d = rnd(1, 1.6); this.emit(1, { x: side.x + side.fx * 0.8 + Math.cos(ang) * d, y: side.y + side.fy * 0.8 + Math.sin(ang) * d * 0.6, z: H, vx: -Math.cos(ang) * d * 3, vy: -Math.sin(ang) * d * 1.8, life: 0.3, color: f.color, size: 0.1, kind: "glow" }); }
       }
     }
+    for (const f of this.fx) {
+      if (f.t < 0) continue;
+      const p = f.t / f.life, a = 1 - p;
+      if (f.kind === "tongue") this.drawTongue(ctx, f, p, battle);
+      else if (f.kind === "hammer") this.drawHammer(ctx, f, p, a);
+      else if (f.kind === "drain") this.drawDrain(ctx, f, p, a, battle);
+      else if (f.kind === "gears") this.drawGears(ctx, f, p, a);
+      else if (f.kind === "chains") this.drawChains(ctx, f, p, a);
+      else if (f.kind === "wisp") this.drawWisp(ctx, f, p);
+      else if (f.kind === "orbit") this.drawOrbit(ctx, f, p, battle);
+      else if (f.kind === "clones") this.drawClones(ctx, f, p, battle);
+    }
     // particles
     for (const p of this.parts) if (!(p.delay > 0)) this.drawPart(ctx, p, s);
     // full-screen flashes
-    for (const f of this.fx) if (f.kind === "flash" && f.t >= 0) { ctx.fillStyle = rgba(f.color, 0.55 * (1 - f.t / f.life)); ctx.fillRect(0, 0, this.r.canvas.width, this.r.canvas.height); }
+    // (on the whole screen, whatever the camera does)
+    for (const f of this.fx) if (f.kind === "flash" && f.t >= 0) {
+      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.fillStyle = rgba(f.color, 0.55 * (1 - f.t / f.life)); ctx.fillRect(0, 0, this.r.canvas.width, this.r.canvas.height);
+      ctx.restore();
+    }
     ctx.restore();
+  }
+
+  /** Lick: a long pink tongue that shoots out to the foe and back. */
+  drawTongue(ctx, f, p, battle) {
+    const s = this.r.scale;
+    const a = battle.doubles ? battle.sides[f.s].units.find((w) => !w.vacant) || battle.sides[f.s].units[0] : battle.sides[f.s];
+    const ox = a ? a.x : f.ax, oy = a ? a.y : f.ay;
+    const reach = Math.sin(Math.PI * Math.min(1, p * 1.15));
+    const x0 = this.px(ox), y0 = this.py(oy, 0.7), x1 = this.px(ox + (f.x - ox) * reach), y1 = this.py(oy + (f.y - oy) * reach, 0.7);
+    const mx = (x0 + x1) / 2, my = (y0 + y1) / 2 - 0.9 * s * reach;
+    ctx.lineCap = "round";
+    ctx.strokeStyle = "#7a1f3d";
+    ctx.lineWidth = 0.36 * s;
+    ctx.beginPath(); ctx.moveTo(x0, y0); ctx.quadraticCurveTo(mx, my, x1, y1); ctx.stroke();
+    ctx.strokeStyle = "#ff7aa8";
+    ctx.lineWidth = 0.26 * s;
+    ctx.stroke();
+    ctx.strokeStyle = "rgba(255,210,225,0.8)";
+    ctx.lineWidth = 0.06 * s;
+    ctx.stroke();
+    ctx.lineCap = "butt";
+  }
+
+  /** Wood Hammer and friends: a giant mallet (or fist) that swings down on the foe. */
+  drawHammer(ctx, f, p, a) {
+    const s = this.r.scale;
+    const swing = p < 0.45 ? -1.4 + 1.7 * (1 - Math.pow(1 - p / 0.45, 3)) : 0.3;
+    const alpha = p > 0.7 ? (1 - p) / 0.3 : 1;
+    const look = { wood: ["#a8743a", "#6b4520"], fist: ["#f08a3c", "#8a3f12"], ice: ["#cdf1ff", "#5fa8c8"], steel: ["#c9cfdc", "#5d6478"], claw: ["#ff7a5a", "#8a2a1a"], dragon: ["#8f6bff", "#3a2380"] }[f.look] || ["#a8743a", "#6b4520"];
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.translate(this.px(f.x + f.side * 1.6), this.py(f.y, 0.4));
+    ctx.scale(f.side, 1);
+    ctx.rotate(-swing);
+    // handle
+    ctx.fillStyle = "#5b3a1e";
+    ctx.fillRect(-0.09 * s, -2.1 * s, 0.18 * s, 2.1 * s);
+    // head
+    ctx.translate(0, -2.1 * s);
+    ctx.fillStyle = look[0];
+    ctx.strokeStyle = look[1];
+    ctx.lineWidth = Math.max(2, 0.08 * s);
+    if (f.look === "fist") {
+      ctx.beginPath(); ctx.ellipse(0, 0, 0.75 * s, 0.6 * s, 0, 0, TAU); ctx.fill(); ctx.stroke();
+      for (let i = -1; i <= 1; i++) { ctx.beginPath(); ctx.moveTo(i * 0.25 * s - 0.6 * s, -0.25 * s); ctx.lineTo(i * 0.25 * s - 0.6 * s, 0.25 * s); ctx.stroke(); }
+    } else {
+      ctx.fillRect(-1.2 * s, -0.55 * s, 1.5 * s, 1.1 * s);
+      ctx.strokeRect(-1.2 * s, -0.55 * s, 1.5 * s, 1.1 * s);
+      ctx.fillStyle = "rgba(255,255,255,0.25)";
+      ctx.fillRect(-1.1 * s, -0.45 * s, 1.3 * s, 0.25 * s);
+    }
+    ctx.restore();
+    if (p > 0.4 && p < 0.6) {
+      ctx.strokeStyle = `rgba(255,255,255,${a})`;
+      ctx.lineWidth = Math.max(2, 0.1 * s);
+      ctx.beginPath(); ctx.ellipse(this.px(f.x), this.py(f.y), 1.4 * s * (p - 0.3) * 3, 0.6 * s * (p - 0.3) * 3, 0, 0, TAU); ctx.stroke();
+    }
+  }
+
+  /** Giga Drain and friends: a wavy tether from the foe to the user with lights flowing along it. */
+  drawDrain(ctx, f, p, a, battle) {
+    const s = this.r.scale;
+    const u = battle.doubles ? battle.sides[f.s].units.find((w) => !w.vacant) || battle.sides[f.s].units[0] : battle.sides[f.s];
+    if (!u) return;
+    const x0 = this.px(f.x0), y0 = this.py(f.y0, 0.7), x1 = this.px(u.x), y1 = this.py(u.y, 0.7);
+    const dx = x1 - x0, dy = y1 - y0, len = Math.hypot(dx, dy) || 1, nx = -dy / len, ny = dx / len;
+    const at = (k) => { const w = Math.sin(k * Math.PI * 3 + f.t * 14) * 0.25 * s * Math.sin(k * Math.PI); return [x0 + dx * k + nx * w, y0 + dy * k + ny * w]; };
+    ctx.strokeStyle = rgba(f.color, 0.55 * a);
+    ctx.lineWidth = Math.max(2, 0.12 * s);
+    ctx.beginPath();
+    for (let i = 0; i <= 24; i++) { const [x, y] = at(i / 24); if (i) ctx.lineTo(x, y); else ctx.moveTo(x, y); }
+    ctx.stroke();
+    for (let i = 0; i < 6; i++) {
+      const k = (p * 1.6 + i / 6) % 1;
+      const [x, y] = at(k);
+      const g = ctx.createRadialGradient(x, y, 0, x, y, 0.3 * s);
+      g.addColorStop(0, `rgba(255,255,255,${a})`);
+      g.addColorStop(1, rgba(f.color, 0));
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(x, y, 0.3 * s, 0, TAU); ctx.fill();
+    }
+  }
+
+  /** Gear Grind, Shift Gear: two toothed wheels turning against each other. */
+  drawGears(ctx, f, p, a) {
+    const s = this.r.scale;
+    const grow = Math.min(1, p * 5);
+    const gear = (cx, cy, R, rot) => {
+      ctx.beginPath();
+      const n = 10;
+      for (let i = 0; i < n * 2; i++) {
+        const ang = rot + (i / (n * 2)) * TAU;
+        const rr = i % 2 ? R : R * 1.25;
+        ctx.lineTo(cx + Math.cos(ang) * rr, cy + Math.sin(ang) * rr);
+      }
+      ctx.closePath();
+      ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.arc(cx, cy, R * 0.35, 0, TAU); ctx.fillStyle = "#3a3f4c"; ctx.fill();
+      ctx.fillStyle = rgba(f.color, a);
+    };
+    ctx.fillStyle = rgba(f.color, a);
+    ctx.strokeStyle = `rgba(60,66,80,${a})`;
+    ctx.lineWidth = Math.max(1.5, 0.06 * s);
+    const cx = this.px(f.x), cy = this.py(f.y, 1);
+    gear(cx - 0.55 * s * grow, cy, 0.6 * s * grow, f.t * 7);
+    gear(cx + 0.55 * s * grow, cy + 0.2 * s, 0.5 * s * grow, -f.t * 8.4 + 0.3);
+  }
+
+  /** Hex, Bind and friends: a ring of chain links tightening around the foe. */
+  drawChains(ctx, f, p, a) {
+    const s = this.r.scale;
+    const R = (1.6 - 0.6 * Math.min(1, p * 2)) * s;
+    ctx.strokeStyle = rgba(f.color, a);
+    ctx.lineWidth = Math.max(1.5, 0.07 * s);
+    for (const [z, ph] of [[0.4, 0], [1.0, 0.5]]) {
+      for (let i = 0; i < 12; i++) {
+        const ang = (i / 12) * TAU + f.t * 3 + ph;
+        const x = this.px(f.x) + Math.cos(ang) * R, y = this.py(f.y, z) + Math.sin(ang) * R * 0.35;
+        ctx.beginPath(); ctx.ellipse(x, y, 0.16 * s, 0.09 * s, ang + (i % 2 ? Math.PI / 2 : 0), 0, TAU); ctx.stroke();
+      }
+    }
+  }
+
+  /** Will-O-Wisp: blue flames that drift in a curve to the foe. */
+  drawWisp(ctx, f, p) {
+    const s = this.r.scale;
+    const k = Math.min(1, p);
+    const x = f.x0 + (f.x1 - f.x0) * k + Math.sin(k * Math.PI * 2 + f.ph) * 0.6;
+    const y = f.y0 + (f.y1 - f.y0) * k;
+    const z = 1 + Math.sin(k * Math.PI) * 1.2;
+    const cx = this.px(x), cy = this.py(y, z);
+    const flick = 1 + Math.sin(f.t * 40 + f.ph) * 0.12;
+    const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, 0.5 * s * flick);
+    g.addColorStop(0, "rgba(230,240,255,0.95)");
+    g.addColorStop(0.45, "rgba(110,140,255,0.8)");
+    g.addColorStop(1, "rgba(80,60,200,0)");
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(cx, cy, 0.5 * s * flick, 0, TAU); ctx.fill();
+    if (Math.random() < 0.5) this.emit(1, { x, y, z, vz: rnd(0.4, 1), life: 0.3, color: pick(["#8fa8ff", "#c9d6ff"]), size: 0.12, kind: "glow" });
+  }
+
+  /** Before a Shadow Ball (or a Sludge Bomb): orbs gather and circle in front of the user. */
+  drawOrbit(ctx, f, p, battle) {
+    const s = this.r.scale;
+    const u = battle.doubles ? battle.sides[f.s].units[f.u || 0] : battle.sides[f.s];
+    if (!u) return;
+    const cx = u.x + u.fx * 0.4, cy = u.y + u.fy * 0.4;
+    const R = 1.1 - 0.6 * p;
+    for (let i = 0; i < 4; i++) {
+      const ang = (i / 4) * TAU + f.t * 7;
+      const x = this.px(cx + Math.cos(ang) * R), y = this.py(cy + Math.sin(ang) * R * 0.5, H + 0.5 + Math.sin(ang) * 0.2);
+      const r = 0.2 * s * (0.6 + p * 0.6);
+      ctx.fillStyle = f.color;
+      ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.fill();
+      ctx.strokeStyle = "rgba(255,255,255,0.5)";
+      ctx.lineWidth = Math.max(1, s * 0.03);
+      ctx.beginPath(); ctx.arc(x - r * 0.3, y - r * 0.3, r * 0.35, 0, TAU); ctx.stroke();
+    }
+  }
+
+  /** Double Team: faint copies of the Pokémon fan out around it and fold back. */
+  drawClones(ctx, f, p, battle) {
+    const r = this.r;
+    const u = battle.doubles ? battle.sides[f.s].units[f.u || 0] : battle.sides[f.s];
+    if (!u || typeof r.animOf !== "function") return;
+    const anim = r.animOf(f.s, u.active, !!battle.sides[f.s].mons[u.active]?.megaOn);
+    if (!anim) return;
+    const spread = Math.sin(Math.PI * p) * 1.6;
+    const row = Math.max(0, Math.min(7, Math.round(((Math.atan2(u.fy, u.fx) + Math.PI * 2.5) / (Math.PI / 4)) % 8)));
+    for (let i = 0; i < 6; i++) {
+      const ang = (i / 6) * TAU + f.t * 2;
+      anim.draw(ctx, this.px(u.x + Math.cos(ang) * spread), this.py(u.y + Math.sin(ang) * spread * 0.5), row, r.k, { alpha: 0.35 * (1 - p * 0.5) });
+    }
   }
 
   drawPart(ctx, p, s) {

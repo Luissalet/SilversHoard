@@ -11,3 +11,7 @@ Lo que falta por construir, de más a menos valor. Lo que ya hace está en el [R
    Lo que ya hay (pintar en colores o en pixel art, colocar, recorrer, visión, página jugable) está en el README.
 4. **Combates en directo: emparejamiento.** Las salas en directo (turnos y tiempo real) ya funcionan con enlace; falta buscar rival
    sin pasar el enlace a mano (una lista de salas abiertas de los amigos en el Hub) y espectadores.
+5. **Tiempo real: arenas con lugar y público.** Siguiente paso de la presentación (lo hecho está en el README): fondos de lugares
+   de los juegos (Monte Pírico con niebla y tumbas, Monte Plateado nevado, Cascada Meteoro, sala del campeón, castillo de N) en el
+   diseñador de arenas, y Pokémon espectadores en los bordes que reaccionan a los golpes grandes; un entrenador puede decir sus
+   frases en un bocadillo durante el combate.

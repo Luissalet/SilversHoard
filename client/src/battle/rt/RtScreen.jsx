@@ -91,12 +91,22 @@ function logLine(e, b, lang, tr) {
 }
 
 function HpBar({ mon }) {
-  const frac = mon?.maxhp ? mon.hp / mon.maxhp : 0;
+  const frac = mon?.maxhp ? Math.max(0, mon.hp) / mon.maxhp : 0;
+  // the white chunk is the HP just lost: it stays a moment and then drains after the bar (CSS transition)
   return (
     <div className="rt-hp" role="meter" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(frac * 100)}>
+      <i className="rt-hp-lag" style={{ width: `${frac * 100}%` }} />
       <span style={{ width: `${frac * 100}%`, background: frac > 0.5 ? "var(--hp-ok)" : frac > 0.2 ? "var(--hp-mid)" : "var(--hp-low)" }} />
     </div>
   );
+}
+
+/** The Pokémon's face (SpriteCollab portrait) by its name in the bars; grey once it has fainted. */
+function MonFace({ mon, sprites, offline }) {
+  const [bad, setBad] = useState(false);
+  useEffect(() => setBad(false), [mon?.species]);
+  if (!mon || !sprites?.portrait || offline || bad) return null;
+  return <img className={`rt-face ${mon.fainted || mon.hp <= 0 ? "is-out" : ""}`} src={sprites.portrait(mon.species, "Normal", { num: mon.num || 0 })} alt="" onError={() => setBad(true)} />;
 }
 
 /** The trainer's Mega Power gauge: three segments; all three for Mega Evolution (and, in rules versions 2-3, one pays for a Plus move). */
@@ -140,7 +150,7 @@ function DoublesMons({ side, lang, tr, human }) {
   );
 }
 
-function SideBar({ side, align, lang, tr, avatarUrl, gauge, human = false }) {
+function SideBar({ side, align, lang, tr, avatarUrl, gauge, human = false, sprites = null, offline = false }) {
   const mon = side.mons[side.active];
   const boosts = Object.entries(mon?.boosts || {}).filter(([, v]) => v);
   const onField = (m, i) => (side.units ? m.field >= 0 : i === side.active);
@@ -157,6 +167,7 @@ function SideBar({ side, align, lang, tr, avatarUrl, gauge, human = false }) {
         {side.units && <DoublesMons side={side} lang={lang} tr={tr} human={human} />}
         {!side.units && mon && (
           <div className="rt-mon">
+            <MonFace mon={mon} sprites={sprites} offline={offline} />
             <b className="trunc">{mon.name}</b> <span className="help">Nv.{mon.level}</span>
             {mon.is_mega && <span className="rt-tag rt-tag-mega">{tr("rt_mega_on")}</span>}
             {mon.status && <span className="rt-status" style={{ background: STATUS_COLORS[mon.status] }}>{L(STATUS_NAMES[mon.status], lang)}</span>}
@@ -414,6 +425,9 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     move: (n) => (n === "Ultimate" ? tr("rt_ult") : nameOf("move", n, lang)), ultimate: tr("rt_ult_cut"), crit: tr("rt_crit"), super: tr("rt_super"), weak: tr("rt_weak"), dodged: tr("rt_dodged"),
     blocked: tr("rt_blocked"), immune: tr("rt_immune"), flinch: tr("rt_flinch"), status: (s) => L(STATUS_NAMES[s] || [s, s], lang),
     statusColor: (s) => STATUS_COLORS[s] || "#fff", stat: (k) => L(STAT_SHORT[k] || [k, k], lang),
+    show: { go: (v) => tr("rt_show_go", v), back: (v) => tr("rt_show_back", v), fainted: (v) => tr("rt_show_fainted", v), last: (v) => tr("rt_show_last", v),
+      combo: (v) => tr("rt_show_combo", v), clash: tr("rt_show_clash"), ko: tr("rt_show_ko"), time: tr("rt_show_time"), fight: tr("rt_show_fight"),
+      whoWins: tr("rt_show_who"), wins: (v) => tr("rt_show_wins", v), tie: tr("rt_show_tie") },
     mega: tr("rt_mega_float"), dummyReset: tr("rt_dummy_reset"), phase: tr("rt_phase"), megaEnd: tr("rt_mega_end_float"), plus: tr("rt_plus"), helping: tr("rt_helping_float"), follow: tr("rt_follow_float"),
   }), [lang, tr]);
 
@@ -567,10 +581,16 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
       const dt = st.last ? Math.min(0.1, (now - st.last) / 1000) : 0;
       st.last = now;
       const running = phaseRef.current === "running" || phaseRef.current === "playing";
+      // the show's intro (VS screen, Poké Balls, "Fight!") plays once when a battle starts from its first tick; the battle waits for it
+      if (running && !st.introChecked) {
+        st.introChecked = true;
+        if (st.b.t === 0 && !st.b.ended && !st.net && !st.b.training) st.renderer.show.startIntro(st.b);
+      }
+      const intro = running && st.renderer.show.holding;
       // hit-stop: after a big blow the battle holds still for a moment (the screen only, the battle's clock and replays are untouched)
       const held = running && st.renderer.hitstop > 0;
       if (held) st.renderer.hitstop = Math.max(0, st.renderer.hitstop - dt * (live ? 1 : speed));
-      if (running && !st.b.ended && !held) {
+      if (running && !st.b.ended && !held && !intro) {
         st.acc += dt * (live ? 1 : speed);
         let n = 0;
         while (st.acc >= 1 / TPS && n++ < 12 && !st.b.ended) {
@@ -626,12 +646,17 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
           st.savedLen = st.b.inputLog.length;
           onSave?.(st.b.inputLog.slice(), st.b.t);
         }
-        if (st.b.ended) {
+      }
+      // the end: the show's K.O. and the winner's banner play before the result (none with the show off, or after a forfeit)
+      if (running && st.b.ended && !st.finishing && !st.endShown) {
+        if (st.endAt == null) st.endAt = now + 1000 * (st.b.view().reason === "forfeit" ? 0 : st.renderer.show.ending(st.b));
+        if (now >= st.endAt) {
+          st.endShown = true;
           if (live) finish();
           else setPhase("done");
         }
       }
-      st.renderer.draw(st.b, running ? (held ? dt * 0.1 : dt) : 0);
+      st.renderer.draw(st.b, running ? (held ? dt * 0.1 : dt) : 0, running ? dt : 0);
       if (now - lastHud > HUD_MS) {
         lastHud = now;
         setHud(st.b.view());
@@ -764,14 +789,14 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
       <div className="b-main">
         {view && (
           <div className="rt-top">
-            <SideBar side={view.sides[0]} align="left" lang={lang} tr={tr} avatarUrl={seats?.p1?.avatarUrl} gauge={view.version >= 2} human={live && humans[0]} />
+            <SideBar side={view.sides[0]} align="left" lang={lang} tr={tr} avatarUrl={seats?.p1?.avatarUrl} gauge={view.version >= 2} human={live && humans[0]} sprites={sprites} offline={offline} />
             <div className="rt-clock">
               <div className="rt-time num" aria-label={tr("rt_time")}>{fmtTime(view.time_limit - view.seconds)}</div>
               {view.doubles && <span className="chip">{tr("rt_doubles")}</span>}
               {view.weather && <span className="chip">{nameOf("move", { sunnyday: "Sunny Day", raindance: "Rain Dance", sandstorm: "Sandstorm", snow: "Snowscape", hail: "Hail" }[view.weather.id] || view.weather.id, lang)} {Math.ceil(view.weather.left)} s</span>}
               {view.terrain && <span className="chip">{nameOf("move", { electricterrain: "Electric Terrain", grassyterrain: "Grassy Terrain", psychicterrain: "Psychic Terrain", mistyterrain: "Misty Terrain" }[view.terrain.id] || view.terrain.id, lang)} {Math.ceil(view.terrain.left)} s</span>}
             </div>
-            <SideBar side={view.sides[1]} align="right" lang={lang} tr={tr} avatarUrl={seats?.p2?.avatarUrl} gauge={view.version >= 2} human={live && humans[1]} />
+            <SideBar side={view.sides[1]} align="right" lang={lang} tr={tr} avatarUrl={seats?.p2?.avatarUrl} gauge={view.version >= 2} human={live && humans[1]} sprites={sprites} offline={offline} />
           </div>
         )}
         <div className="rt-stage" ref={wrapRef}>
