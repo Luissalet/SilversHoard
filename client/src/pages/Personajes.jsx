@@ -170,7 +170,7 @@ function ExactTeams() {
       </Section>
       <div className="flex flex-wrap items-center gap-2">
         <input className="field max-w-xs" placeholder={t("search_canon")} value={q} onChange={(e) => setQ(e.target.value)} aria-label={t("search_canon")} />
-        <div className="seg" role="group">{["", "Kanto", "Johto", "Hoenn"].map((r) => <button key={r} type="button" aria-pressed={region === r} onClick={() => setRegion(r)}>{r || t("all")}</button>)}</div>
+        <div className="seg" role="group">{["", "Kanto", "Johto", "Hoenn", "Sinnoh", "Unova", "Kalos", "Alola", "Galar", "Paldea"].map((r) => <button key={r} type="button" aria-pressed={region === r} onClick={() => setRegion(r)}>{r || t("all")}</button>)}</div>
       </div>
       {error && <ErrorBox error={error} onRetry={reload} />}
       {loading && !data ? <Spinner /> : Object.entries(groups).map(([g, list]) => (
