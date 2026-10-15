@@ -845,6 +845,7 @@ class SettingsSetArgs(BaseModel):
     neural_ai_model: Optional[str] = Field(None, max_length=60, description="Pretrained policy (Kakuna by default).")
     neural_ai_gpu: Optional[str] = Field(None, max_length=2, description="GPU index as nvidia-smi numbers them; empty = the first.")
     neural_ai_port: Optional[int] = Field(None, ge=1024, le=65535)
+    neural_ai_cache: Optional[str] = Field(None, max_length=500, description="Folder for the neural AI's model weights (absolute); empty = data/cache/neural.")
     pvp_port: Optional[int] = Field(None, ge=1024, le=65535, description="Port of the room server for live battles with friends (pvp_open).")
     pvp_public_url: Optional[str] = Field(None, max_length=300, description="Address friends outside your network reach the room server at (a tunnel, or your public IP with the port open); empty = local network links only.")
 

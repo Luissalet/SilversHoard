@@ -14,6 +14,8 @@ const S = {
   model: ["Modelo", "Model"],
   gpu: ["GPU", "GPU"],
   gpu_help: ["Su número en nvidia-smi (0, 1…); vacío = la primera.", "Its number in nvidia-smi (0, 1…); empty = the first."],
+  cache: ["Carpeta de los pesos del modelo", "Model weights folder"],
+  cache_help: ["Dónde se descargan y se leen los pesos (unos 600 MB). Vacío: data/cache/neural dentro de Silver.", "Where the weights are downloaded and read from (about 600 MB). Empty: data/cache/neural inside Silver."],
   off: ["Apagada: falta el Python del entorno.", "Off: the environment's Python is missing."],
   running: ["En marcha en {device} con {model} · {n} combates en memoria", "Running on {device} with {model} · {n} battles in memory"],
   starting: ["Arrancando (la primera vez descarga el modelo, unos 600 MB)…", "Starting (the first time it downloads the model, about 600 MB)…"],
@@ -53,6 +55,9 @@ export default function NeuralAi({ f, set }) {
           <Field label={s("model")}><input className="field" value={f.neural_ai_model || ""} onChange={(e) => set("neural_ai_model", e.target.value)} placeholder="Kakuna" /></Field>
           <Field label={s("gpu")} hint={s("gpu_help")}><input className="field" value={f.neural_ai_gpu || ""} onChange={(e) => set("neural_ai_gpu", e.target.value)} placeholder="0" /></Field>
         </div>
+        <Field label={s("cache")} hint={s("cache_help")}>
+          <input className="field" value={f.neural_ai_cache || ""} onChange={(e) => set("neural_ai_cache", e.target.value)} placeholder={d?.cache || "data\\cache\\neural"} />
+        </Field>
         {d && (
           <div className="flex flex-wrap items-center gap-2">
             <span className={`chip ${d.running ? "chip-ok" : d.starting ? "chip-amber" : ""}`}>

@@ -32,6 +32,15 @@ def test_settings_are_checked_and_give_the_engine_the_address(call, services, mo
     assert "SILVER_NEURAL_URL" not in os.environ
 
 
+def test_the_weights_folder_can_live_elsewhere(call, tmp_path):
+    assert call("neural_ai", {})["cache"].replace("\\", "/").endswith("cache/neural")
+    assert call("settings_set", {"neural_ai_cache": "relative/folder"}, status=400)
+    call("settings_set", {"neural_ai_cache": str(tmp_path / "weights")})
+    assert call("neural_ai", {})["cache"] == str(tmp_path / "weights")
+    call("settings_set", {"neural_ai_cache": ""})
+    assert call("neural_ai", {})["cache"].replace("\\", "/").endswith("cache/neural")
+
+
 class _Fake(BaseHTTPRequestHandler):
     calls: list = []
 
