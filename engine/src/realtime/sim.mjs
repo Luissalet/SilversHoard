@@ -37,7 +37,9 @@ const TRAINER = [{x: 1.6, y: ARENA.h / 2}, {x: ARENA.w - 1.6, y: ARENA.h / 2}];
 // moves are ordinary ones (everything else as in version 3). A spec without `version` is version 1, so battles stored before
 // version 2 replay as they were played; the app stores `version` with every new battle.
 export const RULES_VERSION = 4;
-export const ARENAS = ['open', 'rocks'];
+export const ARENAS = ['open', 'rocks'];   // and custom arenas: {name, floor, rocks: [{x, y, r}]} from the arena designer
+export const FLOORS = ['grass', 'sand', 'ice', 'cave', 'indoor', 'water'];   // how a custom arena's ground looks (the rules are the same)
+export const MAX_ROCKS = 16;
 // The Mega Power gauge, per trainer: three segments in integer units so every engine counts the same. It fills a segment every
 // 15 s (and a little faster when the trainer's Pokémon deal damage); a Plus move spends one; Mega Evolution needs it full and
 // then drains it, a segment every 8 s.
@@ -166,6 +168,34 @@ export function placeRocks(seed) {
   return rocks;
 }
 
+/** A custom arena's rocks as the battle uses them: at most MAX_ROCKS circles of 0.4 to 3 m, inside the walls and off the spot each
+ * trainer's Pokémon comes in on, rounded to the millimetre so every engine reads the same field. Anything else in the list is left out. */
+export function customRocks(rocks) {
+  const out = [];
+  for (const rk of Array.isArray(rocks) ? rocks : []) {
+    if (out.length >= MAX_ROCKS) break;
+    const r = round3(Math.max(0.4, Math.min(3, Number(rk?.r) || 0)));
+    const x = round3(Number(rk?.x));
+    const y = round3(Number(rk?.y));
+    if (!Number.isFinite(x) || !Number.isFinite(y) || !(Number(rk?.r) > 0)) continue;
+    const cx = Math.max(r, Math.min(ARENA.w - r, x));
+    const cy = Math.max(r, Math.min(ARENA.h - r, y));
+    if (HOME.some((h) => dist(h, {x: cx, y: cy}) < r + 1.2)) continue;
+    out.push({x: cx, y: cy, r});
+  }
+  return out;
+}
+
+/** The arena a spec asks for: 'open', 'rocks' or a custom one ({name, floor, rocks}). */
+export function arenaOf(arena, seed) {
+  if (arena && typeof arena === 'object' && Array.isArray(arena.rocks)) {
+    return {kind: 'custom', rocks: customRocks(arena.rocks), floor: FLOORS.includes(arena.floor) ? arena.floor : 'grass',
+      name: String(arena.name || '').slice(0, 60)};
+  }
+  if (arena === 'rocks') return {kind: 'rocks', rocks: placeRocks(seed), floor: 'grass', name: ''};
+  return {kind: 'open', rocks: [], floor: 'grass', name: ''};
+}
+
 /** The Pokémon of a team as the real-time battle and its screen use them: real stats, types, moves with their cooldowns. */
 export function prepareRtTeam(sets, {format = 'gen9customgame', levelRules = {}} = {}) {
   const formatId = buildFormatId(format);
@@ -210,8 +240,11 @@ export class RtBattle {
     this.version = Math.max(1, Math.min(RULES_VERSION, Math.floor(Number(spec.version) || 1)));
     // Plus moves exist in rules versions 2 and 3 only
     this.plusMoves = this.version >= 2 && this.version < 4;
-    this.arena = spec.arena === 'rocks' ? 'rocks' : 'open';
-    this.rocks = this.arena === 'rocks' ? placeRocks(this.seed) : [];
+    const field = arenaOf(spec.arena, this.seed);
+    this.arena = field.kind;
+    this.rocks = field.rocks;
+    this.floor = field.floor;
+    this.arenaName = field.name;
     this.t = 0;
     this.events = [];
     this.inputLog = [];
@@ -1960,7 +1993,8 @@ export class RtBattle {
   view() {
     return {
       t: this.t, seconds: this.t / TPS, time_limit: this.timeLimit / TPS, ended: this.ended, winner: this.winner, reason: this.reason,
-      version: this.version, plus_moves: this.plusMoves, arena: this.arena, rocks: this.rocks.map((r) => ({...r})),
+      version: this.version, plus_moves: this.plusMoves, arena: this.arena, rocks: this.rocks.map((r) => ({...r})), floor: this.floor,
+      ...(this.arenaName ? {arena_name: this.arenaName} : {}),
       ...(this.doubles ? {doubles: true} : {}),
       weather: this.weather && this.weather.until > this.t ? {id: this.weather.id, left: (this.weather.until - this.t) / TPS} : null,
       terrain: this.terrain && this.terrain.until > this.t ? {id: this.terrain.id, left: (this.terrain.until - this.t) / TPS} : null,

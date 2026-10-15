@@ -281,3 +281,21 @@ body.video-mode .b-fx-toggle, body.video-mode .snd-btn { display: none !importan
 .pick-seed { display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; border-radius: 10px; font-size: 11px; font-weight: 700; background: var(--accent); color: #fff; }
 .cup-row-status { min-width: 90px; }
 @media (prefers-reduced-motion: reduce) { .cup-match, .cup-entrant, .cup-line, .cup-champion { animation: none !important; } }
+
+/* the arena designer (Arenas.jsx): the field is an SVG in metres */
+.arena-svg { width: 100%; height: auto; display: block; border-radius: var(--hoard-radius-lg); touch-action: none; cursor: crosshair; user-select: none; }
+.arena-svg.is-small { cursor: pointer; }
+.arena-rock { fill: #958a6d; stroke: #3b362b; stroke-width: 0.07; cursor: grab; }
+.arena-rock.is-on { stroke: var(--accent); stroke-width: 0.16; }
+.arena-rock.is-bad { fill: #b44; }
+.arena-rock.is-ghost { fill: rgba(149, 138, 109, 0.55); stroke: rgba(59, 54, 43, 0.6); stroke-dasharray: 0.2 0.15; cursor: default; pointer-events: none; }
+.arena-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr)); }
+.arena-card { display: flex; flex-direction: column; gap: 4px; color: inherit; text-decoration: none; }
+.arena-card:hover { border-color: var(--accent); }
+.arena-editor { display: grid; gap: 14px; grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr); align-items: start; }
+@media (max-width: 900px) { .arena-editor { grid-template-columns: 1fr; } }
+.arena-floors { display: flex; flex-wrap: wrap; gap: 6px; }
+.arena-floor { display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px; border: 1px solid var(--line); border-radius: 8px; background: transparent; color: inherit; cursor: pointer; font-size: 13px; }
+.arena-floor.is-on { border-color: var(--accent); background: var(--accent-soft); }
+.arena-floor span { width: 18px; height: 14px; border-radius: 3px; border: 1px solid rgba(0, 0, 0, 0.3); }
+.gym-backdrop-preview { height: 120px; border-radius: var(--hoard-radius-lg); background-size: cover; background-position: center; border: 1px solid var(--line); }

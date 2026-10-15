@@ -1,4 +1,4 @@
-"""The database: trainers, gyms, leagues, battles, gym and league runs, badges, the hall of fame, cups and finished background work.
+"""The database: trainers, gyms, leagues, battles, gym and league runs, badges, the hall of fame, cups, arenas and finished background work.
 
 Deleting a trainer, gym or league moves it to the trash (``deleted_at``); it comes back with ``restore`` and goes for good with
 ``purge``. Teams, rules and seats are JSON columns: they travel as they are to the engine and to the files sent to friends."""
@@ -220,8 +220,28 @@ CREATE TABLE cups (
 CREATE INDEX cups_recent ON cups(updated_at);
 """
 
+# Arenas of the real-time mode drawn in the arena designer (rocks placed by hand, a floor), and what a gym fights on: its real-time arena
+# ("" = the challenger's choice, open, rocks or custom:<arena id>), the backdrop of its turn-based battles ("" = the usual one) and the
+# map you walk through to its leader ({} = none: the battles come one after another).
+SCHEMA_V6 = """
+CREATE TABLE arenas (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  floor TEXT NOT NULL DEFAULT 'grass',
+  rocks_json TEXT NOT NULL DEFAULT '[]',
+  owner TEXT NOT NULL DEFAULT '',
+  origin TEXT NOT NULL DEFAULT 'own',
+  created_at REAL NOT NULL,
+  updated_at REAL NOT NULL,
+  deleted_at REAL
+);
+ALTER TABLE gyms ADD COLUMN rt_arena TEXT NOT NULL DEFAULT '';
+ALTER TABLE gyms ADD COLUMN backdrop TEXT NOT NULL DEFAULT '';
+ALTER TABLE gyms ADD COLUMN map_json TEXT NOT NULL DEFAULT '{}';
+"""
+
 TRAINER_JSON = {"team_json": "team", "dialogue_json": "dialogue", "tags_json": "tags"}
-GYM_JSON = {"rules_json": "rules", "level_rules_json": "level_rules", "trainers_json": "trainers"}
+GYM_JSON = {"rules_json": "rules", "level_rules_json": "level_rules", "trainers_json": "trainers", "map_json": "map"}
 LEAGUE_JSON = {"rules_json": "rules", "level_rules_json": "level_rules", "gyms_json": "gyms", "elite_json": "elite_four"}
 BATTLE_JSON = {"rules_json": "rules", "level_rules_json": "level_rules", "p1_json": "p1", "p2_json": "p2", "summary_json": "summary",
                "replay_json": "replay"}
@@ -230,6 +250,7 @@ BADGE_JSON = {"proof_json": "proof"}
 HALL_JSON = {"team_json": "team"}
 JOB_JSON = {"args_json": "args", "result_json": "result"}
 CUP_JSON = {"spec_json": "spec", "entrants_json": "entrants", "rounds_json": "rounds"}
+ARENA_JSON = {"rocks_json": "rocks"}
 
 
 def _decode(row: Any, json_cols: dict[str, str]) -> Optional[dict[str, Any]]:
@@ -238,7 +259,7 @@ def _decode(row: Any, json_cols: dict[str, str]) -> Optional[dict[str, Any]]:
     out = dict(row)
     for col, key in json_cols.items():
         if col in out:
-            out[key] = loads(out.pop(col), [] if key in ("team", "rules", "trainers", "gyms", "elite_four", "tags", "stages", "entrants", "rounds") else {})
+            out[key] = loads(out.pop(col), [] if key in ("team", "rules", "trainers", "gyms", "elite_four", "tags", "stages", "entrants", "rounds", "rocks") else {})
     return out
 
 
@@ -255,7 +276,7 @@ def _encode(values: dict[str, Any], json_cols: dict[str, str]) -> dict[str, Any]
 
 class Store:
     def __init__(self, path: Path):
-        self.db = Database(path, migrations=[SCHEMA_V1, SCHEMA_V2, SCHEMA_V3, SCHEMA_V4, SCHEMA_V5])
+        self.db = Database(path, migrations=[SCHEMA_V1, SCHEMA_V2, SCHEMA_V3, SCHEMA_V4, SCHEMA_V5, SCHEMA_V6])
 
     def close(self) -> None:
         self.db.close()
@@ -524,6 +545,26 @@ class Store:
 
     def delete_friend_results(self, ids: list[str]) -> int:
         return sum(self.db.execute("DELETE FROM friend_results WHERE id = ?", (i,)).rowcount for i in ids)
+
+    # ------------------------------------------------------------ arenas
+    def arena(self, id_: str, *, deleted: bool = False) -> dict[str, Any]:
+        return self._get("arenas", id_, ARENA_JSON, "Arena", deleted=deleted)
+
+    def arenas(self, *, deleted: bool = False) -> list[dict[str, Any]]:
+        rows = self.db.query(f"SELECT * FROM arenas WHERE deleted_at IS {'NOT ' if deleted else ''}NULL ORDER BY updated_at DESC")
+        return [_decode(r, ARENA_JSON) for r in rows]
+
+    def add_arena(self, values: dict[str, Any]) -> str:
+        return self._insert("arenas", "arena", values, ARENA_JSON)
+
+    def update_arena(self, id_: str, values: dict[str, Any]) -> None:
+        self._update("arenas", id_, values, ARENA_JSON)
+
+    def delete_arenas(self, ids: list[str]) -> int:
+        n = sum(self.db.execute("DELETE FROM arenas WHERE id = ?", (i,)).rowcount for i in ids)
+        for i in ids:   # gyms that fought there go back to the challenger's choice
+            self.db.execute("UPDATE gyms SET rt_arena = '' WHERE rt_arena = ?", (f"custom:{i}",))
+        return n
 
     # ------------------------------------------------------------ cups
     def cup(self, id_: str) -> dict[str, Any]:

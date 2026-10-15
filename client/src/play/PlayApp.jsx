@@ -175,7 +175,7 @@ function Challenge({ data, lang, setLang, t }) {
         {stageMode === "realtime" && rtInfo
           ? <RtBattleView key={stage} t={t} lang={lang} sprites={sprites} me={{ name: name.trim(), sets }} opp={opp} rtInfo={rtInfo} levelRules={levelRules} onEnd={onBattleEnd} />
           : <BattleView key={stage} t={t} lang={lang} sprites={sprites} me={{ name: name.trim(), sets }} opp={opp} fid={fid} levelRules={levelRules} onEnd={onBattleEnd}
-            seed={weekly ? `${weekly.seed}-${stage}` : ""} />}
+            seed={weekly ? `${weekly.seed}-${stage}` : ""} backdrop={kind === "gym" ? target.backdrop || "" : ""} />}
       </div>
     );
   }
@@ -286,7 +286,7 @@ function Challenge({ data, lang, setLang, t }) {
   );
 }
 
-function BattleView({ t, lang, sprites, me, opp, fid, levelRules, onEnd, seed = "" }) {
+function BattleView({ t, lang, sprites, me, opp, fid, levelRules, onEnd, seed = "", backdrop = "" }) {
   const player = useBattlePlayer({ lang, me: "p1", speedMs: 850 });
   const matchRef = useRef(null);
   const sinceRef = useRef(0);
@@ -354,7 +354,7 @@ function BattleView({ t, lang, sprites, me, opp, fid, levelRules, onEnd, seed = 
   };
   const forfeit = () => { forfeited.current = true; matchRef.current.forfeit("p1"); sync(); };
   return (
-    <Arena player={player} seats={seats} me="p1" sprites={sprites} lang={lang} bubble={bubble}>
+    <Arena player={player} seats={seats} me="p1" sprites={sprites} lang={lang} bubble={bubble} backdrop={backdrop}>
       {request && player.caughtUp && !busy ? <Controls request={request} lang={lang} sprites={sprites} gametype={player.state.gametype} onChoose={choose} onForfeit={forfeit} />
         : !player.state.ended ? <div className="b-controls"><div className="b-wait">{busy ? t("thinking") : "…"}</div></div> : null}
     </Arena>
@@ -387,7 +387,8 @@ function RtBattleView({ t, lang, sprites, me, opp, rtInfo, levelRules, onEnd }) 
     const seed = newSeed();
     return {
       id: `play-${seed}`, seed, format: rtInfo.format, level_rules: levelRules, time_limit: rtInfo.time_limit, version: Math.min(rtInfo.version || RULES_VERSION, RULES_VERSION),
-      arena: rtInfo.arena === "open" ? "open" : "rocks",
+      // a gym's own arena (the arena designer) travels as the field itself; otherwise open or the seed's rocks
+      arena: rtInfo.arena && typeof rtInfo.arena === "object" ? rtInfo.arena : rtInfo.arena === "open" ? "open" : "rocks",
       p1: { name: me.name, sets: me.sets, ai: null }, p2: { name: opp.name, sets: opp.team, ai: opp.ai || { level: "normal", style: "balanced" } },
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps

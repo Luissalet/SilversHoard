@@ -29,6 +29,7 @@ from .errors import SilverError
 from .hoard_link import family
 from .hoard_link.tokens import read_or_create_token
 from .credits import Credits
+from .arenas import CUSTOM as ARENA_CUSTOM, Arenas, same as arenas_same
 from .cups import Cups
 from .fxcache import FxCache
 from .neural import NeuralAI
@@ -68,10 +69,12 @@ RT_ARENAS = ("open", "rocks")
 
 
 def _rt_arena(value: str) -> str:
-    arena = (value or "rocks").strip().lower()
-    if arena not in RT_ARENAS:
-        raise SilverError("invalid", "rt_arena is open (no obstacles) or rocks (3-6 rocks placed from the seed)")
-    return arena
+    arena = (value or "rocks").strip()
+    if arena.lower() in RT_ARENAS:
+        return arena.lower()
+    if ARENA_CUSTOM.match(arena):
+        return arena
+    raise SilverError("invalid", "rt_arena is open (no obstacles), rocks (3-6 rocks placed from the seed) or custom:<arena id> (arenas_list)")
 TYPE_COLORS = {"Normal": "#a8a77a", "Fire": "#ee8130", "Water": "#6390f0", "Electric": "#f7d02c", "Grass": "#7ac74c", "Ice": "#96d9d6",
                "Fighting": "#c22e28", "Poison": "#a33ea1", "Ground": "#e2bf65", "Flying": "#a98ff3", "Psychic": "#f95587", "Bug": "#a6b91a",
                "Rock": "#b6a136", "Ghost": "#735797", "Dragon": "#6f35fc", "Dark": "#705746", "Steel": "#b7b7ce", "Fairy": "#d685ad"}
@@ -102,6 +105,7 @@ class Services:
         self.credits = Credits(config.sprites_dir.parent / "credits", self.settings, http_get or _http_get, self.pmd._base)
         self.fx = FxCache(config.sprites_dir.parent / "fx", self.settings, http_get=http_get)
         self.cups = Cups(self)
+        self.arenas = Arenas(self)
         self.neural = NeuralAI(self.settings, config.sprites_dir.parent / "neural", config.data_dir / "logs")
         self._neural_env()
         self.pool = ThreadPoolExecutor(max_workers=2, thread_name_prefix="silver-job")
@@ -770,6 +774,12 @@ class Services:
         except SilverError:
             leader = None
         out["leader"] = self.trainer_view(leader) if leader else None
+        out["rt_arena_name"] = ""
+        if ARENA_CUSTOM.match(g.get("rt_arena") or ""):
+            try:
+                out["rt_arena_name"] = self.arenas.spec(g["rt_arena"])["name"]
+            except SilverError:
+                out["rt_arena"] = ""
         if full:
             out["gym_trainers"] = [self.trainer_view(t) for t in self.store.trainers(ids=g.get("trainers") or [])]
             out["gym_trainers"].sort(key=lambda t: (g.get("trainers") or []).index(t["id"]))
@@ -869,6 +879,12 @@ class Services:
             values["leader_id"] = v["leader_id"]
         if v.get("trainers") is not None:
             values["trainers"] = self._check_trainers(v["trainers"])
+        if v.get("rt_arena") is not None:
+            values["rt_arena"] = _rt_arena(v["rt_arena"]) if v["rt_arena"] else ""
+            if values["rt_arena"]:
+                self.arenas.spec(values["rt_arena"])   # it exists
+        if v.get("backdrop") is not None:
+            values["backdrop"] = self._check_backdrop(v["backdrop"])
         if id_:
             self.store.update_gym(id_, values)
         else:
@@ -881,6 +897,15 @@ class Services:
             id_ = self.store.add_gym(values)
             self.emit("gym.created", {"id": id_, "name": values["name"]})
         return self.gym_get(id_)
+
+    BACKDROP = re.compile(r"^bg-[a-z0-9-]{2,40}\.(png|jpg)$")
+
+    def _check_backdrop(self, value: str) -> str:
+        """A gym's turn-based backdrop: one of the battle backdrops by file name (bg-volcanocave.png…), or "" for the usual one."""
+        v = str(value or "").strip().lower()
+        if v and not self.BACKDROP.match(v):
+            raise SilverError("invalid", "backdrop is the file name of a battle backdrop, such as bg-icecave.jpg, or empty.")
+        return v
 
     def league_view(self, lg: dict[str, Any]) -> dict[str, Any]:
         out = dict(lg)
@@ -1357,11 +1382,11 @@ class Services:
         return {"id": b["id"], "seed": b.get("seed") or b["id"], "format": b["format"], "level_rules": b.get("level_rules") or {},
                 "time_limit": int(replay.get("time_limit") or self.settings.get("rt_time_limit") or 300), "p1": seat(b.get("p1") or {}),
                 "p2": seat(b.get("p2") or {}), "version": int(replay.get("version") or 1),
-                "arena": replay.get("arena") if replay.get("arena") in RT_ARENAS else "open"}
+                "arena": replay.get("arena") if replay.get("arena") in RT_ARENAS or isinstance(replay.get("arena"), dict) else "open"}
 
     def _rt_start(self, *, p1: dict[str, Any], p2: dict[str, Any], format_: str = "", level_rules: Optional[dict[str, Any]] = None,
                   kind: str = "", run_id: str = "", title: str = "", seed: Any = None, time_limit: int = 0, arena: str = "rocks") -> dict[str, Any]:
-        arena = _rt_arena(arena)
+        arena = self.arenas.spec(_rt_arena(arena))
         s1, s2 = self._seat(p1, "Jugador 1"), self._seat(p2, "Jugador 2")
         fmt = self._rt_format(format_ or s1["format"] or s2["format"] or self.settings["default_format"])
         level_rules = level_rules or {}
@@ -1510,6 +1535,9 @@ class Services:
     def run_view(self, r: dict[str, Any], *, light: bool = False) -> dict[str, Any]:
         out = {k: v for k, v in r.items() if k != "challenger"}
         out["challenger_name"] = (r.get("challenger") or {}).get("name", "")
+        if r.get("kind") == "gym":   # the backdrop the gym's turn-based battles show
+            with contextlib.suppress(SilverError):
+                out["backdrop"] = self.store.gym(r["target_id"], deleted=True).get("backdrop") or ""
         if out.get("mode") == "realtime":
             out["rt_arena"] = (r.get("challenger") or {}).get("rt_arena") or "rocks"
         out["challenger_avatar_url"] = self.avatar_url((r.get("challenger") or {}).get("avatar", ""))
@@ -1552,6 +1580,8 @@ class Services:
             g = self.store.gym(target_id)
             stage_ids = [*(g.get("trainers") or []), g["leader_id"]]
             target_name = g["name"]
+            if g.get("rt_arena"):   # the gym fights on its own arena
+                rt_arena = _rt_arena(g["rt_arena"])
         elif kind == "facility":
             f = facilities.get(target_id)
             if not f:
@@ -1957,7 +1987,7 @@ class Services:
 
     def series_start(self, *, p1: dict[str, Any], p2: dict[str, Any], count: int = 0, format_: str = "", rules: Optional[list[str]] = None,
                      level_rules: Optional[dict[str, Any]] = None, mode: str = "classic", time_limit: int = 0, rt_arena: str = "rocks") -> dict[str, Any]:
-        arena = _rt_arena(rt_arena)
+        arena = self.arenas.spec(_rt_arena(rt_arena))
         s1, s2 = self._seat({**p1, "human": False}, "A"), self._seat({**p2, "human": False}, "B")
         fmt = format_ or s1["format"] or s2["format"] or self.settings["default_format"]
         count = max(1, min(int(count or self.settings["series_default"]), 1000))
@@ -1992,7 +2022,7 @@ class Services:
     def tournament_start(self, *, trainer_ids: list[str], kind: str = "bracket", best_of: int = 1, format_: str = "", rules: Optional[list[str]] = None,
                          level_rules: Optional[dict[str, Any]] = None, title: str = "", ai_level: str = "", mode: str = "classic",
                          time_limit: int = 0, rt_arena: str = "rocks") -> dict[str, Any]:
-        arena = _rt_arena(rt_arena)
+        arena = self.arenas.spec(_rt_arena(rt_arena))
         ids = list(dict.fromkeys(trainer_ids))
         if len(ids) < 2:
             raise SilverError("invalid", "A tournament needs at least two trainers.")
@@ -2091,7 +2121,9 @@ class Services:
                 "badge_image": self._badge_payload(g.get("badge_image") or ""),
                 "description": g["description"], "format": g["format"], "rules": g.get("rules") or [], "level_rules": g.get("level_rules") or {},
                 "leader": self._trainer_payload(self.store.trainer(g["leader_id"], deleted=True)),
-                "trainers": [self._trainer_payload(t) for t in self._gym_trainers(g)], "source_id": g["id"]}
+                "trainers": [self._trainer_payload(t) for t in self._gym_trainers(g)], "source_id": g["id"],
+                **({"rt_arena": self.arenas.export_value(g["rt_arena"])} if g.get("rt_arena") else {}),
+                **({"backdrop": g["backdrop"]} if g.get("backdrop") else {})}
 
     def _gym_trainers(self, g: dict[str, Any]) -> list[dict[str, Any]]:
         """The gym's trainers before its leader, in the order the gym lists them (the store hands them back by recency)."""
@@ -2200,7 +2232,9 @@ class Services:
                                    "badge_image": self._import_badge(p.get("badge_image"), f"badge-{p.get('name') or 'gym'}"),
                                    "description": str(p.get("description") or "")[:2000], "format": p.get("format") or self.settings["default_format"],
                                    "rules": [str(r)[:80] for r in p.get("rules") or []][:20], "level_rules": p.get("level_rules") or {},
-                                   "leader_id": leader, "trainers": trainers, "origin": origin, "owner": str(p.get("owner") or "")[:60]})
+                                   "leader_id": leader, "trainers": trainers, "origin": origin, "owner": str(p.get("owner") or "")[:60],
+                                   "rt_arena": self.arenas.import_value(p.get("rt_arena")),
+                                   "backdrop": self._check_backdrop(p.get("backdrop") or "") if self.BACKDROP.match(str(p.get("backdrop") or "x")) else ""})
 
     # ------------------------------------------------------------ teams by pokepast.es link
     POKEPASTE = re.compile(r"^\s*(?:https?://)?(?:www\.)?pokepast\.es/([0-9a-fA-F]{6,32})(?:/(?:json|raw))?/?\s*$")
@@ -2361,7 +2395,10 @@ class Services:
         level_rules = (obj.get("level_rules") or {}) if kind == "gym" else {}
         rt_fmt = self._rt_format(obj["format"])
         limit = max(30, min(int(self.settings.get("rt_time_limit") or 300), 1800))
-        return {"format": rt_fmt, "arena": "rocks", "time_limit": limit, "version": RT_RULES_VERSION,
+        arena = self.arenas.spec(obj["rt_arena"]) if kind == "gym" and obj.get("rt_arena") else "rocks"
+        if isinstance(arena, dict):
+            arena = {k: arena[k] for k in ("name", "floor", "rocks")}
+        return {"format": rt_fmt, "arena": arena, "time_limit": limit, "version": RT_RULES_VERSION,
                 "keys": {t["id"]: self._rt_key(t, rt_fmt, level_rules) for t in self._stage_trainers(kind, obj)}}
 
     def _import_rt_result(self, r: dict[str, Any]) -> dict[str, Any]:
@@ -2433,7 +2470,14 @@ class Services:
                                   hint="Export the page again and ask your friend to play it again.")
             version, arena, seed, limit = rt.get("v"), rt.get("arena"), rt.get("seed"), rt.get("limit")
             forfeit, tick = rt.get("forfeit") or "", rt.get("tick") or 0
-            if (type(version) is not int or not 1 <= version <= RT_RULES_VERSION or arena not in RT_ARENAS or type(limit) is not int or not 30 <= limit <= 1800
+            if isinstance(arena, dict):   # a gym's own arena: it must be the one the gym has here
+                own = self.arenas.spec(obj["rt_arena"]) if kind == "gym" and ARENA_CUSTOM.match(obj.get("rt_arena") or "") else None
+                if not own or not arenas_same(own, arena):
+                    raise SilverError("conflict", f"This result was played on another arena: {label} changed after the page was exported.",
+                                      hint="Export the page again and ask your friend to play it again.")
+                arena = own
+            if (type(version) is not int or not 1 <= version <= RT_RULES_VERSION or not (arena in RT_ARENAS or isinstance(arena, dict))
+                    or type(limit) is not int or not 30 <= limit <= 1800
                     or not isinstance(seed, str) or not 1 <= len(seed) <= 64 or forfeit not in ("", "p1") or type(tick) is not int or not 0 <= tick <= 1800 * 30 + 150):
                 raise SilverError("invalid", "The real-time replay inside the code is damaged.")
             inputs = sharing.decode_rt_inputs(rt.get("inputs"))

@@ -24,6 +24,16 @@ function shade(hex, a) {
   return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
 }
 
+// The ground of a custom arena (the arena designer): stripes, speckles and a little detail. The rules are the same on every floor.
+const FLOORS = {
+  grass: { out: "#1d2a22", a: "#4f8a4a", b: "#4a8345", speck: "rgba(255,255,255,0.05)" },
+  sand: { out: "#3a2f1e", a: "#d7bd86", b: "#cfb47c", speck: "rgba(90,60,20,0.12)" },
+  ice: { out: "#1e2b33", a: "#cfe6f0", b: "#c4dfeb", speck: "rgba(255,255,255,0.4)", detail: "cracks" },
+  cave: { out: "#17130f", a: "#4b4239", b: "#463e35", speck: "rgba(255,240,220,0.06)" },
+  indoor: { out: "#20160e", a: "#b5875a", b: "#ad7f53", speck: "rgba(60,35,15,0.08)", detail: "planks" },
+  water: { out: "#0f2233", a: "#4f8fbf", b: "#4a88b6", speck: "rgba(255,255,255,0.08)", detail: "ripples" },
+};
+
 export class ArenaRenderer {
   /** sides: [{mons: [{num, forme, shiny, species, sprite_id, base_look, mega_info}], avatarUrl, name}]; rocks: [{x, y, r}];
    * humans: which sides a person plays (doubles: their controlled Pokémon and locked foe get markers).
@@ -116,18 +126,36 @@ export class ArenaRenderer {
       c.height = this.canvas.height;
       const x = c.getContext("2d");
       const s = this.scale;
-      x.fillStyle = "#1d2a22";
+      const floor = FLOORS[view?.floor] || FLOORS.grass;
+      x.fillStyle = floor.out;
       x.fillRect(0, 0, c.width, c.height);
-      // grass in stripes
+      // the ground in stripes (planks indoors)
       for (let i = 0; i < ARENA.w; i += 2) {
-        x.fillStyle = i % 4 === 0 ? "#4f8a4a" : "#4a8345";
+        x.fillStyle = i % 4 === 0 ? floor.a : floor.b;
         x.fillRect(this.px(i), this.py(0), 2 * s, ARENA.h * s);
       }
       // speckles
       let seed = 7;
       const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
-      x.fillStyle = "rgba(255,255,255,0.05)";
+      x.fillStyle = floor.speck;
       for (let i = 0; i < 900; i++) x.fillRect(this.px(rnd() * ARENA.w), this.py(rnd() * ARENA.h), s * 0.06, s * 0.06);
+      if (floor.detail === "planks") {
+        x.strokeStyle = "rgba(60,35,15,0.35)";
+        x.lineWidth = Math.max(1, s * 0.03);
+        for (let j = 1; j < ARENA.h; j++) {
+          x.beginPath(); x.moveTo(this.px(0), this.py(j)); x.lineTo(this.px(ARENA.w), this.py(j)); x.stroke();
+        }
+      } else if (floor.detail === "ripples" || floor.detail === "cracks") {
+        x.strokeStyle = floor.detail === "ripples" ? "rgba(255,255,255,0.16)" : "rgba(255,255,255,0.35)";
+        x.lineWidth = Math.max(1, s * 0.035);
+        for (let i = 0; i < 60; i++) {
+          const cx = this.px(rnd() * ARENA.w), cy = this.py(rnd() * ARENA.h), w = s * (0.4 + rnd() * 1.1);
+          x.beginPath();
+          if (floor.detail === "ripples") x.ellipse(cx, cy, w, w * 0.35, 0, Math.PI * 1.1, Math.PI * 1.9);
+          else { x.moveTo(cx, cy); x.lineTo(cx + w, cy + w * (rnd() - 0.5)); }
+          x.stroke();
+        }
+      }
       // lines
       x.strokeStyle = "rgba(255,255,255,0.55)";
       x.lineWidth = Math.max(2, s * 0.08);
