@@ -68,3 +68,46 @@ test('a defender given as just a species works', () => {
   assert.equal(r.defender.species, 'Gyarados');
   assert.ok(r.moves.find((m) => m.id === 'outrage').max > 0);
 });
+
+test('gen 1 and 2 enumerate the 39 damage factors, not the modern 16', () => {
+  // fresh sets each call: the old probe reused one object the simulator mutates between generations
+  for (const gen of [1, 2]) {
+    const m = damageCalc({
+      attacker: {species: 'Snorlax', level: 100, moves: ['Body Slam']},
+      defender: {species: 'Chansey', level: 100, moves: ['Splash']},
+      format: `gen${gen}customgame`,
+    }).moves[0];
+    assert.equal(m.rolls.length, 39);
+    assert.equal(m.min, 518);
+    assert.equal(m.max, 609);
+    assert.equal(m.roll_space, 39);
+  }
+  const g9 = damageCalc({
+    attacker: {species: 'Snorlax', level: 100, moves: ['Body Slam']},
+    defender: {species: 'Chansey', level: 100, moves: ['Splash']},
+    format: 'gen9customgame',
+  }).moves[0];
+  assert.equal(g9.rolls.length, 16);
+  assert.ok(Math.abs(g9.min / g9.max - 0.85) < 0.01);
+});
+
+test('multi-hit moves use every hit count and independent rolls, Skill Link always maxes', () => {
+  const def = {species: 'Dragonite', ability: 'Inner Focus', moves: ['Splash']};
+  const plain = damageCalc({
+    attacker: {species: 'Cloyster', ability: 'Shell Armor', moves: ['Icicle Spear']}, defender: def,
+  }).moves[0];
+  assert.equal(plain.hits_min, 2);
+  assert.equal(plain.hits_max, 5);
+  assert.equal(plain.rolls.length, 16);
+  assert.equal(plain.min, 224);   // 2 × 112
+  assert.equal(plain.max, 680);   // 5 × 136
+  assert.ok(plain.ohko_chance > 0, 'five strong rolls can KO 323 HP');
+  assert.ok(plain.ohko_chance < 1);
+  const linked = damageCalc({
+    attacker: {species: 'Cloyster', ability: 'Skill Link', moves: ['Icicle Spear']}, defender: def,
+  }).moves[0];
+  assert.equal(linked.hits_min, 5);
+  assert.equal(linked.hits_max, 5);
+  assert.equal(linked.min, 560);
+  assert.equal(linked.max, 680);
+});

@@ -19,3 +19,15 @@ def test_damage_calc_tool(call):
     assert w["attacker"]["boosts"]["spa"] == 2 and w["defender_hp"] < w["defender"]["maxhp"] / 2
     assert [m["id"] for m in w["moves"]] == ["hydropump"]
     call("damage_calc", {"attacker": chomp, "defender": TRAN, "weather": "fog"}, status=400)
+
+
+def test_damage_calc_gen1_rolls_and_multihit_range(call):
+    g1 = call("damage_calc", {"attacker": {"species": "Snorlax", "level": 100, "moves": ["Body Slam"]},
+                              "defender": {"species": "Chansey", "level": 100, "moves": ["Splash"]},
+                              "format": "gen1customgame", "moves": ["Body Slam"]})["moves"][0]
+    assert len(g1["rolls"]) == 39 and g1["min"] == 518 and g1["max"] == 609
+    multi = call("damage_calc", {"attacker": {"species": "Cloyster", "ability": "Shell Armor", "moves": ["Icicle Spear"]},
+                                 "defender": {"species": "Dragonite", "ability": "Inner Focus", "moves": ["Splash"]},
+                                 "moves": ["Icicle Spear"]})["moves"][0]
+    assert multi["hits_min"] == 2 and multi["hits_max"] == 5 and multi["min"] == 224 and multi["max"] == 680
+    assert multi["ohko_chance"] is not None and 0 < multi["ohko_chance"] < 1
