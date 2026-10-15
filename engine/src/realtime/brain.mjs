@@ -26,6 +26,61 @@ const dist = (a, b) => hyp(a.x - b.x, a.y - b.y);
 const norm = (x, y) => { const l = hyp(x, y); return l > 1e-9 ? {x: x / l, y: y / l} : {x: 0, y: 0}; };
 
 const RANGED = new Set(['shot', 'beam', 'wave', 'cone']);
+const SUPPORT = new Set(['helpinghand', 'followme', 'ragepowder']);   // doubles support moves (sim.mjs DOUBLES_MOVES)
+const SPREAD = 0.75;
+const ALLY_GAP = 4.2;   // doubles: keep this far from the partner, out of the reach of its quakes
+
+/** Doubles: what a spread move is worth. The aimed foe, the other foe when it stands close enough to be caught too (x0.75 each
+ * when both are), minus what a move that hits everything around would do to the partner nearby. */
+function spreadValue(b, side, foe, p, v) {
+  let total = Math.min(1, v);
+  let n = 1;
+  const other = b.foesOf(side).find((f) => f !== foe);
+  if (other && b.onField(other)) {
+    const near = p.shape === 'burst' ? dist(side, other) <= p.radius + 1.5 || dist(foe, other) <= p.radius
+      : dist(foe, other) <= (p.shape === 'drop' ? p.radius * 1.5 : 2.5);
+    const o = near ? expectedDamage(b, side, other, p) : 0;
+    if (o > 0) { total += Math.min(1, o); n++; }
+  }
+  if (n > 1) total *= SPREAD;
+  const ally = b.allyOf(side);
+  if (p.target === 'allAdjacent' && ally && b.onField(ally) && dist(side, ally) <= p.radius + 2) {
+    total -= 1.3 * Math.min(1, expectedDamage(b, side, ally, p) * SPREAD);
+  }
+  return total;
+}
+
+/** Doubles: which foe slot to lock on. Damage it can take, how much it threatens this Pokémon or its partner, how close it is.
+ * A person's partner keeps the person's locked foe unless the other one is clearly better. */
+function chooseAim(b, side, c, rng, opts) {
+  const foes = b.foesOf(side);
+  const on = foes.filter((f) => b.onField(f));
+  if (on.length < 2) { if (on.length) side.aim = on[0].pos; return; }
+  if (c.level === 'random') { side.aim = rng() < 0.5 ? 0 : 1; return; }
+  const me = b.mon(side);
+  const ally = b.allyOf(side);
+  const score = foes.map((f) => {
+    let give = 0;
+    for (let i = 0; i < me.profiles.length; i++) if (!b.usable(side, i) || me.cds[i] < TPS) give = Math.max(give, expectedDamage(b, side, f, me.profiles[i]));
+    let threat = 0;
+    for (const p of b.mon(f).profiles) {
+      if (p.category === 'Status') continue;
+      for (const t of [side, ally]) {
+        if (!t || !b.onField(t)) continue;
+        const r = b.damage(f, t, p, {expected: true});
+        if (!r.immune) threat = Math.max(threat, (r.dmg * p.hits) / Math.max(1, b.mon(t).hp));
+      }
+    }
+    const busy = f.act && f.act.kind === 'windup' ? 0.1 : 0;
+    return Math.min(1.6, give >= 1 ? 1.6 : give) + 0.35 * Math.min(1.5, threat) + busy - dist(side, f) * 0.02;
+  });
+  let pick = score[1] > score[0] ? 1 : 0;
+  if (opts.lead) {
+    const want = opts.lead.trainer.tgt || 0;
+    if (score[want] * 1.5 + 0.2 >= score[pick]) pick = want;
+  }
+  side.aim = pick;
+}
 
 function cfg(side) {
   return {lv: LEVELS[side.ai?.level] || LEVELS.normal, st: STYLES[side.ai?.style] || STYLES.balanced, level: side.ai?.level || 'normal'};
@@ -63,7 +118,7 @@ function matchup(b, side, slot) {
 }
 
 function bestSlot(b, side, rng, smart) {
-  const options = side.mons.filter((m) => !m.fainted && m.slot !== side.active);
+  const options = b.doubles ? b.bench(side) : side.mons.filter((m) => !m.fainted && m.slot !== side.active);
   if (!options.length) return -1;
   if (!smart) return options[Math.floor(rng() * options.length)].slot;
   let best = options[0].slot;
@@ -92,15 +147,27 @@ function danger(b, side) {
     if (mk.s === side.index) continue;
     if (dist(mk, side) <= mk.r + r && mk.at - b.t <= 0.5 * TPS) return {dir: norm(side.x - mk.x || 1, side.y - mk.y), soon: (mk.at - b.t) / TPS};
   }
-  if (b.onField(foe) && foe.act && (foe.act.kind === 'windup' || foe.act.kind === 'dash')) {
-    const p = b.mon(foe).profiles[foe.act.slot];
-    if (p && ['strike', 'cone', 'burst', 'dash'].includes(p.shape)) {
-      const reach = p.shape === 'dash' ? p.reach + 1 : b.reachFor(foe, side, p) + 0.3;
-      const left = foe.act.kind === 'dash' ? 0 : (foe.act.end - b.t) / TPS;
-      if (dist(foe, side) <= reach && left <= 0.35) {
-        const away = norm(side.x - foe.x, side.y - foe.y);
-        return {dir: norm(-away.y + away.x * 0.6, away.x + away.y * 0.6), soon: left};
+  // doubles: either foe winding up a strike, cone, burst or dash in reach, and the partner about to set off a quake around itself
+  const threats = b.doubles ? [foe, ...b.foesOf(side).filter((f) => f !== foe)] : [foe];
+  for (const f of threats) {
+    if (b.onField(f) && f.act && (f.act.kind === 'windup' || f.act.kind === 'dash')) {
+      const p = b.mon(f).profiles[f.act.slot];
+      if (p && ['strike', 'cone', 'burst', 'dash'].includes(p.shape)) {
+        const reach = p.shape === 'dash' ? p.reach + 1 : b.reachFor(f, side, p) + 0.3;
+        const left = f.act.kind === 'dash' ? 0 : (f.act.end - b.t) / TPS;
+        if (dist(f, side) <= reach && left <= 0.35) {
+          const away = norm(side.x - f.x, side.y - f.y);
+          return {dir: norm(-away.y + away.x * 0.6, away.x + away.y * 0.6), soon: left};
+        }
       }
+    }
+  }
+  const ally = b.doubles ? b.allyOf(side) : null;
+  if (ally && b.onField(ally) && ally.act && ally.act.kind === 'windup') {
+    const p = b.mon(ally).profiles[ally.act.slot];
+    if (p && p.shape === 'burst' && p.target === 'allAdjacent' && p.category !== 'Status' && b.immune(ally, side, p) === '') {
+      const left = (ally.act.end - b.t) / TPS;
+      if (dist(ally, side) <= p.radius * 1.2 + b.radius(side) + 0.3 && left <= 0.45) return {dir: norm(side.x - ally.x || 1, side.y - ally.y), soon: left, away: true};
     }
   }
   return null;
@@ -113,6 +180,13 @@ function scoreMove(b, side, slot, c, rng) {
   const p = me.profiles[slot];
   const hpMe = me.hp / me.maxhp;
   const {st} = c;
+  if (b.doubles && SUPPORT.has(p.id)) {
+    const ally = b.allyOf(side);
+    if (!ally || !b.onField(ally)) return 0;
+    const am = b.mon(ally);
+    if (p.id === 'helpinghand') return ally.act && ally.act.kind !== 'switch' || am.profiles.some((q, i) => q.category !== 'Status' && am.cds[i] < 0.5 * TPS) ? 0.3 : 0.05;
+    return am.hp / am.maxhp < 0.45 && hpMe > 0.5 ? 0.45 * st.protect : 0.08;   // Follow Me: draw the attacks from a weak partner
+  }
   if (p.noEffect) return 0.01;
   // a projectile, beam or blast that would only hit a rock between the two is worth little while another line is free
   const walled = b.rocks.length && RANGED.has(p.shape) && b.onField(foe) && b.rockOnLine(side, foe, p.radius * 0.4);
@@ -121,7 +195,8 @@ function scoreMove(b, side, slot, c, rng) {
     if (foe.vol.protectUntil > b.t && !p.breaksProtect) return 0.02;
     let v = expectedDamage(b, side, foe, p);
     if (walled) v *= 0.05;
-    if (v >= 1) v = 1.6;                                   // a knockout
+    if (b.doubles && b.spreadMove(p)) v = v >= 1 ? 1.6 * (spreadValue(b, side, foe, p, v) / Math.min(1, v)) : spreadValue(b, side, foe, p, v);
+    else if (v >= 1) v = 1.6;                              // a knockout
     if (p.recharge) v *= 0.8;
     if (p.selfdestruct) v = hpMe < 0.25 ? v : v * 0.2;
     if (p.recoil) v *= hpMe > 0.4 ? 0.95 : 0.8;
@@ -171,23 +246,27 @@ function scoreMove(b, side, slot, c, rng) {
   return 0.08 + rng() * 0.05;
 }
 
-/** The input of an AI seat for this tick. */
-export function think(b, side) {
-  const c = cfg(side);
+/** The input of an AI seat for this tick (in doubles, of one slot). `opts.lead`: this slot is a person's partner, following the
+ * slot the person controls: it attacks the person's locked foe unless the other is clearly better, stays near, dodges, and
+ * leaves switching, Plus moves and Mega Evolution to the person. */
+export function think(b, side, opts = {}) {
+  const partner = !!opts.lead;
+  const c = partner ? {lv: LEVELS.hard, st: STYLES.balanced, level: 'hard'} : cfg(side);
   const rng = side.aiRng;
   const brain = side.brain;
   const reactTicks = Math.max(1, Math.round(c.lv.react * TPS));
   const input = {mx: 0, my: 0, use: -1, dodge: false, sw: -1};
-  const foe = b.foe(side);
+  let foe = b.foe(side);
   // replacing a fainted Pokémon or coming back from a pivot move
   if (side.need) {
+    if (partner || side.vacant) return input;   // the person picks the partner's next Pokémon (or the time runs out)
     if (b.t - side.needSince >= reactTicks) input.sw = bestSlot(b, side, rng, c.lv.switching || c.level === 'normal');
     return input;
   }
   const me = b.mon(side);
-  if (!me || me.fainted) return input;
+  if (!me || me.fainted || side.vacant) return input;
   // Mega Evolution as soon as the gauge allows it (rules version 2)
-  if (b.version >= 2 && b.canMega(side)) input.mega = true;
+  if (b.version >= 2 && !partner && b.canMega(side)) input.mega = true;
   // dodging is a reflex, checked every tick
   if (!side.act || side.act.kind === 'approach') {
     const d = danger(b, side);
@@ -198,7 +277,7 @@ export function think(b, side) {
         if (rng() < c.lv.dodge) {
           input.dodge = true;
           input.mx = d.dir.x; input.my = d.dir.y;
-          if (rng() < 0.5) { input.mx = -input.mx; input.my = -input.my; }
+          if (rng() < 0.5 && !d.away) { input.mx = -input.mx; input.my = -input.my; }
           return input;
         }
       }
@@ -208,9 +287,10 @@ export function think(b, side) {
   if (brain.next == null || b.t >= brain.next) {
     brain.next = b.t + reactTicks + Math.floor(rng() * reactTicks * 0.5);
     brain.plan = null;
+    if (b.doubles) { chooseAim(b, side, c, rng, opts); foe = b.foe(side); }
     if (b.onField(foe) && (!side.act || side.act.kind === 'approach')) {
       // switching out of a bad matchup
-      if (c.lv.switching && side.switchesLeft > 0 && me.hp / me.maxhp > 0.3 && b.t - (brain.lastSwitch || -1e9) > 6 * TPS && b.canSwitch(side, bestSlot(b, side, rng, true))) {
+      if (!partner && c.lv.switching && side.switchesLeft > 0 && me.hp / me.maxhp > 0.3 && b.t - (brain.lastSwitch || -1e9) > 6 * TPS && b.canSwitch(side, bestSlot(b, side, rng, true))) {
         const now = matchup(b, side, side.active);
         const cand = bestSlot(b, side, rng, true);
         if (cand >= 0 && now < -0.4 && matchup(b, side, cand) > now + 0.45) {
@@ -239,7 +319,7 @@ export function think(b, side) {
           brain.lastUse = b.t;
           // a Plus move on its strongest move when a gauge segment is full and the foe is in reach (rules version 2); a Pokémon
           // that can still Mega Evolve keeps the gauge for that
-          if (b.plusReady(side) && !(me.mega && !side.megaUsed) && me.profiles[pick].category !== 'Status' &&
+          if (!partner && b.plusReady(side) && !(me.mega && !side.megaUsed) && me.profiles[pick].category !== 'Status' &&
             dist(side, foe) <= b.reachFor(side, foe, me.profiles[pick]) + 0.5) {
             const dmg = (i) => expectedDamage(b, side, foe, me.profiles[i]);
             const mine = dmg(pick);
@@ -270,6 +350,22 @@ export function think(b, side) {
     if (side.y < margin) my += 0.8; if (side.y > 17 - margin) my -= 0.8;
     if (c.level === 'random' && rng() < 0.02) { brain.wander = norm(rng() - 0.5, rng() - 0.5); }
     if (c.level === 'random' && brain.wander) { mx += brain.wander.x; my += brain.wander.y; }
+    if (b.doubles) {
+      // keep out of the partner's quakes, and a person's partner stays within reach of the person's Pokémon
+      const ally = b.allyOf(side);
+      if (ally && b.onField(ally)) {
+        const da = dist(side, ally);
+        if (da < ALLY_GAP) {
+          const aw = da > 1e-6 ? norm(side.x - ally.x, side.y - ally.y) : {x: 0, y: side.pos ? 1 : -1};
+          const k = ((ALLY_GAP - da) / ALLY_GAP) * 1.2;
+          mx += aw.x * k; my += aw.y * k;
+        }
+      }
+      if (opts.lead && b.onField(opts.lead) && dist(side, opts.lead) > 7.5) {
+        const tl = norm(opts.lead.x - side.x, opts.lead.y - side.y);
+        mx += tl.x * 0.8; my += tl.y * 0.8;
+      }
+    }
     // rocks: step out of the line when one stands between the two, and walk around them
     if (b.rocks.length) {
       const rk = b.rockOnLine(side, foe, 0.3);

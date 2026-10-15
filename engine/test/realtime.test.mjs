@@ -369,3 +369,205 @@ test('AI vs AI on rocks with Mega Stones plays to the end and replays the same; 
   assert.deepEqual(again.summary(), b.summary());
   assert.equal(JSON.stringify(again.events), JSON.stringify(b.events));
 });
+
+// ---------------------------------------------------------------- rules version 3: doubles
+const DBL_A = 'Garchomp @ Life Orb\nAbility: Rough Skin\nEVs: 252 Atk / 252 Spe\nJolly Nature\n- Earthquake\n- Rock Slide\n- Dragon Claw\n- Protect\n\n' +
+  'Clefable @ Leftovers\nAbility: Magic Guard\n- Follow Me\n- Helping Hand\n- Moonblast\n- Water Gun\n\n' +
+  'Heatran @ Leftovers\nAbility: Flash Fire\n- Heat Wave\n- Flash Cannon\n- Earth Power\n- Protect\n';
+const DBL_B = 'Snorlax @ Leftovers\nAbility: Thick Fat\nEVs: 252 HP / 252 Def\n- Body Slam\n- Rest\n- Curse\n- Water Gun\n\n' +
+  'Blissey @ Leftovers\nAbility: Natural Cure\nEVs: 252 HP / 252 Def\n- Soft-Boiled\n- Seismic Toss\n- Rage Powder\n- Water Gun\n\n' +
+  'Dragonite @ Leftovers\nAbility: Multiscale\n- Dragon Claw\n- Extreme Speed\n- Earthquake\n- Roost\n';
+const dbl = (extra = {}) => ({seed: 'dbl', version: 3, format: 'gen9doublescustomgame', time_limit: 300, p1: {name: 'A', sets: importTeam(DBL_A), ai: null},
+  p2: {name: 'B', sets: importTeam(DBL_B), ai: null}, ...extra});
+const place = (u, x, y) => { u.x = x; u.y = y; };
+// a battle where the partner slots of the people stand still (the AI drives them in real games), to measure one move at a time
+const still = (spec) => { const b = new RtBattle(spec); b.partnerInput = () => ({}); return b; };
+
+test('doubles: two Pokémon per trainer only from rules version 3 and in doubles formats', () => {
+  const b = new RtBattle(dbl());
+  assert.equal(b.doubles, true);
+  assert.equal(b.units.length, 4);
+  assert.deepEqual(b.sides.map((s) => s.units.map((u) => b.mon(u).species)), [['Garchomp', 'Clefable'], ['Snorlax', 'Blissey']]);
+  assert.ok(b.sides[0].units[0].y < b.sides[0].units[1].y, 'slot a above slot b');
+  const v = b.view();
+  assert.equal(v.doubles, true);
+  assert.deepEqual(v.sides[0].units.map((u) => u.active), [0, 1]);
+  assert.deepEqual(v.sides[0].mons.map((m) => m.field), [0, 1, -1]);
+  assert.equal(new RtBattle(dbl({version: 2})).doubles, false, 'version 2 plays doubles formats as singles');
+  assert.equal(new RtBattle(dbl({format: 'gen9customgame'})).doubles, false, 'singles formats stay singles');
+  // a one-Pokémon team leaves its second slot empty
+  const solo = new RtBattle(dbl({p2: {name: 'B', sets: importTeam('Snorlax\n- Body Slam\n'), ai: null}}));
+  assert.equal(solo.sides[1].units[1].vacant, true);
+  assert.equal(solo.onField(solo.sides[1].units[1]), false);
+});
+
+test('doubles: spread moves hit both foes and, around the user, the partner too, at x0.75', () => {
+  const b = still(dbl());
+  b.rng = () => 0.5;   // the same damage roll for every hit, no critical hits
+  const [a, c] = b.sides[0].units;
+  const [s, l] = b.sides[1].units;
+  place(a, 14, 8.5); place(c, 14, 10.8); place(s, 16.2, 7.6); place(l, 16.2, 9.6);
+  const eq = b.mon(a).profiles[0];
+  const want = Object.fromEntries([['c', c], ['s', s], ['l', l]].map(([k, u]) => [k, b.damage(a, u, eq, {mon: 0, spread: true}).dmg]));
+  b.step({p1: {...idle, use: 0}, p2: idle});   // Earthquake: around the user, the partner included
+  for (let i = 0; i < 2 * TPS && !b.events.some((e) => e.k === 'hit'); i++) b.step({p1: idle, p2: idle});
+  const hits = b.events.filter((e) => e.k === 'hit' && e.move === 'earthquake');
+  assert.deepEqual(hits.map((e) => [e.s, e.u]).sort(), [[0, 1], [1, 0], [1, 1]], 'both foes and the partner');
+  assert.equal(hits.find((e) => e.s === 1 && e.u === 0).dmg, want.s);
+  assert.equal(hits.find((e) => e.s === 1 && e.u === 1).dmg, want.l);
+  assert.equal(hits.find((e) => e.s === 0).dmg, want.c);
+  const full = b.damage(a, s, eq, {mon: 0});
+  assert.ok(Math.abs(want.s / full.dmg - 0.75) < 0.02, `x0.75 (${want.s} / ${full.dmg})`);
+  // a move that hits only the foes (Rock Slide falls on both, not on the partner) and one target alone takes full damage
+  const r = still(dbl({seed: 'dbl2'}));
+  r.rng = () => 0.5;
+  const [ra, rc] = r.sides[0].units;
+  const [rs, rl] = r.sides[1].units;
+  place(ra, 10, 8.5); place(rc, 15.5, 6.6); place(rs, 16, 8); place(rl, 16, 9.4);
+  const slide = r.mon(ra).profiles[1];
+  const solo = r.damage(ra, rs, slide, {mon: 0}).dmg;
+  r.step({p1: {...idle, use: 1}, p2: idle});
+  for (let i = 0; i < 2 * TPS && !r.events.some((e) => e.k === 'hit'); i++) r.step({p1: idle, p2: idle});
+  const slides = r.events.filter((e) => e.k === 'hit' && e.move === 'rockslide');
+  assert.deepEqual(slides.map((e) => [e.s, e.u]).sort(), [[1, 0], [1, 1]], 'the foes, never the partner');
+  assert.equal(slides.find((e) => e.u === 0).dmg, r.damage(ra, rs, slide, {mon: 0, spread: true}).dmg, 'x0.75 with two targets');
+  assert.ok(slides.find((e) => e.u === 0).dmg < solo);
+  place(rl, 16, 15);   // the other foe far away: one target, full damage
+  r.mon(ra).cds[1] = 0;
+  r.events.length = 0;
+  r.step({p1: {...idle, use: 1}, p2: idle});
+  for (let i = 0; i < 2 * TPS && !r.events.some((e) => e.k === 'hit'); i++) r.step({p1: idle, p2: idle});
+  const one = r.events.filter((e) => e.k === 'hit' && e.move === 'rockslide');
+  assert.equal(one.length, 1);
+  assert.equal(one[0].dmg, r.damage(ra, rs, slide, {mon: 0}).dmg);
+});
+
+test('doubles: Follow Me and Rage Powder draw projectiles; Helping Hand powers the partner up', () => {
+  const setup = () => {
+    const b = still(dbl());
+    const [a, c] = b.sides[0].units;
+    const [s, l] = b.sides[1].units;
+    place(a, 6, 4); place(c, 6, 13); place(s, 20, 5); place(l, 20, 12);
+    return b;
+  };
+  // Blissey (B's slot b) uses Rage Powder; Clefable (A's slot b) then fires Water Gun locked on Snorlax (slot a): it ends on Blissey
+  const b = setup();
+  b.step({p1: {...idle, ctl: 1, tgt: 0}, p2: {...idle, ctl: 1, use: 2}});
+  assert.ok(b.events.some((e) => e.k === 'follow' && e.s === 1 && e.u === 1 && e.move === 'ragepowder'));
+  b.step({p1: {...idle, ctl: 1, tgt: 0, use: 3}, p2: {...idle, ctl: 1}});
+  for (let i = 0; i < 2 * TPS && !b.events.some((e) => e.k === 'hit'); i++) b.step({p1: {...idle, ctl: 1}, p2: {...idle, ctl: 1}});
+  const hit = b.events.find((e) => e.k === 'hit');
+  assert.deepEqual([hit.s, hit.u, hit.move], [1, 1, 'watergun'], 'redirected to the user of Rage Powder');
+  // without it, the same shot hits the locked foe
+  const n = setup();
+  n.step({p1: {...idle, ctl: 1, tgt: 0, use: 3}, p2: idle});
+  for (let i = 0; i < 2 * TPS && !n.events.some((e) => e.k === 'hit'); i++) n.step({p1: {...idle, ctl: 1}, p2: idle});
+  const plain = n.events.find((e) => e.k === 'hit');
+  assert.deepEqual([plain.s, plain.u], [1, 0]);
+  // a shot already flying bends towards a foe that uses Follow Me
+  const f = setup();
+  f.step({p1: {...idle, ctl: 1, tgt: 0, use: 3}, p2: idle});
+  f.step({p1: {...idle, ctl: 1}, p2: {...idle, ctl: 1, use: 2}});
+  for (let i = 0; i < 2 * TPS && !f.events.some((e) => e.k === 'hit'); i++) f.step({p1: {...idle, ctl: 1}, p2: {...idle, ctl: 1}});
+  const bent = f.events.find((e) => e.k === 'hit');
+  assert.deepEqual([bent.s, bent.u], [1, 1]);
+  // Helping Hand: the partner's next damaging move goes out with x1.5 power
+  const h = still(dbl());
+  const [ha, hc] = h.sides[0].units;
+  const hs = h.sides[1].units[0];
+  h.step({p1: {...idle, ctl: 1, use: 1}, p2: idle});
+  assert.ok(h.events.some((e) => e.k === 'helping' && e.ally === 0));
+  assert.ok(ha.vol.helpedUntil > h.t);
+  const claw = h.mon(ha).profiles[2];
+  const helped = h.damage(ha, hs, claw, {expected: true, helped: true}).dmg / h.damage(ha, hs, claw, {expected: true}).dmg;
+  assert.ok(helped > 1.4 && helped < 1.6, `x1.5 (${helped})`);
+  assert.ok(h.mon(hc).cds[1] >= 10 * TPS - 1, 'a long cooldown in doubles');
+  // in singles these moves still have no effect
+  const single = still(dbl({version: 2}));
+  single.step({p1: {...idle, use: 0}, p2: idle});
+  single.sides[0].active = 1;
+  single.step({p1: {...idle, use: 0}, p2: idle});
+  assert.ok(single.events.some((e) => e.k === 'noeffect' && e.move === 'followme'));
+});
+
+test('doubles: a person swaps the Pokémon they control and cycles the locked foe; inputs replay exactly', () => {
+  const b = new RtBattle(dbl());
+  const [a, c] = b.sides[0].units;
+  const y0 = a.y;
+  const x0 = c.x;
+  for (let i = 0; i < 20; i++) b.step({p1: {...idle, my: -1, ctl: 0}, p2: idle});
+  assert.ok(a.y < y0 - 1, 'the controlled slot walks');
+  for (let i = 0; i < 20; i++) b.step({p1: {...idle, mx: -1, my: 0.3, ctl: 1, tgt: 1}, p2: idle});
+  assert.equal(b.view().sides[0].ctl, 1);
+  assert.equal(b.view().sides[0].tgt, 1);
+  assert.ok(c.x < x0 - 1, 'now the other one walks');
+  assert.equal(b.foe(c).pos, 1, 'locked on the foe in slot b');
+  assert.ok(b.inputLog.every((r) => r.length === 12), 'doubles rows carry ctl and tgt');
+  assert.ok(b.inputLog.some((r) => r[10] === 1 && r[11] === 1));
+  // rows without the new columns read as slot a, foe a
+  const frame = inputFrame(b, [[1, 0, 0.5, 0, 2, 0, -1, 1, 0, 0]], [null, null]);
+  assert.equal(frame.p1.ctl, 0);
+  assert.equal(frame.p1.tgt, 0);
+  // a whole battle against the AI with swaps, target changes, switches, Plus and Mega, replayed from the input log
+  const spec = dbl({seed: 'dbl-person', arena: 'rocks', p2: {name: 'AI', sets: importTeam(DBL_B), ai: {level: 'hard', style: 'balanced'}}});
+  const p = new RtBattle(spec);
+  let tick = 0;
+  while (!p.ended && tick < 300 * TPS) {
+    tick++;
+    const tr = p.sides[0];
+    const lead = p.leadOf(tr);
+    const foe = p.foe(lead);
+    const input = {mx: Math.sign(foe.x - lead.x) * 0.7, my: Math.round(Math.sin(tick / 30) * 100) / 100, use: tick % 13 === 0 ? (tick / 13) % 4 : -1,
+      dodge: tick % 150 === 0, sw: -1, focus: Math.floor(tick / 120) % 2 === 0, plus: tick % 5 === 0, mega: tick % 60 === 0,
+      ctl: Math.floor(tick / 200) % 2, tgt: Math.floor(tick / 270) % 2};
+    const waiting = tr.units.find((u) => u.need);
+    if (waiting && tick % 40 === 0) input.sw = p.bench(waiting)[0]?.slot ?? -1;
+    p.step({p1: input});
+  }
+  assert.ok(p.ended);
+  assert.ok(p.events.some((e) => e.k === 'switch' && !e.first && e.s === 0), 'a fainted slot of the person was refilled');
+  const again = rtRun(spec, {inputs: p.inputLog});
+  assert.deepEqual(again.summary(), p.summary());
+  assert.equal(JSON.stringify(again.events), JSON.stringify(p.events));
+});
+
+test('doubles: a fainted slot is refilled (the AI at once, a person by choice); the last one leaves it empty', () => {
+  const b = new RtBattle(dbl({p2: {name: 'AI', sets: importTeam(DBL_B), ai: {level: 'expert'}}}));
+  const [, c] = b.sides[0].units;
+  const [s, l] = b.sides[1].units;
+  b.faint(s, null);
+  assert.equal(s.need, true);
+  for (let i = 0; i < TPS && s.need; i++) b.step({p1: idle});
+  assert.equal(s.need, false);
+  assert.equal(b.mon(s).species, 'Dragonite', 'the AI sends the one left on the bench');
+  // a person picks for the partner slot from the party
+  b.faint(c, null);
+  assert.equal(c.need, true);
+  b.step({p1: {...idle, sw: 2}});
+  assert.equal(b.mon(c).species, 'Heatran');
+  assert.equal(c.need, false);
+  // nobody left on the bench: the slot stays empty, the trainer plays on with one
+  b.faint(l, null);
+  assert.equal(l.vacant, true);
+  b.step({p1: idle});
+  assert.equal(b.ended, false);
+  b.faint(s, null);
+  b.step({p1: idle});
+  assert.equal(b.ended, true, 'no Pokémon left to come out: the trainer loses');
+  assert.equal(b.winner, 0);
+});
+
+test('doubles: AI vs AI in every level plays to the end and replays the same', () => {
+  for (const level of ['random', 'easy', 'normal', 'hard', 'expert']) {
+    const spec = {seed: `d-${level}`, version: 3, arena: 'rocks', format: 'gen9doublescustomgame', time_limit: 300,
+      p1: {name: 'A', sets: randomTeam('gen9randombattle', `da${level}`).sets, ai: {level, style: 'balanced'}},
+      p2: {name: 'B', sets: importTeam(DBL_A), ai: {level: 'hard', style: 'aggressive'}}};
+    const one = rtRun(spec);
+    const two = rtRun(spec);
+    assert.ok(one.ended && ['ko', 'time'].includes(one.reason), level);
+    assert.equal(JSON.stringify(one.events), JSON.stringify(two.events));
+    assert.deepEqual(one.summary(), two.summary());
+    assert.ok(one.events.some((e) => e.k === 'hit' && e.u === 1), 'the slot b Pokémon fight too');
+    assert.ok(eventLines(one)[0].endsWith('|doubles'));
+  }
+});
