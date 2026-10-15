@@ -30,7 +30,8 @@ def _options(value: Any) -> list[Any]:
 def candidates(fmt: str) -> list[str]:
     """data.pkmn.cc formats to try for one of the app's formats, closest first: the format itself, its plain version (National
     Dex AG -> National Dex), and the generation's OU (custom games have no ladder of their own)."""
-    fmt = (fmt or "gen9ou").lower().strip()
+    # a format id is letters and digits only: it names a URL on data.pkmn.cc and a file in the cache
+    fmt = re.sub(r"[^a-z0-9]", "", (fmt or "").lower()) or "gen9ou"
     m = re.match(r"gen(\d)", fmt)
     gen = m.group(1) if m else "9"
     out = [fmt]
@@ -122,8 +123,13 @@ class Smogon:
         except Exception:  # noqa: BLE001 - offline: the old copy, if any
             status, body = 0, b""
         value: Optional[dict[str, Any]]
+        data = None
         if status == 200 and body:
-            data = json.loads(body.decode("utf-8"))
+            try:
+                data = json.loads(body.decode("utf-8"))
+            except (UnicodeDecodeError, ValueError):
+                data = None      # a broken answer counts as no answer: the old copy, if any
+        if isinstance(data, dict):
             value = trim_stats(data) if kind == "stats" else {"sets": data}
             self._write(path, value)
         elif status == 404:

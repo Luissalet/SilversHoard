@@ -52,6 +52,9 @@ def test_candidates():
     assert "gen9nationaldexubers" in candidates("gen9nationaldexag") and "gen9pu" in candidates("gen9nationaldexag")
     assert candidates("gen9customgame")[:2] == ["gen9ou", "gen9ubers"]
     assert candidates("gen9doublescustomgame")[:2] == ["gen9doublesou", "gen9ou"]
+    # only letters and digits reach the URL and the cache file name
+    assert all(c.isalnum() for c in candidates("gen9ou/../../x")) and candidates("gen9ou/../../x")[0] == "gen9oux"
+    assert candidates("")[0] == "gen9ou"
     assert candidates("gen4ou")[0] == "gen4ou" and "gen4uu" in candidates("gen4ou")
 
 
