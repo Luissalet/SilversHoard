@@ -299,3 +299,11 @@ body.video-mode .b-fx-toggle, body.video-mode .snd-btn { display: none !importan
 .arena-floor.is-on { border-color: var(--accent); background: var(--accent-soft); }
 .arena-floor span { width: 18px; height: 14px; border-radius: 3px; border: 1px solid rgba(0, 0, 0, 0.3); }
 .gym-backdrop-preview { height: 120px; border-radius: var(--hoard-radius-lg); background-size: cover; background-position: center; border: 1px solid var(--line); }
+
+/* gym map editor (GymMap.jsx); the overworld's own styles are in battle/overworld/overworld.css */
+.gmap-tool { display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; border: 1px solid var(--line); border-radius: 8px; background: transparent; color: inherit; cursor: pointer; font-size: 12.5px; }
+.gmap-tool span { width: 14px; height: 14px; border-radius: 3px; border: 1px solid rgba(0, 0, 0, 0.3); }
+.gmap-tool.is-on { border-color: var(--accent); background: var(--accent-soft); }
+.gmap-tool.is-missing { border-style: dashed; opacity: 0.8; }
+.gmap-scroll { overflow: auto; max-width: 100%; }
+.gmap-grid { display: block; touch-action: none; cursor: crosshair; user-select: none; }

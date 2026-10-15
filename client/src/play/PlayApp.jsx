@@ -11,6 +11,7 @@ import { battleEnd } from "../audio.js";
 import { playT } from "./strings.js";
 import { BadgeArt } from "../components/badges.jsx";
 import RtScreen from "../battle/rt/RtScreen.jsx";
+import Overworld from "../battle/overworld/Overworld.jsx";
 import { RULES_VERSION, rtRun } from "../../../engine/src/realtime/sim.mjs";
 import { deflateB64, newSeed, packRtInputs } from "./rtcode.js";
 
@@ -48,7 +49,12 @@ function Challenge({ data, lang, setLang, t }) {
   const kind = data.kind;
   const target = kind === "gym" ? data.payload.gym : data.payload.trainer;
   const sprites = useMemo(() => makeSprites({ server: data.sprite_server || "https://play.pokemonshowdown.com/sprites", set: data.sprite_set || "gen5ani" }), [data]);
-  const stages = useMemo(() => (kind === "gym" ? [...(target.trainers || []), target.leader] : [target]), [kind, target]);
+  const all = useMemo(() => (kind === "gym" ? [...(target.trainers || []), target.leader] : [target]), [kind, target]);
+  // a gym with a map: the friend walks it and fights whoever they meet, the leader last; seq is the order the battles came in
+  const walkMap = useMemo(() => (kind === "gym" && target.map?.w
+    ? { ...target.map, trainers: (target.map.trainers || []).map((x) => ({ ...x, id: `t${x.id}` })) } : null), [kind, target]);
+  const [seq, setSeq] = useState(() => all.map((_, i) => i));
+  const stages = useMemo(() => seq.map((i) => all[i]), [seq, all]);
   const format = target.format || (kind === "gym" ? target.leader.format : "gen9nationaldexag");
   const rules = target.rules || [];
   const levelRules = target.level_rules || {};
@@ -111,6 +117,23 @@ function Challenge({ data, lang, setLang, t }) {
     try { localStorage.setItem("silver-play-name", name.trim()); } catch { /* not critical */ }
     setResults([]);
     setStage(0);
+    setSeq(all.map((_, i) => i));
+    try { localStorage.removeItem(`silver-play-walk-${target.source_id}-${name.trim()}`); } catch { /* not critical */ }
+    setStageMode(battleMode);
+    setPhase(walkMap ? "walk" : "battle");
+  };
+
+  // on the map: whoever saw you (or the leader you talked to) is the next battle
+  const meet = (who) => {
+    const idx = who === "leader" ? all.length - 1 : Number(String(who).slice(1));
+    const next = results.length;
+    setSeq((cur) => {
+      const out = [...cur];
+      const j = out.indexOf(idx);
+      if (j >= next) [out[next], out[j]] = [out[j], out[next]];
+      return out;
+    });
+    setStage(next);
     setStageMode(battleMode);
     setPhase("battle");
   };
@@ -119,10 +142,10 @@ function Challenge({ data, lang, setLang, t }) {
     setResults((r) => {
       const next = [...r, res];
       if (!res.won || stage + 1 >= stages.length) setPhase("done");
-      else setPhase("between");
+      else setPhase(walkMap ? "walk" : "between");
       return next;
     });
-  }, [stage, stages.length]);
+  }, [stage, stages.length, walkMap]);
 
   useEffect(() => {
     if (phase !== "done") return;
@@ -136,6 +159,7 @@ function Challenge({ data, lang, setLang, t }) {
       stages: results.map((r) => (r.rt ? { name: r.opponent, won: r.won, turns: 0, mode: "realtime", rt: r.rt }
         : { name: r.opponent, won: r.won, turns: r.turns, ...(r.input ? { input: r.input, rng: r.rng, forfeit: r.forfeit || "" } : {}) })),
       ai_version: data.ai_version || "",
+      ...(walkMap ? { order: stages.map((x) => x.source_id) } : {}),
       ...(weekly ? { weekly: weekly.week } : {}),
       ...(withRt ? { v: 2 } : results.some((r) => r.input) ? { v: 3 } : {}),
     };
@@ -176,6 +200,22 @@ function Challenge({ data, lang, setLang, t }) {
           ? <RtBattleView key={stage} t={t} lang={lang} sprites={sprites} me={{ name: name.trim(), sets }} opp={opp} rtInfo={rtInfo} levelRules={levelRules} onEnd={onBattleEnd} />
           : <BattleView key={stage} t={t} lang={lang} sprites={sprites} me={{ name: name.trim(), sets }} opp={opp} fid={fid} levelRules={levelRules} onEnd={onBattleEnd}
             seed={weekly ? `${weekly.seed}-${stage}` : ""} backdrop={kind === "gym" ? target.backdrop || "" : ""} />}
+      </div>
+    );
+  }
+
+  if (phase === "walk") {
+    const fought = seq.slice(0, results.length);
+    const people = Object.fromEntries([...(target.trainers || []).map((x, i) => [`t${i}`, { name: x.name, avatarUrl: avatarSrc(sprites, x.avatar) }]),
+      ["leader", { name: target.leader.name, avatarUrl: avatarSrc(sprites, target.leader.avatar) }]]);
+    return (
+      <div className="p-wrap">
+        {header}
+        {allowed === "choose" && <ModePicker t={t} value={pick} onChange={setPickSaved} />}
+        <div className="panel p-2">
+          <Overworld map={walkMap} people={people} player={{ name: name.trim(), avatarUrl: "" }} beaten={fought.filter((i) => i < all.length - 1).map((i) => `t${i}`)}
+            color={target.badge_color || TYPE_COLORS[target.type]} onBattle={meet} lang={lang} saveKey={`silver-play-walk-${target.source_id}-${name.trim()}`} />
+        </div>
       </div>
     );
   }

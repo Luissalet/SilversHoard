@@ -67,7 +67,8 @@ export default function CombateRt({ battle, setData }) {
           </div>
         </div>
         <div className="flex flex-wrap gap-2">
-          {battle.status === "ended" && runActive && battle.winner_side === "p1" && <button type="button" className="btn btn-primary" onClick={nextStage}>{t("next_stage")}</button>}
+          {battle.status === "ended" && runActive && battle.run?.map && <a className="btn btn-primary" href={`#/recorrido/${battle.run.id}`}>{t("gmap_back")}</a>}
+          {battle.status === "ended" && runActive && !battle.run?.map && battle.winner_side === "p1" && <button type="button" className="btn btn-primary" onClick={nextStage}>{t("next_stage")}</button>}
           {battle.status === "ended" && battle.log_length > 0 && <VideoExport battle={battle} />}
           <a className="btn" href="#/combatir">{t("new_battle")}</a>
         </div>

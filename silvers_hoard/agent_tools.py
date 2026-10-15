@@ -15,6 +15,7 @@ from .hoard_link.agentkit import Empty, Tool, ann
 from .hoard_link.agentkit import call_tool as _call_tool
 from .hoard_link.agentkit import tool_catalog as _catalog
 from .hoard_link.agentkit import uncapped  # noqa: F401 - re-exported for the UI routes
+from . import gymmap
 from .services import Services
 
 AGENT_INSTRUCTIONS = """Silver's Hoard is a Pokémon battle simulator (Pokémon Showdown's engine, every generation). It keeps trainers (a name, a team, an AI level and style, an avatar and battle lines), gyms (a leader plus optional gym trainers, a badge and rules), leagues (gyms, an Elite Four and a champion) and every battle with its full log.
@@ -251,6 +252,7 @@ class GymSaveArgs(BaseModel):
     badge_image: Optional[str] = Field(None, max_length=200, description="Badge picture: shape:<hexagon|boulder|drop|bolt|leaf|flame|heart|star|flake|wing|gear|fist|eye|moon|scale|shell|rainbow|crown>, file:<from badge_image_set or badge_draw> or '' for the plain badge.")
     rt_arena: Optional[str] = Field(None, max_length=90, description="Where its real-time battles are fought: '' (the challenger picks), open, rocks or custom:<arena id>.")
     backdrop: Optional[str] = Field(None, max_length=50, description="Backdrop of its turn-based battles: a backdrop file name (bg-volcanocave.png, bg-icecave.jpg…) or '' for the usual one.")
+    map: Optional[dict[str, Any]] = Field(None, description="The map walked to the leader: {w, h, tiles (w*h chars: . floor, # wall, ~ water, o boulder, * plant, = carpet, , grass), start: [x, y], leader: {x, y, facing}, trainers: [{id, x, y, facing, sight}]} (gym_map_generate makes one); {} removes it.")
 
 
 class BadgeImageArgs(BaseModel):
@@ -379,6 +381,17 @@ class ChallengeArgs(BaseModel):
     level: int = Field(0, ge=0, le=100, description="Equalize every Pokémon of every battle at this level (50 or 100); 0 = the gym's own level rules (a facility: 50).")
     rt_arena: RtArena = RtArenaField
     stop_at: int = Field(0, ge=0, le=10_000, description="facility with auto: stop the streak after this many wins (0 = until it is lost).")
+    walk_map: bool = Field(True, description="A gym with a map: walk it (challenge_get; challenge_next with the stage you meet). False = the battles one after another.")
+
+
+class ChallengeNextArgs(BaseModel):
+    id: str = IdField
+    stage: str = Field("", max_length=80, description="On a gym map: whom you met, a trainer id or leader (the leader once every trainer is beaten).")
+
+
+class GymMapArgs(BaseModel):
+    trainer_ids: list[str] = Field(default_factory=list, max_length=20, description="The gym's trainers, in order.")
+    seed: str = Field("", max_length=40)
 
 
 class ChallengesArgs(BaseModel):
@@ -798,9 +811,16 @@ TOOLS: list[Tool] = [
     Tool("challenge_start", _d("Challenge a gym or a league with a trainer (you play, or the AI with auto). Retar gimnasio.",
                                synonyms="reto, medalla, alto mando, desafío"), ChallengeArgs, W,
          lambda s, a: s.run_start(kind=a.kind, target_id=a.target_id, challenger_id=a.challenger_id, auto=a.auto, ignore_badges=a.ignore_badges,
-                                  format_override=a.format, mode=a.mode, level=a.level, rt_arena=a.rt_arena, stop_at=a.stop_at), 180.0),
-    Tool("challenge_next", _d("Start the next battle of an active challenge. Siguiente combate del reto.", synonyms="continuar reto"),
-         IdArg, W, lambda s, a: s.run_next(a.id), 180.0),
+                                  format_override=a.format, mode=a.mode, level=a.level, rt_arena=a.rt_arena, stop_at=a.stop_at,
+                                  walk_map=a.walk_map), 180.0),
+    Tool("challenge_next", _d("Start the next battle of an active challenge. Siguiente combate del reto.",
+                              "On a gym map give stage: the trainer you met (or leader).", synonyms="continuar reto"),
+         ChallengeNextArgs, W, lambda s, a: s.run_next(a.id, a.stage), 180.0),
+    Tool("challenge_get", _d("One challenge with its stages; on a gym map also the map, the people and who is beaten. Ver reto.",
+                             synonyms="recorrido del gimnasio, mapa del reto"), IdArg, R, lambda s, a: s.run_get(a.id)),
+    Tool("gym_map_generate", _d("An automatic gym map for these trainers: walls, a winding way, the leader at the top. Generar mapa.",
+                                "gym_save map= stores it (edit it first if you like).", synonyms="mapa del gimnasio, plano"),
+         GymMapArgs, R, lambda s, a: {"map": gymmap.generate(a.trainer_ids, a.seed or None)}),
     Tool("challenge_abandon", _d("Give up an active challenge. Abandonar reto.", synonyms="rendirse"), IdArg, W, lambda s, a: s.run_abandon(a.id)),
     Tool("facilities_list", _d("Battle facilities (Tower, Subway, Maison, Tree) with bosses and streak records. Instalaciones.",
                                "challenge_start kind=facility target_id=<id> starts a streak: one rival after another at level 50, 3 Pokémon each (4 in doubles) picked at team preview, the facility's bosses on their battle (Palmer 21/49, Ingo and Emmet 21/49, the Chatelaines 20/50, Red and Blue 20/50, Anabel 35/70, Leon every 10). challenge_next starts the next battle; a loss ends the streak.",
