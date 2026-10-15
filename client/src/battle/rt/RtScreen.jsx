@@ -6,6 +6,9 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { RtBattle, fastForward, inputFrame, TPS } from "../../../../engine/src/realtime/sim.mjs";
 import { L, STATUS_COLORS, STATUS_NAMES, STAT_SHORT, TYPE_COLORS, nameOf, typeName } from "../dex.js";
 import { ArenaRenderer } from "./render.js";
+import SoundButton from "../SoundControl.jsx";
+import { appCryUrl } from "../sfx.js";
+import { battleEnd, music, pickTrack } from "../../audio.js";
 import { CONTROL_LAYOUTS, makeInputs } from "./input.js";
 import { rtT } from "./strings.js";
 import "./rt.css";
@@ -320,6 +323,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
       sides: view.sides.map((s, i) => ({ name: s.name, mons: s.mons, avatarUrl: seats?.[s.id]?.avatarUrl || "" })), sprites, base, texts, rocks: view.rocks,
     });
     renderer.eventIndex = state.b.events.length;
+    renderer.audio.cryUrl = (species) => appCryUrl(species, base);
     state.renderer = renderer;
     state.logIndex = 0;
     setHud(view);
@@ -493,6 +497,20 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     setPhase("playing");
   };
 
+  // sound: replays at 4x skip the small effects; the music plays while the fight is on and gives way to a cue at the end
+  useEffect(() => { if (sim.current?.renderer) sim.current.renderer.audio.speed = live ? 1 : speed; }, [speed, live, phase]);
+  const musicUrl = `${base}/api/music/${pickTrack(battle.id, 0)}`;
+  useEffect(() => {
+    if (["running", "playing", "paused", "replay-paused"].includes(phase)) music.play(musicUrl);
+  }, [phase, musicUrl]);
+  useEffect(() => () => music.stop({ fade: 0.8 }), []);
+  useEffect(() => {
+    if (phase !== "ended" && phase !== "done") return;
+    const w = sim.current?.b?.view().winner;
+    const mine = humans.findIndex(Boolean);
+    battleEnd(w === 0 || w === 1 ? (people === 1 ? w === mine : true) : null);
+  }, [phase]); // eslint-disable-line react-hooks/exhaustive-deps
+
   if (error && phase !== "ended") return <div className="banner banner-danger">{String(error.message || error)}</div>;
   const view = hud;
   const ended = phase === "ended" || phase === "done";
@@ -516,6 +534,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
         )}
         <div className="rt-stage" ref={wrapRef}>
           <canvas ref={canvasRef} className="rt-canvas" />
+          <SoundButton lang={lang} />
           {phase === "loading" && (
             <div className="rt-overlay"><div className="rt-card"><b>{tr("rt_loading")}</b><div className="help">{tr("rt_loading_sprites", { n: progress[0], total: progress[1] || "…" })}</div></div></div>
           )}

@@ -1,6 +1,7 @@
 // Bilingual UI: Spanish (castellano de España) by default, English on request. The choice is kept in localStorage.
 // Each entry is [español, English]; `{name}` placeholders are filled by t(key, { name }). A key with an `_one` twin uses it when n is 1.
 import RT_STRINGS from "./battle/rt/strings.js";
+import { SND } from "./sound-strings.js";
 
 const D = {
   // shell
@@ -619,6 +620,7 @@ export function initialLang() {
 
 // the real-time mode keeps its words next to its screen
 Object.assign(D, RT_STRINGS);
+Object.assign(D, SND);
 
 export function saveLang(lang) {
   try {

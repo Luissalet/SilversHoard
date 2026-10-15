@@ -3,6 +3,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { TYPE_COLORS, nameOf, typeName } from "./dex.js";
 import { battleT } from "./strings.js";
+import { clickSound } from "../audio.js";
 
 function parseCondition(cond) {
   const [hp, status] = String(cond || "").split(" ");
@@ -85,7 +86,7 @@ export default function Controls({ request, lang = "es", sprites, gametype = "si
     const need = Math.min(request.maxChosenTeamSize || pokemon.length, pokemon.length);
     const pickedAll = order.length >= need;
     return (
-      <div className="b-controls">
+      <div className="b-controls" onClickCapture={clickSound}>
         <div className="b-ctrl-head"><b>{need < pokemon.length ? t("choose_n", { n: need }) : t("choose_lead")}</b>{sideLabel && <span className="help">{sideLabel}</span>}</div>
         <div className="b-team-grid">
           {pokemon.map((m, i) => {
@@ -118,7 +119,7 @@ export default function Controls({ request, lang = "es", sprites, gametype = "si
   if (request.forceSwitch) {
     const options = bench(usedSwitches);
     return (
-      <div className="b-controls">
+      <div className="b-controls" onClickCapture={clickSound}>
         <div className="b-ctrl-head"><b>{t("choose_switch")}</b>{slots > 1 && <span className="help">{t("slot_n", { n: slot + 1 })}</span>}</div>
         <div className="b-team-grid">
           {options.map(({ m, i }) => <MonButton key={i} mon={m} sprites={sprites} lang={lang} disabled={busy} onClick={() => advance(`switch ${i + 1}`)} />)}
@@ -157,7 +158,7 @@ export default function Controls({ request, lang = "es", sprites, gametype = "si
   const moves = active.moves || [];
   const zmoves = gimmickKind === "zmove" && gimmick ? active.canZMove : null;
   return (
-    <div className="b-controls">
+    <div className="b-controls" onClickCapture={clickSound}>
       <div className="b-ctrl-head">
         <b>{t("your_move", { name: myName })}</b>
         {slots > 1 && <span className="help">{t("slot_n", { n: slot + 1 })}</span>}
@@ -208,7 +209,7 @@ export function ReplayBar({ player, lang = "es", speedMs, onSpeed }) {
   const current = marks.filter((m) => m.index < player.applied).length;
   const speeds = [[1800, "0,5×"], [900, "1×"], [450, "2×"], [200, "4×"]];
   return (
-    <div className="b-replay">
+    <div className="b-replay" onClickCapture={clickSound}>
       <button type="button" className="btn btn-sm" onClick={() => player.seek(0, { play: true })} title={t("restart")} aria-label={t("restart")}>⏮</button>
       <button type="button" className="btn btn-sm" onClick={() => player.toggle()} aria-label={player.playing ? t("pause") : t("play")}>{player.playing ? "⏸" : "▶"}</button>
       <button type="button" className="btn btn-sm" onClick={() => player.stepOne()} title={t("step")} aria-label={t("step")}>⏭</button>

@@ -7,6 +7,7 @@ import Arena from "../battle/Arena.jsx";
 import Controls from "../battle/Controls.jsx";
 import { makeSprites, TYPE_COLORS, typeName } from "../battle/dex.js";
 import { useBattlePlayer } from "../battle/player.js";
+import { battleEnd } from "../audio.js";
 import { playT } from "./strings.js";
 import { BadgeArt } from "../components/badges.jsx";
 
@@ -285,6 +286,11 @@ function BattleView({ t, lang, sprites, me, opp, fid, levelRules, onEnd }) {
       setTimeout(() => onEnd({ won, turns: m.battle.turn, opponent: opp.name, lines }), 2600);
     }
   }, [player, onEnd, opp]);
+
+  // the victory or defeat cue plays when the battle on screen has caught up with the end of the log
+  useEffect(() => {
+    if (player.state.ended && player.caughtUp) battleEnd(player.state.tie || !player.state.winner ? null : player.state.winner === player.state.sides.p1.name);
+  }, [player.state.ended, player.caughtUp]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const ai = opp.ai || { level: "normal", style: "balanced" };
