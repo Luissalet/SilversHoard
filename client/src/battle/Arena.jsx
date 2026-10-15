@@ -21,8 +21,10 @@ const KEYFRAMES = {
   // `lunge` ({dx, dy} in px, from the effect layer) sends a striking Pokémon toward its target instead of the small default hop
   // `ps`: Showdown's animation of the move already moves the sprite, so no hop of our own
   move: (back, a) => a?.ps ? [{ transform: "none" }, { transform: "none" }] : [{ transform: "translate(0,0)" }, { transform: a?.lunge ? `translate(${a.lunge.dx}px,${a.lunge.dy}px)` : back ? "translate(26px,-14px)" : "translate(-26px,14px)", offset: 0.4 }, { transform: "translate(0,0)" }],
-  hit: () => [{ transform: "translateX(0)", filter: "brightness(1)" }, { transform: "translateX(-7px)", filter: "brightness(2.2)" }, { transform: "translateX(6px)", filter: "brightness(1)" },
-    { transform: "translateX(-4px)", filter: "brightness(1.8)" }, { transform: "translateX(0)", filter: "brightness(1)" }],
+  // a hit: the sprite flashes white (brightness with no colour) and shakes
+  hit: () => [{ transform: "translateX(0)", filter: "brightness(1)" }, { transform: "translateX(-7px)", filter: "brightness(4) saturate(0)", offset: 0.12 },
+    { transform: "translateX(6px)", filter: "brightness(1)", offset: 0.35 }, { transform: "translateX(-4px)", filter: "brightness(3) saturate(0)", offset: 0.55 },
+    { transform: "translateX(0)", filter: "brightness(1)" }],
   heal: () => [{ filter: "drop-shadow(0 0 0 #6fe08a)" }, { filter: "drop-shadow(0 0 14px #6fe08a)" }, { filter: "drop-shadow(0 0 0 #6fe08a)" }],
   faint: () => [{ transform: "translateY(0)", opacity: 1 }, { transform: "translateY(40px)", opacity: 0 }],
   switch: () => [{ transform: "scale(0.4)", opacity: 0, filter: "brightness(3)" }, { transform: "scale(1)", opacity: 1, filter: "brightness(1)" }],

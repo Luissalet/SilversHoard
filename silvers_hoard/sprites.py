@@ -28,6 +28,12 @@ SETS = {
     "home": ("home", "png"),
     "dex": ("dex", "png"),
 }
+# the 3D sprites of the latest games in PokeAPI's sprite collection (CC0 repository; the pictures are the games' art), by PokeAPI's
+# Pokémon id (the National Pokédex number, 10000+ for other formes): Pokémon Champions, Legends: Z-A and Scarlet / Violet
+POKEAPI_SETS = {"champions": "champions", "za": "legends-za", "sv": "scarlet-violet"}
+POKEAPI_BASE = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix"
+POKEAPI_LIST = "https://pokeapi.co/api/v2/pokemon?limit=3000"
+INDEX_TTL_S = 30 * 24 * 3600
 NEGATIVE_TTL_S = 7 * 24 * 3600
 MAX_IMAGE_BYTES = 12 * 1024 * 1024
 
@@ -48,10 +54,11 @@ class Sprites:
         with self._locks_guard:
             return self._locks.setdefault(key, threading.Lock())
 
-    def fetch(self, rel: str) -> Optional[Path]:
-        """The cached file for ``rel`` (a path under the sprite server, e.g. ``gen5/pikachu.png``), downloading it once. None when the
-        server has no such picture (remembered for a week) or downloads are off and it is not cached."""
-        if ".." in rel or rel.startswith("/") or not re.match(r"^[a-z0-9-]+(/[a-z0-9-]+)*\.(png|gif)$", rel):
+    def fetch(self, rel: str, url: str = "") -> Optional[Path]:
+        """The cached file for ``rel`` (a path under the sprite server, e.g. ``gen5/pikachu.png``, or the given ``url`` kept at ``rel``),
+        downloading it once. None when the server has no such picture (remembered for a week) or downloads are off and it is not
+        cached."""
+        if ".." in rel or rel.startswith("/") or not re.match(r"^[a-z0-9-]+(/[a-z0-9-]+)*\.(png|gif|webp)$", rel):
             raise SilverError("invalid", f"Not a sprite path: {rel}")
         path = self.cache_dir / rel
         if path.exists() and path.stat().st_size > 0:
@@ -64,13 +71,14 @@ class Sprites:
         with self._lock(rel):
             if path.exists() and path.stat().st_size > 0:
                 return path
-            url = f"{str(self.settings.get('sprite_server')).rstrip('/')}/{rel}"
+            url = url or f"{str(self.settings.get('sprite_server')).rstrip('/')}/{rel}"
             try:
                 status, body, ctype = self._http_get(url)
             except Exception as exc:  # noqa: BLE001 - offline: no picture, the UI shows its placeholder
                 log.info("sprite %s: %s", rel, exc)
                 return None
-            if status == 200 and body and len(body) < MAX_IMAGE_BYTES and (ctype.startswith("image/") or body[:4] in (b"\x89PNG", b"GIF8")):
+            if status == 200 and body and len(body) < MAX_IMAGE_BYTES and (ctype.startswith("image/") or body[:4] in (b"\x89PNG", b"GIF8")
+                                                                           or (body[:4] == b"RIFF" and body[8:12] == b"WEBP")):
                 path.parent.mkdir(parents=True, exist_ok=True)
                 write_bytes_atomic(path, body, fsync=False)
                 self.downloads += 1
@@ -81,12 +89,79 @@ class Sprites:
             self.misses += 1
             return None
 
+    def pokeapi_ids(self) -> dict[str, int]:
+        """{Pokémon name without symbols ("charizardmegax"): PokeAPI id}, from PokeAPI's list of Pokémon, cached for a month."""
+        if getattr(self, "_pokeapi_ids", None) is not None:
+            return self._pokeapi_ids
+        path = self.cache_dir / "pokeapi" / "ids.json"
+        import json
+
+        if path.exists() and time.time() - path.stat().st_mtime < INDEX_TTL_S:
+            try:
+                self._pokeapi_ids = json.loads(path.read_text("utf-8"))
+                return self._pokeapi_ids
+            except ValueError:
+                pass
+        out: dict[str, int] = {}
+        if self.settings.get("sprite_downloads", True):
+            with self._lock("pokeapi-ids"):
+                try:
+                    status, body, _ = self._http_get(POKEAPI_LIST)
+                    if status == 200:
+                        for r in json.loads(body.decode("utf-8")).get("results") or []:
+                            m = re.search(r"/pokemon/(\d+)/?$", r.get("url") or "")
+                            if m:
+                                out[re.sub(r"[^a-z0-9]", "", r["name"].lower())] = int(m.group(1))
+                except Exception as exc:  # noqa: BLE001 - offline: the gen 5 sprites stand in
+                    log.info("pokeapi list: %s", exc)
+                if out:
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                    write_bytes_atomic(path, json.dumps(out, separators=(",", ":")).encode("utf-8"), fsync=False)
+        if not out and path.exists():
+            try:
+                out = json.loads(path.read_text("utf-8"))
+            except ValueError:
+                out = {}
+        self._pokeapi_ids = out
+        return out
+
+    def pokeapi_id(self, sprite_id: str) -> int:
+        """PokeAPI's id for a Showdown sprite id: the forme's own (10000+) or, for a species, its default forme's (its dex number)."""
+        ids = self.pokeapi_ids()
+        key = re.sub(r"[^a-z0-9]", "", sprite_id)
+        if key in ids:
+            return ids[key]
+        base = re.sub(r"[^a-z0-9]", "", sprite_id.split("-")[0])
+        if "-" not in sprite_id:
+            # species whose default forme has a name of its own in PokeAPI (deoxys-normal, giratina-altered…): the one under 10000
+            found = [v for k, v in ids.items() if k.startswith(base) and v < 10000]
+            return min(found) if found else 0
+        return 0
+
+    def _pokeapi_candidates(self, chosen: str, sid: str, back: bool, shiny: bool) -> list[tuple[str, str]]:
+        pid = self.pokeapi_id(sid)
+        if not pid:
+            return []
+        folder = POKEAPI_SETS[chosen]
+        out = []
+        for sub in ([f"{'back/' if back else ''}shiny/"] if shiny else []) + [f"{'back/' if back else ''}"]:
+            out.append((f"pokeapi/{chosen}/{sub}{pid}.webp", f"{POKEAPI_BASE}/{folder}/{sub}{pid}.webp"))
+        return out
+
     def pokemon(self, sprite_id: str, *, set_: str = "", back: bool = False, shiny: bool = False) -> Path:
         """The best picture of a Pokémon in the chosen set, falling back to the gen 5 pixel art (which covers every species)."""
         sid = sprite_id.lower()
         if not SPRITE_ID.match(sid):
             raise SilverError("invalid", f"Not a sprite id: {sprite_id}")
-        chosen = set_ if set_ in SETS else self.settings.get("sprite_set", "gen5ani")
+        chosen = set_ if set_ in SETS or set_ in POKEAPI_SETS else self.settings.get("sprite_set", "gen5ani")
+        if chosen in POKEAPI_SETS:
+            for rel, url in self._pokeapi_candidates(chosen, sid, back, shiny):
+                path = self.fetch(rel, url)
+                if path:
+                    return path
+            chosen = "gen5"
+        if chosen not in SETS:
+            chosen = "gen5ani"
         candidates = []
         for s in [chosen, "gen5"]:
             folder, ext = SETS[s]
@@ -125,7 +200,7 @@ class Sprites:
         return path
 
     def stats(self) -> dict[str, Any]:
-        files = [p for p in self.cache_dir.rglob("*") if p.is_file() and p.suffix in (".png", ".gif")] if self.cache_dir.exists() else []
+        files = [p for p in self.cache_dir.rglob("*") if p.is_file() and p.suffix in (".png", ".gif", ".webp")] if self.cache_dir.exists() else []
         return {"cached": len(files), "bytes": sum(p.stat().st_size for p in files), "downloads": self.downloads, "misses": self.misses,
                 "downloads_on": bool(self.settings.get("sprite_downloads", True))}
 

@@ -21,7 +21,7 @@ ENGINE_DIR = REPO_ROOT / "engine"
 
 AI_LEVELS = ("random", "easy", "normal", "hard", "expert", "master", "neural")
 AI_STYLES = ("balanced", "aggressive", "defensive", "setup", "stall")
-SPRITE_SETS = ("gen5", "gen5ani", "ani", "home", "dex")
+SPRITE_SETS = ("gen5", "gen5ani", "ani", "home", "dex", "champions", "za", "sv")
 
 DEFAULT_SETTINGS: dict[str, Any] = {
     "player_name": "",            # the name your own trainers carry when you send them to friends

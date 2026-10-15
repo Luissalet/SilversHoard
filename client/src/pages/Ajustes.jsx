@@ -82,7 +82,7 @@ export default function Ajustes() {
         <div className="panel space-y-3">
           <Field label={t("sprite_set")}>
             <select className="field" value={f.sprite_set} onChange={(e) => set("sprite_set", e.target.value)}>
-              {["gen5ani", "gen5", "ani", "home", "dex"].map((s) => <option key={s} value={s}>{t(`set_${s}`)}</option>)}
+              {["gen5ani", "gen5", "ani", "home", "dex", "champions", "za", "sv"].map((s) => <option key={s} value={s}>{t(`set_${s}`)}</option>)}
             </select>
           </Field>
           <div className="flex gap-2">{["Pikachu", "Charizard", "Garchomp", "Koraidon"].map((s) => <MonIcon key={s} species={s} size={64} />)}</div>
