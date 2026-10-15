@@ -32,9 +32,10 @@ const HOME = [{x: 5, y: ARENA.h / 2}, {x: ARENA.w - 5, y: ARENA.h / 2}];
 const TRAINER = [{x: 1.6, y: ARENA.h / 2}, {x: ARENA.w - 1.6, y: ARENA.h / 2}];
 
 // Rules versions. 1: the first real-time rules (always locked on the foe, open arena, no Mega Evolution). 2: free aim when not
-// focusing, the Mega Power gauge with Plus moves and Mega Evolution. A spec without `version` is version 1, so battles stored
-// before version 2 replay as they were played; the app stores `version` with every new battle.
-export const RULES_VERSION = 2;
+// focusing, the Mega Power gauge with Plus moves and Mega Evolution. 3: doubles formats field two Pokémon per trainer (singles
+// formats play exactly as in version 2). A spec without `version` is version 1, so battles stored before version 2 replay as
+// they were played; the app stores `version` with every new battle.
+export const RULES_VERSION = 3;
 export const ARENAS = ['open', 'rocks'];
 // The Mega Power gauge, per trainer: three segments in integer units so every engine counts the same. It fills a segment every
 // 15 s (and a little faster when the trainer's Pokémon deal damage); a Plus move spends one; Mega Evolution needs it full and
@@ -49,6 +50,21 @@ export const PLUS = {damage: 1.2, superDamage: 1.3, secondary: 1.67, heal: 4 / 3
 const AIM_ASSIST = Math.sqrt(3) / 2;             // cos 30°: not focusing, a move snaps to the foe within 30° of the facing (no trigonometry: sqrt is exact everywhere)
 const STRIKE_LUNGE = 0.6;                        // not focusing: a strike lunges this far forward
 const ROCK_PASS = 2.3;                           // free space kept between rocks, and between rocks and the walls
+
+// Doubles (rules version 3, a doubles format): two Pokémon per trainer on the field, slot a above the centre line and slot b
+// below it. What a trainer owns (party, side conditions, hazards, switches, the gauge, Mega Evolution) is shared by its two
+// slots; where each Pokémon stands and what it is doing belongs to its slot.
+export const SPREAD = 0.75;                      // a spread move that hits more than one Pokémon does three quarters of the damage
+const SLOT_Y = [-3, 3];                          // the two slots start 3 m above and below the centre line
+const SHARED = ['id', 'index', 'name', 'ai', 'aiRng', 'mons', 'cond', 'hazards', 'switchesLeft', 'gauge', 'mega', 'megaUsed'];
+const SPREAD_TARGETS = new Set(['allAdjacent', 'allAdjacentFoes']);
+// Support moves that only mean something in doubles; in singles they keep having no effect (moves.mjs NO_EFFECT).
+export const DOUBLES_MOVES = {
+  helpinghand: {cooldown: 10, secs: 5},         // the partner's next damaging move: power x1.5
+  followme: {cooldown: 12, secs: 3},            // the foes' single-target moves go to the user, projectiles in flight bend to it
+  ragepowder: {cooldown: 12, secs: 3},          // the same, except for Grass types, Overcoat and Safety Goggles (a powder)
+};
+const HELPING = 1.5;
 
 const TYPE_ITEMS = {
   charcoal: 'Fire', mysticwater: 'Water', miracleseed: 'Grass', magnet: 'Electric', nevermeltice: 'Ice', blackbelt: 'Fighting',
@@ -199,9 +215,99 @@ export class RtBattle {
     this.ended = false;
     this.winner = -1;            // -1 none yet, 0/1 side, 2 tie
     this.reason = '';
+    this.doubles = this.version >= 3 && Dex.formats.get(this.formatId, true).gameType === 'doubles';
     this.sides = ['p1', 'p2'].map((id, i) => this.makeSide(id, i, spec[id] || {}));
-    for (const s of this.sides) this.sendOut(s, 0, true);
-    for (const s of this.sides) this.onSwitchIn(s);
+    if (!this.doubles) {
+      // singles: each trainer is its own (only) slot
+      for (const s of this.sides) {
+        Object.defineProperty(s, 'units', {value: [s], enumerable: false});
+        Object.defineProperty(s, 'trainer', {value: s, enumerable: false});
+        Object.defineProperty(s, 'pos', {value: 0, enumerable: false});
+      }
+      this.units = this.sides;
+      for (const s of this.sides) this.sendOut(s, 0, true);
+      for (const s of this.sides) this.onSwitchIn(s);
+      return;
+    }
+    for (const s of this.sides) {
+      s.ctl = 0;        // the slot a person controls (the other one follows it, driven by the AI)
+      s.tgt = 0;        // the foe slot a person locks on
+      Object.defineProperty(s, 'units', {value: [0, 1].map((pos) => this.makeUnit(s, pos)), enumerable: false});
+    }
+    this.units = this.sides.flatMap((s) => s.units);
+    for (const u of this.units) {
+      if (u.pos < u.mons.length) this.sendOut(u, u.pos, true);
+      else { u.active = 0; u.vacant = true; }   // a one-Pokémon team leaves its second slot empty
+    }
+    for (const u of this.units) if (!u.vacant) this.onSwitchIn(u);
+  }
+
+  /** A slot of a trainer in doubles: its own position, act and volatile effects; the party and what the trainer owns are the
+   * trainer's (read and written through). */
+  makeUnit(trainer, pos) {
+    const u = {pos, active: pos, x: HOME[trainer.index].x, y: HOME[trainer.index].y + SLOT_Y[pos], fx: trainer.index ? -1 : 1, fy: 0,
+      act: null, rollReady: 0, need: false, needSince: 0, vol: {}, wish: null, brain: {}, moving: false, focus: true, aim: pos, vacant: false};
+    Object.defineProperty(u, 'trainer', {value: trainer, enumerable: false});
+    for (const k of SHARED) Object.defineProperty(u, k, {get: () => trainer[k], set: (v) => { trainer[k] = v; }, enumerable: false});
+    return u;
+  }
+
+  /** Event fields that say whose event it is: the side, and in doubles the slot. */
+  at(u) { return this.doubles ? {s: u.index, u: u.pos} : {s: u.index}; }
+  /** The other slot of the same trainer (doubles), or null. */
+  allyOf(u) { return this.doubles ? u.trainer.units[1 - u.pos] : null; }
+  /** The slots of the other trainer. */
+  foesOf(u) { return this.sides[1 - u.index].units; }
+  unitAt(s, pos = 0) { return this.sides[s].units[pos || 0]; }
+  /** Party slots another slot of the same trainer holds or is bringing in. */
+  taken(u) {
+    if (!this.doubles) return [];
+    const out = [];
+    for (const o of u.trainer.units) {
+      if (o === u) continue;
+      if (!o.vacant) out.push(o.active);
+      if (o.act && o.act.kind === 'switch') out.push(o.act.to);
+    }
+    return out;
+  }
+  /** The Pokémon that can come in to this slot. */
+  bench(u) {
+    const tk = this.taken(u);
+    return u.mons.filter((m) => !m.fainted && m.slot !== u.active && !tk.includes(m.slot));
+  }
+  /** The slot a person controls: the one asked for, or the other while that one has nobody to send out. */
+  leadOf(tr) {
+    const u = tr.units[tr.ctl || 0];
+    const o = tr.units[1 - (tr.ctl || 0)];
+    return u.vacant && !o.vacant ? o : u;
+  }
+  /** A foe that draws the foes' single-target moves (Follow Me, Rage Powder), or null. */
+  lureFor(u) {
+    if (!this.doubles) return null;
+    for (const f of this.foesOf(u)) {
+      if (!(f.vol.followUntil > this.t) || !this.onField(f)) continue;
+      if (f.vol.followKind === 'ragepowder') {
+        const m = this.mon(u);
+        if (this.typesOf(u).includes('Grass') || m.ability === 'overcoat' || this.hasItem(m, 'safetygoggles')) continue;
+      }
+      return f;
+    }
+    return null;
+  }
+  /** Is this move a spread move in this battle (doubles only)? */
+  spreadMove(p) { return this.doubles && SPREAD_TARGETS.has(p.target); }
+  /** The first foe slot that passes `test`, trying `pref` first (in singles only `pref`). */
+  firstFoe(side, pref, test) {
+    if (test(pref)) return pref;
+    if (!this.doubles) return null;
+    for (const f of this.foesOf(side)) if (f !== pref && test(f)) return f;
+    return null;
+  }
+  /** Who a spread move can reach: the foes (the aimed one first) and, for moves that hit everything around, the partner too. */
+  spreadVictims(side, pref, p) {
+    const out = [pref, ...this.foesOf(side).filter((f) => f !== pref)];
+    if (p.target === 'allAdjacent' && this.allyOf(side)) out.push(this.allyOf(side));
+    return out;
   }
 
   makeSide(id, index, seat) {
@@ -225,10 +331,19 @@ export class RtBattle {
     this.events.push(e);
     return e;
   }
-  foe(side) { return this.sides[1 - side.index]; }
+  /** The foe a Pokémon faces and aims at. Singles: the other trainer's. Doubles: a foe drawing attacks (Follow Me), else the
+   * foe slot it locks on (`aim`) when that one is on the field, else the other one. */
+  foe(side) {
+    if (!this.doubles) return this.sides[1 - side.index];
+    const lure = this.lureFor(side);
+    if (lure) return lure;
+    const foes = this.foesOf(side);
+    const want = foes[side.aim ? 1 : 0];
+    return this.onField(want) || !this.onField(foes[side.aim ? 0 : 1]) ? want : foes[side.aim ? 0 : 1];
+  }
   mon(side) { return side.mons[side.active]; }
   alive(side) { return side.mons.filter((m) => !m.fainted); }
-  onField(side) { const m = this.mon(side); return m && !m.fainted && !side.need && !(side.act && side.act.kind === 'switch'); }
+  onField(side) { const m = this.mon(side); return m && !m.fainted && !side.need && !side.vacant && !(side.act && side.act.kind === 'switch'); }
   hasAbility(side, ...ids) { const m = this.mon(side); return !!m && ids.includes(m.ability); }
   hasItem(mon, ...ids) { return !!mon.item && !mon.itemUsed && ids.includes(mon.item); }
   grounded(side) {
@@ -239,7 +354,7 @@ export class RtBattle {
   }
   weatherIs(...ids) {
     if (!this.weather || this.weather.until <= this.t) return false;
-    if (this.sides.some((s) => this.onField(s) && ['cloudnine', 'airlock'].includes(this.mon(s).ability))) return false;
+    if (this.units.some((s) => this.onField(s) && ['cloudnine', 'airlock'].includes(this.mon(s).ability))) return false;
     return ids.includes(this.weather.id);
   }
   terrainIs(id) { return !!this.terrain && this.terrain.until > this.t && this.terrain.id === id; }
@@ -320,7 +435,10 @@ export class RtBattle {
     if (side.cond.tailwind > this.t) mod *= 1.5;
     if (this.speedWeather(side)) mod *= 1.5;
     const prio = p.priority > 0 || (m.ability === 'prankster' && p.category === 'Status') || (m.ability === 'galewings' && p.type === 'Flying' && m.hp === m.maxhp);
-    return Math.round(finalCooldown(p.cooldown, m.stats.spe, {priority: prio ? 1 : 0, mod}) * TPS);
+    const ticks = Math.round(finalCooldown(p.cooldown, m.stats.spe, {priority: prio ? 1 : 0, mod}) * TPS);
+    // doubles support moves have priority but must not be up all the time
+    if (this.doubles && DOUBLES_MOVES[p.id]) return Math.max(ticks, DOUBLES_MOVES[p.id].cooldown * TPS);
+    return ticks;
   }
 
   radius(side) {
@@ -331,22 +449,24 @@ export class RtBattle {
   // ------------------------------------------------------------ switching
   sendOut(side, slot, first = false) {
     const prev = this.mon(side);
-    if (side.mega >= 0) { this.megaEnd(side); side.gauge = 0; }   // a Mega Evolved Pokémon going back ends the Mega Evolution
+    // a Mega Evolved Pokémon going back ends the Mega Evolution
+    if (side.mega >= 0 && side.mega === side.active && !side.vacant) { this.megaEnd(side); side.gauge = 0; }
     if (prev && !first) this.onSwitchOut(side);
     side.active = slot;
     side.vol = {in: this.t};
     side.act = null;
     side.need = false;
+    if (this.doubles) side.vacant = false;
     const m = this.mon(side);
     m.switchesIn++;
     m.choiceLock = -1;
     m.boosts = {atk: 0, def: 0, spa: 0, spd: 0, spe: 0};
     side.x = HOME[side.index].x + (side.index ? -1 : 1) * 0.5;
-    side.y = HOME[side.index].y + (first ? 0 : (this.rng() - 0.5) * 2);
+    side.y = HOME[side.index].y + (this.doubles ? SLOT_Y[side.pos] : 0) + (first ? 0 : (this.rng() - 0.5) * 2);
     const foe = this.foe(side);
     const d = norm((foe.x ?? HOME[1 - side.index].x) - side.x, (foe.y ?? HOME[1 - side.index].y) - side.y);
     side.fx = d.x || (side.index ? -1 : 1); side.fy = d.y;
-    this.ev('switch', {s: side.index, slot, species: m.species, hp: m.hp, maxhp: m.maxhp, first});
+    this.ev('switch', {...this.at(side), slot, species: m.species, hp: m.hp, maxhp: m.maxhp, first});
   }
 
   onSwitchOut(side) {
@@ -369,37 +489,39 @@ export class RtBattle {
       }
       if (h.spikes && this.grounded(side)) this.chip(side, Math.floor(m.maxhp / [0, 8, 6, 4][Math.min(3, h.spikes)]), 'spikes');
       if (h.toxicspikes && this.grounded(side)) {
-        if (this.typesOf(side).includes('Poison')) { delete h.toxicspikes; this.ev('hazard_clear', {s: side.index, id: 'toxicspikes'}); }
+        if (this.typesOf(side).includes('Poison')) { delete h.toxicspikes; this.ev('hazard_clear', {...this.at(side), id: 'toxicspikes'}); }
         else this.setStatus(side, h.toxicspikes >= 2 ? 'tox' : 'psn', null);
       }
       if (h.stickyweb && this.grounded(side)) this.boost(side, {spe: -1}, foe, 'stickyweb');
     }
     if (m.fainted) return;
     this.abilityStart(side);
-    if (m.airBalloon && !m.itemUsed) this.ev('item', {s: side.index, id: 'airballoon'});
+    if (m.airBalloon && !m.itemUsed) this.ev('item', {...this.at(side), id: 'airballoon'});
   }
 
   /** Abilities that act when a Pokémon comes in (or Mega Evolves): Intimidate, weather and terrain setters, Speed Boost... */
   abilityStart(side) {
     const m = this.mon(side);
-    const foe = this.foe(side);
     const ab = m.ability;
-    if (ab === 'intimidate' && this.onField(foe)) {
+    // Intimidate: the foe in singles, both foes on the field in doubles
+    for (const foe of this.doubles ? this.foesOf(side) : [this.foe(side)]) {
+      if (ab !== 'intimidate' || !this.onField(foe)) continue;
       const fm = this.mon(foe);
       if (!['innerfocus', 'oblivious', 'owntempo', 'scrappy', 'clearbody', 'whitesmoke', 'fullmetalbody', 'hypercutter'].includes(fm.ability)) this.boost(foe, {atk: -1}, side, 'intimidate');
-      else this.ev('ability', {s: foe.index, id: fm.ability});
+      else this.ev('ability', {...this.at(foe), id: fm.ability});
     }
     const weatherAb = {drought: 'sunnyday', drizzle: 'raindance', sandstream: 'sandstorm', snowwarning: this.gen >= 9 ? 'snow' : 'hail', orichalcumpulse: 'sunnyday'}[ab];
     if (weatherAb) this.setWeather(weatherAb, side);
     const terrainAb = {electricsurge: 'electricterrain', grassysurge: 'grassyterrain', psychicsurge: 'psychicterrain', mistysurge: 'mistyterrain', hadronengine: 'electricterrain'}[ab];
     if (terrainAb) this.setTerrain(terrainAb, side);
-    if (ab === 'pressure' || ab === 'moldbreaker' || ab === 'unnerve') this.ev('ability', {s: side.index, id: ab});
+    if (ab === 'pressure' || ab === 'moldbreaker' || ab === 'unnerve') this.ev('ability', {...this.at(side), id: ab});
     if (ab === 'speedboost') side.vol.speedboostAt = this.t + 8 * TPS;
   }
 
   canSwitch(side, slot) {
     const m = side.mons[slot];
     if (!m || m.fainted || slot === side.active) return false;
+    if (this.doubles && this.taken(side).includes(slot)) return false;
     if (side.need) return true;
     if (side.switchesLeft <= 0) return false;
     if (side.vol.trapUntil > this.t && !this.typesOf(side).includes('Ghost')) return false;
@@ -415,26 +537,40 @@ export class RtBattle {
     }
     if (!forced && !free) side.switchesLeft--;
     side.act = {kind: 'switch', to: slot, end: this.t + SWITCH_TICKS};
-    this.ev('recall', {s: side.index, slot: side.active, to: slot, left: side.switchesLeft, forced});
+    this.ev('recall', {...this.at(side), slot: side.active, to: slot, left: side.switchesLeft, forced});
   }
 
   bestReplacement(side) {
-    const options = side.mons.filter((m) => !m.fainted && m.slot !== side.active);
+    const options = this.bench(side);
     return options.length ? options[0].slot : -1;
   }
 
   // ------------------------------------------------------------ the loop
-  /** One tick. `inputs` = {p1: {mx, my, use, dodge, sw, focus, plus, mega} | null, p2: ...} for the seats people play; AI seats
-   * decide here. `focus` (held lock-on) defaults to true, `plus` (the move goes out as a Plus move) and `mega` to false. */
+  /** One tick. `inputs` = {p1: {mx, my, use, dodge, sw, focus, plus, mega, ctl, tgt} | null, p2: ...} for the seats people
+   * play; AI seats decide here. `focus` (held lock-on) defaults to true, `plus` (the move goes out as a Plus move) and `mega` to
+   * false. Doubles: `ctl` is the slot (0/1) the person moves, `tgt` the foe slot it locks on; the other slot follows the AI. */
   step(inputs = {}) {
     if (this.ended) return;
     this.t++;
-    for (const side of this.sides) {
-      let input = side.ai ? think(this, side) : inputs[side.id] || null;
-      if (!side.ai && input) input = this.record(side, input);   // a person's input as the log keeps it, so a replay plays the same
-      this.applyInput(side, input || {});
+    if (this.doubles) {
+      for (const tr of this.sides) {
+        if (tr.ai) {
+          const plan = tr.units.map((u) => think(this, u));
+          tr.units.forEach((u, i) => this.applyInput(u, plan[i] || {}));
+          continue;
+        }
+        let input = inputs[tr.id] || null;
+        if (input) input = this.record(tr, input);
+        this.personInput(tr, input || {});
+      }
+    } else {
+      for (const side of this.sides) {
+        let input = side.ai ? think(this, side) : inputs[side.id] || null;
+        if (!side.ai && input) input = this.record(side, input);   // a person's input as the log keeps it, so a replay plays the same
+        this.applyInput(side, input || {});
+      }
     }
-    for (const side of this.sides) this.updateAct(side);
+    for (const side of this.units) this.updateAct(side);
     this.updateProjectiles();
     this.updateMarks();
     this.updateTimers();
@@ -442,14 +578,45 @@ export class RtBattle {
     this.checkEnd();
   }
 
-  /** Input log rows: [tick, side, mx, my, move, roll, switch, focus, plus, mega]. Rows recorded before focus and Mega Evolution
-   * existed have the first seven columns only and read as focus 1, plus 0, mega 0. */
+  /** A person's trainer in doubles: the input moves the slot it controls; the partner is the AI following it. A switch goes to
+   * a slot waiting for a Pokémon (the controlled one first), else to the controlled slot; Mega Evolution to whichever of the two
+   * can. */
+  personInput(tr, input) {
+    if (input.ctl != null) tr.ctl = input.ctl ? 1 : 0;
+    if (input.tgt != null) tr.tgt = input.tgt ? 1 : 0;
+    const lead = this.leadOf(tr);
+    const partner = tr.units[1 - lead.pos];
+    lead.aim = tr.tgt;
+    const help = this.partnerInput(partner, lead) || {};
+    const sw = input.sw ?? -1;
+    const swTo = lead.need ? lead : partner.need ? partner : lead;
+    let megaTo = null;
+    if (input.mega) megaTo = this.canMega(lead) ? lead : this.canMega(partner) ? partner : null;
+    this.applyInput(lead, {...input, sw: swTo === lead ? sw : -1, mega: megaTo === lead});
+    this.applyInput(partner, {...help, sw: swTo === partner ? sw : -1, mega: megaTo === partner, plus: false});
+  }
+
+  /** The AI's input for a person's partner slot (tests can stub it). */
+  partnerInput(partner, lead) { return think(this, partner, {lead}); }
+
+  /** Input log rows: [tick, side, mx, my, move, roll, switch, focus, plus, mega] (doubles add ctl and tgt). Rows recorded before
+   * focus and Mega Evolution existed have the first seven columns only and read as focus 1, plus 0, mega 0; rows without ctl
+   * and tgt read as 0. */
   record(side, input) {
     const q = {mx: round3(input.mx || 0), my: round3(input.my || 0), use: input.use ?? -1, dodge: !!input.dodge, sw: input.sw ?? -1,
       focus: input.focus == null || input.focus ? 1 : 0, mega: input.mega ? 1 : 0};
     q.plus = input.plus && q.use >= 0 ? 1 : 0;
     const last = side.lastInput;
     const acts = q.use >= 0 || q.dodge || q.sw >= 0 || q.mega;
+    if (this.doubles) {
+      q.ctl = input.ctl == null ? (last ? last.ctl : 0) : input.ctl ? 1 : 0;
+      q.tgt = input.tgt == null ? (last ? last.tgt : 0) : input.tgt ? 1 : 0;
+      if (!last || acts || last.mx !== q.mx || last.my !== q.my || last.focus !== q.focus || last.ctl !== q.ctl || last.tgt !== q.tgt) {
+        this.inputLog.push([this.t, side.index, q.mx, q.my, q.use, q.dodge ? 1 : 0, q.sw, q.focus, q.plus, q.mega, q.ctl, q.tgt]);
+        side.lastInput = {mx: q.mx, my: q.my, focus: q.focus, ctl: q.ctl, tgt: q.tgt};
+      }
+      return {mx: q.mx, my: q.my, use: q.use, dodge: q.dodge, sw: q.sw, focus: !!q.focus, plus: !!q.plus, mega: !!q.mega, ctl: q.ctl, tgt: q.tgt};
+    }
     if (!last || acts || last.mx !== q.mx || last.my !== q.my || last.focus !== q.focus) {
       this.inputLog.push([this.t, side.index, q.mx, q.my, q.use, q.dodge ? 1 : 0, q.sw, q.focus, q.plus, q.mega]);
       side.lastInput = {mx: q.mx, my: q.my, focus: q.focus};
@@ -461,8 +628,14 @@ export class RtBattle {
     const m = this.mon(side);
     const foe = this.foe(side);
     side.focus = input.focus == null ? true : !!input.focus;
+    if (side.vacant) return;
     // replacing a fainted Pokémon
     if (side.need) {
+      if (this.doubles && !this.bench(side).length) {
+        // the partner slot took the last one: this slot stays empty (unless one is still on its way to the other slot)
+        if (!side.trainer.units.some((o) => o.act && o.act.kind === 'switch')) { side.need = false; side.vacant = true; }
+        return;
+      }
       let slot = input.sw ?? -1;
       if ((slot < 0 || !this.canSwitch(side, slot)) && this.t - side.needSince >= REPLACE_TIMEOUT) slot = this.bestReplacement(side);
       if (slot >= 0 && this.canSwitch(side, slot)) this.startSwitch(side, slot);
@@ -479,7 +652,7 @@ export class RtBattle {
       if (!d.x && !d.y) d = {x: -side.fx, y: -side.fy};
       side.act = {kind: 'roll', end: this.t + ROLL_TICKS, dx: d.x, dy: d.y};
       side.rollReady = this.t + ROLL_TICKS + ROLL_COOLDOWN;
-      this.ev('roll', {s: side.index});
+      this.ev('roll', {...this.at(side)});
       return;
     }
     if (input.use >= 0 && !busy) this.tryUse(side, input.use, !!input.plus);
@@ -516,14 +689,16 @@ export class RtBattle {
     const r = this.radius(side);
     side.x = clamp(side.x + dx, r, ARENA.w - r);
     side.y = clamp(side.y + dy, r, ARENA.h - r);
-    const foe = this.foe(side);
-    if (this.onField(foe) && foe.act?.kind !== 'roll' && side.act?.kind !== 'roll' && !this.semiInvulnerable(foe) && !this.semiInvulnerable(side)) {
-      const min = r + this.radius(foe);
-      const d = dist(side, foe);
-      if (d < min && d > 1e-6) {
-        const push = (min - d);
-        side.x = clamp(side.x + ((side.x - foe.x) / d) * push, r, ARENA.w - r);
-        side.y = clamp(side.y + ((side.y - foe.y) / d) * push, r, ARENA.h - r);
+    // Pokémon do not walk through each other (in doubles, through any of the other three)
+    for (const foe of this.doubles ? this.units.filter((u) => u !== side) : [this.foe(side)]) {
+      if (this.onField(foe) && foe.act?.kind !== 'roll' && side.act?.kind !== 'roll' && !this.semiInvulnerable(foe) && !this.semiInvulnerable(side)) {
+        const min = r + this.radius(foe);
+        const d = dist(side, foe);
+        if (d < min && d > 1e-6) {
+          const push = (min - d);
+          side.x = clamp(side.x + ((side.x - foe.x) / d) * push, r, ARENA.w - r);
+          side.y = clamp(side.y + ((side.y - foe.y) / d) * push, r, ARENA.h - r);
+        }
       }
     }
     if (this.rocks.length) this.outOfRocks(side, r);
@@ -594,7 +769,7 @@ export class RtBattle {
     if (this.usable(side, slot)) return false;
     const foe = this.foe(side);
     const p = this.mon(side).profiles[slot];
-    const needsFoe = !['self', 'field'].includes(p.shape);
+    const needsFoe = !['self', 'field'].includes(p.shape) && !(this.doubles && DOUBLES_MOVES[p.id]);
     if (needsFoe && !this.onField(foe)) return false;
     if (side.focus) {
       const range = this.reachFor(side, foe, p);
@@ -623,7 +798,7 @@ export class RtBattle {
     if (m.ability === 'prankster' && p.category === 'Status') w = 0;
     if (m.ability === 'galewings' && p.type === 'Flying' && m.hp === m.maxhp) w = 0;
     if (p.flags.charge && (this.hasItem(m, 'powerherb') || (['solarbeam', 'solarblade'].includes(p.id) && this.weatherIs('sunnyday', 'desolateland')))) {
-      if (this.hasItem(m, 'powerherb')) { m.itemUsed = true; this.ev('item', {s: side.index, id: 'powerherb'}); }
+      if (this.hasItem(m, 'powerherb')) { m.itemUsed = true; this.ev('item', {...this.at(side), id: 'powerherb'}); }
       w = Math.min(w, 10);
     }
     // focusing: aim at the foe. Not focusing: aim along the facing, snapped to the foe when it is within 30° of it (aim assist)
@@ -637,6 +812,8 @@ export class RtBattle {
     const act = {kind: 'windup', slot, end: this.t + w, start: this.t};
     if (!side.focus) act.free = true;
     if (this.plusFor(side, plus)) act.plus = true;
+    // Helping Hand from the partner (doubles): this damaging move goes out with x1.5 power
+    if (this.doubles && side.vol.helpedUntil > this.t && p.category !== 'Status') { act.helped = true; delete side.vol.helpedUntil; }
     if (p.shape === 'drop' && this.onField(foe)) {
       let tx = foe.x, ty = foe.y;
       if (!aimed) {
@@ -646,15 +823,16 @@ export class RtBattle {
         ty = round3(clamp(side.y + side.fy * d, 0, ARENA.h));
       }
       act.tx = tx; act.ty = ty;
-      const mark = {s: side.index, slot, x: tx, y: ty, r: act.plus ? p.radius * PLUS.area : p.radius, at: this.t + w, mon: side.active};
+      const mark = {...this.at(side), slot, x: tx, y: ty, r: act.plus ? p.radius * PLUS.area : p.radius, at: this.t + w, mon: side.active};
       if (act.plus) mark.plus = true;
+      if (this.doubles) { mark.tu = foe.pos; if (act.helped) mark.helped = true; }
       this.marks.push(mark);
     }
     side.act = act;
-    const e = {s: side.index, move: p.id, name: p.name, type: p.type, shape: p.shape, ticks: w, tx: act.tx, ty: act.ty};
+    const e = {...this.at(side), move: p.id, name: p.name, type: p.type, shape: p.shape, ticks: w, tx: act.tx, ty: act.ty};
     if (act.plus) e.plus = true;
     this.ev('windup', e);
-    if (act.plus) this.ev('plus', {s: side.index, move: p.id, name: p.name, type: p.type, mega: side.mega >= 0, gauge: side.gauge});
+    if (act.plus) this.ev('plus', {...this.at(side), move: p.id, name: p.name, type: p.type, mega: side.mega >= 0 && side.mega === side.active, gauge: side.gauge});
     if (w === 0) this.execute(side);
   }
 
@@ -662,7 +840,7 @@ export class RtBattle {
    * (it spends the segment). Rules version 2 only. */
   plusFor(side, want) {
     if (this.version < 2) return false;
-    if (side.mega >= 0) return true;
+    if (side.mega >= 0 && side.mega === side.active) return true;
     if (!want || side.gauge < GAUGE_SEGMENT) return false;
     side.gauge -= GAUGE_SEGMENT;
     return true;
@@ -693,7 +871,7 @@ export class RtBattle {
     side.mega = side.active;
     side.megaUsed = true;
     delete side.vol.types;
-    this.ev('mega', {s: side.index, slot: side.active, species: m.species, from: m.base.species, hp: m.hp, maxhp: m.maxhp});
+    this.ev('mega', {...this.at(side), slot: side.active, species: m.species, from: m.base.species, hp: m.hp, maxhp: m.maxhp});
     this.abilityStart(side);
     this.outOfRocks(side);
   }
@@ -709,7 +887,9 @@ export class RtBattle {
     m.megaOn = false;
     m.maxhp = m.stats.hp;
     if (!m.fainted) m.hp = Math.max(1, Math.min(m.maxhp, Math.round((m.hp * m.maxhp) / Math.max(1, before))));
-    this.ev('mega_end', {s: side.index, slot: m.slot, species: m.species, hp: m.hp, maxhp: m.maxhp});
+    const tr = side.trainer || side;
+    const who = this.doubles ? tr.units.find((o) => o.active === m.slot && !o.vacant) || tr.units[0] : side;
+    this.ev('mega_end', {...this.at(who), slot: m.slot, species: m.species, hp: m.hp, maxhp: m.maxhp});
   }
 
   updateGauges() {
@@ -771,14 +951,15 @@ export class RtBattle {
       const v = a.speed / TPS;
       this.moveBy(side, a.dx * v, a.dy * v);
       a.traveled += v;
-      if (this.onField(foe) && !a.hit && !this.semiInvulnerable(foe) && dist(side, foe) <= this.radius(side) + this.radius(foe) + 0.35) {
+      const touched = a.hit ? null : this.firstFoe(side, foe, (f) => this.onField(f) && !this.semiInvulnerable(f) && dist(side, f) <= this.radius(side) + this.radius(f) + 0.35);
+      if (touched) {
         a.hit = true;
-        this.resolveHit(side, foe, this.mon(side).profiles[a.slot], {mon: side.active, plus: a.plus});
+        this.resolveHit(side, touched, this.mon(side).profiles[a.slot], a.helped ? {mon: side.active, plus: a.plus, helped: true} : {mon: side.active, plus: a.plus});
         this.finishMove(side, a.slot);
         return;
       }
       if (a.traveled >= a.max || this.t >= a.end) {
-        if (!a.hit) this.ev('miss', {s: side.index, move: this.mon(side).profiles[a.slot].id});
+        if (!a.hit) this.ev('miss', {...this.at(side), move: this.mon(side).profiles[a.slot].id});
         this.finishMove(side, a.slot);
       }
     }
@@ -795,13 +976,14 @@ export class RtBattle {
     side.vol.lastSlot = slot;
     if (this.hasItem(m, 'choiceband', 'choicespecs', 'choicescarf')) m.choiceLock = slot;
     if (m.ability === 'protean' || m.ability === 'libero') { side.vol.types = [p.type]; }
-    this.ev('use', {s: side.index, move: p.id, name: p.name, type: p.type, shape: p.shape, category: p.category});
-    if (p.noEffect) { this.ev('noeffect', {s: side.index, move: p.id}); this.finishMove(side, slot); return; }
+    this.ev('use', {...this.at(side), move: p.id, name: p.name, type: p.type, shape: p.shape, category: p.category});
+    if (this.doubles && DOUBLES_MOVES[p.id]) { this.supportMove(side, p); this.finishMove(side, slot); return; }
+    if (p.noEffect) { this.ev('noeffect', {...this.at(side), move: p.id}); this.finishMove(side, slot); return; }
     if (p.id === 'metronome') {
       const pool = this.dex.moves.all().filter((x) => x.exists && x.basePower > 0 && !x.isNonstandard && !x.isZ && !x.isMax && x.category !== 'Status');
       const pick = pool[Math.floor(this.rng() * pool.length)];
       const prof = rtMove(pick.id, this.gen);
-      this.ev('metronome', {s: side.index, move: prof.id, name: prof.name});
+      this.ev('metronome', {...this.at(side), move: prof.id, name: prof.name});
       this.performShape(side, foe, prof, act);
       m.cds[slot] = this.cooldownTicks(side, p);
       if (side.act === act) side.act = null;
@@ -815,7 +997,9 @@ export class RtBattle {
   performShape(side, foe, p, act) {
     const plus = !!act.plus;
     const ctx = plus ? {mon: side.active, plus} : {mon: side.active};
+    if (act.helped) ctx.helped = true;
     const locked = !act.free;   // focusing when the move started: it tracks the foe
+    const spread = this.spreadMove(p);
     switch (p.shape) {
       case 'self':
         this.statusMove(side, side, p, plus);
@@ -824,25 +1008,39 @@ export class RtBattle {
         this.statusMove(side, foe, p, plus);
         break;
       case 'strike': {
-        // not focusing, a strike lunges forward and only lands if the foe is there
+        // not focusing, a strike lunges forward and only lands if the foe is there (in doubles: either foe in front)
         if (!locked) this.moveBy(side, side.fx * STRIKE_LUNGE, side.fy * STRIKE_LUNGE);
-        if (this.onField(foe) && this.inFront(side, foe, this.reachFor(side, foe, p) + 0.25, p.arc) && !this.semiInvulnerable(foe)) this.resolveHit(side, foe, p, ctx);
-        else this.ev('miss', {s: side.index, move: p.id});
+        const t = this.firstFoe(side, foe, (f) => this.onField(f) && this.inFront(side, f, this.reachFor(side, f, p) + 0.25, p.arc) && !this.semiInvulnerable(f));
+        if (t) this.resolveHit(side, t, p, ctx);
+        else this.ev('miss', {...this.at(side), move: p.id});
         break;
       }
       case 'cone': {
         const reach = plus ? p.reach * PLUS.area : p.reach;
-        this.ev('area', {s: side.index, move: p.id, x: side.x, y: side.y, fx: side.fx, fy: side.fy, r: reach, arc: p.arc, type: p.type});
-        if (this.onField(foe) && this.inFront(side, foe, reach + this.radius(foe), p.arc) && !this.semiInvulnerable(foe) &&
-          !(this.rocks.length && this.rockOnLine(side, foe))) this.resolveHit(side, foe, p, ctx);
-        else this.ev('miss', {s: side.index, move: p.id});
+        this.ev('area', {...this.at(side), move: p.id, x: side.x, y: side.y, fx: side.fx, fy: side.fy, r: reach, arc: p.arc, type: p.type});
+        const inCone = (f) => this.onField(f) && this.inFront(side, f, reach + this.radius(f), p.arc) && !this.semiInvulnerable(f) &&
+          !(this.rocks.length && this.rockOnLine(side, f));
+        if (spread) {
+          if (!this.hitAll(side, this.spreadVictims(side, foe, p).filter(inCone), p, ctx)) this.ev('miss', {...this.at(side), move: p.id});
+          break;
+        }
+        const t = this.firstFoe(side, foe, inCone);
+        if (t) this.resolveHit(side, t, p, ctx);
+        else this.ev('miss', {...this.at(side), move: p.id});
         break;
       }
       case 'burst': {
         const radius = plus ? p.radius * PLUS.area : p.radius;
-        this.ev('area', {s: side.index, move: p.id, x: side.x, y: side.y, r: radius, arc: -1, type: p.type});
-        if (this.onField(foe) && dist(side, foe) <= radius + this.radius(foe) && !this.semiInvulnerable(foe)) this.resolveHit(side, foe, p, ctx);
-        else if (p.category !== 'Status') this.ev('miss', {s: side.index, move: p.id});
+        this.ev('area', {...this.at(side), move: p.id, x: side.x, y: side.y, r: radius, arc: -1, type: p.type});
+        const inBurst = (f) => this.onField(f) && dist(side, f) <= radius + this.radius(f) && !this.semiInvulnerable(f);
+        let any;
+        if (spread) any = this.hitAll(side, this.spreadVictims(side, foe, p).filter(inBurst), p, ctx);
+        else {
+          const t = this.firstFoe(side, foe, inBurst);
+          if (t) this.resolveHit(side, t, p, ctx);
+          any = !!t;
+        }
+        if (!any && p.category !== 'Status') this.ev('miss', {...this.at(side), move: p.id});
         if (p.selfdestruct) this.faint(side, null);
         break;
       }
@@ -852,8 +1050,9 @@ export class RtBattle {
         const d = locked && this.onField(foe) ? norm(foe.x - side.x, foe.y - side.y) : {x: side.fx, y: side.fy};
         side.act = {kind: 'dash', slot: act.slot, dx: d.x, dy: d.y, speed: p.speed, traveled: 0, max: p.reach + 1, end: this.t + TPS, hit: false};
         if (plus) side.act.plus = true;
+        if (act.helped) side.act.helped = true;
         this.face(side, d.x, d.y);
-        this.ev('dash', {s: side.index, move: p.id});
+        this.ev('dash', {...this.at(side), move: p.id});
         break;
       }
       default: { // shot, beam, wave
@@ -862,15 +1061,43 @@ export class RtBattle {
         const ty = at ? foe.y : side.y + side.fy * p.reach;
         const d = norm(tx - side.x, ty - side.y);
         const r0 = this.radius(side) + 0.2;
-        const pr = {id: `${this.t}:${side.index}:${act.slot}`, s: side.index, mon: side.active, move: p.id, x: side.x + d.x * r0, y: side.y + d.y * r0,
+        const id = this.doubles ? `${this.t}:${side.index}:${side.pos}:${act.slot}` : `${this.t}:${side.index}:${act.slot}`;
+        const pr = {id, s: side.index, mon: side.active, move: p.id, x: side.x + d.x * r0, y: side.y + d.y * r0,
           vx: d.x * p.speed, vy: d.y * p.speed, r: p.radius, left: p.reach, type: p.type, shape: p.shape};
         if (plus) pr.plus = true;
+        if (this.doubles) {
+          pr.u = side.pos;
+          if (act.helped) pr.helped = true;
+          if (spread) { pr.spread = true; pr.done = []; }   // a spread move's wave goes on through every foe it meets
+        }
         this.projectiles.push(pr);
-        const e = {s: side.index, move: p.id, id: pr.id, x: pr.x, y: pr.y, vx: pr.vx, vy: pr.vy, r: pr.r, type: p.type, shape: p.shape};
+        const e = {...this.at(side), move: p.id, id: pr.id, x: pr.x, y: pr.y, vx: pr.vx, vy: pr.vy, r: pr.r, type: p.type, shape: p.shape};
         if (plus) e.plus = true;
         this.ev('shot', e);
       }
     }
+  }
+
+  /** A spread move reached these Pokémon: each takes it, with x0.75 damage when there is more than one. Returns whether any. */
+  hitAll(att, victims, p, ctx) {
+    const multi = victims.length > 1 ? {...ctx, spread: true} : ctx;
+    victims.forEach((v, i) => this.resolveHit(att, v, p, i ? {...multi, later: true} : multi));   // Life Orb costs HP once per move
+    return victims.length > 0;
+  }
+
+  /** Helping Hand, Follow Me and Rage Powder (doubles). */
+  supportMove(side, p) {
+    const spec = DOUBLES_MOVES[p.id];
+    if (p.id === 'helpinghand') {
+      const ally = this.allyOf(side);
+      if (!ally || !this.onField(ally)) { this.ev('fail', {...this.at(side), move: p.id}); return; }
+      ally.vol.helpedUntil = this.t + spec.secs * TPS;
+      this.ev('helping', {...this.at(side), ally: ally.pos, secs: spec.secs});
+      return;
+    }
+    side.vol.followUntil = this.t + spec.secs * TPS;
+    side.vol.followKind = p.id;
+    this.ev('follow', {...this.at(side), move: p.id, secs: spec.secs});
   }
 
   finishMove(side, slot) {
@@ -879,8 +1106,8 @@ export class RtBattle {
     m.cds[slot] = this.cooldownTicks(side, p);
     side.act = null;
     if (m.fainted) return;
-    if (p.recharge) { side.act = {kind: 'recover', end: this.t + 2 * TPS}; this.ev('recharge', {s: side.index}); }
-    if (p.selfBoostAfter === 'confusion' && m.ability !== 'owntempo') { side.vol.confusedUntil = this.t + 5 * TPS; this.ev('confused', {s: side.index}); }
+    if (p.recharge) { side.act = {kind: 'recover', end: this.t + 2 * TPS}; this.ev('recharge', {...this.at(side)}); }
+    if (p.selfBoostAfter === 'confusion' && m.ability !== 'owntempo') { side.vol.confusedUntil = this.t + 5 * TPS; this.ev('confused', {...this.at(side)}); }
   }
 
   inFront(side, foe, reach, arc) {
@@ -894,28 +1121,50 @@ export class RtBattle {
   updateProjectiles() {
     const keep = [];
     for (const pr of this.projectiles) {
-      const owner = this.sides[pr.s];
+      const owner = this.doubles ? this.unitAt(pr.s, pr.u) : this.sides[pr.s];
       const target = this.foe(owner);
+      // doubles: every foe can be hit (the aimed one is tried first); a foe using Follow Me bends single-target projectiles to it
+      const victims = this.doubles ? [target, ...this.foesOf(owner).filter((f) => f !== target)] : [target];
+      if (this.doubles && !pr.spread) {
+        const lure = this.lureFor(owner);
+        if (lure) {
+          const v = hyp(pr.vx, pr.vy);
+          const d = norm(lure.x - pr.x, lure.y - pr.y);
+          if (d.x || d.y) { pr.vx = d.x * v; pr.vy = d.y * v; pr.lured = true; }
+        }
+      }
       const steps = Math.max(1, Math.ceil(hyp(pr.vx, pr.vy) / TPS / 0.25));
       let done = false;
       for (let i = 0; i < steps && !done; i++) {
         pr.x += pr.vx / TPS / steps;
         pr.y += pr.vy / TPS / steps;
         pr.left -= hyp(pr.vx, pr.vy) / TPS / steps;
-        if (this.onField(target) && !this.semiInvulnerable(target) && dist(pr, target) <= pr.r + this.radius(target)) {
-          const p = rtMove(pr.move, this.gen);
-          if (owner.mons[pr.mon].fainted) { done = true; break; }
-          this.resolveHit(owner, target, p, pr.plus ? {mon: pr.mon, x: pr.x, y: pr.y, plus: true} : {mon: pr.mon, x: pr.x, y: pr.y});
-          this.ev('impact', {id: pr.id, x: pr.x, y: pr.y});
-          done = true;
+        let gone = false;
+        for (const victim of victims) {
+          if (done) break;
+          if (pr.spread && pr.done.includes(victim.pos)) continue;
+          if (this.onField(victim) && !this.semiInvulnerable(victim) && dist(pr, victim) <= pr.r + this.radius(victim)) {
+            const p = rtMove(pr.move, this.gen);
+            if (owner.mons[pr.mon].fainted) { done = true; gone = true; break; }
+            const ctx = pr.plus ? {mon: pr.mon, x: pr.x, y: pr.y, plus: true} : {mon: pr.mon, x: pr.x, y: pr.y};
+            if (pr.helped) ctx.helped = true;
+            this.resolveHit(owner, victim, p, ctx);
+            this.ev('impact', {id: pr.id, x: pr.x, y: pr.y});
+            if (pr.spread) pr.done.push(victim.pos);
+            else done = true;
+          }
         }
+        if (gone) break;
         // rocks stop projectiles and cut beams where they hit them
         if (!done && this.rocks.length && this.rocks.some((rk) => dist(pr, rk) <= rk.r + pr.r * 0.4)) {
-          this.ev('fizzle', {id: pr.id, x: pr.x, y: pr.y, s: pr.s, move: pr.move, rock: true});
+          this.ev('fizzle', this.doubles ? {id: pr.id, x: pr.x, y: pr.y, s: pr.s, u: pr.u, move: pr.move, rock: true} : {id: pr.id, x: pr.x, y: pr.y, s: pr.s, move: pr.move, rock: true});
           done = true;
           continue;
         }
-        if (pr.left <= 0 || pr.x < 0 || pr.y < 0 || pr.x > ARENA.w || pr.y > ARENA.h) { this.ev('fizzle', {id: pr.id, x: pr.x, y: pr.y, s: pr.s, move: pr.move}); done = true; }
+        if (pr.left <= 0 || pr.x < 0 || pr.y < 0 || pr.x > ARENA.w || pr.y > ARENA.h) {
+          this.ev('fizzle', this.doubles ? {id: pr.id, x: pr.x, y: pr.y, s: pr.s, u: pr.u, move: pr.move} : {id: pr.id, x: pr.x, y: pr.y, s: pr.s, move: pr.move});
+          done = true;
+        }
       }
       if (!done) keep.push(pr);
     }
@@ -926,16 +1175,21 @@ export class RtBattle {
     const keep = [];
     for (const mk of this.marks) {
       if (this.t < mk.at) { keep.push(mk); continue; }
-      const owner = this.sides[mk.s];
-      const target = this.foe(owner);
+      const owner = this.doubles ? this.unitAt(mk.s, mk.u) : this.sides[mk.s];
       const m = owner.mons[mk.mon];
       const p = m.profiles[mk.slot];
-      this.ev('area', {s: mk.s, move: p.id, x: mk.x, y: mk.y, r: mk.r, arc: -1, type: p.type});
-      if (!m.fainted && this.onField(target) && !this.semiInvulnerable(target) && dist(mk, target) <= mk.r + this.radius(target)) {
-        this.resolveHit(owner, target, p, mk.plus ? {mon: mk.mon, plus: true} : {mon: mk.mon});
-      } else {
-        this.ev('miss', {s: mk.s, move: p.id});
+      this.ev('area', this.doubles ? {s: mk.s, u: mk.u, move: p.id, x: mk.x, y: mk.y, r: mk.r, arc: -1, type: p.type} : {s: mk.s, move: p.id, x: mk.x, y: mk.y, r: mk.r, arc: -1, type: p.type});
+      const ctx = mk.plus ? {mon: mk.mon, plus: true} : {mon: mk.mon};
+      if (mk.helped) ctx.helped = true;
+      const under = (f) => !m.fainted && this.onField(f) && !this.semiInvulnerable(f) && dist(mk, f) <= mk.r + this.radius(f);
+      const aimed = this.doubles ? this.foesOf(owner)[mk.tu || 0] : this.foe(owner);
+      if (this.doubles && this.spreadMove(p)) {
+        if (!this.hitAll(owner, this.spreadVictims(owner, aimed, p).filter(under), p, ctx)) this.ev('miss', {s: mk.s, u: mk.u, move: p.id});
+        continue;
       }
+      const target = this.firstFoe(owner, aimed, under);
+      if (target) this.resolveHit(owner, target, p, ctx);
+      else this.ev('miss', this.doubles ? {s: mk.s, u: mk.u, move: p.id} : {s: mk.s, move: p.id});
     }
     this.marks = keep;
   }
@@ -1038,7 +1292,7 @@ export class RtBattle {
 
   /** Damage of one hit: the turn-based formula with its modifiers. `expected` gives the average (no random roll, crits weighted)
    * for the AI. Returns {dmg, eff, crit, immune}. */
-  damage(att, def, p, {expected = false, mon = null, plus = false} = {}) {
+  damage(att, def, p, {expected = false, mon = null, plus = false, spread = false, helped = false} = {}) {
     const am = mon != null ? att.mons[mon] : this.mon(att);
     const dm = this.mon(def);
     const type = this.moveType(att, p);
@@ -1078,6 +1332,7 @@ export class RtBattle {
     if (this.hasItem(am, 'muscleband') && p.category === 'Physical') bp *= 1.1;
     if (this.hasItem(am, 'wiseglasses') && p.category === 'Special') bp *= 1.1;
     if (this.hasItem(am, 'punchingglove') && p.flags.punch) bp *= 1.1;
+    if (helped) bp *= HELPING;   // Helping Hand (doubles)
     const lowHp = pct(am) <= 1 / 3;
     if (lowHp && ((ab === 'overgrow' && type === 'Grass') || (ab === 'blaze' && type === 'Fire') || (ab === 'torrent' && type === 'Water') || (ab === 'swarm' && type === 'Bug'))) bp *= 1.5;
     if (this.grounded(att)) {
@@ -1133,6 +1388,7 @@ export class RtBattle {
     if (this.hasItem(am, 'expertbelt') && eff > 1) dmg *= 1.2;
     if (ab === 'neuroforce' && eff > 1) dmg *= 1.25;
     if (plus) dmg *= eff > 1 ? PLUS.superDamage : PLUS.damage;
+    if (spread) dmg *= SPREAD;   // a spread move hitting more than one Pokémon (doubles)
     const resistBerry = {occaberry: 'Fire', passhoberry: 'Water', wacanberry: 'Electric', rindoberry: 'Grass', yacheberry: 'Ice', chopleberry: 'Fighting',
       kebiaberry: 'Poison', shucaberry: 'Ground', cobaberry: 'Flying', payapaberry: 'Psychic', tangaberry: 'Bug', chartiberry: 'Rock',
       kasibberry: 'Ghost', habanberry: 'Dragon', colburberry: 'Dark', babiriberry: 'Steel', roseliberry: 'Fairy'}[dm.item];
@@ -1150,10 +1406,10 @@ export class RtBattle {
     // protection (a Plus attack goes through it for a quarter of its damage)
     let pierce = false;
     if (def.vol.protectUntil > this.t && !p.breaksProtect && !(p.category === 'Status' && p.shape === 'self') && ctx.plus && p.category !== 'Status') {
-      this.ev('protected', {s: def.index, move: p.id, pierced: true});
+      this.ev('protected', {...this.at(def), move: p.id, pierced: true});
       pierce = true;
     } else if (def.vol.protectUntil > this.t && !p.breaksProtect && !(p.category === 'Status' && p.shape === 'self')) {
-      this.ev('protected', {s: def.index, move: p.id});
+      this.ev('protected', {...this.at(def), move: p.id});
       const kind = def.vol.protectKind;
       if (p.contact) {
         if (kind === 'kingsshield' && att.mons[att.active] === am) this.boost(att, {atk: -1}, def, 'kingsshield');
@@ -1168,7 +1424,7 @@ export class RtBattle {
     if (p.category === 'Status') { this.statusMove(att, def, p); return; }
     const imm = this.immune(att, def, p);
     if (imm === 'absorb') { this.absorb(def, att, p); return; }
-    if (imm) { this.ev('immune', {s: def.index, move: p.id}); return; }
+    if (imm) { this.ev('immune', {...this.at(def), move: p.id}); return; }
     // thaw
     if (dm.status === 'frz' && (this.moveType(att, p) === 'Fire' || p.thaws)) this.cure(def, 'frz');
     let total = 0;
@@ -1176,17 +1432,17 @@ export class RtBattle {
     let crits = 0;
     const hits = am.ability === 'skilllink' ? Math.max(p.hits, p.hits > 1 ? 5 : 1) : p.hits;
     for (let h = 0; h < hits && !dm.fainted; h++) {
-      const r = this.damage(att, def, p, ctx.plus ? {mon: ctx.mon, plus: true} : {mon: ctx.mon});
+      const r = this.damage(att, def, p, ctx.plus || ctx.spread || ctx.helped ? {mon: ctx.mon, plus: !!ctx.plus, spread: !!ctx.spread, helped: !!ctx.helped} : {mon: ctx.mon});
       lastEff = r.eff;
       if (r.crit) crits++;
       let dmg = r.dmg;
       if (pierce) dmg = Math.max(1, Math.floor(dmg * PLUS.pierce));
-      if (r.berry) { dm.itemUsed = true; this.ev('item', {s: def.index, id: dm.item}); }
+      if (r.berry) { dm.itemUsed = true; this.ev('item', {...this.at(def), id: dm.item}); }
       // substitute
       if (def.vol.sub > 0 && !p.flags.sound && am.ability !== 'infiltrator') {
         const taken = Math.min(def.vol.sub, dmg);
         def.vol.sub -= taken;
-        this.ev('sub', {s: def.index, dmg: taken, broke: def.vol.sub <= 0});
+        this.ev('sub', {...this.at(def), dmg: taken, broke: def.vol.sub <= 0});
         if (def.vol.sub <= 0) delete def.vol.sub;
         total += taken;
         continue;
@@ -1195,15 +1451,15 @@ export class RtBattle {
       if (dm.ability === 'disguise' && !def.vol.busted && dm.species.startsWith('Mimikyu')) {
         def.vol.busted = true;
         dmg = Math.min(dmg, Math.floor(dm.maxhp / 8));
-        this.ev('ability', {s: def.index, id: 'disguise'});
+        this.ev('ability', {...this.at(def), id: 'disguise'});
       }
       // survive at 1 HP
       if (dmg >= dm.hp) {
-        if (def.vol.endureUntil > this.t) { dmg = dm.hp - 1; this.ev('endure', {s: def.index}); }
+        if (def.vol.endureUntil > this.t) { dmg = dm.hp - 1; this.ev('endure', {...this.at(def)}); }
         else if (dm.hp === dm.maxhp && (dm.ability === 'sturdy' || this.hasItem(dm, 'focussash'))) {
           dmg = dm.hp - 1;
-          if (dm.ability === 'sturdy') this.ev('ability', {s: def.index, id: 'sturdy'});
-          else { dm.itemUsed = true; this.ev('item', {s: def.index, id: 'focussash'}); }
+          if (dm.ability === 'sturdy') this.ev('ability', {...this.at(def), id: 'sturdy'});
+          else { dm.itemUsed = true; this.ev('item', {...this.at(def), id: 'focussash'}); }
         }
       }
       dmg = Math.min(dmg, dm.hp);
@@ -1213,13 +1469,13 @@ export class RtBattle {
       total += dmg;
       def.vol.hitsTaken = (def.vol.hitsTaken || 0) + 1;
       def.vol.lastHitAt = this.t;
-      this.ev('hit', {s: def.index, from: att.index, move: p.id, type: this.moveType(att, p), dmg, hp: dm.hp, maxhp: dm.maxhp, eff: r.eff, crit: r.crit, hit: h});
-      if (dm.airBalloon && !dm.itemUsed) { dm.itemUsed = true; this.ev('item', {s: def.index, id: 'airballoon', popped: true}); }
+      this.ev('hit', {...this.at(def), from: att.index, move: p.id, type: this.moveType(att, p), dmg, hp: dm.hp, maxhp: dm.maxhp, eff: r.eff, crit: r.crit, hit: h});
+      if (dm.airBalloon && !dm.itemUsed) { dm.itemUsed = true; this.ev('item', {...this.at(def), id: 'airballoon', popped: true}); }
       if (dm.hp <= 0) { this.faint(def, att, am); break; }
     }
     if (total <= 0) return;
-    if (this.version >= 2) this.gaugeGain(att, total, dm.maxhp);
-    if (hits > 1) this.ev('hits', {s: def.index, n: hits});
+    if (this.version >= 2 && att.index !== def.index) this.gaugeGain(att, total, dm.maxhp);   // hitting the partner fills nothing
+    if (hits > 1) this.ev('hits', {...this.at(def), n: hits});
     // a hit during the target's wind-up can make it flinch
     const flinchAll = p.secondaries.some((s) => s.volatile === 'flinch');
     // secondary effects
@@ -1251,20 +1507,20 @@ export class RtBattle {
     if (att.mons[att.active] === am && !am.fainted) {
       if (p.drain) this.heal(att, Math.max(1, Math.floor((total * p.drain[0]) / p.drain[1]) * (this.hasItem(am, 'bigroot') ? 1.3 : 1)), 'drain');
       if (p.recoil && !['rockhead', 'magicguard'].includes(am.ability)) this.chip(att, Math.max(1, Math.floor((total * p.recoil[0]) / p.recoil[1])), 'recoil');
-      if (this.hasItem(am, 'lifeorb') && am.ability !== 'magicguard') this.chip(att, Math.floor(am.maxhp / 10), 'lifeorb');
+      if (this.hasItem(am, 'lifeorb') && am.ability !== 'magicguard' && !ctx.later) this.chip(att, Math.floor(am.maxhp / 10), 'lifeorb');
       if (this.hasItem(am, 'shellbell')) this.heal(att, Math.floor(total / 8), 'shellbell');
       if (p.selfBoosts) this.boost(att, p.selfBoosts, att, p.id);
-      if (p.id === 'knockoff' && dm.item && !dm.itemUsed && !dm.fainted && dm.ability !== 'stickyhold') { dm.itemUsed = true; this.ev('knockoff', {s: def.index, item: dm.item}); }
+      if (p.id === 'knockoff' && dm.item && !dm.itemUsed && !dm.fainted && dm.ability !== 'stickyhold') { dm.itemUsed = true; this.ev('knockoff', {...this.at(def), item: dm.item}); }
       if (['rapidspin', 'mortalspin', 'tidyup'].includes(p.id)) this.clearHazards(att);
       if (p.id === 'rapidspin') this.boost(att, {spe: 1}, att, p.id);
       if (p.id === 'mortalspin' && !dm.fainted) this.setStatus(def, 'psn', att);
       if (['firespin', 'whirlpool', 'sandtomb', 'infestation', 'magmastorm', 'bind', 'wrap', 'clamp', 'snaptrap', 'thundercage'].includes(p.id) && !dm.fainted) {
         def.vol.trapUntil = this.t + (this.hasItem(am, 'gripclaw') ? 18 : 12) * TPS;
         def.vol.trapBy = att.index;
-        this.ev('trapped', {s: def.index, move: p.id});
+        this.ev('trapped', {...this.at(def), move: p.id});
       }
-      if (p.selfSwitch && this.alive(att).length > 1) att.vol.pivot = true;
-      if (p.forceSwitch && !dm.fainted && this.alive(def).length > 1) this.forceOut(def);
+      if (p.selfSwitch && this.canLeave(att)) att.vol.pivot = true;
+      if (p.forceSwitch && !dm.fainted && this.canLeave(def)) this.forceOut(def);
       if (dm.fainted && am.ability === 'moxie') this.boost(att, {atk: 1}, att, 'moxie');
       if (dm.fainted && ['beastboost', 'chillingneigh', 'grimneigh', 'asoneglastrier', 'asonespectrier'].includes(am.ability)) this.boost(att, {[am.ability === 'grimneigh' || am.ability === 'asonespectrier' ? 'spa' : 'atk']: 1}, att, am.ability);
     }
@@ -1286,7 +1542,7 @@ export class RtBattle {
   absorb(def, att, p) {
     const dm = this.mon(def);
     const kind = ABSORB[dm.ability][1];
-    this.ev('ability', {s: def.index, id: dm.ability});
+    this.ev('ability', {...this.at(def), id: dm.ability});
     if (kind === 'heal') this.heal(def, Math.floor(dm.maxhp / 4), dm.ability);
     else if (kind === 'flashfire') def.vol.flashFire = true;
     else if (kind !== 'none') this.boost(def, {[kind]: 1}, def, dm.ability);
@@ -1300,7 +1556,7 @@ export class RtBattle {
       m.cds[slot] = this.cooldownTicks(side, m.profiles[slot]);
       this.marks = this.marks.filter((mk) => !(mk.s === side.index && mk.slot === slot));
       side.act = null;
-      this.ev('flinch', {s: side.index});
+      this.ev('flinch', {...this.at(side)});
       if (m.ability === 'steadfast') this.boost(side, {spe: 1}, side, 'steadfast');
     }
   }
@@ -1310,21 +1566,24 @@ export class RtBattle {
     if (m.ability === 'owntempo' || side.vol.confusedUntil > this.t) return;
     if (this.grounded(side) && this.terrainIs('mistyterrain')) return;
     side.vol.confusedUntil = this.t + 6 * TPS;
-    this.ev('confused', {s: side.index});
+    this.ev('confused', {...this.at(side)});
   }
 
+  /** Is there a Pokémon to come in for this one (pivot moves, Roar)? */
+  canLeave(side) { return this.doubles ? this.bench(side).length > 0 : this.alive(side).length > 1; }
+
   forceOut(side) {
-    const options = side.mons.filter((m) => !m.fainted && m.slot !== side.active);
+    const options = this.doubles ? this.bench(side) : side.mons.filter((m) => !m.fainted && m.slot !== side.active);
     if (!options.length || this.mon(side).ability === 'suctioncups') return;
     const pick = options[Math.floor(this.rng() * options.length)];
     side.act = null;
-    this.ev('dragged', {s: side.index, to: pick.slot});
+    this.ev('dragged', {...this.at(side), to: pick.slot});
     this.sendOut(side, pick.slot);
     this.onSwitchIn(side);
   }
 
   clearHazards(side) {
-    if (Object.keys(side.hazards).length) this.ev('hazard_clear', {s: side.index, id: 'all'});
+    if (Object.keys(side.hazards).length) this.ev('hazard_clear', {...this.at(side), id: 'all'});
     side.hazards = {};
   }
 
@@ -1334,24 +1593,24 @@ export class RtBattle {
     const dm = this.mon(def);
     const self = att === def;
     const id = p.id;
-    if (!self && def.vol.protectUntil > this.t && p.shape !== 'field') { this.ev('protected', {s: def.index, move: id}); return; }
+    if (!self && def.vol.protectUntil > this.t && p.shape !== 'field') { this.ev('protected', {...this.at(def), move: id}); return; }
     if (!self && p.shape !== 'field') {
       const imm = this.immune(att, def, p);
-      if (imm) { this.ev('immune', {s: def.index, move: id}); return; }
-      if (dm.ability === 'magicbounce' && !['moldbreaker', 'teravolt', 'turboblaze'].includes(am.ability)) { this.ev('ability', {s: def.index, id: 'magicbounce'}); this.statusMove(def, att, p); return; }
+      if (imm) { this.ev('immune', {...this.at(def), move: id}); return; }
+      if (dm.ability === 'magicbounce' && !['moldbreaker', 'teravolt', 'turboblaze'].includes(am.ability)) { this.ev('ability', {...this.at(def), id: 'magicbounce'}); this.statusMove(def, att, p); return; }
     }
     if (PROTECTS.has(id)) {
       att.vol.protectUntil = this.t + Math.round(1.2 * TPS);
       att.vol.protectKind = id;
-      this.ev('protect', {s: att.index, move: id});
+      this.ev('protect', {...this.at(att), move: id});
       return;
     }
-    if (id === 'endure') { att.vol.endureUntil = this.t + 2 * TPS; this.ev('endure_on', {s: att.index}); return; }
+    if (id === 'endure') { att.vol.endureUntil = this.t + 2 * TPS; this.ev('endure_on', {...this.at(att)}); return; }
     if (id === 'substitute') {
       const cost = Math.floor(am.maxhp / 4);
-      if (am.hp <= cost || att.vol.sub > 0) { this.ev('fail', {s: att.index, move: id}); return; }
+      if (am.hp <= cost || att.vol.sub > 0) { this.ev('fail', {...this.at(att), move: id}); return; }
       am.hp -= cost; att.vol.sub = cost;
-      this.ev('substitute', {s: att.index, hp: am.hp, maxhp: am.maxhp});
+      this.ev('substitute', {...this.at(att), hp: am.hp, maxhp: am.maxhp});
       return;
     }
     if (p.weather) { this.setWeather(p.weather, att); return; }
@@ -1361,15 +1620,15 @@ export class RtBattle {
       if (p.sideCondition === 'spikes') h.spikes = Math.min(3, (h.spikes || 0) + 1);
       else if (p.sideCondition === 'toxicspikes') h.toxicspikes = Math.min(2, (h.toxicspikes || 0) + 1);
       else h[p.sideCondition] = 1;
-      this.ev('hazard', {s: def.index, id: p.sideCondition});
+      this.ev('hazard', {...this.at(def), id: p.sideCondition});
       return;
     }
     if (SCREENS[p.sideCondition] || SCREENS[id]) {
       const key = SCREENS[p.sideCondition] || SCREENS[id];
-      if (key === 'auroraveil' && !this.weatherIs('snow', 'hail')) { this.ev('fail', {s: att.index, move: id}); return; }
+      if (key === 'auroraveil' && !this.weatherIs('snow', 'hail')) { this.ev('fail', {...this.at(att), move: id}); return; }
       const secs = key === 'tailwind' ? 16 : (this.hasItem(am, 'lightclay') && ['reflect', 'lightscreen', 'auroraveil'].includes(key) ? 40 : 25);
       att.cond[key] = this.t + secs * TPS;
-      this.ev('side', {s: att.index, id: key, secs});
+      this.ev('side', {...this.at(att), id: key, secs});
       return;
     }
     if (id === 'defog' || id === 'tidyup' || id === 'courtchange') {
@@ -1377,44 +1636,44 @@ export class RtBattle {
       if (id === 'defog') { this.clearHazards(def); def.cond = {}; this.boost(def, {spe: 0}, att, id); }
       return;
     }
-    if (id === 'haze') { for (const s of this.sides) if (this.onField(s)) this.mon(s).boosts = {atk: 0, def: 0, spa: 0, spd: 0, spe: 0}; this.ev('haze', {}); return; }
+    if (id === 'haze') { for (const s of this.units) if (this.onField(s)) this.mon(s).boosts = {atk: 0, def: 0, spa: 0, spd: 0, spe: 0}; this.ev('haze', {}); return; }
     if (id === 'clearsmog') return;
     if (id === 'rest') {
-      if (am.hp === am.maxhp) { this.ev('fail', {s: att.index, move: id}); return; }
+      if (am.hp === am.maxhp) { this.ev('fail', {...this.at(att), move: id}); return; }
       this.heal(att, am.maxhp, 'rest');
       am.status = ''; am.toxN = 0;
       this.setStatus(att, 'slp', null, {force: true, secs: 10});
       return;
     }
-    if (id === 'wish') { att.wish = {at: this.t + 3 * TPS, hp: Math.floor(am.maxhp / 2)}; this.ev('wish', {s: att.index}); return; }
-    if (id === 'aquaring' || id === 'ingrain') { att.vol[id] = true; this.ev('vol', {s: att.index, id}); return; }
-    if (id === 'focusenergy' || id === 'dragoncheer') { att.vol.focusEnergy = true; this.ev('vol', {s: att.index, id: 'focusenergy'}); return; }
+    if (id === 'wish') { att.wish = {at: this.t + 3 * TPS, hp: Math.floor(am.maxhp / 2)}; this.ev('wish', {...this.at(att)}); return; }
+    if (id === 'aquaring' || id === 'ingrain') { att.vol[id] = true; this.ev('vol', {...this.at(att), id}); return; }
+    if (id === 'focusenergy' || id === 'dragoncheer') { att.vol.focusEnergy = true; this.ev('vol', {...this.at(att), id: 'focusenergy'}); return; }
     if (id === 'charge') { att.vol.charged = true; this.boost(att, {spd: 1}, att, id); return; }
-    if (id === 'magnetrise') { att.vol.magnetrise = this.t + 15 * TPS; this.ev('vol', {s: att.index, id}); return; }
+    if (id === 'magnetrise') { att.vol.magnetrise = this.t + 15 * TPS; this.ev('vol', {...this.at(att), id}); return; }
     if (id === 'leechseed') {
-      if (this.typesOf(def).includes('Grass')) { this.ev('immune', {s: def.index, move: id}); return; }
-      def.vol.seededBy = att.index; this.ev('vol', {s: def.index, id}); return;
+      if (this.typesOf(def).includes('Grass')) { this.ev('immune', {...this.at(def), move: id}); return; }
+      def.vol.seededBy = att.index; if (this.doubles) def.vol.seededAt = att.pos; this.ev('vol', {...this.at(def), id}); return;
     }
-    if (id === 'taunt') { if (dm.ability === 'oblivious') return; def.vol.tauntUntil = this.t + 10 * TPS; this.ev('vol', {s: def.index, id}); return; }
-    if (id === 'torment') { def.vol.tormentUntil = this.t + 10 * TPS; this.ev('vol', {s: def.index, id}); return; }
-    if (id === 'healblock') { def.vol.healBlockUntil = this.t + 10 * TPS; this.ev('vol', {s: def.index, id}); return; }
-    if (id === 'yawn') { if (!dm.status) { def.vol.yawnAt = this.t + 3 * TPS; this.ev('vol', {s: def.index, id}); } return; }
+    if (id === 'taunt') { if (dm.ability === 'oblivious') return; def.vol.tauntUntil = this.t + 10 * TPS; this.ev('vol', {...this.at(def), id}); return; }
+    if (id === 'torment') { def.vol.tormentUntil = this.t + 10 * TPS; this.ev('vol', {...this.at(def), id}); return; }
+    if (id === 'healblock') { def.vol.healBlockUntil = this.t + 10 * TPS; this.ev('vol', {...this.at(def), id}); return; }
+    if (id === 'yawn') { if (!dm.status) { def.vol.yawnAt = this.t + 3 * TPS; this.ev('vol', {...this.at(def), id}); } return; }
     if (id === 'curse' && !this.typesOf(att).includes('Ghost')) { this.boost(att, {atk: 1, def: 1, spe: -1}, att, id); return; }
-    if (id === 'curse') { this.chip(att, Math.floor(am.maxhp / 2), 'curse'); def.vol.cursed = true; this.ev('vol', {s: def.index, id}); return; }
+    if (id === 'curse') { this.chip(att, Math.floor(am.maxhp / 2), 'curse'); def.vol.cursed = true; this.ev('vol', {...this.at(def), id}); return; }
     if (id === 'bellydrum') {
-      if (am.hp <= am.maxhp / 2) { this.ev('fail', {s: att.index, move: id}); return; }
+      if (am.hp <= am.maxhp / 2) { this.ev('fail', {...this.at(att), move: id}); return; }
       this.chip(att, Math.floor(am.maxhp / 2), 'bellydrum'); this.boost(att, {atk: 2}, att, id); return;
     }
     if (id === 'painsplit') {
       const avg = Math.floor((am.hp + dm.hp) / 2);
       am.hp = Math.min(am.maxhp, avg); dm.hp = Math.min(dm.maxhp, avg);
-      this.ev('painsplit', {s: att.index, hp: am.hp, maxhp: am.maxhp, foeHp: dm.hp, foeMax: dm.maxhp});
+      this.ev('painsplit', {...this.at(att), hp: am.hp, maxhp: am.maxhp, foeHp: dm.hp, foeMax: dm.maxhp});
       return;
     }
-    if (['roar', 'whirlwind'].includes(id)) { if (this.alive(def).length > 1) this.forceOut(def); else this.ev('fail', {s: att.index, move: id}); return; }
+    if (['roar', 'whirlwind'].includes(id)) { if (this.canLeave(def)) this.forceOut(def); else this.ev('fail', {...this.at(att), move: id}); return; }
     if (['batonpass', 'teleport', 'partingshot', 'shedtail', 'uturn'].includes(id)) {
       if (id === 'partingshot') this.boost(def, {atk: -1, spa: -1}, att, id);
-      if (this.alive(att).length > 1) att.vol.pivotPending = this.t;
+      if (this.canLeave(att)) att.vol.pivotPending = this.t;
       return;
     }
     if (p.heal || ['moonlight', 'morningsun', 'synthesis', 'shoreup', 'strengthsap', 'lifedew', 'junglehealing', 'lunarblessing'].includes(id)) {
@@ -1422,7 +1681,7 @@ export class RtBattle {
       if (['moonlight', 'morningsun', 'synthesis'].includes(id)) frac = this.weatherIs('sunnyday', 'desolateland') ? 2 / 3 : this.weather && this.weather.until > this.t ? 0.25 : 0.5;
       if (id === 'shoreup' && this.weatherIs('sandstorm')) frac = 2 / 3;
       if (id === 'strengthsap') { this.heal(att, Math.floor(this.stat(def, 'atk')), id); this.boost(def, {atk: -1}, att, id); return; }
-      if (att.vol.healBlockUntil > this.t) { this.ev('fail', {s: att.index, move: id}); return; }
+      if (att.vol.healBlockUntil > this.t) { this.ev('fail', {...this.at(att), move: id}); return; }
       if (plus) frac = Math.min(1, frac * PLUS.heal);   // a Plus heal restores a third more
       this.heal(att, Math.floor(am.maxhp * frac), id);
       if (id === 'roost') att.vol.roosted = this.t + 1;
@@ -1439,7 +1698,7 @@ export class RtBattle {
     if (p.volatile === 'confusion') { this.confuse(def); did = true; }
     if (id === 'swagger') this.boost(def, {atk: 1}, att, id);
     if (id === 'flatter') this.boost(def, {spa: 1}, att, id);
-    if (!did) this.ev('noeffect', {s: att.index, move: id});
+    if (!did) this.ev('noeffect', {...this.at(att), move: id});
   }
 
   // ------------------------------------------------------------ hp, status, boosts
@@ -1454,7 +1713,7 @@ export class RtBattle {
     if (!m || m.fainted || amount <= 0) return 0;
     const before = m.hp;
     m.hp = Math.min(m.maxhp, m.hp + Math.floor(amount));
-    if (m.hp !== before) this.ev('heal', {s: side.index, hp: m.hp, maxhp: m.maxhp, amount: m.hp - before, source});
+    if (m.hp !== before) this.ev('heal', {...this.at(side), hp: m.hp, maxhp: m.maxhp, amount: m.hp - before, source});
     return m.hp - before;
   }
 
@@ -1465,7 +1724,7 @@ export class RtBattle {
     const lost = Math.min(m.hp, Math.max(1, Math.floor(amount)));
     m.hp -= lost;
     m.taken += lost;
-    this.ev('chip', {s: side.index, hp: m.hp, maxhp: m.maxhp, amount: lost, source});
+    this.ev('chip', {...this.at(side), hp: m.hp, maxhp: m.maxhp, amount: lost, source});
     if (m.hp <= 0) this.faint(side, null);
     else this.berries(side);
   }
@@ -1474,11 +1733,11 @@ export class RtBattle {
     const m = this.mon(side);
     if (!m || m.fainted || !m.item || m.itemUsed) return;
     const f = pct(m);
-    if (m.item === 'sitrusberry' && f <= 0.5) { m.itemUsed = true; this.ev('item', {s: side.index, id: m.item}); this.heal(side, Math.floor(m.maxhp / 4), 'sitrusberry'); }
-    else if (m.item === 'oranberry' && f <= 0.5) { m.itemUsed = true; this.ev('item', {s: side.index, id: m.item}); this.heal(side, 10, 'oranberry'); }
-    else if (['figyberry', 'wikiberry', 'magoberry', 'aguavberry', 'iapapaberry'].includes(m.item) && f <= 0.25) { m.itemUsed = true; this.ev('item', {s: side.index, id: m.item}); this.heal(side, Math.floor(m.maxhp / 3), m.item); }
+    if (m.item === 'sitrusberry' && f <= 0.5) { m.itemUsed = true; this.ev('item', {...this.at(side), id: m.item}); this.heal(side, Math.floor(m.maxhp / 4), 'sitrusberry'); }
+    else if (m.item === 'oranberry' && f <= 0.5) { m.itemUsed = true; this.ev('item', {...this.at(side), id: m.item}); this.heal(side, 10, 'oranberry'); }
+    else if (['figyberry', 'wikiberry', 'magoberry', 'aguavberry', 'iapapaberry'].includes(m.item) && f <= 0.25) { m.itemUsed = true; this.ev('item', {...this.at(side), id: m.item}); this.heal(side, Math.floor(m.maxhp / 3), m.item); }
     const pinch = {liechiberry: 'atk', ganlonberry: 'def', petayaberry: 'spa', apicotberry: 'spd', salacberry: 'spe'}[m.item];
-    if (pinch && f <= 0.25 && !m.itemUsed) { m.itemUsed = true; this.ev('item', {s: side.index, id: m.item}); this.boost(side, {[pinch]: 1}, side, m.item); }
+    if (pinch && f <= 0.25 && !m.itemUsed) { m.itemUsed = true; this.ev('item', {...this.at(side), id: m.item}); this.boost(side, {[pinch]: 1}, side, m.item); }
   }
 
   statusImmune(side, status, source) {
@@ -1508,16 +1767,16 @@ export class RtBattle {
     m.toxN = status === 'tox' ? 1 : 0;
     m.statusUntil = status === 'slp' ? this.t + (secs || 10) * TPS : status === 'frz' ? this.t + 3 * TPS : 0;
     if (status === 'frz' && side.act && side.act.kind !== 'switch') side.act = null;
-    this.ev('status', {s: side.index, status});
+    this.ev('status', {...this.at(side), status});
     if (m.ability === 'synchronize' && source && source !== side && ['brn', 'par', 'psn', 'tox'].includes(status)) this.setStatus(source, status, side);
     const cure = STATUS_CURES[m.item];
-    if (cure && cure.includes(status) && !m.itemUsed) { m.itemUsed = true; this.ev('item', {s: side.index, id: m.item}); this.cure(side, status); }
+    if (cure && cure.includes(status) && !m.itemUsed) { m.itemUsed = true; this.ev('item', {...this.at(side), id: m.item}); this.cure(side, status); }
     return true;
   }
 
   cure(side, status) {
     const m = this.mon(side);
-    if (m.status && (!status || m.status === status)) { this.ev('cure', {s: side.index, status: m.status}); m.status = ''; m.toxN = 0; m.statusUntil = 0; }
+    if (m.status && (!status || m.status === status)) { this.ev('cure', {...this.at(side), status: m.status}); m.status = ''; m.toxN = 0; m.statusUntil = 0; }
   }
 
   /** Z-A's stat changes: one stage at most, up or down, for BOOST_SECONDS; a change in the other direction cancels. */
@@ -1530,7 +1789,7 @@ export class RtBattle {
       let delta = Math.sign(raw);
       if (m.ability === 'contrary') delta = -delta;
       if (delta < 0 && fromFoe) {
-        if (['clearbody', 'whitesmoke', 'fullmetalbody'].includes(m.ability) || side.cond.mist > this.t) { this.ev('ability', {s: side.index, id: m.ability || 'mist'}); continue; }
+        if (['clearbody', 'whitesmoke', 'fullmetalbody'].includes(m.ability) || side.cond.mist > this.t) { this.ev('ability', {...this.at(side), id: m.ability || 'mist'}); continue; }
         if (k === 'atk' && m.ability === 'hypercutter') continue;
         if (k === 'def' && m.ability === 'bigpecks') continue;
         if (this.hasItem(m, 'clearamulet')) continue;
@@ -1538,13 +1797,13 @@ export class RtBattle {
       const before = m.boosts[k];
       const after = clamp(before + delta, -1, 1);
       m.boostUntil[k] = this.t + BOOST_SECONDS * TPS;
-      if (after === before) { this.ev('boost', {s: side.index, stat: k, stage: after, same: true, cause}); continue; }
+      if (after === before) { this.ev('boost', {...this.at(side), stat: k, stage: after, same: true, cause}); continue; }
       m.boosts[k] = after;
-      this.ev('boost', {s: side.index, stat: k, stage: after, delta, cause});
+      this.ev('boost', {...this.at(side), stat: k, stage: after, delta, cause});
       if (delta < 0 && fromFoe) {
         if (m.ability === 'defiant') this.boost(side, {atk: 1}, side, 'defiant');
         if (m.ability === 'competitive') this.boost(side, {spa: 1}, side, 'competitive');
-        if (this.hasItem(m, 'whiteherb')) { m.itemUsed = true; for (const b of BOOSTABLE) if (m.boosts[b] < 0) m.boosts[b] = 0; this.ev('item', {s: side.index, id: 'whiteherb'}); }
+        if (this.hasItem(m, 'whiteherb')) { m.itemUsed = true; for (const b of BOOSTABLE) if (m.boosts[b] < 0) m.boosts[b] = 0; this.ev('item', {...this.at(side), id: 'whiteherb'}); }
       }
     }
   }
@@ -1571,18 +1830,22 @@ export class RtBattle {
     m.fainted = true;
     side.act = null;
     this.marks = this.marks.filter((mk) => !(mk.s === side.index && mk.mon === side.active));
-    if (by && byMon) byMon.kos++;
-    else if (by) this.mon(by).kos++;
-    this.ev('faint', {s: side.index, slot: side.active, species: m.species, by: by ? by.index : -1});
+    const foeKo = by && (!this.doubles || by.index !== side.index);   // knocking out one's own partner is not a KO
+    if (foeKo && byMon) byMon.kos++;
+    else if (foeKo) this.mon(by).kos++;
+    this.ev('faint', {...this.at(side), slot: side.active, species: m.species, by: by ? by.index : -1});
     if (side.mega === side.active) { this.megaEnd(side); side.gauge = 0; }
     // Z-A Battle Club: the switch count comes back after every knockout
     for (const s of this.sides) s.switchesLeft = MAX_SWITCHES;
-    if (this.alive(side).length) { side.need = true; side.needSince = this.t; }
+    if (this.doubles) {
+      if (this.bench(side).length) { side.need = true; side.needSince = this.t; }
+      else side.vacant = true;   // nobody left to send to this slot
+    } else if (this.alive(side).length) { side.need = true; side.needSince = this.t; }
   }
 
   // ------------------------------------------------------------ timers
   updateTimers() {
-    for (const side of this.sides) {
+    for (const side of this.units) {
       const m = this.mon(side);
       if (!m || m.fainted) continue;
       // cooldowns (drowsy: half speed, as in Z-A)
@@ -1591,11 +1854,11 @@ export class RtBattle {
       }
       // stat changes wear off
       for (const k of BOOSTABLE) {
-        if (m.boosts[k] && m.boostUntil[k] <= this.t) { m.boosts[k] = 0; this.ev('boost_end', {s: side.index, stat: k}); }
+        if (m.boosts[k] && m.boostUntil[k] <= this.t) { m.boosts[k] = 0; this.ev('boost_end', {...this.at(side), stat: k}); }
       }
       if ((m.status === 'slp' || m.status === 'frz') && m.statusUntil <= this.t) this.cure(side, m.status);
       if (side.vol.yawnAt && side.vol.yawnAt <= this.t) { delete side.vol.yawnAt; this.setStatus(side, 'slp', null); }
-      if (side.vol.confusedUntil && side.vol.confusedUntil <= this.t) { delete side.vol.confusedUntil; this.ev('confusion_end', {s: side.index}); }
+      if (side.vol.confusedUntil && side.vol.confusedUntil <= this.t) { delete side.vol.confusedUntil; this.ev('confusion_end', {...this.at(side)}); }
       if (side.vol.protectUntil && side.vol.protectUntil <= this.t) delete side.vol.protectUntil;
       if (side.wish && side.wish.at <= this.t) { this.heal(side, side.wish.hp, 'wish'); side.wish = null; }
       if (side.vol.speedboostAt && side.vol.speedboostAt <= this.t && m.ability === 'speedboost') { this.boost(side, {spe: 1}, side, 'speedboost'); side.vol.speedboostAt = this.t + 8 * TPS; }
@@ -1604,7 +1867,7 @@ export class RtBattle {
         delete side.vol.pivotPending;
         side.need = true;
         side.needSince = this.t;
-        this.ev('pivot', {s: side.index});
+        this.ev('pivot', {...this.at(side)});
       }
       // residual effects every RESIDUAL_SECONDS since this Pokémon came in
       if ((this.t - (side.vol.in || 0)) % RESIDUAL === 0 && this.t > (side.vol.in || 0)) this.residual(side);
@@ -1615,7 +1878,8 @@ export class RtBattle {
 
   residual(side) {
     const m = this.mon(side);
-    const foe = this.foe(side);
+    // Leech Seed heals the slot that planted it (in singles, the foe)
+    const foe = this.doubles ? this.unitAt(side.vol.seededBy ?? 1 - side.index, side.vol.seededAt) : this.foe(side);
     const types = this.typesOf(side);
     const hp16 = Math.max(1, Math.floor(m.maxhp / 16));
     if (this.weatherIs('sandstorm') && !types.some((x) => ['Rock', 'Ground', 'Steel'].includes(x)) && !['sandveil', 'sandrush', 'sandforce', 'overcoat'].includes(m.ability) && !this.hasItem(m, 'safetygoggles')) this.chip(side, hp16, 'sandstorm');
@@ -1672,7 +1936,7 @@ export class RtBattle {
     if (this.ended) return;
     const side = this.sides.find((s) => s.id === sideId);
     if (!side) throw new EngineError('invalid', `No side ${sideId}.`);
-    this.ev('forfeit', {s: side.index});
+    this.ev('forfeit', {...this.at(side)});
     this.finish(1 - side.index, 'forfeit');
   }
 
@@ -1689,30 +1953,54 @@ export class RtBattle {
     return {
       t: this.t, seconds: this.t / TPS, time_limit: this.timeLimit / TPS, ended: this.ended, winner: this.winner, reason: this.reason,
       version: this.version, arena: this.arena, rocks: this.rocks.map((r) => ({...r})),
+      ...(this.doubles ? {doubles: true} : {}),
       weather: this.weather && this.weather.until > this.t ? {id: this.weather.id, left: (this.weather.until - this.t) / TPS} : null,
       terrain: this.terrain && this.terrain.until > this.t ? {id: this.terrain.id, left: (this.terrain.until - this.t) / TPS} : null,
-      projectiles: this.projectiles.map((p) => ({id: p.id, s: p.s, x: p.x, y: p.y, vx: p.vx, vy: p.vy, r: p.r, type: p.type, shape: p.shape, move: p.move, plus: !!p.plus})),
-      marks: this.marks.map((m) => ({s: m.s, x: m.x, y: m.y, r: m.r, at: m.at})),
-      sides: this.sides.map((s) => {
-        const m = this.mon(s);
-        return {
-          id: s.id, name: s.name, ai: !!s.ai, active: s.active, x: s.x, y: s.y, fx: s.fx, fy: s.fy, r: this.radius(s), moving: s.moving,
-          act: s.act ? {kind: s.act.kind, slot: s.act.slot ?? -1, left: s.act.end != null ? Math.max(0, s.act.end - this.t) : 0,
-            total: s.act.start != null ? s.act.end - s.act.start : 0, tx: s.act.tx, ty: s.act.ty} : null,
-          need: s.need, switches_left: s.switchesLeft, roll_ready: Math.max(0, s.rollReady - this.t) / TPS, cond: Object.fromEntries(Object.entries(s.cond).filter(([, v]) => v > this.t).map(([k, v]) => [k, (v - this.t) / TPS])),
-          hazards: {...s.hazards}, protect: s.vol.protectUntil > this.t, sub: s.vol.sub > 0, confused: s.vol.confusedUntil > this.t,
-          trapped: s.vol.trapUntil > this.t, taunt: s.vol.tauntUntil > this.t, invulnerable: this.semiInvulnerable(s),
-          focus: s.focus, gauge: s.gauge / GAUGE_SEGMENT, mega: s.mega >= 0, mega_used: s.megaUsed, can_mega: this.canMega(s),
-          plus_ready: this.version >= 2 && (s.mega >= 0 || s.gauge >= GAUGE_SEGMENT),
-          mons: s.mons.map((x, i) => ({slot: i, species: x.species, name: x.name, num: x.num, forme: x.forme, sprite_id: x.sprite_id, shiny: x.shiny, level: x.level,
-            base_look: {species: (x.base || x).species, forme: (x.base || x).forme, sprite_id: (x.base || x).sprite_id}, is_mega: !!x.megaOn,
-            mega_info: x.mega && this.version >= 2 ? {species: x.mega.species, forme: x.mega.forme, num: x.mega.num, sprite_id: x.mega.sprite_id} : null,
-            hp: x.hp, maxhp: x.maxhp, status: x.status, fainted: x.fainted, types: x.types, item: x.itemUsed ? '' : x.item_name, ability: x.ability_name,
-            boosts: {...x.boosts},
-            moves: x.moves.map((mv, j) => ({...mv, cd: x.cds[j] / TPS, total: i === s.active && m && !m.fainted ? this.cooldownTicks(s, x.profiles[j]) / TPS : mv.final,
-              blocked: i === s.active && m && !m.fainted ? this.usableReason(s, j) : ''}))})),
+      projectiles: this.projectiles.map((p) => ({id: p.id, s: p.s, ...(this.doubles ? {u: p.u} : {}), x: p.x, y: p.y, vx: p.vx, vy: p.vy, r: p.r, type: p.type, shape: p.shape, move: p.move, plus: !!p.plus})),
+      marks: this.marks.map((m) => ({s: m.s, ...(this.doubles ? {u: m.u} : {}), x: m.x, y: m.y, r: m.r, at: m.at})),
+      sides: this.sides.map((tr) => {
+        // in doubles the side's own fields are those of the slot the person controls (or the first slot with a Pokémon)
+        const s = this.doubles ? (tr.ai ? tr.units.find((u) => !u.vacant) || tr.units[0] : this.leadOf(tr)) : tr;
+        const holder = (i) => (this.doubles ? tr.units.find((u) => u.active === i && !u.vacant) : i === s.active ? s : null);
+        const out = {
+          id: s.id, name: s.name, ai: !!s.ai, ...this.unitView(s), switches_left: s.switchesLeft,
+          cond: Object.fromEntries(Object.entries(s.cond).filter(([, v]) => v > this.t).map(([k, v]) => [k, (v - this.t) / TPS])),
+          hazards: {...s.hazards}, gauge: s.gauge / GAUGE_SEGMENT, mega: s.mega >= 0, mega_used: s.megaUsed, can_mega: this.canMega(s),
+          plus_ready: this.version >= 2 && ((s.mega >= 0 && s.mega === s.active) || s.gauge >= GAUGE_SEGMENT),
+          mons: s.mons.map((x, i) => {
+            const u = holder(i);
+            const on = u && !x.fainted;
+            const mon = {slot: i, species: x.species, name: x.name, num: x.num, forme: x.forme, sprite_id: x.sprite_id, shiny: x.shiny, level: x.level,
+              base_look: {species: (x.base || x).species, forme: (x.base || x).forme, sprite_id: (x.base || x).sprite_id}, is_mega: !!x.megaOn,
+              mega_info: x.mega && this.version >= 2 ? {species: x.mega.species, forme: x.mega.forme, num: x.mega.num, sprite_id: x.mega.sprite_id} : null,
+              hp: x.hp, maxhp: x.maxhp, status: x.status, fainted: x.fainted, types: x.types, item: x.itemUsed ? '' : x.item_name, ability: x.ability_name,
+              boosts: {...x.boosts},
+              moves: x.moves.map((mv, j) => ({...mv, cd: x.cds[j] / TPS, total: on ? this.cooldownTicks(u, x.profiles[j]) / TPS : mv.final,
+                blocked: on ? this.usableReason(u, j) : ''}))};
+            if (this.doubles) mon.field = u ? u.pos : -1;   // the slot it is in (a / b), -1 on the bench
+            return mon;
+          }),
         };
+        if (this.doubles) {
+          out.ctl = s.pos;
+          out.tgt = tr.tgt || 0;
+          out.units = tr.units.map((u) => ({pos: u.pos, vacant: !!u.vacant, aim: this.foe(u).pos, ...this.unitView(u),
+            follow: u.vol.followUntil > this.t, helped: u.vol.helpedUntil > this.t}));
+        }
+        return out;
       }),
+    };
+  }
+
+  /** Where a Pokémon on the field is and what it is doing (a side in singles, a slot in doubles). */
+  unitView(s) {
+    return {
+      active: s.active, x: s.x, y: s.y, fx: s.fx, fy: s.fy, r: this.radius(s), moving: s.moving,
+      act: s.act ? {kind: s.act.kind, slot: s.act.slot ?? -1, left: s.act.end != null ? Math.max(0, s.act.end - this.t) : 0,
+        total: s.act.start != null ? s.act.end - s.act.start : 0, tx: s.act.tx, ty: s.act.ty} : null,
+      need: s.need, roll_ready: Math.max(0, s.rollReady - this.t) / TPS,
+      protect: s.vol.protectUntil > this.t, sub: s.vol.sub > 0, confused: s.vol.confusedUntil > this.t,
+      trapped: s.vol.trapUntil > this.t, taunt: s.vol.tauntUntil > this.t, invulnerable: this.semiInvulnerable(s), focus: s.focus,
     };
   }
 
@@ -1767,15 +2055,18 @@ export function fastForward(b, inputs, until) {
 /** The inputs of the people's seats for the next tick, from the recorded rows of that tick and what they were holding. */
 export function inputFrame(b, rows, held) {
   const now = [null, null];
-  // rows recorded before focus and Mega Evolution existed have seven columns: they read as focused, no Plus, no Mega
-  for (const [, side, mx, my, use, dodge, sw, focus = 1, plus = 0, mega = 0] of rows) {
+  // rows recorded before focus and Mega Evolution existed have seven columns: they read as focused, no Plus, no Mega; rows
+  // without the doubles columns (controlled slot, locked foe slot) read as 0
+  for (const [, side, mx, my, use, dodge, sw, focus = 1, plus = 0, mega = 0, ctl = 0, tgt = 0] of rows) {
     held[side] = {mx, my, focus: !!focus};
     now[side] = {mx, my, use, dodge: !!dodge, sw, focus: !!focus, plus: !!plus, mega: !!mega};
+    if (b.doubles) { held[side].ctl = now[side].ctl = ctl ? 1 : 0; held[side].tgt = now[side].tgt = tgt ? 1 : 0; }
   }
   const frame = {};
   for (const i of [0, 1]) {
     if (b.sides[i].ai) continue;
-    frame[b.sides[i].id] = now[i] || (held[i] ? {mx: held[i].mx, my: held[i].my, use: -1, dodge: false, sw: -1, focus: held[i].focus} : null);
+    frame[b.sides[i].id] = now[i] || (held[i] ? {mx: held[i].mx, my: held[i].my, use: -1, dodge: false, sw: -1, focus: held[i].focus,
+      ...(b.doubles ? {ctl: held[i].ctl, tgt: held[i].tgt} : {})} : null);
   }
   return frame;
 }
@@ -1784,15 +2075,17 @@ export function inputFrame(b, rows, held) {
 export function eventLines(battle) {
   const names = battle.sides.map((s) => s.name);
   const monName = (si, slot) => battle.sides[si].mons[slot]?.name || '?';
-  const lines = [`|rt|${names[0]} vs ${names[1]}|${battle.formatId}|seed ${battle.seed}`];
-  const active = [0, 0];
+  const lines = [`|rt|${names[0]} vs ${names[1]}|${battle.formatId}|seed ${battle.seed}${battle.doubles ? '|doubles' : ''}`];
+  const active = [[0, 1], [0, 1]];   // per side and slot (singles: slot 0 only)
   const sec = (t) => (t / TPS).toFixed(1);
   for (const e of battle.events) {
-    const who = e.s != null ? `${names[e.s]}'s ${monName(e.s, active[e.s])}` : '';
+    const who = e.s != null ? `${names[e.s]}'s ${monName(e.s, active[e.s][e.u || 0])}` : '';
     switch (e.k) {
-      case 'switch': active[e.s] = e.slot; lines.push(`[${sec(e.t)}] ${names[e.s]} sent out ${monName(e.s, e.slot)}`); break;
+      case 'switch': active[e.s][e.u || 0] = e.slot; lines.push(`[${sec(e.t)}] ${names[e.s]} sent out ${monName(e.s, e.slot)}`); break;
       case 'use': lines.push(`[${sec(e.t)}] ${who} used ${e.name}`); break;
-      case 'hit': lines.push(`[${sec(e.t)}] ${names[e.s]}'s ${monName(e.s, active[e.s])} took ${e.dmg} (${e.hp}/${e.maxhp})${e.crit ? ', critical hit' : ''}${e.eff > 1 ? ', super effective' : e.eff < 1 && e.eff > 0 ? ', not very effective' : ''}`); break;
+      case 'helping': lines.push(`[${sec(e.t)}] ${who} is ready to help its partner`); break;
+      case 'follow': lines.push(`[${sec(e.t)}] ${who} became the centre of attention`); break;
+      case 'hit': lines.push(`[${sec(e.t)}] ${names[e.s]}'s ${monName(e.s, active[e.s][e.u || 0])} took ${e.dmg} (${e.hp}/${e.maxhp})${e.crit ? ', critical hit' : ''}${e.eff > 1 ? ', super effective' : e.eff < 1 && e.eff > 0 ? ', not very effective' : ''}`); break;
       case 'miss': lines.push(`[${sec(e.t)}] ${who}'s ${e.move} missed (dodged)`); break;
       case 'protected': lines.push(`[${sec(e.t)}] ${who} protected itself`); break;
       case 'immune': lines.push(`[${sec(e.t)}] ${who} is not affected`); break;
