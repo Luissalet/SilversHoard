@@ -47,3 +47,18 @@ test('the engine answers damage_calc and older generations use their own rules',
   const bad = await handle({id: 2, cmd: 'damage_calc', args: {attacker: '', defender: TRAN}});
   assert.equal(bad.ok, false);
 });
+
+test('moves are measured as used: Mega Evolution, type-changing abilities, Weather Ball and the abilities\' own weather', () => {
+  const alt = 'Altaria @ Altarianite\nAbility: Natural Cure\nEVs: 252 Atk / 252 Spe\nJolly Nature\n- Double-Edge';
+  const plain = damageCalc({attacker: alt, defender: 'Gyarados\nLevel: 50\n- Waterfall', format: 'gen9nationaldexag'});
+  const mega = damageCalc({attacker: alt, defender: 'Gyarados\nLevel: 50\n- Waterfall', format: 'gen9nationaldexag', attacker_mega: true});
+  assert.equal(mega.attacker.species, 'Altaria-Mega');
+  assert.equal(mega.moves[0].type, 'Fairy');   // Pixilate
+  assert.ok(mega.moves[0].max > plain.moves[0].max * 2);
+  const peli = 'Pelipper\nAbility: Drizzle\n- Weather Ball';
+  const auto = damageCalc({attacker: peli, defender: 'Charizard\n- Ember'});
+  assert.equal(auto.field.weather, 'raindance');   // Drizzle on switch-in
+  assert.equal(auto.moves[0].type, 'Water');
+  const none = damageCalc({attacker: peli, defender: 'Charizard\n- Ember', weather: ''});
+  assert.equal(none.moves[0].type, 'Normal');
+});

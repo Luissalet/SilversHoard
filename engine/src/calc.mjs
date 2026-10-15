@@ -35,7 +35,7 @@ function koText(min, max, hp) {
 }
 
 /**
- * {attacker, defender, format?, moves?, attacker_boosts?, defender_boosts?, attacker_tera?, defender_tera?, weather?, terrain?,
+ * {attacker, defender, format?, moves?, attacker_boosts?, defender_boosts?, attacker_tera?, defender_tera?, attacker_mega?, defender_mega?, weather?, terrain?,
  *  screens?: ['reflect', ...], defender_hp?: 0-100} → {attacker, defender, defender_hp, moves: [{move, type, category, rolls, min, max,
  *  min_pct, max_pct, crit_min, crit_max, ohko_rolls, ko}]}
  */
@@ -68,22 +68,40 @@ export function damageCalc(a) {
     if (tera !== true) mon.teraType = String(tera);
     if (mon.canTerastallize !== null) b.actions.terastallize(mon);
   }
+  for (const [mon, mega] of [[atk, a.attacker_mega], [def, a.defender_mega]]) {
+    if (mega && (mon.canMegaEvo || mon.canUltraBurst)) b.actions.runMegaEvo(mon);
+  }
   if (a.defender_hp !== undefined) def.hp = Math.max(1, Math.round(def.maxhp * Math.min(100, Math.max(1, Number(a.defender_hp))) / 100));
   const hp = def.hp;
   const moveIds = (a.moves && a.moves.length ? a.moves : atk.moveSlots.map((m) => m.id)).map(toID).filter(Boolean).slice(0, 8);
   const tr = b.trunc;
   const realRandomizer = b.randomizer.bind(b);
+  // the move as it is used: type changes (Pixilate, Weather Ball, Tera Blast...) and move changes run as in a real turn
+  const prepared = (id) => {
+    const move = b.dex.getActiveMove(id);
+    b.activeMove = move;
+    b.activePokemon = atk;
+    b.activeTarget = def;
+    try {
+      b.singleEvent('ModifyType', move, null, atk, def, move, move);
+      b.singleEvent('ModifyMove', move, null, atk, def, move, move);
+      b.runEvent('ModifyType', atk, def, move, move);
+      b.runEvent('ModifyMove', atk, def, move, move);
+    } catch { /* the plain move */ }
+    return move;
+  };
   const out = [];
   for (const id of moveIds) {
     const mv = b.dex.moves.get(id);
     if (!mv.exists) { out.push({move: id, error: 'unknown move'}); continue; }
-    const row = {move: mv.name, id: mv.id, type: mv.type, category: mv.category, power: mv.basePower || 0};
-    if (mv.category === 'Status') { out.push({...row, hits: 0, rolls: [], min: 0, max: 0, min_pct: 0, max_pct: 0, crit_min: 0, crit_max: 0, ohko_rolls: 0, ko: koText(0, 0, hp), immune: false}); continue; }
+    const used = prepared(id);
+    const row = {move: mv.name, id: mv.id, type: used.type, category: used.category, power: used.basePower || 0};
+    if (used.category === 'Status') { out.push({...row, hits: 0, rolls: [], min: 0, max: 0, min_pct: 0, max_pct: 0, crit_min: 0, crit_max: 0, ohko_rolls: 0, ko: koText(0, 0, hp), immune: false}); continue; }
     const measure = (crit) => {
       const rolls = [];
       for (let r = 15; r >= 0; r--) {
         b.randomizer = (base) => tr(tr(base * (100 - r)) / 100);
-        const move = b.dex.getActiveMove(id);
+        const move = prepared(id);
         move.willCrit = crit;
         let d;
         try { d = b.actions.getDamage(atk, def, move, true); } catch { d = 0; }
@@ -109,9 +127,12 @@ export function damageCalc(a) {
       immune: max === 0 && !def.runImmunity(b.dex.getActiveMove(id)),
     });
   }
-  const who = (m) => ({species: m.species.name, level: m.level, item: m.item ? b.dex.items.get(m.item).name : '',
+  b.activeMove = null;
+  b.activePokemon = null;
+  b.activeTarget = null;
+  const who = (m) => ({species: m.species.name, can_mega: !!(m.canMegaEvo || m.canUltraBurst), level: m.level, item: m.item ? b.dex.items.get(m.item).name : '',
     ability: b.dex.abilities.get(m.ability).name, types: m.getTypes(), boosts: {...m.boosts},
-    stats: Object.fromEntries(['atk', 'def', 'spa', 'spd', 'spe'].map((s) => [s, m.getStat(s)])), maxhp: m.maxhp});
+    stats: {...m.storedStats}, maxhp: m.maxhp});
   return {format: formatId, attacker: who(atk), defender: who(def), defender_hp: hp,
     field: {weather: b.field.weather || '', terrain: b.field.terrain || '', screens: Object.keys(b.p2.sideConditions)}, moves: out};
 }

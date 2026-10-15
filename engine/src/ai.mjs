@@ -66,11 +66,29 @@ function canHit(attacker, defender, move) {
   return true;
 }
 
+/** The move as `attacker` would use it on `defender`: type changes (Pixilate, Weather Ball, Tera Blast...) and move changes run as
+ * in a real turn, on the throwaway battle. */
+export function usedMove(scratch, attacker, defender, moveId) {
+  const move = scratch.dex.getActiveMove(moveId);
+  const saved = [scratch.activeMove, scratch.activePokemon, scratch.activeTarget];
+  scratch.activeMove = move;
+  scratch.activePokemon = attacker;
+  scratch.activeTarget = defender;
+  try {
+    scratch.singleEvent('ModifyType', move, null, attacker, defender, move, move);
+    scratch.singleEvent('ModifyMove', move, null, attacker, defender, move, move);
+    scratch.runEvent('ModifyType', attacker, defender, move, move);
+    scratch.runEvent('ModifyMove', attacker, defender, move, move);
+  } catch { /* the plain move */ }
+  [scratch.activeMove, scratch.activePokemon, scratch.activeTarget] = saved;
+  return move;
+}
+
 /** Expected damage of `moveId` from attacker to defender (objects of the same throwaway battle): {dmg, frac, ko, acc}. */
 export function estimate(scratch, attacker, defender, moveId) {
   let move;
   try {
-    move = scratch.dex.getActiveMove(moveId);
+    move = defender ? usedMove(scratch, attacker, defender, moveId) : scratch.dex.getActiveMove(moveId);
   } catch {
     return {dmg: 0, frac: 0, ko: false, acc: 1};
   }
@@ -80,7 +98,7 @@ export function estimate(scratch, attacker, defender, moveId) {
   let n = 0;
   for (let i = 0; i < 2; i++) {
     try {
-      const d = scratch.actions.getDamage(attacker, defender, scratch.dex.getActiveMove(moveId), true);
+      const d = scratch.actions.getDamage(attacker, defender, usedMove(scratch, attacker, defender, moveId), true);
       total += typeof d === 'number' ? d : 0;
     } catch {
       total += roughDamage(scratch, attacker, defender, move);
