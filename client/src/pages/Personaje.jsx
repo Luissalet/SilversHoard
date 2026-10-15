@@ -90,7 +90,7 @@ export default function Personaje({ param, query }) {
           {c.sprites.find((x) => x.id === spriteId)?.artist && (
             <div className="help"><a className="btn-link" href="#/creditos">{t("sprite_by", { name: c.sprites.find((x) => x.id === spriteId).artist })}</a></div>
           )}
-          <a className="btn-link" href={c.bulbapedia} target="_blank" rel="noreferrer">Bulbapedia ↗</a>
+          {c.bulbapedia && <a className="btn-link" href={c.bulbapedia} target="_blank" rel="noreferrer">Bulbapedia ↗</a>}
         </div>
       </div>
 

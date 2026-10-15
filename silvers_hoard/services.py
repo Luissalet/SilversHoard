@@ -52,7 +52,7 @@ _CLASS_ES = {
     "Team Galactic Boss": "Jefe del Equipo Galaxia", "Team Galactic": "Equipo Galaxia", "Team Flare": "Team Flare", "Team Flare Boss": "Jefe del Team Flare",
     "Team Magma": "Equipo Magma", "Team Aqua": "Equipo Aqua", "Passerby": "Transeúnte", "Masked Man": "Hombre enmascarado", "World Police": "Policía Internacional",
     "Aether President": "Presidenta de la Fundación Æther", "Pro Wrestler": "Luchador profesional", "Strange Lady": "Señora extraña", "Sootopolitan": "Arrecípolis",
-    "Battleship": "Acorazado",
+    "Battleship": "Acorazado", "Frontier Brain": "As del Frente Batalla", "Developer": "Desarrollador",
 }
 STATIC_DIR = Path(__file__).resolve().parent / "static"
 PLAY_TEMPLATE = STATIC_DIR / "play" / "play.html"
@@ -560,6 +560,14 @@ class Services:
     def characters(self) -> dict[str, Any]:
         if self._characters is None:
             data = json.loads(gzip.decompress((PRESETS_DIR / "characters.json.gz").read_bytes()).decode("utf-8"))
+            # Pokémon Unbound's Battle Frontier (scripts/build_unbound.mjs): its own game card; characters of the main games gain its teams
+            extra = PRESETS_DIR / "unbound.json.gz"
+            if extra.exists():
+                more = json.loads(gzip.decompress(extra.read_bytes()).decode("utf-8"))
+                known = {g["id"] for g in data["games"]}
+                data["games"] = [*data["games"], *[g for g in more["games"] if g["id"] not in known]]
+                data["characters"] = [*data["characters"], *more["characters"]]
+                data["source"] = f"{data.get('source', '')} {more.get('source', '')}".strip()
             merged: dict[str, dict[str, Any]] = {}
             for c in data["characters"]:
                 if c["key"] in merged:   # a character listed twice in the data keeps every team under one key
@@ -659,7 +667,9 @@ class Services:
         cards = [{k: gm[k] for k in ("id", "gen", "name", "name_es", "side")} for gm in self.characters()["games"] if gm["id"] in mine]
         return {"key": c["key"], "name": c["name"], "name_es": c["name_es"], "base_sprite": c["base_sprite"], "avatar_url": self.avatar_url(f"sd:{c['base_sprite']}") if c["base_sprite"] else "",
                 "sprites": sprites, "variants": variants, "installed": installed, "games": cards, "categories": self.characters()["categories"],
-                "bulbapedia": "https://bulbapedia.bulbagarden.net/wiki/" + c["name"].replace(" ", "_"), "source": self.characters().get("source", "")}
+                # a character made for a romhack has no Bulbapedia page
+                "bulbapedia": "https://bulbapedia.bulbagarden.net/wiki/" + c["name"].replace(" ", "_") if any(v["games"] != ["unbound"] for v in c["variants"]) else "",
+                "source": self.characters().get("source", "")}
 
     def character_install(self, key: str, *, variant: str = "", sprite: str = "", name: str = "", custom: bool = False,
                           ai_level: str = "", ai_style: str = "", lang: str = "es") -> dict[str, Any]:
@@ -705,7 +715,7 @@ class Services:
                 notes.append(f"Lugar: {v['location']}")
             if v.get("note"):
                 notes.append(f"Bulbapedia: {v['note']}")
-        notes.append("Equipo de Bulbapedia (CC BY-NC-SA); sprite de Pokémon Showdown." if v else "Sprite de Pokémon Showdown.")
+        notes.append((v.get("credit") or "Equipo de Bulbapedia (CC BY-NC-SA); sprite de Pokémon Showdown.") if v else "Sprite de Pokémon Showdown.")
         sets = [{k: x for k, x in s.items() if k != "level_range"} for s in (v["sets"] if v else [])] if (v and not custom) or (v and custom and variant) else []
         if v and v.get("pool"):   # a battle facility's pool: the trainer takes six of them
             sets = sets[:6]

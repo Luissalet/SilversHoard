@@ -9,5 +9,4 @@ Lo que falta por construir, de más a menos valor. Lo que ya hace está en el [R
    terminar los modos y el pulido.
 3. **Modo Champions real** con los mods `champions` / `championsregmb` / `gen9legends` de Showdown 0.11 (fórmula de PS y SP, PP ≤ 20, formatos Reg M); `@pkmn/sim` 0.10.11 no los trae. Ágora #558.
 4. **Tiempo real: hitstop, temblor, aviso en el suelo antes de los movimientos de área y cut-in** al megaevolucionar, usar Z o teracristalizar (ideas de PokéBonk, código propio). Ágora #561.
-5. **Pokémon Unbound jugable**: habilidades cambiadas (PUSE, MIT) y los entrenadores especiales de su Frontera re-derivados. Ágora #563.
-6. **Animaciones de PokeRogue/Reborn** como estilo de alta fidelidad con sonido (785 con crédito; reproductor propio). Ágora #564.
+5. **Animaciones de PokeRogue/Reborn** como estilo de alta fidelidad con sonido (785 con crédito; reproductor propio). Ágora #564.
