@@ -90,3 +90,19 @@
 .rt-hub-label { font-weight: 700; }
 .rt-pad-side { display: flex; flex-direction: column; gap: 6px; }
 @media (max-width: 560px) { .rt-diamond { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* Mega Power gauge, Plus moves and Mega Evolution */
+.rt-gauge { display: flex; align-items: center; gap: 3px; margin: 2px 0 3px; }
+.rt-sidebar.right .rt-gauge { justify-content: flex-end; }
+.rt-gauge-seg { position: relative; width: 30px; height: 7px; border-radius: 4px; background: #0006; overflow: hidden; box-shadow: inset 0 0 0 1px #ff6fd855; }
+.rt-gauge-seg > i { position: absolute; inset: 0 auto 0 0; background: linear-gradient(90deg, #b44cff, #ff5fc8); }
+.rt-gauge-seg.is-full { box-shadow: inset 0 0 0 1px #ffb3ea, 0 0 8px -1px #ff5fc8; }
+.rt-gauge.is-mega .rt-gauge-seg > i { background: linear-gradient(90deg, #ff5fc8, #ffd66b, #6fe3ff); }
+.rt-gauge-tag { font-size: 10px; letter-spacing: 1px; color: #ffb3ea; }
+.rt-tag-mega { color: #ffd6f2; border-color: #ff5fc8; background: color-mix(in srgb, #ff5fc8 22%, var(--b-surface-2)); }
+.rt-pad-side .rt-gauge-seg { width: 26px; }
+.rt-plus-btn.is-on { border-color: #ff5fc8; color: #fff; background: color-mix(in srgb, #ff5fc8 45%, var(--b-surface-2)); box-shadow: 0 0 12px -3px #ff5fc8; }
+.rt-mega-btn.is-ready { border-color: #ffd66b; color: #fff; background: linear-gradient(90deg, color-mix(in srgb, #ff5fc8 50%, transparent), color-mix(in srgb, #6fe3ff 40%, transparent));
+  box-shadow: 0 0 14px -3px #ff5fc8; }
+.rt-move.is-plus { border-color: #ff5fc8; box-shadow: 0 0 0 1px #ff5fc8aa, 0 0 16px -3px #ff5fc8; }
+.rt-diamond.is-plus .rt-diamond-hub { border-style: solid; border-color: #ff5fc8; color: #ffd6f2; box-shadow: 0 0 16px -4px #ff5fc8; }

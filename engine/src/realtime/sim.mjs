@@ -1691,7 +1691,7 @@ export class RtBattle {
       version: this.version, arena: this.arena, rocks: this.rocks.map((r) => ({...r})),
       weather: this.weather && this.weather.until > this.t ? {id: this.weather.id, left: (this.weather.until - this.t) / TPS} : null,
       terrain: this.terrain && this.terrain.until > this.t ? {id: this.terrain.id, left: (this.terrain.until - this.t) / TPS} : null,
-      projectiles: this.projectiles.map((p) => ({id: p.id, s: p.s, x: p.x, y: p.y, vx: p.vx, vy: p.vy, r: p.r, type: p.type, shape: p.shape, move: p.move})),
+      projectiles: this.projectiles.map((p) => ({id: p.id, s: p.s, x: p.x, y: p.y, vx: p.vx, vy: p.vy, r: p.r, type: p.type, shape: p.shape, move: p.move, plus: !!p.plus})),
       marks: this.marks.map((m) => ({s: m.s, x: m.x, y: m.y, r: m.r, at: m.at})),
       sides: this.sides.map((s) => {
         const m = this.mon(s);

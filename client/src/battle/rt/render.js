@@ -1,6 +1,7 @@
-// Draws a real-time battle on a canvas: the court, the trainers at each end, the Pokémon (walking sprites lined up by their feet,
-// depth-sorted), projectiles, telegraphed areas, effects and floating numbers. It reads the battle's view each frame and its new
-// events to start animations; it never changes the battle.
+// Draws a real-time battle on a canvas: the court (with its rocks), the trainers at each end, the Pokémon (walking sprites lined up
+// by their feet, depth-sorted, in their Mega forme while Mega Evolved, with an arrow for their facing when they are not locked
+// on), projectiles, telegraphed areas, effects and floating numbers. It reads the battle's view each frame and its new events to
+// start animations; it never changes the battle.
 import { TYPE_COLORS } from "../dex.js";
 import { Animator, dirRow, image, loadMeta } from "./pmd.js";
 import { Vfx } from "./vfx.js";
@@ -10,6 +11,8 @@ const MARGIN_X = 2.6;
 const MARGIN_Y = 0.9;
 const WORLD = { x0: -MARGIN_X, y0: -MARGIN_Y, w: ARENA.w + MARGIN_X * 2, h: ARENA.h + MARGIN_Y * 2 };
 const TRAINER = [{ x: -1.2, y: ARENA.h / 2 }, { x: ARENA.w + 1.2, y: ARENA.h / 2 }];
+const TAU = Math.PI * 2;
+const SIDE_RGB = ["90,170,255", "255,95,95"];
 
 export const WORLD_RATIO = WORLD.w / WORLD.h;
 
@@ -20,16 +23,21 @@ function shade(hex, a) {
 }
 
 export class ArenaRenderer {
-  /** sides: [{mons: [{num, forme, shiny, species, sprite_id}], avatarUrl, name}] */
-  constructor(canvas, { sides, sprites, base = "", texts }) {
+  /** sides: [{mons: [{num, forme, shiny, species, sprite_id, base_look, mega_info}], avatarUrl, name}]; rocks: [{x, y, r}] */
+  constructor(canvas, { sides, sprites, base = "", texts, rocks = [] }) {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
     this.sides = sides;
     this.sprites = sprites;
     this.base = base;
     this.texts = texts;
+    this.rocks = rocks || [];
     this.anims = sides.map((s) => s.mons.map(() => null));
-    this.fallbacks = sides.map((s) => s.mons.map((m) => image(sprites.fallback(m.species, { spriteid: m.sprite_id }))));
+    this.megaAnims = sides.map((s) => s.mons.map(() => null));
+    const look = (m) => m.base_look || m;
+    this.fallbacks = sides.map((s) => s.mons.map((m) => image(sprites.fallback(look(m).species, { spriteid: look(m).sprite_id }))));
+    // Mega formes: their own sprites, or the base ones when there are none
+    this.megaFallbacks = sides.map((s) => s.mons.map((m) => (m.mega_info ? image(sprites.fallback(m.mega_info.species, { spriteid: m.mega_info.sprite_id })) : null)));
     this.trainers = sides.map((s) => (s.avatarUrl ? image(s.avatarUrl) : null));
     this.floats = [];
     this.effects = [];
@@ -47,12 +55,15 @@ export class ArenaRenderer {
   /** Load every walking sprite (resolves when all are in or after `timeout`), reporting progress. */
   async preload(onProgress = () => {}, timeout = 15000) {
     const jobs = [];
-    this.sides.forEach((s, si) => s.mons.forEach((m, mi) => jobs.push([si, mi, m])));
+    this.sides.forEach((s, si) => s.mons.forEach((m, mi) => {
+      jobs.push([si, mi, m.num, (m.base_look || m).forme, m.shiny, this.anims]);
+      if (m.mega_info) jobs.push([si, mi, m.mega_info.num, m.mega_info.forme, m.shiny, this.megaAnims]);
+    }));
     let done = 0;
-    const one = async ([si, mi, m]) => {
-      const meta = await loadMeta(m.num, { form: m.forme, shiny: m.shiny, base: this.base });
+    const one = async ([si, mi, num, form, shiny, table]) => {
+      const meta = await loadMeta(num, { form, shiny, base: this.base });
       if (meta) {
-        this.anims[si][mi] = new Animator(meta, this.base);
+        table[si][mi] = new Animator(meta, this.base);
         for (const a of Object.keys(meta.a)) image(`${this.base}/api/sprites/pmd-sheet/${meta.key}/${a}.png`);
       }
       done++;
@@ -117,6 +128,7 @@ export class ArenaRenderer {
       x.fillStyle = "rgba(0,0,0,0.18)";
       x.fillRect(this.px(-2.3), this.py(ARENA.h / 2 - 2.2), 2.1 * s, 4.4 * s);
       x.fillRect(this.px(ARENA.w + 0.2), this.py(ARENA.h / 2 - 2.2), 2.1 * s, 4.4 * s);
+      for (const rk of this.rocks) this.drawRock(x, rk);
       this.court = { w: c.width, canvas: c };
     }
     this.ctx.drawImage(this.court.canvas, 0, 0);
@@ -127,6 +139,84 @@ export class ArenaRenderer {
     const tr = view.terrain?.id;
     const ttint = { electricterrain: "rgba(247,208,44,0.12)", grassyterrain: "rgba(122,199,76,0.14)", psychicterrain: "rgba(249,85,135,0.12)", mistyterrain: "rgba(243,182,216,0.14)" }[tr];
     if (ttint) { this.ctx.fillStyle = ttint; this.ctx.fillRect(this.px(0), this.py(0), ARENA.w * this.scale, ARENA.h * this.scale); }
+  }
+
+  /** A rock of the arena: a rounded boulder with a shadow, lit from the top left, some cracks and grass at its foot. */
+  drawRock(x, rk) {
+    const s = this.scale;
+    const cx = this.px(rk.x), cy = this.py(rk.y), r = rk.r * s;
+    let seed = Math.floor(rk.x * 7919 + rk.y * 104729 + rk.r * 1299709) % 2147483647 || 11;
+    const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+    // shadow on the grass
+    x.fillStyle = "rgba(10,20,10,0.35)";
+    x.beginPath();
+    x.ellipse(cx + r * 0.22, cy + r * 0.3, r * 1.05, r * 0.82, 0, 0, TAU);
+    x.fill();
+    // the boulder: an irregular outline inside the circle that blocks
+    const n = 11;
+    const pts = [];
+    for (let i = 0; i < n; i++) {
+      const a = (i / n) * TAU + rnd() * 0.25;
+      const k = 0.86 + rnd() * 0.14;
+      pts.push([cx + Math.cos(a) * r * k, cy + Math.sin(a) * r * k]);
+    }
+    const g = x.createRadialGradient(cx - r * 0.35, cy - r * 0.4, r * 0.1, cx, cy, r * 1.05);
+    g.addColorStop(0, "#c9bf9f");
+    g.addColorStop(0.55, "#958a6d");
+    g.addColorStop(1, "#5f5846");
+    x.fillStyle = g;
+    x.strokeStyle = "#3b362b";
+    x.lineWidth = Math.max(1.5, s * 0.06);
+    x.beginPath();
+    pts.forEach(([px, py], i) => (i ? x.lineTo(px, py) : x.moveTo(px, py)));
+    x.closePath();
+    x.fill();
+    x.stroke();
+    // a lit facet and a darker one
+    x.fillStyle = "rgba(255,250,230,0.18)";
+    x.beginPath();
+    x.moveTo(pts[6][0], pts[6][1]);
+    x.lineTo(pts[7][0], pts[7][1]);
+    x.lineTo(pts[8][0], pts[8][1]);
+    x.lineTo(cx - r * 0.1, cy - r * 0.05);
+    x.closePath();
+    x.fill();
+    x.fillStyle = "rgba(30,25,15,0.22)";
+    x.beginPath();
+    x.moveTo(pts[1][0], pts[1][1]);
+    x.lineTo(pts[2][0], pts[2][1]);
+    x.lineTo(pts[3][0], pts[3][1]);
+    x.lineTo(cx + r * 0.1, cy + r * 0.1);
+    x.closePath();
+    x.fill();
+    // cracks
+    x.strokeStyle = "rgba(40,34,24,0.7)";
+    x.lineWidth = Math.max(1, s * 0.035);
+    for (let i = 0; i < 2; i++) {
+      let px = cx + (rnd() - 0.5) * r * 0.6, py = cy + (rnd() - 0.5) * r * 0.6;
+      x.beginPath();
+      x.moveTo(px, py);
+      for (let j = 0; j < 3; j++) { px += (rnd() - 0.5) * r * 0.5; py += (rnd() - 0.2) * r * 0.35; x.lineTo(px, py); }
+      x.stroke();
+    }
+    // grass tufts at its foot, in the pitch's greens
+    x.strokeStyle = "#3f7a3a";
+    x.lineWidth = Math.max(1, s * 0.04);
+    for (let i = 0; i < 6; i++) {
+      const a = Math.PI * (0.15 + rnd() * 0.7);
+      const bx = cx + Math.cos(a) * r * 0.95, by = cy + Math.sin(a) * r * 0.9;
+      for (const d of [-1, 0, 1]) {
+        x.beginPath();
+        x.moveTo(bx, by);
+        x.lineTo(bx + d * 0.08 * s, by - (0.14 + rnd() * 0.08) * s);
+        x.stroke();
+      }
+    }
+  }
+
+  /** The walking sprite of a Pokémon: its Mega forme's while Mega Evolved (the base one when there is no Mega sprite). */
+  animOf(si, slot, mega) {
+    return (mega && this.megaAnims[si]?.[slot]) || this.anims[si]?.[slot] || null;
   }
 
   /** New events since the last frame start animations and floating texts. */
@@ -147,7 +237,7 @@ export class ArenaRenderer {
 
   onEvent(e, battle) {
     const T = this.texts;
-    const anim = (si) => this.anims[si]?.[battle.sides[si].active];
+    const anim = (si) => this.animOf(si, battle.sides[si].active, !!battle.sides[si].mons[battle.sides[si].active]?.megaOn);
     const s = e.s;
     this.vfx.onEvent(e, battle);
     switch (e.k) {
@@ -182,11 +272,25 @@ export class ArenaRenderer {
       case "status": this.float(battle, s, T.status(e.status), T.statusColor(e.status), { size: 0.85 }); break;
       case "boost": if (!e.same) this.float(battle, s, `${T.stat(e.stat)} ${e.stage > 0 ? "↑" : e.stage < 0 ? "↓" : "="}`, e.stage > 0 ? "#ffb15c" : "#7fb2ff", { size: 0.8, dy: -0.4 }); break;
       case "faint": {
-        const a = this.anims[s]?.[e.slot];
+        const a = this.animOf(s, e.slot, !!battle.sides[s].mons[e.slot]?.megaOn);
         if (a) a.play("Faint", { hold: true });
-        this.fade[s] = { slot: e.slot, t: 0 };
+        this.fade[s] = { slot: e.slot, t: 0, at: e.t, mega: false };
         break;
       }
+      case "mega": {
+        this.flash[s] = 1;
+        this.float(battle, s, T.mega, "#ffb3ea", { size: 1.1, dy: -0.5 });
+        break;
+      }
+      case "mega_end": {
+        // a Mega Pokémon that faints keeps its Mega look while it fades out
+        if (this.fade[s].slot === e.slot && this.fade[s].at === e.t) {
+          this.fade[s].mega = true;
+          this.megaAnims[s]?.[e.slot]?.play("Faint", { hold: true });
+        } else this.float(battle, s, T.megaEnd, "#e6d3ff", { size: 0.8, dy: -0.5 });
+        break;
+      }
+      case "plus": this.float(battle, s, `${T.plus}!`, "#ff8fdc", { size: 0.85, dy: -0.9 }); break;
       case "switch": {
         const p = this.posOf(battle, s);
         this.effects.push({ kind: "beam", x: p.x, y: p.y, from: TRAINER[s], t: 0, life: 0.4 });
@@ -198,7 +302,10 @@ export class ArenaRenderer {
         this.effects.push({ kind: "beam", x: p.x, y: p.y, from: TRAINER[s], t: 0, life: 0.5, red: true });
         break;
       }
-      case "fizzle": this.effects.push({ kind: "spark", x: e.x, y: e.y, color: "#ffffff", t: 0, life: 0.25, small: true }); break;
+      case "fizzle":
+        this.effects.push({ kind: "spark", x: e.x, y: e.y, color: e.rock ? "#e8dcc0" : "#ffffff", t: 0, life: e.rock ? 0.35 : 0.25, small: !e.rock });
+        if (e.rock) this.effects.push({ kind: "dust", x: e.x, y: e.y, t: 0, life: 0.45 });
+        break;
       case "roll": {
         const p = this.posOf(battle, s);
         this.effects.push({ kind: "dust", x: p.x, y: p.y, t: 0, life: 0.35 });
@@ -255,6 +362,8 @@ export class ArenaRenderer {
     // area effects under the Pokémon
     this.drawEffects(dt, true);
     this.vfx.drawUnder(ctx);
+    // facing arrows of Pokémon that are not locked on: their moves go that way
+    view.sides.forEach((side, si) => { if (!side.focus && view.version >= 2) this.drawFacing(side, si); });
     // Pokémon, sorted by depth
     const order = view.sides.map((side, si) => ({ side, si })).sort((a, b) => a.side.y - b.side.y);
     for (const { side, si } of order) this.drawMon(view, side, si, dt);
@@ -281,6 +390,40 @@ export class ArenaRenderer {
     }
     ctx.restore();
     this.flash = this.flash.map((v) => Math.max(0, v - dt * 5));
+  }
+
+  /** Not locked on: an arrow on the ground in front of the Pokémon and a faint aim line, so you see where a move will go. */
+  drawFacing(side, si) {
+    const mon = side.mons[side.active];
+    if (!mon || mon.fainted || side.need || side.act?.kind === "switch") return;
+    const ctx = this.ctx;
+    const s = this.scale;
+    const { fx, fy } = side;
+    const d0 = side.r + 0.25;
+    const tipX = side.x + fx * (d0 + 0.75), tipY = side.y + fy * (d0 + 0.75);
+    const baseX = side.x + fx * d0, baseY = side.y + fy * d0;
+    const w = 0.42;
+    ctx.save();
+    ctx.setLineDash([s * 0.22, s * 0.2]);
+    ctx.strokeStyle = `rgba(${SIDE_RGB[si]},0.35)`;
+    ctx.lineWidth = Math.max(1.5, s * 0.05);
+    ctx.beginPath();
+    ctx.moveTo(this.px(tipX), this.py(tipY));
+    ctx.lineTo(this.px(side.x + fx * (d0 + 4.5)), this.py(side.y + fy * (d0 + 4.5)));
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = `rgba(${SIDE_RGB[si]},0.9)`;
+    ctx.strokeStyle = "rgba(0,0,0,0.55)";
+    ctx.lineWidth = Math.max(1, s * 0.04);
+    ctx.beginPath();
+    ctx.moveTo(this.px(tipX), this.py(tipY));
+    ctx.lineTo(this.px(baseX - fy * w), this.py(baseY + fx * w));
+    ctx.lineTo(this.px(side.x + fx * (d0 + 0.25)), this.py(side.y + fy * (d0 + 0.25)));
+    ctx.lineTo(this.px(baseX + fy * w), this.py(baseY - fx * w));
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    ctx.restore();
   }
 
   drawReticle(side, by) {
@@ -317,13 +460,15 @@ export class ArenaRenderer {
     const s = this.scale;
     const mon = side.mons[side.active];
     if (!mon) return;
-    if (this.lastActive[si] !== side.active) {
-      this.lastActive[si] = side.active;
-      const a = this.anims[si]?.[side.active];
-      if (a) a.start("Idle", false);
+    const fade = this.fade[si];
+    const mega = !!mon.is_mega || (mon.fainted && fade.slot === side.active && !!fade.mega);
+    const lookKey = `${side.active}:${mega ? 1 : 0}`;
+    if (this.lastActive[si] !== lookKey) {
+      this.lastActive[si] = lookKey;
+      const a = this.animOf(si, side.active, mega);
+      if (a && !mon.fainted) a.start("Idle", false);
     }
     const recalling = side.act?.kind === "switch";
-    const fade = this.fade[si];
     let alpha = 1;
     if (mon.fainted) {
       fade.t += dt;
@@ -346,7 +491,16 @@ export class ArenaRenderer {
     ctx.beginPath();
     ctx.ellipse(x, y, side.r * s * 1.05, side.r * s * 0.45, 0, 0, Math.PI * 2);
     ctx.stroke();
-    const a = this.anims[si]?.[side.active];
+    if (mon.is_mega && !mon.fainted) {
+      // Mega Evolved: a pulsing pink ring of energy at its feet
+      const k = 1.25 + Math.sin(this.time * 6) * 0.08;
+      ctx.strokeStyle = `rgba(255,95,200,${0.75 * alpha})`;
+      ctx.lineWidth = Math.max(2, s * 0.08);
+      ctx.beginPath();
+      ctx.ellipse(x, y, side.r * s * k, side.r * s * 0.5 * k, 0, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    const a = this.animOf(si, side.active, mega);
     let headY = y - 1.6 * s;
     let drawn = false;
     if (a) {
@@ -361,7 +515,8 @@ export class ArenaRenderer {
       headY = y - a.height(this.k) - 0.3 * s;
     }
     if (!drawn) {
-      const img = this.fallbacks[si]?.[side.active];
+      const megaImg = mega ? this.megaFallbacks[si]?.[side.active] : null;
+      const img = megaImg?.ready ? megaImg : this.fallbacks[si]?.[side.active];
       if (img?.ready) {
         const h = 2.2 * s;
         const w = (img.img.width / img.img.height) * h;

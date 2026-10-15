@@ -34,7 +34,7 @@ export default function CombateRt({ battle, setData }) {
     const seat = (s) => (s.trainer_id ? { trainer_id: s.trainer_id, human: s.human, ai_level: s.ai?.level, ai_style: s.ai?.style }
       : { team: s.sets || [], name: s.name, human: s.human });
     const b = await api.call("battle_start", { p1: seat(battle.p1), p2: seat(battle.p2), format: battle.format, level_rules: battle.level_rules || {},
-      mode: "realtime", time_limit: battle.rt?.time_limit || 0 });
+      mode: "realtime", time_limit: battle.rt?.time_limit || 0, rt_arena: battle.rt?.arena || "rocks" });
     go(`#/combate/${b.id}`);
   };
   const runActive = battle.run && battle.run.status === "active";
@@ -55,6 +55,7 @@ export default function CombateRt({ battle, setData }) {
             <span className="chip">{battle.format_info?.name || battle.format}</span>
             <span className="chip">{t(`kind_${battle.kind}`)}</span>
             {battle.level_rules?.level ? <span className="chip">{t("eq_chip", { n: battle.level_rules.level })}</span> : null}
+            {battle.rt?.arena === "rocks" && <span className="chip">{t("rt_arena")}: {t("rt_arena_rocks").toLowerCase()}</span>}
             {battle.status === "running" && <span className="chip chip-amber">{t("status_running")}</span>}
             {battle.status === "live" && <span className="chip chip-accent">{t("status_live")}</span>}
             {battle.status === "ended" && <span className="chip chip-ok">{battle.winner_name ? t("winner_is", { name: battle.winner_name }) : t("tie")}</span>}

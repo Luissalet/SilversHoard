@@ -1,4 +1,5 @@
-// Choose how a battle is played: classic (turns) or real time (Legends: Z-A rules), the time limit of a real-time battle, and
+// Choose how a battle is played: classic (turns) or real time (Legends: Z-A rules), the time limit and the arena (open or with
+// rocks) of a real-time battle, and
 // whether every Pokémon is levelled to 50 or 100 ("igualado") so a level 88 does not crush a level 44.
 import React from "react";
 
@@ -25,7 +26,24 @@ export function LevelFields({ t, level, onLevel }) {
   );
 }
 
-export default function ModeFields({ t, mode, onMode, timeLimit, onTimeLimit, compact = false, level, onLevel }) {
+export const ARENAS = ["open", "rocks"];
+
+export function ArenaFields({ t, arena, onArena, compact = false }) {
+  const value = ARENAS.includes(arena) ? arena : "rocks";
+  return (
+    <div className="space-y-1">
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="help">{t("rt_arena")}</span>
+        <div className="seg" role="group" aria-label={t("rt_arena")}>
+          {ARENAS.map((v) => <button key={v} type="button" aria-pressed={value === v} onClick={() => onArena(v)}>{t(`rt_arena_${v}`)}</button>)}
+        </div>
+      </div>
+      {!compact && <p className="help">{t(`rt_arena_help_${value}`)}</p>}
+    </div>
+  );
+}
+
+export default function ModeFields({ t, mode, onMode, timeLimit, onTimeLimit, compact = false, level, onLevel, arena, onArena }) {
   return (
     <div className="space-y-3">
       {onLevel && <LevelFields t={t} level={level} onLevel={onLevel} />}
@@ -38,6 +56,7 @@ export default function ModeFields({ t, mode, onMode, timeLimit, onTimeLimit, co
       {mode === "realtime" && (
         <>
           {!compact && <p className="help">{t("mode_realtime_help")}</p>}
+          {onArena && <ArenaFields t={t} arena={arena} onArena={onArena} compact={compact} />}
           {onTimeLimit && (
             <label className="flex flex-wrap items-center gap-2">
               <span className="help">{t("rt_time_limit")}</span>
