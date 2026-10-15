@@ -31,6 +31,25 @@ const BOOSTABLE = ['atk', 'def', 'spa', 'spd', 'spe'];
 const HOME = [{x: 5, y: ARENA.h / 2}, {x: ARENA.w - 5, y: ARENA.h / 2}];
 const TRAINER = [{x: 1.6, y: ARENA.h / 2}, {x: ARENA.w - 1.6, y: ARENA.h / 2}];
 
+// Rules versions. 1: the first real-time rules (always locked on the foe, open arena, no Mega Evolution). 2: free aim when not
+// focusing, the Mega Power gauge with Plus moves and Mega Evolution. A spec without `version` is version 1, so battles stored
+// before version 2 replay as they were played; the app stores `version` with every new battle.
+export const RULES_VERSION = 2;
+export const ARENAS = ['open', 'rocks'];
+// The Mega Power gauge, per trainer: three segments in integer units so every engine counts the same. It fills a segment every
+// 15 s (and a little faster when the trainer's Pokémon deal damage); a Plus move spends one; Mega Evolution needs it full and
+// then drains it, a segment every 8 s.
+export const GAUGE_SEGMENT = 3600;
+export const GAUGE_SEGMENTS = 3;
+const GAUGE_MAX = GAUGE_SEGMENT * GAUGE_SEGMENTS;
+const GAUGE_FILL = GAUGE_SEGMENT / (15 * TPS);   // 8 per tick
+const GAUGE_DRAIN = GAUGE_SEGMENT / (8 * TPS);   // 15 per tick
+const GAUGE_HIT = 1440;                          // dealing a whole HP bar of damage: 0.4 of a segment
+export const PLUS = {damage: 1.2, superDamage: 1.3, secondary: 1.67, heal: 4 / 3, area: 1.2, pierce: 0.25};
+const AIM_ASSIST = Math.cos(Math.PI / 6);        // not focusing: a move snaps to the foe within 30° of the facing
+const STRIKE_LUNGE = 0.6;                        // not focusing: a strike lunges this far forward
+const ROCK_PASS = 2.3;                           // free space kept between rocks, and between rocks and the walls
+
 const TYPE_ITEMS = {
   charcoal: 'Fire', mysticwater: 'Water', miracleseed: 'Grass', magnet: 'Electric', nevermeltice: 'Ice', blackbelt: 'Fighting',
   poisonbarb: 'Poison', softsand: 'Ground', sharpbeak: 'Flying', twistedspoon: 'Psychic', silverpowder: 'Bug', hardstone: 'Rock',
@@ -76,6 +95,56 @@ function calcStats(dex, species, set) {
   return out;
 }
 
+/** The Mega forme a set can turn into in real time (its Mega Stone, or Rayquaza with Dragon Ascent), from generation 6 on. */
+function megaOf(dex, sp, set, item) {
+  if (dex.gen < 6) return null;
+  let forme = '';
+  const stone = item?.exists ? item.megaStone : null;
+  if (stone && typeof stone === 'object') forme = stone[sp.name] || stone[sp.baseSpecies] || '';
+  else if (typeof stone === 'string' && [sp.name, sp.baseSpecies].includes(item.megaEvolves)) forme = stone;
+  if (!forme && sp.name === 'Rayquaza' && (set.moves || []).some((m) => toID(m) === 'dragonascent')) forme = 'Rayquaza-Mega';
+  const mg = forme ? dex.species.get(forme) : null;
+  if (!mg?.exists || mg.name === sp.name) return null;
+  const ability = dex.abilities.get(mg.abilities?.['0'] || '');
+  return {species: mg.name, forme: mg.forme || '', num: mg.num, sprite_id: mg.spriteid, types: mg.types.slice(), stats: calcStats(dex, mg, set),
+    ability: ability?.exists ? ability.id : '', ability_name: ability?.exists ? ability.name : '', base_speed: mg.baseStats.spe,
+    heightm: mg.heightm || 1, weightkg: mg.weightkg || 10};
+}
+
+/** Rocks of the `rocks` arena: 3 to 6 circles from the battle's seed, mirrored left to right so both trainers get the same field,
+ * clear of the band the Pokémon come in on and walk along at first, with room to walk between them and around them. */
+export function placeRocks(seed) {
+  const rng = makeRng(`${seed}:arena`);
+  const n = 3 + Math.floor(rng() * 4);
+  const cy = ARENA.h / 2;
+  const rocks = [];
+  const fits = (x, y, r) => rocks.every((o) => dist({x, y}, o) >= r + o.r + ROCK_PASS);
+  const bandY = (r) => {
+    const lo = r + ROCK_PASS;
+    const hi = cy - r - ROCK_PASS - 0.1;
+    const y = lo + rng() * Math.max(0, hi - lo);
+    return rng() < 0.5 ? y : ARENA.h - y;
+  };
+  if (n % 2) {
+    for (let i = 0; i < 40; i++) {
+      const r = round3(0.9 + rng() * 0.5);
+      const y = round3(bandY(r));
+      if (fits(ARENA.w / 2, y, r)) { rocks.push({x: ARENA.w / 2, y, r}); break; }
+    }
+  }
+  for (let pair = 0; pair < Math.floor(n / 2); pair++) {
+    for (let i = 0; i < 80; i++) {
+      const r = round3(0.7 + rng() * 0.7);
+      const x = round3(3 + r + rng() * (ARENA.w / 2 - 3 - 2 * r - ROCK_PASS / 2));
+      const y = round3(bandY(r));
+      const mx = round3(ARENA.w - x);
+      if (ARENA.w / 2 - x < r + ROCK_PASS / 2) continue;
+      if (fits(x, y, r) && fits(mx, y, r)) { rocks.push({x, y, r}, {x: mx, y, r}); break; }
+    }
+  }
+  return rocks;
+}
+
 /** The Pokémon of a team as the real-time battle and its screen use them: real stats, types, moves with their cooldowns. */
 export function prepareRtTeam(sets, {format = 'gen9customgame', levelRules = {}} = {}) {
   const formatId = buildFormatId(format);
@@ -94,7 +163,7 @@ export function prepareRtTeam(sets, {format = 'gen9customgame', levelRules = {}}
       types: sp.types.slice(), stats, base_speed: sp.baseStats.spe, heightm: sp.heightm || 1, weightkg: sp.weightkg || 10,
       nfe: !!(sp.evos && sp.evos.length), item: item?.exists ? item.id : '', item_name: item?.exists ? item.name : '',
       ability: ability?.exists ? ability.id : '', ability_name: ability?.exists ? ability.name : '', shiny: !!set.shiny,
-      gender: set.gender || '', sprite_id: sp.spriteid,
+      gender: set.gender || '', sprite_id: sp.spriteid, mega: megaOf(dex, sp, set, item),
       moves: moves.map((p) => ({id: p.id, name: p.name, type: p.type, category: p.category, power: p.power, pp: p.pp, cooldown: p.cooldown,
         final: Math.round(finalCooldown(p.cooldown, stats.spe, {priority: p.priority, mod: item?.id === 'choicescarf' ? 1.5 : 1}) * 10) / 10,
         za: p.za, shape: p.shape, windup: p.windup, reach: p.reach, no_effect: p.noEffect})),
@@ -117,6 +186,9 @@ export class RtBattle {
     this.spec.seed = this.seed;
     this.rng = makeRng(`${this.seed}:battle`);
     this.timeLimit = Math.max(30, Math.min(1800, Number(spec.time_limit) || DEFAULT_TIME_LIMIT)) * TPS;
+    this.version = Math.max(1, Math.min(RULES_VERSION, Math.floor(Number(spec.version) || 1)));
+    this.arena = spec.arena === 'rocks' ? 'rocks' : 'open';
+    this.rocks = this.arena === 'rocks' ? placeRocks(this.seed) : [];
     this.t = 0;
     this.events = [];
     this.inputLog = [];
@@ -144,7 +216,7 @@ export class RtBattle {
     return {id, index, name: String(seat.name || (index ? 'Player 2' : 'Player 1')).slice(0, 40), ai: seat.ai || null,
       aiRng: makeRng(`${this.seed}:${id}:ai`), mons, active: 0, x: HOME[index].x, y: HOME[index].y, fx: index ? -1 : 1, fy: 0,
       act: null, rollReady: 0, switchesLeft: MAX_SWITCHES, need: false, needSince: 0, vol: {}, cond: {}, hazards: {}, wish: null,
-      lastInput: null, brain: {}, moving: false};
+      lastInput: null, brain: {}, moving: false, focus: true, gauge: 0, mega: -1, megaUsed: false};
   }
 
   // ------------------------------------------------------------ helpers
@@ -259,6 +331,7 @@ export class RtBattle {
   // ------------------------------------------------------------ switching
   sendOut(side, slot, first = false) {
     const prev = this.mon(side);
+    if (side.mega >= 0) { this.megaEnd(side); side.gauge = 0; }   // a Mega Evolved Pokémon going back ends the Mega Evolution
     if (prev && !first) this.onSwitchOut(side);
     side.active = slot;
     side.vol = {in: this.t};
@@ -302,6 +375,14 @@ export class RtBattle {
       if (h.stickyweb && this.grounded(side)) this.boost(side, {spe: -1}, foe, 'stickyweb');
     }
     if (m.fainted) return;
+    this.abilityStart(side);
+    if (m.airBalloon && !m.itemUsed) this.ev('item', {s: side.index, id: 'airballoon'});
+  }
+
+  /** Abilities that act when a Pokémon comes in (or Mega Evolves): Intimidate, weather and terrain setters, Speed Boost... */
+  abilityStart(side) {
+    const m = this.mon(side);
+    const foe = this.foe(side);
     const ab = m.ability;
     if (ab === 'intimidate' && this.onField(foe)) {
       const fm = this.mon(foe);
@@ -314,7 +395,6 @@ export class RtBattle {
     if (terrainAb) this.setTerrain(terrainAb, side);
     if (ab === 'pressure' || ab === 'moldbreaker' || ab === 'unnerve') this.ev('ability', {s: side.index, id: ab});
     if (ab === 'speedboost') side.vol.speedboostAt = this.t + 8 * TPS;
-    if (m.airBalloon && !m.itemUsed) this.ev('item', {s: side.index, id: 'airballoon'});
   }
 
   canSwitch(side, slot) {
@@ -344,35 +424,43 @@ export class RtBattle {
   }
 
   // ------------------------------------------------------------ the loop
-  /** One tick. `inputs` = {p1: {mx, my, use, dodge, sw} | null, p2: ...} for the seats people play; AI seats decide here. */
+  /** One tick. `inputs` = {p1: {mx, my, use, dodge, sw, focus, plus, mega} | null, p2: ...} for the seats people play; AI seats
+   * decide here. `focus` (held lock-on) defaults to true, `plus` (the move goes out as a Plus move) and `mega` to false. */
   step(inputs = {}) {
     if (this.ended) return;
     this.t++;
     for (const side of this.sides) {
       let input = side.ai ? think(this, side) : inputs[side.id] || null;
-      if (!side.ai && input) this.record(side, input);
+      if (!side.ai && input) input = this.record(side, input);   // a person's input as the log keeps it, so a replay plays the same
       this.applyInput(side, input || {});
     }
     for (const side of this.sides) this.updateAct(side);
     this.updateProjectiles();
     this.updateMarks();
     this.updateTimers();
+    if (this.version >= 2) this.updateGauges();
     this.checkEnd();
   }
 
+  /** Input log rows: [tick, side, mx, my, move, roll, switch, focus, plus, mega]. Rows recorded before focus and Mega Evolution
+   * existed have the first seven columns only and read as focus 1, plus 0, mega 0. */
   record(side, input) {
-    const q = {mx: round3(input.mx || 0), my: round3(input.my || 0), use: input.use ?? -1, dodge: !!input.dodge, sw: input.sw ?? -1};
+    const q = {mx: round3(input.mx || 0), my: round3(input.my || 0), use: input.use ?? -1, dodge: !!input.dodge, sw: input.sw ?? -1,
+      focus: input.focus == null || input.focus ? 1 : 0, mega: input.mega ? 1 : 0};
+    q.plus = input.plus && q.use >= 0 ? 1 : 0;
     const last = side.lastInput;
-    const acts = q.use >= 0 || q.dodge || q.sw >= 0;
-    if (!last || acts || last.mx !== q.mx || last.my !== q.my) {
-      this.inputLog.push([this.t, side.index, q.mx, q.my, q.use, q.dodge ? 1 : 0, q.sw]);
-      side.lastInput = {mx: q.mx, my: q.my};
+    const acts = q.use >= 0 || q.dodge || q.sw >= 0 || q.mega;
+    if (!last || acts || last.mx !== q.mx || last.my !== q.my || last.focus !== q.focus) {
+      this.inputLog.push([this.t, side.index, q.mx, q.my, q.use, q.dodge ? 1 : 0, q.sw, q.focus, q.plus, q.mega]);
+      side.lastInput = {mx: q.mx, my: q.my, focus: q.focus};
     }
+    return {mx: q.mx, my: q.my, use: q.use, dodge: q.dodge, sw: q.sw, focus: !!q.focus, plus: !!q.plus, mega: !!q.mega};
   }
 
   applyInput(side, input) {
     const m = this.mon(side);
     const foe = this.foe(side);
+    side.focus = input.focus == null ? true : !!input.focus;
     // replacing a fainted Pokémon
     if (side.need) {
       let slot = input.sw ?? -1;
@@ -384,6 +472,7 @@ export class RtBattle {
     if (input.sw >= 0 && this.canSwitch(side, input.sw)) { this.startSwitch(side, input.sw); return; }
     const busy = side.act && side.act.kind !== 'approach';
     if (m.status === 'frz') return;
+    if (input.mega && this.canMega(side)) this.megaEvolve(side);
     // dodge roll: a short dash with no damage taken, then a short wait
     if (input.dodge && !busy && this.t >= side.rollReady) {
       let d = norm(input.mx || 0, input.my || 0);
@@ -393,7 +482,7 @@ export class RtBattle {
       this.ev('roll', {s: side.index});
       return;
     }
-    if (input.use >= 0 && !busy) this.tryUse(side, input.use);
+    if (input.use >= 0 && !busy) this.tryUse(side, input.use, !!input.plus);
     // walking
     side.moving = false;
     if (!side.act) {
@@ -411,7 +500,10 @@ export class RtBattle {
         this.moveBy(side, mx * k * v, my * k * v);
         side.moving = true;
       }
-      if (this.onField(foe)) this.face(side, foe.x - side.x, foe.y - side.y);
+      // focusing (always for the AI and in rules version 1): the Pokémon keeps facing the foe, so walking is strafing;
+      // otherwise it faces where it walks and keeps its last facing when it stands still
+      if (side.focus) { if (this.onField(foe)) this.face(side, foe.x - side.x, foe.y - side.y); }
+      else if (l > 0.05) this.face(side, mx, my);
     }
   }
 
@@ -434,6 +526,53 @@ export class RtBattle {
         side.y = clamp(side.y + ((side.y - foe.y) / d) * push, r, ARENA.h - r);
       }
     }
+    if (this.rocks.length) this.outOfRocks(side, r);
+  }
+
+  /** Rocks block walking, rolls and dashes: a Pokémon inside one is pushed back out to its edge. */
+  outOfRocks(side, r = this.radius(side)) {
+    for (const rk of this.rocks) {
+      const d = dist(side, rk);
+      const min = r + rk.r;
+      if (d >= min) continue;
+      const n = d > 1e-6 ? {x: (side.x - rk.x) / d, y: (side.y - rk.y) / d} : {x: side.index ? 1 : -1, y: 0};
+      side.x = clamp(rk.x + n.x * min, r, ARENA.w - r);
+      side.y = clamp(rk.y + n.y * min, r, ARENA.h - r);
+    }
+  }
+
+  /** The first rock that a segment from a to b (with a margin `pad`) goes through, or null. */
+  rockOnLine(a, b, pad = 0) {
+    const dx = b.x - a.x, dy = b.y - a.y;
+    const l2 = dx * dx + dy * dy;
+    let best = null;
+    let bestU = Infinity;
+    for (const rk of this.rocks) {
+      const u = l2 > 1e-9 ? clamp(((rk.x - a.x) * dx + (rk.y - a.y) * dy) / l2, 0, 1) : 0;
+      const d = hyp(a.x + dx * u - rk.x, a.y + dy * u - rk.y);
+      if (d < rk.r + pad && u < bestU) { best = rk; bestU = u; }
+    }
+    return best;
+  }
+
+  /** A walking direction that goes around rocks: when the next few meters along `dir` run into a rock, it turns along the rock's
+   * edge on the side closer to `dir`. */
+  steer(side, dir, ahead = 3) {
+    if (!this.rocks.length || (!dir.x && !dir.y)) return dir;
+    const r = this.radius(side);
+    let rk = null;
+    let near = Infinity;
+    for (const o of this.rocks) {
+      const along = (o.x - side.x) * dir.x + (o.y - side.y) * dir.y;
+      if (along <= 0 || along > ahead + o.r) continue;
+      const off = Math.abs((o.x - side.x) * dir.y - (o.y - side.y) * dir.x);
+      if (off < o.r + r + 0.15 && along < near) { rk = o; near = along; }
+    }
+    if (!rk) return dir;
+    const to = norm(rk.x - side.x, rk.y - side.y);
+    const t1 = {x: -to.y, y: to.x};
+    const t = t1.x * dir.x + t1.y * dir.y >= 0 ? t1 : {x: to.y, y: -to.x};
+    return norm(t.x * 0.9 + dir.x * 0.1, t.y * 0.9 + dir.y * 0.1);
   }
 
   usable(side, slot) {
@@ -449,18 +588,23 @@ export class RtBattle {
     return '';
   }
 
-  tryUse(side, slot) {
+  /** Use a move. Focusing, a move out of range makes the Pokémon walk up to the foe first; not focusing, it goes off at once
+   * where the Pokémon faces. `plus`: go out as a Plus move (rules version 2, a gauge segment). */
+  tryUse(side, slot, plus = false) {
     if (this.usable(side, slot)) return false;
     const foe = this.foe(side);
     const p = this.mon(side).profiles[slot];
     const needsFoe = !['self', 'field'].includes(p.shape);
     if (needsFoe && !this.onField(foe)) return false;
-    const range = this.reachFor(side, foe, p);
-    if (needsFoe && dist(side, foe) > range) {
-      side.act = {kind: 'approach', slot, end: this.t + APPROACH_LIMIT};
-      return true;
+    if (side.focus) {
+      const range = this.reachFor(side, foe, p);
+      if (needsFoe && dist(side, foe) > range) {
+        side.act = {kind: 'approach', slot, end: this.t + APPROACH_LIMIT};
+        if (plus) side.act.plus = true;
+        return true;
+      }
     }
-    this.startWindup(side, slot);
+    this.startWindup(side, slot, plus);
     return true;
   }
 
@@ -471,7 +615,7 @@ export class RtBattle {
     return p.reach;
   }
 
-  startWindup(side, slot) {
+  startWindup(side, slot, plus = false) {
     const m = this.mon(side);
     const p = m.profiles[slot];
     const foe = this.foe(side);
@@ -482,15 +626,99 @@ export class RtBattle {
       if (this.hasItem(m, 'powerherb')) { m.itemUsed = true; this.ev('item', {s: side.index, id: 'powerherb'}); }
       w = Math.min(w, 10);
     }
-    if (this.onField(foe)) this.face(side, foe.x - side.x, foe.y - side.y);
+    // focusing: aim at the foe. Not focusing: aim along the facing, snapped to the foe when it is within 30° of it (aim assist)
+    let aimed = side.focus;
+    if (side.focus) { if (this.onField(foe)) this.face(side, foe.x - side.x, foe.y - side.y); }
+    else if (this.onField(foe)) {
+      const dx = foe.x - side.x, dy = foe.y - side.y;
+      const d = hyp(dx, dy);
+      if (d < 1e-6 || (dx * side.fx + dy * side.fy) / d >= AIM_ASSIST) { this.face(side, dx, dy); aimed = true; }
+    }
     const act = {kind: 'windup', slot, end: this.t + w, start: this.t};
+    if (!side.focus) act.free = true;
+    if (this.plusFor(side, plus)) act.plus = true;
     if (p.shape === 'drop' && this.onField(foe)) {
-      act.tx = foe.x; act.ty = foe.y;
-      this.marks.push({s: side.index, slot, x: foe.x, y: foe.y, r: p.radius, at: this.t + w, mon: side.active});
+      let tx = foe.x, ty = foe.y;
+      if (!aimed) {
+        // the blast lands as far away as the foe is, but where the Pokémon faces
+        const d = Math.min(p.reach, dist(side, foe));
+        tx = round3(clamp(side.x + side.fx * d, 0, ARENA.w));
+        ty = round3(clamp(side.y + side.fy * d, 0, ARENA.h));
+      }
+      act.tx = tx; act.ty = ty;
+      const mark = {s: side.index, slot, x: tx, y: ty, r: act.plus ? p.radius * PLUS.area : p.radius, at: this.t + w, mon: side.active};
+      if (act.plus) mark.plus = true;
+      this.marks.push(mark);
     }
     side.act = act;
-    this.ev('windup', {s: side.index, move: p.id, name: p.name, type: p.type, shape: p.shape, ticks: w, tx: act.tx, ty: act.ty});
+    const e = {s: side.index, move: p.id, name: p.name, type: p.type, shape: p.shape, ticks: w, tx: act.tx, ty: act.ty};
+    if (act.plus) e.plus = true;
+    this.ev('windup', e);
+    if (act.plus) this.ev('plus', {s: side.index, move: p.id, name: p.name, type: p.type, mega: side.mega >= 0, gauge: side.gauge});
     if (w === 0) this.execute(side);
+  }
+
+  /** Does this move go out as a Plus move? Always while Mega Evolved; otherwise when asked for and a gauge segment is full
+   * (it spends the segment). Rules version 2 only. */
+  plusFor(side, want) {
+    if (this.version < 2) return false;
+    if (side.mega >= 0) return true;
+    if (!want || side.gauge < GAUGE_SEGMENT) return false;
+    side.gauge -= GAUGE_SEGMENT;
+    return true;
+  }
+
+  /** A gauge segment is full for a Plus move (not counting Mega Evolution, where every move is one). */
+  plusReady(side) { return this.version >= 2 && side.mega < 0 && side.gauge >= GAUGE_SEGMENT; }
+
+  /** Can this trainer Mega Evolve its active Pokémon now? Its Mega Stone (or Rayquaza's Dragon Ascent), a full gauge, once per
+   * battle, not in the middle of a move. */
+  canMega(side) {
+    if (this.version < 2 || side.megaUsed || side.mega >= 0 || side.gauge < GAUGE_MAX || !this.onField(side)) return false;
+    const m = this.mon(side);
+    if (!m.mega || m.status === 'frz') return false;
+    return !side.act || side.act.kind === 'approach';
+  }
+
+  megaEvolve(side) {
+    const m = this.mon(side);
+    const mg = m.mega;
+    const keep = ['species', 'forme', 'num', 'sprite_id', 'types', 'stats', 'ability', 'ability_name', 'base_speed', 'heightm', 'weightkg'];
+    m.base = Object.fromEntries(keep.map((k) => [k, m[k]]));
+    const before = m.maxhp;
+    for (const k of keep) m[k] = k === 'types' ? mg.types.slice() : k === 'stats' ? {...mg.stats} : mg[k];
+    m.maxhp = mg.stats.hp;
+    m.hp = Math.max(1, Math.min(m.maxhp, Math.round((m.hp * m.maxhp) / Math.max(1, before))));
+    m.megaOn = true;
+    side.mega = side.active;
+    side.megaUsed = true;
+    delete side.vol.types;
+    this.ev('mega', {s: side.index, slot: side.active, species: m.species, from: m.base.species, hp: m.hp, maxhp: m.maxhp});
+    this.abilityStart(side);
+    this.outOfRocks(side);
+  }
+
+  /** The Mega Evolution ends (empty gauge, switched out, fainted): back to the base forme, HP kept in proportion. */
+  megaEnd(side) {
+    const m = side.mons[side.mega];
+    side.mega = -1;
+    if (!m?.base) return;
+    const before = m.maxhp;
+    Object.assign(m, m.base);
+    m.base = null;
+    m.megaOn = false;
+    m.maxhp = m.stats.hp;
+    if (!m.fainted) m.hp = Math.max(1, Math.min(m.maxhp, Math.round((m.hp * m.maxhp) / Math.max(1, before))));
+    this.ev('mega_end', {s: side.index, slot: m.slot, species: m.species, hp: m.hp, maxhp: m.maxhp});
+  }
+
+  updateGauges() {
+    for (const side of this.sides) {
+      if (side.mega >= 0) {
+        side.gauge = Math.max(0, side.gauge - GAUGE_DRAIN);
+        if (side.gauge <= 0) this.megaEnd(side);
+      } else side.gauge = Math.min(GAUGE_MAX, side.gauge + GAUGE_FILL);
+    }
   }
 
   semiInvulnerable(side) {
@@ -526,8 +754,8 @@ export class RtBattle {
       if (!this.onField(foe) || this.t >= a.end || this.usable(side, a.slot)) { side.act = null; return; }
       const reach = this.reachFor(side, foe, p);
       const d = dist(side, foe);
-      if (d <= reach) { this.startWindup(side, a.slot); return; }
-      const dir = norm(foe.x - side.x, foe.y - side.y);
+      if (d <= reach) { this.startWindup(side, a.slot, !!a.plus); return; }
+      const dir = this.steer(side, norm(foe.x - side.x, foe.y - side.y));
       const v = (this.moveSpeed(side) * 1.2) / TPS;
       this.moveBy(side, dir.x * v, dir.y * v);
       this.face(side, dir.x, dir.y);
@@ -535,7 +763,7 @@ export class RtBattle {
     }
     if (a.kind === 'windup') {
       const p = this.mon(side).profiles[a.slot];
-      if (p.shape === 'strike' && this.onField(foe)) this.face(side, foe.x - side.x, foe.y - side.y);
+      if (p.shape === 'strike' && this.onField(foe) && !a.free) this.face(side, foe.x - side.x, foe.y - side.y);
       if (this.t >= a.end) this.execute(side);
       return;
     }
@@ -545,7 +773,7 @@ export class RtBattle {
       a.traveled += v;
       if (this.onField(foe) && !a.hit && !this.semiInvulnerable(foe) && dist(side, foe) <= this.radius(side) + this.radius(foe) + 0.35) {
         a.hit = true;
-        this.resolveHit(side, foe, this.mon(side).profiles[a.slot], {mon: side.active});
+        this.resolveHit(side, foe, this.mon(side).profiles[a.slot], {mon: side.active, plus: a.plus});
         this.finishMove(side, a.slot);
         return;
       }
@@ -585,28 +813,35 @@ export class RtBattle {
   }
 
   performShape(side, foe, p, act) {
-    const ctx = {mon: side.active};
+    const plus = !!act.plus;
+    const ctx = plus ? {mon: side.active, plus} : {mon: side.active};
+    const locked = !act.free;   // focusing when the move started: it tracks the foe
     switch (p.shape) {
       case 'self':
-        this.statusMove(side, side, p);
+        this.statusMove(side, side, p, plus);
         break;
       case 'field':
-        this.statusMove(side, foe, p);
+        this.statusMove(side, foe, p, plus);
         break;
       case 'strike': {
+        // not focusing, a strike lunges forward and only lands if the foe is there
+        if (!locked) this.moveBy(side, side.fx * STRIKE_LUNGE, side.fy * STRIKE_LUNGE);
         if (this.onField(foe) && this.inFront(side, foe, this.reachFor(side, foe, p) + 0.25, p.arc) && !this.semiInvulnerable(foe)) this.resolveHit(side, foe, p, ctx);
         else this.ev('miss', {s: side.index, move: p.id});
         break;
       }
       case 'cone': {
-        this.ev('area', {s: side.index, move: p.id, x: side.x, y: side.y, fx: side.fx, fy: side.fy, r: p.reach, arc: p.arc, type: p.type});
-        if (this.onField(foe) && this.inFront(side, foe, p.reach + this.radius(foe), p.arc) && !this.semiInvulnerable(foe)) this.resolveHit(side, foe, p, ctx);
+        const reach = plus ? p.reach * PLUS.area : p.reach;
+        this.ev('area', {s: side.index, move: p.id, x: side.x, y: side.y, fx: side.fx, fy: side.fy, r: reach, arc: p.arc, type: p.type});
+        if (this.onField(foe) && this.inFront(side, foe, reach + this.radius(foe), p.arc) && !this.semiInvulnerable(foe) &&
+          !(this.rocks.length && this.rockOnLine(side, foe))) this.resolveHit(side, foe, p, ctx);
         else this.ev('miss', {s: side.index, move: p.id});
         break;
       }
       case 'burst': {
-        this.ev('area', {s: side.index, move: p.id, x: side.x, y: side.y, r: p.radius, arc: -1, type: p.type});
-        if (this.onField(foe) && dist(side, foe) <= p.radius + this.radius(foe) && !this.semiInvulnerable(foe)) this.resolveHit(side, foe, p, ctx);
+        const radius = plus ? p.radius * PLUS.area : p.radius;
+        this.ev('area', {s: side.index, move: p.id, x: side.x, y: side.y, r: radius, arc: -1, type: p.type});
+        if (this.onField(foe) && dist(side, foe) <= radius + this.radius(foe) && !this.semiInvulnerable(foe)) this.resolveHit(side, foe, p, ctx);
         else if (p.category !== 'Status') this.ev('miss', {s: side.index, move: p.id});
         if (p.selfdestruct) this.faint(side, null);
         break;
@@ -614,21 +849,26 @@ export class RtBattle {
       case 'drop':
         break; // the mark lands by itself (updateMarks)
       case 'dash': {
-        const d = this.onField(foe) ? norm(foe.x - side.x, foe.y - side.y) : {x: side.fx, y: side.fy};
+        const d = locked && this.onField(foe) ? norm(foe.x - side.x, foe.y - side.y) : {x: side.fx, y: side.fy};
         side.act = {kind: 'dash', slot: act.slot, dx: d.x, dy: d.y, speed: p.speed, traveled: 0, max: p.reach + 1, end: this.t + TPS, hit: false};
+        if (plus) side.act.plus = true;
         this.face(side, d.x, d.y);
         this.ev('dash', {s: side.index, move: p.id});
         break;
       }
       default: { // shot, beam, wave
-        const tx = this.onField(foe) ? foe.x : side.x + side.fx * p.reach;
-        const ty = this.onField(foe) ? foe.y : side.y + side.fy * p.reach;
+        const at = locked && this.onField(foe);
+        const tx = at ? foe.x : side.x + side.fx * p.reach;
+        const ty = at ? foe.y : side.y + side.fy * p.reach;
         const d = norm(tx - side.x, ty - side.y);
         const r0 = this.radius(side) + 0.2;
         const pr = {id: `${this.t}:${side.index}:${act.slot}`, s: side.index, mon: side.active, move: p.id, x: side.x + d.x * r0, y: side.y + d.y * r0,
           vx: d.x * p.speed, vy: d.y * p.speed, r: p.radius, left: p.reach, type: p.type, shape: p.shape};
+        if (plus) pr.plus = true;
         this.projectiles.push(pr);
-        this.ev('shot', {s: side.index, move: p.id, id: pr.id, x: pr.x, y: pr.y, vx: pr.vx, vy: pr.vy, r: pr.r, type: p.type, shape: p.shape});
+        const e = {s: side.index, move: p.id, id: pr.id, x: pr.x, y: pr.y, vx: pr.vx, vy: pr.vy, r: pr.r, type: p.type, shape: p.shape};
+        if (plus) e.plus = true;
+        this.ev('shot', e);
       }
     }
   }
@@ -665,9 +905,15 @@ export class RtBattle {
         if (this.onField(target) && !this.semiInvulnerable(target) && dist(pr, target) <= pr.r + this.radius(target)) {
           const p = rtMove(pr.move, this.gen);
           if (owner.mons[pr.mon].fainted) { done = true; break; }
-          this.resolveHit(owner, target, p, {mon: pr.mon, x: pr.x, y: pr.y});
+          this.resolveHit(owner, target, p, pr.plus ? {mon: pr.mon, x: pr.x, y: pr.y, plus: true} : {mon: pr.mon, x: pr.x, y: pr.y});
           this.ev('impact', {id: pr.id, x: pr.x, y: pr.y});
           done = true;
+        }
+        // rocks stop projectiles and cut beams where they hit them
+        if (!done && this.rocks.length && this.rocks.some((rk) => dist(pr, rk) <= rk.r + pr.r * 0.4)) {
+          this.ev('fizzle', {id: pr.id, x: pr.x, y: pr.y, s: pr.s, move: pr.move, rock: true});
+          done = true;
+          continue;
         }
         if (pr.left <= 0 || pr.x < 0 || pr.y < 0 || pr.x > ARENA.w || pr.y > ARENA.h) { this.ev('fizzle', {id: pr.id, x: pr.x, y: pr.y, s: pr.s, move: pr.move}); done = true; }
       }
@@ -686,7 +932,7 @@ export class RtBattle {
       const p = m.profiles[mk.slot];
       this.ev('area', {s: mk.s, move: p.id, x: mk.x, y: mk.y, r: mk.r, arc: -1, type: p.type});
       if (!m.fainted && this.onField(target) && !this.semiInvulnerable(target) && dist(mk, target) <= mk.r + this.radius(target)) {
-        this.resolveHit(owner, target, p, {mon: mk.mon});
+        this.resolveHit(owner, target, p, mk.plus ? {mon: mk.mon, plus: true} : {mon: mk.mon});
       } else {
         this.ev('miss', {s: mk.s, move: p.id});
       }
@@ -792,7 +1038,7 @@ export class RtBattle {
 
   /** Damage of one hit: the turn-based formula with its modifiers. `expected` gives the average (no random roll, crits weighted)
    * for the AI. Returns {dmg, eff, crit, immune}. */
-  damage(att, def, p, {expected = false, mon = null} = {}) {
+  damage(att, def, p, {expected = false, mon = null, plus = false} = {}) {
     const am = mon != null ? att.mons[mon] : this.mon(att);
     const dm = this.mon(def);
     const type = this.moveType(att, p);
@@ -886,6 +1132,7 @@ export class RtBattle {
     if (this.hasItem(am, 'lifeorb')) dmg *= 1.3;
     if (this.hasItem(am, 'expertbelt') && eff > 1) dmg *= 1.2;
     if (ab === 'neuroforce' && eff > 1) dmg *= 1.25;
+    if (plus) dmg *= eff > 1 ? PLUS.superDamage : PLUS.damage;
     const resistBerry = {occaberry: 'Fire', passhoberry: 'Water', wacanberry: 'Electric', rindoberry: 'Grass', yacheberry: 'Ice', chopleberry: 'Fighting',
       kebiaberry: 'Poison', shucaberry: 'Ground', cobaberry: 'Flying', payapaberry: 'Psychic', tangaberry: 'Bug', chartiberry: 'Rock',
       kasibberry: 'Ghost', habanberry: 'Dragon', colburberry: 'Dark', babiriberry: 'Steel', roseliberry: 'Fairy'}[dm.item];
@@ -900,8 +1147,12 @@ export class RtBattle {
     const am = ctx.mon != null ? att.mons[ctx.mon] : this.mon(att);
     const dm = this.mon(def);
     if (!dm || dm.fainted) return;
-    // protection
-    if (def.vol.protectUntil > this.t && !p.breaksProtect && !(p.category === 'Status' && p.shape === 'self')) {
+    // protection (a Plus attack goes through it for a quarter of its damage)
+    let pierce = false;
+    if (def.vol.protectUntil > this.t && !p.breaksProtect && !(p.category === 'Status' && p.shape === 'self') && ctx.plus && p.category !== 'Status') {
+      this.ev('protected', {s: def.index, move: p.id, pierced: true});
+      pierce = true;
+    } else if (def.vol.protectUntil > this.t && !p.breaksProtect && !(p.category === 'Status' && p.shape === 'self')) {
       this.ev('protected', {s: def.index, move: p.id});
       const kind = def.vol.protectKind;
       if (p.contact) {
@@ -925,10 +1176,11 @@ export class RtBattle {
     let crits = 0;
     const hits = am.ability === 'skilllink' ? Math.max(p.hits, p.hits > 1 ? 5 : 1) : p.hits;
     for (let h = 0; h < hits && !dm.fainted; h++) {
-      const r = this.damage(att, def, p, {mon: ctx.mon});
+      const r = this.damage(att, def, p, ctx.plus ? {mon: ctx.mon, plus: true} : {mon: ctx.mon});
       lastEff = r.eff;
       if (r.crit) crits++;
       let dmg = r.dmg;
+      if (pierce) dmg = Math.max(1, Math.floor(dmg * PLUS.pierce));
       if (r.berry) { dm.itemUsed = true; this.ev('item', {s: def.index, id: dm.item}); }
       // substitute
       if (def.vol.sub > 0 && !p.flags.sound && am.ability !== 'infiltrator') {
@@ -966,13 +1218,14 @@ export class RtBattle {
       if (dm.hp <= 0) { this.faint(def, att, am); break; }
     }
     if (total <= 0) return;
+    if (this.version >= 2) this.gaugeGain(att, total, dm.maxhp);
     if (hits > 1) this.ev('hits', {s: def.index, n: hits});
     // a hit during the target's wind-up can make it flinch
     const flinchAll = p.secondaries.some((s) => s.volatile === 'flinch');
     // secondary effects
     if (am.ability !== 'sheerforce') {
       for (const sec of p.secondaries) {
-        const chance = Math.min(100, sec.chance * (am.ability === 'serenegrace' ? 2 : 1));
+        const chance = Math.min(100, sec.chance * (am.ability === 'serenegrace' ? 2 : 1) * (ctx.plus ? PLUS.secondary : 1));
         if (this.rng() * 100 >= chance) continue;
         if (sec.selfBoosts && att.mons[att.active] === am) this.boost(att, sec.selfBoosts, att, p.id);
         if (dm.fainted) continue;
@@ -1076,7 +1329,7 @@ export class RtBattle {
   }
 
   // ------------------------------------------------------------ status moves
-  statusMove(att, def, p) {
+  statusMove(att, def, p, plus = false) {
     const am = this.mon(att);
     const dm = this.mon(def);
     const self = att === def;
@@ -1170,6 +1423,7 @@ export class RtBattle {
       if (id === 'shoreup' && this.weatherIs('sandstorm')) frac = 2 / 3;
       if (id === 'strengthsap') { this.heal(att, Math.floor(this.stat(def, 'atk')), id); this.boost(def, {atk: -1}, att, id); return; }
       if (att.vol.healBlockUntil > this.t) { this.ev('fail', {s: att.index, move: id}); return; }
+      if (plus) frac = Math.min(1, frac * PLUS.heal);   // a Plus heal restores a third more
       this.heal(att, Math.floor(am.maxhp * frac), id);
       if (id === 'roost') att.vol.roosted = this.t + 1;
       return;
@@ -1189,6 +1443,12 @@ export class RtBattle {
   }
 
   // ------------------------------------------------------------ hp, status, boosts
+  /** Dealing damage fills the trainer's gauge a little faster (not while it is Mega Evolved and draining). */
+  gaugeGain(side, dmg, maxhp) {
+    if (side.mega >= 0) return;
+    side.gauge = Math.min(GAUGE_MAX, side.gauge + Math.floor((GAUGE_HIT * dmg) / Math.max(1, maxhp)));
+  }
+
   heal(side, amount, source) {
     const m = this.mon(side);
     if (!m || m.fainted || amount <= 0) return 0;
@@ -1314,6 +1574,7 @@ export class RtBattle {
     if (by && byMon) byMon.kos++;
     else if (by) this.mon(by).kos++;
     this.ev('faint', {s: side.index, slot: side.active, species: m.species, by: by ? by.index : -1});
+    if (side.mega === side.active) { this.megaEnd(side); side.gauge = 0; }
     // Z-A Battle Club: the switch count comes back after every knockout
     for (const s of this.sides) s.switchesLeft = MAX_SWITCHES;
     if (this.alive(side).length) { side.need = true; side.needSince = this.t; }
@@ -1427,6 +1688,7 @@ export class RtBattle {
   view() {
     return {
       t: this.t, seconds: this.t / TPS, time_limit: this.timeLimit / TPS, ended: this.ended, winner: this.winner, reason: this.reason,
+      version: this.version, arena: this.arena, rocks: this.rocks.map((r) => ({...r})),
       weather: this.weather && this.weather.until > this.t ? {id: this.weather.id, left: (this.weather.until - this.t) / TPS} : null,
       terrain: this.terrain && this.terrain.until > this.t ? {id: this.terrain.id, left: (this.terrain.until - this.t) / TPS} : null,
       projectiles: this.projectiles.map((p) => ({id: p.id, s: p.s, x: p.x, y: p.y, vx: p.vx, vy: p.vy, r: p.r, type: p.type, shape: p.shape, move: p.move})),
@@ -1440,7 +1702,11 @@ export class RtBattle {
           need: s.need, switches_left: s.switchesLeft, roll_ready: Math.max(0, s.rollReady - this.t) / TPS, cond: Object.fromEntries(Object.entries(s.cond).filter(([, v]) => v > this.t).map(([k, v]) => [k, (v - this.t) / TPS])),
           hazards: {...s.hazards}, protect: s.vol.protectUntil > this.t, sub: s.vol.sub > 0, confused: s.vol.confusedUntil > this.t,
           trapped: s.vol.trapUntil > this.t, taunt: s.vol.tauntUntil > this.t, invulnerable: this.semiInvulnerable(s),
+          focus: s.focus, gauge: s.gauge / GAUGE_SEGMENT, mega: s.mega >= 0, mega_used: s.megaUsed, can_mega: this.canMega(s),
+          plus_ready: this.version >= 2 && (s.mega >= 0 || s.gauge >= GAUGE_SEGMENT),
           mons: s.mons.map((x, i) => ({slot: i, species: x.species, name: x.name, num: x.num, forme: x.forme, sprite_id: x.sprite_id, shiny: x.shiny, level: x.level,
+            base_look: {species: (x.base || x).species, forme: (x.base || x).forme, sprite_id: (x.base || x).sprite_id}, is_mega: !!x.megaOn,
+            mega_info: x.mega && this.version >= 2 ? {species: x.mega.species, forme: x.mega.forme, num: x.mega.num, sprite_id: x.mega.sprite_id} : null,
             hp: x.hp, maxhp: x.maxhp, status: x.status, fainted: x.fainted, types: x.types, item: x.itemUsed ? '' : x.item_name, ability: x.ability_name,
             boosts: {...x.boosts},
             moves: x.moves.map((mv, j) => ({...mv, cd: x.cds[j] / TPS, total: i === s.active && m && !m.fainted ? this.cooldownTicks(s, x.profiles[j]) / TPS : mv.final,
@@ -1501,14 +1767,15 @@ export function fastForward(b, inputs, until) {
 /** The inputs of the people's seats for the next tick, from the recorded rows of that tick and what they were holding. */
 export function inputFrame(b, rows, held) {
   const now = [null, null];
-  for (const [, side, mx, my, use, dodge, sw] of rows) {
-    held[side] = {mx, my};
-    now[side] = {mx, my, use, dodge: !!dodge, sw};
+  // rows recorded before focus and Mega Evolution existed have seven columns: they read as focused, no Plus, no Mega
+  for (const [, side, mx, my, use, dodge, sw, focus = 1, plus = 0, mega = 0] of rows) {
+    held[side] = {mx, my, focus: !!focus};
+    now[side] = {mx, my, use, dodge: !!dodge, sw, focus: !!focus, plus: !!plus, mega: !!mega};
   }
   const frame = {};
   for (const i of [0, 1]) {
     if (b.sides[i].ai) continue;
-    frame[b.sides[i].id] = now[i] || (held[i] ? {mx: held[i].mx, my: held[i].my, use: -1, dodge: false, sw: -1} : null);
+    frame[b.sides[i].id] = now[i] || (held[i] ? {mx: held[i].mx, my: held[i].my, use: -1, dodge: false, sw: -1, focus: held[i].focus} : null);
   }
   return frame;
 }
@@ -1541,6 +1808,9 @@ export function eventLines(battle) {
       case 'hazard': lines.push(`[${sec(e.t)}] ${e.id} on ${names[e.s]}'s side`); break;
       case 'side': lines.push(`[${sec(e.t)}] ${names[e.s]}: ${e.id} for ${e.secs} s`); break;
       case 'flinch': lines.push(`[${sec(e.t)}] ${who} flinched and lost its move`); break;
+      case 'mega': lines.push(`[${sec(e.t)}] ${names[e.s]}'s ${e.from} Mega Evolved into ${e.species}`); break;
+      case 'mega_end': lines.push(`[${sec(e.t)}] ${names[e.s]}'s ${e.species} went back to its usual forme`); break;
+      case 'plus': lines.push(`[${sec(e.t)}] ${who}: Plus ${e.name}${e.mega ? ' (Mega)' : ''}`); break;
       case 'forfeit': lines.push(`[${sec(e.t)}] ${names[e.s]} forfeited`); break;
       case 'end': lines.push(`[${sec(e.t)}] ${e.winner === 0 || e.winner === 1 ? `${names[e.winner]} won` : 'Tie'} (${e.reason})`); break;
       default: break;
