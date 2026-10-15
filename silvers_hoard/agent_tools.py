@@ -652,6 +652,8 @@ class SettingsSetArgs(BaseModel):
     node_path: Optional[str] = Field(None, max_length=500)
     sprite_downloads: Optional[bool] = None
     ai_hidden_info: Optional[bool] = Field(None, description="AIs see only what the battle has shown of the opponent's team.")
+    music_source: Optional[Literal["showdown", "pokerogue"]] = Field(None, description="Battle music: showdown (trainer and rival themes) or pokerogue (its community's original tracks, CC BY-NC-SA 4.0: by gym type, Elite Four, champion).")
+    pokerogue_audio: Optional[str] = Field(None, max_length=300, description="Where PokeRogue's battle tracks are downloaded from.")
     ai_banter: Optional[bool] = Field(None, description="AI trainers comment their moves in character as the battle goes (the family's language model writes the lines in the background; battle_get returns them as banter).")
     smogon_data: Optional[bool] = Field(None, description="Fetch popular sets and usage statistics from data.pkmn.cc when asked for.")
     sound_downloads: Optional[bool] = None

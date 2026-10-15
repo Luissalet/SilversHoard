@@ -6,7 +6,7 @@ from pathlib import Path
 import pytest
 
 from silvers_hoard.errors import SilverError
-from silvers_hoard.sounds import TRACKS
+from silvers_hoard.sounds import PR_TRACKS, TRACKS
 
 
 def _audio(services) -> Path:
@@ -112,5 +112,5 @@ def test_the_tracks_the_client_picks_from_are_all_served():
     """client/src/audio.js picks by generation from its own list; every id in it must be on the server's whitelist."""
     text = (Path(__file__).resolve().parent.parent / "client" / "src" / "audio.js").read_text(encoding="utf-8")
     block = text[text.index("const TRACKS"):text.index("export function pickTrack")]
-    ids = set(re.findall(r'"([a-z0-9-]+)"', block))
-    assert ids and ids <= set(TRACKS)
+    ids = set(re.findall(r'"([a-z0-9-]+)"', block)) - {"pokerogue"}     # the music source's own name, not a track
+    assert ids and ids <= set(TRACKS) | set(PR_TRACKS)          # the community source's tracks are served as pr-<name>

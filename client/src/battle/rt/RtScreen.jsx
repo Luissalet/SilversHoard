@@ -8,7 +8,7 @@ import { L, STATUS_COLORS, STATUS_NAMES, STAT_SHORT, TYPE_COLORS, nameOf, typeNa
 import { ArenaRenderer } from "./render.js";
 import SoundButton from "../SoundControl.jsx";
 import { appCryUrl } from "../sfx.js";
-import { battleEnd, music, pickTrack } from "../../audio.js";
+import { battleEnd, battleRole, battleType, genOfFormat, music, pickTrack } from "../../audio.js";
 import { CONTROL_LAYOUTS, makeInputs } from "./input.js";
 import { rtT } from "./strings.js";
 import "./rt.css";
@@ -364,7 +364,7 @@ function TrainingPanel({ stats, tr, lang }) {
   );
 }
 
-export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish, onSave, onAgain, base = "", offline = false, onContinue = null, continueLabel = "", video = null }) {
+export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish, onSave, onAgain, base = "", offline = false, onContinue = null, continueLabel = "", video = null, musicSource = "showdown" }) {
   const tr = useMemo(() => rtT(lang), [lang]);
   const spec = battle.rt.spec;
   const humans = battle.rt.human || [false, false];
@@ -655,7 +655,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
 
   // sound: replays at 4x skip the small effects; the music plays while the fight is on and gives way to a cue at the end
   useEffect(() => { if (sim.current?.renderer) sim.current.renderer.audio.speed = live ? 1 : speed; }, [speed, live, phase]);
-  const musicUrl = `${base}/api/music/${pickTrack(battle.id, 0)}`;
+  const musicUrl = `${base}/api/music/${pickTrack(battle.id, musicSource === "pokerogue" ? genOfFormat(battle.format) : 0, { source: musicSource, role: battleRole(battle), type: battleType(battle) })}`;
   useEffect(() => {
     if (!offline && ["running", "playing", "paused", "replay-paused"].includes(phase)) music.play(musicUrl);
   }, [phase, musicUrl, offline]);
