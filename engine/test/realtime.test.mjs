@@ -1,6 +1,8 @@
 // Real-time mode (Legends: Z-A rules): cooldowns instead of PP, deterministic battles, replays from inputs, the AI in every level.
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
+import {readFileSync} from 'node:fs';
 import {Dex} from '@pkmn/sim';
 import {importTeam, randomTeam} from '../src/core.mjs';
 import {baseCooldown, cooldownTable, derivedCooldown, finalCooldown, rtMove, TPS} from '../src/realtime/moves.mjs';
@@ -122,4 +124,16 @@ test('engine commands for real time', async () => {
   assert.deepEqual(cds.result.moves.map((m) => m.final), [3, 5]);
   const bad = await handle({id: 4, cmd: 'rt_check', args: {spec: {...spec, p1: {name: 'A', sets: []}}}});
   assert.equal(bad.ok, false);
+});
+
+test('old replays: battles recorded before focus, rocks and Mega Evolution replay to the same result', () => {
+  const fixture = JSON.parse(readFileSync(new URL('./fixtures/rt-legacy-v1.json', import.meta.url), 'utf8'));
+  assert.equal(fixture.battles.length, 4);
+  for (const rec of fixture.battles) {
+    const b = rtRun(rec.spec, {inputs: rec.inputs});
+    assert.deepEqual(b.summary(), rec.summary, rec.name);
+    assert.equal(b.t, rec.ticks, rec.name);
+    assert.equal(b.events.length, rec.events, rec.name);
+    assert.equal(createHash('sha256').update(JSON.stringify(b.events)).digest('hex'), rec.digest, `${rec.name}: the same events`);
+  }
 });
