@@ -107,6 +107,12 @@ export default function Ajustes() {
       <Section title={t("snd_title")}>
         <div className="panel space-y-3">
           <SoundSliders lang={lang} />
+          <Field label={t("music_source")} hint={t("music_source_help")}>
+            <select className="field" value={f.music_source || "showdown"} onChange={(e) => set("music_source", e.target.value)}>
+              <option value="showdown">{t("music_source_showdown")}</option>
+              <option value="pokerogue">{t("music_source_pokerogue")}</option>
+            </select>
+          </Field>
           <label className="flex items-center gap-2"><Switch checked={f.sound_downloads !== false} onChange={(v) => set("sound_downloads", v)} label={t("snd_downloads")} /> {t("snd_downloads")}</label>
           <p className="help">{t("snd_help")} {t("snd_downloads_help")} {audioStats.data ? t("snd_cache", { n: audioStats.data.cached, mb: (audioStats.data.bytes / 1048576).toFixed(1) }) : ""}</p>
         </div>

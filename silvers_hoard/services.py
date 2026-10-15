@@ -1758,7 +1758,9 @@ class Services:
         out["map"] = bool((r.get("challenger") or {}).get("map"))
         if r.get("kind") == "gym":   # the backdrop the gym's turn-based battles show
             with contextlib.suppress(SilverError):
-                out["backdrop"] = self.store.gym(r["target_id"], deleted=True).get("backdrop") or ""
+                gym = self.store.gym(r["target_id"], deleted=True)
+                out["backdrop"] = gym.get("backdrop") or ""
+                out["type"] = gym.get("type") or ""   # the music of its battles can follow it
         if out.get("mode") == "realtime":
             out["rt_arena"] = (r.get("challenger") or {}).get("rt_arena") or "rocks"
         out["challenger_avatar_url"] = self.avatar_url((r.get("challenger") or {}).get("avatar", ""))

@@ -6,7 +6,7 @@ import Arena from "../battle/Arena.jsx";
 import Controls, { ReplayBar } from "../battle/Controls.jsx";
 import { useBattlePlayer } from "../battle/player.js";
 import { appCryUrl } from "../battle/sfx.js";
-import { battleEnd, genOfFormat, music, pickTrack } from "../audio.js";
+import { battleEnd, battleRole, battleType, genOfFormat, music, pickTrack } from "../audio.js";
 import { Busy, Empty, ErrorBox, Field, Icon, ICONS, Spinner, useBusy, useLoad, useStored } from "../components/ui.jsx";
 import { useContextProvider, usePoll } from "../components/hooks.js";
 import { Avatar, GymBadge, useSeats } from "../components/silver.jsx";
@@ -131,7 +131,7 @@ export default function Combate({ param }) {
   // battle music: one track per battle (it fits the format's generation), looped while the battle plays; it fades out at the end
   // with a short victory or defeat cue, and starts again when an ended battle is replayed from the start
   const musicOn = !!battle && battle.mode !== "realtime" && (battle.status === "live" || battle.status === "ended") && !(battle.kind === "friend" && !battle.log_length);
-  const trackUrl = battle ? `/api/music/${pickTrack(battle.id, genOfFormat(battle.format))}` : "";
+  const trackUrl = battle ? `/api/music/${pickTrack(battle.id, genOfFormat(battle.format), { source: settings.music_source, role: battleRole(battle), type: battleType(battle) })}` : "";
   useEffect(() => {
     if (musicOn && !player.state.ended) music.play(trackUrl);
   }, [musicOn, trackUrl, player.state.ended]); // eslint-disable-line react-hooks/exhaustive-deps

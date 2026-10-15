@@ -22,6 +22,19 @@ TRACKS = (
     "dpp-trainer", "dpp-rival", "hgss-johto-trainer", "hgss-kanto-trainer", "xy-trainer", "xy-rival",
     "oras-trainer", "oras-rival", "sm-trainer", "sm-rival", "xd-miror-b", "colosseum-miror-b",
 )
+# PokeRogue's original music (the music source "pokerogue" in Settings): only the tracks its community composed, under CC BY-NC-SA
+# 4.0 (its REUSE.toml; the game rips it also hosts are left out), served as ``pr-<name>`` and credited per track
+PR_TRACKS = {
+    **dict.fromkeys(("abyss", "desert", "end", "graveyard", "ice_cave", "laboratory", "metropolis", "plains", "power_plant", "seabed", "space",
+                     "volcano"), "Firel"),
+    **dict.fromkeys(("jungle", "lake", "ruins", "rocky_coast"), "Lmz"),
+    **dict.fromkeys(("battle_rival_3_afd", "battle_trainer_afd", "forest", "fairy_cave", "sea", "slum"), "Andr06"),
+    "wasteland": "Leavannite",
+    **dict.fromkeys(("cave", "snowy_forest", "tall_grass"), "Bird_Obsession"),
+    **dict.fromkeys(("construction_site", "island"), "MattCello"),
+    "underground_well": "Veilure",
+    "swamp": "Faces in the Clouds",
+}
 NEGATIVE_TTL_S = 7 * 24 * 3600
 MAX_AUDIO_BYTES = 12 * 1024 * 1024
 
@@ -46,7 +59,7 @@ class Sounds:
         with self._locks_guard:
             return self._locks.setdefault(key, threading.Lock())
 
-    def _fetch(self, rel: str) -> Optional[Path]:
+    def _fetch(self, rel: str, url: str = "") -> Optional[Path]:
         """The cached file ``rel`` (e.g. ``cries/pikachu.mp3``), downloading it once; None when the server has no such file
         (remembered for a week), the network is down, or downloads are off and it is not cached."""
         path = self.cache_dir / rel
@@ -61,7 +74,7 @@ class Sounds:
             if path.exists() and path.stat().st_size > 0:
                 return path
             sub = rel.removeprefix("music/")
-            url = f"{str(self.settings.get('audio_server')).rstrip('/')}/{sub}"
+            url = url or f"{str(self.settings.get('audio_server')).rstrip('/')}/{sub}"
             try:
                 status, body, ctype = self._http_get(url)
             except Exception as exc:  # noqa: BLE001 - offline: no sound, the UI carries on silent
@@ -96,6 +109,15 @@ class Sounds:
         t = track.lower()
         if t.endswith(".mp3"):
             t = t[:-4]
+        if t.startswith("pr-"):
+            name = t[3:]
+            if name not in PR_TRACKS:
+                raise SilverError("invalid", f"Not a battle track: {track}")
+            base = str(self.settings.get("pokerogue_audio") or "").rstrip("/")
+            path = self._fetch(f"music/pokerogue/{name}.mp3", f"{base}/{name}.mp3")
+            if not path:
+                raise SilverError("not_found", f"No music {track}")
+            return path
         if t not in TRACKS:
             raise SilverError("invalid", f"Not a battle track: {track}")
         path = self._fetch(f"music/{t}.mp3")
@@ -106,4 +128,5 @@ class Sounds:
     def stats(self) -> dict[str, Any]:
         files = [p for p in self.cache_dir.rglob("*.mp3") if p.is_file()] if self.cache_dir.exists() else []
         return {"cached": len(files), "bytes": sum(p.stat().st_size for p in files), "downloads": self.downloads, "misses": self.misses,
-                "downloads_on": bool(self.settings.get("sound_downloads", True)), "tracks": list(TRACKS)}
+                "downloads_on": bool(self.settings.get("sound_downloads", True)), "tracks": list(TRACKS),
+                "pokerogue_tracks": [{"track": f"pr-{x}", "by": who, "licence": "CC BY-NC-SA 4.0"} for x, who in PR_TRACKS.items()]}
