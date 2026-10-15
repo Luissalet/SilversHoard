@@ -88,7 +88,9 @@ export class ArenaRenderer {
   resize(width) {
     const dpr = Math.min(2, window.devicePixelRatio || 1);
     // the whole court fits on the screen with the bars above and the moves below it
-    const maxH = Math.max(260, (window.innerHeight || 800) - 330);
+    // (a video clip has no moves, log or replay bar: only the bars above)
+    const reserve = typeof document !== "undefined" && document.body?.classList.contains("video-mode") ? 240 : 330;
+    const maxH = Math.max(260, (window.innerHeight || 800) - reserve);
     const w = Math.max(320, Math.floor(Math.min(width, maxH * WORLD_RATIO)));
     // a scrollbar coming and going changes the width by a few pixels: ignore that, or the page and the canvas chase each other
     if (this.cssWidth && Math.abs(this.cssWidth - w) < 24 && this.dpr === dpr) return;

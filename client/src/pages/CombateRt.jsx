@@ -7,6 +7,9 @@ import RtScreen from "../battle/rt/RtScreen.jsx";
 import { usePoll } from "../components/hooks.js";
 import { useSeats } from "../components/silver.jsx";
 import { RunStrip } from "./Combate.jsx";
+import VideoExport from "../components/VideoExport.jsx";
+
+export { RtScreen };     // the video page records a real-time replay with it (same chunk)
 
 export default function CombateRt({ battle, setData }) {
   const { t, lang, sprites, changed, go } = useApp();
@@ -64,6 +67,7 @@ export default function CombateRt({ battle, setData }) {
         </div>
         <div className="flex flex-wrap gap-2">
           {battle.status === "ended" && runActive && battle.winner_side === "p1" && <button type="button" className="btn btn-primary" onClick={nextStage}>{t("next_stage")}</button>}
+          {battle.status === "ended" && battle.log_length > 0 && <VideoExport battle={battle} />}
           <a className="btn" href="#/combatir">{t("new_battle")}</a>
         </div>
       </div>
