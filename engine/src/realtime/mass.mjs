@@ -18,7 +18,7 @@ import {finalCooldown, rtMove, TPS} from './moves.mjs';
 export {TPS};
 export const MASS_VERSION = 1;
 export const MASS_MODES = ['ffa', 'teams', 'boss'];
-export const MASS_MAX_UNITS = 300;
+export const MASS_MAX_UNITS = 1100;            // the whole National Dex (1025) fits
 export const MASS_MAX_TEAMS = 16;
 export const MASS_FLOORS = ['grass', 'sand', 'ice', 'cave', 'indoor', 'water', 'pyre', 'summit', 'meteor', 'champion', 'castle'];
 export const MASS_COLORS = ['#3d8bfd', '#e5484d', '#30a46c', '#f5a524', '#8e4ec6', '#12a594', '#e93d82', '#ad7f58', '#6e56cf',
@@ -703,12 +703,18 @@ export class MassBattle {
 
   // ------------------------------------------------------------ reading
   teamStats() {
-    return this.teams.map((tm, ti) => {
-      const us = this.units.filter((u) => u.team === ti);
-      return {name: tm.name, color: tm.color, size: us.length, alive: us.filter((u) => !u.fainted).length,
-        hp: us.reduce((a, u) => a + u.hp, 0), maxhp: us.reduce((a, u) => a + u.maxhp, 0), kos: us.reduce((a, u) => a + u.kos, 0),
-        dealt: us.reduce((a, u) => a + u.dealt, 0)};
-    });
+    // one pass over the units (everybody against everybody has as many teams as Pokémon)
+    const out = this.teams.map((tm) => ({name: tm.name, color: tm.color, size: 0, alive: 0, hp: 0, maxhp: 0, kos: 0, dealt: 0}));
+    for (const u of this.units) {
+      const s = out[u.team];
+      s.size++;
+      if (!u.fainted) s.alive++;
+      s.hp += u.hp;
+      s.maxhp += u.maxhp;
+      s.kos += u.kos;
+      s.dealt += u.dealt;
+    }
+    return out;
   }
 
   /** The result: winner, how it ended, every side's numbers and the Pokémon ranked (last standing first, then by when they fell). */

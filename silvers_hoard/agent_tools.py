@@ -388,8 +388,8 @@ class MassTeamArgs(BaseModel):
     kind: Literal["dex", "top", "starters", "legendaries", "random", "species", "trainer"] = Field(
         "dex", description="dex: whole generations; top: the strongest (base stats) of each generation; starters; legendaries; random; species: the names in list; trainer: a trainer's team.")
     gens: list[int] = Field(default_factory=list, max_length=9, description="Generations 1-9 (dex, top, legendaries, random).")
-    count: int = Field(0, ge=0, le=300, description="top: how many of each generation; random: how many.")
-    species: list[str] = Field(default_factory=list, max_length=300, description="species kind: Pokémon names (formes too, e.g. Eternatus-Eternamax).")
+    count: int = Field(0, ge=0, le=1100, description="top: how many of each generation; random: how many.")
+    species: list[str] = Field(default_factory=list, max_length=1100, description="species kind: Pokémon names (formes too, e.g. Eternatus-Eternamax).")
     trainer_id: str = Field("", max_length=80, description="trainer: whose team.")
     name: str = Field("", max_length=40, description="The team's name (empty: from its generations or kind).")
     color: str = Field("", max_length=7, description="#rrggbb (empty: the team's default colour).")
@@ -1116,7 +1116,7 @@ TOOLS: list[Tool] = [
     Tool("mass_start", _d("Run a mass battle: dozens to hundreds of Pokémon, each with its own AI. Batalla campal.",
                           "Modes: ffa (battle royale, last one standing), teams (armies, generations), boss (giants against a crowd). Who fights: "
                           "generations, the strongest of each, starters, legendaries, random, names or a trainer's team; sets come from what each "
-                          "Pokémon learns. Up to 300 Pokémon. Watch it at #/campal/<id>.",
+                          "Pokémon learns. Up to 1100 Pokémon (the whole National Dex). Watch it at #/campal/<id>.",
                           synonyms="battle royale, todos contra todos, por equipos, ejércitos, jefe gigante, muchos contra uno, simulador de batallas épicas"),
          MassStartArgs, W,
          lambda s, a: s.mass.start(preset=a.preset, again=a.again, mode=a.mode, teams=[t.model_dump() for t in a.teams], level=a.level,

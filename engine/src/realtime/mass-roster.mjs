@@ -12,7 +12,7 @@ export const STARTERS = ['Bulbasaur', 'Charmander', 'Squirtle', 'Chikorita', 'Cy
   'Turtwig', 'Chimchar', 'Piplup', 'Snivy', 'Tepig', 'Oshawott', 'Chespin', 'Fennekin', 'Froakie', 'Rowlet', 'Litten', 'Popplio',
   'Grookey', 'Scorbunny', 'Sobble', 'Sprigatito', 'Fuecoco', 'Quaxly'];
 export const ROSTER_KINDS = ['dex', 'top', 'starters', 'legendaries', 'random', 'species', 'sets'];
-const MAX_ROSTER = 300;
+const MAX_ROSTER = 1100;
 const HEAL = ['recover', 'roost', 'softboiled', 'milkdrink', 'slackoff', 'synthesis', 'moonlight', 'morningsun', 'shoreup'];
 const BOOST_PHYS = ['swordsdance', 'dragondance', 'bulkup', 'shellsmash'];
 const BOOST_SPEC = ['nastyplot', 'calmmind', 'quiverdance', 'shellsmash'];

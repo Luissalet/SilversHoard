@@ -164,7 +164,7 @@ function Builder({ onStart, busy }) {
               {mode !== "ffa" && <Field label={t("mass_color")}><input type="color" className="h-9 w-12" value={x.color} onChange={(e) => setTeam(i, { color: e.target.value })} /></Field>}
               {["top", "random"].includes(x.kind) && (
                 <Field label={x.kind === "top" ? t("mass_count_each") : t("mass_count")}>
-                  <input className="field max-w-[90px]" type="number" min={1} max={300} value={x.count} onChange={(e) => setTeam(i, { count: e.target.value })} />
+                  <input className="field max-w-[90px]" type="number" min={1} max={1100} value={x.count} onChange={(e) => setTeam(i, { count: e.target.value })} />
                 </Field>
               )}
               <label className="flex items-center gap-1 help"><input type="checkbox" checked={!!x.shiny} onChange={(e) => setTeam(i, { shiny: e.target.checked })} /> {t("mass_shiny")}</label>
