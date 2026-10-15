@@ -1,6 +1,7 @@
 // Names, types and sprites for the battle screen (shared by the app and the playable page). Moves, abilities, items, natures and
 // types read in Spanish when the screen is in Spanish (PokeAPI's Spanish names); Pokémon keep their names.
 import NAMES_ES from "./names-es.js";
+import { BattleText } from "./text/battle-text.gen.js";
 
 export const toID = (text) => String(text ?? "").toLowerCase().replace(/[^a-z0-9]+/g, "");
 
@@ -10,6 +11,7 @@ export const TYPE_COLORS = {
   Dragon: "#6f35fc", Dark: "#705746", Steel: "#b7b7ce", Fairy: "#d685ad", Stellar: "#44a5d8", "???": "#68a090",
 };
 
+const PS_TABLES = { moves: "Moves", items: "Items", abilities: "Abilities" };
 const KIND = { move: "moves", moves: "moves", ability: "abilities", abilities: "abilities", item: "items", items: "items", nature: "natures", type: "types" };
 
 /** The name to show for a move, ability, item, nature or type. */
@@ -19,6 +21,10 @@ export function nameOf(kind, english, lang) {
   const table = NAMES_ES[KIND[kind] || kind] || {};
   const own = table[toID(english)];
   if (own) return own;
+  // what PokeAPI does not name (Z-Moves, Max Moves, the newest items) comes from the simulator's own Spanish texts
+  const ps = PS_TABLES[KIND[kind] || kind];
+  const fromPs = ps && BattleText.es?.[ps]?.[toID(english)]?.name;
+  if (fromPs) return fromPs;
   // "Hidden Power Fighting" (the protocol names its type) → "Poder Oculto Lucha"
   const hp = (KIND[kind] || kind) === "moves" ? /^hidden ?power ?([a-z]+)$/i.exec(String(english).trim()) : null;
   if (hp) return `${table.hiddenpower || "Hidden Power"} ${nameOf("type", hp[1], lang)}`;

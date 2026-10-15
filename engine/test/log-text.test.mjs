@@ -68,6 +68,13 @@ test("odd lines never break the log", () => {
   assert.equal(tidy("  ¡el X rival de el lado!\n  (a el Y)", "es"), "¡El X rival del lado! (Al Y)");
 });
 
+test("names PokeAPI lacks come from the simulator's Spanish texts", () => {
+  const z = BattleText.es.Moves.infernooverdrive?.name;
+  assert.ok(z && z !== "Inferno Overdrive", "the table names it");
+  assert.equal(nameOf("move", "Inferno Overdrive", "es"), z);
+  assert.equal(nameOf("move", "Inferno Overdrive", "en"), "Inferno Overdrive");
+});
+
 test("Hidden Power reads with its type in Spanish", () => {
   assert.equal(nameOf("move", "Hidden Power Fighting", "es"), `${nameOf("move", "Hidden Power", "es")} ${nameOf("type", "Fighting", "es")}`);
   assert.equal(nameOf("move", "Hidden Power Fighting", "en"), "Hidden Power Fighting");
