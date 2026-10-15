@@ -171,7 +171,7 @@ export function rtMove(id, gen = 9) {
     sideCondition: m.sideCondition || '', weather: m.weather || '', terrain: m.terrain || '', target: m.target,
     selfdestruct: !!m.selfdestruct, forceSwitch: !!m.forceSwitch, selfSwitch: !!m.selfSwitch, ohko: !!m.ohko,
     recharge: !!(m.self?.volatileStatus === 'mustrecharge' || m.flags?.recharge), stalling: !!m.stallingMove,
-    damage: m.damage ?? null, noEffect: NO_EFFECT.has(m.id), desc: m.shortDesc || m.desc || '',
+    damage: m.damage ?? null, noEffect: NO_EFFECT.has(m.id),
     ignoreImmunity: !!m.ignoreImmunity, breaksProtect: !!m.breaksProtect, ignoreDefensive: !!m.ignoreDefensive,
     overrideOffensiveStat: m.overrideOffensiveStat || '', overrideDefensiveStat: m.overrideDefensiveStat || '',
     selfBoostAfter: m.self?.volatileStatus === 'lockedmove' ? 'confusion' : '', thaws: !!m.thawsTarget || m.flags?.defrost === 1,
