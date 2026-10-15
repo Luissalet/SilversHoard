@@ -117,3 +117,83 @@ def test_a_friend_result_may_come_in_the_order_the_map_was_walked(call, services
         services.import_any(good)
     except SilverError as e:
         assert "order of the battles" not in e.message
+
+
+def _room(rows, start, leader, trainers=(), props=()):
+    return {"w": len(rows[0]), "h": len(rows), "tiles": "".join(rows), "start": list(start),
+            "leader": {"x": leader[0], "y": leader[1], "facing": "down"}, "trainers": list(trainers), "props": list(props)}
+
+
+def test_ice_slides_you_until_something_stops_you():
+    rows = ["#########",
+            "#...L...#",
+            "#.......#",
+            "#_______#",
+            "#_______#",
+            "#_______#",
+            "#...S...#",
+            "#########"]
+    rows = [r.replace("L", ".").replace("S", ".") for r in rows]
+    m = _room(rows, (4, 6), (4, 1))
+    seen = gymmap.stops(m)
+    # walking up from the entrance you slide over the ice up to the first floor tile
+    assert (4, 2) in seen and (4, 4) not in seen
+    assert gymmap.clean(m, [])["tiles"].count("_") == 21
+    # a frozen room with a wall where the slide would end leaves the leader out of reach
+    walled = rows[:]
+    walled[2] = "#########"
+    assert "no way from the entrance to the leader" in _err(_room(walled, (4, 6), (4, 1)), [])
+
+
+def test_arrows_carry_you_and_a_switch_opens_the_doors():
+    rows = ["#########",
+            "#.......#",
+            "####d####",
+            "#.......#",
+            "#.>>>>..#",
+            "#.......#",
+            "#.......#",
+            "#########"]
+    m = _room(rows, (4, 6), (4, 1))
+    assert "a door needs a switch" in _err(m, [])
+    with_switch = rows[:]
+    with_switch[5] = "#......s#"
+    m2 = _room(with_switch, (4, 6), (4, 1))
+    assert gymmap.clean(m2, [])
+    seen = gymmap.stops(m2)
+    assert (4, 2) in seen, "standing in the doorway once the switch was stepped on"
+    # stepping on the first arrow carries you to the end of the row
+    assert (3, 4) not in seen and (6, 4) in seen
+
+
+def test_buildings_stand_on_the_map_and_block_the_way():
+    rows = ["." * 16] * 12
+    rows = ["#" * 16] + ["#" + "." * 14 + "#" for _ in range(10)] + ["#" * 16]
+    m = _room(rows, (8, 10), (8, 1), props=[{"kind": "center", "x": 1, "y": 3}, {"kind": "house", "x": 9, "y": 4}])
+    out = gymmap.clean(m, [])
+    assert [p["kind"] for p in out["props"]] == ["center", "house"]
+    assert (2, 4) not in gymmap.stops(out)
+    assert "a building's kind" in _err({**m, "props": [{"kind": "castle", "x": 1, "y": 1}]}, [])
+    assert "does not fit" in _err({**m, "props": [{"kind": "gym", "x": 12, "y": 1}]}, [])
+    assert "overlap" in _err({**m, "props": [{"kind": "house", "x": 1, "y": 1}, {"kind": "house", "x": 3, "y": 3}]}, [])
+    assert "stands on the entrance" in _err({**m, "props": [{"kind": "house", "x": 6, "y": 6}]}, [])
+
+
+def test_trainers_can_turn_and_generated_puzzles_are_solvable():
+    ids = [f"t{i}" for i in range(6)]
+    m = gymmap.generate(ids, seed="p")
+    m["trainers"][0]["turns"] = True
+    assert gymmap.clean(m, ids)["trainers"][0]["turns"] is True
+    for puzzle, mark in (("ice", "_"), ("arrows", "^<>"), ("switches", "ds")):
+        g = gymmap.generate(ids, seed="p", puzzle=puzzle)
+        assert any(c in g["tiles"] for c in mark), puzzle
+        assert gymmap.clean(g, ids) == g
+    assert "puzzle is one of" in _err_gen(ids)
+
+
+def _err_gen(ids):
+    try:
+        gymmap.generate(ids, seed="p", puzzle="lava")
+    except SilverError as e:
+        return e.message
+    raise AssertionError("no error")
