@@ -10,3 +10,5 @@ Lo que falta por construir, de más a menos valor. Lo que ya hace está en el [R
    terminar los modos y el pulido.
 4. **Vídeo de combates en tiempo real.** Hoy se graban las repeticiones de los combates por turnos; los de tiempo
    real necesitan reproducir sus entradas en la arena sin ventana con el mismo ritmo.
+5. **IA que no ve el equipo rival.** Hoy la IA conoce los dos equipos, como un entrenador del juego. Un nivel
+   «de ranking» que solo vea lo revelado y prediga el resto con las estadísticas de uso de `smogon.py`.

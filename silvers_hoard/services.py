@@ -26,6 +26,7 @@ from .errors import SilverError
 from .hoard_link import family
 from .hoard_link.tokens import read_or_create_token
 from .pmd import PmdSprites
+from .smogon import Smogon
 from .sounds import Sounds
 from .sprites import Sprites, _http_get
 from .store import Store
@@ -86,6 +87,7 @@ class Services:
         self.sprites = Sprites(config.sprites_dir, config.avatars_dir, self.settings, http_get=http_get)
         self.sounds = Sounds(config.sprites_dir.parent / "audio", self.settings, http_get=http_get)
         self.pmd = PmdSprites(config.sprites_dir.parent / "pmd", self.settings, http_get or _http_get)
+        self.smogon = Smogon(config.sprites_dir.parent / "smogon", http_get or _http_get, enabled=lambda: bool(self.settings["smogon_data"]))
         self.pool = ThreadPoolExecutor(max_workers=2, thread_name_prefix="silver-job")
         self._cancel: dict[str, bool] = {}
         self._battle_locks: dict[str, threading.Lock] = {}
@@ -2222,6 +2224,21 @@ class Services:
         if not path.exists():
             raise SilverError("not_found", f"Export not found: {filename}")
         return path
+
+    # ------------------------------------------------------------ popular sets and usage (data.pkmn.cc)
+    def _sets_format(self, format_: str) -> str:
+        return format_ or str(self.settings["default_format"])
+
+    def sets_popular(self, species: str, format_: str = "") -> dict[str, Any]:
+        """Smogon's sets of a species for a format (or the nearest one with data: National Dex for National Dex AG, the
+        generation's OU for custom games) and its usage on Showdown's ladder: items, abilities, moves, Tera types, teammates."""
+        return self.smogon.sets(species, self._sets_format(format_))
+
+    def usage_top(self, format_: str = "", limit: int = 30) -> dict[str, Any]:
+        return self.smogon.top(self._sets_format(format_), limit)
+
+    def sample_team(self, format_: str = "") -> dict[str, Any]:
+        return self.smogon.sample_team(self._sets_format(format_))
 
     # ------------------------------------------------------------ a battle's replay as a video clip
     VIDEO_SPEEDS = {"slow": 1300, "normal": 900, "fast": 550}

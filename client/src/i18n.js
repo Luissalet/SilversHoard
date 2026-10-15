@@ -145,6 +145,8 @@ const D = {
   job_kind_series: ["Serie de combates entre dos entrenadores", "Series of battles between two trainers"],
   job_kind_tournament: ["Torneo jugado por la IA", "Tournament played by the AI"],
   job_kind_avatar: ["Sprite dibujado por Prospero's Hoard", "Sprite drawn by Prospero's Hoard"],
+  smogon_data: ["Sets populares y estadísticas de uso", "Popular sets and usage statistics"],
+  smogon_data_help: ["El editor de equipos ofrece los sets de Smogon y el uso de cada Pokémon en el ranking de Showdown (data.pkmn.cc); se descargan al pedirlos y se guardan una semana.", "The team builder offers Smogon's sets and each Pokémon's usage on Showdown's ladder (data.pkmn.cc); they are downloaded when asked for and kept for a week."],
   job_kind_video: ["Vídeo de un combate", "Battle video"],
   job_kind_badge: ["Medalla dibujada por Prospero's Hoard", "Badge drawn by Prospero's Hoard"],
 
