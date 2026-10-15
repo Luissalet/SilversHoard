@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useReducer, useRef } from "react";
 import { applyLine, newState, turnMarks } from "./protocol.js";
 import { newSfxState, playLine, sfxPre } from "./sfx.js";
+import {abilityBoundary} from "../../../engine/src/ability-events.mjs";
 
 const PAUSE = { move: 1, switch: 0.8, faint: 1.1, damage: 0.55, heal: 0.45, status: 0.6, boost: 0.5, effect: 0.45, big: 1.2, field: 0.6, turn: 0.35,
   win: 0.2, ability: 0.45, minor: 0.35, info: 0.3, raw: 0.2 };
@@ -13,7 +14,7 @@ export function useBattlePlayer({ lang = "es", me = "p1", speedMs = 900, cryUrl 
   const r = useRef(null);
   if (!r.current) {
     r.current = { lines: [], applied: 0, state: newState(), log: [], anim: null, animId: 0, playing: true, timer: null, speedMs, lang, me,
-      muted: false, sfx: newSfxState(), fx: null };
+      muted: false, sfx: newSfxState(), fx: null, abilities:[], abilitySeen:new Set(), abilityEpoch:0 };
   }
   const p = r.current;
   p.speedMs = speedMs;
@@ -31,6 +32,9 @@ export function useBattlePlayer({ lang = "es", me = "p1", speedMs = 900, cryUrl 
     p.log = log;
     p.applied = count;
     p.anim = null;
+    p.abilities = [];
+    p.abilitySeen.clear();
+    p.abilityEpoch++;
     p.sfx = newSfxState();
     p.fx?.clear?.();
   }, [p]);
@@ -42,6 +46,12 @@ export function useBattlePlayer({ lang = "es", me = "p1", speedMs = 900, cryUrl 
     const loud = p.sound && !p.muted && !quiet;
     const pre = loud ? sfxPre(p.state, line) : null;
     const ev = applyLine(p.state, line, { lang: p.lang, me: p.me });
+    if (abilityBoundary(line)) p.abilitySeen.clear();
+    if (ev?.ability && !quiet) {
+      const a=ev.ability, key=`${a.side}:${a.slot}:${a.pokemon}:${a.ability}`;
+      if (!p.abilitySeen.has(key)) p.abilities = [...p.abilities,{...a,id:`${p.abilityEpoch}:${p.applied}`}];
+      p.abilitySeen.add(key);
+    }
     if (ev && ev.text) p.log.push({ i: p.applied, text: ev.text, kind: ev.kind });
     if (ev && loud) playLine(p.state, line, ev, pre, p.sfx, { speedMs: p.speedMs, cryUrl: p.cryUrl });
     const base = ev ? (PAUSE[ev.kind] ?? 0.3) : 0;
@@ -117,6 +127,8 @@ export function useBattlePlayer({ lang = "es", me = "p1", speedMs = 900, cryUrl 
       while (p.applied < p.lines.length) step(true);
       p.muted = false;
       p.anim = null;
+      p.abilities = [];
+      p.abilityEpoch++;
       p.fx?.clear?.();
       rerender();
     },
@@ -131,6 +143,8 @@ export function useBattlePlayer({ lang = "es", me = "p1", speedMs = 900, cryUrl 
     get state() { return p.state; },
     get log() { return p.log; },
     get anim() { return p.anim; },
+    get abilities() { return p.abilities; },
+    get abilityEpoch() { return p.abilityEpoch; },
     /** The effect layer of the arena (see battle/fx/stage.js): it plays the cues of the lines as they are shown. Returns a detach function. */
     attachFx(fx) {
       p.fx = fx;

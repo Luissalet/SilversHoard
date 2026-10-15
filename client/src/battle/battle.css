@@ -203,3 +203,15 @@
 .snd-row input[type="range"] { flex: 1; width: 0; min-width: 0; accent-color: var(--hoard-accent, #c9a24b); }
 .snd-label { width: 96px; flex: none; font-size: 12px; }
 .snd-val { width: 28px; text-align: right; font-size: 12px; opacity: 0.8; }
+
+/* Shared by classic and real time. Side notices never intercept battle controls. */
+.b-ability-lane { position:absolute; z-index:9; top:44%; width:min(43%,240px); pointer-events:none; }
+.b-ability-lane.is-left { left:0; }
+.b-ability-lane.is-right { right:0; top:23%; text-align:right; }
+.b-ability-banner { display:grid; gap:2px; padding:9px 13px; border:1px solid #ffffff40; border-radius:0 6px 6px 0; color:#fff; background:#18222ff2; box-shadow:0 3px 12px #0005; overflow-wrap:anywhere; animation:ability-in 180ms ease-out; font-size:13px; }
+.is-right > .b-ability-banner { border-radius:6px 0 0 6px; }
+.b-ability-banner strong { font-size:15px; color:#f4dca7; }
+.b-ability-caption { font-size:10px; letter-spacing:.04em; text-transform:uppercase; color:#c7d3df; }
+@keyframes ability-in { from { opacity:0; translate:-12px 0; } to { opacity:1; translate:0 0; } }
+@media (prefers-reduced-motion:reduce) { .b-ability-banner { animation:none; } }
+@media (max-width:480px) { .b-ability-banner { padding:6px 8px; font-size:11px; } .b-ability-banner strong { font-size:13px; } }

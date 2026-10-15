@@ -7,6 +7,8 @@ import { RtBattle, fastForward, inputFrame, TPS, ULT_SLOT } from "../../../../en
 import { L, STATUS_COLORS, STATUS_NAMES, STAT_SHORT, TYPE_COLORS, nameOf, typeName } from "../dex.js";
 import { ArenaRenderer } from "./render.js";
 import SoundButton from "../SoundControl.jsx";
+import AbilityBanner from "../AbilityBanner.jsx";
+import {realtimeAbility} from "../../../../engine/src/ability-events.mjs";
 import { appCryUrl } from "../sfx.js";
 import { battleEnd, battleRole, battleType, genOfFormat, music, pickTrack } from "../../audio.js";
 import { CONTROL_LAYOUTS, makeInputs } from "./input.js";
@@ -48,6 +50,7 @@ function logLine(e, b, lang, tr) {
   const sec = (e.t / TPS).toFixed(1);
   const es = lang !== "en";
   switch (e.k) {
+    case "ability": return {sec,k:"ability",text:`${e.pokemon || monName(e.s)}: ${nameOf("ability",b.dex.abilities.get(e.id).name,lang)}`};
     case "switch": return { sec, k: "switch", text: es ? `${side(e.s).name} saca a ${monName(e.s, e.slot)}` : `${side(e.s).name} sent out ${monName(e.s, e.slot)}` };
     case "windup": return { sec, k: "move", text: es ? `${who(e.s)} usa ${mv(e.name)}` : `${who(e.s)} used ${mv(e.name)}` };
     case "hit": {
@@ -377,6 +380,8 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
   const [progress, setProgress] = useState([0, 0]);
   const [credits, setCredits] = useState([]);
   const [hud, setHud] = useState(null);
+  const [abilities, setAbilities] = useState([]);
+  const [abilityEpoch, setAbilityEpoch] = useState(0);
   const [log, setLog] = useState([]);
   const [training, setTraining] = useState(null);
   const [party, setParty] = useState([false, false]);
@@ -447,6 +452,9 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
       inp.onPlus = (armed) => setPlus((p) => { const n = [...p]; n[i] = armed; return n; });
     });
     state.plusScan = b.events.length;
+    state.abilityIndex = b.t ? b.events.length : 0;
+    state.abilitySeen = new Set();
+    state.abilitySlots = new Map();
     return state;
   }, [spec, battle.rt, live]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -460,6 +468,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
       return undefined;
     }
     sim.current = state;
+    setAbilities([]); setAbilityEpoch(old=>old+1);
     // for checks from the browser console (and the app's QA): the running battle and the classes that rebuild it
     window.__silverRt = { RtBattle, fastForward, inputFrame, get battle() { return sim.current?.b; } };
     const view = state.b.view();
@@ -568,6 +577,19 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
       if (now - lastHud > HUD_MS) {
         lastHud = now;
         setHud(st.b.view());
+        if (running && st.abilityIndex < st.b.events.length) {
+          const fresh = [];
+          for (;st.abilityIndex < st.b.events.length;st.abilityIndex++) {
+            const e = st.b.events[st.abilityIndex], unit=`${e.s}:${e.u || 0}`;
+            if (e.k === "switch") st.abilitySlots.set(unit,e.slot);
+            const a = realtimeAbility(e,st.b,st.abilitySlots.get(unit));
+            if (!a) continue;
+            const key=`${a.tick}:${a.side}:${a.slot}:${a.pokemon}:${a.ability}`;
+            if (!st.abilitySeen.has(key)) fresh.push({...a,id:st.abilityIndex});
+            st.abilitySeen.add(key);
+          }
+          if (fresh.length) setAbilities(old=>[...old,...fresh]);
+        }
         if (st.b.training) setTraining(trainingStats(st.b));
         if (videoRef.current?.onProgress) videoRef.current.onProgress(st.b.t / Math.max(1, battle.rt.tick || (battle.summary?.seconds || 0) * TPS || st.b.t));
         if (st.logIndex < st.b.events.length) {
@@ -649,6 +671,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     st.renderer.lastActive = [-1, -1, -1, -1];
     st.renderer.fade = [0, 1, 2, 3].map(() => ({ slot: -1, t: 0 }));
     sim.current = st;
+    setAbilities([]); setAbilityEpoch(old=>old+1);
     setLog([]);
     setPhase("playing");
   };
@@ -693,6 +716,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
           </div>
         )}
         <div className="rt-stage" ref={wrapRef}>
+          <AbilityBanner notices={abilities} lang={lang} resetKey={abilityEpoch}/>
           <canvas ref={canvasRef} className="rt-canvas" />
           <SoundButton lang={lang} />
           {phase === "loading" && (

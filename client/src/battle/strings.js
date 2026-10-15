@@ -1,5 +1,6 @@
 // Words of the battle screen, Spanish (castellano de España) first, English second. Shared by the app and the playable page.
 const S = {
+  ability_activated: ["Habilidad activada", "Ability activated"],
   log: ["Registro", "Log"],
   turn_n: ["Turno {n}", "Turn {n}"],
   waiting_start: ["Preparando el combate…", "Setting up the battle…"],

@@ -38,7 +38,7 @@ const TRAINER = [{x: 1.6, y: ARENA.h / 2}, {x: ARENA.w - 1.6, y: ARENA.h / 2}];
 // version 2 replay as they were played; the app stores `version` with every new battle.
 // 5: the ultimate gauge: dealing and taking damage and knockouts fill it, and when it is full the trainer unleashes its active
 // Pokémon's ultimate, a 150-power blast of its own type that falls on the foe after a telegraphed wind-up.
-export const RULES_VERSION = 5;
+export const RULES_VERSION = 6;
 export const ARENAS = ['open', 'rocks'];   // and custom arenas: {name, floor, rocks: [{x, y, r}]} from the arena designer
 export const FLOORS = ['grass', 'sand', 'ice', 'cave', 'indoor', 'water'];   // how a custom arena's ground looks (the rules are the same)
 export const MAX_ROCKS = 16;
@@ -377,6 +377,16 @@ export class RtBattle {
 
   // ------------------------------------------------------------ helpers
   ev(k, data = {}) {
+    if (this.version >= 6 && k === 'ability' && data.s != null) {
+      const side = this.doubles ? this.sides[data.s]?.units[data.u || 0] : this.sides[data.s];
+      const m = side && this.mon(side);
+      if (m) data = {...data, slot:side.active, pokemon:m.name, species:m.species};
+    }
+    if (this.version >= 6 && ['heal', 'boost'].includes(k) && !data.same && data.s != null) {
+      const side = this.doubles ? this.sides[data.s]?.units[data.u || 0] : this.sides[data.s];
+      const m = side && this.mon(side);
+      if (m?.ability && (data.source || data.cause) === m.ability) this.ev('ability', {...this.at(side), id:m.ability});
+    }
     const e = {t: this.t, k, ...data};
     this.events.push(e);
     return e;
@@ -396,10 +406,16 @@ export class RtBattle {
   onField(side) { const m = this.mon(side); return m && !m.fainted && !side.need && !side.vacant && !(side.act && side.act.kind === 'switch'); }
   hasAbility(side, ...ids) { const m = this.mon(side); return !!m && ids.includes(m.ability); }
   hasItem(mon, ...ids) { return !!mon.item && !mon.itemUsed && ids.includes(mon.item); }
-  grounded(side) {
+  // Only abilities marked breakable by the generation's dex are bypassed; Shadow Shield/Prism Armor stay active.
+  defenderAbility(att, def) {
+    const ability = this.mon(def)?.ability || '';
+    return this.version >= 6 && att && att !== def &&
+      this.hasAbility(att, 'moldbreaker', 'teravolt', 'turboblaze') && this.dex.abilities.get(ability).flags?.breakable ? '' : ability;
+  }
+  grounded(side, ability = this.mon(side)?.ability) {
     const m = this.mon(side);
     if (!m) return false;
-    if (m.types.includes('Flying') || m.ability === 'levitate' || (m.airBalloon && !m.itemUsed) || side.vol.magnetrise > this.t) return false;
+    if (m.types.includes('Flying') || ability === 'levitate' || (m.airBalloon && !m.itemUsed) || side.vol.magnetrise > this.t) return false;
     return true;
   }
   weatherIs(...ids) {
@@ -413,14 +429,14 @@ export class RtBattle {
   stageMult(stage) { return stage > 0 ? 1.5 : stage < 0 ? 2 / 3 : 1; }
 
   /** A stat as it is right now: the stat, its stage, items, abilities, weather. */
-  stat(side, key, {crit = false, attacking = false, ignoreStages = false} = {}) {
+  stat(side, key, {crit = false, attacking = false, ignoreStages = false, ability = this.mon(side)?.ability} = {}) {
     const m = this.mon(side);
     let v = m.stats[key];
     let stage = ignoreStages ? 0 : m.boosts[key] || 0;
     if (crit && attacking && stage < 0) stage = 0;
     if (crit && !attacking && stage > 0) stage = 0;
     v *= this.stageMult(stage);
-    const ab = m.ability;
+    const ab = ability;
     const has = (...ids) => this.hasItem(m, ...ids);
     const base = m.base_species;
     if (has('lightball') && base === 'Pikachu' && (key === 'atk' || key === 'spa')) v *= 2;
@@ -524,7 +540,10 @@ export class RtBattle {
     const m = this.mon(side);
     if (!m || m.fainted) return;
     if (m.ability === 'regenerator') this.heal(side, Math.floor(m.maxhp / 3), 'regenerator');
-    if (m.ability === 'naturalcure' && m.status) { m.status = ''; m.toxN = 0; }
+    if (m.ability === 'naturalcure' && m.status) {
+      if (this.version >= 6) this.ev('ability', {...this.at(side), id:'naturalcure'});
+      m.status = ''; m.toxN = 0;
+    }
     if (m.status === 'tox') m.toxN = 1;
   }
 
@@ -554,6 +573,8 @@ export class RtBattle {
   abilityStart(side) {
     const m = this.mon(side);
     const ab = m.ability;
+    if (this.version >= 6 && ['intimidate','drought','drizzle','sandstream','snowwarning','orichalcumpulse',
+      'electricsurge','grassysurge','psychicsurge','mistysurge','hadronengine','airlock','cloudnine'].includes(ab)) this.ev('ability', {...this.at(side), id:ab});
     // Intimidate: the foe in singles, both foes on the field in doubles
     for (const foe of this.doubles ? this.foesOf(side) : [this.foe(side)]) {
       if (ab !== 'intimidate' || !this.onField(foe)) continue;
@@ -1085,7 +1106,10 @@ export class RtBattle {
       side.vol.lastSlot = slot;
       if (this.hasItem(m, 'choiceband', 'choicespecs', 'choicescarf')) m.choiceLock = slot;
     }
-    if (m.ability === 'protean' || m.ability === 'libero') { side.vol.types = [p.type]; }
+    if (m.ability === 'protean' || m.ability === 'libero') {
+      if (this.version >= 6 && !this.typesOf(side).includes(p.type)) this.ev('ability', {...this.at(side), id:m.ability});
+      side.vol.types = [p.type];
+    }
     this.ev('use', {...this.at(side), move: p.id, name: p.name, type: p.type, shape: p.shape, category: p.category});
     if (this.doubles && DOUBLES_MOVES[p.id]) { this.supportMove(side, p); this.finishMove(side, slot); return; }
     if (p.noEffect) { this.ev('noeffect', {...this.at(side), move: p.id}); this.finishMove(side, slot); return; }
@@ -1316,25 +1340,31 @@ export class RtBattle {
   immune(att, def, p) {
     const dm = this.mon(def);
     const am = this.mon(att);
-    const mold = ['moldbreaker', 'teravolt', 'turboblaze'].includes(am.ability);
+    const dab = this.defenderAbility(att, def);
+    const byAbility = () => this.version >= 6 ? `ability:${dab}` : 'immune';
+    const mold = this.version >= 6 ? false : ['moldbreaker', 'teravolt', 'turboblaze'].includes(am.ability);
     if (p.category === 'Status') {
       if (p.id.endsWith('powder') || ['spore', 'sleeppowder', 'stunspore', 'poisonpowder', 'ragepowder', 'cottonspore'].includes(p.id)) {
-        if (this.typesOf(def).includes('Grass') || dm.ability === 'overcoat' || this.hasItem(dm, 'safetygoggles')) return 'immune';
+        if (this.typesOf(def).includes('Grass') || this.hasItem(dm, 'safetygoggles')) return 'immune';
+        if (dab === 'overcoat') return byAbility();
       }
-      if (p.flags.sound && dm.ability === 'soundproof' && !mold) return 'immune';
-      if (dm.ability === 'goodasgold' && !mold && att !== def) return 'immune';
+      if (p.flags.sound && dab === 'soundproof' && !mold) return byAbility();
+      if (dab === 'goodasgold' && !mold && att !== def) return byAbility();
+      if (this.version >= 6 && p.id === 'thunderwave' && ABSORB[dab]?.[0] === 'Electric') return 'absorb';
       if (p.id === 'thunderwave' && !this.dex.getImmunity('Electric', this.typesOf(def))) return 'immune';
       return '';
     }
     const type = this.moveType(att, p);
-    if (p.flags.sound && dm.ability === 'soundproof' && !mold) return 'immune';
-    if (p.flags.bullet && dm.ability === 'bulletproof' && !mold) return 'immune';
+    if (p.flags.sound && dab === 'soundproof' && !mold) return byAbility();
+    if (p.flags.bullet && dab === 'bulletproof' && !mold) return byAbility();
     if (!mold) {
-      const ab = ABSORB[dm.ability];
+      const ab = ABSORB[dab];
       if (ab && (ab[0] === type || (ab[0] === 'wind' && p.flags.wind))) return 'absorb';
-      if (dm.ability === 'wonderguard' && this.effectiveness(type, def, p) <= 1) return 'immune';
+      if (dab === 'wonderguard' && this.effectiveness(type, def, p) <= 1) return byAbility();
     }
-    if (type === 'Ground' && !this.grounded(def) && p.id !== 'thousandarrows') return 'immune';
+    if (type === 'Ground' && !this.grounded(def, dab) && p.id !== 'thousandarrows') {
+      return this.version >= 6 && dab === 'levitate' && this.grounded(def, '') ? byAbility() : 'immune';
+    }
     if (!p.ignoreImmunity && !this.dex.getImmunity(type, this.typesOf(def))) {
       if (!(am.ability === 'scrappy' && (type === 'Normal' || type === 'Fighting'))) return 'immune';
     }
@@ -1405,11 +1435,12 @@ export class RtBattle {
   damage(att, def, p, {expected = false, mon = null, plus = false, spread = false, helped = false} = {}) {
     const am = mon != null ? att.mons[mon] : this.mon(att);
     const dm = this.mon(def);
+    const dab = this.defenderAbility(att, def);
     const type = this.moveType(att, p);
     const imm = this.immune(att, def, p);
     if (imm) return {dmg: 0, eff: 0, crit: false, immune: imm};
     // fixed damage
-    if (p.ohko) return {dmg: dm.ability === 'sturdy' ? 0 : dm.hp, eff: 1, crit: false, immune: dm.ability === 'sturdy' ? 'immune' : ''};
+    if (p.ohko) return {dmg: dab === 'sturdy' ? 0 : dm.hp, eff: 1, crit: false, immune: dab === 'sturdy' ? 'immune' : ''};
     if (p.damage === 'level') return {dmg: am.level, eff: 1, crit: false, immune: ''};
     if (typeof p.damage === 'number') return {dmg: p.damage, eff: 1, crit: false, immune: ''};
     if (['superfang', 'naturesmadness', 'ruination'].includes(p.id)) return {dmg: Math.max(1, Math.floor(dm.hp / 2)), eff: 1, crit: false, immune: ''};
@@ -1420,7 +1451,7 @@ export class RtBattle {
     const ab = am.ability;
     // crit
     let stage = p.crit + (att.vol.focusEnergy ? 2 : 0) + (ab === 'superluck' ? 1 : 0) + (this.hasItem(am, 'scopelens', 'razorclaw') ? 1 : 0);
-    if (['battlearmor', 'shellarmor'].includes(dm.ability) || def.cond.luckychant > this.t) stage = -99;
+    if (['battlearmor', 'shellarmor'].includes(dab) || def.cond.luckychant > this.t) stage = -99;
     const critChance = stage < 0 ? 0 : stage >= 3 ? 1 : [1 / 24, 1 / 8, 1 / 2][stage];
     const crit = expected ? false : this.rng() < critChance;
     // base power modifiers
@@ -1455,16 +1486,16 @@ export class RtBattle {
     // stats
     const atkKey = p.overrideOffensiveStat || (p.category === 'Physical' ? 'atk' : 'spa');
     const defKey = p.overrideDefensiveStat || (p.category === 'Physical' || ['psyshock', 'psystrike', 'secretsword'].includes(p.id) ? 'def' : 'spd');
-    const unawareDef = dm.ability === 'unaware';
+    const unawareDef = dab === 'unaware';
     const unawareAtk = ab === 'unaware';
     const atkSide = p.id === 'foulplay' ? def : att;
     let A = this.stat(atkSide, atkKey, {crit, attacking: true, ignoreStages: unawareDef});
     if (p.id === 'bodypress') A = this.stat(att, 'def', {crit, attacking: true, ignoreStages: unawareDef});
-    let D = this.stat(def, defKey, {crit, attacking: false, ignoreStages: unawareAtk || p.ignoreDefensive});
-    if (dm.ability === 'thickfat' && (type === 'Fire' || type === 'Ice')) A *= 0.5;
-    if (dm.ability === 'heatproof' && type === 'Fire') A *= 0.5;
-    if (dm.ability === 'purifyingsalt' && type === 'Ghost') A *= 0.5;
-    if (dm.ability === 'waterbubble' && type === 'Fire') A *= 0.5;
+    let D = this.stat(def, defKey, {crit, attacking: false, ability:dab, ignoreStages: unawareAtk || p.ignoreDefensive});
+    if (dab === 'thickfat' && (type === 'Fire' || type === 'Ice')) A *= 0.5;
+    if (dab === 'heatproof' && type === 'Fire') A *= 0.5;
+    if (dab === 'purifyingsalt' && type === 'Ghost') A *= 0.5;
+    if (dab === 'waterbubble' && type === 'Fire') A *= 0.5;
     if (ab === 'waterbubble' && type === 'Water') A *= 2;
     if (ab === 'transistor' && type === 'Electric') A *= 1.3;
     if (ab === 'dragonsmaw' && type === 'Dragon') A *= 1.5;
@@ -1488,12 +1519,12 @@ export class RtBattle {
       if (p.category === 'Physical' && (def.cond.reflect > this.t || def.cond.auroraveil > this.t)) dmg *= 0.5;
       if (p.category === 'Special' && (def.cond.lightscreen > this.t || def.cond.auroraveil > this.t)) dmg *= 0.5;
     }
-    if (['multiscale', 'shadowshield'].includes(dm.ability) && dm.hp === dm.maxhp) dmg *= 0.5;
-    if (['filter', 'solidrock', 'prismarmor'].includes(dm.ability) && eff > 1) dmg *= 0.75;
-    if (dm.ability === 'fluffy' && p.contact) dmg *= 0.5;
-    if (dm.ability === 'fluffy' && type === 'Fire') dmg *= 2;
-    if (dm.ability === 'icescales' && p.category === 'Special') dmg *= 0.5;
-    if (dm.ability === 'punkrock' && p.flags.sound) dmg *= 0.5;
+    if (['multiscale', 'shadowshield'].includes(dab) && dm.hp === dm.maxhp) dmg *= 0.5;
+    if (['filter', 'solidrock', 'prismarmor'].includes(dab) && eff > 1) dmg *= 0.75;
+    if (dab === 'fluffy' && p.contact) dmg *= 0.5;
+    if (dab === 'fluffy' && type === 'Fire') dmg *= 2;
+    if (dab === 'icescales' && p.category === 'Special') dmg *= 0.5;
+    if (dab === 'punkrock' && p.flags.sound) dmg *= 0.5;
     if (this.hasItem(am, 'lifeorb')) dmg *= 1.3;
     if (this.hasItem(am, 'expertbelt') && eff > 1) dmg *= 1.2;
     if (ab === 'neuroforce' && eff > 1) dmg *= 1.25;
@@ -1513,6 +1544,7 @@ export class RtBattle {
     const am = ctx.mon != null ? att.mons[ctx.mon] : this.mon(att);
     const dm = this.mon(def);
     if (!dm || dm.fainted) return;
+    const dab = this.defenderAbility(att, def);
     // protection (a Plus attack goes through it for a quarter of its damage)
     let pierce = false;
     if (def.vol.protectUntil > this.t && !p.breaksProtect && !(p.category === 'Status' && p.shape === 'self') && ctx.plus && p.category !== 'Status') {
@@ -1534,7 +1566,10 @@ export class RtBattle {
     if (p.category === 'Status') { this.statusMove(att, def, p); return; }
     const imm = this.immune(att, def, p);
     if (imm === 'absorb') { this.absorb(def, att, p); return; }
-    if (imm) { this.ev('immune', {...this.at(def), move: p.id}); return; }
+    if (imm) {
+      if (this.version >= 6 && imm.startsWith('ability:')) this.ev('ability', {...this.at(def), id:imm.slice(8)});
+      this.ev('immune', {...this.at(def), move: p.id}); return;
+    }
     // thaw
     if (dm.status === 'frz' && (this.moveType(att, p) === 'Fire' || p.thaws)) this.cure(def, 'frz');
     let total = 0;
@@ -1558,7 +1593,7 @@ export class RtBattle {
         continue;
       }
       // disguise
-      if (dm.ability === 'disguise' && !def.vol.busted && dm.species.startsWith('Mimikyu')) {
+      if (dab === 'disguise' && !def.vol.busted && dm.species.startsWith('Mimikyu')) {
         def.vol.busted = true;
         dmg = Math.min(dmg, Math.floor(dm.maxhp / 8));
         this.ev('ability', {...this.at(def), id: 'disguise'});
@@ -1566,9 +1601,9 @@ export class RtBattle {
       // survive at 1 HP
       if (dmg >= dm.hp) {
         if (def.vol.endureUntil > this.t) { dmg = dm.hp - 1; this.ev('endure', {...this.at(def)}); }
-        else if (dm.hp === dm.maxhp && (dm.ability === 'sturdy' || this.hasItem(dm, 'focussash'))) {
+        else if (dm.hp === dm.maxhp && (dab === 'sturdy' || this.hasItem(dm, 'focussash'))) {
           dmg = dm.hp - 1;
-          if (dm.ability === 'sturdy') this.ev('ability', {...this.at(def), id: 'sturdy'});
+          if (dab === 'sturdy') this.ev('ability', {...this.at(def), id: 'sturdy'});
           else { dm.itemUsed = true; this.ev('item', {...this.at(def), id: 'focussash'}); }
         }
       }
@@ -1599,7 +1634,7 @@ export class RtBattle {
         if (this.rng() * 100 >= chance) continue;
         if (sec.selfBoosts && att.mons[att.active] === am) this.boost(att, sec.selfBoosts, att, p.id);
         if (dm.fainted) continue;
-        if (dm.ability === 'shielddust' || this.hasItem(dm, 'covertcloak')) continue;
+        if (dab === 'shielddust' || this.hasItem(dm, 'covertcloak')) continue;
         if (sec.status) this.setStatus(def, sec.status, att);
         if (sec.volatile === 'flinch') this.flinch(def);
         if (sec.volatile === 'confusion') this.confuse(def);
@@ -1609,13 +1644,21 @@ export class RtBattle {
     if (!flinchAll && (this.hasItem(am, 'kingsrock', 'razorfang') || am.ability === 'stench') && this.rng() < 0.1 && !dm.fainted) this.flinch(def);
     // contact
     if (p.contact && !this.hasItem(am, 'protectivepads') && am.ability !== 'longreach' && att.mons[att.active] === am) {
-      if (['roughskin', 'ironbarbs'].includes(dm.ability)) this.chip(att, Math.floor(am.maxhp / 8), dm.ability);
+      if (['roughskin', 'ironbarbs'].includes(dab)) {
+        const before=am.hp;
+        this.chip(att, Math.floor(am.maxhp / 8), dab);
+        if (this.version >= 6 && am.hp < before) this.ev('ability', {...this.at(def), id:dab});
+      }
       if (this.hasItem(dm, 'rockyhelmet')) this.chip(att, Math.floor(am.maxhp / 6), 'rockyhelmet');
-      const cs = CONTACT_STATUS[dm.ability];
-      if (cs && this.rng() < 0.3) this.setStatus(att, cs, def);
-      if (dm.ability === 'effectspore' && this.rng() < 0.3) this.setStatus(att, ['psn', 'par', 'slp'][Math.floor(this.rng() * 3)], def);
-      if (dm.ability === 'cursedbody' && this.rng() < 0.3) att.vol.tauntUntil = this.t + 6 * TPS;
-      if (dm.ability === 'gooey' || dm.ability === 'tanglinghair') this.boost(att, {spe: -1}, def, dm.ability);
+      const cs = CONTACT_STATUS[dab];
+      if (cs && this.rng() < 0.3) {
+        if (this.setStatus(att, cs, def) && this.version >= 6) this.ev('ability', {...this.at(def), id:dab});
+      }
+      if (dab === 'effectspore' && this.rng() < 0.3) {
+        if (this.setStatus(att, ['psn', 'par', 'slp'][Math.floor(this.rng() * 3)], def) && this.version >= 6) this.ev('ability', {...this.at(def), id:dab});
+      }
+      if (dab === 'cursedbody' && this.rng() < 0.3) att.vol.tauntUntil = this.t + 6 * TPS;
+      if (dab === 'gooey' || dab === 'tanglinghair') this.boost(att, {spe: -1}, def, dab);
     }
     // the attacker
     if (att.mons[att.active] === am && !am.fainted) {
@@ -1624,7 +1667,7 @@ export class RtBattle {
       if (this.hasItem(am, 'lifeorb') && am.ability !== 'magicguard' && !ctx.later) this.chip(att, Math.floor(am.maxhp / 10), 'lifeorb');
       if (this.hasItem(am, 'shellbell')) this.heal(att, Math.floor(total / 8), 'shellbell');
       if (p.selfBoosts) this.boost(att, p.selfBoosts, att, p.id);
-      if (p.id === 'knockoff' && dm.item && !dm.itemUsed && !dm.fainted && dm.ability !== 'stickyhold') { dm.itemUsed = true; this.ev('knockoff', {...this.at(def), item: dm.item}); }
+      if (p.id === 'knockoff' && dm.item && !dm.itemUsed && !dm.fainted && dab !== 'stickyhold') { dm.itemUsed = true; this.ev('knockoff', {...this.at(def), item: dm.item}); }
       if (['rapidspin', 'mortalspin', 'tidyup'].includes(p.id)) this.clearHazards(att);
       if (p.id === 'rapidspin') this.boost(att, {spe: 1}, att, p.id);
       if (p.id === 'mortalspin' && !dm.fainted) this.setStatus(def, 'psn', att);
@@ -1639,11 +1682,11 @@ export class RtBattle {
       if (dm.fainted && ['beastboost', 'chillingneigh', 'grimneigh', 'asoneglastrier', 'asonespectrier'].includes(am.ability)) this.boost(att, {[am.ability === 'grimneigh' || am.ability === 'asonespectrier' ? 'spa' : 'atk']: 1}, att, am.ability);
     }
     if (!dm.fainted) {
-      if (dm.ability === 'weakarmor' && p.category === 'Physical') this.boost(def, {def: -1, spe: 1}, def, 'weakarmor');
-      if (dm.ability === 'stamina') this.boost(def, {def: 1}, def, 'stamina');
-      if (dm.ability === 'justified' && this.moveType(att, p) === 'Dark') this.boost(def, {atk: 1}, def, 'justified');
-      if (dm.ability === 'rattled' && ['Dark', 'Bug', 'Ghost'].includes(this.moveType(att, p))) this.boost(def, {spe: 1}, def, 'rattled');
-      if (dm.ability === 'angerpoint' && crits) this.boost(def, {atk: 1}, def, 'angerpoint');
+      if (dab === 'weakarmor' && p.category === 'Physical') this.boost(def, {def: -1, spe: 1}, def, 'weakarmor');
+      if (dab === 'stamina') this.boost(def, {def: 1}, def, 'stamina');
+      if (dab === 'justified' && this.moveType(att, p) === 'Dark') this.boost(def, {atk: 1}, def, 'justified');
+      if (dab === 'rattled' && ['Dark', 'Bug', 'Ghost'].includes(this.moveType(att, p))) this.boost(def, {spe: 1}, def, 'rattled');
+      if (dab === 'angerpoint' && crits) this.boost(def, {atk: 1}, def, 'angerpoint');
       if (this.hasItem(dm, 'weaknesspolicy') && lastEff > 1) { dm.itemUsed = true; this.boost(def, {atk: 1, spa: 1}, def, 'weaknesspolicy'); }
       this.berries(def);
     }
@@ -1702,7 +1745,7 @@ export class RtBattle {
   }
 
   // ------------------------------------------------------------ status moves
-  statusMove(att, def, p, plus = false) {
+  statusMove(att, def, p, plus = false, reflected = false) {
     const am = this.mon(att);
     const dm = this.mon(def);
     const self = att === def;
@@ -1710,8 +1753,16 @@ export class RtBattle {
     if (!self && def.vol.protectUntil > this.t && p.shape !== 'field') { this.ev('protected', {...this.at(def), move: id}); return; }
     if (!self && p.shape !== 'field') {
       const imm = this.immune(att, def, p);
-      if (imm) { this.ev('immune', {...this.at(def), move: id}); return; }
-      if (dm.ability === 'magicbounce' && !['moldbreaker', 'teravolt', 'turboblaze'].includes(am.ability)) { this.ev('ability', {...this.at(def), id: 'magicbounce'}); this.statusMove(def, att, p); return; }
+      if (this.version >= 6 && imm === 'absorb') { this.absorb(def, att, p); return; }
+      if (imm) {
+        if (this.version >= 6 && imm.startsWith('ability:')) this.ev('ability', {...this.at(def), id:imm.slice(8)});
+        this.ev('immune', {...this.at(def), move: id}); return;
+      }
+      if (dm.ability === 'magicbounce' && !['moldbreaker', 'teravolt', 'turboblaze'].includes(am.ability) &&
+          (this.version < 6 || !reflected)) {
+        this.ev('ability', {...this.at(def), id:'magicbounce'});
+        this.statusMove(def, att, p, plus, true); return;
+      }
     }
     if (PROTECTS.has(id)) {
       att.vol.protectUntil = this.t + Math.round(1.2 * TPS);
@@ -1857,8 +1908,9 @@ export class RtBattle {
   statusImmune(side, status, source) {
     const m = this.mon(side);
     const types = this.typesOf(side);
+    const dab = this.defenderAbility(source, side);
     if (m.status) return true;
-    if (STATUS_IMMUNE[m.ability]?.includes(status)) return true;
+    if (STATUS_IMMUNE[dab]?.includes(status)) return true;
     if (status === 'brn' && types.includes('Fire')) return true;
     if (status === 'par' && types.includes('Electric') && this.gen >= 6) return true;
     if ((status === 'psn' || status === 'tox') && (types.includes('Poison') || types.includes('Steel')) && this.mon(source ? source : side)?.ability !== 'corrosion') return true;
@@ -1866,8 +1918,8 @@ export class RtBattle {
     if (source && source !== side && side.cond.safeguard > this.t) return true;
     if (this.grounded(side) && this.terrainIs('mistyterrain')) return true;
     if (status === 'slp' && this.grounded(side) && this.terrainIs('electricterrain')) return true;
-    if (m.ability === 'leafguard' && this.weatherIs('sunnyday', 'desolateland')) return true;
-    if (m.ability === 'shieldsdown' && pct(m) > 0.5) return true;
+    if (dab === 'leafguard' && this.weatherIs('sunnyday', 'desolateland')) return true;
+    if (dab === 'shieldsdown' && pct(m) > 0.5) return true;
     return false;
   }
 
@@ -1876,13 +1928,21 @@ export class RtBattle {
   setStatus(side, status, source, {force = false, secs = 0} = {}) {
     const m = this.mon(side);
     if (!m || m.fainted) return false;
-    if (!force && this.statusImmune(side, status, source)) return false;
+    if (!force && this.statusImmune(side, status, source)) {
+      const dab = this.defenderAbility(source, side);
+      if (this.version >= 6 && !m.status && (STATUS_IMMUNE[dab]?.includes(status) ||
+          (dab === 'leafguard' && this.weatherIs('sunnyday', 'desolateland')) || (dab === 'shieldsdown' && pct(m) > 0.5))) this.ev('ability', {...this.at(side), id:dab});
+      return false;
+    }
     m.status = status;
     m.toxN = status === 'tox' ? 1 : 0;
     m.statusUntil = status === 'slp' ? this.t + (secs || 10) * TPS : status === 'frz' ? this.t + 3 * TPS : 0;
     if (status === 'frz' && side.act && side.act.kind !== 'switch') side.act = null;
     this.ev('status', {...this.at(side), status});
-    if (m.ability === 'synchronize' && source && source !== side && ['brn', 'par', 'psn', 'tox'].includes(status)) this.setStatus(source, status, side);
+    if (m.ability === 'synchronize' && source && source !== side && ['brn', 'par', 'psn', 'tox'].includes(status) && !this.mon(source).status) {
+      if (this.version >= 6) this.ev('ability', {...this.at(side), id:'synchronize'});
+      this.setStatus(source, status, side);
+    }
     const cure = STATUS_CURES[m.item];
     if (cure && cure.includes(status) && !m.itemUsed) { m.itemUsed = true; this.ev('item', {...this.at(side), id: m.item}); this.cure(side, status); }
     return true;
@@ -1903,7 +1963,10 @@ export class RtBattle {
       let delta = Math.sign(raw);
       if (m.ability === 'contrary') delta = -delta;
       if (delta < 0 && fromFoe) {
-        if (['clearbody', 'whitesmoke', 'fullmetalbody'].includes(m.ability) || side.cond.mist > this.t) { this.ev('ability', {...this.at(side), id: m.ability || 'mist'}); continue; }
+        if (['clearbody', 'whitesmoke', 'fullmetalbody'].includes(m.ability) || side.cond.mist > this.t) {
+          if (this.version < 6 || ['clearbody', 'whitesmoke', 'fullmetalbody'].includes(m.ability)) this.ev('ability', {...this.at(side), id: m.ability || 'mist'});
+          continue;
+        }
         if (k === 'atk' && m.ability === 'hypercutter') continue;
         if (k === 'def' && m.ability === 'bigpecks') continue;
         if (this.hasItem(m, 'clearamulet')) continue;

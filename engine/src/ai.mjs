@@ -699,7 +699,7 @@ function fillTrace(battle, sideId, opts, choice) {
       lists.push(options);
       return {slot, mon: me.species.name, hp: hpFrac(me), faster: foes.filter((f) => speedOf(f) > speedOf(me)).map((f) => f.species.name),
         threat: top ? {foe: top.foe, move: top.move ? scratch.dex.moves.get(top.move).name : '', frac: top.frac, ko: top.ko} : null,
-        picked: options.find((x) => x.choice === parts[slot]) || {choice: parts[slot] || ''}, options: shortlist(options)};
+        picked: options.find((x) => x.choice === parts[slot]) || {choice: parts[slot] || ''}, options: opts.allOptions ? options : shortlist(options)};
     }).filter(Boolean);
     if (trace.playouts) {
       trace.playouts = trace.playouts.sort((a, b) => b.score - a.score)

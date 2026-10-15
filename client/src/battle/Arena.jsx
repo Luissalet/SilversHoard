@@ -4,6 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { L, STATUS_COLORS, STATUS_SHORT, STATUS_SHORT_EN, STAT_SHORT, TYPE_COLORS, nameOf, typeName, toID } from "./dex.js";
 import { battleT } from "./strings.js";
 import SoundButton from "./SoundControl.jsx";
+import AbilityBanner from "./AbilityBanner.jsx";
 import { useBackdropSetting, useMoveFxSetting, usePrefersReducedMotion } from "./fx/setting.js";
 import { backdropFileUrl, backdropUrl, fieldLayer, seedOf, weatherLayer } from "./fx/backdrop.js";
 
@@ -277,6 +278,7 @@ export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "
     <div className="b-wrap">
       <div className="b-main">
         <div className={`b-stage ${weather} ${terrain} ${doubles ? "is-doubles" : ""}${bdUrl ? " has-backdrop" : ""}`} ref={stageRef}>
+          <AbilityBanner notices={player.abilities} lang={lang} me={me} resetKey={player.abilityEpoch}/>
           {bdUrl && <div className="b-backdrop" style={{ backgroundImage: `url(${bdUrl})` }} aria-hidden="true" />}
           {fLayer && <div className="b-layer" style={{ backgroundImage: `url(${fLayer.url})`, opacity: fLayer.opacity }} aria-hidden="true" />}
           {wLayer && <div className="b-layer" style={{ backgroundImage: `url(${wLayer.url})`, opacity: wLayer.opacity }} aria-hidden="true" />}

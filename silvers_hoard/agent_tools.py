@@ -368,6 +368,14 @@ class PracticeArgs(BaseModel):
     side: Literal["p1", "p2"] = "p1"
 
 
+class PracticeSuggestionsArgs(BaseModel):
+    id: str = IdField
+    side: Literal["p1", "p2"] = "p1"
+    start_turn: int = Field(1, ge=1)
+    turn_count: int = Field(10, ge=1, description="Analyse this many turn numbers; next_turn continues the replay.")
+    min_gap: float = Field(0.35, ge=0, allow_inf_nan=False)
+
+
 class ExerciseCreateArgs(BaseModel):
     battle_id: str = IdField
     turn: int = Field(..., ge=1)
@@ -885,6 +893,10 @@ TOOLS: list[Tool] = [
                                "The original and trainer records stay intact; the opponent uses revealed information.",
                                synonyms="practicar turno, repetir jugada, rama, entrenamiento"), PracticeArgs, W,
          lambda s, a: s.battle_practice(a.id, turn=a.turn, side=a.side), 120.0),
+    Tool("practice_suggestions", _d("Find replay decisions worth practising using a hidden-information trainer. Posiciones sugeridas.",
+         "Read-only, incremental turn pages. Scores are trainer heuristics, not winning probabilities or proof of a mistake. "
+         "Save a chosen turn with exercise_create or play with battle_practice; discard by ignoring it.", synonyms="analizar repetición, entrenamiento, alternativas"),
+         PracticeSuggestionsArgs, R, lambda s, a: s.practice_suggestions(a.id, side=a.side, start_turn=a.start_turn, turn_count=a.turn_count, min_gap=a.min_gap), 600.0),
     Tool("exercises_list", _d("Saved replay exercises with goals, attempts and difficulty suggestions. Ejercicios.", synonyms="entrenar, biblioteca ejercicios"),
          ExerciseListArgs, R, lambda s, a: s.training.list(a.archived)),
     Tool("exercise_create", _d("Save a replay position and goal as an independent exercise. Guardar ejercicio.", synonyms="practicar, compartir posición"),
@@ -899,6 +911,10 @@ TOOLS: list[Tool] = [
          ExerciseArchiveArgs, W, lambda s, a: s.training.archive(a.id, a.archived)),
     Tool("battle_compare", _d("Compare a practice battle with its original: winner, turns and team results. Comparar práctica.",
                               synonyms="comparar resultado, original y práctica"), IdArg, R, lambda s, a: s.battle_compare(a.id)),
+    Tool("battle_abilities", _d("Read revealed ability activations in a battle, with Pokémon and turn or tick. Habilidades activadas.",
+         "Uses the same public activation messages as the side banners. Real time reconstructs saved inputs up to the saved tick; "
+         "equipped passive abilities and unsupported effects are not proof of activation.", synonyms="popup habilidad, comprobar habilidades"),
+         IdArg, R, lambda s, a: s.battle_abilities(a.id), 600.0),
     Tool("battle_get", _d("A battle: protocol log (from since), pending choices of person seats, result. Ver combate.",
                           synonyms="estado del combate, log, repetición"), BattleGetArgs, R, lambda s, a: s.battle_get(a.id, since=a.since)),
     Tool("battle_choose", _d("Send a person seat's choice: 'move 1', 'move 2 terastallize', 'switch 3', 'team 123456'. Elegir.",
