@@ -605,7 +605,8 @@ class CupSimulateArgs(BaseModel):
 class ArenaSaveArgs(BaseModel):
     id: str = Field("", max_length=80, description="Empty creates an arena.")
     name: Optional[str] = Field(None, max_length=60)
-    floor: Optional[Literal["grass", "sand", "ice", "cave", "indoor", "water"]] = None
+    floor: Optional[Literal["grass", "sand", "ice", "cave", "indoor", "water", "pyre", "summit", "meteor", "champion", "castle"]] = Field(
+        None, description="The ground; pyre, summit, meteor, champion and castle are places from the games with their own decor, ambience and audience.")
     rocks: Optional[list[dict[str, float]]] = Field(None, max_length=16, description="Up to 16 rocks {x, y, r} in metres on the 28 x 17 m field (r 0.4-3), off the spots at (5, 8.5) and (23, 8.5) where the Pokémon come in.")
     mirror: bool = Field(False, description="Also put each rock's left-right mirror image.")
 

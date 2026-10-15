@@ -3,7 +3,8 @@
 // fighters' silhouettes on the hardest blows, a red edge flash, a camera that pushes in on the big moments, the marks the fight
 // leaves on the floor, a wave that sweeps the screen for Surf and the winner's banner. Drawing only: it reads the battle's view and
 // events and never changes the battle (the screen holds the battle still while the intro and the ending play).
-import { dirRow, image } from "./pmd.js";
+import { Animator, dirRow, image, loadMeta } from "./pmd.js";
+import { CROWDS, crowdSpots } from "./places.js";
 
 const TAU = Math.PI * 2;
 const rnd = (a = 0, b = 1) => a + Math.random() * (b - a);
@@ -16,7 +17,7 @@ const SIDE_DARK = ["#16336b", "#6b1619"];
 
 // ------------------------------------------------------------ settings (this browser)
 const KEY = "silver-rt-show";
-const DEFAULTS = { style: "show", camera: true, impact: true, numbers: "pct" };
+const DEFAULTS = { style: "show", camera: true, impact: true, numbers: "pct", crowd: true, talk: true };
 let cached = null;
 export function showSettings() {
   if (cached) return cached;
@@ -27,6 +28,8 @@ export function showSettings() {
     camera: v.camera !== false,
     impact: v.impact !== false,
     numbers: v.numbers === "hp" ? "hp" : "pct",
+    crowd: v.crowd !== false,
+    talk: v.talk !== false,
   };
   return cached;
 }
@@ -65,6 +68,130 @@ export class Show {
     this.lastShape = ["", ""];       // the shape of each side's last move
     this.announcedLast = [false, false];
     this.off = null;                  // offscreen canvas for the silhouettes
+    this.crowd = null;                // the audience at the edges (by the place's floor)
+    this.bubbles = [];                // what the trainers say
+    this.talkAt = -99;
+    this.faints = 0;
+    this.supers = 0;
+  }
+
+  // ------------------------------------------------------------ the audience
+  /** Pokémon that live in the arena's place watch from the edges; they hop on the big moments. */
+  setupCrowd(battle) {
+    this.crowd = [];
+    if (!this.on || !showSettings().crowd || this.r.offline || typeof fetch === "undefined") return;
+    const floor = battle.view?.().floor || "grass";
+    const kinds = CROWDS[floor] || CROWDS.grass;
+    const seed = String(battle.spec?.seed ?? battle.seed ?? "silver");
+    let h = 7;
+    for (const ch of seed) h = (h * 31 + ch.charCodeAt(0)) % 2147483647;
+    const spots = crowdSpots();
+    spots.forEach((sp, i) => {
+      h = (h * 16807) % 2147483647;
+      if (h % 5 === 0) return;   // a few empty places
+      const num = kinds[(h >> 3) % kinds.length];
+      const one = { ...sp, num, anim: null, hop: -1, delay: 0, small: sp.fy !== 0 };
+      this.crowd.push(one);
+      loadMeta(num, { base: this.r.base }).then((meta) => {
+        if (!meta) return;
+        one.anim = new Animator(meta, this.r.base);
+        for (const who of meta.credit || []) this.r.credits?.add(who);
+      }).catch(() => {});
+    });
+  }
+  cheer(strength = 1) {
+    for (const c of this.crowd || []) if (Math.random() < 0.5 + 0.4 * strength) { c.hop = 0; c.delay = Math.random() * 0.25; c.big = strength; }
+  }
+  drawCrowd(ctx, dt) {
+    if (!this.crowd?.length) return;
+    const r = this.r, s = r.scale;
+    for (const c of this.crowd) {
+      if (!c.anim) continue;
+      c.anim.loop("Idle");
+      c.anim.update(dt);
+      let lift = 0;
+      if (c.hop >= 0) {
+        if (c.delay > 0) c.delay -= dt; else {
+          c.hop += dt;
+          lift = Math.abs(Math.sin(c.hop * Math.PI * 2.4)) * 0.45 * (c.big || 1);
+          if (c.hop > 0.85) c.hop = -1;
+        }
+      }
+      const k = Math.max(1, Math.round(r.k * (c.small ? 0.75 : 0.85) * 2) / 2);
+      const x = r.px(c.x), y = r.py(c.y);
+      ctx.fillStyle = "rgba(0,0,0,0.25)";
+      ctx.beginPath(); ctx.ellipse(x, y, 0.35 * s, 0.13 * s, 0, 0, TAU); ctx.fill();
+      c.anim.draw(ctx, x, y - lift * s, dirRow(c.fx, c.fy), k, { alpha: 0.95 });
+    }
+  }
+
+  // ------------------------------------------------------------ the trainers talk
+  line(si, key) { return this.r.sides?.[si]?.dialogue?.[key] || ""; }
+  talk(si, key, { force = false, life = 3.2 } = {}) {
+    if (!this.on || !showSettings().talk) return false;
+    const text = this.line(si, key);
+    if (!text) return false;
+    const now = this.r.time;
+    if (!force && now - this.talkAt < 2.5) return false;
+    this.talkAt = now;
+    this.bubbles = this.bubbles.filter((b) => b.si !== si);
+    this.bubbles.push({ si, text, t: 0, life: Math.min(6, Math.max(life, 1.6 + text.length * 0.045)) });
+    return true;
+  }
+  drawBubbles(ctx, dt) {
+    if (!this.bubbles.length) return;
+    const r = this.r, s = r.scale;
+    for (const b of this.bubbles) b.t += dt;
+    this.bubbles = this.bubbles.filter((b) => b.t < b.life);
+    for (const b of this.bubbles) {
+      const a = Math.min(1, b.t * 6, (b.life - b.t) * 3);
+      const tp = r.trainerPos(b.si);
+      // on the screen (not in the world), so a camera push never cuts it: anchored over the trainer, kept inside the picture
+      const W = r.canvas.width, Hh = r.canvas.height;
+      const fs = Math.max(11, Math.round(Math.min(Hh * 0.03, 0.6 * s)));
+      ctx.font = `700 ${fs}px system-ui, sans-serif`;
+      // wrap to about seven metres
+      const maxW = W * 0.3;
+      const words = b.text.split(/\s+/);
+      const rows = [];
+      let cur = "";
+      for (const w of words) {
+        const next = cur ? `${cur} ${w}` : w;
+        if (ctx.measureText(next).width > maxW && cur) { rows.push(cur); cur = w; } else cur = next;
+      }
+      if (cur) rows.push(cur);
+      const lines = rows.slice(0, 4);
+      const tw = Math.max(...lines.map((l) => ctx.measureText(l).width)) + fs * 1.2;
+      const th = lines.length * fs * 1.25 + fs * 0.8;
+      const anchor = this.toScreen(tp.x, tp.y, 2.4);
+      const ax = Math.max(fs, Math.min(W - fs, anchor.x)), ay = Math.max(th + fs * 1.4, Math.min(Hh - fs, anchor.y));
+      const bx = Math.max(6, Math.min(W - tw - 6, b.si === 0 ? ax - fs * 0.6 : ax - tw + fs * 0.6));
+      const by = ay - th - fs * 0.6;
+      ctx.save();
+      ctx.globalAlpha = a;
+      ctx.fillStyle = "#fffdf6";
+      ctx.strokeStyle = "#141018";
+      ctx.lineWidth = Math.max(2, fs * 0.12);
+      const rad = fs * 0.5;
+      ctx.beginPath();
+      ctx.moveTo(bx + rad, by);
+      ctx.arcTo(bx + tw, by, bx + tw, by + th, rad);
+      ctx.arcTo(bx + tw, by + th, bx, by + th, rad);
+      const tail = b.si === 0 ? bx + fs * 1.2 : bx + tw - fs * 1.2;
+      ctx.lineTo(tail + fs * 0.4, by + th);
+      ctx.lineTo(ax, ay);
+      ctx.lineTo(tail - fs * 0.4, by + th);
+      ctx.arcTo(bx, by + th, bx, by, rad);
+      ctx.arcTo(bx, by, bx + tw, by, rad);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#141018";
+      ctx.textAlign = "left";
+      ctx.textBaseline = "top";
+      lines.forEach((l, i) => ctx.fillText(i === lines.length - 1 && rows.length > lines.length ? `${l}…` : l, bx + fs * 0.6, by + fs * 0.4 + i * fs * 1.25));
+      ctx.restore();
+    }
   }
 
   get on() { return showSettings().style === "show"; }
@@ -156,6 +283,8 @@ export class Show {
       this.say(reason === "time" ? this.T("time") : this.T("ko"), reason === "time" ? "#ffd54a" : "#ff4d4d", { size: 1.9, life: 1.2, y: 0.42 });
       this.flash = { t: 0, life: 0.35 };
     }
+    // the winner says their line, or the loser theirs
+    if (w === 0 || w === 1) { this.endTalk = this.line(w, "win") ? [w, "win"] : this.line(1 - w, "lose") ? [1 - w, "lose"] : null; this.cheer(1.4); }
     // the camera settles on the winner
     if (w === 0 || w === 1) {
       const u = this.units(battle, w).find(({ u: x }) => !battle.sides[w].mons[x.active]?.fainted) || this.units(battle, w)[0];
@@ -203,10 +332,13 @@ export class Show {
             bg: ko ? "red" : e.crit ? "black" : "white", x: d.x, y: d.y, seed: Math.random() * 1e6 };
           this.push(d.x, d.y, ko ? 1.45 : 1.25, ko ? 1.1 : 0.7);
           this.vignette = 1;
+          this.cheer(ko ? 1.3 : 1);
         } else if (first && (e.crit || e.eff > 1)) {
           this.push(d.x, d.y, 1.12, 0.45);
           this.vignette = Math.max(this.vignette, 0.5);
         }
+        // a super-effective blow: every other one, the attacker's trainer says something about it
+        if (first && e.eff > 1 && (this.supers++ % 2 === 0)) this.talk(a, "on_super");
         // marks on the floor
         if (e.type === "Fire" && (big || e.crit)) this.scar("scorch", d.x + rnd(-0.3, 0.3), d.y + rnd(-0.2, 0.2), { r: rnd(0.6, 1) });
         else if (CONTACT.has(this.lastShape[a]) && first && Math.random() < 0.6) this.scar("slash", d.x + rnd(-0.4, 0.4), d.y + rnd(-0.2, 0.3), { ang: rnd(-0.9, 0.9) });
@@ -230,6 +362,7 @@ export class Show {
         if (left === 1 && battle.sides[e.s].mons.length > 1 && !this.announcedLast[e.s]) {
           this.announcedLast[e.s] = true;
           this.say(this.T("last", { name: battle.sides[e.s].name || "" }), SIDE_COLORS[e.s], { size: 0.95, life: 1.8, y: 0.3, delay: 0.3 });
+          this.talk(e.s, "last", { force: true });
         }
         break;
       }
@@ -237,12 +370,19 @@ export class Show {
         if (!this.on) break;
         const from = r.trainerPos(e.s);
         const name = this.monName(battle, e.s, e.slot);
-        if (name && !e.forced) this.caption(e.s, from, this.T("back", { name }), 1.5, e.u || 0);
+        if (name && !e.forced) { this.caption(e.s, from, this.T("back", { name }), 1.5, e.u || 0); this.talk(e.s, "on_switch"); }
         break;
       }
       case "faint": {
         const name = this.monName(battle, e.s, e.slot);
         if (!battle.ended && name) this.say(this.T("fainted", { name }), "#ffcf4a", { size: 1, life: 1.5, y: 0.4, delay: 0.15 });
+        // the trainer whose Pokémon knocked it out, or the one who lost it, says their line (taking turns)
+        if (!battle.ended) {
+          const ko = e.by === 0 || e.by === 1 ? e.by : 1 - e.s;
+          const order = this.faints++ % 2 ? [[e.s, "on_faint"], [ko, "on_ko"]] : [[ko, "on_ko"], [e.s, "on_faint"]];
+          if (!this.talk(...order[0])) this.talk(...order[1]);
+        }
+        this.cheer(0.8);
         const d = unit(e.s, e.u);
         this.scar("crater", d.x, d.y, { r: 0.6, soft: true });
         break;
@@ -250,6 +390,7 @@ export class Show {
       case "mega": {
         const d = unit(e.s, e.u);
         this.push(d.x, d.y, 1.35, 1.2);
+        this.cheer(1);
         break;
       }
       case "ultimate": {
@@ -267,7 +408,12 @@ export class Show {
     const r = this.r;
     if (this.intro) {
       const it = this.intro;
-      it.t += dt;
+      // the trainers' pictures load first (at most a second and a half), so the VS panels never come in empty
+      if (!it.ready) {
+        it.wait = (it.wait || 0) + dt;
+        it.ready = it.wait > 1.5 || it.sides.every((sd) => [sd.trainer, sd.portrait].every((im) => !im || im.ready || im.failed));
+      }
+      if (it.ready) it.t += dt;
       if (!it.thrown && it.t >= 1.85) {
         it.thrown = true;
         for (let si = 0; si < 2; si++) for (const { u, key, pos } of this.units(battle, si)) this.throwBall(battle, si, u, pos, key, pos * 0.12);
@@ -298,7 +444,11 @@ export class Show {
     if (this.impact) { this.impact.t += dt; if (this.impact.t >= this.impact.life) this.impact = null; }
     if (this.wave) { this.wave.t += dt; if (this.wave.t >= this.wave.life) this.wave = null; }
     if (this.flash) { this.flash.t += dt; if (this.flash.t >= this.flash.life) this.flash = null; }
-    if (this.end) this.end.t += dt;
+    if (this.end) {
+      this.end.t += dt;
+      if (this.endTalk && this.end.t > 1.3) { this.talk(this.endTalk[0], this.endTalk[1], { force: true, life: 2.6 }); this.endTalk = null; }
+    }
+    if (this.crowd === null && battle) this.setupCrowd(battle);
     this.vignette = Math.max(0, this.vignette - dt * 2.4);
     // camera: the whole court, pushing in on the big moments
     const cx0 = r.worldCenter().x, cy0 = r.worldCenter().y;
@@ -734,6 +884,7 @@ export class Show {
     ctx.restore();
     if (t > 2.0 && !it.fight) {
       it.fight = true;
+      if (!this.talk(1, "intro", { force: true })) this.talk(0, "intro", { force: true });
       this.say(this.T("fight"), "#ffd54a", { size: 1.6, life: 1.0, y: 0.45 });
     }
   }

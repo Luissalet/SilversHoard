@@ -19,7 +19,7 @@ if TYPE_CHECKING:  # pragma: no cover
 
 ARENA_W, ARENA_H = 28.0, 17.0
 HOME = ((5.0, 8.5), (23.0, 8.5))        # where each trainer's Pokémon comes in (sim.mjs HOME)
-FLOORS = ("grass", "sand", "ice", "cave", "indoor", "water")
+FLOORS = ("grass", "sand", "ice", "cave", "indoor", "water", "pyre", "summit", "meteor", "champion", "castle")
 MAX_ROCKS = 16
 R_MIN, R_MAX = 0.4, 3.0
 CUSTOM = re.compile(r"^custom:([A-Za-z0-9_]{1,80})$")

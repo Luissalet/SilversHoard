@@ -32,6 +32,8 @@ test('the arena a spec asks for', () => {
   assert.equal(c.rocks.length, 3);
   assert.equal(arenaOf({rocks: [], floor: 'lava'}, 's').floor, 'grass');
   assert.ok(FLOORS.includes('water'));
+  // places from the games keep their floor (the rules do not change)
+  for (const place of ['pyre', 'summit', 'meteor', 'champion', 'castle']) assert.equal(arenaOf({rocks: [], floor: place}, 's').floor, place);
 });
 
 test('a battle on a custom arena shows its field, plays to the end and replays the same', () => {

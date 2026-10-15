@@ -41,7 +41,7 @@ const TRAINER = [{x: 1.6, y: ARENA.h / 2}, {x: ARENA.w - 1.6, y: ARENA.h / 2}];
 // Pokémon's ultimate, a 150-power blast of its own type that falls on the foe after a telegraphed wind-up.
 export const RULES_VERSION = 6;
 export const ARENAS = ['open', 'rocks'];   // and custom arenas: {name, floor, rocks: [{x, y, r}]} from the arena designer
-export const FLOORS = ['grass', 'sand', 'ice', 'cave', 'indoor', 'water'];   // how a custom arena's ground looks (the rules are the same)
+export const FLOORS = ['grass', 'sand', 'ice', 'cave', 'indoor', 'water', 'pyre', 'summit', 'meteor', 'champion', 'castle'];   // how a custom arena's ground looks (the rules are the same)
 export const MAX_ROCKS = 16;
 // The Mega Power gauge, per trainer: three segments in integer units so every engine counts the same. It fills a segment every
 // 15 s (and a little faster when the trainer's Pokémon deal damage); a Plus move spends one; Mega Evolution needs it full and

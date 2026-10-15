@@ -12,7 +12,9 @@ const HOME = [{ x: 5, y: 8.5 }, { x: 23, y: 8.5 }];
 const CLEAR = 1.2;
 const MAX = 16;
 export const FLOORS = { grass: ["#4f8a4a", "#4a8345"], sand: ["#d7bd86", "#cfb47c"], ice: ["#cfe6f0", "#c4dfeb"], cave: ["#4b4239", "#463e35"],
-  indoor: ["#b5875a", "#ad7f53"], water: ["#4f8fbf", "#4a88b6"] };
+  indoor: ["#b5875a", "#ad7f53"], water: ["#4f8fbf", "#4a88b6"],
+  // places from the games: their decor and ambience are drawn in the battle (battle/rt/places.js)
+  pyre: ["#b8d0cb", "#b0c8c3"], summit: ["#e8f0f5", "#dfe8ee"], meteor: ["#6d6283", "#665b7c"], champion: ["#3f7f86", "#3a777e"], castle: ["#ddd6c1", "#d5ceb8"] };
 const r3 = (v) => Math.round(v * 1000) / 1000;
 const blocked = (rk) => HOME.some((h) => Math.hypot(h.x - rk.x, h.y - rk.y) < rk.r + CLEAR);
 const mirrored = (rocks) => rocks.flatMap((rk) => (Math.abs(rk.x - W / 2) <= 0.05 ? [rk] : [rk, { ...rk, x: r3(W - rk.x) }]));
@@ -22,6 +24,14 @@ const TEMPLATES = {
   center: [{ x: 14, y: 8.5, r: 2.2 }],
   corridor: [{ x: 10, y: 3, r: 1.3 }, { x: 10, y: 14, r: 1.3 }, { x: 14, y: 2.2, r: 1 }, { x: 14, y: 14.8, r: 1 }],
   scatter: [{ x: 8.5, y: 3.5, r: 0.7 }, { x: 11, y: 6, r: 0.9 }, { x: 9.5, y: 13, r: 1.1 }, { x: 12.5, y: 11, r: 0.6 }, { x: 14, y: 3.2, r: 0.8 }],
+};
+// places from the games: a floor and a few rocks where the place has them
+const PLACES = {
+  pyre: { floor: "pyre", rocks: [{ x: 9, y: 3.2, r: 0.55 }, { x: 11.5, y: 13.6, r: 0.55 }, { x: 8.2, y: 10.8, r: 0.5 }, { x: 12.6, y: 5.6, r: 0.5 }] },
+  summit: { floor: "summit", rocks: [{ x: 10, y: 4, r: 1.1 }, { x: 10.5, y: 13, r: 0.9 }] },
+  meteor: { floor: "meteor", rocks: [{ x: 9.5, y: 8.5, r: 0.9 }, { x: 12, y: 3, r: 0.7 }, { x: 12, y: 14, r: 0.7 }] },
+  champion: { floor: "champion", rocks: [] },
+  castle: { floor: "castle", rocks: [{ x: 9, y: 4, r: 0.6 }, { x: 9, y: 13, r: 0.6 }] },
 };
 
 /** The field as a picture: ground, lines, entry spots and rocks (for the list, small; for the editor, with handles). */
@@ -149,6 +159,7 @@ function EditorBody({ arena, isNew, t, go, notify, confirm, changed }) {
   const setR = (v) => setRocks((list) => list.map((rk, j) => (j === sel ? clampRock({ ...rk, r: Number(v) }) : rk)));
   const remove = () => { setRocks((list) => list.filter((_, j) => j !== sel)); setSel(-1); };
   const template = (k) => { setMirror(true); setRocks(TEMPLATES[k].map(clampRock)); setSel(-1); };
+  const place = (k) => { setMirror(true); setFloor(PLACES[k].floor); setRocks(PLACES[k].rocks.map(clampRock)); setSel(-1); if (!name.trim()) setName(t(`floor_${k}`)); };
   const save = () => run("save", async () => {
     const out = await api.call("arena_save", { id: arena?.id || "", name: name.trim(), floor, rocks, mirror });
     forgetCustomArenas();
@@ -210,6 +221,8 @@ function EditorBody({ arena, isNew, t, go, notify, confirm, changed }) {
           <div className="flex flex-wrap items-center gap-2">
             <span className="help">{t("arena_template")}:</span>
             {Object.keys(TEMPLATES).map((k) => <button key={k} type="button" className="btn btn-sm" onClick={() => template(k)}>{t(`tpl_${k}`)}</button>)}
+            <span className="help">{t("arena_places")}:</span>
+            {Object.keys(PLACES).map((k) => <button key={k} type="button" className="btn btn-sm" onClick={() => place(k)}>{t(`floor_${k}`)}</button>)}
             <button type="button" className="btn btn-sm" onClick={() => { setRocks([]); setSel(-1); }}>{t("arena_clear")}</button>
           </div>
           <p className="help">{t("arena_rocks_n", { n: all.length })} / {MAX}</p>

@@ -83,6 +83,8 @@ export default function Ajustes() {
         </div>
         <label className="flex items-center gap-2"><Switch checked={show.camera} onChange={(v) => setShowKey("camera", v)} label={t("rt_show_camera")} /> {t("rt_show_camera")}</label>
         <label className="flex items-center gap-2"><Switch checked={show.impact} onChange={(v) => setShowKey("impact", v)} label={t("rt_show_impact")} /> {t("rt_show_impact")}</label>
+        <label className="flex items-center gap-2"><Switch checked={show.crowd} onChange={(v) => setShowKey("crowd", v)} label={t("rt_show_crowd")} /> {t("rt_show_crowd")}</label>
+        <label className="flex items-center gap-2"><Switch checked={show.talk} onChange={(v) => setShowKey("talk", v)} label={t("rt_show_talk")} /> {t("rt_show_talk")}</label>
         <p className="help">{t("rt_show_motion_help")}</p>
         <Field label={t("backdrop")} hint={t("backdrop_help")}>
           <select className="field" value={backdrop} onChange={(e) => setBackdrop(e.target.value)}>

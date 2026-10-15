@@ -515,7 +515,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     window.__silverRt = { RtBattle, fastForward, inputFrame, get battle() { return sim.current?.b; } };
     const view = state.b.view();
     const renderer = new ArenaRenderer(canvasRef.current, {
-      sides: view.sides.map((s, i) => ({ name: s.name, mons: s.mons, avatarUrl: seats?.[s.id]?.avatarUrl || "" })), sprites, base, texts, rocks: view.rocks, offline,
+      sides: view.sides.map((s, i) => ({ name: s.name, mons: s.mons, avatarUrl: seats?.[s.id]?.avatarUrl || "", dialogue: seats?.[s.id]?.dialogue || {} })), sprites, base, texts, rocks: view.rocks, offline,
       humans: live ? humans : [false, false],
     });
     renderer.eventIndex = state.b.events.length;
