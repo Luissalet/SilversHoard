@@ -10,7 +10,7 @@ function NewTrainer({ onClose }) {
   const { t, go, changed, settings } = useApp();
   const [name, setName] = useState("");
   const [paste, setPaste] = useState("");
-  const [format, setFormat] = useState(settings.default_format || "gen9customgame");
+  const [format, setFormat] = useState(settings.default_format || "gen9nationaldexag");
   const [busy, run] = useBusy();
   const create = () => run("c", async () => {
     const tr = await api.call("trainer_create", { name, paste, format });

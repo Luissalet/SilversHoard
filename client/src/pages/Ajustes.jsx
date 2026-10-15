@@ -1,8 +1,8 @@
 // Settings: your name for what you send, defaults for new battles, sprites, playback, the engine and the picture prompt for Prospero.
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { api } from "../api.js";
 import { useApp } from "../context.js";
-import { Busy, Field, Section, Switch, useBusy, useLoad } from "../components/ui.jsx";
+import { Busy, Field, Icon, ICONS, Section, Switch, useBusy, useLoad } from "../components/ui.jsx";
 import { AiFields, FormatSelect, MonIcon } from "../components/silver.jsx";
 
 export default function Ajustes() {
@@ -34,22 +34,6 @@ export default function Ajustes() {
           <Field label={t("series_default")}><input className="field" type="number" min={1} max={1000} value={f.series_default} onChange={(e) => set("series_default", Number(e.target.value))} /></Field>
         </div>
       </div>
-      <Section title={t("mode_realtime")}>
-        <div className="panel space-y-3">
-          <p className="help">{t("mode_realtime_help")}</p>
-          <div className="grid gap-3 sm:grid-cols-2">
-            <Field label={t("rt_default_mode")}>
-              <select className="field" value={f.default_mode || "classic"} onChange={(e) => set("default_mode", e.target.value)}>
-                <option value="classic">{t("mode_classic")}</option>
-                <option value="realtime">{t("mode_realtime")}</option>
-              </select>
-            </Field>
-            <Field label={t("rt_time_limit")} hint={t("rt_time_limit_help")}><input className="field" type="number" min={30} max={1800} step={30} value={f.rt_time_limit || 300} onChange={(e) => set("rt_time_limit", Number(e.target.value))} /></Field>
-          </div>
-          <label className="flex items-center gap-2"><Switch checked={f.pmd_sprites !== false} onChange={(v) => set("pmd_sprites", v)} label={t("rt_pmd_sprites")} /> {t("rt_pmd_sprites")}</label>
-          <p className="help">{t("rt_pmd_sprites_help")} {t("rt_sprites_note")}</p>
-        </div>
-      </Section>
       <Section title={t("sprites")}>
         <div className="panel space-y-3">
           <Field label={t("sprite_set")}>
@@ -77,9 +61,62 @@ export default function Ajustes() {
               <option value="qwen21">Qwen-Image 2.1</option><option value="flux">FLUX</option><option value="sdxl">SDXL</option>
             </select>
           </Field>
+          <StyleRefs />
         </div>
       </Section>
       <Busy busy={busy.s} className="btn btn-primary" onClick={save}>{t("save")}</Busy>
+    </div>
+  );
+}
+
+/** The art-style references for drawn sprites: your own pictures (official art, anime stills) first, then trainer sprites. */
+function StyleRefs() {
+  const { t, notify, sprites } = useApp();
+  const { data, reload } = useLoad(() => api.call("avatar_style_get"), []);
+  const [names, setNames] = useState("");
+  const [busy, run] = useBusy();
+  const fileRef = useRef(null);
+  useEffect(() => { if (data) setNames(data.sprites.join(", ")); }, [data]);
+  if (!data) return null;
+  const used = new Set(data.used);
+  const saveNames = () => run("n", async () => { await api.call("avatar_style_set", { sprites: names }); notify(t("saved")); reload(); });
+  const add = () => run("a", async () => {
+    const files = fileRef.current?.files || [];
+    if (!files.length) return;
+    await api.uploadStyleRefs(files);
+    fileRef.current.value = "";
+    reload();
+  });
+  const remove = (file) => run(file, async () => { await api.call("avatar_style_set", { remove: [file] }); reload(); });
+  return (
+    <div className="space-y-2">
+      <b>{t("style_refs")}</b>
+      <p className="help">{t("style_refs_help", { n: data.max })}</p>
+      <div className="style-refs">
+        {data.images.map((i) => (
+          <div key={i.file} className={`style-ref${used.has(i.file) ? " is-used" : ""}`}>
+            <img src={i.url} alt="" />
+            <button type="button" className="btn btn-sm btn-icon btn-ghost" onClick={() => remove(i.file)} aria-label={t("remove")} disabled={busy[i.file]}>
+              <Icon d={ICONS.trash} size={13} />
+            </button>
+          </div>
+        ))}
+        {data.sprites.map((n) => (
+          <div key={n} className={`style-ref${used.has(n) ? " is-used" : ""}`}>
+            <img src={sprites.trainer(`sd:${n}`)} alt={n} className="pixelated" /><span className="help trunc">{n}</span>
+          </div>
+        ))}
+      </div>
+      <div className="flex flex-wrap items-center gap-2">
+        <input ref={fileRef} type="file" accept="image/*" multiple className="field flex-1" aria-label={t("style_refs_add")} />
+        <Busy busy={busy.a} className="btn" onClick={add}>{t("style_refs_add")}</Busy>
+      </div>
+      <Field label={t("style_sprites")} hint={t("style_sprites_help")}>
+        <div className="flex gap-2">
+          <input className="field flex-1" value={names} onChange={(e) => setNames(e.target.value)} placeholder="backpacker, acetrainer, pilot" />
+          <Busy busy={busy.n} className="btn" onClick={saveNames}>{t("save")}</Busy>
+        </div>
+      </Field>
     </div>
   );
 }

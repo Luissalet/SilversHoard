@@ -58,6 +58,12 @@ a.league-card:hover { border-color: var(--hoard-border-hover); }
 .candidate-grid { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(196px, 1fr)); }
 .candidate { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 6px; border: 1px solid var(--line); border-radius: var(--hoard-radius-lg); }
 
+.style-refs { display: flex; flex-wrap: wrap; gap: 8px; }
+.style-ref { position: relative; display: flex; flex-direction: column; align-items: center; gap: 2px; width: 96px; padding: 4px; border: 1px solid var(--line); border-radius: var(--hoard-radius); background: var(--surface-2); opacity: 0.55; }
+.style-ref.is-used { opacity: 1; border-color: var(--accent); }
+.style-ref img { width: 86px; height: 86px; object-fit: contain; }
+.style-ref .btn { position: absolute; top: 2px; right: 2px; }
+
 .export-grid { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(min(190px, 100%), 1fr)); }
 .export-option { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: 12px; border: 1px solid var(--line); border-radius: var(--hoard-radius-lg); background: var(--surface-2); color: var(--ink); font: inherit; text-align: left; cursor: pointer; }
 .export-option svg { color: var(--accent); }

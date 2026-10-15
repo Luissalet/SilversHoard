@@ -1,6 +1,5 @@
 // Bilingual UI: Spanish (castellano de España) by default, English on request. The choice is kept in localStorage.
 // Each entry is [español, English]; `{name}` placeholders are filled by t(key, { name }). A key with an `_one` twin uses it when n is 1.
-import RT_STRINGS from "./battle/rt/strings.js";
 
 const D = {
   // shell
@@ -52,7 +51,7 @@ const D = {
   owner: ["Autor", "Author"],
   by: ["de {name}", "by {name}"],
   format: ["Formato", "Format"],
-  format_help: ["Un formato de Showdown: gen9customgame admite cualquier cosa; gen9ou, gen3customgame, gen9doublescustomgame…", "A Showdown format: gen9customgame accepts anything; gen9ou, gen3customgame, gen9doublescustomgame…"],
+  format_help: ["Por defecto, todo vale (gen9nationaldexag): cualquier Pokémon, objeto y movimiento, con Megaevolución, movimientos Z y Teracristalización, sin tiers. Para una generación concreta, gen3customgame, gen9doublescustomgame…", "By default, anything goes (gen9nationaldexag): any Pokémon, item and move, with Mega Evolution, Z-moves and Terastal, no tiers. For one generation, gen3customgame, gen9doublescustomgame…"],
   trainer: ["Entrenador", "Trainer"],
   pokemon: ["Pokémon", "Pokémon"],
   side: ["Bando", "Side"],
@@ -329,6 +328,12 @@ const D = {
   avatar_no_photos: ["Sin fotos: dibuja solo con la descripción", "No photos: drawn from the description only"],
   avatar_draw_help: ["Prospero's Hoard dibuja el entrenador con su motor de imagen a partir de hasta 4 fotos de la misma persona y/o la descripción (necesita Hoard Hub, Prospero y ComfyUI; tarda unos minutos). De cada resultado puedes quedarte con el sprite de 96 px o con el dibujo.", "Prospero's Hoard draws the trainer with its image engine from up to 4 photos of the same person and/or the description (needs Hoard Hub, Prospero and ComfyUI; takes a few minutes). From each result you can keep the 96 px sprite or the drawing."],
   avatar_sprite: ["Sprite", "Sprite"],
+  avatar_game_style: ["Con el estilo de los juegos (referencias de estilo de Ajustes)", "In the games' style (style references from Settings)"],
+  style_refs: ["Referencias de estilo", "Style references"],
+  style_refs_help: ["Prospero recibe hasta {n} imágenes para copiar su estilo de dibujo (proporciones, ojos, trazo, sombreado), no su ropa ni su cara. Primero van tus imágenes (arte oficial, capturas del anime) y luego los sprites de entrenador. Las que se usan van marcadas.", "Prospero gets up to {n} pictures to copy their drawing style (proportions, eyes, lines, shading), not their clothes or face. Your pictures go first (official art, anime stills), then the trainer sprites. The ones in use are highlighted."],
+  style_refs_add: ["Añadir imágenes", "Add pictures"],
+  style_sprites: ["Sprites de entrenador como referencia", "Trainer sprites as references"],
+  style_sprites_help: ["Nombres de sprites de Showdown separados por comas (hasta 3). Por defecto, clases genéricas de Blanco y Negro.", "Showdown sprite names separated by commas (up to 3). By default, generic Black and White classes."],
   prospero_engine: ["Motor de imagen de Prospero", "Prospero's image engine"],
   prospero_engine_help: ["Con qué motor dibuja Prospero los sprites. Qwen-Image 2.1 usa las fotos como referencias numeradas y conserva mejor la cara.", "Which engine Prospero draws sprites with. Qwen-Image 2.1 uses the photos as numbered references and keeps the face better."],
   prospero_engine_default: ["El de Prospero por defecto", "Prospero's default"],
@@ -369,7 +374,7 @@ const D = {
   challenge_you_help: ["Juegas tú cada combate; entre uno y otro, tus Pokémon se curan.", "You play each battle; your Pokémon are healed between battles."],
   ignore_badges: ["Sin exigir medallas", "Without requiring badges"],
   modern_rules: ["Con reglas actuales (generación 9)", "With current rules (generation 9)"],
-  modern_rules_help: ["Todos los combates en gen9customgame: tu equipo moderno contra sus equipos con las mecánicas de hoy.", "Every battle in gen9customgame: your modern team against theirs with today's mechanics."],
+  modern_rules_help: ["Todos los combates con todo vale (gen9nationaldexag): tu equipo moderno contra sus equipos con las mecánicas de hoy, Megas y movimientos Z incluidos.", "Every battle with anything goes (gen9nationaldexag): your modern team against theirs with today's mechanics, Megas and Z-moves included."],
   gym_rules_help: ["Se juega con las reglas del gimnasio ({format}); un Pokémon que no existía en esa generación no podrá usar todo.", "It plays with the gym's rules ({format}); a Pokémon that did not exist in that generation may not work fully."],
   gym_name_ph: ["Gimnasio de Ciudad…", "… City Gym"],
   city: ["Ciudad", "City"],
@@ -462,7 +467,7 @@ const D = {
   node_path_help: ["Vacío: el node del PATH.", "Empty: node from PATH."],
   prospero: ["Prospero's Hoard", "Prospero's Hoard"],
   prospero_prompt: ["Indicación para dibujar sprites", "Prompt to draw sprites"],
-  prospero_prompt_help: ["Lo que se pide a Prospero junto a la foto.", "What Prospero is asked for along with the photo."],
+  prospero_prompt_help: ["El estilo que se pide a Prospero. Quién es la persona y qué imágenes son referencias de estilo se añade solo.", "The style Prospero is asked for. Who the person is and which pictures are style references is added by itself."],
 
   // errors
   err_network: ["Sin conexión", "No connection"],
@@ -484,9 +489,6 @@ export function initialLang() {
   }
   return "es";
 }
-
-// the real-time mode keeps its words next to its screen
-Object.assign(D, RT_STRINGS);
 
 export function saveLang(lang) {
   try {
