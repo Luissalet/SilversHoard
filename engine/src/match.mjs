@@ -4,6 +4,20 @@ import {Battle, PRNG} from '@pkmn/sim';
 import {applyLevelRules, buildFormatId, completeSets, EngineError, formatInfo, packTeam, seedArray} from './core.mjs';
 import {chooseFor, makeRng} from './ai.mjs';
 
+const KEEP = ['choice', 'kind', 'name', 'target', 'species', 'gimmick', 'score', 'dmg', 'ko', 'acc', 'take', 'give', 'label'];
+const round = (x) => (typeof x === 'number' ? Math.round(x * 1000) / 1000 : x);
+const compactOption = (o) => o && Object.fromEntries(Object.entries(o).filter(([k]) => KEEP.includes(k)).map(([k, v]) => [k, round(v)]));
+
+/** An AI decision's trace (ai.mjs chooseFor with `trace`) in the small shape kept with the battle. */
+export function compactTrace(trace) {
+  return {turn: trace.turn, side: trace.side, choice: trace.choice, kind: trace.kind, level: trace.level, style: trace.style,
+    slots: (trace.slots || []).map((s) => ({slot: s.slot, mon: s.mon, hp: round(s.hp), faster: s.faster,
+      threat: s.threat ? {...s.threat, frac: round(s.threat.frac)} : null, picked: compactOption(s.picked),
+      options: (s.options || []).slice(0, 5).map(compactOption)})),
+    playouts: (trace.playouts || []).slice(0, 4).map((p) => ({choice: p.choice, label: p.label, mean: round(p.mean), worst: round(p.worst)})),
+    ...(trace.error ? {error: trace.error} : {})};
+}
+
 export const MAX_TURNS_DEFAULT = 300;
 
 function seatName(name, fallback) {
@@ -80,6 +94,8 @@ export class Match {
     this.seats = {p1: spec.p1 || {}, p2: spec.p2 || {}};
     this.rngs = {p1: makeRng(`${spec.seed || this.id}:p1`), p2: makeRng(`${spec.seed || this.id}:p2`)};
     this.errors = [];
+    this.notes = [];       // with spec.trace: why each AI decision was taken (compactTrace), in order
+    this.notesSent = 0;
     if (snapshot) {
       this.battle = Battle.fromJSON(snapshot);
     } else {
@@ -116,8 +132,9 @@ export class Match {
         if (!req || req.wait || side.isChoiceDone() || !this.isAi(side.id)) continue;
         const ai = this.seats[side.id].ai;
         let choice = null;
+        const trace = this.spec.trace ? {} : null;
         try {
-          choice = chooseFor(b, side.id, {level: ai.level, style: ai.style, rng: this.rngs[side.id]});
+          choice = chooseFor(b, side.id, {level: ai.level, style: ai.style, rng: this.rngs[side.id], trace});
         } catch (e) {
           this.errors.push(`${side.id} AI: ${e.message}`);
         }
@@ -128,6 +145,8 @@ export class Match {
         if (!ok) {
           if (choice) this.errors.push(`${side.id} rejected "${choice}": ${side.choice?.error || ''}`.trim());
           try { b.choose(side.id, 'default'); } catch { /* the battle will tell */ }
+        } else if (trace && trace.choice) {
+          this.notes.push(compactTrace(trace));
         }
         progressed = true;
       }
@@ -185,5 +204,12 @@ export class Match {
 
   inputLog() {
     return this.battle.inputLog.slice();
+  }
+
+  /** The notes not handed out yet (the app stores them as they come, so an engine restart loses none). */
+  takeNotes() {
+    const out = this.notes.slice(this.notesSent);
+    this.notesSent = this.notes.length;
+    return out;
   }
 }

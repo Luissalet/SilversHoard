@@ -3,10 +3,10 @@
 // so a restarted engine continues any battle with `match_start` + `snapshot`.
 import readline from 'node:readline';
 import * as core from './core.mjs';
-import {Match} from './match.mjs';
+import {Match, compactTrace} from './match.mjs';
 import {playOut, series, summarize, tournament} from './stats.mjs';
 import {viewLines} from './match.mjs';
-import {freeze} from './ai.mjs';
+import {chooseFor, freeze, makeRng} from './ai.mjs';
 import {RtBattle, eventLines, prepareRtTeam, rtRun} from './realtime/sim.mjs';
 import {cooldownTable} from './realtime/moves.mjs';
 import {damageCalc} from './calc.mjs';
@@ -56,13 +56,13 @@ const handlers = {
     const m = new Match(a.spec, a.snapshot || null);
     if (!a.snapshot) m.advance();
     touch(m.id, m);
-    return {...m.state(a.view || 'host', a.since || 0), seed: m.spec.seed, snapshot: a.want_snapshot ? freeze(m.battle) : undefined};
+    return {...m.state(a.view || 'host', a.since || 0), seed: m.spec.seed, snapshot: a.want_snapshot ? freeze(m.battle) : undefined, notes: m.takeNotes()};
   },
   match_loaded: (a) => ({loaded: matches.has(a.id)}),
   match_choose: (a) => {
     const m = getMatch(a.id);
     m.choose(a.side, a.choice);
-    return {...m.state(a.view || 'host', a.since || 0), snapshot: freeze(m.battle)};
+    return {...m.state(a.view || 'host', a.since || 0), snapshot: freeze(m.battle), notes: m.takeNotes()};
   },
   match_state: (a) => {
     const m = getMatch(a.id);
@@ -71,12 +71,24 @@ const handlers = {
   match_forfeit: (a) => {
     const m = getMatch(a.id);
     m.forfeit(a.side);
-    return {...m.state(a.view || 'host', a.since || 0), snapshot: freeze(m.battle)};
+    return {...m.state(a.view || 'host', a.since || 0), snapshot: freeze(m.battle), notes: m.takeNotes()};
   },
   match_log: (a) => {
     const m = getMatch(a.id);
     const lines = viewLines(m.battle.log, 0, a.view || 'omniscient');
-    return {lines, summary: summarize(viewLines(m.battle.log, 0, 'omniscient')), input_log: m.inputLog()};
+    return {lines, summary: summarize(viewLines(m.battle.log, 0, 'omniscient')), input_log: m.inputLog(), notes: m.takeNotes()};
+  },
+  // what the AI would do now for one side of a live battle (a person's side: advice) and why, without choosing
+  match_advice: (a) => {
+    const m = getMatch(a.id);
+    const b = m.battle;
+    const side = b.sides.find((s) => s && s.id === a.side);
+    if (!side) throw new core.EngineError('invalid', `No side ${a.side}.`);
+    const req = side.activeRequest;
+    if (b.ended || !req || req.wait || side.isChoiceDone()) return {turn: b.turn, advice: null};
+    const trace = {};
+    chooseFor(b, a.side, {level: a.level || 'expert', style: a.style || 'balanced', rng: makeRng(`advice:${b.turn}:${a.side}`), trace});
+    return {turn: b.turn, advice: trace.choice ? compactTrace(trace) : null};
   },
   match_close: (a) => ({closed: matches.delete(a.id)}),
   play_out: (a) => playOut(a.spec, {keepLog: true}),

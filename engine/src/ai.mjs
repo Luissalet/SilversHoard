@@ -219,6 +219,18 @@ function scoreMove(scratch, me, foe, moveId, w, ctx) {
   return 0.05;
 }
 
+// ---------------------------------------------------------------- what an option would do, for traces
+function traceMove(scratch, me, target, moveId) {
+  const mv = scratch.dex.moves.get(moveId);
+  const aimed = ['normal', 'any', 'adjacentFoe', 'allAdjacentFoes', 'allAdjacent', 'randomNormal', 'adjacentAlly', 'adjacentAllyOrSelf'].includes(mv.target);
+  const out = {name: mv.name, target: aimed && target && !target.fainted ? target.species.name : ''};
+  if (mv.category !== 'Status' && target && !target.fainted && target.side !== me.side) {
+    const e = estimate(scratch, me, target, moveId);
+    Object.assign(out, {dmg: e.frac, ko: e.ko, acc: e.acc});
+  }
+  return out;
+}
+
 // ---------------------------------------------------------------- one side's options
 function requestOf(side) {
   return side.activeRequest || null;
@@ -291,7 +303,8 @@ function slotOptions(scratch, side, slot, req, opts, w, {allowSwitch = true} = {
       }
       if (threatened && fasterFoe && mv.priority <= 0) score *= 0.35;
       const choice = `move ${i + 1}${t ? ` ${t}` : ''}`;
-      out.push({choice, score, kind: mv.category === 'Status' ? 'status' : 'attack', move: m.id});
+      const seen = opts.trace ? traceMove(scratch, me, t > 0 ? side.foe.active[t - 1] : t < 0 ? side.active[-t - 1] : targetMon, m.id) : null;
+      out.push({choice, score, kind: mv.category === 'Status' ? 'status' : 'attack', move: m.id, ...seen});
       if (gimmick && opts.level !== 'easy') {
         let bonus = 0;
         if (gimmick === 'terastallize') {
@@ -303,13 +316,13 @@ function slotOptions(scratch, side, slot, req, opts, w, {allowSwitch = true} = {
         } else {
           bonus = 0.25;   // mega evolution, ultra burst, dynamax: nearly always worth it
         }
-        if (bonus > 0) out.push({choice: `${choice} ${gimmick}`, score: score + bonus, kind: 'gimmick', move: m.id});
+        if (bonus > 0) out.push({choice: `${choice} ${gimmick}`, score: score + bonus, kind: 'gimmick', move: m.id, ...seen, gimmick});
       }
       // Z-move: once a battle, scored as the move with its Z power (Inferno Overdrive from Fire Blast: 185 instead of 110)
       if (active.canZMove && active.canZMove[i] && opts.level !== 'easy' && mv.category !== 'Status') {
         const zbp = mv.zMove?.basePower || 0;
         const bp = mv.basePower || 0;
-        if (zbp && bp) out.push({choice: `${choice} zmove`, score: score * Math.min(2.2, zbp / bp) + 0.02, kind: 'gimmick', move: m.id});
+        if (zbp && bp) out.push({choice: `${choice} zmove`, score: score * Math.min(2.2, zbp / bp) + 0.02, kind: 'gimmick', move: m.id, ...seen, gimmick: 'zmove'});
       }
     }
   }
@@ -321,7 +334,7 @@ function slotOptions(scratch, side, slot, req, opts, w, {allowSwitch = true} = {
       const give = Math.max(0, ...foes.map((f) => bestThreat(scratch, mon, f).frac));
       const hazard = side.sideConditions?.stealthrock ? 0.12 : 0;
       const score = give - take * 0.9 - w.switchCost - hazard + (threatened ? 0.25 : 0) + hpFrac(mon) * 0.1 - 0.15;
-      out.push({choice: `switch ${n}`, score, kind: 'switch', slot: n});
+      out.push({choice: `switch ${n}`, score, kind: 'switch', slot: n, ...(opts.trace ? {species: mon.species.name, take, give} : null)});
     }
   }
   out.sort((a, b) => b.score - a.score);
@@ -467,6 +480,7 @@ function expertChoice(battle, side, req, opts, w, rng) {
     }
     if (!wsum) continue;
     const score = 0.65 * (mean / wsum) + 0.35 * worst + o.score * 0.05 + rng() * 1e-3;
+    if (opts.trace) (opts.trace.playouts ||= []).push({choice: o.choice, mean: mean / wsum, worst, score});
     if (!best || score > best.score) best = {choice: o.choice, score};
   }
   return best ? best.choice : (mine[0]?.choice || 'default');
@@ -550,6 +564,7 @@ function doublesExpertChoice(battle, side, req, opts, w, rng) {
     }
     if (!wsum) continue;
     const score = 0.65 * (mean / wsum) + 0.35 * worst + o.score * 0.05 + rng() * 1e-3;
+    if (opts.trace) (opts.trace.playouts ||= []).push({choice: o.choice, mean: mean / wsum, worst, score});
     if (!best || score > best.score) best = {choice: o.choice, score};
   }
   return best ? best.choice : null;
@@ -558,9 +573,73 @@ function doublesExpertChoice(battle, side, req, opts, w, rng) {
 // ---------------------------------------------------------------- entry point
 /**
  * The choice of side `sideId` right now, or null when it has nothing to choose.
- * opts: {level: random|easy|normal|hard|expert, style: balanced|aggressive|defensive|setup|stall, rng}
+ * opts: {level: random|easy|normal|hard|expert, style: balanced|aggressive|defensive|setup|stall, rng, trace}
+ * With `trace` (an object), it is filled with why: each slot's ranked options (expected damage, KO, accuracy; a switch's damage
+ * taken and dealt), the threat on the slot, who is faster and, for the expert, each candidate turn played out. Tracing reads the
+ * battle again on a copy and never changes the choice nor the random numbers it uses.
  */
 export function chooseFor(battle, sideId, opts = {}) {
+  const choice = chooseInner(battle, sideId, opts);
+  if (opts.trace && choice) {
+    try { fillTrace(battle, sideId, opts, choice); } catch (e) { opts.trace.error = String(e?.message || e); }
+  }
+  return choice;
+}
+
+function describeOption(list, choice) {
+  const o = (list || []).find((x) => x.choice === choice);
+  if (!o) return choice;
+  if (o.kind === 'switch') return `switch to ${o.species}`;
+  return `${o.name || choice}${o.gimmick ? ` (${o.gimmick})` : ''}${o.target ? ` on ${o.target}` : ''}`;
+}
+
+// the best options, plus the best switch when it is not among them (why not switch is half of most answers)
+function shortlist(options, n = 4) {
+  const out = options.slice(0, n);
+  const sw = options.find((o) => o.kind === 'switch');
+  if (sw && !out.includes(sw)) out.push(sw);
+  return out;
+}
+
+function fillTrace(battle, sideId, opts, choice) {
+  const trace = opts.trace;
+  const side = sideOf(battle, sideId);
+  const req = requestOf(side);
+  const level = LEVELS.includes(opts.level) ? opts.level : 'normal';
+  const style = STYLE_WEIGHTS[opts.style] ? opts.style : 'balanced';
+  Object.assign(trace, {turn: battle.turn, side: sideId, choice, level, style,
+    kind: req?.teamPreview ? 'preview' : req?.forceSwitch ? 'switch_in' : 'turn'});
+  const scratch = clone(battle);
+  const sSide = sideOf(scratch, sideId);
+  const parts = String(choice).split(',').map((x) => x.trim());
+  if (trace.kind === 'turn' && req?.active) {
+    const lists = [];
+    trace.slots = req.active.map((_, slot) => {
+      const me = sSide.active[slot];
+      if (!me || me.fainted) { lists.push([]); return null; }
+      const foes = sSide.foe.active.filter((p) => p && !p.fainted);
+      const threats = foes.map((f) => ({foe: f.species.name, ...bestThreat(scratch, f, me)})).sort((a, b) => b.frac - a.frac);
+      const top = threats[0];
+      const options = slotOptions(scratch, sSide, slot, req, {...opts, level: level === 'random' ? 'normal' : level, trace: true}, STYLE_WEIGHTS[style]);
+      lists.push(options);
+      return {slot, mon: me.species.name, hp: hpFrac(me), faster: foes.filter((f) => speedOf(f) > speedOf(me)).map((f) => f.species.name),
+        threat: top ? {foe: top.foe, move: top.move ? scratch.dex.moves.get(top.move).name : '', frac: top.frac, ko: top.ko} : null,
+        picked: options.find((x) => x.choice === parts[slot]) || {choice: parts[slot] || ''}, options: shortlist(options)};
+    }).filter(Boolean);
+    if (trace.playouts) {
+      trace.playouts = trace.playouts.sort((a, b) => b.score - a.score)
+        .map((p) => ({...p, label: p.choice.split(',').map((c, slot) => describeOption(lists[slot], c.trim())).join(' + ')}));
+    }
+  } else if (trace.kind === 'switch_in') {
+    trace.slots = parts.map((p, slot) => {
+      const m = /^switch (\d+)/.exec(p);
+      const mon = m ? sSide.pokemon[Number(m[1]) - 1] : null;
+      return mon ? {slot, mon: mon.species.name, picked: {choice: p, kind: 'switch', species: mon.species.name}} : null;
+    }).filter(Boolean);
+  }
+}
+
+function chooseInner(battle, sideId, opts = {}) {
   const side = sideOf(battle, sideId);
   const req = side && requestOf(side);
   if (!req || req.wait) return null;
