@@ -578,6 +578,8 @@ const D = {
   player_name_help: ["Va en lo que mandas a tus amigos y en tus entrenadores nuevos.", "Goes into what you send friends and into your new trainers."],
   default_format: ["Formato por defecto", "Default format"],
   playback_ms: ["Pausa entre acciones (ms)", "Pause between actions (ms)"],
+  move_fx: ["Animaciones de movimientos", "Move animations"],
+  move_fx_help: ["En los combates por turnos cada movimiento se anima de un Pokémon al otro, con golpes, estados y clima, igual que en tiempo real. Se desactivan solas si tu sistema pide menos movimiento, y a la máxima velocidad de reproducción se omiten.", "In turn-based battles every move animates from one Pokémon to the other, with hits, statuses and weather, as in real time. They switch off by themselves if your system asks for less motion, and are skipped at the fastest playback speed."],
   max_turns: ["Turnos máximos", "Maximum turns"],
   series_default: ["Combates por serie", "Battles per series"],
   sprites: ["Sprites", "Sprites"],

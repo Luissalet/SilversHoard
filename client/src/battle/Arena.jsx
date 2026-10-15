@@ -4,6 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { L, STATUS_COLORS, STATUS_SHORT, STATUS_SHORT_EN, STAT_SHORT, TYPE_COLORS, nameOf, typeName, toID } from "./dex.js";
 import { battleT } from "./strings.js";
 import SoundButton from "./SoundControl.jsx";
+import { useMoveFxSetting, usePrefersReducedMotion } from "./fx/setting.js";
 
 const WEATHER_CLASS = { raindance: "w-rain", primordialsea: "w-rain", sunnyday: "w-sun", desolateland: "w-sun", sandstorm: "w-sand", hail: "w-snow",
   snowscape: "w-snow", snow: "w-snow", deltastream: "w-wind" };
@@ -16,7 +17,8 @@ function hpColor(frac) {
 }
 
 const KEYFRAMES = {
-  move: (back) => [{ transform: "translate(0,0)" }, { transform: back ? "translate(26px,-14px)" : "translate(-26px,14px)", offset: 0.4 }, { transform: "translate(0,0)" }],
+  // `lunge` ({dx, dy} in px, from the effect layer) sends a striking Pokémon toward its target instead of the small default hop
+  move: (back, a) => [{ transform: "translate(0,0)" }, { transform: a?.lunge ? `translate(${a.lunge.dx}px,${a.lunge.dy}px)` : back ? "translate(26px,-14px)" : "translate(-26px,14px)", offset: 0.4 }, { transform: "translate(0,0)" }],
   hit: () => [{ transform: "translateX(0)", filter: "brightness(1)" }, { transform: "translateX(-7px)", filter: "brightness(2.2)" }, { transform: "translateX(6px)", filter: "brightness(1)" },
     { transform: "translateX(-4px)", filter: "brightness(1.8)" }, { transform: "translateX(0)", filter: "brightness(1)" }],
   heal: () => [{ filter: "drop-shadow(0 0 0 #6fe08a)" }, { filter: "drop-shadow(0 0 14px #6fe08a)" }, { filter: "drop-shadow(0 0 0 #6fe08a)" }],
@@ -44,7 +46,7 @@ function Sprite({ mon, back, sprites, anim, slotKey, size, scale = 1 }) {
     const el = ref.current;
     if (!mine || !el || !el.animate || !KEYFRAMES[mine.type]) return;
     try {
-      el.animate(KEYFRAMES[mine.type](back), { duration: DURATION[mine.type] || 400, easing: "ease-out", fill: mine.type === "faint" ? "forwards" : "none" });
+      el.animate(KEYFRAMES[mine.type](back, mine), { duration: DURATION[mine.type] || 400, easing: "ease-out", fill: mine.type === "faint" ? "forwards" : "none" });
     } catch { /* animations are decoration */ }
   }, [mine?.id]); // eslint-disable-line react-hooks/exhaustive-deps
   if (!mon) return null;
@@ -53,7 +55,7 @@ function Sprite({ mon, back, sprites, anim, slotKey, size, scale = 1 }) {
   };
   const cls = ["b-sprite", back ? "is-back" : "is-front", sprites.pixelated ? "pixelated" : "", mon.fainted ? "is-fainted" : ""];
   return (
-    <div className={cls.filter(Boolean).join(" ")} style={{ "--sprite-size": `${size}px`, "--sprite-scale": scale }}>
+    <div className={cls.filter(Boolean).join(" ")} data-fx-pos={slotKey} style={{ "--sprite-size": `${size}px`, "--sprite-scale": scale }}>
       <div className="b-sprite-img" ref={ref}>
         {failed < 2 && src ? <img src={src} alt={mon.species} onError={onError} draggable={false} /> : <div className="b-sprite-missing" aria-label={mon.species}>{mon.species.slice(0, 2)}</div>}
       </div>
@@ -155,13 +157,46 @@ export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "
     return parts;
   }, [st.field.weather, st.field.terrain, st.field.pseudo, lang]);
   const ended = st.ended;
+
+  // move effects: a canvas layer (loaded on demand) that plays each move between the sprites; off with the setting or reduced motion
+  const [fxPref, setFxPref] = useMoveFxSetting();
+  const reduced = usePrefersReducedMotion();
+  const fxOn = fxPref && !reduced;
+  const stageRef = useRef(null);
+  const underRef = useRef(null);
+  const overRef = useRef(null);
+  const [fx, setFx] = useState(null);
+  useEffect(() => {
+    if (!fxOn) return undefined;
+    let dead = false;
+    let stage = null;
+    let detach = null;
+    import("./fx/stage.js").then((m) => {
+      if (dead || !stageRef.current || !underRef.current || !overRef.current) return;
+      stage = new m.FxStage({ host: stageRef.current, under: underRef.current, over: overRef.current });
+      detach = player.attachFx(stage);
+      setFx(stage);
+    }).catch(() => { /* the effects are decoration: the screen works without them */ });
+    return () => { dead = true; detach?.(); stage?.destroy(); setFx(null); };
+  }, [fxOn, player]);
+  const fxMons = [];
+  for (const sid of [me, foe]) for (const i of slots) fxMons.push({ side: sid, slot: i, status: activeOf(sid, i)?.status || "" });
+  const fxSig = fxMons.map((m) => m.status).join(",");
+  useEffect(() => { fx?.sync({ weather: st.field.weather, mons: fxMons }); }, [fx, st.field.weather, fxSig]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const winnerSide = ended && !st.tie ? (st.sides.p1.name === st.winner ? "p1" : st.sides.p2.name === st.winner ? "p2" : "") : "";
   return (
     <div className="b-wrap">
       <div className="b-main">
-        <div className={`b-stage ${weather} ${terrain} ${doubles ? "is-doubles" : ""}`}>
+        <div className={`b-stage ${weather} ${terrain} ${doubles ? "is-doubles" : ""}`} ref={stageRef}>
           <div className="b-platform foe" />
           <div className="b-platform me" />
+          {fxOn && <canvas className="b-fx under" ref={underRef} aria-hidden="true" />}
+          {fxOn && <canvas className="b-fx over" ref={overRef} aria-hidden="true" />}
+          {!reduced && (
+            <button type="button" className={`b-fx-toggle${fxPref ? " is-on" : ""}`} aria-pressed={fxPref} title={t("move_fx")} aria-label={t("move_fx")}
+              onClick={() => setFxPref(!fxPref)}>✦</button>
+          )}
           {fieldLabel.length > 0 && <div className="b-field-label">{fieldLabel.join(" · ")}</div>}
           {st.turn > 0 && <div className="b-turn">{t("turn_n", { n: st.turn })}</div>}
           <SoundButton lang={lang} />

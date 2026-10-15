@@ -13,7 +13,7 @@ export function useBattlePlayer({ lang = "es", me = "p1", speedMs = 900, cryUrl 
   const r = useRef(null);
   if (!r.current) {
     r.current = { lines: [], applied: 0, state: newState(), log: [], anim: null, animId: 0, playing: true, timer: null, speedMs, lang, me,
-      muted: false, sfx: newSfxState() };
+      muted: false, sfx: newSfxState(), fx: null };
   }
   const p = r.current;
   p.speedMs = speedMs;
@@ -32,22 +32,30 @@ export function useBattlePlayer({ lang = "es", me = "p1", speedMs = 900, cryUrl 
     p.applied = count;
     p.anim = null;
     p.sfx = newSfxState();
+    p.fx?.clear?.();
   }, [p]);
 
-  const step = useCallback(() => {
+  // quiet: the line is applied without effects (skipping to the end)
+  const step = useCallback((quiet = false) => {
     if (p.applied >= p.lines.length) return 0;
     const line = p.lines[p.applied];
-    const loud = p.sound && !p.muted;
+    const loud = p.sound && !p.muted && !quiet;
     const pre = loud ? sfxPre(p.state, line) : null;
     const ev = applyLine(p.state, line, { lang: p.lang, me: p.me });
     if (ev && ev.text) p.log.push({ i: p.applied, text: ev.text, kind: ev.kind });
     if (ev && loud) playLine(p.state, line, ev, pre, p.sfx, { speedMs: p.speedMs, cryUrl: p.cryUrl });
+    const base = ev ? (PAUSE[ev.kind] ?? 0.3) : 0;
+    let wait = base;
+    if (ev && ev.anim && !quiet && p.fx && p.speedMs >= 100) {
+      // the effect layer plays the cue and says how long the line must last, so a move's effect ends before its damage shows
+      try { wait = Math.max(base, p.fx.cue(ev.anim, { budgetMs: base * p.speedMs, speedMs: p.speedMs }) / p.speedMs); } catch { wait = base; }
+    }
     if (ev && ev.anim) {
       p.animId += 1;
       p.anim = { ...ev.anim, id: p.animId, kind: ev.kind };
     }
     p.applied += 1;
-    return ev ? (PAUSE[ev.kind] ?? 0.3) : 0;
+    return ev ? wait : 0;
   }, [p]);
 
   const schedule = useCallback(() => {
@@ -106,9 +114,10 @@ export function useBattlePlayer({ lang = "es", me = "p1", speedMs = 900, cryUrl 
       clearTimeout(p.timer);
       p.timer = null;
       p.muted = true;
-      while (p.applied < p.lines.length) step();
+      while (p.applied < p.lines.length) step(true);
       p.muted = false;
       p.anim = null;
+      p.fx?.clear?.();
       rerender();
     },
     seek(index, { play = false } = {}) {
@@ -122,6 +131,11 @@ export function useBattlePlayer({ lang = "es", me = "p1", speedMs = 900, cryUrl 
     get state() { return p.state; },
     get log() { return p.log; },
     get anim() { return p.anim; },
+    /** The effect layer of the arena (see battle/fx/stage.js): it plays the cues of the lines as they are shown. Returns a detach function. */
+    attachFx(fx) {
+      p.fx = fx;
+      return () => { if (p.fx === fx) p.fx = null; };
+    },
     get applied() { return p.applied; },
     get total() { return p.lines.length; },
     get lines() { return p.lines; },

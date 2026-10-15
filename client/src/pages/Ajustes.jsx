@@ -5,6 +5,7 @@ import { useApp } from "../context.js";
 import { Busy, Field, Icon, ICONS, Section, Switch, useBusy, useLoad } from "../components/ui.jsx";
 import { AiFields, FormatSelect, MonIcon } from "../components/silver.jsx";
 import { SoundSliders } from "../battle/SoundControl.jsx";
+import { useMoveFxSetting } from "../battle/fx/setting.js";
 
 export default function Ajustes() {
   const { t, lang, notify, refreshOv, ov } = useApp();
@@ -13,6 +14,7 @@ export default function Ajustes() {
   const audioStats = useLoad(() => fetch("/api/sound/stats").then((r) => r.json()), []);
   const [f, setF] = useState(null);
   const [busy, run] = useBusy();
+  const [moveFx, setMoveFx] = useMoveFxSetting();
   useEffect(() => { if (data) setF(data); }, [data]);
   if (!f) return null;
   const set = (k, v) => setF((x) => ({ ...x, [k]: v }));
@@ -42,6 +44,8 @@ export default function Ajustes() {
           <Field label={t("max_turns")}><input className="field" type="number" min={20} max={2000} value={f.max_turns} onChange={(e) => set("max_turns", Number(e.target.value))} /></Field>
           <Field label={t("series_default")}><input className="field" type="number" min={1} max={1000} value={f.series_default} onChange={(e) => set("series_default", Number(e.target.value))} /></Field>
         </div>
+        <label className="flex items-center gap-2"><Switch checked={moveFx} onChange={setMoveFx} label={t("move_fx")} /> {t("move_fx")}</label>
+        <p className="help">{t("move_fx_help")}</p>
       </div>
       <Section title={t("mode_realtime")}>
         <div className="panel space-y-3">
