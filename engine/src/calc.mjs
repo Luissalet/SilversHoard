@@ -90,20 +90,33 @@ function ohkoFromHits(hitRolls, hp) {
 /**
  * Exact OHKO chance over a hit-count distribution. `perHit` is an array of roll lists indexed by strike (1-based stored at
  * index hit-1); when every strike shares one list, pass that list once and set `identical`.
+ *
+ * Each hit-count's probability is its weight over the sum of weights (gen 5+ 2–5 hits: 7/7/3/3 of 20). Within a hit count,
+ * rolls are equally likely (`ohko/total`). Do not multiply weight by `n^hits`: that overweights more hits.
+ * Single fixed hit counts still expose `ohko_rolls` / `roll_space` as the raw roll counts (16 or 39).
  */
 function ohkoChance(perHit, dist, hp, identical) {
-  let space = 0;
-  let ohko = 0;
+  let weightSum = 0;
+  let chanceSum = 0;
+  let only = null;
   for (const {hits, weight} of dist.counts) {
     const hitRolls = identical
       ? Array.from({length: hits}, () => perHit[0])
       : perHit.slice(0, hits);
     const {ohko: o, total} = ohkoFromHits(hitRolls, hp);
-    space += weight * total;
-    ohko += weight * o;
+    if (!total) continue;
+    weightSum += weight;
+    chanceSum += weight * (o / total);
+    only = {ohko: o, total};
   }
-  if (!space) return {ohko_rolls: 0, roll_space: 0, ohko_chance: null};
-  return {ohko_rolls: ohko, roll_space: space, ohko_chance: ohko / space};
+  if (!weightSum) return {ohko_rolls: 0, roll_space: 0, ohko_chance: null};
+  const chance = chanceSum / weightSum;
+  // one hit-count only (Skill Link, fixed multihit, single strike): keep the enumerated roll counts for the UI / OHKO sure
+  if (dist.counts.length === 1 && only) {
+    return {ohko_rolls: only.ohko, roll_space: only.total, ohko_chance: chance};
+  }
+  // several hit counts: ohko_rolls / roll_space are in weight units (e.g. 13/20 when 3–5 hits always KO and 2 never)
+  return {ohko_rolls: chanceSum, roll_space: weightSum, ohko_chance: chance};
 }
 
 /**
