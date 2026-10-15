@@ -897,6 +897,7 @@ class Services:
 
     def battle_card(self, b: dict[str, Any]) -> dict[str, Any]:
         return {"id": b["id"], "kind": b["kind"], "status": b["status"], "mode": b.get("mode") or "classic", "format": b["format"], "title": b.get("title") or "",
+                "ai_notes_count": len((b.get("summary") or {}).get("ai_notes") or []),
                 "p1": self._public_seat(b.get("p1") or {}), "p2": self._public_seat(b.get("p2") or {}), "winner_side": b.get("winner_side") or "",
                 "winner_name": b.get("winner_name") or "", "turns": b.get("turns") or 0, "run_id": b.get("run_id") or "", "job_id": b.get("job_id") or "",
                 "created_at": b["created_at"], "updated_at": b["updated_at"]}
@@ -916,7 +917,7 @@ class Services:
         info = self.format_info(fmt, rules)
         if info.get("random"):
             fmt = f"gen{info['gen']}customgame"
-        spec = {"format": fmt, "rules": rules, "level_rules": level_rules, "max_turns": self.settings["max_turns"],
+        spec = {"format": fmt, "rules": rules, "level_rules": level_rules, "max_turns": self.settings["max_turns"], "trace": True,
                 "p1": {"name": s1["name"], "sets": s1["sets"], "ai": s1["ai"]}, "p2": {"name": s2["name"], "sets": s2["sets"], "ai": s2["ai"]}}
         if seed:
             spec["seed"] = seed
@@ -935,6 +936,7 @@ class Services:
                 self.store.update_battle(bid, {"status": "failed"})
                 raise
             self.store.update_battle(bid, {"snapshot": state.pop("snapshot", "") or "", "seed": str(state.get("seed") or "")})
+            self._keep_notes(bid, state.pop("notes", None))
             if state.get("ended"):
                 self._finish(bid)
         self.emit("battle.started", {"id": bid, "kind": kind})
@@ -944,7 +946,8 @@ class Services:
         def work() -> None:
             try:
                 r = self.engine.run_job("play_out", {"spec": spec}, timeout=1800)
-                self.store.update_battle(bid, {"status": "ended", "log_text": "\n".join(r.get("lines") or []), "summary": r.get("summary") or {},
+                self.store.update_battle(bid, {"status": "ended", "log_text": "\n".join(r.get("lines") or []),
+                                               "summary": {**(r.get("summary") or {}), "ai_notes": r.get("notes") or []},
                                                "winner_side": (r.get("summary") or {}).get("winner_side", ""),
                                                "winner_name": (r.get("summary") or {}).get("winner", ""), "turns": r.get("turns") or 0,
                                                "seed": str(r.get("seed") or "")})
@@ -961,7 +964,7 @@ class Services:
         if not b.get("snapshot"):
             raise SilverError("conflict", "This battle cannot be resumed (no saved state).")
         spec = {"id": b["id"], "format": b["format"], "rules": b.get("rules") or [], "level_rules": b.get("level_rules") or {},
-                "max_turns": self.settings["max_turns"],
+                "max_turns": self.settings["max_turns"], "trace": True,
                 "p1": {"name": b["p1"]["name"], "sets": b["p1"].get("sets") or [], "ai": b["p1"].get("ai")},
                 "p2": {"name": b["p2"]["name"], "sets": b["p2"].get("sets") or [], "ai": b["p2"].get("ai")}, "seed": b.get("seed") or None}
         self.engine.call("match_start", {"spec": spec, "snapshot": json.loads(b["snapshot"]), "view": "host"}, timeout=60)
@@ -970,7 +973,9 @@ class Services:
     def battle_get(self, id_: str, since: int = 0, view: str = "host") -> dict[str, Any]:
         b = self.store.battle(id_)
         out = self.battle_card(b)
-        out.update({"rules": b.get("rules") or [], "level_rules": b.get("level_rules") or {}, "summary": b.get("summary") or {}})
+        summary = b.get("summary") or {}
+        out.update({"rules": b.get("rules") or [], "level_rules": b.get("level_rules") or {},
+                    "summary": {k: v for k, v in summary.items() if k != "ai_notes"}, "ai_notes_count": len(summary.get("ai_notes") or [])})
         if (b.get("mode") or "classic") == "realtime":
             return self._rt_view(b, out, since)
         if b["status"] == "live":
@@ -1009,6 +1014,7 @@ class Services:
             self._ensure_loaded(b)
             state = self.engine.call("match_choose", {"id": id_, "side": side, "choice": choice, "since": since, "view": "host"}, timeout=120)
             self.store.update_battle(id_, {"snapshot": state.pop("snapshot", "") or "", "turns": state.get("turn") or 0})
+            self._keep_notes(id_, state.pop("notes", None))
             if state.get("ended"):
                 self._finish(id_)
         return self._with_state(id_, state)
@@ -1024,6 +1030,7 @@ class Services:
             self._ensure_loaded(b)
             state = self.engine.call("match_forfeit", {"id": id_, "side": side, "since": since, "view": "host"})
             state.pop("snapshot", None)
+            self._keep_notes(id_, state.pop("notes", None))
             self._finish(id_)
         return self._with_state(id_, state)
 
@@ -1048,6 +1055,7 @@ class Services:
             return
         log_ = self.engine.call("match_log", {"id": id_, "view": "omniscient"})
         summary = log_.get("summary") or {}
+        summary["ai_notes"] = [*((b.get("summary") or {}).get("ai_notes") or []), *(log_.get("notes") or [])][-self.MAX_NOTES:]
         self.store.update_battle(id_, {"status": "ended", "log_text": "\n".join(log_.get("lines") or []), "summary": summary,
                                        "winner_side": summary.get("winner_side", ""), "winner_name": summary.get("winner", ""),
                                        "turns": summary.get("turns", 0), "snapshot": ""})
@@ -1056,6 +1064,99 @@ class Services:
         except SilverError:
             pass
         self._after_end(id_)
+
+    # ------------------------------------------------------------ why the AI chose (notes kept with the battle)
+    MAX_NOTES = 800
+
+    def _keep_notes(self, id_: str, notes: Optional[list[dict[str, Any]]]) -> None:
+        if not notes:
+            return
+        b = self.store.battle(id_)
+        summary = dict(b.get("summary") or {})
+        summary["ai_notes"] = [*(summary.get("ai_notes") or []), *notes][-self.MAX_NOTES:]
+        self.store.update_battle(id_, {"summary": summary})
+
+    def battle_explain(self, id_: str, *, side: str = "", turn: int = 0, from_turn: int = 0, advice: bool = True, limit: int = 6) -> dict[str, Any]:
+        """Why the AI seats chose what they chose: one note per decision (the options it weighed with expected damage and KOs, the threat
+        on its Pokémon, who was faster and, for the expert, each candidate turn played out), for one turn, from a turn on, or the last
+        ones; in a live battle also what the expert would do now on a person's side (advice), without choosing for it."""
+        b = self.store.battle(id_)
+        if (b.get("mode") or "classic") == "realtime":
+            raise SilverError("invalid", "A real-time battle has no turns to explain.")
+        if side and side not in ("p1", "p2"):
+            raise SilverError("invalid", "side is p1 or p2")
+        notes = list((b.get("summary") or {}).get("ai_notes") or [])
+        if side:
+            notes = [n for n in notes if n.get("side") == side]
+        if turn:
+            picked = [n for n in notes if n.get("turn") == turn]
+        elif from_turn:
+            picked = [n for n in notes if (n.get("turn") or 0) >= from_turn]
+        else:
+            picked = notes[-max(1, min(int(limit or 6), self.MAX_NOTES)):]
+        out: dict[str, Any] = {"battle_id": id_, "status": b["status"], "turns": b.get("turns") or 0, "total": len(notes), "notes": picked,
+                               "text": [self._note_text(n, b) for n in picked]}
+        if advice and b["status"] == "live":
+            sides = [side] if side else [s for s in ("p1", "p2") if (b.get(s) or {}).get("human")]
+            found = {}
+            with self._lock_for(id_):
+                self._ensure_loaded(b)
+                for s in sides:
+                    r = self.engine.call("match_advice", {"id": id_, "side": s}, timeout=90)
+                    if r.get("advice"):
+                        found[s] = {**r["advice"], "text": self._note_text(r["advice"], b, advice=True)}
+            out["advice"] = found
+        if not notes and not out.get("advice"):
+            out["hint"] = "No AI decisions are kept for this battle (battles from before this was added, series and tournaments keep none)."
+        return out
+
+    @staticmethod
+    def _option_text(o: dict[str, Any]) -> str:
+        def pct(x: Any) -> str:
+            return f"{round((x or 0) * 100)}%"
+        if o.get("kind") == "switch":
+            text = f"switch to {o.get('species')}"
+            if o.get("take") is not None:
+                text += f" (takes ~{pct(o.get('take'))}, deals ~{pct(o.get('give'))})"
+            return text
+        text = str(o.get("name") or o.get("choice") or "?") + (f" with {o['gimmick']}" if o.get("gimmick") else "")
+        if o.get("dmg") is not None:
+            text += f" ~{pct(o.get('dmg'))}" + (" KO" if o.get("ko") else "")
+        return text
+
+    def _note_text(self, n: dict[str, Any], b: dict[str, Any], *, advice: bool = False) -> str:
+        """One decision in plain English (names as the simulator writes them), for the copilot and the tools."""
+        def pct(x: Any) -> str:
+            return f"{round((x or 0) * 100)}%"
+        who = (b.get(n.get("side") or "") or {}).get("name") or n.get("side") or "?"
+        head = f"Turn {n.get('turn')}, {who}" + (" (advice from the expert AI)" if advice else f" ({n.get('level')} AI, {n.get('style')})")
+        if n.get("kind") == "preview":
+            return f"{head}: team order {n.get('choice')}."
+        parts = []
+        for s in n.get("slots") or []:
+            p = s.get("picked") or {}
+            if n.get("kind") == "switch_in":
+                parts.append(f"sends in {s.get('mon')}.")
+                continue
+            line = f"{s.get('mon')} ({pct(s.get('hp'))} HP) {'should go for' if advice else 'chose'} {self._option_text(p)}"
+            if p.get("target") and p.get("kind") != "switch":
+                line += f" on {p['target']}"
+            if p.get("acc") is not None and p["acc"] < 1:
+                line += f" ({pct(p['acc'])} accuracy)"
+            th = s.get("threat") or {}
+            if th.get("frac"):
+                line += f". Threat: {th.get('foe')}'s {th.get('move')} ~{pct(th['frac'])}" + (", a KO" if th.get("ko") else "")
+            if s.get("faster"):
+                line += f"; {', '.join(s['faster'])} {'is' if len(s['faster']) == 1 else 'are'} faster"
+            alts = [o for o in s.get("options") or [] if o.get("choice") != p.get("choice")][:3]
+            if alts:
+                line += ". Also weighed: " + ", ".join(self._option_text(o) for o in alts)
+            parts.append(line + ".")
+        po = n.get("playouts") or []
+        if len(po) > 1:
+            parts.append("Turns played out (higher is better, worst case in brackets): "
+                         + "; ".join(f"{x.get('label')} {float(x.get('mean') or 0):+.2f} ({float(x.get('worst') or 0):+.2f})" for x in po[:3]) + ".")
+        return f"{head}: " + " ".join(parts)
 
     def _after_end(self, id_: str) -> None:
         b = self.store.battle(id_)

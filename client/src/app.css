@@ -190,3 +190,13 @@ a.league-card:hover { border-color: var(--hoard-border-hover); }
 .pose-cell { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 0; }
 .pose-cell img, .pose-empty { width: 120px; height: 150px; object-fit: contain; border: 1px solid var(--line); border-radius: var(--hoard-radius); background: var(--surface-2); }
 .pose-empty { display: grid; place-items: center; font-size: 28px; color: var(--muted); }
+
+/* why the AI chose (AiNotes under the arena) */
+.ai-notes { padding: 10px 12px; }
+.ai-note { border-top: 1px solid var(--line); padding-top: 8px; }
+.ai-note:first-child { border-top: 0; padding-top: 0; }
+.ai-note-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 4px; }
+.ai-note-slot p { margin: 2px 0; }
+.ai-note-playouts { margin-top: 6px; }
+.ai-note-playouts tr.is-on td { color: var(--ink); font-weight: 600; }
+.ai-playouts { width: 100%; max-width: 560px; }

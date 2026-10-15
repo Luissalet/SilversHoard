@@ -10,6 +10,7 @@ import { battleEnd, genOfFormat, music, pickTrack } from "../audio.js";
 import { Busy, Empty, ErrorBox, Icon, ICONS, Spinner, useBusy, useLoad, useStored } from "../components/ui.jsx";
 import { useContextProvider, usePoll } from "../components/hooks.js";
 import { Avatar, GymBadge, useSeats } from "../components/silver.jsx";
+import AiNotes from "../components/AiNotes.jsx";
 // the real-time screen carries the battle engine: loaded only when a real-time battle opens
 // After the app is rebuilt the old chunk name is gone; reload once to pick up the new one instead of showing a blank page.
 const CombateRt = React.lazy(() => import("./CombateRt.jsx").then((m) => {
@@ -172,7 +173,7 @@ export default function Combate({ param }) {
   });
 
   useContextProvider(() => battle ? ({ kind: "battle", object_id: battle.id, title: `${battle.p1.name} vs ${battle.p2.name}`,
-    fields: { status: battle.status, turn: player.state.turn, format: battle.format, me } }) : null);
+    fields: { status: battle.status, turn: player.state.turn, format: battle.format, me, ai_notes: battle.ai_notes_count || 0 } }) : null);
 
   if (error && !battle) return <ErrorBox error={error} onRetry={reload} />;
   if (!battle) return <div className="flex items-center gap-2"><Spinner /> {t("loading")}</div>;
@@ -233,6 +234,9 @@ export default function Combate({ param }) {
           )}
           {live && !request && player.caughtUp && <div className="b-controls"><div className="b-wait">{t("waiting_ai")}</div></div>}
         </Arena>
+      )}
+      {battle.status !== "running" && battle.status !== "failed" && (
+        <AiNotes battle={battle} turn={player.state.turn} live={live} requestSide={requestSide} />
       )}
       {battle.errors && battle.errors.length > 0 && <div className="help">{battle.errors.join(" · ")}</div>}
     </div>

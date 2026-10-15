@@ -27,6 +27,7 @@ Real time: battle_start, challenge_start, series_start and tournament_start take
 Sharing: export (fmt file = .hoardtrainer/.hoardgym/.hoardleague, code = a share code for a chat, page = one HTML file a friend opens in a browser to fight the gym or trainer, turn by turn or in real time as friend_mode says, paste = Showdown text). import takes any of those back, plus the result codes friends send after playing a page (records their badge; real-time battles in it are replayed and checked first).
 progress_get shows a trainer's record, streaks, MVPs, achievements and Pokédex (progress_list ranks them).
 damage_calc measures one Pokémon's moves against another (rolls, crits, KOs) with the game's own formula.
+battle_explain says why the AI chose each move (the options it weighed with expected damage and KOs, the threat it was under, the expert's play-outs) and, in a live battle, what the expert would do now on your side.
 Avatars: trainer_sprites_search (Showdown trainer sprites), avatar_from_photo (a photo on this computer into pixel art here) or avatar_draw (Prospero's Hoard draws one from up to 4 photos and/or a description in the games' art style, with the references of avatar_style_get; a background job). avatar_poses_draw draws a trainer's own sprite again from behind (shown on the player's side of a battle) and in a victory pose (shown when it wins); avatar_pose_set picks another candidate."""
 
 
@@ -458,6 +459,15 @@ class AvatarDrawArgs(BaseModel):
     style: bool = Field(True, description="Send the art-style references too (avatar_style_get), so it is drawn in the games' style.")
 
 
+class BattleExplainArgs(BaseModel):
+    id: str = IdField
+    side: Literal["", "p1", "p2"] = Field("", description="Only this side's decisions (and advice for it); empty = both.")
+    turn: int = Field(0, ge=0, le=1000, description="Only this turn's decisions.")
+    from_turn: int = Field(0, ge=0, le=1000, description="Every decision from this turn on.")
+    advice: bool = Field(True, description="In a live battle, also what the expert AI would do now on the person's side.")
+    limit: int = Field(6, ge=1, le=800, description="Without turn or from_turn: the last N decisions.")
+
+
 class AvatarPosesArgs(BaseModel):
     trainer_id: str = Field("", max_length=80, description="The trainer whose current sprite gets the poses.")
     avatar: str = Field("", max_length=200, description="Or the sprite itself: file:<name> (your own sprites only).")
@@ -719,6 +729,11 @@ TOOLS: list[Tool] = [
                            synonyms="sprite con ia, dibujar entrenador, sprite desde fotos, sprite de un famoso"), AvatarDrawArgs, WD,
          lambda s, a: s.avatar_draw([_read_path(p) for p in a.paths], description=a.description, trainer_id=a.trainer_id, count=a.count,
                                     style=a.style), 120.0),
+    Tool("battle_explain", _d("Why the AI chose each move, turn by turn, and what the expert would do now. Comentar la jugada.",
+                              "Each decision lists the options weighed (expected damage, KO, accuracy; a switch's damage taken and dealt), the "
+                              "threat on the Pokémon, who was faster and, for the expert AI, the candidate turns it played out.",
+                              synonyms="por qué la ia, explicar jugada, consejo, qué haría la ia, comentar combate"), BattleExplainArgs, R,
+         lambda s, a: s.battle_explain(a.id, side=a.side, turn=a.turn, from_turn=a.from_turn, advice=a.advice, limit=a.limit), 120.0),
     Tool("avatar_poses_draw", _d("Have Prospero's Hoard draw a trainer's own sprite from behind and in a victory pose (a job). Poses del sprite.",
                                  "The back view stands on the player's side of a battle and the victory pose shows when it wins.",
                                  synonyms="sprite de espaldas, pose de victoria, poses, back sprite"), AvatarPosesArgs, WD,

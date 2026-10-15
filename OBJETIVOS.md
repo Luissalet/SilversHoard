@@ -9,8 +9,7 @@ Lo que falta por construir, de más a menos valor. Lo que ya hace está en el [R
    campeón en el orden del juego, con topes de nivel), con los personajes ya cargados. Aparcado por decisión de Luis hasta
    terminar los modos y el pulido.
 4. **Repeticiones en vídeo.** Exportar un combate como clip para el editor de vídeo de la familia.
-5. **El copiloto comenta la jugada.** Faustus explica por qué la IA eligió un movimiento, con el cálculo del motor.
-6. **Arena más ligera.** La pantalla de tiempo real carga los datos completos de `@pkmn/sim` (unos 6 MB); con `@pkmn/dex` y
+5. **Arena más ligera.** La pantalla de tiempo real carga los datos completos de `@pkmn/sim` (unos 6 MB); con `@pkmn/dex` y
    solo las generaciones en uso bajaría a la mitad.
-7. **Los personajes que faltan.** Los equipos de la Torre Batalla de Diamante Brillante y Perla Reluciente, Noland, Argenta
+6. **Los personajes que faltan.** Los equipos de la Torre Batalla de Diamante Brillante y Perla Reluciente, Noland, Argenta
    y Thorton (sus tablas usan otra plantilla en la wiki) y los de Leyendas Pokémon: Arceus.
