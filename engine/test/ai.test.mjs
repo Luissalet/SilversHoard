@@ -46,3 +46,12 @@ test('every level answers Revival Blessing with a fainted Pokémon', () => {
     assert.ok(copy.choose('p1', choice), `${level}: ${choice} — ${copy.p1.choice.error}`);
   }
 });
+
+test('the AI measures moves as used, so Pixilate Hyper Voice is a Fairy move', async () => {
+  const {estimate} = await import('../src/ai.mjs');
+  const b = new Battle({formatid: 'gen9customgame', seed: [1, 2, 3, 4]});
+  b.setPlayer('p1', {name: 'A', team: packTeam(importTeam('Sylveon\nAbility: Pixilate\nEVs: 252 SpA\nModest Nature\n- Hyper Voice'))});
+  b.setPlayer('p2', {name: 'B', team: packTeam(importTeam('Garchomp\n- Earthquake'))});
+  b.makeChoices('default', 'default');
+  assert.equal(estimate(b, b.p1.active[0], b.p2.active[0], 'hypervoice').ko, true);
+});
