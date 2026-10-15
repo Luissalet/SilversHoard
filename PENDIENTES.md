@@ -12,3 +12,11 @@ Solo lo que no se puede cerrar desde aquí. Los errores encontrados se arreglan,
 - **Cómo suenan los efectos.** Los sonidos de golpes, estados, cambios y movimientos se sintetizan en el navegador y está
   comprobado que se programan y suenan en su momento (gritos y música se descargan y reproducen), pero si suenan bien solo lo
   puede juzgar Luis con los cascos puestos; los volúmenes y el silencio están en el altavoz del campo y en Ajustes > Sonido.
+- **Las 49 animaciones GEN8 de PokeRogue (CC BY-NC-SA 4.0).** El estilo Reborn usa solo las 748 que pokerogue-assets marca como
+  de Reborn (reutilizables con crédito). Las GEN8 son de licencia no comercial con obligación de compartir igual: Silver ya usa
+  material NC (SpriteCollab, música de PokeRogue), así que se podrían añadir, pero es decisión de Luis.
+- **Rival que habla con IA en producción.** El código está y probado; en el equipo no hay ahora mismo un modelo que responda
+  (Faustus caído y Ollama sin modelos descargados), así que el ajuste sigue apagado y se usan las frases escritas.
+- **Primera sala en directo con otro ordenador.** Windows pregunta una vez si deja pasar a Python por el puerto de las salas
+  (5240); hay que aceptarlo en el equipo de Luis para que un amigo de fuera de casa entre.
+

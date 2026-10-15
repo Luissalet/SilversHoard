@@ -199,6 +199,8 @@ export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "
     }).catch(() => { /* the effects are decoration: the screen works without them */ });
     return () => { dead = true; detach?.(); stage?.destroy(); setFx(null); };
   }, [fxOn, player]);
+  // animations that load per move (Reborn's) start loading as soon as the log names the move
+  useEffect(() => { fx?.preloadMoves(player.lines); }, [fx, player.total]); // eslint-disable-line react-hooks/exhaustive-deps
   const fxMons = [];
   for (const sid of [me, foe]) for (const i of slots) fxMons.push({ side: sid, slot: i, status: activeOf(sid, i)?.status || "" });
   const fxSig = fxMons.map((m) => m.status).join(",");

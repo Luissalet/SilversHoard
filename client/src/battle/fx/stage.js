@@ -103,6 +103,15 @@ export class FxStage {
     return this.ps;
   }
 
+  /** Starts loading the animations of the moves in these protocol lines (the runners that load per move, Reborn's, use it). */
+  preloadMoves(lines) {
+    const r = this.psActive();
+    if (!r?.preload) return;
+    const moves = new Set();
+    for (const l of lines || []) if (typeof l === "string" && l.startsWith("|move|")) moves.add(l.split("|")[3]);
+    r.preload([...moves]);
+  }
+
   /**
    * A move with Showdown's animation: played by the runner at its own pace (its natural length at normal speed, shorter when the
    * replay runs faster). Returns the ms the line must last, or -1 to fall back to our own effect.
