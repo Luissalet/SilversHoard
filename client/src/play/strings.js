@@ -56,6 +56,9 @@ const S = {
     "The code is long ({n} characters) because it carries the replay of your real-time battle: better download the file and send it as it is."],
   download_code_file: ["Descargar el código como archivo", "Download the code as a file"],
   made_with: ["Hecho con Silver's Hoard · motor de Pokémon Showdown", "Made with Silver's Hoard · Pokémon Showdown engine"],
+  weekly_rule_pokemon: ["Pokémon de la semana: {value}", "Pokémon of the week: {value}"],
+  weekly_rule_rule: ["Regla de la semana: {value}", "Rule of the week: {value}"],
+  weekly_rule_missing: ["El reto de esta semana pide llevar a {value} en el equipo.", "This week's challenge asks for {value} in the team."],
   // a live-battle room (a friend's Silver's Hoard serves this page)
   room_title: ["Combate en directo contra {name}", "Live battle against {name}"],
   room_help: ["{name} te ha invitado a un combate en directo. Pon tu nombre, trae tu equipo (pégalo, sácalo al azar o carga un archivo) y únete; cuando {name} lo empiece, jugáis cada uno desde vuestro ordenador.",
