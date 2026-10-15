@@ -1581,7 +1581,23 @@ class Services:
             dest = out_dir / f"{Path(ref).stem}.png"
             flat.save(dest, "PNG")
             paths.append(str(dest.resolve()))
-        return paths
+        if len(paths) < 2:
+            return paths
+        # several pictures given apart make the model copy the line-up (three figures) or one outfit: one sheet with all of them
+        # reads as "a style", not as people to draw
+        tiles = [Image.open(p) for p in paths]
+        h = max(t.height for t in tiles)
+        tiles = [t.resize((max(1, round(t.width * h / t.height)), h), Image.Resampling.NEAREST) for t in tiles]
+        gap = h // 8
+        sheet = Image.new("RGB", (sum(t.width for t in tiles) + gap * (len(tiles) + 1), h + 2 * gap), "white")
+        x = gap
+        for t in tiles:
+            sheet.paste(t, (x, gap))
+            x += t.width + gap
+        sheet.thumbnail((1536, 1536))
+        dest = out_dir / ("sheet-" + hashlib.sha1("|".join(info["used"]).encode()).hexdigest()[:10] + ".png")
+        sheet.save(dest, "PNG")
+        return [str(dest.resolve())]
 
     def prospero_prompt(self, *, photos: int, description: str, styles: int = 0) -> str:
         """The image prompt. Prospero numbers the reference pictures in the order they are given (image 1 first): the photos of the
@@ -1597,8 +1613,10 @@ class Services:
         else:
             parts.append(f"Draw {description} as an original monster-trainer character.")
         if styles:
-            parts.append(f"{span(photos + 1, styles).capitalize()} {'shows' if styles == 1 else 'show'} only the art style to follow: copy their drawing style, proportions, "
-                         "eyes, line work, shading and palette, but not their clothes, hair, face, pose or props.")
+            parts.append(f"{span(photos + 1, styles).capitalize()} {'is' if styles == 1 else 'are'} only a style reference with unrelated "
+                         "characters: copy only the drawing style (proportions, eyes, line work, shading, palette); never draw those "
+                         "characters or their clothes, hair, poses or props.")
+        parts.append("Exactly one character, alone, full body.")
         parts.append(str(self.settings["prospero_prompt"]))
         return " ".join(parts)
 

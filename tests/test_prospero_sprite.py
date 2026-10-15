@@ -104,7 +104,7 @@ def test_prospero_sprite_follows_the_contract(services, prospero):
     refs = prospero.generated["reference_asset_ids"]
     assert refs[0] == "as_photo1" and len(refs) == 2          # the photo, then the style sprites (identical here: one reference)
     assert "Draw the person shown in image 1 " in prospero.generated["prompt"]
-    assert "Image 2 shows only the art style" in prospero.generated["prompt"]
+    assert "Image 2 is only a style reference" in prospero.generated["prompt"]
     assert [a for _, a in prospero.fetched] == ["as_a_cut", "as_b_cut"]
     assert all(c["cutout"] for c in result["candidates"])
     assert all(b == "http://prospero.test" for b, _ in prospero.fetched)
@@ -132,7 +132,7 @@ def test_prospero_sprite_from_several_photos_and_a_description(services, prosper
     assert j["status"] == "done", j
     assert prospero.generated["reference_asset_ids"][:3] == ["as_photo1", "as_photo2", "as_photo3"]
     assert "images 1 to 3 (black jacket, headphones)" in prospero.generated["prompt"]
-    assert "Image 4 shows only the art style" in prospero.generated["prompt"]
+    assert "Image 4 is only a style reference" in prospero.generated["prompt"]
 
 
 def test_prospero_sprite_from_a_description_only(services, prospero):
@@ -148,6 +148,8 @@ def test_style_references_are_imported_once_and_follow_the_photos(services, pros
     services.avatar_style_set(add=[("official-art.png", picture())])
     info = services.avatar_style_get()
     assert info["used"][0] == info["images"][0]["file"] and len(info["used"]) == 3
+    sheets = services.style_reference_paths()
+    assert len(sheets) == 1 and Image.open(sheets[0]).width > Image.open(sheets[0]).height   # three pictures, one sheet side by side
     run_job(services, services.avatar_draw([], description="a sailor"))
     first = prospero.generated["reference_asset_ids"]
     imports = sum(1 for t, _ in prospero.calls if t == "studio_import")
