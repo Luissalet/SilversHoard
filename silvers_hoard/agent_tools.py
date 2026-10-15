@@ -25,6 +25,7 @@ Many battles at once: series_start (the same two trainers N times: win rate, MVP
 Levels: level_rules {level: 50} (or 100) on battle_start, series_start and tournament_start, or level on challenge_start, equalizes every Pokémon of both sides at that level, so teams of different levels fight on even terms.
 Real time: battle_start, challenge_start, series_start and tournament_start take mode=realtime for battles after Pokémon Legends: Z-A (the same trainers and teams on a 2D arena, no turns: every move has a cooldown in seconds instead of PP, a wind-up and a range; attacks can be dodged; one-stage stat changes that wear off; three switches that come back after each KO). A person plays it on the app's screen; two AI seats play it in the background. rt_cooldowns shows how a team's moves translate (Z-A's own cooldowns, or derived from PP and power); rt_rules explains the rules. battle_get of a real-time battle returns English event lines and the spec + inputs that replay it exactly.
 Sharing: export (fmt file = .hoardtrainer/.hoardgym/.hoardleague, code = a share code for a chat, page = one HTML file a friend opens in a browser to fight the gym or trainer, paste = Showdown text). import takes any of those back, plus the result codes friends send after playing a page (records their badge).
+damage_calc measures one Pokémon's moves against another (rolls, crits, KOs) with the game's own formula.
 Avatars: trainer_sprites_search (Showdown trainer sprites), avatar_from_photo (a photo on this computer into pixel art here) or avatar_draw (Prospero's Hoard draws one from up to 4 photos and/or a description in the games' art style, with the references of avatar_style_get; a background job)."""
 
 
@@ -67,6 +68,37 @@ class DexArgs(BaseModel):
 class SpeciesArgs(BaseModel):
     name: str = Field(..., min_length=1, max_length=60)
     gen: int = Field(9, ge=1, le=9)
+
+
+Boosts = dict[Literal["atk", "def", "spa", "spd", "spe", "accuracy", "evasion"], int]
+PokemonSpec = Field(..., description="One Pokémon: Showdown export text or a set {species, item, ability, nature, evs, ivs, level, moves, teraType}.")
+
+
+class DamageCalcArgs(BaseModel):
+    attacker: str | dict[str, Any] = PokemonSpec
+    defender: str | dict[str, Any] = PokemonSpec
+    format: str = Field("", max_length=120, description="Its generation's rules apply (empty = generation 9).")
+    moves: list[str] = Field(default_factory=list, max_length=8, description="Empty = the attacker's own moves.")
+    attacker_boosts: Optional[Boosts] = None
+    defender_boosts: Optional[Boosts] = None
+    attacker_tera: str = Field("", max_length=20, description="A type, or 'yes' for the set's own Tera type (generation 9).")
+    defender_tera: str = Field("", max_length=20)
+    attacker_mega: bool = Field(False, description="Mega Evolve (or Ultra Burst) first when the item allows it.")
+    defender_mega: bool = False
+    weather: Optional[Literal["", "sun", "rain", "sand", "hail", "snow"]] = Field(None, description="Left out = what the abilities set; '' = none.")
+    terrain: Optional[Literal["", "electric", "grassy", "psychic", "misty"]] = Field(None, description="Left out = what the abilities set; '' = none.")
+    screens: list[Literal["reflect", "lightscreen", "auroraveil"]] = Field(default_factory=list, max_length=3, description="On the defender's side.")
+    defender_hp: Optional[int] = Field(None, ge=1, le=100, description="HP left, % of max (default full).")
+
+
+def _damage_calc(s: Services, a: DamageCalcArgs) -> Any:
+    args = a.model_dump(exclude_none=True)
+    for key in ("attacker_tera", "defender_tera"):
+        if args.get(key) == "yes":
+            args[key] = True
+        elif not args.get(key):
+            args.pop(key, None)
+    return s.engine.call("damage_calc", args)
 
 
 class TeamTextArgs(BaseModel):
@@ -479,6 +511,9 @@ TOOLS: list[Tool] = [
          lambda s, a: {"results": s.dex_search(a.kind, a.query, a.gen, a.limit, a.species)}),
     Tool("species_info", _d("A Pokémon's types, base stats, abilities, evolutions and learnable moves. Ficha de Pokémon.",
                             synonyms="estadísticas base, tipos, evoluciones, movimientos que aprende"), SpeciesArgs, R, lambda s, a: s.species(a.name, a.gen)),
+    Tool("damage_calc", _d("Damage of each move of one Pokémon against another: the 16 rolls, crits, KOs. Calculadora de daño.",
+                           "Measured with the simulator's own formula of the format's generation: abilities (type-changing ones too), items, stat boosts, Tera, Mega Evolution, weather, terrain and screens count; weather and terrain left out = what the abilities set. Each move: rolls, min-max (and % of HP), crit range, rolls that KO, hits to KO.",
+                           synonyms="calculadora, cuánto quita, rango de daño, ohko, 2hko, cálculo de daño"), DamageCalcArgs, R, _damage_calc),
     Tool("team_import", _d("Parse a team (Showdown text, packed or JSON) into sets and back to clean text. Leer equipo.",
                            synonyms="importar equipo, pokepaste, showdown"), TeamTextArgs, R, lambda s, a: s.import_team(a.text)),
     Tool("team_validate", _d("Check a team against a format's rules (Showdown's validator). Validar equipo.",
