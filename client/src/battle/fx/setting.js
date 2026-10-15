@@ -50,9 +50,10 @@ export function readFxStyle() {
   }
 }
 
-/** [backdrop, set]: the field of the turn-based screen: "showdown" (its backdrops and weather overlays, the default) or "silver" (gradients). */
+/** [backdrop, set]: the field of the turn-based screen: "showdown" (its backdrops and weather overlays, the default), "pixel" (Scarloxy's
+ * pixel-art backgrounds with Showdown's weather overlays) or "silver" (gradients). */
 export function useBackdropSetting() {
   const [value, set] = useStored(BACKDROP_KEY, "showdown");
-  const ok = (v) => (v === "silver" ? "silver" : "showdown");
+  const ok = (v) => (v === "silver" || v === "pixel" ? v : "showdown");
   return [ok(value), (v) => set(ok(v))];
 }

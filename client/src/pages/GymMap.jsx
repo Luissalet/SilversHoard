@@ -6,9 +6,11 @@ import { api } from "../api.js";
 import { useApp } from "../context.js";
 import { Busy, Field, useBusy } from "../components/ui.jsx";
 import { Avatar } from "../components/silver.jsx";
+import { MPW_TILES } from "../battle/overworld/mpw-tiles.gen.js";
 
 const TILES = [[".", "#e8e2d4"], ["#", "#4a4038"], ["~", "#3f7fb5"], ["o", "#8f8a7c"], ["*", "#3f8f4a"], ["=", "#b04848"], [",", "#5c9c4c"]];
 const COLORS = Object.fromEntries(TILES);
+const LOOKS = ["colors", "pixel"];
 const WALK = new Set([".", "=", ","]);
 const FACINGS = ["up", "down", "left", "right"];
 const ARROW = { up: "▲", down: "▼", left: "◀", right: "▶" };
@@ -50,6 +52,7 @@ export default function GymMapEditor({ gymId, trainerIds, people, value, onChang
     );
   }
   const set = (patch) => onChange({ ...map, ...patch });
+  const pixel = map.look === "pixel";
   const paint = (x, y) => {
     if (who) {
       if (!WALK.has(map.tiles[y * map.w + x])) { toastError(new Error(t("gmap_on_floor"))); return; }
@@ -79,7 +82,7 @@ export default function GymMapEditor({ gymId, trainerIds, people, value, onChang
         <span className="help">{t("gmap_paint")}:</span>
         {TILES.map(([c, col]) => (
           <button key={c} type="button" className={`gmap-tool ${!who && tool === c ? "is-on" : ""}`} onClick={() => { setWho(""); setTool(c); }} title={t(`gmap_tile_${c === "." ? "floor" : c === "#" ? "wall" : c === "~" ? "water" : c === "o" ? "boulder" : c === "*" ? "plant" : c === "=" ? "carpet" : "grass"}`)}>
-            <span style={{ background: col }} />{t(`gmap_tile_${c === "." ? "floor" : c === "#" ? "wall" : c === "~" ? "water" : c === "o" ? "boulder" : c === "*" ? "plant" : c === "=" ? "carpet" : "grass"}`)}
+            {map.look === "pixel" ? <img src={MPW_TILES[c]} alt="" className="gmap-swatch" /> : <span style={{ background: col }} />}{t(`gmap_tile_${c === "." ? "floor" : c === "#" ? "wall" : c === "~" ? "water" : c === "o" ? "boulder" : c === "*" ? "plant" : c === "=" ? "carpet" : "grass"}`)}
           </button>
         ))}
       </div>
@@ -108,9 +111,20 @@ export default function GymMapEditor({ gymId, trainerIds, people, value, onChang
       )}
       <div className="gmap-scroll" onPointerUp={() => setPainting(false)} onPointerLeave={() => setPainting(false)}>
         <svg className="gmap-grid" width={map.w * cell} height={map.h * cell} viewBox={`0 0 ${map.w} ${map.h}`} role="img" aria-label={t("gmap_title")}>
+          {pixel && <g pointerEvents="none" style={{ imageRendering: "pixelated" }}>
+            {Array.from(map.tiles).map((c, i) => {
+              const x = i % map.w, y = Math.floor(i / map.w);
+              return <image key={`f${i}`} href={MPW_TILES[c === "o" || c === "*" ? "." : c]} x={x} y={y} width={1} height={1} />;
+            })}
+            {Array.from(map.tiles).map((c, i) => {
+              const x = i % map.w, y = Math.floor(i / map.w);
+              return c === "o" ? <image key={`o${i}`} href={MPW_TILES.o} x={x} y={y} width={1} height={1} />
+                : c === "*" ? <image key={`p${i}`} href={MPW_TILES["*"]} x={x} y={y - 1} width={1} height={2} /> : null;
+            })}
+          </g>}
           {Array.from(map.tiles).map((c, i) => {
             const x = i % map.w, y = Math.floor(i / map.w);
-            return <rect key={i} x={x} y={y} width={1} height={1} fill={COLORS[c]} stroke="rgba(0,0,0,.15)" strokeWidth={0.03}
+            return <rect key={i} x={x} y={y} width={1} height={1} fill={pixel ? "transparent" : COLORS[c]} stroke="rgba(0,0,0,.15)" strokeWidth={0.03}
               onPointerDown={(e) => { e.preventDefault(); setPainting(true); paint(x, y); }} onPointerEnter={() => { if (painting && !who) paint(x, y); }} />;
           })}
           <text x={map.start[0] + 0.5} y={map.start[1] + 0.72} fontSize={0.7} textAnchor="middle" pointerEvents="none">⌂</text>
@@ -134,6 +148,9 @@ export default function GymMapEditor({ gymId, trainerIds, people, value, onChang
             ×
             <input className="field max-w-[70px]" type="number" min={7} max={24} value={map.h} onChange={(e) => onChange(resize(map, map.w, Math.max(7, Math.min(24, Number(e.target.value) || 7))))} />
           </div>
+        </Field>
+        <Field label={t("gmap_look")}>
+          <div className="seg">{LOOKS.map((l) => <button key={l} type="button" aria-pressed={(map.look || "colors") === l} onClick={() => set({ look: l === "colors" ? undefined : l })}>{t(`gmap_look_${l}`)}</button>)}</div>
         </Field>
         <Busy busy={busy.gen} className="btn btn-sm" onClick={auto}>{t("gmap_auto_again")}</Busy>
         <button type="button" className="btn btn-sm" onClick={() => onChange({})}>{t("gmap_remove")}</button>

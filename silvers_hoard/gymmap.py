@@ -18,6 +18,7 @@ WALKABLE = set(".=,")
 FACING = ("up", "down", "left", "right")
 STEP = {"up": (0, -1), "down": (0, 1), "left": (-1, 0), "right": (1, 0)}
 MIN_W, MIN_H, MAX_W, MAX_H = 7, 7, 32, 24
+LOOKS = ("colors", "pixel")   # how the map is drawn: shapes in the gym's type colours, or pixel-art tiles
 
 
 def _pos(v: Any, what: str, w: int, h: int) -> tuple[int, int]:
@@ -98,8 +99,14 @@ def clean(m: Any, trainer_ids: list[str]) -> dict[str, Any]:
     for p in placed:
         if not reachable((p["x"], p["y"])):
             raise SilverError("invalid", "map: a trainer cannot be reached from the entrance.")
-    return {"w": w, "h": h, "tiles": tiles, "start": list(start), "leader": {"x": leader[0], "y": leader[1], "facing": leader_facing},
-            "trainers": placed}
+    look = m.get("look") or "colors"
+    if look not in LOOKS:
+        raise SilverError("invalid", "map: look is colors (shapes in the gym's type colours) or pixel (pixel-art tiles).")
+    out = {"w": w, "h": h, "tiles": tiles, "start": list(start), "leader": {"x": leader[0], "y": leader[1], "facing": leader_facing},
+           "trainers": placed}
+    if look != "colors":
+        out["look"] = look
+    return out
 
 
 def generate(trainer_ids: list[str], seed: Optional[str] = None) -> dict[str, Any]:

@@ -56,15 +56,17 @@ export default function Ajustes() {
             <option value="silver">{t("fx_style_silver")}</option>
           </select>
         </Field>
-        <Field label={t("rt_particles")} hint={t("rt_particles_help")}>
+        <Field label={t("rt_particles")} hint={`${t("rt_particles_help")} ${t("rt_particles_help_pixel")}`}>
           <select className="field" defaultValue={particleStyle()} onChange={(e) => setParticleStyle(e.target.value)}>
             <option value="textured">{t("rt_particles_textured")}</option>
+            <option value="pixel">{t("rt_particles_pixel")}</option>
             <option value="plain">{t("rt_particles_plain")}</option>
           </select>
         </Field>
         <Field label={t("backdrop")} hint={t("backdrop_help")}>
           <select className="field" value={backdrop} onChange={(e) => setBackdrop(e.target.value)}>
             <option value="showdown">{t("backdrop_showdown")}</option>
+            <option value="pixel">{t("backdrop_pixel")}</option>
             <option value="silver">{t("backdrop_silver")}</option>
           </select>
         </Field>

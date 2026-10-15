@@ -34,12 +34,21 @@ def test_the_automatic_map_is_valid_and_the_checks_say_what_is_wrong():
     assert gymmap.clean({}, ["a"]) == {}
 
 
+def test_a_map_can_be_drawn_in_pixel_art():
+    m = gymmap.generate(["a"], seed="z")
+    assert "look" not in gymmap.clean(m, ["a"])
+    assert gymmap.clean({**m, "look": "colors"}, ["a"]).get("look") is None
+    assert gymmap.clean({**m, "look": "pixel"}, ["a"])["look"] == "pixel"
+    assert "look is colors" in _err({**m, "look": "neon"}, ["a"])
+
+
 def test_a_gym_keeps_its_map_and_takes_it_along(call, client):
     leader = call("trainer_create", {"name": "Erika", "paste": TEAM})
     t1 = call("trainer_create", {"name": "Uno", "paste": TEAM})
     t2 = call("trainer_create", {"name": "Dos", "paste": TEAM})
     m = call("gym_map_generate", {"trainer_ids": [t1["id"], t2["id"]], "seed": "1"})["map"]
-    g = call("gym_save", {"name": "Gimnasio Azulona", "leader_id": leader["id"], "trainers": [t1["id"], t2["id"]], "map": m})
+    g = call("gym_save", {"name": "Gimnasio Azulona", "leader_id": leader["id"], "trainers": [t1["id"], t2["id"]], "map": {**m, "look": "pixel"}})
+    assert g["map"]["look"] == "pixel"
     assert g["map"]["w"] == m["w"] and {x["id"] for x in g["map"]["trainers"]} == {t1["id"], t2["id"]}
     bad = {**m, "trainers": m["trainers"][:1]}
     assert "not on the map" in call("gym_save", {"id": g["id"], "map": bad}, status=400)["error"]
@@ -47,6 +56,7 @@ def test_a_gym_keeps_its_map_and_takes_it_along(call, client):
     raw = client.get(f["url"]).content
     assert {x["id"] for x in json.loads(raw)["gym"]["map"]["trainers"]} == {0, 1}
     back = client.post("/api/import/upload", files={"file": (f["file"], raw, "application/json")}).json()["gym"]
+    assert back["map"]["look"] == "pixel"
     assert back["map"]["w"] == m["w"] and {x["id"] for x in back["map"]["trainers"]} == set(back["trainers"])
     # a gym trainer more: the old map no longer holds everybody, so it goes
     t3 = call("trainer_create", {"name": "Tres", "paste": TEAM})
