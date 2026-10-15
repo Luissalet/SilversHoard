@@ -514,7 +514,13 @@ class Services:
             default_name = f"{display} ({title.lower()})"
         else:
             title = f"{_CLASS_ES.get(v['trainer_class'], v['trainer_class']) if lang_es else v['trainer_class']} · {v['game_name_es'] if lang_es else v['game_name']}".strip(" ·")
-            default_name = f"{display} ({self._variant_label(v, 'es' if lang_es else 'en')})"
+            inner = self._variant_label(v, "es" if lang_es else "en")
+            labels = (v["labels_es"] if lang_es else v["labels"]) + ([("con " if lang_es else "with ") + v["with"]] if v.get("with") else [])
+            short = " · ".join(labels) or (v["game_name_es"] if lang_es else v["game_name"])
+            # names hold 60 characters: the game goes in the title when it does not fit
+            default_name = next((f"{display} ({x})" for x in (inner, short) if len(display) + len(x) + 3 <= 60), "")
+            if not default_name:
+                default_name = f"{display} ({short[:60 - len(display) - 4].rsplit(' ', 1)[0]}…)"
         notes = []
         if v:
             notes.append(self._variant_label(v, "es"))
