@@ -255,6 +255,17 @@ const CUES = {
     noise(o, { dur: 0.5, vol: 0.12, filter: "highpass", f: 3000, to: 8000 });
   },
   move: (o) => parts(o, WHOOSH[o.type] || WHOOSH.Normal),
+  // a Plus move: the move's whoosh with a bright echo on top
+  plus: (o) => {
+    arp(o, [84, 88, 91], { step: 0.04, wave: "sine", vol: 0.13, dur: 0.18 });
+    [0.09, 0.18].forEach((d, i) => tone(o, { f: midi(91), dur: 0.16, wave: "sine", vol: 0.08 / (i + 1), delay: d }));
+  },
+  megaEnd: (o) => arp(o, [79, 74, 67], { step: 0.08, wave: "triangle", vol: 0.16, dur: 0.22 }),
+  roll: (o) => noise(o, { dur: 0.16, vol: 0.14, filter: "bandpass", f: 900, to: 2200, q: 1.2 }),
+  thud: (o) => {
+    noise(o, { dur: 0.12, vol: 0.26, filter: "lowpass", f: 900, to: 200 });
+    tone(o, { f: 90, to: 50, dur: 0.12, vol: 0.3 });
+  },
   win: (o) => {
     [72, 76, 79, 84].forEach((n, i) => { tone(o, { f: midi(n), dur: 0.18, wave: "triangle", vol: 0.25, delay: i * 0.11 }); tone(o, { f: midi(n), dur: 0.18, wave: "square", vol: 0.05, delay: i * 0.11 }); });
     [84, 79, 76, 72].forEach((n) => tone(o, { f: midi(n), dur: 0.9, wave: "triangle", vol: 0.14, delay: 0.5 }));
