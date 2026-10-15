@@ -47,7 +47,6 @@ const S = {
   mode_turns_only: ["Este reto se combate solo por turnos.", "This challenge is fought turn by turn only."],
   mode_chip_realtime: ["Tiempo real", "Real time"],
   battle_continue: ["Continuar", "Continue"],
-  rt_checking: ["Comprobando la repetición…", "Checking the replay…"],
   rt_code_unavailable: ["Este navegador no puede comprimir la repetición del combate en tiempo real, así que no puede dar un código de resultado. Prueba con una versión reciente de Chrome, Edge, Firefox o Safari.",
     "This browser cannot compress the real-time replay, so it cannot give a result code. Try a recent version of Chrome, Edge, Firefox or Safari."],
   code_long: ["El código es largo ({n} caracteres) porque lleva la repetición de tu combate en tiempo real: mejor descarga el archivo y mándaselo tal cual.",
