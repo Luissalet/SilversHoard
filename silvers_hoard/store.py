@@ -240,6 +240,21 @@ ALTER TABLE gyms ADD COLUMN backdrop TEXT NOT NULL DEFAULT '';
 ALTER TABLE gyms ADD COLUMN map_json TEXT NOT NULL DEFAULT '{}';
 """
 
+SCHEMA_V7 = """
+CREATE TABLE exercises (
+  id TEXT PRIMARY KEY,
+  title TEXT NOT NULL,
+  goal TEXT NOT NULL DEFAULT 'win',
+  target_turns INTEGER NOT NULL DEFAULT 0,
+  payload_json TEXT NOT NULL,
+  archived INTEGER NOT NULL DEFAULT 0,
+  created_at REAL NOT NULL,
+  updated_at REAL NOT NULL
+);
+CREATE INDEX exercises_recent ON exercises(updated_at);
+"""
+
+EXERCISE_JSON = {"payload_json": "payload"}
 TRAINER_JSON = {"team_json": "team", "dialogue_json": "dialogue", "tags_json": "tags"}
 GYM_JSON = {"rules_json": "rules", "level_rules_json": "level_rules", "trainers_json": "trainers", "map_json": "map"}
 LEAGUE_JSON = {"rules_json": "rules", "level_rules_json": "level_rules", "gyms_json": "gyms", "elite_json": "elite_four"}
@@ -276,7 +291,7 @@ def _encode(values: dict[str, Any], json_cols: dict[str, str]) -> dict[str, Any]
 
 class Store:
     def __init__(self, path: Path):
-        self.db = Database(path, migrations=[SCHEMA_V1, SCHEMA_V2, SCHEMA_V3, SCHEMA_V4, SCHEMA_V5, SCHEMA_V6])
+        self.db = Database(path, migrations=[SCHEMA_V1, SCHEMA_V2, SCHEMA_V3, SCHEMA_V4, SCHEMA_V5, SCHEMA_V6, SCHEMA_V7])
 
     def close(self) -> None:
         self.db.close()
@@ -473,6 +488,25 @@ class Store:
 
     def update_battle(self, id_: str, values: dict[str, Any]) -> None:
         self._update("battles", id_, values, BATTLE_JSON)
+
+    # ------------------------------------------------------------ saved practice exercises
+    def exercise(self, id_: str) -> dict[str, Any]:
+        return self._get("exercises", id_, EXERCISE_JSON, "Exercise")
+
+    def exercises(self, *, archived: bool = False) -> list[dict[str, Any]]:
+        return [_decode(row, EXERCISE_JSON) for row in self.db.query(
+            "SELECT * FROM exercises WHERE archived = ? ORDER BY updated_at DESC", (int(archived),))]
+
+    def add_exercise(self, values: dict[str, Any]) -> str:
+        return self._insert("exercises", "ex", values, EXERCISE_JSON)
+
+    def update_exercise(self, id_: str, values: dict[str, Any]) -> None:
+        self._update("exercises", id_, values, EXERCISE_JSON)
+
+    def exercise_attempts(self, id_: str) -> list[dict[str, Any]]:
+        rows = self.db.query("SELECT id,status,winner_side,turns,replay_json,updated_at FROM battles "
+                             "WHERE json_extract(replay_json, '$.practice.exercise_id') = ? ORDER BY updated_at DESC", (id_,))
+        return [_decode(row, BATTLE_JSON) for row in rows]
 
     def delete_battles(self, ids: list[str]) -> int:
         n = 0

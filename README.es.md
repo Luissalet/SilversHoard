@@ -1,5 +1,9 @@
 # Silver's Hoard
 
+108 herramientas compartidas: `exercises_list`, `exercise_create`, `exercise_get`, `exercise_start`, `exercise_export` y `exercise_archive` gestionan los ejercicios; `import` lee sus textos y archivos.
+
+Los ejercicios se guardan desde una repetición por turnos con decisiones: eliges turno, lado y objetivo (ganar, con límite opcional de turnos; mantenerse un número de turnos o ganar antes). Se comparten como texto o archivo `.silverexercise` y se importan en Compartir, incluso en una biblioteca sin el combate original. Contienen la posición y el pasado, nunca las jugadas futuras. Cada intento es una práctica independiente y reanudable, sin récords, medallas ni avance de copas. La lista muestra los intentos y explica el nivel propuesto: tres éxitos o tres fallos completados en el mismo nivel hacen subir o bajar uno, entre aleatorio y experto. Puedes elegirlo manualmente, incluido el nivel maestro existente. Los ejercicios se archivan y restauran. Las repeticiones antiguas sin decisiones, resultados importados, muestras simuladas y tiempo real no proporcionan estas posiciones por turnos.
+
 Un simulador de combates Pokémon local de la familia Hoard. Funciona con el motor de combate de Pokémon Showdown (a través de `@pkmn/sim`), así que todas las generaciones de la 1 a la 9, individuales y dobles, se juegan con las mecánicas reales. Guardas entrenadores, combates contra ellos o los ves combatir, montas gimnasios y ligas, y mandas tus entrenadores y gimnasios a tus amigos como una página que abren en cualquier navegador.
 
 [English version](README.md)

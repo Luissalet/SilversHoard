@@ -19,6 +19,7 @@ from . import gymmap
 from .services import Services
 
 AGENT_INSTRUCTIONS = """Silver's Hoard is a Pokémon battle simulator (Pokémon Showdown's engine, every generation). It keeps trainers (a name, a team, an AI level and style, an avatar and battle lines), gyms (a leader plus optional gym trainers, a badge and rules), leagues (gyms, an Elite Four and a champion) and every battle with its full log.
+Exercises: exercise_create saves a turn/side from an ended replay with decisions and a goal (win, optionally within N turns; survive N turns or win earlier). exercise_export gives portable text and a .silverexercise file; import accepts either with no original battle needed. exercises_list/get show attempts and the explained difficulty recommendation. exercise_start makes an independent practice battle; adaptive=true moves one level after three successes or failures at the current level, or choose manually. exercise_archive is reversible. Attempts never award records, badges or cup results. No future decisions are exported.
 Start with silver_overview. Teams come in as Showdown export text (paste), packed teams or JSON; team_import parses, team_validate checks a format's rules. canon_list shows the in-game teams of leaders, Elite Four, champions and rivals of Crystal, FireRed/LeafGreen and Emerald, and canon_install adds a trainer or a whole league (its gyms, badges, Elite Four and champion). characters_list and character_get cover 154 characters of all nine generations with every team they used game by game (first battle, rematches, tournaments) and all their sprites; character_install makes a trainer from one team and one sprite, or an own team for the character (custom).
 Battles: battle_start with two seats. A seat is {trainer_id} or {paste|team, name}; human=true means a person plays it from the app (or you, with battle_choose), otherwise the AI plays (ai_level random|easy|normal|hard|expert|master|neural — master searches thousands of futures a turn with poke-engine, 9th-generation singles; neural is a reinforcement-learning policy on the GPU for singles of generations 1-4 and 9 (neural_ai starts its server); see ai_levels; ai_style balanced|aggressive|defensive|setup|stall). Two AI seats = a watched battle that plays out in the background; read it with battle_get (lines are the Showdown protocol log). battle_choose sends a Showdown choice for a person's seat ("move 1", "move 2 terastallize", "switch 3", "team 123456"; doubles: "move 1 1, move 2 -1"); battle_get returns the pending request with the legal options.
 Gym and league challenges: challenge_start (kind gym|league, a challenger trainer; auto=true lets the AI play the challenger). Winning every battle of a gym gives a badge; a league needs its badges and ends in the hall of fame. Battle facilities (facilities_list): challenge_start kind=facility starts a win streak against one rival after another with the facility's bosses on their battles; the record is the longest streak. In the Battle Factory (factory3, factory4, factory9) there is no own team: factory_pick takes 3 of 6 rentals each round and factory_swap trades one for the beaten rival's after a win.
@@ -348,6 +349,28 @@ class PracticeArgs(BaseModel):
     id: str = IdField
     turn: int = Field(..., ge=1, description="Rebuild to the start of this turn's move decision.")
     side: Literal["p1", "p2"] = "p1"
+
+
+class ExerciseCreateArgs(BaseModel):
+    battle_id: str = IdField
+    turn: int = Field(..., ge=1)
+    side: Literal["p1", "p2"] = "p1"
+    title: str = Field("", max_length=200)
+    goal: Literal["win", "survive"] = "win"
+    target_turns: int = Field(0, ge=0, le=1000, description="Win: 0 means unlimited. Survive: at least one turn; winning early also passes.")
+
+
+class ExerciseListArgs(BaseModel):
+    archived: bool = False
+
+
+class ExerciseArchiveArgs(IdArg):
+    archived: bool = True
+
+
+class ExerciseStartArgs(IdArg):
+    adaptive: bool = True
+    ai_level: Literal["random", "easy", "normal", "hard", "expert", "master"] = "normal"
 
 
 class BattleGetArgs(BaseModel):
@@ -823,6 +846,18 @@ TOOLS: list[Tool] = [
                                "The original and trainer records stay intact; the opponent uses revealed information.",
                                synonyms="practicar turno, repetir jugada, rama, entrenamiento"), PracticeArgs, W,
          lambda s, a: s.battle_practice(a.id, turn=a.turn, side=a.side), 120.0),
+    Tool("exercises_list", _d("Saved replay exercises with goals, attempts and difficulty suggestions. Ejercicios.", synonyms="entrenar, biblioteca ejercicios"),
+         ExerciseListArgs, R, lambda s, a: s.training.list(a.archived)),
+    Tool("exercise_create", _d("Save a replay position and goal as an independent exercise. Guardar ejercicio.", synonyms="practicar, compartir posición"),
+         ExerciseCreateArgs, W, lambda s, a: s.training.create(a.battle_id, turn=a.turn, side=a.side, title=a.title, goal=a.goal, target_turns=a.target_turns), 120.0),
+    Tool("exercise_get", _d("Exercise goal, attempts and explained difficulty recommendation. Ver ejercicio.", synonyms="objetivo, progreso entrenamiento"),
+         IdArg, R, lambda s, a: s.training.get(a.id)),
+    Tool("exercise_start", _d("Start a separate practice attempt with adaptive or chosen difficulty. Practicar ejercicio.", synonyms="intentar, entrenamiento adaptativo"),
+         ExerciseStartArgs, W, lambda s, a: s.training.start(a.id, adaptive=a.adaptive, ai_level=a.ai_level), 120.0),
+    Tool("exercise_export", _d("Export a portable exercise as text and a .silverexercise file. Compartir ejercicio.", synonyms="enviar posición, exportar entrenamiento"),
+         IdArg, W, lambda s, a: s.training.export(a.id)),
+    Tool("exercise_archive", _d("Archive or restore a saved exercise without removing its attempts. Archivar ejercicio.", synonyms="restaurar entrenamiento"),
+         ExerciseArchiveArgs, W, lambda s, a: s.training.archive(a.id, a.archived)),
     Tool("battle_compare", _d("Compare a practice battle with its original: winner, turns and team results. Comparar práctica.",
                               synonyms="comparar resultado, original y práctica"), IdArg, R, lambda s, a: s.battle_compare(a.id)),
     Tool("battle_get", _d("A battle: protocol log (from since), pending choices of person seats, result. Ver combate.",

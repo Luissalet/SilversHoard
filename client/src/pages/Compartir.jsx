@@ -4,10 +4,12 @@ import { api } from "../api.js";
 import { useApp } from "../context.js";
 import { Busy, Field, Icon, ICONS, Section, useBusy } from "../components/ui.jsx";
 import { FormatSelect } from "../components/silver.jsx";
+import { ExerciseLibrary } from "../components/Training.jsx";
 
 function ResultView({ r }) {
   const { t } = useApp();
   if (!r) return null;
+  if (r.kind === "exercise") return <p className="banner banner-info" role="status">{t("training_imported",{name:r.exercise.title})}</p>;
   if (r.kind === "trainer") return <div className="banner banner-info">{t("imported_trainer", { name: r.trainer.name })} <a className="btn-link" href={`#/entrenador/${r.trainer.id}`}>{t("open")}</a></div>;
   if (r.kind === "gym") return <div className="banner banner-info">{t("imported_gym", { name: r.gym.name })} <a className="btn-link" href={`#/gimnasio/${r.gym.id}`}>{t("open")}</a></div>;
   if (r.kind === "league") return <div className="banner banner-info">{t("imported_league", { name: r.league.name })} <a className="btn-link" href={`#/liga/${r.league.id}`}>{t("open")}</a></div>;
@@ -54,12 +56,13 @@ export default function Compartir() {
         </div>
         <div className="panel space-y-3">
           <h2>{t("import_file")}</h2>
-          <input ref={fileRef} type="file" className="field" accept=".hoardtrainer,.hoardgym,.hoardleague,.html,.json,.txt" />
+          <input ref={fileRef} type="file" className="field" accept=".hoardtrainer,.hoardgym,.hoardleague,.silverexercise,.html,.json,.txt" />
           <Busy busy={busy.f} className="btn btn-primary" onClick={importFile}><Icon d={ICONS.upload} size={14} /> {t("import")}</Busy>
           <p className="help">{t("import_file_help")}</p>
         </div>
       </div>
       <ResultView r={result} />
+      <ExerciseLibrary/>
       <Section title={t("how_sharing_works")}>
         <div className="panel space-y-2 max-w-3xl">
           <p><b>{t("export_page")}.</b> {t("how_page")}</p>
