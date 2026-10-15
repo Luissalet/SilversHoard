@@ -7,6 +7,7 @@ import {Match, compactTrace} from './match.mjs';
 import {playOut, series, summarize, tournament} from './stats.mjs';
 import {viewLines} from './match.mjs';
 import {chooseFor, freeze, makeRng} from './ai.mjs';
+import {masterAvailable} from './master.mjs';
 import {RtBattle, eventLines, prepareRtTeam, rtRun} from './realtime/sim.mjs';
 import {cooldownTable} from './realtime/moves.mjs';
 import {damageCalc} from './calc.mjs';
@@ -28,7 +29,7 @@ function getMatch(id) {
 }
 
 const handlers = {
-  ping: () => ({pong: true, versions: process.versions.node, open: matches.size}),
+  ping: () => ({pong: true, versions: process.versions.node, open: matches.size, master: masterAvailable()}),
   formats: (a) => ({formats: core.listFormats({gen: a.gen || 0, query: a.query || ''})}),
   format_info: (a) => core.formatInfo(core.buildFormatId(a.format, a.rules)),
   import_team: (a) => {

@@ -2,10 +2,11 @@
 // the game) and returns a Showdown choice string for one side. Damage is measured with the simulator's own formula on a throwaway
 // copy of the battle, so every generation's rules, abilities and items count. "expert" also plays each candidate turn out on copies
 // of the battle against the opponent's likely answers and keeps the move with the best worst case; in doubles it does the same with
-// pairings of both slots' best options.
+// pairings of both slots' best options. "master" searches thousands of futures with poke-engine (master.mjs, Node only) and plays
+// as the expert when that search is not available.
 import {Battle, PRNG, toID} from '@pkmn/sim';
 
-export const LEVELS = ['random', 'easy', 'normal', 'hard', 'expert'];
+export const LEVELS = ['random', 'easy', 'normal', 'hard', 'expert', 'master'];
 export const STYLES = ['balanced', 'aggressive', 'defensive', 'setup', 'stall'];
 
 const STYLE_WEIGHTS = {
@@ -35,6 +36,12 @@ export function makeRng(seed) {
 }
 
 const pick = (list, rng) => list[Math.floor(rng() * list.length)];
+
+// the master level's search: master.mjs registers it in Node when the app can run poke-engine; without it the master is the expert
+let masterSearch = null;
+export function setMasterSearch(fn) {
+  masterSearch = typeof fn === 'function' ? fn : null;
+}
 
 export function sideOf(battle, sideId) {
   return battle.sides.find((s) => s && s.id === sideId);
@@ -573,7 +580,7 @@ function doublesExpertChoice(battle, side, req, opts, w, rng) {
 // ---------------------------------------------------------------- entry point
 /**
  * The choice of side `sideId` right now, or null when it has nothing to choose.
- * opts: {level: random|easy|normal|hard|expert, style: balanced|aggressive|defensive|setup|stall, rng, trace}
+ * opts: {level: random|easy|normal|hard|expert|master, style: balanced|aggressive|defensive|setup|stall, rng, trace}
  * With `trace` (an object), it is filled with why: each slot's ranked options (expected damage, KO, accuracy; a switch's damage
  * taken and dealt), the threat on the slot, who is faster and, for the expert, each candidate turn played out. Tracing reads the
  * battle again on a copy and never changes the choice nor the random numbers it uses.
@@ -586,11 +593,28 @@ export function chooseFor(battle, sideId, opts = {}) {
   return choice;
 }
 
-function describeOption(list, choice) {
+// the option behind a choice; a move with a gimmick the ranking did not list ("move 1 terastallize") is the plain move plus it
+function optionFor(list, choice) {
   const o = (list || []).find((x) => x.choice === choice);
+  if (o) return o;
+  const m = /^(move \d+(?: -?\d+)?) (terastallize|mega|megax|megay|ultra|dynamax|zmove)$/.exec(choice);
+  const base = m && (list || []).find((x) => x.choice === m[1]);
+  return base ? {...base, choice, gimmick: m[2]} : null;
+}
+
+function describeOption(list, choice) {
+  const o = optionFor(list, choice);
   if (!o) return choice;
   if (o.kind === 'switch') return `switch to ${o.species}`;
   return `${o.name || choice}${o.gimmick ? ` (${o.gimmick})` : ''}${o.target ? ` on ${o.target}` : ''}`;
+}
+
+// the master's searched options with the names the notes show
+function nameSearch(search, list) {
+  search.options = search.options.map((p) => {
+    const o = optionFor(list, p.choice);
+    return {...p, label: describeOption(list, p.choice), ...(o ? {kind: o.kind, name: o.name, species: o.species, gimmick: o.gimmick} : null)};
+  });
 }
 
 // the best options, plus the best switch when it is not among them (why not switch is half of most answers)
@@ -628,14 +652,22 @@ function fillTrace(battle, sideId, opts, choice) {
     }).filter(Boolean);
     if (trace.playouts) {
       trace.playouts = trace.playouts.sort((a, b) => b.score - a.score)
-        .map((p) => ({...p, label: p.choice.split(',').map((c, slot) => describeOption(lists[slot], c.trim())).join(' + ')}));
+        .map((p) => {
+          const one = !p.choice.includes(',') && optionFor(lists[0], p.choice);
+          return {...p, label: p.choice.split(',').map((c, slot) => describeOption(lists[slot], c.trim())).join(' + '),
+            ...(one ? {kind: one.kind, name: one.name, species: one.species, gimmick: one.gimmick} : null)};
+        });
     }
+    if (trace.search) nameSearch(trace.search, lists[0]);
   } else if (trace.kind === 'switch_in') {
     trace.slots = parts.map((p, slot) => {
       const m = /^switch (\d+)/.exec(p);
       const mon = m ? sSide.pokemon[Number(m[1]) - 1] : null;
       return mon ? {slot, mon: mon.species.name, picked: {choice: p, kind: 'switch', species: mon.species.name}} : null;
     }).filter(Boolean);
+    if (trace.search) {
+      nameSearch(trace.search, sSide.pokemon.map((mon, i) => ({choice: `switch ${i + 1}`, kind: 'switch', species: mon.species.name})));
+    }
   }
 }
 
@@ -643,7 +675,19 @@ function chooseInner(battle, sideId, opts = {}) {
   const side = sideOf(battle, sideId);
   const req = side && requestOf(side);
   if (!req || req.wait) return null;
-  const level = LEVELS.includes(opts.level) ? opts.level : 'normal';
+  let level = LEVELS.includes(opts.level) ? opts.level : 'normal';
+  if (level === 'master') {
+    if (masterSearch && !req.teamPreview) {
+      try {
+        const choice = masterSearch(battle, sideId, req, opts);
+        if (choice) return choice;
+      } catch (e) {
+        if (opts.trace) opts.trace.master_error = String(e?.message || e).slice(0, 200);
+      }
+    }
+    if (opts.trace && !req.teamPreview) opts.trace.fallback = 'expert';
+    level = 'expert';
+  }
   const w = STYLE_WEIGHTS[opts.style] || STYLE_WEIGHTS.balanced;
   const rng = opts.rng || makeRng(`${battle.turn}:${sideId}`);
   const o = {...opts, level};

@@ -6,10 +6,13 @@ Long work (series of battles, tournaments) runs in a separate one-shot process (
 
 from __future__ import annotations
 
+import importlib.util
 import itertools
 import json
 import logging
+import os
 import subprocess
+import sys
 import threading
 import time
 from pathlib import Path
@@ -19,6 +22,40 @@ from .errors import SilverError
 from .hoard_link.proc import kill_tree, no_window_kwargs
 
 log = logging.getLogger("silver.engine")
+
+MASTER_SCRIPT = Path(__file__).with_name("master_ai.py")
+MASTER_HINT = ('pip install -r requirements-master.txt with MATURIN_PEP517_ARGS="--no-default-features --features '
+               'poke-engine/terastallization" set and a Rust toolchain (rustup.rs) installed; then restart the app.')
+_master: dict[str, Any] = {}
+
+
+def master_status(refresh: bool = False) -> dict[str, Any]:
+    """Whether the master AI can run here: poke-engine installed and built for the 9th generation (with Terastallization).
+    Checked once per process."""
+    if refresh:
+        _master.clear()
+    if not _master:
+        if importlib.util.find_spec("poke_engine") is None:
+            out: dict[str, Any] = {"ok": False, "error": "poke-engine is not installed"}
+        else:
+            try:
+                r = subprocess.run([sys.executable, str(MASTER_SCRIPT), "--check"], capture_output=True, text=True, timeout=60,
+                                   **no_window_kwargs())
+                out = json.loads((r.stdout or "").strip().splitlines()[-1])
+            except Exception as exc:  # noqa: BLE001 - a broken install
+                out = {"ok": False, "error": str(exc)[:200]}
+        ok = bool(out.get("ok") and out.get("tera"))
+        _master.update(available=ok, reason="" if ok else str(out.get("error") or "poke-engine was built without the 9th generation's rules"),
+                       hint="" if ok else MASTER_HINT)
+    return dict(_master)
+
+
+def master_env() -> dict[str, str]:
+    """The engine's environment: the helper of the master AI when it can run (engine/src/master.mjs reads it)."""
+    env = dict(os.environ)
+    if master_status()["available"]:
+        env.update(SILVER_MASTER_PY=sys.executable, SILVER_MASTER_SCRIPT=str(MASTER_SCRIPT))
+    return env
 
 ENGINE_CODES = {"invalid_format", "invalid_team", "empty_team", "unknown_species", "invalid_choice", "not_your_turn", "ended",
                 "match_not_loaded", "invalid", "unknown_command", "bad_json"}
@@ -50,7 +87,7 @@ class Engine:
             raise SilverError("engine_unavailable", f"The engine is missing: {server}")
         if not (self.cwd / "node_modules" / "@pkmn" / "sim").exists():
             raise SilverError("engine_unavailable", "The engine's packages are not installed.", hint="Run `npm install` in the app folder.")
-        proc = subprocess.Popen([node, str(server)], cwd=str(self.cwd), stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+        proc = subprocess.Popen([node, str(server)], cwd=str(self.cwd), env=master_env(), stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                                 text=True, encoding="utf-8", errors="replace", bufsize=1, **no_window_kwargs())
         ready = proc.stdout.readline() if proc.stdout else ""
         try:
@@ -151,7 +188,7 @@ class Engine:
         if not node:
             raise SilverError("engine_unavailable", "Node.js was not found.", hint="Install Node.js 20 or newer, or set node_path in Settings.")
         cli = self.engine_dir / "src" / "cli.mjs"
-        proc = subprocess.Popen([node, str(cli)], cwd=str(self.cwd), stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+        proc = subprocess.Popen([node, str(cli)], cwd=str(self.cwd), env=master_env(), stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                                 text=True, encoding="utf-8", errors="replace", **no_window_kwargs())
         out_chunks: list[str] = []
 

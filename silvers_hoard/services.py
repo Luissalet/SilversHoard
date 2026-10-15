@@ -21,6 +21,7 @@ from typing import Any, Callable, Optional
 from . import APP_ID, __version__
 from . import facilities, game_leagues, progress, sharing
 from .config import AI_LEVELS, AI_STYLES, REPO_ROOT, Config, Settings, find_node
+from .engine import master_status
 from .engine import Engine
 from .errors import SilverError
 from .hoard_link import family
@@ -144,7 +145,22 @@ class Services:
             pass
 
     def health(self) -> dict[str, Any]:
-        return {"engine": self.engine.status(), "counts": self.store.counts()}
+        return {"engine": self.engine.status(), "counts": self.store.counts(), "master_ai": master_status()}
+
+    AI_LEVEL_TEXT = {
+        "random": "Picks any legal move.",
+        "easy": "Attacks with what it has, often without thinking, and never switches by choice.",
+        "normal": "Measures damage with the game's formula, sometimes errs, switches when things look bad.",
+        "hard": "Always the best calculated option: damage, status, boosts, hazards, switches and gimmicks.",
+        "expert": "Also plays each candidate turn out against the opponent's likely answers (singles and doubles).",
+        "master": "Searches thousands of possible futures each turn (Monte Carlo tree search with poke-engine), about a second a turn; "
+                  "9th-generation singles. Elsewhere, or without poke-engine, it plays as the expert.",
+    }
+
+    def ai_levels(self, refresh: bool = False) -> dict[str, Any]:
+        """The AI levels, what each does and whether the master's search can run on this computer."""
+        return {"levels": [{"level": lv, "about": self.AI_LEVEL_TEXT[lv]} for lv in AI_LEVELS], "styles": list(AI_STYLES),
+                "master": master_status(refresh)}
 
     # ------------------------------------------------------------ overview
     def overview(self) -> dict[str, Any]:
@@ -1157,6 +1173,13 @@ class Services:
             if alts:
                 line += ". Also weighed: " + ", ".join(self._option_text(o) for o in alts)
             parts.append(line + ".")
+        se = n.get("search") or {}
+        if se.get("options"):
+            parts.append(f"Searched {se.get('iterations') or 0} possible futures (Monte Carlo tree search): "
+                         + "; ".join(f"{x.get('label') or x.get('choice')} {pct(x.get('share'))} of the search, wins {pct(x.get('win'))}"
+                                     for x in se["options"][:3]) + ".")
+        elif n.get("fallback") and n.get("level") == "master":
+            parts.append("The search was not available, so it played as the expert.")
         po = n.get("playouts") or []
         if len(po) > 1:
             parts.append("Turns played out (higher is better, worst case in brackets): "

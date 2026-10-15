@@ -1,5 +1,6 @@
 // Why the AI chose: under the arena, the AI seats' decisions of the turn on screen (the options each weighed with the expected
-// damage and KOs, the threat it was under, who was faster and, for the expert, the turns it played out), and in a live battle
+// damage and KOs, the threat it was under, who was faster, the turns the expert played out and the futures the master searched),
+// and in a live battle
 // what the expert would do now on your side. The notes come from battle_explain; names in the app's language.
 import React, { useEffect, useMemo, useState } from "react";
 import { api } from "../api.js";
@@ -28,6 +29,8 @@ const S = {
   switch_to: ["cambiar a {mon}", "switch to {mon}"],
   sw_detail: ["recibiría ~{take}, quitaría ~{give}", "would take ~{take}, deal ~{give}"],
   sends: ["{who} saca a {mon}", "{who} sends in {mon}"],
+  search: ["Futuros explorados: {n} (búsqueda en árbol de Montecarlo). Atención de la búsqueda y victoria estimada:", "Futures searched: {n} (Monte Carlo tree search). Share of the search and estimated win:"],
+  fallback: ["La búsqueda no estaba disponible: jugó como la experta.", "The search was not available: it played as the expert."],
   playouts: ["Turnos simulados (más alto, mejor; entre paréntesis, el peor caso)", "Turns played out (higher is better; worst case in brackets)"],
   level: ["IA {level} · {style}", "{level} AI · {style}"],
   advice: ["¿Qué haría la experta?", "What would the expert do?"],
@@ -36,7 +39,7 @@ const S = {
   prev: ["Turno anterior", "Previous turn"],
   next: ["Turno siguiente", "Next turn"],
 };
-const LEVELS = { random: ["aleatoria", "random"], easy: ["fácil", "easy"], normal: ["normal", "normal"], hard: ["difícil", "hard"], expert: ["experta", "expert"] };
+const LEVELS = { random: ["aleatoria", "random"], easy: ["fácil", "easy"], normal: ["normal", "normal"], hard: ["difícil", "hard"], expert: ["experta", "expert"], master: ["maestra", "master"] };
 const STYLES = { balanced: ["equilibrada", "balanced"], aggressive: ["agresiva", "aggressive"], defensive: ["defensiva", "defensive"], setup: ["de mejoras", "setup"], stall: ["de desgaste", "stall"] };
 const GIMMICKS = { terastallize: ["teracristalización", "Terastallization"], mega: ["megaevolución", "Mega Evolution"], megax: ["megaevolución X", "Mega Evolution X"],
   megay: ["megaevolución Y", "Mega Evolution Y"], ultra: ["ultraexplosión", "Ultra Burst"], dynamax: ["dinamax", "Dynamax"], zmove: ["movimiento Z", "Z-Move"] };
@@ -67,7 +70,8 @@ function useTexts(lang) {
     const label = (p, slots) => String(p.choice).split(",").map((c, i) => {
       const slot = slots.find((x) => x.slot === i) || slots[i];
       const o = (slot?.options || []).find((x) => x.choice === c.trim());
-      return o ? option(o) : p.label || c;
+      if (o) return option(o);
+      return (p.name || p.species) && !String(p.choice).includes(",") ? option(p) : p.label || c;
     }).join(" + ");
     return { s, mon, move, option, effect, label };
   }, [lang]);
@@ -100,6 +104,21 @@ function Note({ note, names, lang, advice }) {
           </div>
         );
       })}
+      {note.search?.options?.length > 0 && (
+        <div className="ai-note-playouts">
+          <span className="help">{s("search", { n: (note.search.iterations || 0).toLocaleString(lang === "es" ? "es-ES" : "en-GB") })}</span>
+          <table className="tbl ai-playouts"><tbody>
+            {note.search.options.slice(0, 3).map((po, i) => (
+              <tr key={i} className={po.choice === note.choice ? "is-on" : ""}>
+                <td>{po.name || po.species ? option(po) : po.label || po.choice}</td>
+                <td className="r num">{pct(po.share)}</td>
+                <td className="r num help">{pct(po.win)}</td>
+              </tr>
+            ))}
+          </tbody></table>
+        </div>
+      )}
+      {note.fallback && note.level === "master" && !advice && <p className="help">{s("fallback")}</p>}
       {(note.playouts || []).length > 1 && (
         <div className="ai-note-playouts">
           <span className="help">{s("playouts")}</span>

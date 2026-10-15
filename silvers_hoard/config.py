@@ -19,7 +19,7 @@ from .hoard_link.guard import parse_allowed_hosts
 REPO_ROOT = Path(__file__).resolve().parent.parent
 ENGINE_DIR = REPO_ROOT / "engine"
 
-AI_LEVELS = ("random", "easy", "normal", "hard", "expert")
+AI_LEVELS = ("random", "easy", "normal", "hard", "expert", "master")
 AI_STYLES = ("balanced", "aggressive", "defensive", "setup", "stall")
 SPRITE_SETS = ("gen5", "gen5ani", "ani", "home", "dex")
 

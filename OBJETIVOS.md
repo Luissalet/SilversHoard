@@ -18,4 +18,3 @@ Lo que falta por construir, de más a menos valor. Lo que ya hace está en el [R
 9. **Clasificación entre amigos verificada re-simulando la repetición y reto de la semana** con semilla fija. Ágora #562.
 10. **Pokémon Unbound jugable**: habilidades cambiadas (PUSE, MIT) y los entrenadores especiales de su Frontera re-derivados. Ágora #563.
 11. **Animaciones de PokeRogue/Reborn** como estilo de alta fidelidad con sonido (785 con crédito; reproductor propio). Ágora #564.
-12. **Más niveles de IA**: heurística de poke-env, poke-engine como IA maestra. Ágora #565.

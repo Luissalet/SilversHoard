@@ -15,6 +15,7 @@ dependencies = ["fastapi>=0.115", "uvicorn>=0.30", "pydantic>=2.7", "httpx>=0.27
 [project.optional-dependencies]
 dev = ["pytest>=8", "pytest-asyncio>=0.23"]
 video = ["playwright>=1.45"]
+master = ["poke-engine==0.0.48"]   # build with MATURIN_PEP517_ARGS, see requirements-master.txt
 
 [project.scripts]
 silvers-hoard = "silvers_hoard.__main__:main"
