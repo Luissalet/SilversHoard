@@ -56,8 +56,8 @@ const handlers = {
     try { sets = core.applyStatPoints(core.importTeam(a.sets), a.points || {}); } catch (e) { if (e instanceof RangeError) throw new core.EngineError('invalid', e.message); throw e; }
     return {sets, pokemon: core.teamSummary(sets, a.format || 'gen9customgame')};
   },
-  dex_search: (a) => ({results: core.dexSearch(a.kind || 'species', a.query || '', {gen: a.gen || 9, limit: a.limit || 30, species: a.species || ''})}),
-  species: (a) => core.speciesInfo(a.name, a.gen || 9),
+  dex_search: (a) => ({results: core.dexSearch(a.kind || 'species', a.query || '', {gen: a.gen || 9, limit: a.limit || 30, species: a.species || '', format: a.format || ''})}),
+  species: (a) => core.speciesInfo(a.name, a.gen || 9, a.format || ''),
   damage_calc: (a) => damageCalc(a),
   practice_snapshot: (a) => practiceSnapshot(a.input, a.turn, a.side),
   practice_suggestions: (a) => practiceSuggestions(a.input, a.side, a.start_turn, a.turn_count, a.min_gap),

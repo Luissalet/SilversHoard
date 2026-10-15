@@ -19,13 +19,13 @@ const empty = () => ({ name: "", species: "", item: "", ability: "", moves: ["",
   evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 } });
 
 const cache = new Map();
-function useDex(kind, gen, species = "") {
-  const key = `${kind}:${gen}:${species}`;
+function useDex(kind, gen, species = "", format = "") {
+  const key = `${kind}:${gen}:${species}:${species ? format : ""}`;
   const [list, setList] = useState(cache.get(key) || []);
   useEffect(() => {
     if (cache.has(key)) { setList(cache.get(key)); return; }
     if (kind === "moves" && !species) { setList([]); return; }
-    api.call("dex_search", { kind, gen, species, limit: 1000 }).then((r) => { cache.set(key, r.results); setList(r.results); }).catch(() => {});
+    api.call("dex_search", { kind, gen, species, format: species ? format : "", limit: 1000 }).then((r) => { cache.set(key, r.results); setList(r.results); }).catch(() => {});
   }, [key]); // eslint-disable-line react-hooks/exhaustive-deps
   return list;
 }
@@ -119,7 +119,7 @@ function MovePicker({ slot, set, moves, lang, t, id, onPick, onClose }) {
               const used = taken.has(norm(m.name));
               const on = norm(set.moves[slot]) === norm(m.name);
               return (
-                <button key={m.id} type="button" role="option" aria-selected={on} className={`tb-move-row ${on ? "is-on" : ""}`} disabled={used}
+                <button key={m.name} type="button" role="option" aria-selected={on} className={`tb-move-row ${on ? "is-on" : ""}`} disabled={used}
                   style={{ "--type": TYPE_COLORS[m.type] || "#777" }} onClick={() => onPick(m.name)} title={descOf(m)}>
                   <span className="b-type" style={{ background: TYPE_COLORS[m.type] }}>{typeName(m.type, lang)}</span>
                   <b className="trunc">{nameOf("move", m.name, lang)}</b>
@@ -138,7 +138,7 @@ function MovePicker({ slot, set, moves, lang, t, id, onPick, onClose }) {
       <Field label={t("tb_move_typed")}>
         <div className="flex gap-2">
           <input className="field" list={`${id}-mv-any`} value={typed} onChange={(e) => setTyped(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter" && typed.trim()) onPick(typed.trim()); }} />
-          <datalist id={`${id}-mv-any`}>{moves.map((m) => <option key={m.id} value={m.name}>{nameOf("move", m.name, lang)}</option>)}</datalist>
+          <datalist id={`${id}-mv-any`}>{moves.map((m) => <option key={m.name} value={m.name}>{nameOf("move", m.name, lang)}</option>)}</datalist>
           <button type="button" className="btn" disabled={!typed.trim()} onClick={() => onPick(typed.trim())}>{t("tb_move_use")}</button>
         </div>
       </Field>
@@ -193,7 +193,7 @@ function SetEditor({ set, index, gen, format, onChange, onRemove, lang, t, evMod
   const species = useDex("species", gen);
   const items = useDex("items", gen);
   const natures = useDex("natures", gen);
-  const moves = useDex("moves", gen, set.species);
+  const moves = useDex("moves", gen, set.species, format);
   const sp = species.find((s) => s.name.toLowerCase() === (set.species || "").toLowerCase());
   const ev = Object.values(set.evs || {}).reduce((a, b) => a + (Number(b) || 0), 0);
   const spTotal = STATS.reduce((a, k) => a + spFromEv(set.evs?.[k]), 0);
