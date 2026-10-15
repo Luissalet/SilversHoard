@@ -40,6 +40,7 @@ from .neural import NeuralAI
 from .pmd import PmdSprites
 from .official_art import OfficialArt
 from .pvp import Pvp
+from .mass import Mass
 from .friends import Friends
 from .smogon import Smogon
 from .sounds import Sounds
@@ -127,6 +128,7 @@ class Services:
         self.benchmarks = Benchmarks(self)
         self.training = Training(self)
         self.pvp = Pvp(self)
+        self.mass = Mass(self)
         self.friends = Friends(self)
         self.neural = NeuralAI(self.settings, config.sprites_dir.parent / "neural", config.data_dir / "logs")
         self._neural_env()

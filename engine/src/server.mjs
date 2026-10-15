@@ -14,6 +14,8 @@ import {replayCheck} from './replay.mjs';
 import {RtBattle, eventLines, prepareRtTeam, rtRun, fastForward} from './realtime/sim.mjs';
 import {protocolAbilities, realtimeAbilities} from './ability-events.mjs';
 import {cooldownTable} from './realtime/moves.mjs';
+import {massRun} from './realtime/mass.mjs';
+import {composeMass} from './realtime/mass-roster.mjs';
 import {damageCalc} from './calc.mjs';
 import {practiceSnapshot} from './practice.mjs';
 import {practiceSuggestions} from './practice-suggestions.mjs';
@@ -125,6 +127,8 @@ const handlers = {
   rt_cooldowns: (a) => ({moves: cooldownTable(a.moves || [], {gen: a.gen || 9, speed: a.speed || 0})}),
   rt_play_out: (a) => rtResult(rtRun(a.spec), a),
   rt_replay: (a) => rtResult(rtRun(a.spec, {inputs: a.inputs || [], forfeit: a.forfeit || '', tick: a.tick || 0}), a),
+  mass_compose: (a) => composeMass(a),
+  mass_run: (a) => { const b = massRun(a.spec); return {summary: b.summary(), hash: b.hash(), ticks: b.t}; },
 };
 
 function rtResult(b, a = {}) {

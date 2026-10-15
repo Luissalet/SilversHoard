@@ -81,6 +81,11 @@ def item_sprite(request: Request, item_id: str):
     return _file(services(request).sprites.item_icon(item_id.removesuffix(".png")))
 
 
+@router.get("/sprites/pokemon-icons.png")
+def pokemon_icons(request: Request):
+    return _file(services(request).sprites.pokemon_icons())
+
+
 @router.get("/sprites/pmd/{dex}")
 def pmd_meta(request: Request, dex: int, form: str = "", shiny: bool = False):
     """Geometry of a Pokémon's walking sprites for the real-time arena (downloads its sheets the first time)."""
