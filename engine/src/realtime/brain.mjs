@@ -28,6 +28,7 @@ const dist = (a, b) => hyp(a.x - b.x, a.y - b.y);
 const norm = (x, y) => { const l = hyp(x, y); return l > 1e-9 ? {x: x / l, y: y / l} : {x: 0, y: 0}; };
 
 const RANGED = new Set(['shot', 'beam', 'wave', 'cone']);
+const ULT_SLOT = 9;   // sim.mjs ULT_SLOT: the input that unleashes the ultimate (rules version 5)
 const SUPPORT = new Set(['helpinghand', 'followme', 'ragepowder']);   // doubles support moves (sim.mjs DOUBLES_MOVES)
 const SPREAD = 0.75;
 const ALLY_GAP = 4.2;   // doubles: keep this far from the partner, out of the reach of its quakes
@@ -287,6 +288,15 @@ export function think(b, side, opts = {}) {
   if (!me || me.fainted || side.vacant) return input;
   // Mega Evolution as soon as the gauge allows it (rules version 2)
   if (b.version >= 2 && !partner && b.canMega(side)) input.mega = true;
+  // the ultimate (rules version 5): after a reaction delay, with the foe within reach and not rolling away
+  if (b.version >= 5 && !partner && b.ultReady(side) && (!side.act || side.act.kind === 'approach')) {
+    if (brain.ultSince == null) brain.ultSince = b.t;
+    if (b.t - brain.ultSince >= reactTicks && dist(side, foe) <= 14 && !(foe.act && foe.act.kind === 'roll')) {
+      brain.ultSince = null;
+      input.use = ULT_SLOT;
+      return input;
+    }
+  }
   // dodging is a reflex, checked every tick
   if (!side.act || side.act.kind === 'approach') {
     const d = danger(b, side);

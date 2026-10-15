@@ -320,6 +320,17 @@ export class ArenaRenderer {
           text: e.line || T.phase, name: battle.sides[s]?.name || "", small: !!e.line };
         break;
       }
+      case "ultimate": {
+        // the ultimate: the band with the Pokémon shouting, and a moment of stillness before the blast falls
+        this.hitstop = Math.max(this.hitstop, 0.2);
+        const w = this.unitOf(battle, s, u);
+        const m = w.mons[e.slot ?? w.active];
+        const url = m ? this.sprites.portrait?.(m.species, "Shouting", { num: m.num || 0 }) : "";
+        this.cutin = { t: 0, life: 1.3, si: s, img: url ? image(url) : null, fall: m && url ? image(this.sprites.portrait(m.species, "Normal", { num: m.num || 0 })) : null,
+          text: T.ultimate || "!", name: m?.species || "" };
+        this.vfx.shake = Math.max(this.vfx.shake, 0.2);
+        break;
+      }
       case "dummy_reset": float(s, T.dummyReset || "♥", "#7ee08f", { size: 0.95, dy: -0.6 }); break;
       case "follow": float(s, T.follow || "!", "#ff9f43", { size: 0.85, dy: -0.6 }); break;
       case "hit": {
