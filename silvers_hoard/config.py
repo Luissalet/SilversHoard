@@ -59,11 +59,13 @@ DEFAULT_SETTINGS: dict[str, Any] = {
     "pmd_sprites": True,          # real-time arena: walking sprites from PMDCollab's SpriteCollab, downloaded once and cached
     "pmd_server": "https://raw.githubusercontent.com/PMDCollab/SpriteCollab/master",
     # the neural AI level (silvers_hoard/neural.py): the python of an environment with PyTorch and metamon ("" = off), its model,
-    # the GPU (as nvidia-smi numbers them; "" = the first) and the port of its local server
+    # the GPU (as nvidia-smi numbers them; "" = the first), the port of its local server and the folder of the model weights
+    # ("" = data/cache/neural; set it to keep the weights on another drive without a link)
     "neural_ai_python": "",
     "neural_ai_model": "Kakuna",
     "neural_ai_gpu": "",
     "neural_ai_port": 8857,
+    "neural_ai_cache": "",
     # live battles with a friend on another computer (pvp.py): the port of the room server Silver opens on the network while a
     # room is open, and the address friends outside your network reach it at ("" = only links on your network are given)
     "pvp_port": 5240,
@@ -223,6 +225,8 @@ class Settings:
                 raise SilverError("invalid", "neural_ai_model is the name of a pretrained model, such as Kakuna")
             if key == "neural_ai_gpu" and value and not re.match(r"^\d{1,2}$", value):
                 raise SilverError("invalid", "neural_ai_gpu is a GPU index (0, 1…) or empty")
+            if key == "neural_ai_cache" and value and not os.path.isabs(value):
+                raise SilverError("invalid", "neural_ai_cache is an absolute folder (or empty for data/cache/neural)")
             if key == "pmd_server" and not value.startswith("https://"):
                 raise SilverError("invalid", "pmd_server must be an https:// address")
             if key == "prospero_style_sprites":

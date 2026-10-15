@@ -46,6 +46,11 @@ class NeuralAI:
     def enabled(self) -> bool:
         return bool(self.python())
 
+    def weights_dir(self) -> Path:
+        """Where metamon keeps the model weights: the ``neural_ai_cache`` setting, else data/cache/neural."""
+        custom = str(self.settings.get("neural_ai_cache") or "").strip()
+        return Path(custom) if custom else self.cache_dir
+
     def url(self) -> str:
         return f"http://127.0.0.1:{int(self.settings.get('neural_ai_port') or 8857)}"
 
@@ -67,7 +72,8 @@ class NeuralAI:
         starting = bool(self._proc and self._proc.poll() is None and not h)
         out = {"enabled": bool(py), "running": bool(h), "starting": starting, "url": self.url(), "python": py,
                "python_found": bool(py) and Path(py).exists(), "model": str(self.settings.get("neural_ai_model") or "Kakuna"),
-               "gpu": str(self.settings.get("neural_ai_gpu") or ""), "gens": list(GENS), "log": str(self.log_path)}
+               "gpu": str(self.settings.get("neural_ai_gpu") or ""), "gens": list(GENS), "log": str(self.log_path),
+               "cache": str(self.weights_dir())}
         if h:
             out.update(device=h.get("device", ""), battles=h.get("battles", 0), model=h.get("model") or out["model"])
         if self._proc and self._proc.poll() is not None and not h:
@@ -99,9 +105,10 @@ class NeuralAI:
         with self._lock:
             if self.health() is None and not (self._proc and self._proc.poll() is None):
                 self.logs_dir.mkdir(parents=True, exist_ok=True)
-                self.cache_dir.mkdir(parents=True, exist_ok=True)
+                cache = self.weights_dir()
+                cache.mkdir(parents=True, exist_ok=True)
                 args = [py, str(SCRIPT), "--port", str(int(self.settings.get("neural_ai_port") or 8857)),
-                        "--model", str(self.settings.get("neural_ai_model") or "Kakuna"), "--cache", str(self.cache_dir)]
+                        "--model", str(self.settings.get("neural_ai_model") or "Kakuna"), "--cache", str(cache)]
                 if str(self.settings.get("neural_ai_gpu") or "").strip():
                     args += ["--gpu", str(self.settings.get("neural_ai_gpu")).strip()]
                 logf = open(self.log_path, "ab")   # noqa: SIM115 - the child writes to it while it runs
