@@ -214,6 +214,11 @@ export function ExportDialog({ kind, id, name, onClose }) {
   const [friendMode, setFriendMode] = useState(() => { try { return localStorage.getItem("silver-friend-mode") || "choose"; } catch { return "choose"; } });
   const pickMode = (v) => { setFriendMode(v); try { localStorage.setItem("silver-friend-mode", v); } catch { /* the choice lasts this window */ } };
   const make = (fmt) => run(fmt, async () => setResult({ fmt, ...(await api.call("export", { kind, id, fmt, ...(fmt === "page" ? { friend_mode: friendMode } : {}) })) }));
+  const { confirm } = useApp();
+  const pokepaste = async () => {
+    if (!(await confirm({ title: t("export_pokepaste"), message: t("export_pokepaste_confirm"), confirmLabel: t("export_pokepaste") }))) return;
+    run("pokepaste", async () => setResult({ fmt: "pokepaste", ...(await api.call("pokepaste_export", { id })) }));
+  };
   return (
     <Modal title={t("export_title", { name })} onClose={onClose} wide>
       <p className="help">{t(`export_help_${kind}`)}</p>
@@ -245,6 +250,11 @@ export function ExportDialog({ kind, id, name, onClose }) {
             <Icon d={ICONS.text} size={20} /><b>{t("export_paste")}</b><span className="help">{t("export_paste_help")}</span>
           </button>
         )}
+        {kind === "trainer" && (
+          <button type="button" className="export-option" onClick={pokepaste} disabled={busy.pokepaste}>
+            <Icon d={ICONS.external} size={20} /><b>{t("export_pokepaste")}</b><span className="help">{t("export_pokepaste_help")}</span>
+          </button>
+        )}
       </div>
       {Object.values(busy).some(Boolean) && <div className="flex items-center gap-2"><Spinner /> <span className="help">{t("working")}</span></div>}
       {result && (result.fmt === "page" || result.fmt === "file") && (
@@ -252,6 +262,12 @@ export function ExportDialog({ kind, id, name, onClose }) {
           <span className="min-w-0 flex-1 trunc">{result.file} · {Math.round(result.bytes / 1024)} KB</span>
           <a className="btn btn-primary btn-sm" href={api.exportUrl(result.file)} download={result.file}><Icon d={ICONS.download} size={14} /> {t("download")}</a>
           {result.fmt === "page" && <a className="btn btn-sm" href={`${api.exportUrl(result.file)}?download=false`} target="_blank" rel="noreferrer"><Icon d={ICONS.external} size={14} /> {t("open_page")}</a>}
+        </div>
+      )}
+      {result && result.fmt === "pokepaste" && (
+        <div className="banner banner-info flex flex-wrap items-center gap-2">
+          <a className="min-w-0 flex-1 trunc btn-link" href={result.url} target="_blank" rel="noreferrer">{result.url}</a>
+          <CopyButton text={result.url} />
         </div>
       )}
       {result && (result.fmt === "code" || result.fmt === "paste") && (
