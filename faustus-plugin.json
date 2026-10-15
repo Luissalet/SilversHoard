@@ -43,7 +43,11 @@
     "boss-phases",
     "custom-backdrops",
     "unbound-save-import",
-    "community-music"
+    "community-music",
+    "live-pvp",
+    "champions-formats",
+    "friends-league",
+    "weekly-vote"
   ],
   "x-family": {
     "copilot": true

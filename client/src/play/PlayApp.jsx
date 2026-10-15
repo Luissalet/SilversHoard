@@ -20,7 +20,7 @@ const RESULT_PREFIX_RT = "SILVERWIN2-";    // a result with real-time battles in
 const LONG_CODE = 6000;                     // characters; longer than this and the page pushes the file
 const readPref = (key) => { try { return localStorage.getItem(key) || ""; } catch { return ""; } };
 
-function avatarSrc(sprites, avatar) {
+export function avatarSrc(sprites, avatar) {
   return sprites.trainer(avatar);
 }
 
@@ -28,7 +28,7 @@ function Badge({ color = "#c0c0c0", size = 64, image = "" }) {
   return <BadgeArt color={color} size={size} image={image} />;
 }
 
-function TeamIcons({ sets, sprites }) {
+export function TeamIcons({ sets, sprites }) {
   return (
     <div className="p-team">
       {sets.map((s, i) => <img key={i} src={sprites.pokemon(s.species)} alt={s.species} title={s.species} className={sprites.pixelated ? "pixelated" : ""}
@@ -80,14 +80,22 @@ function Challenge({ data, lang, setLang, t }) {
   const owner = data.from || data.payload.owner || target.owner || "";
   // the week's challenge: every battle with the week's seed and AI luck (battle i: seed-i), the same for everyone who plays it
   const weekly = data.weekly && typeof data.weekly === "object" && data.weekly.seed ? data.weekly : null;
+  // the rule friends voted for this week (a Pokémon the team must include, or a team-building rule): checked here and by the app
+  const weekRule = weekly?.rule && typeof weekly.rule === "object" ? weekly.rule : null;
+  const ruleFid = useMemo(() => { try { return weekRule?.kind === "rule" ? buildFormatId(format, [...rules, weekRule.value]) : fid; } catch { return fid; } }, [weekRule, format, rules, fid]);
 
   const check = (list) => {
     try {
       const prepared = applyLevelRules(importTeam(list), levelRules);
-      const v = validateTeam(fid, prepared);
-      setProblems(v.ok ? [] : v.problems);
-      setSets(v.ok ? importTeam(list) : null);
-      return v.ok;
+      const v = validateTeam(ruleFid, prepared);
+      const problems = v.ok ? [] : [...v.problems];
+      const norm = (x) => String(x || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+      if (weekRule?.kind === "pokemon" && !prepared.some((m) => norm(m.species) === norm(weekRule.value) || norm(m.species).startsWith(`${norm(weekRule.value)}mega`))) {
+        problems.push(t("weekly_rule_missing", { value: weekRule.value }));
+      }
+      setProblems(problems);
+      setSets(!problems.length ? importTeam(list) : null);
+      return !problems.length;
     } catch (e) {
       setProblems([e.message]);
       setSets(null);
@@ -297,6 +305,7 @@ function Challenge({ data, lang, setLang, t }) {
             {rules.map((r) => <span key={r} className="chip">{r}</span>)}
             {allowed === "realtime" && <span className="chip chip-rt">{t("mode_chip_realtime")}</span>}
             {weekly && <span className="chip chip-rt">{t("weekly_chip", { week: weekly.week })}</span>}
+            {weekRule && <span className="chip chip-rt">{t(weekRule.kind === "pokemon" ? "weekly_rule_pokemon" : "weekly_rule_rule", { value: weekRule.value })}</span>}
           </div>
           {weekly && <p className="help">{t("weekly_help")}</p>}
           {allowed !== "choose" && rtInfo && <p className="help">{t(allowed === "realtime" ? "mode_realtime_only" : "mode_turns_only")}</p>}
