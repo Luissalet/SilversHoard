@@ -64,7 +64,8 @@ def test_turn_by_turn_room(call, rooms, services):
     assert call("battle_get", {"id": bid})["turn"] == 1
     after = rooms.post(f"/api/room/{room['id']}/choose", json={"k": key, "choice": "move 1", "since": st["battle"]["log_length"]}).json()
     assert after["battle"]["turn"] >= 2 or after["battle"]["status"] == "ended"
-    assert any("|move|p2a: Tyranitar|" in l for l in after["battle"]["lines"])
+    # the friend's move ran (or a critical Earthquake from the faster Garchomp knocked Tyranitar out first: about one turn in 24)
+    assert any("|move|p2a: Tyranitar|" in l or "|faint|p2a: Tyranitar" in l for l in after["battle"]["lines"])
     # the friend gives up: the host wins, the room ends
     out = rooms.post(f"/api/room/{room['id']}/forfeit", json={"k": key}).json()
     assert out["battle"]["status"] == "ended" and out["battle"]["winner_side"] == "p1"
