@@ -251,7 +251,7 @@ class GymSaveArgs(BaseModel):
     trainers: Optional[list[str]] = Field(None, max_length=20, description="Gym trainers fought before the leader, in order.")
     badge_image: Optional[str] = Field(None, max_length=200, description="Badge picture: shape:<hexagon|boulder|drop|bolt|leaf|flame|heart|star|flake|wing|gear|fist|eye|moon|scale|shell|rainbow|crown>, file:<from badge_image_set or badge_draw> or '' for the plain badge.")
     rt_arena: Optional[str] = Field(None, max_length=90, description="Where its real-time battles are fought: '' (the challenger picks), open, rocks or custom:<arena id>.")
-    backdrop: Optional[str] = Field(None, max_length=50, description="Backdrop of its turn-based battles: a backdrop file name (bg-volcanocave.png, bg-icecave.jpg…) or '' for the usual one.")
+    backdrop: Optional[str] = Field(None, max_length=120, description="Backdrop of its turn-based battles: a backdrop file name (bg-volcanocave.png, bg-icecave.jpg…), file:<picture> from backdrop_image_set, or '' for the usual one.")
     map: Optional[dict[str, Any]] = Field(None, description="The map walked to the leader: {w, h, tiles (w*h chars: . floor, # wall, ~ water, o boulder, * plant, = carpet, , grass), start: [x, y], leader: {x, y, facing}, trainers: [{id, x, y, facing, sight}]} (gym_map_generate makes one); {} removes it.")
 
 
@@ -260,6 +260,12 @@ class BadgeImageArgs(BaseModel):
     path: str = Field("", max_length=500, description="A picture on this computer to use as the badge.")
     data_base64: str = Field("", max_length=14_000_000, description="Or the picture itself, base64.")
     remove_background: bool = False
+
+
+class BackdropImageArgs(BaseModel):
+    gym_id: str = Field("", max_length=80, description="Put the picture on this gym at once.")
+    path: str = Field("", max_length=500, description="A picture on this computer to use as the backdrop.")
+    data_base64: str = Field("", max_length=14_000_000, description="Or the picture itself, base64.")
 
 
 class BadgeDrawArgs(BaseModel):
@@ -669,6 +675,21 @@ def _badge_image_set(s: Services, a: BadgeImageArgs) -> Any:
     return s.badge_upload(data, gym_id=a.gym_id, remove_background=a.remove_background)
 
 
+def _picture_bytes(path: str, data_base64: str) -> bytes:
+    if path:
+        data = Path(path).expanduser().read_bytes() if Path(path).expanduser().is_file() else b""
+        if not data:
+            raise SilverError("not_found", f"No picture at {path}")
+        return data
+    if data_base64:
+        return base64.b64decode(data_base64)
+    raise SilverError("invalid", "Give path or data_base64.")
+
+
+def _backdrop_image_set(s: Services, a: BackdropImageArgs) -> Any:
+    return s.backdrop_upload(_picture_bytes(a.path, a.data_base64), gym_id=a.gym_id)
+
+
 def _canon_install(s: Services, a: CanonInstallArgs) -> Any:
     if a.league_key:
         return {"league": s.canon_install_league(a.league_key)}
@@ -762,6 +783,9 @@ TOOLS: list[Tool] = [
     Tool("badge_image_set", _d("Use a picture of your own as a gym badge (from a path or base64). Imagen de medalla.",
                                 "Kept as a transparent PNG up to 256 px; travels with the gym in files and playable pages.",
                                 synonyms="medalla, imagen de medalla, subir medalla"), BadgeImageArgs, WD, _badge_image_set),
+    Tool("backdrop_image_set", _d("Use a picture of your own as the backdrop of a gym's turn-based battles (from a path or base64). Fondo propio.",
+                                   "Kept as a PNG up to 800 px, small enough to travel with the gym in files and playable pages; returns the backdrop value for gym_save.",
+                                   synonyms="fondo de combate, fondo propio, subir fondo"), BackdropImageArgs, WD, _backdrop_image_set),
     Tool("badge_draw", _d("Have Prospero's Hoard draw gym badges from a description (a job). Dibujar medalla.",
                           "Returns a job; its result lists the candidates (badge_image values for gym_save). Prospero must be running.",
                           synonyms="generar medalla, dibujar medalla, medalla con ia"), BadgeDrawArgs, WD,

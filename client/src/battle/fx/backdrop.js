@@ -63,9 +63,19 @@ export function backdropUrl({ gen, seed, local = isLocalApp() }) {
   return fxUrl(backdropPath(gen, seed), { local });
 }
 
-/** URL of a backdrop chosen by file name (a gym's own). */
+/** URL of a gym's own backdrop: a battle backdrop by file name, file:<picture uploaded to the app>, or the picture itself as it travels
+ * to a friend ({kind: "image", mime, data}). */
 export function backdropFileUrl(name, { local = isLocalApp() } = {}) {
-  return fxUrl(backdropFilePath(name), { local });
+  if (name && typeof name === "object") return name.kind === "image" && name.data ? `data:${name.mime || "image/png"};base64,${name.data}` : "";
+  const n = String(name || "");
+  if (n.startsWith("file:")) return `/api/avatars/${encodeURIComponent(n.slice(5))}`;
+  return n ? fxUrl(backdropFilePath(n), { local }) : "";
+}
+
+/** A short label for a gym's backdrop. */
+export function backdropLabel(name, own = "") {
+  const n = String(name || "");
+  return n.startsWith("file:") ? own : n.replace(/^bg-|\.(png|jpg)$/g, "");
 }
 
 /** The weather overlay: {url, opacity} or null (Showdown shows it at 0.5, 0.9 for the strong weathers). */

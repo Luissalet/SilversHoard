@@ -913,11 +913,44 @@ class Services:
     BACKDROP = re.compile(r"^bg-[a-z0-9-]{2,40}\.(png|jpg)$")
 
     def _check_backdrop(self, value: str) -> str:
-        """A gym's turn-based backdrop: one of the battle backdrops by file name (bg-volcanocave.png…), or "" for the usual one."""
-        v = str(value or "").strip().lower()
+        """A gym's turn-based backdrop: one of the battle backdrops by file name (bg-volcanocave.png…), file:<picture of your own>
+        (backdrop_upload), or "" for the usual one."""
+        v = str(value or "").strip()
+        if v.startswith("file:"):
+            self.sprites.avatar_path(v[5:])
+            return v
+        v = v.lower()
         if v and not self.BACKDROP.match(v):
-            raise SilverError("invalid", "backdrop is the file name of a battle backdrop, such as bg-icecave.jpg, or empty.")
+            raise SilverError("invalid", "backdrop is the file name of a battle backdrop, such as bg-icecave.jpg, file:<uploaded picture>, or empty.")
         return v
+
+    def backdrop_upload(self, data: bytes, *, gym_id: str = "") -> dict[str, Any]:
+        """A picture of your own as a gym's turn-based backdrop (up to 800 px, small enough to travel). With gym_id it goes on that gym."""
+        name = self.sprites.save_backdrop(data, stem=f"backdrop-{gym_id or 'gym'}")
+        backdrop = f"file:{name}"
+        if gym_id:
+            self.store.gym(gym_id)
+            self.store.update_gym(gym_id, {"backdrop": backdrop})
+        return {"backdrop": backdrop, "url": f"/api/avatars/{name}", "gym_id": gym_id}
+
+    def _backdrop_payload(self, value: str) -> Any:
+        """A gym's backdrop as it travels: the file name of a battle backdrop, or the picture itself."""
+        if value.startswith("file:"):
+            try:
+                data = self.sprites.avatar_path(value[5:]).read_bytes()
+            except SilverError:
+                return ""
+            return {"kind": "image", "mime": "image/png", "data": base64.b64encode(data).decode("ascii")}
+        return value
+
+    def _import_backdrop(self, payload: Any, stem: str) -> str:
+        if isinstance(payload, dict) and payload.get("kind") == "image" and payload.get("data"):
+            try:
+                return "file:" + self.sprites.save_backdrop(base64.b64decode(payload["data"]), stem=stem)
+            except (SilverError, ValueError):
+                return ""
+        v = str(payload or "").strip().lower()
+        return v if self.BACKDROP.match(v) else ""
 
     def league_view(self, lg: dict[str, Any]) -> dict[str, Any]:
         out = dict(lg)
@@ -2186,7 +2219,7 @@ class Services:
                 "leader": self._trainer_payload(self.store.trainer(g["leader_id"], deleted=True)),
                 "trainers": [self._trainer_payload(t) for t in self._gym_trainers(g)], "source_id": g["id"],
                 **({"rt_arena": self.arenas.export_value(g["rt_arena"])} if g.get("rt_arena") else {}),
-                **({"backdrop": g["backdrop"]} if g.get("backdrop") else {}),
+                **({"backdrop": self._backdrop_payload(g["backdrop"])} if g.get("backdrop") else {}),
                 **({"map": self._map_payload(g)} if (g.get("map") or {}).get("w") else {})}
 
     def _map_payload(self, g: dict[str, Any]) -> dict[str, Any]:
@@ -2316,7 +2349,7 @@ class Services:
                                    "leader_id": leader, "trainers": trainers, "origin": origin, "owner": str(p.get("owner") or "")[:60],
                                    "rt_arena": self.arenas.import_value(p.get("rt_arena")),
                                    "map": self._import_map(p.get("map"), trainers),
-                                   "backdrop": self._check_backdrop(p.get("backdrop") or "") if self.BACKDROP.match(str(p.get("backdrop") or "x")) else ""})
+                                   "backdrop": self._import_backdrop(p.get("backdrop"), f"backdrop-{p.get('name') or 'gym'}")})
 
     # ------------------------------------------------------------ teams by pokepast.es link
     POKEPASTE = re.compile(r"^\s*(?:https?://)?(?:www\.)?pokepast\.es/([0-9a-fA-F]{6,32})(?:/(?:json|raw))?/?\s*$")

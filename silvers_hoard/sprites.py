@@ -156,6 +156,31 @@ class Sprites:
         write_bytes_atomic(self.avatars_dir / name, buf.getvalue(), fsync=False)
         return name
 
+    BACKDROP_BYTES = 400_000
+
+    def save_backdrop(self, data: bytes, *, stem: str) -> str:
+        """Store a picture of your own as a battle backdrop: up to 800 px wide, no transparency, colours reduced until the PNG is
+        small enough to travel inside a gym file or a playable page (BACKDROP_BYTES). Returns the file name (with the avatars)."""
+        if not data:
+            raise SilverError("invalid", "The picture is empty.")
+        if len(data) > MAX_IMAGE_BYTES:
+            raise SilverError("too_large", "The picture is larger than 12 MB.")
+        img = _open_image(data).convert("RGB")
+        img.thumbnail((800, 600))
+        out = b""
+        for side, colors in ((800, 256), (800, 128), (640, 128), (640, 64), (480, 64), (400, 48)):
+            pic = img.copy()
+            pic.thumbnail((side, side))
+            buf = io.BytesIO()
+            pic.quantize(colors=colors).save(buf, "PNG", optimize=True)
+            out = buf.getvalue()
+            if len(out) <= self.BACKDROP_BYTES:
+                break
+        name = f"{re.sub(r'[^A-Za-z0-9_-]', '', stem)[:60] or 'backdrop'}-{int(time.time() * 1000) % 10**10}.png"
+        self.avatars_dir.mkdir(parents=True, exist_ok=True)
+        write_bytes_atomic(self.avatars_dir / name, out, fsync=False)
+        return name
+
     def avatars(self) -> list[dict[str, Any]]:
         if not self.avatars_dir.exists():
             return []

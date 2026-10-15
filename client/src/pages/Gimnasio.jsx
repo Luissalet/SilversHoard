@@ -9,7 +9,7 @@ import { BADGE_SHAPES, TYPE_SHAPE } from "../components/badges.jsx";
 import { TYPE_COLORS, typeName } from "../battle/dex.js";
 import ModeFields from "../battle/rt/ModeFields.jsx";
 import { useCustomArenas } from "../battle/rt/ModeFields.jsx";
-import { ALL_BACKDROPS, backdropFileUrl } from "../battle/fx/backdrop.js";
+import { ALL_BACKDROPS, backdropFileUrl, backdropLabel } from "../battle/fx/backdrop.js";
 import GymMapEditor from "./GymMap.jsx";
 
 const TYPES = Object.keys(TYPE_COLORS).filter((x) => !["Stellar", "???"].includes(x));
@@ -117,6 +117,8 @@ function GymEditor({ gym, onSaved, onCancel }) {
   const [add, setAdd] = useState("");
   const [busy, run] = useBusy();
   const set = (k, v) => setF((x) => ({ ...x, [k]: v }));
+  const bdRef = useRef(null);
+  const uploadBackdrop = (file) => run("bd", async () => { const r = await api.uploadBackdrop(file); set("backdrop", r.backdrop); notify(t("gym_backdrop_uploaded")); });
   useContextProvider(() => ({ kind: "gym", object_id: gym?.id || "", title: f.name, dirty: true, fields: f }));
   const save = () => run("s", async () => {
     const out = await api.call("gym_save", { id: gym?.id || "", ...f, level_rules: Object.fromEntries(Object.entries(f.level_rules || {}).filter(([, v]) => v)) });
@@ -174,10 +176,15 @@ function GymEditor({ gym, onSaved, onCancel }) {
             </select>
           </Field>
           <Field label={t("gym_backdrop")} hint={t("gym_backdrop_help")}>
-            <select className="field" value={f.backdrop} onChange={(e) => set("backdrop", e.target.value)}>
-              <option value="">{t("gym_backdrop_auto")}</option>
-              {ALL_BACKDROPS.map((b) => <option key={b} value={b}>{b.replace(/^bg-|\.(png|jpg)$/g, "")}</option>)}
-            </select>
+            <div className="flex flex-wrap items-center gap-2">
+              <select className="field" value={f.backdrop} onChange={(e) => set("backdrop", e.target.value)}>
+                <option value="">{t("gym_backdrop_auto")}</option>
+                {ALL_BACKDROPS.map((b) => <option key={b} value={b}>{backdropLabel(b)}</option>)}
+                {f.backdrop.startsWith("file:") && <option value={f.backdrop}>{t("gym_backdrop_own")}</option>}
+              </select>
+              <input ref={bdRef} type="file" accept="image/*" hidden onChange={(e) => { const x = e.target.files?.[0]; e.target.value = ""; if (x) uploadBackdrop(x); }} />
+              <Busy busy={busy.bd} className="btn btn-sm" onClick={() => bdRef.current?.click()}>{t("gym_backdrop_upload")}</Busy>
+            </div>
           </Field>
         </div>
         {f.backdrop && <div className="gym-backdrop-preview" style={{ backgroundImage: `url(${backdropFileUrl(f.backdrop)})` }} aria-hidden="true" />}
@@ -220,7 +227,7 @@ export default function Gimnasio({ param, query }) {
           <div className="mt-1 flex flex-wrap gap-1.5">{g.type && <TypeChip type={g.type} />}<span className="chip">{g.format}</span>
             {g.level_rules?.level && <span className="chip">{t("level_fixed")}: {g.level_rules.level}</span>}{g.level_rules?.level_cap && <span className="chip">{t("level_cap")}: {g.level_rules.level_cap}</span>}
             {g.rt_arena && <span className="chip chip-rt">{t("gym_rt_arena")}: {g.rt_arena_name || t(`rt_arena_${g.rt_arena}`)}</span>}
-            {g.backdrop && <span className="chip">{t("gym_backdrop")}: {g.backdrop.replace(/^bg-|\.(png|jpg)$/g, "")}</span>}
+            {g.backdrop && <span className="chip">{t("gym_backdrop")}: {backdropLabel(g.backdrop, t("gym_backdrop_own"))}</span>}
             {(g.rules || []).map((r) => <span key={r} className="chip">{r}</span>)}</div>
         </div>
         <div className="flex flex-wrap gap-2">
