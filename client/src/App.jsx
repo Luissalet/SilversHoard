@@ -24,6 +24,7 @@ import Trabajo from "./pages/Trabajo.jsx";
 import Medallas from "./pages/Medallas.jsx";
 import Progreso from "./pages/Progreso.jsx";
 import Creditos from "./pages/Creditos.jsx";
+import Amigos from "./pages/Amigos.jsx";
 import Video from "./pages/Video.jsx";
 import Compartir from "./pages/Compartir.jsx";
 import Ajustes from "./pages/Ajustes.jsx";
@@ -41,6 +42,7 @@ const I = {
   book: "M4 4h6a2 2 0 012 2v14a2 2 0 00-2-2H4zM20 4h-6a2 2 0 00-2 2v14a2 2 0 012-2h6z",
   history: "M3 12a9 9 0 109-9 9 9 0 00-7 3.4M3 4v4h4M12 7v5l3 3",
   badge: "M12 2l3 6 6 .8-4.5 4.2 1.2 6.5L12 16.4 6.3 19.5l1.2-6.5L3 8.8 9 8z",
+  podium: "M3 21h18M4 21v-6h5v6M9.5 21V10h5v11M15 21v-8h5v8M12 3l1 2.1 2.3.3-1.7 1.6.4 2.3-2-1.1-2 1.1.4-2.3-1.7-1.6 2.3-.3z",
   share: "M18 8a3 3 0 100-6 3 3 0 000 6zM6 15a3 3 0 100-6 3 3 0 000 6zM18 22a3 3 0 100-6 3 3 0 000 6zM8.6 13.5l6.8 4M15.4 6.5l-6.8 4",
   settings: ICONS.settings,
 };
@@ -62,6 +64,7 @@ const PAGES = [
   { path: "personaje", key: "nav_canon", component: Personaje, hidden: true, parent: "personajes" },
   { path: "historial", key: "nav_history", icon: I.history, component: Historial },
   { path: "medallas", key: "nav_badges", icon: I.badge, component: Medallas },
+  { path: "amigos", key: "nav_friends", icon: I.podium, component: Amigos },
   { path: "progreso", key: "nav_progress", icon: I.chart, component: Progreso },
   { path: "creditos", key: "nav_settings", component: Creditos, hidden: true, parent: "ajustes" },
   { path: "compartir", key: "nav_share", icon: I.share, component: Compartir },

@@ -24,7 +24,7 @@ Gym and league challenges: challenge_start (kind gym|league, a challenger traine
 Many battles at once: series_start (the same two trainers N times: win rate, MVPs) and tournament_start (bracket or league table between trainers), both background jobs (job_get).
 Levels: level_rules {level: 50} (or 100) on battle_start, series_start and tournament_start, or level on challenge_start, equalizes every Pokémon of both sides at that level, so teams of different levels fight on even terms.
 Real time: battle_start, challenge_start, series_start and tournament_start take mode=realtime for battles after Pokémon Legends: Z-A (the same trainers and teams on a 2D arena, no turns: every move has a cooldown in seconds instead of PP, a wind-up and a range; attacks can be dodged; one-stage stat changes that wear off; three switches that come back after each KO; a Mega Power gauge for Plus moves and Mega Evolution; lock-on held or free aim; doubles formats field two Pokémon per trainer, a person moving one while the AI drives its partner, with spread moves, Helping Hand and Follow Me) and rt_arena=rocks (default: 3-6 rocks that block walking and projectiles) or open. A person plays it on the app's screen; two AI seats play it in the background. rt_cooldowns shows how a team's moves translate (Z-A's own cooldowns, or derived from PP and power); rt_rules explains the rules. battle_get of a real-time battle returns English event lines and the spec + inputs that replay it exactly.
-Sharing: export (fmt file = .hoardtrainer/.hoardgym/.hoardleague, code = a share code for a chat, page = one HTML file a friend opens in a browser to fight the gym or trainer, turn by turn or in real time as friend_mode says, paste = Showdown text). import takes any of those back, plus the result codes friends send after playing a page (records their badge; real-time battles in it are replayed and checked first).
+Sharing: export (fmt file = .hoardtrainer/.hoardgym/.hoardleague, code = a share code for a chat, page = one HTML file a friend opens in a browser to fight the gym or trainer, turn by turn or in real time as friend_mode says, weekly=true for this week's challenge with the same luck for everyone, paste = Showdown text). import takes any of those back, plus the result codes friends send after playing a page (every battle in it is replayed and checked first, then the badge and the leaderboard entry are recorded; a code counts once). leaderboard ranks friends per gym or trainer and per week.
 progress_get shows a trainer's record, streaks, MVPs, achievements and Pokédex (progress_list ranks them).
 sets_popular gives Smogon's sets and the ladder usage of a species (for the team builder); usage_top and sample_team rank the format's Pokémon and build a team from them.
 damage_calc measures one Pokémon's moves against another (rolls, crits, KOs) with the game's own formula.
@@ -444,6 +444,14 @@ class ExportArgs(BaseModel):
     friend_mode: Literal["choose", "turns", "realtime"] = Field(
         "choose", description="Only for fmt=page: how the friend may fight. choose = they pick turn by turn or real time for each battle, "
         "turns = turn by turn only, realtime = real time only (the result code carries the replay, which the app checks on import).")
+    weekly: bool = Field(False, description="Only for fmt=page: this week's challenge. Everyone who plays the page this week fights turn by turn "
+                         "with the same seed and the same AI luck; the import checks it and the results rank in the week's leaderboard.")
+
+
+class LeaderboardArgs(BaseModel):
+    kind: Literal["", "gym", "trainer"] = ""
+    target_id: str = Field("", max_length=80, description="A gym or trainer id, or empty for all.")
+    week: str = Field("", max_length=12, description="Empty for every result, current for this week's challenge, or a week like 2026-W42.")
 
 
 class ImportArgs(BaseModel):
@@ -766,7 +774,16 @@ TOOLS: list[Tool] = [
     Tool("jobs_delete", _d("Delete finished jobs and their battles. Borrar trabajos.", synonyms="limpiar"), IdsArg, D, lambda s, a: s.jobs_delete(a.ids)),
     Tool("export", _d("Export a trainer, gym or league: file, share code, playable HTML page or Showdown text. Enviar a un amigo.",
                       "page = one HTML file a friend opens in any browser to fight it (friend_mode: choose, turns or realtime); it gives them a result code to send back.",
-                      synonyms="compartir, enviar entrenador, código, html jugable"), ExportArgs, R, lambda s, a: s.export(a.kind, a.id, fmt=a.fmt, friend_mode=a.friend_mode)),
+                      synonyms="compartir, enviar entrenador, código, html jugable"), ExportArgs, R,
+         lambda s, a: s.export(a.kind, a.id, fmt=a.fmt, friend_mode=a.friend_mode, weekly=a.weekly)),
+    Tool("leaderboard", _d("Friends' results from playable pages ranked per gym or trainer, and the week's challenge. Clasificación.",
+                           "Best result of each friend: a full win first, then checked by replaying, then the furthest battle, the fewest turns and the most HP "
+                           "left. week=current gives this week's challenge (pages exported with weekly=true: same seed and AI luck for everyone).",
+                           synonyms="ranking de amigos, reto de la semana, reto semanal, clasificación, quién ganó"), LeaderboardArgs, R,
+         lambda s, a: s.leaderboard(a.kind, a.target_id, a.week)),
+    Tool("leaderboard_remove", _d("Take results off the friends' leaderboard (their battles and badges stay). Quitar de la clasificación.",
+                                  "ids from leaderboard entries (an entry's ids are all the attempts of that friend).", synonyms="borrar resultado de amigo"),
+         IdsArg, D, lambda s, a: s.leaderboard_remove(a.ids)),
     Tool("pokepaste_export", _d("Publish a trainer's team on pokepast.es and give its link (public). Enlace de pokepaste.",
                                  "Anyone with the link can read the team; import takes pokepast.es links back.",
                                  synonyms="pokepaste, enlace del equipo, compartir equipo por enlace"), IdArg, WD,

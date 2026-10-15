@@ -72,6 +72,8 @@ function Challenge({ data, lang, setLang, t }) {
   const fid = useMemo(() => { try { return buildFormatId(format, rules); } catch { return "gen9nationaldexag"; } }, [format, rules]);
   const info = useMemo(() => { try { return formatInfo(fid); } catch { return { gen: 9, name: fid }; } }, [fid]);
   const owner = data.from || data.payload.owner || target.owner || "";
+  // the week's challenge: every battle with the week's seed and AI luck (battle i: seed-i), the same for everyone who plays it
+  const weekly = data.weekly && typeof data.weekly === "object" && data.weekly.seed ? data.weekly : null;
 
   const check = (list) => {
     try {
@@ -134,6 +136,7 @@ function Challenge({ data, lang, setLang, t }) {
       stages: results.map((r) => (r.rt ? { name: r.opponent, won: r.won, turns: 0, mode: "realtime", rt: r.rt }
         : { name: r.opponent, won: r.won, turns: r.turns, ...(r.input ? { input: r.input, rng: r.rng, forfeit: r.forfeit || "" } : {}) })),
       ai_version: data.ai_version || "",
+      ...(weekly ? { weekly: weekly.week } : {}),
       ...(withRt ? { v: 2 } : results.some((r) => r.input) ? { v: 3 } : {}),
     };
     (async () => {
@@ -171,7 +174,8 @@ function Challenge({ data, lang, setLang, t }) {
         <div className="help">{t("stage", { n: stage + 1, total: stages.length })}</div>
         {stageMode === "realtime" && rtInfo
           ? <RtBattleView key={stage} t={t} lang={lang} sprites={sprites} me={{ name: name.trim(), sets }} opp={opp} rtInfo={rtInfo} levelRules={levelRules} onEnd={onBattleEnd} />
-          : <BattleView key={stage} t={t} lang={lang} sprites={sprites} me={{ name: name.trim(), sets }} opp={opp} fid={fid} levelRules={levelRules} onEnd={onBattleEnd} />}
+          : <BattleView key={stage} t={t} lang={lang} sprites={sprites} me={{ name: name.trim(), sets }} opp={opp} fid={fid} levelRules={levelRules} onEnd={onBattleEnd}
+            seed={weekly ? `${weekly.seed}-${stage}` : ""} />}
       </div>
     );
   }
@@ -252,7 +256,9 @@ function Challenge({ data, lang, setLang, t }) {
             {levelRules.level_min && <span className="chip">{t("level_min", { n: levelRules.level_min })}</span>}
             {rules.map((r) => <span key={r} className="chip">{r}</span>)}
             {allowed === "realtime" && <span className="chip chip-rt">{t("mode_chip_realtime")}</span>}
+            {weekly && <span className="chip chip-rt">{t("weekly_chip", { week: weekly.week })}</span>}
           </div>
+          {weekly && <p className="help">{t("weekly_help")}</p>}
           {allowed !== "choose" && rtInfo && <p className="help">{t(allowed === "realtime" ? "mode_realtime_only" : "mode_turns_only")}</p>}
           {kind === "gym" && <p className="help">{stages.length > 1 ? t("then_leader", { n: stages.length - 1 }) : t("only_leader")}</p>}
           {target.description && <p className="help">{target.description}</p>}
@@ -280,7 +286,7 @@ function Challenge({ data, lang, setLang, t }) {
   );
 }
 
-function BattleView({ t, lang, sprites, me, opp, fid, levelRules, onEnd }) {
+function BattleView({ t, lang, sprites, me, opp, fid, levelRules, onEnd, seed = "" }) {
   const player = useBattlePlayer({ lang, me: "p1", speedMs: 850 });
   const matchRef = useRef(null);
   const sinceRef = useRef(0);
@@ -321,7 +327,8 @@ function BattleView({ t, lang, sprites, me, opp, fid, levelRules, onEnd }) {
 
   useEffect(() => {
     const ai = opp.ai || { level: "normal", style: "balanced" };
-    matchRef.current = new Match({ format: fid, level_rules: levelRules, p1: { name: me.name, sets: me.sets, ai: null }, p2: { name: opp.name, sets: opp.team, ai } });
+    matchRef.current = new Match({ ...(seed ? { id: seed, seed } : {}), format: fid, level_rules: levelRules, p1: { name: me.name, sets: me.sets, ai: null },
+      p2: { name: opp.name, sets: opp.team, ai } });
     matchRef.current.advance();
     sync();
     if (opp.dialogue?.intro) setBubble({ side: "p2", text: opp.dialogue.intro });

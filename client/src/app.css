@@ -221,6 +221,13 @@ body.video-mode .b-fx-toggle, body.video-mode .snd-btn { display: none !importan
 .credit-artists { display: flex; flex-wrap: wrap; gap: 6px; }
 .credit-sources td { vertical-align: top; }
 
+/* friends' leaderboard */
+.lb-row { flex-wrap: wrap; }
+.lb-rank { min-width: 26px; height: 26px; border-radius: 999px; display: inline-grid; place-items: center; font-weight: 700; font-size: 12px; background: var(--hover); }
+.lb-top-1 { background: #f2c94c; color: #2a2100; }
+.lb-top-2 { background: #cfd6dd; color: #1d2329; }
+.lb-top-3 { background: #d69c66; color: #2b1606; }
+
 /* a real-time battle recorded as a clip: the arena and its bars only */
 .video-stage .rt-wrap { grid-template-columns: minmax(0, 1fr); }
 .video-stage .rt-log, .video-stage .b-replay, .video-stage .rt-pads, .video-stage .rt-card .btn { display: none !important; }

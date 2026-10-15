@@ -14,6 +14,7 @@ import logging
 import re
 import threading
 import time
+import datetime as _dt
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any, Callable, Optional
@@ -75,6 +76,9 @@ TYPE_COLORS = {"Normal": "#a8a77a", "Fire": "#ee8130", "Water": "#6390f0", "Elec
 
 def _now() -> float:
     return time.time()
+
+
+WEEK_RE = re.compile(r"^\d{4}-W\d{2}$")   # an ISO week: the week's challenge and its leaderboard
 
 
 class Services:
@@ -2016,13 +2020,18 @@ class Services:
                 "elite_four": [self._trainer_payload(t) for t in self.store.trainers(ids=lg.get("elite_four") or [])],
                 "champion": self._trainer_payload(self.store.trainer(lg["champion_id"], deleted=True)), "source_id": lg["id"]}
 
-    def export(self, kind: str, id_: str, *, fmt: str = "file", friend_mode: str = "choose") -> dict[str, Any]:
+    def export(self, kind: str, id_: str, *, fmt: str = "file", friend_mode: str = "choose", weekly: bool = False) -> dict[str, Any]:
         """``fmt``: file (a .hoardtrainer/.hoardgym/.hoardleague JSON), code (a share code, trainers only; an own picture goes in it,
         shrunk when it is a big drawing), page
         (a playable HTML, gyms and trainers), paste (the team as Showdown text, trainers only).
-        ``friend_mode`` (pages): choose (the friend picks turns or real time for each battle), turns or realtime."""
+        ``friend_mode`` (pages): choose (the friend picks turns or real time for each battle), turns or realtime.
+        ``weekly`` (pages): the week's challenge: every battle turn by turn with this week's seed and AI luck (``weekly_info``)."""
         if friend_mode not in sharing.FRIEND_MODES:
             raise SilverError("invalid", "friend_mode is choose (the friend picks for each battle), turns or realtime")
+        if weekly and (fmt != "page" or kind == "league"):
+            raise SilverError("invalid", "The week's challenge is a playable page of a gym or a trainer.")
+        if weekly:
+            friend_mode = "turns"   # the same luck for everyone needs the same simulator: turn by turn
         if kind == "trainer":
             obj = self.store.trainer(id_)
             payload = self._trainer_payload(obj, max_picture=self.CODE_PICTURE_BYTES if fmt == "code" else 0)
@@ -2055,10 +2064,15 @@ class Services:
                     "sprite_set": self.settings["sprite_set"], "mode": friend_mode, "ai_version": self.ai_version()}
             if friend_mode != "turns":
                 data["rt"] = self._rt_page_info(kind, obj)
+            week = ""
+            if weekly:
+                data["weekly"] = self.weekly_info(kind, obj)
+                week = data["weekly"]["week"]
             html = sharing.playable_page(PLAY_TEMPLATE, data)
-            filename = sharing.safe_filename(f"{name} - Silver", "html")
+            filename = sharing.safe_filename(f"{name} - Silver" + (f" - {week}" if week else ""), "html")
             (exports / filename).write_text(html, encoding="utf-8", newline="\n")
-            return {"file": filename, "bytes": len(html.encode("utf-8")), "url": f"/api/exports/{filename}", "name": name}
+            return {"file": filename, "bytes": len(html.encode("utf-8")), "url": f"/api/exports/{filename}", "name": name,
+                    **({"week": week} if week else {})}
         ext = {"trainer": "hoardtrainer", "gym": "hoardgym", "league": "hoardleague"}[kind]
         filename = sharing.safe_filename(name, ext)
         text = json.dumps(wrapped, ensure_ascii=False, indent=1)
@@ -2196,7 +2210,9 @@ class Services:
         """A friend's result from a playable page: records the badge (when they won) and the battle with its log. Battles the friend
         played in real time come with their replay: they are replayed here and what the replay says is what counts."""
         stages_in = r.get("stages") if isinstance(r.get("stages"), list) else []
-        if r.get("v") in (2, 3) or any(isinstance(x, dict) and (x.get("rt") or x.get("input")) for x in stages_in):
+        fp = self._result_fingerprint(r)
+        self._check_new_result(fp)
+        if r.get("v") in (2, 3) or r.get("weekly") or any(isinstance(x, dict) and (x.get("rt") or x.get("input")) for x in stages_in):
             return self._import_rt_result(r)
         kind = r.get("kind")
         target = r.get("gym_id") or r.get("trainer_id") or ""
@@ -2222,6 +2238,7 @@ class Services:
                                               "challenger_name": challenger, "source": "friend", "battle_id": bid,
                                               "proof": {k: r.get(k) for k in ("turns", "date", "team_paste", "stages")}})
             self.emit("friend.result", {"gym": g["name"], "challenger": challenger, "won": won})
+            self._record_friend_result(r, "gym", g, challenger=challenger, won=won, battle_id=bid, badge_id=badge or "", fp=fp)
             return {"gym": self.gym_view(g), "won": won, "battle_id": bid, "badge_id": badge, "challenger": challenger}
         if kind == "trainer":
             try:
@@ -2237,6 +2254,7 @@ class Services:
                                          "winner_side": "p1" if won else "p2", "winner_name": challenger if won else t["name"], "turns": int(r.get("turns") or 0),
                                          "log_text": "\n".join(str(x) for x in lines[:20000]), "summary": {"from_friend": True}, "title": f"{t['name']} · {challenger}"})
             self.store.record_result(t["id"], "loss" if won else "win")
+            self._record_friend_result(r, "trainer", t, challenger=challenger, won=won, battle_id=bid, fp=fp)
             return {"trainer": self.trainer_view(t), "won": won, "battle_id": bid, "challenger": challenger}
         raise SilverError("invalid", "Unknown result.")
 
@@ -2290,6 +2308,14 @@ class Services:
         else:
             raise SilverError("invalid", "Unknown result.")
         order = self._stage_trainers(kind, obj)
+        fp = self._result_fingerprint(r)
+        self._check_new_result(fp)
+        week = str(r.get("weekly") or "")
+        if week and not WEEK_RE.match(week):
+            raise SilverError("invalid", "The week of this challenge is damaged.")
+        weekly = self.weekly_info(kind, obj, week) if week else None
+        if weekly and any(x.get("rt") is not None or x.get("input") is None for x in stages):
+            raise SilverError("invalid", "A week's challenge is played turn by turn and every battle carries its record.")
         if len(stages) > len(order):
             raise SilverError("conflict", f"The result has more battles than {label} has opponents: it was made from another version.")
         if any(not x.get("won") for x in stages[:-1]):
@@ -2311,7 +2337,8 @@ class Services:
             if rt is None:
                 # a battle played turn by turn: replayed from its record when the page sent it (older pages did not)
                 if stage.get("input") is not None:
-                    turn_replays[i] = self._check_turn_stage(stage, order[i], fmt, rules, level_rules, team, str(r.get("ai_version") or ""))
+                    turn_replays[i] = self._check_turn_stage(stage, order[i], fmt, rules, level_rules, team, str(r.get("ai_version") or ""),
+                                                             expect_seed=f"{weekly['seed']}-{i}" if weekly else "")
                 continue
             opp = order[i]
             if not isinstance(rt, dict):
@@ -2375,7 +2402,11 @@ class Services:
         proof = {k: r.get(k) for k in ("turns", "date", "team_paste")}
         proof.update({"stages": stage_info, "verified_real_time": len(replays), "verified_turns": len(turn_replays),
                       "verified": len(replays) + len(turn_replays) == len(stages),
-                      "ai_checked": all(tp["ai_checked"] for tp in turn_replays.values())})
+                      "ai_checked": all(tp["ai_checked"] for tp in turn_replays.values()), **({"week": week} if week else {})})
+        last = turn_replays.get(len(stages) - 1)
+        extra = {"verified": proof["verified"], "week": week, "mode": "realtime" if replays else "classic",
+                 "hp_left": float((last or {}).get("res", {}).get("hp_left") or 0),
+                 "turns": sum(int(turn_replays[i]["res"].get("turns") or 0) if i in turn_replays else int(x.get("turns") or 0) for i, x in enumerate(stages))}
         if kind == "gym":
             badge = None
             if won:
@@ -2383,11 +2414,90 @@ class Services:
                                               "badge_image": obj.get("badge_image") or "", "challenger_name": challenger, "source": "friend", "battle_id": bid,
                                               "proof": proof})
             self.emit("friend.result", {"gym": obj["name"], "challenger": challenger, "won": won})
+            self._record_friend_result(r, "gym", obj, challenger=challenger, won=won, battle_id=bid, badge_id=badge or "", fp=fp, battles=len(order), **extra)
             return {"gym": self.gym_view(obj), "won": won, "battle_id": bid, "badge_id": badge, "challenger": challenger, "verified_real_time": len(replays),
-                    "verified_turns": len(turn_replays), "verified": proof["verified"]}
+                    "verified_turns": len(turn_replays), "verified": proof["verified"], **({"week": week} if week else {})}
         self.store.record_result(obj["id"], "loss" if won else "win")
+        self._record_friend_result(r, "trainer", obj, challenger=challenger, won=won, battle_id=bid, fp=fp, battles=len(order), **extra)
         return {"trainer": self.trainer_view(obj), "won": won, "battle_id": bid, "challenger": challenger, "verified_real_time": len(replays),
-                "verified_turns": len(turn_replays), "verified": proof["verified"]}
+                "verified_turns": len(turn_replays), "verified": proof["verified"], **({"week": week} if week else {})}
+
+    # ------------------------------------------------------------ friends' leaderboard and the week's challenge
+    @staticmethod
+    def current_week(today: Optional[_dt.date] = None) -> str:
+        """The ISO week, as 2026-W42."""
+        y, w, _ = (today or _dt.date.today()).isocalendar()
+        return f"{y}-W{w:02d}"
+
+    def weekly_info(self, kind: str, obj: dict[str, Any], week: str = "") -> dict[str, Any]:
+        """The week's challenge of a gym or a trainer: everyone who plays its page that week fights with the same seed and the same AI
+        luck (battle i of the page uses ``seed-i`` for both), so results compare fairly; the replay checks it."""
+        week = week or self.current_week()
+        return {"week": week, "seed": hashlib.sha1(f"silver-weekly:{kind}:{obj['id']}:{week}".encode()).hexdigest()[:16]}
+
+    @staticmethod
+    def _result_fingerprint(r: dict[str, Any]) -> str:
+        return sharing.fingerprint({k: v for k, v in r.items() if k != "log"})
+
+    def _check_new_result(self, fp: str) -> None:
+        seen = self.store.friend_result_by_fingerprint(fp)
+        if seen:
+            raise SilverError("conflict", f"This result was already imported: {seen['challenger']} against {seen['target_name']}.",
+                              hint="Each result code counts once in the friends' leaderboard.")
+
+    def _record_friend_result(self, r: dict[str, Any], kind: str, obj: dict[str, Any], *, challenger: str, won: bool, battle_id: str, fp: str,
+                              badge_id: str = "", battles: int = 0, verified: bool = False, week: str = "", mode: str = "classic",
+                              hp_left: float = 0.0, turns: Optional[int] = None) -> str:
+        stages = [x for x in (r.get("stages") or []) if isinstance(x, dict)]
+        return self.store.add_friend_result({
+            "kind": kind, "target_id": obj["id"], "target_name": obj["name"], "challenger": challenger, "won": int(won),
+            "battles": battles or max(len(stages), 1), "battles_won": sum(1 for x in stages if x.get("won")) if stages else int(won),
+            "turns": int(r.get("turns") or 0) if turns is None else turns, "hp_left": round(float(hp_left), 1), "verified": int(verified),
+            "week": week, "mode": mode, "battle_id": battle_id or "", "badge_id": badge_id or "", "fingerprint": fp,
+            "played_at": str(r.get("date") or "")[:40]})
+
+    @staticmethod
+    def _rank_key(x: dict[str, Any]) -> tuple:
+        # a full win first, then checked by replaying, then the furthest battle, the fewest turns, the most HP left, the earliest
+        return (x["won"], x["verified"], x["battles_won"], -x["turns"], x["hp_left"], -x["created_at"])
+
+    def leaderboard(self, kind: str = "", target_id: str = "", week: str = "") -> dict[str, Any]:
+        """Friends' results per gym or trainer with the best result of each friend. ``week``: empty for every result, ``current`` for
+        this week's challenge, or a week like 2026-W42."""
+        current = self.current_week()
+        if week == "current":
+            week = current
+        if week and not WEEK_RE.match(week):
+            raise SilverError("invalid", "week is empty, current or like 2026-W42")
+        rows = self.store.friend_results(kind=kind, target_id=target_id, week=week)
+        gyms = {g["id"]: g for g in self.store.gyms()}
+        groups: dict[tuple[str, str], list[dict[str, Any]]] = {}
+        for x in rows:
+            groups.setdefault((x["kind"], x["target_id"]), []).append(x)
+        boards = []
+        for (k, tid), items in groups.items():
+            best: dict[str, dict[str, Any]] = {}
+            tries: dict[str, list[str]] = {}
+            for x in items:
+                who = x["challenger"].strip().lower()
+                tries.setdefault(who, []).append(x["id"])
+                if who not in best or self._rank_key(x) > self._rank_key(best[who]):
+                    best[who] = x
+            ranked = sorted(best.values(), key=self._rank_key, reverse=True)
+            g = gyms.get(tid) if k == "gym" else None
+            boards.append({"kind": k, "target_id": tid, "target_name": (g or {}).get("name") or items[0]["target_name"], "results": len(items),
+                           **({"badge": g.get("badge", ""), "badge_color": g.get("badge_color", ""), "badge_image": g.get("badge_image", "")} if g else {}),
+                           "entries": [{"rank": i + 1, "id": x["id"], "ids": tries[x["challenger"].strip().lower()], "challenger": x["challenger"],
+                                        "won": bool(x["won"]), "verified": bool(x["verified"]), "battles": x["battles"], "battles_won": x["battles_won"],
+                                        "turns": x["turns"], "hp_left": x["hp_left"], "week": x["week"], "mode": x["mode"], "battle_id": x["battle_id"],
+                                        "played_at": x["played_at"], "attempts": len(tries[x["challenger"].strip().lower()])}
+                                       for i, x in enumerate(ranked)]})
+        boards.sort(key=lambda b: (-b["results"], b["target_name"].lower()))
+        return {"week": week, "current_week": current, "weeks": self.store.friend_weeks(), "boards": boards, "total": len(rows)}
+
+    def leaderboard_remove(self, ids: list[str]) -> dict[str, Any]:
+        """Take results off the friends' leaderboard (their battles and badges stay)."""
+        return {"removed": self.store.delete_friend_results(ids)}
 
     def ai_version(self) -> str:
         """A fingerprint of the trainers' AI as playable pages carry it (its code and the simulator's version): a result whose page has
@@ -2402,7 +2512,7 @@ class Services:
         return h.hexdigest()[:12]
 
     def _check_turn_stage(self, stage: dict[str, Any], opp: dict[str, Any], fmt: str, rules: list[str], level_rules: dict[str, Any],
-                          team: list[dict[str, Any]], ai_version: str) -> dict[str, Any]:
+                          team: list[dict[str, Any]], ai_version: str, expect_seed: str = "") -> dict[str, Any]:
         """Replay one turn-based battle of a friend's result from the page's record: the teams must be the expected ones, every choice
         legal and the end the one the code says; with the same AI version, the opponent's choices must be the AI's own."""
         record, rng, forfeit = stage.get("input"), str(stage.get("rng") or "")[:80], stage.get("forfeit") or ""
@@ -2411,7 +2521,7 @@ class Services:
             raise SilverError("invalid", f"The record of the battle against {opp['name']} inside the code is damaged.")
         res = self.engine.run_job("replay_check", {"input": record, "format": fmt, "rules": rules, "level_rules": level_rules, "p1_sets": team,
                                                    "p2_sets": opp["team"], "ai": {"level": opp["ai_level"], "style": opp["ai_style"]}, "rng_id": rng,
-                                                   "forfeit": forfeit}, timeout=900)
+                                                   "forfeit": forfeit, **({"expect_seed": expect_seed} if expect_seed else {})}, timeout=900)
         if res.get("problems"):
             raise SilverError("invalid", f"The battle against {opp['name']} does not replay: {'; '.join(res['problems'])[:300]}.",
                               hint="If the page is older than a change to the challenge, export it again.")
