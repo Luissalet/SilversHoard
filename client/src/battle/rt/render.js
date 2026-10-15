@@ -7,6 +7,7 @@ import { TYPE_COLORS } from "../dex.js";
 import { Animator, dirRow, image, loadMeta } from "./pmd.js";
 import { Vfx } from "./vfx.js";
 import { Show, showSettings } from "./show.js";
+import { PLACE_FLOORS, drawAmbient, drawPlace } from "./places.js";
 import { playRtEvent } from "../sfx.js";
 import { rtMove } from "../../../../engine/src/realtime/moves.mjs";
 
@@ -35,6 +36,9 @@ const FLOORS = {
   indoor: { out: "#20160e", a: "#b5875a", b: "#ad7f53", speck: "rgba(60,35,15,0.08)", detail: "planks" },
   water: { out: "#0f2233", a: "#4f8fbf", b: "#4a88b6", speck: "rgba(255,255,255,0.08)", detail: "ripples" },
 };
+
+// places from the games (places.js): their own ground, decor around the court and ambience
+Object.assign(FLOORS, PLACE_FLOORS);
 
 export class ArenaRenderer {
   /** sides: [{mons: [{num, forme, shiny, species, sprite_id, base_look, mega_info}], avatarUrl, name}]; rocks: [{x, y, r}];
@@ -167,6 +171,7 @@ export class ArenaRenderer {
           x.stroke();
         }
       }
+      drawPlace(x, this, view?.floor);
       // lines
       x.strokeStyle = "rgba(255,255,255,0.55)";
       x.lineWidth = Math.max(2, s * 0.08);
@@ -193,6 +198,7 @@ export class ArenaRenderer {
     const tr = view.terrain?.id;
     const ttint = { electricterrain: "rgba(247,208,44,0.12)", grassyterrain: "rgba(122,199,76,0.14)", psychicterrain: "rgba(249,85,135,0.12)", mistyterrain: "rgba(243,182,216,0.14)" }[tr];
     if (ttint) { this.ctx.fillStyle = ttint; this.ctx.fillRect(this.px(0), this.py(0), ARENA.w * this.scale, ARENA.h * this.scale); }
+    drawAmbient(this.ctx, this, view?.floor, this.time);
   }
 
   /** A rock of the arena: a rounded boulder with a shadow, lit from the top left, some cracks and grass at its foot. */
@@ -441,6 +447,7 @@ export class ArenaRenderer {
     this.show.applyCamera(ctx);
     this.drawCourt(view);
     this.show.drawFloor(ctx);
+    this.show.drawCrowd(ctx, raw);
     const s = this.scale;
     // trainers
     view.sides.forEach((side, si) => {
@@ -524,6 +531,7 @@ export class ArenaRenderer {
     }
     ctx.restore();
     this.drawCutin(dt);
+    this.show.drawBubbles(ctx, raw);
     this.show.drawScreen(ctx, battle);
     this.flash = this.flash.map((v) => Math.max(0, v - dt * 5));
   }

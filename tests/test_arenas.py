@@ -92,3 +92,9 @@ def test_a_gym_backdrop_of_your_own_travels_inside_the_gym(call, client):
     page = client.post("/api/ui/call", json={"name": "export", "arguments": {"kind": "gym", "id": gym["id"], "fmt": "page"}})
     if page.status_code == 200:   # the page template exists once the client is built
         assert bd["data"][:200] in client.get(page.json()["url"]).text
+
+
+def test_places_from_the_games_are_floors_of_their_own(call):
+    for place in ("pyre", "summit", "meteor", "champion", "castle"):
+        a = call("arena_save", {"name": place, "floor": place, "rocks": []})
+        assert a["floor"] == place and a["rocks"] == []

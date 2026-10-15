@@ -93,3 +93,25 @@ test('combos and clashes', () => {
   assert.ok(show.impact && show.impact.crit);
   assert.ok(show.punch && show.punch.z > 1);
 });
+
+test('trainers say their lines: the intro, a faint, the last Pokémon and the end', () => {
+  const r = stubRenderer();
+  r.sides = [{dialogue: {intro: 'A por ellos.', on_ko: 'Uno menos.', last: 'Todo o nada.', win: 'Sabía que ganaría.'}}, {dialogue: {on_faint: 'Vuelve, amigo.', lose: 'Me has ganado.'}}];
+  const show = new Show(r);
+  const b = new RtBattle(spec('talk-1'));
+  show.startIntro(b);
+  // the intro's last beat ("Fight!") is drawn on a canvas; here the line goes straight away
+  assert.ok(show.talk(1, 'intro', {force: true}) === false, 'the second trainer has no intro line');
+  assert.ok(show.talk(0, 'intro', {force: true}));
+  assert.equal(show.bubbles[0].text, 'A por ellos.');
+  const sides = [{x: 10, y: 8, fx: 1, fy: 0, active: 0, mons: [{name: 'Sceptile', hp: 100}, {name: 'Blastoise', hp: 0, fainted: true}], name: 'Rojo'},
+    {x: 12, y: 8, fx: -1, fy: 0, active: 0, mons: [{name: 'Gengar', hp: 0, fainted: true}, {name: 'Chandelure', hp: 50}], name: 'Azul'}];
+  const battle = {t: 600, doubles: false, ended: false, sides};
+  r.time = 20;
+  show.onEvent({k: 'faint', s: 1, slot: 0, by: 0}, battle);
+  assert.ok(show.bubbles.some((x) => x.text === 'Uno menos.'), 'the trainer who knocked it out talks first');
+  r.time = 30;
+  show.onEvent({k: 'switch', s: 0, slot: 0, first: false}, battle);
+  assert.ok(show.bubbles.some((x) => x.text === 'Todo o nada.'), 'the last Pokémon has its line');
+  assert.equal(show.line(1, 'win'), '');
+});
