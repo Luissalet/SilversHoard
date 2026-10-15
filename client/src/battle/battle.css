@@ -124,6 +124,8 @@
 .b-pop-portrait.is-cut { inset: 38% 0 auto 0; height: 92px; display: flex; align-items: center; justify-content: center;
   background: linear-gradient(100deg, transparent 0 6%, #120c1fdd 6% 94%, transparent 94%); animation: b-cut 1.3s ease-out forwards; }
 .b-pop-portrait.is-cut .b-portrait { width: 80px; height: 80px; }
+.b-pop-portrait.has-line { gap: 14px; animation-duration: 3.2s; }
+.b-pop-line { color: #fff; font-weight: 800; font-size: clamp(14px, 2.2vw, 20px); text-shadow: 0 2px 4px #000; max-width: 60%; }
 @keyframes b-cut { 0% { transform: translateX(-60%) skewX(-12deg); opacity: 0; } 15%, 80% { transform: none; opacity: 1; } 100% { transform: translateX(40%); opacity: 0; } }
 .b-result-faces { display: flex; gap: 14px; align-items: center; }
 .b-result-faces .b-portrait { width: 64px; height: 64px; }

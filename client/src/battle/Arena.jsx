@@ -215,11 +215,14 @@ export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "
   // a portrait that pops up for a moment: in pain at a K.O., determined when it Mega Evolves, uses a Z-Move or Terastallizes
   const [pop, setPop] = useState(null);
   useEffect(() => {
-    if (!anim || !["faint", "tera"].includes(anim.type)) return undefined;
-    const mon = activeOf(anim.side, anim.slot ?? 0);
+    if (!anim || !["faint", "tera", "phase"].includes(anim.type)) return undefined;
+    const mon = activeOf(anim.side, anim.slot ?? 0) || leadOf(anim.side);
     if (!mon) return undefined;
-    setPop({ id: anim.id, side: anim.side, species: mon.species, emotion: anim.type === "faint" ? "Pain" : "Determined", cut: anim.type === "tera" });
-    const h = setTimeout(() => setPop((p) => (p && p.id === anim.id ? null : p)), anim.type === "faint" ? 1500 : 1300);
+    // a change of tactics: the band crosses the field with the trainer's line, for longer so it can be read
+    const phase = anim.type === "phase";
+    setPop({ id: anim.id, side: anim.side, species: mon.species, emotion: anim.type === "faint" ? "Pain" : phase ? "Angry" : "Determined",
+      cut: anim.type !== "faint", line: phase ? anim.line || t("phase_change") : "" });
+    const h = setTimeout(() => setPop((p) => (p && p.id === anim.id ? null : p)), anim.type === "faint" ? 1500 : phase ? 3200 : 1300);
     return () => clearTimeout(h);
   }, [anim?.id]); // eslint-disable-line react-hooks/exhaustive-deps
   const bubbleMon = bubble && bubble.text ? leadOf(bubble.side) : null;
@@ -284,8 +287,9 @@ export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "
             </div>
           )}
           {pop && !ended && (
-            <div key={pop.id} className={`b-pop-portrait ${pop.side === me ? "me" : "foe"}${pop.cut ? " is-cut" : ""}`} aria-hidden="true">
+            <div key={pop.id} className={`b-pop-portrait ${pop.side === me ? "me" : "foe"}${pop.cut ? " is-cut" : ""}${pop.line ? " has-line" : ""}`} aria-hidden="true">
               <Portrait sprites={sprites} species={pop.species} emotion={pop.emotion} />
+              {pop.line && <span className="b-pop-line">{pop.line}</span>}
             </div>
           )}
           {ended && (

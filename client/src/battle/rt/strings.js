@@ -169,6 +169,14 @@ const RT = {
   rt_taunted: ["Mofa", "Taunt"],
   rt_protect: ["Protección", "Protected"],
   rt_sub: ["Sustituto", "Substitute"],
+  rt_training: ["Entrenamiento", "Training"],
+  rt_training_kos: ["{n} K.O. al muñeco", "{n} dummy K.O.s"],
+  rt_dps: ["Daño por segundo", "Damage per second"],
+  rt_dps_recent: ["Últimos 5 s", "Last 5 s"],
+  rt_damage_total: ["Daño total", "Total damage"],
+  rt_hits_n: ["{n} golpes · {c} críticos", "{n} hits · {c} critical"],
+  rt_dummy_reset: ["¡Muñeco a tope!", "Dummy healed!"],
+  rt_phase: ["¡Cambio de táctica!", "Change of tactics!"],
 };
 
 export default RT;

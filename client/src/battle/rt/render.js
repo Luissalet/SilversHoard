@@ -310,6 +310,17 @@ export class ArenaRenderer {
         break;
       }
       case "helping": float(s, T.helping || "+", "#ffd166", { size: 0.85, dy: -0.6 }); break;
+      case "phase": {
+        // a trainer changes tactics: the band with its Pokémon's angry face and what it says
+        this.hitstop = Math.max(this.hitstop, 0.15);
+        const w = this.unitOf(battle, s, 0);
+        const m = w.mons[w.active];
+        const url = m ? this.sprites.portrait?.(m.species, "Angry", { num: m.num || 0 }) : "";
+        this.cutin = { t: 0, life: 2.6, si: s, img: url ? image(url) : null, fall: m && url ? image(this.sprites.portrait(m.species, "Normal", { num: m.num || 0 })) : null,
+          text: e.line || T.phase, name: battle.sides[s]?.name || "", small: !!e.line };
+        break;
+      }
+      case "dummy_reset": float(s, T.dummyReset || "♥", "#7ee08f", { size: 0.95, dy: -0.6 }); break;
       case "follow": float(s, T.follow || "!", "#ff9f43", { size: 0.85, dy: -0.6 }); break;
       case "hit": {
         this.flash[key] = 1;
@@ -567,7 +578,9 @@ export class ArenaRenderer {
       ctx.fillRect(ix - 3, y + (bandH - size) / 2 - 3, size + 6, size + 6);
       ctx.drawImage(img, ix, y + (bandH - size) / 2, size, size);
     }
-    ctx.font = `900 ${Math.round(bandH * 0.3)}px system-ui, sans-serif`;
+    let fs = Math.round(bandH * (c.small ? 0.2 : 0.3));
+    ctx.font = `900 ${fs}px system-ui, sans-serif`;
+    while (fs > 10 && ctx.measureText(c.text).width > W * 0.58) { fs -= 1; ctx.font = `900 ${fs}px system-ui, sans-serif`; }
     ctx.textAlign = c.si === 0 ? "left" : "right";
     ctx.textBaseline = "middle";
     ctx.fillStyle = "#ffd6f2";

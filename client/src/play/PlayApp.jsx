@@ -2,7 +2,7 @@
 // engine and AI as the app. At the end it gives a result code to send back.
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { applyLevelRules, buildFormatId, dexNum, exportTeam, importTeam, randomTeam, teamSummary, validateTeam, formatInfo } from "../../../engine/src/core.mjs";
-import { Match, viewLines } from "../../../engine/src/match.mjs";
+import { Match, phaseOf, viewLines } from "../../../engine/src/match.mjs";
 import Arena from "../battle/Arena.jsx";
 import Controls from "../battle/Controls.jsx";
 import { makeSprites, TYPE_COLORS, typeName } from "../battle/dex.js";
@@ -366,7 +366,8 @@ function BattleView({ t, lang, sprites, me, opp, fid, levelRules, onEnd, seed = 
   }, [player.state.ended, player.caughtUp]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    const ai = opp.ai || { level: "normal", style: "balanced" };
+    const phase = phaseOf(opp.dialogue);
+    const ai = { ...(opp.ai || { level: "normal", style: "balanced" }), ...(phase ? { phase } : {}) };
     matchRef.current = new Match({ ...(seed ? { id: seed, seed } : {}), format: fid, level_rules: levelRules, p1: { name: me.name, sets: me.sets, ai: null },
       p2: { name: opp.name, sets: opp.team, ai } });
     matchRef.current.advance();

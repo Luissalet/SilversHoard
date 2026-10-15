@@ -5,7 +5,7 @@ import { useApp } from "../context.js";
 import { Busy, Empty, Field, Icon, ICONS, Rel, Section, Switch, Tabs, useBusy, useStored } from "../components/ui.jsx";
 import { AiFields, Avatar, FormatSelect, JobProgress, RulesFields, TeamStrip, TrainerSelect, useTrainers } from "../components/silver.jsx";
 import { BattleRow } from "./Historial.jsx";
-import ModeFields, { withEqualLevel } from "../battle/rt/ModeFields.jsx";
+import ModeFields, { useCustomArenas, withEqualLevel } from "../battle/rt/ModeFields.jsx";
 import TeamBenchmark from "../components/TeamBenchmark.jsx";
 
 function SeatEditor({ label, seat, onChange, allowHuman = true }) {
@@ -253,6 +253,51 @@ function CupList() {
   );
 }
 
+/** Real-time training against a dummy that never faints, with a damage-per-second meter. Nothing counts for records. */
+function TrainingForm() {
+  const { t, go } = useApp();
+  const arenas = useCustomArenas();
+  const [me, setMe] = useStored("silver-training-me", "");
+  const [dummy, setDummy] = useState("");
+  const [pattern, setPattern] = useStored("silver-training-pattern", "still");
+  const [arena, setArena] = useStored("silver-training-arena", "open");
+  const [limit, setLimit] = useStored("silver-training-limit", 300);
+  const [busy, run] = useBusy();
+  const start = () => run("t", async () => {
+    const b = await api.call("training_start", { trainer_id: me, pattern, dummy_id: dummy, rt_arena: arena, time_limit: Number(limit) });
+    go(`#/combate/${b.id}`);
+  });
+  return (
+    <div className="panel space-y-3">
+      <p className="help">{t("training_help")}</p>
+      <div className="grid gap-3 sm:grid-cols-2">
+        <TrainerSelect label={t("training_you")} value={me} onChange={setMe} id="training-me" />
+        <TrainerSelect label={t("training_dummy")} value={dummy} onChange={setDummy} allowNone exclude={me ? [me] : []} id="training-dummy" />
+      </div>
+      <div className="grid gap-3 sm:grid-cols-3">
+        <Field label={t("training_pattern")}>
+          <select className="field" value={pattern} onChange={(e) => setPattern(e.target.value)}>
+            {["still", "walk", "dodge", "fight"].map((p) => <option key={p} value={p}>{t(`training_${p}`)}</option>)}
+          </select>
+        </Field>
+        <Field label={t("rt_arena")}>
+          <select className="field" value={arena} onChange={(e) => setArena(e.target.value)}>
+            <option value="open">{t("rt_arena_open")}</option>
+            <option value="rocks">{t("rt_arena_rocks")}</option>
+            {arenas.map((a) => <option key={a.id} value={a.value}>{a.name}</option>)}
+          </select>
+        </Field>
+        <Field label={t("training_time")}>
+          <select className="field" value={limit} onChange={(e) => setLimit(e.target.value)}>
+            {[60, 120, 300, 600, 1800].map((n) => <option key={n} value={n}>{n >= 120 ? `${n / 60} min` : `${n} s`}</option>)}
+          </select>
+        </Field>
+      </div>
+      <Busy busy={busy.t} className="btn btn-primary" onClick={start} disabled={!me}>{t("training_start")}</Busy>
+    </div>
+  );
+}
+
 export default function Combatir({ query }) {
   const { t, ov } = useApp();
   const [tab, setTab] = useStored("silver-battle-tab", "single");
@@ -286,12 +331,14 @@ export default function Combatir({ query }) {
         { id: "single", label: t("tab_single") },
         { id: "series", label: t("tab_series") },
         { id: "tournament", label: t("tab_tournament") },
+        { id: "training", label: t("tab_training") },
         { id: "benchmark", label: t("tab_benchmark") },
       ]} />
       {tab === "single" && <SingleBattle />}
       {tab === "series" && <SeriesForm />}
       {tab === "tournament" && <TournamentForm />}
       {tab === "tournament" && <CupList />}
+      {tab === "training" && <TrainingForm />}
       {tab === "benchmark" && <TeamBenchmark />}
     </div>
   );

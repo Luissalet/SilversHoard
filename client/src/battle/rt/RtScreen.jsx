@@ -65,6 +65,8 @@ function logLine(e, b, lang, tr) {
       : { sec, k: "minor", text: es ? `${who(e.s)} se protege` : `${who(e.s)} protected itself` };
     case "plus": return { sec, k: "effect", text: es ? `${who(e.s)}: ¡${mv(e.name)} Plus!` : `${who(e.s)}: ${mv(e.name)} Plus!` };
     case "mega": return { sec, k: "big", text: es ? `¡${e.from} de ${side(e.s).name} megaevoluciona!` : `${side(e.s).name}'s ${e.from} Mega Evolved!` };
+    case "phase": return { sec, k: "big", text: e.line ? `${side(e.s).name}: «${e.line}»` : (es ? `¡${side(e.s).name} cambia de táctica!` : `${side(e.s).name} changes tactics!`) };
+    case "dummy_reset": return { sec, k: "big", text: es ? `${who(e.s)} cae y se levanta con todos sus PS` : `${who(e.s)} goes down and stands up again at full HP` };
     case "mega_end": return { sec, k: "info", text: es ? `${monName(e.s, e.slot)} vuelve a su forma` : `${monName(e.s, e.slot)} went back to its usual forme` };
     case "immune": return { sec, k: "minor", text: es ? `No afecta a ${monName(e.s)}` : `It doesn't affect ${monName(e.s)}` };
     case "status": return { sec, k: "effect", text: `${who(e.s)}: ${L(STATUS_NAMES[e.status] || [e.status, e.status], lang)}` };
@@ -293,6 +295,58 @@ function hasPad() {
  * video: the replay recorded as a clip (Video.jsx): {playing, speed, onProgress(fraction), onDone()}; it waits paused until
  * `playing`, then plays at `speed` and reports how far it is and when it has ended.
  */
+/** Training: what you have done to the dummy so far (damage per second overall and over the last 5 s, per move, K.O.s). */
+export function trainingStats(b) {
+  const now = b.t;
+  const names = new Map();
+  const moves = new Map();
+  let total = 0, recent = 0, hits = 0, crits = 0, resets = 0;
+  for (const e of b.events) {
+    if (e.k === "use" && e.s === 0) {
+      names.set(e.move, e.name);
+      const m = moves.get(e.move) || { dmg: 0, hits: 0, uses: 0 };
+      m.uses += 1;
+      moves.set(e.move, m);
+    } else if (e.k === "hit" && e.s === 1 && e.from === 0) {
+      total += e.dmg;
+      hits += 1;
+      if (e.crit) crits += 1;
+      if (now - e.t <= 5 * TPS) recent += e.dmg;
+      const m = moves.get(e.move) || { dmg: 0, hits: 0, uses: 0 };
+      m.dmg += e.dmg;
+      m.hits += 1;
+      moves.set(e.move, m);
+    } else if (e.k === "dummy_reset" && e.s === 1) resets += 1;
+  }
+  const dummy = b.sides[1]?.mons?.[b.sides[1].active];
+  const secs = Math.max(1, now / TPS);
+  return { total, dps: total / secs, recent: recent / Math.min(5, secs), hits, crits, resets, maxhp: dummy?.maxhp || 1, seconds: now / TPS,
+    moves: [...moves.entries()].map(([id, m]) => ({ id, name: names.get(id) || id, ...m })).sort((a, b2) => b2.dmg - a.dmg) };
+}
+
+function TrainingPanel({ stats, tr, lang }) {
+  const pct = (x) => `${Math.round((x / stats.maxhp) * 100)}%`;
+  return (
+    <div className="rt-training" aria-live="off">
+      <div className="rt-training-head"><b>{tr("rt_training")}</b> <span className="help">{tr("rt_training_kos", { n: stats.resets })}</span></div>
+      <div className="rt-training-nums">
+        <div><span className="help">{tr("rt_dps")}</span><b className="num">{stats.dps.toFixed(1)}</b><span className="help">{pct(stats.dps)}/s</span></div>
+        <div><span className="help">{tr("rt_dps_recent")}</span><b className="num">{stats.recent.toFixed(1)}</b><span className="help">{pct(stats.recent)}/s</span></div>
+        <div><span className="help">{tr("rt_damage_total")}</span><b className="num">{stats.total}</b><span className="help">{tr("rt_hits_n", { n: stats.hits, c: stats.crits })}</span></div>
+      </div>
+      {stats.moves.length > 0 && (
+        <table className="rt-training-moves">
+          <tbody>
+            {stats.moves.map((m) => (
+              <tr key={m.id}><td className="trunc">{nameOf("move", m.name, lang)}</td><td className="num">{m.dmg}</td><td className="num help">{m.hits}/{m.uses}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
+}
+
 export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish, onSave, onAgain, base = "", offline = false, onContinue = null, continueLabel = "", video = null }) {
   const tr = useMemo(() => rtT(lang), [lang]);
   const spec = battle.rt.spec;
@@ -307,6 +361,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
   const [credits, setCredits] = useState([]);
   const [hud, setHud] = useState(null);
   const [log, setLog] = useState([]);
+  const [training, setTraining] = useState(null);
   const [party, setParty] = useState([false, false]);
   const [cursor, setCursor] = useState([0, 0]);
   const [focus, setFocus] = useState([false, false]);
@@ -333,7 +388,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     move: (n) => nameOf("move", n, lang), crit: tr("rt_crit"), super: tr("rt_super"), weak: tr("rt_weak"), dodged: tr("rt_dodged"),
     blocked: tr("rt_blocked"), immune: tr("rt_immune"), flinch: tr("rt_flinch"), status: (s) => L(STATUS_NAMES[s] || [s, s], lang),
     statusColor: (s) => STATUS_COLORS[s] || "#fff", stat: (k) => L(STAT_SHORT[k] || [k, k], lang),
-    mega: tr("rt_mega_float"), megaEnd: tr("rt_mega_end_float"), plus: tr("rt_plus"), helping: tr("rt_helping_float"), follow: tr("rt_follow_float"),
+    mega: tr("rt_mega_float"), dummyReset: tr("rt_dummy_reset"), phase: tr("rt_phase"), megaEnd: tr("rt_mega_end_float"), plus: tr("rt_plus"), helping: tr("rt_helping_float"), follow: tr("rt_follow_float"),
   }), [lang, tr]);
 
   // build the battle, catch up a live one, load the sprites
@@ -495,6 +550,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
       if (now - lastHud > HUD_MS) {
         lastHud = now;
         setHud(st.b.view());
+        if (st.b.training) setTraining(trainingStats(st.b));
         if (videoRef.current?.onProgress) videoRef.current.onProgress(st.b.t / Math.max(1, battle.rt.tick || (battle.summary?.seconds || 0) * TPS || st.b.t));
         if (st.logIndex < st.b.events.length) {
           const fresh = st.b.events.slice(st.logIndex).map((e) => logLine(e, st.b, lang, tr)).filter(Boolean);
@@ -723,6 +779,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
             ))}
           </div>
         )}
+        {training && <TrainingPanel stats={training} tr={tr} lang={lang} />}
         {!offline && <div className="help rt-credit">{tr("rt_sprites_note")}{credits.length ? `: ${credits.join(", ")}` : ""}</div>}
       </div>
       <div className="b-log rt-log" aria-live="off" ref={logRef}>

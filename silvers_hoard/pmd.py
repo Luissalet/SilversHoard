@@ -217,6 +217,17 @@ class PmdSprites:
                         return folder, e
         return None
 
+    BATTLE_FACES = ("Normal", "Determined", "Angry", "Pain", "Joyous", "Crying", "Sad")
+
+    def prefetch_portraits(self, species: list[str]) -> None:
+        """Download the faces a battle may show (lines, knockouts, cut-ins, the result) before the screen asks for them."""
+        for sp in dict.fromkeys(str(x) for x in species if x):
+            for emo in self.BATTLE_FACES:
+                try:
+                    self.portrait(sp, emo)
+                except SilverError:
+                    continue
+
     def portrait(self, species: str, emotion: str = "Normal") -> Path:
         """A Pokémon's 40 px portrait with an emotion (SpriteCollab, CC BY-NC 4.0), downloaded the first time and cached."""
         if emotion not in EMOTIONS:

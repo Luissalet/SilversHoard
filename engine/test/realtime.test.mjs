@@ -618,3 +618,27 @@ test('rules version 3 fills the Mega Power gauge a segment every 8 s, version 2 
     assert.ok(b.sides[0].gauge >= GAUGE_SEGMENT, `v${version}: a segment after ${secs} s`);
   }
 });
+
+// ---------------------------------------------------------------- training
+const DUMMY = 'Sudowoodo @ Leftovers\nAbility: Sturdy\nLevel: 100\n- Rock Slide\n- Wood Hammer\n- Sucker Punch\n- Earthquake\n';
+
+test('training: the dummy never faints, heals back at a knockout, and its patterns replay the same', () => {
+  const base = {seed: 'train', version: 4, arena: 'open', format: 'gen9customgame', time_limit: 40, training: {pattern: 'still'},
+    p1: {name: 'Me', sets: importTeam(TEAM), ai: {level: 'expert', style: 'aggressive'}},
+    p2: {name: 'Dummy', sets: importTeam(DUMMY), ai: {level: 'dummy', style: 'balanced', pattern: 'still'}}};
+  const still = rtRun(base);
+  assert.equal(still.reason, 'time', 'nobody is knocked out: the time runs out');
+  assert.ok(still.events.some((e) => e.k === 'dummy_reset'), 'the dummy went down and stood up again');
+  assert.ok(!still.events.some((e) => e.k === 'faint'), 'nobody faints in training, not even from recoil');
+  assert.ok(!still.events.some((e) => (e.k === 'use' || e.k === 'roll') && e.s === 1), 'a still dummy never moves a finger');
+  assert.equal(still.view().training.pattern, 'still');
+  // walking: it moves around but never attacks; fighting back: it uses moves
+  const walk = rtRun({...base, p2: {...base.p2, ai: {...base.p2.ai, pattern: 'walk'}}});
+  assert.ok(walk.events.every((e) => e.k !== 'use' || e.s !== 1));
+  const fight = rtRun({...base, p2: {...base.p2, ai: {...base.p2.ai, pattern: 'fight'}}});
+  assert.ok(fight.events.some((e) => e.k === 'use' && e.s === 1), 'the fighting dummy attacks');
+  // the same spec plays the same battle again, and without `training` the Sudowoodo faints as usual
+  assert.equal(JSON.stringify(rtRun(base).events), JSON.stringify(still.events));
+  const normal = rtRun({...base, training: undefined, time_limit: 120});
+  assert.ok(normal.events.some((e) => e.k === 'faint' && e.s === 1));
+});
