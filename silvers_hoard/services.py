@@ -19,7 +19,7 @@ from pathlib import Path
 from typing import Any, Callable, Optional
 
 from . import APP_ID, __version__
-from . import facilities, sharing
+from . import facilities, game_leagues, sharing
 from .config import AI_LEVELS, AI_STYLES, REPO_ROOT, Config, Settings, find_node
 from .engine import Engine
 from .errors import SilverError
@@ -394,6 +394,15 @@ class Services:
         for lg in c["leagues"]:
             installed = self.store.league_by_canon(lg["key"])
             leagues.append({**lg, "installed_id": installed["id"] if installed else ""})
+        for lg in game_leagues.LEAGUES:   # leagues of more games, built from the characters' teams
+            if region and lg["region"] != region:
+                continue
+            installed = self.store.league_by_canon(lg["key"])
+            leagues.append({"key": lg["key"], "name": lg["name"], "name_es": lg["name_es"], "region": lg["region"], "game": lg["game"],
+                            "format": f"gen{lg['gen']}customgame", "source": "characters",
+                            "gyms": [{**{k: g[k] for k in ("city", "city_es", "type", "badge", "badge_es")}, "leader": f"char:{g['key']}"} for g in lg["gyms"]],
+                            "elite_four": [f"char:{x['key']}" for x in lg["elite_four"]], "champion": f"char:{lg['champion']['key']}",
+                            "installed_id": installed["id"] if installed else ""})
         return {"trainers": trainers, "leagues": leagues, "source": c.get("source", "")}
 
     def canon_install_trainer(self, key: str) -> dict[str, Any]:
@@ -412,7 +421,45 @@ class Services:
         })
         return self.trainer_view(self.store.trainer(id_))
 
+    def _install_game_league(self, key: str) -> dict[str, Any]:
+        """A league of game_leagues.py: each member is the character's trainer for that game's team (installed once and reused)."""
+        lg = game_leagues.BY_KEY[key]
+        existing = self.store.league_by_canon(key)
+        if existing:
+            return self.league_get(existing["id"])
+
+        def member(m: dict[str, str]) -> dict[str, Any]:
+            t = self.character_install(m["key"], variant=m["variant"])
+            return self.store.trainer(t["id"])
+
+        gym_ids = []
+        for g in lg["gyms"]:
+            gym_key = f"{key}:{g['key']}"
+            gym = self.store.gym_by_canon(gym_key)
+            if gym:
+                gym_ids.append(gym["id"])
+                continue
+            leader = member(g)
+            city = g["city_es"]
+            gym_ids.append(self.store.add_gym({
+                "name": g.get("gym_es") or f"Gimnasio de {city}", "city": city, "type": g["type"], "badge": g["badge_es"],
+                "badge_color": TYPE_COLORS.get(g["type"], "#c0c0c0"), "description": f"{g['badge']} · {g['city']} · {lg['game']}",
+                "format": leader["format"], "rules": [], "level_rules": {"level_cap": max((x.get("level") or 100) for x in leader["team"]) if leader["team"] else 100},
+                "leader_id": leader["id"], "trainers": [], "origin": "canon", "canon_key": gym_key,
+            }))
+        elite = [member(m)["id"] for m in lg["elite_four"]]
+        champ = member(lg["champion"])
+        lid = self.store.add_league({
+            "name": lg["name_es"], "description": f"{lg['name']} · {lg['game']}", "format": champ["format"], "rules": [],
+            "level_rules": {"level_cap": max((x.get("level") or 100) for x in champ["team"]) if champ["team"] else 100},
+            "gyms": gym_ids, "elite_four": elite, "champion_id": champ["id"], "badges_required": len(gym_ids), "origin": "canon", "canon_key": key,
+        })
+        self.emit("league.installed", {"id": lid, "key": key})
+        return self.league_get(lid)
+
     def canon_install_league(self, key: str) -> dict[str, Any]:
+        if key in game_leagues.BY_KEY:
+            return self._install_game_league(key)
         lg = next((x for x in self.canon()["leagues"] if x["key"] == key), None)
         if not lg:
             raise SilverError("not_found", f"No league {key}")
@@ -450,7 +497,17 @@ class Services:
     def characters(self) -> dict[str, Any]:
         if self._characters is None:
             data = json.loads(gzip.decompress((PRESETS_DIR / "characters.json.gz").read_bytes()).decode("utf-8"))
-            data["by_key"] = {c["key"]: c for c in data["characters"]}
+            merged: dict[str, dict[str, Any]] = {}
+            for c in data["characters"]:
+                if c["key"] in merged:   # a character listed twice in the data keeps every team under one key
+                    first = merged[c["key"]]
+                    first["variants"] = [*first["variants"], *c["variants"]]
+                    seen = {sp["id"] for sp in first.get("sprites") or []}
+                    first["sprites"] = [*(first.get("sprites") or []), *[sp for sp in c.get("sprites") or [] if sp["id"] not in seen]]
+                else:
+                    merged[c["key"]] = c
+            data["characters"] = list(merged.values())
+            data["by_key"] = merged
             self._characters = data
         return self._characters
 
