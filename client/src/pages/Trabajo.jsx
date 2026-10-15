@@ -1,4 +1,4 @@
-// The result of a series or a tournament: win rates and MVPs, or the bracket / league table, with every battle to replay.
+// The result of a series, tournament or team benchmark: win rates and MVPs, bracket / league table, or variant deltas, with every battle to replay.
 import React from "react";
 import { api } from "../api.js";
 import { useApp } from "../context.js";
@@ -101,6 +101,105 @@ function LeagueTable({ r, names }) {
   );
 }
 
+function signed(n) {
+  if (n > 0) return `+${n}`;
+  return String(n);
+}
+
+function BenchmarkResult({ job }) {
+  const { t } = useApp();
+  const r = job.result || {};
+  const rows = r.variants || [];
+  if (!rows.length) return null;
+  const rivals = r.rivals || [];
+  const improved = new Set(r.improved || []);
+  const worsened = new Set(r.worsened || []);
+  return (
+    <div className="space-y-4">
+      <div className="panel space-y-2">
+        <div className="flex flex-wrap gap-3">
+          <span className="help">{t("benchmark_reference")}: <b>{rows[0]?.name}</b></span>
+          <span className="help">{t("benchmark_games")}: <b>{r.games}</b></span>
+          {r.seed != null && r.seed !== "" && <span className="help">{t("benchmark_seed")}: <b className="num">{String(r.seed)}</b></span>}
+        </div>
+        {(improved.size > 0 || worsened.size > 0) && (
+          <div className="flex flex-wrap gap-2">
+            {[...improved].map((id) => {
+              const row = rows.find((x) => x.id === id);
+              return row ? <span key={`i-${id}`} className="chip chip-accent">{t("benchmark_improved")}: {row.name}</span> : null;
+            })}
+            {[...worsened].map((id) => {
+              const row = rows.find((x) => x.id === id);
+              return row ? <span key={`w-${id}`} className="chip">{t("benchmark_worsened")}: {row.name}</span> : null;
+            })}
+          </div>
+        )}
+      </div>
+      <div className="panel p-0 scroll-x">
+        <table className="tbl">
+          <thead>
+            <tr>
+              <th>{t("trainer")}</th>
+              <th className="r">{t("won")}</th>
+              <th className="r">{t("lost")}</th>
+              <th className="r">{t("tied")}</th>
+              <th className="r">{t("win_rate")}</th>
+              <th className="r">{t("benchmark_delta_wins")}</th>
+              <th className="r">{t("benchmark_delta_rate")}</th>
+              <th>{t("mvp")}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row) => (
+              <tr key={row.id} className={row.id === r.reference_id ? "is-ref" : ""}>
+                <td><b>{row.name}</b>{row.id === r.reference_id ? <span className="chip ml-2">{t("benchmark_reference")}</span> : null}</td>
+                <td className="r num">{row.wins}</td>
+                <td className="r num">{row.losses}</td>
+                <td className="r num">{row.ties}</td>
+                <td className="r num">{pct(row.win_rate)}</td>
+                <td className="r num">{signed(row.delta?.wins || 0)}</td>
+                <td className="r num">{signed(Math.round((row.delta?.win_rate || 0) * 1000) / 10)}%</td>
+                <td>{row.mvp ? <span className="flex items-center gap-2"><MonIcon species={row.mvp.species} size={26} /> {row.mvp.species}</span> : "—"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {rivals.length > 0 && (
+        <Section title={t("benchmark_by_rival")} count={rivals.length}>
+          <div className="panel p-0 scroll-x">
+            <table className="tbl">
+              <thead>
+                <tr>
+                  <th>{t("trainer")}</th>
+                  {rivals.map((rv) => <th key={rv.id} className="r">{rv.name}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((row) => (
+                  <tr key={row.id}>
+                    <td><b>{row.name}</b></td>
+                    {(row.by_rival || []).map((br) => {
+                      const d = (row.delta?.by_rival || []).find((x) => x.rival_id === br.rival_id);
+                      return (
+                        <td key={br.rival_id} className="r">
+                          <div className="num">{br.wins}-{br.losses}{br.ties ? `-${br.ties}` : ""}</div>
+                          <div className="help">{pct(br.win_rate)}{d && row.id !== r.reference_id ? ` (${signed(d.wins)})` : ""}</div>
+                        </td>
+                      );
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Section>
+      )}
+      <p className="help">{t("benchmark_result_help")}</p>
+    </div>
+  );
+}
+
 export default function Trabajo({ param }) {
   const { t, notify, changed, go, confirm } = useApp();
   const { data: job, error, reload, setData } = useLoad(() => api.call("job_get", { id: param }), [param]);
@@ -126,6 +225,7 @@ export default function Trabajo({ param }) {
       <JobProgress job={job} />
       {job.kind === "series" && job.status === "done" && <SeriesResult job={job} />}
       {job.kind === "tournament" && job.status === "done" && (r.kind === "league" ? <LeagueTable r={r} names={names} /> : <Bracket r={r} names={names} />)}
+      {job.kind === "benchmark" && job.status === "done" && <BenchmarkResult job={job} />}
       {(job.battles || []).length > 0 && (
         <Section title={t("battles")} count={job.battles.length}>
           <div className="panel divide-list p-0">{job.battles.map((b) => <BattleRow key={b.id} b={b} />)}</div>

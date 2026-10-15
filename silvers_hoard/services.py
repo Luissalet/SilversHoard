@@ -30,6 +30,7 @@ from .hoard_link import family
 from .hoard_link.tokens import read_or_create_token
 from .credits import Credits
 from .arenas import CUSTOM as ARENA_CUSTOM, Arenas, same as arenas_same
+from .benchmarks import Benchmarks
 from .cups import Cups
 from . import gymmap
 from .fxcache import FxCache
@@ -107,6 +108,7 @@ class Services:
         self.fx = FxCache(config.sprites_dir.parent / "fx", self.settings, http_get=http_get)
         self.cups = Cups(self)
         self.arenas = Arenas(self)
+        self.benchmarks = Benchmarks(self)
         self.neural = NeuralAI(self.settings, config.sprites_dir.parent / "neural", config.data_dir / "logs")
         self._neural_env()
         self.pool = ThreadPoolExecutor(max_workers=2, thread_name_prefix="silver-job")
