@@ -119,6 +119,7 @@ const D = {
   kind_facility: ["Instalación", "Facility"],
   run_streak: ["Racha: {n}", "Streak: {n}"],
   run_go_current: ["Ver el combate siguiente", "See the next battle"],
+  factory_next: ["Elegir el equipo de alquiler", "Choose the rental team"],
   kind_series: ["Serie", "Series"],
   kind_tournament: ["Torneo", "Tournament"],
   kind_friend: ["De un amigo", "From a friend"],

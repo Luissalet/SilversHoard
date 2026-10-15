@@ -1151,6 +1151,10 @@ class Services:
             out["round"] = (nxt - 1) // facilities.ROUND + 1
             out["round_battle"] = (nxt - 1) % facilities.ROUND + 1
             out["next_boss"] = next(({"at": b[0], "key": b[1], "label_es": b[3], "label": b[4]} for b in f.get("bosses", []) if b[0] >= nxt), None)
+            if f.get("rental"):
+                ch = r.get("challenger") or {}
+                out["factory"] = {"phase": ch.get("phase", ""), "size": f.get("size", 3), "rentals": ch.get("rentals") or [],
+                                  "team": ch.get("team") or [], "offer": ch.get("offer") or []}
             if light and len(stages) > 12:
                 out["stages"] = stages[-12:]
                 out["stages_offset"] = len(stages) - 12
@@ -1174,7 +1178,7 @@ class Services:
             f = facilities.get(target_id)
             if not f:
                 raise SilverError("not_found", f"No facility {target_id}", hint="facilities_list shows them.")
-            if len(challenger["team"]) < f["size"]:
+            if not f.get("rental") and len(challenger["team"]) < f["size"]:
                 raise SilverError("invalid", f"{challenger['name']} needs {f['size']} Pokémon for {f['name']}.")
             open_run = next((x for x in self.store.runs(status="active", kind="facility", challenger_id=challenger_id, limit=200)
                              if x["target_id"] == target_id), None)
@@ -1187,7 +1191,10 @@ class Services:
                                                      "stop_at": int(stop_at or 0)},
                                       "stages": [], "step": 0, "status": "active", "mode": mode})
             self.emit("run.started", {"id": rid, "kind": "facility", "target": f["name_es"]})
-            self._run_battle(rid)
+            if f.get("rental"):
+                self._factory_round(rid)
+            else:
+                self._run_battle(rid)
             return self.run_view(self.store.run(rid))
         elif kind == "league":
             lg = self.store.league(target_id)
@@ -1216,6 +1223,8 @@ class Services:
     def _facility_rules(self, r: dict[str, Any]) -> tuple[str, list[str], dict[str, Any]]:
         f = facilities.get(r["target_id"]) or {}
         ch = r.get("challenger") or {}
+        if f.get("rental"):   # rental teams of three against teams of three, in the sets' own generation
+            return f"gen{f['gen']}customgame", [], {"level": int(ch.get("level") or 50)}
         fmt = ch.get("format_override") or ""
         if not fmt:
             try:
@@ -1285,7 +1294,8 @@ class Services:
                         "size": f["size"], "round": facilities.ROUND, "bosses": bosses,
                         "record": wins[best_i] if best_i is not None else 0,
                         "record_holder": (mine[best_i].get("challenger") or {}).get("name", "") if best_i is not None else "",
-                        "streaks": len(mine), "active_run_id": active["id"] if active else "",
+                        "streaks": len(mine), "active_run_id": active["id"] if active else "", "rental": bool(f.get("rental")),
+                        "active_phase": (active.get("challenger") or {}).get("phase", "") if active else "",
                         "active_streak": sum(1 for st in (active or {}).get("stages") or [] if st.get("result") == "won")})
         return {"facilities": out, "trainer_id": trainer_id}
 
@@ -1333,8 +1343,12 @@ class Services:
         fmt, rules, level_rules = self._run_rules(r)
         auto = bool((r.get("challenger") or {}).get("auto"))
         seat = {**(stage.get("seat") or {}), "name": stage["name"], "avatar": stage.get("avatar", ""), "human": False}
-        p1 = {"trainer_id": r["challenger_id"], "human": not auto}
-        if (r.get("mode") or "classic") == "realtime":   # no team preview in real time: the first Pokémon of the team, as many as the rival's
+        ch = r.get("challenger") or {}
+        if (facilities.get(r["target_id"]) or {}).get("rental"):
+            p1 = {"team": ch.get("team") or [], "name": ch.get("name", ""), "avatar": ch.get("avatar", ""), "human": not auto}
+        else:
+            p1 = {"trainer_id": r["challenger_id"], "human": not auto}
+        if (r.get("mode") or "classic") == "realtime" and "trainer_id" in p1:   # no team preview in real time: the first Pokémon of the team, as many as the rival's
             p1["team_size"] = (facilities.get(r["target_id"]) or {}).get("size", 3)
         b = self.battle_start(p1=p1, p2=seat, format_=fmt, rules=rules, level_rules=level_rules,
                               kind="facility", run_id=r["id"], title=f"{r['target_name']} · {stage['number']} · {stage['name']}",
@@ -1365,7 +1379,17 @@ class Services:
             self.emit("run.streak", {"id": rid, "streak": step})
             ch = r.get("challenger") or {}
             stop = int(ch.get("stop_at") or 0)
-            if ch.get("auto") and (not stop or step < stop):
+            go_on = bool(ch.get("auto")) and (not stop or step < stop)
+            if (facilities.get(r["target_id"]) or {}).get("rental"):
+                if step % facilities.ROUND == 0:   # a round of seven is over: six new rentals
+                    self._factory_round(rid, auto_pick=go_on)
+                else:
+                    offer = (stages[step - 1].get("seat") or {}).get("team") or []
+                    self.store.update_run(rid, {"challenger": {**ch, "phase": "swap", "offer": offer}})
+                    if go_on:
+                        self.factory_swap(rid)
+                return
+            if go_on:
                 self._run_battle(rid)
             return
         if step >= len(stages):
@@ -1386,10 +1410,63 @@ class Services:
         if (r.get("challenger") or {}).get("auto"):
             self._run_battle(rid)
 
+    # ------------------------------------------------------------ Battle Factory: rentals
+    def _factory_round(self, rid: str, auto_pick: Optional[bool] = None) -> None:
+        """Six new rental Pokémon for the next round; with auto the AI takes the first three and plays on."""
+        r = self.store.run(rid)
+        f = facilities.get(r["target_id"]) or {}
+        ch = r.get("challenger") or {}
+        number = r["step"] // facilities.ROUND + 1
+        rentals = self.random_team(facilities.random_format(f), f"{rid}:rentals:{number}")["sets"][: facilities.RENTALS]
+        self.store.update_run(rid, {"challenger": {**ch, "phase": "pick", "rentals": rentals, "offer": [], "team": []}})
+        if ch.get("auto") if auto_pick is None else auto_pick:
+            self.factory_pick(rid, list(range(f.get("size", 3))))
+
+    def _factory_run(self, rid: str, phase: str) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
+        r = self.store.run(rid)
+        f = facilities.get(r["target_id"]) or {}
+        if r["kind"] != "facility" or not f.get("rental"):
+            raise SilverError("invalid", "This is not a Battle Factory streak.")
+        if r["status"] != "active":
+            raise SilverError("ended", "This streak is over.")
+        ch = r.get("challenger") or {}
+        if ch.get("phase") != phase:
+            raise SilverError("conflict", f"The streak is not waiting for that now (it is at: {ch.get('phase') or 'battle'}).")
+        return r, f, ch
+
+    def factory_pick(self, rid: str, picks: list[int]) -> dict[str, Any]:
+        """Take three of the six rentals (their indexes, in battle order) and start the round's next battle."""
+        r, f, ch = self._factory_run(rid, "pick")
+        rentals = ch.get("rentals") or []
+        size = f.get("size", 3)
+        if len(picks) != size or len(set(picks)) != size or any(not 0 <= i < len(rentals) for i in picks):
+            raise SilverError("invalid", f"Pick {size} different rentals (indexes 0-{len(rentals) - 1}).")
+        self.store.update_run(rid, {"challenger": {**ch, "phase": "battle", "team": [rentals[i] for i in picks]}})
+        self._run_battle(rid)
+        return self.run_view(self.store.run(rid))
+
+    def factory_swap(self, rid: str, give: int = -1, take: int = -1) -> dict[str, Any]:
+        """After a win: swap one of your rentals (give) for one of the beaten rival's (take), or keep the team (-1), and battle on."""
+        r, f, ch = self._factory_run(rid, "swap")
+        team = list(ch.get("team") or [])
+        offer = ch.get("offer") or []
+        if give >= 0 or take >= 0:
+            if not (0 <= give < len(team) and 0 <= take < len(offer)):
+                raise SilverError("invalid", f"give is 0-{len(team) - 1} and take is 0-{len(offer) - 1}, or both -1 to keep the team.")
+            team[give] = offer[take]
+        self.store.update_run(rid, {"challenger": {**ch, "phase": "battle", "team": team, "offer": []}})
+        self._run_battle(rid)
+        return self.run_view(self.store.run(rid))
+
     def run_next(self, rid: str) -> dict[str, Any]:
         r = self.store.run(rid)
         if r["status"] != "active":
             raise SilverError("ended", "This challenge is over.")
+        phase = (r.get("challenger") or {}).get("phase") if r["kind"] == "facility" else ""
+        if phase == "pick":
+            raise SilverError("conflict", "Pick the rental Pokémon first.", hint="factory_pick with the indexes of three of the six rentals.")
+        if phase == "swap":   # keep the team as it is
+            return self.factory_swap(rid)
         cur = r["stages"][r["step"]] if r["step"] < len(r["stages"]) else {}
         if cur.get("battle_id"):
             b = self.store.battle(cur["battle_id"])
