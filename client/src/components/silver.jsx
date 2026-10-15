@@ -285,12 +285,13 @@ export function AvatarDialog({ trainer, onClose, onSaved }) {
   const [tab, setTab] = useState("sprites");
   const [q, setQ] = useState(trainer?.name?.split(" ")[0]?.toLowerCase() || "");
   const [names, setNames] = useState([]);
+  const [artists, setArtists] = useState({});
   const [busy, run] = useBusy();
   const [jobId, setJobId] = useState("");
   const [candidates, setCandidates] = useState([]);
   const fileRef = useRef(null);
   useEffect(() => {
-    const h = setTimeout(() => api.call("trainer_sprites_search", { query: q, limit: 160 }).then((r) => setNames(r.sprites)).catch(() => {}), 200);
+    const h = setTimeout(() => api.call("trainer_sprites_search", { query: q, limit: 160 }).then((r) => { setNames(r.sprites); setArtists(r.artists || {}); }).catch(() => {}), 200);
     return () => clearTimeout(h);
   }, [q]);
   const job = useJob(jobId, (j) => {
@@ -332,7 +333,7 @@ export function AvatarDialog({ trainer, onClose, onSaved }) {
           <input className="field" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t("avatar_search")} aria-label={t("avatar_search")} />
           <div className="sprite-grid">
             {names.map((n) => (
-              <button key={n} type="button" className="sprite-pick" onClick={() => choose(`sd:${n}`)} title={n} disabled={busy.save}>
+              <button key={n} type="button" className="sprite-pick" onClick={() => choose(`sd:${n}`)} title={artists[n] ? `${n} · ${t("sprite_by", { name: artists[n] })}` : n} disabled={busy.save}>
                 <img src={sprites.trainer(`sd:${n}`)} alt={n} loading="lazy" className="pixelated" />
                 <span className="trunc">{n}</span>
               </button>

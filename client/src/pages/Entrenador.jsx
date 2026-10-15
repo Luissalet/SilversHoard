@@ -170,6 +170,7 @@ export default function Entrenador({ param, query }) {
             <span className="chip">{t(`lvl_${tr.ai_level}`)} · {t(`style_${tr.ai_style}`)}</span>
             <RecordChip record={tr.record} />
           </div>
+          {tr.avatar_credit && <div className="help mt-1"><a className="btn-link" href="#/creditos">{t("sprite_by", { name: tr.avatar_credit })}</a></div>}
         </div>
         <div className="flex flex-wrap gap-2">
           <button type="button" className="btn btn-primary" onClick={() => setDialog("fight")}><Icon d={ICONS.play} size={14} /> {t("fight")}</button>

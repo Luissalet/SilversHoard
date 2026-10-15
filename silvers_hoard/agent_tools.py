@@ -184,6 +184,11 @@ class DialogueWriteArgs(BaseModel):
     lang: Literal["es", "en"] = "es"
 
 
+class CreditsArgs(BaseModel):
+    species: str = Field("", max_length=60, description="A Pokémon: the artists of its walking sprite in the real-time arena.")
+    sprite: str = Field("", max_length=64, description="A Showdown trainer sprite name (acerola, sd:acerola): its artist.")
+
+
 class SpritesArgs(BaseModel):
     query: str = Field("", max_length=40)
     limit: int = Field(120, ge=1, le=1500)
@@ -638,7 +643,12 @@ TOOLS: list[Tool] = [
          lambda s, a: s.trainer_write_dialogue(a.id, personality=a.personality, lang=a.lang), 240.0),
     Tool("trainer_sprites_search", _d("Search Showdown's trainer sprites by name to use as avatars. Buscar sprite de entrenador.",
                                       synonyms="avatar, imagen de entrenador, red, cynthia"), SpritesArgs, R,
-         lambda s, a: {"sprites": s.trainer_sprites(a.query, a.limit)}),
+         lambda s, a: (lambda names, artists: {"sprites": names, "artists": {n: artists[n] for n in names if n in artists}})(
+             s.trainer_sprites(a.query, a.limit), s.credits.trainers())),
+    Tool("credits", _d("Who drew what: sources and licences, trainer sprite artists, walking sprite artists. Créditos.",
+                       "With sprite, one trainer sprite's artist; with species, the SpriteCollab artists of that Pokémon; else everything.",
+                       synonyms="autores, artistas, licencias, atribución, quién dibujó"), CreditsArgs, R,
+         lambda s, a: s.credits_get(species=a.species, sprite=a.sprite), 60.0),
     Tool("canon_list", _d("In-game teams of leaders, Elite Four, champions and rivals (Crystal, FRLG, Emerald). Equipos de los juegos.",
                           "leagues also lists whole leagues of more games built from the characters' teams: kanto-rgb, johto-hgss, hoenn-oras, sinnoh-pt, unova-bw, unova-b2w2, kalos-xy, alola-sm, alola-usum (Elite Four and champion only), galar-sw, paldea-sv.",
                           synonyms="líderes de gimnasio, alto mando, campeón, rojo, red, plata, personajes, ligas oficiales"), CanonArgs, R,

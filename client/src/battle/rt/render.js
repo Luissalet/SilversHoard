@@ -41,6 +41,7 @@ export class ArenaRenderer {
     this.rocks = rocks || [];
     this.humans = humans || [false, false];
     this.anims = sides.map((s) => s.mons.map(() => null));
+    this.credits = new Set();    // the walking sprites' artists (SpriteCollab), for the credit line under the arena
     this.megaAnims = sides.map((s) => s.mons.map(() => null));
     const look = (m) => m.base_look || m;
     this.fallbacks = sides.map((s) => s.mons.map((m) => image(sprites.fallback(look(m).species, { spriteid: look(m).sprite_id }))));
@@ -73,6 +74,7 @@ export class ArenaRenderer {
     let done = 0;
     const one = async ([si, mi, num, form, shiny, table]) => {
       const meta = await loadMeta(num, { form, shiny, base: this.base });
+      for (const who of meta?.credit || []) this.credits.add(who);
       if (meta) {
         table[si][mi] = new Animator(meta, this.base);
         for (const a of Object.keys(meta.a)) image(`${this.base}/api/sprites/pmd-sheet/${meta.key}/${a}.png`);
