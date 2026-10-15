@@ -74,3 +74,10 @@ def test_equalized_levels(call):
     call("challenge_start", {"kind": "gym", "target_id": gym["id"], "challenger_id": a["id"], "level": 101}, status=400)
     assert call("settings_set", {"default_level": 50})["default_level"] == 50
     call("settings_set", {"default_level": 70}, status=400)
+
+
+def test_character_names_fit(call):
+    """Long game and battle names still give a trainer name of at most 60 characters with balanced brackets."""
+    for key, variant in (("cynthia", ""), ("lance", "b2w2pokmonworldtournamentchallengethecha"), ("hau", "")):
+        name = call("character_install", {"key": key, "variant": variant})["trainer"]["name"]
+        assert len(name) <= 60 and name.count("(") == name.count(")"), name
