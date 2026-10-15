@@ -137,6 +137,11 @@ export function playRtEvent(e, { speed = 1, cryUrl = null, sfx = realSfx, cry = 
       if (!fast) { sfx("switchIn", { gap: 0.1 }); if (cryUrl && e.species) cry(cryUrl(e.species), {}); }
       break;
     case "recall": if (!fast) sfx("switchOut", { gap: 0.1 }); break;
+    case "plus": if (!fast) sfx("plus", { gap: 0.1 }); break;
+    case "mega": sfx("big", { gap: 0.3 }); break;
+    case "mega_end": if (!fast) sfx("megaEnd", { gap: 0.3 }); break;
+    case "roll": if (!fast) sfx("roll", { gap: 0.2 }); break;
+    case "fizzle": if (e.rock && !fast) sfx("thud", { gap: 0.1 }); break;
     default: break;
   }
 }
