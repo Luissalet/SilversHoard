@@ -74,7 +74,7 @@ function Stat({ label, value }) {
 }
 
 export default function Progreso() {
-  const { lang } = useApp();
+  const { lang, t } = useApp();
   const s = (k, v) => fill(L(S[k], lang), v);
   const [trainerId, setTrainerId] = useStored("silver-progress-trainer", "");
   const [dexTab, setDexTab] = useState("used");
@@ -143,7 +143,14 @@ export default function Progreso() {
               {["used", "beaten", "seen"].map((k) => <button key={k} type="button" aria-pressed={dexTab === k} onClick={() => setDexTab(k)}>{s(k, { n: p.pokedex[k].length })}</button>)}
             </div>
             <div className="dex-grid">
-              {p.pokedex[dexTab].map((sp) => <span key={sp} className="dex-cell" title={nameOf("species", sp, lang)}><MonIcon species={sp} size={40} /></span>)}
+              {/* knocked out: every species seen, the ones still to knock out as silhouettes */}
+              {(dexTab === "beaten" ? p.pokedex.seen : p.pokedex[dexTab]).map((sp) => {
+                const shadow = dexTab === "beaten" && !p.pokedex.beaten.includes(sp);
+                return (
+                  <span key={sp} className="dex-cell" title={shadow ? `${nameOf("species", sp, lang)} · ${t("dex_shadow")}` : nameOf("species", sp, lang)}
+                    style={shadow ? { filter: "brightness(0)", opacity: 0.45 } : undefined}><MonIcon species={sp} size={40} /></span>
+                );
+              })}
             </div>
           </Section>
         </>
