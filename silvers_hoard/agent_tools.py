@@ -23,7 +23,7 @@ Battles: battle_start with two seats. A seat is {trainer_id} or {paste|team, nam
 Gym and league challenges: challenge_start (kind gym|league, a challenger trainer; auto=true lets the AI play the challenger). Winning every battle of a gym gives a badge; a league needs its badges and ends in the hall of fame.
 Many battles at once: series_start (the same two trainers N times: win rate, MVPs) and tournament_start (bracket or league table between trainers), both background jobs (job_get).
 Levels: level_rules {level: 50} (or 100) on battle_start, series_start and tournament_start, or level on challenge_start, equalizes every Pokémon of both sides at that level, so teams of different levels fight on even terms.
-Real time: battle_start, challenge_start, series_start and tournament_start take mode=realtime for battles after Pokémon Legends: Z-A (the same trainers and teams on a 2D arena, no turns: every move has a cooldown in seconds instead of PP, a wind-up and a range; attacks can be dodged; one-stage stat changes that wear off; three switches that come back after each KO). A person plays it on the app's screen; two AI seats play it in the background. rt_cooldowns shows how a team's moves translate (Z-A's own cooldowns, or derived from PP and power); rt_rules explains the rules. battle_get of a real-time battle returns English event lines and the spec + inputs that replay it exactly.
+Real time: battle_start, challenge_start, series_start and tournament_start take mode=realtime for battles after Pokémon Legends: Z-A (the same trainers and teams on a 2D arena, no turns: every move has a cooldown in seconds instead of PP, a wind-up and a range; attacks can be dodged; one-stage stat changes that wear off; three switches that come back after each KO; a Mega Power gauge for Plus moves and Mega Evolution; lock-on held or free aim) and rt_arena=rocks (default: 3-6 rocks that block walking and projectiles) or open. A person plays it on the app's screen; two AI seats play it in the background. rt_cooldowns shows how a team's moves translate (Z-A's own cooldowns, or derived from PP and power); rt_rules explains the rules. battle_get of a real-time battle returns English event lines and the spec + inputs that replay it exactly.
 Sharing: export (fmt file = .hoardtrainer/.hoardgym/.hoardleague, code = a share code for a chat, page = one HTML file a friend opens in a browser to fight the gym or trainer, paste = Showdown text). import takes any of those back, plus the result codes friends send after playing a page (records their badge).
 Avatars: trainer_sprites_search (Showdown trainer sprites), avatar_from_photo (a photo on this computer into pixel art here) or avatar_draw (Prospero's Hoard draws one from up to 4 photos and/or a description in the games' art style, with the references of avatar_style_get; a background job)."""
 
@@ -254,6 +254,8 @@ class Seat(BaseModel):
 Mode = Literal["classic", "realtime"]
 ModeField = Field("classic", description="classic = turns (Showdown's engine); realtime = Legends: Z-A rules (cooldowns, 2D arena).")
 TimeLimitField = Field(0, ge=0, le=1800, description="realtime: seconds before time is called (0 = the settings' value, 300).")
+RtArena = Literal["open", "rocks"]
+RtArenaField = Field("rocks", description="realtime: the arena. rocks = 3-6 rocks from the seed (block walking and projectiles); open = no obstacles.")
 
 
 class BattleStartArgs(BaseModel):
@@ -265,11 +267,12 @@ class BattleStartArgs(BaseModel):
     seed: Optional[str] = Field(None, max_length=60, description="Same seed and choices = same battle.")
     mode: Mode = ModeField
     time_limit: int = TimeLimitField
+    rt_arena: RtArena = RtArenaField
 
 
 class RtFinishArgs(BaseModel):
     id: str = IdField
-    inputs: list[list[Any]] = Field(default_factory=list, max_length=200_000, description="The screen's input log: [tick, side, mx, my, move, roll, switch].")
+    inputs: list[list[Any]] = Field(default_factory=list, max_length=200_000, description="The screen's input log: [tick, side, mx, my, move, roll, switch, focus, plus, mega] (older rows have the first seven).")
     tick: int = Field(0, ge=0, le=60 * 30 * 30)
     forfeit: Literal["", "p1", "p2"] = ""
 
@@ -323,6 +326,7 @@ class ChallengeArgs(BaseModel):
     format: str = Field("", max_length=120, description="Play every battle in this format instead of the gym's (e.g. gen9nationaldexag for a modern team against a gen 2 gym).")
     mode: Mode = ModeField
     level: int = Field(0, ge=0, le=100, description="Equalize every Pokémon of every battle at this level (50 or 100); 0 = the gym's own level rules.")
+    rt_arena: RtArena = RtArenaField
 
 
 class ChallengesArgs(BaseModel):
@@ -348,6 +352,7 @@ class SeriesArgs(BaseModel):
     level_rules: dict[str, int] = Field(default_factory=dict)
     mode: Mode = ModeField
     time_limit: int = TimeLimitField
+    rt_arena: RtArena = RtArenaField
 
 
 class TournamentArgs(BaseModel):
@@ -361,6 +366,7 @@ class TournamentArgs(BaseModel):
     ai_level: Optional[Level] = Field(None, description="Same AI for everybody; empty = each trainer's own.")
     mode: Mode = ModeField
     time_limit: int = TimeLimitField
+    rt_arena: RtArena = RtArenaField
 
 
 class JobsArgs(BaseModel):
@@ -556,7 +562,7 @@ TOOLS: list[Tool] = [
     Tool("battle_start", _d("Start a battle: two seats (trainer or team; person or AI). Two AIs = a watched battle. Empezar combate.",
                             synonyms="combatir, pelea, simular combate, npc contra npc, jugar"), BattleStartArgs, W,
          lambda s, a: s.battle_start(p1=_seat(a.p1), p2=_seat(a.p2), format_=a.format, rules=a.rules, level_rules=a.level_rules, seed=a.seed,
-                                     mode=a.mode, time_limit=a.time_limit), 180.0),
+                                     mode=a.mode, time_limit=a.time_limit, rt_arena=a.rt_arena), 180.0),
     Tool("battle_get", _d("A battle: protocol log (from since), pending choices of person seats, result. Ver combate.",
                           synonyms="estado del combate, log, repetición"), BattleGetArgs, R, lambda s, a: s.battle_get(a.id, since=a.since)),
     Tool("battle_choose", _d("Send a person seat's choice: 'move 1', 'move 2 terastallize', 'switch 3', 'team 123456'. Elegir.",
@@ -582,7 +588,7 @@ TOOLS: list[Tool] = [
     Tool("challenge_start", _d("Challenge a gym or a league with a trainer (you play, or the AI with auto). Retar gimnasio.",
                                synonyms="reto, medalla, alto mando, desafío"), ChallengeArgs, W,
          lambda s, a: s.run_start(kind=a.kind, target_id=a.target_id, challenger_id=a.challenger_id, auto=a.auto, ignore_badges=a.ignore_badges,
-                                  format_override=a.format, mode=a.mode, level=a.level), 180.0),
+                                  format_override=a.format, mode=a.mode, level=a.level, rt_arena=a.rt_arena), 180.0),
     Tool("challenge_next", _d("Start the next battle of an active challenge. Siguiente combate del reto.", synonyms="continuar reto"),
          IdArg, W, lambda s, a: s.run_next(a.id), 180.0),
     Tool("challenge_abandon", _d("Give up an active challenge. Abandonar reto.", synonyms="rendirse"), IdArg, W, lambda s, a: s.run_abandon(a.id)),
@@ -595,11 +601,12 @@ TOOLS: list[Tool] = [
     Tool("series_start", _d("Play the same two AI trainers N times: win rate, average turns, MVPs (a job). Serie de combates.",
                             synonyms="simular muchas veces, probabilidad de ganar, estadísticas"), SeriesArgs, W,
          lambda s, a: s.series_start(p1=_seat(a.p1), p2=_seat(a.p2), count=a.count, format_=a.format, rules=a.rules, level_rules=a.level_rules,
-                                     mode=a.mode, time_limit=a.time_limit)),
+                                     mode=a.mode, time_limit=a.time_limit, rt_arena=a.rt_arena)),
     Tool("tournament_start", _d("A tournament between trainers played by the AI: bracket or league table (a job). Torneo.",
                                 synonyms="copa, eliminatoria, liguilla, todos contra todos"), TournamentArgs, W,
          lambda s, a: s.tournament_start(trainer_ids=a.trainer_ids, kind=a.kind, best_of=a.best_of, format_=a.format, rules=a.rules,
-                                         level_rules=a.level_rules, title=a.title, ai_level=a.ai_level or "", mode=a.mode, time_limit=a.time_limit)),
+                                         level_rules=a.level_rules, title=a.title, ai_level=a.ai_level or "", mode=a.mode, time_limit=a.time_limit,
+                                         rt_arena=a.rt_arena)),
     Tool("jobs_list", _d("Series, tournaments and sprite drawings, running or finished. Trabajos.", synonyms="progreso, cola"),
          JobsArgs, R, lambda s, a: {"jobs": s.jobs_list(a.kind, a.status)}),
     Tool("job_get", _d("One job with its result (series stats, tournament bracket or table) and battles. Resultado.",

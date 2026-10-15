@@ -42,6 +42,39 @@ def test_play_forfeit_and_finish(call):
     assert done["status"] == "ended" and done["summary"]["reason"] in ("ko", "time")
 
 
+def test_arena_rules_version_and_old_battles(call, services):
+    import json
+    from pathlib import Path
+
+    me = call("trainer_create", {"name": "Luis", "paste": TEAM})
+    foe = call("trainer_random", {"ai_level": "easy", "seed": "rt-arena"})
+    seats = {"p1": {"trainer_id": me["id"], "human": True}, "p2": {"trainer_id": foe["id"]}, "mode": "realtime"}
+    bt = call("battle_start", seats)
+    spec = bt["rt"]["spec"]
+    assert spec["arena"] == "rocks" and spec["version"] == 2 and bt["rt"]["arena"] == "rocks", "new battles: rocks and the current rules"
+    assert call("battle_start", {**seats, "rt_arena": "open"})["rt"]["spec"]["arena"] == "open"
+    call("battle_start", {**seats, "rt_arena": "lava"}, status=400)
+    with __import__("pytest").raises(Exception):
+        services.battle_start(p1=seats["p1"], p2=seats["p2"], mode="realtime", rt_arena="lava")
+    # a battle stored before the arena and the rules version existed replays with the first rules
+    fixture = json.loads((Path(__file__).resolve().parents[1] / "engine/test/fixtures/rt-legacy-v1.json").read_text("utf-8"))
+    rec = fixture["battles"][0]
+    old = call("battle_start", seats)
+    b = services.store.battle(old["id"])
+    services.store.update_battle(old["id"], {"seed": rec["spec"]["seed"], "format": rec["spec"]["format"], "level_rules": {},
+                                             "p1": {**b["p1"], "name": rec["spec"]["p1"]["name"], "sets": rec["spec"]["p1"]["sets"]},
+                                             "p2": {**b["p2"], "name": rec["spec"]["p2"]["name"], "sets": rec["spec"]["p2"]["sets"], "ai": rec["spec"]["p2"]["ai"]},
+                                             "replay": {"time_limit": rec["spec"]["time_limit"], "inputs": [], "tick": 0}})
+    got = call("battle_get", {"id": old["id"]})["rt"]["spec"]
+    assert got["version"] == 1 and got["arena"] == "open"
+    done = call("battle_rt_finish", {"id": old["id"], "inputs": rec["inputs"], "tick": rec["ticks"]})
+    assert done["status"] == "ended" and done["summary"]["seconds"] == rec["summary"]["seconds"]
+    assert done["summary"]["winner_side"] == rec["summary"]["winner_side"]
+    rules = call("rt_rules")
+    assert any("Mega Evolution" in r for r in rules["rules"]) and any("rocks" in r for r in rules["rules"])
+    assert not any("Mega" in x or "Plus" in x for x in rules["not_covered"])
+
+
 def test_series_tournament_and_gym_in_real_time(call):
     a = call("trainer_create", {"name": "Ana", "paste": TEAM, "ai_level": "hard"})
     b = call("trainer_random", {"ai_level": "normal", "seed": "s-b"})
@@ -50,15 +83,19 @@ def test_series_tournament_and_gym_in_real_time(call):
     res = wait_for(lambda: (j := call("job_get", {"id": job["id"]}))["status"] == "done" and j)
     assert res["result"]["mode"] == "realtime" and res["result"]["count"] == 3 and res["result"]["avg_seconds"] > 0
     assert all(x["mode"] == "realtime" for x in res["battles"])
+    sample = call("battle_get", {"id": res["battles"][0]["id"]})["rt"]["spec"]
+    assert sample["arena"] == "rocks" and sample["version"] == 2, "series battles replay with their arena and rules"
     tour = call("tournament_start", {"trainer_ids": [a["id"], b["id"], c["id"]], "mode": "realtime", "time_limit": 45})
     tres = wait_for(lambda: (j := call("job_get", {"id": tour["id"]}))["status"] == "done" and j)
     assert tres["result"]["champion"] and all(x["mode"] == "realtime" for x in tres["battles"])
     gym = call("gym_save", {"name": "Gimnasio Rápido", "leader_id": b["id"], "badge": "Rayo", "type": "Electric", "format": "gen9customgame"})
-    run = call("challenge_start", {"kind": "gym", "target_id": gym["id"], "challenger_id": a["id"], "auto": True, "mode": "realtime"})
+    run = call("challenge_start", {"kind": "gym", "target_id": gym["id"], "challenger_id": a["id"], "auto": True, "mode": "realtime",
+                                      "rt_arena": "open"})
+    assert run["rt_arena"] == "open"
     final = wait_for(lambda: (r := next(x for x in call("challenges_list", {})["challenges"] if x["id"] == run["id"]))["status"] != "active" and r)
     assert final["status"] in ("won", "lost") and final["mode"] == "realtime"
     battle = call("battle_get", {"id": final["stages"][0]["battle_id"]})
-    assert battle["mode"] == "realtime" and battle["kind"] == "gym"
+    assert battle["mode"] == "realtime" and battle["kind"] == "gym" and battle["rt"]["spec"]["arena"] == "open"
 
 
 def test_walking_sprites_are_downloaded_once(tmp_path):
