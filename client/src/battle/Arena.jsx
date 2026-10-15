@@ -137,6 +137,19 @@ export function LogPanel({ log, lang, compact }) {
  * props: player (useBattlePlayer), seats {p1: {name, avatarUrl, backUrl, winUrl, dialogue}, p2}, me ('p1'|'p2' at the bottom), sprites (makeSprites),
  * lang, exact (show HP numbers), children (controls under the field), bubble ({side, text}) for a trainer line.
  */
+/** A Pokémon's portrait with an emotion (SpriteCollab); falls back to its "Normal" face, then to nothing. */
+export function Portrait({ sprites, species, emotion = "Normal", num = 0, className = "" }) {
+  const [step, setStep] = useState(0);
+  useEffect(() => { setStep(0); }, [species, emotion]);
+  if (!species || !sprites?.portrait || step > 1) return null;
+  const src = sprites.portrait(species, step === 0 ? emotion : "Normal", { num });
+  if (!src) return null;
+  return <img className={`b-portrait ${className}`} src={src} alt="" draggable={false} onError={() => setStep((s) => s + 1)} />;
+}
+
+// how a Pokémon looks when its trainer speaks (bubble.mood), and on the result screen
+const MOOD = { intro: "Determined", win: "Joyous", lose: "Sad", last: "Determined" };
+
 export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "es", exact = true, children, bubble, toolbar, backdrop = "" }) {
   const t = battleT(lang);
   const st = player.state;
@@ -197,6 +210,19 @@ export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "
   const fLayer = showdownField ? fieldLayer([st.field.terrain, ...Object.entries(st.field.pseudo || {}).filter(([, on]) => on).map(([k]) => k)]) : null;
 
   const winnerSide = ended && !st.tie ? (st.sides.p1.name === st.winner ? "p1" : st.sides.p2.name === st.winner ? "p2" : "") : "";
+  // the face of a side's Pokémon on the field (or the last one that was)
+  const leadOf = (sid) => activeOf(sid, 0) || st.sides[sid].team.find((m) => m.active) || st.sides[sid].team[st.sides[sid].team.length - 1] || null;
+  // a portrait that pops up for a moment: in pain at a K.O., determined when it Mega Evolves, uses a Z-Move or Terastallizes
+  const [pop, setPop] = useState(null);
+  useEffect(() => {
+    if (!anim || !["faint", "tera"].includes(anim.type)) return undefined;
+    const mon = activeOf(anim.side, anim.slot ?? 0);
+    if (!mon) return undefined;
+    setPop({ id: anim.id, side: anim.side, species: mon.species, emotion: anim.type === "faint" ? "Pain" : "Determined", cut: anim.type === "tera" });
+    const h = setTimeout(() => setPop((p) => (p && p.id === anim.id ? null : p)), anim.type === "faint" ? 1500 : 1300);
+    return () => clearTimeout(h);
+  }, [anim?.id]); // eslint-disable-line react-hooks/exhaustive-deps
+  const bubbleMon = bubble && bubble.text ? leadOf(bubble.side) : null;
   return (
     <div className="b-wrap">
       <div className="b-main">
@@ -251,12 +277,28 @@ export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "
             ))}
           </div>
 
-          {bubble && bubble.text && <div className={`b-bubble ${bubble.side === me ? "me" : "foe"}`}>{bubble.text}</div>}
+          {bubble && bubble.text && (
+            <div className={`b-bubble ${bubble.side === me ? "me" : "foe"}`}>
+              {bubbleMon && <Portrait sprites={sprites} species={bubbleMon.species} emotion={MOOD[bubble.mood] || "Normal"} />}
+              <span>{bubble.text}</span>
+            </div>
+          )}
+          {pop && !ended && (
+            <div key={pop.id} className={`b-pop-portrait ${pop.side === me ? "me" : "foe"}${pop.cut ? " is-cut" : ""}`} aria-hidden="true">
+              <Portrait sprites={sprites} species={pop.species} emotion={pop.emotion} />
+            </div>
+          )}
           {ended && (
             <div className="b-result">
               <b>{st.tie ? t("tie") : t("winner", { name: st.winner })}</b>
               <span>{t("turns", { n: st.turn })}</span>
               {winnerSide && seats[winnerSide]?.avatarUrl && <img src={seats[winnerSide].winUrl || seats[winnerSide].avatarUrl} alt="" className={sprites.pixelated ? "pixelated" : ""} />}
+              {winnerSide && (
+                <div className="b-result-faces">
+                  {leadOf(winnerSide) && <Portrait sprites={sprites} species={leadOf(winnerSide).species} emotion={MOOD.win} />}
+                  {leadOf(winnerSide === "p1" ? "p2" : "p1") && <Portrait sprites={sprites} species={leadOf(winnerSide === "p1" ? "p2" : "p1").species} emotion="Crying" className="is-loser" />}
+                </div>
+              )}
             </div>
           )}
           {!st.started && !st.preview && player.total === 0 && <div className="b-loading">{t("waiting_start")}</div>}
