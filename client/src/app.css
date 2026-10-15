@@ -176,3 +176,5 @@ a.league-card:hover { border-color: var(--hoard-border-hover); }
 
 /* battle facilities */
 .facility-boss { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; }
+.rental { width: 100%; text-align: left; display: block; cursor: pointer; }
+.rental.is-on { outline: 2px solid var(--accent); }

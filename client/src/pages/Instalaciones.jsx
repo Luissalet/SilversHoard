@@ -31,6 +31,9 @@ const S = {
   stop_at: ["Parar tras (victorias, 0 = sin tope)", "Stop after (wins, 0 = no limit)"],
   abandon: ["Abandonar", "Give up"],
   gen_game: ["Gen. {g} · {game}", "Gen {g} · {game}"],
+  rental: ["Pokémon de alquiler", "Rental Pokémon"],
+  rental_help: ["Sin equipo propio: eliges 3 de 6 Pokémon de alquiler cada ronda y tras cada victoria puedes cambiar uno por uno del rival.",
+    "No team of your own: pick 3 of 6 rental Pokémon each round and after each win you may swap one for one of the rival's."],
 };
 const fill = (text, vars = {}) => text.replace(/\{(\w+)\}/g, (_, k) => (vars[k] ?? ""));
 
@@ -47,13 +50,14 @@ function StartDialog({ facility, trainerId, onClose }) {
       mode, level: Number(level) || 50 });
     changed();
     const first = r.stages[0]?.battle_id;
-    go(first ? `#/combate/${first}` : "#/instalaciones");
+    go(first ? `#/combate/${first}` : facility.rental ? `#/fabrica/${r.id}` : "#/instalaciones");
   });
   return (
     <Modal title={s("start_title", { name: lang === "en" ? facility.name : facility.name_es })} onClose={onClose}
       footer={<><button type="button" className="btn" onClick={onClose}>{t("cancel")}</button><Busy busy={busy.s} className="btn btn-primary" onClick={start}>{s("start")}</Busy></>}>
       <label className="flex items-center gap-2"><Switch checked={auto} onChange={setAuto} label={s("auto")} /> {s("auto")}</label>
       <p className="help">{auto ? s("auto_help") : s("you_help")}</p>
+      {facility.rental && <p className="help">{s("rental_help")}</p>}
       {auto && <Field label={s("stop_at")}><input className="field" type="number" min={0} max={10000} value={stopAt} onChange={(e) => setStopAt(e.target.value)} /></Field>}
       <ModeFields t={t} mode={mode} onMode={setMode} level={level} onLevel={setLevel} />
     </Modal>
@@ -69,6 +73,7 @@ export default function Instalaciones() {
   const { data, error, reload } = useLoad(() => api.call("facilities_list", { trainer_id: trainerId || "" }), [trainerId]);
   useContextProvider(() => ({ kind: "facilities", title: L(S.title, lang), fields: { trainer_id: trainerId } }));
   const keepGoing = (f) => run(f.id, async () => {
+    if (f.rental && ["pick", "swap"].includes(f.active_phase)) { go(`#/fabrica/${f.active_run_id}`); return; }
     const r = await api.call("challenge_next", { id: f.active_run_id });
     changed();
     const cur = r.stages[r.step];
@@ -89,10 +94,11 @@ export default function Instalaciones() {
             <div className="flex items-start justify-between gap-2">
               <div className="min-w-0">
                 <h3 className="trunc">{lang === "en" ? f.name : f.name_es}</h3>
-                <div className="help">{s("gen_game", { g: f.gen, game: f.game })} · {s(f.gametype)} · {s("per_side", { n: f.size })}</div>
+                <div className="help">{s("gen_game", { g: f.gen, game: f.game })} · {s(f.gametype)} · {s("per_side", { n: f.size })}{f.rental ? ` · ${s("rental")}` : ""}</div>
               </div>
               <span className="chip chip-accent num" title={s("record")}>{f.record}</span>
             </div>
+            {f.rental && !f.bosses.length && <p className="help">{s("rental_help")}</p>}
             <div className="flex flex-wrap gap-2">
               {f.bosses.map((b) => (
                 <span key={`${b.key}${b.at}`} className="facility-boss" title={`${b.name} · ${lang === "en" ? b.label : b.label_es}`}>

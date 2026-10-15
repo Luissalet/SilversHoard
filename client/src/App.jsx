@@ -16,6 +16,7 @@ import Gimnasio from "./pages/Gimnasio.jsx";
 import Ligas from "./pages/Ligas.jsx";
 import Liga from "./pages/Liga.jsx";
 import Instalaciones from "./pages/Instalaciones.jsx";
+import Fabrica from "./pages/Fabrica.jsx";
 import Personajes from "./pages/Personajes.jsx";
 import Personaje from "./pages/Personaje.jsx";
 import Historial from "./pages/Historial.jsx";
@@ -52,6 +53,7 @@ const PAGES = [
   { path: "ligas", key: "nav_leagues", icon: I.trophy, component: Ligas },
   { path: "liga", key: "nav_leagues", component: Liga, hidden: true, parent: "ligas" },
   { path: "instalaciones", key: "nav_facilities", icon: I.tower, component: Instalaciones },
+  { path: "fabrica", key: "nav_facilities", component: Fabrica, hidden: true, parent: "instalaciones" },
   { path: "personajes", key: "nav_canon", icon: I.book, component: Personajes },
   { path: "personaje", key: "nav_canon", component: Personaje, hidden: true, parent: "personajes" },
   { path: "historial", key: "nav_history", icon: I.history, component: Historial },

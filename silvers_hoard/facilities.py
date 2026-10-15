@@ -3,6 +3,8 @@ facility's own bosses (Palmer, Ingo and Emmet, the Battle Chatelaines, Red and B
 put them. The other rivals are generated: a trainer class of the facility's era with a team from Showdown's random sets of that
 generation. Each battle is independent (both teams start healed), each side brings 3 Pokémon (4 in doubles) picked at team preview.
 
+In the Battle Factory there is no team of one's own: three of six rental Pokémon, a swap after each win, new rentals each round.
+
 A streak is a run of kind ``facility``; its stages grow one battle at a time. The record of a trainer at a facility is its longest
 run there."""
 
@@ -52,6 +54,17 @@ FACILITIES: list[dict[str, Any]] = [
                 (40, "leon", "swshbattletowerultraballtier", "Nivel Ultra Ball", "Ultra Ball Tier"),
                 (50, "leon", "swshbattletowermasterballtier", "Nivel Master Ball", "Master Ball Tier")]},
 ]
+# Battle Factory: no team of your own; pick 3 of 6 rental Pokémon, swap one for one of the beaten rival's after each win, and get six
+# new rentals every round of seven. The rentals and the rivals are Showdown random sets of that generation at level 50.
+FACILITIES += [
+    {"id": "factory3", "name": "Battle Factory (Emerald)", "name_es": "Fábrica Batalla (Esmeralda)", "gen": 3, "game": "E", "gametype": "singles",
+     "size": 3, "rental": True, "bosses": []},
+    {"id": "factory4", "name": "Battle Factory (Platinum)", "name_es": "Fábrica Batalla (Platino)", "gen": 4, "game": "Pt", "gametype": "singles",
+     "size": 3, "rental": True, "bosses": []},
+    {"id": "factory9", "name": "Rental Factory (Scarlet/Violet)", "name_es": "Fábrica de alquiler (Escarlata/Púrpura)", "gen": 9, "game": "SV",
+     "gametype": "singles", "size": 3, "rental": True, "bosses": []},
+]
+RENTALS = 6
 BY_ID = {f["id"]: f for f in FACILITIES}
 ROUND = 7
 

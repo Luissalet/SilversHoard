@@ -20,7 +20,7 @@ from .services import Services
 AGENT_INSTRUCTIONS = """Silver's Hoard is a Pokémon battle simulator (Pokémon Showdown's engine, every generation). It keeps trainers (a name, a team, an AI level and style, an avatar and battle lines), gyms (a leader plus optional gym trainers, a badge and rules), leagues (gyms, an Elite Four and a champion) and every battle with its full log.
 Start with silver_overview. Teams come in as Showdown export text (paste), packed teams or JSON; team_import parses, team_validate checks a format's rules. canon_list shows the in-game teams of leaders, Elite Four, champions and rivals of Crystal, FireRed/LeafGreen and Emerald, and canon_install adds a trainer or a whole league (its gyms, badges, Elite Four and champion). characters_list and character_get cover 154 characters of all nine generations with every team they used game by game (first battle, rematches, tournaments) and all their sprites; character_install makes a trainer from one team and one sprite, or an own team for the character (custom).
 Battles: battle_start with two seats. A seat is {trainer_id} or {paste|team, name}; human=true means a person plays it from the app (or you, with battle_choose), otherwise the AI plays (ai_level random|easy|normal|hard|expert, ai_style balanced|aggressive|defensive|setup|stall). Two AI seats = a watched battle that plays out in the background; read it with battle_get (lines are the Showdown protocol log). battle_choose sends a Showdown choice for a person's seat ("move 1", "move 2 terastallize", "switch 3", "team 123456"; doubles: "move 1 1, move 2 -1"); battle_get returns the pending request with the legal options.
-Gym and league challenges: challenge_start (kind gym|league, a challenger trainer; auto=true lets the AI play the challenger). Winning every battle of a gym gives a badge; a league needs its badges and ends in the hall of fame. Battle facilities (facilities_list): challenge_start kind=facility starts a win streak against one rival after another with the facility's bosses on their battles; the record is the longest streak.
+Gym and league challenges: challenge_start (kind gym|league, a challenger trainer; auto=true lets the AI play the challenger). Winning every battle of a gym gives a badge; a league needs its badges and ends in the hall of fame. Battle facilities (facilities_list): challenge_start kind=facility starts a win streak against one rival after another with the facility's bosses on their battles; the record is the longest streak. In the Battle Factory (factory3, factory4, factory9) there is no own team: factory_pick takes 3 of 6 rentals each round and factory_swap trades one for the beaten rival's after a win.
 Many battles at once: series_start (the same two trainers N times: win rate, MVPs) and tournament_start (bracket or league table between trainers), both background jobs (job_get).
 Levels: level_rules {level: 50} (or 100) on battle_start, series_start and tournament_start, or level on challenge_start, equalizes every Pokémon of both sides at that level, so teams of different levels fight on even terms.
 Real time: battle_start, challenge_start, series_start and tournament_start take mode=realtime for battles after Pokémon Legends: Z-A (the same trainers and teams on a 2D arena, no turns: every move has a cooldown in seconds instead of PP, a wind-up and a range; attacks can be dodged; one-stage stat changes that wear off; three switches that come back after each KO). A person plays it on the app's screen; two AI seats play it in the background. rt_cooldowns shows how a team's moves translate (Z-A's own cooldowns, or derived from PP and power); rt_rules explains the rules. battle_get of a real-time battle returns English event lines and the spec + inputs that replay it exactly.
@@ -363,6 +363,17 @@ class ChallengesArgs(BaseModel):
     kind: Literal["", "gym", "league", "facility"] = ""
 
 
+class FactoryPickArgs(BaseModel):
+    id: str = IdField
+    picks: list[int] = Field(..., min_length=1, max_length=6, description="Indexes (0-5) of the rentals to take, in battle order.")
+
+
+class FactorySwapArgs(BaseModel):
+    id: str = IdField
+    give: int = Field(-1, ge=-1, le=5, description="Index of your rental to give away (-1 = keep the team).")
+    take: int = Field(-1, ge=-1, le=5, description="Index of the beaten rival's Pokémon to take.")
+
+
 class FacilitiesArgs(BaseModel):
     trainer_id: str = Field("", max_length=80, description="Records and open streak of this trainer (empty = everybody's).")
 
@@ -630,6 +641,12 @@ TOOLS: list[Tool] = [
                                "challenge_start kind=facility target_id=<id> starts a streak: one rival after another at level 50, 3 Pokémon each (4 in doubles) picked at team preview, the facility's bosses on their battle (Palmer 21/49, Ingo and Emmet 21/49, the Chatelaines 20/50, Red and Blue 20/50, Anabel 35/70, Leon every 10). challenge_next starts the next battle; a loss ends the streak.",
                                synonyms="torre batalla, metro batalla, batalla chatelet, árbol batalla, rachas, frente batalla"), FacilitiesArgs, R,
          lambda s, a: s.facilities_list(a.trainer_id)),
+    Tool("factory_pick", _d("Battle Factory: take 3 of the 6 rental Pokémon and start the round. Elegir alquiler.",
+                            "challenges_list / challenge_start show them in factory.rentals (phase pick). The next battle starts at once.",
+                            synonyms="fábrica batalla, pokémon de alquiler"), FactoryPickArgs, W, lambda s, a: s.factory_pick(a.id, a.picks), 180.0),
+    Tool("factory_swap", _d("Battle Factory: after a win, swap one rental for one of the beaten rival's, or keep. Cambiar alquiler.",
+                            "factory.offer has the rival's Pokémon (phase swap); give/take are indexes, -1/-1 keeps the team. The next battle starts at once.",
+                            synonyms="cambio, intercambio de alquiler"), FactorySwapArgs, W, lambda s, a: s.factory_swap(a.id, a.give, a.take), 180.0),
     Tool("challenges_list", _d("Gym and league challenges and facility streaks with their stages and results. Retos.", synonyms="progreso, retos activos"),
          ChallengesArgs, R, lambda s, a: {"challenges": s.runs_list(a.status, a.kind)}),
     Tool("badges_list", _d("Badges earned (here or by friends through result codes). Medallas.", synonyms="medallas, estuche"),
