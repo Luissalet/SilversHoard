@@ -329,7 +329,9 @@ class Services:
         return ""
 
     def trainers_list(self, query: str = "", origin: str = "", deleted: bool = False) -> list[dict[str, Any]]:
-        return [self.trainer_view(t) for t in self.store.trainers(query=query, origin=origin, deleted=deleted)]
+        # "own" is everything you made: the random trainers you rolled are yours too (origin "random" alone lists only those)
+        origins = ("own", "random") if origin == "own" else origin
+        return [self.trainer_view(t) for t in self.store.trainers(query=query, origin=origins, deleted=deleted)]
 
     def trainer_get(self, id_: str) -> dict[str, Any]:
         t = self.store.trainer(id_)
@@ -384,6 +386,11 @@ class Services:
             values["tags"] = [str(x)[:30] for x in changes["tags"]][:20]
         if changes.get("favorite") is not None:
             values["favorite"] = 1 if changes["favorite"] else 0
+        if t.get("origin") == "random" and any(k in values for k in ("name", "team", "avatar")):
+            # a random trainer you rename, re-team or re-draw is your own trainer from then on
+            values["origin"] = "own"
+            if not (values.get("owner") or t.get("owner")):
+                values["owner"] = self.settings["player_name"]
         self.store.update_trainer(id_, values)
         return self.trainer_get(id_)
 
@@ -1010,8 +1017,58 @@ class Services:
         out["hall"] = self.store.hall(league_id=lg["id"])
         return out
 
-    def leagues_list(self, deleted: bool = False) -> list[dict[str, Any]]:
-        return [self.league_view(lg) for lg in self.store.leagues(deleted=deleted)]
+    def leagues_list(self, deleted: bool = False, origin: str = "") -> list[dict[str, Any]]:
+        return [self.league_view(lg) for lg in self.store.leagues(deleted=deleted) if not origin or (lg.get("origin") or "own") == origin]
+
+    def leagues_catalog(self) -> list[dict[str, Any]]:
+        """Every league of the games, oldest generation first, shaped like league_view: the installed ones are their league
+        (id, hall of fame); the rest carry id "" and install with canon_install (league_key = key) the first time they are opened."""
+        canon = self.canon()
+        canon_trainers = {t["key"]: t for t in canon["trainers"]}
+
+        def canon_person(k: str) -> dict[str, Any]:
+            t = canon_trainers.get(k) or {}
+            return {"id": k, "name": t.get("name_es") or t.get("name") or k, "avatar_url": self.avatar_url(f"sd:{t['avatar']}") if t.get("avatar") else ""}
+
+        def char_person(m: dict[str, str]) -> dict[str, Any]:
+            try:
+                c = self._character(m["key"])
+            except SilverError:
+                return {"id": m["key"], "name": m["key"], "avatar_url": ""}
+            v = next((x for x in c["variants"] if x["id"] == m["variant"]), None)
+            sprite = (v or {}).get("sprite") or c["base_sprite"]
+            return {"id": f"{m['key']}:{m['variant']}", "name": c["name_es"], "avatar_url": self.avatar_url(f"sd:{sprite}") if sprite else ""}
+
+        def gym(key: str, i: int, g: dict[str, Any], leader: dict[str, Any]) -> dict[str, Any]:
+            return {"id": f"{key}:{i}", "name": g.get("gym_es") or f"Gimnasio de {g['city_es']}", "city": g["city_es"], "type": g["type"],
+                    "badge": g["badge_es"], "badge_color": TYPE_COLORS.get(g["type"], "#c0c0c0"), "badge_image": "", "leader": leader}
+
+        entries = []
+        for lg in canon["leagues"]:
+            gen = int(re.search(r"gen(\d)", lg["format"]).group(1))
+            entries.append((gen, lg["key"], lg["name"], lg["name_es"], lg["region"], lg["game"],
+                            [gym(lg["key"], i, g, canon_person(g["leader"])) for i, g in enumerate(lg["gyms"])],
+                            [canon_person(k) for k in lg["elite_four"]], canon_person(lg["champion"])))
+        for lg in game_leagues.LEAGUES:
+            entries.append((lg["gen"], lg["key"], lg["name"], lg["name_es"], lg["region"], lg["game"],
+                            [gym(lg["key"], i, g, char_person(g)) for i, g in enumerate(lg["gyms"])],
+                            [char_person(m) for m in lg["elite_four"]], char_person(lg["champion"])))
+        entries.sort(key=lambda e: e[0])
+        out, keys = [], set()
+        for gen, key, name, name_es, region, game, gyms, elite, champion in entries:
+            keys.add(key)
+            meta = {"key": key, "region": region, "game": game, "gen": gen}
+            installed = self.store.league_by_canon(key)
+            if installed:
+                out.append({**self.league_view(installed), **meta, "installed": True})
+                continue
+            out.append({"id": "", "name": name_es, "description": f"{name} · {game}", "origin": "canon", "canon_key": key, "gym_list": gyms,
+                        "elite_list": elite, "champion": champion, "badges_required": len(gyms), "hall": [], "installed": False, **meta})
+        # leagues of the games installed from somewhere else (an older catalog) stay listed too
+        for lg in self.store.leagues():
+            if lg.get("origin") == "canon" and lg.get("canon_key") not in keys:
+                out.append({**self.league_view(lg), "key": lg.get("canon_key") or "", "installed": True})
+        return out
 
     def league_get(self, id_: str) -> dict[str, Any]:
         return self.league_view(self.store.league(id_))

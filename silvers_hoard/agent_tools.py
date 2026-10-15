@@ -129,7 +129,11 @@ class RandomTeamArgs(BaseModel):
 
 class TrainersArgs(BaseModel):
     query: str = Field("", max_length=100)
-    origin: Literal["", "own", "friend", "canon", "random"] = ""
+    origin: Literal["", "own", "friend", "canon", "random"] = Field("", description="own = everything you made, the random trainers you rolled included.")
+
+
+class LeaguesArgs(BaseModel):
+    origin: Literal["", "own", "friend", "canon"] = Field("", description="own = yours, friend = imported from a friend, canon = from the games.")
 
 
 class Dialogue(BaseModel):
@@ -942,7 +946,11 @@ TOOLS: list[Tool] = [
                           synonyms="generar medalla, dibujar medalla, medalla con ia"), BadgeDrawArgs, WD,
          lambda s, a: s.badge_draw(description=a.description, gym_id=a.gym_id, count=a.count)),
     Tool("leagues_list", _d("Leagues with their gyms, Elite Four, champion and hall of fame. Ligas.", synonyms="liga pokémon, alto mando"),
-         Empty, R, lambda s, a: {"leagues": s.leagues_list()}),
+         LeaguesArgs, R, lambda s, a: {"leagues": s.leagues_list(origin=a.origin)}),
+    Tool("leagues_catalog", _d("Every league of the games (Kanto to Paldea), installed or not. Ligas de los juegos.",
+                               "Installed ones carry their id and hall of fame; the rest have id \"\" and install with canon_install (league_key = key).",
+                               synonyms="ligas oficiales, ligas de los juegos, liga kanto, liga paldea, alto mando de los juegos"),
+         Empty, R, lambda s, a: {"leagues": s.leagues_catalog()}),
     Tool("league_get", _d("One league in detail. Ver liga.", synonyms="hall de la fama"), IdArg, R, lambda s, a: s.league_get(a.id)),
     Tool("league_save", _d("Create or change a league: gyms in order, Elite Four, champion, badges needed. Crear liga.",
                            synonyms="nueva liga, editar liga"), LeagueSaveArgs, WD,
