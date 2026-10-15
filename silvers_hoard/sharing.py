@@ -5,7 +5,9 @@
 * Share codes (``SILVER1-...``): a trainer without its picture, compressed into text to paste in a chat.
 * Playable pages: one HTML file with the battle engine inside; a friend opens it in any browser, picks or pastes a team and fights
   the gym or trainer. When they win (or lose) the page gives a result code (``SILVERWIN1-...``) to send back; importing it records
-  the badge here.
+  the badge here. A friend can play each battle turn by turn or in real time (the owner may restrict it when exporting): a result
+  that has real-time battles is ``SILVERWIN2-...``, and carries, for each such battle, what the app needs to replay it with the
+  real-time simulator (rules version, seed, arena, time limit, the input log); the app only believes what the replay says.
 """
 
 from __future__ import annotations
@@ -25,7 +27,12 @@ SCHEMA = 1
 KINDS = {"trainer": "silvers-hoard/trainer", "gym": "silvers-hoard/gym", "league": "silvers-hoard/league"}
 CODE_PREFIX = "SILVER1-"
 RESULT_PREFIX = "SILVERWIN1-"
+RESULT_PREFIX_RT = "SILVERWIN2-"   # a result with real-time battles in it (turn-based results keep SILVERWIN1-)
+FRIEND_MODES = ("choose", "turns", "realtime")   # what a playable page lets the friend do: pick per battle, turns only, real time only
 MAX_CODE = 400_000
+MAX_UNPACKED = 24_000_000          # a code never inflates to more than this (a bomb of zeros would fill the memory)
+RT_MAX_ROWS = 60_000               # input rows of one real-time battle (a 30-minute battle changing every tick has 54,000)
+RT_ROW = 9
 PLACEHOLDER = "__SILVER_DATA__"
 DATA_TAG = '<script id="silver-data" type="application/json">'
 
@@ -54,9 +61,58 @@ def unpack_code(prefix: str, code: str) -> Any:
     if len(body) > MAX_CODE:
         raise SilverError("too_large", "The code is too long.")
     try:
-        return json.loads(zlib.decompress(_unb64(body)).decode("utf-8"))
+        return json.loads(_inflate(_unb64(body), MAX_UNPACKED).decode("utf-8"))
+    except SilverError:
+        raise
     except Exception as exc:  # noqa: BLE001 - any decoding error means a damaged code
         raise SilverError("invalid", f"The code is damaged or incomplete: {exc}") from None
+
+
+def _inflate(data: bytes, limit: int) -> bytes:
+    d = zlib.decompressobj()
+    out = d.decompress(data, limit)
+    if d.unconsumed_tail:
+        raise SilverError("too_large", "The code is too long once unpacked.")
+    return out + d.flush()
+
+
+def encode_rt_inputs(rows: list[list[Any]]) -> str:
+    """The input log of a real-time battle as it travels in a result code: the person's rows (tick, side, mx, my, move, roll, switch,
+    focus, plus, mega) as one flat list of integers, nine per row without the side (always the first seat): ticks since the
+    previous row, the two axes in thousandths, then the rest; JSON, deflated, base64url."""
+    flat: list[int] = []
+    prev = 0
+    for row in rows:
+        r = [*row, *[1, 0, 0][len(row) - 7:]]   # rows with fewer than ten columns read as focused, no Plus, no Mega
+        flat += [int(r[0]) - prev, round(float(r[2]) * 1000), round(float(r[3]) * 1000), int(r[4]), int(r[5]), int(r[6]), int(r[7]), int(r[8]), int(r[9])]
+        prev = int(r[0])
+    return _b64(zlib.compress(json.dumps(flat, separators=(",", ":")).encode("ascii"), 9))
+
+
+def decode_rt_inputs(text: Any) -> list[list[Any]]:
+    """The rows ``encode_rt_inputs`` packed, in the simulator's own format and checked: a damaged or edited log is refused."""
+    bad = SilverError("invalid", "The real-time replay inside the code is damaged.")
+    if not isinstance(text, str) or not text:
+        raise bad
+    try:
+        flat = json.loads(_inflate(_unb64(text), 16_000_000).decode("ascii"))
+    except SilverError:
+        raise
+    except Exception:  # noqa: BLE001 - any decoding error means a damaged code
+        raise bad from None
+    if not isinstance(flat, list) or len(flat) % RT_ROW or len(flat) // RT_ROW > RT_MAX_ROWS:
+        raise bad
+    rows: list[list[Any]] = []
+    tick = 0
+    for i in range(0, len(flat), RT_ROW):
+        dt, mx, my, use, dodge, sw, focus, plus, mega = flat[i:i + RT_ROW]
+        if not all(type(v) is int for v in (dt, mx, my, use, dodge, sw, focus, plus, mega)):
+            raise bad
+        tick += dt
+        if dt < 0 or tick < 1 or abs(mx) > 1000 or abs(my) > 1000 or not -1 <= use <= 3 or not -1 <= sw <= 5 or any(v not in (0, 1) for v in (dodge, focus, plus, mega)):
+            raise bad
+        rows.append([tick, 0, mx / 1000, my / 1000, use, dodge, sw, focus, plus, mega])
+    return rows
 
 
 def fingerprint(obj: Any) -> str:
@@ -97,6 +153,8 @@ def parse_any(text_or_bytes: Any) -> tuple[str, Any]:
         if not m or m.group(1).strip() == PLACEHOLDER:
             raise SilverError("invalid", "This page is not a Silver's Hoard gym or trainer.")
         return detect(json.loads(m.group(1)).get("payload") or {})
+    if RESULT_PREFIX_RT in stripped:
+        return "result", unpack_code(RESULT_PREFIX_RT, stripped)
     if RESULT_PREFIX in stripped:
         return "result", unpack_code(RESULT_PREFIX, stripped)
     if CODE_PREFIX in stripped:

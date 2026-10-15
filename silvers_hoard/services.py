@@ -1507,7 +1507,12 @@ class Services:
                 "badge_image": self._badge_payload(g.get("badge_image") or ""),
                 "description": g["description"], "format": g["format"], "rules": g.get("rules") or [], "level_rules": g.get("level_rules") or {},
                 "leader": self._trainer_payload(self.store.trainer(g["leader_id"], deleted=True)),
-                "trainers": [self._trainer_payload(t) for t in self.store.trainers(ids=g.get("trainers") or [])], "source_id": g["id"]}
+                "trainers": [self._trainer_payload(t) for t in self._gym_trainers(g)], "source_id": g["id"]}
+
+    def _gym_trainers(self, g: dict[str, Any]) -> list[dict[str, Any]]:
+        """The gym's trainers before its leader, in the order the gym lists them (the store hands them back by recency)."""
+        order = g.get("trainers") or []
+        return sorted(self.store.trainers(ids=order), key=lambda t: order.index(t["id"]))
 
     def _league_payload(self, lg: dict[str, Any]) -> dict[str, Any]:
         return {"name": lg["name"], "description": lg["description"], "format": lg["format"], "rules": lg.get("rules") or [],
@@ -1516,10 +1521,13 @@ class Services:
                 "elite_four": [self._trainer_payload(t) for t in self.store.trainers(ids=lg.get("elite_four") or [])],
                 "champion": self._trainer_payload(self.store.trainer(lg["champion_id"], deleted=True)), "source_id": lg["id"]}
 
-    def export(self, kind: str, id_: str, *, fmt: str = "file") -> dict[str, Any]:
+    def export(self, kind: str, id_: str, *, fmt: str = "file", friend_mode: str = "choose") -> dict[str, Any]:
         """``fmt``: file (a .hoardtrainer/.hoardgym/.hoardleague JSON), code (a share code, trainers only; an own picture goes in it,
         shrunk when it is a big drawing), page
-        (a playable HTML, gyms and trainers), paste (the team as Showdown text, trainers only)."""
+        (a playable HTML, gyms and trainers), paste (the team as Showdown text, trainers only).
+        ``friend_mode`` (pages): choose (the friend picks turns or real time for each battle), turns or realtime."""
+        if friend_mode not in sharing.FRIEND_MODES:
+            raise SilverError("invalid", "friend_mode is choose (the friend picks for each battle), turns or realtime")
         if kind == "trainer":
             obj = self.store.trainer(id_)
             payload = self._trainer_payload(obj, max_picture=self.CODE_PICTURE_BYTES if fmt == "code" else 0)
@@ -1549,7 +1557,9 @@ class Services:
             if kind == "league":
                 raise SilverError("invalid", "A playable page holds one gym or one trainer.")
             data = {"payload": wrapped, "sprite_server": self.settings["sprite_server"], "from": owner, "kind": kind,
-                    "sprite_set": self.settings["sprite_set"]}
+                    "sprite_set": self.settings["sprite_set"], "mode": friend_mode}
+            if friend_mode != "turns":
+                data["rt"] = self._rt_page_info(kind, obj)
             html = sharing.playable_page(PLAY_TEMPLATE, data)
             filename = sharing.safe_filename(f"{name} - Silver", "html")
             (exports / filename).write_text(html, encoding="utf-8", newline="\n")
@@ -1626,7 +1636,11 @@ class Services:
         raise SilverError("invalid", "Nothing importable found.")
 
     def import_result(self, r: dict[str, Any]) -> dict[str, Any]:
-        """A friend's result from a playable page: records the badge (when they won) and the battle with its log."""
+        """A friend's result from a playable page: records the badge (when they won) and the battle with its log. Battles the friend
+        played in real time come with their replay: they are replayed here and what the replay says is what counts."""
+        stages_in = r.get("stages") if isinstance(r.get("stages"), list) else []
+        if r.get("v") == 2 or any(isinstance(x, dict) and x.get("rt") for x in stages_in):
+            return self._import_rt_result(r)
         kind = r.get("kind")
         target = r.get("gym_id") or r.get("trainer_id") or ""
         challenger = str(r.get("challenger") or "Amigo")[:60]
@@ -1668,6 +1682,136 @@ class Services:
             self.store.record_result(t["id"], "loss" if won else "win")
             return {"trainer": self.trainer_view(t), "won": won, "battle_id": bid, "challenger": challenger}
         raise SilverError("invalid", "Unknown result.")
+
+    # ------------------------------------------------------------ real time on the friends' pages
+    def _stage_trainers(self, kind: str, obj: dict[str, Any]) -> list[dict[str, Any]]:
+        """Who a friend fights on a playable page, in order: a gym's trainers and then its leader, or the trainer alone."""
+        if kind == "gym":
+            return [*self._gym_trainers(obj), self.store.trainer(obj["leader_id"], deleted=True)]
+        return [obj]
+
+    def _rt_key(self, trainer: dict[str, Any], rt_format: str, level_rules: dict[str, Any]) -> str:
+        """What a real-time result must have been played against: the trainer's team and AI, the format and the level rules."""
+        return sharing.fingerprint({"team": trainer["team"], "ai": [trainer["ai_level"], trainer["ai_style"]], "format": rt_format,
+                                    "level_rules": level_rules or {}})
+
+    def _rt_page_info(self, kind: str, obj: dict[str, Any]) -> dict[str, Any]:
+        """The real-time data of a playable page: the format the arena plays (singles), the arena, the time limit, the rules version
+        and a key per opponent that the result code repeats, so the replay is checked against the same teams."""
+        level_rules = (obj.get("level_rules") or {}) if kind == "gym" else {}
+        rt_fmt = self._rt_format(obj["format"])
+        limit = max(30, min(int(self.settings.get("rt_time_limit") or 300), 1800))
+        return {"format": rt_fmt, "arena": "rocks", "time_limit": limit, "version": RT_RULES_VERSION,
+                "keys": {t["id"]: self._rt_key(t, rt_fmt, level_rules) for t in self._stage_trainers(kind, obj)}}
+
+    def _import_rt_result(self, r: dict[str, Any]) -> dict[str, Any]:
+        """A result with real-time battles. Each of them is replayed with the real-time simulator from its seed and input log against
+        the opponent as this app has it; the badge or the win is only recorded when every replay agrees with the code."""
+        kind = r.get("kind")
+        challenger = str(r.get("challenger") or "Amigo")[:60]
+        team, stages = r.get("team"), r.get("stages")
+        if not isinstance(team, list) or not 1 <= len(team) <= 6 or not all(isinstance(x, dict) for x in team):
+            raise SilverError("invalid", "The result has no valid team.")
+        if not isinstance(stages, list) or not 1 <= len(stages) <= 40 or not all(isinstance(x, dict) for x in stages):
+            raise SilverError("invalid", "The result has no battles.")
+        target = r.get("gym_id") or r.get("trainer_id") or ""
+        if kind == "gym":
+            gyms = [g for g in self.store.gyms() if g["id"] == target] or [g for g in self.store.gyms() if g["name"] == r.get("gym_name")]
+            if not gyms:
+                raise SilverError("not_found", f"This result is for a gym you do not have here: {r.get('gym_name')}")
+            obj = gyms[0]
+            fmt, rules, level_rules, label = obj["format"], obj.get("rules") or [], obj.get("level_rules") or {}, obj["name"]
+        elif kind == "trainer":
+            try:
+                obj = self.store.trainer(target)
+            except SilverError:
+                found = [x for x in self.store.trainers(query=r.get("trainer_name") or "") if x["name"] == r.get("trainer_name")]
+                if not found:
+                    raise SilverError("not_found", f"This result is for a trainer you do not have here: {r.get('trainer_name')}") from None
+                obj = found[0]
+            fmt, rules, level_rules, label = obj["format"], [], {}, obj["name"]
+        else:
+            raise SilverError("invalid", "Unknown result.")
+        order = self._stage_trainers(kind, obj)
+        if len(stages) > len(order):
+            raise SilverError("conflict", f"The result has more battles than {label} has opponents: it was made from another version.")
+        if any(not x.get("won") for x in stages[:-1]):
+            raise SilverError("invalid", "The result has battles after a lost one.")
+        won = len(stages) == len(order) and all(bool(x.get("won")) for x in stages)
+        if bool(r.get("won")) != won:
+            raise SilverError("invalid", "The result does not match its battles: the code was altered.")
+        info = self.format_info(fmt, rules)
+        if not info.get("random"):
+            verdict = self.validate_team(fmt, team, rules, level_rules)
+            if not verdict.get("ok"):
+                raise SilverError("invalid", "The friend's team does not follow the rules of this challenge: " + "; ".join(verdict.get("problems") or [])[:300])
+        rt_fmt = self._rt_format(fmt)
+        p_friend = {"trainer_id": "", "name": challenger, "avatar": "", "avatar_url": "", "human": True, "ai": None, "sets": team}
+        replays: dict[int, dict[str, Any]] = {}
+        for i, stage in enumerate(stages):
+            rt = stage.get("rt")
+            if rt is None:
+                continue   # a battle played turn by turn: nothing to replay, the code is trusted as before
+            opp = order[i]
+            if not isinstance(rt, dict):
+                raise SilverError("invalid", "The real-time replay inside the code is damaged.")
+            if rt.get("trainer") != opp["id"] or rt.get("key") != self._rt_key(opp, rt_fmt, level_rules):
+                raise SilverError("conflict", f"This result was played against another version of {opp['name']}: {label} changed after the page was exported.",
+                                  hint="Export the page again and ask your friend to play it again.")
+            version, arena, seed, limit = rt.get("v"), rt.get("arena"), rt.get("seed"), rt.get("limit")
+            forfeit, tick = rt.get("forfeit") or "", rt.get("tick") or 0
+            if (type(version) is not int or not 1 <= version <= RT_RULES_VERSION or arena not in RT_ARENAS or type(limit) is not int or not 30 <= limit <= 1800
+                    or not isinstance(seed, str) or not 1 <= len(seed) <= 64 or forfeit not in ("", "p1") or type(tick) is not int or not 0 <= tick <= 1800 * 30 + 150):
+                raise SilverError("invalid", "The real-time replay inside the code is damaged.")
+            inputs = sharing.decode_rt_inputs(rt.get("inputs"))
+            spec = {"id": f"friend-{seed}"[:80], "seed": seed, "format": rt_fmt, "level_rules": level_rules, "time_limit": limit, "version": version, "arena": arena,
+                    "p1": {"name": challenger, "sets": team, "ai": None},
+                    "p2": {"name": opp["name"], "sets": opp["team"], "ai": {"level": opp["ai_level"], "style": opp["ai_style"]}}}
+            res = self.engine.run_job("rt_replay", {"spec": spec, "inputs": inputs, "forfeit": forfeit, "tick": tick}, timeout=600)
+            replayed_win = (res.get("summary") or {}).get("winner_side") == "p1"
+            if not res.get("ended") or replayed_win != bool(stage.get("won")):
+                raise SilverError("invalid", f"The replay of the battle against {opp['name']} does not end as the code says: the code was altered or is damaged.",
+                                  hint="Ask your friend to send the result again, as a file if the code is long.")
+            replays[i] = {"res": res, "opp": opp, "limit": limit, "version": version, "arena": arena, "seed": seed}
+        # everything checked: now it is recorded
+        battle_ids: dict[int, str] = {}
+        for i, rp in replays.items():
+            opp, res = rp["opp"], rp["res"]
+            summary = res.get("summary") or {}
+            p_opp = {"trainer_id": opp["id"], "name": opp["name"], "avatar": opp["avatar"], "avatar_url": self.avatar_url(opp["avatar"]), "human": False,
+                     "ai": {"level": opp["ai_level"], "style": opp["ai_style"]}, "sets": opp["team"]}
+            battle_ids[i] = self.store.add_battle({
+                "kind": "friend", "mode": "realtime", "status": "ended", "format": rt_fmt, "rules": [], "level_rules": level_rules, "seed": rp["seed"],
+                "p1": p_friend, "p2": p_opp, "winner_side": summary.get("winner_side", ""), "winner_name": summary.get("winner", ""), "turns": 0,
+                "log_text": "\n".join(res.get("lines") or []), "summary": {**summary, "from_friend": True},
+                "replay": {"time_limit": rp["limit"], "inputs": res.get("inputs") or [], "tick": int(round((res.get("seconds") or 0) * 30)),
+                           "version": rp["version"], "arena": rp["arena"]},
+                "title": f"{label} · {challenger}" if len(order) == 1 else f"{label} · {opp['name']} · {challenger}"})
+        stage_info = [{"name": x.get("name") or order[i]["name"], "won": bool(x.get("won")), "turns": int(x.get("turns") or 0),
+                       "mode": "realtime" if i in replays else "classic", **({"battle_id": battle_ids[i]} if i in battle_ids else {})} for i, x in enumerate(stages)]
+        if len(replays) == len(stages):
+            bid = battle_ids[len(stages) - 1]   # everything in real time: the last battle is the record
+        else:
+            lines = r.get("log") or []
+            leader = order[len(stages) - 1]
+            bid = self.store.add_battle({"kind": "friend", "status": "ended", "format": fmt, "rules": rules, "p1": p_friend,
+                                         "p2": {"trainer_id": leader["id"], "name": leader["name"], "avatar": leader["avatar"], "avatar_url": self.avatar_url(leader["avatar"]),
+                                                "human": False, "ai": {"level": leader["ai_level"], "style": leader["ai_style"]}},
+                                         "winner_side": "p1" if won else "p2", "winner_name": challenger if won else leader["name"], "turns": int(r.get("turns") or 0),
+                                         "log_text": "\n".join(str(x) for x in lines[:20000]), "summary": {"from_friend": True, "stages": stage_info},
+                                         "title": f"{label} · {challenger}"})
+        proof = {k: r.get(k) for k in ("turns", "date", "team_paste")}
+        proof.update({"stages": stage_info, "verified_real_time": len(replays)})
+        if kind == "gym":
+            badge = None
+            if won:
+                badge = self.store.add_badge({"gym_id": obj["id"], "gym_name": obj["name"], "badge": obj["badge"], "badge_color": obj["badge_color"],
+                                              "badge_image": obj.get("badge_image") or "", "challenger_name": challenger, "source": "friend", "battle_id": bid,
+                                              "proof": proof})
+            self.emit("friend.result", {"gym": obj["name"], "challenger": challenger, "won": won})
+            return {"gym": self.gym_view(obj), "won": won, "battle_id": bid, "badge_id": badge, "challenger": challenger, "verified_real_time": len(replays)}
+        self.store.record_result(obj["id"], "loss" if won else "win")
+        return {"trainer": self.trainer_view(obj), "won": won, "battle_id": bid, "challenger": challenger, "verified_real_time": len(replays)}
 
     def export_file(self, filename: str) -> Path:
         if not sharing.re.match(r"^[\w\- ]+\.(html|hoardtrainer|hoardgym|hoardleague)$", filename, flags=sharing.re.UNICODE):
