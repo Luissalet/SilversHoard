@@ -23,7 +23,8 @@ from .engine import Engine
 from .errors import SilverError
 from .hoard_link import family
 from .hoard_link.tokens import read_or_create_token
-from .sprites import Sprites
+from .pmd import PmdSprites
+from .sprites import Sprites, _http_get
 from .store import Store
 
 log = logging.getLogger("silver")
@@ -52,6 +53,7 @@ class Services:
         self.store = Store(config.db_path)
         self.engine = engine or Engine(lambda: find_node(self.settings.get("node_path", "")), config.engine_dir, REPO_ROOT)
         self.sprites = Sprites(config.sprites_dir, config.avatars_dir, self.settings, http_get=http_get)
+        self.pmd = PmdSprites(config.sprites_dir.parent / "pmd", self.settings, http_get or _http_get)
         self.pool = ThreadPoolExecutor(max_workers=2, thread_name_prefix="silver-job")
         self._cancel: dict[str, bool] = {}
         self._battle_locks: dict[str, threading.Lock] = {}
@@ -550,13 +552,19 @@ class Services:
         return {k: v for k, v in seat.items() if k != "sets"}
 
     def battle_card(self, b: dict[str, Any]) -> dict[str, Any]:
-        return {"id": b["id"], "kind": b["kind"], "status": b["status"], "format": b["format"], "title": b.get("title") or "",
+        return {"id": b["id"], "kind": b["kind"], "status": b["status"], "mode": b.get("mode") or "classic", "format": b["format"], "title": b.get("title") or "",
                 "p1": self._public_seat(b.get("p1") or {}), "p2": self._public_seat(b.get("p2") or {}), "winner_side": b.get("winner_side") or "",
                 "winner_name": b.get("winner_name") or "", "turns": b.get("turns") or 0, "run_id": b.get("run_id") or "", "job_id": b.get("job_id") or "",
                 "created_at": b["created_at"], "updated_at": b["updated_at"]}
 
     def battle_start(self, *, p1: dict[str, Any], p2: dict[str, Any], format_: str = "", rules: Optional[list[str]] = None,
-                     level_rules: Optional[dict[str, Any]] = None, kind: str = "", run_id: str = "", title: str = "", seed: Any = None) -> dict[str, Any]:
+                     level_rules: Optional[dict[str, Any]] = None, kind: str = "", run_id: str = "", title: str = "", seed: Any = None,
+                     mode: str = "classic", time_limit: int = 0) -> dict[str, Any]:
+        if mode == "realtime":
+            return self._rt_start(p1=p1, p2=p2, format_=format_, level_rules=level_rules, kind=kind, run_id=run_id, title=title, seed=seed,
+                                  time_limit=time_limit)
+        if mode not in ("classic", ""):
+            raise SilverError("invalid", "mode is classic or realtime")
         s1, s2 = self._seat(p1, "Jugador 1"), self._seat(p2, "Jugador 2")
         fmt = format_ or s1["format"] or s2["format"] or self.settings["default_format"]
         rules = rules or []
@@ -619,6 +627,8 @@ class Services:
         b = self.store.battle(id_)
         out = self.battle_card(b)
         out.update({"rules": b.get("rules") or [], "level_rules": b.get("level_rules") or {}, "summary": b.get("summary") or {}})
+        if (b.get("mode") or "classic") == "realtime":
+            return self._rt_view(b, out, since)
         if b["status"] == "live":
             with self._lock_for(id_):
                 self._ensure_loaded(b)
@@ -646,6 +656,9 @@ class Services:
         b = self.store.battle(id_)
         if b["status"] != "live":
             raise SilverError("ended", "This battle is over.")
+        if b.get("mode") == "realtime":
+            raise SilverError("invalid", "A real-time battle is played on its screen (or watched with two AI seats); it has no turns to choose.",
+                              hint="Open it in the app, or start it with two AI seats and read it with battle_get.")
         if side not in ("p1", "p2"):
             raise SilverError("invalid", "side is p1 or p2")
         with self._lock_for(id_):
@@ -660,6 +673,9 @@ class Services:
         b = self.store.battle(id_)
         if b["status"] != "live":
             raise SilverError("ended", "This battle is over.")
+        if b.get("mode") == "realtime":
+            replay = b.get("replay") or {}
+            return self.rt_finish(id_, inputs=replay.get("inputs") or [], tick=int(replay.get("tick") or 0), forfeit=side)
         with self._lock_for(id_):
             self._ensure_loaded(b)
             state = self.engine.call("match_forfeit", {"id": id_, "side": side, "since": since, "view": "host"})
@@ -708,6 +724,136 @@ class Services:
         if b.get("run_id"):
             self._advance_run(b["run_id"], b)
 
+    # ------------------------------------------------------------ real-time battles (Legends: Z-A rules)
+    def _rt_spec(self, b: dict[str, Any]) -> dict[str, Any]:
+        """The spec that rebuilds a real-time battle: the screen runs it, the engine replays it."""
+        replay = b.get("replay") or {}
+        seat = lambda s: {"name": s.get("name", ""), "sets": s.get("sets") or [], "ai": s.get("ai")}  # noqa: E731
+        return {"id": b["id"], "seed": b.get("seed") or b["id"], "format": b["format"], "level_rules": b.get("level_rules") or {},
+                "time_limit": int(replay.get("time_limit") or self.settings.get("rt_time_limit") or 300), "p1": seat(b.get("p1") or {}),
+                "p2": seat(b.get("p2") or {})}
+
+    def _rt_start(self, *, p1: dict[str, Any], p2: dict[str, Any], format_: str = "", level_rules: Optional[dict[str, Any]] = None,
+                  kind: str = "", run_id: str = "", title: str = "", seed: Any = None, time_limit: int = 0) -> dict[str, Any]:
+        s1, s2 = self._seat(p1, "Jugador 1"), self._seat(p2, "Jugador 2")
+        fmt = format_ or s1["format"] or s2["format"] or self.settings["default_format"]
+        info = self.format_info(fmt, [])
+        if info.get("random") or info.get("game_type") != "singles":
+            fmt = f"gen{info['gen']}customgame"
+        level_rules = level_rules or {}
+        limit = max(30, min(int(time_limit or self.settings.get("rt_time_limit") or 300), 1800))
+        watch = not s1["human"] and not s2["human"]
+        kind = kind or ("watch" if watch else "play")
+        seed_text = str(seed) if seed else ""
+        bid = self.store.add_battle({"kind": kind, "mode": "realtime", "status": "running" if watch else "live", "format": fmt, "rules": [],
+                                     "level_rules": level_rules, "p1": s1, "p2": s2, "run_id": run_id, "title": title, "seed": seed_text,
+                                     "replay": {"time_limit": limit, "inputs": [], "tick": 0}})
+        if not seed_text:
+            self.store.update_battle(bid, {"seed": bid})
+        spec = self._rt_spec(self.store.battle(bid))
+        try:
+            check = self.engine.call("rt_check", {"spec": spec}, timeout=60)
+        except SilverError:
+            self.store.update_battle(bid, {"status": "failed"})
+            raise
+        if self.settings.get("pmd_sprites", True) and self.config.background:
+            self.pool.submit(self.pmd.prefetch, [m for side in (check.get("view") or {}).get("sides", []) for m in side.get("mons", [])])
+        if watch:
+            def work() -> None:
+                try:
+                    r = self.engine.run_job("rt_play_out", {"spec": spec}, timeout=1800)
+                    self._rt_store_result(bid, r)
+                except Exception as exc:  # noqa: BLE001 - the battle row says what happened
+                    log.exception("real-time battle %s", bid)
+                    self.store.update_battle(bid, {"status": "failed", "summary": {"error": str(getattr(exc, "message", exc))[:300]}})
+
+            self.pool.submit(work)
+        self.emit("battle.started", {"id": bid, "kind": kind, "mode": "realtime"})
+        return self.battle_get(bid)
+
+    def _rt_store_result(self, bid: str, r: dict[str, Any]) -> None:
+        b = self.store.battle(bid)
+        summary = r.get("summary") or {}
+        replay = {**(b.get("replay") or {}), "inputs": r.get("inputs") or [], "tick": int(round((r.get("seconds") or 0) * 30))}
+        self.store.update_battle(bid, {"status": "ended", "log_text": "\n".join(r.get("lines") or []), "summary": summary, "replay": replay,
+                                       "winner_side": summary.get("winner_side", ""), "winner_name": summary.get("winner", ""), "turns": 0})
+        self._after_end(bid)
+
+    def _rt_view(self, b: dict[str, Any], out: dict[str, Any], since: int = 0) -> dict[str, Any]:
+        lines = b.get("log_text", "").split("\n") if b.get("log_text") else []
+        replay = b.get("replay") or {}
+        out.update({"lines": lines[since:] if since else lines, "log_length": len(lines), "requests": {}, "turn": 0,
+                    "rt": {"spec": self._rt_spec(b), "inputs": replay.get("inputs") or [], "tick": replay.get("tick") or 0,
+                           "time_limit": self._rt_spec(b)["time_limit"], "human": [bool((b.get(s) or {}).get("human")) for s in ("p1", "p2")]}})
+        try:
+            out["format_info"] = self.format_info(b["format"], [])
+        except SilverError:
+            pass
+        if b.get("run_id"):
+            try:
+                out["run"] = self.run_view(self.store.run(b["run_id"]), light=True)
+            except SilverError:
+                pass
+        return out
+
+    def rt_save(self, id_: str, *, inputs: list[list[Any]], tick: int) -> dict[str, Any]:
+        """The screen keeps the inputs of a live real-time battle here as it goes, so a reload picks the battle up where it was."""
+        b = self.store.battle(id_)
+        if b.get("mode") != "realtime" or b["status"] != "live":
+            raise SilverError("conflict", "Not a live real-time battle.")
+        self.store.update_battle(id_, {"replay": {**(b.get("replay") or {}), "inputs": inputs, "tick": int(tick)}})
+        return {"saved": True, "tick": int(tick)}
+
+    def rt_finish(self, id_: str, *, inputs: list[list[Any]], tick: int = 0, forfeit: str = "") -> dict[str, Any]:
+        """The screen says a real-time battle ended. The engine replays it from its seed and the inputs and the result it gets is
+        the one stored (a forfeit stops the replay at `tick`)."""
+        b = self.store.battle(id_)
+        if b.get("mode") != "realtime":
+            raise SilverError("invalid", "Not a real-time battle.")
+        if b["status"] != "live":
+            return self.battle_get(id_)
+        if forfeit and forfeit not in ("p1", "p2"):
+            raise SilverError("invalid", "forfeit is p1 or p2")
+        spec = self._rt_spec(b)
+        with self._lock_for(id_):
+            r = self.engine.run_job("rt_replay", {"spec": spec, "inputs": inputs, "forfeit": forfeit, "tick": int(tick)}, timeout=600)
+            if not r.get("ended"):
+                raise SilverError("conflict", "The inputs do not finish this battle.", hint="Send the whole input log, or forfeit.")
+            self._rt_store_result(id_, r)
+        return self.battle_get(id_)
+
+    def rt_cooldowns(self, *, trainer_id: str = "", team: Any = None, paste: str = "", format_: str = "", level_rules: Optional[dict[str, Any]] = None) -> dict[str, Any]:
+        """How a team's moves work in real time: base cooldown (Legends: Z-A's or derived from PP), the cooldown each Pokémon really
+        waits with its Speed, wind-up and shape."""
+        if trainer_id:
+            t = self.store.trainer(trainer_id)
+            sets, fmt = t["team"], format_ or t["format"]
+        else:
+            sets, fmt = self._team_from(team, paste), format_ or self.settings["default_format"]
+        return self.engine.call("rt_team", {"sets": sets, "format": fmt, "level_rules": level_rules or {}})
+
+    @staticmethod
+    def rt_rules() -> dict[str, Any]:
+        return {
+            "source": "Pokémon Legends: Z-A (Bulbapedia: Pokémon battle (Legends: Z-A), Cooldown; Serebii: usable attacks).",
+            "rules": [
+                "One Pokémon per trainer on a 28 x 17 m arena seen from above; the screen runs at 30 ticks per second.",
+                "No PP and no turns: every move has a base cooldown of 3-60 s. Moves Legends: Z-A has keep its value (337 moves); the rest get one from PP, power and kind fitted to that table (mean error 1.3 s).",
+                "Speed shortens cooldowns: final = max(3, base - 3 * max(0, Speed * modifier - 25) / 100). Priority moves always take 3 s. Choice Scarf, Tailwind and weather abilities count as Speed modifiers; stat stages do not.",
+                "Every move has a wind-up (none for priority moves, long for charging moves) during which the user stands still; a flinch cancels it and the move goes on cooldown.",
+                "Shapes: strikes in front, dashes, projectiles, beams, cones, bursts around the user and blasts that land where the target stood. There is no accuracy or evasion: a move hits if it reaches. Rolling (short invulnerable dash) dodges.",
+                "Damage, types, STAB, critical hits, abilities and items use the turn-based formula of the format's generation. Multi-hit moves hit a fixed number of times, as in Z-A.",
+                "Stat changes are one stage at most (x1.5 or x2/3) and last 20 s. The Speed stage changes walking speed.",
+                "Burn, poison and paralysis last until cured (paralysis halves walking speed); sleep is drowsiness for 10 s (cooldowns at half speed); freeze holds the Pokémon for 3 s; confusion makes walking erratic for 6 s. Residual damage and healing happen every 4 s.",
+                "Three switches per trainer, refilled after every knockout; pivot moves and fainting do not spend them.",
+                "Time limit (300 s by default): more Pokémon standing wins, then more HP left in total.",
+            ],
+            "not_covered": ["doubles (doubles formats play as singles)", "Mega Evolution, Z-Moves, Dynamax and Terastallization", "Plus moves and Alpha Pokémon of Z-A",
+                            "Trick Room, Transform, Baton Pass-style copying and other moves listed as no_effect in rt_cooldowns"],
+            "controls": {"move": "WASD or arrows; gamepad left stick", "moves": "1-4 or J K L ; ; gamepad A B X Y", "roll": "Space or Shift; gamepad RB",
+                         "switch": "Q then 1-6; gamepad D-pad left/right + up", "pause": "Esc (only against the AI)"},
+        }
+
     def battles_list(self, kind: str = "", status: str = "", trainer_id: str = "", limit: int = 50, offset: int = 0) -> list[dict[str, Any]]:
         return [self.battle_card(b) for b in self.store.battles(kind=kind, status=status, trainer_id=trainer_id, limit=limit, offset=offset)]
 
@@ -731,7 +877,9 @@ class Services:
         return out
 
     def run_start(self, *, kind: str, target_id: str, challenger_id: str, auto: bool = False, ignore_badges: bool = False,
-                  format_override: str = "") -> dict[str, Any]:
+                  format_override: str = "", mode: str = "classic") -> dict[str, Any]:
+        if mode not in ("classic", "realtime"):
+            raise SilverError("invalid", "mode is classic or realtime")
         challenger = self.store.trainer(challenger_id)
         if format_override:
             self.format_info(format_override)
@@ -757,7 +905,8 @@ class Services:
         rid = self.store.add_run({"kind": kind, "target_id": target_id, "target_name": target_name, "challenger_id": challenger_id,
                                   "challenger": {"name": challenger["name"], "avatar": challenger["avatar"], "team": challenger["team"], "auto": auto,
                                                  "format_override": format_override},
-                                  "stages": [{"trainer_id": s, "battle_id": "", "result": ""} for s in stage_ids], "step": 0, "status": "active"})
+                                  "stages": [{"trainer_id": s, "battle_id": "", "result": ""} for s in stage_ids], "step": 0, "status": "active",
+                                  "mode": mode})
         self.emit("run.started", {"id": rid, "kind": kind, "target": target_name})
         self._run_battle(rid)
         return self.run_view(self.store.run(rid))
@@ -783,7 +932,7 @@ class Services:
         opponent = self.store.trainer(stage["trainer_id"], deleted=True)
         b = self.battle_start(p1={"trainer_id": r["challenger_id"], "human": not auto}, p2={"trainer_id": stage["trainer_id"], "human": False},
                               format_=fmt, rules=rules, level_rules=level_rules, kind=r["kind"], run_id=rid,
-                              title=f"{r['target_name']} · {opponent['name']}")
+                              title=f"{r['target_name']} · {opponent['name']}", mode=r.get("mode") or "classic")
         r = self.store.run(rid)
         stages = r["stages"]
         stages[r["step"]]["battle_id"] = b["id"]
@@ -900,13 +1049,23 @@ class Services:
     def jobs_delete(self, ids: list[str]) -> dict[str, Any]:
         return {"deleted": self.store.delete_jobs(ids)}
 
+    def _rt_format(self, fmt: str) -> str:
+        info = self.format_info(fmt, [])
+        return f"gen{info['gen']}customgame" if info.get("random") or info.get("game_type") != "singles" else fmt
+
     def series_start(self, *, p1: dict[str, Any], p2: dict[str, Any], count: int = 0, format_: str = "", rules: Optional[list[str]] = None,
-                     level_rules: Optional[dict[str, Any]] = None) -> dict[str, Any]:
+                     level_rules: Optional[dict[str, Any]] = None, mode: str = "classic", time_limit: int = 0) -> dict[str, Any]:
         s1, s2 = self._seat({**p1, "human": False}, "A"), self._seat({**p2, "human": False}, "B")
         fmt = format_ or s1["format"] or s2["format"] or self.settings["default_format"]
         count = max(1, min(int(count or self.settings["series_default"]), 1000))
+        rt = mode == "realtime"
+        limit = max(30, min(int(time_limit or self.settings["rt_time_limit"]), 1800))
+        if rt:
+            fmt, rules = self._rt_format(fmt), []
         spec = {"format": fmt, "rules": rules or [], "level_rules": level_rules or {}, "max_turns": self.settings["max_turns"],
                 "p1": {"name": s1["name"], "sets": s1["sets"], "ai": s1["ai"]}, "p2": {"name": s2["name"], "sets": s2["sets"], "ai": s2["ai"]}}
+        if rt:
+            spec.update({"mode": "realtime", "time_limit": limit})
 
         def work(jid: str, progress: Callable[[float], None], cancelled: Callable[[], bool]) -> dict[str, Any]:
             res = self.engine.run_job("simulate", {"spec": spec, "count": count}, progress=progress, cancelled=cancelled, timeout=6 * 3600)
@@ -916,16 +1075,20 @@ class Services:
                 bid = self.store.add_battle({"kind": "series", "status": "ended", "format": fmt, "rules": rules or [], "level_rules": level_rules or {},
                                              "p1": s1, "p2": s2, "winner_side": summary.get("winner_side", ""), "winner_name": summary.get("winner", ""),
                                              "turns": summary.get("turns", 0), "log_text": "\n".join(sample.get("lines") or []), "summary": summary,
-                                             "seed": json.dumps(sample.get("seed")), "job_id": jid, "title": f"{s1['name']} vs {s2['name']}"})
+                                             "seed": str(sample.get("seed")) if rt else json.dumps(sample.get("seed")), "job_id": jid,
+                                             "title": f"{s1['name']} vs {s2['name']}", "mode": "realtime" if rt else "classic",
+                                             "replay": {"time_limit": limit, "inputs": []} if rt else {}})
                 samples[outcome] = bid
             res["samples"] = samples
             res["p1"], res["p2"] = self._public_seat(s1), self._public_seat(s2)
             return res
 
-        return self._job("series", f"{s1['name']} vs {s2['name']} ×{count}", {"p1": p1, "p2": p2, "count": count, "format": fmt}, work)
+        return self._job("series", f"{s1['name']} vs {s2['name']} ×{count}{' · tiempo real' if rt else ''}",
+                         {"p1": p1, "p2": p2, "count": count, "format": fmt, "mode": "realtime" if rt else "classic"}, work)
 
     def tournament_start(self, *, trainer_ids: list[str], kind: str = "bracket", best_of: int = 1, format_: str = "", rules: Optional[list[str]] = None,
-                         level_rules: Optional[dict[str, Any]] = None, title: str = "", ai_level: str = "") -> dict[str, Any]:
+                         level_rules: Optional[dict[str, Any]] = None, title: str = "", ai_level: str = "", mode: str = "classic",
+                         time_limit: int = 0) -> dict[str, Any]:
         ids = list(dict.fromkeys(trainer_ids))
         if len(ids) < 2:
             raise SilverError("invalid", "A tournament needs at least two trainers.")
@@ -939,12 +1102,17 @@ class Services:
             entrants.append({"id": tid, "name": seat["name"], "sets": seat["sets"], "ai": seat["ai"], "avatar": seat["avatar"]})
         fmt = format_ or self.settings["default_format"]
         self.format_info(fmt, rules)
+        rt = mode == "realtime"
+        limit = max(30, min(int(time_limit or self.settings["rt_time_limit"]), 1800))
+        if rt:
+            fmt, rules = self._rt_format(fmt), []
         best_of = max(1, int(best_of) | 1)
         name = title or f"Torneo de {len(ids)}"
 
         def work(jid: str, progress: Callable[[float], None], cancelled: Callable[[], bool]) -> dict[str, Any]:
             res = self.engine.run_job("tournament", {"format": fmt, "rules": rules or [], "level_rules": level_rules or {}, "entrants": entrants,
-                                                     "kind": kind, "best_of": best_of}, progress=progress, cancelled=cancelled, timeout=12 * 3600)
+                                                     "kind": kind, "best_of": best_of, "mode": "realtime" if rt else "classic", "time_limit": limit},
+                                     progress=progress, cancelled=cancelled, timeout=12 * 3600)
             by_id = {e["id"]: e for e in entrants}
             for m in res.get("matches") or []:
                 for g in m.get("games") or []:
@@ -956,8 +1124,9 @@ class Services:
                                                            "level_rules": level_rules or {}, "p1": seat(a), "p2": seat(b_),
                                                            "winner_side": summary.get("winner_side", ""), "winner_name": summary.get("winner", ""),
                                                            "turns": summary.get("turns", 0), "log_text": "\n".join(g.pop("lines", None) or []),
-                                                           "summary": summary, "seed": json.dumps(g.get("seed")), "job_id": jid,
-                                                           "title": f"{name} · {a['name']} vs {b_['name']}"})
+                                                           "summary": summary, "seed": str(g.get("seed")) if rt else json.dumps(g.get("seed")),
+                                                           "job_id": jid, "title": f"{name} · {a['name']} vs {b_['name']}",
+                                                           "mode": "realtime" if rt else "classic", "replay": {"time_limit": limit, "inputs": []} if rt else {}})
                     g.pop("summary", None)
             res["entrants"] = [{"id": e["id"], "name": e["name"], "avatar_url": self.avatar_url(e["avatar"])} for e in entrants]
             res["title"] = name
@@ -965,7 +1134,7 @@ class Services:
                 self.emit("tournament.won", {"job": jid, "champion": by_id[res["champion"]]["name"]})
             return res
 
-        return self._job("tournament", name, {"trainer_ids": ids, "kind": kind, "best_of": best_of, "format": fmt}, work)
+        return self._job("tournament", name, {"trainer_ids": ids, "kind": kind, "best_of": best_of, "format": fmt, "mode": "realtime" if rt else "classic"}, work)
 
     # ------------------------------------------------------------ sharing
     def _avatar_payload(self, avatar: str) -> dict[str, Any]:
@@ -1325,6 +1494,7 @@ class Services:
         """Poll one Prospero job until it ends; cancelling here cancels it there."""
         job_id = job.get("id")
         deadline = time.monotonic() + 3600
+        misses = 0
         while job.get("state") not in ("done", "failed", "cancelled"):
             if cancelled():
                 try:
@@ -1333,7 +1503,17 @@ class Services:
                     raise SilverError("cancelled", "Cancelled.")
             if time.monotonic() > deadline:
                 raise SilverError("timeout", "Prospero took more than an hour.")
-            job = self._prospero_call("studio_job", {"job_id": job_id, "wait_s": 30}, timeout=90) or {}
+            try:
+                job = self._prospero_call("studio_job", {"job_id": job_id, "wait_s": 30}, timeout=90) or {}
+                misses = 0
+            except SilverError:
+                # the hub or Prospero did not answer once (a restart, a busy moment): the render goes on there, ask again
+                misses += 1
+                if misses >= 6:
+                    raise
+                time.sleep(5)
+                job = {"id": job_id, "state": "unknown"}
+                continue
             p = job.get("progress")
             if isinstance(p, (int, float)):
                 progress(min(1.0, p if p <= 1 else p / 100))

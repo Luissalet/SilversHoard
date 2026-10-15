@@ -34,6 +34,22 @@ export default function Ajustes() {
           <Field label={t("series_default")}><input className="field" type="number" min={1} max={1000} value={f.series_default} onChange={(e) => set("series_default", Number(e.target.value))} /></Field>
         </div>
       </div>
+      <Section title={t("mode_realtime")}>
+        <div className="panel space-y-3">
+          <p className="help">{t("mode_realtime_help")}</p>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Field label={t("rt_default_mode")}>
+              <select className="field" value={f.default_mode || "classic"} onChange={(e) => set("default_mode", e.target.value)}>
+                <option value="classic">{t("mode_classic")}</option>
+                <option value="realtime">{t("mode_realtime")}</option>
+              </select>
+            </Field>
+            <Field label={t("rt_time_limit")} hint={t("rt_time_limit_help")}><input className="field" type="number" min={30} max={1800} step={30} value={f.rt_time_limit || 300} onChange={(e) => set("rt_time_limit", Number(e.target.value))} /></Field>
+          </div>
+          <label className="flex items-center gap-2"><Switch checked={f.pmd_sprites !== false} onChange={(v) => set("pmd_sprites", v)} label={t("rt_pmd_sprites")} /> {t("rt_pmd_sprites")}</label>
+          <p className="help">{t("rt_pmd_sprites_help")} {t("rt_sprites_note")}</p>
+        </div>
+      </Section>
       <Section title={t("sprites")}>
         <div className="panel space-y-3">
           <Field label={t("sprite_set")}>

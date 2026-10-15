@@ -41,7 +41,12 @@ DEFAULT_SETTINGS: dict[str, Any] = {
     "prospero_style_sprites": "backpacker,acetrainer,pilot",
     "prospero_engine": "",        # image engine Prospero uses for sprites ("" = the project's default; qwen21, flux, sdxl)
     "series_default": 20,         # battles in a series when none is given
+    "default_mode": "classic",    # classic (turns, Showdown's engine) or realtime (Legends: Z-A rules: cooldowns, a 2D arena)
+    "rt_time_limit": 300,         # seconds of a real-time battle; then more Pokémon standing wins, then more HP left
+    "pmd_sprites": True,          # real-time arena: walking sprites from PMDCollab's SpriteCollab, downloaded once and cached
+    "pmd_server": "https://raw.githubusercontent.com/PMDCollab/SpriteCollab/master",
 }
+MODES = ("classic", "realtime")
 
 
 @dataclass
@@ -173,6 +178,12 @@ class Settings:
                 value = max(20, min(int(value), 2000))
             if key == "series_default":
                 value = max(1, min(int(value), 1000))
+            if key == "default_mode" and value not in MODES:
+                raise SilverError("invalid", "default_mode is classic or realtime")
+            if key == "rt_time_limit":
+                value = max(30, min(int(value), 1800))
+            if key == "pmd_server" and not value.startswith("https://"):
+                raise SilverError("invalid", "pmd_server must be an https:// address")
             if key == "prospero_style_sprites":
                 names = [n.strip().lower() for n in value.split(",") if n.strip()]
                 if len(names) > 3 or any(not re.match(r"^[a-z0-9][a-z0-9-]{0,60}$", n) for n in names):
