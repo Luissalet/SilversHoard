@@ -10,6 +10,11 @@ import MASS_STRINGS from "./pages/mass-strings.js";
 import FRIENDS_STRINGS from "./pages/friends-strings.js";
 
 const D = {
+  mass_share_title: ["Compartir una batalla campal", "Share a mass battle"],
+  mass_share_help: ["Exporta una batalla guardada como HTML. Tu amigo puede ver la misma repetición y manejar la cámara sin instalar Silver.", "Export a saved battle as HTML. Your friend can watch the same replay and move the camera without installing Silver."],
+  mass_share_export: ["Exportar página", "Export page"],
+  mass_share_restart: ["Repetir desde el principio", "Replay from the beginning"],
+  mass_share_assets: ["El motor y la batalla están dentro de este archivo. Las imágenes de Pokémon se descargan si hay internet; la repetición funciona sin ellas.", "The engine and battle are inside this file. Pokémon pictures load when internet is available; the replay works without them."],
   // shell
   nav_home: ["Inicio", "Home"],
   nav_battle: ["Combatir", "Battle"],
