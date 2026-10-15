@@ -6,6 +6,7 @@ import { useApp } from "../context.js";
 import { Busy, ErrorBox, Section, Spinner, useBusy, useLoad } from "../components/ui.jsx";
 import { Avatar, MonIcon, OfficialArtGrid, RecordChip, fetchPicture } from "../components/silver.jsx";
 import { ImageViewer } from "../components/viewer.jsx";
+import { nameOf } from "../battle/dex.js";
 
 function VariantRow({ v, on, onPick, lang, t }) {
   const labels = lang === "en" ? v.labels : v.labels_es;
@@ -25,9 +26,10 @@ function VariantRow({ v, on, onPick, lang, t }) {
         </div>
         <div className="char-mons">
           {v.sets.map((s, i) => (
-            <span key={i} className="char-mon" title={[s.species, s.ability, s.item, ...(s.moves || [])].filter(Boolean).join(" · ")}>
+            <span key={i} className="char-mon" title={[s.species, nameOf("ability", s.ability, lang), nameOf("item", s.item, lang),
+              ...(s.moves || []).map((m) => nameOf("move", m, lang))].filter(Boolean).join(" · ")}>
               <MonIcon species={s.species} size={30} />
-              <b>{s.species}</b>&nbsp;{t("char_level", { n: s.level })}{s.item ? ` · ${s.item}` : ""}
+              <b>{s.species}</b>&nbsp;{t("char_level", { n: s.level })}{s.item ? ` · ${nameOf("item", s.item, lang)}` : ""}
             </span>
           ))}
         </div>

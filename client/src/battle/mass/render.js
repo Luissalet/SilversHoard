@@ -5,7 +5,7 @@
 // still standing in the frame, closer as they thin out). The Pokémon a person plays wears a gold ring and its aim shows as a
 // crosshair. With sound on, moves, hits and knockouts are heard (a crowd only by the loudest few). It reads the battle; it never
 // changes it.
-import { TYPE_COLORS } from "../dex.js";
+import { TYPE_COLORS, nameOf } from "../dex.js";
 import { sfx } from "../../audio.js";
 import { Animator, dirRow, image, loadMeta } from "../rt/pmd.js";
 
@@ -23,8 +23,9 @@ function rgba(hex, a) {
 }
 
 export class MassRenderer {
-  constructor(canvas, battle, { sprites, base = "", offline = false, texts = {}, sound = false }) {
+  constructor(canvas, battle, { sprites, base = "", offline = false, texts = {}, sound = false, lang = "es" }) {
     this.canvas = canvas;
+    this.lang = lang;   // the language of the moves' names over the Pokémon
     this.ctx = canvas.getContext("2d");
     this.b = battle;
     this.sprites = sprites;
@@ -184,7 +185,7 @@ export class MassRenderer {
         case "use":
           // a crowd would bury the field in names: the giants and whoever you follow always, the rest while there is room
           if (u.boss || e.u === this.follow || e.u === this.me || this.pills.filter((p) => !units[p.u].boss).length < (units.length > 60 ? 8 : 14)) {
-            this.pills.push({ u: e.u, text: e.move, color, until: this.time + 1.0 });
+            this.pills.push({ u: e.u, text: nameOf("move", e.move, this.lang), color, until: this.time + 1.0 });
           }
           this.anims[e.u]?.play(["shot", "beam", "wave", "drop"].includes(e.shape) ? "Shoot" : "Attack", { speed: 1.4 });
           if (loud) sfx("move", { type: e.type, gap: close(e.u) ? 0.05 : 0.18, vol: close(e.u) ? 1 : 0.45 });

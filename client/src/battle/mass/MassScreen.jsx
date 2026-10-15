@@ -11,6 +11,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { MassBattle, TPS } from "../../../../engine/src/realtime/mass.mjs";
 import { MassRenderer } from "./render.js";
+import { nameOf } from "../dex.js";
 import { SeatInput } from "../rt/input.js";
 import { battleEnd, music, pickTrack, sfx, unlock } from "../../audio.js";
 import "./mass.css";
@@ -35,7 +36,10 @@ function firstPad() {
 }
 
 export default function MassScreen({ doc, t, sprites, base = "", offline = false, onCheck = null, onAgain = null, onBack = null,
-  play = null, replay = null, onPlayed = null, video = null, sound = true, extra = null }) {
+  play = null, replay = null, onPlayed = null, video = null, sound = true, extra = null, lang = "" }) {
+  // moves are named in the page's language: the app, the friends' page and the video page all set it on the document
+  const moveLang = lang || (typeof document !== "undefined" && document.documentElement.lang) || "es";
+  const moveName = (name) => nameOf("move", name, moveLang);
   const wrapRef = useRef(null);
   const canvasRef = useRef(null);
   const sim = useRef(null);
@@ -80,6 +84,9 @@ export default function MassScreen({ doc, t, sprites, base = "", offline = false
         moves: f.moves.map((m, s) => ({ name: m.name, ready: f.cds[s] <= b.t, left: Math.max(0, (f.cds[s] - b.t) / TPS) })) } : null });
   }, [me]);
 
+  // the friends' page switches language without rebuilding the battle
+  useEffect(() => { if (sim.current?.r) sim.current.r.lang = moveLang; }, [moveLang]);
+
   // build the battle and the renderer, load the sprites
   useEffect(() => {
     let cancelled = false;
@@ -90,7 +97,7 @@ export default function MassScreen({ doc, t, sprites, base = "", offline = false
       setError(e);
       return undefined;
     }
-    const r = new MassRenderer(canvasRef.current, b, { sprites, base, offline, sound,
+    const r = new MassRenderer(canvasRef.current, b, { sprites, base, offline, sound, lang: moveLang,
       texts: { immune: t("mass_immune"), dodge: t("mass_dodge"), you: t("mass_you") } });
     r.auto = !!video;
     if (me >= 0) { r.follow = me; r.cam.zoom = 2.4; }
@@ -403,7 +410,7 @@ export default function MassScreen({ doc, t, sprites, base = "", offline = false
             <div className="mass-moves">
               {hud.follow.moves.map((m, k) => (
                 <span key={`${m.name}${k}`} className={m.ready ? "is-ready" : ""}>
-                  {hud.follow.mine && <kbd>{k + 1}</kbd>} {m.name}{!m.ready && hud.follow.mine ? ` ${m.left.toFixed(1)}s` : ""}
+                  {hud.follow.mine && <kbd>{k + 1}</kbd>} {moveName(m.name)}{!m.ready && hud.follow.mine ? ` ${m.left.toFixed(1)}s` : ""}
                 </span>
               ))}
             </div>
