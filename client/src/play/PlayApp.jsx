@@ -14,6 +14,7 @@ import RtScreen from "../battle/rt/RtScreen.jsx";
 import Overworld from "../battle/overworld/Overworld.jsx";
 import { RULES_VERSION, rtRun } from "../../../engine/src/realtime/sim.mjs";
 import { deflateB64, newSeed, packRtInputs } from "./rtcode.js";
+import MassPlay from "./MassPlay.jsx";
 
 const RESULT_PREFIX = "SILVERWIN1-";       // a result of battles played turn by turn
 const RESULT_PREFIX_RT = "SILVERWIN2-";    // a result with real-time battles in it: they carry their replay
@@ -41,6 +42,8 @@ export default function PlayApp({ data }) {
   const [lang, setLang] = useState(() => (typeof navigator !== "undefined" && !String(navigator.language || "es").startsWith("es") ? "en" : "es"));
   const t = playT(lang);
   useEffect(() => { document.documentElement.lang = lang; }, [lang]);
+  // a mass battle sent to watch or play one of its Pokémon (MassPlay.jsx)
+  if (data?.kind === "mass" && data.mass?.spec) return <MassPlay data={data} lang={lang} setLang={setLang} />;
   if (!data || !data.payload) return <div className="p-wrap"><div className="panel">{t("no_data")}</div></div>;
   return <Challenge data={data} lang={lang} setLang={setLang} t={t} />;
 }

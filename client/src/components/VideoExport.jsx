@@ -1,5 +1,5 @@
 // "Video" on a finished battle: record its replay as a clip with sound (battle_video, a job), watch it here, download it or send it
-// to Lumiere's Hoard, the family's video editor.
+// to Lumiere's Hoard, the family's video editor. Mass battles use it too (tool mass_video with their own arguments and help).
 import React, { useEffect, useState } from "react";
 import { api } from "../api.js";
 import { useApp } from "../context.js";
@@ -24,7 +24,7 @@ const S = {
 };
 const fill = (text, vars = {}) => text.replace(/\{(\w+)\}/g, (_, k) => (vars[k] ?? ""));
 
-export default function VideoExport({ battle }) {
+export default function VideoExport({ battle = null, tool = "battle_video", args = null, help = "", label = "" }) {
   const { lang, toastError, notify } = useApp();
   const s = (k, v) => fill(L(S[k], lang), v);
   const [open, setOpen] = useState(false);
@@ -42,17 +42,17 @@ export default function VideoExport({ battle }) {
   const running = !!job && ["queued", "running"].includes(job.status);
   const start = () => run("rec", async () => {
     setResult(null);
-    const r = await api.call("battle_video", { id: battle.id, speed, size, lang, lumiere });
+    const r = await api.call(tool, { ...(args || { id: battle.id }), speed, size, lang, lumiere });
     setJobId(r.id || r.job?.id || "");
   });
   const missing = status ? [!status.playwright && "Playwright", !status.browser && "Chrome / Edge"].filter(Boolean) : [];
   return (
     <>
-      <button type="button" className="btn" onClick={() => setOpen(true)}><Icon d={ICONS.video} size={15} /> {s("button")}</button>
+      <button type="button" className="btn" onClick={() => setOpen(true)}><Icon d={ICONS.video} size={15} /> {label || s("button")}</button>
       {open && (
         <Modal title={s("title")} onClose={() => setOpen(false)}>
           <div className="space-y-3">
-            <p className="help">{s("help")}</p>
+            <p className="help">{help || s("help")}</p>
             {missing.length > 0 && <div className="banner banner-info">{s("missing", { what: missing.join(", ") })} · {status.hint}</div>}
             <div className="flex flex-wrap items-center gap-3">
               <span className="help">{s("speed")}</span>

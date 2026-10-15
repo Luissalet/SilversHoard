@@ -1,8 +1,12 @@
 // Draws a mass battle (engine/src/realtime/mass.mjs) on a canvas: the field, every Pokémon with its team's ring under its feet
 // (walking sprites of SpriteCollab when the app has them, the battle sprites meanwhile), the giants several times bigger, moves'
 // names in pills of their type's colour over whoever uses them, projectiles, beams, areas marked on the ground, hits and knockouts
-// that dissolve. A camera frames the whole field and can zoom, pan and follow one Pokémon. It reads the battle; it never changes it.
+// that dissolve. A camera frames the whole field and can zoom, pan and follow one Pokémon, or direct itself (auto: it keeps everyone
+// still standing in the frame, closer as they thin out). The Pokémon a person plays wears a gold ring and its aim shows as a
+// crosshair. With sound on, moves, hits and knockouts are heard (a crowd only by the loudest few). It reads the battle; it never
+// changes it.
 import { TYPE_COLORS } from "../dex.js";
+import { sfx } from "../../audio.js";
 import { Animator, dirRow, image, loadMeta } from "../rt/pmd.js";
 
 const FLOOR_COLORS = {
@@ -19,7 +23,7 @@ function rgba(hex, a) {
 }
 
 export class MassRenderer {
-  constructor(canvas, battle, { sprites, base = "", offline = false, texts = {} }) {
+  constructor(canvas, battle, { sprites, base = "", offline = false, texts = {}, sound = false }) {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
     this.b = battle;
@@ -28,10 +32,15 @@ export class MassRenderer {
     this.offline = offline;
     this.texts = texts;
     this.anims = battle.units.map(() => null);
-    // the whole crowd's icons come in one picture (Showdown's icon sheet, through the app); single battle sprites only for the giants
-    // and for a page with no app behind it
-    this.icons = offline ? null : image(`${base}/api/sprites/pokemon-icons.png`);
-    this.statics = battle.units.map((u) => (offline || u.boss ? image(sprites.fallback(u.species, { spriteid: u.sprite_id })) : null));
+    // the whole crowd's icons come in one picture (Showdown's icon sheet: through the app, or from the sprite server on a page with
+    // no app behind it); single battle sprites only for the giants
+    this.icons = image(offline ? `${String(sprites.server || "https://play.pokemonshowdown.com/sprites").replace(/\/$/, "")}/pokemonicons-sheet.png`
+      : `${base}/api/sprites/pokemon-icons.png`);
+    this.statics = battle.units.map((u) => (u.boss ? image(sprites.fallback(u.species, { spriteid: u.sprite_id })) : null));
+    this.sound = sound;
+    this.me = battle.player ?? -1;   // the Pokémon a person plays
+    this.aim = null;                 // {x, y}: where the person aims
+    this.auto = false;               // the camera directs itself
     this.credits = new Set();
     this.pills = [];          // {u, text, color, until}
     this.fx = [];             // short effects: {kind, x, y, r, color, t0, life, ...}
@@ -117,7 +126,27 @@ export class MassRenderer {
     this.clampCam();
   }
 
-  reset() { this.cam = { x: this.b.arena.w / 2, y: this.b.arena.h / 2, zoom: 1 }; this.follow = -1; }
+  reset() { this.cam = { x: this.b.arena.w / 2, y: this.b.arena.h / 2, zoom: 1 }; this.follow = -1; this.auto = false; }
+
+  /** The camera on its own: everyone still standing in the frame (with a margin), eased so it never jumps. */
+  direct(dt) {
+    let x0 = Infinity;
+    let y0 = Infinity;
+    let x1 = -Infinity;
+    let y1 = -Infinity;
+    for (const u of this.b.units) {
+      if (u.fainted) continue;
+      x0 = Math.min(x0, u.x - u.r); y0 = Math.min(y0, u.y - u.r * 2.5); x1 = Math.max(x1, u.x + u.r); y1 = Math.max(y1, u.y + u.r);
+    }
+    if (x0 === Infinity) return;
+    const { w, h } = this.b.arena;
+    const zoom = Math.max(1, Math.min(3.5, Math.min(w / (x1 - x0 + 6), h / (y1 - y0 + 4.5))));
+    const k = Math.min(1, dt * 2.5);
+    this.cam.zoom += (zoom - this.cam.zoom) * k;
+    this.cam.x += ((x0 + x1) / 2 - this.cam.x) * k;
+    this.cam.y += ((y0 + y1) / 2 - this.cam.y) * k;
+    this.clampCam();
+  }
 
   clampCam() {
     const hw = this.canvas.width / 2 / this.scale;
@@ -144,6 +173,9 @@ export class MassRenderer {
   absorb() {
     const ev = this.b.events;
     const units = this.b.units;
+    // a jump (skip to the end) brings thousands of events at once: only the sound of the last few
+    const loud = this.sound && ev.length - this.eventIndex < 400;
+    const close = (i) => i === this.me || i === this.follow || units[i]?.boss || units.length <= 30;
     for (; this.eventIndex < ev.length; this.eventIndex++) {
       const e = ev[this.eventIndex];
       const u = units[e.u];
@@ -151,10 +183,11 @@ export class MassRenderer {
       switch (e.k) {
         case "use":
           // a crowd would bury the field in names: the giants and whoever you follow always, the rest while there is room
-          if (u.boss || e.u === this.follow || this.pills.filter((p) => !units[p.u].boss).length < (units.length > 60 ? 8 : 14)) {
+          if (u.boss || e.u === this.follow || e.u === this.me || this.pills.filter((p) => !units[p.u].boss).length < (units.length > 60 ? 8 : 14)) {
             this.pills.push({ u: e.u, text: e.move, color, until: this.time + 1.0 });
           }
           this.anims[e.u]?.play(["shot", "beam", "wave", "drop"].includes(e.shape) ? "Shoot" : "Attack", { speed: 1.4 });
+          if (loud) sfx("move", { type: e.type, gap: close(e.u) ? 0.05 : 0.18, vol: close(e.u) ? 1 : 0.45 });
           break;
         case "hit":
           // a white flash on the one hit (a giant hit all the time only glints, or it would stay white)
@@ -165,6 +198,16 @@ export class MassRenderer {
             this.fx.push({ kind: "num", x: u.x, y: u.y - u.r * 2.2, text: txt, color: e.eff > 1 ? "#ffd54a" : e.eff < 1 ? "#b8c2cc" : "#ffffff", t0: this.time, life: 0.8 });
           }
           this.anims[e.u]?.play("Hurt", { speed: 1.5 });
+          if (loud) sfx(e.crit ? "crit" : e.eff > 1 ? "super" : e.eff < 1 ? "resisted" : "hit", { gap: close(e.u) || close(e.by) ? 0.05 : 0.12, vol: close(e.u) || close(e.by) ? 1 : 0.4 });
+          break;
+        case "dodge":
+          this.fx.push({ kind: "num", x: u.x, y: u.y - u.r * 2.2, text: this.texts.dodge || "Dodge!", color: "#9fe7ff", t0: this.time, life: 0.7 });
+          if (loud) sfx("miss", { gap: 0.1 });
+          break;
+        case "roll":
+          this.fx.push({ kind: "trail", x: u.x, y: u.y, x1: u.x + e.dx * 3.6, y1: u.y + e.dy * 3.6, w: u.r * 0.8, color: "#ffffff", t0: this.time, life: 0.3 });
+          this.anims[e.u]?.play("Hop", { speed: 1.5 });
+          if (loud) sfx("roll");
           break;
         case "immune":
           if (units.length > 40 && !u.boss && e.u !== this.follow) break;
@@ -197,6 +240,7 @@ export class MassRenderer {
         case "ko":
           this.dead.push({ u: e.u, t0: this.time, x: u.x, y: u.y });
           this.fx.push({ kind: "poof", x: u.x, y: u.y - 0.4 * u.size, color: this.b.teams[u.team].color, t0: this.time, life: 0.8, r: u.r * 2 });
+          if (loud) sfx(u.boss ? "big" : "faint", { gap: close(e.u) ? 0.05 : 0.2, vol: close(e.u) ? 1 : 0.5 });
           break;
         default:
       }
@@ -232,7 +276,7 @@ export class MassRenderer {
       const f = b.units[this.follow];
       if (f.fainted) this.follow = -1;
       else { this.cam.x += (f.x - this.cam.x) * Math.min(1, dt * 5); this.cam.y += (f.y - this.cam.y) * Math.min(1, dt * 5); this.clampCam(); }
-    }
+    } else if (this.auto) this.direct(dt);
     const x = this.ctx;
     const s = this.scale;
     x.save();
@@ -305,7 +349,20 @@ export class MassRenderer {
         x.fillStyle = f > 0.5 ? "#46d369" : f > 0.2 ? "#f5c542" : "#e5484d";
         x.fillRect(px - bw / 2, by, bw * f, Math.max(3, s * 0.12));
       }
-      if (this.follow === u.i) {
+      if (this.me === u.i) {
+        x.strokeStyle = "#ffd54a";
+        x.lineWidth = 3 * this.dpr;
+        x.beginPath(); x.ellipse(px, py, u.r * s * 1.7, u.r * s * 0.85, 0, 0, TAU); x.stroke();
+        const fs = Math.round(11 * this.dpr);
+        x.font = `800 ${fs}px system-ui, sans-serif`;
+        x.textAlign = "center";
+        x.lineWidth = 3 * this.dpr;
+        x.strokeStyle = "rgba(0,0,0,0.75)";
+        const ty = py + u.r * s * 0.85 + fs * 1.2;
+        x.strokeText(this.texts.you || "YOU", px, ty);
+        x.fillStyle = "#ffd54a";
+        x.fillText(this.texts.you || "YOU", px, ty);
+      } else if (this.follow === u.i) {
         x.strokeStyle = "#ffffff";
         x.lineWidth = 2 * this.dpr;
         x.beginPath(); x.ellipse(px, py, u.r * s * 1.5, u.r * s * 0.75, 0, 0, TAU); x.stroke();
@@ -370,6 +427,21 @@ export class MassRenderer {
         x.fillText(f.text, px, py - k * s);
       }
       x.globalAlpha = 1;
+    }
+    // where the person aims
+    const me = this.me >= 0 ? b.units[this.me] : null;
+    if (me && !me.fainted && this.aim) {
+      const ax = this.sx(this.aim.x);
+      const ay = this.sy(this.aim.y);
+      const r = 9 * this.dpr;
+      x.strokeStyle = "rgba(255,213,74,0.35)";
+      x.lineWidth = 2 * this.dpr;
+      x.setLineDash([4 * this.dpr, 5 * this.dpr]);
+      x.beginPath(); x.moveTo(this.sx(me.x), this.sy(me.y) - s * 0.4); x.lineTo(ax, ay); x.stroke();
+      x.setLineDash([]);
+      x.strokeStyle = "#ffd54a";
+      x.beginPath(); x.arc(ax, ay, r, 0, TAU); x.moveTo(ax - r * 1.6, ay); x.lineTo(ax - r * 0.5, ay); x.moveTo(ax + r * 0.5, ay); x.lineTo(ax + r * 1.6, ay);
+      x.moveTo(ax, ay - r * 1.6); x.lineTo(ax, ay - r * 0.5); x.moveTo(ax, ay + r * 0.5); x.lineTo(ax, ay + r * 1.6); x.stroke();
     }
     // move names over whoever uses them
     this.pills = this.pills.filter((p) => p.until > this.time);

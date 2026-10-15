@@ -2738,6 +2738,10 @@ class Services:
         kind, payload = sharing.parse_any(content)
         if kind == "result":
             return {"kind": "result", **self.import_result(payload)}
+        if kind == "mass_result":
+            return {"kind": "mass_result", **self.mass.import_result(payload)}
+        if kind == "mass_page":
+            return {"kind": "mass", "mass": self.mass.import_page(payload)}
         if kind == "paste":
             t = self.trainer_create(name=name or "Equipo importado", paste=payload, format_=format_, origin="own")
             return {"kind": "trainer", "trainer": t}
@@ -3216,7 +3220,10 @@ class Services:
                          lambda jid, progress, cancelled: self._record_video(b, speed, size, lang, lumiere, status, progress, cancelled))
 
     def _record_video(self, b: dict[str, Any], speed: str, size: str, lang: str, lumiere: bool, status: dict[str, Any],
-                      progress: Callable[[float], None], cancelled: Callable[[], bool]) -> dict[str, Any]:
+                      progress: Callable[[float], None], cancelled: Callable[[], bool], *, url_path: str = "", stem: str = "",
+                      seconds: Optional[float] = None) -> dict[str, Any]:
+        """``url_path`` (after #/), ``stem`` and ``seconds`` (how long the clip plays) record another page than a battle's replay
+        (mass.py: a mass battle)."""
         import base64
         import subprocess
         import threading
@@ -3224,15 +3231,18 @@ class Services:
         width, height = self.VIDEO_SIZES[size]
         exports = self.config.exports_dir
         exports.mkdir(parents=True, exist_ok=True)
-        stem = re.sub(r"[^\w\- ]+", "", f"{b['p1'].get('name', 'p1')} vs {b['p2'].get('name', 'p2')}", flags=re.UNICODE).strip()[:60] or "battle"
-        stem = f"{stem} {b['id'][-6:]}"
+        if not stem:
+            stem = re.sub(r"[^\w\- ]+", "", f"{b['p1'].get('name', 'p1')} vs {b['p2'].get('name', 'p2')}", flags=re.UNICODE).strip()[:60] or "battle"
+            stem = f"{stem} {b['id'][-6:]}"
         webm = exports / f"{stem}.webm"
         done = threading.Event()
         state: dict[str, Any] = {"error": "", "info": {}}
         lines = len(str(b.get("log_text") or "").split("\n"))
-        # a generous ceiling: every line at the slowest pause (a real-time battle: its length at the replay's speed), plus the start
-        # and the end
-        if (b.get("mode") or "classic") == "realtime":
+        # a generous ceiling: the clip's length when the caller knows it; every line at the slowest pause (a real-time battle: its
+        # length at the replay's speed); plus the start and the end
+        if seconds is not None:
+            deadline = time.monotonic() + min(3600.0, 90 + seconds * 1.5)
+        elif (b.get("mode") or "classic") == "realtime":
             seconds = float((b.get("summary") or {}).get("seconds") or 0) or (b.get("replay") or {}).get("tick", 0) / 30 or 600
             deadline = time.monotonic() + min(3600.0, 90 + seconds * 1.5 / (2 if self.VIDEO_SPEEDS[speed] < 700 else 1))
         else:
@@ -3255,7 +3265,8 @@ class Services:
                 page.expose_function("__videoProgress", lambda x: progress(0.05 + 0.85 * max(0.0, min(1.0, float(x or 0)))))
                 page.expose_function("__videoDone", lambda info: (state.update(info=info or {}), done.set()))
                 page.expose_function("__videoError", lambda msg: (state.update(error=str(msg)[:300]), done.set()))
-                url = f"http://127.0.0.1:{self.config.port}/?lang={lang}#/video/{b['id']}?speed={self.VIDEO_SPEEDS[speed]}&record=1&lang={lang}"
+                path = url_path or f"video/{b['id']}?speed={self.VIDEO_SPEEDS[speed]}"
+                url = f"http://127.0.0.1:{self.config.port}/?lang={lang}#/{path}&record=1&lang={lang}"
                 page.goto(url, wait_until="load")
                 page.wait_for_function("window.__videoReady === true", timeout=60_000)
                 page.evaluate("window.videoRecord()")

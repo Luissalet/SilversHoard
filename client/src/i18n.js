@@ -730,7 +730,7 @@ const D = {
   // share
   share_help: ["Pega un código, un ejercicio, un resultado de un amigo o un equipo de Showdown, o sube un archivo .hoardtrainer, .hoardgym, .hoardleague, .silverexercise o una página jugable.", "Paste a code, an exercise, a friend's result or a Showdown team, or upload a .hoardtrainer, .hoardgym, .hoardleague, .silverexercise file or a playable page."],
   import_paste: ["Pegar", "Paste"],
-  import_paste_ph: ["SILVER1-…, SILVERWIN1-…, JSON, un equipo de Showdown o un enlace de pokepast.es", "SILVER1-…, SILVERWIN1-…, JSON, a Showdown team or a pokepast.es link"],
+  import_paste_ph: ["SILVER1-…, SILVERWIN1-…, SILVERMASS1-…, JSON, un equipo de Showdown o un enlace de pokepast.es", "SILVER1-…, SILVERWIN1-…, SILVERMASS1-…, JSON, a Showdown team or a pokepast.es link"],
   name_if_team: ["Nombre (si es un equipo)", "Name (if it is a team)"],
   format_if_team: ["Formato (si es un equipo)", "Format (if it is a team)"],
   import_file: ["Subir archivo", "Upload a file"],
@@ -757,7 +757,7 @@ const D = {
   how_file: ["Lo importa otro Silver's Hoard tal cual: equipos, IA, frases, reglas e imágenes.", "Another Silver's Hoard imports it as it is: teams, AI, lines, rules and pictures."],
   how_code: ["Un entrenador en una línea de texto para mandarlo por chat.", "A trainer in one line of text to send through a chat."],
   result_code: ["Código de resultado", "Result code"],
-  how_result: ["Lo que te devuelve tu amigo tras jugar la página. Al importarlo se repite aquí cada combate (por turnos o en tiempo real) y solo cuenta si la repetición acaba igual; se guardan sus combates, su medalla si ganó y su puesto en Amigos (un código cuenta una sola vez). Si el código es largo, te lo mandará como archivo.", "What your friend sends back after playing the page. Importing it replays every battle here (turn by turn or in real time), and it only counts if the replay ends the same way; their battles, their badge if they won and their place in Friends are saved (a code counts once); if the code is long, they will send it as a file."],
+  how_result: ["Lo que te devuelve tu amigo tras jugar la página. Al importarlo se repite aquí cada combate (por turnos o en tiempo real) y solo cuenta si la repetición acaba igual; se guardan sus combates, su medalla si ganó y su puesto en Amigos (un código cuenta una sola vez). Si el código es largo, te lo mandará como archivo. Una batalla campal que le mandaste devuelve un código SILVERMASS1- con su partida: al importarla se repite y queda en la tabla de partidas de esa batalla.", "What your friend sends back after playing the page. Importing it replays every battle here (turn by turn or in real time), and it only counts if the replay ends the same way; their battles, their badge if they won and their place in Friends are saved (a code counts once); if the code is long, they will send it as a file. A mass battle you sent comes back as a SILVERMASS1- code with their run: importing it replays it and adds it to that battle's table of runs."],
 
   // settings
   player_name: ["Tu nombre", "Your name"],

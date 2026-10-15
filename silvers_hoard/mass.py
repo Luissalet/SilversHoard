@@ -9,6 +9,11 @@ list of names, or the team of any of your trainers. Each Pokémon gets a set wor
 The engine runs the whole battle (engine/src/realtime/mass.mjs: deterministic, a few seconds at most) and the app keeps it as a
 small file in ``data/mass/<id>.json`` (the spec and the result); the screen replays it from the spec, unit by unit, and checks
 that it ends the same way. Ready-made battles (``PRESETS``) follow the battle royale videos that inspired the mode.
+
+A person can play one Pokémon of a battle (the screen records an input log; ``play`` replays it in the engine and keeps the result
+with the battle), here or on a playable page sent to a friend (``export_page``; the page gives a ``SILVERMASS1-`` code that
+``import_result`` replays the same way). Any battle or played battle records as a video clip (``video``, through the app's
+recorder).
 """
 from __future__ import annotations
 
@@ -19,6 +24,7 @@ import threading
 import time
 from typing import TYPE_CHECKING, Any, Optional
 
+from . import sharing
 from .errors import SilverError
 from .hoard_link.atomic import write_bytes_atomic
 from .hoard_link.ids import new_id
@@ -33,6 +39,7 @@ KINDS = ("dex", "top", "starters", "legendaries", "random", "species", "trainer"
 FLOORS = ("grass", "sand", "ice", "cave", "indoor", "water", "pyre", "summit", "meteor", "champion", "castle")
 MAX_UNITS = 1100      # the whole National Dex (1025) fits
 MAX_TEAMS = 16
+VIDEO_RATES = {"slow": 1, "normal": 2, "fast": 4}   # how many times faster than the battle a clip plays
 
 # ready-made battles: (id, Spanish title, English title, the battle's arguments)
 PRESETS: list[tuple[str, str, str, dict[str, Any]]] = [
@@ -183,14 +190,17 @@ class Mass:
     def start(self, *, title: str = "", again: str = "", **kw: Any) -> dict[str, Any]:
         """Build a battle, run it in the engine and keep it: {id, title, summary, ...}. `again`: the same battle as that one with
         another seed (the same Pokémon, a different fight)."""
+        spec = None
         if again:
             old = self._load(again)
             kw = {k: v for k, v in (old.get("args") or {}).items() if k != "seed"}
             title = title or old.get("title", "")
             if not kw:
-                raise SilverError("invalid", "That battle was made before battles could be repeated.")
+                # a battle that came from a friend's page: the same Pokémon with their sets, another seed
+                spec = {**old["spec"], "seed": new_id("m")[2:], "id": None}
+                spec.pop("id")
         preset = kw.get("preset") or ""
-        spec = self.compose(**kw)
+        spec = spec or self.compose(**kw)
         t0 = time.time()
         res = self.s.engine.call("mass_run", {"spec": spec}, timeout=180.0)
         if not title and preset:
@@ -207,14 +217,154 @@ class Mass:
                                       "units": doc["units"]})
         return self.card(doc, full=True)
 
+    def import_page(self, m: dict[str, Any]) -> dict[str, Any]:
+        """A mass battle that came inside a friend's playable page: kept here as a battle of its own (run again in this engine, so its
+        result and fingerprint are this app's)."""
+        spec = m.get("spec") if isinstance(m, dict) else None
+        if not isinstance(spec, dict) or not isinstance(spec.get("teams"), list) or not spec["teams"]:
+            raise SilverError("invalid", "This page has no mass battle inside.")
+        n = sum(len(t.get("units") or []) for t in spec["teams"] if isinstance(t, dict))
+        if not 2 <= n <= MAX_UNITS:
+            raise SilverError("invalid", f"A mass battle has from 2 to {MAX_UNITS} Pokémon.")
+        res = self.s.engine.call("mass_run", {"spec": spec}, timeout=180.0)
+        doc = {"id": new_id("mass"), "title": " ".join(str(m.get("title") or "Batalla campal").split())[:120], "preset": "", "args": {},
+               "created_at": time.time(), "mode": res["summary"]["mode"], "floor": spec.get("floor", "grass"), "units": res["summary"]["units"],
+               "spec": spec, "summary": res["summary"], "hash": res["hash"], "from": " ".join(str(m.get("from") or "").split())[:60]}
+        with self._lock:
+            self._save(doc)
+        self.s.emit("mass.finished", {"id": doc["id"], "title": doc["title"], "mode": doc["mode"], "winner": res["summary"].get("winner_name", ""),
+                                      "units": doc["units"]})
+        return self.card(doc, full=True)
+
+    # ------------------------------------------------------------ playing one of the Pokémon
+    @staticmethod
+    def _play_card(p: dict[str, Any]) -> dict[str, Any]:
+        return {k: v for k, v in p.items() if k != "inputs"}
+
+    def play(self, id_: str, *, unit: int, inputs: Any, hash_: str = "", challenger: str = "", source: str = "app") -> dict[str, Any]:
+        """A battle played by a person (``unit``: the Pokémon they played, by its place in the battle; ``inputs``: the screen's log).
+        The engine replays it; when ``hash_`` is given the replay must end on it. The result is kept with the battle."""
+        doc = self._load(id_)
+        rows = sharing.check_mass_rows(inputs)
+        n = sum(len(t["units"]) for t in doc["spec"]["teams"])
+        if not isinstance(unit, int) or isinstance(unit, bool) or not 0 <= unit < n:
+            raise SilverError("invalid", f"unit is the played Pokémon's place in the battle, from 0 to {n - 1}.")
+        res = self.s.engine.call("mass_run", {"spec": {**doc["spec"], "player": {"unit": unit}}, "inputs": rows}, timeout=180.0)
+        if hash_ and hash_ != res["hash"]:
+            raise SilverError("conflict", "Replayed here, this played battle does not end the way it says: it was altered or made with another version.")
+        sm = res["summary"]
+        me = sm.get("player") or {}
+        who = " ".join(str(challenger or "").split())[:60] or (self.s.settings.get("player_name") or "Tú")
+        for old in doc.get("plays") or []:
+            if old.get("hash") == res["hash"] and old.get("unit") == unit and old.get("challenger") == who:
+                raise SilverError("conflict", "This played battle is already recorded.")
+        play = {"id": new_id("play"), "challenger": who, "source": "friend" if source == "friend" else "app", "unit": unit,
+                "name": me.get("name", ""), "species": me.get("species", ""), "team_name": me.get("team_name", ""), "place": me.get("place", 0),
+                "of": sm["units"], "kos": me.get("kos", 0), "dealt": me.get("dealt", 0), "alive": bool(me.get("alive")),
+                "team_won": bool(me.get("team_won")), "winner_name": sm.get("winner_name", ""), "reason": sm.get("reason", ""),
+                "seconds": sm.get("seconds", 0), "hash": res["hash"], "created_at": time.time(), "inputs": sharing.encode_mass_inputs(rows)}
+        with self._lock:
+            doc = self._load(id_)
+            doc.setdefault("plays", []).append(play)
+            self._save(doc)
+        self.s.emit("mass.played", {"id": id_, "title": doc["title"], "challenger": who, "pokemon": play["name"], "place": play["place"],
+                                    "of": play["of"], "kos": play["kos"], "source": play["source"]})
+        return {**self._play_card(play), "summary": sm}
+
+    def plays(self, doc: dict[str, Any]) -> list[dict[str, Any]]:
+        """The battle's played runs, best first: a better place, then more knockouts, then more damage."""
+        return sorted((self._play_card(p) for p in doc.get("plays") or []), key=lambda p: (p["place"], -p["kos"], -p["dealt"], p["created_at"]))
+
+    def play_get(self, id_: str, play_id: str) -> dict[str, Any]:
+        """One played run with its input log (rows of [tick, mx, my, slot, ax, ay, roll]), to watch it again."""
+        doc = self._load(id_)
+        p = next((x for x in doc.get("plays") or [] if x.get("id") == play_id), None)
+        if not p:
+            raise SilverError("not_found", "That played battle does not exist.")
+        return {**self._play_card(p), "inputs": sharing.decode_mass_inputs(p.get("inputs") or "")}
+
+    def play_delete(self, id_: str, play_id: str) -> dict[str, Any]:
+        with self._lock:
+            doc = self._load(id_)
+            left = [p for p in doc.get("plays") or [] if p.get("id") != play_id]
+            if len(left) == len(doc.get("plays") or []):
+                raise SilverError("not_found", "That played battle does not exist.")
+            doc["plays"] = left
+            self._save(doc)
+        return {"deleted": play_id}
+
+    # ------------------------------------------------------------ friends
+    def export_page(self, id_: str) -> dict[str, Any]:
+        """A playable page with this battle inside: a friend opens it in any browser, watches the battle or plays one of its Pokémon,
+        and sends back the code the page gives (``SILVERMASS1-``)."""
+        from .services import PLAY_TEMPLATE
+        doc = self._load(id_)
+        owner = self.s.settings["player_name"]
+        data = {"kind": "mass", "from": owner, "sprite_server": self.s.settings["sprite_server"], "sprite_set": self.s.settings["sprite_set"],
+                "mass": {"id": doc["id"], "title": doc["title"], "mode": doc["mode"], "floor": doc.get("floor", "grass"), "units": doc.get("units", 0),
+                         "spec": doc["spec"], "hash": doc.get("hash", ""), "from": owner, "plays": self.plays(doc)[:10]}}
+        html = sharing.playable_page(PLAY_TEMPLATE, data)
+        # a new file every time: an earlier page (already sent, maybe) is never overwritten by another battle with the same title
+        filename = sharing.safe_filename(f"{doc['title'][:40]} - Silver {new_id('x')[-8:]}", "html")
+        (self.s.config.exports_dir / filename).write_text(html, encoding="utf-8", newline="\n")
+        return {"file": filename, "bytes": len(html.encode("utf-8")), "url": f"/api/exports/{filename}", "name": doc["title"]}
+
+    def import_result(self, r: dict[str, Any]) -> dict[str, Any]:
+        """A friend's ``SILVERMASS1-`` code: which battle, who played, which Pokémon, the input log and where it ended. Replayed here;
+        only what the replay says is kept."""
+        if not isinstance(r, dict) or r.get("kind") != "mass":
+            raise SilverError("invalid", "This is not the code of a played mass battle.")
+        mid = str(r.get("mass_id") or "")
+        try:
+            self._load(mid)
+        except SilverError:
+            raise SilverError("not_found", f"This code is for a mass battle you do not have here: {str(r.get('title') or mid)[:120]}") from None
+        unit = r.get("unit")
+        play = self.play(mid, unit=unit if type(unit) is int else -1, inputs=sharing.decode_mass_inputs(r.get("inputs") or ""),
+                         hash_=str(r.get("hash") or ""), challenger=str(r.get("challenger") or "Amigo"), source="friend")
+        return {"mass_id": mid, "play": play}
+
+    # ------------------------------------------------------------ video
+    def video(self, id_: str, *, play_id: str = "", speed: str = "normal", size: str = "720p", lang: str = "", lumiere: bool = False) -> dict[str, Any]:
+        """Record a battle (or one played run of it) as a video clip, a job: the app's own screen of the battle, alone on a 16:9
+        stage with the camera following the action, played by the app's recorder (services.battle_video's). speed: slow (as it
+        happened), normal (twice as fast) or fast (four times)."""
+        doc = self._load(id_)
+        seconds = float((doc.get("summary") or {}).get("seconds") or 0)
+        who = ""
+        if play_id:
+            p = self.play_get(id_, play_id)
+            seconds = float(p.get("seconds") or seconds)
+            who = p["challenger"]
+        if speed not in VIDEO_RATES:
+            raise SilverError("invalid", f"speed is one of {', '.join(VIDEO_RATES)}")
+        s = self.s
+        if size not in s.VIDEO_SIZES:
+            raise SilverError("invalid", f"size is one of {', '.join(s.VIDEO_SIZES)}")
+        status = s.video_status()
+        if not status["playwright"] or not status["browser"]:
+            raise SilverError("unavailable", "Recording needs Playwright and Chrome or Edge on this computer.", hint=status["hint"])
+        lang = lang if lang in ("es", "en") else str(s.settings.get("language") or "es")[:2]
+        rate = VIDEO_RATES[speed]
+        path = f"video/{id_}?mspeed={rate}" + (f"&play={play_id}" if play_id else "")
+        clean = lambda text, n: re.sub(r"[^\w\- ]+", "", text, flags=re.UNICODE).strip()[:n]  # noqa: E731
+        stem = clean(doc["title"], 50) or "mass"
+        if who:
+            stem += " - " + clean(who, 20)
+        stem = f"{stem} {(play_id or id_)[-6:]}"
+        title = f"Vídeo: {doc['title']}" + (f" ({who})" if who else "")
+        return s._job("video", title, {"mass_id": id_, "play_id": play_id, "speed": speed, "size": size, "lumiere": lumiere},
+                      lambda jid, progress, cancelled: s._record_video({"id": id_}, speed, size, lang, lumiere, status, progress, cancelled,
+                                                                       url_path=path, stem=stem, seconds=seconds / rate))
+
     def card(self, doc: dict[str, Any], *, full: bool = False) -> dict[str, Any]:
         s = doc.get("summary") or {}
         out = {"id": doc["id"], "title": doc["title"], "preset": doc.get("preset", ""), "created_at": doc["created_at"], "mode": doc["mode"],
                "floor": doc.get("floor", "grass"), "units": doc.get("units", 0), "winner_name": s.get("winner_name", ""), "reason": s.get("reason", ""),
                "seconds": s.get("seconds", 0), "teams": [{"name": t["name"], "color": t["color"], "size": t["size"], "alive": t["alive"]} for t in s.get("teams", [])][:16],
-               "mvp": (s.get("mvp") or {}).get("name", "")}
+               "mvp": (s.get("mvp") or {}).get("name", ""), "played": len(doc.get("plays") or []), "from": doc.get("from", "")}
         if full:
-            out.update({"spec": doc["spec"], "summary": s, "hash": doc.get("hash", "")})
+            out.update({"spec": doc["spec"], "summary": s, "hash": doc.get("hash", ""), "plays": self.plays(doc)})
         return out
 
     def get(self, id_: str) -> dict[str, Any]:

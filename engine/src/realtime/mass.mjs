@@ -1,6 +1,11 @@
 // Mass battles ("batalla campal"): dozens to hundreds of Pokémon on one field at once, every one of them driven by its own AI,
 // in the style of the big battle simulators: everybody against everybody, teams (two armies, nine generations...) or a few
-// giants against a crowd. Separate from the one-on-one real-time battles (sim.mjs): no trainers, no switching, no inputs.
+// giants against a crowd. Separate from the one-on-one real-time battles (sim.mjs): no trainers, no switching.
+//
+// One Pokémon of the crowd can be played by a person (spec.player.unit): instead of its AI it follows an input log, rows of
+// [tick, mx, my, slot, ax, ay, roll] in integers (direction in thousandths, aim point in centimeters, slot -1 for none, roll 0/1).
+// The person walks, fires a move at the aim point and rolls out of the way (a short dash that nothing hits). The log is all a
+// played battle needs to be replayed: the screen records it, the app replays it and compares the fingerprint.
 //
 // The rules borrow from real time: the moves are the same profiles (moves.mjs: cooldown, wind-up, shape, reach), damage follows the
 // games' formula with types, STAB, critical hits, a handful of abilities and the common statuses, and there is no accuracy: a move
@@ -36,6 +41,11 @@ const DAMAGE_SCALE = 0.22;               // crowds focus their attacks: every hi
 const DROP_DELAY = 15;                   // ticks between marking a spot and the move landing there
 const RECOVER_TICKS = 6;                 // after releasing a move, a short pause before the next decision
 const RECHARGE_TICKS = Math.round(1.5 * TPS);
+const ROLL_TICKS = 6;                    // a person's roll: a 3.6 m dash over 0.2 s...
+const ROLL_SPEED = 0.6;                  // ...meters per tick
+const ROLL_SAFE = 10;                    // ticks nothing hits the one rolling
+const ROLL_EVERY = Math.round(1.4 * TPS);
+const INPUT_STALE = 10;                  // a move or roll pressed while busy waits this many ticks at most
 const STALEMATE_TICKS = 20 * TPS;        // a few left who cannot hurt each other (a Ghost and a Normal type, healers): 20 s with no damage ends it
 const HEALS = new Set(['recover', 'roost', 'softboiled', 'milkdrink', 'slackoff', 'synthesis', 'moonlight', 'morningsun', 'shoreup',
   'healorder', 'rest', 'wish', 'strengthsap', 'lunarblessing', 'junglehealing', 'lifedew']);
@@ -129,9 +139,10 @@ function formation(spec, units, arena, rng) {
 export class MassBattle {
   /**
    * spec: {id, seed, format, level_rules, mode: ffa|teams|boss, time_limit (s), floor,
-   *        teams: [{name, color, units: [{set, boss: {hp, size, power} | null}]}]}
+   *        teams: [{name, color, units: [{set, boss: {hp, size, power} | null}]}], player: {unit} (optional)}
+   * inputs: the person's log when replaying a played battle (live, rows come one by one through input()).
    */
-  constructor(spec) {
+  constructor(spec, {inputs = []} = {}) {
     this.spec = {...spec};
     this.id = spec.id || `mass${Date.now().toString(36)}`;
     this.seed = String(spec.seed || this.id);
@@ -181,6 +192,39 @@ export class MassBattle {
     this.order = [];             // units in the order they fainted
     this.grid = new Map();
     this.lastDamage = 0;
+    // a person playing one of the Pokémon
+    const pu = spec.player && spec.player.unit !== undefined && spec.player.unit !== null ? Number(spec.player.unit) : -1;
+    if (pu !== -1 && !(Number.isInteger(pu) && pu >= 0 && pu < this.units.length)) throw new RtError('invalid', 'The played Pokémon is not in this battle.');
+    this.player = pu;
+    if (pu >= 0) this.units[pu].ctl = {mx: 0, my: 0, use: null, roll: -1};
+    this.inputs = [];
+    this.ki = 0;
+    for (const row of inputs || []) this.input(row);
+  }
+
+  /** One row of the person's log ([tick, mx, my, slot, ax, ay, roll]); it applies when the battle reaches its tick. */
+  input(row) {
+    if (this.player < 0 || !Array.isArray(row) || row.length < 7) return false;
+    const r = row.slice(0, 7).map((v) => Math.trunc(Number(v) || 0));
+    const last = this.inputs[this.inputs.length - 1];
+    if (r[0] <= this.t || (last && r[0] < last[0])) return false;
+    r[1] = Math.max(-1000, Math.min(1000, r[1]));
+    r[2] = Math.max(-1000, Math.min(1000, r[2]));
+    r[3] = r[3] >= 0 && r[3] < 4 ? r[3] : -1;
+    r[6] = r[6] ? 1 : 0;
+    this.inputs.push(r);
+    return true;
+  }
+
+  applyInputs() {
+    const c = this.player >= 0 ? this.units[this.player].ctl : null;
+    while (this.ki < this.inputs.length && this.inputs[this.ki][0] <= this.t) {
+      const [, mx, my, slot, ax, ay, roll] = this.inputs[this.ki++];
+      c.mx = mx / 1000;
+      c.my = my / 1000;
+      if (slot >= 0) c.use = {slot, x: ax / 100, y: ay / 100, t: this.t};
+      if (roll) c.roll = this.t;
+    }
   }
 
   makeUnit(set, team, boss) {
@@ -205,6 +249,7 @@ export class MassBattle {
       maxhp, hp: maxhp, x: 0, y: 0, fx: 1, fy: 0, target: -1, act: null, busyUntil: 0, moving: false,
       status: '', statusUntil: 0, toxN: 0, nextChip: 0, boosts: {atk: 0, def: 0, spa: 0, spd: 0, spe: 0}, boostUntil: 0,
       fainted: false, diedAt: 0, killer: -1, kos: 0, dealt: 0, taken: 0, uses: 0, boostsUsed: 0,
+      ctl: null, inv: 0, rollUntil: 0, rollReady: 0, rdx: 0, rdy: 0,
     };
   }
 
@@ -365,6 +410,7 @@ export class MassBattle {
   step() {
     if (this.ended) return;
     this.t++;
+    if (this.player >= 0) this.applyInputs();
     this.rebuildGrid();
     for (const u of this.units) if (!u.fainted) this.updateUnit(u);
     this.updateProjectiles();
@@ -391,6 +437,7 @@ export class MassBattle {
       u.moving = false;
       return;
     }
+    if (u.ctl) { this.controlled(u); return; }
     if (t < u.busyUntil) { u.moving = false; return; }
     // choose a target now and then (or when the one it had is gone)
     let f = u.target >= 0 ? this.units[u.target] : null;
@@ -411,6 +458,11 @@ export class MassBattle {
     let mx = 0;
     let my = 0;
     if (d > want + 0.3) { mx = u.fx; my = u.fy; } else if (d < want * 0.5 && want > 2) { mx = -u.fx * 0.6; my = -u.fy * 0.6; }
+    this.walk(u, mx, my);
+  }
+
+  /** A step towards (mx, my) (a direction, length up to 1) at the unit's speed, pushed apart from whoever it overlaps. */
+  walk(u, mx, my) {
     let px = 0;
     let py = 0;
     for (const o of this.near(u.x, u.y, u.r + 1.2)) {
@@ -432,16 +484,79 @@ export class MassBattle {
     u.y = Math.min(this.arena.h - u.r, Math.max(u.r, u.y + vy));
   }
 
-  windup(u, slot, f) {
+  /** The Pokémon a person plays: its moves go off at the aim point when they are ready, it walks where the stick points and it
+   * rolls (a short dash nothing hits) when asked. Busy (winding up, recovering) it keeps the last press for a moment. */
+  controlled(u) {
+    const t = this.t;
+    const c = u.ctl;
+    if (u.rollUntil > t) {
+      u.x = Math.min(this.arena.w - u.r, Math.max(u.r, u.x + u.rdx * ROLL_SPEED));
+      u.y = Math.min(this.arena.h - u.r, Math.max(u.r, u.y + u.rdy * ROLL_SPEED));
+      u.moving = true;
+      return;
+    }
+    if (c.use && t - c.use.t > INPUT_STALE) c.use = null;
+    if (c.roll >= 0 && t - c.roll > INPUT_STALE) c.roll = -1;
+    if (t < u.busyUntil) { u.moving = false; return; }
+    if (c.roll >= 0 && t >= u.rollReady) {
+      c.roll = -1;
+      const m = Math.sqrt(c.mx * c.mx + c.my * c.my);
+      u.rdx = m > 0.05 ? c.mx / m : u.fx;
+      u.rdy = m > 0.05 ? c.my / m : u.fy;
+      u.fx = u.rdx;
+      u.fy = u.rdy;
+      u.rollUntil = t + ROLL_TICKS;
+      u.inv = t + ROLL_SAFE;
+      u.rollReady = t + ROLL_EVERY;
+      this.ev('roll', {u: u.i, dx: u.rdx, dy: u.rdy});
+      u.moving = true;
+      return;
+    }
+    if (c.use) {
+      const {slot, x, y} = c.use;
+      c.use = null;
+      if (slot < u.moves.length && u.cds[slot] <= t) {
+        // the foe closest to where the person aims, for the record and for moves that need someone (heals and boosts need nobody)
+        let f = null;
+        let bd = 16;
+        for (const o of this.near(x, y, 4)) {
+          if (o.fainted || !this.foes(u, o)) continue;
+          const d = (o.x - x) ** 2 + (o.y - y) ** 2;
+          if (d < bd) { bd = d; f = o; }
+        }
+        const ax = Math.min(this.arena.w, Math.max(0, x));
+        const ay = Math.min(this.arena.h, Math.max(0, y));
+        const dx = ax - u.x;
+        const dy = ay - u.y;
+        const d = Math.sqrt(dx * dx + dy * dy);
+        if (d > 0.01) { u.fx = dx / d; u.fy = dy / d; }
+        this.windup(u, slot, f, {x: ax, y: ay});
+        u.moving = false;
+        return;
+      }
+    }
+    const m = Math.sqrt(c.mx * c.mx + c.my * c.my);
+    if (m > 0.05) { u.fx = c.mx / m; u.fy = c.my / m; }
+    this.walk(u, c.mx, c.my);
+  }
+
+  windup(u, slot, f, aim = null) {
     const p = u.moves[slot];
-    // aimed where the target will be when the move gets there (a little ahead of a walking target)
-    const lead = p.speed ? Math.min(1, Math.sqrt(this.dist2(u, f)) / p.speed) * 0.5 : 0;
-    const tx = f.x + (f.moving ? f.fx * f.walk * lead : 0);
-    const ty = f.y + (f.moving ? f.fy * f.walk * lead : 0);
-    u.act = {slot, release: this.t + Math.max(1, Math.round(p.windup * (u.boss ? 0.7 : 1))), target: f.i, tx, ty};
+    let tx;
+    let ty;
+    if (aim) {
+      tx = aim.x;
+      ty = aim.y;
+    } else {
+      // aimed where the target will be when the move gets there (a little ahead of a walking target)
+      const lead = p.speed ? Math.min(1, Math.sqrt(this.dist2(u, f)) / p.speed) * 0.5 : 0;
+      tx = f.x + (f.moving ? f.fx * f.walk * lead : 0);
+      ty = f.y + (f.moving ? f.fy * f.walk * lead : 0);
+    }
+    u.act = {slot, release: this.t + Math.max(1, Math.round(p.windup * (u.boss ? 0.7 : 1))), target: f ? f.i : -1, tx, ty};
     u.cds[slot] = this.t + u.final[slot] * (u.status === 'par' ? 1.5 : 1);
     u.uses++;
-    this.ev('use', {u: u.i, slot, move: p.name, type: p.type, shape: p.shape, target: f.i});
+    this.ev('use', {u: u.i, slot, move: p.name, type: p.type, shape: p.shape, target: f ? f.i : -1});
   }
 
   release(u) {
@@ -450,7 +565,6 @@ export class MassBattle {
     u.busyUntil = this.t + RECOVER_TICKS;
     const p = u.moves[slot];
     const kind = u.kinds[slot];
-    const f = this.units[target];
     if (kind === 'heal') {
       const frac = p.id === 'rest' ? 1 : p.heal ? p.heal[0] / p.heal[1] : 0.5;
       this.heal(u, Math.floor(u.maxhp * frac * (u.boss ? 0.3 : 1)));
@@ -598,6 +712,7 @@ export class MassBattle {
   // ------------------------------------------------------------ effects
   hit(att, def, p, {spread = false} = {}) {
     if (def.fainted) return;
+    if (def.inv > this.t) { this.ev('dodge', {u: def.i, by: att.i}); return; }
     const raw = this.damage(att, def, p, {spread});
     const dmg = Math.abs(raw);
     if (!dmg) { this.ev('immune', {u: def.i, by: att.i}); return; }
@@ -622,6 +737,7 @@ export class MassBattle {
 
   statusHit(att, def, p) {
     if (def.fainted) return;
+    if (def.inv > this.t) { this.ev('dodge', {u: def.i, by: att.i}); return; }
     if (p.status) this.setStatus(def, p.status);
     if (p.boosts) this.lower(def, p.boosts);
   }
@@ -730,7 +846,9 @@ export class MassBattle {
       seconds: Math.round(((u.fainted ? u.diedAt : this.t) / TPS) * 10) / 10, killer: u.killer >= 0 ? this.units[u.killer].name : '', boss: !!u.boss});
     const ranking = this.units.map(row).sort((a, b) => a.place - b.place);
     const mvp = this.units.slice().sort((a, b) => b.kos - a.kos || b.dealt - a.dealt || a.i - b.i)[0];
-    return {version: this.version, mode: this.mode, ended: this.ended, winner: this.winner,
+    const me = this.player >= 0 ? this.units[this.player] : null;
+    const player = me ? {...row(me), team_won: this.ended && this.winner === me.team, inputs: this.inputs.length} : null;
+    return {version: this.version, player, mode: this.mode, ended: this.ended, winner: this.winner,
       winner_name: this.winner >= 0 ? this.teams[this.winner].name : '', reason: this.reason, seconds: Math.round((this.t / TPS) * 10) / 10,
       ticks: this.t, units: this.units.length, teams, ranking: ranking.slice(0, 50), mvp: mvp ? row(mvp) : null,
       ko_feed: this.events.filter((e) => e.k === 'ko').slice(-30).map((e) => ({t: e.t, victim: this.units[e.u].name, by: e.by >= 0 ? this.units[e.by].name : ''}))};
@@ -746,9 +864,10 @@ export class MassBattle {
   }
 }
 
-/** Run a mass battle to its end (or `maxSeconds`): the battle object, for its summary and hash. */
-export function massRun(spec, {maxSeconds = 0} = {}) {
-  const b = new MassBattle(spec);
+/** Run a mass battle to its end (or `maxSeconds`): the battle object, for its summary and hash. A played battle (spec.player) is
+ * replayed from the person's input log. */
+export function massRun(spec, {maxSeconds = 0, inputs = []} = {}) {
+  const b = new MassBattle(spec, {inputs});
   const cap = maxSeconds ? Math.min(b.timeLimit, maxSeconds * TPS) : b.timeLimit;
   while (!b.ended && b.t < cap) b.step();
   return b;

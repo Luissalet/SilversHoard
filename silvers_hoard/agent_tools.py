@@ -29,6 +29,7 @@ Real time: battle_start, challenge_start, series_start, tournament_start and ben
 Sharing: export (fmt file = .hoardtrainer/.hoardgym/.hoardleague, code = a share code for a chat, page = one HTML file a friend opens in a browser to fight the gym or trainer, turn by turn or in real time as friend_mode says, weekly=true for this week's challenge with the same luck for everyone, paste = Showdown text). import takes any of those back, plus the result codes friends send after playing a page (every battle in it is replayed and checked first, then the badge and the leaderboard entry are recorded; a code counts once). leaderboard ranks friends per gym or trainer and per week.
 progress_get shows a trainer's record, streaks, MVPs, achievements and Pokédex (progress_list ranks them).
 sets_popular gives Smogon's sets and the ladder usage of a species (for the team builder); usage_top and sample_team rank the format's Pokémon and build a team from them.
+Mass battles: mass_start runs one (up to 1100 Pokémon, each with its AI); a person can play one of its Pokémon on its page and mass_play records a run from an input log; mass_export makes a page a friend watches or plays (their SILVERMASS1- code goes to import); mass_video records a battle or a run as a clip.
 damage_calc measures one Pokémon's moves against another (rolls, crits, KOs) with the game's own formula.
 battle_video records a finished battle's replay as an MP4 clip with its sound (a job; lumiere=true sends it to the video editor).
 Move animations: the turn-based screen plays Pokémon Showdown's own animation of each move (934) or Silver's effects, as the viewer picks in Settings; fx_cache shows the cached effect pictures and prefetch=true downloads them all for battles without internet.
@@ -417,6 +418,29 @@ class MassIdArg(BaseModel):
 class MassCheckArgs(BaseModel):
     id: str = Field(..., min_length=5, max_length=60, description="A mass battle id.")
     hash: str = Field(..., max_length=40, description="The fingerprint a screen's own run of the battle ended with.")
+
+
+class MassPlayArgs(BaseModel):
+    id: str = Field(..., min_length=5, max_length=60, description="A mass battle id.")
+    unit: int = Field(..., ge=0, le=1099, description="The played Pokémon's place in the battle (its index in mass_get's spec, team after team).")
+    inputs: list[list[int]] = Field(default_factory=list, max_length=60000,
+                                    description="The person's log: rows [tick, mx, my, slot, ax, ay, roll] — direction in thousandths (-1000..1000), move slot 0-3 or -1, aim point in centimeters, roll 0/1; ticks are 1/30 s and never go back.")
+    hash: str = Field("", max_length=40, description="The fingerprint the screen ended on (empty: not checked).")
+    challenger: str = Field("", max_length=60, description="Who played (empty: the app's player name).")
+
+
+class MassPlayIdArgs(BaseModel):
+    id: str = Field(..., min_length=5, max_length=60, description="A mass battle id.")
+    play_id: str = Field(..., min_length=5, max_length=60, description="A played run of it (mass_get's plays).")
+
+
+class MassVideoArgs(BaseModel):
+    id: str = Field(..., min_length=5, max_length=60, description="A mass battle id.")
+    play_id: str = Field("", max_length=60, description="A played run of it (empty: the battle as the AI fought it).")
+    speed: Literal["slow", "normal", "fast"] = Field("normal", description="slow: as it happened; normal: twice as fast; fast: four times.")
+    size: Literal["720p", "1080p"] = "720p"
+    lang: Literal["", "es", "en"] = Field("", description="Language of the texts; empty = the app's.")
+    lumiere: bool = Field(False, description="Also send the clip to Lumiere's Hoard, the family's video editor.")
 
 
 class FriendIdArg(BaseModel):
@@ -1127,6 +1151,25 @@ TOOLS: list[Tool] = [
     Tool("mass_delete", _d("Delete a mass battle. Borrar batalla campal."), MassIdArg, W, lambda s, a: s.mass.delete(a.id)),
     Tool("mass_check", _d("Compare a screen's run of a mass battle with the engine's. Comprobar batalla campal."),
          MassCheckArgs, R, lambda s, a: s.mass.check(a.id, a.hash)),
+    Tool("mass_play", _d("Record a mass battle played as one of its Pokémon, from the input log. Jugar la batalla campal.",
+                         "The engine replays the log (with hash: it must end on it) and keeps the result with the battle: place, KOs, damage, "
+                         "whether the team won. A person plays from the battle's page (#/campal/<id>, Jugar) with WASD or a stick, 1-4 to fire at the "
+                         "mouse or the nearest foe and Space to roll.",
+                         synonyms="controlar un pokémon, jugar como, partida jugada, mando en la batalla campal"),
+         MassPlayArgs, W, lambda s, a: s.mass.play(a.id, unit=a.unit, inputs=a.inputs, hash_=a.hash, challenger=a.challenger, source="app"), 240.0),
+    Tool("mass_play_get", _d("A played run of a mass battle with its input log, to watch it again. Ver partida jugada."),
+         MassPlayIdArgs, R, lambda s, a: s.mass.play_get(a.id, a.play_id)),
+    Tool("mass_play_delete", _d("Delete a played run of a mass battle. Borrar partida jugada."),
+         MassPlayIdArgs, W, lambda s, a: s.mass.play_delete(a.id, a.play_id)),
+    Tool("mass_export", _d("A playable page with a mass battle inside, for a friend to watch or play. Página de batalla campal.",
+                           "One HTML file in the exports folder; the friend opens it in any browser, plays one Pokémon and sends back a "
+                           "SILVERMASS1- code, which import replays and records as a played run.",
+                           synonyms="mandar batalla campal a un amigo, compartir batalla campal"),
+         MassIdArg, W, lambda s, a: s.mass.export_page(a.id)),
+    Tool("mass_video", _d("Record a mass battle, or a played run of it, as a video clip with its sound (a job). Vídeo campal.",
+                          "MP4 in the exports folder (job_get gives its url and path); the camera follows the action; lumiere=true hands it to the video editor.",
+                          synonyms="grabar batalla campal, vídeo del battle royale"),
+         MassVideoArgs, WD, lambda s, a: s.mass.video(a.id, play_id=a.play_id, speed=a.speed, size=a.size, lang=a.lang, lumiere=a.lumiere), 60.0),
     Tool("friends_league", _d("The friends' league: points from the results friends bring back, by season. Liga de amigos.",
                               "Per friend and gym or trainer the best result counts: full win 3 (+1 replay-checked), each battle won 1, the week's challenge +1.",
                               synonyms="clasificación de amigos, temporada, puntos, ranking"), SeasonArg, R, lambda s, a: s.friends.league(a.season)),

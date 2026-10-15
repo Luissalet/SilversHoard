@@ -96,7 +96,7 @@ export function makeSprites({ base = "", server = "", set = "gen5ani", dexNum = 
   const pixelated = set === "gen5" || set === "gen5ani";
   // how much the pictures of each set are enlarged on the field: [own side (back), opposing side (front)]
   const SCALE = { gen5: [1.75, 1.4], gen5ani: [1.75, 1.4], ani: [1.05, 0.9], home: [0.62, 0.5], dex: [1.1, 0.9], champions: [0.62, 0.5], za: [0.62, 0.5], sv: [0.62, 0.5] };
-  return { pokemon, fallback, trainer, portrait, pixelated, scale: SCALE[set] || SCALE.gen5 };
+  return { pokemon, fallback, trainer, portrait, pixelated, scale: SCALE[set] || SCALE.gen5, server };
 }
 
 export const STAT_NAMES = {
