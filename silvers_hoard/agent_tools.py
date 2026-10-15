@@ -27,7 +27,7 @@ Real time: battle_start, challenge_start, series_start and tournament_start take
 Sharing: export (fmt file = .hoardtrainer/.hoardgym/.hoardleague, code = a share code for a chat, page = one HTML file a friend opens in a browser to fight the gym or trainer, turn by turn or in real time as friend_mode says, paste = Showdown text). import takes any of those back, plus the result codes friends send after playing a page (records their badge; real-time battles in it are replayed and checked first).
 progress_get shows a trainer's record, streaks, MVPs, achievements and Pokédex (progress_list ranks them).
 damage_calc measures one Pokémon's moves against another (rolls, crits, KOs) with the game's own formula.
-Avatars: trainer_sprites_search (Showdown trainer sprites), avatar_from_photo (a photo on this computer into pixel art here) or avatar_draw (Prospero's Hoard draws one from up to 4 photos and/or a description in the games' art style, with the references of avatar_style_get; a background job)."""
+Avatars: trainer_sprites_search (Showdown trainer sprites), avatar_from_photo (a photo on this computer into pixel art here) or avatar_draw (Prospero's Hoard draws one from up to 4 photos and/or a description in the games' art style, with the references of avatar_style_get; a background job). avatar_poses_draw draws a trainer's own sprite again from behind (shown on the player's side of a battle) and in a victory pose (shown when it wins); avatar_pose_set picks another candidate."""
 
 
 def _d(first: str, detail: str = "", synonyms: str = "") -> str:
@@ -458,6 +458,25 @@ class AvatarDrawArgs(BaseModel):
     style: bool = Field(True, description="Send the art-style references too (avatar_style_get), so it is drawn in the games' style.")
 
 
+class AvatarPosesArgs(BaseModel):
+    trainer_id: str = Field("", max_length=80, description="The trainer whose current sprite gets the poses.")
+    avatar: str = Field("", max_length=200, description="Or the sprite itself: file:<name> (your own sprites only).")
+    poses: list[Literal["back", "win"]] = Field(default_factory=list, max_length=2, description="back (from behind), win (victory pose); empty = both.")
+    count: int = Field(1, ge=1, le=4, description="Pictures per pose; the first is used, the rest are candidates.")
+    style: bool = Field(True, description="Send the art-style references too (avatar_style_get).")
+
+
+class AvatarPosesGetArgs(BaseModel):
+    trainer_id: str = Field("", max_length=80)
+    avatar: str = Field("", max_length=200, description="Or the sprite itself: file:<name>.")
+
+
+class AvatarPoseSetArgs(BaseModel):
+    avatar: str = Field(..., max_length=200, description="The sprite the pose belongs to: file:<name>.")
+    pose: Literal["back", "win"]
+    file: str = Field("", max_length=200, description="A picture in the avatars folder (file:<name>, e.g. another candidate); empty drops the pose.")
+
+
 class AvatarStyleArgs(BaseModel):
     sprites: Optional[str] = Field(None, max_length=200, description="Showdown trainer sprite names, comma separated (up to 3); empty = none.")
     add_paths: list[str] = Field(default_factory=list, max_length=3, description="Pictures on this computer to add as style references.")
@@ -700,6 +719,14 @@ TOOLS: list[Tool] = [
                            synonyms="sprite con ia, dibujar entrenador, sprite desde fotos, sprite de un famoso"), AvatarDrawArgs, WD,
          lambda s, a: s.avatar_draw([_read_path(p) for p in a.paths], description=a.description, trainer_id=a.trainer_id, count=a.count,
                                     style=a.style), 120.0),
+    Tool("avatar_poses_draw", _d("Have Prospero's Hoard draw a trainer's own sprite from behind and in a victory pose (a job). Poses del sprite.",
+                                 "The back view stands on the player's side of a battle and the victory pose shows when it wins.",
+                                 synonyms="sprite de espaldas, pose de victoria, poses, back sprite"), AvatarPosesArgs, WD,
+         lambda s, a: s.avatar_poses_draw(trainer_id=a.trainer_id, avatar=a.avatar, poses=list(a.poses), count=a.count, style=a.style), 120.0),
+    Tool("avatar_poses_get", _d("The poses a trainer's sprite has (back view, victory). Ver poses.", synonyms="poses del sprite"), AvatarPosesGetArgs, R,
+         lambda s, a: s.avatar_poses_get(trainer_id=a.trainer_id, avatar=a.avatar)),
+    Tool("avatar_pose_set", _d("Use another picture for one pose of a sprite, or drop it. Cambiar pose.", synonyms="elegir pose, quitar pose"),
+         AvatarPoseSetArgs, WD, lambda s, a: s.avatar_pose_set(avatar=a.avatar, pose=a.pose, file=a.file)),
     Tool("avatar_style_get", _d("The art-style references drawn sprites follow: your pictures, then trainer sprites. Estilo de los sprites.",
                                  synonyms="referencias de estilo, estilo anime, estilo de los juegos"), Empty, R,
          lambda s, a: s.avatar_style_get()),
