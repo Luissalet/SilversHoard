@@ -9,6 +9,7 @@ import {viewLines} from './match.mjs';
 import {freeze} from './ai.mjs';
 import {RtBattle, eventLines, prepareRtTeam, rtRun} from './realtime/sim.mjs';
 import {cooldownTable} from './realtime/moves.mjs';
+import {damageCalc} from './calc.mjs';
 
 const matches = new Map();
 const MAX_OPEN = 64;
@@ -45,6 +46,7 @@ const handlers = {
   summary: (a) => ({pokemon: core.teamSummary(core.importTeam(a.sets), a.format || 'gen9customgame')}),
   dex_search: (a) => ({results: core.dexSearch(a.kind || 'species', a.query || '', {gen: a.gen || 9, limit: a.limit || 30, species: a.species || ''})}),
   species: (a) => core.speciesInfo(a.name, a.gen || 9),
+  damage_calc: (a) => damageCalc(a),
   match_start: (a) => {
     const m = new Match(a.spec, a.snapshot || null);
     if (!a.snapshot) m.advance();
