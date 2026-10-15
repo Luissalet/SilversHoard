@@ -12,6 +12,7 @@ import { useContextProvider, usePoll } from "../components/hooks.js";
 import { Avatar, GymBadge, useSeats } from "../components/silver.jsx";
 import AiNotes from "../components/AiNotes.jsx";
 import VideoExport from "../components/VideoExport.jsx";
+import { CupStrip } from "./Copa.jsx";
 // the real-time screen carries the battle engine: loaded only when a real-time battle opens
 // After the app is rebuilt the old chunk name is gone; reload once to pick up the new one instead of showing a blank page.
 const CombateRt = React.lazy(() => import("./CombateRt.jsx").then((m) => {
@@ -215,11 +216,12 @@ export default function Combate({ param }) {
             ? <a className="btn btn-primary" href={`#/combate/${battle.run.current.battle_id}`}>{t("run_go_current")}</a>
             : <Busy busy={busy.next} className="btn btn-primary" onClick={nextStage}>{t("next_stage")}</Busy>)}
           {battle.status === "ended" && battle.log_length > 0 && <VideoExport battle={battle} />}
-          {battle.status === "ended" && !battle.run && battle.kind !== "friend" && <Busy busy={busy.rematch} className="btn" onClick={rematch}>{t("rematch")}</Busy>}
+          {battle.status === "ended" && !battle.run && !battle.cup && battle.kind !== "friend" && <Busy busy={busy.rematch} className="btn" onClick={rematch}>{t("rematch")}</Busy>}
           <a className="btn" href="#/combatir">{t("new_battle")}</a>
         </div>
       </div>
       <RunStrip run={battle.run} />
+      <CupStrip cup={battle.cup} battle={battle} />
       {battle.kind === "friend" && !battle.log_length && <div className="banner banner-info">{t("no_replay")}</div>}
       {battle.kind === "friend" && !battle.log_length ? (
         <FriendResult battle={battle} />

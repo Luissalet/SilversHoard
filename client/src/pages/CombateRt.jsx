@@ -8,6 +8,7 @@ import { usePoll } from "../components/hooks.js";
 import { useSeats } from "../components/silver.jsx";
 import { RunStrip } from "./Combate.jsx";
 import VideoExport from "../components/VideoExport.jsx";
+import { CupStrip } from "./Copa.jsx";
 
 export { RtScreen };     // the video page records a real-time replay with it (same chunk)
 
@@ -72,8 +73,9 @@ export default function CombateRt({ battle, setData }) {
         </div>
       </div>
       <RunStrip run={battle.run} />
+      <CupStrip cup={battle.cup} battle={battle} />
       <RtScreen key={battle.id} battle={battle} lang={lang} sprites={sprites} seats={seats} onFinish={onFinish} onSave={onSave}
-        onAgain={!battle.run && battle.kind !== "friend" ? again : null} />
+        onAgain={!battle.run && !battle.cup && battle.kind !== "friend" ? again : null} />
     </div>
   );
 }

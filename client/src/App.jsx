@@ -21,6 +21,7 @@ import Personajes from "./pages/Personajes.jsx";
 import Personaje from "./pages/Personaje.jsx";
 import Historial from "./pages/Historial.jsx";
 import Trabajo from "./pages/Trabajo.jsx";
+import Copa from "./pages/Copa.jsx";
 import Medallas from "./pages/Medallas.jsx";
 import Progreso from "./pages/Progreso.jsx";
 import Creditos from "./pages/Creditos.jsx";
@@ -52,6 +53,7 @@ const PAGES = [
   { path: "combatir", key: "nav_battle", icon: I.swords, component: Combatir, badge: "live" },
   { path: "combate", key: "nav_battle", component: Combate, hidden: true, parent: "combatir" },
   { path: "trabajo", key: "nav_battle", component: Trabajo, hidden: true, parent: "combatir" },
+  { path: "copa", key: "nav_battle", component: Copa, hidden: true, parent: "combatir" },
   { path: "entrenadores", key: "nav_trainers", icon: I.people, component: Entrenadores },
   { path: "entrenador", key: "nav_trainers", component: Entrenador, hidden: true, parent: "entrenadores" },
   { path: "gimnasios", key: "nav_gyms", icon: I.gym, component: Gimnasios },

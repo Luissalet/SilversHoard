@@ -1,4 +1,4 @@
-"""The database: trainers, gyms, leagues, battles, gym and league runs, badges, the hall of fame and finished background work.
+"""The database: trainers, gyms, leagues, battles, gym and league runs, badges, the hall of fame, cups and finished background work.
 
 Deleting a trainer, gym or league moves it to the trash (``deleted_at``); it comes back with ``restore`` and goes for good with
 ``purge``. Teams, rules and seats are JSON columns: they travel as they are to the engine and to the files sent to friends."""
@@ -203,6 +203,23 @@ CREATE INDEX friend_results_week ON friend_results(week);
 CREATE INDEX friend_results_fingerprint ON friend_results(fingerprint);
 """
 
+# Cups: a knockout bracket that fills in match by match; the bracket (rounds of matches with their games) is one JSON column.
+SCHEMA_V5 = """
+CREATE TABLE cups (
+  id TEXT PRIMARY KEY,
+  title TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'active',
+  spec_json TEXT NOT NULL DEFAULT '{}',
+  entrants_json TEXT NOT NULL DEFAULT '[]',
+  rounds_json TEXT NOT NULL DEFAULT '[]',
+  human_id TEXT NOT NULL DEFAULT '',
+  champion TEXT NOT NULL DEFAULT '',
+  created_at REAL NOT NULL,
+  updated_at REAL NOT NULL
+);
+CREATE INDEX cups_recent ON cups(updated_at);
+"""
+
 TRAINER_JSON = {"team_json": "team", "dialogue_json": "dialogue", "tags_json": "tags"}
 GYM_JSON = {"rules_json": "rules", "level_rules_json": "level_rules", "trainers_json": "trainers"}
 LEAGUE_JSON = {"rules_json": "rules", "level_rules_json": "level_rules", "gyms_json": "gyms", "elite_json": "elite_four"}
@@ -212,6 +229,7 @@ RUN_JSON = {"challenger_json": "challenger", "stages_json": "stages"}
 BADGE_JSON = {"proof_json": "proof"}
 HALL_JSON = {"team_json": "team"}
 JOB_JSON = {"args_json": "args", "result_json": "result"}
+CUP_JSON = {"spec_json": "spec", "entrants_json": "entrants", "rounds_json": "rounds"}
 
 
 def _decode(row: Any, json_cols: dict[str, str]) -> Optional[dict[str, Any]]:
@@ -220,7 +238,7 @@ def _decode(row: Any, json_cols: dict[str, str]) -> Optional[dict[str, Any]]:
     out = dict(row)
     for col, key in json_cols.items():
         if col in out:
-            out[key] = loads(out.pop(col), [] if key in ("team", "rules", "trainers", "gyms", "elite_four", "tags", "stages") else {})
+            out[key] = loads(out.pop(col), [] if key in ("team", "rules", "trainers", "gyms", "elite_four", "tags", "stages", "entrants", "rounds") else {})
     return out
 
 
@@ -237,7 +255,7 @@ def _encode(values: dict[str, Any], json_cols: dict[str, str]) -> dict[str, Any]
 
 class Store:
     def __init__(self, path: Path):
-        self.db = Database(path, migrations=[SCHEMA_V1, SCHEMA_V2, SCHEMA_V3, SCHEMA_V4])
+        self.db = Database(path, migrations=[SCHEMA_V1, SCHEMA_V2, SCHEMA_V3, SCHEMA_V4, SCHEMA_V5])
 
     def close(self) -> None:
         self.db.close()
@@ -506,6 +524,26 @@ class Store:
 
     def delete_friend_results(self, ids: list[str]) -> int:
         return sum(self.db.execute("DELETE FROM friend_results WHERE id = ?", (i,)).rowcount for i in ids)
+
+    # ------------------------------------------------------------ cups
+    def cup(self, id_: str) -> dict[str, Any]:
+        return self._get("cups", id_, CUP_JSON, "Cup")
+
+    def cups(self, *, status: str = "", limit: int = 50) -> list[dict[str, Any]]:
+        rows = self.db.query("SELECT * FROM cups WHERE (? = '' OR status = ?) ORDER BY updated_at DESC LIMIT ?", (status, status, limit))
+        return [_decode(r, CUP_JSON) for r in rows]
+
+    def add_cup(self, values: dict[str, Any]) -> str:
+        return self._insert("cups", "cup", values, CUP_JSON)
+
+    def update_cup(self, id_: str, values: dict[str, Any]) -> None:
+        self._update("cups", id_, values, CUP_JSON)
+
+    def delete_cup(self, id_: str) -> int:
+        n = self.db.execute("DELETE FROM cups WHERE id = ?", (id_,)).rowcount
+        if n:
+            self.db.execute("DELETE FROM battles WHERE run_id = ? AND status != 'live'", (id_,))
+        return n
 
     # ------------------------------------------------------------ jobs
     def job(self, id_: str) -> dict[str, Any]:

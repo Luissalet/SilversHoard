@@ -27,7 +27,7 @@ export function BattleRow({ b, onDelete }) {
   );
 }
 
-const KINDS = ["", "play", "watch", "gym", "league", "series", "tournament", "friend"];
+const KINDS = ["", "play", "watch", "gym", "league", "series", "tournament", "cup", "friend"];
 
 export default function Historial() {
   const { t, confirm, notify, changed } = useApp();

@@ -231,3 +231,53 @@ body.video-mode .b-fx-toggle, body.video-mode .snd-btn { display: none !importan
 /* a real-time battle recorded as a clip: the arena and its bars only */
 .video-stage .rt-wrap { grid-template-columns: minmax(0, 1fr); }
 .video-stage .rt-log, .video-stage .b-replay, .video-stage .rt-pads, .video-stage .rt-card .btn { display: none !important; }
+
+/* cups: a knockout bracket drawn as a tree (Copa.jsx); places are computed, the lines are one SVG */
+.cup-scroll { overflow: auto; padding: 14px; }
+.cup-bracket { position: relative; }
+.cup-lines { position: absolute; inset: 0; pointer-events: none; }
+.cup-line { fill: none; stroke: var(--line); stroke-width: 2; }
+.cup-line.is-won { stroke: color-mix(in srgb, var(--accent) 55%, var(--line)); }
+.cup-line.is-mine { stroke: #e8c45a; }
+.cup-line.just-won { stroke-dasharray: 600; stroke-dashoffset: 600; animation: cup-draw 0.9s ease-out forwards; stroke: var(--accent); }
+@keyframes cup-draw { to { stroke-dashoffset: 0; } }
+.cup-round-name { position: absolute; top: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted, inherit); opacity: 0.8; }
+.cup-match { position: absolute; display: flex; flex-direction: column; gap: 2px; padding: 5px 7px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--hoard-radius-lg); box-sizing: border-box; transition: border-color 0.3s, box-shadow 0.3s, opacity 0.3s; }
+.cup-match.state-wait { opacity: 0.6; }
+.cup-match.is-bye { opacity: 0.45; border-style: dashed; }
+.cup-match.state-ready { border-color: color-mix(in srgb, var(--accent) 35%, var(--line)); }
+.cup-match.state-live, .cup-match.state-sim { border-color: var(--accent); animation: cup-pulse 1.4s ease-in-out infinite; }
+.cup-match.is-mine { box-shadow: 0 0 0 2px color-mix(in srgb, #e8c45a 55%, transparent); }
+.cup-match.just-won { animation: cup-pop 0.8s ease-out; }
+@keyframes cup-pulse { 50% { box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 25%, transparent); } }
+@keyframes cup-pop { 0% { transform: scale(1); } 35% { transform: scale(1.06); box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 60%, transparent); } 100% { transform: scale(1); } }
+.cup-entrant { display: flex; align-items: center; gap: 6px; font-size: 13px; height: 26px; border-radius: 6px; padding: 0 3px; }
+.cup-entrant.is-winner { font-weight: 700; background: color-mix(in srgb, var(--accent) 14%, transparent); }
+.cup-entrant.is-loser { opacity: 0.45; text-decoration: line-through; text-decoration-thickness: 1px; }
+.cup-entrant.is-me { color: #e8c45a; }
+.cup-entrant.is-tbd, .cup-entrant.is-bye { opacity: 0.55; font-size: 12px; }
+.cup-entrant.is-new { animation: cup-in 1.2s ease-out; }
+@keyframes cup-in { 0% { opacity: 0; transform: translateX(-24px); } 60% { opacity: 1; background: color-mix(in srgb, var(--accent) 35%, transparent); } 100% { transform: none; } }
+.cup-ghost { width: 24px; height: 24px; border-radius: 50%; border: 1px dashed var(--line); flex: none; }
+.cup-score { min-width: 14px; text-align: right; }
+.cup-match-foot { display: flex; align-items: center; gap: 3px; height: 18px; font-size: 11px; }
+.cup-game { display: inline-flex; align-items: center; justify-content: center; min-width: 17px; height: 17px; border-radius: 5px; border: 1px solid var(--line); color: inherit; text-decoration: none; font-size: 10px; }
+.cup-game.is-done { background: color-mix(in srgb, var(--accent) 18%, transparent); }
+.cup-game.is-live { border-color: var(--accent); }
+.cup-game:hover { border-color: var(--accent); }
+.cup-tag { font-size: 10px; padding: 0 5px; border-radius: 5px; background: var(--accent-soft); }
+.cup-icon { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 18px; border-radius: 5px; border: 1px solid var(--line); background: transparent; color: inherit; cursor: pointer; }
+.cup-icon:hover:not(:disabled) { border-color: var(--accent); }
+.cup-champion { position: absolute; width: 150px; height: 124px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; border: 1px dashed var(--line); border-radius: var(--hoard-radius-lg); color: #e8c45a; }
+.cup-champion b { color: var(--ink); max-width: 140px; }
+.cup-champion.is-set { border: 1px solid #e8c45a; background: linear-gradient(160deg, color-mix(in srgb, #e8c45a 22%, transparent), var(--surface) 75%); animation: cup-pop 0.9s ease-out; }
+.cup-banner { display: flex; align-items: center; gap: 14px; padding: 14px 18px; border: 1px solid #e8c45a; border-radius: var(--hoard-radius-lg); color: #e8c45a; font-size: 18px; background: linear-gradient(135deg, color-mix(in srgb, #e8c45a 20%, transparent), var(--surface) 70%); }
+.cup-banner b { color: var(--ink); }
+.cup-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.cup-mine { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.cup-spin { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--line); border-top-color: var(--accent); animation: cup-rot 0.8s linear infinite; }
+@keyframes cup-rot { to { transform: rotate(360deg); } }
+.cup-strip .run-target { font-weight: 700; }
+.pick-seed { display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; border-radius: 10px; font-size: 11px; font-weight: 700; background: var(--accent); color: #fff; }
+.cup-row-status { min-width: 90px; }
+@media (prefers-reduced-motion: reduce) { .cup-match, .cup-entrant, .cup-line, .cup-champion { animation: none !important; } }

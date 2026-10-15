@@ -133,7 +133,12 @@ function TournamentForm() {
   const list = useTrainers();
   const [picked, setPicked] = useState([]);
   const [q, setQ] = useState("");
-  const [kind, setKind] = useState("bracket");
+  const [kind, setKind] = useStored("silver-tour-kind", "cup");
+  const [humanId, setHumanId] = useState("");
+  const [randomCount, setRandomCount] = useState(0);
+  const [randomFrom, setRandomFrom] = useState("");
+  const [seeding, setSeeding] = useState("random");
+  const [pace, setPace] = useStored("silver-cup-pace", 1.5);
   const [bestOf, setBestOf] = useState(1);
   const [level, setLevel] = useState("");
   const [format, setFormat] = useState("");
@@ -141,19 +146,30 @@ function TournamentForm() {
   const [busy, run] = useBusy();
   const shown = list.filter((x) => !q || `${x.name} ${x.title} ${(x.tags || []).join(" ")}`.toLowerCase().includes(q.toLowerCase()));
   const toggle = (id) => setPicked((p) => (p.includes(id) ? p.filter((x) => x !== id) : [...p, id]));
+  const cup = kind === "cup";
+  const entrants = new Set([...picked, ...(humanId ? [humanId] : [])]).size;
+  const enough = cup ? Math.max(entrants, Number(randomCount)) >= 2 : picked.length >= 2;
   const start = () => run("t", async () => {
+    if (cup) {
+      const c = await api.call("cup_start", { trainer_ids: picked, random_count: Number(randomCount), random_from: randomFrom, human_id: humanId,
+        seeding, best_of: Number(bestOf), format, title, mode, level_rules: withEqualLevel({}, equal), pace: Number(pace), ...(level ? { ai_level: level } : {}),
+        ...(mode === "realtime" ? { rt_arena: arena } : {}) });
+      go(`#/copa/${c.id}`);
+      return;
+    }
     const job = await api.call("tournament_start", { trainer_ids: picked, kind, best_of: Number(bestOf), format, title, mode, level_rules: withEqualLevel({}, equal), ...(level ? { ai_level: level } : {}),
       ...(mode === "realtime" ? { rt_arena: arena } : {}) });
     go(`#/trabajo/${job.id}`);
   });
   return (
     <div className="panel space-y-3">
-      <p className="help">{t("tournament_help")}</p>
+      <p className="help">{t(cup ? "cup_help" : "tournament_help")}</p>
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <Field label={t("tournament_name")}><input className="field" value={title} onChange={(e) => setTitle(e.target.value)} placeholder={t("tournament_name_ph")} /></Field>
         <Field label={t("tournament_kind")}>
           <select className="field" value={kind} onChange={(e) => setKind(e.target.value)}>
-            <option value="bracket">{t("kind_bracket")}</option>
+            <option value="cup">{t("kind_cup_live")}</option>
+            <option value="bracket">{t("kind_bracket_quick")}</option>
             <option value="league">{t("kind_league_table")}</option>
           </select>
         </Field>
@@ -167,6 +183,30 @@ function TournamentForm() {
           </select>
         </Field>
       </div>
+      {cup && (
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <TrainerSelect label={t("cup_you_play")} value={humanId} onChange={setHumanId} allowNone id="cup-human" />
+          <Field label={t("cup_random_count")}>
+            <select className="field" value={randomCount} onChange={(e) => setRandomCount(e.target.value)}>
+              <option value={0}>{t("cup_random_none")}</option>
+              {[4, 8, 16, 32, 64].map((n) => <option key={n} value={n}>{t("cup_random_n", { n })}</option>)}
+            </select>
+          </Field>
+          {Number(randomCount) > 0 && <Field label={t("cup_random_from")}><input className="field" value={randomFrom} onChange={(e) => setRandomFrom(e.target.value)} placeholder={t("cup_random_from_ph")} /></Field>}
+          <Field label={t("cup_seeding")}>
+            <select className="field" value={seeding} onChange={(e) => setSeeding(e.target.value)}>
+              <option value="random">{t("cup_seeding_random")}</option>
+              <option value="chosen">{t("cup_seeding_chosen")}</option>
+            </select>
+          </Field>
+          <Field label={t("cup_pace")}>
+            <select className="field" value={pace} onChange={(e) => setPace(Number(e.target.value))}>
+              <option value={0}>{t("cup_pace_0")}</option>
+              {[0.8, 1.5, 3, 5].map((n) => <option key={n} value={n}>{t("cup_pace_n", { n })}</option>)}
+            </select>
+          </Field>
+        </div>
+      )}
       <Field label={t("format")}><FormatSelect id="tour-format" value={format} onChange={setFormat} /></Field>
       <ModeFields t={t} mode={mode} onMode={setMode} compact arena={arena} onArena={setArena} />
       <div className="flex flex-wrap items-center gap-2">
@@ -174,6 +214,7 @@ function TournamentForm() {
         <button type="button" className="btn btn-sm" onClick={() => setPicked(Array.from(new Set([...picked, ...shown.map((x) => x.id)])))}>{t("select_shown")}</button>
         <button type="button" className="btn btn-sm" onClick={() => setPicked([])}>{t("clear")}</button>
         <span className="help">{t("n_selected", { n: picked.length })}</span>
+        {cup && seeding === "chosen" && picked.length > 1 && <span className="help">{t("cup_picked_order")}</span>}
       </div>
       <div className="pick-grid">
         {shown.map((x) => (
@@ -181,11 +222,33 @@ function TournamentForm() {
             <input type="checkbox" checked={picked.includes(x.id)} onChange={() => toggle(x.id)} />
             <Avatar url={x.avatar_url} name={x.name} size={34} />
             <span className="min-w-0 flex-1"><b className="trunc block">{x.name}</b><TeamStrip species={x.species} size={22} /></span>
+            {cup && seeding === "chosen" && picked.includes(x.id) && <span className="pick-seed">{picked.indexOf(x.id) + 1}</span>}
           </label>
         ))}
       </div>
-      <Busy busy={busy.t} className="btn btn-primary" disabled={picked.length < 2} onClick={start}>{t("tournament_start")}</Busy>
+      <Busy busy={busy.t} className="btn btn-primary" disabled={!enough} onClick={start}>{t(cup ? "cup_start" : "tournament_start")}</Busy>
     </div>
+  );
+}
+
+function CupList() {
+  const { t, version } = useApp();
+  const [cups, setCups] = useState(null);
+  useEffect(() => { api.call("cups_list", {}).then((r) => setCups(r.cups)).catch(() => setCups([])); }, [version]);
+  if (!cups?.length) return null;
+  return (
+    <Section title={t("cup_list")} count={cups.length}>
+      <div className="panel divide-list p-0">
+        {cups.map((c) => (
+          <a key={c.id} href={`#/copa/${c.id}`} className="row-item">
+            <span className={`chip cup-row-status ${c.status === "done" ? "chip-ok" : c.status === "active" ? "chip-accent" : ""}`}>{t(`cup_status_${c.status}`)}</span>
+            <span className="min-w-0 flex-1 trunc"><b>{c.title}</b> <span className="help">· {t("cup_entrants_n", { n: c.entrants.length })} · {t("cup_played", { n: c.played, total: c.total })}</span></span>
+            {c.champion_name && <span className="help trunc">{t("cup_champion")}: <b>{c.champion_name}</b></span>}
+            <Rel ts={c.updated_at} />
+          </a>
+        ))}
+      </div>
+    </Section>
   );
 }
 
@@ -222,6 +285,7 @@ export default function Combatir({ query }) {
       {tab === "single" && <SingleBattle />}
       {tab === "series" && <SeriesForm />}
       {tab === "tournament" && <TournamentForm />}
+      {tab === "tournament" && <CupList />}
     </div>
   );
 }
