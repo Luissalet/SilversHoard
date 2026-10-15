@@ -120,6 +120,9 @@ def test_a_friends_page_and_its_code(call, services):
     call("mass_play", {"id": out["id"], "unit": 0, "inputs": ROWS})
     page = call("mass_export", {"id": out["id"]})
     assert call("mass_export", {"id": out["id"]})["file"] != page["file"]        # every export is a file of its own
+    assert page["battle_id"] == out["id"] and page["hash"] == out["hash"]
+    assert (services.config.exports_dir / page["file"]).stat().st_size == page["bytes"]
+    call("mass_export", {"id": "mass_0000000000nope"}, status=404)
     html = (services.config.exports_dir / page["file"]).read_text(encoding="utf-8")
     data = json.loads(re.search(r'<script id="silver-data" type="application/json">(.*?)</script>', html, re.S).group(1))
     assert data["kind"] == "mass" and data["mass"]["id"] == out["id"] and len(data["mass"]["spec"]["teams"][0]["units"]) == 27

@@ -307,7 +307,8 @@ class Mass:
         # a new file every time: an earlier page (already sent, maybe) is never overwritten by another battle with the same title
         filename = sharing.safe_filename(f"{doc['title'][:40]} - Silver {new_id('x')[-8:]}", "html")
         (self.s.config.exports_dir / filename).write_text(html, encoding="utf-8", newline="\n")
-        return {"file": filename, "bytes": len(html.encode("utf-8")), "url": f"/api/exports/{filename}", "name": doc["title"]}
+        return {"file": filename, "bytes": len(html.encode("utf-8")), "url": f"/api/exports/{filename}", "name": doc["title"],
+                "battle_id": doc["id"], "hash": doc.get("hash", "")}
 
     def import_result(self, r: dict[str, Any]) -> dict[str, Any]:
         """A friend's ``SILVERMASS1-`` code: which battle, who played, which Pokémon, the input log and where it ended. Replayed here;
