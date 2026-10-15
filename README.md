@@ -83,3 +83,5 @@ This is a fan project and is not affiliated with Nintendo, Game Freak, Creatures
 ## Licence
 
 MIT (code). See [LICENSE](LICENSE).
+
+Own pictures retain their category (art, photo, drawing or sprite), credit, source and title when sharing and importing trainers through a code, file or page. The same data travels with trainers inside gyms and leagues; older files without these fields remain supported.
