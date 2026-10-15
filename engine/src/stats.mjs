@@ -127,7 +127,7 @@ export function series(spec, count = 10, onProgress = () => {}) {
  * A tournament between trainers, played by the AI: kind "bracket" (single elimination, byes for the best seeds) or "league" (everyone
  * against everyone, 3 points a win, 1 a tie). entrants: [{id, name, sets, ai}]. best_of: battles per pairing (odd).
  */
-export function tournament({format, rules, level_rules, entrants, kind = 'bracket', best_of = 1, seed, mode = 'classic', time_limit = 0}, onProgress = () => {}) {
+export function tournament({format, rules, level_rules, entrants, kind = 'bracket', best_of = 1, seed, mode = 'classic', time_limit = 0, arena = '', version = 0}, onProgress = () => {}) {
   const rng = makeRng(seed || Date.now());
   const bo = Math.max(1, Number(best_of) | 0) | 1;
   const matches = [];
@@ -138,7 +138,7 @@ export function tournament({format, rules, level_rules, entrants, kind = 'bracke
     const games = [];
     for (let g = 0; g < bo && wa <= bo / 2 && wb <= bo / 2; g++) {
       const s = [0, 1, 2, 3].map(() => Math.floor(rng() * 65536));
-      const r = playAny({format, rules, level_rules, mode, time_limit, seed: s, p1: {name: a.name, sets: a.sets, ai: a.ai}, p2: {name: b.name, sets: b.sets, ai: b.ai}});
+      const r = playAny({format, rules, level_rules, mode, time_limit, arena, version, seed: s, p1: {name: a.name, sets: a.sets, ai: a.ai}, p2: {name: b.name, sets: b.sets, ai: b.ai}});
       const w = r.summary.winner_side;
       if (w === 'p1') wa++; else if (w === 'p2') wb++;
       games.push({seed: mode === 'realtime' ? r.seed : s, winner: w === 'p1' ? a.id : w === 'p2' ? b.id : '', turns: r.summary.turns, seconds: r.seconds || 0, lines: r.lines, summary: r.summary});

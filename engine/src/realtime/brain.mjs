@@ -25,6 +25,8 @@ const hyp = (x, y) => Math.sqrt(x * x + y * y);
 const dist = (a, b) => hyp(a.x - b.x, a.y - b.y);
 const norm = (x, y) => { const l = hyp(x, y); return l > 1e-9 ? {x: x / l, y: y / l} : {x: 0, y: 0}; };
 
+const RANGED = new Set(['shot', 'beam', 'wave', 'cone']);
+
 function cfg(side) {
   return {lv: LEVELS[side.ai?.level] || LEVELS.normal, st: STYLES[side.ai?.style] || STYLES.balanced, level: side.ai?.level || 'normal'};
 }
@@ -112,10 +114,13 @@ function scoreMove(b, side, slot, c, rng) {
   const hpMe = me.hp / me.maxhp;
   const {st} = c;
   if (p.noEffect) return 0.01;
+  // a projectile, beam or blast that would only hit a rock between the two is worth little while another line is free
+  const walled = b.rocks.length && RANGED.has(p.shape) && b.onField(foe) && b.rockOnLine(side, foe, p.radius * 0.4);
   if (p.category !== 'Status') {
     if (!b.onField(foe)) return 0;
     if (foe.vol.protectUntil > b.t && !p.breaksProtect) return 0.02;
     let v = expectedDamage(b, side, foe, p);
+    if (walled) v *= 0.05;
     if (v >= 1) v = 1.6;                                   // a knockout
     if (p.recharge) v *= 0.8;
     if (p.selfdestruct) v = hpMe < 0.25 ? v : v * 0.2;
@@ -142,6 +147,7 @@ function scoreMove(b, side, slot, c, rng) {
     }
     return side.cond[p.sideCondition] > b.t ? 0 : 0.3 * st.protect;
   }
+  if (walled) return 0.01;
   if (p.status) {
     if (!b.onField(foe) || fm.status || b.statusImmune(foe, p.status, side) || b.immune(side, foe, p)) return 0;
     return (p.status === 'slp' ? 0.5 : p.status === 'tox' ? 0.45 : 0.4) * st.status;
@@ -180,6 +186,8 @@ export function think(b, side) {
   }
   const me = b.mon(side);
   if (!me || me.fainted) return input;
+  // Mega Evolution as soon as the gauge allows it (rules version 2)
+  if (b.version >= 2 && b.canMega(side)) input.mega = true;
   // dodging is a reflex, checked every tick
   if (!side.act || side.act.kind === 'approach') {
     const d = danger(b, side);
@@ -226,7 +234,18 @@ export function think(b, side) {
             if (later > scored[0][1] * 2 && later > 0.4) pick = -1;
           }
         }
-        if (pick >= 0) { input.use = pick; brain.lastUse = b.t; }
+        if (pick >= 0) {
+          input.use = pick;
+          brain.lastUse = b.t;
+          // a Plus move on its strongest move when a gauge segment is full and the foe is in reach (rules version 2); a Pokémon
+          // that can still Mega Evolve keeps the gauge for that
+          if (b.plusReady(side) && !(me.mega && !side.megaUsed) && me.profiles[pick].category !== 'Status' &&
+            dist(side, foe) <= b.reachFor(side, foe, me.profiles[pick]) + 0.5) {
+            const dmg = (i) => expectedDamage(b, side, foe, me.profiles[i]);
+            const mine = dmg(pick);
+            if (mine > 0 && ready.every((i) => dmg(i) <= mine)) input.plus = true;
+          }
+        }
       }
     }
   }
@@ -251,7 +270,16 @@ export function think(b, side) {
     if (side.y < margin) my += 0.8; if (side.y > 17 - margin) my -= 0.8;
     if (c.level === 'random' && rng() < 0.02) { brain.wander = norm(rng() - 0.5, rng() - 0.5); }
     if (c.level === 'random' && brain.wander) { mx += brain.wander.x; my += brain.wander.y; }
-    const n = norm(mx, my);
+    // rocks: step out of the line when one stands between the two, and walk around them
+    if (b.rocks.length) {
+      const rk = b.rockOnLine(side, foe, 0.3);
+      if (rk) {
+        const off = (rk.x - side.x) * -to.y + (rk.y - side.y) * to.x;
+        mx -= -to.y * Math.sign(off || 1) * 0.8;
+        my -= to.x * Math.sign(off || 1) * 0.8;
+      }
+    }
+    const n = b.steer(side, norm(mx, my));
     input.mx = n.x; input.my = n.y;
   }
   return input;
