@@ -6,6 +6,7 @@
 import { TYPE_COLORS } from "../dex.js";
 import { Animator, dirRow, image, loadMeta } from "./pmd.js";
 import { Vfx } from "./vfx.js";
+import { Show, showSettings } from "./show.js";
 import { playRtEvent } from "../sfx.js";
 import { rtMove } from "../../../../engine/src/realtime/moves.mjs";
 
@@ -71,6 +72,7 @@ export class ArenaRenderer {
     this.time = 0;
     this.court = null;
     this.vfx = new Vfx(this);
+    this.show = new Show(this);
     // hit feel: seconds the battle holds still after a big hit (the screen's loop reads and runs it down), the move each Pokémon
     // is winding up (its area is drawn on the ground while it charges) and the Mega Evolution cut-in
     this.hitstop = 0;
@@ -123,6 +125,9 @@ export class ArenaRenderer {
   }
 
   px(x) { return (x - WORLD.x0) * this.scale; }
+  /** Where a side's trainer stands, and the middle of the picture (meters). */
+  trainerPos(si) { return TRAINER[si]; }
+  worldCenter() { return { x: WORLD.x0 + WORLD.w / 2, y: WORLD.y0 + WORLD.h / 2 }; }
   py(y) { return (y - WORLD.y0) * this.scale; }
 
   drawCourt(view) {
@@ -297,6 +302,7 @@ export class ArenaRenderer {
     const s = e.s;
     const float = (si, text, color, opts = {}) => this.float(battle, si, text, color, { ...opts, u });
     this.vfx.onEvent(e, battle);
+    this.show.onEvent(e, battle);
     playRtEvent(e, this.audio);
     switch (e.k) {
       case "windup": {
@@ -340,7 +346,8 @@ export class ArenaRenderer {
         const a = anim(s);
         if (a && e.hp > 0) a.play("Hurt");
         const pct = Math.max(1, Math.round((e.dmg / Math.max(1, e.maxhp)) * 100));
-        float(s, `−${pct}%`, e.eff > 1 ? "#ffd54a" : e.eff < 1 ? "#c9d2dc" : "#ffffff", { size: e.crit || e.eff > 1 ? 1.3 : 1 });
+        // the damage as a share of the HP bar, or in HP as the battle videos show it (Settings)
+        float(s, showSettings().numbers === "hp" ? `−${e.dmg}` : `−${pct}%`, e.eff > 1 ? "#ffd54a" : e.eff < 1 ? "#c9d2dc" : "#ffffff", { size: e.crit || e.eff > 1 ? 1.3 : 1 });
         if (e.crit) float(s, T.crit, "#ff8a65", { size: 0.8, dy: -0.7 });
         else if (e.eff > 1 && e.hit === 0) float(s, T.super, "#ffd54a", { size: 0.8, dy: -0.7 });
         else if (e.eff < 1 && e.eff > 0 && e.hit === 0) float(s, T.weak, "#c9d2dc", { size: 0.75, dy: -0.7 });
@@ -394,7 +401,8 @@ export class ArenaRenderer {
       case "plus": float(s, `${T.plus}!`, "#ff8fdc", { size: 0.85, dy: -0.9 }); break;
       case "switch": {
         const p = this.posOf(battle, s, u);
-        this.effects.push({ kind: "beam", x: p.x, y: p.y, from: TRAINER[s], t: 0, life: 0.4 });
+        // with the show on, a Poké Ball flies in instead of the beam (show.js)
+        if (!this.show.on) this.effects.push({ kind: "beam", x: p.x, y: p.y, from: TRAINER[s], t: 0, life: 0.4 });
         this.fade[key] = { slot: -1, t: 0 };
         break;
       }
@@ -416,17 +424,23 @@ export class ArenaRenderer {
     }
   }
 
-  draw(battle, dt) {
+  /** dt: the battle's pace (slowed during a hit-stop); raw: the clock's, for the show's overlays (defaults to dt). */
+  draw(battle, dt, raw = dt) {
     const ctx = this.ctx;
     const view = battle.view();
     this.time += dt;
     this.consume(battle);
     this.vfx.update(dt, view);
+    this.show.update(raw, battle);
     ctx.imageSmoothingEnabled = false;
     const [shx, shy] = this.vfx.shakeOffset();
+    ctx.fillStyle = "#0b0b10";
+    ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     ctx.save();
     ctx.translate(shx, shy);
+    this.show.applyCamera(ctx);
     this.drawCourt(view);
+    this.show.drawFloor(ctx);
     const s = this.scale;
     // trainers
     view.sides.forEach((side, si) => {
@@ -491,6 +505,7 @@ export class ArenaRenderer {
     // projectiles, rays, melee marks, particles
     this.vfx.drawOver(ctx, view, battle);
     this.drawEffects(dt, false);
+    this.show.drawWorld(ctx);
     // floating texts
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
@@ -498,7 +513,7 @@ export class ArenaRenderer {
     for (const f of this.floats) {
       const a = 1 - f.t / f.life;
       const y = f.y - 1.9 + f.dy - f.t * 1.2;
-      ctx.font = `800 ${Math.round(0.62 * s * f.size)}px system-ui, sans-serif`;
+      ctx.font = `italic 900 ${Math.round(0.62 * s * f.size)}px "Arial Black", system-ui, sans-serif`;
       ctx.lineWidth = Math.max(2, s * 0.09);
       ctx.strokeStyle = `rgba(0,0,0,${0.75 * a})`;
       ctx.strokeText(f.text, this.px(f.x), this.py(y));
@@ -509,6 +524,7 @@ export class ArenaRenderer {
     }
     ctx.restore();
     this.drawCutin(dt);
+    this.show.drawScreen(ctx, battle);
     this.flash = this.flash.map((v) => Math.max(0, v - dt * 5));
   }
 
@@ -697,6 +713,7 @@ export class ArenaRenderer {
     const s = this.scale;
     const mon = side.mons[side.active];
     if (!mon) return;
+    if (this.show.hides(key)) return;   // still inside the Poké Ball that is flying in
     const fade = this.fade[key];
     const mega = !!mon.is_mega || (mon.fainted && fade.slot === side.active && !!fade.mega);
     const lookKey = `${side.active}:${mega ? 1 : 0}`;

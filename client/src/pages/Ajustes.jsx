@@ -8,6 +8,7 @@ import { SoundSliders } from "../battle/SoundControl.jsx";
 import NeuralAi from "../components/NeuralAi.jsx";
 import { useBackdropSetting, useFxStyleSetting, useMoveFxSetting } from "../battle/fx/setting.js";
 import { particleStyle, setParticleStyle } from "../battle/rt/vfx.js";
+import { setShowSetting, showSettings } from "../battle/rt/show.js";
 
 export default function Ajustes() {
   const { t, lang, notify, refreshOv, ov } = useApp();
@@ -18,6 +19,8 @@ export default function Ajustes() {
   const [busy, run] = useBusy();
   const [moveFx, setMoveFx] = useMoveFxSetting();
   const [fxStyle, setFxStyle] = useFxStyleSetting();
+  const [show, setShow] = useState(() => showSettings());
+  const setShowKey = (k, v) => setShow(setShowSetting(k, v));
   const [backdrop, setBackdrop] = useBackdropSetting();
   useEffect(() => { if (data) setF(data); }, [data]);
   if (!f) return null;
@@ -64,6 +67,23 @@ export default function Ajustes() {
             <option value="plain">{t("rt_particles_plain")}</option>
           </select>
         </Field>
+        <div className="grid gap-3 sm:grid-cols-2">
+          <Field label={t("rt_show_style")} hint={t("rt_show_style_help")}>
+            <select className="field" value={show.style} onChange={(e) => setShowKey("style", e.target.value)}>
+              <option value="show">{t("rt_show_style_show")}</option>
+              <option value="plain">{t("rt_show_style_plain")}</option>
+            </select>
+          </Field>
+          <Field label={t("rt_show_numbers")} hint={t("rt_show_numbers_help")}>
+            <select className="field" value={show.numbers} onChange={(e) => setShowKey("numbers", e.target.value)}>
+              <option value="pct">{t("rt_show_numbers_pct")}</option>
+              <option value="hp">{t("rt_show_numbers_hp")}</option>
+            </select>
+          </Field>
+        </div>
+        <label className="flex items-center gap-2"><Switch checked={show.camera} onChange={(v) => setShowKey("camera", v)} label={t("rt_show_camera")} /> {t("rt_show_camera")}</label>
+        <label className="flex items-center gap-2"><Switch checked={show.impact} onChange={(v) => setShowKey("impact", v)} label={t("rt_show_impact")} /> {t("rt_show_impact")}</label>
+        <p className="help">{t("rt_show_motion_help")}</p>
         <Field label={t("backdrop")} hint={t("backdrop_help")}>
           <select className="field" value={backdrop} onChange={(e) => setBackdrop(e.target.value)}>
             <option value="showdown">{t("backdrop_showdown")}</option>
