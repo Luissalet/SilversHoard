@@ -1,12 +1,13 @@
 // A visual team builder: up to six Pokémon, each with species, nickname, level, item, ability, nature, Tera type, stat points
 // (Pokémon Champions' 66 / 32, kept as EVs) or classic EVs and IVs, and four moves picked with a click from what the species learns
-// (or typed by hand), with suggestions from the Pokédex of the format's generation.
+// (or typed by hand), with suggestions from the Pokédex of the format's generation, and a damage calculator for the team.
 import React, { useEffect, useMemo, useState } from "react";
 import { api } from "../api.js";
 import { useApp } from "../context.js";
 import { TYPE_COLORS, nameOf, typeName } from "../battle/dex.js";
 import { Busy, Field, Icon, ICONS, Modal, useBusy, useStored } from "./ui.jsx";
 import { MonIcon } from "./silver.jsx";
+import DamageCalc from "./DamageCalc.jsx";
 import { SP_MAX, SP_TOTAL, calcStat, evFromSp, spFromEv } from "../../../engine/src/points.mjs";
 
 const STATS = ["hp", "atk", "def", "spa", "spd", "spe"];
@@ -294,6 +295,7 @@ export default function TeamBuilder({ team, format, onSave, onCancel }) {
         <Busy busy={busy.s} className="btn btn-primary" disabled={!clean.length || clean.some((s) => !s.moves.length)} onClick={() => run("s", () => onSave(clean))}>{t("save")}</Busy>
       </div>
       {clean.some((s) => !s.moves.length) && <p className="help">{t("tb_needs_moves")}</p>}
+      <DamageCalc sets={clean} format={format} lang={lang} gen={gen} />
     </div>
   );
 }
