@@ -238,7 +238,10 @@ def to_sprite(img, size: int = 96, colors: int = 32):
     # premultiplied resize: the colour of transparent pixels (often the white background) must not bleed into the edges
     small = img.convert("RGBa").resize((max(1, round(w * scale)), max(1, round(h * scale))), Image.Resampling.BOX).convert("RGBA")
     alpha = small.getchannel("A").point(lambda a: 255 if a >= 128 else 0)
-    rgb = small.convert("RGB")
+    # averaging a big drawing down to ~90 px blurs eyes and outlines: a light unsharp mask brings back the edges a
+    # hand-made sprite has
+    from PIL import ImageFilter
+    rgb = small.convert("RGB").filter(ImageFilter.UnsharpMask(radius=1, percent=120, threshold=2))
     # the palette comes from the visible pixels only: counting the transparent ones spends colours on the background and
     # pulls skin and clothes towards grey
     opaque = [px for px, a in zip(rgb.getdata(), alpha.getdata()) if a]
