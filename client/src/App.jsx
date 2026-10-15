@@ -23,6 +23,7 @@ import Historial from "./pages/Historial.jsx";
 import Trabajo from "./pages/Trabajo.jsx";
 import Medallas from "./pages/Medallas.jsx";
 import Progreso from "./pages/Progreso.jsx";
+import Video from "./pages/Video.jsx";
 import Compartir from "./pages/Compartir.jsx";
 import Ajustes from "./pages/Ajustes.jsx";
 
@@ -63,6 +64,8 @@ const PAGES = [
   { path: "progreso", key: "nav_progress", icon: I.chart, component: Progreso },
   { path: "compartir", key: "nav_share", icon: I.share, component: Compartir },
   { path: "ajustes", key: "nav_settings", icon: I.settings, component: Ajustes },
+  // a battle's replay alone on a 16:9 stage, recorded as a clip by battle_video: no sidebar, no page chrome
+  { path: "video", key: "nav_battle", component: Video, hidden: true, parent: "combatir", bare: true },
 ];
 
 function readHash() {
@@ -180,6 +183,14 @@ export default function App() {
   const Component = page.component;
   const current = page.hidden ? page.parent : page.path;
   const badges = { live: (ov?.live_battles || []).length + (ov?.jobs || []).length };
+
+  if (page.bare) {
+    return (
+      <AppContext.Provider value={value}>
+        <Component key={`${page.path}/${route.param || ""}`} param={route.param} query={route.query} />
+      </AppContext.Provider>
+    );
+  }
 
   return (
     <AppContext.Provider value={value}>

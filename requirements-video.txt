@@ -1,0 +1,2 @@
+# Battle videos (battle_video): drives the installed Chrome or Edge, nothing else is downloaded.
+playwright>=1.45
