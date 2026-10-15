@@ -139,7 +139,8 @@ export class Match {
         let choice = null;
         const trace = this.spec.trace ? {} : null;
         try {
-          choice = chooseFor(b, side.id, {level: ai.level, style: ai.style, rng: this.rngs[side.id], trace, hidden: !!ai.hidden, beliefs: ai.beliefs});
+          const rng = this.spec.practice ? makeRng(`${this.spec.seed}:${side.id}:${b.turn}:${b.inputLog.length}`) : this.rngs[side.id];
+          choice = chooseFor(b, side.id, {level: ai.level, style: ai.style, rng, trace, hidden: !!ai.hidden, beliefs: ai.beliefs});
         } catch (e) {
           this.errors.push(`${side.id} AI: ${e.message}`);
         }

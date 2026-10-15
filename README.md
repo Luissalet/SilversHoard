@@ -52,6 +52,12 @@ Hoard Hub finds it through `faustus-plugin.json`. Data lives in `data/` (or `SIL
 
 `python mcp_server.py` is a stdio MCP bridge to the running app (it starts it when needed). The tools cover the whole app: `battle_start` / `battle_choose` to play, `series_start` and `tournament_start`, `challenge_start`, `canon_install`, `characters_list` / `character_get` / `character_install`, `stat_points`, `damage_calc`, `facilities_list` (with `challenge_start` kind `facility`), `factory_pick` / `factory_swap`, `progress_get` / `progress_list`, `badge_image_set` / `badge_draw`, `export` / `import`, `avatar_from_photo`, `trainer_dialogue_write`, the real-time tools (`mode: realtime` on `battle_start`, `challenge_start`, `series_start` and `tournament_start`; `rt_cooldowns`, `rt_rules`, `battle_rt_finish`) and the rest (`GET /api/agent/tools`).
 
+## Practice from a replay
+
+New played and individually watched turn-based battles keep their decision records. Once finished, **Try another move** lets you choose a turn and a side and open a separate playable battle from that point. The opponent uses only the revealed information about your team; **Why** still offers advice. Practice can be saved and resumed, and its winner and duration compared with the original. Practice does not earn badges or affect trainers' records.
+
+MCP tools: `battle_practice` opens the branch and `battle_compare` compares results. `battle_get` reports practice availability and the link to the original. Old replays without decision records, imported results, series/tournament samples and real-time battles cannot be used for this turn-based practice.
+
 ## Credits
 
 The app's *Credits* page (link under the menu and in Settings; `credits` tool) lists every source below with its licence and who drew each sprite: the artists of the trainer sprites, from Showdown's trainer sprite index (Showdown asks for credit to the artist), and of the real-time arena's walking sprites, from SpriteCollab's tracker, with a lookup by sprite or Pokémon. Trainer and character pages and the sprite picker name a sprite's artist, and the real-time arena names the artists of the walking sprites on screen. Both lists are downloaded once and kept in `data/cache/credits`.

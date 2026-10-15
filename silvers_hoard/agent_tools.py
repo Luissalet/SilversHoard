@@ -334,6 +334,12 @@ class RtCooldownArgs(BaseModel):
     level_rules: dict[str, int] = Field(default_factory=dict)
 
 
+class PracticeArgs(BaseModel):
+    id: str = IdField
+    turn: int = Field(..., ge=1, description="Rebuild to the start of this turn's move decision.")
+    side: Literal["p1", "p2"] = "p1"
+
+
 class BattleGetArgs(BaseModel):
     id: str = IdField
     since: int = Field(0, ge=0, description="Return log lines from this index (log_length of the previous answer).")
@@ -741,6 +747,13 @@ TOOLS: list[Tool] = [
                             synonyms="combatir, pelea, simular combate, npc contra npc, jugar"), BattleStartArgs, W,
          lambda s, a: s.battle_start(p1=_seat(a.p1), p2=_seat(a.p2), format_=a.format, rules=a.rules, level_rules=a.level_rules, seed=a.seed,
                                      mode=a.mode, time_limit=a.time_limit, rt_arena=a.rt_arena), 180.0),
+    Tool("battle_practice", _d("Play another move from a finished replay as a separate battle. Practicar otra jugada.",
+                               "Requires a saved decision record (new played or individually watched turn-based battles). "
+                               "The original and trainer records stay intact; the opponent uses revealed information.",
+                               synonyms="practicar turno, repetir jugada, rama, entrenamiento"), PracticeArgs, W,
+         lambda s, a: s.battle_practice(a.id, turn=a.turn, side=a.side), 120.0),
+    Tool("battle_compare", _d("Compare a practice battle with its original: winner, turns and team results. Comparar práctica.",
+                              synonyms="comparar resultado, original y práctica"), IdArg, R, lambda s, a: s.battle_compare(a.id)),
     Tool("battle_get", _d("A battle: protocol log (from since), pending choices of person seats, result. Ver combate.",
                           synonyms="estado del combate, log, repetición"), BattleGetArgs, R, lambda s, a: s.battle_get(a.id, since=a.since)),
     Tool("battle_choose", _d("Send a person seat's choice: 'move 1', 'move 2 terastallize', 'switch 3', 'team 123456'. Elegir.",

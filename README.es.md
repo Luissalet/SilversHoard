@@ -52,7 +52,14 @@ Hoard Hub la encuentra por `faustus-plugin.json`. Los datos van en `data/` (o `S
 
 `python mcp_server.py` es un puente MCP por stdio a la app en marcha (la arranca si hace falta). Las herramientas cubren toda la app: `battle_start` / `battle_choose` para jugar, `series_start` y `tournament_start`, `challenge_start`, `canon_install`, `characters_list` / `character_get` / `character_install`, `stat_points`, `badge_image_set` / `badge_draw`, `export` / `import`, `avatar_from_photo`, `avatar_draw`, `trainer_dialogue_write`, las de tiempo real (`mode: realtime` en `battle_start`, `challenge_start`, `series_start` y `tournament_start`; `rt_cooldowns`, `rt_rules`, `battle_rt_finish`) y el resto (`GET /api/agent/tools`).
 
+## Practicar desde una repetición
+
+Las partidas nuevas por turnos y los combates individuales observados conservan sus decisiones. Al terminar, «Practicar otra jugada» permite elegir un turno y un lado y abrir una partida independiente desde ese momento. El rival usa solo la información revelada del equipo contrario; las sugerencias siguen disponibles en «Por qué». Puedes continuar, guardar y reanudar la práctica y comparar su ganador y duración con el original. Las prácticas no dan medallas ni cambian los récords de los entrenadores.
+
+Herramientas MCP: `battle_practice` abre la rama y `battle_compare` compara los resultados. `battle_get` indica si una repetición permite practicar y enlaza la rama con su original. Las repeticiones antiguas sin decisiones, los resultados importados, las muestras de series o torneos y el tiempo real no permiten esta práctica por turnos.
+
 ## Créditos
+
 
 La página *Créditos* de la app (enlace bajo el menú y en Ajustes; herramienta `credits`) recoge todas las fuentes de abajo con su licencia y quién dibujó cada sprite: los artistas de los sprites de entrenador, del índice de sprites de entrenador de Showdown (Showdown pide dar crédito al artista), y los de los sprites que caminan en la arena en tiempo real, del registro de SpriteCollab, con una búsqueda por sprite o por Pokémon. Las páginas de entrenador y de personaje y el selector de sprites dicen de quién es el sprite, y la arena en tiempo real nombra a los artistas de los sprites que hay en pantalla. Las dos listas se descargan una vez y se guardan en `data/cache/credits`.
 

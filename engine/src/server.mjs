@@ -12,6 +12,7 @@ import {replayCheck} from './replay.mjs';
 import {RtBattle, eventLines, prepareRtTeam, rtRun} from './realtime/sim.mjs';
 import {cooldownTable} from './realtime/moves.mjs';
 import {damageCalc} from './calc.mjs';
+import {practiceSnapshot} from './practice.mjs';
 
 const matches = new Map();
 const MAX_OPEN = 64;
@@ -54,6 +55,7 @@ const handlers = {
   dex_search: (a) => ({results: core.dexSearch(a.kind || 'species', a.query || '', {gen: a.gen || 9, limit: a.limit || 30, species: a.species || ''})}),
   species: (a) => core.speciesInfo(a.name, a.gen || 9),
   damage_calc: (a) => damageCalc(a),
+  practice_snapshot: (a) => practiceSnapshot(a.input, a.turn, a.side),
   match_start: (a) => {
     const m = new Match(a.spec, a.snapshot || null);
     if (!a.snapshot) m.advance();
