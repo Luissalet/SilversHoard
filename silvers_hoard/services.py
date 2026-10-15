@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import base64
 import contextlib
+import os
 import gzip
 import hashlib
 import io
@@ -30,6 +31,7 @@ from .hoard_link.tokens import read_or_create_token
 from .credits import Credits
 from .cups import Cups
 from .fxcache import FxCache
+from .neural import NeuralAI
 from .pmd import PmdSprites
 from .smogon import Smogon
 from .sounds import Sounds
@@ -100,6 +102,8 @@ class Services:
         self.credits = Credits(config.sprites_dir.parent / "credits", self.settings, http_get or _http_get, self.pmd._base)
         self.fx = FxCache(config.sprites_dir.parent / "fx", self.settings, http_get=http_get)
         self.cups = Cups(self)
+        self.neural = NeuralAI(self.settings, config.sprites_dir.parent / "neural", config.data_dir / "logs")
+        self._neural_env()
         self.pool = ThreadPoolExecutor(max_workers=2, thread_name_prefix="silver-job")
         self._cancel: dict[str, bool] = {}
         self._battle_locks: dict[str, threading.Lock] = {}
@@ -143,6 +147,7 @@ class Services:
             self._cancel[k] = True
         self.pool.shutdown(wait=False, cancel_futures=True)
         self.engine.stop()
+        self.neural.stop()   # only the server this app started; it frees the GPU
         self.store.close()
 
     def emit(self, kind: str, data: dict[str, Any]) -> None:
@@ -164,12 +169,30 @@ class Services:
         "expert": "Also plays each candidate turn out against the opponent's likely answers (singles and doubles).",
         "master": "Searches thousands of possible futures each turn (Monte Carlo tree search with poke-engine), about a second a turn; "
                   "9th-generation singles. Elsewhere, or without poke-engine, it plays as the expert.",
+        "neural": "A reinforcement-learning policy trained on millions of real battles (metamon), run on the GPU; it only sees what "
+                  "its side sees. Singles of generations 1-4 and 9; elsewhere, or while its server is not running, it plays as the expert.",
     }
 
     def ai_levels(self, refresh: bool = False) -> dict[str, Any]:
         """The AI levels, what each does and whether the master's search can run on this computer."""
         return {"levels": [{"level": lv, "about": self.AI_LEVEL_TEXT[lv]} for lv in AI_LEVELS], "styles": list(AI_STYLES),
-                "master": master_status(refresh)}
+                "master": master_status(refresh), "neural": self.neural.status()}
+
+    # ------------------------------------------------------------ the neural AI's server
+    def _neural_env(self) -> None:
+        """The engine finds the neural AI's server through SILVER_NEURAL_URL (it copies this process's environment when it starts)."""
+        env = self.neural.engine_env()
+        if env:
+            os.environ.update(env)
+        else:
+            os.environ.pop("SILVER_NEURAL_URL", None)
+
+    def neural_ai(self, action: str = "status", wait: float = 0.0) -> dict[str, Any]:
+        if action == "start":
+            return self.neural.start(wait=wait)
+        if action == "stop":
+            return self.neural.stop()
+        return self.neural.status()
 
     # ------------------------------------------------------------ overview
     def overview(self) -> dict[str, Any]:
@@ -950,6 +973,8 @@ class Services:
         if not sets:
             raise SilverError("empty_team", f"{name} has no team.")
         level, style = self._clean_ai(level, style)
+        if level == "neural" and not human:
+            self.neural.ensure()   # its server starts in the background; until it answers, the side plays as the expert
         hidden = spec.get("ai_hidden")
         hidden = bool(self.settings["ai_hidden_info"]) if hidden is None else bool(hidden)
         ai = {"level": level, "style": style, **({"hidden": True} if hidden else {})}
@@ -1301,6 +1326,10 @@ class Services:
                                      for x in se["options"][:3]) + ".")
         elif n.get("fallback") and n.get("level") == "master":
             parts.append("The search was not available, so it played as the expert.")
+        elif n.get("fallback") and n.get("level") == "neural":
+            parts.append("The neural network does not play this battle or was not running, so it played as the expert.")
+        if n.get("neural"):
+            parts.append(f"The neural network chose it in {int(n['neural'].get('ms') or 0)} ms; the ranking above is the expert's view.")
         po = n.get("playouts") or []
         if len(po) > 1:
             parts.append("Turns played out (higher is better, worst case in brackets): "
@@ -3267,4 +3296,13 @@ class Services:
 
     # ------------------------------------------------------------ settings
     def settings_set(self, changes: dict[str, Any]) -> dict[str, Any]:
-        return self.settings.update(changes)
+        before = self.neural.engine_env()
+        out = self.settings.update(changes)
+        if any(k.startswith("neural_ai_") for k in changes or {}):
+            self._neural_env()
+            if self.neural.engine_env() != before:   # the engine reads the address when it starts: the next call starts it again
+                with contextlib.suppress(Exception):
+                    self.engine.stop()
+            if not self.neural.enabled():
+                self.neural.stop()
+        return out

@@ -19,7 +19,7 @@ from .services import Services
 
 AGENT_INSTRUCTIONS = """Silver's Hoard is a Pokémon battle simulator (Pokémon Showdown's engine, every generation). It keeps trainers (a name, a team, an AI level and style, an avatar and battle lines), gyms (a leader plus optional gym trainers, a badge and rules), leagues (gyms, an Elite Four and a champion) and every battle with its full log.
 Start with silver_overview. Teams come in as Showdown export text (paste), packed teams or JSON; team_import parses, team_validate checks a format's rules. canon_list shows the in-game teams of leaders, Elite Four, champions and rivals of Crystal, FireRed/LeafGreen and Emerald, and canon_install adds a trainer or a whole league (its gyms, badges, Elite Four and champion). characters_list and character_get cover 154 characters of all nine generations with every team they used game by game (first battle, rematches, tournaments) and all their sprites; character_install makes a trainer from one team and one sprite, or an own team for the character (custom).
-Battles: battle_start with two seats. A seat is {trainer_id} or {paste|team, name}; human=true means a person plays it from the app (or you, with battle_choose), otherwise the AI plays (ai_level random|easy|normal|hard|expert|master — master searches thousands of futures a turn with poke-engine, 9th-generation singles, see ai_levels; ai_style balanced|aggressive|defensive|setup|stall). Two AI seats = a watched battle that plays out in the background; read it with battle_get (lines are the Showdown protocol log). battle_choose sends a Showdown choice for a person's seat ("move 1", "move 2 terastallize", "switch 3", "team 123456"; doubles: "move 1 1, move 2 -1"); battle_get returns the pending request with the legal options.
+Battles: battle_start with two seats. A seat is {trainer_id} or {paste|team, name}; human=true means a person plays it from the app (or you, with battle_choose), otherwise the AI plays (ai_level random|easy|normal|hard|expert|master|neural — master searches thousands of futures a turn with poke-engine, 9th-generation singles; neural is a reinforcement-learning policy on the GPU for singles of generations 1-4 and 9 (neural_ai starts its server); see ai_levels; ai_style balanced|aggressive|defensive|setup|stall). Two AI seats = a watched battle that plays out in the background; read it with battle_get (lines are the Showdown protocol log). battle_choose sends a Showdown choice for a person's seat ("move 1", "move 2 terastallize", "switch 3", "team 123456"; doubles: "move 1 1, move 2 -1"); battle_get returns the pending request with the legal options.
 Gym and league challenges: challenge_start (kind gym|league, a challenger trainer; auto=true lets the AI play the challenger). Winning every battle of a gym gives a badge; a league needs its badges and ends in the hall of fame. Battle facilities (facilities_list): challenge_start kind=facility starts a win streak against one rival after another with the facility's bosses on their battles; the record is the longest streak. In the Battle Factory (factory3, factory4, factory9) there is no own team: factory_pick takes 3 of 6 rentals each round and factory_swap trades one for the beaten rival's after a win.
 Many battles at once: series_start (the same two trainers N times: win rate, MVPs) and tournament_start (bracket or league table between trainers), both background jobs (job_get). Cups with a live bracket: cup_start (picked and/or random trainers, optionally human_id = the user's trainer), then cup_get to follow it; the AI's matches play in the background one after another, the user's wait for cup_play (a battle to play) or cup_simulate; cup_watch turns an AI match into a battle to watch.
 Levels: level_rules {level: 50} (or 100) on battle_start, series_start and tournament_start, or level on challenge_start, equalizes every Pokémon of both sides at that level, so teams of different levels fight on even terms.
@@ -44,7 +44,7 @@ def _d(first: str, detail: str = "", synonyms: str = "") -> str:
     return "\n".join(parts)
 
 
-Level = Literal["random", "easy", "normal", "hard", "expert", "master"]
+Level = Literal["random", "easy", "normal", "hard", "expert", "master", "neural"]
 Style = Literal["balanced", "aggressive", "defensive", "setup", "stall"]
 IdField = Field(..., min_length=1, max_length=80)
 
@@ -601,6 +601,15 @@ class SettingsSetArgs(BaseModel):
     default_level: Optional[Literal[0, 50, 100]] = None
     rt_time_limit: Optional[int] = Field(None, ge=30, le=1800)
     pmd_sprites: Optional[bool] = None
+    neural_ai_python: Optional[str] = Field(None, max_length=500, description="The python of an environment with PyTorch and metamon; empty turns the neural level off.")
+    neural_ai_model: Optional[str] = Field(None, max_length=60, description="Pretrained policy (Kakuna by default).")
+    neural_ai_gpu: Optional[str] = Field(None, max_length=2, description="GPU index as nvidia-smi numbers them; empty = the first.")
+    neural_ai_port: Optional[int] = Field(None, ge=1024, le=65535)
+
+
+class NeuralArgs(BaseModel):
+    action: Literal["status", "start", "stop"] = "status"
+    wait: float = Field(0, ge=0, le=600, description="start: seconds to wait until it answers (the first start downloads the weights).")
 
 
 def _seat(s: Seat) -> dict[str, Any]:
@@ -881,6 +890,11 @@ TOOLS: list[Tool] = [
                          "master needs poke-engine (optional, built with Terastallization); without it, it plays as the expert.",
                          synonyms="niveles de dificultad, ia maestra, dificultad de la ia"), RefreshArg, R,
          lambda s, a: s.ai_levels(a.refresh), 90.0),
+    Tool("neural_ai", _d("The neural AI level's GPU server: status, start or stop. IA neuronal.",
+                         "A policy trained on millions of real battles (metamon) that plays singles of generations 1-4 and 9 with the "
+                         "neural level; it runs from its own Python environment (setting neural_ai_python). Without it, that level plays "
+                         "as the expert.", synonyms="red neuronal, ia de aprendizaje por refuerzo, metamon, gpu"), NeuralArgs, W,
+         lambda s, a: s.neural_ai(a.action, a.wait), 620.0),
     Tool("battle_video", _d("Record a finished battle's replay as a video clip with its sound (a job). Vídeo del combate.",
                             "MP4 in the exports folder (job_get gives its url and path); lumiere=true hands it to the video editor.",
                             synonyms="exportar vídeo, grabar repetición, clip del combate, mandar a lumiere"), BattleVideoArgs, WD,

@@ -8,6 +8,7 @@ import {playOut, series, summarize, tournament} from './stats.mjs';
 import {viewLines} from './match.mjs';
 import {chooseFor, freeze, makeRng} from './ai.mjs';
 import {masterAvailable} from './master.mjs';
+import {neuralAvailable} from './neural.mjs';
 import {replayCheck} from './replay.mjs';
 import {RtBattle, eventLines, prepareRtTeam, rtRun} from './realtime/sim.mjs';
 import {cooldownTable} from './realtime/moves.mjs';
@@ -31,7 +32,7 @@ function getMatch(id) {
 }
 
 const handlers = {
-  ping: () => ({pong: true, versions: process.versions.node, open: matches.size, master: masterAvailable()}),
+  ping: () => ({pong: true, versions: process.versions.node, open: matches.size, master: masterAvailable(), neural: neuralAvailable()}),
   formats: (a) => ({formats: core.listFormats({gen: a.gen || 0, query: a.query || ''})}),
   format_info: (a) => core.formatInfo(core.buildFormatId(a.format, a.rules)),
   import_team: (a) => {

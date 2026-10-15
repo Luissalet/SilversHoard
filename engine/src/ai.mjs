@@ -3,11 +3,13 @@
 // copy of the battle, so every generation's rules, abilities and items count. "expert" also plays each candidate turn out on copies
 // of the battle against the opponent's likely answers and keeps the move with the best worst case; in doubles it does the same with
 // pairings of both slots' best options. "master" searches thousands of futures with poke-engine (master.mjs, Node only) and plays
-// as the expert when that search is not available.
+// as the expert when that search is not available. "neural" asks a reinforcement-learning policy trained on real battles, served on
+// the GPU by scripts/neural_ai_server.py (neural.mjs, Node only), in singles of generations 1-4 and 9; it only sees what its side
+// sees, and plays as the expert anywhere else or when that server is not running.
 import {Battle, PRNG, toID} from '@pkmn/sim';
 import {believe} from './belief.mjs';
 
-export const LEVELS = ['random', 'easy', 'normal', 'hard', 'expert', 'master'];
+export const LEVELS = ['random', 'easy', 'normal', 'hard', 'expert', 'master', 'neural'];
 export const STYLES = ['balanced', 'aggressive', 'defensive', 'setup', 'stall'];
 
 const STYLE_WEIGHTS = {
@@ -42,6 +44,12 @@ const pick = (list, rng) => list[Math.floor(rng() * list.length)];
 let masterSearch = null;
 export function setMasterSearch(fn) {
   masterSearch = typeof fn === 'function' ? fn : null;
+}
+
+// the neural level's policy: neural.mjs registers it in Node when the app has a neural AI server; without it the level is the expert
+let neuralSearch = null;
+export function setNeuralSearch(fn) {
+  neuralSearch = typeof fn === 'function' ? fn : null;
 }
 
 export function sideOf(battle, sideId) {
@@ -595,6 +603,28 @@ function doublesExpertChoice(battle, side, req, opts, w, rng) {
  * battle again on a copy and never changes the choice nor the random numbers it uses.
  */
 export function chooseFor(battle, sideId, opts = {}) {
+  if (opts.level === 'neural') {
+    const side = sideOf(battle, sideId);
+    const req = side && requestOf(side);
+    if (!req || req.wait) return null;
+    let choice = null;
+    if (neuralSearch) {
+      try {
+        choice = neuralSearch(battle, sideId, req, opts);
+      } catch (e) {
+        if (opts.trace) opts.trace.neural_error = String(e?.message || e).slice(0, 200);
+      }
+    }
+    if (choice) {   // the notes still rank the options the usual way, beside the policy's pick
+      if (opts.trace) {
+        try { fillTrace(battle, sideId, {...opts, level: 'expert'}, choice); } catch (e) { opts.trace.error = String(e?.message || e); }
+        opts.trace.level = 'neural';
+      }
+      return choice;
+    }
+    if (opts.trace && !req.teamPreview) opts.trace.fallback = 'expert';
+    opts = {...opts, level: 'expert', neural_fallback: true};
+  }
   let view = battle;
   if (opts.hidden) {
     try {
@@ -609,6 +639,7 @@ export function chooseFor(battle, sideId, opts = {}) {
   if (opts.trace && choice) {
     try { fillTrace(view, sideId, opts, choice); } catch (e) { opts.trace.error = String(e?.message || e); }
     if (opts.hidden) opts.trace.hidden = true;
+    if (opts.neural_fallback) opts.trace.level = 'neural';
   }
   return choice;
 }

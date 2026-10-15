@@ -19,7 +19,7 @@ from .hoard_link.guard import parse_allowed_hosts
 REPO_ROOT = Path(__file__).resolve().parent.parent
 ENGINE_DIR = REPO_ROOT / "engine"
 
-AI_LEVELS = ("random", "easy", "normal", "hard", "expert", "master")
+AI_LEVELS = ("random", "easy", "normal", "hard", "expert", "master", "neural")
 AI_STYLES = ("balanced", "aggressive", "defensive", "setup", "stall")
 SPRITE_SETS = ("gen5", "gen5ani", "ani", "home", "dex")
 
@@ -50,6 +50,12 @@ DEFAULT_SETTINGS: dict[str, Any] = {
     "rt_time_limit": 300,         # seconds of a real-time battle; then more Pokémon standing wins, then more HP left
     "pmd_sprites": True,          # real-time arena: walking sprites from PMDCollab's SpriteCollab, downloaded once and cached
     "pmd_server": "https://raw.githubusercontent.com/PMDCollab/SpriteCollab/master",
+    # the neural AI level (silvers_hoard/neural.py): the python of an environment with PyTorch and metamon ("" = off), its model,
+    # the GPU (as nvidia-smi numbers them; "" = the first) and the port of its local server
+    "neural_ai_python": "",
+    "neural_ai_model": "Kakuna",
+    "neural_ai_gpu": "",
+    "neural_ai_port": 8857,
 }
 MODES = ("classic", "realtime")
 
@@ -189,6 +195,12 @@ class Settings:
                 raise SilverError("invalid", "default_level is 0, 50 or 100")
             if key == "rt_time_limit":
                 value = max(30, min(int(value), 1800))
+            if key == "neural_ai_port":
+                value = max(1024, min(int(value), 65535))
+            if key == "neural_ai_model" and not re.match(r"^[A-Za-z][A-Za-z0-9_]{1,60}$", value):
+                raise SilverError("invalid", "neural_ai_model is the name of a pretrained model, such as Kakuna")
+            if key == "neural_ai_gpu" and value and not re.match(r"^\d{1,2}$", value):
+                raise SilverError("invalid", "neural_ai_gpu is a GPU index (0, 1…) or empty")
             if key == "pmd_server" and not value.startswith("https://"):
                 raise SilverError("invalid", "pmd_server must be an https:// address")
             if key == "prospero_style_sprites":

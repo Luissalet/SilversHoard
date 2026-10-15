@@ -100,6 +100,7 @@ const D = {
   lvl_hard: ["Difícil", "Hard"],
   lvl_expert: ["Experto", "Expert"],
   lvl_master: ["Maestro", "Master"],
+  lvl_neural: ["Neuronal (GPU)", "Neural (GPU)"],
   lvl_help_random: ["Elige cualquier movimiento legal.", "Picks any legal move."],
   lvl_help_easy: ["Ataca con lo que tiene, a menudo sin pensar, y nunca cambia por gusto.", "Attacks with what it has, often without thinking, and never switches by choice."],
   lvl_help_normal: ["Calcula el daño con la fórmula del juego, a veces se equivoca, cambia si va muy mal.", "Measures damage with the game's formula, sometimes errs, switches when things look bad."],

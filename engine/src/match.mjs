@@ -19,6 +19,8 @@ export function compactTrace(trace) {
     ...(trace.search ? {search: {iterations: trace.search.iterations, options: trace.search.options.slice(0, 4).map((p) => ({choice: p.choice,
       label: p.label, kind: p.kind, name: p.name, species: p.species, gimmick: p.gimmick, share: round(p.share), win: round(p.win)}))}} : {}),
     ...(trace.fallback ? {fallback: trace.fallback} : {}),
+    ...(trace.neural ? {neural: {action: trace.neural.action, ms: trace.neural.ms}} : {}),
+    ...(trace.neural_error ? {neural_error: trace.neural_error} : {}),
     ...(trace.hidden ? {hidden: true} : {}),
     ...(trace.error ? {error: trace.error} : {})};
 }
