@@ -116,6 +116,14 @@ async def avatar_upload(request: Request, file: UploadFile = File(...), trainer_
     return services(request).avatar_from_photo(data, trainer_id=trainer_id, mode=mode, remove_background=remove_background)
 
 
+@router.post("/badges/upload")
+async def badge_upload(request: Request, file: UploadFile = File(...), gym_id: str = Form(""), remove_background: bool = Form(False)):
+    data = await file.read(MAX_UPLOAD + 1)
+    if len(data) > MAX_UPLOAD:
+        raise SilverError("too_large", "The picture is larger than 20 MB.")
+    return services(request).badge_upload(data, gym_id=gym_id, remove_background=remove_background)
+
+
 @router.post("/avatars/draw")
 async def avatar_draw(request: Request, files: list[UploadFile] = File(default=[]), description: str = Form(""), trainer_id: str = Form(""),
                       count: int = Form(2), style: bool = Form(True)):

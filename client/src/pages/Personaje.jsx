@@ -18,6 +18,8 @@ function VariantRow({ v, on, onPick, lang, t }) {
           <b>{title}</b>
           {v.trainer_class && <span className="help">{lang === "en" ? v.trainer_class : v.trainer_class_es}</span>}
           {v.location && <span className="help">· {v.location}</span>}
+          {v.category && <span className="chip chip-cat">{t(`cat_${v.category}`)}</span>}
+          {v.pool > 0 && <span className="chip" title={t("char_pool_help")}>{t("char_pool", { n: v.pool })}</span>}
           {on && <span className="chip">{t("char_selected")}</span>}
         </div>
         <div className="char-mons">
@@ -29,12 +31,6 @@ function VariantRow({ v, on, onPick, lang, t }) {
           ))}
         </div>
         {v.sets.some((s) => s.level_range) && <div className="help">{t("char_level_range", { a: v.sets.find((s) => s.level_range).level_range[0], b: v.sets.find((s) => s.level_range).level_range[1], n: v.sets[0].level })}</div>}
-        {v.bag?.length > 0 && (
-          <div className="char-bag">
-            <span className="help">{t("char_bag")}:</span>
-            {v.bag.map((b) => <span key={b.item} className="chip">{b.count}× {lang === "en" ? b.item : b.item_es}{b.per_pokemon ? ` ${t("char_per_mon")}` : ""}</span>)}
-          </div>
-        )}
         {alt?.length > 0 && <div className="help">{t("char_also", { list: alt.join(" / ") })}</div>}
         {v.note && <div className="help" title={t("char_note_en")}>{v.note}</div>}
       </div>
@@ -48,26 +44,28 @@ export default function Personaje({ param, query }) {
   const [variantId, setVariantId] = useState("");
   const [sprite, setSprite] = useState("");
   const [gen, setGen] = useState(Number(query?.get("gen")) || 0);
+  const [game, setGame] = useState(query?.get("game") || "");
+  const fits = (v) => (!gen || v.gen === gen) && (!game || v.games.includes(game));
   const [busy, run] = useBusy();
 
   const variant = useMemo(() => {
     if (!c) return null;
-    return c.variants.find((v) => v.id === variantId) || [...c.variants].reverse().find((v) => !v.side && (!gen || v.gen === gen)) || c.variants[c.variants.length - 1];
-  }, [c, variantId, gen]);
+    return c.variants.find((v) => v.id === variantId) || [...c.variants].reverse().find((v) => !v.side && fits(v)) || [...c.variants].reverse().find(fits) || c.variants[c.variants.length - 1];
+  }, [c, variantId, gen, game]); // eslint-disable-line react-hooks/exhaustive-deps
   const spriteId = sprite || variant?.sprite || c?.base_sprite || "";
   const spriteUrl = c?.sprites.find((s) => s.id === spriteId)?.url || c?.avatar_url;
 
   const groups = useMemo(() => {
     const out = [];
     for (const v of c?.variants || []) {
-      if (gen && v.gen !== gen) continue;
+      if (!fits(v)) continue;
       const key = `${v.side ? "z" : "a"}${v.game}`;
       let g = out.find((x) => x.key === key);
       if (!g) out.push((g = { key, game: lang === "en" ? v.game_name : v.game_name_es, gen: v.gen, side: v.side, list: [] }));
       g.list.push(v);
     }
     return out;
-  }, [c, gen, lang]);
+  }, [c, gen, game, lang]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (error) return <ErrorBox error={error} onRetry={reload} />;
   if (!c) return <Spinner />;
@@ -83,7 +81,7 @@ export default function Personaje({ param, query }) {
 
   return (
     <div className="space-y-5">
-      <a className="btn-link" href="#/personajes">← {t("char_back")}</a>
+      <a className="btn-link" href={query?.get("game") ? `#/personajes?game=${query.get("game")}` : "#/personajes"}>← {query?.get("game") ? t("char_back_game") : t("char_back")}</a>
       <div className="char-head">
         <Avatar url={spriteUrl} name={name} size={112} />
         <div className="min-w-0 space-y-1">
@@ -105,11 +103,19 @@ export default function Personaje({ param, query }) {
       </Section>
 
       <Section title={t("char_teams")} count={c.variants.length} sub={t("char_teams_help")}
-        actions={gens.length > 1 && (
-          <div className="seg" role="group" aria-label={t("chars_gen")}>
-            {[0, ...gens].map((g) => <button key={g} type="button" aria-pressed={gen === g} onClick={() => setGen(g)}>{g ? t("chars_gen_n", { n: g }) : t("all")}</button>)}
-          </div>
-        )}>
+        actions={<>
+          {c.games.length > 1 && (
+            <select className="field max-w-[16rem]" value={game} onChange={(e) => { setGame(e.target.value); setVariantId(""); }} aria-label={t("chars_game")}>
+              <option value="">{t("chars_all_games")}</option>
+              {c.games.map((g) => <option key={g.id} value={g.id}>{lang === "en" ? g.name : g.name_es}</option>)}
+            </select>
+          )}
+          {gens.length > 1 && (
+            <div className="seg" role="group" aria-label={t("chars_gen")}>
+              {[0, ...gens].map((g) => <button key={g} type="button" aria-pressed={gen === g} onClick={() => { setGen(g); setVariantId(""); }}>{g ? t("chars_gen_n", { n: g }) : t("all")}</button>)}
+            </div>
+          )}
+        </>}>
         <div className="space-y-4">
           {groups.map((g) => (
             <div key={g.key} className="char-game">

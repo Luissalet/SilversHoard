@@ -10,7 +10,7 @@ export function GymCard({ g }) {
   const { t } = useApp();
   return (
     <a href={`#/gimnasio/${g.id}`} className="gym-card" style={{ "--badge": g.badge_color || "#c0c0c0" }}>
-      <GymBadge color={g.badge_color || "#c0c0c0"} size={44} label={g.badge} />
+      <GymBadge image={g.badge_image} color={g.badge_color || "#c0c0c0"} size={44} label={g.badge} />
       <div className="min-w-0 flex-1 space-y-1">
         <b className="trunc block">{g.name}</b>
         <div className="help trunc">{[g.city, g.badge].filter(Boolean).join(" · ")}</div>

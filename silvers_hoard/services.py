@@ -32,6 +32,9 @@ from .store import Store
 log = logging.getLogger("silver")
 
 PRESETS_DIR = Path(__file__).resolve().parent / "presets"
+# the drawn badge shapes the screens know (client/src/components/badges.js)
+BADGE_SHAPES = ("hexagon", "boulder", "drop", "bolt", "leaf", "flame", "heart", "star", "flake", "wing", "gear", "fist", "eye", "moon", "scale", "shell",
+                "rainbow", "crown")
 _CLASS_ES = {
     "Champion": "Campeón", "Top Champion": "Campeón Supremo", "BB League Champion": "Campeón de la Liga Arándano", "Elite Four": "Alto Mando",
     "Leader": "Líder de gimnasio", "Leaders": "Líderes de gimnasio", "Gym Leader": "Líder de gimnasio", "PKMN Trainer": "Entrenador Pokémon",
@@ -157,6 +160,21 @@ class Services:
 
     def team_summary(self, sets: list[dict[str, Any]], format_: str) -> list[dict[str, Any]]:
         return self.engine.call("summary", {"sets": sets, "format": format_})["pokemon"]
+
+    def stat_points(self, *, trainer_id: str = "", team: Any = None, paste: str = "", format_: str = "",
+                    points: Optional[dict[str, dict[str, int]]] = None, save: bool = False) -> dict[str, Any]:
+        """Stat points as in Pokémon Champions (66 per Pokémon, 32 per stat, read from and written as EVs) and the stats they give."""
+        t = self.store.trainer(trainer_id) if trainer_id else None
+        sets = t["team"] if t else self._team_from(team, paste)
+        if not sets:
+            raise SilverError("invalid", "Give trainer_id, team or paste.")
+        fmt = format_ or (t["format"] if t else self.settings["default_format"])
+        res = self.engine.call("stat_points", {"sets": sets, "points": points or {}, "format": fmt})
+        if t and points and save:
+            self.store.update_trainer(t["id"], {"team": res["sets"]})
+            self.emit("trainer.updated", {"id": t["id"]})
+        return {"trainer_id": trainer_id, "saved": bool(t and points and save), "format": fmt, "pokemon": res["pokemon"],
+                "sets": res["sets"], "limits": {"total": 66, "per_stat": 32}}
 
     def dex_search(self, kind: str, query: str = "", gen: int = 9, limit: int = 30, species: str = "") -> list[dict[str, Any]]:
         return self.engine.call("dex_search", {"kind": kind, "query": query, "gen": gen, "limit": limit, "species": species})["results"]
@@ -449,16 +467,22 @@ class Services:
             parts.append(("con " if lang == "es" else "with ") + v["with"])
         return " · ".join(parts)
 
-    def characters_list(self, query: str = "", gen: int = 0, game: str = "") -> dict[str, Any]:
+    def characters_list(self, query: str = "", gen: int = 0, game: str = "", category: str = "") -> dict[str, Any]:
+        """Characters with the teams that match; `game` is a game card id (rb, gsc, e, hgss, sv...) or a game code, `category` a role
+        (leaders, elite, champions, trials, rivals, villains, facilities, tournaments, others). Also the game cards with their counts."""
         data = self.characters()
         q = query.strip().lower()
+        g = game.strip().lower()
         made: dict[str, int] = {}
         for t in self.store.trainers_by_canon_prefix("char:"):
             k = t["canon_key"].split(":")[1]
             made[k] = made.get(k, 0) + 1
+        if category and category not in data["categories"]:
+            raise SilverError("invalid", f"category must be one of {', '.join(data['categories'])}")
         out = []
         for c in data["characters"]:
-            variants = [v for v in c["variants"] if (not gen or v["gen"] == gen) and (not game or v["game"].lower() == game.lower())]
+            variants = [v for v in c["variants"] if (not gen or v["gen"] == gen) and (not g or g in v["games"] or v["game"].lower() == g)
+                        and (not category or v["category"] == category)]
             if not variants:
                 continue
             if q:
@@ -466,11 +490,40 @@ class Services:
                 if q not in hay.lower():
                     continue
             ace = next((v for v in reversed(variants) if not v.get("side")), variants[-1])
-            out.append({"key": c["key"], "name": c["name"], "name_es": c["name_es"], "avatar_url": self.avatar_url(f"sd:{c['base_sprite']}") if c["base_sprite"] else "",
-                        "teams": len(variants), "sprites": len(c["sprites"]), "games": list(dict.fromkeys(v["game"] for v in variants)),
-                        "gens": sorted({v["gen"] for v in variants}), "species": [x["species"] for x in ace["sets"]],
+            cats = list(dict.fromkeys(v["category"] for v in variants))
+            sprite = ace.get("sprite") if g else c["base_sprite"]
+            out.append({"key": c["key"], "name": c["name"], "name_es": c["name_es"], "avatar_url": self.avatar_url(f"sd:{sprite or c['base_sprite']}") if (sprite or c["base_sprite"]) else "",
+                        "teams": len(variants), "sprites": len(c["sprites"]), "games": list(dict.fromkeys(x for v in variants for x in v["games"])),
+                        "gens": sorted({v["gen"] for v in variants}), "species": [x["species"] for x in ace["sets"]], "categories": cats,
                         "installed": made.get(c["key"], 0)})
-        return {"characters": out, "total": len(data["characters"]), "source": data.get("source", "")}
+        return {"characters": out, "total": len(data["characters"]), "games": self._character_games(), "categories": data["categories"],
+                "source": data.get("source", "")}
+
+    def _character_games(self) -> list[dict[str, Any]]:
+        data = self.characters()
+        if "game_cards" not in data:
+            order = {"champions": 0, "elite": 1, "leaders": 2, "rivals": 3, "villains": 4}
+            cards = []
+            for gm in data["games"]:
+                who: dict[str, tuple[int, str]] = {}
+                teams = 0
+                cats: dict[str, set[str]] = {}
+                for c in data["characters"]:
+                    for v in c["variants"]:
+                        if gm["id"] not in v["games"]:
+                            continue
+                        teams += 1
+                        cats.setdefault(v["category"], set()).add(c["key"])
+                        rank = order.get(v["category"], 9)
+                        if c["key"] not in who or rank < who[c["key"]][0]:
+                            who[c["key"]] = (rank, v.get("sprite") or c["base_sprite"])
+                if not teams:
+                    continue
+                faces = [sp for _, sp in sorted(who.values())[:5]]
+                cards.append({**gm, "characters": len(who), "teams": teams, "categories": {k: len(v) for k, v in cats.items()},
+                              "faces": [self.avatar_url(f"sd:{sp}") for sp in faces if sp]})
+            data["game_cards"] = cards
+        return data["game_cards"]
 
     def character_get(self, key: str) -> dict[str, Any]:
         c = self._character(key)
@@ -480,8 +533,10 @@ class Services:
             variants.append({**v, "trainer_class_es": _CLASS_ES.get(v["trainer_class"], v["trainer_class"]), "label": self._variant_label(v, "en"), "label_es": self._variant_label(v, "es"), "sprite_url": self.avatar_url(f"sd:{v['sprite']}") if v["sprite"] else "",
                              "species": [x["species"] for x in v["sets"]], "levels": [x["level"] for x in v["sets"]], "max_level": max(x["level"] for x in v["sets"])})
         installed = [self.trainer_view(t) for t in self.store.trainers_by_canon_prefix(f"char:{c['key']}:")]
+        mine = {x for v in c["variants"] for x in v["games"]}
+        cards = [{k: gm[k] for k in ("id", "gen", "name", "name_es", "side")} for gm in self.characters()["games"] if gm["id"] in mine]
         return {"key": c["key"], "name": c["name"], "name_es": c["name_es"], "base_sprite": c["base_sprite"], "avatar_url": self.avatar_url(f"sd:{c['base_sprite']}") if c["base_sprite"] else "",
-                "sprites": sprites, "variants": variants, "installed": installed,
+                "sprites": sprites, "variants": variants, "installed": installed, "games": cards, "categories": self.characters()["categories"],
                 "bulbapedia": "https://bulbapedia.bulbagarden.net/wiki/" + c["name"].replace(" ", "_"), "source": self.characters().get("source", "")}
 
     def character_install(self, key: str, *, variant: str = "", sprite: str = "", name: str = "", custom: bool = False,
@@ -526,12 +581,13 @@ class Services:
             notes.append(self._variant_label(v, "es"))
             if v.get("location"):
                 notes.append(f"Lugar: {v['location']}")
-            if v.get("bag"):
-                notes.append("Objetos en la bolsa: " + ", ".join(f"{b['count']}× {b['item_es']}" + (" por Pokémon" if b["per_pokemon"] else "") for b in v["bag"]))
             if v.get("note"):
                 notes.append(f"Bulbapedia: {v['note']}")
         notes.append("Equipo de Bulbapedia (CC BY-NC-SA); sprite de Pokémon Showdown." if v else "Sprite de Pokémon Showdown.")
         sets = [{k: x for k, x in s.items() if k != "level_range"} for s in (v["sets"] if v else [])] if (v and not custom) or (v and custom and variant) else []
+        if v and v.get("pool"):   # a battle facility's pool: the trainer takes six of them
+            sets = sets[:6]
+            notes.append(f"Grupo de {v['pool']} Pokémon posibles en la instalación; el entrenador lleva los 6 primeros.")
         fmt = v["format"] if v else self.settings["default_format"]
         level, style = self._clean_ai(ai_level or "hard", ai_style or "balanced")
         tags = [c["name"], *([v["game_name_es"], f"Gen {v['gen']}"] if v else [])]
@@ -568,11 +624,80 @@ class Services:
     def gym_get(self, id_: str) -> dict[str, Any]:
         return self.gym_view(self.store.gym(id_), full=True)
 
+    def _check_badge_image(self, image: str) -> str:
+        image = (image or "").strip()
+        if not image:
+            return ""
+        if image.startswith("shape:") and image[6:] in BADGE_SHAPES:
+            return image
+        if image.startswith("file:"):
+            self.sprites.avatar_path(image[5:])
+            return image
+        raise SilverError("invalid", f"badge_image is shape:<{'|'.join(BADGE_SHAPES)}> or file:<uploaded picture>")
+
+    def badge_upload(self, data: bytes, *, gym_id: str = "", remove_background: bool = False) -> dict[str, Any]:
+        """A picture of your own for a gym badge (kept up to 256 px, transparent PNG). With gym_id it goes on that gym at once."""
+        name = self.sprites.save_avatar(data, stem=f"badge-{gym_id or 'gym'}", pixelate=False, remove_background=remove_background, max_side=256)
+        image = f"file:{name}"
+        if gym_id:
+            self.store.update_gym(gym_id, {"badge_image": image})
+        return {"badge_image": image, "url": f"/api/avatars/{name}", "gym_id": gym_id}
+
+    def badge_draw(self, *, description: str = "", gym_id: str = "", count: int = 2) -> dict[str, Any]:
+        """Badges drawn by Prospero's Hoard from a description (a job); the gym's type and badge name fill in what is missing."""
+        g = self.store.gym(gym_id) if gym_id else None
+        description = " ".join((description or "").split())[:300]
+        if not description and g:
+            description = " ".join(x for x in (g.get("badge") or "", f"{g['type']} type" if g.get("type") else "") if x)
+        if not description:
+            raise SilverError("invalid", "Describe the badge (or give a gym with a type or a badge name).")
+        count = max(1, min(int(count or 2), 4))
+        return self._job("badge", f"Medalla dibujada ({description[:40]})", {"gym_id": gym_id, "description": description},
+                         lambda jid, progress, cancelled: self._prospero_badge(description, gym_id, count, progress, cancelled))
+
+    def _prospero_badge(self, description: str, gym_id: str, count: int, progress: Callable[[float], None],
+                        cancelled: Callable[[], bool]) -> dict[str, Any]:
+        progress(0.02)
+        projects = self._prospero_call("studio_projects", {"query": "Silver's Hoard", "limit": 20}) or {}
+        items = (projects.get("items") if isinstance(projects, dict) else None) or []
+        project = next((p["id"] for p in items if p.get("name") == "Silver's Hoard"), "")
+        if not project:
+            created = self._prospero_call("studio_create_project", {"name": "Silver's Hoard", "brief": "Pictures for the battle simulator."}, write=True) or {}
+            project = created.get("id") or (created.get("project") or {}).get("id")
+        if not project:
+            raise SilverError("unavailable", "Prospero did not create the project for the badges.")
+        prompt = (f"A single collectible gym badge pin for a monster-battling game: {description}. Enamel and polished metal, bold simple "
+                  "symbolic shape, centred, front view, plain flat white background, no text, no letters, no hands, no people.")
+        args: dict[str, Any] = {"project": project, "prompt": prompt, "count": count, "aspect": "1:1"}
+        if self.settings.get("prospero_engine"):
+            args["engine"] = self.settings["prospero_engine"]
+        gen = self._prospero_call("studio_generate_image", args, timeout=180, write=True) or {}
+        job = (gen.get("job") or {}) if isinstance(gen, dict) else {}
+        if not job.get("id"):
+            raise SilverError("unavailable", "Prospero did not queue the picture.")
+        job = self._prospero_wait(job, cancelled, lambda p: progress(0.05 + 0.75 * p))
+        base = self._prospero_url()
+        files = []
+        ids = [a for a in (job.get("asset_ids") or [a.get("id") for a in job.get("assets") or []]) if a][:4]
+        for n, aid in enumerate(ids):
+            data, matted = self._prospero_cutout(base, aid, cancelled)
+            name = self.sprites.save_avatar(data, stem=f"badge-{gym_id or 'gym'}-ai", pixelate=False, remove_background=not matted, max_side=256)
+            files.append({"file": name, "url": f"/api/avatars/{name}", "badge_image": f"file:{name}", "prospero_asset": aid})
+            progress(0.8 + 0.2 * (n + 1) / len(ids))
+        if not files:
+            raise SilverError("unavailable", "Prospero finished without pictures.")
+        if gym_id:
+            self.store.update_gym(gym_id, {"badge_image": files[0]["badge_image"]})
+        progress(1.0)
+        return {"candidates": files, "prompt": prompt}
+
     def gym_save(self, id_: str = "", **v: Any) -> dict[str, Any]:
         values: dict[str, Any] = {}
         for key in ("name", "city", "type", "badge", "badge_color", "description"):
             if v.get(key) is not None:
                 values[key] = str(v[key]).strip()[:2000 if key == "description" else 60]
+        if v.get("badge_image") is not None:
+            values["badge_image"] = self._check_badge_image(v["badge_image"])
         if v.get("format"):
             self.format_info(v["format"], v.get("rules"))
             values["format"] = v["format"]
@@ -1109,7 +1234,7 @@ class Services:
             ch = r.get("challenger") or {}
             if r["kind"] == "gym":
                 g = self.store.gym(r["target_id"], deleted=True)
-                self.store.add_badge({"gym_id": g["id"], "gym_name": g["name"], "badge": g["badge"], "badge_color": g["badge_color"],
+                self.store.add_badge({"gym_id": g["id"], "gym_name": g["name"], "badge": g["badge"], "badge_color": g["badge_color"], "badge_image": g.get("badge_image") or "",
                                       "challenger_name": ch.get("name", ""), "challenger_trainer_id": r["challenger_id"], "source": "local",
                                       "battle_id": b["id"], "run_id": rid})
             else:
@@ -1287,25 +1412,51 @@ class Services:
         return self._job("tournament", name, {"trainer_ids": ids, "kind": kind, "best_of": best_of, "format": fmt, "mode": "realtime" if rt else "classic"}, work)
 
     # ------------------------------------------------------------ sharing
-    def _avatar_payload(self, avatar: str) -> dict[str, Any]:
+    def _avatar_payload(self, avatar: str, *, max_bytes: int = 0) -> dict[str, Any]:
+        """A picture as it travels to a friend. ``max_bytes`` shrinks big drawings (share codes are pasted into chats)."""
         if avatar.startswith("sd:"):
             return {"kind": "showdown", "name": avatar[3:]}
         if avatar.startswith("file:"):
             try:
                 data = self.sprites.avatar_path(avatar[5:]).read_bytes()
+                if max_bytes and len(data) > max_bytes:
+                    from PIL import Image
+                    img = Image.open(io.BytesIO(data)).convert("RGBA")
+                    for side in (192, 144, 112, 96):
+                        img.thumbnail((side, side))
+                        buf = io.BytesIO()
+                        img.save(buf, "PNG", optimize=True)
+                        data = buf.getvalue()
+                        if len(data) <= max_bytes:
+                            break
                 return {"kind": "image", "mime": "image/png", "data": base64.b64encode(data).decode("ascii")}
             except SilverError:
                 return {}
         return {}
 
-    def _trainer_payload(self, t: dict[str, Any], *, with_picture: bool = True) -> dict[str, Any]:
+    CODE_PICTURE_BYTES = 48_000
+
+    def _trainer_payload(self, t: dict[str, Any], *, with_picture: bool = True, max_picture: int = 0) -> dict[str, Any]:
         return {"name": t["name"], "title": t["title"], "owner": t["owner"] or self.settings["player_name"], "format": t["format"], "team": t["team"],
                 "ai": {"level": t["ai_level"], "style": t["ai_style"]}, "dialogue": t.get("dialogue") or {}, "notes": t.get("notes") or "",
-                "avatar": self._avatar_payload(t["avatar"]) if with_picture else ({"kind": "showdown", "name": t["avatar"][3:]} if t["avatar"].startswith("sd:") else {}),
+                "avatar": self._avatar_payload(t["avatar"], max_bytes=max_picture) if with_picture else ({"kind": "showdown", "name": t["avatar"][3:]} if t["avatar"].startswith("sd:") else {}),
                 "source_id": t["id"]}
+
+    def _badge_payload(self, image: str) -> dict[str, Any]:
+        if image.startswith("shape:"):
+            return {"kind": "shape", "shape": image[6:]}
+        if image.startswith("file:"):
+            return self._avatar_payload(image)
+        return {}
+
+    def _import_badge(self, payload: Any, stem: str) -> str:
+        if isinstance(payload, dict) and payload.get("kind") == "shape" and payload.get("shape") in BADGE_SHAPES:
+            return f"shape:{payload['shape']}"
+        return self._import_avatar(payload, stem) if isinstance(payload, dict) and payload.get("kind") == "image" else ""
 
     def _gym_payload(self, g: dict[str, Any]) -> dict[str, Any]:
         return {"name": g["name"], "city": g["city"], "type": g["type"], "badge": g["badge"], "badge_color": g["badge_color"],
+                "badge_image": self._badge_payload(g.get("badge_image") or ""),
                 "description": g["description"], "format": g["format"], "rules": g.get("rules") or [], "level_rules": g.get("level_rules") or {},
                 "leader": self._trainer_payload(self.store.trainer(g["leader_id"], deleted=True)),
                 "trainers": [self._trainer_payload(t) for t in self.store.trainers(ids=g.get("trainers") or [])], "source_id": g["id"]}
@@ -1318,11 +1469,12 @@ class Services:
                 "champion": self._trainer_payload(self.store.trainer(lg["champion_id"], deleted=True)), "source_id": lg["id"]}
 
     def export(self, kind: str, id_: str, *, fmt: str = "file") -> dict[str, Any]:
-        """``fmt``: file (a .hoardtrainer/.hoardgym/.hoardleague JSON), code (a share code, trainers only, without uploaded pictures), page
+        """``fmt``: file (a .hoardtrainer/.hoardgym/.hoardleague JSON), code (a share code, trainers only; an own picture goes in it,
+        shrunk when it is a big drawing), page
         (a playable HTML, gyms and trainers), paste (the team as Showdown text, trainers only)."""
         if kind == "trainer":
             obj = self.store.trainer(id_)
-            payload = self._trainer_payload(obj, with_picture=fmt != "code")
+            payload = self._trainer_payload(obj, max_picture=self.CODE_PICTURE_BYTES if fmt == "code" else 0)
             name = obj["name"]
         elif kind == "gym":
             obj = self.store.gym(id_)
@@ -1393,6 +1545,7 @@ class Services:
         trainers = [self._import_trainer(t, origin) for t in p.get("trainers") or []]
         return self.store.add_gym({"name": str(p.get("name") or "Gimnasio")[:60], "city": str(p.get("city") or "")[:60], "type": str(p.get("type") or "")[:20],
                                    "badge": str(p.get("badge") or "")[:60], "badge_color": str(p.get("badge_color") or "")[:20],
+                                   "badge_image": self._import_badge(p.get("badge_image"), f"badge-{p.get('name') or 'gym'}"),
                                    "description": str(p.get("description") or "")[:2000], "format": p.get("format") or self.settings["default_format"],
                                    "rules": [str(r)[:80] for r in p.get("rules") or []][:20], "level_rules": p.get("level_rules") or {},
                                    "leader_id": leader, "trainers": trainers, "origin": origin, "owner": str(p.get("owner") or "")[:60]})
@@ -1446,7 +1599,7 @@ class Services:
                                          "summary": {"from_friend": True, "stages": r.get("stages") or []}, "title": f"{g['name']} · {challenger}"})
             badge = None
             if won:
-                badge = self.store.add_badge({"gym_id": g["id"], "gym_name": g["name"], "badge": g["badge"], "badge_color": g["badge_color"],
+                badge = self.store.add_badge({"gym_id": g["id"], "gym_name": g["name"], "badge": g["badge"], "badge_color": g["badge_color"], "badge_image": g.get("badge_image") or "",
                                               "challenger_name": challenger, "source": "friend", "battle_id": bid,
                                               "proof": {k: r.get(k) for k in ("turns", "date", "team_paste", "stages")}})
             self.emit("friend.result", {"gym": g["name"], "challenger": challenger, "won": won})

@@ -180,7 +180,7 @@ export default function Entrenador({ param, query }) {
         </div>
       </div>
       {tr.badges?.length > 0 && (
-        <div className="flex flex-wrap items-center gap-2">{tr.badges.map((b) => <span key={b.id} className="badge-pill" title={`${b.gym_name}`}><GymBadge color={b.badge_color} size={22} label={b.badge} /> {b.badge || b.gym_name}</span>)}</div>
+        <div className="flex flex-wrap items-center gap-2">{tr.badges.map((b) => <span key={b.id} className="badge-pill" title={`${b.gym_name}`}><GymBadge image={b.badge_image} color={b.badge_color} size={22} label={b.badge} /> {b.badge || b.gym_name}</span>)}</div>
       )}
       <Tabs value={tab} onChange={setTab} tabs={[{ id: "team", label: t("tab_team") }, { id: "details", label: t("tab_details") }, { id: "lines", label: t("tab_lines") }, { id: "realtime", label: t("mode_realtime_short") }, { id: "battles", label: t("tab_battles") }]} />
       {tab === "team" && <TeamTab tr={tr} reload={reload} startVisual={query?.get("builder") === "1"} />}

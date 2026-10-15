@@ -1,10 +1,11 @@
 // One gym: who you face (gym trainers, then the leader), its rules and who has its badge. Challenge it, edit it, send it.
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { api } from "../api.js";
 import { useApp } from "../context.js";
 import { Busy, ErrorBox, Field, Icon, ICONS, Modal, Section, Spinner, Switch, useBusy, useLoad } from "../components/ui.jsx";
 import { useContextProvider, useCopilotRefresh } from "../components/hooks.js";
-import { Avatar, ExportDialog, FormatSelect, GymBadge, RulesFields, TeamStrip, TrainerSelect, TypeChip, useTrainers } from "../components/silver.jsx";
+import { Avatar, ExportDialog, FormatSelect, GymBadge, JobProgress, RulesFields, TeamStrip, TrainerSelect, TypeChip, useJob, useTrainers } from "../components/silver.jsx";
+import { BADGE_SHAPES, TYPE_SHAPE } from "../components/badges.jsx";
 import { TYPE_COLORS, typeName } from "../battle/dex.js";
 import ModeFields from "../battle/rt/ModeFields.jsx";
 
@@ -39,10 +40,68 @@ export function ChallengeDialog({ kind, target, onClose }) {
   );
 }
 
+/** The badge's picture: one of the drawn shapes in the badge colour, a picture of your own, or badges drawn by Prospero. */
+function BadgePicker({ gymId, type, color, value, name, onChange }) {
+  const { t, notify, toastError } = useApp();
+  const [busy, run] = useBusy();
+  const [desc, setDesc] = useState("");
+  const [jobId, setJobId] = useState("");
+  const [candidates, setCandidates] = useState([]);
+  const fileRef = useRef(null);
+  const job = useJob(jobId, (j) => {
+    if (j.status === "done") { setCandidates(j.result?.candidates || []); notify(t("badge_drawn")); }
+    else toastError({ message: j.error || t("job_failed") });
+  });
+  const suggested = TYPE_SHAPE[type] || "hexagon";
+  const shapes = [suggested, ...Object.keys(BADGE_SHAPES).filter((k) => k !== suggested)];
+  const upload = (file) => run("up", async () => { const r = await api.uploadBadge(file, { gymId }); onChange(r.badge_image); notify(t("badge_uploaded")); });
+  const draw = () => run("draw", async () => {
+    setCandidates([]);
+    const r = await api.call("badge_draw", { gym_id: "", description: desc.trim() || [name, type && `${type}`].filter(Boolean).join(", ") });
+    setJobId(r.id);
+  });
+  const drawing = busy.draw || (job && ["queued", "running"].includes(job.status));
+  return (
+    <div className="space-y-2">
+      <span className="label">{t("badge_image")}</span>
+      <div className="badge-shapes" role="radiogroup" aria-label={t("badge_image")}>
+        <button type="button" role="radio" aria-checked={!value} className={`badge-choice ${!value ? "is-on" : ""}`} onClick={() => onChange("")} title={t("badge_plain")}>
+          <GymBadge color={color} size={40} /><span>{t("badge_plain")}</span>
+        </button>
+        {shapes.map((k) => (
+          <button key={k} type="button" role="radio" aria-checked={value === `shape:${k}`} className={`badge-choice ${value === `shape:${k}` ? "is-on" : ""}`} onClick={() => onChange(`shape:${k}`)} title={t(`badge_shape_${k}`)}>
+            <GymBadge color={color} size={40} image={`shape:${k}`} /><span>{t(`badge_shape_${k}`)}</span>
+          </button>
+        ))}
+        {value && value.startsWith("file:") && (
+          <button type="button" role="radio" aria-checked="true" className="badge-choice is-on"><GymBadge image={value} size={40} /><span>{t("badge_own")}</span></button>
+        )}
+      </div>
+      <div className="flex flex-wrap items-center gap-2">
+        <input ref={fileRef} type="file" accept="image/*" hidden onChange={(e) => { const f = e.target.files?.[0]; e.target.value = ""; if (f) upload(f); }} />
+        <Busy busy={busy.up} className="btn btn-sm" onClick={() => fileRef.current?.click()}>{t("badge_upload")}</Busy>
+        <input className="field max-w-xs" value={desc} onChange={(e) => setDesc(e.target.value)} placeholder={t("badge_draw_ph")} aria-label={t("badge_draw_ph")} />
+        <Busy busy={drawing} className="btn btn-sm" onClick={draw}>{t("badge_draw")}</Busy>
+      </div>
+      {job && ["queued", "running"].includes(job.status) && <JobProgress job={job} />}
+      {candidates.length > 0 && (
+        <div className="badge-shapes">
+          {candidates.map((c) => (
+            <button key={c.file} type="button" className={`badge-choice ${value === c.badge_image ? "is-on" : ""}`} onClick={() => onChange(c.badge_image)}>
+              <GymBadge image={c.badge_image} size={64} /><span>{t("badge_use")}</span>
+            </button>
+          ))}
+        </div>
+      )}
+      <p className="help">{t("badge_image_help")}</p>
+    </div>
+  );
+}
+
 function GymEditor({ gym, onSaved, onCancel }) {
   const { t, notify, changed } = useApp();
   const list = useTrainers();
-  const [f, setF] = useState(() => ({ name: gym?.name || "", city: gym?.city || "", type: gym?.type || "", badge: gym?.badge || "", badge_color: gym?.badge_color || "#c0c0c0",
+  const [f, setF] = useState(() => ({ name: gym?.name || "", city: gym?.city || "", type: gym?.type || "", badge: gym?.badge || "", badge_color: gym?.badge_color || "#c0c0c0", badge_image: gym?.badge_image || "",
     description: gym?.description || "", format: gym?.format || "", rules: gym?.rules || [], level_rules: gym?.level_rules || {}, leader_id: gym?.leader_id || "", trainers: gym?.trainers || [] }));
   const [add, setAdd] = useState("");
   const [busy, run] = useBusy();
@@ -65,8 +124,9 @@ function GymEditor({ gym, onSaved, onCancel }) {
             <option value="">—</option>{TYPES.map((x) => <option key={x} value={x}>{typeName(x, "es")} · {x}</option>)}
           </select>
         </Field>
-        <Field label={t("badge_name")}><div className="flex items-center gap-2"><GymBadge color={f.badge_color} size={32} /><input className="field" value={f.badge} onChange={(e) => set("badge", e.target.value)} placeholder={t("badge_ph")} /><input type="color" value={f.badge_color} onChange={(e) => set("badge_color", e.target.value)} aria-label={t("badge_color")} /></div></Field>
+        <Field label={t("badge_name")}><div className="flex items-center gap-2"><GymBadge image={f.badge_image} color={f.badge_color} size={32} /><input className="field" value={f.badge} onChange={(e) => set("badge", e.target.value)} placeholder={t("badge_ph")} /><input type="color" value={f.badge_color} onChange={(e) => set("badge_color", e.target.value)} aria-label={t("badge_color")} /></div></Field>
       </div>
+      <BadgePicker gymId={gym?.id || ""} type={f.type} color={f.badge_color} value={f.badge_image} name={f.badge} onChange={(v) => set("badge_image", v)} />
       <Field label={t("description")}><textarea className="field" rows={2} value={f.description} onChange={(e) => set("description", e.target.value)} /></Field>
       <TrainerSelect value={f.leader_id} onChange={(v) => set("leader_id", v)} label={t("leader")} />
       <div className="space-y-2">
@@ -114,7 +174,7 @@ export default function Gimnasio({ param, query }) {
   return (
     <div className="space-y-4">
       <div className="page-head">
-        <GymBadge color={g.badge_color || "#c0c0c0"} size={72} label={g.badge} />
+        <GymBadge image={g.badge_image} color={g.badge_color || "#c0c0c0"} size={72} label={g.badge} />
         <div className="min-w-0">
           <h1 className="trunc">{g.name}</h1>
           <div className="help">{[g.city, g.badge].filter(Boolean).join(" · ")}</div>
@@ -148,7 +208,7 @@ export default function Gimnasio({ param, query }) {
           <div className="panel divide-list p-0">
             {g.badges.map((b) => (
               <div key={b.id} className="row-item">
-                <GymBadge color={b.badge_color || g.badge_color} size={22} />
+                <GymBadge image={b.badge_image || g.badge_image} color={b.badge_color || g.badge_color} size={22} />
                 <span className="min-w-0 flex-1 trunc">{b.challenger_name}</span>
                 <span className="chip">{b.source === "friend" ? t("from_friend") : t("here")}</span>
                 {b.battle_id && <a className="btn btn-sm" href={`#/combate/${b.battle_id}`}>{t("replay")}</a>}

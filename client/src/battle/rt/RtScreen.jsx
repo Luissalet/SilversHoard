@@ -6,7 +6,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { RtBattle, fastForward, inputFrame, TPS } from "../../../../engine/src/realtime/sim.mjs";
 import { L, STATUS_COLORS, STATUS_NAMES, STAT_SHORT, TYPE_COLORS, nameOf, typeName } from "../dex.js";
 import { ArenaRenderer } from "./render.js";
-import { makeInputs } from "./input.js";
+import { CONTROL_LAYOUTS, makeInputs } from "./input.js";
 import { rtT } from "./strings.js";
 import "./rt.css";
 
@@ -107,7 +107,7 @@ function SideBar({ side, align, lang, tr, avatarUrl }) {
   );
 }
 
-function MoveButton({ m, i, lang, tr, onUse, keyHint, disabled }) {
+function MoveButton({ m, i, lang, tr, onUse, keyHint, disabled, pos = "" }) {
   const ready = m.cd <= 0 && !m.blocked;
   const frac = m.total ? Math.min(1, m.cd / m.total) : 0;
   const color = TYPE_COLORS[m.type] || "#888";
@@ -116,7 +116,7 @@ function MoveButton({ m, i, lang, tr, onUse, keyHint, disabled }) {
     tr("rt_base_cd", { n: m.cooldown, src: tr(m.za ? "rt_src_za" : "rt_src_derived") }), tr("rt_windup", { n: (m.windup / TPS).toFixed(2) }),
     m.no_effect ? tr("rt_no_effect") : "", blocked].filter(Boolean).join("\n");
   return (
-    <button type="button" className={`rt-move ${ready ? "is-ready" : ""}`} style={{ "--type": color, "--cd": frac }} disabled={disabled}
+    <button type="button" className={`rt-move ${ready ? "is-ready" : ""} ${pos ? `rt-pos-${pos}` : ""}`} style={{ "--type": color, "--cd": frac }} disabled={disabled}
       onClick={() => onUse(i)} title={title} aria-label={`${nameOf("move", m.name, lang)}${ready ? "" : `, ${Math.ceil(m.cd)} s`}`}>
       <span className="rt-move-sweep" aria-hidden="true" />
       <span className="rt-move-key">{keyHint}</span>
@@ -128,48 +128,65 @@ function MoveButton({ m, i, lang, tr, onUse, keyHint, disabled }) {
   );
 }
 
-function Pad({ side, si, lang, tr, input, partyOpen, onUse, onRoll, onSwitch, onParty, keys, sprites }) {
+// The four moves sit in a diamond like the X A B Y buttons of Legends: Z-A (slot 0 top, 1 right, 2 bottom, 3 left).
+const DIAMOND = ["top", "right", "bottom", "left"];
+
+function Pad({ side, si, lang, tr, partyOpen, cursor, focus, onUse, onRoll, onSwitch, onParty, keys, sprites }) {
   const mon = side.mons[side.active];
   const showParty = partyOpen || side.need;
   return (
-    <div className="rt-pad">
+    <div className={`rt-pad ${focus ? "is-focus" : ""}`}>
       {side.need && <div className="rt-need">{tr("rt_choose_next")}</div>}
-      {!side.need && mon && !mon.fainted && (
-        <div className="rt-moves">
-          {mon.moves.map((m, i) => <MoveButton key={i} m={m} i={i} lang={lang} tr={tr} keyHint={keys.moves[i]} onUse={(j) => onUse(si, j)} />)}
-        </div>
-      )}
-      <div className="rt-pad-row">
-        <button type="button" className="btn btn-sm" onClick={() => onRoll(si)} disabled={side.roll_ready > 0 || side.need}>
-          {tr("rt_roll")} <span className="rt-key">{keys.roll}</span>{side.roll_ready > 0 ? ` ${side.roll_ready.toFixed(1)}` : ""}
-        </button>
-        <button type="button" className={`btn btn-sm ${showParty ? "btn-primary" : ""}`} onClick={() => onParty(si)} disabled={side.need}>
-          {tr("rt_party_open")}
-        </button>
-        <span className="help">{tr("rt_switches", { n: side.switches_left })}</span>
-      </div>
-      {showParty && (
-        <div className="rt-party-list">
+      <div className="rt-pad-main">
+        <div className="rt-party-strip" role="group" aria-label={tr("rt_party")}>
           {side.mons.map((m, i) => (
-            <button key={i} type="button" className="rt-party-btn" disabled={m.fainted || i === side.active || (!side.need && side.switches_left <= 0)}
-              onClick={() => onSwitch(si, i)} title={`${m.name} ${m.hp}/${m.maxhp}`}>
+            <button key={i} type="button" className={`rt-party-btn ${i === side.active ? "is-active" : ""} ${showParty && i === cursor ? "is-cursor" : ""}`}
+              disabled={m.fainted || i === side.active || (!side.need && side.switches_left <= 0)} onClick={() => onSwitch(si, i)} title={`${m.name} ${m.hp}/${m.maxhp}`}>
               <img src={sprites.pokemon(m.species, { spriteid: m.sprite_id })} alt="" className={sprites.pixelated ? "pixelated" : ""} onError={(ev) => { ev.currentTarget.style.visibility = "hidden"; }} />
-              <span className="trunc">{m.name}</span>
               <span className="rt-key">{keys.slots[i]}</span>
               <HpBar mon={m} />
             </button>
           ))}
+          <div className="rt-party-help">
+            <span>{tr("rt_switches", { n: side.switches_left })}</span>
+            <span className="help">{keys.party}</span>
+          </div>
         </div>
-      )}
+        {!side.need && mon && !mon.fainted && (
+          <div className="rt-diamond">
+            {mon.moves.map((m, i) => <MoveButton key={i} m={m} i={i} lang={lang} tr={tr} pos={DIAMOND[i]} keyHint={keys.moves[i]} onUse={(j) => onUse(si, j)} />)}
+            <div className="rt-diamond-hub" aria-hidden="true"><span className="rt-key">{keys.focus}</span><span className="rt-hub-label">{focus ? tr("rt_focus_on") : tr("rt_focus")}</span></div>
+          </div>
+        )}
+        <div className="rt-pad-side">
+          <button type="button" className="btn btn-sm" onClick={() => onRoll(si)} disabled={side.roll_ready > 0 || side.need}>
+            {tr("rt_roll")} <span className="rt-key">{keys.roll}</span>{side.roll_ready > 0 ? ` ${side.roll_ready.toFixed(1)}` : ""}
+          </button>
+          <button type="button" className={`btn btn-sm ${showParty ? "btn-primary" : ""}`} onClick={() => onParty(si)} disabled={side.need}>
+            {tr("rt_party_open")}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
 
 const KEY_HINTS = {
-  solo: { moves: ["1", "2", "3", "4"], roll: "␣", slots: ["1", "2", "3", "4", "5", "6"] },
-  p1: { moves: ["1", "2", "3", "4"], roll: "␣", slots: ["1", "2", "3", "4", "5", "6"] },
-  p2: { moves: ["U", "I", "O", "P"], roll: "↵", slots: ["U", "I", "O", "P", "[", "]"] },
+  solo: { moves: ["I", "L", "K", "J"], roll: "␣", focus: "⇧", party: "Q · E · R", slots: ["1", "2", "3", "4", "5", "6"] },
+  p1: { moves: ["1", "2", "3", "4"], roll: "␣", focus: "⇧", party: "Q · E · R", slots: ["1", "2", "3", "4", "5", "6"] },
+  p2: { moves: ["U", "I", "O", "P"], roll: "↵", focus: "⇧", party: "[ · ] · \\", slots: ["U", "I", "O", "P", "[", "]"] },
+  pad: { moves: ["X", "A", "B", "Y"], roll: "Y", focus: "ZL", party: "◀ ▶ ▲", slots: ["", "", "", "", "", ""] },
+  simple: { moves: ["A", "B", "X", "Y"], roll: "RB", focus: "", party: "◀ ▶ ▲", slots: ["", "", "", "", "", ""] },
 };
+
+const LAYOUT_KEY = "silver-rt-controls";
+function readLayout() {
+  try { const v = localStorage.getItem(LAYOUT_KEY); return CONTROL_LAYOUTS.includes(v) ? v : "za"; } catch { return "za"; }
+}
+
+function hasPad() {
+  try { return typeof navigator !== "undefined" && !!navigator.getGamepads && [...navigator.getGamepads()].some(Boolean); } catch { return false; }
+}
 
 /**
  * battle: the app's battle (battle_get) with `rt` {spec, inputs, tick, human}. onFinish(inputs, tick, forfeitSide) -> Promise of
@@ -189,6 +206,15 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
   const [hud, setHud] = useState(null);
   const [log, setLog] = useState([]);
   const [party, setParty] = useState([false, false]);
+  const [cursor, setCursor] = useState([0, 0]);
+  const [focus, setFocus] = useState([false, false]);
+  const [layout, setLayoutState] = useState(readLayout);
+  const [pad, setPad] = useState(hasPad);
+  const setLayout = (v) => {
+    setLayoutState(v);
+    try { localStorage.setItem(LAYOUT_KEY, v); } catch { /* private window: the choice lasts this battle */ }
+    sim.current?.inputs.forEach((inp) => { if (inp) inp.layout = v; });
+  };
   const [speed, setSpeed] = useState(1);
   const [error, setError] = useState(null);
   const [result, setResult] = useState(null);
@@ -208,7 +234,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
   const build = useCallback((untilTick = 0) => {
     const b = new RtBattle(spec);
     const recorded = battle.rt.inputs || [];
-    const state = { b, inputs: makeInputs(humans), held: new Set(), acc: 0, last: 0, logIndex: 0, saveAt: 0, savedLen: 0, replay: null };
+    const state = { b, inputs: makeInputs(humans, readLayout()), held: new Set(), acc: 0, last: 0, logIndex: 0, saveAt: 0, savedLen: 0, replay: null };
     if (live) {
       if (recorded.length || battle.rt.tick) {
         fastForward(b, recorded, battle.rt.tick || 0);
@@ -222,7 +248,14 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
         while (!b.ended && b.t < untilTick) b.step(inputFrame(b, byTick.get(b.t + 1) || [], state.replay.held));
       }
     }
-    state.inputs.forEach((inp, i) => { if (inp) inp.onParty = (open) => setParty((p) => { const n = [...p]; n[i] = open; return n; }); });
+    state.inputs.forEach((inp, i) => {
+      if (!inp) return;
+      inp.onParty = (open, at) => {
+        setParty((p) => { const n = [...p]; n[i] = open; return n; });
+        setCursor((c) => { const n = [...c]; n[i] = at ?? 0; return n; });
+      };
+      inp.onPause = () => setPhase((ph) => (ph === "running" ? "paused" : ph === "paused" ? "running" : ph));
+    });
     return state;
   }, [spec, battle.rt, live]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -309,6 +342,9 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
           if (live) {
             const input = {};
             st.b.sides.forEach((side, i) => { if (st.inputs[i]) input[side.id] = st.inputs[i].take(st.held, side.mons.length); });
+            const f = st.inputs.map((x) => !!x?.focus);
+            if (st.renderer) st.renderer.focus = f;
+            if (f[0] !== st.lastFocus?.[0] || f[1] !== st.lastFocus?.[1]) { st.lastFocus = f; setFocus(f); }
             st.b.step(input);
           } else {
             st.b.step(inputFrame(st.b, st.replay.byTick.get(st.b.t + 1) || [], st.replay.held));
@@ -354,7 +390,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
       if (phaseRef.current !== "running") return;
       st.held.add(e.code);
       let used = false;
-      for (const inp of st.inputs) if (inp && !e.repeat) used = inp.key(e.code, true) || used;
+      st.inputs.forEach((inp, i) => { if (inp && !e.repeat) used = inp.key(e.code, true, undefined, st.b.sides[i]?.mons.length || 6) || used; });
       if (used || ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Tab", "Backspace"].includes(e.code)) e.preventDefault();
     };
     const up = (e) => sim.current?.held.delete(e.code);
@@ -371,6 +407,18 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
       document.removeEventListener("visibilitychange", vis);
     };
   }, [live]);
+
+  // a gamepad plugged in later changes the hints (and the seat picks it up on its next read)
+  useEffect(() => {
+    const on = (e) => {
+      setPad(hasPad());
+      const st = sim.current;
+      if (e.type === "gamepadconnected" && st) st.inputs.forEach((inp) => { if (inp && inp.pad < 0 && inp.scheme === "solo") inp.pad = e.gamepad.index; });
+    };
+    window.addEventListener("gamepadconnected", on);
+    window.addEventListener("gamepaddisconnected", on);
+    return () => { window.removeEventListener("gamepadconnected", on); window.removeEventListener("gamepaddisconnected", on); };
+  }, []);
 
   const queue = (si, patch) => {
     const inp = sim.current?.inputs[si];
@@ -427,13 +475,20 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
                   {people === 2 ? (<><dd>{tr("rt_keys_p1")}</dd><dd>{tr("rt_keys_p2")}</dd></>) : (
                     <>
                       <dt>{tr("rt_ctrl_move")}</dt><dd>{tr("rt_keys_move")}</dd>
-                      <dt>{tr("rt_ctrl_moves")}</dt><dd>{tr("rt_keys_moves")}</dd>
-                      <dt>{tr("rt_ctrl_roll")}</dt><dd>{tr("rt_keys_roll")}</dd>
+                      <dt>{tr("rt_ctrl_focus")}</dt><dd>{tr("rt_keys_focus")}</dd>
+                      <dt>{tr("rt_ctrl_moves")}</dt><dd>{tr(layout === "simple" ? "rt_keys_moves_simple" : "rt_keys_moves")}</dd>
+                      <dt>{tr("rt_ctrl_roll")}</dt><dd>{tr(layout === "simple" ? "rt_keys_roll_simple" : "rt_keys_roll")}</dd>
                       <dt>{tr("rt_ctrl_switch")}</dt><dd>{tr("rt_keys_switch")}</dd>
                       <dt>{tr("rt_ctrl_pause")}</dt><dd>{tr("rt_keys_pause")}</dd>
                     </>
                   )}
                 </dl>
+                <div className="flex flex-wrap items-center justify-center gap-2">
+                  <span className="help">{tr("rt_controls_layout")}{pad ? "" : ` (${tr("rt_no_pad")})`}</span>
+                  <div className="seg" role="group" aria-label={tr("rt_controls_layout")}>
+                    {CONTROL_LAYOUTS.map((v) => <button key={v} type="button" aria-pressed={layout === v} onClick={() => setLayout(v)}>{tr(`rt_layout_${v}`)}</button>)}
+                  </div>
+                </div>
                 <button type="button" className="btn btn-primary" autoFocus onClick={() => setPhase("running")}>{tr("rt_start")}</button>
               </div>
             </div>
@@ -493,8 +548,8 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
         {live && view && (
           <div className={`rt-pads ${people === 2 ? "two" : ""}`}>
             {view.sides.map((s, i) => humans[i] && (
-              <Pad key={i} side={s} si={i} lang={lang} tr={tr} partyOpen={party[i]} onUse={onUse} onRoll={onRoll} onSwitch={onSwitch} onParty={onParty}
-                keys={KEY_HINTS[schemes[i]]} sprites={sprites} />
+              <Pad key={i} side={s} si={i} lang={lang} tr={tr} partyOpen={party[i]} cursor={cursor[i]} focus={focus[i]} onUse={onUse} onRoll={onRoll}
+                onSwitch={onSwitch} onParty={onParty} keys={KEY_HINTS[people === 1 && pad ? (layout === "simple" ? "simple" : "pad") : schemes[i]]} sprites={sprites} />
             ))}
           </div>
         )}

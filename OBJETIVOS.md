@@ -22,5 +22,7 @@ Lo que falta por construir, de más a menos valor. Lo que ya hace está en el [R
     solo las generaciones en uso bajaría a la mitad.
 11. **Sprites dibujados con varias poses.** Pedir a Prospero la misma persona de frente (entrenador rival) y de espaldas (lado
     del jugador), y una pose de victoria para el final del combate.
-12. **Objetos de la bolsa en combate.** Los personajes traen sus Restaurar Todo, Hiperpociones y demás; la IA podría usarlos
-    como en los juegos (una vez por Pokémon, por debajo de cierto PS).
+12. **Los personajes que faltan.** Los equipos de la Torre Batalla de Diamante Brillante y Perla Reluciente, Noland, Argenta
+    y Thorton (sus tablas usan otra plantilla en la wiki) y los de Leyendas Pokémon: Arceus.
+13. **Fijar al rival con efecto en tiempo real.** Hoy Mayús / ZL fija la mira y enciende los movimientos; en Z-A además el
+    Pokémon se mueve de cara al rival (desplazamiento lateral): hace falta una entrada más en el simulador y en las repeticiones.
