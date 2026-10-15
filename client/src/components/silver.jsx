@@ -297,7 +297,9 @@ export function AvatarDialog({ trainer, onClose, onSaved }) {
   });
   return (
     <Modal title={t("avatar_title", { name: trainer.name })} onClose={onClose} wide>
-      <Tabs value={tab} onChange={setTab} tabs={[{ id: "sprites", label: t("avatar_tab_sprites") }, { id: "photo", label: t("avatar_tab_photo") }]} />
+      <Tabs value={tab} onChange={setTab} tabs={[{ id: "sprites", label: t("avatar_tab_sprites") }, { id: "photo", label: t("avatar_tab_photo") },
+        { id: "poses", label: t("avatar_tab_poses") }]} />
+      {tab === "poses" && <PosesPanel trainer={trainer} onSaved={onSaved} />}
       {tab === "sprites" && (
         <div className="space-y-2">
           <input className="field" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t("avatar_search")} aria-label={t("avatar_search")} />
@@ -359,6 +361,68 @@ export function AvatarDialog({ trainer, onClose, onSaved }) {
   );
 }
 
+// the trainer's own sprite drawn again by Prospero from behind (the player's side of a battle) and in a victory pose (the end screen)
+function PosesPanel({ trainer, onSaved }) {
+  const { t, notify, toastError } = useApp();
+  const [info, setInfo] = useState(null);
+  const [jobId, setJobId] = useState("");
+  const [candidates, setCandidates] = useState({});
+  const [busy, run] = useBusy();
+  const load = () => api.call("avatar_poses_get", { trainer_id: trainer.id }).then(setInfo).catch((e) => toastError(e));
+  useEffect(() => { load(); }, [trainer.id]); // eslint-disable-line react-hooks/exhaustive-deps
+  const job = useJob(jobId, (j) => {
+    if (j.status === "done") { setCandidates(j.result?.candidates || {}); notify(t("prospero_done")); load(); onSaved?.(); }
+    else toastError({ message: j.error || t("job_failed") });
+  });
+  const running = !!job && !["done", "failed", "cancelled"].includes(job.status);
+  const draw = (poses) => run("draw", async () => {
+    setCandidates({});
+    const r = await api.call("avatar_poses_draw", { trainer_id: trainer.id, poses, count: 2 });
+    const id = r?.id || r?.job?.id;
+    if (id) setJobId(id);
+  });
+  const pick = (pose, file) => run(pose, async () => {
+    setInfo(await api.call("avatar_pose_set", { avatar: info.avatar, pose, file }));
+    notify(t("avatar_saved"));
+    onSaved?.();
+  });
+  if (!info) return <Spinner />;
+  if (!info.can_draw) return <p className="help">{t("poses_own_only")}</p>;
+  return (
+    <div className="space-y-3">
+      <p className="help">{t("poses_help")}</p>
+      <div className="pose-row">
+        <figure className="pose-cell"><img src={info.avatar_url} alt="" className="pixelated" /><figcaption>{t("pose_front")}</figcaption></figure>
+        {["back", "win"].map((p) => (
+          <figure key={p} className="pose-cell">
+            {info.poses[p] ? <img src={info.poses[p]} alt="" className="pixelated" /> : <div className="pose-empty" aria-hidden="true">?</div>}
+            <figcaption>{t(`pose_${p}`)}</figcaption>
+            {info.poses[p] && <button type="button" className="btn btn-sm" disabled={busy[p]} onClick={() => pick(p, "")}>{t("pose_drop")}</button>}
+          </figure>
+        ))}
+      </div>
+      <div className="flex flex-wrap gap-2">
+        <Busy busy={busy.draw || running} className="btn btn-primary" onClick={() => draw([])}>{t("poses_draw")}</Busy>
+        <Busy busy={busy.draw || running} className="btn" onClick={() => draw(["back"])}>{t("poses_draw_back")}</Busy>
+        <Busy busy={busy.draw || running} className="btn" onClick={() => draw(["win"])}>{t("poses_draw_win")}</Busy>
+      </div>
+      {job && <JobProgress job={job} />}
+      {Object.entries(candidates).filter(([, list]) => list.length > 1).map(([pose, list]) => (
+        <div key={pose} className="space-y-1">
+          <b>{t(`pose_${pose}`)} · {t("avatar_candidates")}</b>
+          <div className="candidate-grid">
+            {list.map((c) => (
+              <button key={c.file} type="button" className={`sprite-pick ${info.poses[pose]?.endsWith(c.file) ? "is-on" : ""}`} onClick={() => pick(pose, c.avatar)}>
+                <img src={c.url} alt="" className="pixelated" />
+              </button>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function originLabel(t, origin) {
   return t(`origin_${origin || "own"}`);
 }
@@ -375,7 +439,9 @@ export function useSeats(battle) {
   const { sprites } = useApp();
   return useMemo(() => {
     if (!battle) return {};
-    const seat = (s) => ({ name: s?.name || "", avatarUrl: s?.avatar_url || (s?.avatar ? sprites.trainer(s.avatar) : ""), dialogue: s?.dialogue || {} });
+    const seat = (s) => ({ name: s?.name || "", avatarUrl: s?.avatar_url || (s?.avatar ? sprites.trainer(s.avatar) : ""), dialogue: s?.dialogue || {},
+      backUrl: s?.avatar_poses?.back || "", winUrl: s?.avatar_poses?.win || "" });
     return { p1: seat(battle.p1), p2: seat(battle.p2) };
-  }, [battle?.id, battle?.p1?.avatar_url, battle?.p2?.avatar_url, sprites]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [battle?.id, battle?.p1?.avatar_url, battle?.p2?.avatar_url, battle?.p1?.avatar_poses?.back, battle?.p2?.avatar_poses?.back,
+    battle?.p1?.avatar_poses?.win, battle?.p2?.avatar_poses?.win, sprites]); // eslint-disable-line react-hooks/exhaustive-deps
 }

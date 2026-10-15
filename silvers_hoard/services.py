@@ -215,6 +215,7 @@ class Services:
         out = {k: v for k, v in t.items() if k not in ("team",)}
         out["team"] = t.get("team") or []
         out["avatar_url"] = self.avatar_url(t.get("avatar", ""))
+        out["avatar_poses"] = self.pose_urls(t.get("avatar", ""))
         out["species"] = [s.get("species") for s in out["team"]]
         out["record"] = {"wins": t.get("wins", 0), "losses": t.get("losses", 0), "ties": t.get("ties", 0)}
         if summary and out["team"]:
@@ -875,9 +876,10 @@ class Services:
         return {"trainer_id": spec.get("trainer_id") or "", "name": name, "avatar": avatar, "avatar_url": self.avatar_url(avatar), "human": human,
                 "ai": None if human else {"level": level, "style": style}, "sets": sets, "dialogue": dialogue, "format": fmt}
 
-    @staticmethod
-    def _public_seat(seat: dict[str, Any]) -> dict[str, Any]:
-        return {k: v for k, v in seat.items() if k != "sets"}
+    def _public_seat(self, seat: dict[str, Any]) -> dict[str, Any]:
+        out = {k: v for k, v in seat.items() if k != "sets"}
+        out["avatar_poses"] = self.pose_urls(seat.get("avatar") or "")
+        return out
 
     def battle_card(self, b: dict[str, Any]) -> dict[str, Any]:
         return {"id": b["id"], "kind": b["kind"], "status": b["status"], "mode": b.get("mode") or "classic", "format": b["format"], "title": b.get("title") or "",
@@ -2188,15 +2190,7 @@ class Services:
     def _prospero_sprite(self, photos: list[str], description: str, trainer_id: str, count: int, progress: Callable[[float], None],
                          cancelled: Callable[[], bool], *, styles: Optional[list[str]] = None, silver_job: str = "") -> dict[str, Any]:
         progress(0.02)
-        projects = self._prospero_call("studio_projects", {"query": "Silver's Hoard", "limit": 20}) or {}
-        items = (projects.get("items") if isinstance(projects, dict) else None) or []
-        project = next((p["id"] for p in items if p.get("name") == "Silver's Hoard"), "")
-        if not project:
-            created = self._prospero_call("studio_create_project", {"name": "Silver's Hoard",
-                                                                    "brief": "Trainer sprites made from photos for the battle simulator."}, write=True) or {}
-            project = created.get("id") or (created.get("project") or {}).get("id")
-        if not project:
-            raise SilverError("unavailable", "Prospero did not create the project for the sprites.")
+        project = self._prospero_project()
         refs = []
         for photo in photos:
             imported = self._prospero_call("studio_import", {"project": project, "path": str(Path(photo).resolve()), "kind": "image"}, write=True) or {}
@@ -2248,6 +2242,195 @@ class Services:
             self.store.update_trainer(trainer_id, {"avatar": files[0]["avatar"]})
         progress(1.0)
         return {"candidates": files, "project": project, "prospero_job": job_id, "prompt": args["prompt"]}
+
+    def _prospero_project(self) -> str:
+        projects = self._prospero_call("studio_projects", {"query": "Silver's Hoard", "limit": 20}) or {}
+        items = (projects.get("items") if isinstance(projects, dict) else None) or []
+        project = next((p["id"] for p in items if p.get("name") == "Silver's Hoard"), "")
+        if not project:
+            created = self._prospero_call("studio_create_project", {"name": "Silver's Hoard",
+                                                                    "brief": "Trainer sprites made from photos for the battle simulator."}, write=True) or {}
+            project = created.get("id") or (created.get("project") or {}).get("id")
+        if not project:
+            raise SilverError("unavailable", "Prospero did not create the project for the sprites.")
+        return project
+
+    # ------------------------------------------------------------ more poses of a trainer's own sprite (back view, victory)
+    POSES: dict[str, str] = {
+        "back": ("Draw the same character as image 1 seen from behind, a back view as the player's own trainer appears at the bottom of "
+                 "the battle screen: the back of the head, hairstyle, hair colour, outfit and colours exactly as in image 1, the face not "
+                 "visible, standing, full body."),
+        "win": ("Draw the same character as image 1 in a victory pose, celebrating with one fist raised and a big smile, facing the viewer: "
+                "same face, hairstyle, hair colour, facial hair, outfit and colours exactly as in image 1, full body."),
+    }
+    _poses_cache: tuple[float, dict[str, Any]] = (-1.0, {})
+
+    def _poses_path(self) -> Path:
+        return self.config.data_dir / "avatar_poses.json"
+
+    def _poses_index(self) -> dict[str, Any]:
+        """{avatar: {pose: "file:<name>"}}: the poses follow the avatar, so a trainer that changes its sprite drops them."""
+        path = self._poses_path()
+        try:
+            mtime = path.stat().st_mtime
+        except OSError:
+            return {}
+        if self._poses_cache[0] != mtime:
+            try:
+                data = json.loads(path.read_text(encoding="utf-8"))
+            except (OSError, ValueError):
+                data = {}
+            self._poses_cache = (mtime, data if isinstance(data, dict) else {})
+        return self._poses_cache[1]
+
+    def _poses_write(self, index: dict[str, Any]) -> None:
+        path = self._poses_path()
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(index, ensure_ascii=False, indent=1), encoding="utf-8")
+        self._poses_cache = (-1.0, {})
+
+    def pose_urls(self, avatar: str) -> dict[str, str]:
+        if not avatar or not avatar.startswith("file:"):
+            return {}
+        entry = self._poses_index().get(avatar) or {}
+        return {k: self.avatar_url(v) for k, v in entry.items() if k in self.POSES and isinstance(v, str) and v.startswith("file:")}
+
+    def avatar_poses_get(self, *, trainer_id: str = "", avatar: str = "") -> dict[str, Any]:
+        if trainer_id:
+            avatar = avatar or self.store.trainer(trainer_id)["avatar"]
+        return {"avatar": avatar, "avatar_url": self.avatar_url(avatar), "poses": self.pose_urls(avatar), "available": list(self.POSES),
+                "can_draw": avatar.startswith("file:")}
+
+    def avatar_pose_set(self, *, avatar: str, pose: str, file: str = "") -> dict[str, Any]:
+        """Use another drawn picture for one pose of an avatar (a file in the avatars folder), or "" to drop that pose."""
+        if pose not in self.POSES:
+            raise SilverError("invalid", f"pose is one of {', '.join(self.POSES)}")
+        if not avatar.startswith("file:"):
+            raise SilverError("invalid", "Poses belong to your own sprites (file:<name>).")
+        self.sprites.avatar_path(avatar[5:])
+        index = dict(self._poses_index())
+        entry = dict(index.get(avatar) or {})
+        if file:
+            name = file[5:] if file.startswith("file:") else file
+            self.sprites.avatar_path(name)
+            entry[pose] = f"file:{name}"
+        else:
+            entry.pop(pose, None)
+        if entry:
+            index[avatar] = entry
+        else:
+            index.pop(avatar, None)
+        self._poses_write(index)
+        return self.avatar_poses_get(avatar=avatar)
+
+    def _pose_reference(self, avatar: str) -> tuple[str, bool]:
+        """The avatar as Prospero's reference picture (on white, a small sprite enlarged without smoothing; a drawn sprite's own
+        drawing when it is still there, it carries more detail than 96 px) and whether the poses come back as drawings."""
+        from PIL import Image
+        name = avatar[5:]
+        src = self.sprites.avatar_path(name)
+        img = Image.open(src).convert("RGBA")
+        drawing = max(img.size) > 160
+        m = re.match(r"(.+)-\d+\.png$", name)
+        if not drawing and m:   # a drawn sprite and its drawing are saved in the same second
+            near = sorted(self.config.avatars_dir.glob(f"{m.group(1)}-drawing-*.png"), key=lambda q: abs(q.stat().st_mtime - src.stat().st_mtime))
+            if near and abs(near[0].stat().st_mtime - src.stat().st_mtime) < 30:
+                img = Image.open(near[0]).convert("RGBA")
+        if max(img.size) < 400:
+            k = max(1, 512 // max(img.size))
+            img = img.resize((img.width * k, img.height * k), Image.Resampling.NEAREST)
+        else:
+            img.thumbnail((1024, 1024))
+        flat = Image.new("RGB", img.size, "white")
+        flat.paste(img, (0, 0), img)
+        out_dir = self.config.data_dir / "cache" / "pose_refs"
+        out_dir.mkdir(parents=True, exist_ok=True)
+        dest = out_dir / f"{Path(name).stem}.png"
+        flat.save(dest, "PNG")
+        return str(dest.resolve()), drawing
+
+    def pose_prompt(self, pose: str, *, styles: int = 0) -> str:
+        parts = [self.POSES[pose]]
+        if styles:
+            span = "image 2" if styles == 1 else f"images 2 to {styles + 1}"
+            parts.append(f"{span.capitalize()} {'is' if styles == 1 else 'are'} only a style reference with unrelated characters: copy only "
+                         "the drawing style (proportions, line work, shading, palette); never draw those characters or their clothes.")
+        parts.append("Exactly one character, alone, full body.")
+        parts.append(str(self.settings["prospero_prompt"]).replace("standing, facing the viewer, ", ""))
+        return " ".join(parts)
+
+    def avatar_poses_draw(self, *, trainer_id: str = "", avatar: str = "", poses: Optional[list[str]] = None, count: int = 1,
+                          style: bool = True) -> dict[str, Any]:
+        """Prospero's Hoard draws the trainer's own sprite again from behind (the player's side of the battle) and in a victory pose (the
+        end of a battle won), with the sprite as the reference (a job). The first picture of each pose is used; the rest are candidates."""
+        if trainer_id:
+            avatar = avatar or self.store.trainer(trainer_id)["avatar"]
+        if not avatar:
+            raise SilverError("invalid", "Give a trainer with a sprite or the sprite itself (file:<name>).")
+        if not avatar.startswith("file:"):
+            raise SilverError("invalid", "Poses are drawn only for your own sprites (from a photo or drawn), not for the games' trainer sprites.",
+                              hint="Give the trainer a sprite of its own first (avatar_draw or avatar_from_photo).")
+        poses = [x for x in dict.fromkeys(poses or list(self.POSES)) if x in self.POSES]
+        if not poses:
+            raise SilverError("invalid", f"poses are {', '.join(self.POSES)}")
+        ref, drawing = self._pose_reference(avatar)
+        count = max(1, min(int(count or 1), 4))
+        styles = self.style_reference_paths() if style else []
+        title = f"Poses del sprite ({', '.join({'back': 'de espaldas', 'win': 'victoria'}[x] for x in poses)})"
+        return self._job("avatar", title, {"trainer_id": trainer_id, "avatar": avatar, "poses": poses, "count": count},
+                         lambda jid, progress, cancelled: self._prospero_poses(avatar, ref, drawing, poses, count, progress, cancelled,
+                                                                               styles=styles, silver_job=jid))
+
+    def _prospero_poses(self, avatar: str, ref: str, drawing: bool, poses: list[str], count: int, progress: Callable[[float], None],
+                        cancelled: Callable[[], bool], *, styles: list[str], silver_job: str = "") -> dict[str, Any]:
+        progress(0.02)
+        project = self._prospero_project()
+        imported = self._prospero_call("studio_import", {"project": project, "path": ref, "kind": "image"}, write=True) or {}
+        ref_id = imported.get("id") or (imported.get("asset") or {}).get("id")
+        if not ref_id:
+            raise SilverError("unavailable", "Prospero did not import the sprite.")
+        style_ids = self._prospero_style_assets(project, styles) if styles else []
+        base = self._prospero_url()
+        stem = re.sub(r"[^A-Za-z0-9_-]", "", Path(avatar[5:]).stem)[:40] or "pose"
+        results: dict[str, list[dict[str, Any]]] = {}
+        step = 0.95 / len(poses)
+        for i, pose in enumerate(poses):
+            if cancelled():
+                raise SilverError("cancelled", "Cancelled.")
+            at = 0.05 + step * i
+            args: dict[str, Any] = {"project": project, "prompt": self.pose_prompt(pose, styles=len(style_ids)), "count": count, "aspect": "2:3",
+                                    "reference_asset_ids": [ref_id, *style_ids]}
+            if self.settings.get("prospero_engine"):
+                args["engine"] = self.settings["prospero_engine"]
+            gen = self._prospero_call("studio_generate_image", args, timeout=180, write=True) or {}
+            job = (gen.get("job") or {}) if isinstance(gen, dict) else {}
+            if not job.get("id"):
+                raise SilverError("unavailable", "Prospero did not queue the picture.")
+            if silver_job:
+                with contextlib.suppress(Exception):
+                    self.store.update_job(silver_job, {"args": {**self.store.job(silver_job).get("args", {}), "prospero_job": job["id"]}})
+            job = self._prospero_wait(job, cancelled, lambda p, at=at: progress(at + step * 0.8 * p))
+            ids = [a for a in (job.get("asset_ids") or [a.get("id") for a in job.get("assets") or []]) if a][:4]
+            found = []
+            for aid in ids:
+                data, matted = self._prospero_cutout(base, aid, cancelled)
+                name = self.sprites.save_avatar(data, stem=f"{stem}-{pose}", pixelate=not drawing, remove_background=not matted, max_side=512)
+                found.append({"pose": pose, "file": name, "url": f"/api/avatars/{name}", "avatar": f"file:{name}", "prospero_asset": aid,
+                              "cutout": matted})
+            results[pose] = found
+            progress(at + step)
+        if not any(results.values()):
+            raise SilverError("unavailable", "Prospero finished without pictures.")
+        index = dict(self._poses_index())
+        entry = dict(index.get(avatar) or {})
+        for pose, found in results.items():
+            if found:
+                entry[pose] = found[0]["avatar"]
+        index[avatar] = entry
+        self._poses_write(index)
+        progress(1.0)
+        self.emit("avatar.poses", {"avatar": avatar, "poses": list(entry)})
+        return {"avatar": avatar, "candidates": results, "poses": self.pose_urls(avatar)}
 
     # ------------------------------------------------------------ settings
     def settings_set(self, changes: dict[str, Any]) -> dict[str, Any]:

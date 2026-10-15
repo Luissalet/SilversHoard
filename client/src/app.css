@@ -184,3 +184,9 @@ a.league-card:hover { border-color: var(--hoard-border-hover); }
 .achievement.is-on { opacity: 1; outline: 2px solid var(--accent); }
 .dex-grid { display: flex; flex-wrap: wrap; gap: 4px; }
 .dex-cell { display: inline-flex; width: 48px; height: 48px; align-items: center; justify-content: center; border-radius: 8px; background: var(--surface-2); }
+
+/* poses of a trainer's own sprite (AvatarDialog) */
+.pose-row { display: flex; flex-wrap: wrap; gap: 12px; }
+.pose-cell { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 0; }
+.pose-cell img, .pose-empty { width: 120px; height: 150px; object-fit: contain; border: 1px solid var(--line); border-radius: var(--hoard-radius); background: var(--surface-2); }
+.pose-empty { display: grid; place-items: center; font-size: 28px; color: var(--muted); }
