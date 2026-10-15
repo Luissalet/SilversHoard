@@ -27,15 +27,22 @@ export function RunStrip({ run }) {
   if (!run) return null;
   return (
     <div className="run-strip">
-      <a href={`#/${run.kind === "gym" ? "gimnasio" : "liga"}/${run.target_id}`} className="run-target">{run.kind === "gym" ? <GymBadge size={22} /> : <Icon d={ICONS.star} size={18} />} {run.target_name}</a>
-      {(run.stages || []).map((s, i) => (
-        <span key={i} className={`run-stage ${s.result || (i === run.step && run.status === "active" ? "current" : "")}`} title={s.name}>
+      {run.kind === "facility" ? (
+        <a href="#/instalaciones" className="run-target"><Icon d={ICONS.star} size={18} /> {run.target_name} · {t("run_streak", { n: run.streak || 0 })}</a>
+      ) : (
+        <a href={`#/${run.kind === "gym" ? "gimnasio" : "liga"}/${run.target_id}`} className="run-target">{run.kind === "gym" ? <GymBadge size={22} /> : <Icon d={ICONS.star} size={18} />} {run.target_name}</a>
+      )}
+      {(run.stages || []).map((s, j) => {
+        const i = j + (run.stages_offset || 0);
+        return (
+        <span key={i} className={`run-stage ${s.result || (i === run.step && run.status === "active" ? "current" : "")}`} title={s.number ? `${s.number} · ${s.name}` : s.name}>
           <Avatar url={s.avatar_url} name={s.name} size={26} />
           <span className="trunc">{s.name}</span>
           {s.result === "won" && <Icon d={ICONS.check} size={13} />}
           {s.result === "lost" && <Icon d={ICONS.close} size={13} />}
         </span>
-      ))}
+        );
+      })}
       <span className={`chip ${run.status === "won" ? "chip-ok" : run.status === "lost" ? "chip-danger" : "chip-accent"}`}>{t(`run_${run.status}`)}</span>
     </div>
   );
@@ -200,7 +207,11 @@ export default function Combate({ param }) {
           </div>
         </div>
         <div className="flex flex-wrap gap-2">
-          {wonStage && <Busy busy={busy.next} className="btn btn-primary" onClick={nextStage}>{t("next_stage")}</Busy>}
+          {wonStage && battle.run.factory && ["pick", "swap"].includes(battle.run.factory.phase) ? (
+            <a className="btn btn-primary" href={`#/fabrica/${battle.run.id}`}>{t("factory_next")}</a>
+          ) : wonStage && (battle.run.current?.battle_id && battle.run.current.battle_id !== battle.id
+            ? <a className="btn btn-primary" href={`#/combate/${battle.run.current.battle_id}`}>{t("run_go_current")}</a>
+            : <Busy busy={busy.next} className="btn btn-primary" onClick={nextStage}>{t("next_stage")}</Busy>)}
           {battle.status === "ended" && !battle.run && battle.kind !== "friend" && <Busy busy={busy.rematch} className="btn" onClick={rematch}>{t("rematch")}</Busy>}
           <a className="btn" href="#/combatir">{t("new_battle")}</a>
         </div>
