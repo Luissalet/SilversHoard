@@ -455,7 +455,10 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
       const dt = st.last ? Math.min(0.1, (now - st.last) / 1000) : 0;
       st.last = now;
       const running = phaseRef.current === "running" || phaseRef.current === "playing";
-      if (running && !st.b.ended) {
+      // hit-stop: after a big blow the battle holds still for a moment (the screen only, the battle's clock and replays are untouched)
+      const held = running && st.renderer.hitstop > 0;
+      if (held) st.renderer.hitstop = Math.max(0, st.renderer.hitstop - dt * (live ? 1 : speed));
+      if (running && !st.b.ended && !held) {
         st.acc += dt * (live ? 1 : speed);
         let n = 0;
         while (st.acc >= 1 / TPS && n++ < 12 && !st.b.ended) {
@@ -488,7 +491,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
           else setPhase("done");
         }
       }
-      st.renderer.draw(st.b, running ? dt : 0);
+      st.renderer.draw(st.b, running ? (held ? dt * 0.1 : dt) : 0);
       if (now - lastHud > HUD_MS) {
         lastHud = now;
         setHud(st.b.view());

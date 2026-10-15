@@ -438,7 +438,9 @@ export class Vfx {
 
   shakeOffset() {
     if (this.shake <= 0) return [0, 0];
-    const k = this.shake * this.r.scale;
+    // "trauma": the offset grows with the square of the shake, so small hits barely move the screen and big ones rock it
+    const trauma = Math.min(1, this.shake / 0.3);
+    const k = 0.32 * trauma * trauma * this.r.scale;
     return [rnd(-k, k), rnd(-k, k) * 0.6];
   }
 

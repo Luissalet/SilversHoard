@@ -7,6 +7,7 @@ import { TYPE_COLORS } from "../dex.js";
 import { Animator, dirRow, image, loadMeta } from "./pmd.js";
 import { Vfx } from "./vfx.js";
 import { playRtEvent } from "../sfx.js";
+import { rtMove } from "../../../../engine/src/realtime/moves.mjs";
 
 const ARENA = { w: 28, h: 17 };
 const MARGIN_X = 2.6;
@@ -70,6 +71,11 @@ export class ArenaRenderer {
     this.time = 0;
     this.court = null;
     this.vfx = new Vfx(this);
+    // hit feel: seconds the battle holds still after a big hit (the screen's loop reads and runs it down), the move each Pokémon
+    // is winding up (its area is drawn on the ground while it charges) and the Mega Evolution cut-in
+    this.hitstop = 0;
+    this.winding = [null, null, null, null];
+    this.cutin = null;
     this.resize(canvas.clientWidth || 900);
   }
 
@@ -294,6 +300,10 @@ export class ArenaRenderer {
     playRtEvent(e, this.audio);
     switch (e.k) {
       case "windup": {
+        if (["burst", "cone"].includes(e.shape)) {
+          const prof = rtMove(e.move, battle.gen || 9);
+          if (prof) this.winding[key] = { shape: e.shape, reach: prof.shape === "burst" ? prof.radius || prof.reach : prof.reach, arc: prof.arc, type: e.type, t: e.t };
+        } else this.winding[key] = null;
         const a = anim(s);
         if (a) a.play(["strike", "dash"].includes(e.shape) ? "Attack" : ["self", "field"].includes(e.shape) ? "Charge" : "Shoot", { speed: e.ticks ? 1 : 1.6 });
         this.labels[key] = { text: T.move(e.name), type: e.type, t: 0 };
@@ -303,6 +313,8 @@ export class ArenaRenderer {
       case "follow": float(s, T.follow || "!", "#ff9f43", { size: 0.85, dy: -0.6 }); break;
       case "hit": {
         this.flash[key] = 1;
+        // a short freeze sells the blow: longest for a K.O., then a critical hit, then a super-effective one
+        if (e.hit === 0 || e.hit === undefined) this.hitstop = Math.max(this.hitstop, e.hp <= 0 ? 0.22 : e.crit ? 0.12 : e.eff > 1 ? 0.07 : 0);
         const a = anim(s);
         if (a && e.hp > 0) a.play("Hurt");
         const pct = Math.max(1, Math.round((e.dmg / Math.max(1, e.maxhp)) * 100));
@@ -338,6 +350,14 @@ export class ArenaRenderer {
       }
       case "mega": {
         this.flash[key] = 1;
+        this.hitstop = Math.max(this.hitstop, 0.18);
+        {
+          const w = this.unitOf(battle, s, u);
+          const m = w.mons[e.slot ?? w.active];
+          const url = this.sprites.portrait?.(e.species || m?.species, "Determined", { num: m?.mega?.num || m?.num || 0 });
+          this.cutin = { t: 0, life: 1.25, si: s, img: url ? image(url) : null, fall: url ? image(this.sprites.portrait(e.species || m?.species, "Normal", { num: m?.mega?.num || m?.num || 0 })) : null,
+            text: T.mega, name: e.species || m?.species || "" };
+        }
         float(s, T.mega, "#ffb3ea", { size: 1.1, dy: -0.5 });
         break;
       }
@@ -418,6 +438,9 @@ export class ArenaRenderer {
       ctx.fill();
       ctx.restore();
     }
+    // areas being charged (Earthquake, Surf, Explosion, cones like Heat Wave): the ground fills in as the move winds up, so you
+    // know when to dodge-roll out of it
+    this.drawWindups(view);
     // area effects under the Pokémon
     this.drawEffects(dt, true);
     this.vfx.drawUnder(ctx);
@@ -463,7 +486,100 @@ export class ArenaRenderer {
       ctx.globalAlpha = 1;
     }
     ctx.restore();
+    this.drawCutin(dt);
     this.flash = this.flash.map((v) => Math.max(0, v - dt * 5));
+  }
+
+  drawWindups(view) {
+    const ctx = this.ctx;
+    const s = this.scale;
+    const units = view.doubles
+      ? view.sides.flatMap((sd, si) => sd.units.filter((w) => !w.vacant).map((w) => ({ w, key: si * 2 + w.pos })))
+      : view.sides.map((w, si) => ({ w, key: si }));
+    for (const { w, key } of units) {
+      const tele = this.winding[key];
+      if (!tele || w.act?.kind !== "windup" || !w.act.total) continue;
+      const p = Math.min(1, 1 - w.act.left / w.act.total);
+      const x = this.px(w.x), y = this.py(w.y), r = tele.reach * s;
+      const col = TYPE_COLORS[tele.type] || "#ff5050";
+      ctx.save();
+      ctx.beginPath();
+      if (tele.shape === "cone") {
+        const a = Math.atan2(w.fy, w.fx), half = Math.acos(Math.max(-1, Math.min(1, tele.arc || 0.55)));
+        ctx.moveTo(x, y);
+        ctx.arc(x, y, r, a - half, a + half);
+        ctx.closePath();
+      } else ctx.arc(x, y, r, 0, TAU);
+      ctx.fillStyle = shade(col, 0.1);
+      ctx.fill();
+      ctx.strokeStyle = shade(col, 0.85);
+      ctx.lineWidth = Math.max(1.5, s * 0.06);
+      ctx.setLineDash([s * 0.22, s * 0.16]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      // the filling part: from the user outwards until the move goes off
+      ctx.beginPath();
+      if (tele.shape === "cone") {
+        const a = Math.atan2(w.fy, w.fx), half = Math.acos(Math.max(-1, Math.min(1, tele.arc || 0.55)));
+        ctx.moveTo(x, y);
+        ctx.arc(x, y, r * p, a - half, a + half);
+        ctx.closePath();
+      } else ctx.arc(x, y, r * p, 0, TAU);
+      ctx.fillStyle = shade(col, 0.28);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  /** Mega Evolution: a band crosses the screen with the Pokémon's determined face (its SpriteCollab portrait) and the word. */
+  drawCutin(dt) {
+    const c = this.cutin;
+    if (!c) return;
+    c.t += dt;
+    if (c.t >= c.life) { this.cutin = null; return; }
+    const ctx = this.ctx;
+    const W = this.canvas.width, H = this.canvas.height;
+    const p = c.t / c.life;
+    const slide = p < 0.15 ? 1 - p / 0.15 : p > 0.82 ? -(p - 0.82) / 0.18 : 0;
+    const dir = c.si === 0 ? -1 : 1;
+    const bandH = Math.min(H * 0.26, 150);
+    const y = H * 0.36;
+    ctx.save();
+    ctx.globalAlpha = 1 - Math.abs(slide);
+    ctx.translate(dir * slide * W * 0.6, 0);
+    ctx.fillStyle = "rgba(18,12,31,0.86)";
+    ctx.beginPath();
+    ctx.moveTo(0, y + bandH * 0.12);
+    ctx.lineTo(W, y);
+    ctx.lineTo(W, y + bandH * 0.88);
+    ctx.lineTo(0, y + bandH);
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = `rgb(${SIDE_RGB[c.si]})`;
+    ctx.lineWidth = 3;
+    ctx.stroke();
+    const img = c.img?.ready ? c.img.img : c.fall?.ready ? c.fall.img : null;
+    const size = bandH * 0.78;
+    const ix = c.si === 0 ? W * 0.18 : W * 0.82 - size;
+    if (img) {
+      ctx.imageSmoothingEnabled = false;
+      ctx.fillStyle = "#e9e1cc";
+      ctx.fillRect(ix - 3, y + (bandH - size) / 2 - 3, size + 6, size + 6);
+      ctx.drawImage(img, ix, y + (bandH - size) / 2, size, size);
+    }
+    ctx.font = `900 ${Math.round(bandH * 0.3)}px system-ui, sans-serif`;
+    ctx.textAlign = c.si === 0 ? "left" : "right";
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = "#ffd6f2";
+    ctx.strokeStyle = "rgba(0,0,0,0.8)";
+    ctx.lineWidth = 4;
+    const tx = c.si === 0 ? ix + size + 22 : ix - 22;
+    ctx.strokeText(c.text, tx, y + bandH * 0.42);
+    ctx.fillText(c.text, tx, y + bandH * 0.42);
+    ctx.font = `700 ${Math.round(bandH * 0.16)}px system-ui, sans-serif`;
+    ctx.fillStyle = "#ffffff";
+    ctx.fillText(c.name, tx, y + bandH * 0.72);
+    ctx.restore();
   }
 
   /** Not locked on: an arrow on the ground in front of the Pokémon and a faint aim line, so you see where a move will go. */
