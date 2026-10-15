@@ -7,7 +7,7 @@ import Controls, { ReplayBar } from "../battle/Controls.jsx";
 import { useBattlePlayer } from "../battle/player.js";
 import { appCryUrl } from "../battle/sfx.js";
 import { battleEnd, genOfFormat, music, pickTrack } from "../audio.js";
-import { Busy, Empty, ErrorBox, Icon, ICONS, Spinner, useBusy, useLoad, useStored } from "../components/ui.jsx";
+import { Busy, Empty, ErrorBox, Field, Icon, ICONS, Spinner, useBusy, useLoad, useStored } from "../components/ui.jsx";
 import { useContextProvider, usePoll } from "../components/hooks.js";
 import { Avatar, GymBadge, useSeats } from "../components/silver.jsx";
 import AiNotes from "../components/AiNotes.jsx";
@@ -90,6 +90,10 @@ export default function Combate({ param }) {
   const lengthRef = useRef(0);
   const [busy, run] = useBusy();
   const [bubble, setBubble] = useState(null);
+  const [practiceSide, setPracticeSide] = useState("p1");
+  const [practiceTurn, setPracticeTurn] = useState(1);
+  const [practiceError, setPracticeError] = useState(null);
+  const [comparison, setComparison] = useState(null);
   const seats = useSeats(battle);
 
   // first load: a finished battle plays back from the start; a live one opens where it is (its first turn plays)
@@ -167,6 +171,21 @@ export default function Combate({ param }) {
     const b = await api.call("battle_start", { p1: seat(battle.p1), p2: seat(battle.p2), format: battle.format, rules: battle.rules || [], level_rules: battle.level_rules || {} });
     go(`#/combate/${b.id}`);
   });
+  const practice = () => run("practice", async () => {
+    setPracticeError(null);
+    try {
+      const b = await api.call("battle_practice", { id: param, turn: practiceTurn, side: practiceSide });
+      changed();
+      go(`#/combate/${b.id}`);
+    } catch (e) { setPracticeError(e); }
+  });
+  const compare = () => run("compare", async () => {
+    setComparison(await api.call("battle_compare", { id: param }));
+  });
+  useEffect(() => {
+    setComparison(null);
+    setPracticeError(null);
+  }, [param]);
   const nextStage = () => run("next", async () => {
     const r = await api.call("challenge_next", { id: battle.run.id });
     const cur = r.stages[r.step];
@@ -222,6 +241,22 @@ export default function Combate({ param }) {
       </div>
       <RunStrip run={battle.run} />
       <CupStrip cup={battle.cup} battle={battle} />
+      {battle.practice && (
+        <section className="panel space-y-2" aria-label={t("practice_title")}>
+          <h2>{t("practice_title")}</h2>
+          <p className="help">{t("practice_branch", { n: battle.practice.turn })}</p>
+          <div className="flex flex-wrap gap-3 items-center">
+            <a className="btn" href={`#/combate/${battle.practice.source_id}`}>{t("practice_original")}</a>
+            {battle.status === "ended" && <Busy busy={busy.compare} onClick={compare}>{t("practice_compare")}</Busy>}
+          </div>
+          {comparison && <dl className="flex flex-wrap gap-5">
+            {["original", "branch"].map((key) => <div key={key}>
+              <dt className="label">{t(key === "branch" ? "practice_result" : "practice_original")}</dt>
+              <dd>{comparison[key].winner_name ? t("winner_is", { name: comparison[key].winner_name }) : t("tie")} · {comparison[key].turns === 1 ? t("practice_one_turn") : t("turns_n", { n: comparison[key].turns })}</dd>
+            </div>)}
+          </dl>}
+        </section>
+      )}
       {battle.kind === "friend" && !battle.log_length && <div className="banner banner-info">{t("no_replay")}</div>}
       {battle.kind === "friend" && !battle.log_length ? (
         <FriendResult battle={battle} />
@@ -241,6 +276,27 @@ export default function Combate({ param }) {
       )}
       {battle.status !== "running" && battle.status !== "failed" && (
         <AiNotes battle={battle} turn={player.state.turn} live={live} requestSide={requestSide} />
+      )}
+      {battle.status === "ended" && battle.log_length > 0 && (
+        <section className="panel space-y-3" aria-label={t("practice_title")}>
+          <h2>{t("practice_title")}</h2>
+          <p className="help">{t(battle.practice_available ? "practice_help" : "practice_missing")}</p>
+          {battle.practice_available && <>
+            <div className="flex flex-wrap gap-3 items-end">
+              <Field label={t("practice_turn")} className="w-40 min-w-0">
+                <input type="number" min="1" max={battle.turns || battle.turn || 1} value={practiceTurn}
+                  onChange={(e) => setPracticeTurn(Number(e.target.value))} />
+              </Field>
+              <Field label={t("practice_side")} className="min-w-0 flex-1">
+                <select className="w-full" value={practiceSide} onChange={(e) => setPracticeSide(e.target.value)}>
+                  {["p1", "p2"].map((s) => <option key={s} value={s}>{battle[s].name}</option>)}
+                </select>
+              </Field>
+              <Busy busy={busy.practice} disabled={!Number.isInteger(practiceTurn) || practiceTurn < 1} onClick={practice}>{t("practice_start")}</Busy>
+            </div>
+            <ErrorBox error={practiceError} />
+          </>}
+        </section>
       )}
       {battle.errors && battle.errors.length > 0 && <div className="help">{battle.errors.join(" · ")}</div>}
     </div>

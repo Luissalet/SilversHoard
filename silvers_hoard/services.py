@@ -995,6 +995,8 @@ class Services:
 
     def battle_card(self, b: dict[str, Any]) -> dict[str, Any]:
         return {"id": b["id"], "kind": b["kind"], "status": b["status"], "mode": b.get("mode") or "classic", "format": b["format"], "title": b.get("title") or "",
+                "practice": (b.get("replay") or {}).get("practice"),
+                "practice_available": b["status"] == "ended" and b.get("mode") != "realtime" and (b.get("turns") or 0) >= 1 and bool((b.get("replay") or {}).get("input")),
                 "ai_notes_count": len((b.get("summary") or {}).get("ai_notes") or []),
                 "p1": self._public_seat(b.get("p1") or {}), "p2": self._public_seat(b.get("p2") or {}), "winner_side": b.get("winner_side") or "",
                 "winner_name": b.get("winner_name") or "", "turns": b.get("turns") or 0, "run_id": b.get("run_id") or "", "job_id": b.get("job_id") or "",
@@ -1049,7 +1051,7 @@ class Services:
                                                "summary": {**(r.get("summary") or {}), "ai_notes": r.get("notes") or []},
                                                "winner_side": (r.get("summary") or {}).get("winner_side", ""),
                                                "winner_name": (r.get("summary") or {}).get("winner", ""), "turns": r.get("turns") or 0,
-                                               "seed": str(r.get("seed") or "")})
+                                               "seed": str(r.get("seed") or ""), "replay": {"input": r.get("input_log") or []}})
                 self._after_end(bid)
             except Exception as exc:  # noqa: BLE001 - the battle row says what happened
                 log.exception("watch battle %s", bid)
@@ -1065,7 +1067,8 @@ class Services:
         spec = {"id": b["id"], "format": b["format"], "rules": b.get("rules") or [], "level_rules": b.get("level_rules") or {},
                 "max_turns": self.settings["max_turns"], "trace": True,
                 "p1": {"name": b["p1"]["name"], "sets": b["p1"].get("sets") or [], "ai": b["p1"].get("ai")},
-                "p2": {"name": b["p2"]["name"], "sets": b["p2"].get("sets") or [], "ai": b["p2"].get("ai")}, "seed": b.get("seed") or None}
+                "p2": {"name": b["p2"]["name"], "sets": b["p2"].get("sets") or [], "ai": b["p2"].get("ai")}, "seed": b.get("seed") or None,
+                "practice": bool((b.get("replay") or {}).get("practice"))}
         self.engine.call("match_start", {"spec": spec, "snapshot": json.loads(b["snapshot"]), "view": "host"}, timeout=60)
         self.engine.call("match_state", {"id": b["id"], "since": 10**9})
 
@@ -1160,6 +1163,7 @@ class Services:
         summary = log_.get("summary") or {}
         summary["ai_notes"] = [*((b.get("summary") or {}).get("ai_notes") or []), *(log_.get("notes") or [])][-self.MAX_NOTES:]
         self.store.update_battle(id_, {"status": "ended", "log_text": "\n".join(log_.get("lines") or []), "summary": summary,
+                                       "replay": {**(b.get("replay") or {}), "input": log_.get("input_log") or []},
                                        "winner_side": summary.get("winner_side", ""), "winner_name": summary.get("winner", ""),
                                        "turns": summary.get("turns", 0), "snapshot": ""})
         try:
@@ -1167,6 +1171,37 @@ class Services:
         except SilverError:
             pass
         self._after_end(id_)
+
+    def battle_practice(self, id_: str, *, turn: int, side: str = "p1") -> dict[str, Any]:
+        """Open a separate playable branch before this turn's decisions; the source battle stays untouched."""
+        source = self.store.battle(id_)
+        record = (source.get("replay") or {}).get("input")
+        if source["status"] != "ended" or source.get("mode") == "realtime" or not record:
+            raise SilverError("invalid", "This replay has no saved turn decisions for practice.",
+                              hint="Finish a new turn-based battle, then open its replay.")
+        point = self.engine.call("practice_snapshot", {"input": record, "turn": turn, "side": side})
+        seats = {s: {**source[s], "trainer_id": "", "human": s == side,
+                     "ai": None if s == side else {**(source[s].get("ai") or {"level": "normal", "style": "balanced"}), "hidden": True}}
+                 for s in ("p1", "p2")}
+        practice = {"source_id": id_, "turn": turn, "side": side}
+        bid = self.store.add_battle({"kind": "practice", "status": "live", "format": source["format"],
+            "rules": source.get("rules") or [], "level_rules": source.get("level_rules") or {},
+            "p1": seats["p1"], "p2": seats["p2"], "seed": point["seed"] if isinstance(point["seed"], str) else ",".join(map(str, point["seed"])),
+            "snapshot": json.dumps(point["snapshot"]), "turns": turn, "replay": {"practice": practice}})
+        # _ensure_loaded uses the saved snapshot; the opponent has no pending future choice from the source.
+        return self.battle_get(bid)
+
+    def battle_compare(self, id_: str) -> dict[str, Any]:
+        branch = self.store.battle(id_)
+        practice = (branch.get("replay") or {}).get("practice")
+        if not practice:
+            raise SilverError("invalid", "Choose a practice battle to compare with its original.")
+        source = self.store.battle(practice["source_id"])
+        def result(b):
+            return {"id": b["id"], "status": b["status"], "turns": b["turns"], "winner_side": b["winner_side"],
+                    "winner_name": b["winner_name"], "sides": (b.get("summary") or {}).get("sides") or {}}
+        return {"practice": practice, "original": result(source), "branch": result(branch),
+                "complete": branch["status"] == "ended"}
 
     # ------------------------------------------------------------ why the AI chose (notes kept with the battle)
     MAX_NOTES = 800

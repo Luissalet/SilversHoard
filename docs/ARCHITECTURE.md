@@ -1,5 +1,11 @@
 # Silver's Hoard — architecture
 
+## Replay practice
+
+New played and individually watched classic battles retain the simulator's `input_log` in the existing `replay` JSON field when they finish. `practice.mjs` replays only the committed prefix before the chosen turn and clears pending choices, then returns a deep snapshot. `battle_practice` creates a separate live battle from it with a human seat, a hidden-information AI opponent and source/turn/side metadata. Practice-only per-decision AI seeds survive snapshot reloads. Trainer IDs and challenge run IDs are not attached to the branch, so practice cannot award badges or alter trainer records. `battle_compare` reads both results without changing either.
+
+The existing replay page exposes the turn/side controls, original link and final result comparison. Old battles without records, imported results, series/tournament samples and real time remain viewable but cannot open this kind of practice. The new operations use the same handlers for UI, REST and MCP; no alternate simulator or LLM is involved.
+
 ## Pieces
 
 ```

@@ -74,7 +74,7 @@ export function playOut(spec, {keepLog = true} = {}) {
   const m = new Match({...spec, p1: {...spec.p1, ai: spec.p1.ai || {level: 'normal'}}, p2: {...spec.p2, ai: spec.p2.ai || {level: 'normal'}}});
   m.advance(100000);
   const lines = viewLines(m.battle.log, 0, 'omniscient');
-  return {summary: summarize(lines), lines: keepLog ? lines : null, errors: m.errors, seed: m.spec.seed, turns: m.battle.turn,
+  return {summary: summarize(lines), lines: keepLog ? lines : null, input_log: keepLog ? m.inputLog() : undefined, errors: m.errors, seed: m.spec.seed, turns: m.battle.turn,
     ...(spec.trace ? {notes: m.notes} : {})};
 }
 
