@@ -34,6 +34,7 @@ DEFAULT_SETTINGS: dict[str, Any] = {
     "node_path": "",              # empty: `node` from PATH
     "sprite_downloads": True,     # fetch missing sprites from the Showdown sprite server and keep them in data/cache/sprites
     "sprite_server": "https://play.pokemonshowdown.com/sprites",
+    "smogon_data": True,           # popular sets and usage stats from data.pkmn.cc, fetched when asked for, kept in data/cache/smogon
     "sound_downloads": True,      # fetch Pokémon cries and battle music from the Showdown audio server and keep them in data/cache/audio
     "audio_server": "https://play.pokemonshowdown.com/audio",
     "prospero_prompt": ("anime-style full-body trainer illustration in the art style of a 2010s handheld monster-catching role-playing "

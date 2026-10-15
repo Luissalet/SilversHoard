@@ -26,6 +26,7 @@ Levels: level_rules {level: 50} (or 100) on battle_start, series_start and tourn
 Real time: battle_start, challenge_start, series_start and tournament_start take mode=realtime for battles after Pokémon Legends: Z-A (the same trainers and teams on a 2D arena, no turns: every move has a cooldown in seconds instead of PP, a wind-up and a range; attacks can be dodged; one-stage stat changes that wear off; three switches that come back after each KO; a Mega Power gauge for Plus moves and Mega Evolution; lock-on held or free aim; doubles formats field two Pokémon per trainer, a person moving one while the AI drives its partner, with spread moves, Helping Hand and Follow Me) and rt_arena=rocks (default: 3-6 rocks that block walking and projectiles) or open. A person plays it on the app's screen; two AI seats play it in the background. rt_cooldowns shows how a team's moves translate (Z-A's own cooldowns, or derived from PP and power); rt_rules explains the rules. battle_get of a real-time battle returns English event lines and the spec + inputs that replay it exactly.
 Sharing: export (fmt file = .hoardtrainer/.hoardgym/.hoardleague, code = a share code for a chat, page = one HTML file a friend opens in a browser to fight the gym or trainer, turn by turn or in real time as friend_mode says, paste = Showdown text). import takes any of those back, plus the result codes friends send after playing a page (records their badge; real-time battles in it are replayed and checked first).
 progress_get shows a trainer's record, streaks, MVPs, achievements and Pokédex (progress_list ranks them).
+sets_popular gives Smogon's sets and the ladder usage of a species (for the team builder); usage_top and sample_team rank the format's Pokémon and build a team from them.
 damage_calc measures one Pokémon's moves against another (rolls, crits, KOs) with the game's own formula.
 battle_video records a finished battle's replay as an MP4 clip with its sound (a job; lumiere=true sends it to the video editor).
 battle_explain says why the AI chose each move (the options it weighed with expected damage and KOs, the threat it was under, the expert's play-outs) and, in a live battle, what the expert would do now on your side.
@@ -460,6 +461,20 @@ class AvatarDrawArgs(BaseModel):
     style: bool = Field(True, description="Send the art-style references too (avatar_style_get), so it is drawn in the games' style.")
 
 
+class SetsArgs(BaseModel):
+    species: str = Field(..., min_length=1, max_length=60)
+    format: str = Field("", max_length=120, description="Empty: the default format. Custom games use the generation's OU.")
+
+
+class UsageArgs(BaseModel):
+    format: str = Field("", max_length=120)
+    limit: int = Field(30, ge=1, le=200)
+
+
+class SampleTeamArgs(BaseModel):
+    format: str = Field("", max_length=120)
+
+
 class BattleVideoArgs(BaseModel):
     id: str = IdField
     speed: Literal["slow", "normal", "fast"] = Field("normal", description="Replay speed of the clip.")
@@ -512,6 +527,7 @@ class SettingsSetArgs(BaseModel):
     max_turns: Optional[int] = Field(None, ge=20, le=2000)
     node_path: Optional[str] = Field(None, max_length=500)
     sprite_downloads: Optional[bool] = None
+    smogon_data: Optional[bool] = Field(None, description="Fetch popular sets and usage statistics from data.pkmn.cc when asked for.")
     sound_downloads: Optional[bool] = None
     prospero_prompt: Optional[str] = Field(None, max_length=1000)
     prospero_style_sprites: Optional[str] = Field(None, max_length=200, description="Trainer sprites used as art-style references.")
@@ -738,6 +754,15 @@ TOOLS: list[Tool] = [
                            synonyms="sprite con ia, dibujar entrenador, sprite desde fotos, sprite de un famoso"), AvatarDrawArgs, WD,
          lambda s, a: s.avatar_draw([_read_path(p) for p in a.paths], description=a.description, trainer_id=a.trainer_id, count=a.count,
                                     style=a.style), 120.0),
+    Tool("sets_popular", _d("Smogon's popular sets of a species and its ladder usage (items, abilities, moves, teammates). Sets populares.",
+                            "From data.pkmn.cc, fetched when asked for and cached; the nearest format with data is used.",
+                            synonyms="sets de smogon, set competitivo, estadísticas de uso, qué set lleva"), SetsArgs, R,
+         lambda s, a: s.sets_popular(a.species, a.format), 60.0),
+    Tool("usage_top", _d("The most used Pokémon of a format on Showdown's ladder. Más usados.", synonyms="uso, ranking de pokémon, metagame"),
+         UsageArgs, R, lambda s, a: s.usage_top(a.format, a.limit), 60.0),
+    Tool("sample_team", _d("A sample team: the format's six most used Pokémon with their most popular set. Equipo de muestra.",
+                           synonyms="equipo de ejemplo, equipo competitivo, equipo meta"), SampleTeamArgs, R,
+         lambda s, a: s.sample_team(a.format), 90.0),
     Tool("battle_video", _d("Record a finished battle's replay as a video clip with its sound (a job). Vídeo del combate.",
                             "MP4 in the exports folder (job_get gives its url and path); lumiere=true hands it to the video editor.",
                             synonyms="exportar vídeo, grabar repetición, clip del combate, mandar a lumiere"), BattleVideoArgs, WD,

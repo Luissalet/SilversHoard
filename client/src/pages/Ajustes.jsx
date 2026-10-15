@@ -73,6 +73,8 @@ export default function Ajustes() {
           <div className="flex gap-2">{["Pikachu", "Charizard", "Garchomp", "Koraidon"].map((s) => <MonIcon key={s} species={s} size={64} />)}</div>
           <label className="flex items-center gap-2"><Switch checked={f.sprite_downloads} onChange={(v) => set("sprite_downloads", v)} label={t("sprite_downloads")} /> {t("sprite_downloads")}</label>
           <p className="help">{t("sprite_downloads_help")} {stats.data ? t("sprite_cache", { n: stats.data.cached, mb: (stats.data.bytes / 1048576).toFixed(1) }) : ""}</p>
+            <label className="flex items-center gap-2"><Switch checked={f.smogon_data !== false} onChange={(v) => set("smogon_data", v)} label={t("smogon_data")} /> {t("smogon_data")}</label>
+            <p className="help">{t("smogon_data_help")}</p>
         </div>
       </Section>
       <Section title={t("snd_title")}>

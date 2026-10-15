@@ -8,6 +8,7 @@ import { TYPE_COLORS, nameOf, typeName } from "../battle/dex.js";
 import { Busy, Field, Icon, ICONS, Modal, useBusy, useStored } from "./ui.jsx";
 import { MonIcon } from "./silver.jsx";
 import DamageCalc from "./DamageCalc.jsx";
+import SmogonSets, { SampleTeam } from "./SmogonSets.jsx";
 import { SP_MAX, SP_TOTAL, calcStat, evFromSp, spFromEv } from "../../../engine/src/points.mjs";
 
 const STATS = ["hp", "atk", "def", "spa", "spd", "spe"];
@@ -187,7 +188,7 @@ function StatPoints({ set, sp, natures, lang, t, onChange }) {
   );
 }
 
-function SetEditor({ set, index, gen, onChange, onRemove, lang, t, evMode, setEvMode }) {
+function SetEditor({ set, index, gen, format, onChange, onRemove, lang, t, evMode, setEvMode }) {
   const es = useDescsEs(lang);
   const species = useDex("species", gen);
   const items = useDex("items", gen);
@@ -209,6 +210,7 @@ function SetEditor({ set, index, gen, onChange, onRemove, lang, t, evMode, setEv
           </Field>
           <Field label={t("tb_nickname")}><input className="field" value={set.name} onChange={(e) => upd("name", e.target.value)} maxLength={18} /></Field>
         </div>
+        <SmogonSets species={set.species} format={format} onApply={(x) => onChange({ ...set, ...x })} />
         <button type="button" className="btn btn-sm btn-icon btn-ghost" onClick={onRemove} aria-label={t("remove")}><Icon d={ICONS.trash} size={14} /></button>
       </div>
       {sp && <div className="flex flex-wrap items-center gap-1">{sp.types.map((x) => <span key={x} className="b-type" style={{ background: TYPE_COLORS[x] }}>{typeName(x, lang)}</span>)}
@@ -285,11 +287,12 @@ export default function TeamBuilder({ team, format, onSave, onCancel }) {
   return (
     <div className="space-y-3">
       {sets.map((s, i) => (
-        <SetEditor key={i} index={i} set={s} gen={gen} lang={lang} t={t} evMode={evMode} setEvMode={setEvMode} onChange={(v) => setSets((x) => x.map((y, j) => (j === i ? v : y)))}
+        <SetEditor key={i} index={i} set={s} gen={gen} format={format} lang={lang} t={t} evMode={evMode} setEvMode={setEvMode} onChange={(v) => setSets((x) => x.map((y, j) => (j === i ? v : y)))}
           onRemove={() => setSets((x) => x.filter((_, j) => j !== i))} />
       ))}
       <div className="flex flex-wrap gap-2">
         <button type="button" className="btn" disabled={sets.length >= 6} onClick={() => setSets((x) => [...x, empty()])}><Icon d={ICONS.plus} size={14} /> {t("tb_add")}</button>
+        <SampleTeam format={format} hasTeam={clean.length > 0} onTeam={(team) => setSets(team.map((m) => ({ ...empty(), ...m })))} />
         <span className="flex-1" />
         {onCancel && <button type="button" className="btn" onClick={onCancel}>{t("cancel")}</button>}
         <Busy busy={busy.s} className="btn btn-primary" disabled={!clean.length || clean.some((s) => !s.moves.length)} onClick={() => run("s", () => onSave(clean))}>{t("save")}</Busy>
