@@ -177,6 +177,10 @@ const RT = {
   rt_hits_n: ["{n} golpes · {c} críticos", "{n} hits · {c} critical"],
   rt_dummy_reset: ["¡Muñeco a tope!", "Dummy healed!"],
   rt_phase: ["¡Cambio de táctica!", "Change of tactics!"],
+  rt_ult: ["Definitiva", "Ultimate"],
+  rt_ult_cut: ["¡Definitiva!", "Ultimate!"],
+  rt_ult_help: ["La barra de definitiva se llena al hacer y recibir daño y con cada K.O.; llena, la tecla del movimiento Plus (F, o ZL + + en el mando) desata un ataque de 150 de potencia del tipo del Pokémon que cae sobre el rival tras avisar en el suelo: se esquiva con la voltereta.",
+    "The ultimate gauge fills when dealing and taking damage and with every knockout; once full, the Plus key (F, or ZL + + on a gamepad) unleashes a 150-power blast of the Pokémon's type that falls on the foe after a warning on the ground: roll out of it."],
 };
 
 export default RT;

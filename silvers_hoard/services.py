@@ -66,8 +66,9 @@ DIALOGUE_KEYS = ("intro", "win", "lose", "last", "phase", "phase_when", "phase_l
 PHASE_WHEN = ("half", "last")
 # Real-time battles: the rules version stored with every new battle (1 = the first rules, which battles stored without one keep:
 # always locked on, no Mega Evolution; 2 = free aim, the Mega Power gauge, Plus moves and Mega Evolution; 3 = doubles formats
-# field two Pokémon per trainer, singles play as in 2; 4 = no Plus moves, the gauge only for Mega Evolution) and the arenas.
-RT_RULES_VERSION = 4
+# field two Pokémon per trainer, singles play as in 2; 4 = no Plus moves, the gauge only for Mega Evolution; 5 = the ultimate
+# gauge) and the arenas.
+RT_RULES_VERSION = 5
 RT_ARENAS = ("open", "rocks")
 
 
@@ -1601,6 +1602,7 @@ class Services:
                 "Lock-on: holding focus (Shift / ZL) keeps the Pokémon facing the foe, so walking strafes and moves aim at the foe (and a move out of range walks up to it first). Without focus the Pokémon faces where it walks; moves go along that facing, snapping to the foe only within 30 degrees of it, so projectiles, beams and cones can miss and strikes and dashes lunge forward and only land if they reach. The AI always locks on; the simple control layout always sends focus.",
                 "Arena (rt_arena): open, or rocks (the default for new battles): 3 to 6 round rocks placed from the battle's seed, mirrored left to right, away from the spawn points and the centre line. They block walking, rolls and dashes, and stop projectiles and beams (and cones behind them); blasts that fall from the sky and quakes ignore them. The AI walks around them and avoids firing into them.",
                 "Mega Power gauge: three segments per trainer, filling one every 8 s and faster when dealing damage (a whole HP bar dealt = 0.8 of a segment); battles stored with rules version 2 fill one every 15 s (0.4 for a whole HP bar).",
+                "Ultimate (rules version 5): each trainer has an ultimate gauge that fills when its Pokémon deal damage (a whole HP bar dealt = half the gauge), take it (0.3) and knock out (a quarter). Full, the Plus key (F; ZL + + on a gamepad) unleashes the active Pokémon's ultimate: a 150-power attack of its first type, physical or special after its better attacking stat, that falls on the foe 0.9 s later in a 2.6 m circle drawn on the ground, so it can be rolled out of; it uses no move slot and no cooldown, and the gauge empties.",
                 "No Plus moves (rules version 4): the gauge is only for Mega Evolution. Battles stored with rules versions 2 and 3 keep theirs (a full segment armed a Plus move: x1.2 damage, x1.3 if super effective, more side effects and healing, larger areas, a quarter of the damage through protection; every move of a Mega Evolved Pokémon was one).",
                 "Mega Evolution: with a full gauge, a Pokémon holding its Mega Stone (or Rayquaza with Dragon Ascent) can Mega Evolve once per battle, from generation 6 formats on: the Mega forme's stats, types and ability, HP kept in proportion; it stays Mega while the gauge drains a segment every 8 s; when it empties (or the Pokémon leaves or faints) it goes back to its usual forme.",
                 "Doubles (doubles formats, rules version 3): each trainer has two Pokémon on the field at once, slot a above the centre line and slot b below it. A person moves one of them (the controlled one: moves 1-4 and roll are its own) and swaps which with Tab / C (gamepad L, or the left stick click in the simple layout); the partner is driven by the AI: it stays within reach, dodges, keeps 4 m from its partner, and attacks the person's locked foe unless the other foe is clearly better. X (the right stick click) switches the foe it locks on, shown with a reticle. The AI trainers play both of their Pokémon the same way and pick targets by the damage they can deal and by who threatens them.",

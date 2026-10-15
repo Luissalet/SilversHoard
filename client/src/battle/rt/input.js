@@ -38,6 +38,7 @@ const SCHEMES = {
 // Standard gamepad mapping: 0 bottom (B on a Switch pad), 1 right (A), 2 left (Y), 3 top (X), 4 L, 5 R, 6 ZL, 7 ZR, 8 -, 9 +,
 // 12-15 D-pad.
 const FACE_TO_SLOT = { 3: 0, 1: 1, 0: 2, 2: 3 };   // X A B Y around the diamond
+const ULT_INPUT = 9;                               // the battle's ULT_SLOT
 
 export const CONTROL_LAYOUTS = ["za", "simple"];
 
@@ -49,6 +50,7 @@ export class SeatInput {
     this.layout = CONTROL_LAYOUTS.includes(layout) ? layout : "za";
     this.queue = { use: -1, dodge: false, sw: -1, mega: false };
     this.plusArmed = false;  // F / ZL + +: the next move goes out as a Plus move (the screen disarms it once the battle used it)
+    this.ultMode = false;    // rules version 5: there are no Plus moves and the same key unleashes the ultimate
     this.partyOpen = false;
     this.padPrev = {};
     this.partyCursor = 0;
@@ -71,6 +73,12 @@ export class SeatInput {
   /** Doubles: lock on the other foe. */
   cycleTarget() {
     this.tgt = 1 - this.tgt;
+  }
+
+  /** The Plus key: arms a Plus move (rules 2-3) or unleashes the ultimate (rules 5; the battle ignores it until the gauge is full). */
+  plusKey() {
+    if (this.ultMode) this.queue.use = ULT_INPUT;
+    else this.setPlus(!this.plusArmed);
   }
 
   setPlus(armed) {
@@ -106,7 +114,7 @@ export class SeatInput {
     const move = k.moves.findIndex((list) => list.includes(code));
     if (move >= 0) { this.queue.use = move; return true; }
     if (k.roll.includes(code)) { this.queue.dodge = true; return true; }
-    if (k.plus.includes(code)) { this.setPlus(!this.plusArmed); return true; }
+    if (k.plus.includes(code)) { this.plusKey(); return true; }
     if (k.mega.includes(code)) { this.queue.mega = true; return true; }
     return [...k.up, ...k.down, ...k.left, ...k.right, ...k.focus].includes(code) || held === undefined;
   }
@@ -157,13 +165,13 @@ export class SeatInput {
       }
       // R Mega Evolves; + with ZL held arms a Plus move (+ alone pauses)
       if (hit[5]) this.queue.mega = true;
-      if (hit[9] && focus) this.setPlus(!this.plusArmed);
+      if (hit[9] && focus) this.plusKey();
     } else {
       // simple: A B X Y (Xbox positions 0 1 2 3) -> moves 1-4 without focusing; RB / ZR roll; L Mega Evolves; - arms Plus
       for (let i = 0; i < 4; i++) if (hit[i]) this.queue.use = i;
       if (hit[5] || hit[7]) this.queue.dodge = true;
       if (hit[4]) this.queue.mega = true;
-      if (hit[8]) this.setPlus(!this.plusArmed);
+      if (hit[8]) this.plusKey();
     }
     if (hit[14]) this.openParty((this.partyCursor + partySize - 1) % partySize);
     if (hit[15]) this.openParty((this.partyCursor + 1) % partySize);

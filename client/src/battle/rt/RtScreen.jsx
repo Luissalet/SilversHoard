@@ -3,7 +3,7 @@
 // their inputs every few seconds (a reload picks up where it was) and send them at the end; the app replays them to store the
 // result. Finished and watched battles replay from the seed and the inputs, with play, pause, speed and restart.
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { RtBattle, fastForward, inputFrame, TPS } from "../../../../engine/src/realtime/sim.mjs";
+import { RtBattle, fastForward, inputFrame, TPS, ULT_SLOT } from "../../../../engine/src/realtime/sim.mjs";
 import { L, STATUS_COLORS, STATUS_NAMES, STAT_SHORT, TYPE_COLORS, nameOf, typeName } from "../dex.js";
 import { ArenaRenderer } from "./render.js";
 import SoundButton from "../SoundControl.jsx";
@@ -44,7 +44,7 @@ function logLine(e, b, lang, tr) {
   const monName = (i, slot, u = e.u) => side(i)?.mons[slot ?? activeOf(i, u)]?.name || "?";
   const who = (i, u = e.u) => (lang === "en" ? `${side(i).name}'s ${monName(i, undefined, u)}` : `${monName(i, undefined, u)} de ${side(i).name}`);
   const dodger = () => { const t = b.doubles ? b.foe(side(e.s).units[e.u || 0]) : null; return t ? who(t.index, t.pos) : who(1 - e.s, 0); };
-  const mv = (name) => nameOf("move", name, lang);
+  const mv = (name) => (name === "Ultimate" ? tr("rt_ult") : nameOf("move", name, lang));
   const sec = (e.t / TPS).toFixed(1);
   const es = lang !== "en";
   switch (e.k) {
@@ -66,6 +66,7 @@ function logLine(e, b, lang, tr) {
     case "plus": return { sec, k: "effect", text: es ? `${who(e.s)}: ¡${mv(e.name)} Plus!` : `${who(e.s)}: ${mv(e.name)} Plus!` };
     case "mega": return { sec, k: "big", text: es ? `¡${e.from} de ${side(e.s).name} megaevoluciona!` : `${side(e.s).name}'s ${e.from} Mega Evolved!` };
     case "phase": return { sec, k: "big", text: e.line ? `${side(e.s).name}: «${e.line}»` : (es ? `¡${side(e.s).name} cambia de táctica!` : `${side(e.s).name} changes tactics!`) };
+    case "ultimate": return { sec, k: "big", text: es ? `¡${who(e.s)} desata su definitiva de tipo ${typeName(e.type, lang)}!` : `${who(e.s)} unleashes its ${e.type}-type ultimate!` };
     case "dummy_reset": return { sec, k: "big", text: es ? `${who(e.s)} cae y se levanta con todos sus PS` : `${who(e.s)} goes down and stands up again at full HP` };
     case "mega_end": return { sec, k: "info", text: es ? `${monName(e.s, e.slot)} vuelve a su forma` : `${monName(e.s, e.slot)} went back to its usual forme` };
     case "immune": return { sec, k: "minor", text: es ? `No afecta a ${monName(e.s)}` : `It doesn't affect ${monName(e.s)}` };
@@ -193,7 +194,22 @@ function MoveButton({ m, i, lang, tr, onUse, keyHint, disabled, pos = "", plus =
 // The four moves sit in a diamond like the X A B Y buttons of Legends: Z-A (slot 0 top, 1 right, 2 bottom, 3 left).
 const DIAMOND = ["top", "right", "bottom", "left"];
 
-function Pad({ side, si, lang, tr, partyOpen, cursor, focus, plus, gauge, onUse, onRoll, onSwitch, onParty, onPlus, onMega, onSwap, onTarget, keys, sprites, foes }) {
+/** The ultimate gauge (rules version 5): it fills with damage dealt and taken and with knockouts; full, the key unleashes it. */
+function UltGauge({ side, tr, keyHint, onUlt }) {
+  const f = Math.max(0, Math.min(1, side.ult || 0));
+  return (
+    <div className={`rt-ult ${side.ult_ready ? "is-ready" : ""}`}>
+      <div className="rt-ult-bar" role="meter" aria-label={tr("rt_ult")} aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(f * 100)} title={tr("rt_ult_help")}>
+        <i style={{ width: `${f * 100}%` }} />
+      </div>
+      <button type="button" className="btn btn-sm rt-ult-btn" disabled={!side.ult_ready} onClick={onUlt} title={tr("rt_ult_help")}>
+        {tr("rt_ult")} <span className="rt-key">{keyHint}</span>
+      </button>
+    </div>
+  );
+}
+
+function Pad({ side, si, lang, tr, partyOpen, cursor, focus, plus, gauge, onUse, onRoll, onSwitch, onParty, onPlus, onMega, onUlt, onSwap, onTarget, keys, sprites, foes }) {
   const mon = side.mons[side.active];
   // doubles: a slot waiting for a Pokémon (the switch goes there; the controlled one first)
   const waiting = side.units ? side.units.find((u) => u.pos === side.ctl && u.need) || side.units.find((u) => u.need) : null;
@@ -256,6 +272,7 @@ function Pad({ side, si, lang, tr, partyOpen, cursor, focus, plus, gauge, onUse,
                   {tr("rt_plus")} <span className="rt-key">{keys.plus}</span>
                 </button>
               )}
+              {side.ult !== undefined && <UltGauge side={side} tr={tr} keyHint={keys.plus} onUlt={() => onUlt(si)} />}
               {(side.units ? side.units.some((u) => !u.vacant && side.mons[u.active]?.mega_info) : mon?.mega_info) && !side.mega_used && (
                 <button type="button" className={`btn btn-sm rt-mega-btn ${side.can_mega ? "is-ready" : ""}`} title={tr(plusMoves ? "rt_mega_help" : "rt_mega_help_v4")} disabled={!side.can_mega}
                   onClick={() => onMega(si)}>
@@ -385,7 +402,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
   const schemes = people === 2 ? ["p1", "p2"] : ["solo", "solo"];
 
   const texts = useMemo(() => ({
-    move: (n) => nameOf("move", n, lang), crit: tr("rt_crit"), super: tr("rt_super"), weak: tr("rt_weak"), dodged: tr("rt_dodged"),
+    move: (n) => (n === "Ultimate" ? tr("rt_ult") : nameOf("move", n, lang)), ultimate: tr("rt_ult_cut"), crit: tr("rt_crit"), super: tr("rt_super"), weak: tr("rt_weak"), dodged: tr("rt_dodged"),
     blocked: tr("rt_blocked"), immune: tr("rt_immune"), flinch: tr("rt_flinch"), status: (s) => L(STATUS_NAMES[s] || [s, s], lang),
     statusColor: (s) => STATUS_COLORS[s] || "#fff", stat: (k) => L(STAT_SHORT[k] || [k, k], lang),
     mega: tr("rt_mega_float"), dummyReset: tr("rt_dummy_reset"), phase: tr("rt_phase"), megaEnd: tr("rt_mega_end_float"), plus: tr("rt_plus"), helping: tr("rt_helping_float"), follow: tr("rt_follow_float"),
@@ -396,6 +413,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     const b = new RtBattle(spec);
     const recorded = battle.rt.inputs || [];
     const state = { b, inputs: makeInputs(humans, readLayout()), held: new Set(), acc: 0, last: 0, logIndex: 0, saveAt: 0, savedLen: 0, replay: null, plusScan: 0 };
+    for (const inp of state.inputs) if (inp) inp.ultMode = b.version >= 5;
     if (live) {
       if (recorded.length || battle.rt.tick) {
         fastForward(b, recorded, battle.rt.tick || 0);
@@ -616,6 +634,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
   const onRoll = (si) => queue(si, { dodge: true });
   const onPlus = (si) => { const inp = sim.current?.inputs[si]; if (inp && phaseRef.current === "running") inp.setPlus(!inp.plusArmed); };
   const onMega = (si) => queue(si, { mega: true });
+  const onUlt = (si) => queue(si, { use: ULT_SLOT });
   const onSwitch = (si, i) => { queue(si, { sw: i }); const inp = sim.current?.inputs[si]; if (inp) { inp.partyOpen = false; setParty((p) => { const n = [...p]; n[si] = false; return n; }); } };
   const onSwap = (si) => { const inp = sim.current?.inputs[si]; if (inp && phaseRef.current === "running") inp.swap(); };
   const onTarget = (si) => { const inp = sim.current?.inputs[si]; if (inp && phaseRef.current === "running") inp.cycleTarget(); };
@@ -775,7 +794,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
           <div className={`rt-pads ${people === 2 ? "two" : ""}`}>
             {view.sides.map((s, i) => humans[i] && (
               <Pad key={i} side={s} si={i} lang={lang} tr={tr} partyOpen={party[i]} cursor={cursor[i]} focus={focus[i]} plus={plus[i]} gauge={view.version >= 2}
-                onUse={onUse} onRoll={onRoll} onSwitch={onSwitch} onParty={onParty} onPlus={onPlus} onMega={onMega} onSwap={onSwap} onTarget={onTarget} foes={view.sides[1 - i]} keys={KEY_HINTS[people === 1 && pad ? (layout === "simple" ? "simple" : "pad") : schemes[i]]} sprites={sprites} />
+                onUse={onUse} onRoll={onRoll} onSwitch={onSwitch} onParty={onParty} onPlus={onPlus} onMega={onMega} onUlt={onUlt} onSwap={onSwap} onTarget={onTarget} foes={view.sides[1 - i]} keys={KEY_HINTS[people === 1 && pad ? (layout === "simple" ? "simple" : "pad") : schemes[i]]} sprites={sprites} />
             ))}
           </div>
         )}
