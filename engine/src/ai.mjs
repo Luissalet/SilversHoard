@@ -1,7 +1,8 @@
 // The trainers' brains. Every function reads a live @pkmn/sim Battle (the AI sees both teams, like an in-game trainer that knows
 // the game) and returns a Showdown choice string for one side. Damage is measured with the simulator's own formula on a throwaway
 // copy of the battle, so every generation's rules, abilities and items count. "expert" also plays each candidate turn out on copies
-// of the battle against the opponent's likely answers and keeps the move with the best worst case.
+// of the battle against the opponent's likely answers and keeps the move with the best worst case; in doubles it does the same with
+// pairings of both slots' best options.
 import {Battle, PRNG, toID} from '@pkmn/sim';
 
 export const LEVELS = ['random', 'easy', 'normal', 'hard', 'expert'];
@@ -215,6 +216,12 @@ function benchFor(side, req) {
   return out;
 }
 
+function faintedFor(side) {
+  const out = [];
+  for (let i = side.active.length; i < side.pokemon.length; i++) if (side.pokemon[i]?.fainted) out.push(i + 1);
+  return out;
+}
+
 function targetsFor(scratch, side, slot, moveTarget, gameType) {
   if (gameType === 'singles' || !moveTarget) return [0];
   const foes = side.foe.active.map((p, i) => (p && !p.fainted ? i + 1 : 0)).filter(Boolean);
@@ -308,7 +315,9 @@ function forcedSwitches(scratch, side, req, opts, w, rng) {
   const parts = [];
   for (let slot = 0; slot < req.forceSwitch.length; slot++) {
     if (!req.forceSwitch[slot]) { parts.push('pass'); continue; }
-    const bench = benchFor(side, req).filter((n) => !used.has(n));
+    // Revival Blessing asks for a fainted Pokémon to bring back instead of a healthy one to send in
+    const reviving = !!side.slotConditions?.[slot]?.revivalblessing;
+    const bench = (reviving ? faintedFor(side) : benchFor(side, req)).filter((n) => !used.has(n));
     if (!bench.length) { parts.push('pass'); continue; }
     let n;
     if (opts.level === 'random' || opts.level === 'easy') n = pick(bench, rng);
@@ -391,9 +400,11 @@ function evaluate(b, sideId) {
 function playOut(snapshot, sideId, mine, foeId, theirs, seed) {
   const c = clone(null, snapshot);
   c.prng = new PRNG(seed);
+  // the opponent's guessed answer goes first: choosing for the last side runs the turn, and a choice the opponent already sent is
+  // replaced by the guess (the AI must not read a choice a person made before it)
   try {
-    if (!c.choose(sideId, mine)) return null;
     if (theirs && !c.choose(foeId, theirs)) return null;
+    if (!c.choose(sideId, mine)) return null;
     if (c.allChoicesDone()) c.commitChoices();
   } catch {
     return null;
@@ -443,6 +454,89 @@ function expertChoice(battle, side, req, opts, w, rng) {
   return best ? best.choice : (mine[0]?.choice || 'default');
 }
 
+// ---------------------------------------------------------------- expert in doubles: the same search over both slots at once
+const DOUBLES_BUDGET_MS = 2500;
+
+/** The few options of one slot worth playing out: the best moves (each target counts) plus the best switch. */
+function slotShortlist(scratch, side, slot, req, opts, w, moves = 3) {
+  const mon = side.active[slot];
+  const reqMon = req.side?.pokemon?.[slot];
+  if (!req.active?.[slot] || !mon || mon.fainted || reqMon?.commanding || String(reqMon?.condition || '').endsWith(' fnt')) {
+    return [{choice: 'pass', score: 0, kind: 'pass'}];
+  }
+  const all = slotOptions(scratch, side, slot, req, opts, w);
+  const picked = all.filter((o) => o.kind !== 'switch').slice(0, moves);
+  const sw = all.find((o) => o.kind === 'switch');
+  if (sw && sw.score > -0.35) picked.push(sw);
+  return picked.length ? picked : all.slice(0, 1);
+}
+
+/** Every legal pairing of the slots' options (no bench Pokémon sent in twice, one gimmick a turn), best prior first. */
+function pairings(lists, limit) {
+  let combos = [{parts: [], score: 0, switches: new Set(), gimmick: false}];
+  for (const list of lists) {
+    const next = [];
+    for (const c of combos) {
+      for (const o of list) {
+        if (o.kind === 'switch' && c.switches.has(o.slot)) continue;
+        if (o.kind === 'gimmick' && c.gimmick) continue;
+        const switches = new Set(c.switches);
+        if (o.kind === 'switch') switches.add(o.slot);
+        next.push({parts: [...c.parts, o.choice], score: c.score + o.score, switches, gimmick: c.gimmick || o.kind === 'gimmick'});
+      }
+    }
+    combos = next;
+  }
+  return combos.sort((a, b) => b.score - a.score).slice(0, limit).map((c) => ({choice: c.parts.join(', '), score: c.score}));
+}
+
+function doublesExpertChoice(battle, side, req, opts, w, rng) {
+  const started = Date.now();
+  const scratch = clone(battle);
+  const sSide = sideOf(scratch, side.id);
+  const mine = pairings(req.active.map((_, slot) => slotShortlist(scratch, sSide, slot, req, opts, w)), 12);
+  const foeSide = side.foe;
+  const foeReq = requestOf(foeSide);
+  let theirs = [{choice: null, weight: 1}];
+  if (foeReq && !foeReq.wait && foeReq.active) {
+    // the opponent's likely answers: its best pairing, then the same with one slot switched to its second idea
+    const fSide = sideOf(scratch, foeSide.id);
+    const lists = foeReq.active.map((_, slot) => slotShortlist(scratch, fSide, slot, foeReq, {level: 'hard'}, STYLE_WEIGHTS.balanced, 2));
+    const top = pairings(lists.map((l) => l.slice(0, 1)), 1)[0];
+    const alts = lists.map((l, i) => (l.length > 1 ? pairings(lists.map((m, j) => (j === i ? [l[1]] : m.slice(0, 1))), 1)[0] : null));
+    const answers = [top, ...alts].filter(Boolean);
+    if (answers.length) theirs = answers.map((a, i) => ({choice: a.choice, weight: i === 0 ? 0.5 : 0.5 / Math.max(1, answers.length - 1)}));
+  }
+  const snapshot = freeze(battle);
+  const seeds = [seedString(rng), seedString(rng)];
+  let best = null;
+  for (const o of mine) {
+    if (best && Date.now() - started > DOUBLES_BUDGET_MS) break;
+    let mean = 0;
+    let worst = Infinity;
+    let wsum = 0;
+    for (const t of theirs) {
+      let v = 0;
+      let n = 0;
+      for (const seed of seeds) {
+        const r = playOut(snapshot, side.id, o.choice, foeSide.id, t.choice, seed);
+        if (r === null) continue;
+        v += r;
+        n++;
+      }
+      if (!n) continue;
+      v /= n;
+      mean += v * t.weight;
+      wsum += t.weight;
+      worst = Math.min(worst, v);
+    }
+    if (!wsum) continue;
+    const score = 0.65 * (mean / wsum) + 0.35 * worst + o.score * 0.05 + rng() * 1e-3;
+    if (!best || score > best.score) best = {choice: o.choice, score};
+  }
+  return best ? best.choice : null;
+}
+
 // ---------------------------------------------------------------- entry point
 /**
  * The choice of side `sideId` right now, or null when it has nothing to choose.
@@ -464,6 +558,12 @@ export function chooseFor(battle, sideId, opts = {}) {
   if (level === 'random') return randomChoice(sSide, req, rng);
   if (level === 'expert' && scratch.gameType === 'singles' && req.active.length === 1) {
     try { return expertChoice(battle, side, req, o, w, rng); } catch { /* fall back to hard */ }
+  }
+  if (level === 'expert' && scratch.gameType === 'doubles' && req.active.length === 2) {
+    try {
+      const choice = doublesExpertChoice(battle, side, req, o, w, rng);
+      if (choice) return choice;
+    } catch { /* fall back to hard */ }
   }
   const parts = [];
   const usedSwitch = new Set();
