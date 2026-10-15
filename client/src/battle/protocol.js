@@ -434,9 +434,11 @@ function applyRaw(state, line, { lang = "es", me = "p1" } = {}) {
       const c = CANT[toID(reason)];
       return { text: c ? (es ? `¡${M(parts[1])} ${c[0]}!` : `${M(parts[1])} ${c[1]}`) : T(`${M(parts[1])} no puede moverse (${effectName(parts[2], lang)}).`, `${M(parts[1])} can't move (${effectName(parts[2], lang)}).`), kind: "minor" };
     }
-    case "-supereffective":
+    case "-supereffective": {
       state.fx.eff = 2;
-      return { text: T("¡Es muy eficaz!", "It's super effective!"), kind: "effect" };
+      const { side, slot } = parseIdent(parts[1] || "");
+      return { text: T("¡Es muy eficaz!", "It's super effective!"), kind: "effect", ...(side ? { anim: { type: "super", side, slot } } : {}) };
+    }
     case "-resisted":
       state.fx.eff = 0.5;
       return { text: T("No es muy eficaz…", "It's not very effective…"), kind: "effect" };

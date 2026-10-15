@@ -148,9 +148,11 @@ export function Portrait({ sprites, species, emotion = "Normal", num = 0, classN
 }
 
 // how a Pokémon looks when its trainer speaks (bubble.mood), and on the result screen
-const MOOD = { intro: "Determined", win: "Joyous", lose: "Sad", last: "Determined" };
+const MOOD = { intro: "Determined", win: "Joyous", lose: "Sad", last: "Determined", on_ko: "Joyous", on_faint: "Sad", on_super: "Happy",
+  on_switch: "Determined", banter: "Normal" };
+const other = (side) => (side === "p1" ? "p2" : "p1");
 
-export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "es", exact = true, children, bubble, toolbar, backdrop = "" }) {
+export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "es", exact = true, children, bubble, toolbar, backdrop = "", banter = null }) {
   const t = battleT(lang);
   const st = player.state;
   const foe = me === "p1" ? "p2" : "p1";
@@ -225,7 +227,50 @@ export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "
     const h = setTimeout(() => setPop((p) => (p && p.id === anim.id ? null : p)), anim.type === "faint" ? 1500 : phase ? 3200 : 1300);
     return () => clearTimeout(h);
   }, [anim?.id]); // eslint-disable-line react-hooks/exhaustive-deps
-  const bubbleMon = bubble && bubble.text ? leadOf(bubble.side) : null;
+  // what the trainers say on their own during the battle: their lines for a knockout, a fainted Pokémon, a super-effective hit or a
+  // switch (seats[side].dialogue.on_*), and the lines the family's model wrote for the AI's moves (banter: [{turn, side, line}])
+  const [auto, setAuto] = useState(null);
+  const talk = useRef({ at: 0, faint: { p1: 0, p2: 0 }, switched: { p1: 0, p2: 0 }, lastSwitch: { p1: 0, p2: 0 }, shown: new Set() });
+  const say = (side, text, mood) => {
+    const k = talk.current;
+    if (!text || Date.now() - k.at < 2500) return false;
+    k.at = Date.now();
+    setAuto({ id: `${side}${Date.now()}`, side, text, mood });
+    return true;
+  };
+  useEffect(() => {
+    if (!anim) return;
+    const k = talk.current;
+    const line = (side, key) => seats[side]?.dialogue?.[key] || "";
+    if (anim.type === "faint") {
+      k.faint[anim.side] = anim.id;
+      const o = other(anim.side);
+      const first = anim.id % 2 ? [o, "on_ko"] : [anim.side, "on_faint"];
+      const second = anim.id % 2 ? [anim.side, "on_faint"] : [o, "on_ko"];
+      if (!say(first[0], line(...first), first[1])) say(second[0], line(...second), second[1]);
+    } else if (anim.type === "super") {
+      if (anim.id % 2 === 0) say(other(anim.side), line(other(anim.side), "on_super"), "on_super");
+    } else if (anim.type === "switch") {
+      const n = (k.switched[anim.side] += 1);
+      const replacing = k.faint[anim.side] > k.lastSwitch[anim.side];
+      k.lastSwitch[anim.side] = anim.id;
+      if (n > slots.length && !replacing) say(anim.side, line(anim.side, "on_switch"), "on_switch");
+    }
+  }, [anim?.id]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (!banter?.length || !st.turn) return;
+    const k = talk.current;
+    const fresh = banter.filter((x) => (x.turn === st.turn || x.turn === st.turn - 1) && !k.shown.has(`${x.turn}${x.side}`));
+    const pick = fresh[fresh.length - 1];
+    if (pick && say(pick.side, pick.line, "banter")) k.shown.add(`${pick.turn}${pick.side}`);
+  }, [st.turn, banter?.length]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (!auto) return undefined;
+    const h = setTimeout(() => setAuto((a) => (a && a.id === auto.id ? null : a)), 3200);
+    return () => clearTimeout(h);
+  }, [auto?.id]); // eslint-disable-line react-hooks/exhaustive-deps
+  const said = bubble && bubble.text ? bubble : auto;
+  const bubbleMon = said && said.text ? leadOf(said.side) : null;
   return (
     <div className="b-wrap">
       <div className="b-main">
@@ -280,10 +325,10 @@ export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "
             ))}
           </div>
 
-          {bubble && bubble.text && (
-            <div className={`b-bubble ${bubble.side === me ? "me" : "foe"}`}>
-              {bubbleMon && <Portrait sprites={sprites} species={bubbleMon.species} emotion={MOOD[bubble.mood] || "Normal"} />}
-              <span>{bubble.text}</span>
+          {said && said.text && (
+            <div key={said.id || said.text} className={`b-bubble ${said.side === me ? "me" : "foe"}`}>
+              {bubbleMon && <Portrait sprites={sprites} species={bubbleMon.species} emotion={MOOD[said.mood] || "Normal"} />}
+              <span>{said.text}</span>
             </div>
           )}
           {pop && !ended && (

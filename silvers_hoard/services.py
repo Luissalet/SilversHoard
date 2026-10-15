@@ -27,6 +27,7 @@ from .engine import master_status
 from .engine import Engine
 from .errors import SilverError
 from .hoard_link import family
+from .hoard_link.atomic import write_bytes_atomic
 from .hoard_link.tokens import read_or_create_token
 from .credits import Credits
 from .arenas import CUSTOM as ARENA_CUSTOM, Arenas, same as arenas_same
@@ -62,7 +63,10 @@ _CLASS_ES = {
 }
 STATIC_DIR = Path(__file__).resolve().parent / "static"
 PLAY_TEMPLATE = STATIC_DIR / "play" / "play.html"
-DIALOGUE_KEYS = ("intro", "win", "lose", "last", "phase", "phase_when", "phase_level", "phase_style")
+# lines a trainer says: at the start, its last Pokémon, winning, losing, and during the battle when it knocks out, loses a Pokémon,
+# lands a super-effective hit or switches (shown in the app and on the playable page)
+LINE_KEYS = ("intro", "win", "lose", "last", "on_ko", "on_faint", "on_super", "on_switch")
+DIALOGUE_KEYS = (*LINE_KEYS, "phase", "phase_when", "phase_level", "phase_style")
 PHASE_WHEN = ("half", "last")
 # Real-time battles: the rules version stored with every new battle (1 = the first rules, which battles stored without one keep:
 # always locked on, no Mega Evolution; 2 = free aim, the Mega Power gauge, Plus moves and Mega Evolution; 3 = doubles formats
@@ -97,6 +101,9 @@ class Services:
         config.paths.ensure()
         for folder in (config.avatars_dir, config.sprites_dir, config.exports_dir):
             folder.mkdir(parents=True, exist_ok=True)
+        self._banter_guard = threading.Lock()
+        self._banter_busy: set[str] = set()
+        self._banter_queue: dict[str, list[dict[str, Any]]] = {}
         self.token = read_or_create_token(config.token_path)
         self.settings = Settings(config.settings_path)
         self.store = Store(config.db_path)
@@ -468,11 +475,13 @@ class Services:
         language = "castellano de España" if lang == "es" else "English"
         prompt = (f"Write the battle lines of a Pokémon trainer for a fan battle simulator, in {language}. Trainer: {t['name']}"
                   f"{' (' + t['title'] + ')' if t['title'] else ''}. Team: {team}. Personality: {personality or 'infer it from the team and title'}. "
-                  "Return JSON with keys intro (said before the battle), win (when the trainer wins), lose (when the trainer loses) and last "
-                  "(when sending the last Pokémon). One or two short sentences each, in character, no emojis, no quotes.")
+                  "Return JSON with keys intro (said before the battle), win (when the trainer wins), lose (when the trainer loses), last "
+                  "(when sending the last Pokémon), on_ko (when its Pokémon knocks out a foe), on_faint (when one of its Pokémon faints), "
+                  "on_super (when it lands a super-effective hit) and on_switch (when it switches Pokémon). One or two short sentences each "
+                  "(on_* only one, short), in character, no emojis, no quotes.")
         res = family.chat([{"role": "user", "content": prompt}],
-                          json={"type": "object", "properties": {k: {"type": "string"} for k in DIALOGUE_KEYS}, "required": list(DIALOGUE_KEYS)},
-                          effort="low", max_tokens=600, timeout=180)
+                          json={"type": "object", "properties": {k: {"type": "string"} for k in LINE_KEYS}, "required": list(LINE_KEYS)},
+                          effort="low", max_tokens=800, timeout=180)
         if not res.get("ok"):
             raise SilverError("unavailable", f"No language model answered: {res.get('detail') or res.get('error')}",
                               hint="Start Hoard Hub and a model (Faustus, the Sparks or Ollama), or write the lines by hand.")
@@ -482,9 +491,11 @@ class Services:
                 lines = json.loads(res.get("text") or "{}")
             except ValueError:
                 lines = {}
-        dialogue = self._clean_dialogue(lines)
+        dialogue = self._clean_dialogue({k: v for k, v in lines.items() if k in LINE_KEYS})
         if not dialogue:
             raise SilverError("unavailable", "The model did not return the lines.")
+        # the change of tactics (phase_*) stays as it was
+        dialogue = {**{k: v for k, v in (t.get("dialogue") or {}).items() if k not in LINE_KEYS}, **dialogue}
         self.store.update_trainer(id_, {"dialogue": dialogue})
         return {"dialogue": dialogue, "model": res.get("model")}
 
@@ -1175,6 +1186,7 @@ class Services:
                                                "winner_name": (r.get("summary") or {}).get("winner", ""), "turns": r.get("turns") or 0,
                                                "seed": str(r.get("seed") or ""), "replay": {"input": r.get("input_log") or []}})
                 self._after_end(bid)
+                self._banter_later(bid, r.get("notes") or [])
             except Exception as exc:  # noqa: BLE001 - the battle row says what happened
                 log.exception("watch battle %s", bid)
                 self.store.update_battle(bid, {"status": "failed", "summary": {"error": str(getattr(exc, "message", exc))[:300]}})
@@ -1200,6 +1212,10 @@ class Services:
         summary = b.get("summary") or {}
         out.update({"rules": b.get("rules") or [], "level_rules": b.get("level_rules") or {},
                     "summary": {k: v for k, v in summary.items() if k != "ai_notes"}, "ai_notes_count": len(summary.get("ai_notes") or [])})
+        banter = self.banter_of(id_)
+        if banter or id_ in self._banter_busy:
+            out["banter"] = banter
+            out["banter_pending"] = id_ in self._banter_busy
         if (b.get("mode") or "classic") == "realtime":
             return self._rt_view(b, out, since)
         if b["status"] == "live":
@@ -1335,6 +1351,111 @@ class Services:
         summary = dict(b.get("summary") or {})
         summary["ai_notes"] = [*(summary.get("ai_notes") or []), *notes][-self.MAX_NOTES:]
         self.store.update_battle(id_, {"summary": summary})
+        self._banter_later(id_, notes)
+
+    # ------------------------------------------------------------ the rival talks (the AI comments its moves in character)
+    MAX_BANTER = 80
+
+    def _banter_path(self, id_: str) -> Path:
+        return self.config.data_dir / "banter" / f"{re.sub(r'[^A-Za-z0-9_-]', '', id_)[:80]}.json"
+
+    def banter_of(self, id_: str) -> list[dict[str, Any]]:
+        try:
+            return json.loads(self._banter_path(id_).read_text("utf-8"))
+        except (OSError, ValueError):
+            return []
+
+    def _banter_later(self, id_: str, notes: list[dict[str, Any]]) -> None:
+        """With the ai_banter setting on, the family's language model turns the AI's new decisions into lines of its trainer, in the
+        background: the turn never waits for it (battle_get hands out the lines as they come)."""
+        if not self.settings.get("ai_banter") or not notes:
+            return
+        with self._banter_guard:
+            if id_ in self._banter_busy:
+                self._banter_queue.setdefault(id_, []).extend(notes)
+                return
+            self._banter_busy.add(id_)
+        self.pool.submit(self._banter_run, id_, list(notes))
+
+    def _banter_run(self, id_: str, notes: list[dict[str, Any]]) -> None:
+        try:
+            while notes:
+                try:
+                    self._banter(id_, notes)
+                except Exception as exc:  # noqa: BLE001 - lines are decoration; the battle goes on without them
+                    log.info("banter %s: %s", id_, exc)
+                with self._banter_guard:
+                    notes = self._banter_queue.pop(id_, [])
+        finally:
+            with self._banter_guard:
+                self._banter_busy.discard(id_)
+
+    def _banter(self, id_: str, notes: list[dict[str, Any]]) -> None:
+        b = self.store.battle(id_)
+        have = self.banter_of(id_)
+        if len(have) >= self.MAX_BANTER:
+            return
+        done = {(x.get("turn"), x.get("side")) for x in have}
+        # one line per trainer and turn: its last decision of that turn, a move or a switch (not the forced replacement after a K.O.)
+        picks: dict[tuple[Any, Any], dict[str, Any]] = {}
+        for n in notes:
+            key = (n.get("turn"), n.get("side"))
+            if key in done or n.get("side") not in ("p1", "p2") or n.get("kind") in ("switch_in", "team") or not n.get("turn"):
+                continue
+            picks[key] = n
+        if not picks:
+            return
+        def seat(side: str) -> str:
+            s = b.get(side) or {}
+            tr = self.store.trainer(s["trainer_id"], deleted=True) if s.get("trainer_id") else {}
+            who = s.get("name") or side
+            extra = " ".join(x for x in (tr.get("title") or "", (tr.get("dialogue") or {}).get("intro") or "") if x)
+            return f"{who}{' — ' + extra if extra else ''}"
+        def what(n: dict[str, Any]) -> str:
+            slot = (n.get("slots") or [{}])[0]
+            picked = slot.get("picked") or {}
+            parts = [f"turn {n.get('turn')}", f"trainer {n.get('side')}: {seat(n['side'])}", f"its Pokémon {slot.get('mon') or '?'}"]
+            if picked.get("kind") == "switch" or str(n.get("choice", "")).startswith("switch"):
+                parts.append(f"switches to {picked.get('species') or picked.get('name') or 'another Pokémon'}")
+            else:
+                parts.append(f"uses {picked.get('name') or n.get('choice')}" + (f" on {picked['target']}" if picked.get("target") else ""))
+                if picked.get("ko"):
+                    parts.append("expecting a knockout")
+            threat = slot.get("threat") or {}
+            if threat.get("move"):
+                parts.append(f"fearing {threat.get('foe')}'s {threat.get('move')}")
+            return "; ".join(parts)
+        items = list(picks.items())[: self.MAX_BANTER - len(have)][:8]
+        prompt = ("You write what Pokémon trainers say in a fan battle simulator, in castellano de España, in character, as they make each move. "
+                  "For each decision below write one short line (at most 14 words) the trainer says aloud, no emojis, no quotes, never "
+                  "mentioning AI or numbers. Return JSON {\"lines\": [{\"i\": index, \"line\": text}]}.\n"
+                  + "\n".join(f"{i}. {what(n)}" for i, (_, n) in enumerate(items)))
+        res = family.chat([{"role": "user", "content": prompt}],
+                          json={"type": "object", "properties": {"lines": {"type": "array", "items": {"type": "object", "properties": {
+                              "i": {"type": "integer"}, "line": {"type": "string"}}, "required": ["i", "line"]}}}, "required": ["lines"]},
+                          effort="low", max_tokens=700, timeout=120)
+        if not res.get("ok"):
+            return
+        data = res.get("json") if isinstance(res.get("json"), dict) else {}
+        if not data:
+            try:
+                data = json.loads(res.get("text") or "{}")
+            except ValueError:
+                data = {}
+        fresh = []
+        for x in data.get("lines") or []:
+            try:
+                (turn, side), _ = items[int(x.get("i"))]
+            except (TypeError, ValueError, IndexError):
+                continue
+            line = " ".join(str(x.get("line") or "").split()).strip("\"'«» ")[:160]
+            if line:
+                fresh.append({"turn": turn, "side": side, "line": line})
+        if fresh:
+            path = self._banter_path(id_)
+            path.parent.mkdir(parents=True, exist_ok=True)
+            merged = sorted([*self.banter_of(id_), *fresh], key=lambda x: (x.get("turn") or 0, x.get("side") or ""))[: self.MAX_BANTER]
+            write_bytes_atomic(path, json.dumps(merged, ensure_ascii=False).encode("utf-8"), fsync=False)
 
     def battle_explain(self, id_: str, *, side: str = "", turn: int = 0, from_turn: int = 0, advice: bool = True, limit: int = 6) -> dict[str, Any]:
         """Why the AI seats chose what they chose: one note per decision (the options it weighed with expected damage and KOs, the threat

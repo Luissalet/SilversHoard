@@ -110,6 +110,12 @@ export default function Combate({ param }) {
     if (fresh && seats.p2?.dialogue?.intro) setBubble({ side: "p2", text: seats.p2.dialogue.intro, mood: "intro" });
   }, [battle?.id, battle?.status]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // the rival talks: the lines the family's model writes for the AI's moves arrive while the battle is played back
+  usePoll(async () => {
+    const b = await api.call("battle_get", { id: param, since: lengthRef.current });
+    setData((old) => (old ? { ...old, banter: b.banter, banter_pending: b.banter_pending } : old));
+  }, 4000, !!battle?.banter_pending);
+
   // a watched battle: wait for the AIs to finish, then play it
   usePoll(async () => {
     const b = await api.call("battle_get", { id: param, since: 0 });
@@ -267,7 +273,7 @@ export default function Combate({ param }) {
       ) : battle.status === "failed" ? (
         <ErrorBox error={{ message: battle.summary?.error || t("battle_failed") }} onRetry={reload} />
       ) : (
-        <Arena player={player} seats={seats} me={me} sprites={sprites} lang={lang} bubble={bubble} backdrop={battle.run?.backdrop || ""}
+        <Arena player={player} seats={seats} me={me} sprites={sprites} lang={lang} bubble={bubble} backdrop={battle.run?.backdrop || ""} banter={battle.banter}
           toolbar={!live || !player.caughtUp ? <ReplayBar player={player} lang={lang} speedMs={speedMs} onSpeed={setSpeedMs} /> : null}>
           {request && (
             <Controls request={request} lang={lang} sprites={sprites} gametype={player.state.gametype} busy={busy.choose}

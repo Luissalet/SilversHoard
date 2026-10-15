@@ -92,6 +92,8 @@ export default function Ajustes() {
             <p className="help">{t("smogon_data_help")}</p>
             <label className="flex items-center gap-2"><Switch checked={!!f.ai_hidden_info} onChange={(v) => set("ai_hidden_info", v)} label={t("ai_hidden_info")} /> {t("ai_hidden_info")}</label>
             <p className="help">{t("ai_hidden_info_help")}</p>
+            <label className="flex items-center gap-2"><Switch checked={!!f.ai_banter} onChange={(v) => set("ai_banter", v)} label={t("ai_banter")} /> {t("ai_banter")}</label>
+            <p className="help">{t("ai_banter_help")}</p>
             <p className="help"><a className="btn-link" href="#/creditos">{t("credits_link")}</a></p>
         </div>
       </Section>
