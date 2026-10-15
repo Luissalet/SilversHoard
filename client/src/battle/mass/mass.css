@@ -1,0 +1,37 @@
+/* Mass battles (Batalla campal): the field, the bars over it, the knockout feed and the result. Hoard theme tokens. */
+.mass-top { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; min-height: 30px; }
+.mass-boss { flex: 1 1 100%; }
+.mass-boss-name { display: flex; justify-content: space-between; font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; }
+.mass-bar { height: 6px; background: rgba(0, 0, 0, 0.45); border-radius: 3px; overflow: hidden; }
+.mass-bar.is-big { height: 12px; border: 1px solid rgba(255, 255, 255, 0.15); }
+.mass-bar span { display: block; height: 100%; transition: width 0.2s linear; }
+.mass-teams { display: flex; flex-wrap: wrap; gap: 6px 12px; flex: 1 1 auto; }
+.mass-team { display: grid; grid-template-columns: 10px minmax(0, 120px) auto; grid-template-rows: auto 6px; column-gap: 6px; align-items: center; font-size: 12px; min-width: 150px; }
+.mass-team .mass-bar { grid-column: 1 / -1; }
+.mass-team.is-out { opacity: 0.4; }
+.mass-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.mass-left { font-size: 14px; }
+.mass-clock { margin-left: auto; font-size: 13px; opacity: 0.8; }
+.mass-stage { position: relative; width: 100%; }
+.mass-canvas { display: block; margin: 0 auto; border-radius: 10px; cursor: grab; touch-action: none; }
+.mass-canvas:active { cursor: grabbing; }
+.mass-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(10, 8, 12, 0.55); border-radius: 10px; }
+.mass-overlay.is-clear { background: transparent; pointer-events: none; }
+.mass-overlay.is-end { background: rgba(10, 8, 12, 0.6); }
+.mass-card { background: var(--panel, #211a22); border: 1px solid var(--line, #3a2e3a); border-radius: 12px; padding: 14px 18px; text-align: center; display: grid; gap: 8px; }
+.mass-result { width: min(560px, 92%); max-height: 92%; overflow: auto; }
+.mass-banner { font: 700 26px/1.2 var(--font-display, Georgia, serif); color: #fff; padding: 8px 12px; border-radius: 8px; text-shadow: 0 2px 0 rgba(0, 0, 0, 0.35); }
+.mass-intro { text-align: center; color: #fff; text-shadow: 0 3px 0 rgba(0, 0, 0, 0.55), 0 0 18px rgba(0, 0, 0, 0.6); }
+.mass-intro h2 { font: 800 clamp(20px, 3.4vw, 40px)/1.15 var(--font-display, Georgia, serif); max-width: 900px; margin: 0 auto 6px; }
+.mass-who { font-size: clamp(16px, 2vw, 24px); color: #ffd54a; font-weight: 700; }
+.mass-count { font: 900 clamp(40px, 7vw, 86px)/1 system-ui, sans-serif; margin-top: 8px; color: #fff; }
+.mass-feed { position: absolute; left: 10px; bottom: 10px; display: grid; gap: 3px; font-size: 12px; pointer-events: none; }
+.mass-feed > div { background: rgba(0, 0, 0, 0.6); padding: 2px 8px; border-radius: 6px; font-weight: 600; }
+.mass-follow { position: absolute; right: 10px; top: 10px; background: rgba(0, 0, 0, 0.65); padding: 6px 10px; border-radius: 8px; font-size: 12px; max-width: 260px; }
+.mass-moves { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.mass-moves span { padding: 1px 6px; border-radius: 5px; background: rgba(255, 255, 255, 0.08); opacity: 0.55; }
+.mass-moves span.is-ready { opacity: 1; background: rgba(255, 255, 255, 0.18); }
+.mass-rank { width: 100%; font-size: 13px; border-collapse: collapse; }
+.mass-rank th, .mass-rank td { padding: 3px 6px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.07); }
+.mass-team-edit { border-left: 4px solid; padding: 8px 10px; border-radius: 8px; background: rgba(255, 255, 255, 0.03); }
+.mass-preset b { display: block; min-height: 2.6em; }

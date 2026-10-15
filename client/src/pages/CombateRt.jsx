@@ -10,7 +10,8 @@ import { RunStrip } from "./Combate.jsx";
 import VideoExport from "../components/VideoExport.jsx";
 import { CupStrip } from "./Copa.jsx";
 
-export { RtScreen };     // the video page records a real-time replay with it (same chunk)
+export { RtScreen };
+export { default as MassScreen } from "../battle/mass/MassScreen.jsx";   // mass battles (Campal.jsx) come with the same chunk     // the video page records a real-time replay with it (same chunk)
 
 export default function CombateRt({ battle, setData }) {
   const { t, lang, sprites, changed, go, settings } = useApp();

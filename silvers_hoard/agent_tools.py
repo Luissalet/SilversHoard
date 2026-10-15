@@ -378,6 +378,47 @@ class FriendAddArgs(BaseModel):
     name: str = Field("", max_length=40, description="How to call them (empty: their computer's address).")
 
 
+class MassBossArgs(BaseModel):
+    hp: float = Field(0, ge=0, le=200, description="Health multiplier of each giant (0 = worked out from the crowd).")
+    size: float = Field(0, ge=0, le=5, description="Size multiplier (0 = automatic, 2-4).")
+    power: float = Field(0, ge=0, le=5, description="Damage multiplier (0 = automatic).")
+
+
+class MassTeamArgs(BaseModel):
+    kind: Literal["dex", "top", "starters", "legendaries", "random", "species", "trainer"] = Field(
+        "dex", description="dex: whole generations; top: the strongest (base stats) of each generation; starters; legendaries; random; species: the names in list; trainer: a trainer's team.")
+    gens: list[int] = Field(default_factory=list, max_length=9, description="Generations 1-9 (dex, top, legendaries, random).")
+    count: int = Field(0, ge=0, le=300, description="top: how many of each generation; random: how many.")
+    species: list[str] = Field(default_factory=list, max_length=300, description="species kind: Pokémon names (formes too, e.g. Eternatus-Eternamax).")
+    trainer_id: str = Field("", max_length=80, description="trainer: whose team.")
+    name: str = Field("", max_length=40, description="The team's name (empty: from its generations or kind).")
+    color: str = Field("", max_length=7, description="#rrggbb (empty: the team's default colour).")
+    shiny_chance: Optional[float] = Field(None, ge=0, le=1, description="Chance of each Pokémon being shiny (1 = all).")
+    fully_evolved: bool = Field(False, description="Only Pokémon that do not evolve further.")
+    boss: Optional[MassBossArgs] = Field(None, description="boss mode, first team only: the giants' multipliers.")
+
+
+class MassStartArgs(BaseModel):
+    preset: str = Field("", max_length=40, description="A ready-made battle (mass_presets); then mode, floor and teams come from it.")
+    again: str = Field("", max_length=60, description="Fight this mass battle again with another seed.")
+    mode: Literal["ffa", "teams", "boss"] = Field("ffa", description="ffa: everybody against everybody; teams; boss: the first team (giants) against the rest.")
+    teams: list[MassTeamArgs] = Field(default_factory=list, max_length=16, description="Who fights (ffa: groups whose Pokémon each fight alone).")
+    level: int = Field(50, ge=0, le=100, description="Everyone at this level (0 = each set's own).")
+    floor: Literal["grass", "sand", "ice", "cave", "indoor", "water", "pyre", "summit", "meteor", "champion", "castle"] = Field("grass", description="The field's ground.")
+    time_limit: int = Field(0, ge=0, le=1800, description="Seconds (0 = 180, 240 with giants); then more standing wins.")
+    title: str = Field("", max_length=120, description="Empty: from the preset or the teams.")
+    seed: str = Field("", max_length=60, description="Same seed and teams = same battle.")
+
+
+class MassIdArg(BaseModel):
+    id: str = Field(..., min_length=5, max_length=60, description="A mass battle id (mass_list).")
+
+
+class MassCheckArgs(BaseModel):
+    id: str = Field(..., min_length=5, max_length=60, description="A mass battle id.")
+    hash: str = Field(..., max_length=40, description="The fingerprint a screen's own run of the battle ended with.")
+
+
 class FriendIdArg(BaseModel):
     id: str = Field(..., min_length=1, max_length=20, description="The friend's id from pvp_friends.")
 
@@ -1070,6 +1111,21 @@ TOOLS: list[Tool] = [
                               "They also show in the Hub's Today view.",
                               synonyms="añadir vestíbulo de un amigo"), FriendAddArgs, W, lambda s, a: s.pvp.friend_add(a.name, a.url)),
     Tool("pvp_friend_remove", _d("Forget a friend's lobby address. Quitar amigo."), FriendIdArg, W, lambda s, a: s.pvp.friend_remove(a.id)),
+    Tool("mass_presets", _d("Ready-made mass battles (whole Pokédex, starters, generations, giants). Batallas campales listas."),
+         Empty, R, lambda s, a: {"presets": s.mass.presets()}),
+    Tool("mass_start", _d("Run a mass battle: dozens to hundreds of Pokémon, each with its own AI. Batalla campal.",
+                          "Modes: ffa (battle royale, last one standing), teams (armies, generations), boss (giants against a crowd). Who fights: "
+                          "generations, the strongest of each, starters, legendaries, random, names or a trainer's team; sets come from what each "
+                          "Pokémon learns. Up to 300 Pokémon. Watch it at #/campal/<id>.",
+                          synonyms="battle royale, todos contra todos, por equipos, ejércitos, jefe gigante, muchos contra uno, simulador de batallas épicas"),
+         MassStartArgs, W,
+         lambda s, a: s.mass.start(preset=a.preset, again=a.again, mode=a.mode, teams=[t.model_dump() for t in a.teams], level=a.level,
+                                   floor=a.floor, time_limit=a.time_limit, title=a.title, seed=a.seed), 240.0),
+    Tool("mass_get", _d("A mass battle: its spec, result, ranking and best Pokémon. Ver batalla campal."), MassIdArg, R, lambda s, a: s.mass.get(a.id)),
+    Tool("mass_list", _d("Mass battles already fought, newest first. Batallas campales."), Empty, R, lambda s, a: {"battles": s.mass.list()}),
+    Tool("mass_delete", _d("Delete a mass battle. Borrar batalla campal."), MassIdArg, W, lambda s, a: s.mass.delete(a.id)),
+    Tool("mass_check", _d("Compare a screen's run of a mass battle with the engine's. Comprobar batalla campal."),
+         MassCheckArgs, R, lambda s, a: s.mass.check(a.id, a.hash)),
     Tool("friends_league", _d("The friends' league: points from the results friends bring back, by season. Liga de amigos.",
                               "Per friend and gym or trainer the best result counts: full win 3 (+1 replay-checked), each battle won 1, the week's challenge +1.",
                               synonyms="clasificación de amigos, temporada, puntos, ranking"), SeasonArg, R, lambda s, a: s.friends.league(a.season)),
