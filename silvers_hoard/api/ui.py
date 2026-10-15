@@ -104,6 +104,23 @@ def battle_music(request: Request, track: str):
     return _file(services(request).sounds.music(track))
 
 
+@router.get("/fx/stats")
+def fx_stats(request: Request):
+    return services(request).fx.stats()
+
+
+@router.get("/fx/bg/{name}")
+def fx_backdrop(request: Request, name: str):
+    """A battle backdrop some move animations flash behind the field (Showdown's gen6bgs), downloaded once and cached."""
+    return _file(services(request).fx.get(name, "bg"))
+
+
+@router.get("/fx/{name}")
+def fx_picture(request: Request, name: str):
+    """An effect picture of Showdown's move animations (fx/wisp.png…), downloaded once and cached; 404 when there is none."""
+    return _file(services(request).fx.get(name, "fx"))
+
+
 @router.get("/sound/stats")
 def sound_stats(request: Request):
     return services(request).sounds.stats()

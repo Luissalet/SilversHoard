@@ -5,7 +5,7 @@ import { useApp } from "../context.js";
 import { Busy, Field, Icon, ICONS, Section, Switch, useBusy, useLoad } from "../components/ui.jsx";
 import { AiFields, FormatSelect, MonIcon } from "../components/silver.jsx";
 import { SoundSliders } from "../battle/SoundControl.jsx";
-import { useMoveFxSetting } from "../battle/fx/setting.js";
+import { useBackdropSetting, useFxStyleSetting, useMoveFxSetting } from "../battle/fx/setting.js";
 
 export default function Ajustes() {
   const { t, lang, notify, refreshOv, ov } = useApp();
@@ -15,6 +15,8 @@ export default function Ajustes() {
   const [f, setF] = useState(null);
   const [busy, run] = useBusy();
   const [moveFx, setMoveFx] = useMoveFxSetting();
+  const [fxStyle, setFxStyle] = useFxStyleSetting();
+  const [backdrop, setBackdrop] = useBackdropSetting();
   useEffect(() => { if (data) setF(data); }, [data]);
   if (!f) return null;
   const set = (k, v) => setF((x) => ({ ...x, [k]: v }));
@@ -46,6 +48,18 @@ export default function Ajustes() {
         </div>
         <label className="flex items-center gap-2"><Switch checked={moveFx} onChange={setMoveFx} label={t("move_fx")} /> {t("move_fx")}</label>
         <p className="help">{t("move_fx_help")}</p>
+        <Field label={t("fx_style")} hint={t("fx_style_help")}>
+          <select className="field" value={fxStyle} disabled={!moveFx} onChange={(e) => setFxStyle(e.target.value)}>
+            <option value="showdown">{t("fx_style_showdown")}</option>
+            <option value="silver">{t("fx_style_silver")}</option>
+          </select>
+        </Field>
+        <Field label={t("backdrop")} hint={t("backdrop_help")}>
+          <select className="field" value={backdrop} onChange={(e) => setBackdrop(e.target.value)}>
+            <option value="showdown">{t("backdrop_showdown")}</option>
+            <option value="silver">{t("backdrop_silver")}</option>
+          </select>
+        </Field>
       </div>
       <Section title={t("mode_realtime")}>
         <div className="panel space-y-3">

@@ -4,7 +4,8 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { L, STATUS_COLORS, STATUS_SHORT, STATUS_SHORT_EN, STAT_SHORT, TYPE_COLORS, nameOf, typeName, toID } from "./dex.js";
 import { battleT } from "./strings.js";
 import SoundButton from "./SoundControl.jsx";
-import { useMoveFxSetting, usePrefersReducedMotion } from "./fx/setting.js";
+import { useBackdropSetting, useMoveFxSetting, usePrefersReducedMotion } from "./fx/setting.js";
+import { backdropUrl, fieldLayer, seedOf, weatherLayer } from "./fx/backdrop.js";
 
 const WEATHER_CLASS = { raindance: "w-rain", primordialsea: "w-rain", sunnyday: "w-sun", desolateland: "w-sun", sandstorm: "w-sand", hail: "w-snow",
   snowscape: "w-snow", snow: "w-snow", deltastream: "w-wind" };
@@ -18,7 +19,8 @@ function hpColor(frac) {
 
 const KEYFRAMES = {
   // `lunge` ({dx, dy} in px, from the effect layer) sends a striking Pokémon toward its target instead of the small default hop
-  move: (back, a) => [{ transform: "translate(0,0)" }, { transform: a?.lunge ? `translate(${a.lunge.dx}px,${a.lunge.dy}px)` : back ? "translate(26px,-14px)" : "translate(-26px,14px)", offset: 0.4 }, { transform: "translate(0,0)" }],
+  // `ps`: Showdown's animation of the move already moves the sprite, so no hop of our own
+  move: (back, a) => a?.ps ? [{ transform: "none" }, { transform: "none" }] : [{ transform: "translate(0,0)" }, { transform: a?.lunge ? `translate(${a.lunge.dx}px,${a.lunge.dy}px)` : back ? "translate(26px,-14px)" : "translate(-26px,14px)", offset: 0.4 }, { transform: "translate(0,0)" }],
   hit: () => [{ transform: "translateX(0)", filter: "brightness(1)" }, { transform: "translateX(-7px)", filter: "brightness(2.2)" }, { transform: "translateX(6px)", filter: "brightness(1)" },
     { transform: "translateX(-4px)", filter: "brightness(1.8)" }, { transform: "translateX(0)", filter: "brightness(1)" }],
   heal: () => [{ filter: "drop-shadow(0 0 0 #6fe08a)" }, { filter: "drop-shadow(0 0 14px #6fe08a)" }, { filter: "drop-shadow(0 0 0 #6fe08a)" }],
@@ -184,11 +186,22 @@ export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "
   const fxSig = fxMons.map((m) => m.status).join(",");
   useEffect(() => { fx?.sync({ weather: st.field.weather, mons: fxMons }); }, [fx, st.field.weather, fxSig]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Showdown's backdrop for the format's generation (one per battle, kept in replays) and its weather and terrain overlays
+  const [backdropPref] = useBackdropSetting();
+  const showdownField = backdropPref === "showdown";
+  const bdUrl = useMemo(() => (showdownField ? backdropUrl({ gen: st.gen, seed: seedOf(`${st.sides.p1.name}|${st.sides.p2.name}|${st.tier}`) }) : ""),
+    [showdownField, st.gen, st.sides.p1.name, st.sides.p2.name, st.tier]);
+  const wLayer = showdownField ? weatherLayer(st.field.weather) : null;
+  const fLayer = showdownField ? fieldLayer([st.field.terrain, ...Object.entries(st.field.pseudo || {}).filter(([, on]) => on).map(([k]) => k)]) : null;
+
   const winnerSide = ended && !st.tie ? (st.sides.p1.name === st.winner ? "p1" : st.sides.p2.name === st.winner ? "p2" : "") : "";
   return (
     <div className="b-wrap">
       <div className="b-main">
-        <div className={`b-stage ${weather} ${terrain} ${doubles ? "is-doubles" : ""}`} ref={stageRef}>
+        <div className={`b-stage ${weather} ${terrain} ${doubles ? "is-doubles" : ""}${bdUrl ? " has-backdrop" : ""}`} ref={stageRef}>
+          {bdUrl && <div className="b-backdrop" style={{ backgroundImage: `url(${bdUrl})` }} aria-hidden="true" />}
+          {fLayer && <div className="b-layer" style={{ backgroundImage: `url(${fLayer.url})`, opacity: fLayer.opacity }} aria-hidden="true" />}
+          {wLayer && <div className="b-layer" style={{ backgroundImage: `url(${wLayer.url})`, opacity: wLayer.opacity }} aria-hidden="true" />}
           <div className="b-platform foe" />
           <div className="b-platform me" />
           {fxOn && <canvas className="b-fx under" ref={underRef} aria-hidden="true" />}
