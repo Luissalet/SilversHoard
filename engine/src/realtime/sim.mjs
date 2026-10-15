@@ -46,7 +46,7 @@ const GAUGE_FILL = GAUGE_SEGMENT / (15 * TPS);   // 8 per tick
 const GAUGE_DRAIN = GAUGE_SEGMENT / (8 * TPS);   // 15 per tick
 const GAUGE_HIT = 1440;                          // dealing a whole HP bar of damage: 0.4 of a segment
 export const PLUS = {damage: 1.2, superDamage: 1.3, secondary: 1.67, heal: 4 / 3, area: 1.2, pierce: 0.25};
-const AIM_ASSIST = Math.cos(Math.PI / 6);        // not focusing: a move snaps to the foe within 30° of the facing
+const AIM_ASSIST = Math.sqrt(3) / 2;             // cos 30°: not focusing, a move snaps to the foe within 30° of the facing (no trigonometry: sqrt is exact everywhere)
 const STRIKE_LUNGE = 0.6;                        // not focusing: a strike lunges this far forward
 const ROCK_PASS = 2.3;                           // free space kept between rocks, and between rocks and the walls
 
