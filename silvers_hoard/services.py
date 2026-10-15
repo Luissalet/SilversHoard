@@ -2216,12 +2216,161 @@ class Services:
         return {"trainer": self.trainer_view(obj), "won": won, "battle_id": bid, "challenger": challenger, "verified_real_time": len(replays)}
 
     def export_file(self, filename: str) -> Path:
-        if not sharing.re.match(r"^[\w\- ]+\.(html|hoardtrainer|hoardgym|hoardleague)$", filename, flags=sharing.re.UNICODE):
+        if not sharing.re.match(r"^[\w\- ]+\.(html|hoardtrainer|hoardgym|hoardleague|mp4|webm)$", filename, flags=sharing.re.UNICODE):
             raise SilverError("invalid", "Not an export file.")
         path = self.config.exports_dir / filename
         if not path.exists():
             raise SilverError("not_found", f"Export not found: {filename}")
         return path
+
+    # ------------------------------------------------------------ a battle's replay as a video clip
+    VIDEO_SPEEDS = {"slow": 1300, "normal": 900, "fast": 550}
+    VIDEO_SIZES = {"720p": (1280, 720), "1080p": (1920, 1080)}
+
+    @staticmethod
+    def video_browser() -> str:
+        """Chrome or Edge on this computer (the recorder drives the installed browser; nothing is downloaded)."""
+        import os
+        import shutil
+        configured = os.environ.get("SILVER_BROWSER_EXECUTABLE", "").strip()
+        if configured:
+            return configured
+        for name in ("chrome", "google-chrome", "chromium", "chromium-browser", "msedge"):
+            found = shutil.which(name)
+            if found:
+                return found
+        if os.name == "nt":
+            for key in ("PROGRAMFILES", "PROGRAMFILES(X86)", "LOCALAPPDATA"):
+                for rel in ("Google/Chrome/Application/chrome.exe", "Microsoft/Edge/Application/msedge.exe"):
+                    path = Path(os.environ.get(key, "")) / rel
+                    if path.is_file():
+                        return str(path)
+        return ""
+
+    @staticmethod
+    def _cmdline(proc: Any) -> list[str]:
+        try:
+            return proc.cmdline()
+        except Exception:  # noqa: BLE001 - a process that is gone or not ours to read
+            return []
+
+    @staticmethod
+    def _end_tree(roots: list[Any]) -> None:
+        import psutil
+        procs = []
+        for root in roots:
+            with contextlib.suppress(psutil.Error):
+                procs += root.children(recursive=True) + [root]
+        for proc in procs:
+            with contextlib.suppress(psutil.Error):
+                proc.kill()
+        psutil.wait_procs(procs, timeout=5)
+
+    def video_status(self) -> dict[str, Any]:
+        import importlib.util
+        import shutil
+        return {"playwright": importlib.util.find_spec("playwright") is not None, "browser": self.video_browser(),
+                "ffmpeg": shutil.which("ffmpeg") or "", "hint": "pip install -r requirements-video.txt, with Chrome or Edge installed; "
+                "ffmpeg turns the recording into an MP4 (without it the clip stays WebM)."}
+
+    def battle_video(self, id_: str, *, speed: str = "normal", size: str = "720p", lang: str = "", lumiere: bool = False) -> dict[str, Any]:
+        """Record a finished battle's replay as a video clip (a job): the app's own replay page, alone on a 16:9 stage, played by a
+        headless Chrome or Edge that captures the tab's picture and the page's sound (effects, cries, music) as it plays. The clip
+        lands in the exports folder as MP4 (WebM without ffmpeg); lumiere=True also hands it to Lumiere's Hoard, the video editor."""
+        b = self.store.battle(id_)
+        if (b.get("mode") or "classic") == "realtime":
+            raise SilverError("invalid", "Real-time battles are not recorded yet; a classic battle's replay is.")
+        if b["status"] != "ended" or not b.get("log_text"):
+            raise SilverError("conflict", "Only a finished battle with its replay can be recorded.", hint="Wait for the battle to end.")
+        if speed not in self.VIDEO_SPEEDS:
+            raise SilverError("invalid", f"speed is one of {', '.join(self.VIDEO_SPEEDS)}")
+        if size not in self.VIDEO_SIZES:
+            raise SilverError("invalid", f"size is one of {', '.join(self.VIDEO_SIZES)}")
+        status = self.video_status()
+        if not status["playwright"] or not status["browser"]:
+            raise SilverError("unavailable", "Recording needs Playwright and Chrome or Edge on this computer.", hint=status["hint"])
+        lang = lang if lang in ("es", "en") else str(self.settings.get("language") or "es")[:2]
+        title = f"Vídeo: {b.get('title') or (b['p1'].get('name', '') + ' vs ' + b['p2'].get('name', ''))}"
+        return self._job("video", title, {"battle_id": id_, "speed": speed, "size": size, "lumiere": lumiere},
+                         lambda jid, progress, cancelled: self._record_video(b, speed, size, lang, lumiere, status, progress, cancelled))
+
+    def _record_video(self, b: dict[str, Any], speed: str, size: str, lang: str, lumiere: bool, status: dict[str, Any],
+                      progress: Callable[[float], None], cancelled: Callable[[], bool]) -> dict[str, Any]:
+        import base64
+        import subprocess
+        import threading
+        from playwright.sync_api import sync_playwright
+        width, height = self.VIDEO_SIZES[size]
+        exports = self.config.exports_dir
+        exports.mkdir(parents=True, exist_ok=True)
+        stem = re.sub(r"[^\w\- ]+", "", f"{b['p1'].get('name', 'p1')} vs {b['p2'].get('name', 'p2')}", flags=re.UNICODE).strip()[:60] or "battle"
+        stem = f"{stem} {b['id'][-6:]}"
+        webm = exports / f"{stem}.webm"
+        done = threading.Event()
+        state: dict[str, Any] = {"error": "", "info": {}}
+        lines = len(str(b.get("log_text") or "").split("\n"))
+        # a generous ceiling: every line at the slowest pause, plus the start and the end
+        deadline = time.monotonic() + min(3600.0, 60 + lines * 1.6 * self.VIDEO_SPEEDS[speed] / 1000)
+        progress(0.02)
+        import psutil
+        me = psutil.Process()
+        before = {p.pid for p in me.children()}
+        runtime = sync_playwright().start()
+        # this recording's Playwright driver: ending its process tree is how the recording ends (see below)
+        driver = [p for p in me.children() if p.pid not in before and "run-driver" in " ".join(self._cmdline(p))]
+        try:
+            with open(webm, "wb") as sink:
+                browser = runtime.chromium.launch(headless=True, executable_path=status["browser"], args=[
+                    "--auto-accept-this-tab-capture", "--autoplay-policy=no-user-gesture-required", "--disable-renderer-backgrounding",
+                    "--disable-background-timer-throttling", "--disable-backgrounding-occluded-windows", "--hide-scrollbars"])
+                page = browser.new_page(viewport={"width": width, "height": height}, device_scale_factor=1,
+                                        locale="es-ES" if lang == "es" else "en-US")
+                page.expose_function("__videoChunk", lambda data: sink.write(base64.b64decode(data)))
+                page.expose_function("__videoProgress", lambda x: progress(0.05 + 0.85 * max(0.0, min(1.0, float(x or 0)))))
+                page.expose_function("__videoDone", lambda info: (state.update(info=info or {}), done.set()))
+                page.expose_function("__videoError", lambda msg: (state.update(error=str(msg)[:300]), done.set()))
+                url = f"http://127.0.0.1:{self.config.port}/?lang={lang}#/video/{b['id']}?speed={self.VIDEO_SPEEDS[speed]}&record=1&lang={lang}"
+                page.goto(url, wait_until="load")
+                page.wait_for_function("window.__videoReady === true", timeout=60_000)
+                page.evaluate("window.videoRecord()")
+                while not done.is_set():
+                    if cancelled():
+                        raise SilverError("cancelled", "Cancelled.")
+                    if time.monotonic() > deadline:
+                        raise SilverError("timeout", "The replay did not finish in time.")
+                    page.wait_for_timeout(500)    # keeps the browser's callbacks (chunks, progress) flowing in this thread
+        finally:
+            # a browser that has captured its own tab takes a minute or more to close, and the driver waits for it: the file is
+            # complete by now, so the driver and the browser it started are ended, then the runtime lets go at once
+            started = time.monotonic()
+            self._end_tree(driver)
+            with contextlib.suppress(Exception):
+                runtime.stop()
+            log.info("video %s: browser ended in %.1f s", b["id"], time.monotonic() - started)
+        if state["error"]:
+            raise SilverError("unavailable", f"The recording failed: {state['error']}")
+        progress(0.92)
+        out = webm
+        if status["ffmpeg"] and webm.stat().st_size > 0:
+            mp4 = exports / f"{stem}.mp4"
+            cmd = [status["ffmpeg"], "-y", "-hide_banner", "-loglevel", "error", "-i", str(webm), "-r", "30", "-c:v", "libx264", "-preset", "veryfast",
+                   "-crf", "20", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", str(mp4)]
+            r = subprocess.run(cmd, capture_output=True, text=True, timeout=1800,
+                               creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+            if r.returncode == 0 and mp4.exists() and mp4.stat().st_size > 0:
+                webm.unlink(missing_ok=True)
+                out = mp4
+            else:
+                log.warning("ffmpeg could not convert %s: %s", webm.name, (r.stderr or "")[-300:])
+        result: dict[str, Any] = {"file": out.name, "url": f"/api/exports/{out.name}", "bytes": out.stat().st_size, "path": str(out.resolve()),
+                                  "seconds": round(float(state["info"].get("seconds") or 0), 1), "width": width, "height": height,
+                                  "sound": bool(state["info"].get("sound")), "battle_id": b["id"]}
+        if lumiere:
+            sent = family.call("lumiere", "media_receive", {"path": str(out.resolve())}, timeout=120)
+            result["lumiere"] = sent.get("result") if sent.get("ok") else {"error": sent.get("error") or sent.get("status")}
+        self.emit("battle.video", {"id": b["id"], "file": out.name, "lumiere": lumiere})
+        progress(1.0)
+        return result
 
     # ------------------------------------------------------------ avatars from photos (here, or drawn by Prospero's Hoard)
     def avatar_from_photo(self, data: bytes, *, trainer_id: str = "", mode: str = "pixel", remove_background: bool = True) -> dict[str, Any]:

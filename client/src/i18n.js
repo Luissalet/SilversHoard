@@ -145,6 +145,7 @@ const D = {
   job_kind_series: ["Serie de combates entre dos entrenadores", "Series of battles between two trainers"],
   job_kind_tournament: ["Torneo jugado por la IA", "Tournament played by the AI"],
   job_kind_avatar: ["Sprite dibujado por Prospero's Hoard", "Sprite drawn by Prospero's Hoard"],
+  job_kind_video: ["Vídeo de un combate", "Battle video"],
   job_kind_badge: ["Medalla dibujada por Prospero's Hoard", "Badge drawn by Prospero's Hoard"],
 
   // home

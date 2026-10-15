@@ -27,6 +27,7 @@ Real time: battle_start, challenge_start, series_start and tournament_start take
 Sharing: export (fmt file = .hoardtrainer/.hoardgym/.hoardleague, code = a share code for a chat, page = one HTML file a friend opens in a browser to fight the gym or trainer, turn by turn or in real time as friend_mode says, paste = Showdown text). import takes any of those back, plus the result codes friends send after playing a page (records their badge; real-time battles in it are replayed and checked first).
 progress_get shows a trainer's record, streaks, MVPs, achievements and Pokédex (progress_list ranks them).
 damage_calc measures one Pokémon's moves against another (rolls, crits, KOs) with the game's own formula.
+battle_video records a finished battle's replay as an MP4 clip with its sound (a job; lumiere=true sends it to the video editor).
 battle_explain says why the AI chose each move (the options it weighed with expected damage and KOs, the threat it was under, the expert's play-outs) and, in a live battle, what the expert would do now on your side.
 Avatars: trainer_sprites_search (Showdown trainer sprites), avatar_from_photo (a photo on this computer into pixel art here) or avatar_draw (Prospero's Hoard draws one from up to 4 photos and/or a description in the games' art style, with the references of avatar_style_get; a background job). avatar_poses_draw draws a trainer's own sprite again from behind (shown on the player's side of a battle) and in a victory pose (shown when it wins); avatar_pose_set picks another candidate."""
 
@@ -459,6 +460,14 @@ class AvatarDrawArgs(BaseModel):
     style: bool = Field(True, description="Send the art-style references too (avatar_style_get), so it is drawn in the games' style.")
 
 
+class BattleVideoArgs(BaseModel):
+    id: str = IdField
+    speed: Literal["slow", "normal", "fast"] = Field("normal", description="Replay speed of the clip.")
+    size: Literal["720p", "1080p"] = "720p"
+    lang: Literal["", "es", "en"] = Field("", description="Language of the battle texts; empty = the app's.")
+    lumiere: bool = Field(False, description="Also send the clip to Lumiere's Hoard, the family's video editor.")
+
+
 class BattleExplainArgs(BaseModel):
     id: str = IdField
     side: Literal["", "p1", "p2"] = Field("", description="Only this side's decisions (and advice for it); empty = both.")
@@ -729,6 +738,12 @@ TOOLS: list[Tool] = [
                            synonyms="sprite con ia, dibujar entrenador, sprite desde fotos, sprite de un famoso"), AvatarDrawArgs, WD,
          lambda s, a: s.avatar_draw([_read_path(p) for p in a.paths], description=a.description, trainer_id=a.trainer_id, count=a.count,
                                     style=a.style), 120.0),
+    Tool("battle_video", _d("Record a finished battle's replay as a video clip with its sound (a job). Vídeo del combate.",
+                            "MP4 in the exports folder (job_get gives its url and path); lumiere=true hands it to the video editor.",
+                            synonyms="exportar vídeo, grabar repetición, clip del combate, mandar a lumiere"), BattleVideoArgs, WD,
+         lambda s, a: s.battle_video(a.id, speed=a.speed, size=a.size, lang=a.lang, lumiere=a.lumiere), 60.0),
+    Tool("video_status", _d("What recording battle videos needs here: Playwright, Chrome or Edge, ffmpeg. Estado del vídeo.",
+                            synonyms="requisitos vídeo, grabar vídeo"), Empty, R, lambda s, a: s.video_status()),
     Tool("battle_explain", _d("Why the AI chose each move, turn by turn, and what the expert would do now. Comentar la jugada.",
                               "Each decision lists the options weighed (expected damage, KO, accuracy; a switch's damage taken and dealt), the "
                               "threat on the Pokémon, who was faster and, for the expert AI, the candidate turns it played out.",
