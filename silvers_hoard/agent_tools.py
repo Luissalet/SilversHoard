@@ -562,6 +562,13 @@ class ImportArgs(BaseModel):
     format: str = Field("", max_length=120)
 
 
+class UnboundSaveArgs(BaseModel):
+    path: str = Field("", max_length=1000, description="The save file on this computer (.sav or .srm of Pokémon Unbound 2.1).")
+    data_base64: str = Field("", max_length=400_000, description="Or the save itself, base64.")
+    name: str = Field("", max_length=60, description="The new trainer's name (default: the player's name in the save).")
+    format: str = Field("", max_length=120, description="Default gen8customgame, as Unbound's Battle Frontier trainers.")
+
+
 class AvatarPhotoArgs(BaseModel):
     path: str = Field(..., min_length=1, max_length=1000, description="A photo on this computer.")
     trainer_id: str = Field("", max_length=80, description="Set it as this trainer's avatar.")
@@ -687,6 +694,16 @@ def _read_path(path: str, limit: int = 20 * 1024 * 1024) -> bytes:
     if p.stat().st_size > limit:
         raise SilverError("too_large", "The file is too large.")
     return p.read_bytes()
+
+
+def _unbound_save(s: Services, a: UnboundSaveArgs) -> Any:
+    if a.path:
+        data = _read_path(a.path, limit=1024 * 1024)
+    elif a.data_base64:
+        data = base64.b64decode(a.data_base64)
+    else:
+        raise SilverError("invalid", "Give path or data_base64.")
+    return s.unbound_save_import(data, name=a.name, format_=a.format)
 
 
 def _import(s: Services, a: ImportArgs) -> Any:
@@ -986,6 +1003,11 @@ TOOLS: list[Tool] = [
     Tool("import", _d("Import a share code, result code, .hoard* file, playable page, Showdown team or pokepast.es link. Importar.",
                       "Result codes from friends record their badge or win here.", synonyms="código de amigo, resultado, cargar"),
          ImportArgs, WD, _import),
+    Tool("unbound_save_import", _d("A Pokémon Unbound save file's party as a new trainer. Importar equipo de mi partida de Unbound.",
+                                   "Reads the .sav/.srm: species, items, Unbound's abilities, moves, levels, natures, EVs, IVs, nicknames; "
+                                   "eggs and unknown ids are listed in skipped. import also takes save files.",
+                                   synonyms="partida guardada, archivo de guardado, sav, emulador, mi equipo de unbound"),
+         UnboundSaveArgs, WD, _unbound_save),
     Tool("avatar_draw", _d("Have Prospero's Hoard draw a trainer sprite from up to 4 photos and/or a description (a job). Dibujar sprite.",
                            "Each result is a 96-px pixel-art sprite plus the drawing itself; job_get gives them as candidates.",
                            synonyms="sprite con ia, dibujar entrenador, sprite desde fotos, sprite de un famoso"), AvatarDrawArgs, WD,

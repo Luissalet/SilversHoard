@@ -41,7 +41,9 @@
     "hit-feel",
     "training-dummy",
     "boss-phases",
-    "custom-backdrops"
+    "custom-backdrops",
+    "unbound-save-import",
+    "community-music"
   ],
   "x-family": {
     "copilot": true

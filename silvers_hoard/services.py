@@ -21,7 +21,7 @@ from pathlib import Path
 from typing import Any, Callable, Optional
 
 from . import APP_ID, __version__
-from . import facilities, game_leagues, progress, sharing
+from . import facilities, game_leagues, progress, sharing, unbound_save
 from .config import AI_LEVELS, AI_STYLES, REPO_ROOT, Config, Settings, find_node
 from .engine import master_status
 from .engine import Engine
@@ -2587,9 +2587,28 @@ class Services:
         self.emit("trainer.pokepaste", {"id": trainer_id, "url": url})
         return {"url": url, "name": t["name"]}
 
+    def unbound_save_import(self, data: bytes, *, name: str = "", format_: str = "") -> dict[str, Any]:
+        """The party of a Pokémon Unbound save file (.sav / .srm) as a new trainer: species and formes, held items, the ability each
+        one really has (Unbound's own, hidden ones included), moves, levels, natures, EVs, IVs, nicknames and shininess, played as
+        generation 8 custom games like the Unbound Battle Frontier trainers. Eggs and anything Showdown does not know are left out and
+        listed in ``skipped``."""
+        try:
+            party = unbound_save.read_party(data)
+        except unbound_save.NotASave as exc:
+            raise SilverError("invalid", str(exc), hint="Pick the .sav (or .srm) file your emulator writes for Pokémon Unbound 2.1.") from None
+        if not party["sets"]:
+            raise SilverError("empty_team", "The save has no Pokémon in the party.")
+        t = self.trainer_create(name=name or party["player"] or "Mi partida de Unbound", paste=unbound_save.showdown(party["sets"]),
+                                format_=format_ or "gen8customgame", origin="own",
+                                notes="Equipo importado de una partida de Pokémon Unbound." + (f" No se pudo traer: {', '.join(party['skipped'])}." if party["skipped"] else ""))
+        self.emit("trainer.unbound_import", {"id": t["id"], "count": len(party["sets"])})
+        return {"kind": "trainer", "trainer": t, "player": party["player"], "skipped": party["skipped"]}
+
     def import_any(self, content: Any, *, name: str = "", format_: str = "") -> dict[str, Any]:
-        """Import a share code, a result code, a .hoardtrainer/.hoardgym/.hoardleague file, a playable page, Showdown team text or a
-        pokepast.es link."""
+        """Import a share code, a result code, a .hoardtrainer/.hoardgym/.hoardleague file, a playable page, Showdown team text, a
+        pokepast.es link or a Pokémon Unbound save file (its party)."""
+        if isinstance(content, (bytes, bytearray)) and unbound_save.looks_like_save(bytes(content)):
+            return self.unbound_save_import(bytes(content), name=name, format_=format_)
         if isinstance(content, str) and self.POKEPASTE.match(content):
             return self.import_pokepaste(content, name=name, format_=format_)
         kind, payload = sharing.parse_any(content)
