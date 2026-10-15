@@ -3,6 +3,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { L, STATUS_COLORS, STATUS_SHORT, STATUS_SHORT_EN, STAT_SHORT, TYPE_COLORS, nameOf, typeName, toID } from "./dex.js";
 import { battleT } from "./strings.js";
+import SoundButton from "./SoundControl.jsx";
 
 const WEATHER_CLASS = { raindance: "w-rain", primordialsea: "w-rain", sunnyday: "w-sun", desolateland: "w-sun", sandstorm: "w-sand", hail: "w-snow",
   snowscape: "w-snow", snow: "w-snow", deltastream: "w-wind" };
@@ -163,6 +164,7 @@ export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "
           <div className="b-platform me" />
           {fieldLabel.length > 0 && <div className="b-field-label">{fieldLabel.join(" · ")}</div>}
           {st.turn > 0 && <div className="b-turn">{t("turn_n", { n: st.turn })}</div>}
+          <SoundButton lang={lang} />
 
           <div className="b-trainer foe">
             {seats[foe]?.avatarUrl && <img src={seats[foe].avatarUrl} alt="" className={sprites.pixelated ? "pixelated" : ""} draggable={false} />}

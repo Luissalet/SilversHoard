@@ -4,11 +4,13 @@ import { api } from "../api.js";
 import { useApp } from "../context.js";
 import { Busy, Field, Icon, ICONS, Section, Switch, useBusy, useLoad } from "../components/ui.jsx";
 import { AiFields, FormatSelect, MonIcon } from "../components/silver.jsx";
+import { SoundSliders } from "../battle/SoundControl.jsx";
 
 export default function Ajustes() {
-  const { t, notify, refreshOv, ov } = useApp();
+  const { t, lang, notify, refreshOv, ov } = useApp();
   const { data, reload } = useLoad(() => api.call("settings_get"), []);
   const stats = useLoad(() => fetch("/api/sprites/stats").then((r) => r.json()), []);
+  const audioStats = useLoad(() => fetch("/api/sound/stats").then((r) => r.json()), []);
   const [f, setF] = useState(null);
   const [busy, run] = useBusy();
   useEffect(() => { if (data) setF(data); }, [data]);
@@ -67,6 +69,13 @@ export default function Ajustes() {
           <div className="flex gap-2">{["Pikachu", "Charizard", "Garchomp", "Koraidon"].map((s) => <MonIcon key={s} species={s} size={64} />)}</div>
           <label className="flex items-center gap-2"><Switch checked={f.sprite_downloads} onChange={(v) => set("sprite_downloads", v)} label={t("sprite_downloads")} /> {t("sprite_downloads")}</label>
           <p className="help">{t("sprite_downloads_help")} {stats.data ? t("sprite_cache", { n: stats.data.cached, mb: (stats.data.bytes / 1048576).toFixed(1) }) : ""}</p>
+        </div>
+      </Section>
+      <Section title={t("snd_title")}>
+        <div className="panel space-y-3">
+          <SoundSliders lang={lang} />
+          <label className="flex items-center gap-2"><Switch checked={f.sound_downloads !== false} onChange={(v) => set("sound_downloads", v)} label={t("snd_downloads")} /> {t("snd_downloads")}</label>
+          <p className="help">{t("snd_help")} {t("snd_downloads_help")} {audioStats.data ? t("snd_cache", { n: audioStats.data.cached, mb: (audioStats.data.bytes / 1048576).toFixed(1) }) : ""}</p>
         </div>
       </Section>
       <Section title={t("engine")}>

@@ -2,18 +2,23 @@
 // battle reads like the games. Live battles push new lines as they arrive; replays can pause, step, jump to a turn or skip to the end.
 import { useCallback, useEffect, useMemo, useReducer, useRef } from "react";
 import { applyLine, newState, turnMarks } from "./protocol.js";
+import { newSfxState, playLine, sfxPre } from "./sfx.js";
 
 const PAUSE = { move: 1, switch: 0.8, faint: 1.1, damage: 0.55, heal: 0.45, status: 0.6, boost: 0.5, effect: 0.45, big: 1.2, field: 0.6, turn: 0.35,
   win: 0.2, ability: 0.45, minor: 0.35, info: 0.3, raw: 0.2 };
 
-export function useBattlePlayer({ lang = "es", me = "p1", speedMs = 900 } = {}) {
+/** `cryUrl(species)` gives the address of a Pokémon's cry (null: no cries, as in the offline playable page); `sound=false` keeps it silent. */
+export function useBattlePlayer({ lang = "es", me = "p1", speedMs = 900, cryUrl = null, sound = true } = {}) {
   const [, rerender] = useReducer((x) => x + 1, 0);
   const r = useRef(null);
   if (!r.current) {
-    r.current = { lines: [], applied: 0, state: newState(), log: [], anim: null, animId: 0, playing: true, timer: null, speedMs, lang, me };
+    r.current = { lines: [], applied: 0, state: newState(), log: [], anim: null, animId: 0, playing: true, timer: null, speedMs, lang, me,
+      muted: false, sfx: newSfxState() };
   }
   const p = r.current;
   p.speedMs = speedMs;
+  p.cryUrl = cryUrl;
+  p.sound = sound;
 
   const rebuild = useCallback((count) => {
     const st = newState();
@@ -26,13 +31,17 @@ export function useBattlePlayer({ lang = "es", me = "p1", speedMs = 900 } = {}) 
     p.log = log;
     p.applied = count;
     p.anim = null;
+    p.sfx = newSfxState();
   }, [p]);
 
   const step = useCallback(() => {
     if (p.applied >= p.lines.length) return 0;
     const line = p.lines[p.applied];
+    const loud = p.sound && !p.muted;
+    const pre = loud ? sfxPre(p.state, line) : null;
     const ev = applyLine(p.state, line, { lang: p.lang, me: p.me });
     if (ev && ev.text) p.log.push({ i: p.applied, text: ev.text, kind: ev.kind });
+    if (ev && loud) playLine(p.state, line, ev, pre, p.sfx, { speedMs: p.speedMs, cryUrl: p.cryUrl });
     if (ev && ev.anim) {
       p.animId += 1;
       p.anim = { ...ev.anim, id: p.animId, kind: ev.kind };
@@ -96,7 +105,9 @@ export function useBattlePlayer({ lang = "es", me = "p1", speedMs = 900 } = {}) 
     skip() {
       clearTimeout(p.timer);
       p.timer = null;
+      p.muted = true;
       while (p.applied < p.lines.length) step();
+      p.muted = false;
       p.anim = null;
       rerender();
     },

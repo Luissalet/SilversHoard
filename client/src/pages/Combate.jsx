@@ -5,6 +5,8 @@ import { useApp } from "../context.js";
 import Arena from "../battle/Arena.jsx";
 import Controls, { ReplayBar } from "../battle/Controls.jsx";
 import { useBattlePlayer } from "../battle/player.js";
+import { appCryUrl } from "../battle/sfx.js";
+import { battleEnd, genOfFormat, music, pickTrack } from "../audio.js";
 import { Busy, Empty, ErrorBox, Icon, ICONS, Spinner, useBusy, useLoad, useStored } from "../components/ui.jsx";
 import { useContextProvider, usePoll } from "../components/hooks.js";
 import { Avatar, GymBadge, useSeats } from "../components/silver.jsx";
@@ -73,7 +75,7 @@ export default function Combate({ param }) {
   const { data: battle, error, reload, setData } = useLoad(() => api.call("battle_get", { id: param, since: 0 }), [param]);
   const humans = battle ? ["p1", "p2"].filter((s) => battle[s]?.human) : [];
   const me = humans[0] || "p1";
-  const player = useBattlePlayer({ lang, me, speedMs });
+  const player = useBattlePlayer({ lang, me, speedMs, cryUrl: appCryUrl });
   const loaded = useRef("");
   const lengthRef = useRef(0);
   const [busy, run] = useBusy();
@@ -105,6 +107,20 @@ export default function Combate({ param }) {
     const h = setTimeout(() => setBubble(null), 4200);
     return () => clearTimeout(h);
   }, [bubble]);
+
+  // battle music: one track per battle (it fits the format's generation), looped while the battle plays; it fades out at the end
+  // with a short victory or defeat cue, and starts again when an ended battle is replayed from the start
+  const musicOn = !!battle && battle.mode !== "realtime" && (battle.status === "live" || battle.status === "ended") && !(battle.kind === "friend" && !battle.log_length);
+  const trackUrl = battle ? `/api/music/${pickTrack(battle.id, genOfFormat(battle.format))}` : "";
+  useEffect(() => {
+    if (musicOn && !player.state.ended) music.play(trackUrl);
+  }, [musicOn, trackUrl, player.state.ended]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => () => music.stop({ fade: 0.8 }), []);
+  useEffect(() => {
+    if (!musicOn || !player.state.ended || !player.caughtUp) return;
+    const st = player.state;
+    battleEnd(st.tie || !st.winner ? null : st.winner === st.sides[me].name);
+  }, [musicOn, player.state.ended, player.caughtUp]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // end-of-battle line from the trainer who won or lost
   useEffect(() => {

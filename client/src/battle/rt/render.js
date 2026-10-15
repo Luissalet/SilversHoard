@@ -5,6 +5,7 @@
 import { TYPE_COLORS } from "../dex.js";
 import { Animator, dirRow, image, loadMeta } from "./pmd.js";
 import { Vfx } from "./vfx.js";
+import { playRtEvent } from "../sfx.js";
 
 const ARENA = { w: 28, h: 17 };
 const MARGIN_X = 2.6;
@@ -29,6 +30,7 @@ export class ArenaRenderer {
     this.ctx = canvas.getContext("2d");
     this.sides = sides;
     this.sprites = sprites;
+    this.audio = { speed: 1, cryUrl: null };
     this.base = base;
     this.texts = texts;
     this.rocks = rocks || [];
@@ -240,6 +242,7 @@ export class ArenaRenderer {
     const anim = (si) => this.animOf(si, battle.sides[si].active, !!battle.sides[si].mons[battle.sides[si].active]?.megaOn);
     const s = e.s;
     this.vfx.onEvent(e, battle);
+    playRtEvent(e, this.audio);
     switch (e.k) {
       case "windup": {
         const a = anim(s);
