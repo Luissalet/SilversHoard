@@ -134,6 +134,10 @@ class Dialogue(BaseModel):
     win: str = Field("", max_length=280)
     lose: str = Field("", max_length=280)
     last: str = Field("", max_length=280)
+    on_ko: str = Field("", max_length=280, description="Said when its Pokémon knocks out a foe.")
+    on_faint: str = Field("", max_length=280, description="Said when one of its Pokémon faints.")
+    on_super: str = Field("", max_length=280, description="Said when it lands a super-effective hit.")
+    on_switch: str = Field("", max_length=280, description="Said when it switches Pokémon.")
     phase_when: Literal["", "half", "last"] = Field("", description="Change of tactics: half = when its team's HP falls to half; last = with its last Pokémon; '' = never.")
     phase_level: Literal["", "random", "easy", "normal", "hard", "expert", "master", "neural"] = Field("", description="AI level from then on ('' = the same).")
     phase_style: Literal["", "balanced", "aggressive", "defensive", "setup", "stall"] = Field("", description="AI style from then on ('' = the same).")
@@ -648,6 +652,7 @@ class SettingsSetArgs(BaseModel):
     node_path: Optional[str] = Field(None, max_length=500)
     sprite_downloads: Optional[bool] = None
     ai_hidden_info: Optional[bool] = Field(None, description="AIs see only what the battle has shown of the opponent's team.")
+    ai_banter: Optional[bool] = Field(None, description="AI trainers comment their moves in character as the battle goes (the family's language model writes the lines in the background; battle_get returns them as banter).")
     smogon_data: Optional[bool] = Field(None, description="Fetch popular sets and usage statistics from data.pkmn.cc when asked for.")
     sound_downloads: Optional[bool] = None
     prospero_prompt: Optional[str] = Field(None, max_length=1000)

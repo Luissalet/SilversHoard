@@ -128,7 +128,7 @@ function LinesTab({ tr, reload }) {
   return (
     <div className="panel space-y-3 max-w-3xl">
       <p className="help">{t("lines_help")}</p>
-      {["intro", "last", "win", "lose"].map((k) => (
+      {["intro", "last", "win", "lose", "on_ko", "on_faint", "on_super", "on_switch"].map((k) => (
         <Field key={k} label={t(`line_${k}`)}><input className="field" value={d[k] || ""} maxLength={280} onChange={(e) => setD((x) => ({ ...x, [k]: e.target.value }))} /></Field>
       ))}
       <div className="border-t pt-3 space-y-2" style={{ borderColor: "var(--line)" }}>
