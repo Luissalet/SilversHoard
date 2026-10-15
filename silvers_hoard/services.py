@@ -53,8 +53,9 @@ STATIC_DIR = Path(__file__).resolve().parent / "static"
 PLAY_TEMPLATE = STATIC_DIR / "play" / "play.html"
 DIALOGUE_KEYS = ("intro", "win", "lose", "last")
 # Real-time battles: the rules version stored with every new battle (1 = the first rules, which battles stored without one keep:
-# always locked on, no Mega Evolution; 2 = free aim, the Mega Power gauge, Plus moves and Mega Evolution) and the arenas.
-RT_RULES_VERSION = 2
+# always locked on, no Mega Evolution; 2 = free aim, the Mega Power gauge, Plus moves and Mega Evolution; 3 = doubles formats
+# field two Pokémon per trainer, singles play as in 2) and the arenas.
+RT_RULES_VERSION = 3
 RT_ARENAS = ("open", "rocks")
 
 
@@ -1020,10 +1021,7 @@ class Services:
                   kind: str = "", run_id: str = "", title: str = "", seed: Any = None, time_limit: int = 0, arena: str = "rocks") -> dict[str, Any]:
         arena = _rt_arena(arena)
         s1, s2 = self._seat(p1, "Jugador 1"), self._seat(p2, "Jugador 2")
-        fmt = format_ or s1["format"] or s2["format"] or self.settings["default_format"]
-        info = self.format_info(fmt, [])
-        if info.get("random") or info.get("game_type") != "singles":
-            fmt = f"gen{info['gen']}customgame"
+        fmt = self._rt_format(format_ or s1["format"] or s2["format"] or self.settings["default_format"])
         level_rules = level_rules or {}
         limit = max(30, min(int(time_limit or self.settings.get("rt_time_limit") or 300), 1800))
         watch = not s1["human"] and not s2["human"]
@@ -1124,7 +1122,7 @@ class Services:
         return {
             "source": "Pokémon Legends: Z-A (Bulbapedia: Pokémon battle (Legends: Z-A), Cooldown; Serebii: usable attacks).",
             "rules": [
-                "One Pokémon per trainer on a 28 x 17 m arena seen from above; the screen runs at 30 ticks per second.",
+                "One Pokémon per trainer on a 28 x 17 m arena seen from above in singles formats, two in doubles formats; the screen runs at 30 ticks per second.",
                 "No PP and no turns: every move has a base cooldown of 3-60 s. Moves Legends: Z-A has keep its value (337 moves); the rest get one from PP, power and kind fitted to that table (mean error 1.3 s).",
                 "Speed shortens cooldowns: final = max(3, base - 3 * max(0, Speed * modifier - 25) / 100). Priority moves always take 3 s. Choice Scarf, Tailwind and weather abilities count as Speed modifiers; stat stages do not.",
                 "Every move has a wind-up (none for priority moves, long for charging moves) during which the user stands still; a flinch cancels it and the move goes on cooldown.",
@@ -1139,16 +1137,23 @@ class Services:
                 "Mega Power gauge: three segments per trainer, filling one every 15 s and a little faster when dealing damage (a whole HP bar dealt = 0.4 of a segment).",
                 "Plus moves: with a full segment a move can be armed as a Plus move, spending the segment: damage x1.3 if super effective, else x1.2; secondary effect chances x1.67 (30% -> 50%, at most 100%); healing moves restore a third more (50% -> 67%); cones, bursts and blasts from the sky reach 20% further; protection is pierced for a quarter of the damage.",
                 "Mega Evolution: with a full gauge, a Pokémon holding its Mega Stone (or Rayquaza with Dragon Ascent) can Mega Evolve once per battle, from generation 6 formats on: the Mega forme's stats, types and ability, HP kept in proportion; every move is a Plus move at no cost while the gauge drains a segment every 8 s; when it empties (or the Pokémon leaves or faints) it goes back to its usual forme.",
-                "Battles stored before lock-on, rocks and Mega Evolution existed keep their rules (always locked on, open arena, no gauge), so their replays give the same result.",
+                "Doubles (doubles formats, rules version 3): each trainer has two Pokémon on the field at once, slot a above the centre line and slot b below it. A person moves one of them (the controlled one: moves 1-4, roll, Plus are its own) and swaps which with Tab / C (gamepad L, or the left stick click in the simple layout); the partner is driven by the AI: it stays within reach, dodges, keeps 4 m from its partner, and attacks the person's locked foe unless the other foe is clearly better. X (the right stick click) switches the foe it locks on, shown with a reticle. The AI trainers play both of their Pokémon the same way and pick targets by the damage they can deal and by who threatens them.",
+                "Doubles: spread moves (target allAdjacent or allAdjacentFoes, such as Earthquake, Surf, Discharge, Rock Slide, Heat Wave, Hyper Voice) hit every Pokémon in their area: the foes, and the partner too for those that hit everything around the user (Earthquake, Surf, Discharge, Explosion). With more than one Pokémon hit, each takes x0.75 damage. Single-target moves hit the first foe they reach (the locked one first). Pokémon do not walk through each other.",
+                "Doubles support moves: Helping Hand (the partner's next damaging move within 5 s has x1.5 power; 10 s cooldown); Follow Me and Rage Powder (for 3 s the foes' single-target moves turn to the user and projectiles in flight bend to it; Rage Powder does not draw Grass types, Overcoat or Safety Goggles; 12 s cooldown). In singles they still have no effect.",
+                "Doubles switching: three switches per trainer (shared by both slots), back after every knockout; a fainted Pokémon's slot is refilled from the bench (a person picks from the party bar, or the first one comes out after 6 s; the AI picks at once); with nobody left on the bench the slot stays empty and the trainer plays on with one. A trainer loses when no Pokémon can come out. The Mega Power gauge is the trainer's: one Mega Evolution per battle, Plus moves for the controlled Pokémon.",
+                "Battles stored before lock-on, rocks and Mega Evolution existed keep their rules (always locked on, open arena, no gauge), and battles stored before doubles (rules version 2) play doubles formats as singles, so their replays give the same result.",
             ],
-            "not_covered": ["doubles (doubles formats play as singles)", "Z-Moves, Dynamax and Terastallization", "Alpha Pokémon of Z-A",
-                            "Trick Room, Transform, Baton Pass-style copying and other moves listed as no_effect in rt_cooldowns"],
+            "not_covered": ["triples (played as singles)", "Z-Moves, Dynamax and Terastallization", "Alpha Pokémon of Z-A",
+                            "Trick Room, Transform, Baton Pass-style copying and other moves listed as no_effect in rt_cooldowns",
+                            "in doubles: Wide Guard, Quick Guard, Ally Switch, After You, Instruct, Spotlight and other ally-targeting moves have no effect; healing moves for allies (Life Dew, Jungle Healing...) heal the user only"],
             "controls": {"move": "WASD or arrows; gamepad left stick", "focus": "hold Shift; gamepad hold ZL",
                          "moves": "I L K J in a diamond (or 1-4); gamepad ZL + X A B Y (simple layout: A B X Y)",
                          "roll": "Space; gamepad Y without ZL (simple layout: RB)", "plus": "F arms Plus for the next move; gamepad ZL + plus (simple layout: minus)",
                          "mega": "M; gamepad R (simple layout: L)", "switch": "Q / E pick, R sends out; gamepad D-pad left/right + up",
+                         "doubles_swap": "Tab or C swaps the Pokémon you control; gamepad L (simple layout: left stick click)",
+                         "doubles_target": "X switches the locked foe; gamepad right stick click",
                          "pause": "Esc; gamepad plus without ZL (only against the AI)",
-                         "two_people": "player 1: WASD, 1-4, Space, left Shift, F, G, Q / E / R; player 2: arrows, U I O P, Enter, right Shift, K, L, [ ] \\"},
+                         "two_people": "player 1: WASD, 1-4, Space, left Shift, F, G, Q / E / R, C / X in doubles; player 2: arrows, U I O P, Enter, right Shift, K, L, [ ] \\, ; / ' in doubles"},
         }
 
     def battles_list(self, kind: str = "", status: str = "", trainer_id: str = "", limit: int = 50, offset: int = 0) -> list[dict[str, Any]]:
@@ -1356,8 +1361,15 @@ class Services:
         return {"deleted": self.store.delete_jobs(ids)}
 
     def _rt_format(self, fmt: str) -> str:
+        """The format a real-time battle keeps: singles and doubles formats stay (doubles field two Pokémon per trainer); random
+        formats become the custom game of their generation and kind (the teams are already given); other kinds play as singles."""
         info = self.format_info(fmt, [])
-        return f"gen{info['gen']}customgame" if info.get("random") or info.get("game_type") != "singles" else fmt
+        kind = info.get("game_type")
+        if kind == "doubles" and int(info.get("gen") or 9) < 3:
+            kind = "singles"
+        if info.get("random") or kind not in ("singles", "doubles"):
+            return f"gen{info['gen']}{'doubles' if kind == 'doubles' else ''}customgame"
+        return fmt
 
     def series_start(self, *, p1: dict[str, Any], p2: dict[str, Any], count: int = 0, format_: str = "", rules: Optional[list[str]] = None,
                      level_rules: Optional[dict[str, Any]] = None, mode: str = "classic", time_limit: int = 0, rt_arena: str = "rocks") -> dict[str, Any]:

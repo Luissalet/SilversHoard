@@ -51,7 +51,7 @@ def test_arena_rules_version_and_old_battles(call, services):
     seats = {"p1": {"trainer_id": me["id"], "human": True}, "p2": {"trainer_id": foe["id"]}, "mode": "realtime"}
     bt = call("battle_start", seats)
     spec = bt["rt"]["spec"]
-    assert spec["arena"] == "rocks" and spec["version"] == 2 and bt["rt"]["arena"] == "rocks", "new battles: rocks and the current rules"
+    assert spec["arena"] == "rocks" and spec["version"] == 3 and bt["rt"]["arena"] == "rocks", "new battles: rocks and the current rules"
     assert call("battle_start", {**seats, "rt_arena": "open"})["rt"]["spec"]["arena"] == "open"
     call("battle_start", {**seats, "rt_arena": "lava"}, status=400)
     with __import__("pytest").raises(Exception):
@@ -84,7 +84,7 @@ def test_series_tournament_and_gym_in_real_time(call):
     assert res["result"]["mode"] == "realtime" and res["result"]["count"] == 3 and res["result"]["avg_seconds"] > 0
     assert all(x["mode"] == "realtime" for x in res["battles"])
     sample = call("battle_get", {"id": res["battles"][0]["id"]})["rt"]["spec"]
-    assert sample["arena"] == "rocks" and sample["version"] == 2, "series battles replay with their arena and rules"
+    assert sample["arena"] == "rocks" and sample["version"] == 3, "series battles replay with their arena and rules"
     tour = call("tournament_start", {"trainer_ids": [a["id"], b["id"], c["id"]], "mode": "realtime", "time_limit": 45})
     tres = wait_for(lambda: (j := call("job_get", {"id": tour["id"]}))["status"] == "done" and j)
     assert tres["result"]["champion"] and all(x["mode"] == "realtime" for x in tres["battles"])
@@ -96,6 +96,62 @@ def test_series_tournament_and_gym_in_real_time(call):
     assert final["status"] in ("won", "lost") and final["mode"] == "realtime"
     battle = call("battle_get", {"id": final["stages"][0]["battle_id"]})
     assert battle["mode"] == "realtime" and battle["kind"] == "gym" and battle["rt"]["spec"]["arena"] == "open"
+
+
+DOUBLES_TEAM = """Garchomp @ Life Orb
+Ability: Rough Skin
+- Earthquake
+- Rock Slide
+- Dragon Claw
+- Protect
+
+Clefable @ Leftovers
+Ability: Magic Guard
+- Follow Me
+- Helping Hand
+- Moonblast
+- Water Gun
+
+Heatran @ Leftovers
+Ability: Flash Fire
+- Heat Wave
+- Flash Cannon
+- Earth Power
+- Protect
+"""
+
+
+def test_doubles_in_real_time(call, services):
+    me = call("trainer_create", {"name": "Luis", "paste": DOUBLES_TEAM, "format": "gen9doublescustomgame"})
+    foe = call("trainer_random", {"ai_level": "hard", "seed": "rt-dbl"})
+    seats = {"p1": {"trainer_id": me["id"], "human": True}, "p2": {"trainer_id": foe["id"]}, "mode": "realtime"}
+    bt = call("battle_start", {**seats, "format": "gen9doublescustomgame", "seed": "dbl-api", "time_limit": 40})
+    assert bt["format"] == "gen9doublescustomgame" and bt["rt"]["spec"]["version"] == 3
+    # the screen's rows carry the controlled slot and the locked foe slot; the server replays them and stores that result
+    inputs = [[1, 0, 1, 0, -1, 0, -1, 1, 0, 0, 0, 0], [10, 0, 1, 0.5, 0, 0, -1, 1, 0, 0, 1, 1], [40, 0, -1, 0, 2, 0, -1, 1, 0, 0, 0, 1],
+              [80, 0, 0, 0, 1, 1, -1, 0, 0, 0, 1, 0], [120, 0, 0.5, -0.5, 3, 0, -1, 1, 0, 0, 0, 0]]
+    done = call("battle_rt_finish", {"id": bt["id"], "inputs": inputs, "tick": 1200})
+    assert done["status"] == "ended" and done["summary"]["reason"] in ("ko", "time")
+    assert done["lines"][0].endswith("|doubles")
+    assert sum(1 for line in done["lines"][:6] if "Luis sent out" in line) == 2, "two Pokémon per trainer at the start"
+    again = services.engine.call("rt_replay", {"spec": done["rt"]["spec"], "inputs": inputs}, timeout=120)
+    assert again["summary"] == done["summary"] and again["lines"] == done["lines"]
+    # random doubles formats play as the doubles custom game of their generation; version 2 battles keep doubles as singles
+    rnd = call("battle_start", {**seats, "format": "gen9randomdoublesbattle"})
+    assert rnd["format"] == "gen9doublescustomgame"
+    old = dict(done["rt"]["spec"], version=2)
+    assert not services.engine.call("rt_replay", {"spec": old, "inputs": []}, timeout=120)["lines"][0].endswith("|doubles")
+    # series and gym challenges in real time with a doubles format
+    job = call("series_start", {"p1": {"trainer_id": me["id"]}, "p2": {"trainer_id": foe["id"]}, "count": 2, "mode": "realtime",
+                                "format": "gen9doublescustomgame", "time_limit": 60})
+    res = wait_for(lambda: (j := call("job_get", {"id": job["id"]}))["status"] == "done" and j)
+    sample = call("battle_get", {"id": res["battles"][0]["id"]})
+    assert sample["format"] == "gen9doublescustomgame" and sample["lines"][0].endswith("|doubles")
+    gym = call("gym_save", {"name": "Gimnasio Doble", "leader_id": foe["id"], "badge": "Par", "type": "Normal", "format": "gen9doublescustomgame"})
+    run = call("challenge_start", {"kind": "gym", "target_id": gym["id"], "challenger_id": me["id"], "auto": True, "mode": "realtime"})
+    final = wait_for(lambda: (r := next(x for x in call("challenges_list", {})["challenges"] if x["id"] == run["id"]))["status"] != "active" and r)
+    battle = call("battle_get", {"id": final["stages"][0]["battle_id"]})
+    assert battle["mode"] == "realtime" and battle["format"] == "gen9doublescustomgame" and battle["lines"][0].endswith("|doubles")
 
 
 def test_walking_sprites_are_downloaded_once(tmp_path):
