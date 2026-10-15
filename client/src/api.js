@@ -51,20 +51,27 @@ export const api = {
   health: () => request("GET", "/api/health"),
   overview: () => request("GET", "/api/overview"),
   call,
-  uploadAvatar: (file, { trainerId = "", mode = "pixel", removeBackground = true } = {}) =>
-    upload("/api/avatars/upload", { file, trainer_id: trainerId, mode, remove_background: removeBackground ? "true" : "false" }),
+  // file: a File or a Blob (a picture the page fetched or pasted); upload keeps it as it is, pixel turns it into a 96 px sprite
+  uploadAvatar: (file, { trainerId = "", mode = "pixel", removeBackground = true, cutBackground = false, kind = "", credit = "", source = "", title = "" } = {}) => {
+    const form = new FormData();
+    form.append("file", file, file.name || `picture.${(file.type || "image/png").split("/")[1] || "png"}`);
+    for (const [k, v] of Object.entries({ trainer_id: trainerId, mode, remove_background: removeBackground ? "true" : "false",
+      cut_background: cutBackground ? "true" : "false", kind, credit, source, title })) form.append(k, v);
+    return request("POST", "/api/avatars/upload", { form });
+  },
   uploadStyleRefs: (files) => {
     const form = new FormData();
     for (const f of [...files].slice(0, 3)) form.append("files", f);
     return request("POST", "/api/style-refs", { form });
   },
-  drawAvatar: (files, { description = "", trainerId = "", count = 2, style = true } = {}) => {
+  drawAvatar: (files, { description = "", trainerId = "", count = 2, style = true, look = "sprite" } = {}) => {
     const form = new FormData();
     for (const f of [...files].slice(0, 4)) form.append("files", f);
     form.append("description", description);
     form.append("trainer_id", trainerId);
     form.append("count", String(count));
     form.append("style", style ? "true" : "false");
+    form.append("look", look);
     return request("POST", "/api/avatars/draw", { form });
   },
   uploadBadge: (file, { gymId = "", removeBackground = false } = {}) =>

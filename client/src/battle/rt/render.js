@@ -457,6 +457,8 @@ export class ArenaRenderer {
         const h = 2.6 * s;
         const w = (img.img.width / img.img.height) * h;
         ctx.save();
+        // pixel art keeps its pixels; a drawing, a photo or an official artwork is smoothed when scaled
+        ctx.imageSmoothingEnabled = Math.max(img.img.width, img.img.height) > 200;
         if (si === 0) { ctx.translate(this.px(p.x) + w / 2, 0); ctx.scale(-1, 1); ctx.translate(-(this.px(p.x) + w / 2), 0); }
         ctx.drawImage(img.img, this.px(p.x) - w / 2, this.py(p.y) - h * 0.85, w, h);
         ctx.restore();

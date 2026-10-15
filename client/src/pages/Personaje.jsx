@@ -4,7 +4,8 @@ import React, { useMemo, useState } from "react";
 import { api } from "../api.js";
 import { useApp } from "../context.js";
 import { Busy, ErrorBox, Section, Spinner, useBusy, useLoad } from "../components/ui.jsx";
-import { Avatar, MonIcon, RecordChip } from "../components/silver.jsx";
+import { Avatar, MonIcon, OfficialArtGrid, RecordChip, fetchPicture } from "../components/silver.jsx";
+import { ImageViewer } from "../components/viewer.jsx";
 
 function VariantRow({ v, on, onPick, lang, t }) {
   const labels = lang === "en" ? v.labels : v.labels_es;
@@ -43,6 +44,9 @@ export default function Personaje({ param, query }) {
   const { data: c, error, reload } = useLoad(() => api.call("character_get", { key: param }), [param]);
   const [variantId, setVariantId] = useState("");
   const [sprite, setSprite] = useState("");
+  const [art, setArt] = useState(null);          // an official artwork chosen instead of a sprite
+  const [arts, setArts] = useState([]);
+  const [viewer, setViewer] = useState(null);
   const [gen, setGen] = useState(Number(query?.get("gen")) || 0);
   const [game, setGame] = useState(query?.get("game") || "");
   const fits = (v) => (!gen || v.gen === gen) && (!game || v.games.includes(game));
@@ -53,7 +57,7 @@ export default function Personaje({ param, query }) {
     return c.variants.find((v) => v.id === variantId) || [...c.variants].reverse().find((v) => !v.side && fits(v)) || [...c.variants].reverse().find(fits) || c.variants[c.variants.length - 1];
   }, [c, variantId, gen, game]); // eslint-disable-line react-hooks/exhaustive-deps
   const spriteId = sprite || variant?.sprite || c?.base_sprite || "";
-  const spriteUrl = c?.sprites.find((s) => s.id === spriteId)?.url || c?.avatar_url;
+  const spriteUrl = art ? art.url : c?.sprites.find((s) => s.id === spriteId)?.url || c?.avatar_url;
 
   const groups = useMemo(() => {
     const out = [];
@@ -73,21 +77,37 @@ export default function Personaje({ param, query }) {
   const gens = [...new Set(c.variants.map((v) => v.gen))].sort((a, b) => a - b);
 
   const install = (custom, empty = false) => run(custom ? (empty ? "e" : "c") : "a", async () => {
-    const r = await api.call("character_install", { key: c.key, variant: empty ? "" : variant?.id || "", sprite: spriteId, custom, lang });
+    let avatar = "";
+    if (art) {
+      // the wiki's image server answers the page, not the app's server: the page fetches the artwork and hands it over
+      const blob = await fetchPicture(art.url);
+      avatar = (await api.uploadAvatar(blob, { mode: "upload", kind: "art", credit: art.credit, source: art.url, title: art.file })).avatar;
+    }
+    const r = await api.call("character_install", { key: c.key, variant: empty ? "" : variant?.id || "", sprite: art ? "" : spriteId, custom, lang,
+      ...(avatar ? { avatar, art: art.file } : {}) });
     changed();
     notify(r.trainer.existing ? t("char_exists") : t("char_created"));
     go(`#/entrenador/${r.trainer.id}${custom ? "?builder=1" : ""}`);
   });
 
+  const looks = [
+    ...c.sprites.map((x) => ({ url: x.url, title: lang === "en" ? x.label : x.label_es, sub: x.id, credit: x.artist ? t("sprite_by", { name: x.artist }) : "", sprite: x.id })),
+    ...arts.map((x) => ({ ...x, art: x })),
+  ];
+  const lookIndex = Math.max(0, looks.findIndex((x) => (art ? x.art?.file === art.file : x.sprite === spriteId)));
+  const pickLook = (x) => { if (x.art) { setArt(x.art); } else { setArt(null); setSprite(x.sprite); } };
   return (
     <div className="space-y-5">
       <a className="btn-link" href={query?.get("game") ? `#/personajes?game=${query.get("game")}` : "#/personajes"}>← {query?.get("game") ? t("char_back_game") : t("char_back")}</a>
       <div className="char-head">
-        <Avatar url={spriteUrl} name={name} size={112} />
+        <button type="button" className="avatar-button" onClick={() => setViewer({ index: lookIndex })} title={t("avatar_view")} aria-label={t("avatar_view")}>
+          <Avatar url={spriteUrl} name={name} size={112} />
+        </button>
         <div className="min-w-0 space-y-1">
           <h1>{name}{lang !== "en" && c.name !== c.name_es ? <span className="help"> · {c.name}</span> : null}</h1>
           <div className="help">{t("chars_teams_n", { n: c.variants.length })} · {t("chars_sprites_n", { n: c.sprites.length })}</div>
-          {c.sprites.find((x) => x.id === spriteId)?.artist && (
+          {art && <div className="help">{t("char_art_chosen", { label: art.title })}</div>}
+          {!art && c.sprites.find((x) => x.id === spriteId)?.artist && (
             <div className="help"><a className="btn-link" href="#/creditos">{t("sprite_by", { name: c.sprites.find((x) => x.id === spriteId).artist })}</a></div>
           )}
           {c.bulbapedia && <a className="btn-link" href={c.bulbapedia} target="_blank" rel="noreferrer">Bulbapedia ↗</a>}
@@ -97,12 +117,21 @@ export default function Personaje({ param, query }) {
       <Section title={t("char_look")} count={c.sprites.length} sub={t("char_look_help")}>
         <div className="char-sprites" role="radiogroup" aria-label={t("char_look")}>
           {c.sprites.map((s) => (
-            <button key={s.id} type="button" role="radio" aria-checked={s.id === spriteId} className={`sprite-pick ${s.id === spriteId ? "is-on" : ""}`} onClick={() => setSprite(s.id)} title={s.artist ? `${s.id} · ${t("sprite_by", { name: s.artist })}` : s.id}>
+            <button key={s.id} type="button" role="radio" aria-checked={!art && s.id === spriteId} className={`sprite-pick ${!art && s.id === spriteId ? "is-on" : ""}`}
+              onClick={() => { if (!art && s.id === spriteId) setViewer({ index: looks.findIndex((x) => x.sprite === s.id) }); setArt(null); setSprite(s.id); }}
+              onDoubleClick={() => setViewer({ index: looks.findIndex((x) => x.sprite === s.id) })}
+              title={`${s.artist ? `${s.id} · ${t("sprite_by", { name: s.artist })}` : s.id} · ${t("char_click_again")}`}>
               <img src={s.url} alt="" loading="lazy" className="pixelated" />
               <span>{lang === "en" ? s.label : s.label_es}</span>
             </button>
           ))}
         </div>
+      </Section>
+
+      <Section title={t("char_art")} count={arts.length || undefined} sub={t("char_art_help")}>
+        <OfficialArtGrid query={c.name} selected={art?.file || ""} onLoaded={(r) => setArts((r.images || []).map((im) => ({ ...im, url: im.full, thumb: im.thumb,
+          title: lang === "en" ? im.label : im.label_es, sub: im.page, credit: "Pokémon Wiki (Fandom) · © Nintendo, Creatures, GAME FREAK", href: im.page_url })))}
+          onOpen={(i, items) => { const it = items[i]; if (art?.file === it.file) setViewer({ index: c.sprites.length + i }); setArt(it); }} />
       </Section>
 
       <Section title={t("char_teams")} count={c.variants.length} sub={t("char_teams_help")}
@@ -151,6 +180,10 @@ export default function Personaje({ param, query }) {
         <Busy busy={busy.c} className="btn" onClick={() => install(true)} title={t("char_custom_help")}>{t("char_custom")}</Busy>
         <Busy busy={busy.e} className="btn btn-ghost" onClick={() => install(true, true)}>{t("char_custom_empty")}</Busy>
       </div>
+      {viewer && (
+        <ImageViewer items={looks} index={viewer.index} onClose={() => setViewer(null)}
+          actions={(item) => <button type="button" className="btn btn-primary" onClick={() => { pickLook(item); setViewer(null); }}>{t("char_pick_look")}</button>} />
+      )}
     </div>
   );
 }

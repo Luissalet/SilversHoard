@@ -376,7 +376,17 @@ export default function Overworld({ map, people = {}, player = {}, beaten = [], 
         x.fillStyle = "rgba(0,0,0,.25)"; x.beginPath(); x.ellipse(cx, foot, ts * 0.32, ts * 0.12, 0, 0, Math.PI * 2); x.fill();
         const im = imgOf(imgs.current, url);
         const hpx = ts * 1.6;
-        if (im) x.drawImage(im, cx - hpx / 2, foot - hpx, hpx, hpx);
+        if (im) {
+          // keep the picture's shape (an official artwork is tall); smooth only what is not pixel art
+          const big = Math.max(im.naturalWidth || im.width, im.naturalHeight || im.height) > 200;
+          const ratio = (im.naturalWidth || im.width) / ((im.naturalHeight || im.height) || 1);
+          const wpx = ratio < 1 ? hpx * ratio : hpx;
+          const hh = ratio > 1 ? hpx / ratio : hpx;
+          const prev = x.imageSmoothingEnabled;
+          x.imageSmoothingEnabled = big;
+          x.drawImage(im, cx - wpx / 2, foot - hh, wpx, hh);
+          x.imageSmoothingEnabled = prev;
+        }
         else { x.fillStyle = pal.accent; x.beginPath(); x.arc(cx, foot - ts * 0.45, ts * 0.32, 0, Math.PI * 2); x.fill(); }
         // which way they look
         const [dx, dy] = STEP[facing] || [0, 1];

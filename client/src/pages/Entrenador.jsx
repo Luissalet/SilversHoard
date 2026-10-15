@@ -5,7 +5,7 @@ import { useApp } from "../context.js";
 import { Busy, ErrorBox, Field, Icon, ICONS, Modal, Section, Spinner, Tabs, useBusy, useLoad, useStored } from "../components/ui.jsx";
 import CooldownsTab from "../battle/rt/CooldownsTab.jsx";
 import { useContextProvider, useCopilotRefresh } from "../components/hooks.js";
-import { AiFields, Avatar, AvatarDialog, ExportDialog, FormatSelect, GymBadge, RecordChip, TeamCards, TrainerSelect, originLabel } from "../components/silver.jsx";
+import { AiFields, Avatar, AvatarDialog, ExportDialog, FormatSelect, GymBadge, RecordChip, TeamCards, TrainerPictureViewer, TrainerSelect, creditLabel, originLabel } from "../components/silver.jsx";
 import { BattleRow } from "./Historial.jsx";
 import TeamBuilder from "../components/TeamBuilder.jsx";
 
@@ -186,7 +186,13 @@ export default function Entrenador({ param, query }) {
   return (
     <div className="space-y-4">
       <div className="page-head">
-        <button type="button" className="avatar-button" onClick={() => setDialog("avatar")} title={t("change_avatar")}><Avatar url={tr.avatar_url} name={tr.name} size={96} /></button>
+        <div className="avatar-wrap">
+          <button type="button" className="avatar-button" onClick={() => setDialog(tr.avatar_url ? "view" : "avatar")} title={tr.avatar_url ? t("avatar_view") : t("change_avatar")}
+            aria-label={tr.avatar_url ? t("avatar_view") : t("change_avatar")}><Avatar url={tr.avatar_url} name={tr.name} size={96} /></button>
+          <button type="button" className="avatar-edit btn btn-sm btn-icon" onClick={() => setDialog("avatar")} title={t("change_avatar")} aria-label={t("change_avatar")}>
+            <Icon d={ICONS.pencil} size={13} />
+          </button>
+        </div>
         <div className="min-w-0">
           <h1 className="trunc">{tr.name}</h1>
           <div className="help">{tr.title}</div>
@@ -197,7 +203,7 @@ export default function Entrenador({ param, query }) {
             <span className="chip">{t(`lvl_${tr.ai_level}`)} · {t(`style_${tr.ai_style}`)}</span>
             <RecordChip record={tr.record} />
           </div>
-          {tr.avatar_credit && <div className="help mt-1"><a className="btn-link" href="#/creditos">{t("sprite_by", { name: tr.avatar_credit })}</a></div>}
+          {tr.avatar_credit && <div className="help mt-1"><a className="btn-link" href="#/creditos">{creditLabel(t, tr)}</a></div>}
         </div>
         <div className="flex flex-wrap gap-2">
           <button type="button" className="btn btn-primary" onClick={() => setDialog("fight")}><Icon d={ICONS.play} size={14} /> {t("fight")}</button>
@@ -217,6 +223,7 @@ export default function Entrenador({ param, query }) {
       {tab === "realtime" && <CooldownsTab trainerId={tr.id} t={t} lang={lang} />}
       {tab === "battles" && (tr.battles?.length ? <div className="panel divide-list p-0">{tr.battles.map((b) => <BattleRow key={b.id} b={b} />)}</div> : <p className="help">{t("no_battles")}</p>)}
       {dialog === "avatar" && <AvatarDialog trainer={tr} onClose={() => setDialog("")} onSaved={() => { reload(); changed(); }} />}
+      {dialog === "view" && <TrainerPictureViewer trainer={tr} onClose={() => setDialog("")} onChange={() => setDialog("avatar")} />}
       {dialog === "export" && <ExportDialog kind="trainer" id={tr.id} name={tr.name} onClose={() => setDialog("")} />}
       {dialog === "fight" && <FightDialog trainer={tr} onClose={() => setDialog("")} />}
     </div>

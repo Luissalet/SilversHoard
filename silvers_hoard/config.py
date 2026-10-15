@@ -44,6 +44,11 @@ DEFAULT_SETTINGS: dict[str, Any] = {
     "prospero_prompt": ("anime-style full-body trainer illustration in the art style of a 2010s handheld monster-catching role-playing "
                         "game, standing, facing the viewer, cel shading with two or three tones, clean dark outlines, limited palette, "
                         "flat plain white background, no text, no frame"),
+    # the same for a drawing that stays a drawing (avatar_draw look="art"): the games' official artwork, not pixel art
+    "prospero_prompt_art": ("official character artwork of a monster-catching role-playing game, in the style of its official "
+                            "illustrations of the 2010s: full body, standing, facing the viewer, clean thin dark outlines, cel shading "
+                            "with two or three tones, soft highlights on the hair, bright saturated colours, large expressive eyes, "
+                            "flat plain white background, no pixel art, no text, no frame"),
     # Showdown trainer sprites (names) Prospero gets as art-style references; generic Black/White trainer classes
     "prospero_style_sprites": "backpacker,acetrainer,pilot",
     "prospero_engine": "",        # image engine Prospero uses for sprites ("" = the project's default; qwen21, flux, sdxl)

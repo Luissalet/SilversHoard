@@ -27,7 +27,7 @@ from .engine import master_status
 from .engine import Engine
 from .errors import SilverError
 from .hoard_link import family
-from .hoard_link.atomic import write_bytes_atomic
+from .hoard_link.atomic import write_bytes_atomic, write_json_atomic
 from .hoard_link.tokens import read_or_create_token
 from .credits import Credits
 from .arenas import CUSTOM as ARENA_CUSTOM, Arenas, same as arenas_same
@@ -38,6 +38,7 @@ from .fxcache import FxCache
 from .rebornfx import RebornCache
 from .neural import NeuralAI
 from .pmd import PmdSprites
+from .official_art import OfficialArt
 from .pvp import Pvp
 from .friends import Friends
 from .smogon import Smogon
@@ -118,6 +119,7 @@ class Services:
         self.smogon = Smogon(config.sprites_dir.parent / "smogon", http_get or _http_get, enabled=lambda: bool(self.settings["smogon_data"]))
         self._http_get = http_get or _http_get
         self.credits = Credits(config.sprites_dir.parent / "credits", self.settings, http_get or _http_get, self.pmd._base)
+        self.art = OfficialArt(config.sprites_dir.parent / "art")
         self.fx = FxCache(config.sprites_dir.parent / "fx", self.settings, http_get=http_get)
         self.reborn = RebornCache(config.sprites_dir.parent / "reborn", self.settings, http_get=http_get)
         self.cups = Cups(self)
@@ -310,7 +312,8 @@ class Services:
         out = {k: v for k, v in t.items() if k not in ("team",)}
         out["team"] = t.get("team") or []
         out["avatar_url"] = self.avatar_url(t.get("avatar", ""))
-        out["avatar_credit"] = self.credits.trainer(t["avatar"][3:]) if str(t.get("avatar") or "").startswith("sd:") else ""
+        out["avatar_credit"] = self.avatar_credit(t.get("avatar", ""))
+        out["avatar_kind"] = self.avatar_kind(t.get("avatar", ""))
         out["avatar_poses"] = self.pose_urls(t.get("avatar", ""))
         out["species"] = [s.get("species") for s in out["team"]]
         out["record"] = {"wins": t.get("wins", 0), "losses": t.get("losses", 0), "ties": t.get("ties", 0)}
@@ -756,9 +759,14 @@ class Services:
                 "source": self.characters().get("source", "")}
 
     def character_install(self, key: str, *, variant: str = "", sprite: str = "", name: str = "", custom: bool = False,
-                          ai_level: str = "", ai_style: str = "", lang: str = "es") -> dict[str, Any]:
-        """A trainer from a character: one of its game teams (or an empty team of your own when custom), with the sprite you choose."""
+                          ai_level: str = "", ai_style: str = "", lang: str = "es", avatar: str = "", art: str = "") -> dict[str, Any]:
+        """A trainer from a character: one of its game teams (or an empty team of your own when custom), with the sprite you choose,
+        or ``avatar`` (file:<name>, a picture of your own such as its official artwork; ``art`` names that artwork)."""
         c = self._character(key)
+        if avatar:
+            avatar = self._check_avatar(avatar)
+            if not avatar.startswith("file:"):
+                raise SilverError("invalid", "avatar is file:<name> (a picture of your own); sprite takes the Showdown sprites")
         v = None
         if variant:
             v = next((x for x in c["variants"] if x["id"] == variant), None)
@@ -773,7 +781,7 @@ class Services:
                 raise SilverError("invalid", f"Unknown trainer sprite {sprite}")
         else:
             sprite = (v or {}).get("sprite") or c["base_sprite"]
-        canon_key = f"char:{c['key']}:{v['id'] if v and not custom else 'own'}:{sprite}"
+        canon_key = f"char:{c['key']}:{v['id'] if v and not custom else 'own'}:{('art:' + (art or avatar)[:80]) if avatar else sprite}"
         if not custom and not name:
             existing = self.store.trainer_by_canon(canon_key)
             if existing:
@@ -800,6 +808,8 @@ class Services:
             if v.get("note"):
                 notes.append(f"Bulbapedia: {v['note']}")
         notes.append((v.get("credit") or "Equipo de Bulbapedia (CC BY-NC-SA); sprite de Pokémon Showdown.") if v else "Sprite de Pokémon Showdown.")
+        if avatar:
+            notes.append(f"Imagen: {art or 'propia'} ({self.avatar_credit(avatar) or 'imagen propia'}).")
         sets = [{k: x for k, x in s.items() if k != "level_range"} for s in (v["sets"] if v else [])] if (v and not custom) or (v and custom and variant) else []
         if v and v.get("pool"):   # a battle facility's pool: the trainer takes six of them
             sets = sets[:6]
@@ -809,7 +819,8 @@ class Services:
         tags = [c["name"], *([v["game_name_es"], f"Gen {v['gen']}"] if v else [])]
         id_ = self.store.add_trainer({
             "name": (name or default_name).strip()[:60], "title": title[:60], "owner": self.settings["player_name"] if custom else "",
-            "origin": "own" if custom else "canon", "format": fmt, "team": sets, "ai_level": level, "ai_style": style, "avatar": self._check_avatar(f"sd:{sprite}") if sprite else "",
+            "origin": "own" if custom else "canon", "format": fmt, "team": sets, "ai_level": level, "ai_style": style,
+            "avatar": avatar or (self._check_avatar(f"sd:{sprite}") if sprite else ""),
             "dialogue": {}, "notes": "\n".join(notes)[:4000], "tags": [str(x)[:30] for x in tags][:20], "canon_key": canon_key,
         })
         self.emit("trainer.created", {"id": id_, "name": name or default_name, "character": c["key"]})
@@ -2459,7 +2470,9 @@ class Services:
                 if max_bytes and len(data) > max_bytes:
                     from PIL import Image
                     img = Image.open(io.BytesIO(data)).convert("RGBA")
-                    for side in (192, 144, 112, 96):
+                    for side in (1024, 768, 640, 512, 384, 288, 192, 144, 112, 96):
+                        if side >= max(img.size):
+                            continue
                         img.thumbnail((side, side))
                         buf = io.BytesIO()
                         img.save(buf, "PNG", optimize=True)
@@ -2472,8 +2485,9 @@ class Services:
         return {}
 
     CODE_PICTURE_BYTES = 48_000
+    FILE_PICTURE_BYTES = 700_000     # a trainer's own picture inside a file or a playable page
 
-    def _trainer_payload(self, t: dict[str, Any], *, with_picture: bool = True, max_picture: int = 0) -> dict[str, Any]:
+    def _trainer_payload(self, t: dict[str, Any], *, with_picture: bool = True, max_picture: int = FILE_PICTURE_BYTES) -> dict[str, Any]:
         return {"name": t["name"], "title": t["title"], "owner": t["owner"] or self.settings["player_name"], "format": t["format"], "team": t["team"],
                 "ai": {"level": t["ai_level"], "style": t["ai_style"]}, "dialogue": t.get("dialogue") or {}, "notes": t.get("notes") or "",
                 "avatar": self._avatar_payload(t["avatar"], max_bytes=max_picture) if with_picture else ({"kind": "showdown", "name": t["avatar"][3:]} if t["avatar"].startswith("sd:") else {}),
@@ -2534,7 +2548,7 @@ class Services:
             friend_mode = "turns"   # the same luck for everyone needs the same simulator: turn by turn
         if kind == "trainer":
             obj = self.store.trainer(id_)
-            payload = self._trainer_payload(obj, max_picture=self.CODE_PICTURE_BYTES if fmt == "code" else 0)
+            payload = self._trainer_payload(obj, max_picture=self.CODE_PICTURE_BYTES if fmt == "code" else self.FILE_PICTURE_BYTES)
             name = obj["name"]
         elif kind == "gym":
             obj = self.store.gym(id_)
@@ -2586,7 +2600,7 @@ class Services:
             return f"sd:{str(av['name']).lower()}"
         if av.get("kind") == "image" and av.get("data"):
             try:
-                return "file:" + self.sprites.save_avatar(base64.b64decode(av["data"]), stem=stem)
+                return "file:" + self.sprites.save_avatar(base64.b64decode(av["data"]), stem=stem, max_side=1024)
             except (SilverError, ValueError):
                 return ""
         return ""
@@ -3283,27 +3297,179 @@ class Services:
         return result
 
     # ------------------------------------------------------------ avatars from photos (here, or drawn by Prospero's Hoard)
-    def avatar_from_photo(self, data: bytes, *, trainer_id: str = "", mode: str = "pixel", remove_background: bool = True) -> dict[str, Any]:
+    def avatar_from_photo(self, data: bytes, *, trainer_id: str = "", mode: str = "pixel", remove_background: bool = True,
+                          cut_background: bool = False, kind: str = "", credit: str = "", source: str = "", title: str = "") -> dict[str, Any]:
+        """A picture of your own as a trainer's avatar. pixel: background removed and shrunk to a 96 px sprite here; upload: the
+        picture as it is (up to 1024 px, background kept unless ``cut_background``); prospero: drawn by Prospero's Hoard (a job).
+        ``kind`` (photo, art, image), ``credit``, ``source`` and ``title`` are kept with the picture (official art says whose it is)."""
+        if trainer_id:
+            self.store.trainer(trainer_id)
         stem = trainer_id or "photo"
         if mode == "pixel":
             name = self.sprites.save_avatar(data, stem=stem, pixelate=True, remove_background=remove_background)
-            if trainer_id:
-                self.store.update_trainer(trainer_id, {"avatar": f"file:{name}"})
-            return {"file": name, "url": f"/api/avatars/{name}", "avatar": f"file:{name}"}
-        if mode == "upload":
-            name = self.sprites.save_avatar(data, stem=stem, pixelate=False, remove_background=False)
-            if trainer_id:
-                self.store.update_trainer(trainer_id, {"avatar": f"file:{name}"})
-            return {"file": name, "url": f"/api/avatars/{name}", "avatar": f"file:{name}"}
-        if mode != "prospero":
+            self._avatar_meta_set(name, kind="sprite", source=source, title=title)
+        elif mode == "upload":
+            name = self.sprites.save_avatar(data, stem=stem if kind != "art" else f"{stem}-art", pixelate=False,
+                                            remove_background=cut_background, max_side=1024)
+            self._avatar_meta_set(name, kind=kind if kind in ("photo", "art", "image") else "image", credit=credit, source=source, title=title)
+        elif mode == "prospero":
+            return self.avatar_draw([data], trainer_id=trainer_id)
+        else:
             raise SilverError("invalid", "mode is pixel, upload or prospero")
-        return self.avatar_draw([data], trainer_id=trainer_id)
+        if trainer_id:
+            self.store.update_trainer(trainer_id, {"avatar": f"file:{name}"})
+            self.emit("trainer.updated", {"id": trainer_id})
+        return {"file": name, "url": f"/api/avatars/{name}", "avatar": f"file:{name}", "credit": credit}
+
+    MAX_URL_PICTURE = 12 * 1024 * 1024
+
+    def avatar_from_url(self, url: str, *, trainer_id: str = "", kind: str = "image", credit: str = "", title: str = "",
+                        cut_background: bool = False) -> dict[str, Any]:
+        """A picture on the internet as a trainer's avatar, downloaded here (some image servers, like the Pokémon Wiki's, answer
+        browsers only: the app's picture dialog fetches those itself)."""
+        url = (url or "").strip()
+        if not re.match(r"^https?://[^\s/]+/\S+$", url):
+            raise SilverError("invalid", "Give the address of a picture (http:// or https://).")
+        try:
+            status, data, ctype = self._http_get(url)
+        except Exception as exc:  # noqa: BLE001
+            raise SilverError("unavailable", f"The picture did not download: {exc}") from None
+        if status in (401, 403, 429, 503) or (status == 200 and "text/html" in (ctype or "")):
+            raise SilverError("unavailable", f"{url.split('/')[2]} turns away downloads that are not from a browser (it answered {status}).",
+                              hint="Open the trainer's picture dialog in the app and paste the address there: the page fetches it.")
+        if status != 200 or not data:
+            raise SilverError("unavailable", f"The picture did not download (HTTP {status}).")
+        if len(data) > self.MAX_URL_PICTURE:
+            raise SilverError("too_large", "The picture is larger than 12 MB.")
+        return self.avatar_from_photo(data, trainer_id=trainer_id, mode="upload", kind=kind, credit=credit, source=url, title=title,
+                                      cut_background=cut_background)
+
+    # what is known of each own picture (data/avatar_meta.json): kind (photo, art, image, sprite, drawing, pose), credit, source
+    _meta_cache: tuple[float, dict[str, Any]] = (-1.0, {})
+
+    def _avatar_meta(self) -> dict[str, Any]:
+        path = self.config.data_dir / "avatar_meta.json"
+        try:
+            mtime = path.stat().st_mtime
+        except OSError:
+            return {}
+        if self._meta_cache[0] != mtime:
+            try:
+                data = json.loads(path.read_text(encoding="utf-8"))
+            except (OSError, ValueError):
+                data = {}
+            self._meta_cache = (mtime, data if isinstance(data, dict) else {})
+        return self._meta_cache[1]
+
+    def _avatar_meta_set(self, name: str, **fields: Any) -> None:
+        fields = {k: str(v)[:300] for k, v in fields.items() if v}
+        if not fields:
+            return
+        index = dict(self._avatar_meta())
+        index[name] = {**(index.get(name) or {}), **fields}
+        path = self.config.data_dir / "avatar_meta.json"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        write_json_atomic(path, index)
+        self._meta_cache = (-1.0, {})
+
+    def avatar_credit(self, avatar: str) -> str:
+        avatar = str(avatar or "")
+        if avatar.startswith("sd:"):
+            return self.credits.trainer(avatar[3:])
+        if avatar.startswith("file:"):
+            return str((self._avatar_meta().get(avatar[5:]) or {}).get("credit") or "")
+        return ""
+
+    def avatar_kind(self, avatar: str) -> str:
+        """sprite (Showdown's), or what an own picture is: photo, art, image, sprite, drawing, pose."""
+        avatar = str(avatar or "")
+        if avatar.startswith("sd:"):
+            return "sprite"
+        if not avatar.startswith("file:"):
+            return ""
+        name = avatar[5:]
+        return str((self._avatar_meta().get(name) or {}).get("kind") or next((k for rx, k in self._KIND_BY_NAME if rx.search(name)), "image"))
+
+    _KIND_BY_NAME = ((re.compile(r"-ref\d+-"), "photo"), (re.compile(r"-drawing-"), "drawing"), (re.compile(r"-(back|win)-"), "pose"),
+                     (re.compile(r"-art-"), "art"), (re.compile(r"(^|-)ai-|^prospero-ai-"), "sprite"))
+    _img_sizes: dict[str, tuple[float, tuple[int, int]]] = {}
+    _digests: dict[str, tuple[float, str]] = {}
+
+    def avatar_images(self, *, query: str = "", kind: str = "", limit: int = 120) -> dict[str, Any]:
+        """Your own pictures (uploaded, photos given to Prospero, drawn sprites and drawings, poses, official art you chose), the same
+        picture once, newest first, with the trainers that use them. ``query`` matches a trainer's name, the kind or the title."""
+        from PIL import Image
+        meta = self._avatar_meta()
+        trainers = self.store.trainers()
+        by_id = {t["id"]: t["name"] for t in trainers}
+        using: dict[str, list[str]] = {}
+        for t in trainers:
+            if str(t.get("avatar") or "").startswith("file:"):
+                using.setdefault(t["avatar"][5:], []).append(t["name"])
+        q = " ".join((query or "").lower().split())
+        groups: dict[str, list[dict[str, Any]]] = {}
+        for item in self.sprites.avatars():
+            name = item["file"]
+            if name.startswith(("badge-", "backdrop-")):
+                continue
+            path = self.config.avatars_dir / name
+            known = self._digests.get(str(path))
+            if not known or known[0] != item["modified"]:
+                try:
+                    known = (item["modified"], hashlib.sha1(path.read_bytes()).hexdigest())
+                except OSError:
+                    continue
+                self._digests[str(path)] = known
+            digest = known[1]
+            info = meta.get(name) or {}
+            k = info.get("kind") or next((kk for rx, kk in self._KIND_BY_NAME if rx.search(name)), "image")
+            owner = by_id.get(name.split("-", 1)[0], "")
+            groups.setdefault(digest, []).append({"file": name, "kind": k, "info": info, "owner": owner, "modified": item["modified"],
+                                                  "in_use": using.get(name, [])})
+        out = []
+        for same in groups.values():
+            # the same picture saved several times (a photo given to Prospero again…): one entry, the copy in use or best described
+            best = max(same, key=lambda x: (bool(x["in_use"]), bool(x["info"]), x["kind"] != "image", x["modified"]))
+            names = sorted({n for x in same for n in x["in_use"]} | {x["owner"] for x in same if x["owner"]})
+            info, k, name = best["info"], best["kind"], best["file"]
+            if kind and k != kind:
+                continue
+            hay = " ".join([*names, k, info.get("title", ""), info.get("credit", ""), name]).lower()
+            if q and not all(w in hay for w in q.split()):
+                continue
+            modified = max(x["modified"] for x in same)
+            cached = self._img_sizes.get(str(self.config.avatars_dir / name))
+            if not cached or cached[0] != best["modified"]:
+                try:
+                    with Image.open(self.config.avatars_dir / name) as im:
+                        cached = (best["modified"], im.size)
+                except OSError:
+                    cached = (best["modified"], (0, 0))
+                self._img_sizes[str(self.config.avatars_dir / name)] = cached
+            w, h = cached[1]
+            out.append({"file": name, "avatar": f"file:{name}", "url": f"/api/avatars/{name}", "kind": k, "width": w, "height": h,
+                        "trainers": names, "in_use": sorted({n for x in same for n in x["in_use"]}), "title": info.get("title", ""),
+                        "credit": info.get("credit", ""), "copies": len(same), "modified": modified})
+        out.sort(key=lambda x: -x["modified"])
+        out = out[: max(1, min(int(limit or 120), 400))]
+        return {"images": out, "query": query}
+
+    def official_art_search(self, *, query: str = "", page: str = "", limit: int = 40, refresh: bool = False) -> dict[str, Any]:
+        """Official artwork of a character or trainer class from the Pokémon Wiki: the pictures of its page (game by game)."""
+        return self.art.search(query, page=page, limit=limit, refresh=refresh)
 
     MAX_REFERENCE_PHOTOS = 4
 
-    def avatar_draw(self, photos: list[bytes], *, description: str = "", trainer_id: str = "", count: int = 2, style: bool = True) -> dict[str, Any]:
-        """A trainer sprite drawn by Prospero's Hoard from up to four photos of the same person and/or a description (a job).
-        Each result comes back twice: the pixel-art sprite (96 px) and the drawing itself, background removed."""
+    LOOKS = ("sprite", "art")
+
+    def avatar_draw(self, photos: list[bytes], *, description: str = "", trainer_id: str = "", count: int = 2, style: bool = True,
+                    look: str = "sprite") -> dict[str, Any]:
+        """A trainer drawn by Prospero's Hoard from up to four photos of the same person and/or a description (a job).
+        Each result comes back twice: the pixel-art sprite (96 px) and the drawing itself, background removed. ``look`` sprite
+        uses the sprite as the trainer's picture; art asks for the games' official artwork style, keeps the drawing (up to 1024 px,
+        no pixels) and uses it; its style references are only your own pictures (no pixel sprites)."""
+        if look not in self.LOOKS:
+            raise SilverError("invalid", "look is sprite (pixel art) or art (the games' official artwork style, not pixelated)")
         photos = [p for p in photos if p][: self.MAX_REFERENCE_PHOTOS]
         description = " ".join((description or "").split())[:300]
         if not photos and not description:
@@ -3316,11 +3482,13 @@ class Services:
             name = self.sprites.save_avatar(data, stem=f"{stem}-ref{i + 1}", pixelate=False, max_side=1024)
             paths.append(str((self.config.avatars_dir / name).resolve()))
         count = max(1, min(int(count or 2), 4))
-        styles = self.style_reference_paths() if style else []
-        title = f"Sprite dibujado ({description[:40] or f'{len(paths)} foto(s)'})"
-        return self._job("avatar", title, {"trainer_id": trainer_id, "photos": len(paths), "description": description, "styles": len(styles)},
+        styles = self.style_reference_paths(own_only=look == "art") if style else []
+        what = "Arte dibujado" if look == "art" else "Sprite dibujado"
+        title = f"{what} ({description[:40] or f'{len(paths)} foto(s)'})"
+        return self._job("avatar", title, {"trainer_id": trainer_id, "photos": len(paths), "description": description, "styles": len(styles),
+                                           "look": look},
                          lambda jid, progress, cancelled: self._prospero_sprite(paths, description, trainer_id, count, progress, cancelled,
-                                                                                styles=styles, silver_job=jid))
+                                                                                styles=styles, silver_job=jid, look=look))
 
     # ------------------------------------------------------------ art-style references for drawn sprites
     MAX_STYLE_REFS = 3
@@ -3363,10 +3531,14 @@ class Services:
             img.convert("RGBA").save(out, "PNG")
         return self.avatar_style_get()
 
-    def style_reference_paths(self) -> list[str]:
-        """The style pictures ready for Prospero: on white, small sprites enlarged without smoothing so the line work shows."""
+    def style_reference_paths(self, own_only: bool = False) -> list[str]:
+        """The style pictures ready for Prospero: on white, small sprites enlarged without smoothing so the line work shows.
+        ``own_only``: only your own pictures (official art, anime stills), never the pixel sprites (drawings that must not look pixelated)."""
         from PIL import Image
         info = self.avatar_style_get()
+        if own_only:
+            own = {i["file"] for i in info["images"]}
+            info = {**info, "used": [r for r in info["used"] if r in own] or [i["file"] for i in info["images"]][: self.MAX_STYLE_REFS]}
         out_dir = self.config.data_dir / "cache" / "style_prepared"
         out_dir.mkdir(parents=True, exist_ok=True)
         paths = []
@@ -3405,7 +3577,7 @@ class Services:
         sheet.save(dest, "PNG")
         return [str(dest.resolve())]
 
-    def prospero_prompt(self, *, photos: int, description: str, styles: int = 0) -> str:
+    def prospero_prompt(self, *, photos: int, description: str, styles: int = 0, look: str = "sprite") -> str:
         """The image prompt. Prospero numbers the reference pictures in the order they are given (image 1 first): the photos of the
         person, then the style references."""
         def span(first: int, n: int) -> str:
@@ -3423,7 +3595,7 @@ class Services:
                          "characters: copy only the drawing style (proportions, eyes, line work, shading, palette); never draw those "
                          "characters or their clothes, hair, poses or props.")
         parts.append("Exactly one character, alone, full body.")
-        parts.append(str(self.settings["prospero_prompt"]))
+        parts.append(str(self.settings["prospero_prompt_art" if look == "art" else "prospero_prompt"]))
         return " ".join(parts)
 
 
@@ -3540,7 +3712,8 @@ class Services:
             pass
 
     def _prospero_sprite(self, photos: list[str], description: str, trainer_id: str, count: int, progress: Callable[[float], None],
-                         cancelled: Callable[[], bool], *, styles: Optional[list[str]] = None, silver_job: str = "") -> dict[str, Any]:
+                         cancelled: Callable[[], bool], *, styles: Optional[list[str]] = None, silver_job: str = "",
+                         look: str = "sprite") -> dict[str, Any]:
         progress(0.02)
         project = self._prospero_project()
         refs = []
@@ -3553,7 +3726,8 @@ class Services:
         styles = styles or []
         style_ids = self._prospero_style_assets(project, styles) if styles else []
         progress(0.1)
-        args: dict[str, Any] = {"project": project, "prompt": self.prospero_prompt(photos=len(refs), description=description, styles=len(style_ids)),
+        args: dict[str, Any] = {"project": project, "prompt": self.prospero_prompt(photos=len(refs), description=description, styles=len(style_ids),
+                                                                         look=look),
                                 "count": count, "aspect": "2:3"}
         if refs or style_ids:
             args["reference_asset_ids"] = refs + style_ids
@@ -3584,16 +3758,19 @@ class Services:
             data, matted = self._prospero_cutout(base, aid, cancelled)
             stem = f"{trainer_id or 'prospero'}-ai"
             name = self.sprites.save_avatar(data, stem=stem, pixelate=True, remove_background=not matted)
-            drawing = self.sprites.save_avatar(data, stem=f"{stem}-drawing", pixelate=False, remove_background=not matted, max_side=512)
+            drawing = self.sprites.save_avatar(data, stem=f"{stem}-drawing", pixelate=False, remove_background=not matted,
+                                               max_side=1024 if look == "art" else 512)
+            self._avatar_meta_set(name, kind="sprite", title=description[:120])
+            self._avatar_meta_set(drawing, kind="drawing", title=description[:120])
             files.append({"file": name, "url": f"/api/avatars/{name}", "avatar": f"file:{name}", "prospero_asset": aid, "cutout": matted,
                           "drawing": {"file": drawing, "url": f"/api/avatars/{drawing}", "avatar": f"file:{drawing}"}})
             progress(0.8 + 0.2 * (n + 1) / len(ids))
         if not files:
             raise SilverError("unavailable", "Prospero finished without pictures.")
         if trainer_id:
-            self.store.update_trainer(trainer_id, {"avatar": files[0]["avatar"]})
+            self.store.update_trainer(trainer_id, {"avatar": files[0]["drawing"]["avatar"] if look == "art" else files[0]["avatar"]})
         progress(1.0)
-        return {"candidates": files, "project": project, "prospero_job": job_id, "prompt": args["prompt"]}
+        return {"candidates": files, "project": project, "prospero_job": job_id, "prompt": args["prompt"], "look": look}
 
     def _prospero_project(self) -> str:
         projects = self._prospero_call("studio_projects", {"query": "Silver's Hoard", "limit": 20}) or {}
@@ -3766,7 +3943,8 @@ class Services:
             found = []
             for aid in ids:
                 data, matted = self._prospero_cutout(base, aid, cancelled)
-                name = self.sprites.save_avatar(data, stem=f"{stem}-{pose}", pixelate=not drawing, remove_background=not matted, max_side=512)
+                name = self.sprites.save_avatar(data, stem=f"{stem}-{pose}", pixelate=not drawing, remove_background=not matted,
+                                                max_side=1024 if drawing else 512)
                 found.append({"pose": pose, "file": name, "url": f"/api/avatars/{name}", "avatar": f"file:{name}", "prospero_asset": aid,
                               "cutout": matted})
             results[pose] = found
