@@ -31,14 +31,15 @@ log = logging.getLogger("silver.mass")
 MODES = ("ffa", "teams", "boss")
 KINDS = ("dex", "top", "starters", "legendaries", "random", "species", "trainer")
 FLOORS = ("grass", "sand", "ice", "cave", "indoor", "water", "pyre", "summit", "meteor", "champion", "castle")
-MAX_UNITS = 300
+MAX_UNITS = 1100      # the whole National Dex (1025) fits
 MAX_TEAMS = 16
-KEEP = 200          # battles kept on disk (the oldest go first)
 
 # ready-made battles: (id, Spanish title, English title, the battle's arguments)
 PRESETS: list[tuple[str, str, str, dict[str, Any]]] = [
     ("kanto", "La Pokédex de Kanto en battle royale", "Kanto's Pokédex in a battle royale",
      {"mode": "ffa", "floor": "grass", "teams": [{"kind": "dex", "gens": [1]}]}),
+    ("national", "Las 1025 Pokémon de la Pokédex Nacional en battle royale", "All 1025 Pokémon of the National Dex in a battle royale",
+     {"mode": "ffa", "floor": "grass", "teams": [{"kind": "dex", "gens": list(range(1, 10))}]}),
     ("starters", "Los 27 iniciales en battle royale", "The 27 starters in a battle royale",
      {"mode": "ffa", "floor": "sand", "teams": [{"kind": "starters"}]}),
     ("legends", "Todos los legendarios shiny en battle royale", "Every shiny legendary in a battle royale",
@@ -89,13 +90,8 @@ class Mass:
         return self.dir / f"{id_}.json"
 
     def _save(self, doc: dict[str, Any]) -> None:
+        # every battle stays until it is deleted (mass_delete): nothing goes away behind your back
         write_bytes_atomic(self._path(doc["id"]), json.dumps(doc, ensure_ascii=False, separators=(",", ":")).encode("utf-8"))
-        files = sorted(self.dir.glob("mass_*.json"), key=lambda p: p.stat().st_mtime)
-        for old in files[:-KEEP]:
-            try:
-                old.unlink()
-            except OSError:
-                pass
 
     def _load(self, id_: str) -> dict[str, Any]:
         p = self._path(id_)

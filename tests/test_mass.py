@@ -8,7 +8,7 @@ pytestmark = needs_engine
 def test_presets_and_a_battle_royale(call, services):
     presets = call("mass_presets")["presets"]
     ids = [p["id"] for p in presets]
-    assert {"kanto", "starters", "top15", "gen1vs3", "eternamax_kanto"} <= set(ids)
+    assert {"kanto", "national", "starters", "top15", "gen1vs3", "johto_hoenn", "eternamax_kanto"} <= set(ids)
     assert all(p["mode"] in ("ffa", "teams", "boss") for p in presets)
     out = call("mass_start", {"preset": "starters", "seed": "royale"})
     assert out["id"].startswith("mass_") and out["units"] == 27 and out["mode"] == "ffa"
@@ -51,9 +51,22 @@ def test_teams_with_a_trainer_and_giants(call):
 
 
 def test_limits(call):
-    call("mass_start", {"mode": "ffa", "teams": [{"kind": "dex", "gens": [1, 2, 3]}]}, status=400)       # 386 Pokémon
+    every = {"kind": "dex", "gens": list(range(1, 10))}
+    call("mass_start", {"mode": "teams", "teams": [every, every]}, status=400)                            # 2050 Pokémon
     call("mass_start", {"mode": "teams", "teams": [{"kind": "starters"}]}, status=400)                    # one team
     call("mass_start", {"mode": "boss", "teams": [{"kind": "starters"}]}, status=400)                     # no crowd
     call("mass_start", {"mode": "ffa", "teams": [{"kind": "species", "species": ["Missingno.x"]}]}, status=400)
     call("mass_start", {"preset": "nope"}, status=404)
     call("mass_get", {"id": "mass_../../etc"}, status=404)
+
+
+def test_every_preset_fits_and_battles_are_never_dropped(call, services):
+    # every ready-made battle composes within the limits (the biggest is the whole National Dex)
+    for p in call("mass_presets")["presets"]:
+        spec = services.mass.compose(preset=p["id"], seed="fit")
+        assert sum(len(t["units"]) for t in spec["teams"]) <= 1100, p["id"]
+    # nothing is deleted behind your back: battles stay until you delete them
+    first = call("mass_start", {"preset": "starters", "seed": "keep"})
+    for k in range(3):
+        call("mass_start", {"preset": "starters", "seed": f"keep{k}"})
+    assert call("mass_get", {"id": first["id"]})["id"] == first["id"]

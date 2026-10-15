@@ -73,7 +73,10 @@ test('many against a few: the giant is bigger, tougher and hits harder, worked o
 test('limits and the field', () => {
   assert.deepEqual(massArena(10), massArena(40));
   assert.ok(massArena(300).w > massArena(40).w);
-  assert.throws(() => composeMass({mode: 'ffa', teams: [{roster: {kind: 'dex', gens: [1, 2, 3]}}]}), new RegExp(`At most ${MASS_MAX_UNITS}`));
+  // the whole National Dex fits; twice over does not
+  assert.equal(composeMass({mode: 'ffa', teams: [{roster: {kind: 'dex', gens: [1, 2, 3, 4, 5, 6, 7, 8, 9]}}]}).teams[0].units.length, 1025);
+  const all = {kind: 'dex', gens: [1, 2, 3, 4, 5, 6, 7, 8, 9]};
+  assert.throws(() => composeMass({mode: 'teams', teams: [{roster: all}, {roster: all}]}), new RegExp(`At most ${MASS_MAX_UNITS}`));
   assert.throws(() => new MassBattle({mode: 'teams', teams: [{units: [{set: autoSet('Pikachu')}]}]}), /at least two sides/);
 });
 

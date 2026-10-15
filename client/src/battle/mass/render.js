@@ -48,7 +48,10 @@ export class MassRenderer {
   async preload(onProgress = () => {}, timeout = 20000) {
     if (this.offline) return;
     const bySpecies = new Map();
+    // a crowd of hundreds stays with its icons (one picture for all); walking sprites for up to 300, and always for the giants
+    const crowd = this.b.units.length > 300;
     this.b.units.forEach((u, i) => {
+      if (crowd && !u.boss) return;
       const key = `${u.num}|${u.forme}|${u.shiny ? 1 : 0}`;
       if (!bySpecies.has(key)) bySpecies.set(key, []);
       bySpecies.get(key).push(i);
