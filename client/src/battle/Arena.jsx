@@ -132,7 +132,7 @@ export function LogPanel({ log, lang, compact }) {
 }
 
 /**
- * props: player (useBattlePlayer), seats {p1: {name, avatarUrl, dialogue}, p2}, me ('p1'|'p2' at the bottom), sprites (makeSprites),
+ * props: player (useBattlePlayer), seats {p1: {name, avatarUrl, backUrl, winUrl, dialogue}, p2}, me ('p1'|'p2' at the bottom), sprites (makeSprites),
  * lang, exact (show HP numbers), children (controls under the field), bubble ({side, text}) for a trainer line.
  */
 export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "es", exact = true, children, bubble, toolbar }) {
@@ -206,7 +206,7 @@ export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "
             <span className="trunc">{st.sides[foe].name !== foe ? st.sides[foe].name : seats[foe]?.name}</span>
           </div>
           <div className="b-trainer me">
-            {seats[me]?.avatarUrl && <img src={seats[me].avatarUrl} alt="" className={sprites.pixelated ? "pixelated" : ""} draggable={false} />}
+            {seats[me]?.avatarUrl && <img src={seats[me].backUrl || seats[me].avatarUrl} alt="" className={sprites.pixelated ? "pixelated" : ""} draggable={false} />}
             <span className="trunc">{st.sides[me].name !== me ? st.sides[me].name : seats[me]?.name}</span>
           </div>
 
@@ -241,7 +241,7 @@ export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "
             <div className="b-result">
               <b>{st.tie ? t("tie") : t("winner", { name: st.winner })}</b>
               <span>{t("turns", { n: st.turn })}</span>
-              {winnerSide && seats[winnerSide]?.avatarUrl && <img src={seats[winnerSide].avatarUrl} alt="" className={sprites.pixelated ? "pixelated" : ""} />}
+              {winnerSide && seats[winnerSide]?.avatarUrl && <img src={seats[winnerSide].winUrl || seats[winnerSide].avatarUrl} alt="" className={sprites.pixelated ? "pixelated" : ""} />}
             </div>
           )}
           {!st.started && !st.preview && player.total === 0 && <div className="b-loading">{t("waiting_start")}</div>}

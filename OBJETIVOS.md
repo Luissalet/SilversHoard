@@ -12,7 +12,5 @@ Lo que falta por construir, de más a menos valor. Lo que ya hace está en el [R
 5. **El copiloto comenta la jugada.** Faustus explica por qué la IA eligió un movimiento, con el cálculo del motor.
 6. **Arena más ligera.** La pantalla de tiempo real carga los datos completos de `@pkmn/sim` (unos 6 MB); con `@pkmn/dex` y
    solo las generaciones en uso bajaría a la mitad.
-7. **Sprites dibujados con varias poses.** Pedir a Prospero la misma persona de frente (entrenador rival) y de espaldas (lado
-   del jugador), y una pose de victoria para el final del combate.
-8. **Los personajes que faltan.** Los equipos de la Torre Batalla de Diamante Brillante y Perla Reluciente, Noland, Argenta
+7. **Los personajes que faltan.** Los equipos de la Torre Batalla de Diamante Brillante y Perla Reluciente, Noland, Argenta
    y Thorton (sus tablas usan otra plantilla en la wiki) y los de Leyendas Pokémon: Arceus.
