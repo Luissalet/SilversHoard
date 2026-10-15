@@ -44,7 +44,8 @@
     "custom-backdrops",
     "unbound-save-import",
     "community-music",
-    "live-pvp"
+    "live-pvp",
+    "champions-formats"
   ],
   "x-family": {
     "copilot": true

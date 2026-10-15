@@ -7,6 +7,7 @@
 //
 // The simulation is deterministic: the same spec (seed included) and the same inputs of the people playing give the same battle,
 // in the engine process and in a browser. That is how battles are replayed and how the app checks a result sent by the screen.
+import {championsPoints} from '../points.mjs';
 import {Dex, toID} from '@pkmn/sim';
 import {RtError as EngineError, rtFormatId as buildFormatId, rtGen as genOf, rtSets} from './team.mjs';
 import {makeRng} from '../ai.mjs';
@@ -112,11 +113,20 @@ const round3 = (v) => Math.round(v * 1000) / 1000;
 const pct = (mon) => (mon.maxhp ? mon.hp / mon.maxhp : 0);
 
 // ---------------------------------------------------------------- teams
-function calcStats(dex, species, set) {
+const CHAMPIONS_MODS = ['champions', 'championsregma'];   // champions.mjs registers them (core.mjs loads it)
+
+function calcStats(dex, species, set, champions = false) {
   const nature = dex.natures.get(set.nature || 'Serious');
   const out = {};
   for (const k of STAT_KEYS) {
     const base = species.baseStats[k];
+    if (champions) {
+      // Pokémon Champions (champions.mjs): stat points, HP = base + points + 75, the rest base + points + 20, then the nature
+      const sp = championsPoints(set.evs || {})[k] || 0;
+      if (k === 'hp') out.hp = base + sp + 75;
+      else out[k] = Math.floor(Math.floor((base + sp + 20) * (nature.plus === k ? 110 : nature.minus === k ? 90 : 100)) / 100);
+      continue;
+    }
     const iv = set.ivs?.[k] ?? 31;
     const ev = set.evs?.[k] ?? 0;
     const core = Math.floor(((2 * base + iv + Math.floor(ev / 4)) * set.level) / 100);
@@ -127,7 +137,7 @@ function calcStats(dex, species, set) {
 }
 
 /** The Mega forme a set can turn into in real time (its Mega Stone, or Rayquaza with Dragon Ascent), from generation 6 on. */
-function megaOf(dex, sp, set, item) {
+function megaOf(dex, sp, set, item, champions = false) {
   if (dex.gen < 6) return null;
   let forme = '';
   const stone = item?.exists ? item.megaStone : null;
@@ -137,7 +147,7 @@ function megaOf(dex, sp, set, item) {
   const mg = forme ? dex.species.get(forme) : null;
   if (!mg?.exists || mg.name === sp.name) return null;
   const ability = dex.abilities.get(mg.abilities?.['0'] || '');
-  return {species: mg.name, forme: mg.forme || '', num: mg.num, sprite_id: mg.spriteid, types: mg.types.slice(), stats: calcStats(dex, mg, set),
+  return {species: mg.name, forme: mg.forme || '', num: mg.num, sprite_id: mg.spriteid, types: mg.types.slice(), stats: calcStats(dex, mg, set, champions),
     ability: ability?.exists ? ability.id : '', ability_name: ability?.exists ? ability.name : '', base_speed: mg.baseStats.spe,
     heightm: mg.heightm || 1, weightkg: mg.weightkg || 10};
 }
@@ -210,9 +220,10 @@ export function prepareRtTeam(sets, {format = 'gen9customgame', levelRules = {}}
   const gen = genOf(formatId);
   const dex = Dex.forGen(gen);
   const complete = rtSets(sets, formatId, levelRules || {});
+  const champions = CHAMPIONS_MODS.includes(Dex.formats.get(formatId, true).mod);
   return complete.slice(0, 6).map((set) => {
     const sp = dex.species.get(set.species);
-    const stats = calcStats(dex, sp, set);
+    const stats = calcStats(dex, sp, set, champions);
     const moves = set.moves.map((m) => rtMove(m, gen)).filter(Boolean);
     if (!moves.length) throw new EngineError('invalid_team', `${sp.name} has no usable moves.`);
     const item = set.item ? dex.items.get(set.item) : null;
@@ -222,7 +233,7 @@ export function prepareRtTeam(sets, {format = 'gen9customgame', levelRules = {}}
       types: sp.types.slice(), stats, base_speed: sp.baseStats.spe, heightm: sp.heightm || 1, weightkg: sp.weightkg || 10,
       nfe: !!(sp.evos && sp.evos.length), item: item?.exists ? item.id : '', item_name: item?.exists ? item.name : '',
       ability: ability?.exists ? ability.id : '', ability_name: ability?.exists ? ability.name : '', shiny: !!set.shiny,
-      gender: set.gender || '', sprite_id: sp.spriteid, mega: megaOf(dex, sp, set, item),
+      gender: set.gender || '', sprite_id: sp.spriteid, mega: megaOf(dex, sp, set, item, champions),
       moves: moves.map((p) => ({id: p.id, name: p.name, type: p.type, category: p.category, power: p.power, pp: p.pp, cooldown: p.cooldown,
         final: Math.round(finalCooldown(p.cooldown, stats.spe, {priority: p.priority, mod: item?.id === 'choicescarf' ? 1.5 : 1}) * 10) / 10,
         za: p.za, shape: p.shape, windup: p.windup, reach: p.reach, no_effect: p.noEffect})),

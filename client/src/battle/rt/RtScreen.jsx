@@ -468,7 +468,16 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
   const finishRef = useRef(null);
   useEffect(() => () => sim.current?.net?.close(), []);
 
+  // Pokémon Champions formats come from mods the engine registers (champions.mjs); the screen loads them only for those battles
+  const champions = /^gen\d+champions/.test(String(spec.format || ""));
+  const [modsReady, setModsReady] = useState(!champions);
   useEffect(() => {
+    if (!champions) return;
+    import("../../../../engine/src/champions.mjs").then(() => setModsReady(true)).catch((e) => setError(e));
+  }, [champions]);
+
+  useEffect(() => {
+    if (!modsReady) return undefined;
     let cancelled = false;
     let state;
     try {
@@ -499,7 +508,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
       setPhase(live ? (state.b.ended ? "ended" : "ready") : videoRef.current && !videoRef.current.playing ? "replay-paused" : "playing");
     });
     return () => { cancelled = true; };
-  }, [battle.id]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [battle.id, modsReady]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // the log follows the battle unless it was scrolled up to read
   useEffect(() => {

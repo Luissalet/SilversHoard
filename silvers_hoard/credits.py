@@ -30,6 +30,9 @@ TAG = re.compile(r"<[^>]+>")
 SOURCES: list[dict[str, str]] = [
     {"id": "showdown", "what": "Battle engine", "what_es": "Motor de combate", "by": "Pokémon Showdown (Guangcong Luo and contributors), through the @pkmn packages", "by_es": "Pokémon Showdown (Guangcong Luo y colaboradores), a través de los paquetes @pkmn",
      "licence": "MIT", "url": "https://github.com/smogon/pokemon-showdown"},
+    {"id": "showdown-champions", "what": "Pokémon Champions rules and formats", "what_es": "Reglas y formatos de Pokémon Champions",
+     "by": "Pokémon Showdown's champions and championsregma mods (Guangcong Luo and contributors)", "by_es": "Los mods champions y championsregma de Pokémon Showdown (Guangcong Luo y colaboradores)",
+     "licence": "MIT", "url": "https://github.com/smogon/pokemon-showdown/tree/master/data/mods/champions"},
     {"id": "showdown-text", "what": "Official log messages and their parser", "what_es": "Mensajes oficiales del registro y su intérprete",
      "by": "Pokémon Showdown: data/text and the client's battle-text-parser.ts", "by_es": "Pokémon Showdown: data/text y battle-text-parser.ts de su cliente", "licence": "MIT", "url": "https://github.com/smogon/pokemon-showdown-client"},
     {"id": "showdown-anims", "what": "Turn-based move animations", "what_es": "Animaciones de los movimientos por turnos",

@@ -45,6 +45,15 @@ export function evsFromPoints(points = {}, {clamp = false} = {}) {
   return out;
 }
 
+/** Pokémon Champions reads the EVs field as the stat points themselves (0-32, 66 in all). A spread that already reads as points
+ * (none above 32, 66 at most in all, as a Champions export has them) stays; EVs (Silver's own points, 32 = 252, or classic ones)
+ * become points. */
+export function championsPoints(evs = {}) {
+  const vals = Object.values(evs).map((v) => Number(v) || 0);
+  if (vals.every((v) => v <= SP_MAX) && vals.reduce((a, v) => a + v, 0) <= SP_TOTAL) return {...evs};
+  return Object.fromEntries(Object.entries(evs).map(([k, v]) => [k, spFromEv(v)]));
+}
+
 /** A stat at `level` with the main-series formula (generation 3 onwards). `nature` is 1.1, 1 or 0.9. */
 export function calcStat(stat, base, {level = 50, ev = 0, iv = 31, nature = 1} = {}) {
   const core = Math.floor(((2 * base + iv + Math.floor(ev / 4)) * level) / 100);
