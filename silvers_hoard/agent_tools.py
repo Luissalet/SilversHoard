@@ -1197,6 +1197,12 @@ TOOLS: list[Tool] = [
                         "on first use and stay in data/cache/fx.",
                         synonyms="animaciones de movimientos, efectos visuales, descargar efectos, sin conexión, showdown"), FxCacheArgs, W,
          lambda s, a: s.fx.prefetch() if a.prefetch else s.fx.stats(), 120.0),
+    Tool("reborn_cache", _d("Pokémon Reborn's move animations: what is cached; prefetch downloads them all. Animaciones Reborn.",
+                            "The turn-based screen plays Pokémon Reborn's animation of each move (748 moves and 12 statuses, by The Pokémon Reborn "
+                            "Team) when the animation style setting is Reborn's. Their frames, sheets and sounds come from pokerogue-assets on first "
+                            "use and stay in data/cache/reborn; prefetch downloads all of them (about 60 MB).",
+                            synonyms="animaciones reborn, pokemon reborn, pokerogue, descargar animaciones, sin conexión"), FxCacheArgs, W,
+         lambda s, a: s.reborn.prefetch() if a.prefetch else s.reborn.stats(), 600.0),
     Tool("settings_get", _d("Settings: your name, default format and AI, sprites, playback speed. Ajustes.", synonyms="configuración"),
          Empty, R, lambda s, a: s.settings.snapshot()),
     Tool("settings_set", _d("Change settings. Cambiar ajustes.", synonyms="configurar, nombre del jugador"), SettingsSetArgs, W,
