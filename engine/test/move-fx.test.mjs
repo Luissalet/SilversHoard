@@ -12,7 +12,8 @@ const foe = {x: 9, y: 3};
 
 test('move table is up to date and knows the shapes', () => {
   const file = fileURLToPath(new URL('../../client/src/battle/fx/move-data.js', import.meta.url));
-  assert.equal(fs.readFileSync(file, 'utf8'), render(), 'run node scripts/gen_move_fx.mjs');
+  // a Windows checkout may turn the file's line ends into CRLF
+  assert.equal(fs.readFileSync(file, 'utf8').replace(/\r\n/g, '\n'), render(), 'run node scripts/gen_move_fx.mjs');
   assert.deepEqual(moveInfo('flamethrower'), {type: 'Fire', shape: 'beam', heal: false});
   assert.equal(moveInfo('earthquake').shape, 'burst');
   assert.equal(moveInfo('thunder').shape, 'drop');
