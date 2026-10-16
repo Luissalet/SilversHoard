@@ -103,3 +103,16 @@
 .pk-medalgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px; }
 .pk-medalcard { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 8px; }
 .pk-medalbits { display: inline-flex; gap: 3px; margin-left: auto; }
+
+/* Rooms with friends: the lobby's seats, the links to pass on, the host's list of open rooms, the friend's page */
+.pk-seats { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.pk-seat { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 8px 12px; border: 1px dashed var(--line); border-left: 4px solid var(--team); border-radius: var(--hoard-radius); background: var(--surface); min-height: 46px; }
+.pk-seat.is-taken { border-style: solid; background: var(--surface-2); }
+.pk-seat.is-you { outline: 2px solid var(--sel-line, var(--accent)); }
+.pk-linkrow { display: flex; flex-direction: column; gap: 4px; }
+.pk-linkline { display: flex; gap: 6px; align-items: center; }
+.pk-linkline .field { flex: 1; min-width: 0; font-size: 12.5px; }
+.pk-roomlist { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.pk-roomrow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 8px 12px; border: 1px solid var(--line); border-radius: var(--hoard-radius); background: var(--surface-2); }
+.pk-choice-row { grid-template-columns: repeat(3, minmax(60px, 90px)); }
+.pk-guest .pk-intro, .pk-guest .pk-results, .pk-guest .pk-lobby { max-width: 880px; }

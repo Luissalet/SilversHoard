@@ -2,6 +2,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useApp } from "../context.js";
 import Records from "./Records.jsx";
+import RoomHub from "./RoomHub.jsx";
 import Setup from "./Setup.jsx";
 import Stage from "./Stage.jsx";
 import { MedalBadge } from "./parts.jsx";
@@ -15,12 +16,13 @@ export default function Hub({ param, query }) {
   const { lang, go } = useApp();
   const s = useMemo(() => makeS(lang), [lang]);
   const en = lang === "en" ? "en" : "es";
-  const [tab, setTab] = useState(param === "prueba" ? "events" : param === "records" ? "records" : "courses");
+  const [tab, setTab] = useState(param === "prueba" ? "events" : param === "records" ? "records" : param === "amigos" ? "friends" : "courses");
   const [stats, setStats] = useState(null);
   const [npc, setNpc] = useState(null);
   const [setup, setSetup] = useState(null);   // { course } | { eventId }
   const [playing, setPlaying] = useState(null); // config
   const [recordsVersion, setRecordsVersion] = useState(0);
+  const [roomActive, setRoomActive] = useState(false);   // a room is open on the "with friends" tab: its screens take the whole page
 
   useEffect(() => { loadStats().then(setStats); loadNpcTeams().then(setNpc); }, []);
   useEffect(() => {
@@ -44,14 +46,18 @@ export default function Hub({ param, query }) {
 
   return (
     <div className="pk-hub space-y-4">
-      <div className="page-head">
-        <div className="min-w-0"><h1>{s("title")}</h1><p className="help">{s("intro")}</p></div>
-      </div>
-      <div role="tablist" className="tabs">
-        {[["courses", "tab_courses"], ["events", "tab_events"], ["records", "tab_records"]].map(([id, key]) => (
-          <button key={id} type="button" role="tab" className="tab" aria-selected={tab === id} onClick={() => setTab(id)}>{s(key)}</button>
-        ))}
-      </div>
+      {!roomActive && (
+        <>
+          <div className="page-head">
+            <div className="min-w-0"><h1>{s("title")}</h1><p className="help">{s("intro")}</p></div>
+          </div>
+          <div role="tablist" className="tabs">
+            {[["courses", "tab_courses"], ["events", "tab_events"], ["friends", "tab_friends"], ["records", "tab_records"]].map(([id, key]) => (
+              <button key={id} type="button" role="tab" className="tab" aria-selected={tab === id} onClick={() => setTab(id)}>{s(key)}</button>
+            ))}
+          </div>
+        </>
+      )}
 
       {tab === "courses" && (
         <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
@@ -93,6 +99,8 @@ export default function Hub({ param, query }) {
           })}
         </div>
       )}
+
+      {tab === "friends" && (stats ? <RoomHub stats={stats} onActive={setRoomActive} /> : <p className="help">{s("loading_stats")}</p>)}
 
       {tab === "records" && <Records version={recordsVersion} />}
     </div>

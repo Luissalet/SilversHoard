@@ -453,6 +453,12 @@ class PkRooms:
         r.out("all", self._room_msg(r))
         self._maybe_go(r)
         self._maybe_finish(r)
+        if r.status == "live" and not r.active():
+            # nobody is left to play (spectators cannot report a result): the room ends where it is
+            r.status = "ended"
+            r.phase = "ended"
+            r.out("all", {"k": "closed", "why": "empty"})
+            r.out("all", self._room_msg(r))
         self.s.emit("pokeathlon.room_left", {"room": r.id, "seat": idx, "why": why})
 
     def _maybe_finish(self, r: PkRoom, force: bool = False) -> None:

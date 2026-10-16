@@ -373,3 +373,15 @@ def test_rooms_are_limited_and_forgotten(call):
     call("pokeathlon_room_open", {"course": "speed"}, status=409)
     call("pokeathlon_room_close", {"room": ids[0]})
     call("pokeathlon_room_open", {"course": "speed"})
+
+
+def test_a_room_with_nobody_left_to_play_ends_even_if_spectators_stay(call, rooms):
+    room = call("pokeathlon_room_open", {"course": "speed"})
+    with rooms.websocket_connect(url(room, room["host_key"])) as h, rooms.websocket_connect(url(room, keys(room)[2])) as w:
+        h.receive_json(); w.receive_json()
+        call("pokeathlon_room_start", {"room": room["id"]})
+        h.send_json({"k": "ready", "r": 0})
+        until(h, "go")
+        h.send_json({"k": "leave"})
+        assert until(w, "closed")["why"] == "empty"
+    assert call("pokeathlon_room_get", {"room": room["id"]})["status"] == "ended"

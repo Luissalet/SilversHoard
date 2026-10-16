@@ -1,4 +1,6 @@
 // The texts of the Pokéathlon page: [castellano, English] pairs, read with s(key, vars) from useStrings(lang).
+import { ROOM_S } from "./strings_rooms.js";
+
 export const S = {
   title: ["Pokéathlon", "Pokéathlon"],
   intro: ["Las diez pruebas del Pokéathlon de HeartGold y SoulSilver en el navegador, jugables con cualquier Pokémon: cinco competiciones de tres pruebas más la Competición Suprema, o una prueba suelta. Cada Pokémon rinde según sus cinco estrellas de Pokéathlon (las del cartucho si salen en él, estimadas si no).",
@@ -158,6 +160,8 @@ export const S = {
   unit_laps: ["vueltas", "laps"],
   error_load: ["No se han podido cargar los datos del Pokéathlon.", "The Pokéathlon data could not be loaded."],
 };
+
+Object.assign(S, ROOM_S);
 
 export const STAT_COLORS = { speed: "#e5483d", power: "#f08a24", skill: "#3b82e6", stamina: "#35b25c", jump: "#e0b021" };
 

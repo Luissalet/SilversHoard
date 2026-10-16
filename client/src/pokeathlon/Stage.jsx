@@ -12,9 +12,10 @@ import { EVENTS } from "./events/index.js";
 import { EventRunner } from "./runner.js";
 import { STAT_COLORS, makeS } from "./strings.js";
 
-const evName = (id, lang) => EVENTS[id].names[lang === "en" ? "en" : "es"];
+export const evName = (id, lang) => EVENTS[id].names[lang === "en" ? "en" : "es"];
 
-function Intro({ eventId, round, total, config, bestScore, s, lang, onGo, onExit }) {
+/** actions: a node that replaces the go / leave buttons (a room has its own). */
+export function Intro({ eventId, round, total, config, bestScore, s, lang, onGo, onExit, actions = null }) {
   const mod = EVENTS[eventId];
   const watch = config.mode === "watch";
   const units = { frames: "unit_frames", pennants: "unit_pennants", points: "unit_points", blocks: "unit_blocks", hits: "unit_hits", goals: "unit_goals", "laps*1024+px": "unit_laps" };
@@ -49,10 +50,12 @@ function Intro({ eventId, round, total, config, bestScore, s, lang, onGo, onExit
           </div>
         ))}
       </div>
-      <div className="flex gap-2">
-        <button type="button" className="btn btn-primary" onClick={onGo} autoFocus>{watch ? s("go_watch") : s("go")}</button>
-        <button type="button" className="btn" onClick={onExit}>{s("leave")}</button>
-      </div>
+      {actions || (
+        <div className="flex gap-2">
+          <button type="button" className="btn btn-primary" onClick={onGo} autoFocus>{watch ? s("go_watch") : s("go")}</button>
+          <button type="button" className="btn" onClick={onExit}>{s("leave")}</button>
+        </div>
+      )}
     </div>
   );
 }
@@ -130,7 +133,8 @@ function Play({ config, eventId, round, onFinish, s, lang }) {
   );
 }
 
-function Results({ course, last, config, s, lang, isLast, onNext, onAgain, onOther, onExit }) {
+/** actions: a node that replaces the buttons (a room advances by itself). */
+export function Results({ course, last, config, s, lang, isLast, onNext, onAgain, onOther, onExit, actions = null }) {
   const eventId = last.event;
   const order = [0, 1, 2, 3].sort((a, b) => last.ranks[a] - last.ranks[b] || a - b);
   const totals = course.totals();
@@ -159,7 +163,7 @@ function Results({ course, last, config, s, lang, isLast, onNext, onAgain, onOth
         </tbody>
       </table>
       <p className="help">{topTied ? s("tied_first") : s("winner_of_event", { name: config.teams[order[0]].name })}</p>
-      <div className="flex flex-wrap gap-2">
+      {actions || <div className="flex flex-wrap gap-2">
         {single ? (
           <>
             <button type="button" className="btn btn-primary" onClick={onAgain} autoFocus>{s("again")}</button>
@@ -169,7 +173,7 @@ function Results({ course, last, config, s, lang, isLast, onNext, onAgain, onOth
         ) : (
           <button type="button" className="btn btn-primary" onClick={onNext} autoFocus>{isLast ? s("to_ceremony") : s("next_event")}</button>
         )}
-      </div>
+      </div>}
     </div>
   );
 }
