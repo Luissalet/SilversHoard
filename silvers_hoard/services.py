@@ -79,7 +79,7 @@ PHASE_WHEN = ("half", "last")
 # always locked on, no Mega Evolution; 2 = free aim, the Mega Power gauge, Plus moves and Mega Evolution; 3 = doubles formats
 # field two Pokémon per trainer, singles play as in 2; 4 = no Plus moves, the gauge only for Mega Evolution; 5 = the ultimate
 # gauge) and the arenas.
-RT_RULES_VERSION = 7
+RT_RULES_VERSION = 8
 RT_ARENAS = ("open", "rocks")
 
 
@@ -2000,6 +2000,7 @@ class Services:
                 "No PP and no turns: every move has a base cooldown of 3-60 s. Moves Legends: Z-A has keep its value (337 moves); the rest get one from PP, power and kind fitted to that table (mean error 1.3 s).",
                 "Speed shortens cooldowns: final = max(3, base - 3 * max(0, Speed * modifier - 25) / 100). Priority moves always take 3 s. Choice Scarf, Tailwind and weather abilities count as Speed modifiers; stat stages do not.",
                 "Every move has a wind-up (none for priority moves, long for charging moves) during which the user stands still; a flinch cancels it and the move goes on cooldown.",
+                "Rules version 8: each Pokemon recovers for one second after finishing a move before starting another, including its ultimate. Individual move cooldowns still apply; doubles partners recover independently, and movement and dodging remain available. Saved versions 1-7 retain their timing.",
                 "Shapes: strikes in front, dashes, projectiles, beams, cones, bursts around the user and blasts that land where the target stood. There is no accuracy or evasion: a move hits if it reaches. Rolling (short invulnerable dash) dodges.",
                 "Damage, types, STAB, critical hits, abilities and items use the turn-based formula of the format's generation. Multi-hit moves hit a fixed number of times, as in Z-A.",
                 "Stat changes are one stage at most (x1.5 or x2/3) and last 20 s. The Speed stage changes walking speed.",
