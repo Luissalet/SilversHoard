@@ -889,6 +889,8 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
                   {winnerIdx === 0 || winnerIdx === 1 ? (people === 1 && (live || offline || net) ? (winnerIdx === mySide ? tr("rt_win") : tr("rt_lose")) : tr("rt_winner", { name: view.sides[winnerIdx].name })) : tr("rt_tie")}
                 </b>
                 <div className="help">{tr(`rt_reason_${view.reason || "ko"}`)} · {fmtTime(view.seconds)}</div>
+                {view.sides.map((s, i) => (seats?.[s.id]?.dialogue?.after
+                  ? <p key={i} className="help" style={{ fontStyle: "italic", margin: 0 }}>“{seats[s.id].dialogue.after}” — {s.name}</p> : null))}
                 {error && <div className="banner banner-danger">{String(error.message || error)}</div>}
                 <div className="rt-score">
                   {view.sides.map((s, i) => (

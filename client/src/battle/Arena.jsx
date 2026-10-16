@@ -157,7 +157,7 @@ function PortraitImage({ sprites, species, emotion, num, className }) {
 
 // how a Pokémon looks when its trainer speaks (bubble.mood), and on the result screen
 const MOOD = { intro: "Determined", win: "Joyous", lose: "Sad", last: "Determined", on_ko: "Joyous", on_faint: "Sad", on_super: "Happy",
-  on_switch: "Determined", banter: "Normal" };
+  on_switch: "Determined", last_low: "Worried", after: "Normal", banter: "Normal" };
 const other = (side) => (side === "p1" ? "p2" : "p1");
 
 export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "es", exact = true, children, bubble, toolbar, backdrop = "", banter = null }) {
@@ -250,9 +250,10 @@ export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "
   }, [pop]);
   useEffect(() => { setPop(null); }, [player.abilityEpoch]);
   // what the trainers say on their own during the battle: their lines for a knockout, a fainted Pokémon, a super-effective hit or a
-  // switch (seats[side].dialogue.on_*), and the lines the family's model wrote for the AI's moves (banter: [{turn, side, line}])
+  // switch (seats[side].dialogue.on_*), for sending their last Pokémon (last) and for that one falling to half its HP (last_low, once),
+  // and the lines the family's model wrote for the AI's moves (banter: [{turn, side, line}])
   const [auto, setAuto] = useState(null);
-  const talk = useRef({ at: 0, faint: { p1: 0, p2: 0 }, switched: { p1: 0, p2: 0 }, lastSwitch: { p1: 0, p2: 0 }, shown: new Set() });
+  const talk = useRef({ at: 0, faint: { p1: 0, p2: 0 }, switched: { p1: 0, p2: 0 }, lastSwitch: { p1: 0, p2: 0 }, last: { p1: false, p2: false }, low: { p1: false, p2: false }, shown: new Set() });
   const say = (side, text, mood) => {
     const k = talk.current;
     if (!text || Date.now() - k.at < 2500) return false;
@@ -276,7 +277,17 @@ export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "
       const n = (k.switched[anim.side] += 1);
       const replacing = k.faint[anim.side] > k.lastSwitch[anim.side];
       k.lastSwitch[anim.side] = anim.id;
-      if (n > slots.length && !replacing) say(anim.side, line(anim.side, "on_switch"), "on_switch");
+      // its last Pokémon comes out (a change of tactics on "last" already says that line)
+      const s = st.sides[anim.side];
+      if (s.teamSize > 1 && s.teamSize - s.team.filter((m) => m.fainted).length === 1 && !k.last[anim.side] && seats[anim.side]?.dialogue?.phase_when !== "last"
+        && say(anim.side, line(anim.side, "last"), "last")) k.last[anim.side] = true;
+      else if (n > slots.length && !replacing) say(anim.side, line(anim.side, "on_switch"), "on_switch");
+    } else if (anim.type === "hit" && anim.delta < 0) {
+      // its last Pokémon down to half its HP: the trainer says it, once
+      const s = st.sides[anim.side];
+      const mon = activeOf(anim.side, anim.slot ?? 0);
+      if (mon && mon.hp > 0 && mon.maxhp && mon.hp * 2 <= mon.maxhp && !k.low[anim.side] && s.teamSize - s.team.filter((m) => m.fainted).length === 1
+        && say(anim.side, line(anim.side, "last_low"), "last_low")) k.low[anim.side] = true;
     }
   }, [anim?.id]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
