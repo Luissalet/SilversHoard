@@ -1,9 +1,15 @@
 // Plays one Pokéathlon event on a canvas: loads the Pokémon's walking sprites, wires mouse / touch / keyboard / gamepad into the event's
 // ctx, runs the 3-2-1 countdown, the update loop (dt clamped to 1/20 s), the "Fin" banner, pause and sound. The rules live in the event
 // modules and in core.js; this file is the part that needs a browser.
+//
+// With the `lockstep` option the runner plays a Pokéathlon room (pokeathlon_rooms.py) instead: it only loads the sprites until the room says
+// go (begin), then produces one frame of this person's input per tick `delay` ticks ahead, receives everybody else's through feed(), and
+// runs a tick (lockstep.js) whenever the frames of everybody still playing are in. A computer that is behind (a spectator who arrives
+// late, a page that was reloaded) runs ticks as fast as it can until it has caught up. No pause: the others would wait for it.
 import { Animator, image, loadMeta } from "../battle/rt/pmd.js";
 import { sfx as playSfx } from "../audio.js";
-import { H, Input, W, makeCtx } from "./core.js";
+import { H, Input, STEP, W, makeCtx } from "./core.js";
+import { Lockstep } from "./lockstep.js";
 
 // the contract's sound names -> the cues audio.js synthesizes
 const SFX = {
@@ -52,8 +58,9 @@ export class EventRunner {
   /**
    * canvas, mod (the event module), teams (the four of the contract), seed, lang, mode ("play" | "watch" | "practice"), supreme,
    * base (the app's URL prefix), iconUrl(mon) -> url, onFinish({raw, detail}), onPhase(phase), muted.
+   * lockstep: null, or { seat (the team this person steers, -1 for a spectator), delay, send(from, frames), hash(tick, sum), done(result, sum) }.
    */
-  constructor({ canvas, mod, teams, seed = 1, lang = "es", mode = "play", supreme = false, base = "", iconUrl = null, onFinish = null, onPhase = null, muted = false }) {
+  constructor({ canvas, mod, teams, seed = 1, lang = "es", mode = "play", supreme = false, base = "", iconUrl = null, onFinish = null, onPhase = null, muted = false, lockstep = null }) {
     this.canvas = canvas;
     this.mod = mod;
     this.teams = teams;
@@ -77,8 +84,12 @@ export class EventRunner {
     this.scale = 1;
     this.animators = new Map();
     this.icons = new Map();
+    this.silent = false;
+    // a room: what the events read is one "applied" Input per team, fed from the frames; this.input is only the device
+    this.lk = lockstep ? { ...lockstep, ls: null, pending: [[], [], [], []], acc: 0, stalled: 0, live: false, hashed: 0 } : null;
     this.ctx = makeCtx({
       teams, seed, lang, input: this.input, mode, supreme,
+      ...(this.lk ? { inputs: [0, 1, 2, 3].map(() => new Input()), focus: this.lk.seat >= 0 ? this.lk.seat : Math.max(0, teams.findIndex((t) => t.human)) } : {}),
       animator: (t, s) => this._animator(t, s),
       icon: (t, s) => this._icon(t, s),
       sfx: (name, opts) => this._sfx(name, opts),
@@ -109,7 +120,7 @@ export class EventRunner {
   }
 
   _sfx(name, opts) {
-    if (this.muted || this.dead) return;
+    if (this.muted || this.dead || this.silent) return;
     const m = SFX[name];
     if (m) playSfx(m[0], { ...m[1], ...(opts || {}), gap: 0.03 });
   }
@@ -127,10 +138,93 @@ export class EventRunner {
     }));
     await Promise.race([Promise.all(jobs), new Promise((r) => setTimeout(r, timeoutMs))]);
     if (this.dead) return;
+    if (this.lk) {                 // a room creates the event at "go", when it is known who is playing
+      this._setPhase("ready");
+      this.resize();
+      return;
+    }
     this.inst = this.mod.create(this.ctx);
     this._setPhase("ready");
     this.resize();
     this._startLoop();
+  }
+
+  // ------------------------------------------------------------------------------------------------------------------ a room
+  /** The room said go: `humans` are the teams people steer. `catchUp`: the round is already under way (skip the countdown). */
+  begin(humans, { catchUp = false } = {}) {
+    if (!this.lk || this.inst || this.dead) return;
+    this.teams.forEach((t, i) => { t.human = humans.includes(i); });
+    this.inst = this.mod.create(this.ctx);
+    const lk = this.lk;
+    lk.ls = new Lockstep(this.ctx, this.inst, humans);
+    lk.live = lk.seat >= 0 && humans.includes(lk.seat);
+    for (let t = 0; t < 4; t++) if (lk.pending[t].length) lk.ls.feed(t, 1, lk.pending[t]);
+    lk.pending = [[], [], [], []];
+    this.resize();
+    if (catchUp) { this.silent = true; this.goT = 0; this._setPhase("play"); } else { this.countT = 0; this.lastNum = 4; this._setPhase("count"); }
+    this._startLoop();
+  }
+
+  /** Frames of a team from tick `from` (1-based) on, as the room relays them. */
+  feed(team, from, list) {
+    const lk = this.lk;
+    if (!lk || team < 0 || team > 3) return;
+    if (lk.ls) { lk.ls.feed(team, from, list); return; }
+    const mine = lk.pending[team];
+    (list || []).forEach((f, i) => { if (from + i === mine.length + 1) mine.push(f); });
+  }
+
+  /** After a reconnection: send again what the room says it lacks of this person's frames (`have` = how many it holds). */
+  resend(have) {
+    const lk = this.lk;
+    if (!lk || !lk.live || !lk.ls) return;
+    const mine = lk.ls.frames[lk.seat];
+    if (mine.length > have) lk.send(have + 1, mine.slice(have));
+  }
+
+  /** Teams the next tick is waiting for (a person whose frame has not come). */
+  waitingFor() { return this.lk && this.lk.ls ? this.lk.ls.waitingFor() : []; }
+
+  _produce() {
+    const lk = this.lk;
+    const ls = lk.ls;
+    if (!lk.live || !ls.active.has(lk.seat)) return;
+    const mine = ls.frames[lk.seat];
+    const from = mine.length + 1;
+    const batch = [];
+    while (mine.length - ls.tick < lk.delay) {
+      this.input.frame();
+      const f = this.input.snapshot();
+      ls.feed(lk.seat, mine.length + 1, [f]);
+      batch.push(f);
+    }
+    if (batch.length) lk.send(from, batch);
+  }
+
+  _stepLockstep(dt) {
+    const lk = this.lk;
+    const ls = lk.ls;
+    this._readPad();
+    this._produce();
+    lk.acc = Math.min(lk.acc + dt, STEP * 4);
+    const have = Math.min(...[...ls.active].map((t) => ls.frames[t].length - ls.tick), Infinity);
+    const fast = Number.isFinite(have) && have > lk.delay + 4;          // far behind the others: run as fast as the machine allows
+    this.silent = fast;
+    const t0 = performance.now();
+    let ran = 0;
+    try {
+      while (this.phase === "play" && (fast || lk.acc >= STEP) && ls.ready()) {
+        if (!fast) lk.acc -= STEP;
+        ls.step();
+        ran++;
+        if (lk.hash && lk.live && ls.tick % 60 === 0 && ls.tick !== lk.hashed) { lk.hashed = ls.tick; lk.hash(ls.tick, this.ctx.rng.sum); }
+        if (this.ctx.finished) break;
+        this._produce();
+        if (fast ? performance.now() - t0 > 10 : ran >= 3) break;
+      }
+    } catch (e) { this._fail(e); return; }
+    if (this.phase === "play" && !ran && !ls.ready()) lk.stalled += dt; else lk.stalled = 0;
+    if (this.goT > 0) this.goT -= dt;
   }
 
   _setPhase(p) {
@@ -149,8 +243,10 @@ export class EventRunner {
   _finished(r) {
     this.result = r;
     this.endT = FIN_SECONDS;
+    this.silent = false;
     this._setPhase("end");
     this._sfx("whistle");
+    if (this.lk && this.lk.live && this.lk.done) this.lk.done(r, this.ctx.rng.sum);
   }
 
   // ----------------------------------------------------------------------------------------------------------------- the loop
@@ -178,7 +274,12 @@ export class EventRunner {
   }
 
   _step(dt) {
-    if (document.hidden && !this.paused && (this.phase === "play" || this.phase === "count")) this.pause(true);
+    if (this.lk && this.phase === "play" && this.lk.ls) {
+      this._stepLockstep(dt);
+      this._draw();
+      return;
+    }
+    if (!this.lk && document.hidden && !this.paused && (this.phase === "play" || this.phase === "count")) this.pause(true);
     this._readPad();
     this.input.frame();
     if (this.paused) {
@@ -241,6 +342,12 @@ export class EventRunner {
     } else if (this.phase === "end" || this.phase === "done") {
       ui.banner(g, t("¡Fin!", "Finish!"), "", H / 2 - 70);
     }
+    if (this.lk && this.phase === "play" && this.lk.stalled > 0.4 && this.lk.ls) {
+      const names = this.lk.ls.waitingFor().map((i) => this.teams[i].name);
+      g.fillStyle = "rgba(4,8,16,.55)";
+      g.fillRect(0, H - 70, W, 46);
+      ui.text(g, `${t("Esperando a", "Waiting for")} ${names.join(", ")}…`, W / 2, H - 38, { size: 24, align: "center", color: "#ffd166" });
+    }
     if (this.paused) {
       g.fillStyle = "rgba(4,8,16,.72)";
       g.fillRect(0, 0, W, H);
@@ -250,6 +357,7 @@ export class EventRunner {
   }
 
   pause(on = !this.paused) {
+    if (this.lk) return;                          // the others would be waiting for this person
     if (on === this.paused) return;
     if (on && (this.phase !== "play" && this.phase !== "count")) return;
     this.paused = on;

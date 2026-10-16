@@ -27,8 +27,8 @@ function CountUp({ to, ms = 900 }) {
   return <>{v}</>;
 }
 
-/** props: course (the Course), config, onExit(), onAgain(). */
-export default function Ceremony({ course, config, onExit, onAgain }) {
+/** props: course (the Course), config, onExit(), onAgain(); canSave=false for a friend's or a spectator's page (the host's page saves the room's result). */
+export default function Ceremony({ course, config, onExit, onAgain, canSave = true }) {
   const { lang } = useApp();
   const s = useMemo(() => makeS(lang), [lang]);
   const closing = useMemo(() => course.closing(makeRng(hashSeed(config.seed, "closing"))), [course, config.seed]);
@@ -60,10 +60,10 @@ export default function Ceremony({ course, config, onExit, onAgain }) {
   }, [shown, steps.length]);
 
   useEffect(() => {
-    if (didSave.current || config.mode === "watch") return;
+    if (didSave.current || config.mode === "watch" || !canSave) return;
     didSave.current = true;
     saveResult(savePayload(course, closing, { mode: config.mode, lang })).then(setSaved).catch(() => setSaveFailed(true));
-  }, [course, closing, config.mode, lang]);
+  }, [course, closing, config.mode, lang, canSave]);
 
   const done = shown >= steps.length;
   const winner = config.teams[closing.winner];
@@ -118,7 +118,7 @@ export default function Ceremony({ course, config, onExit, onAgain }) {
           <h2>{s("winner_is", { name: winner.name })}</h2>
           <p className="num">{s("with_points", { n: closing.totals[closing.winner] })}</p>
           <TeamIcons team={winner} size={44} />
-          {config.medal && !watch && !config.single && (
+          {config.medal && !watch && canSave && !config.single && (
             <div className="pk-medalrow">
               <MedalBadge stat={config.medal} />
               <div>
@@ -127,7 +127,8 @@ export default function Ceremony({ course, config, onExit, onAgain }) {
               </div>
             </div>
           )}
-          {!config.medal && !watch && !config.single && <p className="help">{s("no_medal")}</p>}
+          {!config.medal && !watch && canSave && !config.single && <p className="help">{s("no_medal")}</p>}
+          {!canSave && <p className="help">{s("room_guest_note")}</p>}
           {watch && <p className="help">{s("no_medal_watch")}</p>}
           <ol className="pk-podium">
             {ordered.map((ti) => (
@@ -144,7 +145,7 @@ export default function Ceremony({ course, config, onExit, onAgain }) {
 
       {done && (
         <div className="flex flex-wrap gap-2">
-          <button type="button" className="btn btn-primary" onClick={onAgain} autoFocus>{s("again")}</button>
+          {onAgain && <button type="button" className="btn btn-primary" onClick={onAgain} autoFocus>{s("again")}</button>}
           <button type="button" className="btn" onClick={onExit}>{s("finish")}</button>
         </div>
       )}
