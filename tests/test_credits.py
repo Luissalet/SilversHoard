@@ -86,6 +86,8 @@ def test_tool_and_views(services, monkeypatch):
     services.credits._pmd_base = lambda: "https://raw.example/SpriteCollab"
     r = services.credits_get()
     assert any(x["id"] == "spritecollab" for x in r["sources"]) and r["trainer_sprites"]["credited"] == 2
+    rom = next(x for x in r["sources"] if x["id"] == "pret-heartgold")   # the cartridge data of HeartGold and SoulSilver
+    assert rom["url"] == "https://github.com/pret/pokeheartgold" and "SoulSilver" in rom["by_es"] and "decompilation" in rom["by"]
     assert r["walking_sprites"]["artists"][0]["artist"] in ("Emboarger", "CHUNSOFT", "Kevin")
     one = services.credits_get(sprite="sd:acerola")
     assert one["sprite"] == "acerola" and one["artist"] == "Beliot419 & co"
