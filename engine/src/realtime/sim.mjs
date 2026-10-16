@@ -1144,6 +1144,8 @@ export class RtBattle {
       side.vol.types = [p.type];
     }
     this.ev('use', {...this.at(side), move: p.id, name: p.name, type: p.type, shape: p.shape, category: p.category});
+    // Some effects clear the action themselves (Metronome, the training dummy). Dashes extend recovery again on completion.
+    if (this.version >= 8) m.attackReady = this.t + ATTACK_RECOVERY;
     if (this.doubles && DOUBLES_MOVES[p.id]) { this.supportMove(side, p); this.finishMove(side, slot); return; }
     if (p.noEffect) { this.ev('noeffect', {...this.at(side), move: p.id}); this.finishMove(side, slot); return; }
     if (p.id === 'metronome') {
