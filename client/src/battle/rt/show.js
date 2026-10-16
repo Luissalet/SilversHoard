@@ -67,6 +67,7 @@ export class Show {
     this.lastHit = [-99, -99];       // when each side last landed a blow (battle seconds)
     this.lastShape = ["", ""];       // the shape of each side's last move
     this.announcedLast = [false, false];
+    this.announcedLow = [false, false];   // the last Pokémon fell to half its HP (said once per trainer)
     this.off = null;                  // offscreen canvas for the silhouettes
     this.crowd = null;                // the audience at the edges (by the place's floor)
     this.bubbles = [];                // what the trainers say
@@ -339,6 +340,12 @@ export class Show {
         }
         // a super-effective blow: every other one, the attacker's trainer says something about it
         if (first && e.eff > 1 && (this.supers++ % 2 === 0)) this.talk(a, "on_super");
+        // a trainer's last Pokémon down to half its HP: the trainer says it once (the line last_low)
+        if (!ko && !this.announcedLow[e.s] && e.maxhp > 0 && e.hp <= e.maxhp / 2
+          && battle.sides[e.s].mons.filter((m) => !m.fainted && m.hp > 0).length === 1) {
+          this.announcedLow[e.s] = true;
+          this.talk(e.s, "last_low", { force: true });
+        }
         // marks on the floor
         if (e.type === "Fire" && (big || e.crit)) this.scar("scorch", d.x + rnd(-0.3, 0.3), d.y + rnd(-0.2, 0.2), { r: rnd(0.6, 1) });
         else if (CONTACT.has(this.lastShape[a]) && first && Math.random() < 0.6) this.scar("slash", d.x + rnd(-0.4, 0.4), d.y + rnd(-0.2, 0.3), { ang: rnd(-0.9, 0.9) });
