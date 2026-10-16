@@ -31,8 +31,10 @@ function startRecording(run, onStart, delay = 400) {
       unlock();
       const tab = await navigator.mediaDevices.getDisplayMedia({ video: { frameRate: 30 }, audio: false, preferCurrentTab: true,
         selfBrowserSurface: "include" });
+      await window.__videoCaptureReady?.(); // native recorder may restore the viewport after the sharing bar appears
       const stream = new MediaStream([...tab.getVideoTracks(), ...audio.getAudioTracks()]);
-      const type = ["video/webm;codecs=vp9,opus", "video/webm;codecs=vp8,opus", "video/webm"].find((x) => MediaRecorder.isTypeSupported(x));
+      // Prefer the cheaper real-time encoder: VP9 can hold the captured picture for seconds under load.
+      const type = ["video/webm;codecs=vp8,opus", "video/webm;codecs=vp9,opus", "video/webm"].find((x) => MediaRecorder.isTypeSupported(x));
       const rec = new MediaRecorder(stream, { mimeType: type, videoBitsPerSecond: 8_000_000, audioBitsPerSecond: 160_000 });
       let chain = Promise.resolve();
       rec.ondataavailable = (e) => {
@@ -46,7 +48,16 @@ function startRecording(run, onStart, delay = 400) {
       run.current.recorder = rec;
       run.current.sound = audio.getAudioTracks().length > 0;
       rec.start(1000);
-      setTimeout(onStart, delay);   // a moment of the opening frame before the battle starts
+      // Obtaining the stream does not mean it has delivered a picture. Keep the replay at tick zero until it does.
+      const preview = document.createElement("video");
+      preview.muted = true;
+      preview.srcObject = tab;
+      const frame = new Promise((resolve) => preview.requestVideoFrameCallback(resolve));
+      await preview.play();
+      await frame;
+      preview.pause();
+      preview.srcObject = null;
+      setTimeout(onStart, delay);
     } catch (e) {
       window.__videoError?.(e.message || String(e));
     }
@@ -130,6 +141,7 @@ function BattleVideo({ param, query }) {
   const seats = useSeats(battle);
   const run = useRef({ started: false, ended: false, recorder: null, t0: 0, sound: false });
   const [rtPlaying, setRtPlaying] = useState(false);
+  const [arenaReady, setArenaReady] = useState(false);
   const realtime = battle?.mode === "realtime";
   const stopSoon = () => {
     const r = run.current;
@@ -164,13 +176,20 @@ function BattleVideo({ param, query }) {
   };
 
   useEffect(() => {
-    if (!battle) return;
+    if (!battle || (realtime && !arenaReady)) return;
     if (battle.mode !== "realtime") player.load(battle.lines || [], { playing: false });
-    window.videoRecord = () => startRecording(run, start);
-    window.__videoReady = true;
-    if (!recording) setTimeout(start, 800);
-    return () => { window.__videoReady = false; music.stop({ fade: 0.3 }); };
-  }, [battle?.id]); // eslint-disable-line react-hooks/exhaustive-deps
+    // Let React remove the loading overlay and paint the prepared arena before the native recorder opens capture.
+    let first = 0, second = 0, timer = 0;
+    first = requestAnimationFrame(() => { second = requestAnimationFrame(() => {
+      window.videoRecord = () => startRecording(run, start);
+      window.__videoReady = true;
+      if (!recording) timer = setTimeout(start, 800);
+    }); });
+    return () => {
+      cancelAnimationFrame(first); cancelAnimationFrame(second); clearTimeout(timer);
+      window.__videoReady = false; music.stop({ fade: 0.3 });
+    };
+  }, [battle?.id, arenaReady]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // progress, then the end: the jingle and the winner's screen stay a moment before the recording stops
   useEffect(() => {
@@ -195,7 +214,9 @@ function BattleVideo({ param, query }) {
       {realtime ? (
         <React.Suspense fallback={null}>
           <RtScreen battle={battle} lang={lang} sprites={sprites} seats={seats}
-            video={{ playing: rtPlaying, speed: speedMs < 700 ? 2 : 1, onProgress: (x) => window.__videoProgress?.(x), onDone: stopSoon }} />
+            video={{ playing: rtPlaying, speed: speedMs < 700 ? 2 : 1, onReady: () => setArenaReady(true),
+              onError: (e) => window.__videoError?.(e.message || String(e)),
+              onProgress: (x) => window.__videoProgress?.(x), onDone: stopSoon }} />
         </React.Suspense>
       ) : <Arena player={player} seats={seats} me="p1" sprites={sprites} lang={lang} />}
     </div>
