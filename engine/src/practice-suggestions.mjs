@@ -2,6 +2,7 @@
 import {Battle} from '@pkmn/sim';
 import {EngineError} from './core.mjs';
 import {chooseFor, freeze, makeRng} from './ai.mjs';
+import {newBattle, prepareFrontierDex, startFromInput} from './frontier.mjs';
 
 export function practiceSuggestions(input, side = 'p1', startTurn = 1, turnCount = 10, minGap = 0.35) {
   if (!Array.isArray(input) || !['p1', 'p2'].includes(side) || !Number.isInteger(startTurn) || startTurn < 1 ||
@@ -13,7 +14,8 @@ export function practiceSuggestions(input, side = 'p1', startTurn = 1, turnCount
     if (!line) throw new EngineError('invalid', 'This replay has no complete decision record.');
     return JSON.parse(line.slice(prefix.length));
   };
-  const b = new Battle({...read('>start '), p1:read('>player p1 '), p2:read('>player p2 ')});
+  prepareFrontierDex(read('>start ').formatid);
+  const b = newBattle({...read('>start '), p1:read('>player p1 '), p2:read('>player p2 ')}, startFromInput(input));
   b.send = () => {};
   const suggestions = [], seen = new Set();
   let analysed = 0, skipped = 0, nextTurn = null;

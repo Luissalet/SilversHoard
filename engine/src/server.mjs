@@ -19,6 +19,7 @@ import {composeMass} from './realtime/mass-roster.mjs';
 import {damageCalc} from './calc.mjs';
 import {practiceSnapshot} from './practice.mjs';
 import {practiceSuggestions} from './practice-suggestions.mjs';
+import {endState, frontierParty} from './frontier.mjs';
 
 const matches = new Map();
 const MAX_OPEN = 64;
@@ -53,6 +54,8 @@ const handlers = {
   },
   random_team: (a) => core.randomTeam(a.format || 'gen9randombattle', a.seed || null),
   summary: (a) => ({pokemon: core.teamSummary(core.importTeam(a.sets), a.format || 'gen9customgame')}),
+  // what the Battle Frontier facilities need of some sets: types, ability, max HP, stats and PP in the facility's generation
+  frontier_party: (a) => ({pokemon: frontierParty(a.sets || [], a.format || 'gen4customgame')}),
   stat_points: (a) => {
     let sets;
     try { sets = core.applyStatPoints(core.importTeam(a.sets), a.points || {}); } catch (e) { if (e instanceof RangeError) throw new core.EngineError('invalid', e.message); throw e; }
@@ -93,7 +96,7 @@ const handlers = {
   match_log: (a) => {
     const m = getMatch(a.id);
     const lines = viewLines(m.battle.log, 0, a.view || 'omniscient');
-    return {lines, summary: summarize(viewLines(m.battle.log, 0, 'omniscient')), input_log: m.inputLog(), notes: m.takeNotes()};
+    return {lines, summary: summarize(viewLines(m.battle.log, 0, 'omniscient')), input_log: m.inputLog(), notes: m.takeNotes(), end: endState(m.battle)};
   },
   // what the AI would do now for one side of a live battle (a person's side: advice) and why, without choosing
   match_advice: (a) => {

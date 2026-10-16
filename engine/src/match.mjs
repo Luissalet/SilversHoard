@@ -3,6 +3,7 @@
 import {Battle, PRNG} from '@pkmn/sim';
 import {applyLevelRules, buildFormatId, completeSets, EngineError, formatInfo, packTeam, seedArray} from './core.mjs';
 import {chooseFor, makeRng} from './ai.mjs';
+import {newBattle, prepareFrontierDex} from './frontier.mjs';
 
 const KEEP = ['choice', 'kind', 'name', 'target', 'species', 'gimmick', 'score', 'dmg', 'ko', 'acc', 'take', 'give', 'label'];
 const round = (x) => (typeof x === 'number' ? Math.round(x * 1000) / 1000 : x);
@@ -116,7 +117,8 @@ export function annotate(battle, side, req) {
 export class Match {
   /**
    * spec: {id, format, rules: [showdown custom rules], level_rules: {level, level_cap, level_min}, seed, max_turns,
-   *        p1: {name, sets, ai: {level, style} | null}, p2: {...}}
+   *        p1: {name, sets, ai: {level, style} | null}, p2: {...},
+   *        start: {p1: [{hp, status, pp}...], p2: [...], field: {weather, trickroom}} (optional, frontier.mjs)}
    */
   constructor(spec, snapshot = null) {
     this.spec = {...spec};
@@ -129,6 +131,7 @@ export class Match {
     this.errors = [];
     this.notes = [];       // with spec.trace: why each AI decision was taken (compactTrace), in order
     this.notesSent = 0;
+    prepareFrontierDex(this.formatId);   // the Battle Frontier's fog, before a battle that may use it is created or restored
     if (snapshot) {
       this.battle = Battle.fromJSON(snapshot);
     } else {
@@ -140,7 +143,7 @@ export class Match {
         if (!seat.sets || !seat.sets.length) throw new EngineError('empty_team', `${id} has no team.`);
         options[id] = {name: seatName(seat.name, id === 'p1' ? 'Player 1' : 'Player 2'), team: prepareTeam(seat.sets, this.formatId, spec.level_rules)};
       }
-      this.battle = new Battle(options);
+      this.battle = newBattle(options, spec.start);
     }
     this.battle.send = () => {};
     // a change of tactics happens once; a battle picked up from a snapshot finds it in its log

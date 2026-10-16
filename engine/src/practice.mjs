@@ -1,6 +1,6 @@
 // Rebuild only the decisions before a turn, never the opponent's later choice or the final result.
-import {Battle} from '@pkmn/sim';
 import {EngineError} from './core.mjs';
+import {newBattle, prepareFrontierDex, startFromInput} from './frontier.mjs';
 
 export function practiceSnapshot(input, turn, side) {
   if (!['p1', 'p2'].includes(side) || !Number.isInteger(turn) || turn < 1) {
@@ -13,7 +13,8 @@ export function practiceSnapshot(input, turn, side) {
     return JSON.parse(line.slice(prefix.length));
   };
   const start = read('>start ');
-  const b = new Battle({...start, p1: read('>player p1 '), p2: read('>player p2 ')});
+  prepareFrontierDex(start.formatid);
+  const b = newBattle({...start, p1: read('>player p1 '), p2: read('>player p2 ')}, startFromInput(input));   // a facility's starting state
   b.send = () => {};
   const ready = () => {
     const req = b[side].activeRequest;
