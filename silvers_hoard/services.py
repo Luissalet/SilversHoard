@@ -21,7 +21,7 @@ from pathlib import Path
 from typing import Any, Callable, Optional
 
 from . import APP_ID, __version__
-from . import facilities, game_leagues, progress, sharing, unbound_save
+from . import facilities, game_leagues, hgss_rom, progress, sharing, unbound_save
 from .config import AI_LEVELS, AI_STYLES, REPO_ROOT, Config, Settings, find_node
 from .engine import master_status
 from .engine import Engine
@@ -69,9 +69,10 @@ _CLASS_ES = {
 }
 STATIC_DIR = Path(__file__).resolve().parent / "static"
 PLAY_TEMPLATE = STATIC_DIR / "play" / "play.html"
-# lines a trainer says: at the start, its last Pokémon, winning, losing, and during the battle when it knocks out, loses a Pokémon,
-# lands a super-effective hit or switches (shown in the app and on the playable page)
-LINE_KEYS = ("intro", "win", "lose", "last", "on_ko", "on_faint", "on_super", "on_switch")
+# lines a trainer says: at the start, its last Pokémon (and once that one is down to half its HP: last_low), winning, losing, after the
+# battle (the result screen), and during the battle when it knocks out, loses a Pokémon, lands a super-effective hit or switches
+# (shown in the app and on the playable page)
+LINE_KEYS = ("intro", "win", "lose", "last", "last_low", "after", "on_ko", "on_faint", "on_super", "on_switch")
 DIALOGUE_KEYS = (*LINE_KEYS, "phase", "phase_when", "phase_level", "phase_style")
 PHASE_WHEN = ("half", "last")
 # Real-time battles: the rules version stored with every new battle (1 = the first rules, which battles stored without one keep:
@@ -523,7 +524,8 @@ class Services:
         prompt = (f"Write the battle lines of a Pokémon trainer for a fan battle simulator, in {language}. Trainer: {t['name']}"
                   f"{' (' + t['title'] + ')' if t['title'] else ''}. Team: {team}. Personality: {personality or 'infer it from the team and title'}. "
                   "Return JSON with keys intro (said before the battle), win (when the trainer wins), lose (when the trainer loses), last "
-                  "(when sending the last Pokémon), on_ko (when its Pokémon knocks out a foe), on_faint (when one of its Pokémon faints), "
+                  "(when sending the last Pokémon), last_low (when that last Pokémon is down to half its HP), after (what it says on the result "
+                  "screen once the battle is over), on_ko (when its Pokémon knocks out a foe), on_faint (when one of its Pokémon faints), "
                   "on_super (when it lands a super-effective hit) and on_switch (when it switches Pokémon). One or two short sentences each "
                   "(on_* only one, short), in character, no emojis, no quotes.")
         res = family.chat([{"role": "user", "content": prompt}],
@@ -602,6 +604,18 @@ class Services:
         lg = game_leagues.BY_KEY[key]
         existing = self.store.league_by_canon(key)
         if existing:
+            # installed before the cartridge data: untouched members take the cartridge's teams and the gyms without trainers get theirs
+            for tid in (*existing["elite_four"], existing.get("champion_id")):
+                self._cartridge_refresh(tid)
+            for gid in existing["gyms"]:
+                try:
+                    gym = self.store.gym(gid)
+                except SilverError:
+                    continue   # a gym the player removed
+                self._cartridge_refresh(gym.get("leader_id"))
+                mine = next((m for m in lg["gyms"] if gym.get("canon_key") == f"{key}:{m['key']}"), None)
+                if mine:
+                    self._cartridge_gym(gid, mine)
             return self.league_get(existing["id"])
 
         def member(m: dict[str, str]) -> dict[str, Any]:
@@ -617,12 +631,14 @@ class Services:
                 continue
             leader = member(g)
             city = g["city_es"]
-            gym_ids.append(self.store.add_gym({
+            gid = self.store.add_gym({
                 "name": g.get("gym_es") or f"Gimnasio de {city}", "city": city, "type": g["type"], "badge": g["badge_es"],
                 "badge_color": TYPE_COLORS.get(g["type"], "#c0c0c0"), "description": f"{g['badge']} · {g['city']} · {lg['game']}",
                 "format": leader["format"], "rules": [], "level_rules": {"level_cap": max((x.get("level") or 100) for x in leader["team"]) if leader["team"] else 100},
                 "leader_id": leader["id"], "trainers": [], "origin": "canon", "canon_key": gym_key,
-            }))
+            })
+            gym_ids.append(gid)
+            self._cartridge_gym(gid, g)   # HeartGold/SoulSilver: the cartridge's gym trainers and the map
         elite = [member(m)["id"] for m in lg["elite_four"]]
         champ = member(lg["champion"])
         lid = self.store.add_league({
@@ -692,6 +708,7 @@ class Services:
                     merged[c["key"]] = c
             data["characters"] = list(merged.values())
             data["by_key"] = merged
+            hgss_rom.merge(data)   # HeartGold and SoulSilver as the cartridge builds the trainers (exact sets, AI flags), and the cartridge's own characters
             self._characters = data
         return self._characters
 
@@ -774,7 +791,7 @@ class Services:
                    for sp in c["sprites"]]
         variants = []
         for v in c["variants"]:
-            variants.append({**v, "trainer_class_es": _CLASS_ES.get(v["trainer_class"], v["trainer_class"]), "label": self._variant_label(v, "en"), "label_es": self._variant_label(v, "es"), "sprite_url": self.avatar_url(f"sd:{v['sprite']}") if v["sprite"] else "",
+            variants.append({**v, "trainer_class_es": v.get("trainer_class_es") or _CLASS_ES.get(v["trainer_class"], v["trainer_class"]), "label": self._variant_label(v, "en"), "label_es": self._variant_label(v, "es"), "sprite_url": self.avatar_url(f"sd:{v['sprite']}") if v["sprite"] else "",
                              "species": [x["species"] for x in v["sets"]], "levels": [x["level"] for x in v["sets"]], "max_level": max(x["level"] for x in v["sets"])})
         installed = [self.trainer_view(t) for t in self.store.trainers_by_canon_prefix(f"char:{c['key']}:")]
         mine = {x for v in c["variants"] for x in v["games"]}
@@ -812,14 +829,17 @@ class Services:
         if not custom and not name:
             existing = self.store.trainer_by_canon(canon_key)
             if existing:
+                if v and v.get("cartridge"):
+                    existing = self._cartridge_upgrade(existing, v) or existing
                 return {**self.trainer_view(existing), "existing": True}
         lang_es = lang != "en"
+        cart = bool(v and v.get("cartridge"))   # a HeartGold/SoulSilver team from the cartridge's data
         display = c["name_es"] if lang_es else c["name"]
         if custom:
             title = "Equipo propio" if lang_es else "Own team"
             default_name = f"{display} ({title.lower()})"
         else:
-            title = f"{_CLASS_ES.get(v['trainer_class'], v['trainer_class']) if lang_es else v['trainer_class']} · {v['game_name_es'] if lang_es else v['game_name']}".strip(" ·")
+            title = f"{(v.get('trainer_class_es') or _CLASS_ES.get(v['trainer_class'], v['trainer_class'])) if lang_es else v['trainer_class']} · {v['game_name_es'] if lang_es else v['game_name']}".strip(" ·")
             inner = self._variant_label(v, "es" if lang_es else "en")
             labels = (v["labels_es"] if lang_es else v["labels"]) + ([("con " if lang_es else "with ") + v["with"]] if v.get("with") else [])
             short = " · ".join(labels) or (v["game_name_es"] if lang_es else v["game_name"])
@@ -832,9 +852,12 @@ class Services:
             notes.append(self._variant_label(v, "es"))
             if v.get("location"):
                 notes.append(f"Lugar: {v['location']}")
-            if v.get("note"):
+            if v.get("note") and not cart:
                 notes.append(f"Bulbapedia: {v['note']}")
-        notes.append((v.get("credit") or "Equipo de Bulbapedia (CC BY-NC-SA); sprite de Pokémon Showdown.") if v else "Sprite de Pokémon Showdown.")
+        if cart:
+            notes.extend([hgss_rom.note(v), hgss_rom.CREDIT])
+        else:
+            notes.append((v.get("credit") or "Equipo de Bulbapedia (CC BY-NC-SA); sprite de Pokémon Showdown.") if v else "Sprite de Pokémon Showdown.")
         if avatar:
             notes.append(f"Imagen: {art or 'propia'} ({self.avatar_credit(avatar) or 'imagen propia'}).")
         sets = [{k: x for k, x in s.items() if k != "level_range"} for s in (v["sets"] if v else [])] if (v and not custom) or (v and custom and variant) else []
@@ -842,16 +865,83 @@ class Services:
             sets = sets[:6]
             notes.append(f"Grupo de {v['pool']} Pokémon posibles en la instalación; el entrenador lleva los 6 primeros.")
         fmt = v["format"] if v else self.settings["default_format"]
-        level, style = self._clean_ai(ai_level or "hard", ai_style or "balanced")
-        tags = [c["name"], *([v["game_name_es"], f"Gen {v['gen']}"] if v else [])]
+        # a team from the cartridge plays with the AI its flags mean (hgss_rom.ai_for) unless the player chose one
+        auto = v["ai"] if cart and not custom else {"level": "hard", "style": "balanced"}
+        level, style = self._clean_ai(ai_level or auto["level"], ai_style or auto["style"])
+        tags = [c["name"], *([v["game_name_es"], f"Gen {v['gen']}"] if v else []), *(["Cartucho" if lang_es else "Cartridge"] if cart else [])]
         id_ = self.store.add_trainer({
             "name": (name or default_name).strip()[:60], "title": title[:60], "owner": self.settings["player_name"] if custom else "",
             "origin": "own" if custom else "canon", "format": fmt, "team": sets, "ai_level": level, "ai_style": style,
             "avatar": avatar or (self._check_avatar(f"sd:{sprite}") if sprite else ""),
-            "dialogue": {}, "notes": "\n".join(notes)[:4000], "tags": [str(x)[:30] for x in tags][:20], "canon_key": canon_key,
+            "dialogue": self._clean_dialogue(hgss_rom.lines(v["rom"], lang)) if cart and not custom else {},
+            "notes": "\n".join(notes)[:4000], "tags": [str(x)[:30] for x in tags][:20], "canon_key": canon_key,
         })
         self.emit("trainer.created", {"id": id_, "name": name or default_name, "character": c["key"]})
         return self.trainer_view(self.store.trainer(id_))
+
+    def _cartridge_upgrade(self, t: dict[str, Any], v: dict[str, Any]) -> Optional[dict[str, Any]]:
+        """A trainer made from a HeartGold/SoulSilver team before the cartridge data came, and never changed since, takes the cartridge's
+        exact team, its AI (when it still has the default one), its lines (when it has none) and its credit. What the player edited is never
+        touched. Returns the trainer as it is now, or None when nothing changed."""
+        if "pret/pokeheartgold" in (t.get("notes") or "") or abs(t["updated_at"] - t["created_at"]) > 1:
+            return None
+        changes: dict[str, Any] = {"team": [{k: x for k, x in s.items() if k != "level_range"} for s in v["sets"]]}
+        if (t["ai_level"], t["ai_style"]) == ("hard", "balanced"):
+            changes.update(ai_level=v["ai"]["level"], ai_style=v["ai"]["style"])
+        if not t.get("dialogue"):
+            changes["dialogue"] = self._clean_dialogue(hgss_rom.lines(v["rom"], "es"))
+        kept = [x for x in (t.get("notes") or "").split("\n") if not x.startswith("Bulbapedia:") and "Equipo de Bulbapedia" not in x]
+        changes["notes"] = "\n".join([*kept, hgss_rom.note(v), hgss_rom.CREDIT])[:4000]
+        changes["tags"] = [*(t.get("tags") or []), *([] if "Cartucho" in (t.get("tags") or []) else ["Cartucho"])][:20]
+        self.store.update_trainer(t["id"], changes)
+        return self.store.trainer(t["id"])
+
+    def _cartridge_refresh(self, trainer_id: Optional[str]) -> None:
+        """Bring a trainer of an installed league up to date with the cartridge, when it was made from a cartridge team (its canon_key says which)."""
+        try:
+            t = self.store.trainer(trainer_id) if trainer_id else None
+        except SilverError:
+            t = None   # a trainer the player removed
+        if not t:
+            return
+        parts = (t.get("canon_key") or "").split(":")
+        c = self.characters()["by_key"].get(parts[1]) if len(parts) >= 3 and parts[0] == "char" else None
+        v = next((x for x in c["variants"] if x["id"] == parts[2]), None) if c else None
+        if v and v.get("cartridge"):
+            self._cartridge_upgrade(t, v)
+
+    def _cartridge_trainer(self, index: int, gym: dict[str, Any]) -> str:
+        """The gym trainer of the cartridge with this number, made once and reused (canon_key rom:hgss:<number>)."""
+        key = f"{hgss_rom.CANON_PREFIX}{index}"
+        existing = self.store.trainer_by_canon(key)
+        if existing:
+            return existing["id"]
+        row = hgss_rom.trainer_row(index, "es")
+        try:
+            avatar = self._check_avatar(f"sd:{row['sprite']}")
+        except SilverError:
+            avatar = ""
+        return self.store.add_trainer({
+            "name": row["name"], "title": f"{row['class']} · {gym['name']}"[:60], "owner": "", "origin": "canon", "format": gym["format"],
+            "team": row["team"], "ai_level": row["ai_level"], "ai_style": row["ai_style"], "avatar": avatar,
+            "dialogue": self._clean_dialogue(row["dialogue"]), "notes": hgss_rom.gym_note(index, row)[:4000],
+            "tags": [str(x)[:30] for x in (gym["city"], "HeartGold/SoulSilver", row["class"], "Cartucho")], "canon_key": key,
+        })
+
+    def _cartridge_gym(self, gym_id: str, member: dict[str, str]) -> None:
+        """A HeartGold/SoulSilver gym of a league: its gym trainers as the cartridge has them, in the order you meet them, and the gym's
+        map. A gym that already has trainers or a map (the player's) is left alone; a map that does not fit leaves the gym without one."""
+        rom = hgss_rom.gym(member["key"]) if member["variant"] == "hgssgymbattle" else None
+        gym = self.store.gym(gym_id)
+        if not rom or gym.get("trainers") or (gym.get("map") or {}).get("w"):
+            return
+        ids = {index: self._cartridge_trainer(index, gym) for index in hgss_rom.gym_trainer_indexes(rom)}
+        values: dict[str, Any] = {"trainers": list(ids.values())}
+        try:
+            values["map"] = hgss_rom.gym_map(member["key"], ids)
+        except SilverError:
+            pass   # the gym works without walking it
+        self.store.update_gym(gym_id, values)
 
     # ------------------------------------------------------------ gyms and leagues
     def _check_trainers(self, ids: list[str]) -> list[str]:
