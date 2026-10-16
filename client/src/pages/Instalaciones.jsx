@@ -1,9 +1,11 @@
 // Battle facilities: win streaks at the Battle Tower, Subway, Maison and Tree against one rival after another at level 50, with the
-// facility's bosses on their battle. Pick a trainer, see each facility's record and open streak, start or continue one.
+// facility's bosses on their battle. Pick a trainer, see each facility's record and open streak, start or continue one. The
+// HeartGold/SoulSilver Battle Hall, Arcade and Castle keep their own rules and play between battles on #/frontera/<run>.
 import React, { useState } from "react";
 import { api } from "../api.js";
 import { useApp } from "../context.js";
 import { Busy, Empty, ErrorBox, Field, Modal, Spinner, Switch, useBusy, useLoad, useStored } from "../components/ui.jsx";
+import { MonIcon } from "../components/silver.jsx";
 import { useContextProvider } from "../components/hooks.js";
 import { Avatar, TrainerSelect } from "../components/silver.jsx";
 import ModeFields from "../battle/rt/ModeFields.jsx";
@@ -34,32 +36,85 @@ const S = {
   rental: ["Pokémon de alquiler", "Rental Pokémon"],
   rental_help: ["Sin equipo propio: eliges 3 de 6 Pokémon de alquiler cada ronda y tras cada victoria puedes cambiar uno por uno del rival.",
     "No team of your own: pick 3 of 6 rental Pokémon each round and after each win you may swap one for one of the rival's."],
+  rules_hall: ["Un Pokémon tuyo contra rivales del tipo que elijas en una tabla de 17 tipos. Cada tipo tiene rango 0-10: cada victoria lo sube y el nivel del rival sale de la fórmula del juego (tu nivel, el rango y cuántos tipos llevas). Rondas de 10; Argenta en los combates 50 y 170.",
+    "One of your Pokémon against rivals of the type you pick on a 17-type board. Each type has a rank 0-10: every win ranks it up and the rival's level comes from the game's formula (your level, the rank and how many types you have ranked). Rounds of 10; Argenta on battles 50 and 170."],
+  rules_arcade: ["Tres Pokémon (nivel 50 como máximo, sin objetos). Antes de cada combate gira la ruleta: estados, PS, clima, Espacio Raro, niebla, bayas u objetos, +3 niveles, cambio de equipos, saltar el combate o Puntos de Batalla. Delila en los combates 21 y 49.",
+    "Three Pokémon (level 50 at most, no items). Before each battle the roulette spins: statuses, HP, weather, Trick Room, fog, berries or items, +3 levels, party swap, skipping the battle or Battle Points. Dahlia on battles 21 and 49."],
+  rules_castle: ["Tres Pokémon (nivel 50 como máximo, sin objetos). Los PS y los PP no se recuperan entre combates: con Puntos de Castillo curas, alquilas objetos, espías al rival o cambias su nivel. Kokuran en los combates 21 y 49.",
+    "Three Pokémon (level 50 at most, no items). HP and PP are not restored between battles: Castle Points heal, rent items, scout the rival or change its level. Darach on battles 21 and 49."],
+  turns_only: ["Solo por turnos: la ruleta, los PP y los turnos de este juego no tienen equivalente en tiempo real.", "Turn-based only: this game's roulette, PP and turn counts have no real-time equivalent."],
+  picks: ["Elige {n} Pokémon de tu equipo", "Pick {n} Pokémon of your team"],
+  picks_help: ["Combaten en el orden en que los eliges.", "They battle in the order you pick them."],
+  party_level: ["Nivel de tu Pokémon", "Your Pokémon's level"],
+  party_level_help: ["El nivel de los rivales se calcula a partir de este.", "The rivals' level is worked out from this one."],
+  bp: ["{n} PB", "{n} BP"],
+  you_help_frontier: ["Juegas tú cada combate; entre combates eliges en la página de la racha (la tabla de tipos, la ruleta o los servicios del castillo).",
+    "You play every battle; between battles you choose on the streak's page (the type board, the roulette or the castle's services)."],
+  gen4: ["Reglas de la 4.ª generación: los Pokémon y movimientos posteriores no valen.", "Generation 4 rules: later Pokémon and moves are not allowed."],
 };
 const fill = (text, vars = {}) => text.replace(/\{(\w+)\}/g, (_, k) => (vars[k] ?? ""));
+
+function FrontierPicks({ trainerId, n, picks, onPicks, s }) {
+  const { data } = useLoad(() => api.call("trainer_get", { id: trainerId }), [trainerId]);
+  const team = data?.team || data?.trainer?.team || [];
+  const toggle = (i) => onPicks(picks.includes(i) ? picks.filter((x) => x !== i) : picks.length < n ? [...picks, i] : picks);
+  return (
+    <div className="space-y-2">
+      <span className="label">{s("picks", { n })}</span>
+      <div className="pick-grid">
+        {team.map((m, i) => (
+          <button key={i} type="button" className={`pick ${picks.includes(i) ? "is-on" : ""}`} aria-pressed={picks.includes(i)} onClick={() => toggle(i)}>
+            <MonIcon species={m.species} size={36} />
+            <span className="trunc">{m.species}{m.level ? ` · ${m.level}` : ""}</span>
+            {picks.includes(i) && <span className="chip chip-accent ml-auto">{picks.indexOf(i) + 1}</span>}
+          </button>
+        ))}
+      </div>
+      <p className="help">{s("picks_help")}</p>
+    </div>
+  );
+}
 
 function StartDialog({ facility, trainerId, onClose }) {
   const { lang, go, changed, settings, t } = useApp();
   const s = (k, v) => fill(L(S[k], lang), v);
+  const frontier = facility.frontier || "";
   const [auto, setAuto] = useState(false);
   const [stopAt, setStopAt] = useState(facility.bosses.at(-1)?.at || 0);
-  const [mode, setMode] = useState(settings?.default_mode || "classic");
+  const realtimeOk = !frontier || (facility.modes || []).includes("realtime");
+  const [mode, setMode] = useState(realtimeOk ? settings?.default_mode || "classic" : "classic");
   const [level, setLevel] = useState(50);
+  const [picks, setPicks] = useState(() => Array.from({ length: facility.picks || 0 }, (_, i) => i));
   const [busy, run] = useBusy();
   const start = () => run("s", async () => {
     const r = await api.call("challenge_start", { kind: "facility", target_id: facility.id, challenger_id: trainerId, auto, stop_at: auto ? Number(stopAt) || 0 : 0,
-      mode, level: Number(level) || 50 });
+      mode, level: Number(level) || 50, ...(frontier ? { picks } : {}) });
     changed();
+    if (frontier) { go(`#/frontera/${r.id}`); return; }
     const first = r.stages[0]?.battle_id;
     go(first ? `#/combate/${first}` : facility.rental ? `#/fabrica/${r.id}` : "#/instalaciones");
   });
   return (
     <Modal title={s("start_title", { name: lang === "en" ? facility.name : facility.name_es })} onClose={onClose}
-      footer={<><button type="button" className="btn" onClick={onClose}>{t("cancel")}</button><Busy busy={busy.s} className="btn btn-primary" onClick={start}>{s("start")}</Busy></>}>
+      footer={<><button type="button" className="btn" onClick={onClose}>{t("cancel")}</button><Busy busy={busy.s} className="btn btn-primary" disabled={!!frontier && picks.length !== facility.picks} onClick={start}>{s("start")}</Busy></>}>
       <label className="flex items-center gap-2"><Switch checked={auto} onChange={setAuto} label={s("auto")} /> {s("auto")}</label>
-      <p className="help">{auto ? s("auto_help") : s("you_help")}</p>
+      <p className="help">{auto ? s("auto_help") : frontier ? s("you_help_frontier") : s("you_help")}</p>
       {facility.rental && <p className="help">{s("rental_help")}</p>}
       {auto && <Field label={s("stop_at")}><input className="field" type="number" min={0} max={10000} value={stopAt} onChange={(e) => setStopAt(e.target.value)} /></Field>}
-      <ModeFields t={t} mode={mode} onMode={setMode} level={level} onLevel={setLevel} />
+      {frontier && <p className="help">{s(`rules_${frontier}`)} {s("gen4")}</p>}
+      {frontier && <FrontierPicks trainerId={trainerId} n={facility.picks} picks={picks} onPicks={setPicks} s={s} />}
+      {frontier === "hall" && (
+        <div className="space-y-2">
+          <span className="label">{s("party_level")}</span>
+          <div className="seg" role="group" aria-label={s("party_level")}>
+            {[50, 100].map((v) => <button key={v} type="button" aria-pressed={Number(level) === v} onClick={() => setLevel(v)}>{v}</button>)}
+          </div>
+          <p className="help">{s("party_level_help")}</p>
+        </div>
+      )}
+      {!frontier && <ModeFields t={t} mode={mode} onMode={setMode} level={level} onLevel={setLevel} />}
+      {frontier && realtimeOk && <ModeFields t={t} mode={mode} onMode={setMode} />}
+      {frontier && !realtimeOk && <p className="help">{s("turns_only")}</p>}
     </Modal>
   );
 }
@@ -73,6 +128,7 @@ export default function Instalaciones() {
   const { data, error, reload } = useLoad(() => api.call("facilities_list", { trainer_id: trainerId || "" }), [trainerId]);
   useContextProvider(() => ({ kind: "facilities", title: L(S.title, lang), fields: { trainer_id: trainerId } }));
   const keepGoing = (f) => run(f.id, async () => {
+    if (f.frontier) { go(`#/frontera/${f.active_run_id}`); return; }
     if (f.rental && ["pick", "swap"].includes(f.active_phase)) { go(`#/fabrica/${f.active_run_id}`); return; }
     const r = await api.call("challenge_next", { id: f.active_run_id });
     changed();
@@ -99,6 +155,7 @@ export default function Instalaciones() {
               <span className="chip chip-accent num" title={s("record")}>{f.record}</span>
             </div>
             {f.rental && !f.bosses.length && <p className="help">{s("rental_help")}</p>}
+            {f.frontier && <p className="help">{s(`rules_${f.frontier}`)}</p>}
             <div className="flex flex-wrap gap-2">
               {f.bosses.map((b) => (
                 <span key={`${b.key}${b.at}`} className="facility-boss" title={`${b.name} · ${lang === "en" ? b.label : b.label_es}`}>
@@ -108,7 +165,7 @@ export default function Instalaciones() {
               ))}
             </div>
             <div className="help">{f.record_holder && !trainerId ? s("record_of", { n: f.record, who: f.record_holder }) : `${s("record")}: ${f.record}`}
-              {f.active_run_id ? ` · ${s("open_streak", { n: f.active_streak })}` : ""}</div>
+              {f.active_run_id ? ` · ${s("open_streak", { n: f.active_streak })}` : ""}{f.frontier && f.bp ? ` · ${s("bp", { n: f.bp })}` : ""}</div>
             {trainerId && (
               <div className="flex flex-wrap gap-2">
                 {f.active_run_id ? (

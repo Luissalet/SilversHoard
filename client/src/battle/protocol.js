@@ -147,6 +147,8 @@ const WEATHER = {
   desolateland: [["El sol se ha vuelto abrasador.", "The sunlight turned extremely harsh!"], ["", ""]],
   primordialsea: [["Ha empezado a diluviar.", "A heavy rain began to fall!"], ["", ""]],
   deltastream: [["Soplan vientos misteriosos.", "Mysterious strong winds are protecting Flying-type Pokémon!"], ["", ""]],
+  // generation 4 fog (the Battle Arcade's roulette; engine/src/frontier.mjs)
+  fog: [["Hay una niebla muy espesa.", "The fog is deep..."], ["La niebla sigue siendo espesa.", "The fog is deep..."]],
 };
 
 const STATUS_START = {
