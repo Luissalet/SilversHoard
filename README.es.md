@@ -120,3 +120,7 @@ La sala del campeón, el Monte Plateado, la Cascada Meteoro y el castillo muestr
 Los ejercicios exportados se pueden subir desde su archivo `.silverexercise` en Compartir, también en UTF-8 con BOM, además de pegarse como texto. Cada importación crea un ejercicio independiente; practicar no cambia el combate original ni concede medallas.
 
 Los proyectiles de fuego y las cabezas de los haces de llamas usan un sprite original transparente de cuatro fotogramas con las partículas texturadas y pixeladas. La animación sigue el reloj del renderer, también al pausar y reiniciar una repetición. El estilo sencillo y las imágenes que no cargan conservan el efecto procedural. El sprite viaja incrustado en las páginas jugables exportadas; los tiempos, el daño y los radios de colisión no cambian.
+
+Los proyectiles que giran o pulsan también siguen el reloj del renderer del combate: su fase se congela al pausar y vuelve al mismo punto al reiniciar una repetición, tanto en la app como en las páginas jugables.
+
+Las campales transmiten su propio reloj al renderer de efectos compartido, incluidos los proyectiles y las cabezas de haces de fuego animados, para que se dibujen y se pausen correctamente también allí y en sus páginas compartidas.
