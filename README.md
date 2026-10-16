@@ -127,3 +127,5 @@ Mass battles expose their own live clock to the shared effects renderer, includi
 The six stat-point rows have draggable sliders as well as number fields and +/− controls. New team members start at zero in every stat; saved and explicitly imported spreads keep their values. The existing 32-point per-stat and 66-point total limits still apply. On narrow screens each slider spans its own row.
 
 Changing a member to a different species starts a fresh Pokémon: moves, ability, item, nature, nickname, Tera type, gender and shiny status return to their empty defaults; EVs return to zero and IVs to 31. The current level is kept. Editing only the spelling of the same species does not reset its set.
+
+The battle, series and tournament real-time arena picker shows saved arenas as selectable previews, including the illustrated floor and actual rock positions. The arena editor and picker share the same drawing. Illustrated floor styles become selectable battle arenas after saving them in Arenas; a floor style alone does not create a saved arena.
