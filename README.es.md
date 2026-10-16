@@ -98,3 +98,5 @@ Las repeticiones de tiempo real limpian el cartel del ganador y los efectos al v
 El idioma inicial es inglés cuando no hay una preferencia válida guardada, también si el navegador bloquea el almacenamiento. Se conserva la elección explícita de inglés o español. La revisión completa de traducciones y la reutilización de efectos/reglas de Surf en batalla campal tienen seguimiento separado; este cambio no las declara completas.
 
 La grabación de vídeo espera a que la arena de tiempo real termine de cargar y la captura entregue su primer fotograma antes de iniciar la repetición, incluida la presentación VS. La captura prefiere VP8 antes de convertir a MP4 H.264/AAC. Así se excluye la carga del combate grabado y se reducen los parones del codificador; las entradas y reglas guardadas de la batalla se conservan.
+
+La repetición grabada prepara la tarjeta VS en pausa: el primer fotograma capturado ya muestra a los dos entrenadores. La cabecera conserva el nombre completo del enfrentamiento y la tarjeta muestra el nombre del entrenador. La batalla arranca después de preparar la captura, para que una captura lenta en1080p tampoco se salte la entrada de la tarjeta.

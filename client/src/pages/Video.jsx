@@ -24,7 +24,7 @@ function toBase64(buf) {
 }
 
 /** Start a MediaRecorder on this tab's picture and the page's own sound; chunks go to the recorder, then onStart runs. */
-function startRecording(run, onStart, delay = 400) {
+function startRecording(run, onStart, delay = 1500) {
   (async () => {
     try {
       const audio = installTap();

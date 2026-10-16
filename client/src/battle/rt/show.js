@@ -256,15 +256,18 @@ export class Show {
 
   // ------------------------------------------------------------ the intro
   /** Called once when the battle starts from its first tick: the VS screen, then the balls and "Fight!". */
-  startIntro(battle) {
+  startIntro(battle, {prepared = false} = {}) {
     if (!this.on) return false;
     const sides = battle.sides.map((sd, si) => {
       const lead = battle.doubles ? sd.units[0] : sd;
       const mon = sd.mons[lead.active];
       const portrait = mon && !this.r.offline && this.r.sprites?.portrait ? image(this.r.sprites.portrait(mon.species, "Determined", { num: mon.num || 0 })) : null;
-      return { name: sd.name || "", mon: mon?.name || "", portrait, fallback: this.r.fallbacks?.[si]?.[lead.active] || null, trainer: this.r.trainers?.[si] || null };
+      // The full match label stays in the video's header; the VS card gives the trainer's name room to read.
+      const name = prepared ? String(sd.name || "").split(" (")[0] : sd.name || "";
+      return { name, mon: mon?.name || "", portrait, fallback: this.r.fallbacks?.[si]?.[lead.active] || null, trainer: this.r.trainers?.[si] || null };
     });
-    this.intro = { t: 0, hold: 2.35, life: 3.0, sides, thrown: false };
+    // A video prepares the fully visible card while paused, so even the first captured picture contains VS.
+    this.intro = { t: prepared ? 0.7 : 0, hold: 2.35, life: 3.0, sides, thrown: false };
     for (let si = 0; si < 2; si++) for (const { key } of this.units(battle, si)) this.hidden.add(key);
     this.battle = battle;
     return true;
