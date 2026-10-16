@@ -15,12 +15,12 @@ from .hoard_link.agentkit import Empty, Tool, ann
 from .hoard_link.agentkit import call_tool as _call_tool
 from .hoard_link.agentkit import tool_catalog as _catalog
 from .hoard_link.agentkit import uncapped  # noqa: F401 - re-exported for the UI routes
-from . import gymmap
+from . import gymmap, hgss_rom
 from .services import Services
 
 AGENT_INSTRUCTIONS = """Silver's Hoard is a Pokémon battle simulator (Pokémon Showdown's engine, every generation). It keeps trainers (a name, a team, an AI level and style, an avatar and battle lines), gyms (a leader plus optional gym trainers, a badge and rules), leagues (gyms, an Elite Four and a champion) and every battle with its full log.
 Exercises: exercise_create saves a turn/side from an ended replay with decisions and a goal (win, optionally within N turns; survive N turns or win earlier). exercise_export gives portable text and a .silverexercise file; import accepts either with no original battle needed. exercises_list/get show attempts and the explained difficulty recommendation. exercise_start makes an independent practice battle; adaptive=true moves one level after three successes or failures at the current level, or choose manually. exercise_archive is reversible. Attempts never award records, badges or cup results. No future decisions are exported.
-Start with silver_overview. Teams come in as Showdown export text (paste), packed teams or JSON; team_import parses, team_validate checks a format's rules. canon_list shows the in-game teams of leaders, Elite Four, champions and rivals of Crystal, FireRed/LeafGreen and Emerald, and canon_install adds a trainer or a whole league (its gyms, badges, Elite Four and champion). characters_list and character_get cover 154 characters of all nine generations with every team they used game by game (first battle, rematches, tournaments) and all their sprites; character_install makes a trainer from one team and one sprite, or an own team for the character (custom).
+Start with silver_overview. Teams come in as Showdown export text (paste), packed teams or JSON; team_import parses, team_validate checks a format's rules. canon_list shows the in-game teams of leaders, Elite Four, champions and rivals of Crystal, FireRed/LeafGreen and Emerald, and canon_install adds a trainer or a whole league (its gyms, badges, Elite Four and champion). characters_list and character_get cover 154 characters of all nine generations with every team they used game by game (first battle, rematches, tournaments) and all their sprites; character_install makes a trainer from one team and one sprite, or an own team for the character (custom). HeartGold and SoulSilver teams are the cartridge's own (exact sets, nature, IVs; character_get marks them cartridge with rom, ai_flags and ai): character_install gives them the game's AI and lines, the johto-hgss and kanto-hgss leagues add each gym's real trainers and a gym map, and hgss_rom_get reads that data.
 Battles: battle_start with two seats. A seat is {trainer_id} or {paste|team, name}; human=true means a person plays it from the app (or you, with battle_choose), otherwise the AI plays (ai_level random|easy|normal|hard|expert|master|neural — master searches thousands of futures a turn with poke-engine, 9th-generation singles; neural is a reinforcement-learning policy on the GPU for singles of generations 1-4 and 9 (neural_ai starts its server); see ai_levels; ai_style balanced|aggressive|defensive|setup|stall). Two AI seats = a watched battle that plays out in the background; read it with battle_get (lines are the Showdown protocol log). battle_choose sends a Showdown choice for a person's seat ("move 1", "move 2 terastallize", "switch 3", "team 123456"; doubles: "move 1 1, move 2 -1"); battle_get returns the pending request with the legal options.
 Gym and league challenges: challenge_start (kind gym|league, a challenger trainer; auto=true lets the AI play the challenger). Winning every battle of a gym gives a badge; a league needs its badges and ends in the hall of fame. Battle facilities (facilities_list): challenge_start kind=facility starts a win streak against one rival after another with the facility's bosses on their battles; the record is the longest streak. In the Battle Factory (factory3, factory4, factory9) there is no own team: factory_pick takes 3 of 6 rentals each round and factory_swap trades one for the beaten rival's after a win.
 Many battles at once: series_start (the same two trainers N times: win rate, MVPs) and tournament_start (bracket or league table between trainers), both background jobs (job_get). Cups with a live bracket: cup_start (picked and/or random trainers, optionally human_id = the user's trainer), then cup_get to follow it; the AI's matches play in the background one after another, the user's wait for cup_play (a battle to play) or cup_simulate; cup_watch turns an AI match into a battle to watch. benchmark_start compares several team variants against the same rivals with shared seeds (wins/losses per rival, delta vs a reference team, improved and worsened lists; a job; never writes the hall of fame).
@@ -143,7 +143,9 @@ class Dialogue(BaseModel):
     intro: str = Field("", max_length=280)
     win: str = Field("", max_length=280)
     lose: str = Field("", max_length=280)
-    last: str = Field("", max_length=280)
+    last: str = Field("", max_length=280, description="Said when it sends its last Pokémon.")
+    last_low: str = Field("", max_length=280, description="Said once when its last Pokémon is down to half its HP.")
+    after: str = Field("", max_length=280, description="Shown on the result screen after the battle.")
     on_ko: str = Field("", max_length=280, description="Said when its Pokémon knocks out a foe.")
     on_faint: str = Field("", max_length=280, description="Said when one of its Pokémon faints.")
     on_super: str = Field("", max_length=280, description="Said when it lands a super-effective hit.")
@@ -221,6 +223,11 @@ class CanonArgs(BaseModel):
 class CanonInstallArgs(BaseModel):
     trainer_key: str = Field("", max_length=60, description="One in-game trainer (key from canon_list).")
     league_key: str = Field("", max_length=60, description="A whole league: its gyms, badges, Elite Four and champion.")
+
+
+class HgssRomArgs(BaseModel):
+    gym: str = Field("", max_length=40, description="One gym: its leader's key (falkner), city or name. Empty: all 16 (Johto and Kanto).")
+    index: int = Field(0, ge=0, le=800, description="One cartridge trainer by its number (rom in character_get, or a gym trainer's in the gyms): exact sets, AI flags and lines.")
 
 
 class StatPointsArgs(BaseModel):
@@ -1005,10 +1012,12 @@ TOOLS: list[Tool] = [
                        synonyms="autores, artistas, licencias, atribución, quién dibujó"), CreditsArgs, R,
          lambda s, a: s.credits_get(species=a.species, sprite=a.sprite), 60.0),
     Tool("canon_list", _d("In-game teams of leaders, Elite Four, champions and rivals (Crystal, FRLG, Emerald). Equipos de los juegos.",
-                          "leagues also lists whole leagues of more games built from the characters' teams: kanto-rgb, johto-hgss, hoenn-oras, sinnoh-pt, unova-bw, unova-b2w2, kalos-xy, alola-sm, alola-usum (Elite Four and champion only), galar-sw, paldea-sv.",
+                          "leagues also lists whole leagues of more games built from the characters' teams: kanto-rgb, johto-hgss, kanto-hgss, hoenn-oras, sinnoh-pt, unova-bw, unova-b2w2, kalos-xy, alola-sm, alola-usum (Elite Four and champion only), galar-sw, paldea-sv.",
                           synonyms="líderes de gimnasio, alto mando, campeón, rojo, red, plata, personajes, ligas oficiales"), CanonArgs, R,
          lambda s, a: s.canon_list(a.query, a.region)),
     Tool("canon_install", _d("Add an in-game trainer, or a whole league with gyms, badges, Elite Four and champion. Instalar liga.",
+                             "johto-hgss and kanto-hgss (HeartGold/SoulSilver) also make each gym's real trainers from the cartridge (exact teams, AI "
+                             "and lines, in the order you meet them) and a map of the gym; installing again completes a league made before.",
                              synonyms="importar personaje, liga kanto, liga johto, liga hoenn, liga sinnoh, liga teselia, liga kalos, liga alola, galar, paldea"), CanonInstallArgs, WD, _canon_install),
     Tool("stat_points", _d("Stat points as in Pokémon Champions (66, 32 per stat) for a team, and the stats they give. Puntos de stats.",
                            "Reads the points from the EVs (HOME's rule: 4 EVs the first, 8 each more) and writes them back as EVs.",
@@ -1019,12 +1028,21 @@ TOOLS: list[Tool] = [
                                synonyms="lance, cintia, cynthia, rojo, azul, equipos por juego, revancha, sprites por juego"), CharactersArgs, R,
          lambda s, a: s.characters_list(a.query, a.gen, a.game, a.category)),
     Tool("character_get", _d("One character: every team it used game by game (levels, items, bag items) and its sprites. Ver personaje.",
+                             "HeartGold/SoulSilver teams come from the cartridge's data: cartridge true, rom (the game's trainer number), ai_flags, ai "
+                             "(level and style they mean), exact sets with nature and IVs, double for two-on-two teams.",
                              synonyms="equipos de lance, sprites de un personaje"), CharacterKeyArg, R, lambda s, a: s.character_get(a.key)),
     Tool("character_install", _d("Make a trainer from a character: one game team and one sprite, or an own team. Crear desde personaje.",
-                                 "Same team and sprite twice gives back the trainer already made; custom always makes a new one.",
+                                 "Same team and sprite twice gives back the trainer already made; custom always makes a new one. A HeartGold/SoulSilver "
+                                 "team (cartridge) comes with the game's AI (from its flags, unless you give ai_level and ai_style) and its lines.",
                                  synonyms="añadir lance, equipo propio, elegir sprite, elegir equipo por juego"), CharacterInstallArgs, WD,
          lambda s, a: {"trainer": s.character_install(a.key, variant=a.variant, sprite=a.sprite, name=a.name, custom=a.custom,
                                                       ai_level=a.ai_level, ai_style=a.ai_style, lang=a.lang, avatar=a.avatar, art=a.art)}),
+    Tool("hgss_rom_get", _d("HeartGold and SoulSilver cartridge data: gyms, trainers, AI rules and lines. Datos del cartucho.",
+                            "Read only. From pret/pokeheartgold: the 16 gyms (rooms and trainers with class, team and the AI their flags mean), what "
+                            "the AI flag bits are and how they become a Silver level and style, and with index that trainer's exact sets, flags and lines "
+                            "in castellano and English. The 78 HGSS teams of the characters carry the same data (character_get).",
+                            synonyms="cartucho, rom, hgss, oro heartgold, plata soulsilver, ia del juego, frases del juego, entrenadores de gimnasio"),
+         HgssRomArgs, R, lambda s, a: hgss_rom.info(a.gym, a.index)),
     Tool("official_art_search", _d("Official artwork of a character or trainer class from the Pokémon Wiki, game by game. Arte oficial.",
                                    "Finds «<name> (game)» or «<name>» (else the wiki's search) and lists its tall full-body art: label (game), "
                                    "size, thumb, full (at most 1200 px tall) and url. The wiki's image server answers browsers only: the app's "
