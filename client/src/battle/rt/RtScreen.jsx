@@ -536,6 +536,11 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     renderer.preload((n, total) => !cancelled && setProgress([n, total])).then(() => {
       if (cancelled) return;
       setCredits([...renderer.credits].slice(0, 12));
+      if (videoRef.current && state.b.t === 0 && !state.b.ended && !state.b.training) {
+        state.introChecked = true;
+        renderer.show.startIntro(state.b, {prepared: true});
+        renderer.draw(state.b, 0, 0);
+      }
       setPhase(live ? (state.b.ended ? "ended" : "ready") : videoRef.current && !videoRef.current.playing ? "replay-paused" : "playing");
       videoRef.current?.onReady?.();
     }).catch((e) => { if (!cancelled) { setError(e); videoRef.current?.onError?.(e); } });
