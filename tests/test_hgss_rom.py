@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 from conftest import TEAM, needs_engine
 
-from silvers_hoard import gymmap, hgss_rom
+from silvers_hoard import gymmap, hgss_rom, names_i18n
 from silvers_hoard.errors import SilverError
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -331,3 +331,24 @@ def test_the_agent_reads_the_cartridge_data(call, client):
     for name in ("character_get", "character_install", "canon_install"):
         text = next(t for t in client.get("/api/agent/tools").json()["tools"] if t["name"] == name)["description"]
         assert "kanto-hgss" in text or "cartridge" in text.lower(), name
+
+
+def test_a_cartridge_gym_trainer_shows_its_names_in_the_reader_s_language(call, services):
+    lg = call("canon_install", {"league_key": "johto-hgss"})["league"]
+    gym = services.store.gym(lg["gyms"][0])
+    abe = services.store.trainer(gym["trainers"][0])
+    assert abe["name"] == "Ornitólogo Abe" and abe["canon_key"] == "rom:hgss:50"
+    n = names_i18n.trainer(abe, services)
+    assert n["es"] == {"name": "Ornitólogo Abe", "title": "Ornitólogo · Gimnasio de Ciudad Malva"}
+    assert n["en"] == {"name": "Bird Keeper Abe", "title": "Bird Keeper · Violet City Gym"}
+    # the player renamed it: the name stays theirs, the title still follows the language
+    services.store.update_trainer(abe["id"], {"name": "Abe el pajarero"})
+    n = names_i18n.trainer(services.store.trainer(abe["id"]), services)
+    assert "name" not in n["en"] and n["en"]["title"] == "Bird Keeper · Violet City Gym"
+    # a gym of the Kanto league, and a number the cartridge does not have
+    kanto = call("canon_install", {"league_key": "kanto-hgss"})["league"]
+    blaine = services.store.gym(kanto["gyms"][6])
+    first = names_i18n.trainer(services.store.trainer(blaine["trainers"][0]), services)
+    assert first["en"]["title"].endswith("· Seafoam Islands Gym") and first["es"]["title"].endswith("· Gimnasio de las Islas Espuma")
+    assert names_i18n.trainer({"name": "x", "canon_key": hgss_rom.CANON_PREFIX + "9999", "title": ""}, services) is None
+

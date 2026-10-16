@@ -147,6 +147,11 @@ def gym_trainer_indexes(g: dict[str, Any]) -> list[int]:
     return [p["rom"] for room in g["rooms"] for p in room["trainers"]]
 
 
+def gym_of(index: int) -> Optional[str]:
+    """The leader's key (falkner, janine...) of the cartridge gym this trainer stands in, or None."""
+    return next((g["leader"] for g in data()["gyms"] if index in gym_trainer_indexes(g)), None)
+
+
 def trainer_row(index: int, lang: str = "es") -> dict[str, Any]:
     """The pieces of a gym trainer made from the cartridge: Spanish (or English) class and name, sprite, exact team, the AI its flags
     mean, and its lines. services.py adds the gym it stands in and stores it."""

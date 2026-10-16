@@ -14,7 +14,8 @@ from __future__ import annotations
 import re
 from typing import Any, Optional
 
-from . import game_leagues
+from . import game_leagues, hgss_rom
+from .errors import SilverError
 
 LANGS = ("es", "en")
 RANDOM_NAME = re.compile(r"^(?:Entrenador|Trainer) (\d{1,4})$")
@@ -28,6 +29,7 @@ GAME_IDS = {"kanto-rgb": "rb", "johto-hgss": "hgss", "kanto-hgss": "hgss", "hoen
             "unova-b2w2": "b2w2", "kalos-xy": "xy", "alola-sm": "sm", "alola-usum": "usum", "galar-sw": "swsh", "paldea-sv": "sv",
             "johto-crystal": "gsc", "kanto-crystal": "gsc", "kanto-frlg": "frlg", "hoenn-emerald": "e"}
 REGIONS_ES = {"Unova": "Teselia"}
+HGSS_LEAGUES = ("johto-hgss", "kanto-hgss")   # the leagues whose gym trainers come from the HeartGold/SoulSilver cartridge
 
 
 def _pair(es: dict[str, Any], en: dict[str, Any]) -> Optional[dict[str, Any]]:
@@ -129,6 +131,8 @@ def trainer(t: dict[str, Any], svc: Any) -> Optional[dict[str, Any]]:
         starts = tuple(f"{c[k]} (" for k in ("name", "name_es"))
         _drop_unmade(t, made, ("name", "title"), loose={"name": lambda s: s.startswith(starts)})
         return _pair(made["es"], made["en"])
+    if key.startswith(hgss_rom.CANON_PREFIX):
+        return rom_trainer(t, svc, key)
     canon = next((x for x in svc.canon()["trainers"] if x["key"] == key), None) if key else None
     if canon:
         cls_es, cls_en = CANON_CLASSES.get(canon.get("class", ""), (canon.get("class_es", ""), canon.get("class", "")))
@@ -140,6 +144,21 @@ def trainer(t: dict[str, Any], svc: Any) -> Optional[dict[str, Any]]:
         _drop_unmade(t, made, ("name", "title"), loose={"title": lambda s: s == f"{canon.get('class_es') or cls_es} · {game_en}"})
         return _pair(made["es"], made["en"])
     return None
+
+
+def rom_trainer(t: dict[str, Any], svc: Any, key: str) -> Optional[dict[str, Any]]:
+    """A gym trainer made from the HeartGold/SoulSilver cartridge (canon_key rom:hgss:<number>): its class and name in each language,
+    and the class with the gym's name as its title."""
+    try:
+        index = int(key[len(hgss_rom.CANON_PREFIX):])
+        rows = {l: hgss_rom.trainer_row(index, l) for l in LANGS}
+    except (ValueError, SilverError):   # a number the cartridge data does not have: the name stays as saved
+        return None
+    leader = hgss_rom.gym_of(index)
+    gyms = next((g for g in (_gym_names(svc, f"{lk}:{leader}") for lk in HGSS_LEAGUES) if g), None) if leader else None
+    made = {l: {"name": rows[l]["name"], "title": f"{rows[l]['class']} · {gyms[l]['name']}"[:60] if gyms else ""} for l in LANGS}
+    _drop_unmade(t, made, ("name", "title"))
+    return _pair(made["es"], made["en"])
 
 
 # ---------------------------------------------------------------------------------------------------------- gyms and leagues
