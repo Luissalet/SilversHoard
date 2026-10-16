@@ -99,3 +99,5 @@ English is the initial UI language when no valid preference is saved, including 
 Battle video recording waits for the real-time arena to finish loading and for tab capture to deliver its first frame before starting the replay, including its VS presentation. Capture prefers VP8 before conversion to H.264/AAC MP4. This keeps loading time out of the recorded battle and reduces encoder stalls; it does not change the battle's saved inputs or rules.
 
 The recorded replay prepares its VS card while paused, so the first captured picture already shows both trainers. The full match label remains in the header; the card uses the trainer's name. Playback starts after capture warmup, rather than letting a slow 1080p capture skip the card's entrance.
+
+New real-time battles use rules v8: each Pokémon recovers for one second after finishing a move before starting another, including its special attack. Individual move cooldowns still apply, and the move controls show the remaining recovery. Doubles partners recover independently; movement and dodging remain available. Saved battles v1–7 retain their original timing and result.
