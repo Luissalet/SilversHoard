@@ -238,3 +238,7 @@ Rules v8 set a per-Pokémon attackReady tick in finishMove, one second after com
   mouse/touch/keyboard/gamepad input, seeded rng, SpriteCollab animators, sounds, finish), `course.js` (points and bonuses). Each event is
   `events/<id>.js` with its rules in `events/<id>/sim.js` (pure, run headless by `engine/test/pokeathlon-*.test.mjs`) and its drawing in
   the module or `view.js`; `events/_kit` and `events/_kit5` hold shared helpers. Routes `#/pokeathlon`, `?event=<id>`, `?course=<key>`.
+
+## Illustrated arena floors
+
+`client/src/battle/rt/arena-art.js` embeds two original WebP floor textures as data URLs. `ArenaField` and `ArenaRenderer.drawCourt` consume the same assets, including in the packed standalone playable page. Provenance and generation prompts live in `client/src/battle/rt/art/PROVENANCE.md`. The cached canvas is keyed by width, floor and image readiness: a late decoded image replaces the procedural fallback once, while a failed image leaves that fallback cached. `drawPlace` retains its scenery, emblem and ambient layers, avoiding duplicate procedural ground marks on illustrated floors. Simulation, collision geometry and replay formats are unchanged.

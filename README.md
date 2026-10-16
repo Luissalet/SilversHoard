@@ -112,3 +112,6 @@ Battle video recording waits for the real-time arena to finish loading and for t
 The recorded replay prepares its VS card while paused, so the first captured picture already shows both trainers. The full match label remains in the header; the card uses the trainer's name. Playback starts after capture warmup, rather than letting a slow 1080p capture skip the card's entrance.
 
 New real-time battles use rules v8: each Pokémon recovers for one second after finishing a move before starting another, including its special attack. Individual move cooldowns still apply, and the move controls show the remaining recovery. Doubles partners recover independently; movement and dodging remain available. Saved battles v1–7 retain their original timing and result.
+## Detailed real-time arena floors
+
+Champion's room and Mt. Silver use original illustrated marble and snow floors in the arena editor, real-time battles and exported playable pages. Court boundaries, real rocks, spectators and atmosphere remain separate layers. The artwork is embedded in the playable page; it needs no extra image server. Ground textures change appearance only. A floor change or an image finishing loading now invalidates the cached court; failed images retain the procedural floor.
