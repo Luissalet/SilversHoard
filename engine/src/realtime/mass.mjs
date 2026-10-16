@@ -20,13 +20,15 @@
 //   1: an area move hits at most eight Pokémon; moves around the user (Surf, Earthquake, Discharge...) hit at once within 3.4 m.
 //   2: an area move hits every Pokémon it reaches; moves around the user roll out as a wave twice as wide that hits each foe when
 //      the front gets to it (an explosion still goes off at once).
+//   3: a wave is a spread move (three quarters of the damage) only when more than one foe is within its reach as it starts: a lone
+//      foe takes the whole hit, as in real time.
 import {Dex} from '@pkmn/sim';
 import {RtError, rtFormatId, rtGen, rtSets} from './team.mjs';
 import {makeRng} from '../ai.mjs';
 import {finalCooldown, rtMove, TPS} from './moves.mjs';
 
 export {TPS};
-export const MASS_VERSION = 2;
+export const MASS_VERSION = 3;
 export const MASS_MODES = ['ffa', 'teams', 'boss'];
 export const MASS_MAX_UNITS = 1100;            // the whole National Dex (1025) fits
 export const MASS_MAX_TEAMS = 16;
@@ -642,8 +644,11 @@ export class MassBattle {
       case 'burst': {
         const rad = this.reachOf(u, p);
         if (this.version >= 2 && !p.selfdestruct) {
-          // a wave that rolls out from where the user stands: each foe takes it when the front reaches it (updateWaves)
-          this.waves.push({u: u.i, slot, x: u.x, y: u.y, r: u.r, max: rad, hit: new Set(), type: p.type, move: p.name});
+          // a wave that rolls out from where the user stands: each foe takes it when the front reaches it (updateWaves); from
+          // version 3 it is a spread move only if more than one foe stands within its reach as it starts
+          const spread = this.version < 3 || this.near(u.x, u.y, rad + 1)
+            .filter((o) => !o.fainted && this.foes(u, o) && Math.sqrt(this.dist2(u, o)) - o.r <= rad).length > 1;
+          this.waves.push({u: u.i, slot, x: u.x, y: u.y, r: u.r, max: rad, hit: new Set(), type: p.type, move: p.name, spread});
           this.ev('wave', {u: u.i, move: p.name, id: p.id, type: p.type, x: u.x, y: u.y, r: rad, speed: WAVE_SPEED * TPS});
           break;
         }
@@ -744,7 +749,7 @@ export class MassBattle {
       list.sort((a, b) => a.i - b.i);
       for (const o of list) {
         w.hit.add(o.i);
-        this.hit(owner, o, p, {spread: true});
+        this.hit(owner, o, p, {spread: w.spread});
       }
       if (w.r < w.max) keep.push(w);
     }
