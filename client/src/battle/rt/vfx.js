@@ -442,6 +442,8 @@ export class Vfx {
   meleeAt(move, type, x, y, fx, fy, { dash = false } = {}) {
     const kind = melee(move);
     const reach = dash ? 1.2 : 1.4;
+    const len = Math.hypot(fx, fy);   // a direction: a dash's whole path may come in, the mark stays just ahead of the Pokémon
+    if (len > 0) { fx /= len; fy /= len; }
     this.fx.push({ kind: `melee-${kind}`, x: x + fx * reach, y: y + fy * reach, fx, fy, z: H, t: 0, life: kind === "bite" ? 0.35 : 0.3,
       color: TYPE_COLORS[type] || "#ffffff", delay: 0 });
   }
