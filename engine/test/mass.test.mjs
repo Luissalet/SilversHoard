@@ -3,7 +3,7 @@
 // (its input log replays to the same battle) and the engine's commands.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {MASS_MAX_UNITS, MassBattle, massArena, massRun} from '../src/realtime/mass.mjs';
+import {MASS_MAX_UNITS, MASS_VERSION, MassBattle, TPS, massArena, massRun} from '../src/realtime/mass.mjs';
 import {STARTERS, autoSet, composeMass, rosterSpecies} from '../src/realtime/mass-roster.mjs';
 import {handle} from '../src/server.mjs';
 
@@ -96,9 +96,17 @@ test('engine commands: mass_compose, mass_run', async () => {
 
 test('a person plays one Pokémon: it goes where the stick points, fires at the aim point, rolls out of harm, and replays the same', () => {
   const spec = composeMass({mode: 'boss', seed: 'played', teams: [{roster: {kind: 'species', list: ['Mewtwo']}}, {roster: {kind: 'starters'}}]});
-  // without a person the battle is the one it always was (these fingerprints come from before people could play)
-  assert.equal(massRun(composeMass({mode: 'ffa', seed: 'royale', teams: [{roster: {kind: 'starters'}}]})).hash(), '1b78fi5');
-  assert.equal(massRun(composeMass({mode: 'teams', seed: 'armies', teams: [{roster: {kind: 'top', gens: [1], count: 10}}, {roster: {kind: 'top', gens: [2], count: 10}}]})).hash(), '9rggu');
+  // without a person the battle is the one it always was (these fingerprints come from before people could play): rules version 1,
+  // which is what a spec saved without a version plays by; version 2 (waves, no cap on area moves) has its own
+  const royale = composeMass({mode: 'ffa', seed: 'royale', teams: [{roster: {kind: 'starters'}}]});
+  const armies = composeMass({mode: 'teams', seed: 'armies', teams: [{roster: {kind: 'top', gens: [1], count: 10}}, {roster: {kind: 'top', gens: [2], count: 10}}]});
+  assert.equal(royale.version, MASS_VERSION);
+  assert.equal(massRun({...royale, version: 1}).hash(), '1b78fi5');
+  assert.equal(massRun({...armies, version: 1}).hash(), '9rggu');
+  const {version: _drop, ...unversioned} = royale;
+  assert.equal(massRun(unversioned).hash(), '1b78fi5');
+  assert.equal(massRun(royale).hash(), 'obz398');
+  assert.equal(massRun(armies).hash(), 'r26z05');
   assert.throws(() => new MassBattle({...spec, player: {unit: 99}}), /not in this battle/);
   const played = {...spec, player: {unit: 5}};
   const live = new MassBattle(played);
@@ -135,4 +143,47 @@ test('a person plays one Pokémon: it goes where the stick points, fires at the 
   assert.deepEqual(again.summary().player, s.player);
   // and a different log gives a different battle
   assert.notEqual(massRun(played, {inputs: live.inputs.slice(0, 1)}).hash(), live.hash());
+});
+
+test('Surf rolls out as a wave: every foe within its reach takes it, the near ones first (rules version 2); version 1 keeps its burst', () => {
+  // one Blastoise with only Surf in the middle of fourteen Magikarp: twelve on a spiral from 1.5 to 6.6 m, two beyond its reach
+  const crowd = Array.from({length: 14}, () => ({set: {species: 'Magikarp', level: 100, moves: ['Splash']}}));
+  const spec = {seed: 'surf', mode: 'teams', teams: [{name: 'A', units: [{set: {species: 'Blastoise', level: 100, moves: ['Surf']}}]}, {name: 'B', units: crowd}]};
+  const place = (b) => {
+    const c = b.units[0];
+    c.x = b.arena.w / 2; c.y = b.arena.h / 2;
+    b.units.slice(1).forEach((o, k) => {
+      const d = k < 12 ? 1.5 + k * 0.45 : 8.5 + k;
+      const a = k * 2.4;
+      o.x = c.x + Math.cos(a) * d; o.y = c.y + Math.sin(a) * d * 0.55;
+    });
+    return c;
+  };
+  const surf = (version) => {
+    const b = new MassBattle({...spec, version});
+    const c = place(b);
+    const far = b.units[1];
+    b.rebuildGrid();
+    c.act = {slot: 0, release: b.t, target: far.i, tx: far.x, ty: far.y};
+    b.release(c);
+    for (let i = 0; i < 2 * TPS; i++) { b.t++; b.rebuildGrid(); b.updateWaves(); }
+    const hits = b.events.filter((e) => e.k === 'hit' && e.by === 0);
+    return {b, c, hits};
+  };
+  const v2 = surf(2);
+  const dist = (o) => Math.sqrt(v2.b.dist2(v2.c, o)) - o.r;
+  const wave = v2.b.events.find((e) => e.k === 'wave');
+  assert.ok(wave && wave.id === 'surf' && wave.r > 6.5, JSON.stringify(wave));
+  const reached = v2.b.units.slice(1).filter((o) => dist(o) <= wave.r).map((o) => o.i);
+  assert.equal(reached.length, 12);
+  assert.deepEqual(v2.hits.map((e) => e.u).sort((a, b) => a - b), reached);
+  // the front gets to the far ones later: hit ticks never go back as the distance grows
+  const order = v2.hits.map((e) => ({t: e.t, d: dist(v2.b.units[e.u])})).sort((a, b) => a.d - b.d);
+  for (let i = 1; i < order.length; i++) assert.ok(order[i].t >= order[i - 1].t, JSON.stringify(order));
+  assert.ok(order.at(-1).t > order[0].t);
+  // version 1: at once, within 3.4 m, eight at most
+  const v1 = surf(1);
+  assert.ok(!v1.b.events.some((e) => e.k === 'wave') && v1.b.events.some((e) => e.k === 'burst'));
+  assert.ok(v1.hits.length <= 8 && v1.hits.length >= 3, String(v1.hits.length));
+  assert.ok(new Set(v1.hits.map((e) => e.t)).size === 1);
 });

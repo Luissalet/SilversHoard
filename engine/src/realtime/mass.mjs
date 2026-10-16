@@ -15,13 +15,18 @@
 // Deterministic: the same spec (seed included) gives the same battle in the engine process and in a browser, which is how the screen
 // replays a battle the app already ran and how the result is checked. Units are always processed in index order and every random
 // draw comes from the battle's own generator.
+//
+// Rules versions (spec.version; a spec without one is version 1, so every battle saved before keeps its outcome):
+//   1: an area move hits at most eight Pokémon; moves around the user (Surf, Earthquake, Discharge...) hit at once within 3.4 m.
+//   2: an area move hits every Pokémon it reaches; moves around the user roll out as a wave twice as wide that hits each foe when
+//      the front gets to it (an explosion still goes off at once).
 import {Dex} from '@pkmn/sim';
 import {RtError, rtFormatId, rtGen, rtSets} from './team.mjs';
 import {makeRng} from '../ai.mjs';
 import {finalCooldown, rtMove, TPS} from './moves.mjs';
 
 export {TPS};
-export const MASS_VERSION = 1;
+export const MASS_VERSION = 2;
 export const MASS_MODES = ['ffa', 'teams', 'boss'];
 export const MASS_MAX_UNITS = 1100;            // the whole National Dex (1025) fits
 export const MASS_MAX_TEAMS = 16;
@@ -35,7 +40,9 @@ const BOOST_TICKS = 20 * TPS;            // stat changes last 20 s, as in real t
 const STATUS_TICKS = {brn: 20 * TPS, par: 20 * TPS, psn: 20 * TPS, tox: 20 * TPS, slp: Math.round(2.5 * TPS), frz: 2 * TPS};
 const THINK_EVERY = 8;                   // ticks between target choices (staggered over the units)
 const CELL = 3;                          // meters per cell of the neighbour grid
-const MAX_VICTIMS = 8;                   // most units one area move can hit
+const MAX_VICTIMS = 8;                   // most units one area move can hit (rules version 1)
+const WAVE_SCALE = 2;                    // version 2: a move around the user reaches twice its real-time radius...
+const WAVE_SPEED = 11 / TPS;             // ...as a wave whose front moves 11 m/s
 const SPREAD = 0.75;                     // an area move that hits more than one unit does three quarters of the damage
 const DAMAGE_SCALE = 0.22;               // crowds focus their attacks: every hit does less, so fights last long enough to watch
 const DROP_DELAY = 15;                   // ticks between marking a spot and the move landing there
@@ -147,7 +154,7 @@ export class MassBattle {
     this.id = spec.id || `mass${Date.now().toString(36)}`;
     this.seed = String(spec.seed || this.id);
     this.spec.seed = this.seed;
-    this.version = MASS_VERSION;
+    this.version = Math.max(1, Math.min(MASS_VERSION, Math.floor(Number(spec.version)) || 1));
     this.mode = MASS_MODES.includes(spec.mode) ? spec.mode : 'ffa';
     this.formatId = rtFormatId(spec.format || 'gen9customgame');
     this.gen = rtGen(this.formatId);
@@ -185,6 +192,7 @@ export class MassBattle {
     this.events = [];
     this.projectiles = [];
     this.marks = [];
+    this.waves = [];             // version 2: waves rolling out from whoever used Surf, Earthquake...
     this.beams = [];             // drawn for a few frames; they hit at once
     this.ended = false;
     this.winner = -1;            // team index, or -1 (none yet / tie)
@@ -353,8 +361,13 @@ export class MassBattle {
     return best;
   }
 
+  /** Who an area move hits: everyone it reaches (version 2), or the first `n` of them (version 1). */
+  victims(list, n) {
+    return this.version >= 2 ? list : list.slice(0, n);
+  }
+
   reachOf(u, p) {
-    if (p.shape === 'burst') return p.radius * u.size;
+    if (p.shape === 'burst') return p.radius * u.size * (this.version >= 2 && !p.selfdestruct ? WAVE_SCALE : 1);
     if (p.shape === 'strike' || p.shape === 'cone') return p.reach * Math.max(1, u.size * 0.8) + u.r;
     if (p.shape === 'dash') return p.reach;
     return p.reach;
@@ -415,6 +428,7 @@ export class MassBattle {
     for (const u of this.units) if (!u.fainted) this.updateUnit(u);
     this.updateProjectiles();
     this.updateMarks();
+    this.updateWaves();
     this.beams = this.beams.filter((b) => b.until > this.t);
     this.checkEnd();
   }
@@ -556,7 +570,7 @@ export class MassBattle {
     u.act = {slot, release: this.t + Math.max(1, Math.round(p.windup * (u.boss ? 0.7 : 1))), target: f ? f.i : -1, tx, ty};
     u.cds[slot] = this.t + u.final[slot] * (u.status === 'par' ? 1.5 : 1);
     u.uses++;
-    this.ev('use', {u: u.i, slot, move: p.name, type: p.type, shape: p.shape, target: f ? f.i : -1});
+    this.ev('use', {u: u.i, slot, move: p.name, id: p.id, type: p.type, shape: p.shape, target: f ? f.i : -1});
   }
 
   release(u) {
@@ -599,8 +613,8 @@ export class MassBattle {
           return od - o.r <= reach && (ox * dirx + oy * diry) / od >= arc;
         });
         hits.sort((a, b) => this.dist2(u, a) - this.dist2(u, b));
-        const list = p.shape === 'strike' ? hits.slice(0, u.boss ? 4 : 1) : hits.slice(0, MAX_VICTIMS);
-        this.ev('swing', {u: u.i, move: p.name, type: p.type, shape: p.shape, reach, dx: dirx, dy: diry});
+        const list = p.shape === 'strike' ? hits.slice(0, u.boss ? 4 : 1) : this.victims(hits, MAX_VICTIMS);
+        this.ev('swing', {u: u.i, move: p.name, id: p.id, type: p.type, shape: p.shape, reach, dx: dirx, dy: diry, arc});
         for (const o of list) this.hit(u, o, p, {spread: list.length > 1 ? list.length : false});
         break;
       }
@@ -621,14 +635,21 @@ export class MassBattle {
         const fromy = u.y;
         u.x = Math.min(this.arena.w - u.r, Math.max(u.r, u.x + dirx * stop));
         u.y = Math.min(this.arena.h - u.r, Math.max(u.r, u.y + diry * stop));
-        this.ev('dash', {u: u.i, move: p.name, type: p.type, x0: fromx, y0: fromy, x1: u.x, y1: u.y});
+        this.ev('dash', {u: u.i, move: p.name, id: p.id, type: p.type, x0: fromx, y0: fromy, x1: u.x, y1: u.y});
         if (victim) this.hit(u, victim, p);
         break;
       }
       case 'burst': {
-        const rad = p.radius * u.size;
-        const list = this.near(u.x, u.y, rad + 1).filter((o) => !o.fainted && this.foes(u, o) && Math.sqrt(this.dist2(u, o)) - o.r <= rad).slice(0, u.boss ? MAX_VICTIMS * 3 : MAX_VICTIMS);
-        this.ev('burst', {u: u.i, move: p.name, type: p.type, x: u.x, y: u.y, r: rad});
+        const rad = this.reachOf(u, p);
+        if (this.version >= 2 && !p.selfdestruct) {
+          // a wave that rolls out from where the user stands: each foe takes it when the front reaches it (updateWaves)
+          this.waves.push({u: u.i, slot, x: u.x, y: u.y, r: u.r, max: rad, hit: new Set(), type: p.type, move: p.name});
+          this.ev('wave', {u: u.i, move: p.name, id: p.id, type: p.type, x: u.x, y: u.y, r: rad, speed: WAVE_SPEED * TPS});
+          break;
+        }
+        const list = this.victims(this.near(u.x, u.y, rad + 1).filter((o) => !o.fainted && this.foes(u, o) && Math.sqrt(this.dist2(u, o)) - o.r <= rad),
+          u.boss ? MAX_VICTIMS * 3 : MAX_VICTIMS);
+        this.ev('burst', {u: u.i, move: p.name, id: p.id, type: p.type, x: u.x, y: u.y, r: rad});
         for (const o of list) this.hit(u, o, p, {spread: list.length > 1 ? list.length : false});
         if (p.selfdestruct && !u.boss) this.faint(u, -1);
         break;
@@ -648,22 +669,22 @@ export class MassBattle {
         const list = cands.slice(0, u.boss ? 8 : 1);
         const end = list.length && !u.boss ? (list[0].x - u.x) * dirx + (list[0].y - u.y) * diry : reach;
         this.beams.push({u: u.i, type: p.type, x0: u.x, y0: u.y, x1: u.x + dirx * end, y1: u.y + diry * end, w: width, until: this.t + 8});
-        this.ev('beam', {u: u.i, move: p.name, type: p.type, x0: u.x, y0: u.y, x1: u.x + dirx * end, y1: u.y + diry * end, w: width});
+        this.ev('beam', {u: u.i, move: p.name, id: p.id, type: p.type, x0: u.x, y0: u.y, x1: u.x + dirx * end, y1: u.y + diry * end, w: width});
         for (const o of list) this.hit(u, o, p, {spread: list.length > 1 ? list.length : false});
         break;
       }
       case 'drop': {
         const rad = p.radius * (u.boss ? Math.min(3, u.size) : 1);
-        this.marks.push({u: u.i, slot, x: tx, y: ty, r: rad, land: this.t + DROP_DELAY, type: p.type, move: p.name});
-        this.ev('mark', {u: u.i, move: p.name, type: p.type, x: tx, y: ty, r: rad});
+        this.marks.push({u: u.i, slot, x: tx, y: ty, r: rad, land: this.t + DROP_DELAY, type: p.type, move: p.name, id: p.id});
+        this.ev('mark', {u: u.i, move: p.name, id: p.id, type: p.type, x: tx, y: ty, r: rad});
         break;
       }
       default: {
         // shot, wave and status moves aimed at a foe: a projectile that hits the first foe it touches
         const speed = (p.speed || 13) / TPS;
-        this.projectiles.push({u: u.i, team: u.team, slot, x: u.x + dirx * u.r, y: u.y + diry * u.r, vx: dirx * speed, vy: diry * speed,
+        this.projectiles.push({u: u.i, team: u.team, slot, move: p.id, shape: p.shape, x: u.x + dirx * u.r, y: u.y + diry * u.r, vx: dirx * speed, vy: diry * speed,
           left: (p.reach || 14) / speed, r: (p.radius || 0.45) * (u.boss ? Math.min(2.5, u.size * 0.7) : 1), type: p.type, kind});
-        this.ev('shot', {u: u.i, move: p.name, type: p.type});
+        this.ev('shot', {u: u.i, move: p.name, id: p.id, type: p.type});
       }
     }
     if (p.recharge) u.busyUntil = this.t + RECHARGE_TICKS;
@@ -702,11 +723,32 @@ export class MassBattle {
       const owner = this.units[m.u];
       const p = owner.moves[m.slot];
       const list = this.near(m.x, m.y, m.r + 1).filter((o) => !o.fainted && o.team !== owner.team
-        && Math.sqrt((o.x - m.x) ** 2 + (o.y - m.y) ** 2) - o.r <= m.r).slice(0, MAX_VICTIMS);
-      this.ev('land', {u: m.u, type: m.type, x: m.x, y: m.y, r: m.r});
-      for (const o of list) this.hit(owner, o, p, {spread: list.length > 1});
+        && Math.sqrt((o.x - m.x) ** 2 + (o.y - m.y) ** 2) - o.r <= m.r);
+      this.ev('land', {u: m.u, id: m.id, type: m.type, x: m.x, y: m.y, r: m.r});
+      const hit = this.victims(list, MAX_VICTIMS);
+      for (const o of hit) this.hit(owner, o, p, {spread: hit.length > 1});
     }
     this.marks = keep;
+  }
+
+  /** Version 2: waves grow from where they started; every foe the front reaches takes the move once, in index order. */
+  updateWaves() {
+    if (!this.waves.length) return;
+    const keep = [];
+    for (const w of this.waves) {
+      w.r = Math.min(w.max, w.r + WAVE_SPEED);
+      const owner = this.units[w.u];
+      const p = owner.moves[w.slot];
+      const list = this.near(w.x, w.y, w.r + 1.5).filter((o) => !o.fainted && !w.hit.has(o.i) && this.foes(owner, o)
+        && Math.sqrt((o.x - w.x) ** 2 + (o.y - w.y) ** 2) - o.r <= w.r);
+      list.sort((a, b) => a.i - b.i);
+      for (const o of list) {
+        w.hit.add(o.i);
+        this.hit(owner, o, p, {spread: true});
+      }
+      if (w.r < w.max) keep.push(w);
+    }
+    this.waves = keep;
   }
 
   // ------------------------------------------------------------ effects
@@ -719,7 +761,7 @@ export class MassBattle {
     const eff = this.effectiveness(p.type, def);
     let dealt = Math.min(def.hp, dmg);
     if (def.ability === 'sturdy' && def.hp === def.maxhp && dmg >= def.hp) dealt = def.hp - 1;
-    this.ev('hit', {u: def.i, by: att.i, dmg: dealt, eff, crit: raw < 0, type: p.type});
+    this.ev('hit', {u: def.i, by: att.i, dmg: dealt, eff, crit: raw < 0, type: p.type, id: p.id});
     att.dealt += dealt;
     this.hurt(def, dealt, att.i, p);
     if (p.drain && !att.fainted) this.heal(att, Math.floor((dealt * p.drain[0]) / p.drain[1]));
