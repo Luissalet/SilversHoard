@@ -11,21 +11,13 @@ import { Busy, Empty, ErrorBox, Field, Icon, ICONS, Spinner, useBusy, useLoad, u
 import { useContextProvider, usePoll } from "../components/hooks.js";
 import { Avatar, GymBadge, useSeats } from "../components/silver.jsx";
 import { battleTitle, loc, seatNames, winnerName } from "../loc.js";
+import { lazyChunk } from "../lazy.js";
 import AiNotes from "../components/AiNotes.jsx";
 import VideoExport from "../components/VideoExport.jsx";
 import { CupStrip } from "./Copa.jsx";
 import { SaveExercise, ExerciseProgress, PracticeSuggestions } from "../components/Training.jsx";
 // the real-time screen carries the battle engine: loaded only when a real-time battle opens
-// After the app is rebuilt the old chunk name is gone; reload once to pick up the new one instead of showing a blank page.
-const CombateRt = React.lazy(() => import("./CombateRt.jsx").then((m) => {
-  try { sessionStorage.removeItem("silver-chunk-reload"); } catch { /* storage off */ }
-  return m;
-}, (err) => {
-  let tried = true;
-  try { tried = sessionStorage.getItem("silver-chunk-reload") === "1"; if (!tried) sessionStorage.setItem("silver-chunk-reload", "1"); } catch { /* storage off */ }
-  if (!tried) { window.location.reload(); return new Promise(() => {}); }
-  throw err;
-}));
+const CombateRt = lazyChunk(() => import("./CombateRt.jsx"));
 
 export function RunStrip({ run }) {
   const { t, lang } = useApp();

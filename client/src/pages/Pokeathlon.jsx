@@ -1,8 +1,9 @@
 // The Pokéathlon page. The events, the canvas runtime and the course rules load only when the page is opened.
-import React, { Suspense, lazy } from "react";
+import React, { Suspense } from "react";
 import { Spinner } from "../components/ui.jsx";
+import { lazyChunk } from "../lazy.js";
 
-const Hub = lazy(() => import("../pokeathlon/Hub.jsx"));
+const Hub = lazyChunk(() => import("../pokeathlon/Hub.jsx"));
 
 export default function Pokeathlon(props) {
   return (
