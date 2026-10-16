@@ -12,9 +12,10 @@ import VideoExport from "../components/VideoExport.jsx";
 import UnitPicker from "../battle/mass/UnitPicker.jsx";
 import "../battle/mass/mass.css";
 import { loc } from "../loc.js";
+import { lazyChunk } from "../lazy.js";
 
 // the screen carries the battle engine: it comes with the real-time chunk (CombateRt.jsx), only when a battle is watched
-const MassScreen = React.lazy(() => import("./CombateRt.jsx").then((m) => ({ default: m.MassScreen })));
+const MassScreen = lazyChunk(() => import("./CombateRt.jsx").then((m) => ({ default: m.MassScreen })));
 
 const MODES = ["ffa", "teams", "boss"];
 const KINDS = ["dex", "top", "starters", "legendaries", "random", "species", "trainer"];
