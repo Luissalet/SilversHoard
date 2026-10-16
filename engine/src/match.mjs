@@ -3,7 +3,7 @@
 import {Battle, PRNG} from '@pkmn/sim';
 import {applyLevelRules, buildFormatId, completeSets, EngineError, formatInfo, packTeam, seedArray} from './core.mjs';
 import {chooseFor, makeRng} from './ai.mjs';
-import {newBattle, prepareFrontierDex} from './frontier.mjs';
+import {newBattle, ownerOf, prepareFrontierDex, useOwners} from './frontier.mjs';
 
 const KEEP = ['choice', 'kind', 'name', 'target', 'species', 'gimmick', 'score', 'dmg', 'ko', 'acc', 'take', 'give', 'label'];
 const round = (x) => (typeof x === 'number' ? Math.round(x * 1000) / 1000 : x);
@@ -117,8 +117,12 @@ export function annotate(battle, side, req) {
 export class Match {
   /**
    * spec: {id, format, rules: [showdown custom rules], level_rules: {level, level_cap, level_min}, seed, max_turns,
-   *        p1: {name, sets, ai: {level, style} | null}, p2: {...},
+   *        p1: {name, sets, ai: {level, style} | null, owners, partner}, p2: {...},
    *        start: {p1: [{hp, status, pp}...], p2: [...], field: {weather, trickroom}} (optional, frontier.mjs)}
+   * A multi battle (doubles, two trainers a side) gives a seat `owners`, whose each set is (0: slot 1, 1: slot 2; frontier.mjs keeps
+   * a slot to its owner's Pokémon), and a person's seat `partner`: {name, ai: {level, style}}, the AI trainer playing slot 2. The
+   * person then chooses for slot 1 only and the partner's part of each choice is added here (and chosen alone when only its slot
+   * has something to do).
    */
   constructor(spec, snapshot = null) {
     this.spec = {...spec};
@@ -132,8 +136,11 @@ export class Match {
     this.notes = [];       // with spec.trace: why each AI decision was taken (compactTrace), in order
     this.notesSent = 0;
     prepareFrontierDex(this.formatId);   // the Battle Frontier's fog, before a battle that may use it is created or restored
+    const owners = {};
+    for (const id of ['p1', 'p2']) if (Array.isArray(this.seats[id].owners) && this.seats[id].owners.length) owners[id] = this.seats[id].owners;
+    const multi = Object.keys(owners).length ? owners : null;
     if (snapshot) {
-      this.battle = Battle.fromJSON(snapshot);
+      this.battle = useOwners(Battle.fromJSON(snapshot), multi);
     } else {
       const seed = spec.seed ? [seedArray(spec.seed)].flat().join(',') : PRNG.generateSeed();
       this.spec.seed = seed;
@@ -143,7 +150,7 @@ export class Match {
         if (!seat.sets || !seat.sets.length) throw new EngineError('empty_team', `${id} has no team.`);
         options[id] = {name: seatName(seat.name, id === 'p1' ? 'Player 1' : 'Player 2'), team: prepareTeam(seat.sets, this.formatId, spec.level_rules)};
       }
-      this.battle = newBattle(options, spec.start);
+      this.battle = newBattle(options, multi ? {...(spec.start || {}), owners: multi} : spec.start);
     }
     this.battle.send = () => {};
     // a change of tactics happens once; a battle picked up from a snapshot finds it in its log
@@ -152,6 +159,33 @@ export class Match {
 
   isAi(side) {
     return !!this.seats[side]?.ai;
+  }
+
+  /** A person's AI partner in a multi battle ({name, ai}), or null. */
+  partnerOf(side) {
+    const seat = this.seats[side];
+    return seat && !seat.ai && seat.partner && Array.isArray(this.battle.silverOwners?.[side]) ? seat.partner : null;
+  }
+
+  /** The slots of a request with something to choose: a forced switch's flagged slots, else the slots with a Pokémon standing. */
+  static slotsToChoose(side, req) {
+    if (req.forceSwitch) return req.forceSwitch.map((f, i) => (f ? i : -1)).filter((i) => i >= 0);
+    return (req.active || []).map((_, i) => (side.active[i] && !side.active[i].fainted ? i : -1)).filter((i) => i >= 0);
+  }
+
+  /** The partner AI's choice for its slot (slot 2) of this request, or 'pass'. */
+  partnerPart(side, req, partner) {
+    if (!Match.slotsToChoose(side, req).includes(1)) return 'pass';
+    const trace = this.spec.trace ? {} : null;
+    let choice = null;
+    try {
+      const rng = this.spec.practice ? makeRng(`${this.spec.seed}:${side.id}:partner:${this.battle.turn}:${this.battle.inputLog.length}`) : this.rngs[side.id];
+      choice = chooseFor(this.battle, side.id, {level: partner.ai?.level || 'hard', style: partner.ai?.style || 'balanced', rng, trace});
+    } catch (e) {
+      this.errors.push(`${side.id} partner AI: ${e.message}`);
+    }
+    if (trace && trace.choice) this.notes.push({...compactTrace(trace), partner: true});
+    return String(choice || '').split(',').map((x) => x.trim())[1] || 'pass';
   }
 
   /** Let every AI seat choose until a person has to choose or the battle ends. */
@@ -167,7 +201,22 @@ export class Match {
       for (const side of b.sides) {
         if (!side || b.ended) continue;
         const req = side.activeRequest;
-        if (!req || req.wait || side.isChoiceDone() || !this.isAi(side.id)) continue;
+        if (!req || req.wait || side.isChoiceDone()) continue;
+        if (!this.isAi(side.id)) {
+          // a multi battle where only the partner's slot has something to do: the partner chooses alone
+          const partner = this.partnerOf(side.id);
+          const slots = partner && !req.teamPreview ? Match.slotsToChoose(side, req) : [0];
+          if (!partner || !slots.length || slots.includes(0)) continue;
+          const part = this.partnerPart(side, req, partner);
+          let done = false;
+          try { done = b.choose(side.id, `pass, ${part}`); } catch (e) { this.errors.push(`${side.id} partner ${part}: ${e.message}`); }
+          if (!done) {
+            this.errors.push(`${side.id} partner rejected "${part}": ${side.choice?.error || ''}`.trim());
+            try { b.choose(side.id, 'default'); } catch { /* the battle will tell */ }
+          }
+          progressed = true;
+          continue;
+        }
         let ai = this.seats[side.id].ai;
         if (ai.phase && !this.phased[side.id] && phaseReached(b, side.id, ai.phase.when)) {
           this.phased[side.id] = true;
@@ -207,10 +256,34 @@ export class Match {
     if (this.isAi(side)) throw new EngineError('invalid', `${side} is played by the AI.`);
     const req = s.activeRequest;
     if (!req || req.wait) throw new EngineError('not_your_turn', 'Nothing to choose right now.');
-    const ok = b.choose(side, String(choice || '').trim());
+    let text = String(choice || '').trim();
+    const partner = this.partnerOf(side);
+    if (partner && !req.teamPreview) text = this.withPartner(s, req, text, partner);
+    const ok = b.choose(side, text);
     if (!ok) throw new EngineError('invalid_choice', s.choice?.error || `Invalid choice: ${choice}`);
     this.advance();
     return this;
+  }
+
+  /** A person's choice in a multi battle: their own slot's part (the first; the rest is ignored) and the partner AI's part. */
+  withPartner(side, req, text, partner) {
+    const own = text.split(',').map((x) => x.trim())[0] || 'pass';
+    const sw = /^switch (\d+)/.exec(own);
+    if (sw && ownerOf(side, side.pokemon[Number(sw[1]) - 1]) === 1) {
+      throw new EngineError('invalid_choice', 'That Pokémon is your partner\'s: only they can send it out.');
+    }
+    return `${own}, ${this.partnerPart(side, req, partner)}`;
+  }
+
+  /** The request as a person's screen gets it; in a multi battle it also says which slots and Pokémon are the partner's. */
+  requestFor(side, req) {
+    const out = annotate(this.battle, side, req);
+    if (this.partnerOf(side.id)) {
+      out.partner_slots = [1];
+      out.partner_name = String(this.seats[side.id].partner.name || '');
+      (out.side?.pokemon || []).forEach((info, i) => { if (ownerOf(side, side.pokemon[i]) === 1) info.partner = true; });
+    }
+    return out;
   }
 
   forfeit(side) {
@@ -231,7 +304,7 @@ export class Match {
       if (!side) continue;
       const req = side.activeRequest;
       if (!this.isAi(side.id) && req && !req.wait && !b.ended && (view === 'omniscient' || view === side.id || view === 'host')) {
-        requests[side.id] = annotate(b, side, req);
+        requests[side.id] = this.requestFor(side, req);
       }
     }
     return {

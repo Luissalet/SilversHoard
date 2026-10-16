@@ -280,7 +280,8 @@ export function think(b, side, opts = {}) {
   let foe = b.foe(side);
   // replacing a fainted Pokémon or coming back from a pivot move
   if (side.need) {
-    if (partner || side.vacant) return input;   // the person picks the partner's next Pokémon (or the time runs out)
+    // the person picks the partner's next Pokémon (or the time runs out); a multi battle's AI partner picks its own
+    if ((partner && !side.trainer?.partner) || side.vacant) return input;
     if (b.t - side.needSince >= reactTicks) input.sw = bestSlot(b, side, rng, c.lv.switching || c.level === 'normal');
     return input;
   }

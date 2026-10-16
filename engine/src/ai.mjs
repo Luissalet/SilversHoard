@@ -8,6 +8,7 @@
 // sees, and plays as the expert anywhere else or when that server is not running.
 import {Battle, PRNG, toID} from '@pkmn/sim';
 import {believe} from './belief.mjs';
+import {ownerOf} from './frontier.mjs';
 
 export const LEVELS = ['random', 'easy', 'normal', 'hard', 'expert', 'master', 'neural'];
 export const STYLES = ['balanced', 'aggressive', 'defensive', 'setup', 'stall'];
@@ -252,12 +253,14 @@ function requestOf(side) {
   return side.activeRequest || null;
 }
 
-function benchFor(side, req) {
+// `slot` (0, 1...) keeps a multi battle's slot to its own trainer's Pokémon (frontier.mjs ownerOf); -1 or a side of one trainer: all
+function benchFor(side, req, slot = -1) {
   const out = [];
   const pokemon = req?.side?.pokemon || [];
   for (let i = 0; i < pokemon.length; i++) {
     const p = side.pokemon[i];
-    if (!pokemon[i].active && p && !p.fainted && !pokemon[i].condition?.endsWith(' fnt') && !pokemon[i].reviving) out.push(i + 1);
+    if (!pokemon[i].active && p && !p.fainted && !pokemon[i].condition?.endsWith(' fnt') && !pokemon[i].reviving
+      && (slot < 0 || ownerOf(side, p) < 0 || ownerOf(side, p) === slot)) out.push(i + 1);
   }
   return out;
 }
@@ -344,7 +347,7 @@ function slotOptions(scratch, side, slot, req, opts, w, {allowSwitch = true} = {
   }
   if (!out.length) out.push({choice: 'move 1', score: 0.01, kind: 'struggle'});
   if (allowSwitch && !active.trapped && !active.maybeTrapped && opts.level !== 'easy') {
-    for (const n of benchFor(side, req)) {
+    for (const n of benchFor(side, req, slot)) {
       const mon = side.pokemon[n - 1];
       const take = Math.max(0, ...foes.map((f) => bestThreat(scratch, f, mon).frac));
       const give = Math.max(0, ...foes.map((f) => bestThreat(scratch, mon, f).frac));
@@ -364,7 +367,7 @@ function forcedSwitches(scratch, side, req, opts, w, rng) {
     if (!req.forceSwitch[slot]) { parts.push('pass'); continue; }
     // Revival Blessing asks for a fainted Pokémon to bring back instead of a healthy one to send in
     const reviving = !!side.slotConditions?.[slot]?.revivalblessing;
-    const bench = (reviving ? faintedFor(side) : benchFor(side, req)).filter((n) => !used.has(n));
+    const bench = (reviving ? faintedFor(side) : benchFor(side, req, slot)).filter((n) => !used.has(n));
     if (!bench.length) { parts.push('pass'); continue; }
     let n;
     if (opts.level === 'random' || opts.level === 'easy') n = pick(bench, rng);
@@ -792,7 +795,7 @@ function randomChoice(side, req, rng) {
     const reqMon = req.side?.pokemon?.[slot];
     if (String(reqMon?.condition || '').endsWith(' fnt') || reqMon?.commanding) { parts.push('pass'); continue; }
     const moves = (active.moves || []).map((m, i) => ({m, i})).filter(({m}) => !m.disabled);
-    const bench = active.trapped || active.maybeTrapped ? [] : benchFor(side, req).filter((n) => !used.has(n));
+    const bench = active.trapped || active.maybeTrapped ? [] : benchFor(side, req, slot).filter((n) => !used.has(n));
     if (bench.length && rng() < 0.12) {
       const n = pick(bench, rng);
       used.add(n);

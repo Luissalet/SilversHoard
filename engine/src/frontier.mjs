@@ -7,6 +7,9 @@
 // HP and status. The state lives in the battle from then on: snapshots keep it, and the input log carries it as a `>silverstart`
 // line that battleFromInput reads, so practice branches and replays rebuild the same battle. Levels are not part of it: the app
 // writes them in the sets (they go into the packed teams of the input log).
+//
+// spec.start.owners = {p1: [0|1 for each set], p2: [...]} makes a doubles side a multi battle side: two trainers, each with its own
+// Pokémon (owner k plays slot k). See "multi battles" below.
 import {Battle, Dex} from '@pkmn/sim';
 import {buildFormatId, completeSets, EngineError, importTeam, teamSummary} from './core.mjs';
 
@@ -54,7 +57,87 @@ export function prepareFrontierDex(formatId) {
 export function hasStart(start) {
   if (!start || typeof start !== 'object') return false;
   const any = (list) => Array.isArray(list) && list.some((x) => x && Object.keys(x).length);
-  return any(start.p1) || any(start.p2) || !!(start.field && Object.keys(start.field).length);
+  return any(start.p1) || any(start.p2) || !!(start.field && Object.keys(start.field).length) || !!cleanOwners(start.owners);
+}
+
+// ---------------------------------------------------------------- multi battles
+// The Frontier's multi battles: you and a partner against two rival trainers, each trainer with its own Pokémon, on a doubles
+// field. The battle keeps whose each Pokémon is as `silverOwners` ({p1: [0|1 per set, in the order of the sets], p2: [...]}; owner
+// k plays slot k), a plain field that snapshots and the AI's copies keep. A slot is refilled only from its owner's Pokémon and
+// stays empty once they are all down, as in the games; a move that switches out or drags in (U-turn, Baton Pass, Roar) only
+// brings in one of the owner's, and does nothing when the owner has none left.
+
+function cleanOwners(owners) {
+  if (!owners || typeof owners !== 'object') return null;
+  const out = {};
+  for (const id of ['p1', 'p2']) if (Array.isArray(owners[id]) && owners[id].length) out[id] = owners[id].map((o) => (o ? 1 : 0));
+  return Object.keys(out).length ? out : null;
+}
+
+function sharedSide(battle, side) {
+  return !!(side && side.active && side.active.length > 1 && Array.isArray(battle?.silverOwners?.[side.id]));
+}
+
+/** The owner (0 or 1) of a Pokémon of a multi battle side, or -1 when the side is not shared. */
+export function ownerOf(side, mon) {
+  if (!mon || !sharedSide(side.battle, side)) return -1;
+  const k = side.team.indexOf(mon.set);
+  return k < 0 ? -1 : side.battle.silverOwners[side.id][k] ? 1 : 0;
+}
+
+/** The benched Pokémon that may come in at `slot`: the slot owner's that are not fainted (any of them when the side is not shared). */
+export function ownBench(side, slot) {
+  const out = [];
+  for (let i = side.active.length; i < side.pokemon.length; i++) {
+    const p = side.pokemon[i];
+    if (!p || p.fainted) continue;
+    const o = ownerOf(side, p);
+    if (o < 0 || o === slot) out.push(p);
+  }
+  return out;
+}
+
+// After a knockout (or a switch-out move) the simulator asks the side to fill every flagged slot while anything is on its bench;
+// here a slot whose owner has nobody left is let go instead, so it stays empty.
+const baseCanSwitch = Battle.prototype.canSwitch;
+Battle.prototype.canSwitch = function canSwitch(side) {
+  const n = baseCanSwitch.call(this, side);
+  if (!n || !sharedSide(this, side)) return n;
+  let pruned = false;
+  side.active.forEach((p, slot) => {
+    if (p && p.switchFlag && !ownBench(side, slot).length) {
+      p.switchFlag = false;
+      pruned = true;
+    }
+  });
+  return pruned && !side.active.some((p) => p && p.switchFlag) ? 0 : n;
+};
+
+function readyActions(b) {
+  const proto = b && b.actions && Object.getPrototypeOf(b.actions);
+  if (!proto || proto.silverDragIn) return;
+  const baseDragIn = proto.dragIn;
+  proto.silverDragIn = true;
+  proto.dragIn = function dragIn(side, pos) {
+    if (!sharedSide(this.battle, side)) return baseDragIn.call(this, side, pos);
+    const own = ownBench(side, pos);
+    if (!own.length) return false;
+    const pokemon = this.battle.sample(own);
+    const oldActive = side.active[pos];
+    if (!oldActive) throw new Error('nothing to drag out');
+    if (!oldActive.hp) return false;
+    if (!this.battle.runEvent('DragOut', oldActive)) return false;
+    return !!this.switchIn(pokemon, pos, null, true);
+  };
+}
+
+/** Make a battle (new, restored from a snapshot or copied) a multi battle with these owners ({p1, p2}; null leaves it as it is). */
+export function useOwners(b, owners) {
+  const clean = cleanOwners(owners || b?.silverOwners);
+  if (!b || !clean) return b;
+  b.silverOwners = clean;
+  readyActions(b);
+  return b;
 }
 
 const clamp = (x, lo, hi) => Math.max(lo, Math.min(hi, x));
@@ -111,7 +194,12 @@ export function newBattle(options, start = null) {
   if (!hasStart(start)) return new Battle(options);
   const base = Dex.formats.get(options.formatid, true);
   const format = Object.create(base);
-  format.onBegin = function () { base.onBegin?.call(this); applyMons(this, start); };
+  const owners = cleanOwners(start.owners);
+  format.onBegin = function () {
+    if (owners) useOwners(this, owners);   // before anybody can switch
+    base.onBegin?.call(this);
+    applyMons(this, start);
+  };
   format.onBattleStart = function () { base.onBattleStart?.call(this); applyField(this, start.field); };
   const b = new Battle({...options, format});
   b.inputLog.push(PREFIX + JSON.stringify(start));
