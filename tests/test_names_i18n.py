@@ -132,3 +132,22 @@ def test_facility_seats_without_a_saved_trainer(services):
               "p2": {"trainer_id": 42, "name": plain["name"], "human": False, "ai": {}}}
     names_i18n.annotate(battle, services)
     assert battle["p1"]["i18n"]["en"]["name"] == "Ace Trainer Nora" and battle["p2"]["i18n"]["en"]["name"] == plain["name_en"]
+
+
+def test_facility_stages(services):
+    from silvers_hoard import facilities, frontier
+
+    stage = {"trainer_id": "", "battle_id": "", "result": "won", "number": 3, "boss": False, "name": "Montañero Marco", "title": "Montañero"}
+    assert names_i18n.facility_stage(stage, services) == {"es": {"name": "Montañero Marco", "title": "Montañero"}, "en": {"name": "Hiker Marco", "title": "Hiker"}}
+    boss = next(b for f in facilities.FACILITIES for b in f.get("bosses") or [] if len(b) > 4)
+    n = names_i18n.facility_stage({"number": boss[0], "boss": True, "name": "Nadie", "title": boss[3]}, services)
+    assert n == {"es": {"title": boss[3]}, "en": {"title": boss[4]}}
+    tid = next(t for t in frontier.BRAINS if frontier.BRAINS[t][0] == "palmer")
+    card = frontier.trainer_card(tid)
+    assert names_i18n.facility_stage({"number": 21, "boss": True, "name": card["name"], "title": ""}, services)["en"]["name"] == card["name_en"]
+    # the Frontier's stages carry both languages; a stage of a saved trainer goes by the trainer; a typed name stays as it is
+    assert names_i18n.facility_stage({"number": 1, "boss": False, **{k: card[k] for k in ("name", "name_en", "title", "title_en")}}, services)["en"] == {"name": card["name_en"], "title": card["title_en"]}
+    assert names_i18n.facility_stage({"number": 1, "boss": False, "name": "Luis", "title": "Yo"}, services) is None
+    run = {"stages": [dict(stage)]}
+    names_i18n.annotate(run, services)
+    assert run["stages"][0]["i18n"]["en"]["name"] == "Hiker Marco"

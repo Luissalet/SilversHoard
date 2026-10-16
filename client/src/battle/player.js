@@ -8,13 +8,14 @@ import {abilityBoundary} from "../../../engine/src/ability-events.mjs";
 const PAUSE = { move: 1, switch: 0.8, faint: 1.1, damage: 0.55, heal: 0.45, status: 0.6, boost: 0.5, effect: 0.45, big: 1.2, field: 0.6, turn: 0.35,
   win: 0.2, ability: 0.45, minor: 0.35, info: 0.3, raw: 0.2 };
 
-/** `cryUrl(species)` gives the address of a Pokémon's cry (null: no cries, as in the offline playable page); `sound=false` keeps it silent. */
-export function useBattlePlayer({ lang = "es", me = "p1", speedMs = 900, cryUrl = null, sound = true } = {}) {
+/** `cryUrl(species)` gives the address of a Pokémon's cry (null: no cries, as in the offline playable page); `sound=false` keeps it silent.
+ * `names` = {p1: [saved, shown], p2: [...]}: the trainers' names the log says (the seats' names in the reader's language). */
+export function useBattlePlayer({ lang = "es", me = "p1", speedMs = 900, cryUrl = null, sound = true, names = null } = {}) {
   const [, rerender] = useReducer((x) => x + 1, 0);
   const r = useRef(null);
   if (!r.current) {
     r.current = { lines: [], applied: 0, state: newState(), log: [], anim: null, animId: 0, playing: true, timer: null, speedMs, lang, me,
-      muted: false, sfx: newSfxState(), fx: null, abilities:[], abilitySeen:new Set(), abilityEpoch:0 };
+      muted: false, sfx: newSfxState(), fx: null, abilities:[], abilitySeen:new Set(), abilityEpoch:0, names, namesKey: JSON.stringify(names) };
   }
   const p = r.current;
   p.speedMs = speedMs;
@@ -25,7 +26,7 @@ export function useBattlePlayer({ lang = "es", me = "p1", speedMs = 900, cryUrl 
     const st = newState();
     const log = [];
     for (let i = 0; i < count; i++) {
-      const ev = applyLine(st, p.lines[i], { lang: p.lang, me: p.me });
+      const ev = applyLine(st, p.lines[i], { lang: p.lang, me: p.me, names: p.names });
       if (ev && ev.text) log.push({ i, text: ev.text, kind: ev.kind });
     }
     p.state = st;
@@ -45,7 +46,7 @@ export function useBattlePlayer({ lang = "es", me = "p1", speedMs = 900, cryUrl 
     const line = p.lines[p.applied];
     const loud = p.sound && !p.muted && !quiet;
     const pre = loud ? sfxPre(p.state, line) : null;
-    const ev = applyLine(p.state, line, { lang: p.lang, me: p.me });
+    const ev = applyLine(p.state, line, { lang: p.lang, me: p.me, names: p.names });
     if (abilityBoundary(line)) p.abilitySeen.clear();
     if (ev?.ability && !quiet) {
       const a=ev.ability, key=`${a.side}:${a.slot}:${a.pokemon}:${a.ability}`;
@@ -82,15 +83,18 @@ export function useBattlePlayer({ lang = "es", me = "p1", speedMs = 900, cryUrl 
 
   useEffect(() => () => clearTimeout(p.timer), [p]);
 
-  // the language or the side shown at the bottom changed: rebuild the texts
+  // the language, the side shown at the bottom or the trainers' names changed: rebuild the texts
+  const namesKey = JSON.stringify(names);
   useEffect(() => {
-    if (p.lang !== lang || p.me !== me) {
+    if (p.lang !== lang || p.me !== me || p.namesKey !== namesKey) {
       p.lang = lang;
       p.me = me;
+      p.names = names;
+      p.namesKey = namesKey;
       rebuild(p.applied);
       rerender();
     }
-  }, [lang, me, p, rebuild]);
+  }, [lang, me, namesKey, p, rebuild]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const api = useMemo(() => ({
     /** Replace everything; instant=true shows the end state at once (opening a finished battle or resuming a live one). */

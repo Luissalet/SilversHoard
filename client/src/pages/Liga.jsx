@@ -10,7 +10,7 @@ import { GymCard } from "./Gimnasios.jsx";
 import { loc } from "../loc.js";
 
 function LeagueEditor({ lg, onSaved, onCancel }) {
-  const { t, notify, changed } = useApp();
+  const { t, lang, notify, changed } = useApp();
   const trainers = useTrainers();
   const gyms = useLoad(() => api.call("gyms_list", {}), []);
   const [f, setF] = useState(() => ({ name: lg?.name || "", description: lg?.description || "", format: lg?.format || "", gyms: lg?.gyms || [], elite_four: lg?.elite_four || [],
@@ -38,7 +38,7 @@ function LeagueEditor({ lg, onSaved, onCancel }) {
           {(gyms.data?.gyms || []).map((g) => (
             <label key={g.id} className={`pick ${f.gyms.includes(g.id) ? "is-on" : ""}`}>
               <input type="checkbox" checked={f.gyms.includes(g.id)} onChange={() => set("gyms", f.gyms.includes(g.id) ? f.gyms.filter((x) => x !== g.id) : [...f.gyms, g.id])} />
-              <GymBadge image={g.badge_image} color={g.badge_color} size={24} /><span className="trunc">{g.name}</span>
+              <GymBadge image={g.badge_image} color={g.badge_color} size={24} /><span className="trunc">{loc(g, lang)}</span>
               {f.gyms.includes(g.id) && <span className="chip num">{f.gyms.indexOf(g.id) + 1}</span>}
             </label>
           ))}
@@ -49,7 +49,7 @@ function LeagueEditor({ lg, onSaved, onCancel }) {
         <span className="label">{t("elite_four")}</span>
         {f.elite_four.map((id, i) => {
           const tr = trainers.find((x) => x.id === id);
-          return <div key={id} className="row-item panel"><span className="num help">{i + 1}</span><Avatar url={tr?.avatar_url} name={tr?.name} size={28} /><span className="flex-1 trunc">{tr?.name || id}</span>
+          return <div key={id} className="row-item panel"><span className="num help">{i + 1}</span><Avatar url={tr?.avatar_url} name={loc(tr, lang)} size={28} /><span className="flex-1 trunc">{loc(tr, lang) || id}</span>
             <button type="button" className="btn btn-sm btn-icon" onClick={() => set("elite_four", f.elite_four.filter((x) => x !== id))} aria-label={t("remove")}><Icon d={ICONS.close} size={13} /></button></div>;
         })}
         <div className="flex items-end gap-2"><div className="flex-1"><TrainerSelect value={addE} onChange={setAddE} exclude={[...f.elite_four, f.champion_id]} allowNone /></div>

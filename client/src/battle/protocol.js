@@ -162,8 +162,26 @@ const CANT = {
   recharge: ["tiene que recuperarse", "must recharge!"], nopp: ["no tiene PP para ese movimiento", "has no PP left for that move!"],
 };
 
+/** A seat's name as the protocol has it (the simulator keeps 40 characters of it) when it is that seat's saved name. */
+const sameName = (said, saved) => !!said && !!saved && (said === saved || (said.length >= 12 && saved.startsWith(said)));
+
+/** `names` = {p1: [saved, shown], p2: [...]}: the |player| and |win| lines say the shown name (the reader's language) instead. */
+export function renameLine(line, names) {
+  if (!names || !line) return line;
+  const player = line.startsWith("|player|");
+  if (!player && !line.startsWith("|win|")) return line;
+  const parts = line.split("|");   // ["", "player", "p1", name, ...] or ["", "win", name]
+  const at = player ? 3 : 2;
+  const sides = player ? [parts[2]] : ["p1", "p2"];
+  const side = sides.find((s) => names[s] && names[s][1] && sameName(parts[at], names[s][0]));
+  if (!side) return line;
+  parts[at] = names[side][1];
+  return parts.join("|");
+}
+
 /** Applies one protocol line to `state`. Returns {text, kind, anim} for the log and the animations (or null for silent lines). */
 export function applyLine(state, line, opts = {}) {
+  if (opts.names) line = renameLine(line, opts.names);
   let out = applyRaw(state, line, opts);
   const ability = protocolAbility(line);
   if (ability) out = {...out, ability};

@@ -10,6 +10,7 @@ import { battleEnd, battleRole, battleType, genOfFormat, music, pickTrack } from
 import { Busy, Empty, ErrorBox, Field, Icon, ICONS, Spinner, useBusy, useLoad, useStored } from "../components/ui.jsx";
 import { useContextProvider, usePoll } from "../components/hooks.js";
 import { Avatar, GymBadge, useSeats } from "../components/silver.jsx";
+import { battleTitle, loc, seatNames, winnerName } from "../loc.js";
 import AiNotes from "../components/AiNotes.jsx";
 import VideoExport from "../components/VideoExport.jsx";
 import { CupStrip } from "./Copa.jsx";
@@ -27,21 +28,21 @@ const CombateRt = React.lazy(() => import("./CombateRt.jsx").then((m) => {
 }));
 
 export function RunStrip({ run }) {
-  const { t } = useApp();
+  const { t, lang } = useApp();
   if (!run) return null;
   return (
     <div className="run-strip">
       {run.kind === "facility" ? (
-        <a href="#/instalaciones" className="run-target"><Icon d={ICONS.star} size={18} /> {run.target_name} · {t("run_streak", { n: run.streak || 0 })}</a>
+        <a href="#/instalaciones" className="run-target"><Icon d={ICONS.star} size={18} /> {loc(run, lang, "target_name")} · {t("run_streak", { n: run.streak || 0 })}</a>
       ) : (
-        <a href={`#/${run.kind === "gym" ? "gimnasio" : "liga"}/${run.target_id}`} className="run-target">{run.kind === "gym" ? <GymBadge size={22} /> : <Icon d={ICONS.star} size={18} />} {run.target_name}</a>
+        <a href={`#/${run.kind === "gym" ? "gimnasio" : "liga"}/${run.target_id}`} className="run-target">{run.kind === "gym" ? <GymBadge size={22} /> : <Icon d={ICONS.star} size={18} />} {loc(run, lang, "target_name")}</a>
       )}
       {(run.stages || []).map((s, j) => {
         const i = j + (run.stages_offset || 0);
         return (
-        <span key={i} className={`run-stage ${s.result || (i === run.step && run.status === "active" ? "current" : "")}`} title={s.number ? `${s.number} · ${s.name}` : s.name}>
-          <Avatar url={s.avatar_url} name={s.name} size={26} />
-          <span className="trunc">{s.name}</span>
+        <span key={i} className={`run-stage ${s.result || (i === run.step && run.status === "active" ? "current" : "")}`} title={s.number ? `${s.number} · ${loc(s, lang)}` : loc(s, lang)}>
+          <Avatar url={s.avatar_url} name={loc(s, lang)} size={26} />
+          <span className="trunc">{loc(s, lang)}</span>
           {s.result === "won" && <Icon d={ICONS.check} size={13} />}
           {s.result === "lost" && <Icon d={ICONS.close} size={13} />}
         </span>
@@ -54,12 +55,12 @@ export function RunStrip({ run }) {
 
 /** A friend's result that came as a short code: who played, who won and each stage, without a replay to show. */
 function FriendResult({ battle }) {
-  const { t } = useApp();
+  const { t, lang } = useApp();
   const stages = battle.summary?.stages || [];
   const side = (key) => (
     <div className={`series-side${battle.winner_side === key ? " is-winner" : ""}`}>
-      <Avatar url={battle[key].avatar_url} name={battle[key].name} size={72} />
-      <b>{battle[key].name}</b>
+      <Avatar url={battle[key].avatar_url} name={loc(battle[key], lang)} size={72} />
+      <b>{loc(battle[key], lang)}</b>
     </div>
   );
   return (
@@ -88,7 +89,7 @@ export default function Combate({ param }) {
   const humans = battle ? ["p1", "p2"].filter((s) => battle[s]?.human && !battle[s]?.remote) : [];
   const remote = battle ? ["p1", "p2"].find((s) => battle[s]?.remote) || "" : "";
   const me = humans[0] || "p1";
-  const player = useBattlePlayer({ lang, me, speedMs, cryUrl: appCryUrl });
+  const player = useBattlePlayer({ lang, me, speedMs, cryUrl: appCryUrl, names: seatNames(battle, lang) });
   const loaded = useRef("");
   const lengthRef = useRef(0);
   const [busy, run] = useBusy();
@@ -213,7 +214,7 @@ export default function Combate({ param }) {
     changed();
   });
 
-  useContextProvider(() => battle ? ({ kind: "battle", object_id: battle.id, title: `${battle.p1.name} vs ${battle.p2.name}`,
+  useContextProvider(() => battle ? ({ kind: "battle", object_id: battle.id, title: battleTitle({ ...battle, title: "" }, lang),
     fields: { status: battle.status, turn: player.state.turn, format: battle.format, me, ai_notes: battle.ai_notes_count || 0 } }) : null);
 
   if (error && !battle) return <ErrorBox error={error} onRetry={reload} />;
@@ -229,7 +230,8 @@ export default function Combate({ param }) {
   const live = battle.status === "live";
   const requestSide = live && player.caughtUp ? humans.find((s) => battle.requests?.[s] && !battle.requests[s].done) || (remote ? null : humans.find((s) => battle.requests?.[s])) : null;
   const request = requestSide ? battle.requests[requestSide] : null;
-  const title = battle.title || `${battle.p1.name} vs ${battle.p2.name}`;
+  const title = battleTitle(battle, lang);
+  const who = (s) => loc(battle[s], lang);
   const runActive = battle.run && battle.run.status === "active";
   const wonStage = battle.status === "ended" && battle.winner_side === "p1" && runActive;
 
@@ -244,9 +246,9 @@ export default function Combate({ param }) {
             {battle.level_rules?.level ? <span className="chip">{t("eq_chip", { n: battle.level_rules.level })}</span> : null}
             {battle.status === "running" && <span className="chip chip-amber">{t("status_running")}</span>}
             {live && <span className="chip chip-accent">{t("status_live")}</span>}
-            {battle.status === "ended" && <span className="chip chip-ok">{battle.winner_name ? t("winner_is", { name: battle.winner_name }) : t("tie")}</span>}
+            {battle.status === "ended" && <span className="chip chip-ok">{battle.winner_name ? t("winner_is", { name: winnerName(battle, lang) }) : t("tie")}</span>}
             {humans.length === 2 && <span className="chip">{t("hotseat")}</span>}
-            {remote && <span className="chip chip-accent">{t("pvp_chip", { name: battle[remote].name })}</span>}
+            {remote && <span className="chip chip-accent">{t("pvp_chip", { name: who(remote) })}</span>}
           </div>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -277,7 +279,7 @@ export default function Combate({ param }) {
           {comparison && <dl className="flex flex-wrap gap-5">
             {["original", "branch"].map((key) => <div key={key}>
               <dt className="label">{t(key === "branch" ? "practice_result" : "practice_original")}</dt>
-              <dd>{comparison[key].winner_name ? t("winner_is", { name: comparison[key].winner_name }) : t("tie")} · {comparison[key].turns === 1 ? t("practice_one_turn") : t("turns_n", { n: comparison[key].turns })}</dd>
+              <dd>{comparison[key].winner_name ? t("winner_is", { name: winnerName(comparison[key], lang) }) : t("tie")} · {comparison[key].turns === 1 ? t("practice_one_turn") : t("turns_n", { n: comparison[key].turns })}</dd>
             </div>)}
           </dl>}
           {battle.practice.exercise_id && <ExerciseProgress battle={battle}/>}
@@ -295,16 +297,16 @@ export default function Combate({ param }) {
           toolbar={!live || !player.caughtUp ? <ReplayBar player={player} lang={lang} speedMs={speedMs} onSpeed={setSpeedMs} /> : null}>
           {request && (
             <Controls request={request} lang={lang} sprites={sprites} gametype={player.state.gametype} busy={busy.choose}
-              sideLabel={humans.length === 2 ? battle[requestSide].name : ""} onChoose={(c) => choose(requestSide, c)} onForfeit={() => forfeit(requestSide)} />
+              sideLabel={humans.length === 2 ? who(requestSide) : ""} onChoose={(c) => choose(requestSide, c)} onForfeit={() => forfeit(requestSide)} />
           )}
-          {live && !request && player.caughtUp && <div className="b-controls"><div className="b-wait">{remote ? t("pvp_waiting_friend", { name: battle[remote].name }) : t("waiting_ai")}</div></div>}
+          {live && !request && player.caughtUp && <div className="b-controls"><div className="b-wait">{remote ? t("pvp_waiting_friend", { name: who(remote) }) : t("waiting_ai")}</div></div>}
         </Arena>
       )}
       {battle.status === "ended" && player.state.ended && player.caughtUp && ["p2", "p1"].some((s) => seats[s]?.dialogue?.after) && (
         <div className="panel space-y-2">
           {["p2", "p1"].filter((s) => seats[s]?.dialogue?.after).map((s) => (
             <p key={s} className="m-0" style={{ fontStyle: "italic", borderLeft: "3px solid var(--accent)", paddingLeft: 10 }}>
-              “{seats[s].dialogue.after}” <b style={{ fontStyle: "normal" }}>— {battle[s].name}</b>
+              “{seats[s].dialogue.after}” <b style={{ fontStyle: "normal" }}>— {who(s)}</b>
             </p>
           ))}
         </div>
@@ -324,7 +326,7 @@ export default function Combate({ param }) {
               </Field>
               <Field label={t("practice_side")} className="min-w-0 flex-1">
                 <select className="w-full" value={practiceSide} onChange={(e) => setPracticeSide(e.target.value)}>
-                  {["p1", "p2"].map((s) => <option key={s} value={s}>{battle[s].name}</option>)}
+                  {["p1", "p2"].map((s) => <option key={s} value={s}>{who(s)}</option>)}
                 </select>
               </Field>
               <Busy busy={busy.practice} disabled={!Number.isInteger(practiceTurn) || practiceTurn < 1} onClick={practice}>{t("practice_start")}</Busy>

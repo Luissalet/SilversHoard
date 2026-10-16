@@ -80,6 +80,53 @@ def _facility_names() -> tuple[dict[str, str], list[tuple[str, str]]]:
     return _FACILITY
 
 
+_FACILITY_TITLES: Optional[dict[str, str]] = None
+
+
+def _facility_titles() -> dict[str, str]:
+    """A facility stage's title, Spanish to English: the trainer classes and the bosses' prints ("Emblema de Plata")."""
+    global _FACILITY_TITLES
+    if _FACILITY_TITLES is None:
+        titles = dict(_facility_names()[1])
+        try:
+            from . import facilities
+            for f in facilities.FACILITIES:
+                for b in f.get("bosses") or []:
+                    if len(b) > 4 and b[3] and b[4]:
+                        titles.setdefault(b[3], b[4])
+        except Exception:   # noqa: BLE001
+            pass
+        _FACILITY_TITLES = titles
+    return _FACILITY_TITLES
+
+
+def facility_stage(x: dict[str, Any], svc: Any) -> Optional[dict[str, Any]]:
+    """A stage of a facility streak (saved with its Spanish name and title): a boss by its character, a Frontier Brain or a
+    generated rival by class and name; the title by class or print."""
+    from .services import _CLASS_ES   # here, not at the top: services imports this module
+
+    name, title = str(x.get("name") or ""), str(x.get("title") or "")
+    if x.get("name_en"):   # the Battle Frontier keeps both
+        return _pair({"name": name, "title": title if x.get("title_en") else ""}, {"name": x["name_en"], "title": x.get("title_en") or ""})
+    es: dict[str, Any] = {}
+    en: dict[str, Any] = {}
+    key = str(x.get("character") or "")
+    if key:
+        try:
+            c = svc._character(key)
+            if name in (c.get("name_es"), c.get("name")):
+                es["name"], en["name"] = c.get("name_es") or c["name"], c["name"]
+        except Exception:   # noqa: BLE001 - a character no longer in the data: the stage keeps its saved name
+            pass
+    if "name" not in en and (n := facility_seat(name)):
+        es["name"], en["name"] = name, n["en"]["name"]
+    if title in _facility_titles():
+        es["title"], en["title"] = title, _facility_titles()[title]
+    elif title in _CLASS_ES:   # a special rival keeps its class in English
+        es["title"], en["title"] = _CLASS_ES[title], title
+    return _pair(es, en)
+
+
 def facility_seat(name: str) -> Optional[dict[str, Any]]:
     """A facility trainer's seat ("Entrenadora Guay Nora" / "Ace Trainer Nora"), or None for any other name."""
     exact, classes = _facility_names()
@@ -346,6 +393,8 @@ def annotate(obj: Any, svc: Any) -> Any:
             return _pair({"name": n["es"].get("name")}, {"name": n["en"].get("name")}) if n else None
         if "human" in x and "ai" in x and x.get("name") and not i and not str(x.get("trainer_id") or "").startswith("tr_"):   # a facility seat
             return facility_seat(str(x["name"]))
+        if "boss" in x and "number" in x and x.get("name") and not str(x.get("trainer_id") or "").startswith("tr_"):   # a facility stage
+            return facility_stage(x, svc)
         if x.get("target_name") and x.get("target_id") and x.get("kind") in ("gym", "league", "facility"):   # a challenge
             return _target(x, svc)
         if x.get("gym_id") and x.get("gym_name"):   # a badge

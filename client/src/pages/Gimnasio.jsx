@@ -109,7 +109,7 @@ function BadgePicker({ gymId, type, color, value, name, onChange }) {
 }
 
 function GymEditor({ gym, onSaved, onCancel }) {
-  const { t, notify, changed } = useApp();
+  const { t, lang, notify, changed } = useApp();
   const list = useTrainers();
   const [f, setF] = useState(() => ({ name: gym?.name || "", city: gym?.city || "", type: gym?.type || "", badge: gym?.badge || "", badge_color: gym?.badge_color || "#c0c0c0", badge_image: gym?.badge_image || "",
     description: gym?.description || "", format: gym?.format || "", rules: gym?.rules || [], level_rules: gym?.level_rules || {}, leader_id: gym?.leader_id || "", trainers: gym?.trainers || [],
@@ -135,7 +135,7 @@ function GymEditor({ gym, onSaved, onCancel }) {
         <Field label={t("city")}><input className="field" value={f.city} onChange={(e) => set("city", e.target.value)} /></Field>
         <Field label={t("gym_type")}>
           <select className="field" value={f.type} onChange={(e) => { set("type", e.target.value); if (e.target.value && (!f.badge_color || f.badge_color === "#c0c0c0")) set("badge_color", TYPE_COLORS[e.target.value]); }}>
-            <option value="">—</option>{TYPES.map((x) => <option key={x} value={x}>{typeName(x, "es")} · {x}</option>)}
+            <option value="">—</option>{TYPES.map((x) => <option key={x} value={x}>{typeName(x, lang)}</option>)}
           </select>
         </Field>
         <Field label={t("badge_name")}><div className="flex items-center gap-2"><GymBadge image={f.badge_image} color={f.badge_color} size={32} /><input className="field" value={f.badge} onChange={(e) => set("badge", e.target.value)} placeholder={t("badge_ph")} /><input type="color" value={f.badge_color} onChange={(e) => set("badge_color", e.target.value)} aria-label={t("badge_color")} /></div></Field>
@@ -150,7 +150,7 @@ function GymEditor({ gym, onSaved, onCancel }) {
           return (
             <div key={id} className="row-item panel">
               <span className="num help">{i + 1}</span>
-              <Avatar url={tr?.avatar_url} name={tr?.name} size={30} /><span className="min-w-0 flex-1 trunc">{tr?.name || id}</span>
+              <Avatar url={tr?.avatar_url} name={loc(tr, lang)} size={30} /><span className="min-w-0 flex-1 trunc">{loc(tr, lang) || id}</span>
               <button type="button" className="btn btn-sm btn-icon" onClick={() => move(i, -1)} aria-label="↑"><Icon d={ICONS.arrowUp} size={13} /></button>
               <button type="button" className="btn btn-sm btn-icon" onClick={() => setF((x) => ({ ...x, trainers: x.trainers.filter((y) => y !== id) }))} aria-label={t("remove")}><Icon d={ICONS.close} size={13} /></button>
             </div>
@@ -195,7 +195,7 @@ function GymEditor({ gym, onSaved, onCancel }) {
         <p className="help">{t("gmap_section_help")}</p>
         <GymMapEditor gymId={gym?.id || ""} trainerIds={f.trainers} value={f.map} onChange={(m) => set("map", m)}
           people={Object.fromEntries([...f.trainers.map((id) => [id, list.find((x) => x.id === id)]), ["leader", list.find((x) => x.id === f.leader_id)]]
-            .filter(([, tr]) => tr).map(([k, tr]) => [k, { name: tr.name, avatarUrl: tr.avatar_url }]))} />
+            .filter(([, tr]) => tr).map(([k, tr]) => [k, { name: loc(tr, lang), avatarUrl: tr.avatar_url }]))} />
       </div>
       <div className="flex gap-2"><Busy busy={busy.s} className="btn btn-primary" disabled={!f.name || !f.leader_id} onClick={save}>{t("save")}</Busy><button type="button" className="btn" onClick={onCancel}>{t("cancel")}</button></div>
     </div>
