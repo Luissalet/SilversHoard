@@ -340,8 +340,10 @@ export class Show {
         }
         // a super-effective blow: every other one, the attacker's trainer says something about it
         if (first && e.eff > 1 && (this.supers++ % 2 === 0)) this.talk(a, "on_super");
-        // a trainer's last Pokémon down to half its HP: the trainer says it once (the line last_low)
-        if (!ko && !this.announcedLow[e.s] && e.maxhp > 0 && e.hp <= e.maxhp / 2
+        // a trainer's last Pokémon down to half its HP: the trainer says it once (the line last_low). The battle shown is the one at the
+        // end of the tick, so the blows of a move that goes on to faint the Pokémon already find it down: those do not count
+        const target = battle.sides[e.s].mons[d.active];
+        if (!ko && target && !target.fainted && target.hp > 0 && !this.announcedLow[e.s] && e.maxhp > 0 && e.hp <= e.maxhp / 2
           && battle.sides[e.s].mons.filter((m) => !m.fainted && m.hp > 0).length === 1) {
           this.announcedLow[e.s] = true;
           this.talk(e.s, "last_low", { force: true });
