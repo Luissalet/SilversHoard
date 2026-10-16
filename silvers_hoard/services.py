@@ -3466,6 +3466,7 @@ class Services:
             stem = f"{stem} {b['id'][-6:]}"
         webm = exports / f"{stem}.webm"
         done = threading.Event()
+        capture_requested = threading.Event()
         state: dict[str, Any] = {"error": "", "info": {}}
         lines = len(str(b.get("log_text") or "").split("\n"))
         # a generous ceiling: the clip's length when the caller knows it; every line at the slowest pause (a real-time battle: its
@@ -3488,9 +3489,17 @@ class Services:
             with open(webm, "wb") as sink:
                 browser = runtime.chromium.launch(headless=True, executable_path=status["browser"], args=[
                     "--auto-accept-this-tab-capture", "--autoplay-policy=no-user-gesture-required", "--disable-renderer-backgrounding",
-                    "--disable-background-timer-throttling", "--disable-backgrounding-occluded-windows", "--hide-scrollbars"])
+                    "--disable-background-timer-throttling", "--disable-backgrounding-occluded-windows", "--hide-scrollbars",
+                    "--force-device-scale-factor=1", f"--window-size={width},{height}",
+                    f"--screen-info={{{width * 2}x{height * 2}}}"])
                 page = browser.new_page(viewport={"width": width, "height": height}, device_scale_factor=1,
                                         locale="es-ES" if lang == "es" else "en-US")
+                # Tab capture records the real content area, not Playwright's emulated viewport.
+                window = page.context.new_cdp_session(page)
+                window_id = window.send("Browser.getWindowForTarget")["windowId"]
+                window.send("Browser.setContentsSize", {"windowId": window_id, "width": width, "height": height})
+                # Capture adds browser chrome after permission is granted; fit the content again before recording starts.
+                page.expose_function("__videoCaptureRequested", capture_requested.set)
                 page.expose_function("__videoChunk", lambda data: sink.write(base64.b64decode(data)))
                 page.expose_function("__videoProgress", lambda x: progress(0.05 + 0.85 * max(0.0, min(1.0, float(x or 0)))))
                 page.expose_function("__videoDone", lambda info: (state.update(info=info or {}), done.set()))
@@ -3498,9 +3507,20 @@ class Services:
                 path = url_path or f"video/{b['id']}?speed={self.VIDEO_SPEEDS[speed]}"
                 url = f"http://127.0.0.1:{self.config.port}/?lang={lang}#/{path}&record=1&lang={lang}"
                 page.goto(url, wait_until="load")
+                page.evaluate("""() => {
+                    window.__videoCaptureReady = () => new Promise(resolve => {
+                        window.__videoCaptureResolve = resolve;
+                        window.__videoCaptureRequested();
+                    });
+                }""")
                 page.wait_for_function("window.__videoReady === true", timeout=60_000)
                 page.evaluate("window.videoRecord()")
                 while not done.is_set():
+                    if capture_requested.is_set():
+                        capture_requested.clear()
+                        window.send("Browser.setContentsSize", {"windowId": window_id, "width": width, "height": height})
+                        page.evaluate("new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))")
+                        page.evaluate("window.__videoCaptureResolve()")
                     if cancelled():
                         raise SilverError("cancelled", "Cancelled.")
                     if time.monotonic() > deadline:
