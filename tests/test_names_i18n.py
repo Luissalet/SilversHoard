@@ -1,4 +1,5 @@
 from conftest import TEAM, needs_engine
+import pytest
 
 from silvers_hoard import names_i18n
 
@@ -21,9 +22,31 @@ def test_a_characters_trainer_in_both_languages_unless_renamed(call, services):
     call("trainer_update", {"id": t["id"], "name": "Mi Giovanni"})
     n2 = names_i18n.trainer(services.store.trainer(t["id"]), services)
     assert "name" not in n2["en"] and n2["en"]["title"] == n["en"]["title"]
-    # an older shortened name still counts as the app's
-    services.store.update_trainer(t["id"], {"name": "Giovanni (Rojo y Azul · Combate de gimnasio con texto que se c"})
-    assert names_i18n.trainer(services.store.trainer(t["id"]), services)["en"]["name"] == n["en"]["name"]
+
+
+@pytest.mark.parametrize("name", ["Giovanni (mi favorito)", "Giovanni (Red and Blue · mi equipo)",
+                                 "Giovanni (Rojo y Azul · Combate de gimnasio con texto que se c"[:60]])
+def test_personal_parenthesized_names_are_not_translated(call, name):
+    t = call("character_install", {"key": "giovanni", "variant": "rgbgymbattle", "lang": "es"})["trainer"]
+    call("trainer_update", {"id": t["id"], "name": name})
+    got = call("trainer_get", {"id": t["id"]})
+    assert got["name"] == name
+    assert all("name" not in fields for fields in got["i18n"].values())
+    assert got["i18n"]["en"]["title"] == "Red and Blue"
+
+
+def test_exact_historical_sixty_character_names_still_translate(services):
+    c = services._character("cynthia")
+    for lang in ("es", "en"):
+        display = c["name_es"] if lang == "es" else c["name"]
+        v = next(v for v in c["variants"] if len(f"{display} ({services._variant_label(v, lang)})") > 60)
+        old = f"{display} ({services._variant_label(v, lang)})"[:60]
+        stored = {"name": old, "canon_key": f"char:cynthia:{v['id']}", "title": "My title"}
+        got = names_i18n.trainer(stored, services)
+        assert got[lang]["name"] == names_i18n.char_trainer_name(services, c, v, custom=False, lang=lang)[0]
+        assert all("title" not in fields for fields in got.values())
+        # Appending anything to a valid historical prefix makes it personal again.
+        assert names_i18n.trainer({**stored, "name": old[:-1] + "!"}, services) is None
 
 
 def test_random_and_cartridge_trainers(call, services):
