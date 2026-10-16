@@ -44,6 +44,8 @@ const RT = {
   rt_ctrl_roll: ["Esquivar (voltereta)", "Dodge (roll)"],
   rt_ctrl_switch: ["Cambiar de Pokémon", "Switch Pokémon"],
   rt_ctrl_pause: ["Pausa", "Pause"],
+  rt_ctrl_play: ["Reproducir", "Play"],
+  rt_lv: ["Nv.", "Lv."],
   rt_keys_move: ["WASD o flechas · stick izquierdo", "WASD or arrows · left stick"],
   rt_keys_moves: ["I L K J en rombo, como X A B Y (o 1-4) · ZL + X A B Y", "I L K J in a diamond, like X A B Y (or 1-4) · ZL + X A B Y"],
   rt_keys_roll: ["Espacio · Y (sin ZL)", "Space · Y (without ZL)"],

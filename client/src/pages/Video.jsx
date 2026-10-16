@@ -8,6 +8,7 @@ import { useApp } from "../context.js";
 import Arena from "../battle/Arena.jsx";
 import { useBattlePlayer } from "../battle/player.js";
 import { useSeats } from "../components/silver.jsx";
+import { loc, seatNames } from "../loc.js";
 import { battleEnd, genOfFormat, music, pickTrack, unlock } from "../audio.js";
 import { installTap } from "../video/tap.js";
 // the real-time arena carries the battle engine: it comes with CombateRt's chunk, only when a real-time battle is recorded
@@ -120,7 +121,7 @@ function MassVideo({ id, query }) {
   return (
     <div className="video-stage">
       <div className="video-title">
-        <b>{doc.title}</b>
+        <b>{loc(doc, lang, "title")}</b>
         {run2 && <span className="help">{t("mass_replay_of", { who: run2.challenger, name: run2.name })}</span>}
       </div>
       <React.Suspense fallback={null}>
@@ -137,7 +138,7 @@ function BattleVideo({ param, query }) {
   const recording = query?.get("record") === "1";
   const [battle, setBattle] = useState(null);
   const [error, setError] = useState("");
-  const player = useBattlePlayer({ lang, me: "p1", speedMs });
+  const player = useBattlePlayer({ lang, me: "p1", speedMs, names: seatNames(battle, lang) });
   const seats = useSeats(battle);
   const run = useRef({ started: false, ended: false, recorder: null, t0: 0, sound: false });
   const [rtPlaying, setRtPlaying] = useState(false);
@@ -208,7 +209,7 @@ function BattleVideo({ param, query }) {
   return (
     <div className="video-stage">
       <div className="video-title">
-        <b>{battle.p1?.name}</b><span>vs</span><b>{battle.p2?.name}</b>
+        <b>{loc(battle.p1, lang)}</b><span>vs</span><b>{loc(battle.p2, lang)}</b>
         <span className="help">{battle.format_info?.name || battle.format}</span>
       </div>
       {realtime ? (
