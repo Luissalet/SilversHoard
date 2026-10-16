@@ -62,7 +62,7 @@ function Sprite({ mon, back, sprites, anim, slotKey, size, scale = 1 }) {
   return (
     <div className={cls.filter(Boolean).join(" ")} data-fx-pos={slotKey} style={{ "--sprite-size": `${size}px`, "--sprite-scale": scale }}>
       <div className="b-sprite-img" ref={ref}>
-        {failed < 2 && src ? <img key={src} src={src} alt={mon.species} onError={onError} draggable={false} /> : <div className="b-sprite-missing" aria-label={mon.species}>{mon.species.slice(0, 2)}</div>}
+        {failed < 2 && src ? <img key={`${failed}:${src}`} src={src} alt={mon.species} onError={onError} draggable={false} /> : <div className="b-sprite-missing" aria-label={mon.species}>{mon.species.slice(0, 2)}</div>}
       </div>
       {mon.tera && <span className="b-tera-glow" style={{ "--tera": TYPE_COLORS[mon.tera] || "#fff" }} aria-hidden="true" />}
       {mine && (mine.type === "hit" || mine.type === "heal") && mine.delta ? (
@@ -140,7 +140,7 @@ export function LogPanel({ log, lang, compact }) {
  * props: player (useBattlePlayer), seats {p1: {name, avatarUrl, backUrl, winUrl, dialogue}, p2}, me ('p1'|'p2' at the bottom), sprites (makeSprites),
  * lang, exact (show HP numbers), children (controls under the field), bubble ({side, text}) for a trainer line.
  */
-/** A Pokémon's portrait with an emotion (SpriteCollab); falls back to its "Normal" face, then to nothing. */
+/** A Pokémon's portrait with an emotion; falls back to Normal, a battle sprite, then its initials. */
 export function Portrait({ sprites, species, emotion = "Normal", num = 0, className = "" }) {
   return <PortraitImage key={`${species}:${emotion}:${num}:${sprites?.server || ""}`} {...{ sprites, species, emotion, num, className }} />;
 }
@@ -152,7 +152,7 @@ function PortraitImage({ sprites, species, emotion, num, className }) {
   const src = portrait || sprites.fallback(species);
   if (step > 2) return <span className={`b-portrait ${className}`} aria-label={species}>{species.slice(0, 2)}</span>;
   if (!src) return null;
-  return <img key={src} className={`b-portrait ${className}`} src={src} alt={species} draggable={false} onError={() => setStep((s) => s + 1)} />;
+  return <img key={`${step}:${src}`} className={`b-portrait ${className}`} src={src} alt={species} draggable={false} onError={() => setStep((s) => s + 1)} />;
 }
 
 // how a Pokémon looks when its trainer speaks (bubble.mood), and on the result screen

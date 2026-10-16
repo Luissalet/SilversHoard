@@ -30,7 +30,7 @@ function PartyPicture({ species, spriteid, sprites }) {
   const [failed, setFailed] = useState(0);
   if (failed > 1) return <span className="b-mon-icon" aria-label={species}>{species.slice(0, 2)}</span>;
   const src = failed ? sprites.fallback(species, { spriteid }) : sprites.pokemon(species, { spriteid });
-  return <img key={src} src={src} alt={species} className={`b-mon-icon ${sprites.pixelated ? "pixelated" : ""}`} onError={() => setFailed((n) => n + 1)} />;
+  return <img key={`${failed}:${src}`} src={src} alt={species} className={`b-mon-icon ${sprites.pixelated ? "pixelated" : ""}`} onError={() => setFailed((n) => n + 1)} />;
 }
 
 function MoveButton({ move, onClick, disabled, lang, t, selected }) {

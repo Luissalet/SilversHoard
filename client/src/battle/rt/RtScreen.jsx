@@ -112,7 +112,7 @@ function MonFaceImage({ mon, sprites }) {
   const src = step === 0 ? sprites.portrait?.(mon.species, "Normal", { num: mon.num || 0 }) || sprites.fallback(mon.species) : sprites.fallback(mon.species);
   const className = `rt-face ${mon.fainted || mon.hp <= 0 ? "is-out" : ""}`;
   if (step > 1 || !src) return <span className={className} aria-label={mon.species}>{mon.species.slice(0, 2)}</span>;
-  return <img key={src} className={className} src={src} alt="" onError={() => setStep((s) => s + 1)} />;
+  return <img key={`${step}:${src}`} className={className} src={src} alt="" onError={() => setStep((s) => s + 1)} />;
 }
 
 /** The trainer's Mega Power gauge: three segments; all three for Mega Evolution (and, in rules versions 2-3, one pays for a Plus move). */
