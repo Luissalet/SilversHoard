@@ -31,6 +31,7 @@ function startRecording(run, onStart, delay = 400) {
       unlock();
       const tab = await navigator.mediaDevices.getDisplayMedia({ video: { frameRate: 30 }, audio: false, preferCurrentTab: true,
         selfBrowserSurface: "include" });
+      await window.__videoCaptureReady?.(); // native recorder may restore the viewport after the sharing bar appears
       const stream = new MediaStream([...tab.getVideoTracks(), ...audio.getAudioTracks()]);
       // Prefer the cheaper real-time encoder: VP9 can hold the captured picture for seconds under load.
       const type = ["video/webm;codecs=vp8,opus", "video/webm;codecs=vp9,opus", "video/webm"].find((x) => MediaRecorder.isTypeSupported(x));
