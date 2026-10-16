@@ -174,7 +174,7 @@ def test_tampered_codes_are_rejected(call, services, world):
     # damaged pieces
     reject(result(world, [s1, {**s2, "rt": {**s2["rt"], "inputs": "AAAA"}}]), "damaged")
     reject(result(world, [s1, {**s2, "rt": {**s2["rt"], "limit": 5}}]), "damaged")
-    reject(result(world, [s1, {**s2, "rt": {**s2["rt"], "v": 9}}]), "damaged")
+    reject(result(world, [s1, {**s2, "rt": {**s2["rt"], "v": RT_RULES_VERSION + 1}}]), "damaged")
     reject(result(world, [s1, {**s2, "rt": {**s2["rt"], "forfeit": "p2"}}]), "damaged")
     # the code says one thing and its battles another, or has battles after a lost one, or a team that breaks the rules
     reject(result(world, [s1], won=True), "altered")
