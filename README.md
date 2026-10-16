@@ -115,3 +115,5 @@ New real-time battles use rules v8: each Pokémon recovers for one second after 
 ## Detailed real-time arena floors
 
 Champion's room, Mt. Silver, Meteor Falls and the castle use original illustrated marble, snow, mineral stone and limestone floors in the arena editor, real-time battles and exported playable pages. Court boundaries, real rocks, spectators and atmosphere remain separate layers. The artwork is embedded in the playable page; it needs no extra image server. Ground textures change appearance only. A floor change or an image finishing loading now invalidates the cached court; failed images retain the procedural floor.
+
+Exercise exports can be uploaded from their `.silverexercise` file in Share, including UTF-8 files with a BOM, as well as pasted as text. Each import creates an independent exercise; starting it does not change the original battle or award badges.
