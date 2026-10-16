@@ -128,6 +128,24 @@ export class ArenaRenderer {
     this.court = null;
   }
 
+  resetReplay(battle) {
+    this.eventIndex = 0;
+    this.time = 0;
+    this.floats = [];
+    this.effects = [];
+    this.flash = [0, 0, 0, 0];
+    this.labels = [null, null, null, null];
+    this.heads = [];
+    this.lastActive = [-1, -1, -1, -1];
+    this.fade = [0, 1, 2, 3].map(() => ({ slot: -1, t: 0 }));
+    this.hitstop = 0;
+    this.winding = [null, null, null, null];
+    this.cutin = null;
+    this.vfx = new Vfx(this);
+    this.show = new Show(this);
+    this.show.setupCrowd(battle);
+  }
+
   px(x) { return (x - WORLD.x0) * this.scale; }
   /** Where a side's trainer stands, and the middle of the picture (meters). */
   trainerPos(si) { return TRAINER[si]; }
@@ -454,12 +472,13 @@ export class ArenaRenderer {
       const img = this.trainers[si];
       const p = TRAINER[si];
       if (img?.ready) {
-        const h = 2.6 * s;
-        const w = (img.img.width / img.img.height) * h;
+        const scale = Math.min(2.6 * s / img.img.height, 1.8 * s / img.img.width);
+        const h = img.img.height * scale;
+        const w = img.img.width * scale;
         ctx.save();
         // pixel art keeps its pixels; a drawing, a photo or an official artwork is smoothed when scaled
         ctx.imageSmoothingEnabled = Math.max(img.img.width, img.img.height) > 200;
-        if (si === 0) { ctx.translate(this.px(p.x) + w / 2, 0); ctx.scale(-1, 1); ctx.translate(-(this.px(p.x) + w / 2), 0); }
+        if (si === 0) { ctx.translate(this.px(p.x), 0); ctx.scale(-1, 1); ctx.translate(-this.px(p.x), 0); }
         ctx.drawImage(img.img, this.px(p.x) - w / 2, this.py(p.y) - h * 0.85, w, h);
         ctx.restore();
       } else {

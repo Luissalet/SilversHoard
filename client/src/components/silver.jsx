@@ -18,7 +18,7 @@ export function Avatar({ url, name = "", size = 48, pixelated = true, className 
   if (!url || bad) {
     return <span className={`avatar-fallback ${className}`} style={{ width: size, height: size, fontSize: size * 0.38 }} aria-hidden="true">{(name || "?").slice(0, 1).toUpperCase()}</span>;
   }
-  return <img src={url} alt="" width={size} height={size} className={`avatar ${pixelated ? "pixelated" : ""} ${className}`} onError={() => setBad(true)} draggable={false} />;
+  return <img src={url} alt="" width={size} height={size} className={`avatar ${pixelated ? "pixelated" : ""} ${className}`} onError={() => setBad(true)} draggable={false} loading="lazy" />;
 }
 
 export function MonIcon({ species, spriteid, size = 40, title }) {
@@ -93,23 +93,104 @@ export function useTrainers(deps = []) {
   return list;
 }
 
+let characterCatalogCache = null;
+export function useCharacterCatalog() {
+  const [data, setData] = useState(characterCatalogCache);
+  const [error, setError] = useState(null);
+  const [retry, setRetry] = useState(0);
+  useEffect(() => {
+    let off = false;
+    api.call("characters_list", {}).then((r) => { characterCatalogCache = r; if (!off) { setData(r); setError(null); } }).catch((e) => { if (!off) setError(e); });
+    return () => { off = true; };
+  }, [retry]);
+  return { data, error, reload: () => setRetry((n) => n + 1) };
+}
+
+export function TrainerFilters({ games = [], origin, setOrigin, game, setGame, region, setRegion }) {
+  const { t, lang } = useApp();
+  const regions = [...new Set(games.flatMap((g) => g.regions || []))];
+  return <div className="trainer-filters">
+    <label><span className="label">{t("origin")}</span><select className="field" value={origin} onChange={(e) => setOrigin(e.target.value)}>
+      <option value="">{t("all")}</option>{["own", "friend", "canon", "random"].map((o) => <option key={o} value={o}>{originLabel(t, o)}</option>)}
+    </select></label>
+    <label><span className="label">{t("trainer_region")}</span><select className="field" value={region} onChange={(e) => { setRegion(e.target.value); if (!games.find((g) => g.id === game)?.regions?.includes(e.target.value)) setGame(""); }}>
+      <option value="">{t("trainer_all_regions")}</option>{regions.map((r) => <option key={r} value={r}>{r === "Unova" && lang !== "en" ? "Teselia" : r}</option>)}
+    </select></label>
+    <label><span className="label">{t("chars_game")}</span><select className="field" value={game} onChange={(e) => setGame(e.target.value)}>
+      <option value="">{t("chars_all_games")}</option>{games.filter((g) => !region || g.regions?.includes(region)).map((g) => <option key={g.id} value={g.id}>{lang === "en" ? g.name : g.name_es}</option>)}
+    </select></label>
+  </div>;
+}
+
 export function TrainerSelect({ value, onChange, label, allowNone = false, exclude = [], id }) {
-  const { t } = useApp();
+  const { t, lang, changed } = useApp();
   const list = useTrainers([value]);   // re-read when the value changes: a trainer made a moment ago is not in the cached list yet
+  const catalog = useCharacterCatalog();
   const [q, setQ] = useState("");
-  const shown = list.filter((tr) => !exclude.includes(tr.id) && (!q || `${tr.name} ${tr.title} ${tr.species.join(" ")}`.toLowerCase().includes(q.toLowerCase())));
+  const [origin, setOrigin] = useState("");
+  const [game, setGame] = useState("");
+  const [region, setRegion] = useState("");
+  const [character, setCharacter] = useState(null);
+  const [variant, setVariant] = useState("");
+  const [error, setError] = useState(null);
+  const [busy, setBusy] = useState(false);
+  const details = useRef(null);
+  const request = useRef(0);
+  useEffect(() => { request.current++; setCharacter(null); setBusy(false); setError(null); }, [game, region, origin]);
+  const games = catalog.data?.games || [];
+  const matches = (tr) => !q || [tr.name, tr.name_es, tr.character_name, tr.character_name_es, tr.title, ...(tr.species || [])].join(" ").toLocaleLowerCase().includes(q.toLocaleLowerCase());
+  const shown = list.filter((tr) => !exclude.includes(tr.id) && (!origin || tr.origin === origin || origin === "own" && tr.origin === "random") && (!game || tr.games?.includes(game)) && (!region || tr.regions?.includes(region)) && matches(tr));
+  const characters = (catalog.data?.characters || []).filter((c) => (!origin || origin === "canon") && (!game || c.games.includes(game)) && (!region || games.some((g) => c.games.includes(g.id) && g.regions?.includes(region))) && matches(c));
   const current = list.find((tr) => tr.id === value);
+  const pick = (trainer) => { onChange(trainer); if (details.current) details.current.open = false; };
+  const openCharacter = async (c) => {
+    const token = ++request.current;
+    setBusy(true); setError(null); setCharacter(null);
+    try {
+      const result = await api.call("character_get", { key: c.key });
+      if (token !== request.current) return;
+      const variants = result.variants.filter((v) => (!game || v.games.includes(game)) && (!region || games.some((g) => v.games.includes(g.id) && g.regions?.includes(region))));
+      setCharacter({ ...result, variants }); setVariant(variants[0]?.id || "");
+    } catch (e) { if (token === request.current) setError(e); }
+    finally { if (token === request.current) setBusy(false); }
+  };
+  const install = async () => {
+    const token = ++request.current;
+    setBusy(true); setError(null);
+    try {
+      const { trainer } = await api.call("character_install", { key: character.key, variant, lang });
+      changed();
+      if (token !== request.current) return;
+      if (exclude.includes(trainer.id)) throw new Error(t("trainer_already_selected"));
+      pick(trainer.id); setCharacter(null);
+    } catch (e) { if (token === request.current) setError(e); }
+    finally { if (token === request.current) setBusy(false); }
+  };
   return (
     <div className="trainer-select space-y-1.5">
       {label && <span className="label">{label}</span>}
-      <div className="flex items-center gap-2">
-        {current ? <Avatar url={current.avatar_url} name={current.name} size={40} /> : <span className="avatar-fallback" style={{ width: 40, height: 40 }}>?</span>}
-        <select id={id} className="field" value={value || ""} onChange={(e) => onChange(e.target.value)}>
-          {(allowNone || !value) && <option value="">{t("choose_trainer")}</option>}
-          {shown.map((tr) => <option key={tr.id} value={tr.id}>{tr.name}{tr.title ? ` — ${tr.title}` : ""}</option>)}
-        </select>
-      </div>
-      {list.length > 12 && <input className="field" placeholder={t("filter")} value={q} onChange={(e) => setQ(e.target.value)} aria-label={t("filter")} />}
+      <details className="trainer-picker" ref={details}>
+        <summary id={id} aria-label={label ? `${label}: ${current?.name || t("choose_trainer")}` : undefined} className="trainer-picker-summary"><Avatar url={current?.avatar_url} name={current?.name} size={48} /><span className="trainer-picker-name">{current?.name || t("choose_trainer")}{current?.title && <small className="help block">{current.title}</small>}</span></summary>
+        <div className="trainer-picker-body space-y-3">
+          <input className="field" placeholder={t("search_trainers")} value={q} onChange={(e) => setQ(e.target.value)} aria-label={t("search_trainers")} />
+          <TrainerFilters games={games} {...{ origin, setOrigin, game, setGame, region, setRegion }} />
+          {allowNone && <button type="button" className="btn btn-sm" onClick={() => pick("")}>{t("trainer_clear")}</button>}
+          {catalog.error && <div role="alert" className="help">{catalog.error.message} <button type="button" className="btn btn-sm" onClick={catalog.reload}>{t("retry")}</button></div>}
+          {error && <p role="alert">{error.message}</p>}
+          {busy && <Spinner />}
+          {character && <div className="trainer-variant space-y-2">
+            <div className="flex items-center gap-2"><Avatar url={character.avatar_url} name={character.name} size={64} /><b>{lang === "en" ? character.name : character.name_es}</b></div>
+            <label><span className="label">{t("trainer_choose_team")}</span><select className="field" value={variant} onChange={(e) => setVariant(e.target.value)}>{character.variants.map((v) => <option key={v.id} value={v.id}>{lang === "en" ? v.label : v.label_es}</option>)}</select></label>
+            <TeamStrip species={character.variants.find((v) => v.id === variant)?.species} size={32} />
+            <Busy busy={busy} className="btn btn-primary" disabled={!variant} onClick={install}>{t("trainer_use_team")}</Busy>
+          </div>}
+          <div className="trainer-picker-results">
+            {shown.length > 0 && <><p className="label">{t("trainer_saved")} · {shown.length}</p><div className="trainer-picker-grid">{shown.map((tr) => <button type="button" key={tr.id} className="trainer-choice" aria-pressed={value === tr.id} onClick={() => pick(tr.id)}><Avatar url={tr.avatar_url} name={tr.name} size={56} /><span><b>{tr.name}</b><small>{tr.title}</small></span></button>)}</div></>}
+            {characters.length > 0 && <><p className="label">{t("from_games")} · {characters.length}</p><div className="trainer-picker-grid">{characters.map((c) => <button type="button" key={c.key} className="trainer-choice" onClick={() => openCharacter(c)}><Avatar url={c.avatar_url} name={c.name} size={56} /><span><b>{lang === "en" ? c.name : c.name_es}</b>{c.name !== c.name_es && <small>{lang === "en" ? c.name_es : c.name}</small>}<small>{t("chars_teams_n", { n: c.teams })}</small></span></button>)}</div></>}
+            {!shown.length && !characters.length && <p className="help">{catalog.data ? t("chars_none") : t("loading")}</p>}
+          </div>
+        </div>
+      </details>
       {current && <TeamStrip species={current.species} size={30} />}
     </div>
   );

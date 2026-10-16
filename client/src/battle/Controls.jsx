@@ -18,13 +18,19 @@ function MonButton({ mon, index, onClick, disabled, sprites, lang, badge, select
   return (
     <button type="button" className={`b-mon-btn ${selected ? "is-selected" : ""}`} disabled={disabled} onClick={onClick}
       title={`${name} · ${mon.species || ""}${mon.item_name ? ` @ ${nameOf("item", mon.item_name, lang)}` : ""}`}>
-      <img src={sprites.pokemon(mon.species || name, { spriteid: mon.spriteid })} alt="" className={`b-mon-icon ${sprites.pixelated ? "pixelated" : ""}`}
-        onError={(e) => { e.currentTarget.style.visibility = "hidden"; }} />
+      <PartyPicture key={`${mon.species}:${mon.spriteid}:${sprites.pokemon(mon.species || name, { spriteid: mon.spriteid })}`} species={mon.species || name} spriteid={mon.spriteid} sprites={sprites} />
       <span className="b-mon-name trunc">{name}</span>
       <span className="b-mini-hp"><span style={{ width: `${c.frac * 100}%`, background: c.frac > 0.5 ? "var(--hp-ok)" : c.frac > 0.2 ? "var(--hp-mid)" : "var(--hp-low)" }} /></span>
       {badge && <span className="b-mon-badge">{badge}</span>}
     </button>
   );
+}
+
+function PartyPicture({ species, spriteid, sprites }) {
+  const [failed, setFailed] = useState(0);
+  if (failed > 1) return <span className="b-mon-icon" aria-label={species}>{species.slice(0, 2)}</span>;
+  const src = failed ? sprites.fallback(species, { spriteid }) : sprites.pokemon(species, { spriteid });
+  return <img key={`${failed}:${src}`} src={src} alt={species} className={`b-mon-icon ${sprites.pixelated ? "pixelated" : ""}`} onError={() => setFailed((n) => n + 1)} />;
 }
 
 function MoveButton({ move, onClick, disabled, lang, t, selected }) {

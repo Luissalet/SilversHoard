@@ -1,4 +1,4 @@
-// Bilingual UI: Spanish (castellano de España) by default, English on request. The choice is kept in localStorage.
+// Bilingual UI: English by default, Spanish on request. The choice is kept in localStorage.
 // Each entry is [español, English]; `{name}` placeholders are filled by t(key, { name }). A key with an `_one` twin uses it when n is 1.
 import RT_STRINGS from "./battle/rt/strings.js";
 import { SND } from "./sound-strings.js";
@@ -813,12 +813,25 @@ export function initialLang() {
     const stored = localStorage.getItem("silver-lang");
     if (stored === "es" || stored === "en") return stored;
   } catch {
-    // storage may be blocked; Spanish is the default
+    // storage may be blocked; English is the default
   }
-  return "es";
+  return "en";
 }
 
 // the real-time mode keeps its words next to its screen
+Object.assign(D, {
+  trainer_all_regions: ["Todas las regiones", "All regions"],
+  trainer_region: ["Región", "Region"],
+  trainer_already_selected: ["Ese equipo ya está seleccionado en el otro lado.", "That team is already selected on the other side."],
+  cancel_battle: ["Cancelar combate", "Cancel battle"],
+  cancel_battle_help: ["El combate se detendrá sin ganador y sin modificar los récords.", "The battle will stop without a winner or changes to records."],
+  status_cancelled: ["Cancelado", "Cancelled"],
+  history_load_failed: ["No se ha podido cargar el historial. Puedes reintentarlo; tus combates siguen guardados.", "Could not load history. Retry loading; your battles are still saved."],
+  trainer_clear: ["Quitar selección", "Clear selection"],
+  trainer_saved: ["Mis entrenadores", "My trainers"],
+  trainer_choose_team: ["Equipo y combate del juego", "In-game team and battle"],
+  trainer_use_team: ["Elegir este equipo", "Choose this team"],
+});
 Object.assign(D, RT_STRINGS);
 Object.assign(D, SND);
 Object.assign(D, CUP_STRINGS);

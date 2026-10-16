@@ -368,3 +368,24 @@ body.video-mode .b-fx-toggle, body.video-mode .snd-btn { display: none !importan
 .avatar-edit { position: absolute; right: -6px; bottom: -6px; border-radius: 999px; }
 .pose-view { border: 0; padding: 0; background: none; cursor: zoom-in; }
 .avatar-button { cursor: zoom-in; }
+/* The same catalogue filters in the library and every battle/trainer picker. */
+.trainer-filters { display: flex; flex-wrap: wrap; align-items: end; gap: .5rem; }
+.trainer-filters > label { flex: 1 1 8rem; min-width: 0; }
+.trainer-filters .label { display: block; margin-bottom: .25rem; }
+.trainer-filters .field { width: 100%; }
+.trainer-picker { border: 1px solid var(--line); border-radius: .6rem; }
+.trainer-picker-summary { display: flex; align-items: center; gap: .65rem; padding: .5rem; cursor: pointer; list-style: none; }
+.trainer-picker-summary::-webkit-details-marker { display: none; }
+.trainer-picker-name { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.trainer-picker-summary::after { content: ""; width: .5rem; height: .5rem; margin: 0 .5rem; border-right: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: rotate(45deg); }
+.trainer-picker[open] > summary::after { transform: rotate(225deg); }
+.trainer-picker-body { padding: .65rem; border-top: 1px solid var(--line); }
+.trainer-picker-results { max-height: 20rem; overflow-y: auto; overscroll-behavior: contain; }
+.trainer-picker-results > .label { margin: .5rem 0; }
+.trainer-picker-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); gap: .35rem; }
+.trainer-choice { display: flex; align-items: center; gap: .5rem; padding: .4rem; text-align: left; border: 1px solid transparent; border-radius: .4rem; cursor: pointer; min-width: 0; }
+.trainer-choice:hover, .trainer-choice[aria-pressed=true] { background: var(--surface); border-color: currentColor; }
+.trainer-choice > span { min-width: 0; overflow-wrap: anywhere; }
+.trainer-choice b, .trainer-choice small { display: block; }
+.trainer-choice small { font-size: .75rem; }
+.trainer-variant { padding-bottom: .7rem; border-bottom: 1px solid var(--line); }

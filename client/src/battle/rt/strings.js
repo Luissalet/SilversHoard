@@ -184,8 +184,8 @@ const RT = {
   rt_hits_n: ["{n} golpes · {c} críticos", "{n} hits · {c} critical"],
   rt_dummy_reset: ["¡Muñeco a tope!", "Dummy healed!"],
   rt_phase: ["¡Cambio de táctica!", "Change of tactics!"],
-  rt_ult: ["Definitiva", "Ultimate"],
-  rt_ult_cut: ["¡Definitiva!", "Ultimate!"],
+  rt_ult: ["Ataque especial", "Charged attack"],
+  rt_ult_cut: ["¡Ataque especial!", "Charged attack!"],
   rt_show_go: ["¡Adelante, {name}!", "Go, {name}!"],
   rt_show_back: ["¡{name}, vuelve!", "{name}, come back!"],
   rt_show_fainted: ["¡{name} se ha debilitado!", "{name} fainted!"],
@@ -198,8 +198,8 @@ const RT = {
   rt_show_who: ["¿Quién ganará?", "Who wins?"],
   rt_show_wins: ["¡Gana {name}!", "{name} wins!"],
   rt_show_tie: ["¡Empate!", "Draw!"],
-  rt_ult_help: ["La barra de definitiva se llena al hacer y recibir daño y con cada K.O.; llena, la tecla del movimiento Plus (F, o ZL + + en el mando) desata un ataque de 150 de potencia del tipo del Pokémon que cae sobre el rival tras avisar en el suelo: se esquiva con la voltereta.",
-    "The ultimate gauge fills when dealing and taking damage and with every knockout; once full, the Plus key (F, or ZL + + on a gamepad) unleashes a 150-power blast of the Pokémon's type that falls on the foe after a warning on the ground: roll out of it."],
+  rt_ult_help: ["Ataque especial propio del modo en tiempo real. Su barra se llena al hacer y recibir daño y con cada K.O. Cuando está llena, pulsa F (o ZL + + en el mando) para lanzar un ataque de potencia 150 del tipo del Pokémon. El rival puede esquivarlo con una voltereta.",
+    "A charged attack specific to real-time mode. Its gauge fills when dealing and taking damage and with each knockout. When full, press F (or ZL + + on a gamepad) for a 150-power attack of the Pokémon's type. The opponent can dodge it by rolling."],
 };
 
 export default RT;
