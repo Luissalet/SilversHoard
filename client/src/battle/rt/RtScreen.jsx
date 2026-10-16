@@ -513,6 +513,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
       state = build();
     } catch (e) {
       setError(e);
+      videoRef.current?.onError?.(e);
       return undefined;
     }
     sim.current = state;
@@ -536,7 +537,8 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
       if (cancelled) return;
       setCredits([...renderer.credits].slice(0, 12));
       setPhase(live ? (state.b.ended ? "ended" : "ready") : videoRef.current && !videoRef.current.playing ? "replay-paused" : "playing");
-    });
+      videoRef.current?.onReady?.();
+    }).catch((e) => { if (!cancelled) { setError(e); videoRef.current?.onError?.(e); } });
     return () => { cancelled = true; };
   }, [battle.id, modsReady]); // eslint-disable-line react-hooks/exhaustive-deps
 
