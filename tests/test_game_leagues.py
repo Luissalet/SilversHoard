@@ -5,7 +5,7 @@ pytestmark = needs_engine
 
 def test_every_game_league_installs_from_the_characters(call, services):
     listed = {lg["key"]: lg for lg in call("canon_list", {})["leagues"]}
-    keys = ["kanto-rgb", "johto-hgss", "hoenn-oras", "sinnoh-pt", "unova-bw", "unova-b2w2", "kalos-xy", "alola-sm", "alola-usum", "galar-sw", "paldea-sv"]
+    keys = ["kanto-rgb", "johto-hgss", "kanto-hgss", "hoenn-oras", "sinnoh-pt", "unova-bw", "unova-b2w2", "kalos-xy", "alola-sm", "alola-usum", "galar-sw", "paldea-sv"]
     assert set(keys) <= set(listed) and len(listed["sinnoh-pt"]["gyms"]) == 8 and not listed["alola-sm"]["gyms"]
     for key in keys:
         lg = call("canon_install", {"league_key": key})["league"]
