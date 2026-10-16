@@ -7,6 +7,7 @@ import { ErrorBox, Section, Spinner, useLoad, useStored } from "../components/ui
 import { useContextProvider } from "../components/hooks.js";
 import { Avatar, MonIcon, TrainerSelect } from "../components/silver.jsx";
 import { L, nameOf } from "../battle/dex.js";
+import { loc } from "../loc.js";
 
 const S = {
   title: ["Progreso", "Progress"],
@@ -92,8 +93,8 @@ export default function Progreso() {
       {trainerId && p && (
         <>
           <div className="flex items-center gap-3">
-            <Avatar url={p.avatar_url} name={p.name} size={72} />
-            <div><h2>{p.name}</h2><div className="help">{s("battles_n", { n: p.record.battles })} · {s("kos_n", { n: p.record.kos })}</div></div>
+            <Avatar url={p.avatar_url} name={loc(p, lang)} size={72} />
+            <div><h2>{loc(p, lang)}</h2><div className="help">{s("battles_n", { n: p.record.battles })} · {s("kos_n", { n: p.record.kos })}</div></div>
           </div>
           {!p.record.battles && <p className="help">{s("none")}</p>}
           <div className="grid gap-2 grid-cols-2 sm:grid-cols-4 lg:grid-cols-7">

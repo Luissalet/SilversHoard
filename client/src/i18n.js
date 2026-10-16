@@ -692,6 +692,7 @@ const D = {
   chars_sprites_n: ["{n} sprites", "{n} sprites"],
   chars_made_n: ["{n} creados", "{n} made"],
   chars_none: ["Ningún personaje coincide.", "No character matches."],
+  no_matches: ["Nada coincide con los filtros.", "Nothing matches the filters."],
   chars_gen: ["Generación", "Generation"],
   chars_gen_n: ["Gen. {n}", "Gen {n}"],
   char_look: ["Aspecto", "Look"],

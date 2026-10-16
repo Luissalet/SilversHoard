@@ -11,6 +11,7 @@ import { TrainerSelect } from "../components/silver.jsx";
 import VideoExport from "../components/VideoExport.jsx";
 import UnitPicker from "../battle/mass/UnitPicker.jsx";
 import "../battle/mass/mass.css";
+import { loc } from "../loc.js";
 
 // the screen carries the battle engine: it comes with the real-time chunk (CombateRt.jsx), only when a battle is watched
 const MassScreen = React.lazy(() => import("./CombateRt.jsx").then((m) => ({ default: m.MassScreen })));
@@ -64,7 +65,7 @@ function Watch({ id, query }) {
   return (
     <div className="space-y-3">
       <div className="flex flex-wrap items-center gap-2">
-        <h1 className="page-title">{data.title}</h1>
+        <h1 className="page-title">{loc(data, lang, "title")}</h1>
         <span className="chip">{t(`mass_mode_${data.mode}`)}</span>
         <span className="chip">{t("mass_units", { n: data.units })}</span>
         {data.from && <span className="chip">{t("mass_from", { name: data.from })}</span>}
@@ -160,7 +161,7 @@ function Home() {
           <div className="panel divide-list p-0">
             {past.battles.map((b) => (
               <div key={b.id} className="flex flex-wrap items-center gap-2 px-3 py-2">
-                <a href={`#/campal/${b.id}`} className="font-semibold">{b.title}</a>
+                <a href={`#/campal/${b.id}`} className="font-semibold">{loc(b, lang, "title")}</a>
                 <span className="chip">{t(`mass_mode_${b.mode}`)}</span>
                 <span className="help">{t("mass_units", { n: b.units })}</span>
                 <span className="help">{b.winner_name ? t("mass_won_by", { name: b.winner_name }) : t("mass_tie")}</span>

@@ -5,9 +5,10 @@ import { useApp } from "../context.js";
 import { Busy, ErrorBox, Section, Spinner, useBusy, useLoad } from "../components/ui.jsx";
 import { useCopilotRefresh } from "../components/hooks.js";
 import { Avatar, GymBadge, MonIcon } from "../components/silver.jsx";
+import { loc } from "../loc.js";
 
 export default function Medallas() {
-  const { t, go, changed } = useApp();
+  const { t, lang, go, changed } = useApp();
   const badges = useLoad(() => api.call("badges_list", {}), []);
   const runs = useLoad(() => api.call("challenges_list", {}), []);
   const hall = useLoad(() => api.call("hall_of_fame", {}), []);
@@ -28,7 +29,7 @@ export default function Medallas() {
               <div key={name} className="badge-case">
                 <b>{name}</b>
                 <div className="flex flex-wrap gap-2">
-                  {list.map((b) => <a key={b.id} href={`#/gimnasio/${b.gym_id}`} className="badge-slot" title={`${b.gym_name} · ${b.source === "friend" ? t("from_friend") : t("here")}${b.proof?.verified ? ` · ${t("badge_verified")}` : ""}`}><GymBadge image={b.badge_image} color={b.badge_color} size={40} label={b.badge} /><span className="help trunc">{b.badge || b.gym_name}</span></a>)}
+                  {list.map((b) => <a key={b.id} href={`#/gimnasio/${b.gym_id}`} className="badge-slot" title={`${loc(b, lang, "gym_name")} · ${b.source === "friend" ? t("from_friend") : t("here")}${b.proof?.verified ? ` · ${t("badge_verified")}` : ""}`}><GymBadge image={b.badge_image} color={b.badge_color} size={40} label={b.badge} /><span className="help trunc">{b.badge || b.gym_name}</span></a>)}
                 </div>
               </div>
             ))}
@@ -41,7 +42,7 @@ export default function Medallas() {
             {runs.data.challenges.map((r) => (
               <div key={r.id} className="row-item">
                 <Avatar url={r.challenger_avatar_url} name={r.challenger_name} size={30} />
-                <span className="min-w-0 flex-1 trunc"><b>{r.challenger_name}</b> → {r.target_name} <span className="help">({r.kind === "facility" ? t("run_streak", { n: r.streak || 0 }) : `${r.stages.filter((s) => s.result === "won").length}/${r.stages.length}`})</span></span>
+                <span className="min-w-0 flex-1 trunc"><b>{r.challenger_name}</b> → {loc(r, lang, "target_name")} <span className="help">({r.kind === "facility" ? t("run_streak", { n: r.streak || 0 }) : `${r.stages.filter((s) => s.result === "won").length}/${r.stages.length}`})</span></span>
                 <span className={`chip ${r.status === "won" ? "chip-ok" : r.status === "lost" ? "chip-danger" : "chip-accent"}`}>{t(`run_${r.status}`)}</span>
                 {r.status === "active" && <Busy busy={busy[r.id]} className="btn btn-sm btn-primary" onClick={() => next(r)}>{t("continue")}</Busy>}
                 {r.status === "active" && <Busy busy={busy[`a${r.id}`]} className="btn btn-sm" onClick={() => abandon(r)}>{t("abandon")}</Busy>}
