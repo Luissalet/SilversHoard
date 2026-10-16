@@ -7,6 +7,7 @@
 import { TYPE_COLORS } from "../dex.js";
 import { KENNEY } from "./kenney.gen.js";
 import { MPW_FX } from "./mpw-fx.gen.js";
+import { drawFireSprite } from "./move-art.js";
 
 const H = 0.6;          // projectiles fly this many meters over the ground
 const TAU = Math.PI * 2;
@@ -1108,7 +1109,17 @@ export class Vfx {
         head(0.7 * s, "#f7d02c");
         break;
       }
-      case "fire": glow(0.32 * s * pulse, "#ff7a2a", 0.8); head(0.65 * s, "#ffb347"); break;
+      case "fire": {
+        glow(0.32 * s * pulse, "#ff7a2a", 0.8); head(0.65 * s, "#ffb347");
+        if (textured) {
+          ctx.save();
+          ctx.globalCompositeOperation = "source-over";
+          ctx.globalAlpha *= fade;
+          drawFireSprite(ctx, x2, y2, Math.atan2(dy, dx), 1.9 * s, this.r.time);
+          ctx.restore();
+        }
+        break;
+      }
       case "water": {
         glow(0.36 * s, "#4f86ef", 0.9);
         ctx.strokeStyle = `rgba(255,255,255,${0.6 * fade})`; ctx.lineWidth = Math.max(1, s * 0.05);
@@ -1188,7 +1199,9 @@ export class Vfx {
       case "energy": orb("rgba(240,255,220,0.95)", "rgba(122,199,76,0.9)", r * 1.5); break;
       case "sludge": orb("rgba(230,170,240,0.95)", "rgba(163,62,161,0.9)", r * 1.4); break;
       case "moon": orb("rgba(255,255,255,1)", "rgba(255,180,220,0.9)", r * 1.5); break;
-      case "fire": orb("rgba(255,250,220,1)", "rgba(255,140,40,0.95)", r * 1.6); break;
+      case "fire":
+        if (!textured || !drawFireSprite(ctx, x, y, ang, r * 5, this.r.time)) orb("rgba(255,250,220,1)", "rgba(255,140,40,0.95)", r * 1.6);
+        break;
       case "electric": {
         orb("rgba(255,255,255,1)", "rgba(247,208,44,0.95)", r * 1.4);
         ctx.strokeStyle = "rgba(255,245,150,0.9)"; ctx.lineWidth = Math.max(1, s * 0.05);
