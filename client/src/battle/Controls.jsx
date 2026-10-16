@@ -1,5 +1,7 @@
 // What a person chooses each turn, built from the simulator's request: lead order at team preview, moves (with targets in doubles
 // and the generation's gimmick: Terastal, Mega, Z, Dynamax), switches, and forced switches after a faint. Sends a Showdown choice string.
+// In a multi battle (request.partner_slots) the AI partner plays its slot: the person chooses for theirs and the partner's Pokémon
+// are shown but cannot be sent out.
 import React, { useEffect, useMemo, useState } from "react";
 import { TYPE_COLORS, nameOf, typeName } from "./dex.js";
 import { battleT } from "./strings.js";
@@ -12,12 +14,12 @@ function parseCondition(cond) {
   return { frac: b ? a / b : 1, fainted: false, status: status || "", hp: a, maxhp: b };
 }
 
-function MonButton({ mon, index, onClick, disabled, sprites, lang, badge, selected }) {
+function MonButton({ mon, index, onClick, disabled, sprites, lang, badge, selected, note }) {
   const c = parseCondition(mon.condition);
   const name = mon.ident.replace(/^p\d: /, "");
   return (
     <button type="button" className={`b-mon-btn ${selected ? "is-selected" : ""}`} disabled={disabled} onClick={onClick}
-      title={`${name} · ${mon.species || ""}${mon.item_name ? ` @ ${nameOf("item", mon.item_name, lang)}` : ""}`}>
+      title={`${name} · ${mon.species || ""}${mon.item_name ? ` @ ${nameOf("item", mon.item_name, lang)}` : ""}${note ? ` · ${note}` : ""}`}>
       <PartyPicture key={`${mon.species}:${mon.spriteid}:${sprites.pokemon(mon.species || name, { spriteid: mon.spriteid })}`} species={mon.species || name} spriteid={mon.spriteid} sprites={sprites} />
       <span className="b-mon-name trunc">{name}</span>
       <span className="b-mini-hp"><span style={{ width: `${c.frac * 100}%`, background: c.frac > 0.5 ? "var(--hp-ok)" : c.frac > 0.2 ? "var(--hp-mid)" : "var(--hp-low)" }} /></span>
@@ -61,13 +63,16 @@ export default function Controls({ request, lang = "es", sprites, gametype = "si
   const reqKey = useMemo(() => JSON.stringify(request?.rqid ?? request), [request]);
   const pokemon = request?.side?.pokemon || [];
   const slots = request?.forceSwitch ? request.forceSwitch.length : (request?.active || []).length;
+  const partnerSlots = request?.partner_slots || [];
+  const partnerName = request?.partner_name || "";
   const switchesIn = (list) => list.map((p) => /^switch (\d)/.exec(p)?.[1]).filter(Boolean).map(Number);
-  const bench = (exclude) => pokemon.map((m, i) => ({ m, i })).filter(({ m, i }) => !m.active && !parseCondition(m.condition).fainted && !exclude.includes(i + 1) && !m.reviving);
-  // slots that need nothing get "pass": no forced switch there, a fainted Pokémon with nobody left to send
+  const bench = (exclude) => pokemon.map((m, i) => ({ m, i })).filter(({ m, i }) => !m.active && !m.partner && !parseCondition(m.condition).fainted && !exclude.includes(i + 1) && !m.reviving);
+  // slots that need nothing get "pass": no forced switch there, a fainted Pokémon with nobody left to send, the partner's slot
   const fill = (list) => {
     const next = [...list];
     while (next.length < slots) {
       const s = next.length;
+      if (partnerSlots.includes(s)) { next.push("pass"); continue; }
       if (request.forceSwitch && !request.forceSwitch[s]) { next.push("pass"); continue; }
       if (!request.forceSwitch && String(pokemon[s]?.condition || "").endsWith(" fnt")) { next.push("pass"); continue; }
       if (request.forceSwitch && !bench(switchesIn(next)).length) { next.push("pass"); continue; }
@@ -126,7 +131,8 @@ export default function Controls({ request, lang = "es", sprites, gametype = "si
     const options = bench(usedSwitches);
     return (
       <div className="b-controls" onClickCapture={clickSound}>
-        <div className="b-ctrl-head"><b>{t("choose_switch")}</b>{slots > 1 && <span className="help">{t("slot_n", { n: slot + 1 })}</span>}</div>
+        <div className="b-ctrl-head"><b>{t("choose_switch")}</b>{slots > 1 && <span className="help">{t("slot_n", { n: slot + 1 })}</span>}
+          {partnerSlots.length > 0 && <span className="help">{t("partner_turn", { name: partnerName })}</span>}</div>
         <div className="b-team-grid">
           {options.map(({ m, i }) => <MonButton key={i} mon={m} sprites={sprites} lang={lang} disabled={busy} onClick={() => advance(`switch ${i + 1}`)} />)}
         </div>
@@ -168,6 +174,7 @@ export default function Controls({ request, lang = "es", sprites, gametype = "si
       <div className="b-ctrl-head">
         <b>{t("your_move", { name: myName })}</b>
         {slots > 1 && <span className="help">{t("slot_n", { n: slot + 1 })}</span>}
+        {partnerSlots.length > 0 && <span className="help">{t("partner_turn", { name: partnerName })}</span>}
         {sideLabel && <span className="help">{sideLabel}</span>}
         <span className="flex-1" />
         {gimmickKind && !gimmickUsed && (
@@ -194,9 +201,9 @@ export default function Controls({ request, lang = "es", sprites, gametype = "si
         <div className="b-team-row">
           {pokemon.map((m, i) => {
             const c = parseCondition(m.condition);
-            const can = !active.trapped && !m.active && !c.fainted && !usedSwitches.includes(i + 1);
+            const can = !active.trapped && !m.active && !m.partner && !c.fainted && !usedSwitches.includes(i + 1);
             return <MonButton key={i} mon={m} sprites={sprites} lang={lang} disabled={busy || !can} onClick={() => advance(`switch ${i + 1}`)}
-              badge={m.active ? "●" : c.fainted ? "×" : ""} />;
+              badge={m.active ? "●" : c.fainted ? "×" : m.partner ? "◆" : ""} note={m.partner ? t("partner_mon", { name: partnerName }) : ""} />;
           })}
         </div>
       </div>
