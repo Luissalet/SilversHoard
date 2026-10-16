@@ -148,7 +148,7 @@ function Results({ course, last, config, s, lang, isLast, onNext, onAgain, onOth
             const t = config.teams[ti];
             return (
               <tr key={ti} className={t.human ? "is-you" : ""} style={{ "--team": t.color }}>
-                <td className="num"><span className="pk-place">{last.ranks[ti] + 1}</span></td>
+                <td className="pk-placecell"><span className="pk-place">{last.ranks[ti] + 1}</span></td>
                 <td><span className="pk-dot" /> <strong>{t.name}</strong> <TeamIcons team={t} size={24} /></td>
                 <td className="num">{formatScore(eventId, last.raw[ti])}</td>
                 <td className="num">+{last.points[ti]}</td>
