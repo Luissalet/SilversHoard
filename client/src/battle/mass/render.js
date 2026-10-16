@@ -5,9 +5,14 @@
 // still standing in the frame, closer as they thin out). The Pokémon a person plays wears a gold ring and its aim shows as a
 // crosshair. With sound on, moves, hits and knockouts are heard (a crowd only by the loudest few). It reads the battle; it never
 // changes it.
+// The moves look as they do in one-on-one real time (rt/vfx.js): the same rays, balls, melee marks, areas, drops from the sky and
+// hits by type; a wave (Surf, Earthquake... rules version 2) is drawn from the battle's own clock, so its front reaches each
+// Pokémon on the frame it is hit.
 import { TYPE_COLORS, nameOf } from "../dex.js";
 import { sfx } from "../../audio.js";
 import { Animator, dirRow, image, loadMeta } from "../rt/pmd.js";
+import { Vfx } from "../rt/vfx.js";
+import { TPS } from "../../../../engine/src/realtime/mass.mjs";
 
 const FLOOR_COLORS = {
   grass: ["#4f8a4a", "#4a8345", "#2b4a2a"], sand: ["#d7bd86", "#cfb47c", "#8a7448"], ice: ["#cfe6f0", "#c4dfeb", "#7aa3b6"],
@@ -16,6 +21,13 @@ const FLOOR_COLORS = {
   champion: ["#7a5c8a", "#735684", "#3e2c48"], castle: ["#6b6660", "#65605a", "#3a3632"],
 };
 const TAU = Math.PI * 2;
+const toId = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+const rnd = (a, b) => a + Math.random() * (b - a);
+// what a wave's front sheds as it rolls (particles of rt/vfx.js)
+const NO_BATTLE = { doubles: false, sides: [] };   // rt/vfx.js only needs a battle for effects this screen never makes
+const SPRAY = { wave: ["drop", ["#9cc8ff", "#ffffff", "#5f95f0"]], mudwave: ["drop", ["#b89363", "#8a6b35"]], quake: ["smoke", ["#d8c9a0", "#b8954a"]],
+  electric: ["spark", ["#fff7a8", "#f7d02c"]], fire: ["glow", ["#ffd27a", "#ff9a3c", "#ff5a1f"]], poison: ["bubble", ["#c86bd0", "#a33ea1"]],
+  sound: ["glow", ["#ffffff", "#dcd3ff"]], petals: ["leaf", ["#ffb3d1", "#ff8fbf"]], snow: ["flake", ["#ffffff", "#dff6ff"]] };
 
 function rgba(hex, a) {
   const n = parseInt((hex || "#cccccc").slice(1), 16);
@@ -47,6 +59,11 @@ export class MassRenderer {
     this.fx = [];             // short effects: {kind, x, y, r, color, t0, life, ...}
     this.dead = [];           // knocked-out units fading: {u, t0}
     this.flash = new Float32Array(battle.units.length);
+    this.waves = [];          // waves rolling out: {x, y, r0, max, speed (m/s), t (tick it started), type, kind}
+    this.rayN = 0;
+    // the real-time effects, drawn through this screen's camera
+    const me = this;
+    this.vfx = new Vfx({ px: (x) => me.sx(x), py: (y) => me.sy(y), get scale() { return me.scale; }, get canvas() { return me.canvas; } });
     this.eventIndex = 0;
     this.time = 0;
     this.cam = { x: battle.arena.w / 2, y: battle.arena.h / 2, zoom: 1 };
@@ -127,6 +144,14 @@ export class MassRenderer {
     this.clampCam();
   }
 
+  /** Whether a point of the field is inside the picture (with a margin): effects for a crowd are made only where the camera looks. */
+  onScreen(fx, fy) {
+    if (this.b.units.length <= 60) return true;
+    const px = this.sx(fx);
+    const py = this.sy(fy);
+    return px > -80 && py > -80 && px < this.canvas.width + 80 && py < this.canvas.height + 80;
+  }
+
   reset() { this.cam = { x: this.b.arena.w / 2, y: this.b.arena.h / 2, zoom: 1 }; this.follow = -1; this.auto = false; }
 
   /** The camera on its own: everyone still standing in the frame (with a margin), eased so it never jumps. */
@@ -193,7 +218,8 @@ export class MassRenderer {
         case "hit":
           // a white flash on the one hit (a giant hit all the time only glints, or it would stay white)
           if (this.flash[e.u] < 0.2) this.flash[e.u] = u.boss ? (e.crit ? 0.35 : 0.15) : 0.8;
-          this.fx.push({ kind: "spark", x: u.x, y: u.y - 0.4 * u.size, color, t0: this.time, life: 0.3, r: 0.6 * Math.min(2.5, u.size) });
+          // the type's hit burst (a crowd only where the camera looks)
+          if (this.onScreen(u.x, u.y)) this.vfx.hitAt(e.id || "", e.type, u.x, u.y - 0.4 * u.size + 0.6, { strong: e.crit || e.eff > 1 });
           if ((units[e.by]?.boss || u.boss || e.u === this.follow || (units.length <= 40 && (e.crit || e.eff > 1))) && this.fx.filter((f) => f.kind === "num").length < 12) {
             const txt = e.crit ? `${e.dmg}!` : String(e.dmg);
             this.fx.push({ kind: "num", x: u.x, y: u.y - u.r * 2.2, text: txt, color: e.eff > 1 ? "#ffd54a" : e.eff < 1 ? "#b8c2cc" : "#ffffff", t0: this.time, life: 0.8 });
@@ -215,23 +241,33 @@ export class MassRenderer {
           this.fx.push({ kind: "num", x: u.x, y: u.y - u.r * 2.2, text: this.texts.immune || "No effect", color: "#b8c2cc", t0: this.time, life: 0.9 });
           break;
         case "beam":
-          this.fx.push({ kind: "beam", x: e.x0, y: e.y0, x1: e.x1, y1: e.y1, w: e.w, color, t0: this.time, life: 0.28 });
+          this.vfx.rayAt(`b${this.rayN++}`, e.id || toId(e.move), e.type, e.x0, e.y0, e.x1, e.y1);
           break;
         case "burst":
-          this.fx.push({ kind: "ring", x: e.x, y: e.y, r: e.r, color, t0: this.time, life: 0.45 });
+          // all at once around the user (an explosion; every area move around the user in rules version 1)
+          this.vfx.areaAt(e.id || toId(e.move), e.type, e.x, e.y, e.r);
           break;
+        case "wave": {
+          // rolls out at the battle's pace; drawn from its clock in draw(). An earthquake also cracks the ground under it
+          const kind = this.vfx.areaKind(e.id || toId(e.move));
+          this.waves.push({ x: e.x, y: e.y, r0: units[e.u]?.r || 0.4, max: e.r, speed: e.speed, t: e.t, type: e.type, kind });
+          if (kind === "quake") this.vfx.areaAt(e.id, e.type, e.x, e.y, e.r);
+          if (loud) sfx("move", { type: e.type, gap: 0.05, vol: close(e.u) ? 1 : 0.6 });
+          break;
+        }
         case "swing":
-          this.fx.push({ kind: "arc", x: u.x, y: u.y - 0.3 * u.size, r: e.reach, dx: e.dx, dy: e.dy, wide: e.shape === "cone", color, t0: this.time, life: 0.22 });
+          if (e.shape === "cone") this.vfx.areaAt(e.id || toId(e.move), e.type, u.x, u.y, e.reach, { arc: e.arc ?? 0.55, fx: e.dx, fy: e.dy });
+          else this.vfx.meleeAt(e.id || toId(e.move), e.type, u.x, u.y - 0.3 * u.size + 0.6, e.dx, e.dy);
           break;
         case "dash":
           this.fx.push({ kind: "trail", x: e.x0, y: e.y0, x1: e.x1, y1: e.y1, w: u.r, color, t0: this.time, life: 0.3 });
+          this.vfx.meleeAt(e.id || toId(e.move), e.type, e.x1, e.y1 - 0.3 * u.size + 0.6, e.x1 - e.x0, e.y1 - e.y0, { dash: true });
           break;
         case "land":
-          this.fx.push({ kind: "ring", x: e.x, y: e.y, r: e.r, color, t0: this.time, life: 0.5, fill: true });
+          this.vfx.areaAt(e.id || "", e.type, e.x, e.y, e.r, { drop: true });
           break;
         case "impact":
-          this.fx.push({ kind: "spark", x: e.x, y: e.y, color, t0: this.time, life: 0.25, r: 0.5 });
-          break;
+          break;   // the hit itself shows (above)
         case "heal":
           this.fx.push({ kind: "num", x: u.x, y: u.y - u.r * 2.2, text: `+${e.n}`, color: "#6fe38a", t0: this.time, life: 0.8 });
           break;
@@ -249,6 +285,54 @@ export class MassRenderer {
   }
 
   // ------------------------------------------------------------ drawing
+  /** Waves rolling out (rules version 2), from the battle's clock: the front is where the battle has it, so it reaches each
+   * Pokémon on the frame it is hit; the water (the ground thrown up, the sparks...) behind it thins towards the middle. */
+  drawWaves(x) {
+    const now = this.b.t;
+    const s = this.scale;
+    this.waves = this.waves.filter((w) => now >= w.t && (now - w.t) / TPS < (w.max - w.r0) / w.speed + 0.35);
+    for (const w of this.waves) {
+      const secs = (now - w.t) / TPS;
+      const r = Math.min(w.max, w.r0 + w.speed * secs);
+      const over = Math.max(0, secs - (w.max - w.r0) / w.speed);
+      const a = Math.max(0, 1 - over / 0.35);
+      const col = TYPE_COLORS[w.type] || "#6390f0";
+      const cx = this.sx(w.x);
+      const cy = this.sy(w.y);
+      const rr = r * s;
+      const g = x.createRadialGradient(cx, cy, rr * 0.35, cx, cy, Math.max(1, rr));
+      g.addColorStop(0, rgba(col, 0));
+      g.addColorStop(0.75, rgba(col, 0.22 * a));
+      g.addColorStop(1, rgba(col, 0.5 * a));
+      x.fillStyle = g;
+      x.beginPath(); x.arc(cx, cy, rr, 0, TAU); x.fill();
+      // the crest (with foam on water) and two ripples behind it
+      x.lineWidth = Math.max(2, s * 0.35);
+      x.strokeStyle = rgba(col, 0.85 * a);
+      x.beginPath(); x.arc(cx, cy, rr, 0, TAU); x.stroke();
+      x.lineWidth = Math.max(1, s * 0.1);
+      x.strokeStyle = `rgba(255,255,255,${((w.kind === "wave" ? 0.85 : 0.45) * a).toFixed(3)})`;
+      x.beginPath(); x.arc(cx, cy, Math.max(0, rr - s * 0.12), 0, TAU); x.stroke();
+      for (let i = 1; i <= 2; i++) {
+        const ri = rr - i * s * 0.9;
+        if (ri <= 0) break;
+        x.lineWidth = Math.max(1, s * 0.08);
+        x.strokeStyle = rgba(col, (0.35 * a) / i);
+        x.beginPath(); x.arc(cx, cy, ri, 0, TAU); x.stroke();
+      }
+      // spray along the front while it rolls
+      if (!over && this.onScreen(w.x, w.y)) {
+        const [kind, colors] = SPRAY[w.kind] || ["glow", [col, "#ffffff"]];
+        this.vfx.emit(Math.min(14, Math.ceil(r * 1.5)), () => {
+          const ang = rnd(0, TAU);
+          return { x: w.x + Math.cos(ang) * r, y: w.y + Math.sin(ang) * r, z: rnd(0.1, 0.5), vx: Math.cos(ang) * rnd(1, 3), vy: Math.sin(ang) * rnd(1, 3),
+            vz: rnd(1.5, 3.5), g: kind === "drop" ? 12 : 0, drag: 1, life: rnd(0.3, 0.55), color: colors[Math.floor(Math.random() * colors.length)],
+            size: rnd(0.1, 0.18), kind };
+        });
+      }
+    }
+  }
+
   drawFloor(x) {
     const { w, h } = this.b.arena;
     const [a, b2, edge] = FLOOR_COLORS[this.b.floor] || FLOOR_COLORS.grass;
@@ -280,7 +364,12 @@ export class MassRenderer {
     } else if (this.auto) this.direct(dt);
     const x = this.ctx;
     const s = this.scale;
+    // the real-time effects move on: rays, the balls' trails, particles (a crowd's projectiles only where the camera looks)
+    const view = { projectiles: b.units.length > 60 ? b.projectiles.filter((p) => this.onScreen(p.x, p.y)) : b.projectiles, sides: [], doubles: false };
+    this.vfx.update(dt, view);
     x.save();
+    const [shx, shy] = this.vfx.shakeOffset();
+    if (shx || shy) x.translate(shx * 0.6, shy * 0.6);
     x.imageSmoothingEnabled = false;
     this.drawFloor(x);
     // marks on the ground (areas about to land)
@@ -291,6 +380,8 @@ export class MassRenderer {
       x.lineWidth = Math.max(1, s * 0.06);
       x.beginPath(); x.arc(this.sx(m.x), this.sy(m.y), m.r * s, 0, TAU); x.fill(); x.stroke();
     }
+    this.vfx.drawUnder(x);
+    this.drawWaves(x);
     // the fallen fade where they fell
     this.dead = this.dead.filter((d) => this.time - d.t0 < 1.2);
     // units, back to front
@@ -369,16 +460,8 @@ export class MassRenderer {
         x.beginPath(); x.ellipse(px, py, u.r * s * 1.5, u.r * s * 0.75, 0, 0, TAU); x.stroke();
       }
     }
-    // projectiles
-    for (const p of b.projectiles) {
-      const c = TYPE_COLORS[p.type] || "#ffffff";
-      const px = this.sx(p.x);
-      const py = this.sy(p.y) - s * 0.5;
-      x.fillStyle = rgba(c, 0.35);
-      x.beginPath(); x.arc(px, py, p.r * s * 1.8, 0, TAU); x.fill();
-      x.fillStyle = c;
-      x.beginPath(); x.arc(px, py, p.r * s, 0, TAU); x.fill();
-    }
+    // projectiles as real time draws them (fireballs, shadow balls, leaves, ice shards...), rays, melee marks, areas, particles
+    this.vfx.drawOver(x, view, NO_BATTLE);
     // short effects
     this.fx = this.fx.filter((f) => this.time - f.t0 < f.life);
     for (const f of this.fx) {

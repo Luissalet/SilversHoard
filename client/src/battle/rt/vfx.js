@@ -429,6 +429,33 @@ export class Vfx {
     }
   }
 
+  // ------------------------------------------------------------ for screens without a real-time battle (the mass battle)
+  /** An area move's look at (x, y), radius r: all around (arc -1), a cone towards (fx, fy) whose half angle has cosine `arc`,
+   * or a drop from the sky landing there. */
+  areaAt(move, type, x, y, r, { arc = -1, fx = 1, fy = 0, drop = false } = {}) {
+    const kind = drop ? DROPS[move] || "ring" : arc === -1 ? BURSTS[move] || "ring" : BURSTS[move] || "cone";
+    this.area(kind, { x, y, r, arc, fx, fy, type }, drop);
+  }
+  /** Which look an area move around the user has: "wave", "quake", "electric"... (BURSTS), "ring" when it has none of its own. */
+  areaKind(move) { return BURSTS[move] || "ring"; }
+  /** A strike's (or a dash's) mark in front of (x, y), facing (fx, fy). */
+  meleeAt(move, type, x, y, fx, fy, { dash = false } = {}) {
+    const kind = melee(move);
+    const reach = dash ? 1.2 : 1.4;
+    this.fx.push({ kind: `melee-${kind}`, x: x + fx * reach, y: y + fy * reach, fx, fy, z: H, t: 0, life: kind === "bite" ? 0.35 : 0.3,
+      color: TYPE_COLORS[type] || "#ffffff", delay: 0 });
+  }
+  /** A beam from (x0, y0) to (x1, y1), with the move's own ray (ice crystals, flames, lightning...), fading at once. */
+  rayAt(key, move, type, x0, y0, x1, y1) {
+    this.rays.set(key, { kind: RAYS[move] || "generic", ox: x0, oy: y0, hx: x1, hy: y1, type, t: 0, gone: 0, s: 0 });
+  }
+  /** A hit on whoever stands at (x, y): the type's burst and, with the pixel-art style, its impact. */
+  hitAt(move, type, x, y, { strong = false } = {}) {
+    this.burst(type, x, y, { power: strong ? 1.5 : 1 });
+    const px = pixelHits ? pixelHitOf(move, type) : "";
+    if (px) this.fx.push({ kind: "pixel", sheet: px, x, y, t: 0, life: 0.36, big: strong });
+  }
+
   // ------------------------------------------------------------ per frame
   update(dt, view) {
     this.shake = Math.max(0, this.shake - dt * 0.9);

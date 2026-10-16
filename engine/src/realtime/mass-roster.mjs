@@ -5,6 +5,7 @@ import {Dex, toID} from '@pkmn/sim';
 import {makeRng} from '../ai.mjs';
 import {rtMove} from './moves.mjs';
 import {RtError} from './team.mjs';
+import {MASS_VERSION} from './mass.mjs';
 
 export const GEN_RANGES = {1: [1, 151], 2: [152, 251], 3: [252, 386], 4: [387, 493], 5: [494, 649], 6: [650, 721], 7: [722, 809],
   8: [810, 905], 9: [906, 1025]};
@@ -205,6 +206,7 @@ export function composeMass(a) {
         size: Number(given.size) || Math.max(2, Math.min(4, 1.6 + Math.sqrt(crowd.length) / 5)), power: Number(given.power) || Math.round((n <= 10 ? 1.5 : Math.min(2.3, 1.5 + n / 200)) * 10) / 10};
     }
   }
-  return {mode, format, level_rules: level ? {level} : {}, seed, floor: a.floor || 'grass', time_limit: Number(a.time_limit) || 180,
+  // a new battle plays by the current rules; the version travels with the spec, so replays and friends' pages play it the same
+  return {version: MASS_VERSION, mode, format, level_rules: level ? {level} : {}, seed, floor: a.floor || 'grass', time_limit: Number(a.time_limit) || 180,
     teams: teams.map((t) => ({name: t.name, color: t.color, units: t.units}))};
 }
