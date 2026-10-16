@@ -67,6 +67,10 @@ function startRecording(run, onStart, delay = 1500) {
 }
 
 export default function Video({ param, query }) {
+  const recording = query?.get("record") === "1";
+  // Real-time music starts while its replay is paused. Hook play() before the
+  // asynchronously loaded battle mounts, so that first track enters the mix.
+  useEffect(() => { if (recording) installTap(); }, [recording]);
   if (String(param || "").startsWith("mass_")) return <MassVideo id={param} query={query} />;
   return <BattleVideo param={param} query={query} />;
 }

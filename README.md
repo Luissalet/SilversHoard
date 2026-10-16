@@ -129,3 +129,5 @@ The six stat-point rows have draggable sliders as well as number fields and +/‚à
 Changing a member to a different species starts a fresh Pok√©mon: moves, ability, item, nature, nickname, Tera type, gender and shiny status return to their empty defaults; EVs return to zero and IVs to 31. The current level is kept. Editing only the spelling of the same species does not reset its set.
 
 The battle, series and tournament real-time arena picker shows saved arenas as selectable previews, including the illustrated floor and actual rock positions. The arena editor and picker share the same drawing. Illustrated floor styles become selectable battle arenas after saving them in Arenas; a floor style alone does not create a saved arena.
+
+Video exports attach the audio recorder before the real-time replay loads, so music that starts while the replay is paused is included in the MP4. Previously exported files need to be exported again to include that music.
