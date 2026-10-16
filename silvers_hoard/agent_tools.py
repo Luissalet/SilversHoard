@@ -6,7 +6,7 @@ from __future__ import annotations
 
 import base64
 from pathlib import Path
-from typing import Annotated, Any, Literal, Optional
+from typing import Annotated, Any, Literal, Optional, Union
 
 from pydantic import BaseModel, Field, StringConstraints
 
@@ -23,6 +23,7 @@ Exercises: exercise_create saves a turn/side from an ended replay with decisions
 Start with silver_overview. Teams come in as Showdown export text (paste), packed teams or JSON; team_import parses, team_validate checks a format's rules. canon_list shows the in-game teams of leaders, Elite Four, champions and rivals of Crystal, FireRed/LeafGreen and Emerald, and canon_install adds a trainer or a whole league (its gyms, badges, Elite Four and champion). characters_list and character_get cover 154 characters of all nine generations with every team they used game by game (first battle, rematches, tournaments) and all their sprites; character_install makes a trainer from one team and one sprite, or an own team for the character (custom). HeartGold and SoulSilver teams are the cartridge's own (exact sets, nature, IVs; character_get marks them cartridge with rom, ai_flags and ai): character_install gives them the game's AI and lines, the johto-hgss and kanto-hgss leagues add each gym's real trainers and a gym map, and hgss_rom_get reads that data.
 Battles: battle_start with two seats. A seat is {trainer_id} or {paste|team, name}; human=true means a person plays it from the app (or you, with battle_choose), otherwise the AI plays (ai_level random|easy|normal|hard|expert|master|neural — master searches thousands of futures a turn with poke-engine, 9th-generation singles; neural is a reinforcement-learning policy on the GPU for singles of generations 1-4 and 9 (neural_ai starts its server); see ai_levels; ai_style balanced|aggressive|defensive|setup|stall). Two AI seats = a watched battle that plays out in the background; read it with battle_get (lines are the Showdown protocol log). battle_choose sends a Showdown choice for a person's seat ("move 1", "move 2 terastallize", "switch 3", "team 123456"; doubles: "move 1 1, move 2 -1"); battle_get returns the pending request with the legal options.
 Gym and league challenges: challenge_start (kind gym|league, a challenger trainer; auto=true lets the AI play the challenger). Winning every battle of a gym gives a badge; a league needs its badges and ends in the hall of fame. Battle facilities (facilities_list): challenge_start kind=facility starts a win streak against one rival after another with the facility's bosses on their battles; the record is the longest streak. In the Battle Factory (factory3, factory4, factory9) there is no own team: factory_pick takes 3 of 6 rentals each round and factory_swap trades one for the beaten rival's after a win.
+Battle Frontier of HeartGold/SoulSilver with the game's own rules (facilities_list: hall4, arcade4, castle4; Thorton is the Platinum Battle Factory's boss on battles 21 and 49): challenge_start kind=facility with picks = the team indexes to bring (Hall 1, Arcade and Castle 3). Battle Hall: before each battle frontier_hall_pick picks the rival's type on the 17-type board (rank per type, the rival's level from the game's formula, Argenta on battles 50 and 170). Battle Arcade: frontier_arcade_stop stops the roulette (16 panels: statuses, lower HP, weather, Trick Room, fog, held items, +3 levels, party swap, skip, Battle Points) and its event applies to the next battle (Dahlia on 21 and 49). Battle Castle: HP and PP carry over; frontier_castle spends Castle Points (heal, PP, rental items, scouting, the rival's level, ranks), skips (50 CP) or goes to battle (Darach on 21 and 49). frontier_get shows the board, roulette, CP, party and the rival as far as it is known; challenge_next goes on (Castle: go; Arcade: stops the roulette at a random moment).
 Many battles at once: series_start (the same two trainers N times: win rate, MVPs) and tournament_start (bracket or league table between trainers), both background jobs (job_get). Cups with a live bracket: cup_start (picked and/or random trainers, optionally human_id = the user's trainer), then cup_get to follow it; the AI's matches play in the background one after another, the user's wait for cup_play (a battle to play) or cup_simulate; cup_watch turns an AI match into a battle to watch. benchmark_start compares several team variants against the same rivals with shared seeds (wins/losses per rival, delta vs a reference team, improved and worsened lists; a job; never writes the hall of fame).
 Levels: level_rules {level: 50} (or 100) on battle_start, series_start, tournament_start and benchmark_start, or level on challenge_start, equalizes every Pokémon of both sides at that level, so teams of different levels fight on even terms.
 Real time: battle_start, challenge_start, series_start, tournament_start and benchmark_start take mode=realtime for battles after Pokémon Legends: Z-A (the same trainers and teams on a 2D arena, no turns: every move has a cooldown in seconds instead of PP, a wind-up and a range; attacks can be dodged; one-stage stat changes that wear off; three switches that come back after each KO; a Mega Power gauge for Mega Evolution (no Plus moves since rules version 4); lock-on held or free aim; doubles formats field two Pokémon per trainer, a person moving one while the AI drives its partner, with spread moves, Helping Hand and Follow Me) and rt_arena=rocks (default: 3-6 rocks that block walking and projectiles) or open. A person plays it on the app's screen; two AI seats play it in the background. rt_cooldowns shows how a team's moves translate (Z-A's own cooldowns, or derived from PP and power); rt_rules explains the rules. battle_get of a real-time battle returns English event lines and the spec + inputs that replay it exactly.
@@ -600,6 +601,8 @@ class ChallengeArgs(BaseModel):
     rt_arena: RtArena = RtArenaField
     stop_at: int = Field(0, ge=0, le=10_000, description="facility with auto: stop the streak after this many wins (0 = until it is lost).")
     walk_map: bool = Field(True, description="A gym with a map: walk it (challenge_get; challenge_next with the stage you meet). False = the battles one after another.")
+    picks: list[int] = Field(default_factory=list, max_length=6,
+                             description="Battle Hall, Arcade and Castle: the team indexes (from 0) of the Pokémon to bring (Hall 1, Arcade and Castle 3); empty = the first ones.")
 
 
 class ChallengeNextArgs(BaseModel):
@@ -627,6 +630,27 @@ class FactorySwapArgs(BaseModel):
     id: str = IdField
     give: int = Field(-1, ge=-1, le=5, description="Index of your rental to give away (-1 = keep the team).")
     take: int = Field(-1, ge=-1, le=5, description="Index of the beaten rival's Pokémon to take.")
+
+
+class HallPickArgs(BaseModel):
+    id: str = IdField
+    cell: Union[int, Annotated[str, StringConstraints(min_length=1, max_length=20)]] = Field(
+        ..., description="The next rival's type: its name in English or Spanish (Fire, fuego...) or its cell 0-16 on the board (rank 10 cells are closed).")
+
+
+class ArcadeStopArgs(BaseModel):
+    id: str = IdField
+    panel: int = Field(-1, ge=-1, le=15, description="The panel (0-15, row by row) the cursor stopped on; -1 = stop at a random moment (or after frames).")
+    frames: int = Field(-1, ge=-1, le=900, description="Stop after this many frames of motion (60 a second; at 900 it stops by itself); -1 = not used.")
+
+
+class CastleArgs(BaseModel):
+    id: str = IdField
+    service: Literal["go", "skip", "heal_hp", "heal_pp", "heal_all", "heal_rank_up", "rent_berry", "rent_item", "rental_rank_up", "opp_check",
+                     "opp_stats", "opp_moves", "info_rank_up", "opp_level_up", "opp_level_down"] = Field(
+        ..., description="go = battle now; skip = 50 CP (from round 4, not before Darach); heal_* and rent_* act on your Pokémon (mon); opp_* on the rival's (mon); *_rank_up raise a rank.")
+    mon: int = Field(-1, ge=-1, le=5, description="Heal and rental: your Pokémon (0-2). Scouting and level: the rival's Pokémon (0-2).")
+    item: str = Field("", max_length=40, description="rent_berry / rent_item: the berry or item from frontier.berries / frontier.items.")
 
 
 class ProgressArgs(BaseModel):
@@ -1235,7 +1259,7 @@ TOOLS: list[Tool] = [
                                synonyms="reto, medalla, alto mando, desafío"), ChallengeArgs, W,
          lambda s, a: s.run_start(kind=a.kind, target_id=a.target_id, challenger_id=a.challenger_id, auto=a.auto, ignore_badges=a.ignore_badges,
                                   format_override=a.format, mode=a.mode, level=a.level, rt_arena=a.rt_arena, stop_at=a.stop_at,
-                                  walk_map=a.walk_map), 180.0),
+                                  walk_map=a.walk_map, picks=a.picks or None), 180.0),
     Tool("challenge_next", _d("Start the next battle of an active challenge. Siguiente combate del reto.",
                               "On a gym map give stage: the trainer you met (or leader).", synonyms="continuar reto"),
          ChallengeNextArgs, W, lambda s, a: s.run_next(a.id, a.stage), 180.0),
@@ -1245,9 +1269,10 @@ TOOLS: list[Tool] = [
                                 "gym_save map= stores it (edit it first if you like).", synonyms="mapa del gimnasio, plano"),
          GymMapArgs, R, lambda s, a: {"map": gymmap.generate(a.trainer_ids, a.seed or None, a.puzzle)}),
     Tool("challenge_abandon", _d("Give up an active challenge. Abandonar reto.", synonyms="rendirse"), IdArg, W, lambda s, a: s.run_abandon(a.id)),
-    Tool("facilities_list", _d("Battle facilities (Tower, Subway, Maison, Tree) with bosses and streak records. Instalaciones.",
-                               "challenge_start kind=facility target_id=<id> starts a streak: one rival after another at level 50, 3 Pokémon each (4 in doubles) picked at team preview, the facility's bosses on their battle (Palmer 21/49, Ingo and Emmet 21/49, the Chatelaines 20/50, Red and Blue 20/50, Anabel 35/70, Leon every 10). challenge_next starts the next battle; a loss ends the streak.",
-                               synonyms="torre batalla, metro batalla, batalla chatelet, árbol batalla, rachas, frente batalla"), FacilitiesArgs, R,
+    Tool("facilities_list", _d("Battle facilities (Tower, Factory, Hall, Arcade, Castle, Subway, Maison, Tree) and records. Instalaciones.",
+                               "challenge_start kind=facility target_id=<id> starts a streak: one rival after another at level 50, 3 Pokémon each (4 in doubles) picked at team preview, the facility's bosses on their battle (Palmer 21/49, Thorton 21/49, Ingo and Emmet 21/49, the Chatelaines 20/50, Red and Blue 20/50, Anabel 35/70, Leon every 10). challenge_next starts the next battle; a loss ends the streak. "
+                               "hall4, arcade4 and castle4 are the HeartGold/SoulSilver Battle Hall, Arcade and Castle with the game's own rules (frontier_get, frontier_hall_pick, frontier_arcade_stop, frontier_castle; Argenta 50/170, Dahlia 21/49, Darach 21/49); they report frontier, modes, picks and bp.",
+                               synonyms="torre batalla, metro batalla, batalla chatelet, árbol batalla, rachas, frente batalla, sala batalla, ruleta batalla, castillo batalla"), FacilitiesArgs, R,
          lambda s, a: s.facilities_list(a.trainer_id)),
     Tool("factory_pick", _d("Battle Factory: take 3 of the 6 rental Pokémon and start the round. Elegir alquiler.",
                             "challenges_list / challenge_start show them in factory.rentals (phase pick). The next battle starts at once.",
@@ -1255,6 +1280,22 @@ TOOLS: list[Tool] = [
     Tool("factory_swap", _d("Battle Factory: after a win, swap one rental for one of the beaten rival's, or keep. Cambiar alquiler.",
                             "factory.offer has the rival's Pokémon (phase swap); give/take are indexes, -1/-1 keeps the team. The next battle starts at once.",
                             synonyms="cambio, intercambio de alquiler"), FactorySwapArgs, W, lambda s, a: s.factory_swap(a.id, a.give, a.take), 180.0),
+    Tool("frontier_get", _d("Battle Hall/Arcade/Castle streak: board, roulette, CP and services, party, rival. Estado del Frente Batalla.",
+                            "frontier.phase says what it waits for: type (frontier_hall_pick), board (frontier_arcade_stop), castle (frontier_castle), battle (the current stage's battle_id), over. "
+                            "Hall: board = 17 type cells with rank 0-10, level = the party level. Arcade: board.panels = 16 event ids, colours, start cursor, frames_per_step, jumps (random motion), odds; event = the last one applied. "
+                            "Castle: cp, ranks (heal 1-3, rental 1-3, info 1-2), services with costs, berries/items on offer, party HP/PP, scout = what is known of the rival.",
+                            synonyms="sala batalla, ruleta batalla, castillo batalla, frente batalla, puntos de castillo, pc"), IdArg, R, lambda s, a: s.frontier_get(a.id)),
+    Tool("frontier_hall_pick", _d("Battle Hall: pick the next rival's type on the board and start that battle. Elegir tipo en la Sala Batalla.",
+                                  "The rival is a Pokémon of that type at the level of the game's formula (your level, that type's rank, how many types you have ranked); a win ranks the type up. Argenta comes on battles 50 and 170 whatever you pick.",
+                                  synonyms="sala batalla, tabla de tipos, rango, argenta"), HallPickArgs, W, lambda s, a: s.frontier_hall_pick(a.id, a.cell), 180.0),
+    Tool("frontier_arcade_stop", _d("Battle Arcade: stop the roulette; its event applies to the next battle, which starts. Parar la ruleta.",
+                                    "Give panel (where the cursor stopped on the screen), frames, or nothing (a random moment). Some events skip the battle (it counts as won) or pay Battle Points.",
+                                    synonyms="ruleta batalla, ruleta, delila, dahlia, evento"), ArcadeStopArgs, W,
+         lambda s, a: s.frontier_arcade_stop(a.id, a.panel, a.frames), 180.0),
+    Tool("frontier_castle", _d("Battle Castle: spend CP between battles (heal, rent, scout, levels, ranks), skip or go. Castillo Batalla.",
+                               "Costs as in the game: heal HP 10 (rank 1), PP 8 (rank 2), all 12 (rank 3); berries 2-5 and items 5-20 (rental rank); check a rival 1, its summary 2, its moves 5 (info rank 2); its level +5 for 1 CP (+7 CP if you win) or -5 for 15; ranks 50-150; skip 50. A refused service charges nothing.",
+                               synonyms="castillo batalla, puntos de castillo, pc, kokuran, darach, curar, alquilar, espiar"), CastleArgs, W,
+         lambda s, a: s.frontier_castle(a.id, a.service, a.mon, a.item), 180.0),
     Tool("progress_get", _d("A trainer's progress: record, streaks, MVPs, achievements and Pokédex of used and beaten. Progreso.",
                             "Worked out from its battles, challenges, facility streaks, badges and hall of fame: wins/losses by kind, current and best streak, KOs, per-species KOs (MVP), 22 achievements (unlocked or not), and the species it used, saw and knocked out.",
                             synonyms="estadísticas, logros, récords, pokédex, mvp, racha"), ProgressArgs, R, lambda s, a: s.progress_get(a.trainer_id)),
