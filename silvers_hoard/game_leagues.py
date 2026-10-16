@@ -16,6 +16,8 @@ JOHTO = [("Violet City", "Ciudad Malva", "Flying", "Zephyr Badge", "Medalla Céf
          ("Goldenrod City", "Ciudad Trigal", "Normal", "Plain Badge", "Medalla Planicie"), ("Ecruteak City", "Ciudad Iris", "Ghost", "Fog Badge", "Medalla Niebla"),
          ("Cianwood City", "Ciudad Orquídea", "Fighting", "Storm Badge", "Medalla Tormenta"), ("Olivine City", "Ciudad Olivo", "Steel", "Mineral Badge", "Medalla Mineral"),
          ("Mahogany Town", "Pueblo Caoba", "Ice", "Glacier Badge", "Medalla Glaciar"), ("Blackthorn City", "Ciudad Endrino", "Dragon", "Rising Badge", "Medalla Dragón")]
+# Kanto in HeartGold/SoulSilver: Janine leads Fuchsia's gym and Blaine's gym is in the Seafoam Islands
+KANTO_HGSS = [*KANTO[:6], ("Seafoam Islands", "Islas Espuma", "Fire", "Volcano Badge", "Medalla Volcán", "Gimnasio de las Islas Espuma"), KANTO[7]]
 HOENN = [("Rustboro City", "Ciudad Férrica", "Rock", "Stone Badge", "Medalla Piedra"), ("Dewford Town", "Pueblo Azuliza", "Fighting", "Knuckle Badge", "Medalla Puño"),
          ("Mauville City", "Ciudad Malvalona", "Electric", "Dynamo Badge", "Medalla Dinamo"), ("Lavaridge Town", "Pueblo Lavacalda", "Fire", "Heat Badge", "Medalla Calor"),
          ("Petalburg City", "Ciudad Petalia", "Normal", "Balance Badge", "Medalla Equilibrio"), ("Fortree City", "Ciudad Arborada", "Flying", "Feather Badge", "Medalla Pluma"),
@@ -68,6 +70,10 @@ LEAGUES: list[dict[str, Any]] = [
      "game": "HeartGold/SoulSilver", "gen": 4,
      "gyms": _gyms([(k, "hgssgymbattle") for k in ("falkner", "bugsy", "whitney", "morty", "chuck", "jasmine", "pryce", "clair")], JOHTO),
      "elite_four": _team([(k, "hgssfirstbattle") for k in ("will", "koga", "bruno", "karen")]), "champion": {"key": "lance", "variant": "hgssfirstbattle"}},
+    {"key": "kanto-hgss", "name": "Kanto League (HeartGold/SoulSilver)", "name_es": "Liga Kanto (Oro HeartGold y Plata SoulSilver)", "region": "Kanto",
+     "game": "HeartGold/SoulSilver", "gen": 4,
+     "gyms": _gyms([(k, "hgssgymbattle") for k in ("brock", "misty", "ltsurge", "erika", "janine", "sabrina", "blaine", "blue")], KANTO_HGSS),
+     "elite_four": _team([(k, "hgssrematch") for k in ("will", "koga", "bruno", "karen")]), "champion": {"key": "lance", "variant": "hgssrematch"}},
     {"key": "hoenn-oras", "name": "Hoenn League (Omega Ruby/Alpha Sapphire)", "name_es": "Liga Hoenn (Rubí Omega y Zafiro Alfa)", "region": "Hoenn",
      "game": "Omega Ruby/Alpha Sapphire", "gen": 6,
      "gyms": _gyms([("roxanne", "oras"), ("brawly", "oras"), ("wattson", "oras"), ("flannery", "oras"), ("norman", "orasgymbattle"), ("winona", "oras"),
