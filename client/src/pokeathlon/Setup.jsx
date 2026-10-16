@@ -199,7 +199,7 @@ export default function Setup({ course, eventId: eventIdProp, stats, npc, onStar
     <div className="pk-setup space-y-4">
       <div className="page-head">
         <div className="min-w-0">
-          <h1>{s("setup_title", { name: courseName })}</h1>
+          <h1>{s("setup_title", { name: course ? courseName : courseName.toLowerCase() })}</h1>
           {course && <p className="help">{course.events ? course.events.map((id) => EVENTS[id].names[lang === "en" ? "en" : "es"]).join(" · ") : s("course_supreme_help")}</p>}
         </div>
         <button type="button" className="btn" onClick={onBack}>{s("back")}</button>

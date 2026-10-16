@@ -17,7 +17,7 @@
 .pk-slots { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 12px; }
 .pk-slot { border: 1px solid var(--line); border-radius: var(--hoard-radius); padding: 10px; background: var(--surface-2); display: flex; flex-direction: column; gap: 4px; }
 .pk-slot-head { display: flex; gap: 10px; align-items: center; margin-bottom: 4px; }
-.pk-slot-head img { flex: 0 0 56px; image-rendering: pixelated; }
+.pk-slot-head img { flex: 0 0 56px; width: 56px; height: 56px; object-fit: contain; image-rendering: pixelated; }
 .pk-slot-sub { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 3px; }
 .pk-slot-actions { display: flex; gap: 6px; margin-top: 6px; }
 .pk-search { position: relative; }
@@ -65,6 +65,8 @@
 .pk-table tbody td:first-child, .pk-table tbody th:first-child { border-radius: var(--hoard-radius) 0 0 var(--hoard-radius); }
 .pk-table tbody td:last-child { border-radius: 0 var(--hoard-radius) var(--hoard-radius) 0; }
 .pk-table tr.is-you { outline: 1px solid var(--sel-line); }
+.pk-results .pk-table th:first-child, .pk-results .pk-table td.pk-placecell { width: 3.2rem; text-align: center; }
+.pk-results .pk-table th.num, .pk-results .pk-table td.num { width: 5.5rem; white-space: nowrap; }
 .pk-place { display: inline-flex; width: 26px; height: 26px; align-items: center; justify-content: center; border-radius: 50%; background: var(--team, var(--accent)); color: #fff; font-weight: 700; text-shadow: 0 1px 2px rgba(0, 0, 0, .5); }
 .pk-ceremony-table th small { display: block; font-weight: 400; color: var(--muted); font-size: 11.5px; max-width: 240px; }
 .pk-ceremony-table thead th { vertical-align: bottom; border-bottom: 3px solid var(--team, var(--line)); }

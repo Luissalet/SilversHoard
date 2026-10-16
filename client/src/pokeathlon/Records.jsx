@@ -18,6 +18,7 @@ export default function Records({ version = 0 }) {
   if (data === undefined) return <p className="help">{s("loading_stats")}</p>;
   if (data === null) return <p className="help">{s("error_load")}</p>;
   const courses = data.courses || {};
+  const hard = data.supreme_courses || {};
   const events = data.events || {};
   const medals = data.medals || [];
   const empty = !Object.keys(courses).length && !Object.keys(events).some((k) => (events[k] || []).length) && !medals.length;
@@ -48,7 +49,10 @@ export default function Records({ version = 0 }) {
                     <dt>{s("best_total")}</dt><dd className="num">{r.best}</dd>
                     <dt>{s("plays")}</dt><dd className="num">{r.plays}</dd>
                     <dt>{s("wins")}</dt><dd className="num">{r.wins}</dd>
+                    {hard[c.key] && <><dt>{s("diff_supreme")}</dt><dd className="num">{hard[c.key].best} · {hard[c.key].plays}</dd></>}
                   </dl>
+                ) : hard[c.key] ? (
+                  <dl className="pk-dl"><dt>{s("diff_supreme")}</dt><dd className="num">{hard[c.key].best} · {hard[c.key].plays}</dd></dl>
                 ) : <p className="help">{s("no_record")}</p>}
               </div>
             );

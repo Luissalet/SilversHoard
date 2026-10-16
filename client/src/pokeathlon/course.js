@@ -174,8 +174,9 @@ export function monFromStats(row, { stars = null, name = "", nickname = "" } = {
 export function randomTeam(rows, rng, { index, name, color, nameFn = (n) => n, cpu = 0 }) {
   const picked = [];
   const seen = new Set();
-  while (picked.length < 3 && rows.length) {
-    const row = rows[Math.floor(rng() * rows.length)];
+  const pool = rows.some((r) => !r.noRandom) ? rows.filter((r) => !r.noRandom) : rows;   // no cosmetic formes, Gigantamax or Totems
+  while (picked.length < 3 && pool.length) {
+    const row = pool[Math.floor(rng() * pool.length)];
     if (seen.has(row.baseSpecies || row.name)) continue;
     seen.add(row.baseSpecies || row.name);
     picked.push(monFromStats(row, { name: nameFn(row.name) }));
