@@ -6,7 +6,19 @@ import { useApp } from "../context.js";
 import { Busy, ErrorBox, Section, Spinner, useBusy, useLoad } from "../components/ui.jsx";
 import { Avatar, MonIcon, OfficialArtGrid, RecordChip, fetchPicture } from "../components/silver.jsx";
 import { ImageViewer } from "../components/viewer.jsx";
-import { nameOf } from "../battle/dex.js";
+import { L, nameOf } from "../battle/dex.js";
+
+// Teams read from the HeartGold/SoulSilver cartridge (pret/pokeheartgold): the mark, and the nature and IVs the game gives each Pokémon
+const CART = {
+  chip: ["datos del cartucho", "cartridge data"],
+  help: ["Equipo exacto leído del cartucho (pret/pokeheartgold): naturaleza, IV, habilidad, objeto y movimientos del juego. IA según sus flags: nivel {level}, estilo {style} (entrenador n.º {rom}).",
+    "Exact team read from the cartridge (pret/pokeheartgold): the game's nature, IVs, ability, item and moves. AI from its flags: level {level}, style {style} (trainer no. {rom})."],
+};
+const ivText = (ivs) => {
+  const v = Object.values(ivs || {});
+  if (!v.length) return "";
+  return v.every((x) => x === v[0]) ? `IV ${v[0]}` : Object.entries(ivs).map(([k, x]) => `${k} ${x}`).join("/");
+};
 
 function VariantRow({ v, on, onPick, lang, t }) {
   const labels = lang === "en" ? v.labels : v.labels_es;
@@ -21,15 +33,21 @@ function VariantRow({ v, on, onPick, lang, t }) {
           {v.trainer_class && <span className="help">{lang === "en" ? v.trainer_class : v.trainer_class_es}</span>}
           {v.location && <span className="help">· {v.location}</span>}
           {v.category && <span className="chip chip-cat">{t(`cat_${v.category}`)}</span>}
+          {v.cartridge && (
+            <span className="chip chip-ok" title={L(CART.help, lang).replace("{level}", t(`lvl_${v.ai?.level}`)).replace("{style}", t(`style_${v.ai?.style}`)).replace("{rom}", v.rom ?? "")}>
+              {L(CART.chip, lang)}
+            </span>
+          )}
           {v.pool > 0 && <span className="chip" title={t("char_pool_help")}>{t("char_pool", { n: v.pool })}</span>}
           {on && <span className="chip">{t("char_selected")}</span>}
         </div>
         <div className="char-mons">
           {v.sets.map((s, i) => (
-            <span key={i} className="char-mon" title={[s.species, nameOf("ability", s.ability, lang), nameOf("item", s.item, lang),
-              ...(s.moves || []).map((m) => nameOf("move", m, lang))].filter(Boolean).join(" · ")}>
+            <span key={i} className="char-mon" title={[s.species, nameOf("ability", s.ability, lang), nameOf("item", s.item, lang), s.nature ? nameOf("nature", s.nature, lang) : "",
+              ivText(s.ivs), ...(s.moves || []).map((m) => nameOf("move", m, lang))].filter(Boolean).join(" · ")}>
               <MonIcon species={s.species} size={30} />
               <b>{s.species}</b>&nbsp;{t("char_level", { n: s.level })}{s.item ? ` · ${nameOf("item", s.item, lang)}` : ""}
+              {s.nature ? ` · ${nameOf("nature", s.nature, lang)}` : ""}{s.ivs ? ` · ${ivText(s.ivs)}` : ""}
             </span>
           ))}
         </div>
