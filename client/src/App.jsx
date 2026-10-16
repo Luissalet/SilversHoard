@@ -17,6 +17,7 @@ import Ligas from "./pages/Ligas.jsx";
 import Liga from "./pages/Liga.jsx";
 import Instalaciones from "./pages/Instalaciones.jsx";
 import Fabrica from "./pages/Fabrica.jsx";
+import Frontera from "./pages/Frontera.jsx";
 import Personajes from "./pages/Personajes.jsx";
 import Personaje from "./pages/Personaje.jsx";
 import Historial from "./pages/Historial.jsx";
@@ -73,6 +74,7 @@ const PAGES = [
   { path: "liga", key: "nav_leagues", component: Liga, hidden: true, parent: "ligas" },
   { path: "instalaciones", key: "nav_facilities", icon: I.tower, component: Instalaciones },
   { path: "fabrica", key: "nav_facilities", component: Fabrica, hidden: true, parent: "instalaciones" },
+  { path: "frontera", key: "nav_facilities", component: Frontera, hidden: true, parent: "instalaciones" },
   { path: "pokeathlon", key: "nav_facilities", label: ["Pokéathlon", "Pokéathlon"], icon: I.stopwatch, component: Pokeathlon },
   { path: "personajes", key: "nav_canon", icon: I.book, component: Personajes },
   { path: "personaje", key: "nav_canon", component: Personaje, hidden: true, parent: "personajes" },

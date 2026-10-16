@@ -254,6 +254,8 @@ export default function Combate({ param }) {
             <a className="btn btn-primary" href={`#/recorrido/${battle.run.id}`}>{t("gmap_back")}</a>
           ) : wonStage && battle.run.factory && ["pick", "swap"].includes(battle.run.factory.phase) ? (
             <a className="btn btn-primary" href={`#/fabrica/${battle.run.id}`}>{t("factory_next")}</a>
+          ) : battle.status === "ended" && battle.run?.frontier ? (
+            <a className={`btn ${wonStage ? "btn-primary" : ""}`} href={`#/frontera/${battle.run.id}`}>{lang === "en" ? "Battle Frontier streak" : "Racha del Frente Batalla"}</a>
           ) : wonStage && (battle.run.current?.battle_id && battle.run.current.battle_id !== battle.id
             ? <a className="btn btn-primary" href={`#/combate/${battle.run.current.battle_id}`}>{t("run_go_current")}</a>
             : <Busy busy={busy.next} className="btn btn-primary" onClick={nextStage}>{t("next_stage")}</Busy>)}
