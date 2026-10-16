@@ -20,10 +20,12 @@ def test_own_trainers_include_the_random_ones_you_rolled(call):
     assert rnd["id"] in {t["id"] for t in call("trainers_list", {"origin": "own"})["trainers"]}
 
 
-def test_every_game_league_is_listed_before_it_is_installed(call):
+def test_every_game_league_is_listed_before_it_is_installed(call, services):
+    from silvers_hoard import game_leagues
     cat = call("leagues_catalog", {})["leagues"]
     keys = [lg["key"] for lg in cat]
-    assert len(keys) == len(set(keys)) == 15 and keys[0] == "kanto-rgb"
+    total = len(game_leagues.LEAGUES) + len(services.canon()["leagues"])
+    assert len(keys) == len(set(keys)) == total and total >= 15 and keys[0] == "kanto-rgb"
     assert [lg["gen"] for lg in cat] == sorted(lg["gen"] for lg in cat)
     pt = next(lg for lg in cat if lg["key"] == "sinnoh-pt")
     assert pt["id"] == "" and not pt["installed"] and len(pt["gym_list"]) == 8 and len(pt["elite_list"]) == 4
@@ -34,6 +36,6 @@ def test_every_game_league_is_listed_before_it_is_installed(call):
     lg = call("canon_install", {"league_key": "sinnoh-pt"})["league"]
     pt2 = next(x for x in call("leagues_catalog", {})["leagues"] if x["key"] == "sinnoh-pt")
     assert pt2["installed"] and pt2["id"] == lg["id"] and pt2["elite_list"][0]["id"].startswith("tr_")
-    assert len(call("leagues_catalog", {})["leagues"]) == 15
+    assert len(call("leagues_catalog", {})["leagues"]) == total
     assert [x["id"] for x in call("leagues_list", {"origin": "canon"})["leagues"]] == [lg["id"]]
     assert call("leagues_list", {"origin": "own"})["leagues"] == [] and call("leagues_list", {"origin": "friend"})["leagues"] == []

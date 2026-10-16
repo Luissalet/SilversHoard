@@ -15,6 +15,7 @@ from fastapi import APIRouter, File, Form, Request, UploadFile
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
+from .. import names_i18n
 from ..agent_tools import TOOLS_BY_NAME, tool_catalog
 from ..errors import SilverError
 from ..hoard_link import family
@@ -32,7 +33,8 @@ class CallBody(BaseModel):
 
 @router.get("/overview")
 def overview(request: Request):
-    return services(request).overview()
+    s = services(request)
+    return names_i18n.annotate(s.overview(), s)
 
 
 @router.get("/ui/tools")
@@ -49,7 +51,8 @@ def ui_call(request: Request, body: CallBody):
     try:
         result = tool(request, body.name, body.arguments)
         ok = True
-        return result
+        # what the app made up (a character's trainer, the games' gyms and leagues...) comes in both languages for the screens
+        return names_i18n.annotate(result, services(request))
     except Exception as exc:  # noqa: BLE001 - re-raised: the app's handlers shape the response
         error = str(exc)[:200]
         raise

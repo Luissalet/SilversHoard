@@ -5,6 +5,7 @@ import { useApp } from "../context.js";
 import { Busy, ErrorBox, Field, Icon, ICONS, Modal, Section, Spinner, Switch, useBusy, useLoad } from "../components/ui.jsx";
 import { useContextProvider, useCopilotRefresh } from "../components/hooks.js";
 import { Avatar, ExportDialog, FormatSelect, GymBadge, JobProgress, RulesFields, TeamStrip, TrainerSelect, TypeChip, useJob, useTrainers } from "../components/silver.jsx";
+import { loc } from "../loc.js";
 import { BADGE_SHAPES, TYPE_SHAPE } from "../components/badges.jsx";
 import { TYPE_COLORS, typeName } from "../battle/dex.js";
 import ModeFields from "../battle/rt/ModeFields.jsx";
@@ -202,7 +203,7 @@ function GymEditor({ gym, onSaved, onCancel }) {
 }
 
 export default function Gimnasio({ param, query }) {
-  const { t, go, confirm, notify, changed } = useApp();
+  const { t, lang, go, confirm, notify, changed } = useApp();
   const isNew = param === "nuevo";
   const { data: g, error, reload } = useLoad(() => (isNew ? Promise.resolve(null) : api.call("gym_get", { id: param })), [param]);
   useCopilotRefresh(reload);
@@ -220,10 +221,10 @@ export default function Gimnasio({ param, query }) {
   return (
     <div className="space-y-4">
       <div className="page-head">
-        <GymBadge image={g.badge_image} color={g.badge_color || "#c0c0c0"} size={72} label={g.badge} />
+        <GymBadge image={g.badge_image} color={g.badge_color || "#c0c0c0"} size={72} label={loc(g, lang, "badge")} />
         <div className="min-w-0">
-          <h1 className="trunc">{g.name}</h1>
-          <div className="help">{[g.city, g.badge].filter(Boolean).join(" · ")}</div>
+          <h1 className="trunc">{loc(g, lang)}</h1>
+          <div className="help">{[loc(g, lang, "city"), loc(g, lang, "badge")].filter(Boolean).join(" · ")}</div>
           <div className="mt-1 flex flex-wrap gap-1.5">{g.type && <TypeChip type={g.type} />}<span className="chip">{g.format}</span>
             {g.level_rules?.level && <span className="chip">{t("level_fixed")}: {g.level_rules.level}</span>}{g.level_rules?.level_cap && <span className="chip">{t("level_cap")}: {g.level_rules.level_cap}</span>}
             {g.rt_arena && <span className="chip chip-rt">{t("gym_rt_arena")}: {g.rt_arena_name || t(`rt_arena_${g.rt_arena}`)}</span>}
@@ -237,15 +238,15 @@ export default function Gimnasio({ param, query }) {
           <Busy busy={busy.del} className="btn btn-danger" onClick={del}><Icon d={ICONS.trash} size={14} /></Busy>
         </div>
       </div>
-      {g.description && <p className="help max-w-3xl">{g.description}</p>}
+      {g.description && <p className="help max-w-3xl">{loc(g, lang, "description")}</p>}
       {edit ? <GymEditor gym={g} onSaved={() => { setEdit(false); reload(); }} onCancel={() => setEdit(false)} /> : (
         <Section title={t("gym_order")} count={stages.length}>
           <div className="stage-list">
             {stages.map((tr, i) => (
               <a key={tr.id} href={`#/entrenador/${tr.id}`} className={`stage-card ${tr.is_leader ? "is-leader" : ""}`}>
                 <span className="stage-n">{i + 1}</span>
-                <Avatar url={tr.avatar_url} name={tr.name} size={64} />
-                <div className="min-w-0 flex-1"><b className="trunc block">{tr.name}</b><span className="help">{tr.is_leader ? t("leader") : tr.title || t("gym_trainer")}</span><TeamStrip species={tr.species} size={28} /></div>
+                <Avatar url={tr.avatar_url} name={loc(tr, lang)} size={64} />
+                <div className="min-w-0 flex-1"><b className="trunc block">{loc(tr, lang)}</b><span className="help">{tr.is_leader ? t("leader") : loc(tr, lang, "title") || t("gym_trainer")}</span><TeamStrip species={tr.species} size={28} /></div>
               </a>
             ))}
           </div>

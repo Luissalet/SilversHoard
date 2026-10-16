@@ -7,6 +7,7 @@ import { useContextProvider, useCopilotRefresh } from "../components/hooks.js";
 import { Avatar, ExportDialog, FormatSelect, GymBadge, MonIcon, TeamStrip, TrainerSelect, useTrainers } from "../components/silver.jsx";
 import { ChallengeDialog } from "./Gimnasio.jsx";
 import { GymCard } from "./Gimnasios.jsx";
+import { loc } from "../loc.js";
 
 function LeagueEditor({ lg, onSaved, onCancel }) {
   const { t, notify, changed } = useApp();
@@ -61,7 +62,7 @@ function LeagueEditor({ lg, onSaved, onCancel }) {
 }
 
 export default function Liga({ param }) {
-  const { t, go, confirm, notify, changed } = useApp();
+  const { t, lang, go, confirm, notify, changed } = useApp();
   const isNew = param === "nueva";
   const { data: lg, error, reload } = useLoad(() => (isNew ? Promise.resolve(null) : api.call("league_get", { id: param })), [param]);
   useCopilotRefresh(reload);
@@ -78,7 +79,7 @@ export default function Liga({ param }) {
   return (
     <div className="space-y-5">
       <div className="page-head">
-        <div className="min-w-0"><h1>{lg.name}</h1><p className="help">{lg.description}</p>
+        <div className="min-w-0"><h1>{loc(lg, lang)}</h1><p className="help">{loc(lg, lang, "description")}</p>
           <div className="mt-1 flex flex-wrap gap-1.5"><span className="chip">{lg.format}</span><span className="chip">{t("badges_needed", { n: lg.badges_required })}</span></div></div>
         <div className="flex flex-wrap gap-2">
           <button type="button" className="btn btn-primary" onClick={() => setDialog("challenge")}><Icon d={ICONS.play} size={14} /> {t("challenge_league")}</button>
@@ -93,8 +94,8 @@ export default function Liga({ param }) {
         <div className="stage-list">
           {[...lg.elite_list, ...(lg.champion ? [{ ...lg.champion, is_leader: true }] : [])].map((tr, i) => (
             <a key={tr.id} href={`#/entrenador/${tr.id}`} className={`stage-card ${tr.is_leader ? "is-leader" : ""}`}>
-              <span className="stage-n">{i + 1}</span><Avatar url={tr.avatar_url} name={tr.name} size={64} />
-              <div className="min-w-0 flex-1"><b className="trunc block">{tr.name}</b><span className="help">{tr.is_leader ? t("champion") : t("elite_member")}</span><TeamStrip species={tr.species} size={28} /></div>
+              <span className="stage-n">{i + 1}</span><Avatar url={tr.avatar_url} name={loc(tr, lang)} size={64} />
+              <div className="min-w-0 flex-1"><b className="trunc block">{loc(tr, lang)}</b><span className="help">{tr.is_leader ? t("champion") : t("elite_member")}</span><TeamStrip species={tr.species} size={28} /></div>
             </a>
           ))}
         </div>
