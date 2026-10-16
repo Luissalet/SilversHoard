@@ -7,6 +7,7 @@ import { Busy, ErrorBox, Section, Spinner, useBusy, useLoad } from "../component
 import { Avatar, MonIcon, OfficialArtGrid, RecordChip, fetchPicture } from "../components/silver.jsx";
 import { ImageViewer } from "../components/viewer.jsx";
 import { L, nameOf } from "../battle/dex.js";
+import { loc } from "../loc.js";
 
 // Teams read from the HeartGold/SoulSilver cartridge (pret/pokeheartgold): the mark, and the nature and IVs the game gives each Pokémon
 const CART = {
@@ -183,8 +184,8 @@ export default function Personaje({ param, query }) {
           <div className="trainer-grid">
             {c.installed.map((tr) => (
               <a key={tr.id} className="trainer-card" href={`#/entrenador/${tr.id}`}>
-                <Avatar url={tr.avatar_url} name={tr.name} size={56} />
-                <div className="min-w-0 flex-1 space-y-1"><b className="trunc block">{tr.name}</b><div className="help trunc">{tr.title}</div><RecordChip record={tr.record} /></div>
+                <Avatar url={tr.avatar_url} name={loc(tr, lang)} size={56} />
+                <div className="min-w-0 flex-1 space-y-1"><b className="trunc block">{loc(tr, lang)}</b><div className="help trunc">{loc(tr, lang, "title")}</div><RecordChip record={tr.record} /></div>
               </a>
             ))}
           </div>

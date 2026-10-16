@@ -31,7 +31,7 @@ function LeagueCard({ lg, busy, onOpen }) {
 }
 
 export default function Ligas() {
-  const { t, go, changed } = useApp();
+  const { t, go, changed, lang } = useApp();
   const [tab, setTab] = useStored("silver-league-tab", "games");
   const [region, setRegion] = useStored("silver-league-region", "");
   const [game, setGame] = useStored("silver-league-game", "");
@@ -42,7 +42,7 @@ export default function Ligas() {
   useCopilotRefresh(reload);
   const [busy, run] = useBusy();
   const open = (lg) => run(lg.key, async () => {
-    const r = await api.call("canon_install", { league_key: lg.key });
+    const r = await api.call("canon_install", { league_key: lg.key, lang });
     changed();
     go(`#/liga/${r.league.id}`);
   });
