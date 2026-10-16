@@ -32,6 +32,7 @@ import Campal from "./pages/Campal.jsx";
 import Video from "./pages/Video.jsx";
 import Compartir from "./pages/Compartir.jsx";
 import Ajustes from "./pages/Ajustes.jsx";
+import Pokeathlon from "./pages/Pokeathlon.jsx";
 
 export { useApp } from "./context.js";
 
@@ -51,6 +52,7 @@ const I = {
   podium: "M3 21h18M4 21v-6h5v6M9.5 21V10h5v11M15 21v-8h5v8M12 3l1 2.1 2.3.3-1.7 1.6.4 2.3-2-1.1-2 1.1.4-2.3-1.7-1.6 2.3-.3z",
   share: "M18 8a3 3 0 100-6 3 3 0 000 6zM6 15a3 3 0 100-6 3 3 0 000 6zM18 22a3 3 0 100-6 3 3 0 000 6zM8.6 13.5l6.8 4M15.4 6.5l-6.8 4",
   settings: ICONS.settings,
+  stopwatch: "M12 21a8 8 0 100-16 8 8 0 000 16zM12 9v4l2.5 2M9.5 2h5M12 2v3M18.5 6.5l1.2-1.2",
 };
 
 const PAGES = [
@@ -71,6 +73,7 @@ const PAGES = [
   { path: "liga", key: "nav_leagues", component: Liga, hidden: true, parent: "ligas" },
   { path: "instalaciones", key: "nav_facilities", icon: I.tower, component: Instalaciones },
   { path: "fabrica", key: "nav_facilities", component: Fabrica, hidden: true, parent: "instalaciones" },
+  { path: "pokeathlon", key: "nav_facilities", label: ["Pokéathlon", "Pokéathlon"], icon: I.stopwatch, component: Pokeathlon },
   { path: "personajes", key: "nav_canon", icon: I.book, component: Personajes },
   { path: "personaje", key: "nav_canon", component: Personaje, hidden: true, parent: "personajes" },
   { path: "historial", key: "nav_history", icon: I.history, component: Historial },
@@ -226,7 +229,7 @@ export default function App() {
               return (
                 <a key={p.path} href={`#/${p.path}`} className="nav-link shrink-0" aria-current={p.path === current ? "page" : undefined}>
                   <Icon d={p.icon} />
-                  <span>{t(p.key)}</span>
+                  <span>{p.label ? p.label[lang === "en" ? 1 : 0] : t(p.key)}</span>
                   {n > 0 && <span className="nav-badge" aria-label={t("badge_n", { n })}>{n > 99 ? "99+" : n}</span>}
                 </a>
               );
