@@ -20,6 +20,8 @@ New played and individually watched classic battles retain the simulator's `inpu
 
 The existing replay page exposes the turn/side controls, original link and final result comparison. Old battles without records, imported results, series/tournament samples and real time remain viewable but cannot open this kind of practice. The new operations use the same handlers for UI, REST and MCP; no alternate simulator or LLM is involved.
 
+The generic `Services.import_any` dispatcher recognizes exercise JSON from strings, bytes and bytearrays. Uploaded `.silverexercise` files therefore reach the same `training.import_` path as pasted text, including UTF-8 BOM decoding through `json.loads`; the Unbound save check still runs first. Tests export a real exercise, upload the file and start a separate practice without changing its source battle.
+
 ## Pieces
 
 ```

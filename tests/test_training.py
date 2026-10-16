@@ -94,6 +94,26 @@ def test_native_tools_share_and_download_the_exercise(services, call, client):
     call("exercise_archive", {"id":e["id"],"archived":False})
 
 
+@pytest.mark.parametrize("bom", [b"", b"\xef\xbb\xbf"])
+def test_an_exported_exercise_file_imports_and_starts_a_new_practice(services, call, client, bom):
+    source = finished(services)
+    original = copy.deepcopy(services.store.battle(source["id"]))
+    exercise = call("exercise_create", {"battle_id":source["id"], "turn":2, "title":"Archivo de práctica"})
+    exported = call("exercise_export", {"id":exercise["id"]})
+    file = client.get(exported["url"])
+    assert file.status_code == 200
+    response = client.post("/api/import/upload", files={"file":(exported["file"], bom + file.content, "application/json")})
+    assert response.status_code == 200, response.text
+    imported = response.json()
+    assert imported["kind"] == "exercise" and imported["exercise"]["id"] != exercise["id"]
+    assert imported["exercise"]["title"] == "Archivo de práctica"
+    practice = call("exercise_start", {"id":imported["exercise"]["id"], "adaptive":False, "ai_level":"easy"})
+    assert practice["kind"] == "practice" and practice["turn"] == 2 and practice["requests"]["p1"]
+    assert services.store.battle(source["id"]) == original
+    assert len(call("exercises_list", {})["exercises"]) == 2
+    assert not services.store.badges() and not services.store.hall()
+
+
 def test_turn_limited_win_counts_completed_turns(services):
     source = services.battle_start(p1={"name":"A","paste":"Mew\n- Splash\n- Psychic","human":True},
         p2={"name":"B","paste":"Magikarp\nLevel: 1\n- Splash","human":True},format_="gen9customgame",seed="one-turn")
