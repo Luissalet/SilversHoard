@@ -147,9 +147,11 @@ export function drawPlace(x, r, floor, textured = false) {
     }
   } else if (p.detail === "castle") {
     // pale tiles with a golden border, teal brick walls and columns along them
-    x.strokeStyle = "rgba(120,100,60,0.18)"; x.lineWidth = Math.max(1, s * 0.03);
-    for (let i = 2; i < A.w; i += 2) { x.beginPath(); x.moveTo(r.px(i), r.py(0)); x.lineTo(r.px(i), r.py(A.h)); x.stroke(); }
-    for (let j = 2; j < A.h; j += 2) { x.beginPath(); x.moveTo(r.px(0), r.py(j)); x.lineTo(r.px(A.w), r.py(j)); x.stroke(); }
+    if (!textured) {
+      x.strokeStyle = "rgba(120,100,60,0.18)"; x.lineWidth = Math.max(1, s * 0.03);
+      for (let i = 2; i < A.w; i += 2) { x.beginPath(); x.moveTo(r.px(i), r.py(0)); x.lineTo(r.px(i), r.py(A.h)); x.stroke(); }
+      for (let j = 2; j < A.h; j += 2) { x.beginPath(); x.moveTo(r.px(0), r.py(j)); x.lineTo(r.px(A.w), r.py(j)); x.stroke(); }
+    }
     x.strokeStyle = "#c9a640"; x.lineWidth = Math.max(2, s * 0.14);
     x.strokeRect(r.px(0.5), r.py(0.5), (A.w - 1) * s, (A.h - 1) * s);
     x.fillStyle = "rgba(255,255,255,0.08)";
