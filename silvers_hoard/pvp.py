@@ -319,7 +319,7 @@ class Pvp:
     def lobby_links(self) -> dict[str, Any]:
         """Your lobby address to give friends once (the room server must be running for them to reach it: it starts with a room)."""
         return {**self.links_for(f"/lobby?c={self.lobby_code()}"), "running": bool(self._thread and self._thread.is_alive()) or not self.s.config.background,
-                "rooms": [self._lobby_row(r) for r in self._listed()]}
+                "rooms": [self._lobby_row(r) for r in self._listed()] + self._pokeathlon_rows()}
 
     def lobby_new_code(self) -> dict[str, Any]:
         """A new lobby code: the old lobby address stops working (give the new one to the friends who should keep it)."""
@@ -331,6 +331,11 @@ class Pvp:
         for r in self.rooms.values():
             self._sync_status(r)
         return [r for r in self.rooms.values() if r.listed and r.status in ("waiting", "ready", "live")]
+
+    def _pokeathlon_rows(self) -> list[dict[str, Any]]:
+        from . import pokeathlon_rooms
+
+        return pokeathlon_rooms.service(self.s).lobby_rows()
 
     def _lobby_row(self, r: Room) -> dict[str, Any]:
         t = self.s.store.trainer(r.trainer_id)
@@ -344,7 +349,10 @@ class Pvp:
         mine = str(self.s.settings.get("pvp_lobby_code") or "")
         if not mine or not code or not secrets.compare_digest(str(code), mine):
             raise SilverError("forbidden", "This lobby address is not valid (or it was changed).")
-        return {"name": str(self.s.settings.get("player_name") or ""), "rooms": [self._lobby_row(r) for r in self._listed()]}
+        from . import pokeathlon_rooms
+
+        rows = [self._lobby_row(r) for r in self._listed()] + pokeathlon_rooms.service(self.s).lobby_rows()
+        return {"name": str(self.s.settings.get("player_name") or ""), "rooms": rows}
 
     # ------------------------------------------------------------ friends: their lobby addresses and their open rooms
     def _friends_path(self):
@@ -416,7 +424,7 @@ class Pvp:
             row = {k: r.get(k) for k in ("id", "mode", "format", "status", "level", "host", "guest", "spectators")}
             for k in ("join", "watch"):
                 path = str(r.get(k) or "")
-                row[f"{k}_url"] = f"{base}{path}" if path.startswith(("/r/", "/w/")) else ""
+                row[f"{k}_url"] = f"{base}{path}" if path.startswith(("/r/", "/w/", "/p/", "/pw/")) else ""
             out["rooms"].append(row)
         return out
 
@@ -445,7 +453,7 @@ class Pvp:
             who = f.get("name") or f["friend"].get("name") or "?"
             for r in f.get("rooms") or []:
                 waiting = r.get("status") == "waiting" and r.get("join_url")
-                mode = "tiempo real" if r.get("mode") == "realtime" else "por turnos"
+                mode = "Pokéathlon" if r.get("mode") == "pokeathlon" else "tiempo real" if r.get("mode") == "realtime" else "por turnos"
                 items.append({"id": f"silver:room:{f['friend']['id']}-{r.get('id')}", "start": now, "kind": "other",
                               "priority": "normal" if waiting else "low",
                               "title": (f"{who} te espera en una sala de combate ({mode})" if waiting

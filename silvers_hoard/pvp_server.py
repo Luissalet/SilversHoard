@@ -7,9 +7,9 @@ from typing import TYPE_CHECKING, Any
 import html as _html
 
 from fastapi import Body, FastAPI, Form, Query, Request, WebSocket
-from fastapi.responses import HTMLResponse, JSONResponse, PlainTextResponse, Response
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, PlainTextResponse, Response
 
-from . import sharing
+from . import pokeathlon_rooms, sharing
 from .errors import SilverError
 
 if TYPE_CHECKING:  # pragma: no cover
@@ -19,6 +19,7 @@ if TYPE_CHECKING:  # pragma: no cover
 def room_app(services: "Services") -> FastAPI:
     app = FastAPI(title="Silver's Hoard rooms", docs_url=None, redoc_url=None, openapi_url=None)
     pvp = services.pvp
+    pkrooms = pokeathlon_rooms.service(services)
 
     @app.exception_handler(SilverError)
     async def silver_error(_: Any, exc: SilverError):
@@ -47,6 +48,44 @@ def room_app(services: "Services") -> FastAPI:
         data = pvp.page_data(room_id, k, watch=True)
         return HTMLResponse(sharing.playable_page(PLAY_TEMPLATE, data), headers={"Cache-Control": "no-store", "Referrer-Policy": "no-referrer"})
 
+    # ---- Pokéathlon with friends (pokeathlon_rooms.py): the page to play, the page to watch, the room's API, its sprites and its WebSocket
+    @app.get("/p/{room_id}", response_class=HTMLResponse)
+    def pk_page(room_id: str, k: str = Query("")) -> HTMLResponse:
+        from .services import PLAY_TEMPLATE
+
+        return HTMLResponse(sharing.playable_page(PLAY_TEMPLATE, pkrooms.page_data(room_id, k)), headers={"Cache-Control": "no-store", "Referrer-Policy": "no-referrer"})
+
+    @app.get("/pw/{room_id}", response_class=HTMLResponse)
+    def pk_watch_page(room_id: str, k: str = Query("")) -> HTMLResponse:
+        from .services import PLAY_TEMPLATE
+
+        return HTMLResponse(sharing.playable_page(PLAY_TEMPLATE, pkrooms.page_data(room_id, k, watch=True)),
+                            headers={"Cache-Control": "no-store", "Referrer-Policy": "no-referrer"})
+
+    @app.get("/api/pk/{room_id}")
+    def pk_info(room_id: str, k: str = Query("")) -> dict[str, Any]:
+        return pkrooms.info(room_id, k)
+
+    @app.get("/api/pk/{room_id}/stats")
+    def pk_stats(room_id: str, k: str = Query("")) -> Response:
+        return Response(pkrooms.stats_gz(room_id, k), media_type="application/json", headers={"Content-Encoding": "gzip", "Cache-Control": "private, max-age=600"})
+
+    @app.post("/api/pk/{room_id}/join")
+    def pk_join(room_id: str, body: dict[str, Any] = Body(...)) -> dict[str, Any]:
+        return pkrooms.join(room_id, str(body.get("k") or ""), name=str(body.get("name") or ""), team=body.get("team"))
+
+    @app.get("/pkr/{room_id}/{key}/api/sprites/pmd/{dex}")
+    def pk_pmd(room_id: str, key: str, dex: int, form: str = "", shiny: bool = False) -> dict[str, Any]:
+        return pkrooms.sprite_meta(room_id, key, dex, form=form, shiny=shiny)
+
+    @app.get("/pkr/{room_id}/{key}/api/sprites/pmd-sheet/{sheet}/{anim}")
+    def pk_sheet(room_id: str, key: str, sheet: str, anim: str) -> FileResponse:
+        return FileResponse(pkrooms.sprite_sheet(room_id, key, sheet, anim), media_type="image/png", headers={"Cache-Control": "public, max-age=86400"})
+
+    @app.websocket("/api/pk/{room_id}/ws")
+    async def pk_ws(websocket: WebSocket, room_id: str, k: str = Query("")) -> None:
+        await pkrooms.relay(websocket, room_id, k)
+
     def lang_of(request: Request) -> str:
         return "es" if str(request.headers.get("accept-language") or "es").lower().startswith("es") else "en"
 
@@ -62,8 +101,8 @@ def room_app(services: "Services") -> FastAPI:
         e = _html.escape
         rows = []
         for r in data["rooms"]:
-            mode = (("Tiempo real" if es else "Real time") if r["mode"] == "realtime" else ("Por turnos" if es else "Turn by turn"))
-            vs = f" vs {e(r['guest'])}" if r.get("guest") else ""
+            mode = ("Pokéathlon" if r["mode"] == "pokeathlon" else ("Tiempo real" if es else "Real time") if r["mode"] == "realtime" else ("Por turnos" if es else "Turn by turn"))
+            vs = (f" + {e(r['guest'])}" if r["mode"] == "pokeathlon" else f" vs {e(r['guest'])}") if r.get("guest") else ""
             links = []
             if r.get("join"):
                 links.append(f'<a class="go" href="{e(r["join"])}">{"Unirme" if es else "Join"}</a>')
