@@ -32,7 +32,7 @@ Levels: level_rules {level: 50} (or 100) on battle_start, series_start, tourname
 Real time: battle_start, challenge_start, series_start, tournament_start and benchmark_start take mode=realtime for battles after Pokémon Legends: Z-A (the same trainers and teams on a 2D arena, no turns: every move has a cooldown in seconds instead of PP, a wind-up and a range; attacks can be dodged; one-stage stat changes that wear off; three switches that come back after each KO; a Mega Power gauge for Mega Evolution (no Plus moves since rules version 4); lock-on held or free aim; doubles formats field two Pokémon per trainer, a person moving one while the AI drives its partner, with spread moves, Helping Hand and Follow Me) and rt_arena=rocks (default: 3-6 rocks that block walking and projectiles) or open. A person plays it on the app's screen; two AI seats play it in the background. rt_cooldowns shows how a team's moves translate (Z-A's own cooldowns, or derived from PP and power); rt_rules explains the rules. battle_get of a real-time battle returns English event lines and the spec + inputs that replay it exactly.
 Sharing: export (fmt file = .hoardtrainer/.hoardgym/.hoardleague, code = a share code for a chat, page = one HTML file a friend opens in a browser to fight the gym or trainer, turn by turn or in real time as friend_mode says, weekly=true for this week's challenge with the same luck for everyone, paste = Showdown text). import takes any of those back, plus the result codes friends send after playing a page (every battle in it is replayed and checked first, then the badge and the leaderboard entry are recorded; a code counts once). leaderboard ranks friends per gym or trainer and per week.
 progress_get shows a trainer's record, streaks, MVPs, achievements and Pokédex (progress_list ranks them).
-sets_popular gives Smogon's sets and the ladder usage of a species (for the team builder); usage_top and sample_team rank the format's Pokémon and build a team from them.
+sets_popular gives Smogon's sets and the ladder usage of a species (for the team builder); team_popular_sets gives a trainer a whole team of named Pokémon with their popular sets in one call (names such as Mega Delphox or Shaymin Forma Cielo work); usage_top and sample_team rank the format's Pokémon and build a team from them.
 Mass battles: mass_start runs one (up to 1100 Pokémon, each with its AI); a person can play one of its Pokémon on its page and mass_play records a run from an input log; mass_export makes a page a friend watches or plays (their SILVERMASS1- code goes to import); mass_video records a battle or a run as a clip.
 damage_calc measures one Pokémon's moves against another (rolls, crits, KOs) with the game's own formula.
 battle_video records a finished battle's replay as an MP4 clip with its sound (a job; lumiere=true sends it to the video editor).
@@ -815,8 +815,21 @@ class AvatarDrawArgs(BaseModel):
 
 
 class SetsArgs(BaseModel):
-    species: str = Field(..., min_length=1, max_length=60)
+    species: str = Field(..., min_length=1, max_length=60, description="As a person writes it, English or Spanish: 'Mega Delphox', "
+                         "'Shaymin Forma Cielo', 'Raichu alola' work as well as Showdown's names.")
     format: str = Field("", max_length=120, description="Empty: the default format. Custom games use the generation's OU.")
+
+
+class TeamPopularSetsArgs(BaseModel):
+    species: list[Annotated[str, StringConstraints(min_length=1, max_length=60)]] = Field(
+        ..., min_length=1, max_length=24,
+        description="The Pokémon as a person writes them, English or Spanish: 'Mega Delphox', 'Dragonite', 'Shaymin Forma Cielo', "
+                    "'Raichu alola', 'Alolan Raichu', 'Charizard Mega X'.")
+    trainer_id: str = Field("", max_length=60, description="The team becomes this trainer's team (the open trainer in the app). "
+                                                           "Empty: only build it.")
+    format: str = Field("", max_length=120, description="Empty: the trainer's format, else the default one.")
+    append: bool = Field(False, description="Add them to the trainer's team instead of replacing it.")
+    save: bool = Field(True, description="With trainer_id: save the team. False: only show what it would be.")
 
 
 class UsageArgs(BaseModel):
@@ -1405,6 +1418,16 @@ TOOLS: list[Tool] = [
                             "From data.pkmn.cc, fetched when asked for and cached; the nearest format with data is used.",
                             synonyms="sets de smogon, set competitivo, estadísticas de uso, qué set lleva"), SetsArgs, R,
          lambda s, a: s.sets_popular(a.species, a.format), 60.0),
+    Tool("team_popular_sets", _d("A trainer's team of the Pokémon you name, each with its most popular Smogon set. Equipo con sets populares.",
+                                 "Names as a person writes them (Mega Delphox, Shaymin Forma Cielo, Raichu alola). Each gets its first "
+                                 "written Smogon set of the closest format (Pokémon Champions for the Megas of Legends Z-A, with its "
+                                 "stone), or the ladder's most used build when there is none. A name that is not a Pokémon saves "
+                                 "nothing and comes back with suggestions.",
+                                 synonyms="pon este equipo, equipo con sets de smogon, sets competitivos para el equipo, "
+                                          "cambiar el equipo del entrenador, sets populares para estos pokémon"),
+         TeamPopularSetsArgs, WD,
+         lambda s, a: s.team_popular_sets(list(a.species), trainer_id=a.trainer_id, format_=a.format, append=a.append, save=a.save),
+         180.0),
     Tool("usage_top", _d("The most used Pokémon of a format on Showdown's ladder. Más usados.", synonyms="uso, ranking de pokémon, metagame"),
          UsageArgs, R, lambda s, a: s.usage_top(a.format, a.limit), 60.0),
     Tool("sample_team", _d("A sample team: the format's six most used Pokémon with their most popular set. Equipo de muestra.",
