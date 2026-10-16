@@ -266,6 +266,7 @@ function Challenge({ data, lang, setLang, t }) {
         <div className={`panel p-final ${won ? "is-won" : ""}`}>
           {won && kind === "gym" && <div className="p-badge-win"><Badge image={target.badge_image} color={target.badge_color || TYPE_COLORS[target.type] || "#c0c0c0"} size={120} /></div>}
           <h2>{won ? (kind === "gym" ? t("won_all", { badge: target.badge || t("badge") }) : t("won_trainer", { name: target.name })) : t("lost_to", { name: last?.opponent || target.name })}</h2>
+          {stages[results.length - 1]?.dialogue?.after && <p className="p-quote">“{stages[results.length - 1].dialogue.after}”</p>}
           <div className="space-y-2 w-full">
             <b>{t("result_code")}</b>
             <p className="help">{t("result_help", { name: owner || target.name })}</p>

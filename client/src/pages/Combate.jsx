@@ -298,6 +298,15 @@ export default function Combate({ param }) {
           {live && !request && player.caughtUp && <div className="b-controls"><div className="b-wait">{remote ? t("pvp_waiting_friend", { name: battle[remote].name }) : t("waiting_ai")}</div></div>}
         </Arena>
       )}
+      {battle.status === "ended" && player.state.ended && player.caughtUp && ["p2", "p1"].some((s) => seats[s]?.dialogue?.after) && (
+        <div className="panel space-y-2">
+          {["p2", "p1"].filter((s) => seats[s]?.dialogue?.after).map((s) => (
+            <p key={s} className="m-0" style={{ fontStyle: "italic", borderLeft: "3px solid var(--accent)", paddingLeft: 10 }}>
+              “{seats[s].dialogue.after}” <b style={{ fontStyle: "normal" }}>— {battle[s].name}</b>
+            </p>
+          ))}
+        </div>
+      )}
       {battle.status !== "running" && battle.status !== "failed" && (
         <AiNotes battle={battle} turn={player.state.turn} live={live} requestSide={requestSide} />
       )}
