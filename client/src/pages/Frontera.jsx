@@ -1,6 +1,7 @@
 // Between the battles of a HeartGold/SoulSilver Battle Frontier streak (Battle Hall, Battle Arcade, Battle Castle): the Hall's type
-// board, the Arcade's roulette and the Castle's services, with the party, the next rival and the streak so far. Mouse, keyboard
-// (arrows, Enter, Space) and gamepad (D-pad, A). Each battle is played on the battle screen, which comes back here after a win.
+// board, the Arcade's roulette and the Castle's services, with the party, the next rival and the streak so far; in doubles and multi
+// challenges also the challenge type, the AI partner with its Pokémon and both rival trainers. Mouse, keyboard (arrows, Enter,
+// Space) and gamepad (D-pad, A). Each battle is played on the battle screen, which comes back here after a win.
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { api } from "../api.js";
 import { useApp } from "../context.js";
@@ -27,6 +28,12 @@ const S = {
   battle_n: ["Combate {n}", "Battle {n}"],
   brain_next: ["¡Combate contra el As del Frente Batalla!", "A Frontier Brain battle!"],
   party: ["Tu equipo", "Your party"],
+  mode_double: ["Dobles", "Doubles"],
+  mode_multi: ["Múltiple", "Multi"],
+  partner: ["Tu compañero: {name}", "Your partner: {name}"],
+  partner_help: ["Juega la posición 2 con la IA ({ai}) y saca sus propios Pokémon; llega curado a cada combate.",
+    "Plays slot 2 with the AI ({ai}) and sends out their own Pokémon; comes healed to every battle."],
+  multi_hall: ["En múltiple los rivales van a rango 9 y a tu nivel, y cada ronda da 12 PB.", "In multi the rivals are rank 9 and at your level, and each round pays 12 BP."],
   history: ["Combates de la racha", "Battles of the streak"],
   won: ["Ganado", "Won"],
   lost: ["Perdido", "Lost"],
@@ -212,6 +219,7 @@ function RivalCard({ fv, s, lang }) {
   return (
     <div className={`panel fr-rival ${r.boss ? "is-brain" : ""}`}>
       <Avatar url={r.avatar_url} name={r.name} size={72} />
+      {r.pair && <Avatar url={r.pair.avatar_url} name={r.pair.name} size={72} />}
       <div className="min-w-0">
         <span className="label">{s("next_rival")} · {s("battle_n", { n: r.number })}</span>
         <h3 className="trunc">{lang === "en" ? r.name_en || r.name : r.name}</h3>
@@ -477,8 +485,25 @@ function History({ run, s, lang }) {
   );
 }
 
+function PartnerSection({ fv, s, lang, t }) {
+  const p = fv.partner;
+  return (
+    <section className="space-y-2 fr-partner">
+      <div className="flex items-center gap-2">
+        <Avatar url={p.avatar_url} name={p.name} size={48} />
+        <div className="min-w-0">
+          <span className="label">{s("partner", { name: lang === "en" ? p.name_en || p.name : p.name })}</span>
+          <p className="help">{s("partner_help", { ai: p.ai_level ? t(`lvl_${p.ai_level}`) : "" })}</p>
+          {fv.kind === "hall" && <p className="help">{s("multi_hall")}</p>}
+        </div>
+      </div>
+      <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">{(p.party || []).map((m, i) => <MonCard key={i} m={m} lang={lang} s={s} />)}</div>
+    </section>
+  );
+}
+
 export default function Frontera({ param }) {
-  const { lang, go, changed } = useApp();
+  const { lang, go, changed, t } = useApp();
   const s = (k, v) => fill(L(S[k], lang), v);
   const { data, error, loading, reload, setData } = useLoad(() => api.call("frontier_get", { id: param }), [param]);
   const [busy, run_] = useBusy();
@@ -505,6 +530,7 @@ export default function Frontera({ param }) {
             <span className="chip chip-accent">{s("streak", { n: data.streak || 0 })}</span>
             <span className="chip">{s("round", { r: fv.round, b: fv.round_battle, n: fv.round_length })}</span>
             <span className="chip">{s("bp", { n: fv.bp })}</span>
+            {fv.mode && fv.mode !== "single" && <span className="chip">{s(`mode_${fv.mode}`)}</span>}
             {fv.kind === "castle" && <span className="chip chip-accent">{s("cp", { n: fv.cp })}</span>}
           </div>
         </div>
@@ -531,6 +557,7 @@ export default function Frontera({ param }) {
           <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">{fv.party.map((m, i) => <MonCard key={i} m={m} lang={lang} s={s} />)}</div>
         </section>
       )}
+      {fv.partner && <PartnerSection fv={fv} s={s} lang={lang} t={t} />}
       <History run={data} s={s} lang={lang} />
     </div>
   );

@@ -51,6 +51,8 @@ const S = {
   you: ["Tú", "You"],
   move_fx: ["Animaciones de movimientos", "Move animations"],
   doubles_slot: ["{name} (posición {n})", "{name} (slot {n})"],
+  partner_mon: ["De {name}, tu compañero: lo saca y lo mueve él", "{name}'s, your partner's: they send it out and move it"],
+  partner_turn: ["{name} elige por la posición 2", "{name} chooses for slot 2"],
 };
 
 export function battleT(lang) {

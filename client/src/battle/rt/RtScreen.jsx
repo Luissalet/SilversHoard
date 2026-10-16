@@ -58,7 +58,7 @@ function logLine(e, b, lang, tr) {
       const extra = [e.crit ? tr("rt_crit") : "", e.eff > 1 ? tr("rt_super") : e.eff < 1 && e.eff > 0 ? tr("rt_weak") : ""].filter(Boolean).join(" ");
       return { sec, k: e.eff > 1 || e.crit ? "big" : "dmg", text: `${who(e.s)} −${Math.max(1, Math.round((e.dmg / Math.max(1, e.maxhp)) * 100))}% ${extra}`.trim() };
     }
-    case "miss": return { sec, k: "minor", text: es ? `${dodger()} esquiva el ataque` : `${dodger()} dodged` };
+    case "miss": return { sec, k: "minor", text: e.fog ? (es ? "El ataque falla en la niebla" : "The attack missed in the fog") : es ? `${dodger()} esquiva el ataque` : `${dodger()} dodged` };
     case "helping": return { sec, k: "effect", text: es ? `${who(e.s)} se prepara para ayudar a su compañero` : `${who(e.s)} is ready to help its partner` };
     case "follow": return { sec, k: "effect", text: es ? `¡${who(e.s)} atrae todas las miradas!` : `${who(e.s)} became the centre of attention!` };
     case "fizzle": return e.rock
@@ -81,6 +81,10 @@ function logLine(e, b, lang, tr) {
     case "flinch": return { sec, k: "minor", text: es ? `¡${monName(e.s)} retrocede y pierde el ataque!` : `${monName(e.s)} flinched and lost its move!` };
     case "weather": return { sec, k: "info", text: es ? `Cambia el tiempo (${e.secs} s)` : `The weather changed (${e.secs} s)` };
     case "terrain": return { sec, k: "info", text: es ? `Cambia el campo (${e.secs} s)` : `The terrain changed (${e.secs} s)` };
+    case "trickroom": return { sec, k: "info", text: es ? `Espacio Raro durante ${e.secs} s: los lentos van más rápido` : `Trick Room for ${e.secs} s: the slow go faster` };
+    case "trickroom_end": return { sec, k: "info", text: es ? "Se acabó el Espacio Raro" : "Trick Room ended" };
+    case "fog": return { sec, k: "info", text: es ? "Hay niebla: 2 de cada 5 golpes fallan" : "Fog: 2 hits in 5 miss" };
+    case "fog_end": return { sec, k: "info", text: es ? "Se ha disipado la niebla" : "The fog lifted" };
     case "hazard": return { sec, k: "info", text: `${nameOf("move", { stealthrock: "Stealth Rock", spikes: "Spikes", toxicspikes: "Toxic Spikes", stickyweb: "Sticky Web" }[e.id] || e.id, lang)} → ${side(e.s).name}` };
     case "heal": return e.amount >= 1 ? { sec, k: "minor", text: `${who(e.s)} +${Math.max(1, Math.round((e.amount / Math.max(1, e.maxhp)) * 100))}%` } : null;
     case "chip": return { sec, k: "minor", text: `${who(e.s)} −${Math.max(1, Math.round((e.amount / Math.max(1, e.maxhp)) * 100))}% (${sourceName(e.source, b, lang)})` };
@@ -205,7 +209,7 @@ function MoveButton({ m, i, lang, tr, onUse, keyHint, disabled, pos = "", plus =
       <span className="rt-move-sweep" aria-hidden="true" />
       <span className="rt-move-key">{keyHint}</span>
       <span className="rt-move-name trunc">{nameOf("move", m.name, lang)}</span>
-      <span className="rt-move-meta">{typeName(m.type, lang)} · {m.total ? `${m.total.toFixed(1)} s` : ""}</span>
+      <span className="rt-move-meta">{typeName(m.type, lang)} · {m.total ? `${m.total.toFixed(1)} s` : ""}{m.pp_left != null ? ` · ${tr("rt_pp", { n: m.pp_left, m: m.pp_max })}` : ""}</span>
       {!ready && m.cd > 0 && <span className="rt-move-cd num">{m.cd.toFixed(1)}</span>}
       {blocked && <span className="rt-move-block">{blocked}</span>}
     </button>
@@ -247,7 +251,8 @@ function Pad({ side, si, lang, tr, partyOpen, cursor, focus, plus, gauge, onUse,
       {side.units && (
         <div className="rt-duo-bar">
           <span className="help">{tr("rt_you_control")}</span> <b>{mon && !mon.fainted ? mon.name : "—"}</b> <span className="rt-slot">{side.ctl ? "b" : "a"}</span>
-          <button type="button" className="btn btn-sm" onClick={() => onSwap(si)}>{tr("rt_swap")} <span className="rt-key">{keys.swap}</span></button>
+          {side.partner ? <span className="help">{tr("rt_multi_partner")}</span>
+            : <button type="button" className="btn btn-sm" onClick={() => onSwap(si)}>{tr("rt_swap")} <span className="rt-key">{keys.swap}</span></button>}
           <span className="help">{tr("rt_locked_foe")}</span> <b>{lockedMon ? lockedMon.name : "—"}</b>{locked && <span className="rt-slot is-foe">{locked.pos ? "b" : "a"}</span>}
           <button type="button" className="btn btn-sm" onClick={() => onTarget(si)}>{tr("rt_next_target")} <span className="rt-key">{keys.target}</span></button>
         </div>
@@ -256,7 +261,8 @@ function Pad({ side, si, lang, tr, partyOpen, cursor, focus, plus, gauge, onUse,
         <div className="rt-party-strip" role="group" aria-label={tr("rt_party")}>
           {side.mons.map((m, i) => (
             <button key={i} type="button" className={`rt-party-btn ${onField(m, i) ? "is-active" : ""} ${showParty && i === cursor ? "is-cursor" : ""}`}
-              disabled={m.fainted || onField(m, i) || (!need && side.switches_left <= 0)} onClick={() => onSwitch(si, i)} title={`${m.name} ${m.hp}/${m.maxhp}`}>
+              disabled={m.fainted || onField(m, i) || (!need && side.switches_left <= 0) || (side.partner && side.owners?.[i] === 1)} onClick={() => onSwitch(si, i)}
+              title={`${m.name} ${m.hp}/${m.maxhp}${side.partner && side.owners?.[i] === 1 ? ` · ${tr("rt_partner_ai")}` : ""}`}>
               <img src={sprites.pokemon(m.species, { spriteid: m.sprite_id })} alt="" className={sprites.pixelated ? "pixelated" : ""} onError={(ev) => { ev.currentTarget.style.visibility = "hidden"; }} />
               <span className="rt-key">{keys.slots[i]}</span>
               {side.units && m.field >= 0 && <span className={`rt-slot rt-party-slot ${m.field === side.ctl ? "is-ctl" : ""}`}>{m.field ? "b" : "a"}</span>}
@@ -812,6 +818,8 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
               <div className="rt-time num" aria-label={tr("rt_time")}>{fmtTime(view.time_limit - view.seconds)}</div>
               {view.doubles && <span className="chip">{tr("rt_doubles")}</span>}
               {view.weather && <span className="chip">{nameOf("move", { sunnyday: "Sunny Day", raindance: "Rain Dance", sandstorm: "Sandstorm", snow: "Snowscape", hail: "Hail" }[view.weather.id] || view.weather.id, lang)} {Math.ceil(view.weather.left)} s</span>}
+              {view.trick_room > 0 && <span className="chip">{tr("rt_trick_room", { n: Math.ceil(view.trick_room) })}</span>}
+              {view.fog && <span className="chip">{tr("rt_fog")}</span>}
               {view.terrain && <span className="chip">{nameOf("move", { electricterrain: "Electric Terrain", grassyterrain: "Grassy Terrain", psychicterrain: "Psychic Terrain", mistyterrain: "Misty Terrain" }[view.terrain.id] || view.terrain.id, lang)} {Math.ceil(view.terrain.left)} s</span>}
             </div>
             <SideBar side={view.sides[1]} align="right" lang={lang} tr={tr} avatarUrl={seats?.p2?.avatarUrl} gauge={view.version >= 2} human={live && humans[1]} sprites={sprites} offline={offline} />
