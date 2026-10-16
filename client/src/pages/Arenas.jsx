@@ -209,7 +209,11 @@ function EditorBody({ arena, isNew, t, go, notify, confirm, changed }) {
               ))}
             </div>
           </Field>
-          <label className="flex items-center gap-2"><Switch checked={mirror} onChange={(v) => { setMirror(v); if (v) setRocks((l) => l.filter((r) => r.x <= W / 2 + 0.05)); }} label={t("arena_mirror")} /> {t("arena_mirror")}</label>
+          <label className="flex items-center gap-2"><Switch checked={mirror} onChange={(v) => {
+            setRocks(v ? rocks.filter((r) => r.x <= W / 2 + 0.05) : all);
+            setSel(-1);
+            setMirror(v);
+          }} label={t("arena_mirror")} /> {t("arena_mirror")}</label>
           <p className="help">{t("arena_mirror_help")}</p>
           {current && (
             <div className="space-y-2">
