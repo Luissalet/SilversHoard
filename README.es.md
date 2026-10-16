@@ -124,3 +124,7 @@ Los proyectiles de fuego y las cabezas de los haces de llamas usan un sprite ori
 Los proyectiles que giran o pulsan también siguen el reloj del renderer del combate: su fase se congela al pausar y vuelve al mismo punto al reiniciar una repetición, tanto en la app como en las páginas jugables.
 
 Las campales transmiten su propio reloj al renderer de efectos compartido, incluidos los proyectiles y las cabezas de haces de fuego animados, para que se dibujen y se pausen correctamente también allí y en sus páginas compartidas.
+
+Las seis filas de puntos de estadísticas tienen sliders arrastrables, además de los campos numéricos y controles +/−. Los miembros nuevos del equipo empiezan con cero puntos en todas las estadísticas; los repartos guardados o importados expresamente conservan sus valores. Se mantienen los límites de 32 puntos por estadística y 66 en total. En pantallas estrechas cada slider ocupa su propia fila.
+
+Cambiar un miembro a otra especie crea un Pokémon limpio: movimientos, habilidad, objeto, naturaleza, mote, teratipo, género y variocolor vuelven a sus valores vacíos; los EV vuelven a cero y los IV a 31. Se conserva el nivel actual. Cambiar solo la escritura equivalente de la misma especie no reinicia el set.
