@@ -352,3 +352,15 @@ def test_a_cartridge_gym_trainer_shows_its_names_in_the_reader_s_language(call, 
     assert first["en"]["title"].endswith("· Seafoam Islands Gym") and first["es"]["title"].endswith("· Gimnasio de las Islas Espuma")
     assert names_i18n.trainer({"name": "x", "canon_key": hgss_rom.CANON_PREFIX + "9999", "title": ""}, services) is None
 
+
+def test_a_league_makes_the_lines_in_the_language_it_is_installed_in(call, services):
+    lg = call("canon_install", {"league_key": "johto-hgss", "lang": "en"})["league"]
+    gym = services.store.gym(lg["gyms"][0])
+    abe = services.store.trainer(gym["trainers"][0])
+    assert abe["name"] == "Ornitólogo Abe"   # the names are castellano: names_i18n shows them in the reader's language
+    assert "ridiculously high" in abe["dialogue"]["intro"] and "rookie" in abe["dialogue"]["after"]
+    falkner = services.store.trainer(gym["leader_id"])
+    assert falkner["dialogue"]["last"].startswith("The wind is finally with us") and falkner["name"].startswith("Falkner (")
+    # installing again in the other language leaves what is there: the lines are the player's once they exist
+    again = call("canon_install", {"league_key": "johto-hgss", "lang": "es"})["league"]
+    assert again["id"] == lg["id"] and "ridiculously high" in services.store.trainer(gym["trainers"][0])["dialogue"]["intro"]

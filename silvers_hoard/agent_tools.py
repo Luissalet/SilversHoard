@@ -226,6 +226,7 @@ class CanonArgs(BaseModel):
 class CanonInstallArgs(BaseModel):
     trainer_key: str = Field("", max_length=60, description="One in-game trainer (key from canon_list).")
     league_key: str = Field("", max_length=60, description="A whole league: its gyms, badges, Elite Four and champion.")
+    lang: Literal["es", "en"] = Field("es", description="A league of the HeartGold/SoulSilver games: the language of the lines its trainers say.")
 
 
 class HgssRomArgs(BaseModel):
@@ -975,7 +976,7 @@ def _backdrop_image_set(s: Services, a: BackdropImageArgs) -> Any:
 
 def _canon_install(s: Services, a: CanonInstallArgs) -> Any:
     if a.league_key:
-        return {"league": s.canon_install_league(a.league_key)}
+        return {"league": s.canon_install_league(a.league_key, a.lang)}
     if a.trainer_key:
         return {"trainer": s.canon_install_trainer(a.trainer_key)}
     raise SilverError("invalid", "Give trainer_key or league_key.")

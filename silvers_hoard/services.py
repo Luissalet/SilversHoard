@@ -599,27 +599,28 @@ class Services:
         })
         return self.trainer_view(self.store.trainer(id_))
 
-    def _install_game_league(self, key: str) -> dict[str, Any]:
-        """A league of game_leagues.py: each member is the character's trainer for that game's team (installed once and reused)."""
+    def _install_game_league(self, key: str, lang: str = "es") -> dict[str, Any]:
+        """A league of game_leagues.py: each member is the character's trainer for that game's team (installed once and reused). ``lang``
+        is the language of the lines the cartridge trainers say (the names and titles are made in castellano and shown in the reader's)."""
         lg = game_leagues.BY_KEY[key]
         existing = self.store.league_by_canon(key)
         if existing:
             # installed before the cartridge data: untouched members take the cartridge's teams and the gyms without trainers get theirs
             for tid in (*existing["elite_four"], existing.get("champion_id")):
-                self._cartridge_refresh(tid)
+                self._cartridge_refresh(tid, lang)
             for gid in existing["gyms"]:
                 try:
                     gym = self.store.gym(gid)
                 except SilverError:
                     continue   # a gym the player removed
-                self._cartridge_refresh(gym.get("leader_id"))
+                self._cartridge_refresh(gym.get("leader_id"), lang)
                 mine = next((m for m in lg["gyms"] if gym.get("canon_key") == f"{key}:{m['key']}"), None)
                 if mine:
-                    self._cartridge_gym(gid, mine)
+                    self._cartridge_gym(gid, mine, lang)
             return self.league_get(existing["id"])
 
         def member(m: dict[str, str]) -> dict[str, Any]:
-            t = self.character_install(m["key"], variant=m["variant"])
+            t = self.character_install(m["key"], variant=m["variant"], lang=lang)
             return self.store.trainer(t["id"])
 
         gym_ids = []
@@ -638,7 +639,7 @@ class Services:
                 "leader_id": leader["id"], "trainers": [], "origin": "canon", "canon_key": gym_key,
             })
             gym_ids.append(gid)
-            self._cartridge_gym(gid, g)   # HeartGold/SoulSilver: the cartridge's gym trainers and the map
+            self._cartridge_gym(gid, g, lang)   # HeartGold/SoulSilver: the cartridge's gym trainers and the map
         elite = [member(m)["id"] for m in lg["elite_four"]]
         champ = member(lg["champion"])
         lid = self.store.add_league({
@@ -649,9 +650,9 @@ class Services:
         self.emit("league.installed", {"id": lid, "key": key})
         return self.league_get(lid)
 
-    def canon_install_league(self, key: str) -> dict[str, Any]:
+    def canon_install_league(self, key: str, lang: str = "es") -> dict[str, Any]:
         if key in game_leagues.BY_KEY:
-            return self._install_game_league(key)
+            return self._install_game_league(key, "en" if lang == "en" else "es")
         lg = next((x for x in self.canon()["leagues"] if x["key"] == key), None)
         if not lg:
             raise SilverError("not_found", f"No league {key}")
@@ -836,7 +837,7 @@ class Services:
             existing = self.store.trainer_by_canon(canon_key)
             if existing:
                 if v and v.get("cartridge"):
-                    existing = self._cartridge_upgrade(existing, v) or existing
+                    existing = self._cartridge_upgrade(existing, v, lang) or existing
                 return {**self.trainer_view(existing), "existing": True}
         lang_es = lang != "en"
         cart = bool(v and v.get("cartridge"))   # a HeartGold/SoulSilver team from the cartridge's data
@@ -885,7 +886,7 @@ class Services:
         self.emit("trainer.created", {"id": id_, "name": name or default_name, "character": c["key"]})
         return self.trainer_view(self.store.trainer(id_))
 
-    def _cartridge_upgrade(self, t: dict[str, Any], v: dict[str, Any]) -> Optional[dict[str, Any]]:
+    def _cartridge_upgrade(self, t: dict[str, Any], v: dict[str, Any], lang: str = "es") -> Optional[dict[str, Any]]:
         """A trainer made from a HeartGold/SoulSilver team before the cartridge data came, and never changed since, takes the cartridge's
         exact team, its AI (when it still has the default one), its lines (when it has none) and its credit. What the player edited is never
         touched. Returns the trainer as it is now, or None when nothing changed."""
@@ -895,14 +896,14 @@ class Services:
         if (t["ai_level"], t["ai_style"]) == ("hard", "balanced"):
             changes.update(ai_level=v["ai"]["level"], ai_style=v["ai"]["style"])
         if not t.get("dialogue"):
-            changes["dialogue"] = self._clean_dialogue(hgss_rom.lines(v["rom"], "es"))
+            changes["dialogue"] = self._clean_dialogue(hgss_rom.lines(v["rom"], lang))
         kept = [x for x in (t.get("notes") or "").split("\n") if not x.startswith("Bulbapedia:") and "Equipo de Bulbapedia" not in x]
         changes["notes"] = "\n".join([*kept, hgss_rom.note(v), hgss_rom.CREDIT])[:4000]
         changes["tags"] = [*(t.get("tags") or []), *([] if "Cartucho" in (t.get("tags") or []) else ["Cartucho"])][:20]
         self.store.update_trainer(t["id"], changes)
         return self.store.trainer(t["id"])
 
-    def _cartridge_refresh(self, trainer_id: Optional[str]) -> None:
+    def _cartridge_refresh(self, trainer_id: Optional[str], lang: str = "es") -> None:
         """Bring a trainer of an installed league up to date with the cartridge, when it was made from a cartridge team (its canon_key says which)."""
         try:
             t = self.store.trainer(trainer_id) if trainer_id else None
@@ -914,10 +915,11 @@ class Services:
         c = self.characters()["by_key"].get(parts[1]) if len(parts) >= 3 and parts[0] == "char" else None
         v = next((x for x in c["variants"] if x["id"] == parts[2]), None) if c else None
         if v and v.get("cartridge"):
-            self._cartridge_upgrade(t, v)
+            self._cartridge_upgrade(t, v, lang)
 
-    def _cartridge_trainer(self, index: int, gym: dict[str, Any]) -> str:
-        """The gym trainer of the cartridge with this number, made once and reused (canon_key rom:hgss:<number>)."""
+    def _cartridge_trainer(self, index: int, gym: dict[str, Any], lang: str = "es") -> str:
+        """The gym trainer of the cartridge with this number, made once and reused (canon_key rom:hgss:<number>). Its class and name are
+        castellano (names_i18n shows them in the reader's language); its lines are in ``lang``."""
         key = f"{hgss_rom.CANON_PREFIX}{index}"
         existing = self.store.trainer_by_canon(key)
         if existing:
@@ -930,18 +932,18 @@ class Services:
         return self.store.add_trainer({
             "name": row["name"], "title": f"{row['class']} · {gym['name']}"[:60], "owner": "", "origin": "canon", "format": gym["format"],
             "team": row["team"], "ai_level": row["ai_level"], "ai_style": row["ai_style"], "avatar": avatar,
-            "dialogue": self._clean_dialogue(row["dialogue"]), "notes": hgss_rom.gym_note(index, row)[:4000],
+            "dialogue": self._clean_dialogue(hgss_rom.lines(index, lang)), "notes": hgss_rom.gym_note(index, row)[:4000],
             "tags": [str(x)[:30] for x in (gym["city"], "HeartGold/SoulSilver", row["class"], "Cartucho")], "canon_key": key,
         })
 
-    def _cartridge_gym(self, gym_id: str, member: dict[str, str]) -> None:
+    def _cartridge_gym(self, gym_id: str, member: dict[str, str], lang: str = "es") -> None:
         """A HeartGold/SoulSilver gym of a league: its gym trainers as the cartridge has them, in the order you meet them, and the gym's
         map. A gym that already has trainers or a map (the player's) is left alone; a map that does not fit leaves the gym without one."""
         rom = hgss_rom.gym(member["key"]) if member["variant"] == "hgssgymbattle" else None
         gym = self.store.gym(gym_id)
         if not rom or gym.get("trainers") or (gym.get("map") or {}).get("w"):
             return
-        ids = {index: self._cartridge_trainer(index, gym) for index in hgss_rom.gym_trainer_indexes(rom)}
+        ids = {index: self._cartridge_trainer(index, gym, lang) for index in hgss_rom.gym_trainer_indexes(rom)}
         values: dict[str, Any] = {"trainers": list(ids.values())}
         try:
             values["map"] = hgss_rom.gym_map(member["key"], ids)
