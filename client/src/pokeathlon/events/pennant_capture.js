@@ -68,17 +68,13 @@ export default {
   },
 
   create(ctx) {
-    const humanTeam = ctx.teams[ctx.focus] && ctx.teams[ctx.focus].human ? ctx.focus : -1;
-    const match = new Match({ teams: ctx.teams, rng: ctx.rng, humanTeam });
+    const humans = ctx.humans();
+    const focus = ctx.focus;
+    const humanTeam = humans.includes(focus) ? focus : -1;   // the person at this screen (-1: a spectator, or nobody plays)
+    const match = new Match({ teams: ctx.teams, rng: ctx.rng, humanTeams: humans });
     const clock = new Clock();
-    const latch = new Latch();
     const pops = [];
     const feed = [];
-    let ptrActive = false;
-    let aim = { x: 0, y: -1 };
-    let charging = false;
-    let charge = 0;
-    let flicked = 0;
     let hintAt = -999;
     let endTimer = 0;
     let finished = false;
@@ -90,63 +86,73 @@ export default {
     const say = (text, color) => { feed.unshift({ text, color, age: 0 }); if (feed.length > 6) feed.pop(); };
     const pop = (x, y, text, color, size = 22) => pops.push({ x: fx(x), y: fy(y) - 30, text, color, size, age: 0 });
 
-    const fireHeld = () => FIRE_KEYS.some((k) => ctx.input.keys.has(k)) || FIRE_PAD.some((b) => ctx.input.pad.held.has(b));
+    // what each person is doing: their pointer, aim and charge. A room with friends has one per person; the screen draws the focus's.
+    const makeCtl = (team) => {
+      const input = ctx.inputs[team];
+      const mine = team === focus;
+      const c = { team, latch: new Latch(), ptrActive: false, aim: { x: 0, y: -1 }, charging: false, charge: 0, flicked: 0 };
+      const fireHeld = () => FIRE_KEYS.some((k) => input.keys.has(k)) || FIRE_PAD.some((b) => input.pad.held.has(b));
 
-    const updateAim = () => {
-      let ax = 0;
-      let ay = 0;
-      const keys = ctx.input.keys;
-      if (AIM_KEYS.left.some((k) => keys.has(k))) ax -= 1;
-      if (AIM_KEYS.right.some((k) => keys.has(k))) ax += 1;
-      if (AIM_KEYS.up.some((k) => keys.has(k))) ay -= 1;
-      if (AIM_KEYS.down.some((k) => keys.has(k))) ay += 1;
-      const pad = ctx.input.pad;
-      if (Math.hypot(pad.lx, pad.ly) > 0.35) { ax += pad.lx; ay += pad.ly; }
-      for (const b of pad.held) if (PAD_DIR[b]) { ax += PAD_DIR[b][0]; ay += PAD_DIR[b][1]; }
-      const l = Math.hypot(ax, ay);
-      if (l > 0.2) aim = { x: ax / l, y: ay / l };
-    };
+      c.updateAim = () => {
+        let ax = 0;
+        let ay = 0;
+        const keys = input.keys;
+        if (AIM_KEYS.left.some((k) => keys.has(k))) ax -= 1;
+        if (AIM_KEYS.right.some((k) => keys.has(k))) ax += 1;
+        if (AIM_KEYS.up.some((k) => keys.has(k))) ay -= 1;
+        if (AIM_KEYS.down.some((k) => keys.has(k))) ay += 1;
+        const pad = input.pad;
+        if (Math.hypot(pad.lx, pad.ly) > 0.35) { ax += pad.lx; ay += pad.ly; }
+        for (const b of pad.held) if (PAD_DIR[b]) { ax += PAD_DIR[b][0]; ay += PAD_DIR[b][1]; }
+        const l = Math.hypot(ax, ay);
+        if (l > 0.2) c.aim = { x: ax / l, y: ay / l };
+      };
 
-    const applyInput = (batch) => {
-      const p = match.players[humanTeam];
-      // the pointer: presses and releases alternate, in the order the pointer state allows
-      let pi = 0;
-      let ri = 0;
-      while (pi < batch.presses.length || ri < batch.releases.length) {
-        if (ptrActive) {
-          if (ri >= batch.releases.length) break;
-          const r = batch.releases[ri++];
-          ptrActive = false;
-          if (p.drag) {
-            const slow = p.drag.hold > HOLD_MAX;
-            const ok = match.endDrag(humanTeam, gx(r.x), gy(r.y));
-            if (ok) { flicked++; ctx.sfx("throw"); }
-            else if (slow) pops.push({ x: r.x, y: r.y - 20, text: ctx.t("¡Suelta antes!", "Let go sooner!"), color: "#ffb4a8", size: 20, age: 0 });
-          }
-        } else if (pi < batch.presses.length) {
-          const d = batch.presses[pi++];
-          ptrActive = true;
-          const ok = match.beginDrag(humanTeam, gx(d.x), gy(d.y));
-          if (!ok && match.canAct(p) && clock.frame - hintAt > 60) {
-            hintAt = clock.frame;
-            pops.push({ x: d.x, y: d.y - 20, text: ctx.t("Empieza sobre tu Pokémon", "Start on your Pokémon"), color: "#ffe29a", size: 18, age: 0, life: 1.4 });
-          }
-        } else ri++;
-      }
-      // keyboard and gamepad: aim, then fire (a tap is a short drag, holding makes it longer)
-      if (!charging) {
-        if (FIRE_KEYS.some((k) => batch.keys.has(k)) || FIRE_PAD.some((b) => batch.pad.has(b))) { charging = true; charge = 0; }
-      }
-      if (charging) {
-        if (fireHeld() && match.canAct(p)) charge = Math.min(KEY_CHARGE, charge + 1);
-        else {
-          const len = KEY_MIN + (KEY_MAX - KEY_MIN) * Math.min(1, charge / KEY_CHARGE);
-          if (match.canAct(p) && match.flick(humanTeam, aim.x * len, aim.y * len)) { flicked++; ctx.sfx("throw"); }
-          charging = false;
-          charge = 0;
+      c.apply = (batch) => {
+        const p = match.players[team];
+        // the pointer: presses and releases alternate, in the order the pointer state allows
+        let pi = 0;
+        let ri = 0;
+        while (pi < batch.presses.length || ri < batch.releases.length) {
+          if (c.ptrActive) {
+            if (ri >= batch.releases.length) break;
+            const r = batch.releases[ri++];
+            c.ptrActive = false;
+            if (p.drag) {
+              const slow = p.drag.hold > HOLD_MAX;
+              const ok = match.endDrag(team, gx(r.x), gy(r.y));
+              if (ok) { c.flicked++; if (mine) ctx.sfx("throw"); }
+              else if (slow && mine) pops.push({ x: r.x, y: r.y - 20, text: ctx.t("¡Suelta antes!", "Let go sooner!"), color: "#ffb4a8", size: 20, age: 0 });
+            }
+          } else if (pi < batch.presses.length) {
+            const d = batch.presses[pi++];
+            c.ptrActive = true;
+            const ok = match.beginDrag(team, gx(d.x), gy(d.y));
+            if (!ok && mine && match.canAct(p) && clock.frame - hintAt > 60) {
+              hintAt = clock.frame;
+              pops.push({ x: d.x, y: d.y - 20, text: ctx.t("Empieza sobre tu Pokémon", "Start on your Pokémon"), color: "#ffe29a", size: 18, age: 0, life: 1.4 });
+            }
+          } else ri++;
         }
-      }
+        // keyboard and gamepad: aim, then fire (a tap is a short drag, holding makes it longer)
+        if (!c.charging) {
+          if (FIRE_KEYS.some((k) => batch.keys.has(k)) || FIRE_PAD.some((b) => batch.pad.has(b))) { c.charging = true; c.charge = 0; }
+        }
+        if (c.charging) {
+          if (fireHeld() && match.canAct(p)) c.charge = Math.min(KEY_CHARGE, c.charge + 1);
+          else {
+            const len = KEY_MIN + (KEY_MAX - KEY_MIN) * Math.min(1, c.charge / KEY_CHARGE);
+            if (match.canAct(p) && match.flick(team, c.aim.x * len, c.aim.y * len)) { c.flicked++; if (mine) ctx.sfx("throw"); }
+            c.charging = false;
+            c.charge = 0;
+          }
+        }
+      };
+      return c;
     };
+    const ctls = new Map(humans.map((t) => [t, makeCtl(t)]));
+    const NOBODY = { aim: { x: 0, y: -1 }, charging: false, charge: 0, flicked: 0, ptrActive: false };
+    const fc = () => ctls.get(humanTeam) || NOBODY;
 
     const onEvents = (list) => {
       for (const e of list) {
@@ -173,8 +179,7 @@ export default {
 
     return {
       update(dt) {
-        latch.absorb(ctx.input);
-        if (humanTeam >= 0) updateAim();
+        for (const c of ctls.values()) { c.latch.absorb(ctx.inputs[c.team]); c.updateAim(); }
         for (const p of match.players) {
           const a = ctx.animator(p.team, p.member);
           if (!a.busy()) {
@@ -189,19 +194,21 @@ export default {
         for (const fe of feed) fe.age += dt;
         while (feed.length && feed[feed.length - 1].age > 7) feed.pop();
         if (match.over) {
-          latch.take();
+          for (const c of ctls.values()) c.latch.take();
           endTimer += dt;
           if (endTimer >= 1.8 && !finished) { finished = true; ctx.finish(match.result()); }
           return;
         }
         clock.advance(dt, () => {
-          const batch = latch.take();
-          if (humanTeam >= 0) applyInput(batch);
+          for (const c of ctls.values()) c.apply(c.latch.take());
           match.step();
           onEvents(match.drain());
         });
         if (match.over) onEvents(match.drain());
       },
+
+      /** A person left a room: the CPU plays their team from here on. */
+      takeOver(team) { ctls.delete(team); match.takeOver(team); },
 
       render(g) {
         const ui = ctx.ui;
@@ -424,11 +431,11 @@ export default {
             g.stroke();
             if (!slow) ghost(reach(((px - sx0) / K) * par.gain, ((py - sy0) / K) * par.gain));
             else ui.text(g, ctx.t("¡Suelta ya!", "Let go!"), px, py - 18, { size: 20, align: "center", color: "#ffb4a8" });
-          } else if (me.mode === "play" && !me.knocked && (charging || ctx.input.keys.size || ctx.input.pad.held.size)) {
-            const len = charging ? KEY_MIN + (KEY_MAX - KEY_MIN) * Math.min(1, charge / KEY_CHARGE) : 48;
-            ghost(reach(aim.x * len * par.gain, aim.y * len * par.gain));
+          } else if (me.mode === "play" && !me.knocked && (fc().charging || ctx.input.keys.size || ctx.input.pad.held.size)) {
+            const len = fc().charging ? KEY_MIN + (KEY_MAX - KEY_MIN) * Math.min(1, fc().charge / KEY_CHARGE) : 48;
+            ghost(reach(fc().aim.x * len * par.gain, fc().aim.y * len * par.gain));
           }
-          if (flicked === 0 && me.mode === "play" && f < 240) {
+          if (fc().flicked === 0 && me.mode === "play" && f < 240) {
             g.setLineDash([6, 8]);
             g.strokeStyle = "rgba(255,255,255,.3)";
             g.lineWidth = 2;

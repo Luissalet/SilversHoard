@@ -46,7 +46,8 @@ function stubCtx(seed, human = -1, stars) {
     pad: {lx: 0, ly: 0, rx: 0, ry: 0, held: new Set(), pressed: new Set()}};
   const nullAnimator = {meta: null, cur: 'Idle', loop() {}, play() {}, update() {}, draw() { return false; }, has() { return false; }, height() { return 30; }};
   const ctx = {
-    W: 960, H: 540, teams: makeTeams(human, stars), rng: mulberry(seed), input, lang: 'es', mode: human >= 0 ? 'play' : 'watch',
+    W: 960, H: 540, teams: makeTeams(human, stars), rng: mulberry(seed), input, focus: Math.max(0, human), humans: () => (human >= 0 ? [human] : []),
+    inputs: [0, 1, 2, 3].map((i) => (i === Math.max(0, human) ? input : {pointer: {x: 0, y: 0, down: false, pressed: false, released: false, path: [], flick: null}, keys: new Set(), pressed: new Set(), pad: {lx: 0, ly: 0, rx: 0, ry: 0, held: new Set(), pressed: new Set()}})), lang: 'es', mode: human >= 0 ? 'play' : 'watch',
     t: (es) => es, animator: () => nullAnimator, icon: () => null, sfx: (n) => calls.sfx.push(n),
     finish: (r) => calls.finish.push(r),
   };

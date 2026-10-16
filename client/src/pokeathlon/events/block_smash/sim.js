@@ -380,14 +380,40 @@ export class CpuSide extends Side {
 }
 
 export class Match {
-  constructor({ teams, rng, humanTeam = -1 }) {
+  /** humanTeam: the team a person plays (-1 = none), or humanTeams for several people (a room with friends). */
+  constructor({ teams, rng, humanTeam = -1, humanTeams = null }) {
     this.teams = teams;
     this.rng = rng;
-    this.humanTeam = humanTeam;
+    const humans = humanTeams || (humanTeam >= 0 ? [humanTeam] : []);
+    this.humanTeam = humans.length ? humans[0] : -1;
     this.frame = 0;
     this.over = false;
-    this.sides = teams.map((t, i) => (i === humanTeam ? new HumanSide(t, rng) : new CpuSide(t, rng)));
+    this.sides = teams.map((t, i) => (humans.includes(i) ? new HumanSide(t, rng) : new CpuSide(t, rng)));
     this.events = [];
+  }
+
+  /** The CPU takes over a team a person left: it goes on from the same score, stack, energy and gauge. */
+  takeOver(team) {
+    const old = this.sides[team];
+    if (!old || !old.human) return;
+    const cpu = new CpuSide(this.teams[team], this.rng);
+    cpu.members = old.members;
+    cpu.counters = old.counters;
+    cpu.member = old.member;
+    cpu.score = old.score;
+    cpu.gauge = old.gauge;
+    cpu.gaugeFull = old.gaugeFull;
+    cpu.gaugeT = old.gaugeT;
+    cpu.frames = old.frames;
+    cpu.board = old.board;
+    const b = old.board;
+    cpu.blockHealth = b.count > 0 ? b.health[b.top] : 100;
+    cpu.mode = old.mode === SWITCHING ? SWITCHING : old.mode === EXHAUSTED ? EXHAUSTED : b.state !== "ready" ? NEW_STACK : READY;
+    cpu.mf = 0;
+    cpu.wait = 4;
+    cpu.events = old.events;
+    this.sides[team] = cpu;
+    if (this.humanTeam === team) this.humanTeam = this.sides.findIndex((s) => s.human);
   }
 
   drain() {

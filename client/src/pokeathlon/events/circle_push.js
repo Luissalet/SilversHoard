@@ -35,90 +35,97 @@ export default {
   },
 
   create(ctx) {
-    const humanTeam = ctx.teams[ctx.focus] && ctx.teams[ctx.focus].human ? ctx.focus : -1;
-    const match = new Match({ teams: ctx.teams, rng: ctx.rng, humanTeam });
+    const humans = ctx.humans();
+    const focus = ctx.focus;
+    const humanTeam = humans.includes(focus) ? focus : -1;   // the person at this screen (-1: a spectator, or nobody plays)
+    const match = new Match({ teams: ctx.teams, rng: ctx.rng, humanTeams: humans });
     const clock = new Clock();
-    const latch = new Latch();
     const pops = [];
     const falls = [];
-    let ptrActive = false;
-    let kb = false;
-    let sel = 0;
-    let cursor = { x: 128, y: 96 };
     let endTimer = 0;
     let finished = false;
     let pushSound = 0;
     let banner = null;
 
-    const mineStart = () => {
-      const m = humanTeam >= 0 ? match.mon(humanTeam, sel) : null;
-      if (m) cursor = { x: m.x, y: m.y };
-    };
-    const selectMember = (i) => {
-      sel = ((i % 3) + 3) % 3;
-      mineStart();
-    };
-    const nextAlive = (dir) => {
-      for (let k = 1; k <= 3; k++) {
-        const i = (((sel + dir * k) % 3) + 3) % 3;
-        if (match.mon(humanTeam, i).state === 1) return i;
-      }
-      return sel;
-    };
-
     const pushPop = (x, y, text, color, size = 24) => pops.push({ x: sx(x), y: sy(y) - 26, text, color, size, age: 0 });
 
-    const applyInput = (batch) => {
-      // the pointer
-      const ptr = ctx.input.pointer;
-      let pi = 0;
-      let ri = 0;
-      while (pi < batch.presses.length || ri < batch.releases.length) {
-        if (ptrActive) {
-          if (ri >= batch.releases.length) break;
-          const r = batch.releases[ri++];
-          ptrActive = false;
-          match.touchMove(humanTeam, gx(r.x), gy(r.y));
-          match.touchUp(humanTeam);
-        } else if (pi < batch.presses.length) {
-          const d = batch.presses[pi++];
-          kb = false;
-          ptrActive = true;
-          const got = match.touchDown(humanTeam, gx(d.x), gy(d.y));
-          if (got >= 0) { sel = got; ctx.sfx("hit"); }
-        } else ri++;
-      }
-      if (ptrActive && ptr.down) match.touchMove(humanTeam, gx(ptr.x), gy(ptr.y));
-      // the keyboard and the pad
-      const keyed = batch.keys.size > 0 || batch.pad.size > 0;
-      const keys = ctx.input.keys;
-      const pad = ctx.input.pad;
-      let mx = 0;
-      let my = 0;
-      if (ARROWS.left.some((k) => keys.has(k))) mx -= 1;
-      if (ARROWS.right.some((k) => keys.has(k))) mx += 1;
-      if (ARROWS.up.some((k) => keys.has(k))) my -= 1;
-      if (ARROWS.down.some((k) => keys.has(k))) my += 1;
-      if (Math.hypot(pad.lx, pad.ly) > 0.3) { mx += pad.lx; my += pad.ly; }
-      for (const b of pad.held) if (PAD_DIR[b]) { mx += PAD_DIR[b][0]; my += PAD_DIR[b][1]; }
-      if (keyed || mx || my) {
-        if (!kb) { kb = true; mineStart(); }
-      }
-      if (!kb) return;
-      let burst = false;
-      for (let i = 0; i < 3; i++) if (SELECT_KEYS[i].some((k) => batch.keys.has(k))) selectMember(i);
-      if (CYCLE_KEYS.next.some((k) => batch.keys.has(k)) || batch.pad.has(CYCLE_PAD.next)) selectMember(nextAlive(1));
-      if (CYCLE_KEYS.prev.some((k) => batch.keys.has(k)) || batch.pad.has(CYCLE_PAD.prev)) selectMember(nextAlive(-1));
-      if (BURST_KEYS.some((k) => batch.keys.has(k)) || BURST_PAD.some((b) => batch.pad.has(b))) burst = true;
-      const l = Math.hypot(mx, my);
-      if (l > 0.05) {
-        const f = CURSOR_SPEED / Math.max(1, l);
-        cursor = { x: clamp(cursor.x + mx * f, 0, 256), y: clamp(cursor.y + my * f, 0, 192) };
-      }
-      if (match.mon(humanTeam, sel).state !== 1 && match.playing()) selectMember(nextAlive(1));
-      match.hold(humanTeam, sel, cursor.x, cursor.y);
-      if (burst) match.burst(humanTeam);
+    // what each person is doing: pointer, keyboard cursor and chosen Pokémon (a room with friends has one per person)
+    const makeCtl = (team) => {
+      const input = ctx.inputs[team];
+      const mine = team === focus;
+      const c = { team, latch: new Latch(), ptrActive: false, kb: false, sel: 0, cursor: { x: 128, y: 96 } };
+      const mineStart = () => {
+        const m = match.mon(team, c.sel);
+        if (m) c.cursor = { x: m.x, y: m.y };
+      };
+      const selectMember = (i) => {
+        c.sel = ((i % 3) + 3) % 3;
+        mineStart();
+      };
+      const nextAlive = (dir) => {
+        for (let k = 1; k <= 3; k++) {
+          const i = (((c.sel + dir * k) % 3) + 3) % 3;
+          if (match.mon(team, i).state === 1) return i;
+        }
+        return c.sel;
+      };
+
+      c.apply = (batch) => {
+        // the pointer
+        const ptr = input.pointer;
+        let pi = 0;
+        let ri = 0;
+        while (pi < batch.presses.length || ri < batch.releases.length) {
+          if (c.ptrActive) {
+            if (ri >= batch.releases.length) break;
+            const r = batch.releases[ri++];
+            c.ptrActive = false;
+            match.touchMove(team, gx(r.x), gy(r.y));
+            match.touchUp(team);
+          } else if (pi < batch.presses.length) {
+            const d = batch.presses[pi++];
+            c.kb = false;
+            c.ptrActive = true;
+            const got = match.touchDown(team, gx(d.x), gy(d.y));
+            if (got >= 0) { c.sel = got; if (mine) ctx.sfx("hit"); }
+          } else ri++;
+        }
+        if (c.ptrActive && ptr.down) match.touchMove(team, gx(ptr.x), gy(ptr.y));
+        // the keyboard and the pad
+        const keyed = batch.keys.size > 0 || batch.pad.size > 0;
+        const keys = input.keys;
+        const pad = input.pad;
+        let mx = 0;
+        let my = 0;
+        if (ARROWS.left.some((k) => keys.has(k))) mx -= 1;
+        if (ARROWS.right.some((k) => keys.has(k))) mx += 1;
+        if (ARROWS.up.some((k) => keys.has(k))) my -= 1;
+        if (ARROWS.down.some((k) => keys.has(k))) my += 1;
+        if (Math.hypot(pad.lx, pad.ly) > 0.3) { mx += pad.lx; my += pad.ly; }
+        for (const b of pad.held) if (PAD_DIR[b]) { mx += PAD_DIR[b][0]; my += PAD_DIR[b][1]; }
+        if (keyed || mx || my) {
+          if (!c.kb) { c.kb = true; mineStart(); }
+        }
+        if (!c.kb) return;
+        let burst = false;
+        for (let i = 0; i < 3; i++) if (SELECT_KEYS[i].some((k) => batch.keys.has(k))) selectMember(i);
+        if (CYCLE_KEYS.next.some((k) => batch.keys.has(k)) || batch.pad.has(CYCLE_PAD.next)) selectMember(nextAlive(1));
+        if (CYCLE_KEYS.prev.some((k) => batch.keys.has(k)) || batch.pad.has(CYCLE_PAD.prev)) selectMember(nextAlive(-1));
+        if (BURST_KEYS.some((k) => batch.keys.has(k)) || BURST_PAD.some((b) => batch.pad.has(b))) burst = true;
+        const l = Math.hypot(mx, my);
+        if (l > 0.05) {
+          const f = CURSOR_SPEED / Math.max(1, l);
+          c.cursor = { x: clamp(c.cursor.x + mx * f, 0, 256), y: clamp(c.cursor.y + my * f, 0, 192) };
+        }
+        if (match.mon(team, c.sel).state !== 1 && match.playing()) selectMember(nextAlive(1));
+        match.hold(team, c.sel, c.cursor.x, c.cursor.y);
+        if (burst) match.burst(team);
+      };
+      return c;
     };
+    const ctls = new Map(humans.map((t) => [t, makeCtl(t)]));
+    const NOBODY = { kb: false, sel: 0, cursor: { x: 128, y: 96 } };
+    const fc = () => ctls.get(humanTeam) || NOBODY;
 
     const onEvents = (list) => {
       for (const e of list) {
@@ -144,7 +151,7 @@ export default {
 
     return {
       update(dt) {
-        latch.absorb(ctx.input);
+        for (const c of ctls.values()) c.latch.absorb(ctx.inputs[c.team]);
         for (const m of match.mons) {
           const a = ctx.animator(m.team, m.member);
           if (!a.busy()) {
@@ -160,20 +167,22 @@ export default {
         if (banner) { banner.age += dt; if (banner.age > banner.life) banner = null; }
         if (pushSound > 0) pushSound -= dt;
         if (match.over) {
-          latch.take();
+          for (const c of ctls.values()) c.latch.take();
           endTimer += dt;
           if (endTimer >= 2 && !finished) { finished = true; ctx.finish(match.result()); }
           return;
         }
         clock.advance(dt, () => {
-          const batch = latch.take();
-          if (humanTeam >= 0) applyInput(batch);
+          for (const c of ctls.values()) c.apply(c.latch.take());
           match.step();
           if (humanTeam >= 0 && pushSound <= 0 && match.teamMons(humanTeam).some((m) => m.pushing)) { ctx.sfx("hit"); pushSound = 0.3; }
           onEvents(match.drain());
         });
         if (match.over) onEvents(match.drain());
       },
+
+      /** A person left a room: the CPU plays their team from here on. */
+      takeOver(team) { ctls.delete(team); match.takeOver(team); },
 
       render(g) {
         const ui = ctx.ui;
@@ -274,7 +283,7 @@ export default {
             g.stroke();
           }
           if (me === m.team && !ghost) {
-            g.strokeStyle = held || (kb && sel === m.member) ? "#fff" : "rgba(255,255,255,.35)";
+            g.strokeStyle = held || (fc().kb && fc().sel === m.member) ? "#fff" : "rgba(255,255,255,.35)";
             g.lineWidth = held ? 3 : 2;
             g.beginPath();
             g.ellipse(x, y + 4, RADIUS * K * 1.5, RADIUS * K * 0.75, 0, 0, Math.PI * 2);
@@ -305,9 +314,9 @@ export default {
           g.restore();
         }
         // the cursor of the keyboard / pad
-        if (kb && me >= 0 && match.playing()) {
-          const x = sx(cursor.x);
-          const y = sy(cursor.y);
+        if (fc().kb && me >= 0 && match.playing()) {
+          const x = sx(fc().cursor.x);
+          const y = sy(fc().cursor.y);
           g.strokeStyle = ctx.teams[me].color;
           g.lineWidth = 3;
           g.beginPath();
@@ -352,7 +361,7 @@ export default {
           for (let s = 0; s < 3; s++) {
             const m = match.mon(t, s);
             const y = cy + 100 + s * 32;
-            ui.icon(g, t, s, cx + 10, y, 26, { ring: me === t && (kb ? sel === s : match.held[t] === s) ? "#fff" : null, alpha: m.state === 0 ? 0.35 : 1 });
+            ui.icon(g, t, s, cx + 10, y, 26, { ring: me === t && (fc().kb ? fc().sel === s : match.held[t] === s) ? "#fff" : null, alpha: m.state === 0 ? 0.35 : 1 });
             const frac = m.stamina / m.maxStamina;
             ui.bar(g, cx + 44, y + 6, 76, 6, m.state === 0 ? 0 : m.exhausted ? m.exhaustTimer / 60 : frac, m.exhausted ? "#ff8a7a" : "#7ee081");
             ui.text(g, m.state === 0 ? ctx.t("fuera", "out") : `${m.score}`, cx + 128, y + 22, { size: 12, align: "right", color: m.state === 0 ? "#ff9d8e" : "#eef3ff", stroke: null, weight: 600 });

@@ -45,81 +45,90 @@ export default {
 
   create(ctx) {
     const focus = ctx.focus;
-    const humanTeam = ctx.teams[focus] && ctx.teams[focus].human ? focus : -1;
-    const race = new Race({ teams: ctx.teams, rng: ctx.rng, humanTeam });
+    const humans = ctx.humans();
+    const humanTeam = humans.includes(focus) ? focus : -1; // the person at this screen (-1: a spectator, or nobody plays)
+    const race = new Race({ teams: ctx.teams, rng: ctx.rng, humanTeams: humans });
     const clock = new Clock();
-    const latch = new Latch();
     const pops = [];
     const stars = [];
-    let ptrActive = false;
-    let drag = null; // { x, y, hold } in screen px
-    let kbCharge = null; // { dx, dy }
-    let kbActive = false;
     let endTimer = 0;
     let finished = false;
 
     const me = () => race.teams[focus];
     const centerOf = (t) => ({ x: sxOf(0), y: syOf(t.y - 10) });
 
-    const applyInput = (batch) => {
-      const t = me();
+    // One controller per person: the drag in progress, the keyboard charge and the latch that keeps their taps for the next fixed step.
+    const makeCtl = (team) => {
+      const c = { team, latch: new Latch(), ptrActive: false, drag: null, kbCharge: null, kbActive: false };
+      c.apply = (batch) => applyInput(c, batch);
+      return c;
+    };
+    const ctls = new Map(humans.map((t) => [t, makeCtl(t)]));
+    const NOBODY = { ptrActive: false, drag: null, kbCharge: null, kbActive: false };
+    const fc = () => ctls.get(humanTeam) || NOBODY;
+
+    function applyInput(c, batch) {
+      const humanTeam = c.team;
+      const input = ctx.inputs[humanTeam];
+      const t = race.teams[humanTeam];
+      const sfx = (n) => { if (humanTeam === focus) ctx.sfx(n); };
       let pi = 0;
       let ri = 0;
       while (pi < batch.presses.length || ri < batch.releases.length) {
-        if (ptrActive) {
+        if (c.ptrActive) {
           if (ri >= batch.releases.length) break;
           const r = batch.releases[ri++];
-          ptrActive = false;
-          race.tooLong = false;
-          if (drag) {
-            if (drag.hold <= HOLD_MAX) {
-              const res = race.drag(humanTeam, (r.x - drag.x) / S, (r.y - drag.y) / S);
-              if (res === "flick") ctx.sfx("throw");
-              else if (res === "swap") ctx.sfx("whistle");
+          c.ptrActive = false;
+          race.setTooLong(humanTeam, false);
+          if (c.drag) {
+            if (c.drag.hold <= HOLD_MAX) {
+              const res = race.drag(humanTeam, (r.x - c.drag.x) / S, (r.y - c.drag.y) / S);
+              if (res === "flick") sfx("throw");
+              else if (res === "swap") sfx("whistle");
             }
-            drag = null;
+            c.drag = null;
           }
         } else if (pi < batch.presses.length) {
           const d = batch.presses[pi++];
-          ptrActive = true;
-          kbActive = false;
+          c.ptrActive = true;
+          c.kbActive = false;
           const inBtn = d.x >= SWAP_BTN.x && d.x < SWAP_BTN.x + SWAP_BTN.w && d.y >= SWAP_BTN.y && d.y < SWAP_BTN.y + SWAP_BTN.h;
-          if (inBtn) { if (race.swap(humanTeam)) ctx.sfx("whistle"); drag = null; }
+          if (inBtn) { if (race.swap(humanTeam)) sfx("whistle"); c.drag = null; }
           else {
-            const c = centerOf(t);
-            if (race.canAct(humanTeam) && Math.hypot(d.x - c.x, d.y - c.y) / S < TOUCH_RADIUS) drag = { x: d.x, y: d.y, hold: 0 };
+            const ctr = centerOf(t);
+            if (race.canAct(humanTeam) && Math.hypot(d.x - ctr.x, d.y - ctr.y) / S < TOUCH_RADIUS) c.drag = { x: d.x, y: d.y, hold: 0 };
           }
         } else ri++;
       }
-      if (drag && ptrActive) {
-        drag.hold++;
-        if (drag.hold >= HOLD_TOO_LONG) race.tooLong = true;
+      if (c.drag && c.ptrActive) {
+        c.drag.hold++;
+        if (c.drag.hold >= HOLD_TOO_LONG) race.setTooLong(humanTeam, true);
       }
       // keyboard and pad: charge a drag, fire on release
-      const keys = ctx.input.keys;
-      const pad = ctx.input.pad;
+      const keys = input.keys;
+      const pad = input.pad;
       const held = (list) => list.some((k) => keys.has(k));
       const kx = (held(K_RIGHT) ? 1 : 0) - (held(K_LEFT) ? 1 : 0);
       const ky = (held(K_DOWN) ? 1 : 0) - (held(K_UP) ? 1 : 0);
       const stick = Math.hypot(pad.lx, pad.ly) > 0.3;
-      if (batch.keys.size || batch.pad.size) kbActive = true;
+      if (batch.keys.size || batch.pad.size) c.kbActive = true;
       if (kx || ky) {
-        kbCharge = kbCharge || { dx: 0, dy: 0 };
-        kbCharge.dx = clamp(kbCharge.dx + kx * KB_RATE, -KB_MAX_X, KB_MAX_X);
-        kbCharge.dy = clamp(kbCharge.dy + ky * KB_RATE * 0.7, -KB_MAX_Y, KB_MAX_Y);
-        kbActive = true;
+        c.kbCharge = c.kbCharge || { dx: 0, dy: 0 };
+        c.kbCharge.dx = clamp(c.kbCharge.dx + kx * KB_RATE, -KB_MAX_X, KB_MAX_X);
+        c.kbCharge.dy = clamp(c.kbCharge.dy + ky * KB_RATE * 0.7, -KB_MAX_Y, KB_MAX_Y);
+        c.kbActive = true;
       } else if (stick) {
-        kbCharge = { dx: pad.lx * KB_MAX_X, dy: pad.ly * KB_MAX_Y, stick: true };
-        kbActive = true;
-      } else if (kbCharge) {
-        const c = kbCharge;
-        kbCharge = null;
-        const res = race.drag(humanTeam, c.dx, c.dy);
-        if (res === "flick") ctx.sfx("throw");
-        else if (res === "swap") ctx.sfx("whistle");
+        c.kbCharge = { dx: pad.lx * KB_MAX_X, dy: pad.ly * KB_MAX_Y, stick: true };
+        c.kbActive = true;
+      } else if (c.kbCharge) {
+        const ch = c.kbCharge;
+        c.kbCharge = null;
+        const res = race.drag(humanTeam, ch.dx, ch.dy);
+        if (res === "flick") sfx("throw");
+        else if (res === "swap") sfx("whistle");
       }
-      if (SWAP_KEYS.some((k) => batch.keys.has(k)) || SWAP_PAD.some((b) => batch.pad.has(b))) { if (race.swap(humanTeam)) ctx.sfx("whistle"); }
-    };
+      if (SWAP_KEYS.some((k) => batch.keys.has(k)) || SWAP_PAD.some((b) => batch.pad.has(b))) { if (race.swap(humanTeam)) sfx("whistle"); }
+    }
 
     const onEvents = (list) => {
       for (const e of list) {
@@ -140,7 +149,7 @@ export default {
 
     return {
       update(dt) {
-        latch.absorb(ctx.input);
+        for (const c of ctls.values()) c.latch.absorb(ctx.inputs[c.team]);
         for (const t of race.teams) {
           const a = ctx.animator(t.idx, t.cur);
           if (!a.busy()) {
@@ -154,14 +163,13 @@ export default {
         for (const s of stars) s.age += dt;
         while (stars.length && stars[0].age > 0.5) stars.shift();
         if (race.over) {
-          latch.take();
+          for (const c of ctls.values()) c.latch.take();
           endTimer += dt;
           if (endTimer >= 1.8 && !finished) { finished = true; ctx.finish(race.result()); }
           return;
         }
         clock.advance(dt, () => {
-          const batch = latch.take();
-          if (humanTeam >= 0) applyInput(batch);
+          for (const c of ctls.values()) c.apply(c.latch.take());
           race.step();
           onEvents(race.drain());
         });
@@ -173,6 +181,7 @@ export default {
         const f = clock.frame;
         const T = race.teams;
         const mt = T[focus];
+        const cc = fc();
         const bg = g.createLinearGradient(0, 0, 0, 540);
         bg.addColorStop(0, "#18222f");
         bg.addColorStop(1, "#0c121b");
@@ -345,29 +354,29 @@ export default {
             ui.text(g, `${speed.toFixed(1)} / ${cap}`, ex + 10, ey - 10, { size: 15, color: sp > cap ? "#ffd166" : "#fff" });
             if (label) ui.text(g, label, c.x, c.y - 110, { size: 18, align: "center", color: "#9cc4ff" });
           };
-          if (drag && ptrActive) {
+          if (cc.drag && cc.ptrActive) {
             const p = ctx.input.pointer;
-            g.strokeStyle = drag.hold > HOLD_MAX ? "#ff8a7a" : "rgba(255,255,255,.55)";
+            g.strokeStyle = cc.drag.hold > HOLD_MAX ? "#ff8a7a" : "rgba(255,255,255,.55)";
             g.lineWidth = 3;
             g.setLineDash([5, 6]);
             g.beginPath();
-            g.moveTo(drag.x, drag.y);
+            g.moveTo(cc.drag.x, cc.drag.y);
             g.lineTo(p.x, p.y);
             g.stroke();
             g.setLineDash([]);
             g.lineWidth = 5;
-            g.strokeStyle = drag.hold > HOLD_MAX ? "#ff8a7a" : "#ffe29a";
+            g.strokeStyle = cc.drag.hold > HOLD_MAX ? "#ff8a7a" : "#ffe29a";
             g.beginPath();
-            g.arc(drag.x, drag.y, 14, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * clamp(1 - drag.hold / HOLD_MAX, 0, 1));
+            g.arc(cc.drag.x, cc.drag.y, 14, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * clamp(1 - cc.drag.hold / HOLD_MAX, 0, 1));
             g.stroke();
-            const dx = (p.x - drag.x) / S;
-            const dy = (p.y - drag.y) / S;
-            if (drag.hold > HOLD_MAX) ui.text(g, ctx.t("¡Suelta ya!", "Let go!"), p.x, p.y - 20, { size: 20, align: "center", color: "#ffb4a8" });
+            const dx = (p.x - cc.drag.x) / S;
+            const dy = (p.y - cc.drag.y) / S;
+            if (cc.drag.hold > HOLD_MAX) ui.text(g, ctx.t("¡Suelta ya!", "Let go!"), p.x, p.y - 20, { size: 20, align: "center", color: "#ffb4a8" });
             else if (dx < SWAP_BACK) ui.text(g, ctx.t("Soltar: cambiar de Pokémon", "Let go: swap Pokémon"), c.x, c.y - 100, { size: 18, align: "center", color: "#9cc4ff" });
             else if (dx >= 0) arrow(dx, dy);
-          } else if (kbCharge) {
-            if (kbCharge.dx < SWAP_BACK) ui.text(g, ctx.t("Soltar: cambiar de Pokémon", "Let go: swap Pokémon"), c.x, c.y - 100, { size: 18, align: "center", color: "#9cc4ff" });
-            else arrow(Math.max(0, kbCharge.dx), kbCharge.dy);
+          } else if (cc.kbCharge) {
+            if (cc.kbCharge.dx < SWAP_BACK) ui.text(g, ctx.t("Soltar: cambiar de Pokémon", "Let go: swap Pokémon"), c.x, c.y - 100, { size: 18, align: "center", color: "#9cc4ff" });
+            else arrow(Math.max(0, cc.kbCharge.dx), cc.kbCharge.dy);
           } else if (f < 150 && race.canAct(humanTeam) && mt.vx === 0) {
             g.setLineDash([6, 8]);
             g.strokeStyle = "rgba(255,255,255,.3)";
@@ -462,6 +471,8 @@ export default {
 
         if (race.over) ui.banner(g, ctx.t("¡Tiempo!", "Time!"), ctx.t(`${fmtLaps(myScore)} vueltas`, `${fmtLaps(myScore)} laps`), 220);
       },
+
+      takeOver(team) { ctls.delete(team); race.takeOver(team); },
 
       destroy() {},
     };

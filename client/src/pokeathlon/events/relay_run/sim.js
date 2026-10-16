@@ -162,9 +162,11 @@ class Team {
 
 export class Race {
   /** teams: the four ctx teams; humanTeam: the team steered by the person (-1 = none); layout: forced index, else drawn from rng. */
-  constructor({ teams, rng, humanTeam = -1, layout = null, fixQuirk = true }) {
+  constructor({ teams, rng, humanTeam = -1, humanTeams = null, layout = null, fixQuirk = true }) {
     this.ctxTeams = teams;
     this.rng = rng;
+    this.humans = new Set(humanTeams || (humanTeam >= 0 ? [humanTeam] : []));
+    if (humanTeam < 0 && this.humans.size) humanTeam = [...this.humans][0];
     this.humanTeam = humanTeam;
     this.fixQuirk = fixQuirk;
     this.teams = teams.map((t, i) => new Team(i, t.mons));
@@ -177,10 +179,25 @@ export class Race {
     this.cursor = 0;
     this.thinking = false;
     this.cpuTeams = [];
-    for (let i = 0; i < 4; i++) if (i !== humanTeam) this.cpuTeams.push(i);
-    this.tooLong = false;
+    for (let i = 0; i < 4; i++) if (!this.humans.has(i)) this.cpuTeams.push(i);
+    this.tooLongBy = [false, false, false, false];
     this.events = [];
     this.bumps = 0;
+  }
+
+  /** Legacy single-person flag: the held-too-long state of the first human team. */
+  get tooLong() { return this.humanTeam >= 0 ? this.tooLongBy[this.humanTeam] : false; }
+  set tooLong(v) { if (this.humanTeam >= 0) this.tooLongBy[this.humanTeam] = !!v; }
+  setTooLong(team, v) { this.tooLongBy[team] = !!v; }
+
+  /** The CPU takes a person's team over (they left): it thinks from the next round on, and any held drag state is dropped. */
+  takeOver(team) {
+    if (!this.humans.has(team)) return;
+    this.humans.delete(team);
+    this.tooLongBy[team] = false;
+    this.cpuTeams = [];
+    for (let i = 0; i < 4; i++) if (!this.humans.has(i)) this.cpuTeams.push(i);
+    if (this.cursor >= this.cpuTeams.length) this.cursor = 0;
   }
 
   push(type, extra) { this.events.push({ type, frame: this.frame, ...extra }); }
@@ -309,6 +326,7 @@ export class Race {
     this.applyFlicks();
     this.cpuTimer++;
     if (this.cpuTimer >= 10) { this.thinking = true; this.cpuTimer = 0; }
+    if (this.thinking && !this.cpuTeams.length) this.thinking = false;
     if (this.thinking) {
       this.think(this.cpuTeams[this.cursor]);
       this.cursor++;
@@ -382,7 +400,7 @@ export class Race {
       const m = t.m[t.cur];
       if (!t.swapping && t.onpatch && sp > m.patch) { [t.vx, t.vy] = clampV(t.vx, t.vy, m.patch); sp = Math.hypot(t.vx, t.vy); }
       if (sp > 0) {
-        const f = this.tooLong ? 3.4 : 0.4;
+        const f = this.tooLongBy[t.idx] ? 3.4 : 0.4;
         if (sp >= f) { t.vx -= (t.vx / sp) * f; t.vy -= (t.vy / sp) * f; } else { t.vx = 0; t.vy = 0; }
       }
       sp = Math.hypot(t.vx, t.vy);

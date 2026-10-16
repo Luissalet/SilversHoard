@@ -11,12 +11,40 @@ const SPAN = 33;                                       // the field is drawn fro
 
 const energyColor = (m) => (m.stunned ? "#9aa3d6" : m.energy <= 60 ? "#ff5a6e" : m.energy <= 100 ? "#ffd166" : "#7be08b");
 
+/**
+ * The turn of the view as pure functions: a person's screen is turned `rot` quarter turns (their team index), and what they do with the
+ * pointer or the keys is read in that turn by every computer of a room, so all of them get the same throw.
+ */
+export function geom(rot) {
+  return {
+    toScreen(x, z) {
+      let dx = x - CENTER, dz = z - CENTER;
+      for (let i = 0; i < rot; i++) [dx, dz] = [-dz, dx];
+      return [CX + dx * K, CY + dz * K];
+    },
+    toField(px, py) {
+      let dx = (px - CX) / K, dz = (py - CY) / K;
+      for (let i = 0; i < rot; i++) [dx, dz] = [dz, -dx];
+      return [CENTER + dx, CENTER + dz];
+    },
+    dirToScreen(dx, dz) {
+      for (let i = 0; i < rot; i++) [dx, dz] = [-dz, dx];
+      return [dx, dz];
+    },
+    dirToField(dx, dz) {
+      for (let i = 0; i < rot; i++) [dx, dz] = [dz, -dx];
+      return [dx, dz];
+    },
+  };
+}
+
 export class SnowThrowView {
   constructor(ctx, sim, st) {
     this.ctx = ctx;
     this.sim = sim;
     this.st = st;                     // { you, rot, sel, keys, aim:[x,z], hover, touching, pointer:[x,z] }
     this.rot = st.rot || 0;
+    this.geo = geom(this.rot);
     this.gfx = new MonGfx(ctx);
     this.pops = new Pops();
     this.sparks = new Sparks();
@@ -29,27 +57,10 @@ export class SnowThrowView {
 
   // ------------------------------------------------------------------------------------------------------------------ geometry
   /** a field point to the screen (the view is turned by `rot` quarter turns clockwise) */
-  toScreen(x, z) {
-    let dx = x - CENTER, dz = z - CENTER;
-    for (let i = 0; i < this.rot; i++) [dx, dz] = [-dz, dx];
-    return [CX + dx * K, CY + dz * K];
-  }
-
-  toField(px, py) {
-    let dx = (px - CX) / K, dz = (py - CY) / K;
-    for (let i = 0; i < this.rot; i++) [dx, dz] = [dz, -dx];
-    return [CENTER + dx, CENTER + dz];
-  }
-
-  dirToScreen(dx, dz) {
-    for (let i = 0; i < this.rot; i++) [dx, dz] = [-dz, dx];
-    return [dx, dz];
-  }
-
-  dirToField(dx, dz) {
-    for (let i = 0; i < this.rot; i++) [dx, dz] = [dz, -dx];
-    return [dx, dz];
-  }
+  toScreen(x, z) { return this.geo.toScreen(x, z); }
+  toField(px, py) { return this.geo.toField(px, py); }
+  dirToScreen(dx, dz) { return this.geo.dirToScreen(dx, dz); }
+  dirToField(dx, dz) { return this.geo.dirToField(dx, dz); }
 
   // ------------------------------------------------------------------------------------------------------------------ events
   onEvents(events, runner) {
@@ -181,12 +192,12 @@ export class SnowThrowView {
     const { sim, st } = this;
     if (st.you < 0) return;
     let mon = null, dir = null, hold = 0;
-    if (sim.t.held >= 0 && st.touching) {
-      mon = sim.mons[sim.t.held];
-      const dx = st.pointer[0] - sim.t.start[0], dz = st.pointer[1] - sim.t.start[1];
+    if (sim.tOf(st.you).held >= 0 && st.touching) {
+      mon = sim.mons[sim.tOf(st.you).held];
+      const dx = st.pointer[0] - sim.tOf(st.you).start[0], dz = st.pointer[1] - sim.tOf(st.you).start[1];
       const far = Math.hypot(mon.home[0] - st.pointer[0], mon.home[1] - st.pointer[1]) > GRAB_RADIUS;
       if (far && (dx || dz)) dir = [dx, dz];
-      hold = sim.t.holdFrames;
+      hold = sim.tOf(st.you).holdFrames;
     } else if (st.keys && st.sel >= 0) {
       mon = sim.mons[st.you * 3 + st.sel];
       dir = st.aim;
@@ -244,7 +255,7 @@ export class SnowThrowView {
       }
       // the person's selection
       if (m.team === st.you) {
-        const own = (st.you * 3 + st.sel === m.i && st.keys) || sim.t.held === m.i;
+        const own = (st.you * 3 + st.sel === m.i && st.keys) || sim.tOf(st.you).held === m.i;
         if (own) marker(g, sx, sy - 64, col, this.time);
         else if (st.hover === m.slot && !st.keys) {
           g.beginPath(); g.arc(sx, sy - 20, 34, 0, Math.PI * 2); g.lineWidth = 3; g.strokeStyle = "rgba(255,255,255,0.8)"; g.stroke();
@@ -330,7 +341,7 @@ export class SnowThrowView {
         const m = sim.mons[t * 3 + k];
         return {
           bar: clamp(m.energy / 120, 0, 1), barColor: energyColor(m), dim: false,
-          active: t === st.you && ((st.keys && st.sel === k) || sim.t.held === m.i),
+          active: t === st.you && ((st.keys && st.sel === k) || sim.tOf(st.you).held === m.i),
           tag: m.hits ? String(m.hits) : "", tagColor: "#ffd166",
         };
       }),

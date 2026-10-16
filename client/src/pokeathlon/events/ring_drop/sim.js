@@ -107,11 +107,14 @@ export class RingDropSim {
    * @param o.stats   4 teams x 3 members of { power, speed, jump, stamina } raw 0-4
    * @param o.rand    makeRand(ctx.rng)
    * @param o.human   participant index a person steers, or -1
+   * @param o.humans  several people (a room with friends): the participants they steer; wins over o.human
    * @param o.cpu     per participant: 0 normal, 1 Supreme (the same rules; the stronger teams make the difference)
    */
   constructor(o) {
     this.rand = o.rand;
-    this.human = o.human ?? -1;
+    const people = o.humans ?? (o.human >= 0 ? [o.human] : []);
+    this.humans = new Set(people);
+    this.human = people.length ? people[0] : -1;      // the first person (the only one in a single-player event)
     this.parts = o.stats.map((s, i) => new Part(i, s));
     this.contacts = [0, 1, 2, 3].map(() => [0, 0, 0, 0]);
     this.timer = FRAMES;
@@ -122,6 +125,14 @@ export class RingDropSim {
   }
 
   get over() { return this.timer <= 0; }
+  /** The CPU takes a person's participant over (they left the room). */
+  takeOver(idx) {
+    if (!this.humans.has(idx)) return;
+    this.humans.delete(idx);
+    this.human = this.humans.size ? [...this.humans][0] : -1;
+    const tc = this.parts[idx].touch;
+    tc.started = false; tc.touching = false; tc.onMon = false; tc.frames = 0;
+  }
   get scores() { return this.parts.map((p) => p.score); }
 
   // ------------------------------------------------------------------------------------------------------------- helpers
@@ -219,7 +230,8 @@ export class RingDropSim {
    * cmd.touch: the person's finger { down, x, y } in field px (integers); cmd.act: direct actions of the person's Pokémon from keys or a pad:
    * { dest: [x, y] | null, jump, dash: [x, y] | null, swap }
    */
-  step(cmd = {}) {
+  step(cmd = {}, cmds = null) {
+    const by = cmds || (this.human >= 0 ? { [this.human]: cmd } : {});
     this.events.length = 0;
     this.steps++;
     for (const p of this.parts) p.ppos = p.pos.slice();
@@ -227,13 +239,14 @@ export class RingDropSim {
     this.seconds = Math.ceil(this.timer / 30);
     if (this.timer <= 0) return;
     for (const p of this.parts) {
-      if (p.idx === this.human) this.humanTouch(p, cmd.touch);
+      if (this.humans.has(p.idx)) this.humanTouch(p, (by[p.idx] || {}).touch);
       this.switchMachine(p);
     }
-    for (const p of this.parts) if (p.idx !== this.human) this.cpuUpdate(p.idx);
-    if (this.human >= 0 && cmd.act) this.humanAct(this.parts[this.human], cmd.act);
+    for (const p of this.parts) if (!this.humans.has(p.idx)) this.cpuUpdate(p.idx);
+    for (const p of this.parts) { const c = by[p.idx]; if (this.humans.has(p.idx) && c && c.act) this.humanAct(p, c.act); }
     for (const p of this.parts) {
-      if (p.idx === this.human && cmd.touch) this.touchToRequests(p);
+      const c = by[p.idx];
+      if (this.humans.has(p.idx) && c && c.touch) this.touchToRequests(p);
       this.monUpdate(p);
     }
     this.updateCollisions();
@@ -295,7 +308,7 @@ export class RingDropSim {
   // ------------------------------------------------------------------------------------------------------------- the switch
   switchMachine(p) {
     if (!p.switching) return;
-    const human = p.idx === this.human;
+    const human = this.humans.has(p.idx);
     const swapAt = human ? 11 : 19, total = human ? 22 : 38;
     p.swT++;
     if (p.swT >= swapAt && p.switchState === 1) {
