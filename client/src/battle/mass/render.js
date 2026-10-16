@@ -63,7 +63,7 @@ export class MassRenderer {
     this.rayN = 0;
     // the real-time effects, drawn through this screen's camera
     const me = this;
-    this.vfx = new Vfx({ px: (x) => me.sx(x), py: (y) => me.sy(y), get scale() { return me.scale; }, get canvas() { return me.canvas; } });
+    this.vfx = new Vfx({ px: (x) => me.sx(x), py: (y) => me.sy(y), get scale() { return me.scale; }, get time() { return me.time; }, get canvas() { return me.canvas; } });
     this.eventIndex = 0;
     this.time = 0;
     this.cam = { x: battle.arena.w / 2, y: battle.arena.h / 2, zoom: 1 };

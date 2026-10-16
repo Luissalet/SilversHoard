@@ -119,3 +119,7 @@ Champion's room, Mt. Silver, Meteor Falls and the castle use original illustrate
 Exercise exports can be uploaded from their `.silverexercise` file in Share, including UTF-8 files with a BOM, as well as pasted as text. Each import creates an independent exercise; starting it does not change the original battle or award badges.
 
 Fire projectiles and flame-beam heads use an original transparent four-frame sprite in textured and pixel particle styles. Its animation follows the renderer clock, including pause and replay restart. Plain particles and unavailable images retain the procedural effect. The sprite is embedded in exported playable pages; move timing, damage and collision sizes are unchanged.
+
+Spinning and pulsing projectile shapes also follow the battle renderer clock: their phase freezes when paused and returns to the same point when a replay restarts, in both the app and playable pages.
+
+Mass battles expose their own live clock to the shared effects renderer, including animated fire projectiles and beam heads, so these effects also render and pause correctly there and in shared mass-battle pages.

@@ -1189,7 +1189,7 @@ export class Vfx {
     const col = TYPE_COLORS[p.type] || "#ffffff";
     const sp = Math.sqrt(p.vx * p.vx + p.vy * p.vy) || 1;
     const ang = Math.atan2(p.vy, p.vx);
-    const t = performance.now() / 1000;
+    const t = this.r.time;
     const r = p.r * s;
     const orb = (c1, c2, rr = r * 1.3) => { const g = ctx.createRadialGradient(x, y, 0, x, y, rr); g.addColorStop(0, c1); g.addColorStop(0.45, c2); g.addColorStop(1, "rgba(0,0,0,0)"); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, rr, 0, TAU); ctx.fill(); };
     ctx.save();
