@@ -149,7 +149,7 @@ function ExactTeams() {
   const { data, error, loading, reload } = useLoad(() => api.call("canon_list", { query: q, region }), [q, region]);
   const [busy, run] = useBusy();
   const installTrainer = (key) => run(key, async () => { const r = await api.call("canon_install", { trainer_key: key }); notify(t("installed")); changed(); reload(); return r; });
-  const installLeague = (key) => run(key, async () => { const r = await api.call("canon_install", { league_key: key }); notify(t("league_installed")); changed(); go(`#/liga/${r.league.id}`); });
+  const installLeague = (key) => run(key, async () => { const r = await api.call("canon_install", { league_key: key, lang }); notify(t("league_installed")); changed(); go(`#/liga/${r.league.id}`); });
   const groups = {};
   for (const tr of data?.trainers || []) (groups[`${tr.game} · ${tr.region}`] ||= []).push(tr);
   return (
