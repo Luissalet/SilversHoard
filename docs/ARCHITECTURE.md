@@ -1,5 +1,11 @@
 # Silver's Hoard — architecture
 
+## Real-time movement presentation and original textures
+
+`rt/visuals/choreography.js` derives body opacity, height and rotation from a read-only unit view and the renderer clock. Dig/Fly/Bounce/Rollout/Ice Ball receive distinct presentation; Seismic Toss hit events start a bounded lift keyed by side/slot and active party index, cleared on replay reset. Only the sprite body is transformed, keeping ground rings, HP bars and collision feedback anchored. Reduced motion retains state cues while removing decorative spatial motion. Existing PMD sheet durations set pose speed against the engine windup; this does not change metadata, backend processes or hit timing, and does not claim new SpAttack sheets where unavailable.
+
+`rt/visuals/textures.js` caches original grass/sand floor art and draws an original water atlas over existing Water projectiles in textured/pixel styles. Four measured bright-core anchors avoid padding jitter. Floors use deterministic reflections from saved arena/team names and cache their variant; failed/undecoded images use the existing procedural floor/projectiles. Asset sources, conversion and inspiration are documented in `visuals/PROVENANCE.md`; `scripts/build_rt_visual_textures.py` rebuilds embedded WebP data for both app and standalone builds. No reactive terrain, destruction, new battle rules or save-schema changes are involved. This presentation belongs to the standard singles/doubles arena renderer; the separate mass renderer retains its existing effects.
+
 ## Individual competitive set filling
 
 Each TeamBuilder member has its own SmogonSets picker, labelled **Smogon sets** / **Sets de Smogon**. It reads the existing sets_popular handler through the same API/MCP surface and applies setToMember() to that member's draft only. The conversion completes missing EVs with zero and IVs with 31 so an older spread does not leak into the selected set. Saving still goes through the ordinary trainer save; no other member is replaced and opening the picker alone changes nothing. SampleTeam remains a separate roster-replacement action. This clarification adds no bulk fill, backend tool or data migration.

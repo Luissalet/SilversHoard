@@ -5,12 +5,14 @@
 // the one a person controls has a marker over its head and the foe it locks on a reticle (turning while the lock-on is held).
 import { TYPE_COLORS } from "../dex.js";
 import { Animator, dirRow, image, loadMeta } from "./pmd.js";
-import { Vfx } from "./vfx.js";
+import { Vfx, particleStyle } from "./vfx.js";
 import { Show, showSettings } from "./show.js";
 import { PLACE_FLOORS, drawAmbient, drawPlace } from "./places.js";
 import { ARENA_ART } from "./arena-art.js";
 import { playRtEvent } from "../sfx.js";
 import { rtMove } from "../../../../engine/src/realtime/moves.mjs";
+import { motionFor, poseFor, tossLift } from "./visuals/choreography.js";
+import { FLOOR_TEXTURES, floorVariant, drawWaterTextures } from "./visuals/textures.js";
 
 const ARENA = { w: 28, h: 17 };
 const MARGIN_X = 2.6;
@@ -76,6 +78,8 @@ export class ArenaRenderer {
     this.eventIndex = 0;
     this.time = 0;
     this.court = null;
+    this.tosses = {};
+    this.reducedMotion = typeof window.matchMedia === "function" ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
     this.vfx = new Vfx(this);
     this.show = new Show(this);
     // hit feel: seconds the battle holds still after a big hit (the screen's loop reads and runs it down), the move each Pokémon
@@ -142,6 +146,7 @@ export class ArenaRenderer {
     this.hitstop = 0;
     this.winding = [null, null, null, null];
     this.cutin = null;
+    this.tosses = {};
     this.vfx = new Vfx(this);
     this.show = new Show(this);
     this.show.setupCrowd(battle);
@@ -155,9 +160,11 @@ export class ArenaRenderer {
 
   drawCourt(view) {
     const floorId = view?.floor || "grass";
-    const art = ARENA_ART[floorId] ? image(ARENA_ART[floorId]) : null;
+    const artUrl = ARENA_ART[floorId] || FLOOR_TEXTURES[floorId];
+    const art = artUrl && typeof Image !== "undefined" ? image(artUrl) : null;
+    const variant = FLOOR_TEXTURES[floorId] ? floorVariant(view) : 0;
     const artReady = !!art?.ready;
-    if (!this.court || this.court.w !== this.canvas.width || this.court.floor !== floorId || this.court.artReady !== artReady) {
+    if (!this.court || this.court.w !== this.canvas.width || this.court.floor !== floorId || this.court.artReady !== artReady || this.court.variant !== variant) {
       const c = document.createElement("canvas");
       c.width = this.canvas.width;
       c.height = this.canvas.height;
@@ -194,7 +201,12 @@ export class ArenaRenderer {
         }
       }
       if (artReady) {
+        x.save();
+        x.translate(this.px(ARENA.w / 2), this.py(ARENA.h / 2));
+        x.scale(variant & 1 ? -1 : 1, variant & 2 ? -1 : 1);
+        x.translate(-this.px(ARENA.w / 2), -this.py(ARENA.h / 2));
         x.drawImage(art.img, this.px(0), this.py(0), ARENA.w * s, ARENA.h * s);
+        x.restore();
       }
       drawPlace(x, this, floorId, artReady);
       // lines
@@ -213,7 +225,7 @@ export class ArenaRenderer {
       x.fillRect(this.px(-2.3), this.py(ARENA.h / 2 - 2.2), 2.1 * s, 4.4 * s);
       x.fillRect(this.px(ARENA.w + 0.2), this.py(ARENA.h / 2 - 2.2), 2.1 * s, 4.4 * s);
       for (const rk of this.rocks) this.drawRock(x, rk);
-      this.court = { w: c.width, floor: floorId, artReady, canvas: c };
+      this.court = { w: c.width, floor: floorId, artReady, variant, canvas: c };
     }
     this.ctx.drawImage(this.court.canvas, 0, 0);
     const w = view.weather?.id;
@@ -342,7 +354,10 @@ export class ArenaRenderer {
           if (prof) this.winding[key] = { shape: e.shape, reach: prof.shape === "burst" ? prof.radius || prof.reach : prof.reach, arc: prof.arc, type: e.type, t: e.t };
         } else this.winding[key] = null;
         const a = anim(s);
-        if (a) a.play(["strike", "dash"].includes(e.shape) ? "Attack" : ["self", "field"].includes(e.shape) ? "Charge" : "Shoot", { speed: e.ticks ? 1 : 1.6 });
+        if (a) {
+          const pose = poseFor(rtMove(e.move, battle.gen || 9), a, e.ticks);
+          a.play(pose.name, { speed: pose.speed });
+        }
         this.labels[key] = { text: T.move(e.name), type: e.type, t: 0 };
         break;
       }
@@ -372,6 +387,9 @@ export class ArenaRenderer {
       case "follow": float(s, T.follow || "!", "#ff9f43", { size: 0.85, dy: -0.6 }); break;
       case "hit": {
         this.flash[key] = 1;
+        if (e.move === "seismictoss" && (e.hit === 0 || e.hit === undefined)) {
+          this.tosses[key] = {at: this.time, slot: this.unitOf(battle, s, u).active};
+        }
         // a short freeze sells the blow: longest for a K.O., then a critical hit, then a super-effective one
         if (e.hit === 0 || e.hit === undefined) this.hitstop = Math.max(this.hitstop, e.hp <= 0 ? 0.22 : e.crit ? 0.12 : e.eff > 1 ? 0.07 : 0);
         const a = anim(s);
@@ -539,6 +557,7 @@ export class ArenaRenderer {
     }
     // projectiles, rays, melee marks, particles
     this.vfx.drawOver(ctx, view, battle);
+    if (particleStyle() !== "plain") drawWaterTextures(ctx, this, view, !!this.reducedMotion?.matches);
     this.drawEffects(dt, false);
     this.show.drawWorld(ctx);
     // floating texts
@@ -770,6 +789,19 @@ export class ArenaRenderer {
     if (side.invulnerable && side.act?.kind === "windup") alpha *= 0.35;
     const x = this.px(side.x);
     const y = this.py(side.y);
+    const motion = motionFor(side, this.time, !!this.reducedMotion?.matches);
+    const toss = this.tosses[key];
+    const lift = motion.lift + (toss?.slot === side.active ? tossLift(this.time - toss.at, !!this.reducedMotion?.matches) : 0);
+    if (motion.ring === "dig") {
+      ctx.strokeStyle = "rgba(215,185,130,0.8)";
+      ctx.lineWidth = Math.max(1, s * .07);
+      ctx.beginPath(); ctx.ellipse(x, y, side.r * s * 1.2, side.r * s * .48, 0, 0, TAU); ctx.stroke();
+      for (let i = 0; i < 5; i++) {
+        const angle = i * TAU / 5 + (this.reducedMotion?.matches ? 0 : this.time * 2);
+        ctx.fillStyle = "rgba(190,157,106,0.55)";
+        ctx.beginPath(); ctx.arc(x + Math.cos(angle) * s * .8, y + Math.sin(angle) * s * .25, s * .08, 0, TAU); ctx.fill();
+      }
+    }
     // shadow
     ctx.fillStyle = `rgba(0,0,0,${0.32 * alpha})`;
     ctx.beginPath();
@@ -793,6 +825,11 @@ export class ArenaRenderer {
     const a = this.animOf(si, side.active, mega);
     let headY = y - 1.6 * s;
     let drawn = false;
+    ctx.save();
+    ctx.translate(x, y - .8 * s - lift * s);
+    ctx.rotate(motion.turn);
+    ctx.translate(-x, -y + .8 * s);
+    const bodyAlpha = alpha * motion.opacity;
     if (a) {
       const act = side.act?.kind;
       if (mon.fainted) { /* holds the faint frame */ } else if (mon.status === "slp" && !a.busy()) a.loop("Sleep");
@@ -801,7 +838,7 @@ export class ArenaRenderer {
       else a.loop("Idle");
       a.update(dt);
       const row = dirRow(side.fx, side.fy);
-      drawn = a.draw(ctx, x, y, row, this.k, { alpha, flash: this.flash[key] });
+      drawn = a.draw(ctx, x, y, row, this.k, { alpha: bodyAlpha, flash: this.flash[key] });
       headY = y - a.height(this.k) - 0.3 * s;
     }
     if (!drawn) {
@@ -811,18 +848,19 @@ export class ArenaRenderer {
         const h = 2.2 * s;
         const w = (img.img.width / img.img.height) * h;
         ctx.save();
-        ctx.globalAlpha = alpha;
+        ctx.globalAlpha = bodyAlpha;
         if (side.fx > 0) { ctx.translate(x, 0); ctx.scale(-1, 1); ctx.translate(-x, 0); }
         ctx.drawImage(img.img, x - w / 2, y - h * 0.92, w, h);
         ctx.restore();
         headY = y - h * 0.95;
       } else {
-        ctx.fillStyle = `rgba(255,255,255,${0.7 * alpha})`;
+        ctx.fillStyle = `rgba(255,255,255,${0.7 * bodyAlpha})`;
         ctx.beginPath();
         ctx.arc(x, y - 0.6 * s, 0.55 * s, 0, Math.PI * 2);
         ctx.fill();
       }
     }
+    ctx.restore();
     if (side.follow && !mon.fainted) {
       // Follow Me / Rage Powder: a pulsing orange ring that draws the foes' attacks
       const k = 1.4 + Math.sin(this.time * 8) * 0.12;

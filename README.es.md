@@ -1,5 +1,9 @@
 # Silver's Hoard
 
+El tiempo real distingue visualmente Excavar (ocultación y salida), Volar y Bote (ascenso y descenso), Rodar y Bola Hielo (giro del sprite), y el impacto de Movimiento Sísmico (elevación breve del rival). Las poses PMD ajustan su ritmo a la preparación del motor. Son efectos visuales: no añaden invulnerabilidad, daño ni desplazamiento real. Movimiento Sísmico no introduce una cinemática que pare a los otros combatientes.
+
+Los suelos de hierba y arena tienen texturas originales y variantes visuales estables; los proyectiles de agua añaden un atlas animado con transparencia. Se conserva el estilo de partículas simple y los dibujos de respaldo si una imagen no carga. El reloj de repetición controla estos efectos; reducir movimiento elimina los giros y saltos decorativos. Todo viaja con la página jugable exportada.
+
 156 herramientas compartidas, incluidas `practice_suggestions`, `battle_abilities` y las seis de ejercicios; `import` lee los textos y archivos de ejercicios.
 
 Los ejercicios se guardan desde una repetición por turnos con decisiones: eliges turno, lado y objetivo (ganar, con límite opcional de turnos; mantenerse un número de turnos o ganar antes). Se comparten como texto o archivo `.silverexercise` y se importan en Compartir, incluso en una biblioteca sin el combate original. Contienen la posición y el pasado, nunca las jugadas futuras. Cada intento es una práctica independiente y reanudable, sin récords, medallas ni avance de copas. La lista muestra los intentos y explica el nivel propuesto: tres éxitos o tres fallos completados en el mismo nivel hacen subir o bajar uno, entre aleatorio y experto. Puedes elegirlo manualmente, incluido el nivel maestro existente. Los ejercicios se archivan y restauran. Las repeticiones antiguas sin decisiones, resultados importados, muestras simuladas y tiempo real no proporcionan estas posiciones por turnos.
