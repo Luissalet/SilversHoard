@@ -39,7 +39,8 @@ const TRAINER = [{x: 1.6, y: ARENA.h / 2}, {x: ARENA.w - 1.6, y: ARENA.h / 2}];
 // version 2 replay as they were played; the app stores `version` with every new battle.
 // 5: the ultimate gauge: dealing and taking damage and knockouts fill it, and when it is full the trainer unleashes its active
 // Pokémon's ultimate, a 150-power blast of its own type that falls on the foe after a telegraphed wind-up.
-export const RULES_VERSION = 6;
+// 7: a benched Mega keeps its forme and remaining Mega Power; the gauge pauses until it returns.
+export const RULES_VERSION = 7;
 export const ARENAS = ['open', 'rocks'];   // and custom arenas: {name, floor, rocks: [{x, y, r}]} from the arena designer
 export const FLOORS = ['grass', 'sand', 'ice', 'cave', 'indoor', 'water', 'pyre', 'summit', 'meteor', 'champion', 'castle'];   // how a custom arena's ground looks (the rules are the same)
 export const MAX_ROCKS = 16;
@@ -527,7 +528,7 @@ export class RtBattle {
   sendOut(side, slot, first = false) {
     const prev = this.mon(side);
     // a Mega Evolved Pokémon going back ends the Mega Evolution
-    if (side.mega >= 0 && side.mega === side.active && !side.vacant) { this.megaEnd(side); side.gauge = 0; }
+    if (this.version < 7 && side.mega >= 0 && side.mega === side.active && !side.vacant) { this.megaEnd(side); side.gauge = 0; }
     if (prev && !first) this.onSwitchOut(side);
     side.active = slot;
     side.vol = {in: this.t};
@@ -1035,6 +1036,7 @@ export class RtBattle {
   updateGauges() {
     for (const side of this.sides) {
       if (side.mega >= 0) {
+        if (this.version >= 7 && !this.units.some((unit) => (unit.trainer || unit) === side && unit.active === side.mega && this.onField(unit))) continue;
         side.gauge = Math.max(0, side.gauge - GAUGE_DRAIN);
         if (side.gauge <= 0) this.megaEnd(side);
       } else side.gauge = Math.min(GAUGE_MAX, side.gauge + (this.version >= 3 ? GAUGE_FILL_V3 : GAUGE_FILL));

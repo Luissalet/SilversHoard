@@ -89,8 +89,9 @@ export default function CombateRt({ battle, setData }) {
       <RunStrip run={battle.run} />
       <CupStrip cup={battle.cup} battle={battle} />
       {remote && battle.status === "live" && net?.missing && <div className="banner banner-warn">{t("pvp_room_gone")}</div>}
-      {remote && battle.status === "live" && !net ? null : (
+      {battle.status === "cancelled" ? <p className="help">{t("status_cancelled")}</p> : remote && battle.status === "live" && !net ? null : (
         <RtScreen key={battle.id} battle={battle} lang={lang} sprites={sprites} seats={seats} onFinish={onFinish} onSave={onSave} musicSource={settings?.music_source}
+          endActions={battle.status === "ended" && battle.log_length > 0 ? <VideoExport battle={battle} /> : null}
           net={net?.url ? net : null}
           onAgain={!battle.run && !battle.cup && battle.kind !== "friend" && battle.kind !== "pvp" ? again : null} />
       )}

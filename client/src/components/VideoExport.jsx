@@ -8,15 +8,15 @@ import { JobProgress, useJob } from "./silver.jsx";
 import { L } from "../battle/dex.js";
 
 const S = {
-  button: ["Vídeo", "Video"],
+  button: ["Exportar MP4", "Export MP4"],
   title: ["Vídeo de la repetición", "Replay video"],
   help: ["Se graba la repetición con su sonido (efectos, gritos y música) en un navegador sin ventana y queda como MP4 en la carpeta de exportaciones. Tarda lo que dura el combate.",
     "The replay is recorded with its sound (effects, cries and music) in a windowless browser and saved as an MP4 in the exports folder. It takes as long as the battle."],
   speed: ["Velocidad", "Speed"], slow: ["Lenta", "Slow"], normal: ["Normal", "Normal"], fast: ["Rápida", "Fast"],
   size: ["Tamaño", "Size"],
   lumiere: ["Mandarlo también a Lumiere's Hoard (editor de vídeo)", "Also send it to Lumiere's Hoard (video editor)"],
-  record: ["Grabar vídeo", "Record video"],
-  download: ["Descargar", "Download"],
+  record: ["Crear MP4", "Create MP4"],
+  download: ["Descargar vídeo", "Download video"],
   sent: ["En Lumiere's Hoard", "In Lumiere's Hoard"],
   not_sent: ["No se pudo mandar a Lumiere's Hoard: {e}", "Could not send it to Lumiere's Hoard: {e}"],
   missing: ["Para grabar hace falta: {what}", "Recording needs: {what}"],

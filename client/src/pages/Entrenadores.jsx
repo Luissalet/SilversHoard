@@ -4,7 +4,7 @@ import { api } from "../api.js";
 import { useApp } from "../context.js";
 import { Busy, Empty, ErrorBox, Field, Icon, ICONS, Modal, Spinner, useBusy, useLoad, useStored } from "../components/ui.jsx";
 import { useCopilotRefresh } from "../components/hooks.js";
-import { Avatar, FormatSelect, RecordChip, TeamStrip, originLabel } from "../components/silver.jsx";
+import { Avatar, FormatSelect, RecordChip, TeamStrip, TrainerFilters, useCharacterCatalog, originLabel } from "../components/silver.jsx";
 
 function NewTrainer({ onClose }) {
   const { t, go, changed, settings } = useApp();
@@ -39,9 +39,12 @@ export default function Entrenadores() {
   const { t, changed, go, notify, confirm } = useApp();
   const [q, setQ] = useState("");
   const [origin, setOrigin] = useStored("silver-trainer-origin", "");
+  const [game, setGame] = useStored("silver-trainer-game", "");
+  const [region, setRegion] = useStored("silver-trainer-region", "");
+  const catalog = useCharacterCatalog();
   const [showNew, setShowNew] = useState(false);
   const [showTrash, setShowTrash] = useState(false);
-  const { data, error, loading, reload } = useLoad(() => api.call("trainers_list", { query: q, origin }), [q, origin]);
+  const { data, error, loading, reload } = useLoad(() => api.call("trainers_list", { query: q, origin, game, region }), [q, origin, game, region]);
   const trash = useLoad(() => (showTrash ? api.call("trash_list") : Promise.resolve(null)), [showTrash]);
   useCopilotRefresh(reload);
   const [busy, run] = useBusy();
@@ -65,12 +68,11 @@ export default function Entrenadores() {
       </div>
       <div className="flex flex-wrap items-center gap-2">
         <input className="field max-w-xs" placeholder={t("search_trainers")} value={q} onChange={(e) => setQ(e.target.value)} aria-label={t("search_trainers")} />
-        <div className="seg" role="group" aria-label={t("origin")}>
-          {["", "own", "friend", "canon", "random"].map((o) => <button key={o} type="button" aria-pressed={origin === o} onClick={() => setOrigin(o)}>{o ? originLabel(t, o) : t("all")}</button>)}
-        </div>
+        <TrainerFilters games={catalog.data?.games || []} {...{ origin, setOrigin, game, setGame, region, setRegion }} />
         <span className="flex-1" />
         <button type="button" className="btn btn-sm" onClick={() => setShowTrash((s) => !s)}><Icon d={ICONS.trash} size={13} /> {t("trash")}</button>
       </div>
+      {catalog.error && <ErrorBox error={catalog.error} onRetry={catalog.reload} />}
       {error && <ErrorBox error={error} onRetry={reload} />}
       {loading && !data ? <Spinner /> : list.length === 0 ? (
         <Empty icon={ICONS.plus} title={t("no_trainers")} action={<a className="btn btn-primary" href="#/personajes">{t("install_canon")}</a>}>{t("no_trainers_help")}</Empty>

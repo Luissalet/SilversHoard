@@ -300,7 +300,8 @@ function TrainingForm() {
 }
 
 export default function Combatir({ query }) {
-  const { t, ov } = useApp();
+  const { t, ov, changed } = useApp();
+  const [busy, run] = useBusy();
   const [tab, setTab] = useStored("silver-battle-tab", "single");
   const jobs = ov?.jobs || [];
   return (
@@ -320,10 +321,11 @@ export default function Combatir({ query }) {
         <Section title={t("running_jobs")} count={jobs.length}>
           <div className="panel divide-list p-0">
             {jobs.map((j) => (
-              <a key={j.id} href={`#/trabajo/${j.id}`} className="row-item">
-                <span className="min-w-0 flex-1 trunc">{j.title}</span>
+              <div key={j.id} className="row-item">
+                <a href={`#/trabajo/${j.id}`} className="min-w-0 flex-1 trunc">{j.title}</a>
                 <span className="min-w-[160px]"><JobProgress job={j} /></span>
-              </a>
+                <Busy busy={busy[j.id]} className="btn btn-sm" onClick={() => run(j.id, async () => { await api.call("job_cancel", { id: j.id }); changed(); })}>{t("cancel")}</Busy>
+              </div>
             ))}
           </div>
         </Section>
