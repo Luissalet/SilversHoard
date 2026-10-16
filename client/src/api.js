@@ -1,22 +1,29 @@
 // Thin fetch wrapper: JSON in/out. `{ error, code, hint }` bodies become exceptions that keep those fields.
-async function request(method, path, { params, body, form } = {}) {
+async function request(method, path, { params, body, form, timeoutMs = 0 } = {}) {
   const url = new URL(path, window.location.origin);
   for (const [key, value] of Object.entries(params || {})) {
     if (value !== undefined && value !== null && value !== "") url.searchParams.set(key, value);
   }
   let response;
+  let responseText;
+  const controller = timeoutMs ? new AbortController() : null;
+  const timeout = controller ? setTimeout(() => controller.abort(), timeoutMs) : null;
   try {
     response = await fetch(url, {
       method,
       headers: body !== undefined ? { "Content-Type": "application/json" } : undefined,
       body: form || (body !== undefined ? JSON.stringify(body) : undefined),
+      ...(controller ? { signal: controller.signal } : {}),
     });
+    responseText = await response.text();
   } catch (cause) {
     const error = new Error(cause && cause.message ? cause.message : "Network error");
     error.code = "network";
     throw error;
+  } finally {
+    if (timeout) clearTimeout(timeout);
   }
-  return parse(response.status, response.ok, await response.text());
+  return parse(response.status, response.ok, responseText);
 }
 
 function parse(status, ok, text) {
@@ -39,7 +46,7 @@ function parse(status, ok, text) {
 }
 
 // Every write and most reads go through the same tool handlers the assistant uses.
-const call = (name, args) => request("POST", "/api/ui/call", { body: { name, arguments: args || {} } });
+const call = (name, args, options = {}) => request("POST", "/api/ui/call", { ...options, body: { name, arguments: args || {} } });
 
 function upload(path, fields) {
   const form = new FormData();

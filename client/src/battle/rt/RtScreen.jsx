@@ -70,7 +70,7 @@ function logLine(e, b, lang, tr) {
     case "plus": return { sec, k: "effect", text: es ? `${who(e.s)}: ¡${mv(e.name)} Plus!` : `${who(e.s)}: ${mv(e.name)} Plus!` };
     case "mega": return { sec, k: "big", text: es ? `¡${e.from} de ${side(e.s).name} megaevoluciona!` : `${side(e.s).name}'s ${e.from} Mega Evolved!` };
     case "phase": return { sec, k: "big", text: e.line ? `${side(e.s).name}: «${e.line}»` : (es ? `¡${side(e.s).name} cambia de táctica!` : `${side(e.s).name} changes tactics!`) };
-    case "ultimate": return { sec, k: "big", text: es ? `¡${who(e.s)} desata su definitiva de tipo ${typeName(e.type, lang)}!` : `${who(e.s)} unleashes its ${e.type}-type ultimate!` };
+    case "ultimate": return { sec, k: "big", text: es ? `¡${who(e.s)} usa un ataque especial de tipo ${typeName(e.type, lang)}!` : `${who(e.s)} uses a charged ${e.type}-type attack!` };
     case "dummy_reset": return { sec, k: "big", text: es ? `${who(e.s)} cae y se levanta con todos sus PS` : `${who(e.s)} goes down and stands up again at full HP` };
     case "mega_end": return { sec, k: "info", text: es ? `${monName(e.s, e.slot)} vuelve a su forma` : `${monName(e.s, e.slot)} went back to its usual forme` };
     case "immune": return { sec, k: "minor", text: es ? `No afecta a ${monName(e.s)}` : `It doesn't affect ${monName(e.s)}` };
@@ -103,10 +103,16 @@ function HpBar({ mon }) {
 
 /** The Pokémon's face (SpriteCollab portrait) by its name in the bars; grey once it has fainted. */
 function MonFace({ mon, sprites, offline }) {
-  const [bad, setBad] = useState(false);
-  useEffect(() => setBad(false), [mon?.species]);
-  if (!mon || !sprites?.portrait || offline || bad) return null;
-  return <img className={`rt-face ${mon.fainted || mon.hp <= 0 ? "is-out" : ""}`} src={sprites.portrait(mon.species, "Normal", { num: mon.num || 0 })} alt="" onError={() => setBad(true)} />;
+  if (!mon || !sprites || offline) return null;
+  return <MonFaceImage key={`${mon.species}:${sprites.server}`} mon={mon} sprites={sprites} />;
+}
+
+function MonFaceImage({ mon, sprites }) {
+  const [step, setStep] = useState(0);
+  const src = step === 0 ? sprites.portrait?.(mon.species, "Normal", { num: mon.num || 0 }) || sprites.fallback(mon.species) : sprites.fallback(mon.species);
+  const className = `rt-face ${mon.fainted || mon.hp <= 0 ? "is-out" : ""}`;
+  if (step > 1 || !src) return <span className={className} aria-label={mon.species}>{mon.species.slice(0, 2)}</span>;
+  return <img key={src} className={className} src={src} alt="" onError={() => setStep((s) => s + 1)} />;
 }
 
 /** The trainer's Mega Power gauge: three segments; all three for Mega Evolution (and, in rules versions 2-3, one pays for a Plus move). */
@@ -379,7 +385,7 @@ function TrainingPanel({ stats, tr, lang }) {
   );
 }
 
-export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish, onSave, onAgain, base = "", offline = false, onContinue = null, continueLabel = "", video = null, musicSource = "showdown", net = null }) {
+export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish, onSave, onAgain, base = "", offline = false, onContinue = null, continueLabel = "", video = null, musicSource = "showdown", net = null, endActions = null }) {
   const tr = useMemo(() => rtT(lang), [lang]);
   const spec = battle.rt.spec;
   // net (a live battle with a friend on another computer): {url, seat, peerName}; this screen plays only its own seat, the other
@@ -750,14 +756,12 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
   const restart = () => {
     const st = build(0);
     st.renderer = sim.current.renderer;
-    st.renderer.eventIndex = 0;
-    st.renderer.floats = [];
-    st.renderer.effects = [];
-    st.renderer.lastActive = [-1, -1, -1, -1];
-    st.renderer.fade = [0, 1, 2, 3].map(() => ({ slot: -1, t: 0 }));
+    st.renderer.resetReplay(st.b);
     sim.current = st;
     setAbilities([]); setAbilityEpoch(old=>old+1);
     setLog([]);
+    setHud(st.b.view());
+    setResult(null);
     setPhase("playing");
   };
 
@@ -893,6 +897,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
                 </div>
                 <div className="flex flex-wrap justify-center gap-2">
                   <button type="button" className="btn" onClick={restart}>{tr("rt_replay")}</button>
+                  {endActions}
                   {onAgain && <button type="button" className="btn btn-primary" onClick={onAgain}>{tr("rt_again")}</button>}
                   {onContinue ? <button type="button" className="btn btn-primary" autoFocus disabled={live && stored == null && !error} onClick={() => onContinue(stored)}>{continueLabel || tr("rt_close")}</button>
                     : stored == null && live ? null : <button type="button" className="btn" onClick={() => setPhase("closed")}>{tr("rt_close")}</button>}

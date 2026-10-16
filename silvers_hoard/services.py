@@ -78,7 +78,7 @@ PHASE_WHEN = ("half", "last")
 # always locked on, no Mega Evolution; 2 = free aim, the Mega Power gauge, Plus moves and Mega Evolution; 3 = doubles formats
 # field two Pokémon per trainer, singles play as in 2; 4 = no Plus moves, the gauge only for Mega Evolution; 5 = the ultimate
 # gauge) and the arenas.
-RT_RULES_VERSION = 6
+RT_RULES_VERSION = 7
 RT_ARENAS = ("open", "rocks")
 
 
@@ -333,10 +333,34 @@ class Services:
             return f"/api/avatars/{avatar[5:]}"
         return ""
 
-    def trainers_list(self, query: str = "", origin: str = "", deleted: bool = False) -> list[dict[str, Any]]:
+    def trainers_list(self, query: str = "", origin: str = "", deleted: bool = False, game: str = "", region: str = "") -> list[dict[str, Any]]:
         # "own" is everything you made: the random trainers you rolled are yours too (origin "random" alone lists only those)
         origins = ("own", "random") if origin == "own" else origin
-        return [self.trainer_view(t) for t in self.store.trainers(query=query, origin=origins, deleted=deleted)]
+        from .trainer_catalog import regions_for
+
+        data = self.characters()
+        canon = {t["key"]: t for t in self.canon()["trainers"]}
+        out = []
+        for trainer in self.store.trainers(origin=origins, deleted=deleted, limit=5000):
+            view = self.trainer_view(trainer)
+            key = trainer.get("canon_key", "")
+            parts = key.split(":")
+            character = data["by_key"].get(parts[1]) if key.startswith("char:") and len(parts) > 2 else None
+            variant = next((v for v in character["variants"] if v["id"] == parts[2]), None) if character else None
+            games = variant["games"] if variant else []
+            exact = canon.get(key)
+            if exact:
+                games = {"Crystal": ["gsc"], "Emerald": ["e"], "FireRed/LeafGreen": ["frlg"]}.get(exact["game"], [])
+            view["games"] = games
+            view["regions"] = [exact["region"]] if exact else regions_for(games)
+            view["character_name"] = character["name"] if character else ""
+            view["character_name_es"] = character["name_es"] if character else ""
+            view["game_names"] = [g["name"] for g in data["games"] if g["id"] in games]
+            view["game_names_es"] = [g["name_es"] for g in data["games"] if g["id"] in games]
+            hay = " ".join([view["name"], view["title"], view["character_name"], view["character_name_es"], *view["species"], *view["game_names"], *view["game_names_es"], *view["regions"]])
+            if (not game or game in games) and (not region or region in view["regions"]) and (not query or query.casefold() in hay.casefold()):
+                out.append(view)
+        return out
 
     def trainer_get(self, id_: str) -> dict[str, Any]:
         t = self.store.trainer(id_)
@@ -717,6 +741,7 @@ class Services:
                 "source": data.get("source", "")}
 
     def _character_games(self) -> list[dict[str, Any]]:
+        from .trainer_catalog import regions_for
         data = self.characters()
         if "game_cards" not in data:
             order = {"champions": 0, "elite": 1, "leaders": 2, "rivals": 3, "villains": 4}
@@ -737,7 +762,7 @@ class Services:
                 if not teams:
                     continue
                 faces = [sp for _, sp in sorted(who.values())[:5]]
-                cards.append({**gm, "characters": len(who), "teams": teams, "categories": {k: len(v) for k, v in cats.items()},
+                cards.append({**gm, "regions": regions_for([gm["id"]]), "characters": len(who), "teams": teams, "categories": {k: len(v) for k, v in cats.items()},
                               "faces": [self.avatar_url(f"sd:{sp}") for sp in faces if sp]})
             data["game_cards"] = cards
         return data["game_cards"]
@@ -1271,17 +1296,23 @@ class Services:
     def _submit_watch(self, bid: str, spec: dict[str, Any]) -> None:
         def work() -> None:
             try:
-                r = self.engine.run_job("play_out", {"spec": spec}, timeout=1800)
-                self.store.update_battle(bid, {"status": "ended", "log_text": "\n".join(r.get("lines") or []),
+                r = self.engine.run_job("play_out", {"spec": spec}, cancelled=lambda: bool(self._cancel.get(bid)), timeout=1800)
+                with self._lock_for(bid):
+                    if self._cancel.get(bid):
+                        return
+                    self.store.update_battle(bid, {"status": "ended", "log_text": "\n".join(r.get("lines") or []),
                                                "summary": {**(r.get("summary") or {}), "ai_notes": r.get("notes") or []},
                                                "winner_side": (r.get("summary") or {}).get("winner_side", ""),
                                                "winner_name": (r.get("summary") or {}).get("winner", ""), "turns": r.get("turns") or 0,
                                                "seed": str(r.get("seed") or ""), "replay": {"input": r.get("input_log") or []}})
-                self._after_end(bid)
+                    self._after_end(bid)
                 self._banter_later(bid, r.get("notes") or [])
             except Exception as exc:  # noqa: BLE001 - the battle row says what happened
-                log.exception("watch battle %s", bid)
-                self.store.update_battle(bid, {"status": "failed", "summary": {"error": str(getattr(exc, "message", exc))[:300]}})
+                with self._lock_for(bid):
+                    if self._cancel.get(bid):
+                        return
+                    log.exception("watch battle %s", bid)
+                    self.store.update_battle(bid, {"status": "failed", "summary": {"error": str(getattr(exc, "message", exc))[:300]}})
 
         self.pool.submit(work)
 
@@ -1374,6 +1405,19 @@ class Services:
             self._keep_notes(id_, state.pop("notes", None))
             self._finish(id_)
         return self._with_state(id_, state)
+
+    def battle_cancel(self, id_: str) -> dict[str, Any]:
+        """Stop an unfinished battle without awarding a result or changing trainer records."""
+        with self._lock_for(id_):
+            b = self.store.battle(id_)
+            if b["status"] not in ("live", "running"):
+                return self.battle_get(id_)
+            self._cancel[id_] = True
+            if b.get("mode") != "realtime" and b["status"] == "live":
+                self.engine.call("match_close", {"id": id_})
+            self.store.update_battle(id_, {"status": "cancelled", "winner_side": "", "winner_name": ""})
+            self.emit("battle.cancelled", {"id": id_})
+        return self.battle_get(id_)
 
     def _with_state(self, id_: str, state: dict[str, Any]) -> dict[str, Any]:
         """The battle as stored plus the engine's answer (new log lines counted on the live log, so `since` stays consistent)."""
@@ -1746,17 +1790,23 @@ class Services:
         if watch:
             def work() -> None:
                 try:
-                    r = self.engine.run_job("rt_play_out", {"spec": spec}, timeout=1800)
-                    self._rt_store_result(bid, r)
+                    r = self.engine.run_job("rt_play_out", {"spec": spec}, cancelled=lambda: bool(self._cancel.get(bid)), timeout=1800)
+                    with self._lock_for(bid):
+                        self._rt_store_result(bid, r)
                 except Exception as exc:  # noqa: BLE001 - the battle row says what happened
-                    log.exception("real-time battle %s", bid)
-                    self.store.update_battle(bid, {"status": "failed", "summary": {"error": str(getattr(exc, "message", exc))[:300]}})
+                    with self._lock_for(bid):
+                        if self._cancel.get(bid):
+                            return
+                        log.exception("real-time battle %s", bid)
+                        self.store.update_battle(bid, {"status": "failed", "summary": {"error": str(getattr(exc, "message", exc))[:300]}})
 
             self.pool.submit(work)
         self.emit("battle.started", {"id": bid, "kind": kind, "mode": "realtime"})
         return self.battle_get(bid)
 
     def _rt_store_result(self, bid: str, r: dict[str, Any]) -> None:
+        if self._cancel.get(bid):
+            return
         b = self.store.battle(bid)
         summary = r.get("summary") or {}
         replay = {**(b.get("replay") or {}), "inputs": r.get("inputs") or [], "tick": int(round((r.get("seconds") or 0) * 30))}
@@ -1804,6 +1854,8 @@ class Services:
             raise SilverError("invalid", "forfeit is p1 or p2")
         spec = self._rt_spec(b)
         with self._lock_for(id_):
+            if self.store.battle(id_)["status"] != "live":
+                return self.battle_get(id_)
             r = self.engine.run_job("rt_replay", {"spec": spec, "inputs": inputs, "forfeit": forfeit, "tick": int(tick)}, timeout=600)
             if not r.get("ended"):
                 raise SilverError("conflict", "The inputs do not finish this battle.", hint="Send the whole input log, or forfeit.")

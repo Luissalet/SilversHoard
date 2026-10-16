@@ -2,11 +2,16 @@
 import React, { useState } from "react";
 import { api } from "../api.js";
 import { useApp } from "../context.js";
-import { Empty, ErrorBox, Icon, ICONS, Rel, Spinner, useBusy, useLoad } from "../components/ui.jsx";
+import { Busy, Empty, ErrorBox, Icon, ICONS, Rel, Spinner, useBusy, useLoad } from "../components/ui.jsx";
 import { Avatar } from "../components/silver.jsx";
 
 export function BattleRow({ b, onDelete }) {
-  const { t } = useApp();
+  const { t, changed, confirm } = useApp();
+  const [busy, run] = useBusy();
+  const cancel = async () => {
+    if (!(await confirm({ title: t("cancel_battle"), message: t("cancel_battle_help"), confirmLabel: t("cancel_battle") }))) return;
+    run("cancel", async () => { await api.call("battle_cancel", { id: b.id }); changed(); });
+  };
   const won = (side) => b.winner_side === side;
   return (
     <div className="row-item battle-row">
@@ -22,6 +27,7 @@ export function BattleRow({ b, onDelete }) {
       </span>
       <span className="hide-sm help num w-[70px] text-right">{b.turns ? t("turns_n", { n: b.turns }) : b.mode === "realtime" && b.summary?.seconds ? t("rt_seconds_n", { n: Math.round(b.summary.seconds) }) : ""}</span>
       <span className="hide-sm help w-[90px] text-right"><Rel ts={b.updated_at} /></span>
+      {["live", "running"].includes(b.status) && <Busy busy={busy.cancel} className="btn btn-sm" onClick={cancel}>{t("cancel_battle")}</Busy>}
       {onDelete && b.status !== "live" && <button type="button" className="btn btn-sm btn-icon btn-ghost" onClick={() => onDelete(b)} aria-label={t("delete")}><Icon d={ICONS.trash} size={14} /></button>}
     </div>
   );
@@ -33,7 +39,7 @@ export default function Historial() {
   const { t, confirm, notify, changed } = useApp();
   const [kind, setKind] = useState("");
   const [limit, setLimit] = useState(60);
-  const { data, error, loading, reload } = useLoad(() => api.call("battles_list", { kind, limit }), [kind, limit]);
+  const { data, error, loading, reload } = useLoad(() => api.call("battles_list", { kind, limit }, { timeoutMs: 15000 }), [kind, limit]);
   const [, run] = useBusy();
   const del = async (b) => {
     if (!(await confirm({ title: t("delete_battle"), message: t("delete_battle_msg") }))) return;
@@ -48,7 +54,7 @@ export default function Historial() {
           {KINDS.map((k) => <option key={k} value={k}>{k ? t(`kind_${k}`) : t("all_kinds")}</option>)}
         </select>
       </div>
-      {error && <ErrorBox error={error} onRetry={reload} />}
+      {error && <ErrorBox error={{ ...error, message: t("history_load_failed") }} onRetry={reload} />}
       {loading && !data ? <Spinner /> : list.length === 0 ? <Empty icon={ICONS.list} title={t("no_battles")}>{t("no_battles_help")}</Empty> : (
         <div className="panel divide-list p-0">{list.map((b) => <BattleRow key={b.id} b={b} onDelete={del} />)}</div>
       )}

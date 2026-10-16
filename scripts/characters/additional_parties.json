@@ -1,0 +1,2047 @@
+{
+  "Volo": {
+    "title": "Volo",
+    "es": "Volus",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Volo",
+    "parties": [
+      {
+        "path": [
+          "Pokémon Legends: Arceus",
+          "Third battle"
+        ],
+        "game": "LA",
+        "cls": "Pokémon Wielder",
+        "location": "Temple of Sinnoh",
+        "note": "Main team before Giratina. Adapted to conventional battles; Legends: Arceus action styles, effort levels and the separate Giratina battle are not reproduced.",
+        "mons": [
+          {
+            "s": "Spiritomb",
+            "l": "68",
+            "m": [
+              "Hypnosis",
+              "Dark Pulse",
+              "Extrasensory",
+              "Shadow Ball"
+            ]
+          },
+          {
+            "s": "Roserade",
+            "l": "68",
+            "m": [
+              "Poison Jab",
+              "Petal Dance",
+              "Spikes"
+            ]
+          },
+          {
+            "s": "Togekiss",
+            "l": "68",
+            "m": [
+              "Calm Mind",
+              "Moonblast",
+              "Extrasensory",
+              "Air Slash"
+            ]
+          },
+          {
+            "s": "Arcanine-Hisui",
+            "l": "68",
+            "m": [
+              "Raging Fury",
+              "Crunch",
+              "Rock Slide"
+            ]
+          },
+          {
+            "s": "Lucario",
+            "l": "68",
+            "m": [
+              "Close Combat",
+              "Crunch",
+              "Bulk Up",
+              "Bullet Punch"
+            ]
+          },
+          {
+            "s": "Garchomp",
+            "l": "68",
+            "m": [
+              "Dragon Claw",
+              "Earth Power",
+              "Slash",
+              "Iron Head"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "Adaman": {
+    "title": "Adaman",
+    "es": "Adamas",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Adaman",
+    "parties": [
+      {
+        "path": [
+          "Pokémon Legends: Arceus",
+          "Second battle"
+        ],
+        "game": "LA",
+        "cls": "Clan Leader",
+        "location": "Lake Valor",
+        "note": "Adapted to conventional battles: the three Pokémon fight in succession, without Legends: Arceus effort levels or action styles.",
+        "mons": [
+          {
+            "s": "Leafeon",
+            "l": "64",
+            "m": [
+              "Quick Attack",
+              "Baby-Doll Eyes",
+              "Leaf Blade"
+            ]
+          },
+          {
+            "s": "Umbreon",
+            "l": "32",
+            "m": [
+              "Quick Attack",
+              "Baby-Doll Eyes",
+              "Dark Pulse"
+            ]
+          },
+          {
+            "s": "Vaporeon",
+            "l": "32",
+            "m": [
+              "Quick Attack",
+              "Baby-Doll Eyes",
+              "Aqua Tail"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "Irida": {
+    "title": "Irida",
+    "es": "Nákara",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Irida",
+    "parties": [
+      {
+        "path": [
+          "Pokémon Legends: Arceus",
+          "Third battle"
+        ],
+        "game": "LA",
+        "cls": "Clan Leader",
+        "location": "Pearl Settlement",
+        "note": "Adapted to conventional battles: the three Pokémon fight in succession, without Legends: Arceus effort levels or action styles.",
+        "mons": [
+          {
+            "s": "Glaceon",
+            "l": "64",
+            "m": [
+              "Quick Attack",
+              "Baby-Doll Eyes",
+              "Ice Beam"
+            ]
+          },
+          {
+            "s": "Espeon",
+            "l": "32",
+            "m": [
+              "Quick Attack",
+              "Baby-Doll Eyes",
+              "Psychic"
+            ]
+          },
+          {
+            "s": "Flareon",
+            "l": "32",
+            "m": [
+              "Quick Attack",
+              "Baby-Doll Eyes",
+              "Flamethrower"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "Sada": {
+    "title": "Sada",
+    "es": "Albora (IA)",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Professor_Sada",
+    "parties": [
+      {
+        "path": [
+          "Pokémon Scarlet",
+          "Zero Lab"
+        ],
+        "game": "SV",
+        "cls": "Pokémon Professor",
+        "location": "Zero Lab",
+        "note": "AI Sada's main team. The separate scripted Koraidon battle is not part of this team.",
+        "mons": [
+          {
+            "s": "Slither Wing",
+            "l": "66",
+            "a": "Protosynthesis",
+            "m": [
+              "Lunge",
+              "Leech Life",
+              "Low Sweep",
+              "Zen Headbutt"
+            ]
+          },
+          {
+            "s": "Scream Tail",
+            "l": "66",
+            "a": "Protosynthesis",
+            "m": [
+              "Play Rough",
+              "Drain Punch",
+              "Ice Punch",
+              "Zen Headbutt"
+            ]
+          },
+          {
+            "s": "Brute Bonnet",
+            "l": "66",
+            "a": "Protosynthesis",
+            "m": [
+              "Earth Power",
+              "Giga Drain",
+              "Payback",
+              "Sucker Punch"
+            ]
+          },
+          {
+            "s": "Flutter Mane",
+            "l": "66",
+            "a": "Protosynthesis",
+            "m": [
+              "Power Gem",
+              "Mystical Fire",
+              "Shadow Ball",
+              "Thunderbolt"
+            ]
+          },
+          {
+            "s": "Sandy Shocks",
+            "l": "66",
+            "a": "Protosynthesis",
+            "m": [
+              "Discharge",
+              "Earth Power",
+              "Flash Cannon",
+              "Power Gem"
+            ]
+          },
+          {
+            "s": "Roaring Moon",
+            "l": "67",
+            "a": "Protosynthesis",
+            "i": "Booster Energy",
+            "m": [
+              "Dragon Claw",
+              "Night Slash",
+              "Stone Edge",
+              "Earthquake"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "Turo": {
+    "title": "Turo",
+    "es": "Turo (IA)",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Professor_Turo",
+    "parties": [
+      {
+        "path": [
+          "Pokémon Violet",
+          "Zero Lab"
+        ],
+        "game": "SV",
+        "cls": "Pokémon Professor",
+        "location": "Zero Lab",
+        "note": "AI Turo's main team. The separate scripted Miraidon battle is not part of this team.",
+        "mons": [
+          {
+            "s": "Iron Moth",
+            "l": "66",
+            "a": "Quark Drive",
+            "m": [
+              "Sludge Wave",
+              "Fiery Dance",
+              "Discharge",
+              "Air Slash"
+            ]
+          },
+          {
+            "s": "Iron Bundle",
+            "l": "66",
+            "a": "Quark Drive",
+            "m": [
+              "Drill Peck",
+              "Water Pulse",
+              "Freeze-Dry",
+              "Snowscape"
+            ]
+          },
+          {
+            "s": "Iron Hands",
+            "l": "66",
+            "a": "Quark Drive",
+            "m": [
+              "Thunder Punch",
+              "Drain Punch",
+              "Iron Head",
+              "Fake Out"
+            ]
+          },
+          {
+            "s": "Iron Jugulis",
+            "l": "66",
+            "a": "Quark Drive",
+            "m": [
+              "Air Slash",
+              "Dark Pulse",
+              "Flamethrower",
+              "Flash Cannon"
+            ]
+          },
+          {
+            "s": "Iron Thorns",
+            "l": "66",
+            "a": "Quark Drive",
+            "m": [
+              "Thunder Punch",
+              "Brick Break",
+              "Stone Edge",
+              "Earthquake"
+            ]
+          },
+          {
+            "s": "Iron Valiant",
+            "l": "67",
+            "a": "Quark Drive",
+            "i": "Booster Energy",
+            "m": [
+              "Psycho Cut",
+              "Brick Break",
+              "Spirit Break",
+              "Poison Jab"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "Beni": {
+    "title": "Beni",
+    "es": "Genaro",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Beni",
+    "parties": [
+      {
+        "path": [
+          "LA",
+          "Rematch"
+        ],
+        "game": "LA",
+        "cls": "Pokémon Trainer",
+        "note": "Adapted to conventional battles: no Legends: Arceus action styles, effort levels or simultaneous wild-style battles.",
+        "mons": [
+          {
+            "s": "Mismagius",
+            "l": "63",
+            "m": [
+              "Shadow Ball",
+              "Power Gem",
+              "Extrasensory",
+              "Hypnosis"
+            ]
+          },
+          {
+            "s": "Sneasler",
+            "l": "63",
+            "m": [
+              "Dire Claw",
+              "Close Combat",
+              "Quick Attack",
+              "Shadow Claw"
+            ]
+          },
+          {
+            "s": "Gardevoir",
+            "l": "64",
+            "m": [
+              "Calm Mind",
+              "Dazzling Gleam",
+              "Psychic",
+              "Mystical Fire"
+            ]
+          },
+          {
+            "s": "Gallade",
+            "l": "64",
+            "m": [
+              "Swords Dance",
+              "Drain Punch",
+              "Psycho Cut",
+              "Thunder Punch"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "Kamado": {
+    "title": "Kamado",
+    "es": "Sorbus",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Kamado",
+    "parties": [
+      {
+        "path": [
+          "LA",
+          "Rematch"
+        ],
+        "game": "LA",
+        "cls": "Pokémon Trainer",
+        "note": "Adapted to conventional battles: no Legends: Arceus action styles, effort levels or simultaneous wild-style battles.",
+        "mons": [
+          {
+            "s": "Golem",
+            "l": "65",
+            "m": [
+              "Iron Head",
+              "Stone Edge",
+              "Thunder Punch",
+              "Bulldoze"
+            ]
+          },
+          {
+            "s": "Clefable",
+            "l": "65",
+            "m": [
+              "Draining Kiss",
+              "Psychic",
+              "Calm Mind",
+              "Water Pulse"
+            ]
+          },
+          {
+            "s": "Braviary-Hisui",
+            "l": "65",
+            "m": [
+              "Esper Wing",
+              "Air Slash",
+              "Quick Attack"
+            ]
+          },
+          {
+            "s": "Heracross",
+            "l": "65",
+            "m": [
+              "Close Combat",
+              "Swords Dance",
+              "Pin Missile",
+              "Aerial Ace"
+            ]
+          },
+          {
+            "s": "Snorlax",
+            "l": "66",
+            "m": [
+              "Zen Headbutt",
+              "High Horsepower",
+              "Giga Impact",
+              "Fire Punch"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "Zinnia": {
+    "title": "Zinnia",
+    "es": "Tristana",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Zinnia",
+    "parties": [
+      {
+        "path": [
+          "ORAS",
+          "Second battle"
+        ],
+        "game": "ORAS",
+        "cls": "Pokémon Trainer",
+        "note": "",
+        "mons": [
+          {
+            "s": "Goodra",
+            "l": "60",
+            "m": [
+              "Dragon Pulse",
+              "Muddy Water",
+              "Thunderbolt",
+              "Ice Beam"
+            ],
+            "a": "Sap Sipper"
+          },
+          {
+            "s": "Tyrantrum",
+            "l": "60",
+            "m": [
+              "Dragon Claw",
+              "Crunch",
+              "Earthquake",
+              "Stone Edge"
+            ],
+            "a": "Strong Jaw"
+          },
+          {
+            "s": "Altaria",
+            "l": "60",
+            "m": [
+              "Dragon Pulse",
+              "Moonblast",
+              "Flamethrower",
+              "Hyper Voice"
+            ],
+            "a": "Natural Cure"
+          },
+          {
+            "s": "Noivern",
+            "l": "60",
+            "m": [
+              "Dragon Pulse",
+              "Air Slash",
+              "Shadow Ball",
+              "Super Fang"
+            ],
+            "a": "Infiltrator"
+          },
+          {
+            "s": "Salamence",
+            "l": "62",
+            "m": [
+              "Dragon Claw",
+              "Crunch",
+              "Fire Fang",
+              "Thunder Fang"
+            ],
+            "a": "Intimidate",
+            "i": "Salamencite"
+          }
+        ]
+      }
+    ]
+  },
+  "Eusine": {
+    "title": "Eusine",
+    "es": "Eusine",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Eusine",
+    "parties": [
+      {
+        "path": [
+          "HGSS",
+          "Cianwood City"
+        ],
+        "game": "HGSS",
+        "cls": "Pokémon Trainer",
+        "note": "",
+        "mons": [
+          {
+            "s": "Drowzee",
+            "l": "25",
+            "m": [
+              "Hypnosis",
+              "Disable",
+              "Confusion",
+              "Dream Eater"
+            ],
+            "a": "Insomnia"
+          },
+          {
+            "s": "Haunter",
+            "l": "25",
+            "m": [
+              "Hypnosis",
+              "Lick",
+              "Mean Look",
+              "Curse"
+            ],
+            "a": "Levitate"
+          },
+          {
+            "s": "Electrode",
+            "l": "27",
+            "m": [
+              "SonicBoom",
+              "Rollout",
+              "Screech",
+              "Thunder"
+            ],
+            "a": "Static"
+          }
+        ]
+      }
+    ]
+  },
+  "Benga": {
+    "title": "Benga",
+    "es": "Guayo",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Benga",
+    "parties": [
+      {
+        "path": [
+          "B2",
+          "Black Tower"
+        ],
+        "game": "B2",
+        "cls": "Pokémon Trainer",
+        "note": "",
+        "mons": [
+          {
+            "s": "Latios",
+            "l": "80",
+            "m": [
+              "Draco Meteor",
+              "Psychic",
+              "Icy Wind",
+              "Thunderbolt"
+            ],
+            "a": "Levitate",
+            "i": "White Herb"
+          },
+          {
+            "s": "Garchomp",
+            "l": "80",
+            "m": [
+              "Outrage",
+              "Earthquake",
+              "Fire Blast",
+              "Stone Edge"
+            ],
+            "a": "Sand Veil",
+            "i": "Life Orb"
+          },
+          {
+            "s": "Volcarona",
+            "l": "80",
+            "m": [
+              "Quiver Dance",
+              "Bug Buzz",
+              "Fire Blast",
+              "Psychic"
+            ],
+            "a": "Flame Body",
+            "i": "Focus Sash"
+          }
+        ]
+      },
+      {
+        "path": [
+          "W2",
+          "White Treehollow"
+        ],
+        "game": "W2",
+        "cls": "Pokémon Trainer",
+        "note": "",
+        "mons": [
+          {
+            "s": "Latias",
+            "l": "80",
+            "m": [
+              "Draco Meteor",
+              "Psychic",
+              "Icy Wind",
+              "Thunderbolt"
+            ],
+            "a": "Levitate",
+            "i": "White Herb"
+          },
+          {
+            "s": "Dragonite",
+            "l": "80",
+            "m": [
+              "Outrage",
+              "Dragon Dance",
+              "Fire Blast",
+              "Focus Blast"
+            ],
+            "a": "Inner Focus",
+            "i": "Life Orb"
+          },
+          {
+            "s": "Volcarona",
+            "l": "80",
+            "m": [
+              "Quiver Dance",
+              "Bug Buzz",
+              "Fire Blast",
+              "Psychic"
+            ],
+            "a": "Flame Body",
+            "i": "Focus Sash"
+          }
+        ]
+      }
+    ]
+  },
+  "AZ": {
+    "title": "AZ",
+    "es": "A. Z.",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/AZ",
+    "parties": [
+      {
+        "path": [
+          "XY",
+          "Lumiose City"
+        ],
+        "game": "XY",
+        "cls": "Pokémon Trainer",
+        "note": "",
+        "mons": [
+          {
+            "s": "Torkoal",
+            "l": "60",
+            "m": [
+              "Lava Plume",
+              "Stone Edge",
+              "Body Slam",
+              "Return"
+            ],
+            "a": "White Smoke"
+          },
+          {
+            "s": "Golurk",
+            "l": "60",
+            "m": [
+              "Phantom Force",
+              "Heavy Slam",
+              "Mega Punch",
+              "Return"
+            ],
+            "a": "No Guard"
+          },
+          {
+            "s": "Sigilyph",
+            "l": "60",
+            "m": [
+              "Psychic",
+              "Air Slash",
+              "Cosmic Power",
+              "Return"
+            ],
+            "a": "Magic Guard"
+          }
+        ]
+      }
+    ]
+  },
+  "Dexio": {
+    "title": "Dexio",
+    "es": "Dexio",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Dexio",
+    "parties": [
+      {
+        "path": [
+          "SM",
+          "Second battle"
+        ],
+        "game": "SM",
+        "cls": "Pokémon Trainer",
+        "note": "",
+        "mons": [
+          {
+            "s": "Espeon",
+            "l": "61",
+            "m": [
+              "Psychic",
+              "Shadow Ball",
+              "Dazzling Gleam",
+              "Power Swap"
+            ],
+            "a": "Synchronize"
+          },
+          {
+            "s": "Raichu-Alola",
+            "l": "61",
+            "m": [
+              "Psychic",
+              "Thunderbolt",
+              "Light Screen",
+              "Reflect"
+            ],
+            "a": "Surge Surfer"
+          },
+          {
+            "s": "Slowking",
+            "l": "61",
+            "m": [
+              "Psychic",
+              "Power Gem",
+              "Ice Beam",
+              "Flamethrower"
+            ],
+            "a": "Own Tempo"
+          },
+          {
+            "s": "Metagross",
+            "l": "61",
+            "m": [
+              "Meteor Mash",
+              "Zen Headbutt",
+              "Bullet Punch",
+              "Brick Break"
+            ],
+            "a": "Clear Body"
+          },
+          {
+            "s": "Alakazam",
+            "l": "61",
+            "m": [
+              "Psychic",
+              "Psyshock",
+              "Focus Blast",
+              "Energy Ball"
+            ],
+            "a": "Synchronize",
+            "i": "Alakazite"
+          }
+        ]
+      }
+    ]
+  },
+  "Sina": {
+    "title": "Sina",
+    "es": "Sina",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Sina",
+    "parties": [
+      {
+        "path": [
+          "SM",
+          "First battle"
+        ],
+        "game": "SM",
+        "cls": "Pokémon Trainer",
+        "note": "",
+        "mons": [
+          {
+            "s": "Delibird",
+            "l": "15",
+            "m": [
+              "Present"
+            ],
+            "a": "Vital Spirit"
+          },
+          {
+            "s": "Glaceon",
+            "l": "16",
+            "m": [
+              "Icy Wind",
+              "Quick Attack"
+            ],
+            "a": "Snow Cloak"
+          }
+        ]
+      }
+    ]
+  },
+  "Jacq": {
+    "title": "Jacq",
+    "es": "Cinio",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Jacq",
+    "parties": [
+      {
+        "path": [
+          "SV",
+          "Academy Ace Tournament"
+        ],
+        "game": "SV",
+        "cls": "Pokémon Trainer",
+        "note": "",
+        "mons": [
+          {
+            "s": "Arcanine",
+            "l": "65",
+            "m": [
+              "Flare Blitz",
+              "Play Rough",
+              "Close Combat",
+              "Psychic Fangs"
+            ],
+            "a": "Intimidate"
+          },
+          {
+            "s": "Lurantis",
+            "l": "65",
+            "m": [
+              "Leaf Blade",
+              "Leech Life",
+              "Night Slash",
+              "Brick Break"
+            ],
+            "a": "Leaf Guard"
+          },
+          {
+            "s": "Swalot",
+            "l": "65",
+            "m": [
+              "Fire Punch",
+              "Toxic",
+              "Ice Punch",
+              "Protect"
+            ],
+            "a": "Liquid Ooze"
+          },
+          {
+            "s": "Mudsdale",
+            "l": "65",
+            "m": [
+              "Earthquake",
+              "Heavy Slam",
+              "Stone Edge",
+              "Close Combat"
+            ],
+            "a": "Stamina"
+          },
+          {
+            "s": "Slowbro",
+            "l": "65",
+            "m": [
+              "Psychic",
+              "Surf",
+              "Flamethrower",
+              "Light Screen"
+            ],
+            "a": "Oblivious"
+          },
+          {
+            "s": "Farigiraf",
+            "l": "66",
+            "m": [
+              "Psychic",
+              "Thunderbolt",
+              "Energy Ball",
+              "Shadow Ball"
+            ],
+            "a": "Armor Tail"
+          }
+        ]
+      }
+    ]
+  },
+  "Dendra": {
+    "title": "Dendra",
+    "es": "Kendra",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Dendra",
+    "parties": [
+      {
+        "path": [
+          "SV",
+          "Academy Ace Tournament"
+        ],
+        "game": "SV",
+        "cls": "Pokémon Trainer",
+        "note": "",
+        "mons": [
+          {
+            "s": "Falinks",
+            "l": "65",
+            "m": [
+              "Close Combat",
+              "Smart Strike",
+              "Zen Headbutt",
+              "First Impression"
+            ],
+            "a": "Battle Armor"
+          },
+          {
+            "s": "Tauros-Paldea-Blaze",
+            "l": "65",
+            "m": [
+              "Raging Bull",
+              "Close Combat",
+              "Earthquake",
+              "Zen Headbutt"
+            ],
+            "a": "Intimidate"
+          },
+          {
+            "s": "Tauros-Paldea-Aqua",
+            "l": "65",
+            "m": [
+              "Raging Bull",
+              "Close Combat",
+              "Rock Slide",
+              "Aqua Jet"
+            ],
+            "a": "Intimidate"
+          },
+          {
+            "s": "Medicham",
+            "l": "65",
+            "m": [
+              "Axe Kick",
+              "Zen Headbutt",
+              "Ice Punch",
+              "Thunder Punch"
+            ],
+            "a": "Pure Power"
+          },
+          {
+            "s": "Hawlucha",
+            "l": "65",
+            "m": [
+              "Flying Press",
+              "Rock Tomb",
+              "X-Scissor",
+              "Iron Head"
+            ],
+            "a": "Limber"
+          },
+          {
+            "s": "Hariyama",
+            "l": "66",
+            "m": [
+              "Close Combat",
+              "Stone Edge",
+              "Earthquake",
+              "Heavy Slam"
+            ],
+            "a": "Thick Fat"
+          }
+        ]
+      }
+    ]
+  },
+  "Raifort": {
+    "title": "Raifort",
+    "es": "Cloe",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Raifort",
+    "parties": [
+      {
+        "path": [
+          "SV",
+          "Academy Ace Tournament"
+        ],
+        "game": "SV",
+        "cls": "Pokémon Trainer",
+        "note": "",
+        "mons": [
+          {
+            "s": "Zoroark",
+            "l": "65",
+            "m": [
+              "Night Daze",
+              "Sludge Bomb",
+              "Psychic",
+              "Flamethrower"
+            ],
+            "a": "Illusion"
+          },
+          {
+            "s": "Seviper",
+            "l": "65",
+            "m": [
+              "Glare",
+              "Gunk Shot",
+              "Psychic Fangs",
+              "Crunch"
+            ],
+            "a": "Shed Skin"
+          },
+          {
+            "s": "Grumpig",
+            "l": "65",
+            "m": [
+              "Psychic",
+              "Power Gem",
+              "Flash Cannon",
+              "Earth Power"
+            ],
+            "a": "Thick Fat"
+          },
+          {
+            "s": "Lumineon",
+            "l": "65",
+            "m": [
+              "Dazzling Gleam",
+              "Whirlpool",
+              "Air Slash",
+              "Ice Beam"
+            ],
+            "a": "Swift Swim"
+          },
+          {
+            "s": "Scizor",
+            "l": "65",
+            "m": [
+              "X-Scissor",
+              "Aerial Ace",
+              "Thief",
+              "Bullet Punch"
+            ],
+            "a": "Technician"
+          },
+          {
+            "s": "Gengar",
+            "l": "66",
+            "m": [
+              "Shadow Ball",
+              "Sucker Punch",
+              "Sludge Bomb",
+              "Fire Punch"
+            ],
+            "a": "Cursed Body"
+          }
+        ]
+      }
+    ]
+  },
+  "Saguaro": {
+    "title": "Saguaro",
+    "es": "Hugo",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Saguaro",
+    "parties": [
+      {
+        "path": [
+          "SV",
+          "Academy Ace Tournament"
+        ],
+        "game": "SV",
+        "cls": "Pokémon Trainer",
+        "note": "",
+        "mons": [
+          {
+            "s": "Pachirisu",
+            "l": "65",
+            "m": [
+              "Super Fang",
+              "Nuzzle",
+              "Quick Attack",
+              "Thunder"
+            ],
+            "a": "Run Away"
+          },
+          {
+            "s": "Froslass",
+            "l": "65",
+            "m": [
+              "Blizzard",
+              "Hex",
+              "Will-O-Wisp",
+              "Ice Shard"
+            ],
+            "a": "Snow Cloak"
+          },
+          {
+            "s": "Alomomola",
+            "l": "65",
+            "m": [
+              "Light Screen",
+              "Aqua Jet",
+              "Liquidation",
+              "Body Slam"
+            ],
+            "a": "Hydration"
+          },
+          {
+            "s": "Vespiquen",
+            "l": "65",
+            "m": [
+              "Attack Order",
+              "Power Gem",
+              "Air Slash",
+              "Sludge Bomb"
+            ],
+            "a": "Pressure"
+          },
+          {
+            "s": "Goodra",
+            "l": "65",
+            "m": [
+              "Muddy Water",
+              "Power Whip",
+              "Dragon Breath",
+              "Sludge Bomb"
+            ],
+            "a": "Sap Sipper"
+          },
+          {
+            "s": "Hatterene",
+            "l": "66",
+            "m": [
+              "Psychic",
+              "Dazzling Gleam",
+              "Shadow Ball",
+              "Magic Powder"
+            ],
+            "a": "Healer"
+          }
+        ]
+      }
+    ]
+  },
+  "Salvatore": {
+    "title": "Salvatore",
+    "es": "Silvio",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Salvatore",
+    "parties": [
+      {
+        "path": [
+          "SV",
+          "Academy Ace Tournament"
+        ],
+        "game": "SV",
+        "cls": "Pokémon Trainer",
+        "note": "",
+        "mons": [
+          {
+            "s": "Honchkrow",
+            "l": "65",
+            "m": [
+              "Sucker Punch",
+              "Hurricane",
+              "Psychic",
+              "Heat Wave"
+            ],
+            "a": "Super Luck"
+          },
+          {
+            "s": "Persian",
+            "l": "65",
+            "m": [
+              "Fake Out",
+              "Snarl",
+              "Aerial Ace",
+              "Play Rough"
+            ],
+            "a": "Technician"
+          },
+          {
+            "s": "Palossand",
+            "l": "65",
+            "m": [
+              "Earth Power",
+              "Shadow Ball",
+              "Sludge Bomb",
+              "Giga Drain"
+            ],
+            "a": "Water Compaction"
+          },
+          {
+            "s": "Glaceon",
+            "l": "65",
+            "m": [
+              "Freeze-Dry",
+              "Mud Shot",
+              "Baby-Doll Eyes",
+              "Ice Shard"
+            ],
+            "a": "Snow Cloak"
+          },
+          {
+            "s": "Gothitelle",
+            "l": "65",
+            "m": [
+              "Psychic",
+              "Grass Knot",
+              "Reflect",
+              "Shadow Ball"
+            ],
+            "a": "Competitive"
+          },
+          {
+            "s": "Raichu",
+            "l": "66",
+            "m": [
+              "Thunder",
+              "Grass Knot",
+              "Focus Blast",
+              "Quick Attack"
+            ],
+            "a": "Static"
+          }
+        ]
+      }
+    ]
+  },
+  "Tyme": {
+    "title": "Tyme",
+    "es": "Mila",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Tyme",
+    "parties": [
+      {
+        "path": [
+          "SV",
+          "Academy Ace Tournament"
+        ],
+        "game": "SV",
+        "cls": "Pokémon Trainer",
+        "note": "",
+        "mons": [
+          {
+            "s": "Lycanroc",
+            "l": "65",
+            "m": [
+              "Accelerock",
+              "Stone Edge",
+              "Stealth Rock",
+              "Crunch"
+            ],
+            "a": "Keen Eye"
+          },
+          {
+            "s": "Lycanroc-Midnight",
+            "l": "65",
+            "m": [
+              "Stone Edge",
+              "Crunch",
+              "Fire Punch",
+              "Thunder Punch"
+            ],
+            "a": "Keen Eye"
+          },
+          {
+            "s": "Drednaw",
+            "l": "65",
+            "m": [
+              "Ice Fang",
+              "Rock Blast",
+              "Razor Shell",
+              "Jaw Lock"
+            ],
+            "a": "Strong Jaw"
+          },
+          {
+            "s": "Stonjourner",
+            "l": "65",
+            "m": [
+              "Heavy Slam",
+              "Body Press",
+              "Stone Edge",
+              "Earthquake"
+            ],
+            "a": "Power Spot"
+          },
+          {
+            "s": "Coalossal",
+            "l": "65",
+            "m": [
+              "Heat Crash",
+              "Heavy Slam",
+              "Body Press",
+              "Stone Edge"
+            ],
+            "a": "Steam Engine"
+          },
+          {
+            "s": "Garganacl",
+            "l": "66",
+            "m": [
+              "Stone Edge",
+              "Fire Punch",
+              "Ice Punch",
+              "Thunder Punch"
+            ],
+            "a": "Purifying Salt"
+          }
+        ]
+      }
+    ]
+  },
+  "Miriam": {
+    "title": "Miriam",
+    "es": "Mimí",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Miriam",
+    "parties": [
+      {
+        "path": [
+          "SV",
+          "Academy Ace Tournament"
+        ],
+        "game": "SV",
+        "cls": "Pokémon Trainer",
+        "note": "",
+        "mons": [
+          {
+            "s": "Hypno",
+            "l": "65",
+            "m": [
+              "Hypnosis",
+              "Zen Headbutt",
+              "Drain Punch",
+              "Reflect"
+            ],
+            "a": "Insomnia"
+          },
+          {
+            "s": "Pincurchin",
+            "l": "65",
+            "m": [
+              "Zing Zap",
+              "Poison Jab",
+              "Toxic Spikes",
+              "Spikes"
+            ],
+            "a": "Lightning Rod"
+          },
+          {
+            "s": "Sawsbuck",
+            "l": "65",
+            "m": [
+              "Horn Leech",
+              "Megahorn",
+              "Zen Headbutt",
+              "Play Rough"
+            ],
+            "a": "Sap Sipper"
+          },
+          {
+            "s": "Glalie",
+            "l": "65",
+            "m": [
+              "Ice Shard",
+              "Crunch",
+              "Freeze-Dry",
+              "Iron Head"
+            ],
+            "a": "Inner Focus"
+          },
+          {
+            "s": "Eelektross",
+            "l": "65",
+            "m": [
+              "Thunder Punch",
+              "Drain Punch",
+              "Liquidation",
+              "Coil"
+            ],
+            "a": "Levitate"
+          },
+          {
+            "s": "Toxapex",
+            "l": "66",
+            "m": [
+              "Toxic",
+              "Venoshock",
+              "Liquidation",
+              "Recover"
+            ],
+            "a": "Merciless"
+          }
+        ]
+      }
+    ]
+  },
+  "Rei": {
+    "title": "Rei",
+    "es": "Luka",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Rei",
+    "parties": [
+      {
+        "path": [
+          "LA",
+          "Fourth battle (Grotle)"
+        ],
+        "game": "LA",
+        "cls": "Pokémon Trainer",
+        "note": "Adapted to conventional battles: no Legends: Arceus action styles, effort levels or simultaneous wild-style battles.",
+        "mons": [
+          {
+            "s": "Clefairy",
+            "l": "60",
+            "m": [
+              "Psychic",
+              "Moonblast",
+              "Shadow Ball"
+            ]
+          },
+          {
+            "s": "Mr. Mime",
+            "l": "61",
+            "m": [
+              "Drain Punch",
+              "Zen Headbutt",
+              "Hypnosis"
+            ]
+          },
+          {
+            "s": "Staraptor",
+            "l": "61",
+            "m": [
+              "Quick Attack",
+              "Brave Bird",
+              "Close Combat"
+            ]
+          },
+          {
+            "s": "Grotle",
+            "l": "62",
+            "m": [
+              "Bulldoze",
+              "Leaf Blade",
+              "Stealth Rock"
+            ]
+          },
+          {
+            "s": "Pikachu",
+            "l": "62",
+            "m": [
+              "Quick Attack",
+              "Iron Tail",
+              "Volt Tackle",
+              "Play Rough"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "Akari": {
+    "title": "Akari",
+    "es": "Kira",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Akari",
+    "parties": [
+      {
+        "path": [
+          "LA",
+          "Fourth battle (Grotle)"
+        ],
+        "game": "LA",
+        "cls": "Pokémon Trainer",
+        "note": "Adapted to conventional battles: no Legends: Arceus action styles, effort levels or simultaneous wild-style battles.",
+        "mons": [
+          {
+            "s": "Clefairy",
+            "l": "60",
+            "m": [
+              "Psychic",
+              "Moonblast",
+              "Shadow Ball"
+            ]
+          },
+          {
+            "s": "Mr. Mime",
+            "l": "61",
+            "m": [
+              "Drain Punch",
+              "Zen Headbutt",
+              "Hypnosis"
+            ]
+          },
+          {
+            "s": "Staraptor",
+            "l": "61",
+            "m": [
+              "Quick Attack",
+              "Brave Bird",
+              "Close Combat"
+            ]
+          },
+          {
+            "s": "Grotle",
+            "l": "62",
+            "m": [
+              "Bulldoze",
+              "Leaf Blade",
+              "Stealth Rock"
+            ]
+          },
+          {
+            "s": "Pikachu",
+            "l": "62",
+            "m": [
+              "Quick Attack",
+              "Iron Tail",
+              "Volt Tackle",
+              "Play Rough"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "Mai": {
+    "title": "Mai",
+    "es": "Lina",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Mai",
+    "parties": [
+      {
+        "path": [
+          "LA",
+          "Rematch"
+        ],
+        "game": "LA",
+        "cls": "Pokémon Trainer",
+        "note": "Adapted to conventional battles: no Legends: Arceus action styles, effort levels or simultaneous wild-style battles.",
+        "mons": [
+          {
+            "s": "Munchlax",
+            "l": "60",
+            "m": [
+              "Giga Impact",
+              "Zen Headbutt",
+              "High Horsepower"
+            ]
+          },
+          {
+            "s": "Weavile",
+            "l": "36",
+            "m": [
+              "Poison Jab",
+              "Ice Shard",
+              "Slash"
+            ]
+          },
+          {
+            "s": "Crobat",
+            "l": "36",
+            "m": [
+              "Air Slash",
+              "Cross Poison"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "Melli": {
+    "title": "Melli",
+    "es": "Kameri",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Melli",
+    "parties": [
+      {
+        "path": [
+          "LA",
+          "Second battle"
+        ],
+        "game": "LA",
+        "cls": "Pokémon Trainer",
+        "note": "Adapted to conventional battles: no Legends: Arceus action styles, effort levels or simultaneous wild-style battles.",
+        "mons": [
+          {
+            "s": "Skuntank",
+            "l": "44",
+            "m": [
+              "Poison Jab",
+              "Night Slash",
+              "Flamethrower"
+            ]
+          },
+          {
+            "s": "Skorupi",
+            "l": "22",
+            "m": [
+              "Venoshock",
+              "Bite"
+            ]
+          },
+          {
+            "s": "Zubat",
+            "l": "22",
+            "m": [
+              "Hypnosis",
+              "Gust"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "Gaeric": {
+    "title": "Gaeric",
+    "es": "Rauko",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Gaeric",
+    "parties": [
+      {
+        "path": [
+          "LA",
+          "First battle"
+        ],
+        "game": "LA",
+        "cls": "Pokémon Trainer",
+        "note": "Adapted to conventional battles: no Legends: Arceus action styles, effort levels or simultaneous wild-style battles.",
+        "mons": [
+          {
+            "s": "Glalie",
+            "l": "48",
+            "m": [
+              "Ice Shard",
+              "Crunch",
+              "Icicle Crash"
+            ]
+          },
+          {
+            "s": "Froslass",
+            "l": "24",
+            "m": [
+              "Powder Snow",
+              "Hex"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "Sabi": {
+    "title": "Sabi",
+    "es": "Wasabi",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Sabi",
+    "parties": [
+      {
+        "path": [
+          "LA",
+          "Rematch"
+        ],
+        "game": "LA",
+        "cls": "Pokémon Trainer",
+        "note": "Adapted to conventional battles: no Legends: Arceus action styles, effort levels or simultaneous wild-style battles.",
+        "mons": [
+          {
+            "s": "Rhyperior",
+            "l": "65",
+            "m": [
+              "Stone Edge",
+              "High Horsepower",
+              "Rock Smash",
+              "Megahorn"
+            ]
+          },
+          {
+            "s": "Magmortar",
+            "l": "50",
+            "m": [
+              "Poison Gas",
+              "Flamethrower",
+              "Rock Slide",
+              "Psychic"
+            ]
+          },
+          {
+            "s": "Electivire",
+            "l": "50",
+            "m": [
+              "Thunder Wave",
+              "Thunder Punch",
+              "Ice Punch",
+              "Iron Tail"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "Zisu": {
+    "title": "Zisu",
+    "es": "Crispa",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Zisu",
+    "parties": [
+      {
+        "path": [
+          "LA",
+          "Training grounds"
+        ],
+        "game": "LA",
+        "cls": "Pokémon Trainer",
+        "note": "Adapted to conventional battles: no Legends: Arceus action styles, effort levels or simultaneous wild-style battles.",
+        "mons": [
+          {
+            "s": "Ambipom",
+            "l": "57",
+            "m": [
+              "Quick Attack",
+              "Fire Punch",
+              "Thunder Punch",
+              "Iron Tail"
+            ]
+          },
+          {
+            "s": "Honchkrow",
+            "l": "57",
+            "m": [
+              "Night Slash",
+              "Aerial Ace",
+              "Icy Wind"
+            ]
+          },
+          {
+            "s": "Luxray",
+            "l": "57",
+            "m": [
+              "Wild Charge",
+              "Crunch",
+              "Quick Attack",
+              "Play Rough"
+            ]
+          },
+          {
+            "s": "Zoroark-Hisui",
+            "l": "58",
+            "m": [
+              "Bitter Malice",
+              "Shadow Sneak",
+              "Dark Pulse",
+              "Swift"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "Lian": {
+    "title": "Lian",
+    "es": "Nambo",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Lian",
+    "parties": [
+      {
+        "path": [
+          "LA",
+          "Path of Tenacity (first clear)"
+        ],
+        "game": "LA",
+        "cls": "Pokémon Trainer",
+        "note": "Adapted to conventional battles: no Legends: Arceus action styles, effort levels or simultaneous wild-style battles.",
+        "mons": [
+          {
+            "s": "Sliggoo-Hisui",
+            "l": "63",
+            "m": [
+              "Iron Head",
+              "Dragon Pulse",
+              "Water Pulse"
+            ]
+          },
+          {
+            "s": "Swinub",
+            "l": "32",
+            "m": [
+              "Bulldoze",
+              "Icicle Crash"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "Clavell": {
+    "title": "Clavell",
+    "es": "Clavel",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Clavell",
+    "parties": [
+      {
+        "path": [
+          "SV",
+          "League Club Room (Skeledirge)"
+        ],
+        "game": "SV",
+        "cls": "Pokémon Trainer",
+        "mons": [
+          {
+            "s": "Oranguru",
+            "l": "80",
+            "m": [
+              "Trick Room",
+              "Psychic",
+              "Thunderbolt",
+              "Foul Play"
+            ],
+            "a": "Inner Focus"
+          },
+          {
+            "s": "Abomasnow",
+            "l": "80",
+            "m": [
+              "Aurora Veil",
+              "Blizzard",
+              "Giga Drain",
+              "Ice Shard"
+            ],
+            "a": "Snow Warning"
+          },
+          {
+            "s": "Polteageist",
+            "l": "80",
+            "m": [
+              "Shell Smash",
+              "Shadow Ball",
+              "Stored Power",
+              "Strength Sap"
+            ],
+            "a": "Weak Armor"
+          },
+          {
+            "s": "Amoonguss",
+            "l": "80",
+            "m": [
+              "Spore",
+              "Sludge Bomb",
+              "Giga Drain",
+              "Hex"
+            ],
+            "a": "Effect Spore"
+          },
+          {
+            "s": "Gyarados",
+            "l": "80",
+            "m": [
+              "Waterfall",
+              "Dragon Dance",
+              "Stone Edge",
+              "Earthquake"
+            ],
+            "a": "Intimidate"
+          },
+          {
+            "s": "Skeledirge",
+            "l": "81",
+            "m": [
+              "Shadow Ball",
+              "Torch Song",
+              "Earth Power",
+              "Snarl"
+            ],
+            "a": "Blaze"
+          }
+        ]
+      }
+    ]
+  },
+  "Emma": {
+    "title": "Emma",
+    "es": "Emma",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Emma",
+    "parties": [
+      {
+        "path": [
+          "XY",
+          "Fifth battle (Essentia)"
+        ],
+        "game": "XY",
+        "cls": "Pokémon Trainer",
+        "mons": [
+          {
+            "s": "Whimsicott",
+            "l": "63",
+            "m": [
+              "Gust",
+              "Tailwind",
+              "Hurricane",
+              "Moonblast"
+            ],
+            "a": "Prankster"
+          },
+          {
+            "s": "Mawile",
+            "l": "63",
+            "m": [
+              "Swallow",
+              "Spit Up",
+              "Iron Head",
+              "Play Rough"
+            ],
+            "a": "Hyper Cutter"
+          },
+          {
+            "s": "Granbull",
+            "l": "63",
+            "m": [
+              "Rage",
+              "Play Rough",
+              "Payback",
+              "Crunch"
+            ],
+            "a": "Intimidate"
+          }
+        ]
+      }
+    ]
+  },
+  "Clover": {
+    "title": "Clover",
+    "es": "Zarza",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Clover",
+    "parties": [
+      {
+        "path": [
+          "LA",
+          "First battle"
+        ],
+        "game": "LA",
+        "cls": "Pokémon Trainer",
+        "mons": [
+          {
+            "s": "Abomasnow",
+            "l": "35",
+            "m": [
+              "Icicle Crash",
+              "Energy Ball",
+              "Ice Shard"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "Dulse": {
+    "title": "Dulse",
+    "es": "Darius",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Dulse",
+    "parties": [
+      {
+        "path": [
+          "US",
+          "Third battle"
+        ],
+        "game": "US",
+        "cls": "Pokémon Trainer",
+        "mons": [
+          {
+            "s": "Poipole",
+            "l": "47",
+            "m": [
+              "Nasty Plot",
+              "Toxic",
+              "Poison Jab",
+              "Fell Stinger"
+            ],
+            "a": "Beast Boost"
+          }
+        ]
+      }
+    ]
+  },
+  "Soliera": {
+    "title": "Soliera",
+    "es": "Miria",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Soliera",
+    "parties": [
+      {
+        "path": [
+          "UM",
+          "Third battle"
+        ],
+        "game": "UM",
+        "cls": "Pokémon Trainer",
+        "mons": [
+          {
+            "s": "Poipole",
+            "l": "47",
+            "m": [
+              "Nasty Plot",
+              "Toxic",
+              "Poison Jab",
+              "Fell Stinger"
+            ],
+            "a": "Beast Boost"
+          }
+        ]
+      }
+    ]
+  }
+}
