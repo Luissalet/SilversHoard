@@ -194,3 +194,47 @@ The real-time recording path also calls `Show.startIntro({prepared:true})` befor
 Classic reads, choices, forfeits and advice recheck the stored status after acquiring the battle lock, before resuming a snapshot; a request already in flight cannot reload a cancelled match. Each image fallback stage owns a distinct React key even when two stages produce the same URL, so a failed Normal portrait or repeated sprite URL can still advance to the next alternative or initials.
 
 Rules v8 set a per-Pokémon attackReady tick in finishMove, one second after completion. usable and ultReady enforce it; view exposes the maximum of shared recovery and individual move cooldown, so existing UI controls display it. Switching preserves the outgoing Pokémon timestamp, partners remain independent, and movement/dodge are unaffected. Both engine RULES_VERSION and service RT_RULES_VERSION default to 8. Every new condition is gated to 8; v1–7 replay events/results remain identical.
+
+## Battle Frontier of HeartGold/SoulSilver (`silvers_hoard/frontier.py`, `frontier_runs.py`, `engine/src/frontier.mjs`, `client/src/pages/Frontera.jsx`)
+
+- `scripts/build_frontier.py` reads the decompiled game (pret/pokeheartgold) into `presets/frontier4.json.gz`: the 950 Frontier sets and
+  315 Frontier trainers the facilities share, the 477 Battle Hall sets, the Hall's level table and trainer classes per rank, the Arcade's
+  32 roulette events with their panels and odds per streak position, and the Castle's points formula, services, prices and ranks.
+  `presets/frontier_brains.json.gz` adds Argenta and Thorton as characters (merged at load like `unbound.json.gz`); Dahlia, Darach and
+  Palmer keep their Bulbapedia teams.
+- `frontier.py` is the pure part (seeded draws, rivals, the Hall board and level formula, the roulette, Castle points and services);
+  `frontier_runs.py` keeps a streak as a run of kind `facility` (`hall4`, `arcade4`, `castle4` in `facilities.py`) with its phase
+  (`type`, `board`, `castle`, `battle`, `over`) through `services.py`; tools `frontier_get`, `frontier_hall_pick`, `frontier_arcade_stop`,
+  `frontier_castle`, and `challenge_start` takes `picks`.
+- A battle can start from a given state: `spec.start = {p1: [{hp, status, sleep_turns, pp}], p2: [...], field: {weather, trickroom}}`
+  applied by `engine/src/frontier.mjs` right after the Battle is created (switch-in lines already show HP and status); snapshots keep it
+  and the input log carries a `>silverstart` line, so replays and practice branches rebuild the same battle. Generation 4 fog is a field
+  condition of Silver's own (accuracy ×3/5, marked unverified). The real-time sim accepts starting HP, status and weather; the Hall plays
+  in both modes, the Arcade and Castle turn by turn.
+
+## HeartGold/SoulSilver cartridge data (`silvers_hoard/hgss_rom.py`, `scripts/build_hgss_rom.py`)
+
+- `scripts/build_hgss_rom.py` turns the extraction of `files/poketool/trainer/trainers.json` and the gym maps' `zone_event` files of
+  pret/pokeheartgold into `presets/hgss_rom.json.gz`: per matched character variant (78 of the 86 HeartGold/SoulSilver teams) the exact
+  sets with the game's personality generator (seed = difficulty + level + species + trainer index, rolled as many times as the class
+  number; nature = PID mod 25, ability bit, gender byte; IVs = difficulty × 31 / 255; default moves from the level-up table), the ROM
+  index, AI flags and double flag; six extra characters (Kimono Girls, Rocket admins, Eusine); the 16 gyms with their rooms, trainers
+  (class, name in both languages, sets, sight, facing, position) and the lines in Spanish and English.
+- `hgss_rom.py` merges it into the characters at load (variants get `cartridge`, `rom`, `ai_flags`, `ai`), maps the AI flags to a level
+  and style (`ai_for`), builds each gym's trainers and map for the `johto-hgss` and `kanto-hgss` leagues (`game_leagues.py`), and answers
+  `hgss_rom_get`. Dialogue gained `last_low` (said once when the last Pokémon is at half HP or less) and `after` (the result screen).
+
+## Pokéathlon (`silvers_hoard/pokeathlon.py`, `client/src/pokeathlon`)
+
+- `scripts/build_pokeathlon_stats.py` writes `presets/pokeathlon_stats.json.gz` (the five stars of every species and forme: the cartridge's
+  `performance.narc` for the Pokémon HeartGold/SoulSilver has, inherited by formes, predicted for the rest from base stats, size, types and
+  evolution) and `presets/pokeathlon_npc.json.gz` (the game's 100 rival teams with their lines).
+- `pokeathlon.py` serves the stars, courses and rival teams and stores played courses (SCHEMA_V8: courses, rounds, medals); a saved
+  course is recomputed here from the raw scores (event points, Challenge / No-Miss / Points Leader / Effort bonuses, places, medals,
+  Athlete Points). Tools `pokeathlon_stats`, `pokeathlon_courses`, `pokeathlon_npc_teams`, `pokeathlon_result_save`, `pokeathlon_records`,
+  `pokeathlon_history`.
+- The client: `Hub.jsx` (courses, single events, records), `Setup.jsx` (teams and stars, rivals, play or watch), `Stage.jsx` (intro card,
+  the event's canvas at 960×540, results), `Ceremony.jsx` (bonuses, medal), `runner.js` / `core.js` (the ctx every event gets: unified
+  mouse/touch/keyboard/gamepad input, seeded rng, SpriteCollab animators, sounds, finish), `course.js` (points and bonuses). Each event is
+  `events/<id>.js` with its rules in `events/<id>/sim.js` (pure, run headless by `engine/test/pokeathlon-*.test.mjs`) and its drawing in
+  the module or `view.js`; `events/_kit` and `events/_kit5` hold shared helpers. Routes `#/pokeathlon`, `?event=<id>`, `?course=<key>`.
