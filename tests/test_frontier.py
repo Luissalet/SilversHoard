@@ -1,5 +1,6 @@
 """The HeartGold/SoulSilver Battle Frontier (frontier.py, frontier_runs.py): the game's formulas and tables, and streaks at the Battle
-Hall, Battle Arcade and Battle Castle through the tools, with the start state reaching the battle."""
+Hall, Battle Arcade and Battle Castle through the tools (singles, doubles and multi with a partner, turn by turn and in real time),
+with the start state reaching the battle."""
 
 import pytest
 from conftest import needs_engine, wait_for
@@ -155,6 +156,64 @@ def test_battle_points_and_brains():
     assert all(759 <= i <= 950 for i in frontier.thorton_team(49, "run_b")["set_ids"]) and frontier.thorton_team(22, "run_b") is None
 
 
+def test_doubles_and_multi_rivals():
+    assert [frontier.kind_of(x) for x in ("hall4_double", "arcade4_multi", "castle4", "tower4")] == ["hall", "arcade", "castle", ""]
+    assert [frontier.mode_of(x) for x in ("hall4", "hall4_double", "castle4_multi")] == ["single", "double", "multi"]
+    assert [frontier.party_size(k, m) for k, m in (("hall", "single"), ("hall", "double"), ("hall", "multi"), ("arcade", "double"), ("castle", "multi"))] \
+        == [1, 2, 1, 3, 2]
+    assert frontier.interleave([1, 2], ["a", "b"]) == [1, "a", 2, "b"] and frontier.owners_of(2, 2) == [0, 1, 0, 1]
+    # Hall doubles: one set, two copies; no Argenta outside singles
+    st = frontier.hall_new({"num": 94}, 50)
+    st["mode"] = "double"
+    duo = frontier.hall_rival(st, 1, 1, "run_d")
+    a, b = duo["seat"]["team"]
+    assert a["species"] == b["species"] and a["moves"] == b["moves"] and a["nature"] == b["nature"] and "owners" not in duo["seat"]
+    assert not frontier.hall_rival(st, 50, 1, "run_d")["boss"]
+    # Hall multi: the two trainers rolled, rank 9 (IV 26, AI 7) at the party level
+    st["mode"] = "multi"
+    pair = frontier.hall_rival(st, 1, 1, "run_m")
+    assert pair["seat"]["owners"] == [0, 1] and pair["level"] == 50 and pair["iv"] == 26 and pair["seat"]["ai_level"] == "expert"
+    assert pair["pair"]["trainer_id"] == pair["trainers_rolled"][1] and " y " in pair["name"] and " & " in pair["seat_name"]
+    assert pair["seat"]["team"][0]["species"] == pair["seat"]["team"][1]["species"]
+    lo, hi = frontier.data()["hall"]["rank_ranges"][9]
+    assert lo <= pair["set_id"] <= hi
+    # Arcade and Castle multi: battle n's trainer and battle n + 7's, two sets each, the second without the first's species or items
+    for kind in ("arcade", "castle"):
+        mst = {"mode": "multi"}
+        rv = frontier.facility_rival(kind, mst, 3, "run_m")
+        team = rv["seat"]["team"]
+        assert len(team) == 4 and rv["seat"]["owners"] == [0, 1, 0, 1] and not rv["boss"]
+        assert rv["trainer"] == mst["round_trainers"][2] and rv["pair"]["trainer_id"] == mst["round_trainers"][9]
+        first, second = team[0::2], team[1::2]
+        assert not {m["species"] for m in first} & {m["species"] for m in second}
+        if kind == "castle":
+            assert not {m.get("item") for m in first} & {m.get("item") for m in second}
+        assert not frontier.facility_rival(kind, {"mode": "multi"}, 21, "run_m")["boss"]
+    dbl = frontier.facility_rival("castle", {"mode": "double"}, 21, "run_m")
+    assert not dbl["boss"] and len(dbl["seat"]["team"]) == 3
+    # Battle Points: the multi tables, the Hall's multi 12 a round, no Brain round outside singles
+    assert [frontier.round_bp("arcade", r, r * 7, "multi") for r in (1, 4, 8, 11)] == [7, 10, 17, 17]
+    assert [frontier.round_bp("castle", r, r * 7, "multi") for r in (1, 3, 7, 9)] == [8, 11, 18, 18]
+    assert frontier.round_bp("hall", 5, 50, "multi") == 12 and frontier.round_bp("hall", 5, 50, "double") == 2
+    assert frontier.round_bp("castle", 3, 21, "double") == 4 and frontier.castle_skip_ok(49, "double") and not frontier.castle_skip_ok(49)
+    # the facility's partners: their own sets, IV 31, none of the challenger's species
+    mates = frontier.partner_sets(301, "castle", 50, frontier.lc("p"), ["Gengar"])
+    assert len(mates) == 2 and all(m["level"] == 50 and "item" not in m and m["ivs"]["hp"] == 31 and m["species"] != "Gengar" for m in mates)
+    assert len(frontier.partner_sets(300, "hall", 37, frontier.lc("p"))) == 1 and frontier.partner_card(303)["name"] == "Sémola"
+
+
+def test_real_time_end_state():
+    b = {"mode": "realtime", "summary": {"mode": "realtime", "seconds": 37.5, "sides": {"p1": {"pokemon": [
+        {"species": "Gengar", "hp": 60, "maxhp": 135, "fainted": False, "status": "par", "item": "Sitrus Berry", "pp": [3, 0], "maxpp": [24, 16]},
+        {"species": "Garchomp", "hp": 0, "maxhp": 183, "fainted": True, "status": "brn", "item": ""}]}, "p2": {"pokemon": []}}}}
+    end = frontier_runs.end_state(b)
+    assert end["turns"] == 7   # one turn every 6 s
+    assert end["p1"][0] == {"index": 0, "species": "Gengar", "hp": 60, "maxhp": 135, "fainted": False, "status": "par", "item": "Sitrus Berry",
+                            "pp": [3, 0], "maxpp": [24, 16]}
+    assert end["p1"][1]["fainted"] and end["p1"][1]["hp"] == 0 and end["p1"][1]["status"] == "" and "pp" not in end["p1"][1]
+    assert frontier_runs.end_state({"summary": {"end": {"turns": 3}}}) == {"turns": 3} and frontier_runs.end_state({"summary": {}}) == {}
+
+
 # ---------------------------------------------------------------- streaks through the tools (engine)
 def _trainer(call, name="Frente", paste=TEAM):
     tr = call("trainer_create", {"name": name, "paste": paste})
@@ -165,7 +224,7 @@ def _trainer(call, name="Frente", paste=TEAM):
 def test_facilities_list_and_brains(call, services):
     fac = {f["id"]: f for f in call("facilities_list", {})["facilities"]}
     assert fac["hall4"]["frontier"] == "hall" and fac["hall4"]["picks"] == 1 and fac["hall4"]["round"] == 10
-    assert fac["arcade4"]["modes"] == ["classic"] and fac["castle4"]["picks"] == 3
+    assert fac["arcade4"]["modes"] == ["classic", "realtime"] and fac["castle4"]["picks"] == 3
     assert [(b["key"], b["at"]) for b in fac["hall4"]["bosses"]] == [("argenta", 50), ("argenta", 170)]
     assert [(b["key"], b["at"]) for b in fac["factory4"]["bosses"]] == [("thorton", 21), ("thorton", 49)]
     assert fac["castle4"]["bosses"][0]["name"] == "Kokuran" and fac["arcade4"]["bosses"][0]["name"] == "Delila"
@@ -205,7 +264,6 @@ def test_hall_streak(call, services):
 @needs_engine
 def test_arcade_roulette_reaches_the_battle(call, services):
     tid = _trainer(call, "Ruleta")
-    call("challenge_start", {"kind": "facility", "target_id": "arcade4", "challenger_id": tid, "mode": "realtime"}, status=400)
     run = call("challenge_start", {"kind": "facility", "target_id": "arcade4", "challenger_id": tid, "picks": [0, 1, 2]})
     fv = run["frontier"]
     assert fv["phase"] == "board" and len(fv["board"]["panels"]) == 16 and fv["speed"] == 3 and fv["rival"]["name"]
@@ -292,3 +350,90 @@ def test_generation_four_rules(call):
     call("challenge_start", {"kind": "facility", "target_id": "castle4", "challenger_id": tid}, status=400)
     run = call("challenge_start", {"kind": "facility", "target_id": "hall4", "challenger_id": tid, "format": "gen9customgame"})
     assert run["frontier"]["phase"] == "type"
+
+
+@needs_engine
+def test_doubles_hall(call, services):
+    tid = _trainer(call, "Sala dobles")
+    fac = {f["id"]: f for f in call("facilities_list", {})["facilities"]}
+    assert fac["hall4_double"]["frontier_mode"] == "double" and fac["hall4_double"]["picks"] == 2 and fac["hall4_double"]["bosses"] == []
+    run = call("challenge_start", {"kind": "facility", "target_id": "hall4_double", "challenger_id": tid, "picks": [0, 2]})
+    assert run["frontier"]["mode"] == "double" and [m["species"] for m in run["frontier"]["party"]] == ["Gengar", "Starmie"]
+    r = call("frontier_hall_pick", {"id": run["id"], "cell": "agua"})
+    b = services.store.battle(r["stages"][0]["battle_id"])
+    assert b["format"] == "gen4doublescustomgame" and len(b["p1"]["sets"]) == 2
+    foes = b["p2"]["sets"]
+    assert len(foes) == 2 and foes[0]["species"] == foes[1]["species"] and foes[0]["moves"] == foes[1]["moves"]
+    state = call("battle_get", {"id": b["id"]})
+    assert len(state["requests"]["p1"]["active"]) == 2
+    call("battle_forfeit", {"id": b["id"], "side": "p1"})
+
+
+@needs_engine
+def test_multi_castle_with_a_partner(call, services):
+    tid = _trainer(call, "Castillo multi")
+    fac = {f["id"]: f for f in call("facilities_list", {})["facilities"]}
+    assert fac["castle4_multi"]["picks"] == 2 and [p["id"] for p in fac["castle4_multi"]["partners"]] == ["300", "301", "302", "303", "304"]
+    call("challenge_start", {"kind": "facility", "target_id": "castle4", "challenger_id": tid, "partner": "301"}, status=400)
+    call("challenge_start", {"kind": "facility", "target_id": "castle4_multi", "challenger_id": tid, "partner": tid}, status=400)
+    run = call("challenge_start", {"kind": "facility", "target_id": "castle4_multi", "challenger_id": tid, "partner": "301", "picks": [0, 2]})
+    fv = run["frontier"]
+    assert fv["mode"] == "multi" and fv["partner"]["name"] == "Maiza" and len(fv["partner"]["party"]) == 2 and len(fv["party"]) == 2
+    assert fv["rival"]["pair"]["name"] and len(fv["scout"]) == 4
+    r = call("frontier_castle", {"id": run["id"], "service": "go"})
+    b = services.store.battle(r["stages"][0]["battle_id"])
+    assert b["format"] == "gen4doublescustomgame" and b["p1"]["owners"] == [0, 1, 0, 1] and b["p2"]["owners"] == [0, 1, 0, 1]
+    assert b["p1"]["partner"]["name"] == "Maiza" and b["p1"]["partner"]["ai"]["level"] == "expert"
+    assert [x["species"] for x in b["p1"]["sets"][0::2]] == ["Gengar", "Starmie"]
+    start = b["replay"]["start"]["p1"]
+    assert start[1] == {} and start[3] == {} and start[0]["hp"] == fv["party"][0]["maxhp"]
+    req = call("battle_get", {"id": b["id"]})["requests"]["p1"]
+    assert req["partner_slots"] == [1] and [bool(p.get("partner")) for p in req["side"]["pokemon"]] == [False, True, False, True]
+    call("battle_choose", {"id": b["id"], "side": "p1", "choice": "switch 4"}, status=400)   # the partner's
+    call("battle_choose", {"id": b["id"], "side": "p1", "choice": "move 1 1"})
+    party = fv["party"]
+    end = {"turns": 5, "p1": [
+        {"index": 0, "hp": 10, "maxhp": party[0]["maxhp"], "status": "", "pp": party[0]["maxpp"], "item": ""},
+        {"index": 1, "hp": 0, "maxhp": 100, "fainted": True, "status": "", "item": ""},
+        {"index": 2, "hp": party[1]["maxhp"], "maxhp": party[1]["maxhp"], "status": "", "pp": party[1]["maxpp"], "item": ""},
+        {"index": 3, "hp": 1, "maxhp": 100, "status": "brn", "item": ""}]}
+    frontier_runs.after_battle(services, services.store.run(run["id"]), {"winner_side": "p1", "summary": {"end": end}})
+    nxt = call("frontier_get", {"id": run["id"]})["frontier"]
+    # your half only: 3+1+1 (under half, no status) + 3+3+1 (full, no status) + 8 (no PP used) = 20
+    assert nxt["cp"] == 10 + 20 and nxt["party"][0]["hp"] == 10 and nxt["party"][1]["hp"] == party[1]["maxhp"]
+    call("battle_forfeit", {"id": b["id"], "side": "p1"})
+
+
+@needs_engine
+def test_multi_hall_with_your_own_trainer_as_partner(call, services):
+    tid = _trainer(call, "Sala multi")
+    mate = _trainer(call, "Compañera", "Blissey\n- Seismic Toss\n- Soft-Boiled\n\nSnorlax\n- Body Slam\n")
+    run = call("challenge_start", {"kind": "facility", "target_id": "hall4_multi", "challenger_id": tid, "partner": mate, "picks": [1], "level": 50})
+    fv = run["frontier"]
+    assert fv["partner"]["kind"] == "trainer" and [m["species"] for m in fv["partner"]["party"]] == ["Blissey"] and fv["partner"]["party"][0]["level"] == 50
+    r = call("frontier_hall_pick", {"id": run["id"], "cell": 0})
+    b = services.store.battle(r["stages"][0]["battle_id"])
+    assert [x["species"] for x in b["p1"]["sets"]] == ["Garchomp", "Blissey"] and b["p1"]["owners"] == [0, 1]
+    foes = b["p2"]["sets"]
+    assert len(foes) == 2 and foes[0]["species"] == foes[1]["species"] and foes[0]["level"] == 50 and b["p2"]["owners"] == [0, 1]
+    assert " & " in b["p2"]["name"]
+    call("battle_forfeit", {"id": b["id"], "side": "p1"})
+
+
+@needs_engine
+def test_real_time_arcade_and_castle(call, services):
+    tid = _trainer(call, "Tiempo real")
+    run = call("challenge_start", {"kind": "facility", "target_id": "arcade4", "challenger_id": tid, "mode": "realtime"})
+    r = services.store.run(run["id"])
+    ch = r["challenger"]
+    ch["frontier"]["board"]["panels"] = [23] * 16   # Trick Room
+    services.store.update_run(run["id"], {"challenger": ch})
+    r = call("frontier_arcade_stop", {"id": run["id"], "panel": 0})
+    b = call("battle_get", {"id": r["stages"][0]["battle_id"]})
+    assert b["mode"] == "realtime" and b["rt"]["version"] == 9 and b["rt"]["spec"]["start"]["field"] == {"trickroom": 5}
+    call("battle_forfeit", {"id": b["id"], "side": "p1"})
+    run = call("challenge_start", {"kind": "facility", "target_id": "castle4", "challenger_id": tid, "mode": "realtime"})
+    r = call("frontier_castle", {"id": run["id"], "service": "go"})
+    b = call("battle_get", {"id": r["stages"][0]["battle_id"]})
+    st = b["rt"]["spec"]["start"]["p1"]
+    assert b["mode"] == "realtime" and st[0]["pp"] == st[0]["maxpp"] and st[0]["hp"] == st[0]["maxhp"]

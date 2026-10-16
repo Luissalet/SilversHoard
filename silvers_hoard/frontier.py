@@ -5,6 +5,10 @@ The rules and tables come from the decompiled game (pret/pokeheartgold) through 
 scripts/build_frontier.py: the 950 Frontier sets and 315 Frontier trainers shared by the facilities, the 477 Battle Hall sets,
 the Hall's level table and trainer classes, the Arcade's 32 roulette events with their odds, the Castle's points and services.
 
+Each facility has the game's three challenge types: single, double (Hall: 2 Pokémon, the rival two copies of one set; Arcade and
+Castle: 3 Pokémon in a doubles battle) and multi with a partner (you and an AI partner trainer, 1 or 2 Pokémon each, against two
+rival trainers). The Frontier Brains only come in singles.
+
 This module is the pure part (random draws, rivals, the Hall board, the roulette, the Castle's points and services); the streak
 itself (a run of kind ``facility``) and its battles are kept by frontier_runs.py through services.py. Comments marked
 [UNVERIFIED] are general knowledge of the games, not read from the decompilation."""
@@ -21,9 +25,18 @@ from typing import Any, Optional
 PRESETS = Path(__file__).resolve().parent / "presets"
 STATS = ("hp", "atk", "def", "spa", "spd", "spe")
 KINDS = {"hall4": "hall", "arcade4": "arcade", "castle4": "castle"}
+MODES = ("single", "double", "multi")
+# facility id -> (kind, challenge type): hall4, hall4_double, hall4_multi, arcade4, ...
+FACILITY_IDS = {f"{base}{'' if mode == 'single' else '_' + mode}": (kind, mode) for base, kind in KINDS.items() for mode in MODES}
 ROUND = {"hall": 10, "arcade": 7, "castle": 7}
 PARTY = {"hall": 1, "arcade": 3, "castle": 3}
 LEVEL_CAP = 50   # the Arcade and the Castle copy the challenger's Pokémon at level 50 at most (exp reset above it)
+# Battle Points per round of the multi challenges (SPEC 3.7, 4.4: Arcade and Castle); the Hall's multi with a partner pays 12 a round
+BP_MULTI = {"arcade": [0, 7, 8, 9, 10, 13, 14, 16, 17], "castle": [0, 8, 9, 11, 12, 14, 15, 18, 18]}
+BP_MULTI_CAP = {"arcade": 17, "castle": 18}
+HALL_MULTI_BP = 12
+# the partner trainers of the multi challenges (Frontier trainers 300-304, IV 31): sprite and Spanish name (WikiDex)
+PARTNERS = {300: ("cheryl", "Malta"), 301: ("mira", "Maiza"), 302: ("riley", "Quinoa"), 303: ("marley", "Sémola"), 304: ("buck", "Bulgur")}
 
 
 @lru_cache(maxsize=1)
@@ -32,8 +45,33 @@ def data() -> dict[str, Any]:
 
 
 def kind_of(facility_id: str) -> str:
-    """hall, arcade or castle for the three Gen 4 facilities with their own rules, else ''."""
-    return KINDS.get(facility_id or "", "")
+    """hall, arcade or castle for the Gen 4 facilities with their own rules (any challenge type), else ''."""
+    return FACILITY_IDS.get(facility_id or "", ("", ""))[0]
+
+
+def mode_of(facility_id: str) -> str:
+    """The challenge type of a Gen 4 facility: single, double or multi."""
+    return FACILITY_IDS.get(facility_id or "", ("", "single"))[1]
+
+
+def party_size(kind: str, mode: str = "single") -> int:
+    """How many of the challenger's own Pokémon a battle takes: Hall 1 (2 in doubles), Arcade and Castle 3 (2 in multi)."""
+    if kind == "hall":
+        return 2 if mode == "double" else 1
+    return 2 if mode == "multi" else 3
+
+
+def interleave(a: list[Any], b: list[Any]) -> list[Any]:
+    """Two trainers' Pokémon on one side of a multi battle: a0, b0, a1, b1... (slot 1 opens with a's lead, slot 2 with b's)."""
+    out: list[Any] = []
+    for i in range(max(len(a), len(b))):
+        out += ([a[i]] if i < len(a) else []) + ([b[i]] if i < len(b) else [])
+    return out
+
+
+def owners_of(a: int, b: int) -> list[int]:
+    """Whose each Pokémon of an interleaved multi side is (0: the first trainer, slot 1; 1: the second, slot 2)."""
+    return interleave([0] * a, [1] * b)
 
 
 # ---------------------------------------------------------------- random numbers
@@ -128,18 +166,35 @@ def frontier_set(s: dict[str, Any], *, level: int, iv: int, rnd: LCRandom, item:
     return out
 
 
-def pick_sets(set_ids: list[int], count: int, rnd: LCRandom) -> list[dict[str, Any]]:
-    """FrontierTrainer_PickMonSets: draw sets of the trainer's list until `count`, never two of the same species or held item."""
+def pick_sets(set_ids: list[int], count: int, rnd: LCRandom, exclude: Optional[list[dict[str, Any]]] = None) -> list[dict[str, Any]]:
+    """FrontierTrainer_PickMonSets: draw sets of the trainer's list until `count`, never two of the same species or held item (nor
+    one of `exclude`'s: in multi the second rival is built excluding the first one's species and items, frontier_trainers.c:513)."""
     sets = data()["sets"]
     out: list[dict[str, Any]] = []
+    taken = list(exclude or [])
     for _ in range(2000):
         if len(out) >= count:
             break
         s = sets[set_ids[rnd() % len(set_ids)] - 1]
-        if any(o["species"] == s["species"] or (o["item"] and o["item"] == s["item"]) for o in out):
+        if any(o.get("species") == s["species"] or (o.get("item") and o.get("item") == s["item"]) for o in out + taken):
             continue
         out.append(s)
     return out
+
+
+def partner_card(tid: int) -> dict[str, Any]:
+    """A partner trainer of the multi challenges as it shows up."""
+    key, es = PARTNERS[tid]
+    return {"name": es, "name_en": trainer(tid)["name"], "avatar": f"sd:{key}", "trainer_id": tid, "character": key}
+
+
+def partner_sets(tid: int, kind: str, level: int, rnd: LCRandom, exclude_species: Optional[list[str]] = None) -> list[dict[str, Any]]:
+    """A partner trainer's Pokémon for a multi streak: 1 (Hall) or 2 of its Frontier sets (no repeated species or item, none of the
+    challenger's species), IV 31, at the Hall's party level with its item, or at level 50 without items in the Arcade and the Castle
+    like the challenger's [UNVERIFIED: the game's partner rules are not part of the extracted spec]."""
+    exclude = [{"species": x} for x in exclude_species or []]
+    picked = pick_sets(trainer(tid)["set_ids"], party_size(kind, "multi"), rnd, exclude)
+    return [frontier_set(s, level=level if kind == "hall" else LEVEL_CAP, iv=trainer_iv(tid), rnd=rnd, item=kind == "hall") for s in picked]
 
 
 def round_trainers(kind: str, round_: int, rnd: LCRandom) -> list[int]:
@@ -173,11 +228,17 @@ def brain_number(kind: str, number: int) -> Optional[int]:
     return None
 
 
-def round_bp(kind: str, rounds_done: int, streak: int) -> int:
-    """Battle Points paid when a round ends (the round counter already advanced): the facility's table, 20 on a Brain's round."""
+def round_bp(kind: str, rounds_done: int, streak: int, mode: str = "single") -> int:
+    """Battle Points paid when a round ends (the round counter already advanced): the facility's table (doubles as singles, the
+    multi table in multi; the Hall's multi with a partner always 12), 20 on a Brain's round of singles."""
     d = data()[kind]
+    if mode == "multi":
+        if kind == "hall":
+            return HALL_MULTI_BP
+        table = BP_MULTI[kind]
+        return table[rounds_done] if rounds_done < len(table) else BP_MULTI_CAP[kind]
     brain = (50, 170) if kind == "hall" else (21, 49)
-    if streak in brain:
+    if streak in brain and mode == "single":
         return d["bp_brain"]
     table = d["bp"]
     cap = d["bp_ge_18"] if kind == "hall" else d["bp_ge_8"]
@@ -272,14 +333,17 @@ def hall_pick_set(lo: int, hi: int, cell_type: str, lead_num: int, round_sets: l
 
 def hall_rival(st: dict[str, Any], number: int, cell: int, run_id: str, sprites: Optional[frozenset] = None) -> dict[str, Any]:
     """The rival of the battle `number` of the streak on the type cell `cell` (0-16): a trainer, one Hall set of that type at the
-    level of the formula, IVs and AI by the cell's rank; the Hall Matron Argenta on battles 50 and 170 (party level, IV 31)."""
+    level of the formula, IVs and AI by the cell's rank; the Hall Matron Argenta on battles 50 and 170 (party level, IV 31).
+    Doubles: the same trainer with two copies of that one set (battle_hall_setup.c:276-283). Multi: the two trainers rolled, one
+    copy each, the rank taken as 9 and the level as the party level, AI 7 (battle_hall_setup.c:262-265)."""
     h = data()["hall"]
+    mode = st.get("mode") or "single"
     rnd = lc(run_id, "hall", number)
-    rank = st["ranks"][cell]
+    rank = 9 if mode == "multi" else st["ranks"][cell]
     clamped = min(rank, 9)
     cell_type = hall_types()[cell]
     trainers = hall_pick_trainers(st, cell, rank, rnd)
-    matron = brain_number("hall", number)
+    matron = brain_number("hall", number) if mode == "single" else None
     if matron:
         lo, hi = h["gold_matron_range"] if matron == 308 else _matron_range(st["lead_num"])
         set_id = hall_pick_set(lo, hi, cell_type, st["lead_num"], st.get("round_sets") or [], rnd, True)
@@ -287,14 +351,29 @@ def hall_rival(st: dict[str, Any], number: int, cell: int, run_id: str, sprites:
     else:
         lo, hi = h["rank_ranges"][clamped]
         set_id = hall_pick_set(lo, hi, cell_type, st["lead_num"], st.get("round_sets") or [], rnd, False)
-        level = hall_level(st["level"], rank, hall_others(st["ranks"], cell))
-        iv, flags, tid = h["ivs_by_rank"][clamped], h["ai_by_rank"][min(rank, 10)], trainers[0]
+        if mode == "multi":
+            level, flags = st["level"], 7
+        else:
+            level, flags = hall_level(st["level"], rank, hall_others(st["ranks"], cell)), h["ai_by_rank"][min(rank, 10)]
+        iv, tid = h["ivs_by_rank"][clamped], trainers[0]
     s = data()["hall_sets"][set_id - 1]
-    mon = frontier_set(s, level=level, iv=iv, rnd=rnd)
+    team = [frontier_set(s, level=level, iv=iv, rnd=rnd) for _ in range(1 if mode == "single" else 2)]
     card = trainer_card(tid, sprites)
-    return {"number": number, "boss": bool(matron), "trainer": tid, "set_id": set_id, "cell": cell, "type": cell_type, "rank": rank,
-            "level": level, "iv": iv, "ai_flags": flags, "trainers_rolled": trainers, **card,
-            "seat": {"team": [mon], "ai_level": ai_level(flags), "ai_style": "balanced"}}
+    out = {"number": number, "boss": bool(matron), "trainer": tid, "set_id": set_id, "cell": cell, "type": cell_type, "rank": rank,
+           "level": level, "iv": iv, "ai_flags": flags, "trainers_rolled": trainers, **card,
+           "seat": {"team": team, "ai_level": ai_level(flags), "ai_style": "balanced"}}
+    if mode == "multi":
+        _pair(out, trainers[1], sprites)
+        out["seat"]["owners"] = [0, 1]
+    return out
+
+
+def _pair(out: dict[str, Any], tid: int, sprites: Optional[frozenset]) -> None:
+    """A multi battle's second rival trainer on a stage: its card, and both names together."""
+    pair = trainer_card(tid, sprites)
+    out["pair"] = {k: pair[k] for k in ("name", "name_en", "title", "title_en", "avatar", "trainer_id")}
+    out["seat_name"] = f"{trainer(out['trainer'])['name']} & {trainer(tid)['name']}"
+    out["name"], out["name_en"] = f"{out['name']} y {pair['name']}", f"{out['name_en']} & {pair['name_en']}"
 
 
 def _matron_range(lead_num: int) -> tuple[int, int]:
@@ -317,7 +396,7 @@ def hall_after_win(st: dict[str, Any], stage: dict[str, Any], streak: int) -> di
     out = {"rank": st["ranks"][cell], "bp": 0}
     if streak % ROUND["hall"] == 0:
         st["rounds"] = st.get("rounds", 0) + 1
-        out["bp"] = round_bp("hall", st["rounds"], streak)
+        out["bp"] = round_bp("hall", st["rounds"], streak, st.get("mode") or "single")
         st["bp"] = st.get("bp", 0) + out["bp"]
         st["round_sets"], st["round_trainers"] = [], []
     return out
@@ -665,14 +744,14 @@ def castle_after_win(st: dict[str, Any], rival: dict[str, Any], end_side: list[d
     out = {"cp": cp, "bp": 0}
     if streak % ROUND["castle"] == 0:
         st["rounds"] = st.get("rounds", 0) + 1
-        out["bp"] = round_bp("castle", st["rounds"], streak)
+        out["bp"] = round_bp("castle", st["rounds"], streak, st.get("mode") or "single")
         st["bp"] = st.get("bp", 0) + out["bp"]
     return out
 
 
-def castle_skip_ok(number: int) -> bool:
-    """Skipping costs 50 CP and is offered from round 4 on (round >= 3), never before a Brain's battle."""
-    return (number - 1) // ROUND["castle"] >= 3 and brain_number("castle", number) is None
+def castle_skip_ok(number: int, mode: str = "single") -> bool:
+    """Skipping costs 50 CP and is offered from round 4 on (round >= 3), never before a Brain's battle (singles only)."""
+    return (number - 1) // ROUND["castle"] >= 3 and (mode != "single" or brain_number("castle", number) is None)
 
 
 def castle_auto(st: dict[str, Any], rival: dict[str, Any]) -> list[dict[str, Any]]:
@@ -694,20 +773,23 @@ def castle_auto(st: dict[str, Any], rival: dict[str, Any]) -> list[dict[str, Any
 def facility_rival(kind: str, st: dict[str, Any], number: int, run_id: str, sprites: Optional[frozenset] = None) -> dict[str, Any]:
     """The rival of battle `number` at the Arcade or the Castle: the round's trainer for that battle with three of its sets (no
     repeated species or item) at level 50 and the IVs of its trainer id; Dahlia (her three sets) or Darach (three of his six) on
-    battles 21 and 49. Arcade rivals hold no items (they only get the roulette's); Castle rivals keep theirs."""
+    battles 21 and 49 of singles. Arcade rivals hold no items (they only get the roulette's); Castle rivals keep theirs. Doubles: the
+    same rivals in a doubles battle. Multi: the round's trainers for that battle and for battle + 7, two sets each, the second
+    excluding the first's species and items."""
+    mode = st.get("mode") or "single"
     round_, pos = (number - 1) // 7, (number - 1) % 7
     if st.get("round_no") != round_ or not st.get("round_trainers"):
         st["round_trainers"] = round_trainers(kind, round_, lc(run_id, kind, "round", round_))
         st["round_no"] = round_
     rnd = lc(run_id, kind, number)
-    brain = brain_number(kind, number)
+    brain = brain_number(kind, number) if mode == "single" else None
     if brain:
         t = trainer(brain)
         sets = [data()["sets"][i - 1] for i in t["set_ids"]] if kind == "arcade" else pick_sets(t["set_ids"], 3, rnd)
         tid, iv, flags = brain, 31, 7
     else:
         tid = st["round_trainers"][pos]
-        sets = pick_sets(trainer(tid)["set_ids"], 3, rnd)
+        sets = pick_sets(trainer(tid)["set_ids"], party_size(kind, mode), rnd)
         iv = trainer_iv(tid)
         if kind == "arcade":
             flags = 0 if round_ <= 1 else 1 if round_ <= 3 else 7
@@ -715,8 +797,18 @@ def facility_rival(kind: str, st: dict[str, Any], number: int, run_id: str, spri
             r = round_ + 1
             flags = 0 if r <= 2 else 1 if r <= 4 else 7
     team = [frontier_set(s, level=50, iv=iv, rnd=rnd, item=kind == "castle") for s in sets]
-    return {"number": number, "boss": bool(brain), "trainer": tid, "set_ids": [s["id"] for s in sets], "iv": iv, "ai_flags": flags,
-            **trainer_card(tid, sprites), "seat": {"team": team, "ai_level": ai_level(flags), "ai_style": "balanced"}}
+    out = {"number": number, "boss": bool(brain), "trainer": tid, "set_ids": [s["id"] for s in sets], "iv": iv, "ai_flags": flags,
+           **trainer_card(tid, sprites), "seat": {"team": team, "ai_level": ai_level(flags), "ai_style": "balanced"}}
+    if mode == "multi":
+        tid2 = st["round_trainers"][pos + 7]
+        sets2 = pick_sets(trainer(tid2)["set_ids"], 2, rnd, sets)
+        team2 = [frontier_set(s, level=50, iv=trainer_iv(tid2), rnd=rnd, item=kind == "castle") for s in sets2]
+        out["seat"]["team"] = interleave(team, team2)
+        out["seat"]["owners"] = owners_of(len(team), len(team2))
+        out["set_ids"] = interleave(out["set_ids"], [s["id"] for s in sets2])
+        out["iv2"] = trainer_iv(tid2)
+        _pair(out, tid2, sprites)
+    return out
 
 
 def thorton_team(number: int, run_id: str) -> Optional[dict[str, Any]]:

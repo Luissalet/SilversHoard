@@ -67,19 +67,30 @@ FACILITIES += [
 ]
 # The Battle Frontier of HeartGold/SoulSilver with the game's own rules (frontier.py, frontier_runs.py): the Battle Hall (one Pokémon,
 # a type board, rounds of ten), the Battle Arcade (three Pokémon at level 50 at most, a roulette before each battle) and the Battle
-# Castle (three Pokémon, Castle Points to spend, HP and PP carried over). Singles, Generation 4 rules; the Arcade and the Castle are
-# turn-based only (their roulette, PP and turn counts have no real-time equivalent).
+# Castle (three Pokémon, Castle Points to spend, HP and PP carried over), Generation 4 rules, turn by turn or in real time. Each has
+# the game's three challenge types with their own records: singles (the Frontier Brains on their battles), doubles (Hall: two
+# Pokémon against two copies of one set; Arcade and Castle: three Pokémon in a doubles battle) and multi with an AI partner (you and
+# a partner trainer, 1 or 2 Pokémon each, against two rival trainers). `size` is the Pokémon a side fields in all.
+_HGSS = " (Oro HeartGold/Plata SoulSilver)"
 FACILITIES += [
-    {"id": "hall4", "name": "Battle Hall (HeartGold/SoulSilver)", "name_es": "Sala Batalla (Oro HeartGold/Plata SoulSilver)", "gen": 4,
+    {"id": "hall4", "name": "Battle Hall (HeartGold/SoulSilver)", "name_es": "Sala Batalla" + _HGSS, "gen": 4,
      "game": "HGSS", "gametype": "singles", "size": 1, "frontier": "hall", "modes": ["classic", "realtime"],
      "bosses": [(50, "argenta", "frontier:307", "Emblema de Plata", "Silver Print"), (170, "argenta", "frontier:308", "Emblema de Oro", "Gold Print")]},
-    {"id": "arcade4", "name": "Battle Arcade (HeartGold/SoulSilver)", "name_es": "Ruleta Batalla (Oro HeartGold/Plata SoulSilver)", "gen": 4,
-     "game": "HGSS", "gametype": "singles", "size": 3, "frontier": "arcade", "modes": ["classic"],
+    {"id": "arcade4", "name": "Battle Arcade (HeartGold/SoulSilver)", "name_es": "Ruleta Batalla" + _HGSS, "gen": 4,
+     "game": "HGSS", "gametype": "singles", "size": 3, "frontier": "arcade", "modes": ["classic", "realtime"],
      "bosses": [(21, "dahlia", "frontier:311", "Emblema de Plata", "Silver Print"), (49, "dahlia", "frontier:312", "Emblema de Oro", "Gold Print")]},
-    {"id": "castle4", "name": "Battle Castle (HeartGold/SoulSilver)", "name_es": "Castillo Batalla (Oro HeartGold/Plata SoulSilver)", "gen": 4,
-     "game": "HGSS", "gametype": "singles", "size": 3, "frontier": "castle", "modes": ["classic"],
+    {"id": "castle4", "name": "Battle Castle (HeartGold/SoulSilver)", "name_es": "Castillo Batalla" + _HGSS, "gen": 4,
+     "game": "HGSS", "gametype": "singles", "size": 3, "frontier": "castle", "modes": ["classic", "realtime"],
      "bosses": [(21, "darach", "frontier:313", "Emblema de Plata", "Silver Print"), (49, "darach", "frontier:314", "Emblema de Oro", "Gold Print")]},
 ]
+for _base, _kind, _en, _es, _size in (("hall4", "hall", "Battle Hall", "Sala Batalla", 2), ("arcade4", "arcade", "Battle Arcade", "Ruleta Batalla", 3),
+                                      ("castle4", "castle", "Battle Castle", "Castillo Batalla", 3)):
+    FACILITIES += [
+        {"id": f"{_base}_double", "name": f"{_en}: Doubles (HeartGold/SoulSilver)", "name_es": f"{_es}: dobles" + _HGSS, "gen": 4, "game": "HGSS",
+         "gametype": "doubles", "size": _size, "frontier": _kind, "modes": ["classic", "realtime"], "bosses": []},
+        {"id": f"{_base}_multi", "name": f"{_en}: Multi (HeartGold/SoulSilver)", "name_es": f"{_es}: múltiple" + _HGSS, "gen": 4, "game": "HGSS",
+         "gametype": "doubles", "size": 2 if _kind == "hall" else 4, "frontier": _kind, "modes": ["classic", "realtime"], "bosses": []},
+    ]
 RENTALS = 6
 BY_ID = {f["id"]: f for f in FACILITIES}
 ROUND = 7

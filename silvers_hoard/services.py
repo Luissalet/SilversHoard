@@ -79,7 +79,7 @@ PHASE_WHEN = ("half", "last")
 # always locked on, no Mega Evolution; 2 = free aim, the Mega Power gauge, Plus moves and Mega Evolution; 3 = doubles formats
 # field two Pokémon per trainer, singles play as in 2; 4 = no Plus moves, the gauge only for Mega Evolution; 5 = the ultimate
 # gauge) and the arenas.
-RT_RULES_VERSION = 8
+RT_RULES_VERSION = 9
 RT_ARENAS = ("open", "rocks")
 
 
@@ -1289,7 +1289,31 @@ class Services:
         ai = {"level": level, "style": style, **({"hidden": True} if hidden else {}), **({"phase": phase} if phase else {})}
         return {"trainer_id": spec.get("trainer_id") or "", "name": name, "avatar": avatar, "avatar_url": self.avatar_url(avatar), "human": human,
                 "ai": None if human else ai, "sets": sets, "dialogue": dialogue, "format": fmt,
-                **({"remote": True} if human and spec.get("remote") else {})}
+                **({"remote": True} if human and spec.get("remote") else {}), **self._multi_seat(spec, len(sets))}
+
+    def _multi_seat(self, spec: dict[str, Any], count: int) -> dict[str, Any]:
+        """A multi battle's side (the Battle Frontier's multi challenges): whose each Pokémon is (`owners`, 0 or 1 per set: slot 1's
+        trainer or slot 2's) and the person's AI partner playing slot 2 (`partner`: name, avatar, ai_level, ai_style)."""
+        owners = spec.get("owners")
+        if not isinstance(owners, list) or len(owners) != count or not owners:
+            return {}
+        out: dict[str, Any] = {"owners": [1 if o else 0 for o in owners]}
+        mate = spec.get("partner")
+        if isinstance(mate, dict):
+            level, style = self._clean_ai(mate.get("ai_level") or "hard", mate.get("ai_style") or "balanced")
+            out["partner"] = {"name": str(mate.get("name") or "")[:40], "avatar": mate.get("avatar") or "",
+                              "avatar_url": self.avatar_url(mate.get("avatar") or ""), "ai": {"level": level, "style": style}}
+        return out
+
+    @staticmethod
+    def _engine_seat(seat: dict[str, Any]) -> dict[str, Any]:
+        """A seat as the engine takes it: name, sets, AI, and a multi battle's owners and partner."""
+        out = {"name": seat.get("name", ""), "sets": seat.get("sets") or [], "ai": seat.get("ai")}
+        if seat.get("owners"):
+            out["owners"] = seat["owners"]
+            if seat.get("partner"):
+                out["partner"] = {"name": seat["partner"].get("name", ""), "ai": seat["partner"].get("ai")}
+        return out
 
     @staticmethod
     def _host_view(b: dict[str, Any]) -> str:
@@ -1364,7 +1388,7 @@ class Services:
             fmt = f"gen{info['gen']}customgame"
         self._hide_from(s1, s2, fmt)
         spec = {"format": fmt, "rules": rules, "level_rules": level_rules, "max_turns": self.settings["max_turns"], "trace": True,
-                "p1": {"name": s1["name"], "sets": s1["sets"], "ai": s1["ai"]}, "p2": {"name": s2["name"], "sets": s2["sets"], "ai": s2["ai"]}}
+                "p1": self._engine_seat(s1), "p2": self._engine_seat(s2)}
         if seed:
             spec["seed"] = seed
         if start:   # HP, status, PP, weather... the battle starts with (engine/src/frontier.mjs)
@@ -1426,8 +1450,7 @@ class Services:
             raise SilverError("conflict", "This battle cannot be resumed (no saved state).")
         spec = {"id": b["id"], "format": b["format"], "rules": b.get("rules") or [], "level_rules": b.get("level_rules") or {},
                 "max_turns": self.settings["max_turns"], "trace": True,
-                "p1": {"name": b["p1"]["name"], "sets": b["p1"].get("sets") or [], "ai": b["p1"].get("ai")},
-                "p2": {"name": b["p2"]["name"], "sets": b["p2"].get("sets") or [], "ai": b["p2"].get("ai")}, "seed": b.get("seed") or None,
+                "p1": self._engine_seat(b["p1"]), "p2": self._engine_seat(b["p2"]), "seed": b.get("seed") or None,
                 "practice": bool((b.get("replay") or {}).get("practice"))}
         self.engine.call("match_start", {"spec": spec, "snapshot": json.loads(b["snapshot"]), "view": "host"}, timeout=60)
         self.engine.call("match_state", {"id": b["id"], "since": 10**9})
@@ -1848,7 +1871,7 @@ class Services:
     def _rt_spec(self, b: dict[str, Any]) -> dict[str, Any]:
         """The spec that rebuilds a real-time battle: the screen runs it, the engine replays it."""
         replay = b.get("replay") or {}
-        seat = lambda s: {"name": s.get("name", ""), "sets": s.get("sets") or [], "ai": s.get("ai")}  # noqa: E731
+        seat = self._engine_seat
         return {"id": b["id"], "seed": b.get("seed") or b["id"], "format": b["format"], "level_rules": b.get("level_rules") or {},
                 "time_limit": int(replay.get("time_limit") or self.settings.get("rt_time_limit") or 300), "p1": seat(b.get("p1") or {}),
                 "p2": seat(b.get("p2") or {}), "version": int(replay.get("version") or 1),
@@ -2018,9 +2041,11 @@ class Services:
                 "Doubles support moves: Helping Hand (the partner's next damaging move within 5 s has x1.5 power; 10 s cooldown); Follow Me and Rage Powder (for 3 s the foes' single-target moves turn to the user and projectiles in flight bend to it; Rage Powder does not draw Grass types, Overcoat or Safety Goggles; 12 s cooldown). In singles they still have no effect.",
                 "Doubles switching: three switches per trainer (shared by both slots), back after every knockout; a fainted Pokémon's slot is refilled from the bench (a person picks from the party bar, or the first one comes out after 6 s; the AI picks at once); with nobody left on the bench the slot stays empty and the trainer plays on with one. A trainer loses when no Pokémon can come out. The Mega Power gauge is the trainer's: one Mega Evolution per battle, Plus moves for the controlled Pokémon.",
                 "Battles stored before lock-on, rocks and Mega Evolution existed keep their rules (always locked on, open arena, no gauge), and battles stored before doubles (rules version 2) play doubles formats as singles, so their replays give the same result.",
+                "Rules version 9 (the HeartGold/SoulSilver Battle Frontier): a battle can start with HP, statuses, PP, a weather, Trick Room or fog. Trick Room lasts 6 s per turn of the games (the Arcade's 5 turns: 30 s) and turns Speed around: walking goes as base Speed 200 minus the Pokémon's, and cooldowns take the Speed mirrored around a base-80 Pokémon of its level. Fog makes each hit of a move with an accuracy land 3 times in 5, until another weather replaces it (Cloud Nine and Air Lock suppress it). Starting PP (the Castle) count down one per use; a move with none left cannot be used, and the PP left go back to the streak.",
+                "Multi battles (rules version 9, the Frontier's multi challenges): each side is two trainers, one Pokémon each on the field (slot a and slot b); a slot only sends out its own trainer's Pokémon and stays empty when they are gone. A person with an AI partner always moves slot a; the partner drives slot b and sends out its own next Pokémon.",
             ],
             "not_covered": ["triples (played as singles)", "Z-Moves, Dynamax and Terastallization", "Alpha Pokémon of Z-A",
-                            "Trick Room, Transform, Baton Pass-style copying and other moves listed as no_effect in rt_cooldowns",
+                            "Trick Room as a move, Transform, Baton Pass-style copying and other moves listed as no_effect in rt_cooldowns (the Arcade's Trick Room panel works from rules version 9)",
                             "in doubles: Wide Guard, Quick Guard, Ally Switch, After You, Instruct, Spotlight and other ally-targeting moves have no effect; healing moves for allies (Life Dew, Jungle Healing...) heal the user only"],
             "controls": {"move": "WASD or arrows; gamepad left stick", "focus": "hold Shift; gamepad hold ZL",
                          "moves": "I L K J in a diamond (or 1-4); gamepad ZL + X A B Y (simple layout: A B X Y)",
@@ -2084,7 +2109,7 @@ class Services:
 
     def run_start(self, *, kind: str, target_id: str, challenger_id: str, auto: bool = False, ignore_badges: bool = False,
                   format_override: str = "", mode: str = "classic", level: int = 0, rt_arena: str = "rocks", stop_at: int = 0,
-                  walk_map: bool = True, picks: Optional[list[int]] = None) -> dict[str, Any]:
+                  walk_map: bool = True, picks: Optional[list[int]] = None, partner: str = "") -> dict[str, Any]:
         walk = False
         if mode not in ("classic", "realtime"):
             raise SilverError("invalid", "mode is classic or realtime")
@@ -2105,7 +2130,7 @@ class Services:
             f = facilities.get(target_id)
             if not f:
                 raise SilverError("not_found", f"No facility {target_id}", hint="facilities_list shows them.")
-            if not f.get("rental") and len(challenger["team"]) < f["size"]:
+            if not f.get("rental") and not frontier.kind_of(target_id) and len(challenger["team"]) < f["size"]:
                 raise SilverError("invalid", f"{challenger['name']} needs {f['size']} Pokémon for {f['name']}.")
             open_run = next((x for x in self.store.runs(status="active", kind="facility", challenger_id=challenger_id, limit=200)
                              if x["target_id"] == target_id), None)
@@ -2114,7 +2139,7 @@ class Services:
                                   hint="challenge_next continues it; challenge_abandon ends it.", run_id=open_run["id"])
             if frontier.kind_of(target_id):   # the HeartGold/SoulSilver Hall, Arcade and Castle (frontier_runs.py)
                 rid = frontier_runs.start(self, f=f, challenger=challenger, challenger_id=challenger_id, auto=auto, mode=mode, level=level,
-                                          picks=picks, format_override=format_override, stop_at=stop_at, rt_arena=rt_arena)
+                                          picks=picks, format_override=format_override, stop_at=stop_at, rt_arena=rt_arena, partner=partner)
                 return self.run_view(self.store.run(rid))
             rid = self.store.add_run({"kind": "facility", "target_id": target_id, "target_name": f["name_es"], "challenger_id": challenger_id,
                                       "challenger": {"name": challenger["name"], "avatar": challenger["avatar"], "team": challenger["team"],
@@ -2231,7 +2256,7 @@ class Services:
                         "record_holder": (mine[best_i].get("challenger") or {}).get("name", "") if best_i is not None else "",
                         "streaks": len(mine), "active_run_id": active["id"] if active else "", "rental": bool(f.get("rental")),
                         "active_phase": ((active.get("challenger") or {}).get("frontier") or {}).get("phase", "")
-                        or (active.get("challenger") or {}).get("phase", "") if active else "", **frontier_runs.list_extra(f, mine),
+                        or (active.get("challenger") or {}).get("phase", "") if active else "", **frontier_runs.list_extra(f, mine, self),
                         "active_streak": sum(1 for st in (active or {}).get("stages") or [] if st.get("result") == "won")})
         return {"facilities": out, "trainer_id": trainer_id}
 

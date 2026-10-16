@@ -1,13 +1,18 @@
 """Streaks at the Gen 4 Battle Frontier facilities with their own rules (frontier.py): the Battle Hall (one Pokémon against rivals
 of the type you pick on a board), the Battle Arcade (three Pokémon, a roulette before each battle) and the Battle Castle (three
-Pokémon, Castle Points, HP and PP carried from battle to battle).
+Pokémon, Castle Points, HP and PP carried from battle to battle), each in singles, doubles and multi with an AI partner, turn by
+turn or in real time.
 
 A streak is a run of kind ``facility`` like the others: challenger["frontier"] keeps the facility's state (its phase: type, board,
-castle, battle) and each stage is a rival, made before its battle. services.py calls these functions with itself."""
+castle, battle; its challenge type `mode`; in multi the `partner` and its Pokémon) and each stage is a rival, made before its
+battle. In a multi battle each side's Pokémon are interleaved (yours, the partner's, yours...; the first rival's, the second's...)
+with `owners` telling the engine whose each one is. services.py calls these functions with itself."""
 
 from __future__ import annotations
 
+import math
 import re
+import secrets
 from typing import Any, Optional
 
 from . import facilities, frontier
@@ -24,13 +29,19 @@ def kind_of(r: dict[str, Any]) -> str:
     return frontier.kind_of(r.get("target_id", "")) if r.get("kind") == "facility" else ""
 
 
-def battle_format(svc: Any, ch: dict[str, Any]) -> str:
-    """Generation 4 rules (gen4customgame), or the customgame of the generation of the format the person chose instead."""
+RT_TURN_SECONDS = 6   # a turn of the games in real time (engine/src/realtime/sim.mjs TRICK_ROOM_TURN): the Arcade counts turns by it
+
+
+def battle_format(svc: Any, ch: dict[str, Any], mode: str = "") -> str:
+    """Generation 4 rules (gen4customgame; gen4doublescustomgame for doubles and multi), or the custom game of the generation of the
+    format the person chose instead."""
+    mode = mode or (ch.get("frontier") or {}).get("mode") or "single"
+    doubles = "doubles" if mode != "single" else ""
     override = ch.get("format_override") or ""
     if not override:
-        return FORMAT
+        return f"gen4{doubles}customgame"
     gen = svc.format_info(override).get("gen") or int((re.match(r"gen(\d)", override) or [0, 9])[1])
-    return f"gen{gen}customgame"
+    return f"gen{gen}{doubles}customgame"
 
 
 def _party_info(svc: Any, sets: list[dict[str, Any]], fmt: str) -> list[dict[str, Any]]:
@@ -43,43 +54,89 @@ def _party_mon(s: dict[str, Any], x: dict[str, Any]) -> dict[str, Any]:
             "moves": [m["name"] for m in x["moves"]], "pp": [m["pp"] for m in x["moves"]], "maxpp": [m["pp"] for m in x["moves"]]}
 
 
+def _copy_for(kind: str, s: dict[str, Any], level: int) -> dict[str, Any]:
+    """A Pokémon as a facility takes it: the Hall keeps it as it is (held item too) at the party level; the Arcade and the Castle
+    copy it at level 50 at most and without its held item."""
+    s = {k: v for k, v in s.items() if k != "level_range"}
+    if kind == "hall":
+        s["level"] = max(1, min(100, int(level or 50)))
+    else:
+        s["level"] = min(int(s.get("level") or 100), frontier.LEVEL_CAP)
+        s.pop("item", None)
+    return s
+
+
+def _later(info: list[dict[str, Any]]) -> list[str]:
+    return [x["species"] for x in info if x.get("gen", 0) > 4] + [m["name"] for x in info for m in x["moves"] if m.get("gen", 0) > 4]
+
+
+def partner_choices() -> list[dict[str, Any]]:
+    """The facility's partner trainers a multi streak can take (`partner` = their id)."""
+    return [{"id": str(tid), **frontier.partner_card(tid)} for tid in frontier.PARTNERS]
+
+
+def _partner(svc: Any, f: dict[str, Any], kind: str, partner: str, challenger_id: str, party: list[dict[str, Any]], level: int,
+             fmt: str, check_gen: bool) -> dict[str, Any]:
+    """The AI partner of a multi streak: one of the facility's partner trainers (300-304: Cheryl, Mira, Riley, Marley, Buck; their
+    Pokémon drawn from their Frontier sets) or one of your own trainers (the first Pokémon of its team, taken as yours are)."""
+    n = frontier.party_size(kind, "multi")
+    pid = str(partner or "300").strip()
+    if pid.isdigit() and int(pid) in frontier.PARTNERS:
+        tid = int(pid)
+        sets = frontier.partner_sets(tid, kind, level, frontier.lc("partner", secrets.token_hex(8)), [s["species"] for s in party])
+        out = {"kind": "frontier", "id": pid, **frontier.partner_card(tid), "ai_level": frontier.ai_level(7), "ai_style": "balanced"}
+    else:
+        if pid == challenger_id:
+            raise SilverError("invalid", "The partner is another trainer: pick one of the facility's partners or another of your trainers.")
+        t = svc.store.trainer(pid)
+        team = t.get("team") or []
+        if len(team) < n:
+            raise SilverError("invalid", f"{t['name']} needs {n} Pokémon to be the partner at {f['name']}.")
+        sets = [_copy_for(kind, s, level) for s in team[:n]]
+        out = {"kind": "trainer", "id": pid, "trainer_id": pid, "name": t["name"], "name_en": t["name"], "avatar": t.get("avatar") or "",
+               "ai_level": t.get("ai_level") or "hard", "ai_style": t.get("ai_style") or "balanced"}
+    info = _party_info(svc, sets, fmt)
+    if check_gen and _later(info):
+        raise SilverError("invalid", f"{f['name']} plays by Generation 4 rules and the partner's {', '.join(dict.fromkeys(_later(info)[:6]))} came later.",
+                          hint="Pick another partner, or pass format (e.g. gen9customgame) to keep them with later rules.")
+    out["party"] = [_party_mon(s, x) for s, x in zip(sets, info)]
+    return out
+
+
 def start(svc: Any, *, f: dict[str, Any], challenger: dict[str, Any], challenger_id: str, auto: bool, mode: str, level: int,
-          picks: Optional[list[int]], format_override: str, stop_at: int, rt_arena: str) -> str:
-    """A new streak: the challenger's Pokémon for it (Hall 1, Arcade and Castle 3: `picks` are team indexes, the first ones by
-    default), at the party level (Hall: `level`, 50 if 0) or capped at 50 without held items (Arcade and Castle)."""
+          picks: Optional[list[int]], format_override: str, stop_at: int, rt_arena: str, partner: str = "") -> str:
+    """A new streak: the challenger's Pokémon for it (`picks` are team indexes, the first ones by default: Hall 1, 2 in doubles;
+    Arcade and Castle 3, 2 in multi), at the party level (Hall: `level`, 50 if 0) or capped at 50 without held items (Arcade and
+    Castle); in multi, the AI partner (`partner`: a facility partner's id, 300 by default, or one of your trainer ids)."""
     kind = frontier.kind_of(f["id"])
+    fmode = frontier.mode_of(f["id"])
     if mode == "realtime" and "realtime" not in f.get("modes", ["classic"]):
-        raise SilverError("invalid", f"{f['name']} is turn-based only: its roulette and carried HP and PP need turns.",
-                          hint="Use mode=classic (the Battle Hall also plays in real time).")
-    n = frontier.PARTY[kind]
+        raise SilverError("invalid", f"{f['name']} is turn-based only.", hint="Use mode=classic.")
+    if partner and fmode != "multi":
+        raise SilverError("invalid", "partner is for the multi challenges (hall4_multi, arcade4_multi, castle4_multi).")
+    n = frontier.party_size(kind, fmode)
     team = challenger.get("team") or []
     if len(team) < n:
         raise SilverError("invalid", f"{challenger['name']} needs {n} Pokémon for {f['name']}.")
     picks = list(range(n)) if not picks else [int(i) for i in picks]
     if len(picks) != n or len(set(picks)) != n or any(not 0 <= i < len(team) for i in picks):
         raise SilverError("invalid", f"picks: {n} different indexes of {challenger['name']}'s team (0-{len(team) - 1}).")
-    fmt = battle_format(svc, {"format_override": format_override})
-    party = []
-    for i in picks:
-        s = {k: v for k, v in team[i].items() if k != "level_range"}
-        if kind == "hall":   # the Hall keeps the Pokémon as it is (held item too) at the party level
-            s["level"] = max(1, min(100, int(level or 50)))
-        else:                # the Arcade and the Castle copy it at level 50 at most and without its held item
-            s["level"] = min(int(s.get("level") or 100), frontier.LEVEL_CAP)
-            s.pop("item", None)
-        party.append(s)
+    fmt = battle_format(svc, {"format_override": format_override}, fmode)
+    party = [_copy_for(kind, team[i], level) for i in picks]
     info = _party_info(svc, party, fmt)
-    if not format_override:
-        later = [x["species"] for x in info if x.get("gen", 0) > 4] + [m["name"] for x in info for m in x["moves"] if m.get("gen", 0) > 4]
-        if later:
-            raise SilverError("invalid", f"{f['name']} plays by Generation 4 rules and {', '.join(dict.fromkeys(later[:6]))} came later.",
-                              hint="Pick other Pokémon, or pass format (e.g. gen9customgame) to keep them with later rules.")
+    if not format_override and _later(info):
+        raise SilverError("invalid", f"{f['name']} plays by Generation 4 rules and {', '.join(dict.fromkeys(_later(info)[:6]))} came later.",
+                          hint="Pick other Pokémon, or pass format (e.g. gen9customgame) to keep them with later rules.")
+    mate = _partner(svc, f, kind, partner, challenger_id, party, int(level or 50), fmt, not format_override) if fmode == "multi" else None
     if kind == "hall":
         st = frontier.hall_new(info[0], party[0]["level"])
     elif kind == "arcade":
         st = {"kind": "arcade", "phase": "board", "speed": frontier.arcade_speed_start(0), "random_next": False, "bp_gain": 0, "bp": 0, "rounds": 0}
     else:
         st = frontier.castle_new()
+    st["mode"] = fmode
+    if mate:
+        st["partner"] = mate
     st["party"] = [_party_mon(s, x) for s, x in zip(party, info)]
     rid = svc.store.add_run({"kind": "facility", "target_id": f["id"], "target_name": f["name_es"], "challenger_id": challenger_id,
                              "challenger": {"name": challenger["name"], "avatar": challenger["avatar"], "team": challenger["team"], "auto": auto,
@@ -95,6 +152,24 @@ def start(svc: Any, *, f: dict[str, Any], challenger: dict[str, Any], challenger
 
 def _sprites() -> frozenset:
     return facilities._sprite_names()
+
+
+def _multi(st: dict[str, Any]) -> bool:
+    return (st.get("mode") or "single") == "multi" and bool(st.get("partner"))
+
+
+def side_party(st: dict[str, Any]) -> list[dict[str, Any]]:
+    """The challenger's side as the battle has it: the party, interleaved with the partner's in multi."""
+    return frontier.interleave(st["party"], st["partner"]["party"]) if _multi(st) else list(st["party"])
+
+
+def _whose(st: dict[str, Any], index: int) -> tuple[Optional[dict[str, Any]], bool]:
+    """The party Pokémon behind a position of the challenger's side in battle, and whether it is the partner's."""
+    if _multi(st):
+        lst = st["partner"]["party"] if index % 2 else st["party"]
+        k = index // 2
+        return (lst[k] if 0 <= k < len(lst) else None), bool(index % 2)
+    return (st["party"][index] if 0 <= index < len(st["party"]) else None), False
 
 
 def begin(svc: Any, rid: str) -> None:
@@ -188,7 +263,7 @@ def arcade_stop(svc: Any, rid: str, panel: int = -1, frames: int = -1) -> dict[s
         p = frontier.arcade_panel_at(board, frontier.arcade_auto_frames(board, frontier.lc(rid, "stop", number)))
     stages = list(r["stages"])
     rival = stages[r["step"]]
-    ev = frontier.arcade_apply(board["panels"][p], board, st["party"], rival.get("info") or [], frontier.lc(rid, "event", number))
+    ev = frontier.arcade_apply(board["panels"][p], board, side_party(st), rival.get("info") or [], frontier.lc(rid, "event", number))
     ev["panel"] = p
     if ev.get("speed"):
         st["speed"] = max(0, min(7, int(st["speed"]) + ev["speed"]))
@@ -222,7 +297,7 @@ def castle_service(svc: Any, rid: str, service: str, mon: int = -1, item: str = 
     rival = stages[r["step"]]
     number = r["step"] + 1
     if service == "skip":
-        if not frontier.castle_skip_ok(number):
+        if not frontier.castle_skip_ok(number, st.get("mode") or "single"):
             raise SilverError("conflict", "Skipping is offered from the 4th round on and never before the Castle Valet's battle.")
         if st["cp"] < 50:
             raise SilverError("conflict", f"Not enough CP ({st['cp']} of 50).")
@@ -268,22 +343,29 @@ def next_step(svc: Any, r: dict[str, Any]) -> Optional[dict[str, Any]]:
     return None
 
 
+def _set_of(m: dict[str, Any]) -> dict[str, Any]:
+    s = {k: v for k, v in m["set"].items() if k != "item"}
+    if m.get("item"):
+        s["item"] = m["item"]
+    return s
+
+
 def battle_parts(svc: Any, r: dict[str, Any]) -> dict[str, Any]:
-    """The battle of the current stage: both teams as the facility makes them, the format and the start state."""
+    """The battle of the current stage: both teams as the facility makes them (a multi side interleaved, with its owners and the
+    person's AI partner), the format and the start state."""
     ch = r.get("challenger") or {}
     st = ch["frontier"]
     kind = st["kind"]
+    multi = _multi(st)
     stage = r["stages"][r["step"]]
     fmt = battle_format(svc, ch)
-    mine = []
-    for m in st["party"]:
-        s = {k: v for k, v in m["set"].items() if k != "item"}
-        if m.get("item"):
-            s["item"] = m["item"]
-        mine.append(s)
+    mine = [_set_of(m) for m in side_party(st)]
+    own = len(st["party"])
     theirs = [dict(x) for x in stage["seat"]["team"]]
+    owners1 = frontier.owners_of(own, len(st["partner"]["party"])) if multi else None
+    owners2 = list(stage["seat"].get("owners") or []) or None
     start: Optional[dict[str, Any]] = None
-    if kind == "hall":
+    if kind == "hall" or multi:   # no team preview: the Hall's one or two Pokémon, a multi battle's leads are each trainer's first
         rules: list[str] = []
     else:
         info = svc.format_info(fmt)
@@ -293,7 +375,10 @@ def battle_parts(svc: Any, r: dict[str, Any]) -> dict[str, Any]:
         levels = (stage.get("castle") or {}).get("levels") or []
         for i, x in enumerate(theirs):
             x["level"] = 50 + (levels[i] if i < len(levels) else 0)
-        start = {"p1": [{"hp": m["hp"], "maxhp": m["maxhp"], "pp": m["pp"], **({"status": m["status"]} if m.get("status") else {})} for m in st["party"]]}
+        carried = [{"hp": m["hp"], "maxhp": m["maxhp"], "pp": m["pp"], "maxpp": m["maxpp"], **({"status": m["status"]} if m.get("status") else {})}
+                   for m in st["party"]]
+        # the partner comes healed to every battle [UNVERIFIED: the Castle's services only reach your own Pokémon]
+        start = {"p1": frontier.interleave(carried, [{} for _ in st["partner"]["party"]]) if multi else carried}
     elif kind == "arcade":
         ev = st.get("event") or {}
         give, up = ev.get("give_item"), ev.get("level_up")
@@ -306,16 +391,45 @@ def battle_parts(svc: Any, r: dict[str, Any]) -> dict[str, Any]:
         start = ev.get("start")
         if ev.get("swap"):   # the person plays the rival's party (level 50, no items) and the AI the person's
             mine, theirs = [{k: v for k, v in x.items() if k != "item"} for x in theirs], mine
+            owners1, owners2 = owners2, owners1
     auto = bool(ch.get("auto"))
-    p1 = {"team": mine, "name": ch.get("name", ""), "avatar": ch.get("avatar", ""), "human": not auto}
-    p2 = {**stage["seat"], "team": theirs, "name": stage["name"], "avatar": stage.get("avatar", ""), "human": False}
+    name = ch.get("name", "")
+    p1: dict[str, Any] = {"team": mine, "name": name, "avatar": ch.get("avatar", ""), "human": not auto}
+    if multi:
+        mate = st["partner"]
+        p1.update(name=f"{name} & {mate['name']}"[:40], owners=owners1,
+                  partner={"name": mate["name"], "avatar": mate.get("avatar", ""), "ai_level": mate.get("ai_level") or "expert",
+                           "ai_style": mate.get("ai_style") or "balanced"})
+    p2 = {**stage["seat"], "team": theirs, "name": stage.get("seat_name") or stage["name"], "avatar": stage.get("avatar", ""), "human": False}
+    if owners2:
+        p2["owners"] = owners2
     return {"p1": p1, "p2": p2, "format": fmt, "rules": rules, "level_rules": {}, "start": start}
+
+
+def end_state(b: dict[str, Any]) -> dict[str, Any]:
+    """Each side's Pokémon as a battle left them, in the order of the sets ({turns, p1: [{index, hp, maxhp, fainted, status, item,
+    pp, maxpp}], p2}): the engine's end state of a turn-based battle, or the real-time summary (a turn counted every 6 s)."""
+    summary = b.get("summary") or {}
+    if summary.get("end"):
+        return summary["end"]
+    if summary.get("mode") != "realtime" and b.get("mode") != "realtime":
+        return {}
+    out: dict[str, Any] = {"turns": max(1, math.ceil(float(summary.get("seconds") or 0) / RT_TURN_SECONDS))}
+    for sid, side in (summary.get("sides") or {}).items():
+        rows = []
+        for i, p in enumerate(side.get("pokemon") or []):
+            fainted = bool(p.get("fainted"))
+            rows.append({"index": i, "species": p.get("species") or "", "hp": 0 if fainted else int(round(float(p.get("hp") or 0))),
+                         "maxhp": int(p.get("maxhp") or 0), "fainted": fainted, "status": "" if fainted else p.get("status") or "",
+                         "item": p.get("item") or "", **({"pp": list(p["pp"]), "maxpp": list(p.get("maxpp") or p["pp"])} if p.get("pp") else {})})
+        out[sid] = rows
+    return out
 
 
 def _round_end(st: dict[str, Any], kind: str, streak: int, after: dict[str, Any]) -> None:
     if streak % frontier.ROUND[kind] == 0:
         st["rounds"] = int(st.get("rounds") or 0) + 1
-        after["bp"] = frontier.round_bp(kind, st["rounds"], streak)
+        after["bp"] = frontier.round_bp(kind, st["rounds"], streak, st.get("mode") or "single")
         st["bp"] = int(st.get("bp") or 0) + after["bp"]
 
 
@@ -333,20 +447,24 @@ def after_battle(svc: Any, r: dict[str, Any], b: dict[str, Any]) -> None:
         svc.store.update_run(r["id"], {"stages": stages, "status": "lost", "challenger": {**ch, "frontier": st}})
         svc.emit("run.lost", {"id": r["id"]})
         return
-    end = (b.get("summary") or {}).get("end") or {}
+    end = end_state(b)
     turns = int(end.get("turns") or b.get("turns") or 0)
     streak = step + 1
     kind = st["kind"]
     if kind == "hall":
         after = frontier.hall_after_win(st, stages[step], streak)
-    elif kind == "castle":
-        after = frontier.castle_after_win(st, stages[step], end.get("p1") or [], streak)
+    elif kind == "castle":   # Castle Points and the carried HP and PP are your own Pokémon's (your half in multi)
+        mine = [e for e in end.get("p1") or [] if not _whose(st, e.get("index", -1))[1]]
+        if _multi(st):
+            mine = [{**e, "index": e["index"] // 2} for e in mine]
+        after = frontier.castle_after_win(st, stages[step], mine, streak)
     else:
         ev = st.get("event") or {}
-        st["bp_gain"] = frontier.arcade_score(end.get("p1") or [], turns)
+        st["bp_gain"] = frontier.arcade_score(end.get("p1") or [], turns)   # both halves count in multi
         for e in end.get("p2" if ev.get("swap") else "p1") or []:   # a given item not used stays held
-            if 0 <= e.get("index", -1) < len(st["party"]):
-                st["party"][e["index"]]["item"] = e.get("item") or ""
+            m, _ = _whose(st, e.get("index", -1))
+            if m is not None:
+                m["item"] = e.get("item") or ""
         after = {"bp_gain": st["bp_gain"], "bp": 0}
         _round_end(st, "arcade", streak, after)
     stages[step]["after"] = after
@@ -414,13 +532,20 @@ def view(svc: Any, r: dict[str, Any]) -> dict[str, Any]:
     rl = frontier.ROUND.get(kind, 7)
     number = r["step"] + 1
     stage = r["stages"][r["step"]] if r["step"] < len(r["stages"]) else None
-    out: dict[str, Any] = {"kind": kind, "phase": st.get("phase", ""), "number": number, "round": (number - 1) // rl + 1,
+    mode = st.get("mode") or "single"
+    out: dict[str, Any] = {"kind": kind, "mode": mode, "phase": st.get("phase", ""), "number": number, "round": (number - 1) // rl + 1,
                            "round_battle": (number - 1) % rl + 1, "round_length": rl, "bp": int(st.get("bp") or 0),
                            "party": [_mon_view(m) for m in st.get("party") or []], "auto": bool(ch.get("auto")),
-                           "brain_next": frontier.brain_number(kind, number) is not None if kind else False}
+                           "brain_next": frontier.brain_number(kind, number) is not None if kind and mode == "single" else False}
+    if _multi(st):
+        mate = st["partner"]
+        out["partner"] = {**{k: mate.get(k) for k in ("kind", "id", "name", "name_en", "avatar", "ai_level")},
+                          "avatar_url": svc.avatar_url(mate.get("avatar", "")), "party": [_mon_view(m) for m in mate.get("party") or []]}
     if stage and not stage.get("result"):
         out["rival"] = {k: stage.get(k) for k in ("name", "name_en", "title", "title_en", "avatar", "boss", "number")}
         out["rival"]["avatar_url"] = svc.avatar_url(stage.get("avatar", ""))
+        if stage.get("pair"):
+            out["rival"]["pair"] = {**stage["pair"], "avatar_url": svc.avatar_url(stage["pair"].get("avatar", ""))}
     if kind == "hall":
         types = frontier.hall_types()
         out.update(level=st.get("level"), reset=bool(st.get("reset")), cell=st.get("cell", -1), matron_rank=st["ranks"][17],
@@ -442,7 +567,7 @@ def view(svc: Any, r: dict[str, Any]) -> dict[str, Any]:
             out["last_event"]["targets"] = _event_targets(st, prev, st["last_event"])
     elif kind == "castle":
         out.update(cp=int(st.get("cp") or 0), ranks=st.get("ranks"), last=st.get("last"), last_auto=st.get("last_auto"),
-                   skip=bool(frontier.castle_skip_ok(number)), skip_cost=50,
+                   skip=bool(frontier.castle_skip_ok(number, mode)), skip_cost=50,
                    services=[{"id": s["id"], "cost": s["cost"], "rank": s.get("rank")} for s in frontier.data()["castle"]["services"]],
                    rank_up={k: (frontier.RANK_UP[k][st["ranks"][k]] if st["ranks"][k] < frontier.RANK_MAX[k] else None) for k in frontier.RANK_UP},
                    rank_max=frontier.RANK_MAX,
@@ -454,7 +579,7 @@ def view(svc: Any, r: dict[str, Any]) -> dict[str, Any]:
 
 def _event_targets(st: dict[str, Any], stage: Optional[dict[str, Any]], ev: dict[str, Any]) -> list[str]:
     side = ev.get("side")
-    names = [m["species"] for m in st.get("party") or []] if side == "player" else [x["species"] for x in (stage or {}).get("info") or []]
+    names = [m["species"] for m in side_party(st)] if side == "player" else [x["species"] for x in (stage or {}).get("info") or []]
     return [names[i] for i in ev.get("hit") or [] if i < len(names)]
 
 
@@ -478,10 +603,16 @@ def _scout(stage: dict[str, Any]) -> list[dict[str, Any]]:
     return out
 
 
-def list_extra(f: dict[str, Any], mine: list[dict[str, Any]]) -> dict[str, Any]:
-    """facilities_list's extra fields for a Frontier facility: its kind, modes, Pokémon to bring, round length and Battle Points won."""
+def list_extra(f: dict[str, Any], mine: list[dict[str, Any]], svc: Any = None) -> dict[str, Any]:
+    """facilities_list's extra fields for a Frontier facility: its kind, challenge type (single, double, multi), modes, Pokémon to
+    bring, round length, Battle Points won and, in multi, the facility's partner trainers."""
     kind = frontier.kind_of(f["id"])
     if not kind:
         return {}
+    fmode = frontier.mode_of(f["id"])
     bp = sum(int(((r.get("challenger") or {}).get("frontier") or {}).get("bp") or 0) for r in mine)
-    return {"frontier": kind, "modes": f.get("modes", ["classic"]), "picks": frontier.PARTY[kind], "round": frontier.ROUND[kind], "bp": bp}
+    out = {"frontier": kind, "frontier_mode": fmode, "modes": f.get("modes", ["classic"]), "picks": frontier.party_size(kind, fmode),
+           "round": frontier.ROUND[kind], "bp": bp}
+    if fmode == "multi":
+        out["partners"] = [{**p, "avatar_url": svc.avatar_url(p["avatar"]) if svc else ""} for p in partner_choices()]
+    return out
