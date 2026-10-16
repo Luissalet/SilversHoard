@@ -21,7 +21,7 @@ from pathlib import Path
 from typing import Any, Callable, Optional
 
 from . import APP_ID, __version__
-from . import facilities, game_leagues, hgss_rom, progress, sharing, unbound_save
+from . import facilities, frontier, frontier_runs, game_leagues, hgss_rom, progress, sharing, unbound_save
 from .config import AI_LEVELS, AI_STYLES, REPO_ROOT, Config, Settings, find_node
 from .engine import master_status
 from .engine import Engine
@@ -697,6 +697,12 @@ class Services:
                 data["games"] = [*data["games"], *[g for g in more["games"] if g["id"] not in known]]
                 data["characters"] = [*data["characters"], *more["characters"]]
                 data["source"] = f"{data.get('source', '')} {more.get('source', '')}".strip()
+            # the Frontier Brains missing from Bulbapedia's teams (scripts/build_frontier.py): Argenta and Thorton with their set pools
+            brains = PRESETS_DIR / "frontier_brains.json.gz"
+            if brains.exists():
+                more = json.loads(gzip.decompress(brains.read_bytes()).decode("utf-8"))
+                known = {c["key"] for c in data["characters"]}
+                data["characters"] = [*data["characters"], *[c for c in more["characters"] if c["key"] not in known]]
             merged: dict[str, dict[str, Any]] = {}
             for c in data["characters"]:
                 if c["key"] in merged:   # a character listed twice in the data keeps every team under one key
@@ -1341,10 +1347,10 @@ class Services:
 
     def battle_start(self, *, p1: dict[str, Any], p2: dict[str, Any], format_: str = "", rules: Optional[list[str]] = None,
                      level_rules: Optional[dict[str, Any]] = None, kind: str = "", run_id: str = "", title: str = "", seed: Any = None,
-                     mode: str = "classic", time_limit: int = 0, rt_arena: str = "rocks") -> dict[str, Any]:
+                     mode: str = "classic", time_limit: int = 0, rt_arena: str = "rocks", start: Optional[dict[str, Any]] = None) -> dict[str, Any]:
         if mode == "realtime":
             return self._rt_start(p1=p1, p2=p2, format_=format_, level_rules=level_rules, kind=kind, run_id=run_id, title=title, seed=seed,
-                                  time_limit=time_limit, arena=rt_arena)
+                                  time_limit=time_limit, arena=rt_arena, start=start)
         if mode not in ("classic", ""):
             raise SilverError("invalid", "mode is classic or realtime")
         s1, s2 = self._seat(p1, "Jugador 1"), self._seat(p2, "Jugador 2")
@@ -1359,13 +1365,16 @@ class Services:
                 "p1": {"name": s1["name"], "sets": s1["sets"], "ai": s1["ai"]}, "p2": {"name": s2["name"], "sets": s2["sets"], "ai": s2["ai"]}}
         if seed:
             spec["seed"] = seed
+        if start:   # HP, status, PP, weather... the battle starts with (engine/src/frontier.mjs)
+            spec["start"] = start
         watch = not s1["human"] and not s2["human"]
         kind = kind or ("watch" if watch else "play")
         if self.settings.get("pmd_sprites", True) and self.config.background:
             # the faces the screen shows for lines, knockouts and the result, fetched while the battle starts
             self.pool.submit(self.pmd.prefetch_portraits, [str(x.get("species") or "") for x in s1["sets"] + s2["sets"]])
         bid = self.store.add_battle({"kind": kind, "status": "running" if watch else "live", "format": fmt, "rules": rules, "level_rules": level_rules,
-                                     "p1": s1, "p2": s2, "run_id": run_id, "title": title, "seed": json.dumps(seed) if seed else ""})
+                                     "p1": s1, "p2": s2, "run_id": run_id, "title": title, "seed": json.dumps(seed) if seed else "",
+                                     **({"replay": {"start": start}} if start else {})})
         spec["id"] = bid
         if watch:
             self._submit_watch(bid, spec)
@@ -1391,10 +1400,12 @@ class Services:
                     if self._cancel.get(bid):
                         return
                     self.store.update_battle(bid, {"status": "ended", "log_text": "\n".join(r.get("lines") or []),
-                                               "summary": {**(r.get("summary") or {}), "ai_notes": r.get("notes") or []},
+                                               "summary": {**(r.get("summary") or {}), "ai_notes": r.get("notes") or [],
+                                                           **({"end": r["end"]} if r.get("end") else {})},
                                                "winner_side": (r.get("summary") or {}).get("winner_side", ""),
                                                "winner_name": (r.get("summary") or {}).get("winner", ""), "turns": r.get("turns") or 0,
-                                               "seed": str(r.get("seed") or ""), "replay": {"input": r.get("input_log") or []}})
+                                               "seed": str(r.get("seed") or ""), "replay": {**({"start": spec["start"]} if spec.get("start") else {}),
+                                                                                            "input": r.get("input_log") or []}})
                     self._after_end(bid)
                 self._banter_later(bid, r.get("notes") or [])
             except Exception as exc:  # noqa: BLE001 - the battle row says what happened
@@ -1543,6 +1554,8 @@ class Services:
         log_ = self.engine.call("match_log", {"id": id_, "view": "omniscient"})
         summary = log_.get("summary") or {}
         summary["ai_notes"] = [*((b.get("summary") or {}).get("ai_notes") or []), *(log_.get("notes") or [])][-self.MAX_NOTES:]
+        if log_.get("end"):   # each Pokémon's HP, PP, status and item at the end (the Battle Castle carries them on)
+            summary["end"] = log_["end"]
         self.store.update_battle(id_, {"status": "ended", "log_text": "\n".join(log_.get("lines") or []), "summary": summary,
                                        "replay": {**(b.get("replay") or {}), "input": log_.get("input_log") or []},
                                        "winner_side": summary.get("winner_side", ""), "winner_name": summary.get("winner", ""),
@@ -1838,7 +1851,8 @@ class Services:
                 "time_limit": int(replay.get("time_limit") or self.settings.get("rt_time_limit") or 300), "p1": seat(b.get("p1") or {}),
                 "p2": seat(b.get("p2") or {}), "version": int(replay.get("version") or 1),
                 "arena": replay.get("arena") if replay.get("arena") in RT_ARENAS or isinstance(replay.get("arena"), dict) else "open",
-                **({"training": replay["training"]} if replay.get("training") else {})}
+                **({"training": replay["training"]} if replay.get("training") else {}),
+                **({"start": replay["start"]} if replay.get("start") else {})}
 
     TRAINING_PATTERNS = ("still", "walk", "dodge", "fight")
     TRAINING_DUMMY = ("Sudowoodo @ Leftovers\nAbility: Sturdy\nLevel: 100\nEVs: 252 HP / 252 Def / 4 SpD\nImpish Nature\n"
@@ -1857,7 +1871,7 @@ class Services:
 
     def _rt_start(self, *, p1: dict[str, Any], p2: dict[str, Any], format_: str = "", level_rules: Optional[dict[str, Any]] = None,
                   kind: str = "", run_id: str = "", title: str = "", seed: Any = None, time_limit: int = 0, arena: str = "rocks",
-                  training: Optional[dict[str, Any]] = None) -> dict[str, Any]:
+                  training: Optional[dict[str, Any]] = None, start: Optional[dict[str, Any]] = None) -> dict[str, Any]:
         arena = self.arenas.spec(_rt_arena(arena))
         s1, s2 = self._seat(p1, "Jugador 1"), self._seat(p2, "Jugador 2")
         if training:
@@ -1876,7 +1890,7 @@ class Services:
         bid = self.store.add_battle({"kind": kind, "mode": "realtime", "status": "running" if watch else "live", "format": fmt, "rules": [],
                                      "level_rules": level_rules, "p1": s1, "p2": s2, "run_id": run_id, "title": title, "seed": seed_text,
                                      "replay": {"time_limit": limit, "inputs": [], "tick": 0, "version": RT_RULES_VERSION, "arena": arena,
-                                                **({"training": training} if training else {})}})
+                                                **({"training": training} if training else {}), **({"start": start} if start else {})}})
         if not seed_text:
             self.store.update_battle(bid, {"seed": bid})
         spec = self._rt_spec(self.store.battle(bid))
@@ -2049,6 +2063,12 @@ class Services:
             out["round"] = (nxt - 1) // facilities.ROUND + 1
             out["round_battle"] = (nxt - 1) % facilities.ROUND + 1
             out["next_boss"] = next(({"at": b[0], "key": b[1], "label_es": b[3], "label": b[4]} for b in f.get("bosses", []) if b[0] >= nxt), None)
+            if frontier.kind_of(r["target_id"]):
+                fv = frontier_runs.view(self, r)
+                out["frontier"] = fv
+                out["round"], out["round_battle"] = fv["round"], fv["round_battle"]
+                stages = [frontier_runs.public_stage(st) for st in stages]   # the rival stays hidden until its battle
+                out["stages"] = stages
             if f.get("rental"):
                 ch = r.get("challenger") or {}
                 out["factory"] = {"phase": ch.get("phase", ""), "size": f.get("size", 3), "rentals": ch.get("rentals") or [],
@@ -2061,7 +2081,7 @@ class Services:
 
     def run_start(self, *, kind: str, target_id: str, challenger_id: str, auto: bool = False, ignore_badges: bool = False,
                   format_override: str = "", mode: str = "classic", level: int = 0, rt_arena: str = "rocks", stop_at: int = 0,
-                  walk_map: bool = True) -> dict[str, Any]:
+                  walk_map: bool = True, picks: Optional[list[int]] = None) -> dict[str, Any]:
         walk = False
         if mode not in ("classic", "realtime"):
             raise SilverError("invalid", "mode is classic or realtime")
@@ -2089,6 +2109,10 @@ class Services:
             if open_run:
                 raise SilverError("conflict", f"{challenger['name']} already has a streak going at {f['name']}.",
                                   hint="challenge_next continues it; challenge_abandon ends it.", run_id=open_run["id"])
+            if frontier.kind_of(target_id):   # the HeartGold/SoulSilver Hall, Arcade and Castle (frontier_runs.py)
+                rid = frontier_runs.start(self, f=f, challenger=challenger, challenger_id=challenger_id, auto=auto, mode=mode, level=level,
+                                          picks=picks, format_override=format_override, stop_at=stop_at, rt_arena=rt_arena)
+                return self.run_view(self.store.run(rid))
             rid = self.store.add_run({"kind": "facility", "target_id": target_id, "target_name": f["name_es"], "challenger_id": challenger_id,
                                       "challenger": {"name": challenger["name"], "avatar": challenger["avatar"], "team": challenger["team"],
                                                      "auto": auto, "format_override": format_override, "level": int(level or 50),
@@ -2161,6 +2185,8 @@ class Services:
         special = None
         if not boss and f.get("specials") and number > facilities.ROUND and rng.random() < 0.2:
             special = rng.choice(f["specials"])
+        if boss and (made := frontier_runs.brain_stage(boss, number, r["id"])):   # Thorton: sets from the decompiled game
+            return made
         if boss or special:
             key, vid = (boss[1], boss[2]) if boss else special
             try:
@@ -2201,7 +2227,8 @@ class Services:
                         "record": wins[best_i] if best_i is not None else 0,
                         "record_holder": (mine[best_i].get("challenger") or {}).get("name", "") if best_i is not None else "",
                         "streaks": len(mine), "active_run_id": active["id"] if active else "", "rental": bool(f.get("rental")),
-                        "active_phase": (active.get("challenger") or {}).get("phase", "") if active else "",
+                        "active_phase": ((active.get("challenger") or {}).get("frontier") or {}).get("phase", "")
+                        or (active.get("challenger") or {}).get("phase", "") if active else "", **frontier_runs.list_extra(f, mine),
                         "active_streak": sum(1 for st in (active or {}).get("stages") or [] if st.get("result") == "won")})
         return {"facilities": out, "trainer_id": trainer_id}
 
@@ -2224,7 +2251,7 @@ class Services:
 
     def _run_battle(self, rid: str) -> Optional[str]:
         r = self.store.run(rid)
-        if r["kind"] == "facility" and r["status"] == "active" and r["step"] >= len(r["stages"]):
+        if r["kind"] == "facility" and r["status"] == "active" and r["step"] >= len(r["stages"]) and not frontier.kind_of(r["target_id"]):
             self.store.update_run(rid, {"stages": [*r["stages"], self._facility_stage(r)]})
             r = self.store.run(rid)
         if r["status"] != "active" or r["step"] >= len(r["stages"]):
@@ -2246,6 +2273,17 @@ class Services:
 
     def _facility_battle(self, r: dict[str, Any]) -> str:
         stage = r["stages"][r["step"]]
+        if frontier.kind_of(r["target_id"]):   # both teams, format and start state as the Frontier facility makes them
+            parts = frontier_runs.battle_parts(self, r)
+            ch = r.get("challenger") or {}
+            b = self.battle_start(p1=parts["p1"], p2=parts["p2"], format_=parts["format"], rules=parts["rules"], level_rules=parts["level_rules"],
+                                  kind="facility", run_id=r["id"], title=f"{r['target_name']} · {stage['number']} · {stage['name']}",
+                                  mode=r.get("mode") or "classic", rt_arena=ch.get("rt_arena") or "rocks", start=parts["start"])
+            r = self.store.run(r["id"])
+            stages = r["stages"]
+            stages[r["step"]]["battle_id"] = b["id"]
+            self.store.update_run(r["id"], {"stages": stages})
+            return b["id"]
         fmt, rules, level_rules = self._run_rules(r)
         auto = bool((r.get("challenger") or {}).get("auto"))
         seat = {**(stage.get("seat") or {}), "name": stage["name"], "avatar": stage.get("avatar", ""), "human": False}
@@ -2272,6 +2310,9 @@ class Services:
         stages = r["stages"]
         step = r["step"]
         if step >= len(stages) or stages[step].get("battle_id") != b["id"]:
+            return
+        if frontier.kind_of(r["target_id"]) and r["kind"] == "facility":
+            frontier_runs.after_battle(self, r, b)
             return
         won = b.get("winner_side") == "p1"
         stages[step]["result"] = "won" if won else "lost"
@@ -2371,6 +2412,11 @@ class Services:
         if (r.get("challenger") or {}).get("map"):
             self._map_stage(r, stage)
             r = self.store.run(rid)
+        if r["kind"] == "facility" and frontier.kind_of(r["target_id"]):
+            done = frontier_runs.next_step(self, r)
+            if done is not None:
+                return done
+            r = self.store.run(rid)
         phase = (r.get("challenger") or {}).get("phase") if r["kind"] == "facility" else ""
         if phase == "pick":
             raise SilverError("conflict", "Pick the rental Pokémon first.", hint="factory_pick with the indexes of three of the six rentals.")
@@ -2406,6 +2452,22 @@ class Services:
         if j != step:
             stages[step], stages[j] = stages[j], stages[step]
             self.store.update_run(r["id"], {"stages": stages})
+
+    # ------------------------------------------------------------ the HeartGold/SoulSilver Battle Frontier (frontier_runs.py)
+    def frontier_hall_pick(self, rid: str, cell: Any) -> dict[str, Any]:
+        return frontier_runs.hall_pick(self, rid, cell)
+
+    def frontier_arcade_stop(self, rid: str, panel: int = -1, frames: int = -1) -> dict[str, Any]:
+        return frontier_runs.arcade_stop(self, rid, panel, frames)
+
+    def frontier_castle(self, rid: str, service: str, mon: int = -1, item: str = "") -> dict[str, Any]:
+        return frontier_runs.castle_service(self, rid, service, mon, item)
+
+    def frontier_get(self, rid: str) -> dict[str, Any]:
+        r = self.store.run(rid)
+        if not frontier_runs.kind_of(r):
+            raise SilverError("invalid", "This is not a Battle Hall, Battle Arcade or Battle Castle streak.", hint="facilities_list shows them.")
+        return self.run_view(r)
 
     def run_get(self, rid: str) -> dict[str, Any]:
         """One challenge with its stages; on a gym map also the map and the people on it (for walking it)."""
