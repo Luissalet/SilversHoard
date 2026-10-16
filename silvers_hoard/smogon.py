@@ -223,7 +223,8 @@ class Smogon:
     def popular_set(self, species: str, fmt: str, *, base: str = "", item: str = "") -> Optional[dict[str, Any]]:
         """The most popular set of `species` for a team in `fmt`: the first written Smogon set of the closest format that has
         one (Champions last); without any, the most used build of the format where the species is used most. A Mega
-        Evolution's sets are its base species' (`base`) that hold its stone (`item`). None when there is nothing at all.
+        Evolution's sets are its base species' (`base`) that hold its stone (`item`). The usage build looks at the format's own
+        generation before Champions. None when there is nothing at all.
         Returns {"set": {...}, "format", "source": "smogon" | "usage", "usage_format", "usage"}."""
         look = base or species
         want = _id(item)
@@ -247,11 +248,15 @@ class Smogon:
                 chosen["ability"] = next((a for a, _ in usage.get("abilities") or [] if a and a != "Nothing"), "")
             return {"set": chosen, "format": f, "source": "smogon", "usage_format": u_fmt, "usage": usage}
         best: Optional[tuple[str, dict[str, Any]]] = None
-        for f in formats:
-            stats = self._load("stats", f)
-            key = self._key((stats or {}).get("pokemon") or {}, look) if stats else ""
-            if key and (best is None or stats["pokemon"][key]["usage"] > best[1]["usage"]):
-                best = (f, stats["pokemon"][key])
+        # the format's own generation first; Champions (another game's rules) only when nothing there has it
+        for group in (candidates(fmt), CHAMPIONS):
+            for f in group:
+                stats = self._load("stats", f)
+                key = self._key((stats or {}).get("pokemon") or {}, look) if stats else ""
+                if key and (best is None or stats["pokemon"][key]["usage"] > best[1]["usage"]):
+                    best = (f, stats["pokemon"][key])
+            if best is not None:
+                break
         if best is None:
             return None
         built = set_from_usage(best[1], points=best[0].startswith("champions"), item=item)
