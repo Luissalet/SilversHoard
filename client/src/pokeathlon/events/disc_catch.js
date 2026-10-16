@@ -20,7 +20,8 @@ export default {
   },
 
   create(ctx) {
-    const human = ctx.teams.findIndex((t) => t.human);
+    const humans = ctx.humans();
+    const human = humans.includes(ctx.focus) ? ctx.focus : -1;   // the person at this screen (-1: a spectator, or nobody plays)
     const stats = [], large = [];
     for (const t of ctx.teams) {
       for (const m of t.mons) {
@@ -28,48 +29,57 @@ export default {
         large.push(LARGE.has(m.num));
       }
     }
-    const sim = new DiscCatchSim({ stats, large, rand: makeRand(ctx.rng), human });
+    const sim = new DiscCatchSim({ stats, large, rand: makeRand(ctx.rng), humans });
+    // what each person has chosen: the Pokémon they steer with keys, whether keys are in use, and (for the screen) hover and held
+    const ctls = new Map(humans.map((t) => [t, { sel: 0, keys: false, walking: false, held: -1, hover: -1 }]));
     const st = { sel: 0, you: human, held: -1, keys: false, hover: -1 };
     const view = new DiscCatchView(ctx, sim, st);
-    let walking = false;        // keys moved the Pokémon in the previous step (one more step to stop it)
 
-    const step = (inp, run) => {
+    const commandOf = (team, inp, c) => {
       const cmd = {};
-      if (human >= 0) {
-        const t = run.touch;
-        if (t.touchNew) st.keys = false;
-        const [fx, fy] = toField(t.touchX, t.touchY);
-        cmd.touch = { touchNew: t.touchNew, touching: t.touching, lastTouchFrames: t.lastTouchFrames, touchX: fx, touchY: fy };
-        // keyboard / pad: choose, steer, jump
-        const pick = (n) => { st.sel = ((n % 3) + 3) % 3; st.keys = true; };
-        if (inp.pressed("Digit1", "Numpad1")) pick(0);
-        if (inp.pressed("Digit2", "Numpad2")) pick(1);
-        if (inp.pressed("Digit3", "Numpad3")) pick(2);
-        if (inp.pressed("KeyQ") || inp.padPressed(4)) pick(st.sel - 1);
-        if (inp.pressed("KeyE", "Tab") || inp.padPressed(5)) pick(st.sel + 1);
-        const d = inp.dir;
-        const jump = inp.pressed("Space", "Enter", "KeyF") || inp.padPressed(0, 1);
-        if (d.x || d.y || jump) st.keys = true;
-        if (st.keys) {
-          const m = sim.mons[human * 3 + st.sel];
-          let target = null;
-          if (d.x || d.y) { target = [m.x + d.x * 40, m.y + d.y * 40]; walking = true; }
-          else if (walking) { target = [m.x, m.y]; walking = false; }
-          cmd.kbd = { slot: st.sel, target, jump };
-        }
-        st.held = sim.hold.holding ? sim.hold.mon : -1;
-        // which Pokémon a press would pick up (mouse hover)
-        st.hover = -1;
-        if (!st.keys && !t.touching) {
-          const [hx, hy] = toField(t.x, t.y);
-          st.hover = sim.nearestTouched(human, hx, hy);
-        }
+      const t = inp.touch;
+      if (t.touchNew) c.keys = false;
+      const [fx, fy] = toField(t.touchX, t.touchY);
+      cmd.touch = { touchNew: t.touchNew, touching: t.touching, lastTouchFrames: t.lastTouchFrames, touchX: fx, touchY: fy };
+      // keyboard / pad: choose, steer, jump
+      const pick = (n) => { c.sel = ((n % 3) + 3) % 3; c.keys = true; };
+      if (inp.pressed("Digit1", "Numpad1")) pick(0);
+      if (inp.pressed("Digit2", "Numpad2")) pick(1);
+      if (inp.pressed("Digit3", "Numpad3")) pick(2);
+      if (inp.pressed("KeyQ") || inp.padPressed(4)) pick(c.sel - 1);
+      if (inp.pressed("KeyE", "Tab") || inp.padPressed(5)) pick(c.sel + 1);
+      const d = inp.dir;
+      const jump = inp.pressed("Space", "Enter", "KeyF") || inp.padPressed(0, 1);
+      if (d.x || d.y || jump) c.keys = true;
+      if (c.keys) {
+        const m = sim.mons[team * 3 + c.sel];
+        let target = null;
+        if (d.x || d.y) { target = [m.x + d.x * 40, m.y + d.y * 40]; c.walking = true; }
+        else if (c.walking) { target = [m.x, m.y]; c.walking = false; }
+        cmd.kbd = { slot: c.sel, target, jump };
       }
-      sim.step(cmd);
+      const hold = sim.holdOf(team);
+      c.held = hold.holding ? hold.mon : -1;
+      // which Pokémon a press would pick up (mouse hover)
+      c.hover = -1;
+      if (!c.keys && !t.touching && team === human) {
+        const [hx, hy] = toField(t.x, t.y);
+        c.hover = sim.nearestTouched(team, hx, hy);
+      }
+      return cmd;
+    };
+
+    const step = (inp, run, seats) => {
+      const cmds = {};
+      for (const [team, c] of ctls) cmds[team] = commandOf(team, seats ? seats.get(team) : inp, c);
+      const mine = ctls.get(human);
+      if (mine) { st.sel = mine.sel; st.keys = mine.keys; st.held = mine.held; st.hover = mine.hover; }
+      sim.step({}, cmds);
       view.onEvents(sim.events, run);
     };
 
     const runner = new EventRunner(ctx, {
+      humans,
       step,
       render: (g, a, run) => view.render(g, a, run),
       visual: (dt) => view.update(dt),
@@ -81,6 +91,7 @@ export default {
     return {
       update: (dt) => runner.update(dt),
       render: (g) => runner.render(g),
+      takeOver(team) { ctls.delete(team); runner.dropSeat(team); sim.takeOver(team); },
       destroy: () => runner.destroy(),
       // for tests and the lab
       sim,

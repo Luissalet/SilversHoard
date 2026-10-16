@@ -29,22 +29,22 @@ export default {
 
   create(ctx) {
     const focus = ctx.focus;
-    const humanTeam = ctx.teams[focus] && ctx.teams[focus].human ? focus : -1;
-    const race = new Race({ teams: ctx.teams, rng: ctx.rng, humanTeam, focus });
+    const humans = ctx.humans();
+    const race = new Race({ teams: ctx.teams, rng: ctx.rng, humanTeams: humans, focus });
     const clock = new Clock();
-    const latch = new Latch();
+    const latches = new Map(humans.map((t) => [t, new Latch()]));   // one per person: in a room with friends several play at once
     const pops = [];
     const ripples = [];
     let endTimer = 0;
     let finished = false;
     let sparks = 0;
 
-    const lanesOf = (batch) => {
+    const lanesOf = (batch, mine) => {
       const lanes = new Set();
       for (const p of batch.presses) {
         if (p.y < TOP - 10 || p.y > BOTTOM + 14) continue;
         const i = BOUNDS.findIndex((b, k) => k < 3 && p.x >= b && p.x < BOUNDS[k + 1]);
-        if (i >= 0) { lanes.add(i); ripples.push({ x: p.x, y: p.y, age: 0 }); }
+        if (i >= 0) { lanes.add(i); if (mine) ripples.push({ x: p.x, y: p.y, age: 0 }); }
       }
       for (const k of batch.keys) { const i = slotOfKey(k); if (i >= 0) lanes.add(i); }
       for (const b of batch.pad) if (PAD_LANE[b] !== undefined) lanes.add(PAD_LANE[b]);
@@ -65,7 +65,7 @@ export default {
 
     return {
       update(dt) {
-        latch.absorb(ctx.input);
+        for (const [t, latch] of latches) latch.absorb(ctx.inputs[t]);
         for (let lane = 0; lane < 3; lane++) {
           const r = race.runners[focus][lane];
           const a = ctx.animator(focus, lane);
@@ -78,14 +78,15 @@ export default {
         while (ripples.length && ripples[0].age > 0.4) ripples.shift();
         if (sparks > 0) sparks -= 1;
         if (race.over) {
-          latch.take();
+          for (const latch of latches.values()) latch.take();
           endTimer += dt;
           if (endTimer >= 1.6 && !finished) { finished = true; ctx.finish(race.result()); }
           return;
         }
         clock.advance(dt, () => {
-          const batch = latch.take();
-          race.step(humanTeam >= 0 ? lanesOf(batch) : []);
+          const taps = {};
+          for (const [t, latch] of latches) taps[t] = lanesOf(latch.take(), t === focus);
+          race.step(taps);
           onEvents(race.drain());
         });
         if (race.over) onEvents(race.drain());
@@ -265,6 +266,9 @@ export default {
           ui.text(g, `${ctx.t("Suma de tiempos", "Sum of times")}: ${fmt(total)}`, 480, 482, { size: 26, align: "center" });
         }
       },
+
+      /** A person left a room: the CPU plays their team from here on. */
+      takeOver(team) { latches.delete(team); race.takeOver(team); },
 
       destroy() {},
     };

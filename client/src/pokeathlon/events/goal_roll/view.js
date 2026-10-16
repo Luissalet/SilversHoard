@@ -268,11 +268,11 @@ export class GoalRollView {
     rrect(g, bx - 2, by - 2, bw + 4, 9, 4.5); g.fillStyle = "rgba(8,10,30,0.72)"; g.fill();
     rrect(g, bx, by, Math.max(0, bw * clamp(m.power / m.maxPower, 0, 1)), 5, 2.5); g.fillStyle = powerColor(m); g.fill();
     if (m.team === st.you) {
-      const selected = sim.held === m.i || (st.keys && st.you * 3 + st.sel === m.i);
+      const selected = sim.fingerOf(st.you).held === m.i || (st.keys && st.you * 3 + st.sel === m.i);
       if (selected) {
         marker(g, sx, by - 6, col, this.time);
-        if (sim.held === m.i && sim.holdFrames <= DASH_HOLD && st.touching) {
-          const k = clamp(sim.holdFrames / DASH_HOLD, 0, 1);
+        if (sim.fingerOf(st.you).held === m.i && sim.fingerOf(st.you).holdFrames <= DASH_HOLD && st.touching) {
+          const k = clamp(sim.fingerOf(st.you).holdFrames / DASH_HOLD, 0, 1);
           g.beginPath(); g.arc(sx, sy - 24, 40, -Math.PI / 2, -Math.PI / 2 + (1 - k) * Math.PI * 2);
           g.lineWidth = 5; g.strokeStyle = "#ffe45c"; g.stroke();
         }
@@ -349,7 +349,7 @@ export class GoalRollView {
         const m = sim.mons[t * 3 + k];
         return {
           bar: clamp(m.power / m.maxPower, 0, 1), barColor: powerColor(m),
-          active: t === st.you && ((st.keys && st.sel === k) || sim.held === m.i),
+          active: t === st.you && ((st.keys && st.sel === k) || sim.fingerOf(st.you).held === m.i),
           tag: m.c.points ? String(m.c.points) : "", tagColor: "#ffd166",
         };
       }),

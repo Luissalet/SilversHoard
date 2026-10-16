@@ -47,11 +47,15 @@ export function moveParams(mon) {
 const rectsOf = (layout) => layout.obstacles.map(([ox, oy]) => ({ cx: ox * 8, cy: oy * 8, l: ox * 8 - 16 - RADIUS, r: ox * 8 + 16 + RADIUS, t: oy * 8 - 16 - RADIUS, b: oy * 8 + 16 + RADIUS }));
 
 export class Match {
-  /** teams: the four ctx teams; humanTeam: the team steered by the person (-1 = none); layout: forced index, else drawn from rng. */
-  constructor({ teams, rng, humanTeam = -1, layout = null }) {
+  /**
+   * teams: the four ctx teams; humanTeam: the team steered by the person (-1 = none), or humanTeams for several people (a room with
+   * friends); layout: forced index, else drawn from rng.
+   */
+  constructor({ teams, rng, humanTeam = -1, humanTeams = null, layout = null }) {
     this.teams = teams;
     this.rng = rng;
-    this.humanTeam = humanTeam;
+    this.humans = new Set(humanTeams || (humanTeam >= 0 ? [humanTeam] : []));
+    this.humanTeam = this.humans.size ? [...this.humans][0] : -1;
     this.layoutIndex = layout === null ? Math.floor(rng() * LAYOUTS.length) % LAYOUTS.length : layout;
     this.layout = LAYOUTS[this.layoutIndex];
     this.rects = rectsOf(this.layout);
@@ -73,13 +77,24 @@ export class Match {
         mode: "play", modeT: 0, depositSteps: 0, depositDelay: 0, offset: 0,
         knocked: false, knockT: 0, frozen: 0,
         drag: null, // { x, y, hold } while the person holds the stylus
-        tooLong: false, human: i === humanTeam,
+        tooLong: false, human: this.humans.has(i),
         lastFlick: 0, slide: 0,
       };
     });
     this.contact = new Set();
     this.cpuTeams = [];
-    for (let i = 0; i < teams.length; i++) if (i !== humanTeam) this.cpuTeams.push(i);
+    for (let i = 0; i < teams.length; i++) if (!this.humans.has(i)) this.cpuTeams.push(i);
+  }
+
+  /** The CPU takes over a team a person left (a room with friends). */
+  takeOver(team) {
+    if (!this.humans.delete(team)) return;
+    const p = this.players[team];
+    p.human = false;
+    this.cancelDrag(team);
+    this.cpuTeams.push(team);
+    this.cpuTeams.sort((a, b) => a - b);
+    if (this.humanTeam === team) this.humanTeam = this.humans.size ? [...this.humans][0] : -1;
   }
 
   push(type, extra) { this.events.push({ type, frame: this.frame, ...extra }); }

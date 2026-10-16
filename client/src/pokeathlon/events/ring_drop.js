@@ -19,62 +19,70 @@ export default {
 
   create(ctx) {
     const rand = makeRand(ctx.rng);
-    const human = ctx.teams.findIndex((t) => t.human);
+    const humans = ctx.humans();
+    const human = humans.includes(ctx.focus) ? ctx.focus : -1;   // the person at this screen (-1: a spectator, or nobody plays)
     const stats = ctx.teams.map((t) => t.mons.map((m) => ({
       power: raw(m.stars?.power), speed: raw(m.stars?.speed), jump: raw(m.stars?.jump), stamina: raw(m.stars?.stamina),
     })));
-    const sim = new RingDropSim({ stats, rand, human });
+    const sim = new RingDropSim({ stats, rand, humans });
     const st = { you: human, keys: false, touching: false, touchPos: [0, 0], face: [1, 0] };
     const view = new RingDropView(ctx, sim, st);
-    let walking = false;        // keys moved the Pokémon in the previous step (one more step to stop it)
+    // what each person is doing: keys in use, the way they face, whether keys moved the Pokémon in the previous step (one more step to stop it)
+    const ctls = new Map(humans.map((t) => [t, { keys: false, face: [1, 0], walking: false, touching: false, touchPos: [0, 0] }]));
 
-    const step = (inp, run) => {
+    const commandOf = (team, inp, c) => {
       const cmd = {};
-      if (human >= 0) {
-        const p = sim.parts[human];
-        const t = run.touch;
-        const [fx, fy] = toField(t.touchX, t.touchY);
-        cmd.touch = { down: t.touching, x: Math.round(clamp(fx, 0, 255)), y: Math.round(clamp(fy, 0, 191)) };
-        st.touching = t.touching;
-        st.touchPos = [cmd.touch.x, cmd.touch.y];
-        if (t.touchNew) st.keys = false;
-        // keyboard and pad: walk, jump, dash, swap
-        const d = inp.dir;
-        const jump = inp.pressed("Space", "Enter", "KeyF") || inp.padPressed(0);
-        const dash = inp.pressed("ShiftLeft", "ShiftRight", "KeyJ") || inp.padPressed(1, 2, 3);
-        const swap = inp.pressed("Tab", "KeyQ") || inp.padPressed(4, 5, 6, 7);
-        if (d.x || d.y || jump || dash || swap) st.keys = true;
-        if (st.keys || walking) {
-          const act = {};
-          if (d.x || d.y) {
-            const [nx, ny] = norm(d.x, d.y);
-            st.face = [nx, ny];
-            act.dest = [p.pos[0] + nx * 14, p.pos[1] + ny * 14];
-            walking = true;
-          } else if (walking) {
-            act.dest = [p.pos[0], p.pos[1]];
-            walking = false;
-          }
-          if (jump) act.jump = true;
-          if (dash) {
-            // towards where the person points (or faces); an opponent close to that line gets the dash aimed at it
-            let [ax, ay] = d.x || d.y ? norm(d.x, d.y) : st.face;
-            let best = null, bestCos = 0.82;
-            for (const o of sim.parts) {
-              if (o === p || o.state === 3 || o.switching) continue;
-              const dx = o.pos[0] - p.pos[0], dy = o.pos[1] - p.pos[1];
-              const dd = Math.hypot(dx, dy);
-              if (dd < 1 || dd > 90) continue;
-              const cos = (dx * ax + dy * ay) / dd;
-              if (cos > bestCos) { bestCos = cos; best = o; }
-            }
-            act.dash = best ? [best.pos[0], best.pos[1]] : [p.pos[0] + ax * 50, p.pos[1] + ay * 50];
-          }
-          if (swap) act.swap = true;
-          cmd.act = act;
+      const p = sim.parts[team];
+      const t = inp.touch;
+      const [fx, fy] = toField(t.touchX, t.touchY);
+      cmd.touch = { down: t.touching, x: Math.round(clamp(fx, 0, 255)), y: Math.round(clamp(fy, 0, 191)) };
+      c.touching = t.touching;
+      c.touchPos = [cmd.touch.x, cmd.touch.y];
+      if (t.touchNew) c.keys = false;
+      // keyboard and pad: walk, jump, dash, swap
+      const d = inp.dir;
+      const jump = inp.pressed("Space", "Enter", "KeyF") || inp.padPressed(0);
+      const dash = inp.pressed("ShiftLeft", "ShiftRight", "KeyJ") || inp.padPressed(1, 2, 3);
+      const swap = inp.pressed("Tab", "KeyQ") || inp.padPressed(4, 5, 6, 7);
+      if (d.x || d.y || jump || dash || swap) c.keys = true;
+      if (c.keys || c.walking) {
+        const act = {};
+        if (d.x || d.y) {
+          const [nx, ny] = norm(d.x, d.y);
+          c.face = [nx, ny];
+          act.dest = [p.pos[0] + nx * 14, p.pos[1] + ny * 14];
+          c.walking = true;
+        } else if (c.walking) {
+          act.dest = [p.pos[0], p.pos[1]];
+          c.walking = false;
         }
+        if (jump) act.jump = true;
+        if (dash) {
+          // towards where the person points (or faces); an opponent close to that line gets the dash aimed at it
+          let [ax, ay] = d.x || d.y ? norm(d.x, d.y) : c.face;
+          let best = null, bestCos = 0.82;
+          for (const o of sim.parts) {
+            if (o === p || o.state === 3 || o.switching) continue;
+            const dx = o.pos[0] - p.pos[0], dy = o.pos[1] - p.pos[1];
+            const dd = Math.hypot(dx, dy);
+            if (dd < 1 || dd > 90) continue;
+            const cos = (dx * ax + dy * ay) / dd;
+            if (cos > bestCos) { bestCos = cos; best = o; }
+          }
+          act.dash = best ? [best.pos[0], best.pos[1]] : [p.pos[0] + ax * 50, p.pos[1] + ay * 50];
+        }
+        if (swap) act.swap = true;
+        cmd.act = act;
       }
-      sim.step(cmd);
+      return cmd;
+    };
+
+    const step = (inp, run, seats) => {
+      const cmds = {};
+      for (const [team, c] of ctls) cmds[team] = commandOf(team, seats ? seats.get(team) : inp, c);
+      const mine = ctls.get(human);
+      if (mine) { st.keys = mine.keys; st.face = mine.face; st.touching = mine.touching; st.touchPos = mine.touchPos; }
+      sim.step({}, cmds);
       view.onEvents(sim.events, run);
     };
 
@@ -84,6 +92,7 @@ export default {
     };
 
     const runner = new EventRunner(ctx, {
+      humans,
       step,
       render: (g, a, run) => view.render(g, a, run),
       visual: (dt) => view.update(dt),
@@ -91,6 +100,12 @@ export default {
       idle: (run) => { if (run.endNo === 1) run.sfx("end"); },
       result,
     });
-    return { update: (dt) => runner.update(dt), render: (g) => runner.render(g), destroy: () => runner.destroy(), sim };
+    return {
+      update: (dt) => runner.update(dt),
+      render: (g) => runner.render(g),
+      takeOver(team) { ctls.delete(team); runner.dropSeat(team); sim.takeOver(team); },
+      destroy: () => runner.destroy(),
+      sim,
+    };
   },
 };

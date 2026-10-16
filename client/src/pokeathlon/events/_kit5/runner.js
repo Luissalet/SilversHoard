@@ -75,6 +75,34 @@ class StepInput {
   }
 }
 
+/**
+ * One person's controls in a room with friends: their touch, keys and pad, read from the applied input of their team (ctx.inputs[team])
+ * and handed to the simulation as a StepInput. The runner itself is the seat of the person at this screen.
+ */
+export class Seat {
+  constructor() {
+    this.touch = new DsTouch();
+    this.keys = new Set(); this.keyLatch = new Set();
+    this.pad = { lx: 0, ly: 0, rx: 0, ry: 0, held: new Set(), pressed: new Set() };
+    this.padLatch = new Set();
+    this.inp = new StepInput(this);
+  }
+
+  feed(inp) {
+    if (!inp) return;
+    this.touch.feed(inp.pointer);
+    this.keys = inp.keys || this.keys;
+    for (const c of inp.pressed || []) this.keyLatch.add(c);
+    if (inp.pad) {
+      this.pad = inp.pad;
+      for (const b of inp.pad.pressed || []) this.padLatch.add(b);
+    }
+  }
+
+  tick() { this.touch.step(); }
+  clear() { this.keyLatch.clear(); this.padLatch.clear(); }
+}
+
 export class EventRunner {
   /**
    * @param ctx    the framework's ctx
@@ -84,6 +112,7 @@ export class EventRunner {
    * @param o.isOver()        the clock ran out
    * @param o.result()        { raw: [4], detail: [4] }
    * @param o.endSteps        steps between the end of the clock and finish() (the "time up" banner)
+   * @param o.humans          a room with friends: the teams people steer; step() then gets a third argument, the Map team -> StepInput
    */
   constructor(ctx, o) {
     this.ctx = ctx;
@@ -102,7 +131,11 @@ export class EventRunner {
     this.startSteps = o.startSteps ?? 0;       // the page counts 3-2-1 and says "go" and "finish" itself: no banners of our own unless asked
     this.endSteps = o.endSteps ?? 8;
     this.inp = new StepInput(this);
+    this.seats = new Map((o.humans || []).map((t) => [t, new Seat()]));
   }
+
+  /** The CPU took a person's team over: stop reading their input. */
+  dropSeat(team) { this.seats.delete(team); }
 
   sfx(name) { safe(this.ctx.sfx, name); }
   shake(mag, steps) { if (mag >= this.shakeMag || this.shakeLeft <= 0) { this.shakeMag = mag; this.shakeLeft = Math.max(this.shakeLeft, steps); } }
@@ -120,6 +153,7 @@ export class EventRunner {
         for (const b of inp.pad.pressed || []) this.padLatch.add(b);
       }
     }
+    for (const [team, seat] of this.seats) seat.feed(this.ctx.inputs && this.ctx.inputs[team]);
     this.time += dt;
     this.acc += dt;
     let n = 0;
@@ -135,10 +169,11 @@ export class EventRunner {
 
   tick() {
     this.touch.step();
+    for (const seat of this.seats.values()) seat.tick();
     if (this.shakeLeft > 0) this.shakeLeft--;
     if (!this.over) {
       this.stepNo++;
-      this.o.step(this.inp, this);
+      this.o.step(this.inp, this, this.seats.size ? new Map([...this.seats].map(([t, seat]) => [t, seat.inp])) : null);
     } else if (!this.finished) {
       this.endNo++;
       safe(this.o.idle, this);
@@ -149,6 +184,7 @@ export class EventRunner {
     }
     this.keyLatch.clear();
     this.padLatch.clear();
+    for (const seat of this.seats.values()) seat.clear();
   }
 
   render(g) {

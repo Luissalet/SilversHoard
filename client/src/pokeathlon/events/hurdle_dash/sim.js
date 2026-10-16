@@ -59,19 +59,20 @@ export function makeRunner(team, lane, mon, layoutLetter, rng, human) {
 
 export class Race {
   /**
-   * teams: the four teams of the contract; humanTeam: the index of the team a person taps for (-1 = the CPU plays all); focus: the team
-   * whose finish ends the race; rng: seeded generator.
+   * teams: the four teams of the contract; humanTeam: the index of the team a person taps for (-1 = the CPU plays all), or humanTeams
+   * for several people (a room with friends); focus: the team whose finish ends the race when nobody plays; rng: seeded generator.
    */
-  constructor({ teams, rng, humanTeam = -1, focus = 0 }) {
+  constructor({ teams, rng, humanTeam = -1, humanTeams = null, focus = 0 }) {
     this.teams = teams;
     this.rng = rng;
-    this.humanTeam = humanTeam;
+    this.humans = new Set(humanTeams || (humanTeam >= 0 ? [humanTeam] : []));
+    this.humanTeam = this.humans.size ? [...this.humans][0] : -1;
     this.focus = focus;
     this.layout = Math.floor(rng() * 3);
     this.frame = 0;
     this.events = [];
     this.over = false;
-    this.runners = teams.map((t, ti) => t.mons.map((mon, lane) => makeRunner(ti, lane, mon, LAYOUTS[this.layout][lane], rng, ti === humanTeam)));
+    this.runners = teams.map((t, ti) => t.mons.map((mon, lane) => makeRunner(ti, lane, mon, LAYOUTS[this.layout][lane], rng, this.humans.has(ti))));
   }
 
   all() { return this.runners.flat(); }
@@ -111,9 +112,9 @@ export class Race {
     this.push("trip", r);
   }
 
-  /** A tap on lane `lane` of the person's team. */
-  tap(lane) {
-    const r = this.runners[this.humanTeam] && this.runners[this.humanTeam][lane];
+  /** A tap on lane `lane` of a person's team. */
+  tap(lane, team = this.humanTeam) {
+    const r = this.runners[team] && this.runners[team][lane];
     if (!r || r.finished || this.over) return;
     if (r.state === 0) {
       const timed = this.isTimed(r);
@@ -179,13 +180,31 @@ export class Race {
     }
   }
 
-  /** One frame (1/30 s). taps: the lanes of the person's team tapped since the last step. */
+  /** The CPU takes over a team a person left (a room with friends): it rolls the hurdles it has not met yet. */
+  takeOver(team) {
+    if (!this.humans.delete(team)) return;
+    for (const r of this.runners[team]) {
+      r.human = false;
+      const chance = BOOST_CHANCES[Math.floor(this.rng() * 6)];
+      r.boostChance = chance[0];
+      r.clearChance = chance[1];
+      for (const h of r.hurdles) if (r.dist >= 8 * h.flag + 60) h.rolled = true;
+    }
+    if (this.humanTeam === team) this.humanTeam = this.humans.size ? [...this.humans][0] : -1;
+  }
+
+  /**
+   * One frame (1/30 s). taps: the lanes of the person's team tapped since the last step, or an object { team: lanes } when several
+   * people play. The race ends when every person's team has finished (the focus team's when nobody plays).
+   */
   step(taps = []) {
     if (this.over) return;
     this.frame++;
-    for (const lane of taps) this.tap(lane);
+    if (Array.isArray(taps)) { for (const lane of taps) this.tap(lane); }
+    else for (const team of Object.keys(taps).map(Number).sort((a, b) => a - b)) for (const lane of taps[team]) this.tap(lane, team);
     for (const r of this.all()) this.stepRunner(r);
-    if (this.runners[this.focus].every((r) => r.finished)) this.over = true;
+    const judged = this.humans.size ? [...this.humans] : [this.focus];
+    if (judged.every((t) => this.runners[t].every((r) => r.finished))) this.over = true;
     else if (this.frame > 7200) this.over = true;
   }
 

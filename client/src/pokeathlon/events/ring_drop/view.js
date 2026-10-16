@@ -262,7 +262,7 @@ export class RingDropView {
       drop = 60 * t * t * 3;
       if (alpha <= 0) return;
     } else if (p.switching) {
-      const human = i === sim.human;
+      const human = sim.humans.has(i);
       const swapAt = human ? 11 : 19, total = human ? 22 : 38;
       if (p.swT < swapAt) { scale = 1 - p.swT / swapAt; alpha = scale; } else { const k = clamp((p.swT - swapAt) / (total - swapAt), 0, 1); scale = easeOutBack(k); alpha = clamp(k * 2, 0, 1); }
       if (scale <= 0.02) return;
@@ -315,7 +315,7 @@ export class RingDropView {
     rrect(g, bx - 2, by - 2, bw + 4, 9, 4.5); g.fillStyle = "rgba(8,10,30,0.72)"; g.fill();
     rrect(g, bx, by, Math.max(0, bw * clamp(m.sta / m.maxSta, 0, 1)), 5, 2.5); g.fillStyle = staminaColor(m); g.fill();
     if (i === st.you) marker(g, sx, by - 6, col, this.time, this.ctx.t("TÚ", "YOU"));
-    else if (teamName && (i === sim.human || sim.human < 0)) text(g, teamName, sx, by - 6, { size: 11, weight: 800, color: "#fff", align: "center", stroke: "rgba(0,0,0,0.7)", strokeW: 3, maxW: 80 });
+    else if (teamName && (sim.humans.has(i) || sim.humans.size === 0)) text(g, teamName, sx, by - 6, { size: 11, weight: 800, color: "#fff", align: "center", stroke: "rgba(0,0,0,0.7)", strokeW: 3, maxW: 80 });
   }
 
   star(g, x, y, r) {

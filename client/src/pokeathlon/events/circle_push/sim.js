@@ -50,10 +50,11 @@ const ROWS = 5;
 const dist = (ax, ay, bx, by) => Math.hypot(ax - bx, ay - by);
 
 export class Match {
-  constructor({ teams, rng, humanTeam = -1 }) {
+  constructor({ teams, rng, humanTeam = -1, humanTeams = null }) {
     this.teams = teams;
     this.rng = rng;
-    this.humanTeam = humanTeam;
+    this.humans = new Set(humanTeams || (humanTeam >= 0 ? [humanTeam] : []));
+    this.humanTeam = this.humans.size ? [...this.humans][0] : -1;
     this.frame = 0;
     this.over = false;
     this.events = [];
@@ -83,7 +84,7 @@ export class Match {
     }
     this.held = [-1, -1, -1, -1];
     this.stylus = [null, null, null, null];
-    this.cpu = teams.map((_, t) => ({ cursor: 0, skips: 0, on: t !== humanTeam }));
+    this.cpu = teams.map((_, t) => ({ cursor: 0, skips: 0, on: !this.humans.has(t) }));
     this.skipBudget = 3;
   }
 
@@ -91,6 +92,15 @@ export class Match {
   drain() { const e = this.events; this.events = []; return e; }
 
   mon(team, member) { return this.mons[team * 3 + member]; }
+  /** The CPU takes over a team a person left (a room with friends). */
+  takeOver(team) {
+    if (!this.humans.delete(team)) return;
+    this.cpu[team].on = true;
+    this.cpu[team].skips = 0;
+    this.touchUp(team);
+    if (this.humanTeam === team) this.humanTeam = this.humans.size ? [...this.humans][0] : -1;
+  }
+
   teamMons(team) { return this.mons.slice(team * 3, team * 3 + 3); }
   get zones() { return LAYOUTS[this.layout]; }
   get interval() { return ROUND_INTERVAL[Math.min(this.round, ROUNDS - 1)]; }

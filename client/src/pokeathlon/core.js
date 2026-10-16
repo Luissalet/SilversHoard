@@ -11,16 +11,29 @@ export const STEP = 1 / FPS;
 export const TEAM_COLORS = ["#e5483d", "#3b82e6", "#35b25c", "#f0b429"];
 export const TEAM_COLORS_DARK = ["#9c2a22", "#1f56a8", "#1f7a3c", "#b0820f"];
 
-/** A small seeded generator (mulberry32): the only source of randomness an event may use. */
+/**
+ * A small seeded generator (mulberry32): the only source of randomness an event may use. `rng.sum` is a running checksum of every
+ * number it has handed out and `rng.calls` how many: two computers playing the same event in lockstep compare them to notice a drift.
+ */
 export function makeRng(seed) {
   let a = (Number(seed) || 0) >>> 0;
-  return function rng() {
+  let sum = 2166136261;
+  let calls = 0;
+  function rng() {
     a = (a + 0x6d2b79f5) >>> 0;
     let t = a;
     t = Math.imul(t ^ (t >>> 15), t | 1);
     t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
+    const v = (t ^ (t >>> 14)) >>> 0;
+    sum = Math.imul(sum ^ v, 16777619) >>> 0;
+    calls++;
+    rng.sum = sum;
+    rng.calls = calls;
+    return v / 4294967296;
+  }
+  rng.sum = sum;
+  rng.calls = 0;
+  return rng;
 }
 
 /** A 32-bit seed out of any numbers or strings. */
@@ -125,6 +138,58 @@ export class Input {
     this._padPressed.clear();
   }
 
+  /**
+   * What frame() published, as a small JSON-able object: the one thing that travels between computers in a lockstep room. Positions are
+   * rounded to a tenth of a pixel and the pointer's path keeps its last 8 points, so that the sender and everybody else (the sender
+   * included, through apply) run on exactly the same numbers.
+   */
+  snapshot() {
+    const o = this.pointer;
+    const d = this.pad;
+    const r1 = (v) => Math.round(v * 10) / 10;
+    const r2 = (v) => Math.round(v * 100) / 100;
+    const out = { x: r1(o.x), y: r1(o.y) };
+    if (o.down) out.d = 1;
+    if (o.pressed) out.p = 1;
+    if (o.released) out.r = 1;
+    if (o.rightPressed) out.rp = 1;
+    if (o.inside) out.i = 1;
+    if (o.wheel) out.w = Math.round(o.wheel);
+    if (o.path.length) out.pa = o.path.slice(-8).map((q) => [r1(q.x), r1(q.y)]);
+    if (o.flick) out.fl = [r1(o.flick.dx), r1(o.flick.dy), Math.round(o.flick.speed)];
+    if (this.keys.size) out.k = [...this.keys].sort();
+    if (this.pressed.size) out.kp = [...this.pressed].sort();
+    if (d.lx || d.ly || d.rx || d.ry) out.pd = [r2(d.lx), r2(d.ly), r2(d.rx), r2(d.ry)];
+    if (d.held.size) out.ph = [...d.held].sort((a, b) => a - b);
+    if (d.pressed.size) out.pp = [...d.pressed].sort((a, b) => a - b);
+    return out;
+  }
+
+  /** Publish a snapshot() (or {} for "nothing happened") as this frame's input: what the events read. `tick` stamps the path points. */
+  apply(snap, tick = 0) {
+    const f = snap && typeof snap === "object" ? snap : {};
+    const o = this.pointer;
+    const d = this.pad;
+    const t = (tick * 1000) / FPS;
+    o.x = typeof f.x === "number" ? f.x : W / 2;
+    o.y = typeof f.y === "number" ? f.y : H / 2;
+    o.down = !!f.d; o.pressed = !!f.p; o.released = !!f.r; o.rightPressed = !!f.rp; o.inside = !!f.i;
+    o.wheel = f.w || 0;
+    o.path = Array.isArray(f.pa) ? f.pa.map((q) => ({ x: q[0], y: q[1], t })) : [];
+    o.flick = Array.isArray(f.fl) ? { dx: f.fl[0], dy: f.fl[1], speed: f.fl[2] } : null;
+    this.keys.clear();
+    for (const k of f.k || []) this.keys.add(k);
+    this.pressed.clear();
+    for (const k of f.kp || []) this.pressed.add(k);
+    const pd = f.pd || [0, 0, 0, 0];
+    d.lx = pd[0]; d.ly = pd[1]; d.rx = pd[2]; d.ry = pd[3];
+    d.held.clear();
+    for (const b of f.ph || []) d.held.add(b);
+    d.pressed.clear();
+    for (const b of f.pp || []) d.pressed.add(b);
+    this.any = o.pressed || o.rightPressed || this.pressed.size > 0 || d.pressed.size > 0;
+  }
+
   /** Publish what happened since the last frame. */
   frame() {
     const p = this._p;
@@ -172,13 +237,18 @@ export function cleanResult(r) {
  * Besides the contract it carries `ui` (drawing helpers), `mode` ("play" | "watch" | "practice"), `supreme`, `seed` and `focus`
  * (the team the camera follows: the first human one, else team 0).
  */
-export function makeCtx({ teams, seed = 1, lang = "es", input = new Input(), animator, icon, sfx, finish, mode = "play", supreme = false }) {
+export function makeCtx({ teams, seed = 1, lang = "es", input = new Input(), inputs = null, focus = null, animator, icon, sfx, finish, mode = "play", supreme = false }) {
   const rng = makeRng(seed);
+  const focusTeam = focus !== null && focus !== undefined ? focus : Math.max(0, teams.findIndex((t) => t.human));
+  // one input per team: a lockstep room feeds every person's; alone, only the person's own team has one
+  const perTeam = inputs || teams.map((_, i) => (i === focusTeam ? input : new Input()));
   const cache = new Map();
   const nulls = new Map();
   const ctx = {
-    W, H, teams, rng, input, lang, mode, supreme, seed,
-    focus: Math.max(0, teams.findIndex((t) => t.human)),
+    W, H, teams, rng, input: perTeam[focusTeam] || input, inputs: perTeam, lang, mode, supreme, seed,
+    focus: focusTeam,
+    /** The teams a person steers right now (a team a CPU took over in a lockstep room is not one any more). */
+    humans: () => teams.map((t, i) => (t.human ? i : -1)).filter((i) => i >= 0),
     t: (es, en) => (lang === "en" ? en : es),
     animator(team, slot) {
       const key = team * 3 + slot;

@@ -52,19 +52,36 @@ export class SnowThrowSim {
    * @param o.stats  4 teams x 3 members of { power, skill, stamina } raw 0-4
    * @param o.rand   makeRand(ctx.rng)
    * @param o.human  team a person plays, or -1
+   * @param o.humans several people (a room with friends): the teams they play; wins over o.human
    */
   constructor(o) {
     this.rand = o.rand;
-    this.human = o.human ?? -1;
+    const people = o.humans ?? (o.human >= 0 ? [o.human] : []);
+    this.humans = new Set(people);
+    this.human = people.length ? people[0] : -1;      // the first person (the only one in a single-player event)
     this.mons = [];
     o.stats.forEach((team, t) => team.forEach((s, k) => this.mons.push(new Mon(t * 3 + k, s))));
     this.timer = FRAMES;
     this.steps = 0;
     this.events = [];
-    this.cpuTeams = [0, 1, 2, 3].filter((t) => t !== this.human);
+    this.cpuTeams = [0, 1, 2, 3].filter((t) => !this.humans.has(t));
     this.cpu = { timer: 40, thinking: false, cursor: 0, member: 0 };
     // the person's touch, as the host keeps it
-    this.t = { down: false, held: -1, start: [0, 0], last: [0, 0], holdFrames: 0 };
+    this.ts = new Map(people.map((t) => [t, { down: false, held: -1, start: [0, 0], last: [0, 0], holdFrames: 0 }]));
+  }
+
+  /** the finger of the first person (what a single-player view reads), or of a given team */
+  get t() { return this.tOf(this.human); }
+  tOf(team) { return this.ts.get(team) || { down: false, held: -1, start: [0, 0], last: [0, 0], holdFrames: 0 }; }
+
+  /** The CPU takes a person's team over (they left the room). */
+  takeOver(team) {
+    if (!this.humans.has(team)) return;
+    this.humans.delete(team);
+    this.ts.delete(team);
+    this.human = this.humans.size ? [...this.humans][0] : -1;
+    this.cpuTeams = [0, 1, 2, 3].filter((t) => !this.humans.has(t));
+    if (this.cpu.cursor >= this.cpuTeams.length) this.cpu.cursor = 0;
   }
 
   get over() { return this.timer <= 0; }
@@ -75,14 +92,17 @@ export class SnowThrowSim {
   /**
    * cmd.touch: { down, x, z } the person's finger in field units; cmd.keys: [{ type: "tap", mon } | { type: "throw", mon, dir: [x, z], hold }]
    */
-  step(cmd = {}) {
+  step(cmd = {}, cmds = null) {
+    const by = cmds || (this.human >= 0 ? { [this.human]: cmd } : {});
     this.events.length = 0;
     if (this.timer <= 0) return;
     this.steps++;
     this.timer--;
-    if (this.human >= 0) {
-      if (cmd.touch) this.touchInput(cmd.touch);
-      if (cmd.keys) for (const k of cmd.keys) this.keyInput(k);
+    for (const team of this.humans) {
+      const c = by[team];
+      if (!c) continue;
+      if (c.touch) this.touchInput(c.touch, team);
+      if (c.keys) for (const k of c.keys) this.keyInput(k, team);
     }
     this.cpuUpdate(this.steps);
     this.updateMons();
@@ -92,9 +112,9 @@ export class SnowThrowSim {
   }
 
   // ------------------------------------------------------------------------------------------------------------- the person
-  findOwnMonAt(x, z) {
+  findOwnMonAt(x, z, team) {
     for (let k = 0; k < 3; k++) {
-      const m = this.mons[this.human * 3 + k];
+      const m = this.mons[team * 3 + k];
       if (Math.hypot(m.home[0] - x, m.home[1] - z) <= GRAB_RADIUS) {
         if (m.stun !== 0) continue;
         return m;
@@ -103,14 +123,14 @@ export class SnowThrowSim {
     return null;
   }
 
-  touchInput(tc) {
-    const t = this.t;
+  touchInput(tc, team = this.human) {
+    const t = this.ts.get(team);
     if (tc.down) {
       if (!t.down) {
         // press
         t.down = true;
         t.start = [tc.x, tc.z]; t.last = [tc.x, tc.z]; t.holdFrames = 0; t.held = -1;
-        const m = this.findOwnMonAt(tc.x, tc.z);
+        const m = this.findOwnMonAt(tc.x, tc.z, team);
         if (m && (m.ball.state === NONE || m.ball.state === HELD)) {
           t.held = m.i;
           if (m.ball.state === NONE) { m.ball.pos = m.home.slice(); m.ball.state = HELD; m.ball.taps = 0; m.ball.size = 0; }
@@ -137,8 +157,8 @@ export class SnowThrowSim {
     }
   }
 
-  keyInput(k) {
-    const m = this.mons[this.human * 3 + k.mon];
+  keyInput(k, team = this.human) {
+    const m = this.mons[team * 3 + k.mon];
     if (!m || m.stun !== 0) return;
     if (k.type === "tap") {
       if (m.ball.state === NONE) { m.ball.pos = m.home.slice(); m.ball.state = HELD; m.ball.taps = 0; m.ball.size = 0; }

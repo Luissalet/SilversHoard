@@ -41,20 +41,14 @@ export default {
 
   create(ctx) {
     const focus = ctx.focus;
-    const humanTeam = ctx.teams[focus] && ctx.teams[focus].human ? focus : -1;
-    const match = new Match({ teams: ctx.teams, rng: ctx.rng, humanTeam });
-    const me = match.sides[focus];
-    const human = humanTeam >= 0 ? match.sides[humanTeam] : null;
+    const humans = ctx.humans();
+    const humanTeam = humans.includes(focus) ? focus : -1;   // the person at this screen (-1: a spectator, or nobody plays)
+    const match = new Match({ teams: ctx.teams, rng: ctx.rng, humanTeams: humans });
     const clock = new Clock();
-    const latch = new Latch();
     const lcg = mkLcg(0x9e3779b1 ^ (ctx.seed || 1));
     const pops = [];
     const bits = [];
     const ripples = [];
-    let swipe = null;
-    let ptrActive = false;
-    let kb = false;
-    let reticle = { x: BLOCK_X + 4, y: BASE_Y - 4 * (STACK - 1) - 3 };
     let shake = 0;
     let flash = 0;
     let endTimer = 0;
@@ -63,65 +57,77 @@ export default {
 
     const topY = (side) => BASE_Y - 4 * Math.max(0, side.board.count - 1);
 
-    const doTap = (x, y) => !!human.tap(x, y, 1);
+    // what each person is doing: swipes, pointer, keyboard reticle (a room with friends has one per person)
+    const makeCtl = (team) => {
+      const input = ctx.inputs[team];
+      const mine = team === focus;
+      const c = { team, latch: new Latch(), swipe: null, ptrActive: false, kb: false, reticle: { x: BLOCK_X + 4, y: BASE_Y - 4 * (STACK - 1) - 3 } };
+      const doTap = (x, y) => !!match.sides[team].tap(x, y, 1);
 
-    const applyInput = (batch) => {
-      // pointer: the first press of the step is the tap (one touch per frame, as on the DS); swipes up switch Pokémon
-      let tapped = false;
-      let pi = 0;
-      let ri = 0;
-      while (pi < batch.presses.length || ri < batch.releases.length) {
-        if (ptrActive) {
-          if (ri >= batch.releases.length) break;
-          const r = batch.releases[ri++];
-          ptrActive = false;
-          if (swipe && clock.frame - swipe.f <= 9 && swipe.y - r.y >= SWIPE_PX) human.switchNow();
-          swipe = null;
-        } else if (pi < batch.presses.length) {
-          const d = batch.presses[pi++];
-          ptrActive = true;
-          kb = false;
-          ripples.push({ x: d.x, y: d.y, age: 0 });
-          const inBtn = d.x >= SWITCH_BTN.x && d.x < SWITCH_BTN.x + SWITCH_BTN.w && d.y >= SWITCH_BTN.y && d.y < SWITCH_BTN.y + SWITCH_BTN.h;
-          if (inBtn) { human.switchNow(); swipe = null; }
-          else {
-            if (!tapped) tapped = doTap(dsx(d.x), dsy(d.y)) || tapped;
-            swipe = d.x > 250 && d.x < 700 ? { y: d.y, f: clock.frame } : null;
-          }
-        } else ri++;
-      }
-      if (swipe && clock.frame - swipe.f >= 10) swipe = null;
-      if (batch.right || batch.wheel) human.switchNow();
-      // keyboard and pad: a reticle over the block, one key to hit, one to swap
-      const keys = ctx.input.keys;
-      const pad = ctx.input.pad;
-      let mx = 0;
-      let my = 0;
-      if (MOVE_KEYS.left.some((k) => keys.has(k))) mx -= 1;
-      if (MOVE_KEYS.right.some((k) => keys.has(k))) mx += 1;
-      if (MOVE_KEYS.up.some((k) => keys.has(k))) my -= 1;
-      if (MOVE_KEYS.down.some((k) => keys.has(k))) my += 1;
-      if (Math.hypot(pad.lx, pad.ly) > 0.3) { mx += pad.lx; my += pad.ly; }
-      if (Math.hypot(pad.rx, pad.ry) > 0.3) { mx += pad.rx; my += pad.ry; }
-      for (const b of pad.held) if (PAD_DIR[b]) { mx += PAD_DIR[b][0]; my += PAD_DIR[b][1]; }
-      const l = Math.hypot(mx, my);
-      const keyedHit = TAP_KEYS.some((k) => batch.keys.has(k)) || TAP_PAD.some((b) => batch.pad.has(b));
-      const keyedSwitch = SWITCH_KEYS.some((k) => batch.keys.has(k)) || SWITCH_PAD.some((b) => batch.pad.has(b));
-      if (l > 0.05 || keyedHit || keyedSwitch) kb = true;
-      if (l > 0.05) {
-        const f = RETICLE_SPEED / Math.max(1, l);
-        reticle = { x: clamp(reticle.x + mx * f, BLOCK_X - 34, BLOCK_X + 34), y: clamp(reticle.y + my * f, topY(human) - 20, topY(human) + 14) };
-      }
-      if (keyedSwitch) human.switchNow();
-      if (keyedHit && !tapped) { doTap(reticle.x, reticle.y); ripples.push({ x: sx(reticle.x), y: sy(reticle.y), age: 0 }); }
+      c.apply = (batch) => {
+        const human = match.sides[team];
+        // pointer: the first press of the step is the tap (one touch per frame, as on the DS); swipes up switch Pokémon
+        let tapped = false;
+        let pi = 0;
+        let ri = 0;
+        while (pi < batch.presses.length || ri < batch.releases.length) {
+          if (c.ptrActive) {
+            if (ri >= batch.releases.length) break;
+            const r = batch.releases[ri++];
+            c.ptrActive = false;
+            if (c.swipe && clock.frame - c.swipe.f <= 9 && c.swipe.y - r.y >= SWIPE_PX) human.switchNow();
+            c.swipe = null;
+          } else if (pi < batch.presses.length) {
+            const d = batch.presses[pi++];
+            c.ptrActive = true;
+            c.kb = false;
+            if (mine) ripples.push({ x: d.x, y: d.y, age: 0 });
+            const inBtn = d.x >= SWITCH_BTN.x && d.x < SWITCH_BTN.x + SWITCH_BTN.w && d.y >= SWITCH_BTN.y && d.y < SWITCH_BTN.y + SWITCH_BTN.h;
+            if (inBtn) { human.switchNow(); c.swipe = null; }
+            else {
+              if (!tapped) tapped = doTap(dsx(d.x), dsy(d.y)) || tapped;
+              c.swipe = d.x > 250 && d.x < 700 ? { y: d.y, f: clock.frame } : null;
+            }
+          } else ri++;
+        }
+        if (c.swipe && clock.frame - c.swipe.f >= 10) c.swipe = null;
+        if (batch.right || batch.wheel) human.switchNow();
+        // keyboard and pad: a reticle over the block, one key to hit, one to swap
+        const keys = input.keys;
+        const pad = input.pad;
+        let mx = 0;
+        let my = 0;
+        if (MOVE_KEYS.left.some((k) => keys.has(k))) mx -= 1;
+        if (MOVE_KEYS.right.some((k) => keys.has(k))) mx += 1;
+        if (MOVE_KEYS.up.some((k) => keys.has(k))) my -= 1;
+        if (MOVE_KEYS.down.some((k) => keys.has(k))) my += 1;
+        if (Math.hypot(pad.lx, pad.ly) > 0.3) { mx += pad.lx; my += pad.ly; }
+        if (Math.hypot(pad.rx, pad.ry) > 0.3) { mx += pad.rx; my += pad.ry; }
+        for (const b of pad.held) if (PAD_DIR[b]) { mx += PAD_DIR[b][0]; my += PAD_DIR[b][1]; }
+        const l = Math.hypot(mx, my);
+        const keyedHit = TAP_KEYS.some((k) => batch.keys.has(k)) || TAP_PAD.some((b) => batch.pad.has(b));
+        const keyedSwitch = SWITCH_KEYS.some((k) => batch.keys.has(k)) || SWITCH_PAD.some((b) => batch.pad.has(b));
+        if (l > 0.05 || keyedHit || keyedSwitch) c.kb = true;
+        if (l > 0.05) {
+          const f = RETICLE_SPEED / Math.max(1, l);
+          c.reticle = { x: clamp(c.reticle.x + mx * f, BLOCK_X - 34, BLOCK_X + 34), y: clamp(c.reticle.y + my * f, topY(human) - 20, topY(human) + 14) };
+        }
+        if (keyedSwitch) human.switchNow();
+        if (keyedHit && !tapped) { doTap(c.reticle.x, c.reticle.y); if (mine) ripples.push({ x: sx(c.reticle.x), y: sy(c.reticle.y), age: 0 }); }
+      };
+      return c;
     };
+    const ctls = new Map(humans.map((t) => [t, makeCtl(t)]));
+    const NOBODY = { kb: false, reticle: { x: BLOCK_X + 4, y: BASE_Y - 4 * (STACK - 1) - 3 } };
+    const fc = () => ctls.get(humanTeam) || NOBODY;
+    const human = humanTeam >= 0 ? match.sides[humanTeam] : null;
 
     const onEvents = (list) => {
       for (const e of list) {
         const mine = e.team === focus;
         if (!mine) continue;
         if (e.type === "hit") {
-          const p = { x: sx(BLOCK_X) + (lcg() - 0.5) * 60, y: sy(topY(me) - 8) - 30, age: 0 };
+          const p = { x: sx(BLOCK_X) + (lcg() - 0.5) * 60, y: sy(topY(match.sides[focus]) - 8) - 30, age: 0 };
           if (e.spot || e.strong) {
             ctx.sfx(e.broken ? "break" : "score");
             pops.push({ ...p, text: `-${e.power}`, color: e.strong ? "#ffd166" : "#ff8a5c", size: 34, life: 1.0 });
@@ -133,11 +139,11 @@ export default {
           if (e.broken) {
             shake = 6;
             const n = 8 * e.broken;
-            for (let i = 0; i < n; i++) bits.push({ x: sx(BLOCK_X), y: sy(topY(me)) , vx: (lcg() - 0.5) * 16, vy: -4 - lcg() * 9, r: 4 + lcg() * 8, rot: lcg() * 6, vr: (lcg() - 0.5) * 0.4, c: TONES[i % TONES.length], age: 0 });
-            pops.push({ x: sx(BLOCK_X) + 150, y: sy(topY(me)) - 40, text: `+${e.broken}`, color: "#8ff0a4", size: 34, age: 0, life: 0.9 });
+            for (let i = 0; i < n; i++) bits.push({ x: sx(BLOCK_X), y: sy(topY(match.sides[focus])) , vx: (lcg() - 0.5) * 16, vy: -4 - lcg() * 9, r: 4 + lcg() * 8, rot: lcg() * 6, vr: (lcg() - 0.5) * 0.4, c: TONES[i % TONES.length], age: 0 });
+            pops.push({ x: sx(BLOCK_X) + 150, y: sy(topY(match.sides[focus])) - 40, text: `+${e.broken}`, color: "#8ff0a4", size: 34, age: 0, life: 0.9 });
           }
           if (human && !e.exhausted) {
-            const a = ctx.animator(focus, me.member);
+            const a = ctx.animator(focus, match.sides[focus].member);
             if (a.has("Attack")) a.play("Attack");
           }
         } else if (e.type === "exhaust") {
@@ -196,7 +202,7 @@ export default {
 
     return {
       update(dt) {
-        latch.absorb(ctx.input);
+        for (const c of ctls.values()) c.latch.absorb(ctx.inputs[c.team]);
         const side = match.sides[focus];
         for (let m = 0; m < 3; m++) {
           const a = ctx.animator(focus, m);
@@ -215,20 +221,23 @@ export default {
         if (shake > 0) shake -= dt * 30;
         if (flash > 0) flash -= dt * 30;
         if (match.over) {
-          latch.take();
+          for (const c of ctls.values()) c.latch.take();
           endTimer += dt;
           if (endTimer >= 1.8 && !finished) { finished = true; ctx.finish(match.result()); }
           return;
         }
         clock.advance(dt, () => {
-          const batch = latch.take();
+          const batches = [...ctls.values()].map((c) => [c, c.latch.take()]);
           const before = side.member;
-          match.step(human ? () => applyInput(batch) : null);
+          match.step(batches.length ? () => { for (const [c, batch] of batches) c.apply(batch); } : null);
           if (side.member !== before) prevMember = before;
           onEvents(match.drain());
         });
         if (match.over) onEvents(match.drain());
       },
+
+      /** A person left a room: the CPU plays their team from here on. */
+      takeOver(team) { ctls.delete(team); match.takeOver(team); },
 
       render(g) {
         const ui = ctx.ui;
@@ -303,9 +312,9 @@ export default {
         }
         if (b.state === "dropping" && b.count === 0 && b.t < 0) ui.text(g, ctx.t("¡Otra pila!", "New stack!"), CX, 260, { size: 34, align: "center", color: "#8ff0a4", alpha: 0.9 });
         // a reticle when playing with keys or the pad
-        if (kb && human && b.hittable) {
-          const x = sx(reticle.x);
-          const y = sy(reticle.y);
+        if (fc().kb && human && b.hittable) {
+          const x = sx(fc().reticle.x);
+          const y = sy(fc().reticle.y);
           g.strokeStyle = "#fff";
           g.lineWidth = 3;
           g.beginPath();

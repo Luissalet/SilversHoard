@@ -91,10 +91,13 @@ export class DiscCatchSim {
    * @param o.large     12 booleans: the species flag that only changes the knock-back (Steelix, Lugia...)
    * @param o.rand      makeRand(ctx.rng)
    * @param o.human     index of the team a person steers, or -1
+   * @param o.humans    several people (a room with friends): the teams they steer; wins over o.human
    */
   constructor(o) {
     this.rand = o.rand;
-    this.human = o.human ?? -1;
+    const people = o.humans ?? (o.human >= 0 ? [o.human] : []);
+    this.humans = new Set(people);
+    this.human = people.length ? people[0] : -1;      // the first person (the only one in a single-player event)
     this.timer = FRAMES;
     this.seconds = 60;
     this.step_no = 0;
@@ -104,17 +107,30 @@ export class DiscCatchSim {
     this.delay = 0;
     this.scores = [0, 0, 0, 0];
     this.touching = Array.from({ length: 12 }, () => new Uint8Array(12));
-    this.hold = { holding: false, mon: 0 };          // the human's finger
-    this.cpu = this.mons.filter((m) => m.team !== this.human).map((m) => this.newCpu(m));
+    this.holds = new Map(people.map((t) => [t, { holding: false, mon: 0 }]));   // each person's finger
+    this.cpu = this.mons.filter((m) => !this.humans.has(m.team)).map((m) => this.newCpu(m));
     this.events = [];                                  // what happened during the last step, for the view (sounds, sparks)
   }
 
   get over() { return this.timer <= 0; }
+  /** the first person's finger (what a single-player view reads) */
+  get hold() { return this.holds.get(this.human) || { holding: false, mon: 0 }; }
+  holdOf(team) { return this.holds.get(team) || { holding: false, mon: 0 }; }
+
+  /** The CPU takes a person's team over (they left the room). */
+  takeOver(team) {
+    if (!this.humans.has(team)) return;
+    this.humans.delete(team);
+    this.holds.delete(team);
+    for (const m of this.teamMons(team)) { m.dragged = false; this.cpu.push(this.newCpu(m)); }
+    this.human = this.humans.size ? [...this.humans][0] : -1;
+  }
   teamMons(t) { return this.mons.slice(t * 3, t * 3 + 3); }
 
   // ---------------------------------------------------------------------------------------------------------------- step
-  /** cmd: { touch: DsTouch-like for the human team, kbd: { slot, target: [x, y] | null, jump } } */
-  step(cmd = {}) {
+  /** cmd: { touch: DsTouch-like for the human team, kbd: { slot, target: [x, y] | null, jump } }; cmds: the same per team, in a room. */
+  step(cmd = {}, cmds = null) {
+    const by = cmds || (this.human >= 0 ? { [this.human]: cmd } : {});
     this.events.length = 0;
     for (const m of this.mons) m.snap();
     if (this.timer > 0) {
@@ -125,9 +141,9 @@ export class DiscCatchSim {
     this.cpuUpdate();
     this.discsUpdate();
     for (let t = 0; t < 4; t++) {
-      if (t === this.human) for (const m of this.teamMons(t)) m.dragged = false;
+      if (this.humans.has(t)) for (const m of this.teamMons(t)) m.dragged = false;
       else this.mons[t * 3].dragged = false;
-      if (t === this.human) this.humanInput(cmd);
+      if (this.humans.has(t)) this.humanInput(t, by[t] || {});
       for (const m of this.teamMons(t)) this.monUpdate(m);
     }
     this.collisions();
@@ -144,9 +160,8 @@ export class DiscCatchSim {
     return best;
   }
 
-  humanInput(cmd) {
-    const team = this.human;
-    const h = this.hold;
+  humanInput(team, cmd) {
+    const h = this.holds.get(team);
     const t = cmd.touch;
     if (t) {
       if (t.touchNew) {

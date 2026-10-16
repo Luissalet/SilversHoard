@@ -114,10 +114,13 @@ export class GoalRollSim {
    * @param o.stats  4 teams x 3 members of { power, speed, stamina, skill } raw 0-4
    * @param o.rand   makeRand(ctx.rng)
    * @param o.human  team a person plays, or -1
+   * @param o.humans several people (a room with friends): the teams they play; wins over o.human
    */
   constructor(o) {
     this.rand = o.rand;
-    this.human = o.human ?? -1;
+    const people = o.humans ?? (o.human >= 0 ? [o.human] : []);
+    this.humans = new Set(people);
+    this.human = people.length ? people[0] : -1;      // the first person (the only one in a single-player event)
     this.mons = [];
     o.stats.forEach((team, t) => team.forEach((s, k) => this.mons.push(new Mon(t * 3 + k, s))));
     this.balls = [new Ball(0), new Ball(1)];
@@ -128,28 +131,45 @@ export class GoalRollSim {
     this.steps = 0;
     this.misses = 0;
     this.events = [];
-    this.cpuTeams = [0, 1, 2, 3].filter((t) => t !== this.human);
+    this.cpuTeams = [0, 1, 2, 3].filter((t) => !this.humans.has(t));
     this.cpu = { timer: 3, run: false, cur: 0, slot: 0 };
     this.order = [0, 1, 2, 3].map((t) => this.roles(t));
     this.wait = [0, 1, 2, 3].map(() => [0, 0, 0]);
-    this.held = -1; this.holdFrames = 0; this.touchDown = false; this.touchLast = [0, 0];
+    this.fingers = new Map(people.map((t) => [t, { held: -1, holdFrames: 0, touchDown: false, touchLast: [0, 0] }]));   // each person's finger
   }
 
   get over() { return this.timer <= 0; }
+  /** a person's finger: the Pokémon held and for how many steps (what the view draws) */
+  fingerOf(team) { return this.fingers.get(team) || { held: -1, holdFrames: 0, touchDown: false, touchLast: [0, 0] }; }
+  get held() { return this.fingerOf(this.human).held; }
+  get holdFrames() { return this.fingerOf(this.human).holdFrames; }
+
+  /** The CPU takes a person's team over (they left the room). */
+  takeOver(team) {
+    if (!this.humans.has(team)) return;
+    this.humans.delete(team);
+    this.fingers.delete(team);
+    this.human = this.humans.size ? [...this.humans][0] : -1;
+    this.cpuTeams = [0, 1, 2, 3].filter((t) => !this.humans.has(t));
+    if (this.cpu.cur >= this.cpuTeams.length) this.cpu.cur = 0;
+  }
   get seconds() { return Math.ceil(this.timer / 30); }
 
   // ------------------------------------------------------------------------------------------------------------- the step
   /** cmd.touch: { down, x, y } the person's finger in px; cmd.keys: [{ type: "walk" | "dash", slot, target: [x, y] }] */
-  step(cmd = {}) {
+  step(cmd = {}, cmds = null) {
+    const by = cmds || (this.human >= 0 ? { [this.human]: cmd } : {});
     this.events.length = 0;
     if (this.timer <= 0) return;
     this.steps++;
     this.timer--;
     for (const m of this.mons) m.ppos = m.pos.slice();
     for (const b of this.balls) b.ppos = b.pos.slice();
-    if (this.human >= 0) {
-      if (cmd.touch) this.touchInput(cmd.touch);
-      if (cmd.keys) for (const k of cmd.keys) this.keyInput(k);
+    for (const team of this.humans) {
+      const c = by[team];
+      if (!c) continue;
+      if (c.touch) this.touchInput(c.touch, team);
+      if (c.keys) for (const k of c.keys) this.keyInput(k, team);
     }
     this.cpuUpdate();
     this.moveMons();
@@ -162,41 +182,42 @@ export class GoalRollSim {
   // ------------------------------------------------------------------------------------------------------------- the person
   canPick(m) { return m.mode !== STUNNED && m.mode !== M_DASH && m.motion === 0; }
 
-  touchInput(tc) {
+  touchInput(tc, team = this.human) {
+    const f = this.fingers.get(team);
     if (tc.down) {
-      if (!this.touchDown) {
-        this.touchDown = true;
+      if (!f.touchDown) {
+        f.touchDown = true;
         // press: the nearest of my Pokémon within the touch radius that can be moved
         let best = -1, bd = TOUCH_RADIUS + 1;
         for (let k = 0; k < 3; k++) {
-          const m = this.mons[this.human * 3 + k];
+          const m = this.mons[team * 3 + k];
           if (!this.canPick(m)) continue;
           const d = Math.hypot(m.pos[0] - tc.x, m.pos[1] - tc.y);
           if (d <= TOUCH_RADIUS && d < bd) { bd = d; best = m.i; }
         }
-        this.held = best; this.holdFrames = 0;
-      } else if (this.held >= 0) {
-        this.holdFrames = Math.min(20, this.holdFrames + 1);
-        const m = this.mons[this.held];
+        f.held = best; f.holdFrames = 0;
+      } else if (f.held >= 0) {
+        f.holdFrames = Math.min(20, f.holdFrames + 1);
+        const m = this.mons[f.held];
         if (this.canPick(m) || m.mode === M_DASH) { /* the target follows the finger */ }
         if (m.mode !== STUNNED && m.motion === 0 && m.mode !== M_DASH) m.target = [tc.x, tc.y];
       }
-      this.touchLast = [tc.x, tc.y];
-    } else if (this.touchDown) {
-      this.touchDown = false;
-      if (this.held >= 0) {
-        const m = this.mons[this.held];
+      f.touchLast = [tc.x, tc.y];
+    } else if (f.touchDown) {
+      f.touchDown = false;
+      if (f.held >= 0) {
+        const m = this.mons[f.held];
         if (m.mode !== TIRED && m.mode !== STUNNED && m.motion === 0) {
-          if (this.holdFrames <= DASH_HOLD && (m.target[0] !== m.pos[0] || m.target[1] !== m.pos[1])) this.startDash(m);
+          if (f.holdFrames <= DASH_HOLD && (m.target[0] !== m.pos[0] || m.target[1] !== m.pos[1])) this.startDash(m);
           else m.mode = M_WALK;
         }
-        this.held = -1;
+        f.held = -1;
       }
     }
   }
 
-  keyInput(k) {
-    const m = this.mons[this.human * 3 + k.slot];
+  keyInput(k, team = this.human) {
+    const m = this.mons[team * 3 + k.slot];
     if (!m || m.mode === STUNNED || m.motion !== 0) return;
     if (k.type === "walk") {
       if (m.mode === M_DASH) return;
