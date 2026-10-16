@@ -1,5 +1,9 @@
 # Silver's Hoard
 
+Real-time battles now distinguish Dig (hide/emerge), Fly and Bounce (rise/descent), Rollout and Ice Ball (sprite rotation), and Seismic Toss impacts (a brief target lift). PMD pose playback follows the engine windup. These are presentation effects, without added invulnerability, damage or physical displacement. Seismic Toss does not pause other fighters for a cinematic.
+
+Grass and sand floors use original textures with stable visual variants; water projectiles add a transparent animated atlas. Plain particles and loading/decode fallbacks remain available. The replay clock drives these effects; reduced motion removes decorative rotation and aerial displacement. The same assets and renderer ship in exported playable pages.
+
 A local Pokémon battle simulator for the Hoard family. It runs on Pokémon Showdown's battle engine (through `@pkmn/sim`), so every generation from 1 to 9, singles and doubles, plays with the real mechanics. You keep trainers, fight them or watch them fight, build gyms and leagues, and send your trainers and gyms to friends as a page they open in any browser.
 
 [Versión en español](README.es.md)
