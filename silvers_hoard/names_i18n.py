@@ -47,6 +47,48 @@ def _drop_unmade(stored: dict[str, Any], made: dict[str, dict[str, Any]], fields
 
 
 # ---------------------------------------------------------------------------------------------------------- trainers
+_FACILITY: Optional[tuple[dict[str, str], list[tuple[str, str]]]] = None
+
+
+def _facility_names() -> tuple[dict[str, str], list[tuple[str, str]]]:
+    """The trainers of the battle facilities, Spanish to English: the Frontier Brains by full name, the trainer classes (longest
+    first) for "Class Name". A facility seat keeps only the name it was given in Spanish."""
+    global _FACILITY
+    if _FACILITY is None:
+        exact: dict[str, str] = {}
+        classes: dict[str, str] = {}
+        try:
+            from . import facilities
+            for _base, es, en in facilities.CLASSES:
+                classes.setdefault(es, en)
+        except Exception:   # noqa: BLE001 - without the facilities their seats keep the saved name
+            pass
+        try:
+            from . import frontier
+            trainers = frontier.data()["trainers"]
+            for tid, (key, es, en, _print) in frontier.BRAINS.items():
+                exact[f"{es} {frontier.BRAIN_NAMES_ES[key]}"] = f"{en} {trainers[tid]['name']}"
+            for t in trainers:
+                c = frontier.CLASSES.get(t.get("class_id"))
+                if c and t.get("class"):
+                    classes.setdefault(c[0], frontier.CLASS_EN_FIX.get(t["class"], t["class"]))
+        except Exception:   # noqa: BLE001
+            pass
+        _FACILITY = (exact, sorted(((es, en) for es, en in classes.items() if es != en), key=lambda p: -len(p[0])))
+    return _FACILITY
+
+
+def facility_seat(name: str) -> Optional[dict[str, Any]]:
+    """A facility trainer's seat ("Entrenadora Guay Nora" / "Ace Trainer Nora"), or None for any other name."""
+    exact, classes = _facility_names()
+    if name in exact:
+        return _pair({"name": name}, {"name": exact[name]})
+    for es, en in classes:
+        if name.startswith(es + " ") and len(name) > len(es) + 1:
+            return _pair({"name": name}, {"name": en + name[len(es):]})
+    return None
+
+
 def char_trainer_name(svc: Any, c: dict[str, Any], v: Optional[dict[str, Any]], *, custom: bool, lang: str) -> tuple[str, str]:
     """The name and title character_install gives a character's trainer in a language (names hold 60 characters: when the whole
     label does not fit, the game goes in the title only)."""
@@ -279,10 +321,12 @@ def annotate(obj: Any, svc: Any) -> Any:
             return league(x, svc)
         if i.startswith("mass_") and "preset" in x:
             return mass_title(x, PRESETS)
-        if x.get("trainer_id") and "name" in x and not i:   # a battle seat
+        if str(x.get("trainer_id") or "").startswith("tr_") and "name" in x and not i:   # a battle seat
             t = trainer_of(str(x["trainer_id"]))
             n = trainer(t, svc) if t and t.get("name") == x["name"] else None
             return _pair({"name": n["es"].get("name")}, {"name": n["en"].get("name")}) if n else None
+        if "human" in x and "ai" in x and x.get("name") and not i and not str(x.get("trainer_id") or "").startswith("tr_"):   # a facility seat
+            return facility_seat(str(x["name"]))
         if x.get("target_name") and x.get("target_id") and x.get("kind") in ("gym", "league", "facility"):   # a challenge
             return _target(x, svc)
         if x.get("gym_id") and x.get("gym_name"):   # a badge

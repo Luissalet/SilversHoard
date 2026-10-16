@@ -4,6 +4,7 @@ import { api } from "../api.js";
 import { useApp } from "../context.js";
 import { Busy, Empty, ErrorBox, Field, Icon, ICONS, Modal, Spinner, useBusy, useLoad, useStored } from "../components/ui.jsx";
 import { useCopilotRefresh } from "../components/hooks.js";
+import { loc } from "../loc.js";
 import { Avatar, FormatSelect, RecordChip, TeamStrip, TrainerFilters, useCharacterCatalog, originLabel } from "../components/silver.jsx";
 
 function NewTrainer({ onClose }) {
@@ -36,7 +37,7 @@ function NewTrainer({ onClose }) {
 }
 
 export default function Entrenadores() {
-  const { t, changed, go, notify, confirm } = useApp();
+  const { t, lang, changed, go, notify, confirm } = useApp();
   const [q, setQ] = useState("");
   const [origin, setOrigin] = useStored("silver-trainer-origin", "");
   const [game, setGame] = useStored("silver-trainer-game", "");
@@ -80,10 +81,10 @@ export default function Entrenadores() {
         <div className="trainer-grid">
           {list.map((tr) => (
             <a key={tr.id} href={`#/entrenador/${tr.id}`} className="trainer-card">
-              <Avatar url={tr.avatar_url} name={tr.name} size={72} />
+              <Avatar url={tr.avatar_url} name={loc(tr, lang)} size={72} />
               <div className="min-w-0 flex-1 space-y-1">
-                <div className="flex items-center gap-1.5"><b className="trunc">{tr.name}</b>{tr.favorite ? <Icon d={ICONS.star} size={13} /> : null}</div>
-                {tr.title && <div className="help trunc">{tr.title}</div>}
+                <div className="flex items-center gap-1.5"><b className="trunc">{loc(tr, lang)}</b>{tr.favorite ? <Icon d={ICONS.star} size={13} /> : null}</div>
+                {tr.title && <div className="help trunc">{loc(tr, lang, "title")}</div>}
                 <TeamStrip species={tr.species} size={30} />
                 <div className="flex flex-wrap gap-1"><span className="chip">{originLabel(t, tr.origin)}</span><span className="chip">{t(`lvl_${tr.ai_level}`)}</span><RecordChip record={tr.record} /></div>
               </div>
@@ -99,7 +100,7 @@ export default function Entrenadores() {
               {[...trash.data.trainers.map((x) => ["trainer", x]), ...trash.data.gyms.map((x) => ["gym", x]), ...trash.data.leagues.map((x) => ["league", x])].map(([kind, x]) => (
                 <div key={x.id} className="row-item">
                   <span className="chip">{t(`kind_obj_${kind}`)}</span>
-                  <span className="min-w-0 flex-1 trunc">{x.name}</span>
+                  <span className="min-w-0 flex-1 trunc">{loc(x, lang)}</span>
                   <button type="button" className="btn btn-sm" onClick={() => restore(kind, x.id)}>{t("restore")}</button>
                   <button type="button" className="btn btn-sm btn-danger" onClick={() => purge(kind, x.id)}>{t("purge")}</button>
                 </div>

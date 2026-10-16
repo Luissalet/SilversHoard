@@ -4,26 +4,30 @@ import { api } from "../api.js";
 import { useApp } from "../context.js";
 import { Busy, Empty, ErrorBox, Icon, ICONS, Rel, Spinner, useBusy, useLoad } from "../components/ui.jsx";
 import { Avatar } from "../components/silver.jsx";
+import { loc } from "../loc.js";
 
 export function BattleRow({ b, onDelete }) {
-  const { t, changed, confirm } = useApp();
+  const { t, lang, changed, confirm } = useApp();
   const [busy, run] = useBusy();
   const cancel = async () => {
     if (!(await confirm({ title: t("cancel_battle"), message: t("cancel_battle_help"), confirmLabel: t("cancel_battle") }))) return;
     run("cancel", async () => { await api.call("battle_cancel", { id: b.id }); changed(); });
   };
   const won = (side) => b.winner_side === side;
+  // the winner's name is saved cut to 40 characters: the seat's full name, in the reader's language, when it is that one's
+  const seat = b.winner_name && b[b.winner_side];
+  const winner = seat?.name?.startsWith(b.winner_name) ? loc(seat, lang) : b.winner_name;
   return (
     <div className="row-item battle-row">
       <a href={`#/combate/${b.id}`} className="flex min-w-0 flex-1 items-center gap-3">
-        <span className={`vs-side ${won("p1") ? "is-winner" : ""}`}><Avatar url={b.p1.avatar_url} name={b.p1.name} size={34} /><span className="trunc">{b.p1.name}</span></span>
+        <span className={`vs-side ${won("p1") ? "is-winner" : ""}`}><Avatar url={b.p1.avatar_url} name={loc(b.p1, lang)} size={34} /><span className="trunc">{loc(b.p1, lang)}</span></span>
         <span className="help">vs</span>
-        <span className={`vs-side ${won("p2") ? "is-winner" : ""}`}><Avatar url={b.p2.avatar_url} name={b.p2.name} size={34} /><span className="trunc">{b.p2.name}</span></span>
+        <span className={`vs-side ${won("p2") ? "is-winner" : ""}`}><Avatar url={b.p2.avatar_url} name={loc(b.p2, lang)} size={34} /><span className="trunc">{loc(b.p2, lang)}</span></span>
       </a>
       <span className="hide-sm chip">{t(`kind_${b.kind}`)}</span>
       {b.mode === "realtime" && <span className="hide-sm chip chip-rt">{t("rt_chip")}</span>}
       <span className={`chip ${b.status === "live" ? "chip-accent" : b.status === "running" ? "chip-amber" : b.status === "failed" ? "chip-danger" : ""}`}>
-        {b.status === "ended" ? (b.winner_name ? t("winner_short", { name: b.winner_name }) : t("tie")) : t(`status_${b.status}`)}
+        {b.status === "ended" ? (b.winner_name ? t("winner_short", { name: winner }) : t("tie")) : t(`status_${b.status}`)}
       </span>
       <span className="hide-sm help num w-[70px] text-right">{b.turns ? t("turns_n", { n: b.turns }) : b.mode === "realtime" && b.summary?.seconds ? t("rt_seconds_n", { n: Math.round(b.summary.seconds) }) : ""}</span>
       <span className="hide-sm help w-[90px] text-right"><Rel ts={b.updated_at} /></span>

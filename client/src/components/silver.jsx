@@ -8,6 +8,7 @@ import { Bar, Busy, CopyButton, Field, Icon, ICONS, Modal, Spinner, Tabs, useBus
 import { ImageViewer } from "./viewer.jsx";
 import { usePoll } from "./hooks.js";
 import { BadgeArt } from "./badges.jsx";
+import { loc } from "../loc.js";
 
 export const AI_LEVELS = ["random", "easy", "normal", "hard", "expert", "master", "neural"];
 export const AI_STYLES = ["balanced", "aggressive", "defensive", "setup", "stall"];
@@ -138,7 +139,7 @@ export function TrainerSelect({ value, onChange, label, allowNone = false, exclu
   const request = useRef(0);
   useEffect(() => { request.current++; setCharacter(null); setBusy(false); setError(null); }, [game, region, origin]);
   const games = catalog.data?.games || [];
-  const matches = (tr) => !q || [tr.name, tr.name_es, tr.character_name, tr.character_name_es, tr.title, ...(tr.species || [])].join(" ").toLocaleLowerCase().includes(q.toLocaleLowerCase());
+  const matches = (tr) => !q || [tr.name, tr.name_es, tr.character_name, tr.character_name_es, tr.title, tr.i18n?.en?.name, tr.i18n?.es?.name, ...(tr.species || [])].join(" ").toLocaleLowerCase().includes(q.toLocaleLowerCase());
   const shown = list.filter((tr) => !exclude.includes(tr.id) && (!origin || tr.origin === origin || origin === "own" && tr.origin === "random") && (!game || tr.games?.includes(game)) && (!region || tr.regions?.includes(region)) && matches(tr));
   const characters = (catalog.data?.characters || []).filter((c) => (!origin || origin === "canon") && (!game || c.games.includes(game)) && (!region || games.some((g) => c.games.includes(g.id) && g.regions?.includes(region))) && matches(c));
   const current = list.find((tr) => tr.id === value);
@@ -170,7 +171,7 @@ export function TrainerSelect({ value, onChange, label, allowNone = false, exclu
     <div className="trainer-select space-y-1.5">
       {label && <span className="label">{label}</span>}
       <details className="trainer-picker" ref={details}>
-        <summary id={id} aria-label={label ? `${label}: ${current?.name || t("choose_trainer")}` : undefined} className="trainer-picker-summary"><Avatar url={current?.avatar_url} name={current?.name} size={48} /><span className="trainer-picker-name">{current?.name || t("choose_trainer")}{current?.title && <small className="help block">{current.title}</small>}</span></summary>
+        <summary id={id} aria-label={label ? `${label}: ${loc(current, lang) || t("choose_trainer")}` : undefined} className="trainer-picker-summary"><Avatar url={current?.avatar_url} name={loc(current, lang)} size={48} /><span className="trainer-picker-name">{loc(current, lang) || t("choose_trainer")}{current?.title && <small className="help block">{loc(current, lang, "title")}</small>}</span></summary>
         <div className="trainer-picker-body space-y-3">
           <input className="field" placeholder={t("search_trainers")} value={q} onChange={(e) => setQ(e.target.value)} aria-label={t("search_trainers")} />
           <TrainerFilters games={games} {...{ origin, setOrigin, game, setGame, region, setRegion }} />
@@ -185,7 +186,7 @@ export function TrainerSelect({ value, onChange, label, allowNone = false, exclu
             <Busy busy={busy} className="btn btn-primary" disabled={!variant} onClick={install}>{t("trainer_use_team")}</Busy>
           </div>}
           <div className="trainer-picker-results">
-            {shown.length > 0 && <><p className="label">{t("trainer_saved")} · {shown.length}</p><div className="trainer-picker-grid">{shown.map((tr) => <button type="button" key={tr.id} className="trainer-choice" aria-pressed={value === tr.id} onClick={() => pick(tr.id)}><Avatar url={tr.avatar_url} name={tr.name} size={56} /><span><b>{tr.name}</b><small>{tr.title}</small></span></button>)}</div></>}
+            {shown.length > 0 && <><p className="label">{t("trainer_saved")} · {shown.length}</p><div className="trainer-picker-grid">{shown.map((tr) => <button type="button" key={tr.id} className="trainer-choice" aria-pressed={value === tr.id} onClick={() => pick(tr.id)}><Avatar url={tr.avatar_url} name={loc(tr, lang)} size={56} /><span><b>{loc(tr, lang)}</b><small>{loc(tr, lang, "title")}</small></span></button>)}</div></>}
             {characters.length > 0 && <><p className="label">{t("from_games")} · {characters.length}</p><div className="trainer-picker-grid">{characters.map((c) => <button type="button" key={c.key} className="trainer-choice" onClick={() => openCharacter(c)}><Avatar url={c.avatar_url} name={c.name} size={56} /><span><b>{lang === "en" ? c.name : c.name_es}</b>{c.name !== c.name_es && <small>{lang === "en" ? c.name_es : c.name}</small>}<small>{t("chars_teams_n", { n: c.teams })}</small></span></button>)}</div></>}
             {!shown.length && !characters.length && <p className="help">{catalog.data ? t("chars_none") : t("loading")}</p>}
           </div>
@@ -782,12 +783,12 @@ export function RecordChip({ record }) {
 }
 
 export function useSeats(battle) {
-  const { sprites } = useApp();
+  const { sprites, lang } = useApp();
   return useMemo(() => {
     if (!battle) return {};
-    const seat = (s) => ({ name: s?.name || "", avatarUrl: s?.avatar_url || (s?.avatar ? sprites.trainer(s.avatar) : ""), dialogue: s?.dialogue || {},
+    const seat = (s) => ({ name: loc(s, lang), avatarUrl: s?.avatar_url || (s?.avatar ? sprites.trainer(s.avatar) : ""), dialogue: s?.dialogue || {},
       backUrl: s?.avatar_poses?.back || "", winUrl: s?.avatar_poses?.win || "" });
     return { p1: seat(battle.p1), p2: seat(battle.p2) };
   }, [battle?.id, battle?.p1?.avatar_url, battle?.p2?.avatar_url, battle?.p1?.avatar_poses?.back, battle?.p2?.avatar_poses?.back,
-    battle?.p1?.avatar_poses?.win, battle?.p2?.avatar_poses?.win, sprites]); // eslint-disable-line react-hooks/exhaustive-deps
+    battle?.p1?.avatar_poses?.win, battle?.p2?.avatar_poses?.win, battle?.p1?.name, battle?.p2?.name, sprites, lang]); // eslint-disable-line react-hooks/exhaustive-deps
 }
