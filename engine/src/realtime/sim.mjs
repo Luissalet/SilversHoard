@@ -41,7 +41,19 @@ const TRAINER = [{x: 1.6, y: ARENA.h / 2}, {x: ARENA.w - 1.6, y: ARENA.h / 2}];
 // Pokémon's ultimate, a 150-power blast of its own type that falls on the foe after a telegraphed wind-up.
 // 7: a benched Mega keeps its forme and remaining Mega Power; the gauge pauses until it returns.
 // 8: a Pokémon recovers for one second after each move, in addition to the move's own cooldown.
-export const RULES_VERSION = 8;
+// 9: the Battle Frontier's field (spec.start.field, engine/src/frontier.mjs): Trick Room for its seconds (6 s per turn of the
+// games) turns Speed around for walking and cooldowns, and fog makes each hit of a move that has an accuracy land 3 times in 5
+// (the games' accuracy x3/5), until another weather replaces it; Cloud Nine and Air Lock suppress it. Multi battles (a seat's
+// `owners`: whose each party Pokémon is, 0 = the slot a, 1 = the slot b): each slot only sends out its owner's Pokémon and stays
+// empty when they are gone, and a person with an AI partner (`partner`) always moves slot a. Without these spec fields a
+// version 9 battle plays exactly as version 8.
+// Also in 9: a starting state's PP (the Battle Castle carries them from battle to battle): each use of a move spends 1 PP, a move
+// with no PP left cannot be used (with every move at 0 the Pokémon can only move, roll and switch) and the PP left are in the
+// summary; without starting PP moves have no PP, as before.
+export const RULES_VERSION = 9;
+export const TRICK_ROOM_TURN = 6;   // seconds of real time per turn of Trick Room
+const TRICK_ROOM_BASE = 200;        // walking: base Speed s walks like base Speed 200 - s
+const FOG_HIT = 0.6;
 export const ATTACK_RECOVERY = TPS;
 export const ARENAS = ['open', 'rocks'];   // and custom arenas: {name, floor, rocks: [{x, y, r}]} from the arena designer
 export const FLOORS = ['grass', 'sand', 'ice', 'cave', 'indoor', 'water', 'pyre', 'summit', 'meteor', 'champion', 'castle'];   // how a custom arena's ground looks (the rules are the same)
@@ -283,6 +295,13 @@ export class RtBattle {
     this.sides = ['p1', 'p2'].map((id, i) => this.makeSide(id, i, spec[id] || {}));
     const startWeather = {sunnyday: 'sunnyday', raindance: 'raindance', sandstorm: 'sandstorm', hail: 'hail'}[spec.start?.field?.weather];
     if (startWeather) this.weather = {id: startWeather, until: this.timeLimit};   // a starting weather lasts the whole battle
+    this.trickRoom = null;   // {until} (version 9)
+    this.fog = null;         // {until} (version 9)
+    if (this.version >= 9) {
+      const tr = Math.floor(Number(spec.start?.field?.trickroom) || 0);
+      if (tr > 0) { this.trickRoom = {until: Math.min(this.timeLimit, tr * TRICK_ROOM_TURN * TPS)}; this.ev('trickroom', {secs: tr * TRICK_ROOM_TURN}); }
+      if (spec.start?.field?.weather === 'fog') { this.fog = {until: this.timeLimit}; this.ev('fog', {}); }
+    }
     if (!this.doubles) {
       // singles: each trainer is its own (only) slot
       for (const s of this.sides) {
@@ -339,12 +358,14 @@ export class RtBattle {
   /** The Pokémon that can come in to this slot. */
   bench(u) {
     const tk = this.taken(u);
-    return u.mons.filter((m) => !m.fainted && m.slot !== u.active && !tk.includes(m.slot));
+    const own = this.doubles ? u.trainer.owners : null;
+    return u.mons.filter((m) => !m.fainted && m.slot !== u.active && !tk.includes(m.slot) && (!own || own[m.slot] === u.pos));
   }
   /** The slot a person controls: the one asked for, or the other while that one has nobody to send out. */
   leadOf(tr) {
     const u = tr.units[tr.ctl || 0];
     const o = tr.units[1 - (tr.ctl || 0)];
+    if (tr.partner) return tr.units[0];   // multi: the person keeps its own slot, the partner's stays the AI's
     return u.vacant && !o.vacant ? o : u;
   }
   /** A foe that draws the foes' single-target moves (Follow Me, Rage Powder), or null. */
@@ -398,8 +419,15 @@ export class RtBattle {
         m.toxN = st.status === 'tox' ? 1 : 0;
         m.statusUntil = st.status === 'slp' ? 10 * TPS : st.status === 'frz' ? 3 * TPS : 0;
       }
+      if (this.version >= 9 && Array.isArray(st.pp)) {   // PP that count (rules version 9)
+        m.ppMax = m.moves.map((mv, j) => Math.max(0, Math.floor(Number((st.maxpp || st.pp)[j]) || 0)));
+        m.ppLeft = m.moves.map((mv, j) => Math.max(0, Math.min(m.ppMax[j], Math.floor(Number(st.pp[j]) || 0))));
+      }
     });
+    // multi battles (version 9): whose each Pokémon is (0: slot a, 1: slot b), and a person's AI partner moving slot b
+    const owners = this.version >= 9 && Array.isArray(seat.owners) && seat.owners.length === mons.length ? seat.owners.map((o) => (o ? 1 : 0)) : null;
     return {id, index, name: String(seat.name || (index ? 'Player 2' : 'Player 1')).slice(0, 40), ai: seat.ai || null,
+      ...(owners ? {owners, partner: !!seat.partner} : {}),
       aiRng: makeRng(`${this.seed}:${id}:ai`), mons, active: 0, x: HOME[index].x, y: HOME[index].y, fx: index ? -1 : 1, fy: 0,
       act: null, rollReady: 0, switchesLeft: MAX_SWITCHES, need: false, needSince: 0, vol: {}, cond: {}, hazards: {}, wish: null,
       lastInput: null, brain: {}, moving: false, focus: true, gauge: 0, mega: -1, megaUsed: false, ult: 0};
@@ -454,6 +482,19 @@ export class RtBattle {
     return ids.includes(this.weather.id);
   }
   terrainIs(id) { return !!this.terrain && this.terrain.until > this.t && this.terrain.id === id; }
+  /** Version 9: Trick Room is on (the Battle Frontier's roulette). */
+  trickRoomOn() { return !!this.trickRoom && this.trickRoom.until > this.t; }
+  /** Version 9: the Speed a cooldown counts under Trick Room: mirrored around the Speed of a base 80 Pokémon of the same level
+   * (no investment), so the slower Pokémon gets the shorter cooldowns. */
+  trickRoomSpeed(m) {
+    const pivot = Math.floor(((2 * 80 + 31) * (m.level || 100)) / 100) + 5;
+    return Math.max(1, 2 * pivot - m.stats.spe);
+  }
+  /** Version 9: fog is on (suppressed by Cloud Nine and Air Lock like a weather). */
+  fogOn() {
+    if (!this.fog || this.fog.until <= this.t) return false;
+    return !this.units.some((s) => this.onField(s) && ['cloudnine', 'airlock'].includes(this.mon(s).ability));
+  }
   typesOf(side) { const m = this.mon(side); return side.vol.types || m.types; }
 
   stageMult(stage) { return stage > 0 ? 1.5 : stage < 0 ? 2 / 3 : 1; }
@@ -502,7 +543,7 @@ export class RtBattle {
   /** How fast the active Pokémon walks, in m/s (Speed stages, paralysis, weather abilities...). */
   moveSpeed(side) {
     const m = this.mon(side);
-    let v = 3.2 + m.base_speed / 45;
+    let v = 3.2 + (this.trickRoomOn() ? Math.max(0, TRICK_ROOM_BASE - Math.min(TRICK_ROOM_BASE, m.base_speed)) : m.base_speed) / 45;
     const st = m.boosts.spe;
     if (st > 0) v *= 1.3; else if (st < 0) v *= 0.75;
     if (m.status === 'par') v *= 0.5;
@@ -531,7 +572,7 @@ export class RtBattle {
     if (side.cond.tailwind > this.t) mod *= 1.5;
     if (this.speedWeather(side)) mod *= 1.5;
     const prio = p.priority > 0 || (m.ability === 'prankster' && p.category === 'Status') || (m.ability === 'galewings' && p.type === 'Flying' && m.hp === m.maxhp);
-    const ticks = Math.round(finalCooldown(p.cooldown, m.stats.spe, {priority: prio ? 1 : 0, mod}) * TPS);
+    const ticks = Math.round(finalCooldown(p.cooldown, this.trickRoomOn() ? this.trickRoomSpeed(m) : m.stats.spe, {priority: prio ? 1 : 0, mod}) * TPS);
     // doubles support moves have priority but must not be up all the time
     if (this.doubles && DOUBLES_MOVES[p.id]) return Math.max(ticks, DOUBLES_MOVES[p.id].cooldown * TPS);
     return ticks;
@@ -624,6 +665,7 @@ export class RtBattle {
     const m = side.mons[slot];
     if (!m || m.fainted || slot === side.active) return false;
     if (this.doubles && this.taken(side).includes(slot)) return false;
+    if (this.doubles && side.trainer.owners && side.trainer.owners[slot] !== side.pos) return false;   // multi: only its owner's
     if (side.need) return true;
     if (side.switchesLeft <= 0) return false;
     if (side.vol.trapUntil > this.t && !this.typesOf(side).includes('Ghost')) return false;
@@ -699,18 +741,19 @@ export class RtBattle {
    * a slot waiting for a Pokémon (the controlled one first), else to the controlled slot; Mega Evolution to whichever of the two
    * can. */
   personInput(tr, input) {
-    if (input.ctl != null) tr.ctl = input.ctl ? 1 : 0;
+    if (input.ctl != null && !tr.partner) tr.ctl = input.ctl ? 1 : 0;
     if (input.tgt != null) tr.tgt = input.tgt ? 1 : 0;
     const lead = this.leadOf(tr);
     const partner = tr.units[1 - lead.pos];
     lead.aim = tr.tgt;
     const help = this.partnerInput(partner, lead) || {};
     const sw = input.sw ?? -1;
-    const swTo = lead.need ? lead : partner.need ? partner : lead;
+    // a multi battle's AI partner (version 9) sends out its own next Pokémon; otherwise the person picks for both slots
+    const swTo = lead.need ? lead : partner.need && !tr.partner ? partner : lead;
     let megaTo = null;
     if (input.mega) megaTo = this.canMega(lead) ? lead : this.canMega(partner) ? partner : null;
     this.applyInput(lead, {...input, sw: swTo === lead ? sw : -1, mega: megaTo === lead});
-    this.applyInput(partner, {...help, sw: swTo === partner ? sw : -1, mega: megaTo === partner, plus: false});
+    this.applyInput(partner, {...help, sw: tr.partner ? help.sw ?? -1 : swTo === partner ? sw : -1, mega: megaTo === partner, plus: false});
   }
 
   /** The AI's input for a person's partner slot (tests can stub it). */
@@ -916,6 +959,7 @@ export class RtBattle {
     if (!p) return 'none';
     if (this.version >= 8 && this.t < (m.attackReady || 0)) return 'cooldown';
     if (m.cds[slot] > 0) return 'cooldown';
+    if (m.ppLeft && slot !== ULT_SLOT && !(m.ppLeft[slot] > 0)) return 'nopp';
     if (m.choiceLock >= 0 && m.choiceLock !== slot && this.hasItem(m, 'choiceband', 'choicespecs', 'choicescarf')) return 'choice';
     if (p.category === 'Status' && (side.vol.tauntUntil > this.t || this.hasItem(m, 'assaultvest'))) return 'taunt';
     if (side.vol.tormentUntil > this.t && side.vol.lastSlot === slot) return 'torment';
@@ -1135,6 +1179,7 @@ export class RtBattle {
     const p = this.prof(m, slot);
     const foe = this.foe(side);
     m.uses++;
+    if (m.ppLeft && slot !== ULT_SLOT && m.ppLeft[slot] > 0) m.ppLeft[slot]--;
     if (slot !== ULT_SLOT) {
       side.vol.lastSlot = slot;
       if (this.hasItem(m, 'choiceband', 'choicespecs', 'choicescarf')) m.choiceLock = slot;
@@ -1580,6 +1625,11 @@ export class RtBattle {
     const am = ctx.mon != null ? att.mons[ctx.mon] : this.mon(att);
     const dm = this.mon(def);
     if (!dm || dm.fainted) return;
+    // version 9 fog: a hit of a move that has an accuracy in the games lands 3 times in 5
+    if (this.fogOn() && att !== def && p.shape !== 'self' && this.dex.moves.get(p.id).accuracy !== true && this.rng() >= FOG_HIT) {
+      this.ev('miss', {...this.at(att), move: p.id, fog: true});
+      return;
+    }
     const dab = this.defenderAbility(att, def);
     // protection (a Plus attack goes through it for a quarter of its damage)
     let pierce = false;
@@ -2022,6 +2072,7 @@ export class RtBattle {
   }
 
   setWeather(id, side) {
+    if (this.fog) { this.fog = null; this.ev('fog_end', {}); }   // version 9: another weather replaces the fog
     const m = side ? this.mon(side) : null;
     const rock = {sunnyday: 'heatrock', raindance: 'damprock', sandstorm: 'smoothrock', snow: 'icyrock', hail: 'icyrock'}[id];
     const secs = m && rock && this.hasItem(m, rock) ? 50 : 30;
@@ -2100,6 +2151,7 @@ export class RtBattle {
     }
     if (this.weather && this.weather.until <= this.t) { this.ev('weather_end', {id: this.weather.id}); this.weather = null; }
     if (this.terrain && this.terrain.until <= this.t) { this.ev('terrain_end', {id: this.terrain.id}); this.terrain = null; }
+    if (this.trickRoom && this.trickRoom.until <= this.t) { this.ev('trickroom_end', {}); this.trickRoom = null; }
   }
 
   residual(side) {
@@ -2183,6 +2235,7 @@ export class RtBattle {
       ...(this.doubles ? {doubles: true} : {}),
       weather: this.weather && this.weather.until > this.t ? {id: this.weather.id, left: (this.weather.until - this.t) / TPS} : null,
       terrain: this.terrain && this.terrain.until > this.t ? {id: this.terrain.id, left: (this.terrain.until - this.t) / TPS} : null,
+      ...(this.trickRoomOn() ? {trick_room: (this.trickRoom.until - this.t) / TPS} : {}), ...(this.fogOn() ? {fog: true} : {}),
       projectiles: this.projectiles.map((p) => ({id: p.id, s: p.s, ...(this.doubles ? {u: p.u} : {}), x: p.x, y: p.y, vx: p.vx, vy: p.vy, r: p.r, type: p.type, shape: p.shape, move: p.move, plus: !!p.plus})),
       marks: this.marks.map((m) => ({s: m.s, ...(this.doubles ? {u: m.u} : {}), x: m.x, y: m.y, r: m.r, at: m.at})),
       sides: this.sides.map((tr) => {
@@ -2204,7 +2257,7 @@ export class RtBattle {
               hp: x.hp, maxhp: x.maxhp, status: x.status, fainted: x.fainted, types: x.types, item: x.itemUsed ? '' : x.item_name, ability: x.ability_name,
               boosts: {...x.boosts},
               moves: x.moves.map((mv, j) => ({...mv, cd: Math.max(x.cds[j], this.version >= 8 ? (x.attackReady || 0) - this.t : 0) / TPS, total: on ? this.cooldownTicks(u, x.profiles[j]) / TPS : mv.final,
-                blocked: on ? this.usableReason(u, j) : ''}))};
+                blocked: on ? this.usableReason(u, j) : '', ...(x.ppLeft ? {pp_left: x.ppLeft[j], pp_max: x.ppMax[j]} : {})}))};
             if (this.doubles) mon.field = u ? u.pos : -1;   // the slot it is in (a / b), -1 on the bench
             return mon;
           }),
@@ -2212,6 +2265,7 @@ export class RtBattle {
         if (this.doubles) {
           out.ctl = s.pos;
           out.tgt = tr.tgt || 0;
+          if (tr.owners) Object.assign(out, {owners: tr.owners.slice(), partner: !!tr.partner});   // a multi battle's side (version 9)
           out.units = tr.units.map((u) => ({pos: u.pos, vacant: !!u.vacant, aim: this.foe(u).pos, ...this.unitView(u),
             follow: u.vol.followUntil > this.t, helped: u.vol.helpedUntil > this.t}));
         }
@@ -2243,7 +2297,9 @@ export class RtBattle {
     for (const s of this.sides) {
       sides[s.id] = {name: s.name, kos: s.mons.reduce((a, m) => a + m.kos, 0), lost: s.mons.filter((m) => m.fainted).length,
         pokemon: s.mons.map((m) => ({side: s.id, name: m.name, species: m.species, kos: m.kos, damage: Math.round((m.dealt / Math.max(1, this.foeHpTotal(s))) * 100) / 100,
-          dealt: m.dealt, taken: m.taken, fainted: m.fainted, switches: m.switchesIn, moves: m.uses, hp: m.hp, maxhp: m.maxhp}))};
+          dealt: m.dealt, taken: m.taken, fainted: m.fainted, switches: m.switchesIn, moves: m.uses, hp: m.hp, maxhp: m.maxhp,
+          ...(this.version >= 9 ? {status: m.fainted ? '' : m.status, item: m.item && !m.itemUsed ? m.item_name : ''} : {}),   // version 9: what a Frontier streak carries
+          ...(m.ppLeft ? {pp: m.ppLeft.slice(), maxpp: m.ppMax.slice()} : {})}))};
     }
     const w = this.winner;
     return {mode: 'realtime', turns: 0, seconds: Math.round((this.t / TPS) * 10) / 10, reason: this.reason,
@@ -2314,7 +2370,7 @@ export function eventLines(battle) {
       case 'helping': lines.push(`[${sec(e.t)}] ${who} is ready to help its partner`); break;
       case 'follow': lines.push(`[${sec(e.t)}] ${who} became the centre of attention`); break;
       case 'hit': lines.push(`[${sec(e.t)}] ${names[e.s]}'s ${monName(e.s, active[e.s][e.u || 0])} took ${e.dmg} (${e.hp}/${e.maxhp})${e.crit ? ', critical hit' : ''}${e.eff > 1 ? ', super effective' : e.eff < 1 && e.eff > 0 ? ', not very effective' : ''}`); break;
-      case 'miss': lines.push(`[${sec(e.t)}] ${who}'s ${e.move} missed (dodged)`); break;
+      case 'miss': lines.push(`[${sec(e.t)}] ${who}'s ${e.move} missed (${e.fog ? 'fog' : 'dodged'})`); break;
       case 'protected': lines.push(`[${sec(e.t)}] ${who} protected itself`); break;
       case 'immune': lines.push(`[${sec(e.t)}] ${who} is not affected`); break;
       case 'status': lines.push(`[${sec(e.t)}] ${who} got ${e.status}`); break;
@@ -2325,6 +2381,10 @@ export function eventLines(battle) {
       case 'recall': lines.push(`[${sec(e.t)}] ${names[e.s]} called back ${monName(e.s, e.slot)} (${e.left} switches left)`); break;
       case 'roll': break;
       case 'weather': lines.push(`[${sec(e.t)}] Weather: ${e.id} for ${e.secs} s`); break;
+      case 'trickroom': lines.push(`[${sec(e.t)}] Trick Room for ${e.secs} s`); break;
+      case 'trickroom_end': lines.push(`[${sec(e.t)}] Trick Room ended`); break;
+      case 'fog': lines.push(`[${sec(e.t)}] Fog for the whole battle`); break;
+      case 'fog_end': lines.push(`[${sec(e.t)}] The fog lifted`); break;
       case 'terrain': lines.push(`[${sec(e.t)}] Terrain: ${e.id} for ${e.secs} s`); break;
       case 'hazard': lines.push(`[${sec(e.t)}] ${e.id} on ${names[e.s]}'s side`); break;
       case 'side': lines.push(`[${sec(e.t)}] ${names[e.s]}: ${e.id} for ${e.secs} s`); break;
