@@ -4,7 +4,7 @@ import { api } from "../api.js";
 import { useApp } from "../context.js";
 import { Busy, Empty, ErrorBox, Icon, ICONS, Rel, Spinner, useBusy, useLoad } from "../components/ui.jsx";
 import { Avatar } from "../components/silver.jsx";
-import { loc } from "../loc.js";
+import { loc, winnerName } from "../loc.js";
 
 export function BattleRow({ b, onDelete }) {
   const { t, lang, changed, confirm } = useApp();
@@ -14,9 +14,7 @@ export function BattleRow({ b, onDelete }) {
     run("cancel", async () => { await api.call("battle_cancel", { id: b.id }); changed(); });
   };
   const won = (side) => b.winner_side === side;
-  // the winner's name is saved cut to 40 characters: the seat's full name, in the reader's language, when it is that one's
-  const seat = b.winner_name && b[b.winner_side];
-  const winner = seat?.name?.startsWith(b.winner_name) ? loc(seat, lang) : b.winner_name;
+  const winner = winnerName(b, lang);
   return (
     <div className="row-item battle-row">
       <a href={`#/combate/${b.id}`} className="flex min-w-0 flex-1 items-center gap-3">

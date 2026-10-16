@@ -7,10 +7,11 @@ import CooldownsTab from "../battle/rt/CooldownsTab.jsx";
 import { useContextProvider, useCopilotRefresh } from "../components/hooks.js";
 import { AiFields, Avatar, AvatarDialog, ExportDialog, FormatSelect, GymBadge, RecordChip, TeamCards, TrainerPictureViewer, TrainerSelect, creditLabel, originLabel } from "../components/silver.jsx";
 import { BattleRow } from "./Historial.jsx";
+import { loc } from "../loc.js";
 import TeamBuilder from "../components/TeamBuilder.jsx";
 
 function FightDialog({ trainer, onClose }) {
-  const { t, go, changed } = useApp();
+  const { t, lang, go, changed } = useApp();
   const [other, setOther] = useState("");
   const [mode, setMode] = useState("you_vs");
   const [busy, run] = useBusy();
@@ -23,7 +24,7 @@ function FightDialog({ trainer, onClose }) {
     go(`#/combate/${b.id}`);
   });
   return (
-    <Modal title={t("fight_title", { name: trainer.name })} onClose={onClose}
+    <Modal title={t("fight_title", { name: loc(trainer, lang) })} onClose={onClose}
       footer={<><button type="button" className="btn" onClick={onClose}>{t("cancel")}</button><Busy busy={busy.s} className="btn btn-primary" disabled={!other} onClick={start}>{t("start_battle")}</Busy></>}>
       <div className="seg" role="group">
         <button type="button" aria-pressed={mode === "you_vs"} onClick={() => setMode("you_vs")}>{t("fight_you_vs")}</button>
@@ -180,7 +181,7 @@ export default function Entrenador({ param, query }) {
   const duplicate = () => run("dup", async () => { const x = await api.call("trainer_duplicate", { id: tr.id }); changed(); go(`#/entrenador/${x.id}`); });
   const fav = () => run("fav", async () => { await api.call("trainer_update", { id: tr.id, favorite: !tr.favorite }); reload(); });
   const del = async () => {
-    if (!(await confirm({ title: t("to_trash"), message: t("trainer_trash_msg", { name: tr.name }), confirmLabel: t("to_trash") }))) return;
+    if (!(await confirm({ title: t("to_trash"), message: t("trainer_trash_msg", { name: loc(tr, lang) }), confirmLabel: t("to_trash") }))) return;
     run("del", async () => { await api.call("trash", { kind: "trainer", ids: [tr.id] }); notify(t("moved_to_trash")); changed(); go("#/entrenadores"); });
   };
   return (
@@ -188,14 +189,14 @@ export default function Entrenador({ param, query }) {
       <div className="page-head">
         <div className="avatar-wrap">
           <button type="button" className="avatar-button" onClick={() => setDialog(tr.avatar_url ? "view" : "avatar")} title={tr.avatar_url ? t("avatar_view") : t("change_avatar")}
-            aria-label={tr.avatar_url ? t("avatar_view") : t("change_avatar")}><Avatar url={tr.avatar_url} name={tr.name} size={96} /></button>
+            aria-label={tr.avatar_url ? t("avatar_view") : t("change_avatar")}><Avatar url={tr.avatar_url} name={loc(tr, lang)} size={96} /></button>
           <button type="button" className="avatar-edit btn btn-sm btn-icon" onClick={() => setDialog("avatar")} title={t("change_avatar")} aria-label={t("change_avatar")}>
             <Icon d={ICONS.pencil} size={13} />
           </button>
         </div>
         <div className="min-w-0">
-          <h1 className="trunc">{tr.name}</h1>
-          <div className="help">{tr.title}</div>
+          <h1 className="trunc">{loc(tr, lang)}</h1>
+          <div className="help">{loc(tr, lang, "title")}</div>
           <div className="mt-1 flex flex-wrap gap-1.5">
             <span className="chip">{originLabel(t, tr.origin)}</span>
             {tr.owner && <span className="chip">{t("by", { name: tr.owner })}</span>}

@@ -6,6 +6,7 @@ import { useApp } from "../context.js";
 import RtScreen from "../battle/rt/RtScreen.jsx";
 import { usePoll } from "../components/hooks.js";
 import { useSeats } from "../components/silver.jsx";
+import { battleTitle, loc, winnerName } from "../loc.js";
 import { RunStrip } from "./Combate.jsx";
 import VideoExport from "../components/VideoExport.jsx";
 import { CupStrip } from "./Copa.jsx";
@@ -16,7 +17,7 @@ export { default as MassScreen } from "../battle/mass/MassScreen.jsx";   // mass
 export default function CombateRt({ battle, setData }) {
   const { t, lang, sprites, changed, go, settings } = useApp();
   const seats = useSeats(battle);
-  const title = battle.title || `${battle.p1.name} vs ${battle.p2.name}`;
+  const title = battleTitle(battle, lang);
   const humans = ["p1", "p2"].filter((s) => battle[s]?.human && !battle[s]?.remote);
   // a live battle against a friend on another computer: this screen plays its side and the friend's arrives through the room
   const remote = battle.p2?.remote ? "p2" : battle.p1?.remote ? "p1" : "";
@@ -25,7 +26,7 @@ export default function CombateRt({ battle, setData }) {
     if (!remote || battle.status !== "live") return;
     api.call("pvp_get", {}).then((r) => {
       const room = (r.rooms || []).find((x) => x.battle_id === battle.id);
-      if (room) setNet({ url: room.ws, seat: remote === "p2" ? 0 : 1, delay: room.input_delay, peerName: battle[remote].name });
+      if (room) setNet({ url: room.ws, seat: remote === "p2" ? 0 : 1, delay: room.input_delay, peerName: loc(battle[remote], lang) });
       else setNet({ missing: true });
     }).catch(() => setNet({ missing: true }));
   }, [battle.id, remote]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -74,9 +75,9 @@ export default function CombateRt({ battle, setData }) {
             {battle.rt?.arena === "rocks" && <span className="chip">{t("rt_arena")}: {t("rt_arena_rocks").toLowerCase()}</span>}
             {battle.status === "running" && <span className="chip chip-amber">{t("status_running")}</span>}
             {battle.status === "live" && <span className="chip chip-accent">{t("status_live")}</span>}
-            {battle.status === "ended" && <span className="chip chip-ok">{battle.winner_name ? t("winner_is", { name: battle.winner_name }) : t("tie")}</span>}
+            {battle.status === "ended" && <span className="chip chip-ok">{battle.winner_name ? t("winner_is", { name: winnerName(battle, lang) }) : t("tie")}</span>}
             {humans.length === 2 && <span className="chip">{t("hotseat")}</span>}
-            {remote && <span className="chip chip-accent">{t("pvp_chip", { name: battle[remote].name })}</span>}
+            {remote && <span className="chip chip-accent">{t("pvp_chip", { name: loc(battle[remote], lang) })}</span>}
           </div>
         </div>
         <div className="flex flex-wrap gap-2">
