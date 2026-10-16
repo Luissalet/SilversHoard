@@ -46,7 +46,7 @@ export default function Records({ version = 0 }) {
                 </div>
                 {r ? (
                   <dl className="pk-dl">
-                    <dt>{s("best_total")}</dt><dd className="num">{r.best}</dd>
+                    <dt>{s("best_total")}</dt><dd className="num">{r.best || "–"}</dd>
                     <dt>{s("plays")}</dt><dd className="num">{r.plays}</dd>
                     <dt>{s("wins")}</dt><dd className="num">{r.wins}</dd>
                     {hard[c.key] && <><dt>{s("diff_supreme")}</dt><dd className="num">{hard[c.key].best} · {hard[c.key].plays}</dd></>}
