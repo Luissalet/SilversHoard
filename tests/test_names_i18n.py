@@ -115,3 +115,20 @@ def test_gyms_and_leagues_of_the_games_carry_their_region_and_game(call):
     gyms = [g for g in call("gyms_list", {})["gyms"] if g["id"] in lg["gyms"]]
     assert gyms and all(g["region"] == "Galar" and g["game_id"] == "swsh" for g in gyms)
     assert call("league_get", {"id": lg["id"]})["game_id"] == "swsh"
+
+
+def test_facility_seats_without_a_saved_trainer(services):
+    from silvers_hoard import frontier
+
+    assert names_i18n.facility_seat("Entrenadora Guay Nora") == {"es": {"name": "Entrenadora Guay Nora"}, "en": {"name": "Ace Trainer Nora"}}
+    assert names_i18n.facility_seat("Luis") is None and names_i18n.facility_seat("Veterano") is None
+    tid = next(t for t in frontier.BRAINS if frontier.BRAINS[t][0] == "palmer")
+    brain = frontier.trainer_card(tid)
+    assert names_i18n.facility_seat(brain["name"])["en"]["name"] == brain["name_en"]
+    plain = frontier.trainer_card(next(i for i, t in enumerate(frontier.data()["trainers"]) if t.get("class_id") == 9))
+    assert names_i18n.facility_seat(plain["name"])["en"]["name"] == plain["name_en"]
+    # a seat in a battle: annotated, unless it is a saved trainer's (those go by the trainer)
+    battle = {"p1": {"trainer_id": "", "name": "Entrenadora Guay Nora", "human": False, "ai": {}},
+              "p2": {"trainer_id": 42, "name": plain["name"], "human": False, "ai": {}}}
+    names_i18n.annotate(battle, services)
+    assert battle["p1"]["i18n"]["en"]["name"] == "Ace Trainer Nora" and battle["p2"]["i18n"]["en"]["name"] == plain["name_en"]

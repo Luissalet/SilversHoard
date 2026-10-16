@@ -5,6 +5,7 @@ import { useApp } from "../context.js";
 import { Busy, Empty, Field, Icon, ICONS, Rel, Section, Switch, Tabs, useBusy, useStored } from "../components/ui.jsx";
 import { AiFields, Avatar, FormatSelect, JobProgress, RulesFields, TeamStrip, TrainerSelect, useTrainers } from "../components/silver.jsx";
 import { BattleRow } from "./Historial.jsx";
+import { loc } from "../loc.js";
 import ModeFields, { useCustomArenas, withEqualLevel } from "../battle/rt/ModeFields.jsx";
 import TeamBenchmark from "../components/TeamBenchmark.jsx";
 import LiveRoom from "./LiveRoom.jsx";
@@ -128,7 +129,7 @@ function SeriesForm() {
 }
 
 function TournamentForm() {
-  const { t, go, settings } = useApp();
+  const { t, lang, go, settings } = useApp();
   const [mode, setMode] = useStored("silver-mode", settings.default_mode || "classic");
   const [equal, setEqual] = useStored("silver-equal-level", settings.default_level || 0);
   const [arena, setArena] = useStored("silver-rt-arena", "rocks");
@@ -146,7 +147,7 @@ function TournamentForm() {
   const [format, setFormat] = useState("");
   const [title, setTitle] = useState("");
   const [busy, run] = useBusy();
-  const shown = list.filter((x) => !q || `${x.name} ${x.title} ${(x.tags || []).join(" ")}`.toLowerCase().includes(q.toLowerCase()));
+  const shown = list.filter((x) => !q || `${x.name} ${loc(x, lang)} ${x.title} ${(x.tags || []).join(" ")}`.toLowerCase().includes(q.toLowerCase()));
   const toggle = (id) => setPicked((p) => (p.includes(id) ? p.filter((x) => x !== id) : [...p, id]));
   const cup = kind === "cup";
   const entrants = new Set([...picked, ...(humanId ? [humanId] : [])]).size;
@@ -222,8 +223,8 @@ function TournamentForm() {
         {shown.map((x) => (
           <label key={x.id} className={`pick ${picked.includes(x.id) ? "is-on" : ""}`}>
             <input type="checkbox" checked={picked.includes(x.id)} onChange={() => toggle(x.id)} />
-            <Avatar url={x.avatar_url} name={x.name} size={34} />
-            <span className="min-w-0 flex-1"><b className="trunc block">{x.name}</b><TeamStrip species={x.species} size={22} /></span>
+            <Avatar url={x.avatar_url} name={loc(x, lang)} size={34} />
+            <span className="min-w-0 flex-1"><b className="trunc block">{loc(x, lang)}</b><TeamStrip species={x.species} size={22} /></span>
             {cup && seeding === "chosen" && picked.includes(x.id) && <span className="pick-seed">{picked.indexOf(x.id) + 1}</span>}
           </label>
         ))}
