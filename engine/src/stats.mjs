@@ -1,6 +1,7 @@
 // What a finished battle says in numbers (KOs, damage, survivors), and batches of AI-vs-AI battles (series and tournaments).
 import {Match, viewLines} from './match.mjs';
 import {makeRng} from './ai.mjs';
+import {endState} from './frontier.mjs';
 import {eventLines, rtRun} from './realtime/sim.mjs';
 
 function nameOf(ident) {
@@ -75,6 +76,7 @@ export function playOut(spec, {keepLog = true} = {}) {
   m.advance(100000);
   const lines = viewLines(m.battle.log, 0, 'omniscient');
   return {summary: summarize(lines), lines: keepLog ? lines : null, input_log: keepLog ? m.inputLog() : undefined, errors: m.errors, seed: m.spec.seed, turns: m.battle.turn,
+    end: endState(m.battle),
     ...(spec.trace ? {notes: m.notes} : {})};
 }
 
