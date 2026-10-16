@@ -83,3 +83,34 @@ test('versions 1–7 keep the old move availability and do not gain new recovery
     if (version >= 5) { side.ult = ULT_MAX; assert.equal(b.ultReady(side), true); }
   }
 });
+
+test('Metronome cannot bypass recovery when its called move clears the action', () => {
+  const s = spec();
+  s.seed = 'review645-metronome-0';
+  s.p1.sets = importTeam('Clefable\n- Metronome\n- Splash\n- Protect');
+  const b = new RtBattle(s), side = b.sides[0];
+  side.focus = false;
+  b.tryUse(side, 0);
+  while (!b.events.some(e => e.k === 'use')) b.step();
+  assert.ok(b.events.some(e => e.k === 'metronome'));
+  assert.equal(b.mon(side).attackReady, b.t + ATTACK_RECOVERY);
+  assert.equal(b.usable(side, 1), 'cooldown');
+  assert.equal(b.tryUse(side, 1), false);
+  b.t += ATTACK_RECOVERY;
+  assert.equal(b.tryUse(side, 1), true);
+});
+
+test('a training reset caused by Explosion still leaves shared recovery', () => {
+  const s = spec();
+  s.training = {side: 0, pattern: 'still'};
+  s.p1.sets = importTeam('Snorlax\n- Explosion\n- Splash');
+  const b = new RtBattle(s), side = b.sides[0];
+  side.focus = false;
+  b.tryUse(side, 0);
+  while (!b.events.some(e => e.k === 'dummy_reset')) b.step();
+  assert.equal(b.mon(side).fainted, false);
+  assert.equal(b.mon(side).hp, b.mon(side).maxhp);
+  assert.equal(b.mon(side).attackReady, b.t + ATTACK_RECOVERY);
+  assert.equal(b.usable(side, 1), 'cooldown');
+  assert.equal(b.tryUse(side, 1), false);
+});
