@@ -231,6 +231,14 @@ def main() -> None:
     characters = []
     for idx, (key, name_es, cls_en, cls_es, spr, place, place_es) in EXTRAS.items():
         r = rom[idx]
+        # a character Silver has by now (from Bulbapedia): the cartridge's sets go over its HeartGold/SoulSilver team, like any other
+        have = next(((c, v) for c in chars if c["key"] == key for v in c["variants"] if v["games"] == ["hgss"]), None)
+        if have:
+            sets = [mon(p) for p in r["party"]]
+            if sorted((s["species"], s["level"]) for s in have[1]["sets"]) != sorted((s["species"], s["level"]) for s in sets):
+                raise SystemExit(f"{key}: Silver's HGSS team differs from the cartridge trainer {idx}")
+            variants[f"{key}:{have[1]['id']}"] = {"rom": idx, "flags": r["ai_flags"], "sets": sets, **({"double": True} if r["double"] else {})}
+            continue
         missing = [s for s in spr if s not in sprites]
         if missing:
             raise SystemExit(f"{key}: no trainer sprite {missing}")
