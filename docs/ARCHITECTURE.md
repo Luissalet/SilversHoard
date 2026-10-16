@@ -244,3 +244,7 @@ Rules v8 set a per-Pokémon attackReady tick in finishMove, one second after com
 ## Illustrated arena floors
 
 `client/src/battle/rt/arena-art.js` embeds four original WebP floor textures as data URLs. `ArenaField` and `ArenaRenderer.drawCourt` consume the same assets, including in the packed standalone playable page. Provenance and generation prompts live in `client/src/battle/rt/art/PROVENANCE.md`. The cached canvas is keyed by width, floor and image readiness: a late decoded image replaces the procedural fallback once, while a failed image leaves that fallback cached. `drawPlace` retains its scenery, emblem and ambient layers, avoiding duplicate procedural ground marks on illustrated floors. Simulation, collision geometry and replay formats are unchanged.
+
+## Animated fire art
+
+`move-art.js` embeds an original transparent WebP sheet and draws four isolated cells at 12 fps, with per-cell bright-core anchors and the renderer's clock. `Vfx.drawBall` uses it for fire projectiles with their existing velocity angle; `drawRay` overlays a flame head oriented towards the endpoint and applies the beam's existing fade. Both keep procedural fallbacks and the plain particle style. Canvas state is restored after each sprite. The same renderer and asset are included in the standalone page; no engine, replay or collision format changes. Prompt and provenance are in `art/MOVE-PROVENANCE.md` beside the module.
