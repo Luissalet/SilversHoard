@@ -7,10 +7,7 @@ import { Busy, Icon, ICONS, Modal, Spinner, useBusy } from "./ui.jsx";
 import { L, nameOf, typeName } from "../battle/dex.js";
 
 const S = {
-  button: ["Sets", "Sets"],
-  title: ["Sets populares de {species}", "Popular sets of {species}"],
   none: ["No hay sets publicados para esta especie en este formato.", "No published sets for this species in this format."],
-  use: ["Usar", "Use"],
   usage: ["Uso en el ranking ({fmt}): {pct}", "Ladder usage ({fmt}): {pct}"],
   items: ["Objetos", "Items"], abilities: ["Habilidades", "Abilities"], moves: ["Movimientos", "Moves"], teammates: ["Compañeros", "Teammates"],
   tera: ["Teratipos", "Tera types"],
@@ -55,7 +52,7 @@ function Usage({ u, fmt }) {
 }
 
 export default function SmogonSets({ species, format, onApply }) {
-  const { lang, toastError } = useApp();
+  const { lang, t, toastError } = useApp();
   const s = useS();
   const [open, setOpen] = useState(false);
   const [data, setData] = useState(null);
@@ -66,11 +63,12 @@ export default function SmogonSets({ species, format, onApply }) {
   };
   return (
     <>
-      <button type="button" className="btn btn-sm" disabled={!species?.trim()} onClick={show} title={s("credit")}><Icon d={ICONS.star} size={13} /> {s("button")}</button>
+      <button type="button" className="btn btn-sm" disabled={!species?.trim()} onClick={show} title={s("credit")}><Icon d={ICONS.star} size={13} /> {t("smogon_sets_button")}</button>
       {open && (
-        <Modal title={s("title", { species })} onClose={() => setOpen(false)} wide>
+        <Modal title={t("smogon_sets_title", { species })} onClose={() => setOpen(false)} wide>
           {!data ? <Spinner /> : (
             <div className="space-y-3">
+              <p className="help">{t("smogon_sets_help")}</p>
               <Usage u={data.usage} fmt={data.usage_format} />
               {!data.sets.length ? <p className="help">{s("none")}</p> : (
                 <>
@@ -80,7 +78,7 @@ export default function SmogonSets({ species, format, onApply }) {
                       <div key={x.name} className="panel space-y-1 smogon-set">
                         <div className="flex items-center gap-2">
                           <b className="flex-1 trunc">{x.name}</b>
-                          <button type="button" className="btn btn-sm btn-primary" onClick={() => { onApply(setToMember(x)); setOpen(false); }}>{s("use")}</button>
+                          <button type="button" className="btn btn-sm btn-primary" onClick={() => { onApply(setToMember(x)); setOpen(false); }}>{t("smogon_apply_set")}</button>
                         </div>
                         <div className="help">
                           {[x.item && nameOf("item", x.item, lang), x.ability && nameOf("ability", x.ability, lang), x.nature && nameOf("nature", x.nature, lang),

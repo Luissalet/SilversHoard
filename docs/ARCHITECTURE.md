@@ -1,5 +1,9 @@
 # Silver's Hoard — architecture
 
+## Individual competitive set filling
+
+Each TeamBuilder member has its own SmogonSets picker, labelled **Smogon sets** / **Sets de Smogon**. It reads the existing sets_popular handler through the same API/MCP surface and applies setToMember() to that member's draft only. The conversion completes missing EVs with zero and IVs with 31 so an older spread does not leak into the selected set. Saving still goes through the ordinary trainer save; no other member is replaced and opening the picker alone changes nothing. SampleTeam remains a separate roster-replacement action. This clarification adds no bulk fill, backend tool or data migration.
+
 ## Suggested replay positions and ability activations
 
 `practice-suggestions.mjs` walks committed replay choices once, clones each selected decision, clears both pending choices and asks `chooseFor` with hidden information and an opt-in complete option trace. Canonical move names are resolved against the request's numbered slots; doubles retain targets. Only comparable decisions with a sufficient heuristic score gap are suggested. Belief/trace failures are skipped, never exposed as hidden-information analysis. Turn pages have a continuation cursor; Python launches a separate engine job so live battles remain responsive. `practice_suggestions` is shared by UI/REST/MCP. Accepting reuses `battle_practice`/`exercise_create`, dismissing is local UI state, and no result/schema migration is needed.
