@@ -60,9 +60,25 @@ FACILITIES += [
     {"id": "factory3", "name": "Battle Factory (Emerald)", "name_es": "Fábrica Batalla (Esmeralda)", "gen": 3, "game": "E", "gametype": "singles",
      "size": 3, "rental": True, "bosses": []},
     {"id": "factory4", "name": "Battle Factory (Platinum)", "name_es": "Fábrica Batalla (Platino)", "gen": 4, "game": "Pt", "gametype": "singles",
-     "size": 3, "rental": True, "bosses": []},
+     "size": 3, "rental": True,   # Thorton's team comes from the decompiled game's Factory sets (frontier.py)
+     "bosses": [(21, "thorton", "frontier:309", "Emblema de Plata", "Silver Print"), (49, "thorton", "frontier:310", "Emblema de Oro", "Gold Print")]},
     {"id": "factory9", "name": "Rental Factory (Scarlet/Violet)", "name_es": "Fábrica de alquiler (Escarlata/Púrpura)", "gen": 9, "game": "SV",
      "gametype": "singles", "size": 3, "rental": True, "bosses": []},
+]
+# The Battle Frontier of HeartGold/SoulSilver with the game's own rules (frontier.py, frontier_runs.py): the Battle Hall (one Pokémon,
+# a type board, rounds of ten), the Battle Arcade (three Pokémon at level 50 at most, a roulette before each battle) and the Battle
+# Castle (three Pokémon, Castle Points to spend, HP and PP carried over). Singles, Generation 4 rules; the Arcade and the Castle are
+# turn-based only (their roulette, PP and turn counts have no real-time equivalent).
+FACILITIES += [
+    {"id": "hall4", "name": "Battle Hall (HeartGold/SoulSilver)", "name_es": "Sala Batalla (Oro HeartGold/Plata SoulSilver)", "gen": 4,
+     "game": "HGSS", "gametype": "singles", "size": 1, "frontier": "hall", "modes": ["classic", "realtime"],
+     "bosses": [(50, "argenta", "frontier:307", "Emblema de Plata", "Silver Print"), (170, "argenta", "frontier:308", "Emblema de Oro", "Gold Print")]},
+    {"id": "arcade4", "name": "Battle Arcade (HeartGold/SoulSilver)", "name_es": "Ruleta Batalla (Oro HeartGold/Plata SoulSilver)", "gen": 4,
+     "game": "HGSS", "gametype": "singles", "size": 3, "frontier": "arcade", "modes": ["classic"],
+     "bosses": [(21, "dahlia", "frontier:311", "Emblema de Plata", "Silver Print"), (49, "dahlia", "frontier:312", "Emblema de Oro", "Gold Print")]},
+    {"id": "castle4", "name": "Battle Castle (HeartGold/SoulSilver)", "name_es": "Castillo Batalla (Oro HeartGold/Plata SoulSilver)", "gen": 4,
+     "game": "HGSS", "gametype": "singles", "size": 3, "frontier": "castle", "modes": ["classic"],
+     "bosses": [(21, "darach", "frontier:313", "Emblema de Plata", "Silver Print"), (49, "darach", "frontier:314", "Emblema de Oro", "Gold Print")]},
 ]
 RENTALS = 6
 BY_ID = {f["id"]: f for f in FACILITIES}
