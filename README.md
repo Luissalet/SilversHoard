@@ -123,3 +123,7 @@ Fire projectiles and flame-beam heads use an original transparent four-frame spr
 Spinning and pulsing projectile shapes also follow the battle renderer clock: their phase freezes when paused and returns to the same point when a replay restarts, in both the app and playable pages.
 
 Mass battles expose their own live clock to the shared effects renderer, including animated fire projectiles and beam heads, so these effects also render and pause correctly there and in shared mass-battle pages.
+
+The six stat-point rows have draggable sliders as well as number fields and +/− controls. New team members start at zero in every stat; saved and explicitly imported spreads keep their values. The existing 32-point per-stat and 66-point total limits still apply. On narrow screens each slider spans its own row.
+
+Changing a member to a different species starts a fresh Pokémon: moves, ability, item, nature, nickname, Tera type, gender and shiny status return to their empty defaults; EVs return to zero and IVs to 31. The current level is kept. Editing only the spelling of the same species does not reset its set.

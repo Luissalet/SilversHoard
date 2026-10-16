@@ -172,7 +172,8 @@ function StatPoints({ set, sp, natures, lang, t, onChange }) {
               <button type="button" className="btn btn-sm btn-icon" onClick={() => put(k, pts[k] - 1)} disabled={!pts[k]} aria-label={t("tb_sp_less", { stat: k })}>−</button>
               <input className="field num tb-sp-input" type="number" min={0} max={SP_MAX} value={pts[k]} onChange={(e) => put(k, e.target.value)} aria-label={t("tb_sp_of", { stat: k })} />
               <button type="button" className="btn btn-sm btn-icon" onClick={() => put(k, pts[k] + 1)} disabled={pts[k] >= SP_MAX || total >= SP_TOTAL} aria-label={t("tb_sp_more", { stat: k })}>+</button>
-              <span className="tb-sp-bar"><span style={{ width: `${(pts[k] / SP_MAX) * 100}%` }} /></span>
+              <input className="tb-sp-slider" type="range" min={0} max={SP_MAX} step={1} value={pts[k]}
+                onChange={(e) => put(k, e.target.value)} aria-label={t("tb_sp_of", { stat: k })} />
               <b className="num tb-sp-value" title={t("tb_sp_value", { level })}>{value ?? "—"}</b>
             </div>
           );
@@ -198,6 +199,8 @@ function SetEditor({ set, index, gen, format, onChange, onRemove, lang, t, evMod
   const ev = Object.values(set.evs || {}).reduce((a, b) => a + (Number(b) || 0), 0);
   const spTotal = STATS.reduce((a, k) => a + spFromEv(set.evs?.[k]), 0);
   const upd = (k, v) => onChange({ ...set, [k]: v });
+  const pickSpecies = (species) => onChange(toId(species) === toId(set.species)
+    ? { ...set, species } : { ...empty(), species, level: set.level });
   const id = `set-${index}`;
   return (
     <div className="tb-set">
@@ -205,7 +208,7 @@ function SetEditor({ set, index, gen, format, onChange, onRemove, lang, t, evMod
         <MonIcon species={set.species || "unknown"} size={64} />
         <div className="min-w-0 flex-1 grid gap-2 sm:grid-cols-2">
           <Field label={t("tb_species")}>
-            <input className="field" list={`${id}-sp`} value={set.species} onChange={(e) => upd("species", e.target.value)} placeholder="Garchomp" />
+            <input className="field" list={`${id}-sp`} value={set.species} onChange={(e) => pickSpecies(e.target.value)} placeholder="Garchomp" />
             <datalist id={`${id}-sp`}>{species.map((s) => <option key={s.id} value={s.name} />)}</datalist>
           </Field>
           <Field label={t("tb_nickname")}><input className="field" value={set.name} onChange={(e) => upd("name", e.target.value)} maxLength={18} /></Field>
