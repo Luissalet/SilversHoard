@@ -1,7 +1,9 @@
 from conftest import needs_engine
-from threading import Event
+from threading import Event, current_thread
+from concurrent.futures import ThreadPoolExecutor
 
 import pytest
+from silvers_hoard.errors import SilverError
 
 
 @needs_engine
@@ -35,6 +37,46 @@ def test_cancel_live_battle_does_not_change_records(call, services):
     assert not services.engine.call("match_loaded", {"id": battle["id"]})["loaded"]
     assert call("battle_cancel", {"id": battle["id"]})["status"] == "cancelled"
     assert call("trainer_get", {"id": a["id"]})["record"] == {"wins": 0, "losses": 0, "ties": 0}
+
+
+@needs_engine
+@pytest.mark.parametrize("operation", ["get", "choose", "forfeit", "advice"])
+def test_pending_live_request_cannot_reload_a_cancelled_match(services, monkeypatch, operation):
+    battle = services.battle_start(p1={"name": "A", "paste": "Pikachu\n- Thunderbolt", "human": True},
+                                  p2={"name": "B", "paste": "Magikarp\n- Splash", "human": True})
+    bid = battle["id"]
+    captured, release = Event(), Event()
+    original = services.store.battle
+    held = False
+
+    def stale_read(id_):
+        nonlocal held
+        row = original(id_)
+        if id_ == bid and current_thread().name.startswith("stale-reader") and not held:
+            held = True
+            captured.set()
+            assert release.wait(10)
+        return row
+
+    monkeypatch.setattr(services.store, "battle", stale_read)
+    actions = {"get": lambda: services.battle_get(bid), "choose": lambda: services.battle_choose(bid, "p1", "team 1"),
+               "forfeit": lambda: services.battle_forfeit(bid, "p1"), "advice": lambda: services.battle_explain(bid, advice=True)}
+    with ThreadPoolExecutor(max_workers=1, thread_name_prefix="stale-reader") as pool:
+        future = pool.submit(actions[operation])
+        try:
+            assert captured.wait(5)
+            assert services.battle_cancel(bid)["status"] == "cancelled"
+        finally:
+            release.set()
+        if operation in ("choose", "forfeit"):
+            with pytest.raises(SilverError) as error:
+                future.result(timeout=10)
+            assert error.value.code == "ended"
+        else:
+            assert future.result(timeout=10)["status"] == "cancelled"
+    assert original(bid)["status"] == "cancelled"
+    assert not services.engine.call("match_loaded", {"id": bid})["loaded"]
+    assert not original(bid)["winner_name"]
 
 
 @needs_engine

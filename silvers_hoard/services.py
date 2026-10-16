@@ -1345,13 +1345,17 @@ class Services:
             view = self._host_view(b)
         if b["status"] == "live":
             with self._lock_for(id_):
-                self._ensure_loaded(b)
-                state = self.engine.call("match_state", {"id": id_, "since": since, "view": view})
+                b = self.store.battle(id_)
+                state = None
+                if b["status"] == "live":
+                    self._ensure_loaded(b)
+                    state = self.engine.call("match_state", {"id": id_, "since": since, "view": view})
+                    if state.get("ended"):
+                        self._finish(id_)
+            if state is None or state.get("ended"):
+                return self.battle_get(id_, since=since, view=view)
             out.update({k: state[k] for k in ("lines", "log_length", "requests", "turn", "errors")})
             out["format_info"] = state.get("format")
-            if state.get("ended"):
-                self._finish(id_)
-                return self.battle_get(id_, since=since, view=view)
         else:
             lines = b.get("log_text", "").split("\n") if b.get("log_text") else []
             out.update({"lines": lines[since:] if since else lines, "log_length": len(lines), "requests": {}, "turn": b.get("turns") or 0})
@@ -1380,6 +1384,9 @@ class Services:
         if side not in ("p1", "p2"):
             raise SilverError("invalid", "side is p1 or p2")
         with self._lock_for(id_):
+            b = self.store.battle(id_)
+            if b["status"] != "live":
+                raise SilverError("ended", "This battle is over.")
             self._ensure_loaded(b)
             state = self.engine.call("match_choose", {"id": id_, "side": side, "choice": choice, "since": since,
                                                       "view": side if remote else self._host_view(b)}, timeout=120)
@@ -1399,6 +1406,9 @@ class Services:
             replay = b.get("replay") or {}
             return self.rt_finish(id_, inputs=replay.get("inputs") or [], tick=int(replay.get("tick") or 0), forfeit=side)
         with self._lock_for(id_):
+            b = self.store.battle(id_)
+            if b["status"] != "live":
+                raise SilverError("ended", "This battle is over.")
             self._ensure_loaded(b)
             state = self.engine.call("match_forfeit", {"id": id_, "side": side, "since": since, "view": side if remote else self._host_view(b)})
             state.pop("snapshot", None)
@@ -1640,13 +1650,16 @@ class Services:
             sides = [side] if side else [s for s in ("p1", "p2") if (b.get(s) or {}).get("human")]
             found = {}
             with self._lock_for(id_):
-                self._ensure_loaded(b)
-                for s in sides:
-                    other = b.get("p2" if s == "p1" else "p1") or {}
-                    r = self.engine.call("match_advice", {"id": id_, "side": s, "hidden": True,
-                                                          "beliefs": self._beliefs(other.get("sets") or [], b["format"])}, timeout=90)
-                    if r.get("advice"):
-                        found[s] = {**r["advice"], "text": self._note_text(r["advice"], b, advice=True)}
+                b = self.store.battle(id_)
+                out["status"] = b["status"]
+                if b["status"] == "live":
+                    self._ensure_loaded(b)
+                    for s in sides:
+                        other = b.get("p2" if s == "p1" else "p1") or {}
+                        r = self.engine.call("match_advice", {"id": id_, "side": s, "hidden": True,
+                                                              "beliefs": self._beliefs(other.get("sets") or [], b["format"])}, timeout=90)
+                        if r.get("advice"):
+                            found[s] = {**r["advice"], "text": self._note_text(r["advice"], b, advice=True)}
             out["advice"] = found
         if not notes and not out.get("advice"):
             out["hint"] = "No AI decisions are kept for this battle (battles from before this was added, series and tournaments keep none)."
