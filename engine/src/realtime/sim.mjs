@@ -40,7 +40,9 @@ const TRAINER = [{x: 1.6, y: ARENA.h / 2}, {x: ARENA.w - 1.6, y: ARENA.h / 2}];
 // 5: the ultimate gauge: dealing and taking damage and knockouts fill it, and when it is full the trainer unleashes its active
 // Pokémon's ultimate, a 150-power blast of its own type that falls on the foe after a telegraphed wind-up.
 // 7: a benched Mega keeps its forme and remaining Mega Power; the gauge pauses until it returns.
-export const RULES_VERSION = 7;
+// 8: a Pokémon recovers for one second after each move, in addition to the move's own cooldown.
+export const RULES_VERSION = 8;
+export const ATTACK_RECOVERY = TPS;
 export const ARENAS = ['open', 'rocks'];   // and custom arenas: {name, floor, rocks: [{x, y, r}]} from the arena designer
 export const FLOORS = ['grass', 'sand', 'ice', 'cave', 'indoor', 'water', 'pyre', 'summit', 'meteor', 'champion', 'castle'];   // how a custom arena's ground looks (the rules are the same)
 export const MAX_ROCKS = 16;
@@ -883,7 +885,8 @@ export class RtBattle {
 
   /** The ultimate gauge is full and the trainer's Pokémon can unleash it now (rules version 5). */
   ultReady(side) {
-    return this.version >= 5 && side.ult >= ULT_MAX && this.onField(side) && !this.mon(side).fainted && this.onField(this.foe(side));
+    return this.version >= 5 && side.ult >= ULT_MAX && this.onField(side) && !this.mon(side).fainted && this.onField(this.foe(side))
+      && (this.version < 8 || this.t >= (this.mon(side).attackReady || 0));
   }
 
   ultGain(side, n) {
@@ -911,6 +914,7 @@ export class RtBattle {
     const m = this.mon(side);
     const p = m.profiles[slot];
     if (!p) return 'none';
+    if (this.version >= 8 && this.t < (m.attackReady || 0)) return 'cooldown';
     if (m.cds[slot] > 0) return 'cooldown';
     if (m.choiceLock >= 0 && m.choiceLock !== slot && this.hasItem(m, 'choiceband', 'choicespecs', 'choicescarf')) return 'choice';
     if (p.category === 'Status' && (side.vol.tauntUntil > this.t || this.hasItem(m, 'assaultvest'))) return 'taunt';
@@ -1140,6 +1144,8 @@ export class RtBattle {
       side.vol.types = [p.type];
     }
     this.ev('use', {...this.at(side), move: p.id, name: p.name, type: p.type, shape: p.shape, category: p.category});
+    // Some effects clear the action themselves (Metronome, the training dummy). Dashes extend recovery again on completion.
+    if (this.version >= 8) m.attackReady = this.t + ATTACK_RECOVERY;
     if (this.doubles && DOUBLES_MOVES[p.id]) { this.supportMove(side, p); this.finishMove(side, slot); return; }
     if (p.noEffect) { this.ev('noeffect', {...this.at(side), move: p.id}); this.finishMove(side, slot); return; }
     if (p.id === 'metronome') {
@@ -1267,6 +1273,7 @@ export class RtBattle {
     const m = this.mon(side);
     const p = this.prof(m, slot);
     if (slot !== ULT_SLOT) m.cds[slot] = this.cooldownTicks(side, p);
+    if (this.version >= 8) m.attackReady = this.t + ATTACK_RECOVERY;
     side.act = null;
     if (m.fainted) return;
     if (p.recharge) { side.act = {kind: 'recover', end: this.t + 2 * TPS}; this.ev('recharge', {...this.at(side)}); }
@@ -2196,7 +2203,7 @@ export class RtBattle {
               mega_info: x.mega && this.version >= 2 ? {species: x.mega.species, forme: x.mega.forme, num: x.mega.num, sprite_id: x.mega.sprite_id} : null,
               hp: x.hp, maxhp: x.maxhp, status: x.status, fainted: x.fainted, types: x.types, item: x.itemUsed ? '' : x.item_name, ability: x.ability_name,
               boosts: {...x.boosts},
-              moves: x.moves.map((mv, j) => ({...mv, cd: x.cds[j] / TPS, total: on ? this.cooldownTicks(u, x.profiles[j]) / TPS : mv.final,
+              moves: x.moves.map((mv, j) => ({...mv, cd: Math.max(x.cds[j], this.version >= 8 ? (x.attackReady || 0) - this.t : 0) / TPS, total: on ? this.cooldownTicks(u, x.profiles[j]) / TPS : mv.final,
                 blocked: on ? this.usableReason(u, j) : ''}))};
             if (this.doubles) mon.field = u ? u.pos : -1;   // the slot it is in (a / b), -1 on the bench
             return mon;
