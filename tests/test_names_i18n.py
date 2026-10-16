@@ -151,3 +151,13 @@ def test_facility_stages(services):
     run = {"stages": [dict(stage)]}
     names_i18n.annotate(run, services)
     assert run["stages"][0]["i18n"]["en"]["name"] == "Hiker Marco"
+
+
+def test_facilities_by_region_and_game(call, services):
+    out = names_i18n.annotate(call("facilities_list", {}), services)
+    by = {f["id"]: f for f in out["facilities"]}
+    assert all(f.get("game_id") and f.get("region") for f in by.values()), [f["id"] for f in by.values() if not f.get("game_id")]
+    assert (by["subway_single"]["region"], by["subway_single"]["game_id"]) == ("Unova", "bw")
+    assert by["subway_single"]["i18n"]["es"] == {"region": "Teselia", "game": "Negro y Blanco"}
+    assert by["subway_single"]["i18n"]["en"] == {"region": "Unova", "game": "Black and White"}
+    assert {by[k]["game_id"] for k in ("tower4", "factory4")} == {"pt"} and by["tower8"]["region"] == "Galar"

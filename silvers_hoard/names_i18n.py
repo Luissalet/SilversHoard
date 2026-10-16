@@ -29,6 +29,9 @@ GAME_IDS = {"kanto-rgb": "rb", "johto-hgss": "hgss", "kanto-hgss": "hgss", "hoen
             "unova-b2w2": "b2w2", "kalos-xy": "xy", "alola-sm": "sm", "alola-usum": "usum", "galar-sw": "swsh", "paldea-sv": "sv",
             "johto-crystal": "gsc", "kanto-crystal": "gsc", "kanto-frlg": "frlg", "hoenn-emerald": "e"}
 REGIONS_ES = {"Unova": "Teselia"}
+# the game card and region of each battle facility (facilities.FACILITIES' `game`), for the filters by game
+FACILITY_GAMES = {"E": ("e", "Hoenn"), "DPPt": ("pt", "Sinnoh"), "Pt": ("pt", "Sinnoh"), "HGSS": ("hgss", "Johto"), "BW": ("bw", "Unova"),
+                  "XY": ("xy", "Kalos"), "SM": ("sm", "Alola"), "SwSh": ("swsh", "Galar"), "SV": ("sv", "Paldea")}
 HGSS_LEAGUES = ("johto-hgss", "kanto-hgss")   # the leagues whose gym trainers come from the HeartGold/SoulSilver cartridge
 
 
@@ -238,6 +241,21 @@ def place(lkey: str, svc: Any) -> Optional[dict[str, Any]]:
             "i18n": {"es": {"region": REGIONS_ES.get(region, region), "game": _game_es(lg)}, "en": {"region": region, "game": lg["game"]}}}
 
 
+def facility_place(f: dict[str, Any], svc: Any) -> Optional[dict[str, Any]]:
+    """Where a battle facility belongs (its game's region and game card), like place() for a league."""
+    gid, region = FACILITY_GAMES.get(str(f.get("game") or ""), ("", ""))
+    if not gid:
+        return None
+    try:
+        card = next((g for g in svc._character_games() if g["id"] == gid), None)
+    except Exception:   # noqa: BLE001
+        card = None
+    en = card["name"] if card else gid
+    es = (card.get("name_es") or en) if card else gid
+    return {"region": region, "game_id": gid,
+            "i18n": {"es": {"region": REGIONS_ES.get(region, region), "game": es}, "en": {"region": region, "game": en}}}
+
+
 def _gym_names(svc: Any, gkey: str) -> Optional[dict[str, dict[str, Any]]]:
     if ":" not in gkey:
         return None
@@ -414,6 +432,8 @@ def annotate(obj: Any, svc: Any) -> Any:
             return place(key, svc)
         if i.startswith("gym_") and ":" in key:
             return place(key.split(":", 1)[0], svc)
+        if "gametype" in x and "round" in x and str(x.get("game") or "") in FACILITY_GAMES:   # a battle facility
+            return facility_place(x, svc)
         m = _CATALOG_GYM.match(i) if "badge" in x else None
         return place(m.group(1), svc) if m else None
 

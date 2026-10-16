@@ -10,6 +10,7 @@ import { useContextProvider } from "../components/hooks.js";
 import { Avatar, TrainerSelect } from "../components/silver.jsx";
 import ModeFields from "../battle/rt/ModeFields.jsx";
 import { L } from "../battle/dex.js";
+import PlaceFilters, { matchesPlace } from "../components/PlaceFilters.jsx";
 
 const S = {
   title: ["Instalaciones de combate", "Battle facilities"],
@@ -17,6 +18,7 @@ const S = {
     "Win streaks as in the Battle Tower: one rival after another at level 50, three Pokémon a side (four in doubles) picked at team preview, and each facility's boss on their battle. A loss ends the streak; the record is the longest one."],
   trainer: ["Entrenador", "Trainer"],
   all: ["Elige un entrenador para ver sus récords y empezar una racha.", "Pick a trainer to see their records and start a streak."],
+  no_matches: ["Ninguna instalación de esa región o juego.", "No facility from that region or game."],
   singles: ["Individual", "Singles"],
   doubles: ["Dobles", "Doubles"],
   per_side: ["{n} Pokémon por bando", "{n} Pokémon a side"],
@@ -123,6 +125,8 @@ export default function Instalaciones() {
   const { lang, go, changed } = useApp();
   const s = (k, v) => fill(L(S[k], lang), v);
   const [trainerId, setTrainerId] = useStored("silver-facility-trainer", "");
+  const [region, setRegion] = useStored("silver-facility-region", "");
+  const [game, setGame] = useStored("silver-facility-game", "");
   const [dialog, setDialog] = useState(null);
   const [busy, run] = useBusy();
   const { data, error, reload } = useLoad(() => api.call("facilities_list", { trainer_id: trainerId || "" }), [trainerId]);
@@ -140,12 +144,14 @@ export default function Instalaciones() {
     <div className="space-y-4">
       <div className="page-head"><div className="min-w-0"><h1>{s("title")}</h1><p className="help">{s("intro")}</p></div></div>
       <div className="max-w-md"><TrainerSelect value={trainerId} onChange={setTrainerId} label={s("trainer")} /></div>
+      {data?.facilities?.length > 0 && <PlaceFilters list={data.facilities} {...{ region, setRegion, game, setGame }} />}
       {!trainerId && <p className="help">{s("all")}</p>}
       {error && <ErrorBox error={error} onRetry={reload} />}
       {!data && !error && <div className="flex items-center gap-2"><Spinner /></div>}
       {data && !data.facilities.length && <Empty title={s("title")} />}
+      {data?.facilities?.length > 0 && !data.facilities.some((f) => matchesPlace(f, region, game)) && <p className="help">{s("no_matches")}</p>}
       <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-        {(data?.facilities || []).map((f) => (
+        {(data?.facilities || []).filter((f) => matchesPlace(f, region, game)).map((f) => (
           <div key={f.id} className="panel facility-card space-y-2">
             <div className="flex items-start justify-between gap-2">
               <div className="min-w-0">
