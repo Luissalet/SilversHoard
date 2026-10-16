@@ -132,7 +132,9 @@ ZU_STATS = {"battles": 10, "pokemon": {"Glaceon": {"usage": {"weighted": 0.0046}
                                                    "spreads": {"Bold:252/0/252/0/4/0": 0.3, "Calm:252/0/0/0/252/4": 0.2},
                                                    "teraTypes": {"Water": 0.4}}}}
 NU_STATS = {"battles": 10, "pokemon": {"Glaceon": {"usage": {"weighted": 0.0009}, "moves": {"Tackle": 1}}}}
-CHAMP_STATS = {"battles": 10, "pokemon": {"Delphox": {"usage": {"weighted": 0.02}, "abilities": {"Blaze": 0.6, "Magician": 0.4}}}}
+CHAMP_STATS = {"battles": 10, "pokemon": {"Delphox": {"usage": {"weighted": 0.02}, "abilities": {"Blaze": 0.6, "Magician": 0.4}},
+                                          # used more there, but Champions only counts when the generation has no usage at all
+                                          "Glaceon": {"usage": {"weighted": 0.03}, "moves": {"Ice Beam": 1}, "items": {"Focus Sash": 1}}}}
 
 
 class TeamSite(FakeSite):
