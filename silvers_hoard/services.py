@@ -2986,7 +2986,7 @@ class Services:
         if isinstance(content, str) and self.POKEPASTE.match(content):
             return self.import_pokepaste(content, name=name, format_=format_)
         try:
-            candidate = json.loads(content) if isinstance(content, str) else content
+            candidate = json.loads(content) if isinstance(content, (str, bytes, bytearray)) else content
         except ValueError:
             candidate = None
         if isinstance(candidate, dict) and candidate.get("kind") == "silvers-hoard/exercise":
