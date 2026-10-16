@@ -15,7 +15,7 @@ const OUT = outArg || path.join(root, 'silvers_hoard/presets/characters.json.gz'
 const readMaybeGz = (f) => { const b = fs.readFileSync(f); return (f.endsWith('.gz') ? zlib.gunzipSync(b) : b).toString('utf8'); };
 const scrape = JSON.parse(readMaybeGz(scrapePath));
 // a second scrape (Frontier Brains, villains' admins, more rivals and the player characters) adds the pages the first one lacks
-for (const extra of [here('bulbapedia_parties_2.json.gz')]) {
+for (const extra of [here('bulbapedia_parties_2.json.gz'), here('additional_parties.json')]) {
   if (scrapePath !== extra && fs.existsSync(extra)) for (const [k, v] of Object.entries(JSON.parse(readMaybeGz(extra)))) if (!(k in scrape)) scrape[k] = v;
 }
 // battle facility teams ({{lop/facility}} rows: Frontier Brains, Battle Tower, Tree, Maison, Subway), read apart, join their page
@@ -158,7 +158,7 @@ const spriteLabel = (suffix) => {
 
 const BASE_OVERRIDES = {'Steven Stone': 'steven', 'Professor Kukui': 'kukui', Kukui: 'kukui', 'Tate and Liza': 'tateandliza'};
 const NAME_OVERRIDES = {'Professor Kukui': 'Kukui'};
-const SKIP = new Set(['Barry', 'Serena', 'Rose (game)', 'Rose']);  // empty duplicates, or a different Rose
+const SKIP = new Set(['Barry', 'Serena', 'Rose (game)']);  // empty duplicates; Rose is the chairman's valid Sword/Shield party
 
 // Bag items (potions and the like): battles here use held items only, so sentences about them leave the note.
 const BAG = {

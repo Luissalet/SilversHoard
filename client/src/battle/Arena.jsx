@@ -62,7 +62,7 @@ function Sprite({ mon, back, sprites, anim, slotKey, size, scale = 1 }) {
   return (
     <div className={cls.filter(Boolean).join(" ")} data-fx-pos={slotKey} style={{ "--sprite-size": `${size}px`, "--sprite-scale": scale }}>
       <div className="b-sprite-img" ref={ref}>
-        {failed < 2 && src ? <img src={src} alt={mon.species} onError={onError} draggable={false} /> : <div className="b-sprite-missing" aria-label={mon.species}>{mon.species.slice(0, 2)}</div>}
+        {failed < 2 && src ? <img key={src} src={src} alt={mon.species} onError={onError} draggable={false} /> : <div className="b-sprite-missing" aria-label={mon.species}>{mon.species.slice(0, 2)}</div>}
       </div>
       {mon.tera && <span className="b-tera-glow" style={{ "--tera": TYPE_COLORS[mon.tera] || "#fff" }} aria-hidden="true" />}
       {mine && (mine.type === "hit" || mine.type === "heal") && mine.delta ? (
@@ -142,12 +142,17 @@ export function LogPanel({ log, lang, compact }) {
  */
 /** A Pokémon's portrait with an emotion (SpriteCollab); falls back to its "Normal" face, then to nothing. */
 export function Portrait({ sprites, species, emotion = "Normal", num = 0, className = "" }) {
+  return <PortraitImage key={`${species}:${emotion}:${num}:${sprites?.server || ""}`} {...{ sprites, species, emotion, num, className }} />;
+}
+
+function PortraitImage({ sprites, species, emotion, num, className }) {
   const [step, setStep] = useState(0);
-  useEffect(() => { setStep(0); }, [species, emotion]);
-  if (!species || !sprites?.portrait || step > 1) return null;
-  const src = sprites.portrait(species, step === 0 ? emotion : "Normal", { num });
+  if (!species || !sprites) return null;
+  const portrait = step < 2 ? sprites.portrait?.(species, step === 0 ? emotion : "Normal", { num }) : "";
+  const src = portrait || sprites.fallback(species);
+  if (step > 2) return <span className={`b-portrait ${className}`} aria-label={species}>{species.slice(0, 2)}</span>;
   if (!src) return null;
-  return <img className={`b-portrait ${className}`} src={src} alt="" draggable={false} onError={() => setStep((s) => s + 1)} />;
+  return <img key={src} className={`b-portrait ${className}`} src={src} alt={species} draggable={false} onError={() => setStep((s) => s + 1)} />;
 }
 
 // how a Pokémon looks when its trainer speaks (bubble.mood), and on the result screen
@@ -223,16 +228,27 @@ export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "
   // a portrait that pops up for a moment: in pain at a K.O., determined when it Mega Evolves, uses a Z-Move or Terastallizes
   const [pop, setPop] = useState(null);
   useEffect(() => {
+    if (anim?.type === "switch") {
+      setPop((p) => p?.side === anim.side && p.slot === (anim.slot ?? 0) ? null : p);
+      return undefined;
+    }
     if (!anim || !["faint", "tera", "phase"].includes(anim.type)) return undefined;
-    const mon = activeOf(anim.side, anim.slot ?? 0) || leadOf(anim.side);
+    const slot = anim.slot ?? 0;
+    const mon = activeOf(anim.side, slot);
     if (!mon) return undefined;
     // a change of tactics: the band crosses the field with the trainer's line, for longer so it can be read
     const phase = anim.type === "phase";
-    setPop({ id: anim.id, side: anim.side, species: mon.species, emotion: anim.type === "faint" ? "Pain" : phase ? "Angry" : "Determined",
+    setPop({ id: anim.id, side: anim.side, slot, teamIndex: st.sides[anim.side].active[slot], epoch: player.abilityEpoch,
+      species: mon.species, emotion: anim.type === "faint" ? "Pain" : phase ? "Angry" : "Determined",
       cut: anim.type !== "faint", line: phase ? anim.line || t("phase_change") : "" });
-    const h = setTimeout(() => setPop((p) => (p && p.id === anim.id ? null : p)), anim.type === "faint" ? 1500 : phase ? 3200 : 1300);
-    return () => clearTimeout(h);
   }, [anim?.id]); // eslint-disable-line react-hooks/exhaustive-deps
+  // A new animation must not cancel the old portrait's expiry timer.
+  useEffect(() => {
+    if (!pop) return undefined;
+    const h = setTimeout(() => setPop(null), pop.cut ? (pop.line ? 3200 : 1300) : 1500);
+    return () => clearTimeout(h);
+  }, [pop]);
+  useEffect(() => { setPop(null); }, [player.abilityEpoch]);
   // what the trainers say on their own during the battle: their lines for a knockout, a fainted Pokémon, a super-effective hit or a
   // switch (seats[side].dialogue.on_*), and the lines the family's model wrote for the AI's moves (banter: [{turn, side, line}])
   const [auto, setAuto] = useState(null);
@@ -338,7 +354,7 @@ export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "
               <span>{said.text}</span>
             </div>
           )}
-          {pop && !ended && (
+          {pop && !ended && pop.epoch === player.abilityEpoch && st.sides[pop.side].active[pop.slot] === pop.teamIndex && activeOf(pop.side, pop.slot)?.species === pop.species && (
             <div key={pop.id} className={`b-pop-portrait ${pop.side === me ? "me" : "foe"}${pop.cut ? " is-cut" : ""}${pop.line ? " has-line" : ""}`} aria-hidden="true">
               <Portrait sprites={sprites} species={pop.species} emotion={pop.emotion} />
               {pop.line && <span className="b-pop-line">{pop.line}</span>}

@@ -21,6 +21,6 @@ def test_native_realtime_reconstructs_current_tick_not_future(services,call):
         p2={"name":"B","paste":"Mew\n- Splash","human":True},format_="gen9customgame",mode="realtime",seed="abilities")
     before=copy.deepcopy(services.store.battle(b["id"]))
     r=call("battle_abilities",{"id":b["id"]})
-    assert r["mode"] == "realtime" and r["version"] == 6 and r["tick"] == 0
+    assert r["mode"] == "realtime" and r["version"] == 7 and r["tick"] == 0
     assert any(e["ability"] == "Drizzle" and e["tick"] == 0 for e in r["activations"])
     assert services.store.battle(b["id"]) == before

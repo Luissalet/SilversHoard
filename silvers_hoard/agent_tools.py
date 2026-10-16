@@ -131,6 +131,8 @@ class RandomTeamArgs(BaseModel):
 class TrainersArgs(BaseModel):
     query: str = Field("", max_length=100)
     origin: Literal["", "own", "friend", "canon", "random"] = Field("", description="own = everything you made, the random trainers you rolled included.")
+    game: str = Field("", max_length=12, description="Game card id, e.g. swsh, sv, gsc. Empty = all games.")
+    region: str = Field("", max_length=30, description="Game region, e.g. Galar, Kanto, Hisui. Empty = all regions.")
 
 
 class LeaguesArgs(BaseModel):
@@ -972,7 +974,7 @@ TOOLS: list[Tool] = [
     Tool("team_random", _d("A random team from Showdown's random-battle sets. Equipo aleatorio.", synonyms="equipo al azar, random battle"),
          RandomTeamArgs, R, lambda s, a: s.random_team(a.format, a.seed)),
     Tool("trainers_list", _d("Trainers: name, title, team species, AI, avatar, record. Lista de entrenadores.",
-                             synonyms="entrenadores, personajes, npc, equipos guardados"), TrainersArgs, R, lambda s, a: {"trainers": s.trainers_list(a.query, a.origin)}),
+                             synonyms="entrenadores, personajes, npc, equipos guardados"), TrainersArgs, R, lambda s, a: {"trainers": s.trainers_list(a.query, a.origin, game=a.game, region=a.region)}),
     Tool("trainer_get", _d("One trainer with team details, Showdown text, recent battles and badges. Ver entrenador.",
                            synonyms="ficha, equipo completo"), IdArg, R, lambda s, a: s.trainer_get(a.id)),
     Tool("trainer_create", _d("Create a trainer from a team (Showdown text or sets) with AI, avatar and lines. Crear entrenador.",
@@ -1105,6 +1107,8 @@ TOOLS: list[Tool] = [
     Tool("battle_choose", _d("Send a person seat's choice: 'move 1', 'move 2 terastallize', 'switch 3', 'team 123456'. Elegir.",
                              synonyms="atacar, cambiar pokémon, movimiento"), ChooseArgs, W,
          lambda s, a: s.battle_choose(a.id, a.side, a.choice, since=a.since), 120.0),
+    Tool("battle_cancel", _d("Cancel an unfinished battle without a result. Cancelar combate.", synonyms="detener combate, cancelar partida"), IdArg, W,
+         lambda s, a: s.battle_cancel(a.id)),
     Tool("battle_forfeit", _d("Give up a live battle for one side. Rendirse.", synonyms="abandonar combate"), ForfeitArgs, W,
          lambda s, a: s.battle_forfeit(a.id, a.side, since=a.since)),
     Tool("pvp_open", _d("Open a room for a live battle with a friend on another computer. Combate en directo con un amigo.",
