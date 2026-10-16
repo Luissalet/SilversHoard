@@ -174,7 +174,7 @@ function SideBar({ side, align, lang, tr, avatarUrl, gauge, human = false, sprit
         {!side.units && mon && (
           <div className="rt-mon">
             <MonFace mon={mon} sprites={sprites} offline={offline} />
-            <b className="trunc">{mon.name}</b> <span className="help">Nv.{mon.level}</span>
+            <b className="trunc">{mon.name}</b> <span className="help">{tr("rt_lv")}{mon.level}</span>
             {mon.is_mega && <span className="rt-tag rt-tag-mega">{tr("rt_mega_on")}</span>}
             {mon.status && <span className="rt-status" style={{ background: STATUS_COLORS[mon.status] }}>{L(STATUS_NAMES[mon.status], lang)}</span>}
             {side.confused && <span className="rt-tag">{tr("rt_confused")}</span>}
@@ -397,6 +397,11 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
   const canvasRef = useRef(null);
   const wrapRef = useRef(null);
   const sim = useRef(null);
+  // the trainers' names as the screen shows them (the seats', in the reader's language) instead of the ones saved in the spec
+  const seatsRef = useRef(seats);
+  seatsRef.current = seats;
+  const nameSides = (b) => { for (const s of b?.sides || []) { const n = seatsRef.current?.[s.id]?.name; if (n) s.name = n; } };
+  useEffect(() => nameSides(sim.current?.b), [seats?.p1?.name, seats?.p2?.name]); // eslint-disable-line react-hooks/exhaustive-deps
   const [phase, setPhase] = useState("loading");
   const [progress, setProgress] = useState([0, 0]);
   const [credits, setCredits] = useState([]);
@@ -441,6 +446,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
   // build the battle, catch up a live one, load the sprites
   const build = useCallback((untilTick = 0) => {
     const b = new RtBattle(spec);
+    nameSides(b);
     const recorded = battle.rt.inputs || [];
     const state = { b, inputs: makeInputs(humans, readLayout()), held: new Set(), acc: 0, last: 0, logIndex: 0, saveAt: 0, savedLen: 0, replay: null, plusScan: 0 };
     for (const inp of state.inputs) if (inp) inp.ultMode = b.version >= 5;
@@ -919,7 +925,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
           <div className="b-replay">
             <button type="button" className="btn btn-sm" onClick={restart} title={tr("rt_restart")} aria-label={tr("rt_restart")}>⏮</button>
             <button type="button" className="btn btn-sm" onClick={() => setPhase((p) => (p === "playing" ? "replay-paused" : "playing"))}
-              aria-label={phase === "playing" ? "Pausa" : "Play"}>{phase === "playing" ? "⏸" : "▶"}</button>
+              aria-label={phase === "playing" ? tr("rt_ctrl_pause") : tr("rt_ctrl_play")}>{phase === "playing" ? "⏸" : "▶"}</button>
             <div className="rt-progress"><span style={{ width: `${Math.min(100, (view.seconds / Math.max(1, (battle.summary?.seconds || view.time_limit))) * 100)}%` }} /></div>
             <span className="help num">{fmtTime(view.seconds)}</span>
             <div className="seg" role="group" aria-label={tr("rt_speed")}>
