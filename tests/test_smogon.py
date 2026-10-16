@@ -116,3 +116,111 @@ def test_through_the_app(services, monkeypatch):
     services.settings_set({"smogon_data": False})
     services.smogon._mem.clear()
     assert services.smogon.enabled() is False
+
+
+# ---------------------------------------------------------------- popular sets for a team (17-10-2026)
+from silvers_hoard.smogon import CHAMPIONS, remote_name, set_from_usage  # noqa: E402
+
+CHAMP_SETS = {"Delphox": {"Wallbreaker": {"moves": [["Flamethrower", "Fire Blast"], "Psyshock", ["Dazzling Gleam", "Substitute"],
+                                                    ["Nasty Plot", "Substitute"]],
+                                          "item": "Delphoxite", "nature": "Timid", "evs": {"hp": 1, "def": 1, "spa": 32, "spe": 32}}}}
+PU_SETS = {"Delphox": {"Nasty Plot": {"moves": ["Nasty Plot", "Fire Blast", "Psyshock", "Grass Knot"], "item": "Heavy-Duty Boots",
+                                      "nature": "Timid", "evs": {"spa": 252, "spd": 4, "spe": 252}}}}
+ZU_STATS = {"battles": 10, "pokemon": {"Glaceon": {"usage": {"weighted": 0.0046}, "items": {"Nothing": 0.2, "Leftovers": 0.6},
+                                                   "abilities": {"Ice Body": 0.7}, "moves": {"Freeze-Dry": 0.9, "Wish": 0.8, "Protect": 0.7,
+                                                                                            "Calm Mind": 0.6, "Ice Beam": 0.1},
+                                                   "spreads": {"Bold:252/0/252/0/4/0": 0.3, "Calm:252/0/0/0/252/4": 0.2},
+                                                   "teraTypes": {"Water": 0.4}}}}
+NU_STATS = {"battles": 10, "pokemon": {"Glaceon": {"usage": {"weighted": 0.0009}, "moves": {"Tackle": 1}}}}
+CHAMP_STATS = {"battles": 10, "pokemon": {"Delphox": {"usage": {"weighted": 0.02}, "abilities": {"Blaze": 0.6, "Magician": 0.4}}}}
+
+
+class TeamSite(FakeSite):
+    FILES = {"sets/championsou.json": CHAMP_SETS, "sets/gen9pu.json": PU_SETS, "stats/gen9zu.json": ZU_STATS,
+             "stats/gen9nu.json": NU_STATS, "stats/gen9championsou.json": CHAMP_STATS}
+
+    def __call__(self, url):
+        self.calls.append(url)
+        tail = url.split("data.pkmn.cc/")[1]
+        if tail in self.FILES:
+            return 200, json.dumps(self.FILES[tail]).encode(), "application/json"
+        return super().__call__(url) if tail in ("sets/gen9ou.json", "stats/gen9ou.json") else (404, b"", "text/plain")
+
+
+def test_champions_files_and_points():
+    assert remote_name("stats", "championsou") == "gen9championsou" and remote_name("sets", "championsou") == "championsou"
+    assert remote_name("stats", "gen9ou") == "gen9ou"
+    assert "championsou" in CHAMPIONS
+    s = norm_set("x", {"moves": ["Tackle"], "evs": {"spa": 32, "spe": 2, "hp": 1}}, points=True)
+    assert s["evs"] == {"spa": 252, "spe": 12, "hp": 4}
+
+
+def test_a_mega_gets_the_set_that_holds_its_stone(tmp_path):
+    sm = Smogon(tmp_path / "s", TeamSite())
+    found = sm.popular_set("Delphox-Mega", "gen9nationaldexag", base="Delphox", item="Delphoxite")
+    assert found["format"] == "championsou" and found["source"] == "smogon"   # the PU set holds Heavy-Duty Boots: skipped
+    s = found["set"]
+    assert s["item"] == "Delphoxite" and s["moves"] == ["Flamethrower", "Psyshock", "Dazzling Gleam", "Nasty Plot"]
+    assert s["evs"] == {"hp": 4, "def": 4, "spa": 252, "spe": 252} and s["ability"] == "Blaze"
+    plain = sm.popular_set("Delphox", "gen9nationaldexag")
+    assert plain["format"] == "gen9pu" and plain["set"]["item"] == "Heavy-Duty Boots"
+
+
+def test_without_a_written_set_the_most_used_build_of_the_format_where_it_is_used_most(tmp_path):
+    sm = Smogon(tmp_path / "s", TeamSite())
+    found = sm.popular_set("Glaceon", "gen9nationaldexag")
+    assert found["source"] == "usage" and found["format"] == "gen9zu"      # 0.46 % in ZU beats 0.09 % in NU
+    s = found["set"]
+    assert s["moves"] == ["Freeze-Dry", "Wish", "Protect", "Calm Mind"] and s["item"] == "Leftovers" and s["ability"] == "Ice Body"
+    assert s["nature"] == "Bold" and s["evs"] == {"hp": 252, "def": 252, "spd": 4} and s["teraType"] == "Water"
+    assert sm.popular_set("Missingno", "gen9ou") is None
+
+
+def test_set_from_usage_handles_thin_data():
+    s = set_from_usage({"usage": 0.1, "moves": [["Nothing", 1]], "spreads": [["Serious:x/0", 1]]}, points=True, item="Gracidea")
+    assert s["moves"] == [] and s["item"] == "Gracidea" and s["nature"] == "Serious" and s["evs"] == {}
+
+
+from conftest import needs_engine  # noqa: E402
+
+
+@needs_engine
+def test_a_trainer_gets_a_team_of_popular_sets_from_names_as_written(services):
+    services.smogon.fetch = TeamSite()
+    t = services.trainer_create(name="Pablo", paste="Pikachu\n- Thunderbolt\n")
+    r = services.team_popular_sets(["Mega delphox ", "Glaceon"], trainer_id=t["id"])
+    assert r["saved"] and not r["unresolved"]
+    assert [m["species"] for m in r["members"]] == ["Delphox-Mega", "Glaceon"]
+    assert [m["source"] for m in r["members"]] == ["smogon", "usage"]
+    team = services.trainer_get(t["id"])["team"]
+    assert [x["species"] for x in team] == ["Delphox", "Glaceon"]           # a Mega is its base species holding the stone
+    assert team[0]["item"] == "Delphoxite" and team[0]["evs"]["spa"] == 252 and "Freeze-Dry" in team[1]["moves"]
+    assert "Delphoxite" in r["paste"]
+    # appending keeps what was there
+    more = services.team_popular_sets(["Glaceon"], trainer_id=t["id"], append=True)
+    assert more["saved"] and len(services.trainer_get(t["id"])["team"]) == 3
+
+
+@needs_engine
+def test_a_name_that_is_not_a_pokemon_saves_nothing(services):
+    services.smogon.fetch = TeamSite()
+    t = services.trainer_create(name="Rival", paste="Pikachu\n- Thunderbolt\n")
+    r = services.team_popular_sets(["Glaceon", "Glaceonn"], trainer_id=t["id"])
+    assert not r["saved"] and r["unresolved"][0]["asked"] == "Glaceonn" and "Glaceon" in r["unresolved"][0]["hint"]
+    assert [x["species"] for x in services.trainer_get(t["id"])["team"]] == ["Pikachu"]
+    with pytest.raises(SilverError):
+        services.team_popular_sets([], trainer_id=t["id"])
+
+
+@needs_engine
+def test_names_resolve_through_the_engine_and_sets_popular_takes_them(services):
+    assert services.resolve_species("Shaymin Forma Cielo")["name"] == "Shaymin-Sky"
+    assert services.resolve_species("Raichu alola")["name"] == "Raichu-Alola"
+    mega = services.resolve_species("Mega Delphox")
+    assert mega["name"] == "Delphox-Mega" and mega["base_species"] == "Delphox" and mega["required_item"] == "Delphoxite"
+    assert services.resolve_species("Charizard Mega X")["required_item"] == "Charizardite X"
+    with pytest.raises(SilverError):
+        services.resolve_species("Not a pokemon at all")
+    services.smogon.fetch = TeamSite()
+    r = services.sets_popular("Mega Delphox")
+    assert r["species"] == "Delphox-Mega" and r["team_species"] == "Delphox" and r["sets"][0]["item"] == "Delphoxite"

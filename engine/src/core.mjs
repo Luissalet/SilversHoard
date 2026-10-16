@@ -320,6 +320,22 @@ export function speciesInfo(name, gen = 9, format = '') {
   };
 }
 
+/** The first of `names` that is a Pokémon of the generation, with what a team needs to know about it: its base species
+ * and, for a Mega Evolution or a Primal Reversion, the item that triggers it (the team holds the base species with that item).
+ * Null when none of the names is one. */
+export function speciesResolve(names = [], gen = 9) {
+  const dex = Dex.forGen(gen);
+  for (const name of names) {
+    const sp = dex.species.get(String(name || ''));
+    if (!sp.exists) continue;
+    const item = sp.requiredItem || (sp.requiredItems && sp.requiredItems[0]) || '';
+    return {id: sp.id, name: sp.name, base_species: sp.baseSpecies || sp.name, forme: sp.forme || '', required_item: item,
+            mega: Boolean(sp.isMega) || /^Mega/.test(sp.forme || ''), primal: sp.forme === 'Primal', battle_only: Boolean(sp.battleOnly),
+            abilities: Object.values(sp.abilities || {})};
+  }
+  return null;
+}
+
 /** Type effectiveness multiplier of an attacking type against defending types, in a generation. */
 export function effectiveness(type, defTypes, gen = 9) {
   const dex = Dex.forGen(gen);

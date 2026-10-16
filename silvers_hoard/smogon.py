@@ -10,11 +10,24 @@ from pathlib import Path
 from typing import Any, Callable, Optional
 
 from .errors import SilverError
+from .species_names import ev_from_points
 
 BASE = "https://data.pkmn.cc"
 TTL_S = 7 * 24 * 3600
 MISSING_TTL_S = 24 * 3600
 TOP = {"items": 8, "abilities": 4, "moves": 12, "teammates": 8, "spreads": 4, "teraTypes": 6}
+# Pokémon Champions on data.pkmn.cc: the Mega Evolutions of Legends Z-A (Delphoxite, ...) have sets only there. Their spreads are
+# stat points (0-32), turned into EVs; their sets files have no "gen9" in the name and their usage files do.
+CHAMPIONS = ("championsou", "championsbattlestadiumsingles", "championsvgc2026")
+
+
+def _id(text: Any) -> str:
+    return re.sub(r"[^a-z0-9]", "", str(text or "").lower())
+
+
+def remote_name(kind: str, fmt: str) -> str:
+    """The file name of a format on data.pkmn.cc (Champions usage files carry the generation)."""
+    return f"gen9{fmt}" if kind == "stats" and fmt.startswith("champions") else fmt
 
 
 def _first(value: Any) -> Any:
@@ -49,10 +62,13 @@ def candidates(fmt: str) -> list[str]:
     return list(dict.fromkeys(x for x in out if x and "customgame" not in x))
 
 
-def norm_set(name: str, raw: dict[str, Any]) -> dict[str, Any]:
+def norm_set(name: str, raw: dict[str, Any], points: bool = False) -> dict[str, Any]:
+    """One set as the team builder shows it. `points`: the spread is Pokémon Champions' stat points, given as EVs."""
     moves = [m for m in raw.get("moves") or [] if m]
     evs = raw.get("evs")
     evs = _first(evs) if isinstance(evs, list) else (evs or {})
+    if points:
+        evs = {k: ev_from_points(v) for k, v in (evs or {}).items()}
     ivs = raw.get("ivs")
     ivs = _first(ivs) if isinstance(ivs, list) else (ivs or {})
     out = {
@@ -119,7 +135,7 @@ class Smogon:
             self._mem[key] = (now, value)
             return value
         try:
-            status, body, _ = self.fetch(f"{BASE}/{kind}/{fmt}.json")
+            status, body, _ = self.fetch(f"{BASE}/{kind}/{remote_name(kind, fmt)}.json")
         except Exception:  # noqa: BLE001 - offline: the old copy, if any
             status, body = 0, b""
         value: Optional[dict[str, Any]]
@@ -147,8 +163,9 @@ class Smogon:
         tmp.replace(path)
 
     def _find(self, kind: str, fmt: str, species: str = "") -> tuple[str, Optional[dict[str, Any]]]:
-        """The first candidate format with data (for `species`, when given; without one, only the closest formats)."""
-        for f in candidates(fmt) if species else candidates(fmt)[:3]:
+        """The first candidate format with data (for `species`, when given, Champions last; without one, only the closest
+        formats)."""
+        for f in [*candidates(fmt), *CHAMPIONS] if species else candidates(fmt)[:3]:
             data = self._load(kind, f)
             if not data:
                 continue
@@ -171,7 +188,7 @@ class Smogon:
         sets = []
         if data:
             raw = data["sets"][self._key(data["sets"], species)]
-            sets = [norm_set(name, s) for name, s in raw.items() if isinstance(s, dict)]
+            sets = [norm_set(name, s, points=used.startswith("champions")) for name, s in raw.items() if isinstance(s, dict)]
         u_fmt, stats = self._find("stats", fmt, species)
         usage = stats["pokemon"][self._key(stats["pokemon"], species)] if stats else None
         if usage and usage.get("abilities"):
@@ -202,3 +219,70 @@ class Smogon:
                 team.append({"species": row["species"], "name": "", **{k: s[k] for k in ("moves", "item", "ability", "nature", "evs", "ivs", "teraType")},
                              "level": s.get("level", 100), "set_name": s["name"]})
         return {"format": top["format"], "team": team}
+
+    def popular_set(self, species: str, fmt: str, *, base: str = "", item: str = "") -> Optional[dict[str, Any]]:
+        """The most popular set of `species` for a team in `fmt`: the first written Smogon set of the closest format that has
+        one (Champions last); without any, the most used build of the format where the species is used most. A Mega
+        Evolution's sets are its base species' (`base`) that hold its stone (`item`). None when there is nothing at all.
+        Returns {"set": {...}, "format", "source": "smogon" | "usage", "usage_format", "usage"}."""
+        look = base or species
+        want = _id(item)
+        formats = [*candidates(fmt), *CHAMPIONS]
+        for f in formats:
+            data = self._load("sets", f)
+            table = (data or {}).get("sets") or {}
+            key = self._key(table, look) or (self._key(table, species) if base else "")
+            if not key:
+                continue
+            found = [norm_set(name, s, points=f.startswith("champions")) for name, s in data["sets"][key].items() if isinstance(s, dict)]
+            if want:
+                found = [s for s in found if want in {_id(x) for x in s["item_options"] or [s["item"]]}]
+            if not found:
+                continue
+            chosen = found[0]
+            if want:
+                chosen["item"] = item
+            u_fmt, usage = self._usage_of(look, [f, *formats])
+            if usage and not chosen["ability"]:
+                chosen["ability"] = next((a for a, _ in usage.get("abilities") or [] if a and a != "Nothing"), "")
+            return {"set": chosen, "format": f, "source": "smogon", "usage_format": u_fmt, "usage": usage}
+        best: Optional[tuple[str, dict[str, Any]]] = None
+        for f in formats:
+            stats = self._load("stats", f)
+            key = self._key((stats or {}).get("pokemon") or {}, look) if stats else ""
+            if key and (best is None or stats["pokemon"][key]["usage"] > best[1]["usage"]):
+                best = (f, stats["pokemon"][key])
+        if best is None:
+            return None
+        built = set_from_usage(best[1], points=best[0].startswith("champions"), item=item)
+        return {"set": built, "format": best[0], "source": "usage", "usage_format": best[0], "usage": best[1]}
+
+    def _usage_of(self, species: str, formats: list[str]) -> tuple[str, Optional[dict[str, Any]]]:
+        for f in dict.fromkeys(formats):
+            stats = self._load("stats", f)
+            key = self._key((stats or {}).get("pokemon") or {}, species) if stats else ""
+            if key:
+                return f, stats["pokemon"][key]
+        return "", None
+
+
+def set_from_usage(u: dict[str, Any], *, points: bool = False, item: str = "") -> dict[str, Any]:
+    """A set made of what the ladder uses most with a species (trimmed usage, see trim_stats): its four most used moves, item,
+    ability, Tera type and spread ("Timid:0/0/0/252/4/252")."""
+    def top(key: str) -> str:
+        return next((x for x, _ in u.get(key) or [] if x and x != "Nothing"), "")
+
+    nature, evs = "", {}
+    spread = top("spreads")
+    if ":" in spread:
+        nature, numbers = spread.split(":", 1)
+        values = numbers.split("/")
+        if len(values) == 6:
+            evs = {k: int(v) for k, v in zip(("hp", "atk", "def", "spa", "spd", "spe"), values) if v.isdigit() and int(v)}
+    if points:
+        evs = {k: ev_from_points(v) for k, v in evs.items()}
+    moves = [m for m, _ in u.get("moves") or [] if m and m != "Nothing"][:4]
+    return {"name": "Most used", "moves": moves, "move_options": [[m] for m in moves], "item": item or top("items"),
+            "item_options": [item] if item else [x for x, _ in u.get("items") or [] if x and x != "Nothing"][:4],
+            "ability": top("abilities"), "ability_options": [x for x, _ in u.get("abilities") or [] if x], "nature": nature,
+            "nature_options": [nature] if nature else [], "evs": evs, "ivs": {}, "teraType": top("teraTypes"), "tera_options": []}

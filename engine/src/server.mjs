@@ -63,6 +63,7 @@ const handlers = {
   },
   dex_search: (a) => ({results: core.dexSearch(a.kind || 'species', a.query || '', {gen: a.gen || 9, limit: a.limit || 30, species: a.species || '', format: a.format || ''})}),
   species: (a) => core.speciesInfo(a.name, a.gen || 9, a.format || ''),
+  species_resolve: (a) => ({species: core.speciesResolve(a.names || [], a.gen || 9)}),
   damage_calc: (a) => damageCalc(a),
   practice_snapshot: (a) => practiceSnapshot(a.input, a.turn, a.side),
   practice_suggestions: (a) => practiceSuggestions(a.input, a.side, a.start_turn, a.turn_count, a.min_gap),

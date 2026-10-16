@@ -3397,8 +3397,119 @@ class Services:
 
     def sets_popular(self, species: str, format_: str = "") -> dict[str, Any]:
         """Smogon's sets of a species for a format (or the nearest one with data: National Dex for National Dex AG, the
-        generation's OU for custom games) and its usage on Showdown's ladder: items, abilities, moves, Tera types, teammates."""
-        return self.smogon.sets(species, self._sets_format(format_))
+        generation's OU for custom games, Pokémon Champions last) and its usage on Showdown's ladder: items, abilities, moves,
+        Tera types, teammates. The name may be written as a person writes it ("Mega Delphox", "Shaymin Forma Cielo"); a Mega
+        Evolution gets its base species' sets that hold its stone."""
+        fmt = self._sets_format(format_)
+        try:
+            sp = self.resolve_species(species, self._format_gen(fmt))
+        except SilverError:
+            return self.smogon.sets(species, fmt)
+        base, stone = self._mega_base(sp)
+        out = self.smogon.sets(base or sp["name"], fmt)
+        if stone:
+            want = re.sub(r"[^a-z0-9]", "", stone.lower())
+            out["sets"] = [{**x, "item": stone} for x in out["sets"] if want in {re.sub(r"[^a-z0-9]", "", str(i).lower()) for i in x["item_options"] or [x["item"]]}]
+            if not out["sets"]:
+                found = self.smogon.popular_set(sp["name"], fmt, base=base, item=stone)
+                if found:
+                    out.update({"sets": [found["set"]], "format": found["format"], "set_source": found["source"]})
+        out.update({"asked": species, "species": sp["name"], "team_species": base or sp["name"], "item_required": stone})
+        return out
+
+    # ------------------------------------------------------------ names and teams of popular sets
+    def _format_gen(self, fmt: str) -> int:
+        try:
+            return int(self.format_info(fmt).get("gen") or 9)
+        except SilverError:
+            m = re.match(r"gen(\d)", fmt or "")
+            return int(m.group(1)) if m else 9
+
+    def resolve_species(self, name: str, gen: int = 9) -> dict[str, Any]:
+        """A Pokémon written the way a person writes it ("Mega Delphox", "Shaymin Forma Cielo", "Raichu alola", "Alolan
+        Raichu") as Showdown's Pokédex knows it: name, base species, the item a Mega Evolution or Primal Reversion needs."""
+        from .species_names import candidates as name_candidates
+
+        names = name_candidates(name)
+        found = self.engine.call("species_resolve", {"names": names, "gen": gen})["species"] if names else None
+        if not found:
+            word = max(re.findall(r"[^\W\d_]{3,}", str(name or "")) or [str(name or "")], key=len)
+            near: list[str] = []
+            # a typo ("Glaceonn") matches nothing whole: shorter and shorter beginnings of the word until something does
+            for n in dict.fromkeys((len(word), len(word) - 1, 6, 5, 4, 3)):
+                if n < 3 or n > len(word):
+                    continue
+                try:
+                    near = [x["name"] for x in self.dex_search("species", word[:n], gen=gen, limit=6)]
+                except SilverError:
+                    near = []
+                if near:
+                    break
+            raise SilverError("unknown_species", f"Unknown Pokémon: {name}", hint=("Did you mean: " + ", ".join(near)) if near else "")
+        return found
+
+    @staticmethod
+    def _mega_base(sp: dict[str, Any]) -> tuple[str, str]:
+        """(base species, stone) for a Mega Evolution or Primal Reversion, which a team holds as its base species with the item;
+        ("", "") for anything else."""
+        if (sp.get("mega") or sp.get("primal")) and sp.get("required_item") and sp.get("base_species") != sp.get("name"):
+            return str(sp["base_species"]), str(sp["required_item"])
+        return "", ""
+
+    def team_popular_sets(self, species: list[str], *, trainer_id: str = "", format_: str = "", append: bool = False,
+                          save: bool = True) -> dict[str, Any]:
+        """A team of the given Pokémon, each with its most popular set (Smogon's written sets, Champions for the Mega
+        Evolutions of Legends Z-A, or the ladder's most used build when there is no written one). With a trainer it becomes
+        that trainer's team (or is added to it), unless a name is not a Pokémon: then nothing is saved and the names come
+        back with suggestions."""
+        names = [str(x).strip() for x in species or [] if str(x).strip()]
+        if not names:
+            raise SilverError("invalid", "Give at least one Pokémon.")
+        if len(names) > 24:
+            raise SilverError("invalid", "A team has at most 24 Pokémon.")
+        if not self.settings["smogon_data"]:
+            raise SilverError("invalid", "Popular sets are switched off (Settings, smogon_data).")
+        t = self.store.trainer(trainer_id) if trainer_id else None
+        fmt = format_ or (t["format"] if t else str(self.settings["default_format"]))
+        gen = self._format_gen(fmt)
+        team, members, problems = [], [], []
+        for asked in names:
+            try:
+                sp = self.resolve_species(asked, gen)
+            except SilverError as exc:
+                problems.append({"asked": asked, "error": exc.message, "hint": exc.hint})
+                continue
+            base, stone = self._mega_base(sp)
+            found = self.smogon.popular_set(sp["name"], fmt, base=base, item=stone)
+            if not found or not found["set"].get("moves"):
+                problems.append({"asked": asked, "species": sp["name"], "error": "No popular set or usage data for it.", "hint": ""})
+                continue
+            s = found["set"]
+            member = {"species": base or sp["name"], "name": "", "moves": s["moves"], "item": s["item"],
+                      "ability": s["ability"] or (sp["abilities"][0] if sp.get("abilities") else ""), "nature": s["nature"],
+                      "evs": s["evs"], "ivs": s["ivs"], "teraType": s["teraType"]}
+            if s.get("level"):
+                member["level"] = s["level"]
+            team.append(member)
+            members.append({"asked": asked, "species": sp["name"], "team_species": member["species"], "set_name": s["name"],
+                            "item": member["item"], "source": found["source"], "source_format": found["format"]})
+        out: dict[str, Any] = {"trainer_id": trainer_id, "format": fmt, "members": members, "unresolved": problems, "saved": False,
+                               "source": "Smogon sets and Showdown usage statistics via data.pkmn.cc"}
+        if not team:
+            out["team"] = []
+            return out
+        sets = self.import_team(team)["sets"]
+        self.check_team(sets, fmt)
+        out["team"] = sets
+        out["paste"] = self.export_team(sets)
+        if t and save and not problems:
+            new_team = [*(t.get("team") or []), *sets] if append else sets
+            if len(new_team) > 24:
+                raise SilverError("invalid", "A team has at most 24 Pokémon.")
+            view = self.trainer_update(t["id"], {"team": new_team})
+            self.emit("trainer.updated", {"id": t["id"]})
+            out.update({"saved": True, "trainer": {"id": view["id"], "name": view["name"], "species": view["species"]}})
+        return out
 
     def usage_top(self, format_: str = "", limit: int = 30) -> dict[str, Any]:
         return self.smogon.top(self._sets_format(format_), limit)
