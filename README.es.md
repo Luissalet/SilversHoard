@@ -130,3 +130,5 @@ Las seis filas de puntos de estadísticas tienen sliders arrastrables, además d
 Cambiar un miembro a otra especie crea un Pokémon limpio: movimientos, habilidad, objeto, naturaleza, mote, teratipo, género y variocolor vuelven a sus valores vacíos; los EV vuelven a cero y los IV a 31. Se conserva el nivel actual. Cambiar solo la escritura equivalente de la misma especie no reinicia el set.
 
 El selector de arenas de tiempo real de combate, serie y torneo muestra las arenas guardadas con miniaturas seleccionables de su suelo ilustrado y sus rocas reales. El editor y el selector comparten el mismo dibujo. Para elegir un suelo ilustrado en un combate hay que guardar una arena con él desde Arenas; un estilo de suelo por sí solo no crea una arena guardada.
+
+La exportación de vídeo conecta la captura de audio antes de cargar la repetición de tiempo real, para incluir en el MP4 la música que empieza mientras la repetición está en pausa. Los archivos exportados anteriormente deben exportarse de nuevo para incorporar esa música.
