@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-16T00:06:17Z",
+  "title": "Design System: Silver's Hoard",
+  "extensions": {
+    "colorMeta": {
+      "accent": { "role": "primary", "displayName": "Crimson action" },
+      "deep": { "role": "neutral", "displayName": "Warm dark canvas" },
+      "sunken": { "role": "neutral", "displayName": "Sunken field" },
+      "surface": { "role": "neutral", "displayName": "Warm card surface" },
+      "elevated": { "role": "neutral", "displayName": "Raised warm surface" },
+      "text": { "role": "neutral", "displayName": "Pale warm text" },
+      "danger": { "role": "semantic", "displayName": "Error border" }
+    },
+    "typographyMeta": {
+      "headline": { "displayName": "Page heading", "purpose": "Inherited serif page heading; 23px below 768px." },
+      "title": { "displayName": "Section heading", "purpose": "Compact sans-serif section titles." },
+      "body": { "displayName": "Body", "purpose": "Names and general interface content." },
+      "label": { "displayName": "Field label", "purpose": "Visible labels above native controls." }
+    },
+    "shadows": [
+      { "name": "hoard-shadow", "value": "0 8px 28px rgba(0, 0, 0, 0.38)", "purpose": "Inherited overlay token; trainer cards and picker use borders and tonal layering." },
+      { "name": "active-nav-desktop", "value": "inset 3px 0 0 var(--accent)", "purpose": "Inherited active desktop navigation indicator." },
+      { "name": "active-nav-mobile", "value": "inset 0 -2px 0 var(--accent)", "purpose": "Inherited active mobile navigation indicator." }
+    ],
+    "motion": [
+      { "name": "button-state", "value": "background 0.12s, border-color 0.12s", "purpose": "Inherited button hover transition; disabled under prefers-reduced-motion." },
+      { "name": "trainer-card-state", "value": "border-color 0.12s", "purpose": "Library card hover border transition; disabled under prefers-reduced-motion." }
+    ],
+    "breakpoints": [
+      { "name": "desktop-shell", "value": "768px" },
+      { "name": "hide-nav-icons-max", "value": "440px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Compact filled action; label is an illustrative existing UI label.",
+      "html": "<button class=\"ds-primary\" type=\"button\">Choose this team</button>",
+      "css": ".ds-primary{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:32px;padding:4px 12px;border-radius:var(--hoard-radius,8px);border:1px solid var(--accent,#e2404f);background:var(--accent,#e2404f);color:var(--hoard-accent-ink,#fff);font:600 13px/1.5 var(--hoard-font-sans,'Source Sans 3',sans-serif);cursor:pointer;white-space:nowrap;transition:background .12s,border-color .12s}.ds-primary:hover:not(:disabled){background:var(--hoard-accent-strong,#e76370);border-color:var(--hoard-accent-strong,#e76370)}.ds-primary:focus-visible{outline:2px solid var(--accent,#e2404f);outline-offset:1px}.ds-primary:disabled{opacity:.42;cursor:not-allowed}@media(prefers-reduced-motion:reduce){.ds-primary{transition:none}}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Bordered secondary action used beside the primary action.",
+      "html": "<button class=\"ds-secondary\" type=\"button\">Random trainer</button>",
+      "css": ".ds-secondary{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:32px;padding:4px 12px;border-radius:var(--hoard-radius,8px);border:1px solid var(--line,#433536);background:transparent;color:var(--ink,#ece1e2);font:600 13px/1.5 var(--hoard-font-sans,'Source Sans 3',sans-serif);cursor:pointer;white-space:nowrap;transition:background .12s,border-color .12s}.ds-secondary:hover:not(:disabled){background:var(--surface-2,#2f2526);border-color:var(--hoard-border-hover,#6a5859)}.ds-secondary:focus-visible{outline:2px solid var(--accent,#e2404f);outline-offset:1px}.ds-secondary:disabled{opacity:.42;cursor:not-allowed}@media(prefers-reduced-motion:reduce){.ds-secondary{transition:none}}"
+    },
+    {
+      "name": "Search Field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "Accessible trainer search field; native selects share its surface and border treatment.",
+      "html": "<input class=\"ds-field\" aria-label=\"Search trainers\" placeholder=\"Search by name, title or Pokémon\" />",
+      "css": ".ds-field{width:100%;min-width:0;min-height:32px;padding:5px 9px;border:1px solid var(--line,#433536);border-radius:var(--hoard-radius,8px);background:var(--field,#161011);color:var(--ink,#ece1e2);font:13px/1.5 var(--hoard-font-sans,'Source Sans 3',sans-serif)}.ds-field::placeholder{color:var(--dim,#a69b9c);opacity:.8}.ds-field:focus{border-color:var(--accent,#e2404f);outline:none}.ds-field:focus-visible{outline:2px solid var(--accent,#e2404f);outline-offset:1px}"
+    },
+    {
+      "name": "Navigation Link",
+      "kind": "nav",
+      "refersTo": "navigation",
+      "description": "Inherited active shell navigation; the mobile inset indicator runs along its bottom edge.",
+      "html": "<nav aria-label=\"Preview navigation\"><a class=\"ds-navigation\" href=\"#/entrenadores\" aria-current=\"page\">Trainers</a></nav>",
+      "css": ".ds-navigation{display:flex;align-items:center;gap:10px;min-height:38px;padding:0 12px;border-radius:var(--hoard-radius,8px);color:var(--muted,#beb4b5);font:500 14px/1.5 var(--hoard-font-sans,'Source Sans 3',sans-serif);text-decoration:none}.ds-navigation:hover,.ds-navigation[aria-current=page]{background:var(--hoard-elevated,#2f2526);color:var(--ink,#ece1e2)}.ds-navigation[aria-current=page]{box-shadow:inset 3px 0 0 var(--accent,#e2404f)}.ds-navigation:focus-visible{outline:2px solid var(--accent,#e2404f);outline-offset:1px}@media(max-width:767px){.ds-navigation{min-height:34px;font-size:13.5px;padding:0 11px}.ds-navigation[aria-current=page]{box-shadow:inset 0 -2px 0 var(--accent,#e2404f)}}"
+    },
+    {
+      "name": "Metadata Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Static origin or AI-level metadata; it has no interactive hover state.",
+      "html": "<span class=\"ds-chip\">From the games</span>",
+      "css": ".ds-chip{display:inline-flex;align-items:center;gap:5px;padding:1px 8px;border-radius:var(--hoard-radius-sm,6px);background:var(--surface-2,#2f2526);color:var(--muted,#beb4b5);font:600 11.5px/1.7 var(--hoard-font-sans,'Source Sans 3',sans-serif);white-space:nowrap}"
+    },
+    {
+      "name": "Trainer Card",
+      "kind": "card",
+      "refersTo": "trainer-card",
+      "description": "Linked library card. The source's real initial fallback is shown instead of introducing an image asset or fictional trainer record.",
+      "html": "<a class=\"ds-trainer-card\" href=\"#/entrenadores\"><span class=\"ds-avatar-fallback\" aria-hidden=\"true\">?</span><span class=\"ds-card-content\"><b>Trainer</b><small>Trainer title</small></span></a>",
+      "css": ".ds-trainer-card{display:flex;gap:12px;align-items:flex-start;padding:12px;background:var(--surface,#241b1c);border:1px solid var(--line,#433536);border-radius:var(--hoard-radius-lg,10px);color:var(--ink,#ece1e2);min-width:0;text-decoration:none;font:13.5px/1.5 var(--hoard-font-sans,'Source Sans 3',sans-serif);transition:border-color .12s}.ds-trainer-card:hover{border-color:var(--hoard-border-hover,#6a5859)}.ds-trainer-card:focus-visible{outline:2px solid var(--accent,#e2404f);outline-offset:1px}.ds-avatar-fallback{display:inline-grid;place-items:center;width:72px;height:72px;border-radius:10px;background:var(--accent-soft,rgba(226,64,79,.14));color:var(--accent,#e2404f);font-size:27.36px;font-weight:800;flex:none}.ds-card-content{min-width:0;flex:1}.ds-card-content b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ds-card-content small{display:block;color:var(--muted,#beb4b5);font-size:12.5px}@media(prefers-reduced-motion:reduce){.ds-trainer-card{transition:none}}"
+    },
+    {
+      "name": "Trainer Disclosure",
+      "kind": "custom",
+      "refersTo": "trainer-picker",
+      "description": "Native in-flow details/summary with the existing fallback portrait and rotating CSS chevron. Preview represents the disclosure shell only.",
+      "html": "<details class=\"ds-picker\"><summary class=\"ds-picker-summary\"><span class=\"ds-picker-avatar\" aria-hidden=\"true\">?</span><span class=\"ds-picker-name\">Choose a trainer…</span></summary><div class=\"ds-picker-body\">Search and labelled origin, region and game filters precede trainer choices.</div></details>",
+      "css": ".ds-picker{border:1px solid var(--line,#433536);border-radius:.6rem;color:var(--ink,#ece1e2);font:13.5px/1.5 var(--hoard-font-sans,'Source Sans 3',sans-serif)}.ds-picker-summary{display:flex;align-items:center;gap:.65rem;padding:.5rem;cursor:pointer;list-style:none}.ds-picker-summary::-webkit-details-marker{display:none}.ds-picker-summary:focus-visible{outline:2px solid var(--accent,#e2404f);outline-offset:1px}.ds-picker-name{flex:1;min-width:0;overflow-wrap:anywhere}.ds-picker-summary::after{content:'';width:.5rem;height:.5rem;margin:0 .5rem;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:rotate(45deg)}.ds-picker[open]>.ds-picker-summary::after{transform:rotate(225deg)}.ds-picker-avatar{display:inline-grid;place-items:center;width:48px;height:48px;font-size:18.24px;font-weight:800;flex:none;border-radius:10px;background:var(--accent-soft,rgba(226,64,79,.14));color:var(--accent,#e2404f)}.ds-picker-body{padding:.65rem;border-top:1px solid var(--line,#433536)}"
+    },
+    {
+      "name": "Library Error and Retry",
+      "kind": "custom",
+      "description": "Inherited accessible ErrorBox used for catalog and saved-library failures; demonstration message only.",
+      "html": "<div class=\"ds-error\" role=\"alert\">Catalog unavailable. <button type=\"button\" class=\"ds-retry\">Retry</button></div>",
+      "css": ".ds-error{border:1px solid color-mix(in srgb,var(--danger,#c4463a) 45%,transparent);border-radius:var(--hoard-radius,8px);padding:8px 12px;font:13px/1.5 var(--hoard-font-sans,'Source Sans 3',sans-serif);color:var(--ink,#ece1e2);background:var(--danger-bg,color-mix(in srgb,#c4463a 14%,transparent))}.ds-retry{background:none;border:0;padding:0;color:var(--accent,#e2404f);font:inherit;font-weight:600;cursor:pointer}.ds-retry:hover{text-decoration:underline}.ds-retry:focus-visible{outline:2px solid var(--accent,#e2404f);outline-offset:1px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Inherited Silver's Hoard visual system",
+    "overview": "This is a descriptive scan of the existing implementation, not a newly approved metaphor or replacement identity. Warm, dark brown surfaces, a crimson accent, serif page headings and compact sans-serif controls frame trainer portraits and Pokémon team strips. The interface uses dense, labelled controls and restrained borders to support selecting and managing trainers.\n\nThe documented change is limited to the shared visual trainer picker and saved trainer library. The surrounding shell, theme, assets and other screens remain inherited. Sources are `client/src/hoard-theme.css` (the `silver` palette), `client/src/index.css`, `client/src/app.css`, `client/src/components/silver.jsx` and `client/src/pages/Entrenadores.jsx`; the supplied desktop/mobile captures confirm the incumbent appearance. This scan does not establish new product strategy or claim an approved visual comp.",
+    "keyCharacteristics": [
+      "Warm dark surfaces with a single crimson action accent.",
+      "Serif page headings paired with compact sans-serif labels.",
+      "Trainer portraits and team sprites beside readable names.",
+      "Native disclosure and select controls with wrapping filter rows."
+    ],
+    "rules": [],
+    "dos": [
+      "Do reuse the inherited Silver palette and shared type stacks.",
+      "Do keep trainer portraits, names and team strips together in selection and library views.",
+      "Do retain labelled native selects, keyboard disclosure behavior and visible focus.",
+      "Do keep catalog failures actionable through an alert and Retry."
+    ],
+    "donts": [
+      "Don't infer a translated UI label from a saved trainer's name or overwrite names as part of UI localization.",
+      "Don't treat this focused scan as a redesign of inherited screens or completion of tasks #640 and #641.",
+      "Don't replace the established pixel portraits or warm dark/crimson identity during narrow refinements."
+    ]
+  }
+}
