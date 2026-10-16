@@ -8,6 +8,7 @@ import {Match} from '../src/match.mjs';
 import {playOut} from '../src/stats.mjs';
 import {practiceSnapshot} from '../src/practice.mjs';
 import {endState, frontierParty, hasStart, startFromInput} from '../src/frontier.mjs';
+import {RtBattle} from '../src/realtime/sim.mjs';
 
 const MINE = importTeam('Pikachu\nLevel: 50\n- Thunderbolt\n- Quick Attack\n\nGolem\nLevel: 50\n- Earthquake\n- Rock Slide\n\nMuk\nLevel: 50\n- Sludge Bomb\n- Rest');
 const THEIRS = importTeam('Snorlax\nLevel: 50\n- Body Slam\n- Weather Ball\n- Moonlight\n- Rain Dance\n\nJolteon\nLevel: 50\n- Thunderbolt\n\nCloyster\nLevel: 50\n- Surf');
@@ -98,4 +99,20 @@ test('frontier_party gives Gen 4 types, the ability the battle uses, max HP and 
   assert.equal(clefairy.maxhp, 145);
   assert.deepEqual(clefairy.moves.map((m) => m.pp), [8, 1]);
   assert.equal(sprigatito.gen, 9);
+});
+
+test('real time takes the starting HP, status and weather as well (PP, Trick Room and fog are turn-only)', () => {
+  const spec = {id: 'rt-start', seed: 'rt-start', format: 'gen4customgame', p1: {name: 'Yo', sets: MINE, ai: null},
+    p2: {name: 'Rival', sets: THEIRS, ai: {level: 'normal', style: 'balanced'}},
+    start: {p1: [{hp: 30, status: 'par'}, {hp_cut: 0.2}], p2: [{status: 'brn'}], field: {weather: 'raindance', trickroom: 5}}};
+  const b = new RtBattle(spec);
+  const [pika, golem] = b.sides[0].mons;
+  assert.deepEqual([pika.hp, pika.status], [30, 'par']);
+  assert.equal(golem.hp, golem.maxhp - (Math.floor(golem.maxhp * 1.2) - golem.maxhp));
+  assert.equal(b.sides[1].mons[0].status, 'brn');
+  assert.equal(b.weather.id, 'raindance');
+  const again = new RtBattle(spec);
+  assert.deepEqual(again.sides.map((s) => s.mons.map((m) => [m.hp, m.status])), b.sides.map((s) => s.mons.map((m) => [m.hp, m.status])));
+  const plain = new RtBattle({...spec, start: undefined});
+  assert.equal(plain.sides[0].mons[0].hp, plain.sides[0].mons[0].maxhp);
 });

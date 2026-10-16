@@ -279,6 +279,8 @@ export class RtBattle {
     // training (singles): the second seat is a dummy; nobody faints, a knockout sets the Pokémon back to full health instead
     this.training = !this.doubles && spec.training ? {pattern: String(spec.training.pattern || 'still')} : null;
     this.sides = ['p1', 'p2'].map((id, i) => this.makeSide(id, i, spec[id] || {}));
+    const startWeather = {sunnyday: 'sunnyday', raindance: 'raindance', sandstorm: 'sandstorm', hail: 'hail'}[spec.start?.field?.weather];
+    if (startWeather) this.weather = {id: startWeather, until: this.timeLimit};   // a starting weather lasts the whole battle
     if (!this.doubles) {
       // singles: each trainer is its own (only) slot
       for (const s of this.sides) {
@@ -381,6 +383,20 @@ export class RtBattle {
       itemUsed: false, cds: info.moves.map(() => 0), profiles: info.moves.map((m) => rtMove(m.id, this.gen)),
       dealt: 0, taken: 0, kos: 0, uses: 0, switchesIn: 0, choiceLock: -1, flashFire: false, airBalloon: info.item === 'airballoon',
     }));
+    // a starting state (engine/src/frontier.mjs, spec.start[id][slot]): HP (absolute, scaled when the max HP differs, or the Battle
+    // Arcade's cut) and a status; turn-only parts (PP, Trick Room, fog) have no real-time meaning and are left out
+    const start = Array.isArray(this.spec.start?.[id]) ? this.spec.start[id] : [];
+    mons.forEach((m, slot) => {
+      const st = start[slot];
+      if (!st || typeof st !== 'object') return;
+      if (Number.isFinite(st.hp)) m.hp = Math.max(1, Math.min(m.maxhp, Math.round(st.maxhp ? (st.hp * m.maxhp) / st.maxhp : st.hp)));
+      if (Number.isFinite(st.hp_cut) && st.hp_cut > 0) m.hp = Math.max(1, m.maxhp - (Math.floor(m.maxhp * (1 + st.hp_cut)) - m.maxhp));
+      if (['brn', 'par', 'psn', 'tox', 'slp', 'frz'].includes(st.status)) {
+        m.status = st.status;
+        m.toxN = st.status === 'tox' ? 1 : 0;
+        m.statusUntil = st.status === 'slp' ? 10 * TPS : st.status === 'frz' ? 3 * TPS : 0;
+      }
+    });
     return {id, index, name: String(seat.name || (index ? 'Player 2' : 'Player 1')).slice(0, 40), ai: seat.ai || null,
       aiRng: makeRng(`${this.seed}:${id}:ai`), mons, active: 0, x: HOME[index].x, y: HOME[index].y, fx: index ? -1 : 1, fy: 0,
       act: null, rollReady: 0, switchesLeft: MAX_SWITCHES, need: false, needSince: 0, vol: {}, cond: {}, hazards: {}, wish: null,
