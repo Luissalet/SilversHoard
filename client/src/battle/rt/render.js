@@ -8,6 +8,7 @@ import { Animator, dirRow, image, loadMeta } from "./pmd.js";
 import { Vfx } from "./vfx.js";
 import { Show, showSettings } from "./show.js";
 import { PLACE_FLOORS, drawAmbient, drawPlace } from "./places.js";
+import { ARENA_ART } from "./arena-art.js";
 import { playRtEvent } from "../sfx.js";
 import { rtMove } from "../../../../engine/src/realtime/moves.mjs";
 
@@ -153,7 +154,10 @@ export class ArenaRenderer {
   py(y) { return (y - WORLD.y0) * this.scale; }
 
   drawCourt(view) {
-    if (!this.court || this.court.w !== this.canvas.width) {
+    const floorId = view?.floor || "grass";
+    const art = ARENA_ART[floorId] ? image(ARENA_ART[floorId]) : null;
+    const artReady = !!art?.ready;
+    if (!this.court || this.court.w !== this.canvas.width || this.court.floor !== floorId || this.court.artReady !== artReady) {
       const c = document.createElement("canvas");
       c.width = this.canvas.width;
       c.height = this.canvas.height;
@@ -189,7 +193,10 @@ export class ArenaRenderer {
           x.stroke();
         }
       }
-      drawPlace(x, this, view?.floor);
+      if (artReady) {
+        x.drawImage(art.img, this.px(0), this.py(0), ARENA.w * s, ARENA.h * s);
+      }
+      drawPlace(x, this, floorId, artReady);
       // lines
       x.strokeStyle = "rgba(255,255,255,0.55)";
       x.lineWidth = Math.max(2, s * 0.08);
@@ -206,7 +213,7 @@ export class ArenaRenderer {
       x.fillRect(this.px(-2.3), this.py(ARENA.h / 2 - 2.2), 2.1 * s, 4.4 * s);
       x.fillRect(this.px(ARENA.w + 0.2), this.py(ARENA.h / 2 - 2.2), 2.1 * s, 4.4 * s);
       for (const rk of this.rocks) this.drawRock(x, rk);
-      this.court = { w: c.width, canvas: c };
+      this.court = { w: c.width, floor: floorId, artReady, canvas: c };
     }
     this.ctx.drawImage(this.court.canvas, 0, 0);
     const w = view.weather?.id;

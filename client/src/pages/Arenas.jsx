@@ -5,6 +5,7 @@ import { api } from "../api.js";
 import { useApp } from "../context.js";
 import { Busy, Empty, ErrorBox, Field, Icon, ICONS, Spinner, Switch, useBusy, useLoad } from "../components/ui.jsx";
 import { forgetCustomArenas } from "../battle/rt/ModeFields.jsx";
+import { ARENA_ART } from "../battle/rt/arena-art.js";
 
 const W = 28;
 const H = 17;
@@ -42,6 +43,7 @@ export function ArenaField({ floor = "grass", rocks = [], ghosts = [], selected 
       role="img" aria-label="arena">
       <rect x={-2.6} y={-0.6} width={W + 5.2} height={H + 1.2} fill="#1d2a22" />
       {Array.from({ length: W / 2 }, (_, i) => <rect key={i} x={i * 2} y={0} width={2} height={H} fill={i % 2 ? b : a} />)}
+      {ARENA_ART[floor] && <image href={ARENA_ART[floor]} x={0} y={0} width={W} height={H} preserveAspectRatio="none" pointerEvents="none" />}
       <rect x={0} y={0} width={W} height={H} fill="none" stroke="rgba(255,255,255,.55)" strokeWidth={0.08} />
       <line x1={W / 2} y1={0} x2={W / 2} y2={H} stroke="rgba(255,255,255,.55)" strokeWidth={0.08} />
       <circle cx={W / 2} cy={H / 2} r={2.6} fill="none" stroke="rgba(255,255,255,.55)" strokeWidth={0.08} />

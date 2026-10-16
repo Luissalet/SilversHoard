@@ -44,7 +44,7 @@ function rng(seed) {
 }
 
 /** The decor of a place, drawn once on the court's own canvas (x is its 2D context, r the renderer for px/py/scale). */
-export function drawPlace(x, r, floor) {
+export function drawPlace(x, r, floor, textured = false) {
   const p = PLACE_FLOORS[floor];
   if (!p) return;
   const s = r.scale;
@@ -97,8 +97,10 @@ export function drawPlace(x, r, floor) {
         x.fillStyle = "rgba(160,190,215,0.35)"; x.beginPath(); x.ellipse(cx, cy + rr * 0.2, rr * 1.3, rr * 0.25, 0, 0, Math.PI); x.fill();
       }
     }
-    x.strokeStyle = "rgba(150,180,205,0.35)"; x.lineWidth = Math.max(1, s * 0.04);
-    for (let i = 0; i < 40; i++) { const cx = r.px(rnd() * A.w), cy = r.py(rnd() * A.h), w = (0.6 + rnd() * 1.6) * s; x.beginPath(); x.ellipse(cx, cy, w, w * 0.12, 0, 0.2, Math.PI - 0.2); x.stroke(); }
+    if (!textured) {
+      x.strokeStyle = "rgba(150,180,205,0.35)"; x.lineWidth = Math.max(1, s * 0.04);
+      for (let i = 0; i < 40; i++) { const cx = r.px(rnd() * A.w), cy = r.py(rnd() * A.h), w = (0.6 + rnd() * 1.6) * s; x.beginPath(); x.ellipse(cx, cy, w, w * 0.12, 0, 0.2, Math.PI - 0.2); x.stroke(); }
+    }
   } else if (p.detail === "meteor") {
     // puddles on the cave floor, stalagmites and glowing crystals around it
     for (let i = 0; i < 9; i++) {
@@ -118,9 +120,11 @@ export function drawPlace(x, r, floor) {
     }
   } else if (p.detail === "champion") {
     // tiled floor, a golden emblem in the middle, red carpets at the ends and pillars at the corners
-    x.strokeStyle = "rgba(255,255,255,0.10)"; x.lineWidth = Math.max(1, s * 0.03);
-    for (let i = 1; i < A.w; i++) { x.beginPath(); x.moveTo(r.px(i), r.py(0)); x.lineTo(r.px(i), r.py(A.h)); x.stroke(); }
-    for (let j = 1; j < A.h; j++) { x.beginPath(); x.moveTo(r.px(0), r.py(j)); x.lineTo(r.px(A.w), r.py(j)); x.stroke(); }
+    if (!textured) {
+      x.strokeStyle = "rgba(255,255,255,0.10)"; x.lineWidth = Math.max(1, s * 0.03);
+      for (let i = 1; i < A.w; i++) { x.beginPath(); x.moveTo(r.px(i), r.py(0)); x.lineTo(r.px(i), r.py(A.h)); x.stroke(); }
+      for (let j = 1; j < A.h; j++) { x.beginPath(); x.moveTo(r.px(0), r.py(j)); x.lineTo(r.px(A.w), r.py(j)); x.stroke(); }
+    }
     const cx = r.px(A.w / 2), cy = r.py(A.h / 2);
     x.fillStyle = "rgba(230,190,70,0.85)";
     x.beginPath();
