@@ -27,7 +27,7 @@ def build(folder: Path) -> dict:
     def source(pattern, credit):
         path, = folder.glob(pattern)
         sid = str(len(sources))
-        sources[sid] = {"file": path.name, "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+        sources[sid] = {"file": path.relative_to(folder).as_posix(), "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
                         "credit": credit, "copyright": "Pokémon © Nintendo, Creatures, GAME FREAK"}
         return sid, Image.open(path).convert("RGBA")
 
@@ -63,7 +63,7 @@ def build(folder: Path) -> dict:
                         "width": im.width, "height": im.height,
                         "image": "data:image/png;base64," + base64.b64encode(stream.getvalue()).decode(), **extra}
 
-    def atlas(sid, id_, frames, name, es, members, *, fps=12):
+    def atlas(sid, id_, frames, name, es, members, *, fps=12, **extra):
         w,h=max(im.width for im in frames),max(im.height for im in frames)
         cols=min(8,len(frames))
         sheet=Image.new("RGBA",(w*cols,h*((len(frames)+cols-1)//cols)))
@@ -72,7 +72,7 @@ def build(folder: Path) -> dict:
         stream=io.BytesIO();sheet.save(stream,format="PNG",optimize=True)
         sprites[id_]={"name":name,"name_es":es,"group":"effect-atlas","source":sid,"rect":[0,0,sheet.width,sheet.height],
             "width":sheet.width,"height":sheet.height,"image":"data:image/png;base64,"+base64.b64encode(stream.getvalue()).decode(),
-            "frames":len(frames),"frame_width":w,"frame_height":h,"columns":cols,"fps":fps,"members":members}
+            "frames":len(frames),"frame_width":w,"frame_height":h,"columns":cols,"fps":fps,"members":members, **extra}
 
     bw = source("*Black _ White*Accessories.png", "redblueyellow (ripping); original sheet: no credit needed")
     rows = [
@@ -289,6 +289,74 @@ def build(folder: Path) -> dict:
                 frame.putdata([(r,g,b,0) if (r,g,b)==(255,0,255) else (r,g,b,a) for r,g,b,a in frame.getdata()])
                 frames.append(frame)
             atlas(sid,"fx-ranger-impact",frames,"Impact burst","Impacto",["17.png"],fps=16)
+    # The three newly supplied GBA sheets are byte-identical copies of Neslug's Ruby/Sapphire sheet.
+    gba_path=next(attack_folder.glob("*Ruby _ Sapphire*Move Effects.png"),None)
+    if gba_path:
+        gba=source("attacks/*Ruby _ Sapphire*Move Effects.png", "Neslug (ripping); original sheet requests credit and notes that palettes may not be exact")
+        sequences=[("blue-pulse",150,1123,5,"Blue pulse","Pulso azul"),
+                   ("flame",150,1284,8,"Flame","Llama"),("ember",241,1164,5,"Ember","Ascuas"),
+                   ("lightning",241,1325,4,"Lightning","Relámpago"),("ice-shatter",241,1454,4,"Ice fragments","Fragmentos de hielo"),
+                   ("gold-sparks",200,1164,5,"Golden sparks","Destellos dorados"),
+                   ("fire-burst",200,1325,5,"Fire burst","Estallido de fuego"),("hearts",200,1486,5,"Hearts","Corazones"),
+                   ("water-orbs",407,1449,5,"Water orbs","Esferas de agua")]
+        for label,x,y,count,name,es in sequences:
+            frames,rects=[],[]
+            for i in range(count):
+                rect=(x,y+i*32,x+32,y+(i+1)*32)
+                # These effect strips use a flat palette key, including the holes inside rings.
+                frame=gba[1].crop(rect)
+                bg=gba[1].getpixel((x,y))[:3]
+                frame.putdata([(r,g,b,0) if (r,g,b)==bg else (r,g,b,a) for r,g,b,a in frame.getdata()])
+                if not frame.getbbox():
+                    raise ValueError(f"Empty GBA frame: {label}/{i}")
+                frames.append(frame)
+                rects.append(list(rect))
+            atlas(gba[0],"fx-gba-"+label,frames,name,es,[],frame_rects=rects,generation=3)
+
+    # Titles are already transparent. Exclude the blue table rules and language/credit headers.
+    generic=[("Breakneck Blitz","Carrera Arrolladora"),("All-Out Pummeling","Ráfaga Demoledora"),
+             ("Supersonic Skystrike","Picado Supersónico"),("Acid Downpour","Diluvio Corrosivo"),
+             ("Tectonic Rage","Barrena Telúrica"),("Continental Crush","Aplastamiento Gigalítico"),
+             ("Savage Spin-Out","Guadaña Sedosa"),("Never-Ending Nightmare","Presa Espectral"),
+             ("Corkscrew Crash","Hélice Trepanadora"),("Inferno Overdrive","Hecatombe Pírica"),
+             ("Hydro Vortex","Hidrovórtice Abisal"),("Bloom Doom","Megatón Floral"),
+             ("Gigavolt Havoc","Gigavoltio Destructor"),("Shattered Psyche","Disruptor Psíquico"),
+             ("Subzero Slammer","Crioaliento Despiadado"),("Devastating Drake","Dracoaliento Devastador"),
+             ("Black Hole Eclipse","Agujero Negro Aniquilador"),("Twinkle Tackle","Arrumaco Sideral")]
+    special=[("Catastropika","Pikavoltio Letal"),("10,000,000 Volt Thunderbolt","Gigarrayo Fulminante"),
+             ("Stoked Sparksurfer","Surfeo Galvánico"),("Extreme Evoboost","Novena Potencia"),
+             ("Pulverizing Pancake","Arrojo Intempestivo"),("Genesis Supernova","Supernova Original"),
+             ("Sinister Arrow Raid","Aluvión de Flechas Sombrías"),("Malicious Moonsault","Hiperplancha Oscura"),
+             ("Oceanic Operetta","Sinfonía de la Diva Marina"),("Guardian of Alola","Cólera del Guardián"),
+             ("Soul-Stealing 7-Star Strike","Constelación Robaalmas"),("Splintered Stormshards","Tempestad Rocosa"),
+             ("Let's Snuggle Forever","Somanta Amistosa"),("Clangorous Soulblaze","Estruendo Implacable"),
+             ("Searing Sunraze Smash","Embestida Solar"),("Menacing Moonraze Maelstrom","Deflagración Lunar"),
+             ("Light That Burns the Sky","Fotodestrucción Apocalíptica")]
+    # Cell coordinates differ between the English sheets and their translated blocks.
+    sm_en=[(0,0),(0,2),(0,3),(0,4),(1,0),(1,1),(1,3),(1,5),(2,0),(2,2),(2,4)]
+    translated=[(0,0),(0,2),(0,3),(0,4),(0,5),(1,0),(1,1),(1,2),(1,3),(2,1),(2,5),
+                (1,4),(1,5),(2,0),(2,2),(2,3),(2,4)]
+    usum_en=[(0,0),(0,2),(0,3),(0,4),(1,0),(1,1),(1,3),(1,5),(2,0),(3,0),(3,5),
+             (2,2),(2,3),(2,4),(3,2),(3,3),(3,4)]
+    for variant,pattern in [("sm","attacks/3DS - Pokemon Sun _ Moon*Z-Move Titles.png"),
+                            ("usum","attacks/*Ultra Sun*Z-Move Titles.png")]:
+        if not list(folder.glob(pattern)):
+            continue
+        sheet=source(pattern,"Random Talking Bush (ripping); The Spriters Resource / Sprite Database, as credited on the sheet")
+        for lang in ("en","es"):
+            generic_y=1 if variant=="sm" and lang=="en" else 3918 if variant=="sm" else 1029 if lang=="en" else 5713
+            special_y=388 if variant=="sm" and lang=="en" else 4305 if variant=="sm" else 1 if lang=="en" else 4942
+            positions=sm_en if variant=="sm" and lang=="en" else usum_en if lang=="en" else translated
+            if variant=="sm" and lang=="es":
+                positions=[(0,0),(0,2),(0,3),(0,4),(0,5),(1,0),(1,1),(1,2),(1,3),(1,4),(1,5)]
+            cards=[(name,es,i//6,i%6,generic_y,128) for i,(name,es) in enumerate(generic)]
+            cards += [(name,es,*pos,special_y,256) for (name,es),pos in zip(special,positions)]
+            for name,es,row,col,y,height in cards:
+                move=re.sub(r"[^a-z0-9]","",name.lower())
+                x=col*513+1;top=y+row*(height+1)
+                cut(sheet,f"z-{variant}-{lang}-{move}",(x,top,x+512,top+height),name,es,"z-move-title",
+                    move=move,lang=lang,variant=variant)
+
     # Inventory every supplied file, including sheets not yet connected to a game surface.
     source_hashes={s["sha256"] for s in sources.values()}
     inventory=[{"file":p.relative_to(folder).as_posix(),"sha256":hashlib.sha256(p.read_bytes()).hexdigest(),

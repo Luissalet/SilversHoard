@@ -6,6 +6,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { TYPE_COLORS, nameOf, typeName } from "./dex.js";
 import { battleT } from "./strings.js";
 import { clickSound } from "../audio.js";
+import { moveCardFor } from "./move-cards.js";
+import { suppliedSprites } from "../components/SuppliedSprite.jsx";
 
 function parseCondition(cond) {
   const [hp, status] = String(cond || "").split(" ");
@@ -35,13 +37,15 @@ function PartyPicture({ species, spriteid, sprites }) {
   return <img key={`${failed}:${src}`} src={src} alt={species} className={`b-mon-icon ${sprites.pixelated ? "pixelated" : ""}`} onError={() => setFailed((n) => n + 1)} />;
 }
 
-function MoveButton({ move, onClick, disabled, lang, t, selected }) {
+function MoveButton({ move, onClick, disabled, lang, t, selected, zMove = false }) {
   const color = TYPE_COLORS[move.type] || "#777";
   const cat = move.category === "Physical" ? t("physical") : move.category === "Special" ? t("special") : t("status_cat");
   const tip = [move.desc, move.power ? `${t("power")}: ${move.power}` : "", move.accuracy ? `${t("accuracy")}: ${move.accuracy}%` : ""].filter(Boolean).join(" · ");
+  const card = zMove ? suppliedSprites[moveCardFor(move.move, lang, "sm")] : null;
   return (
     <button type="button" className={`b-move ${selected ? "is-selected" : ""}`} style={{ "--type": color }} disabled={disabled} onClick={onClick} title={tip}>
       <span className="b-move-name">{nameOf("move", move.move, lang)}</span>
+      {card && <img src={card.image} alt="" aria-hidden="true" draggable={false} style={{width:"100%",height:42,objectFit:"contain"}} />}
       <span className="b-move-meta">
         <span className="b-type" style={{ background: color }}>{typeName(move.type, lang)}</span>
         <span>{cat}{move.power ? ` · ${move.power}` : ""}</span>
@@ -192,7 +196,7 @@ export default function Controls({ request, lang = "es", sprites, gametype = "si
           {moves.map((m, i) => {
             const z = zmoves ? zmoves[i] : null;
             if (zmoves && !z) return <MoveButton key={i} move={m} lang={lang} t={t} disabled />;
-            return <MoveButton key={i} move={z ? { ...m, move: z.move, type: z.type || m.type, power: 0 } : m} lang={lang} t={t} disabled={busy || m.disabled || (m.maxpp && m.pp <= 0)} onClick={() => pickMove(m, i)} />;
+            return <MoveButton key={i} move={z ? { ...m, move: z.move, type: z.type || m.type, power: 0 } : m} zMove={!!z} lang={lang} t={t} disabled={busy || m.disabled || (m.maxpp && m.pp <= 0)} onClick={() => pickMove(m, i)} />;
           })}
         </div>
       )}
