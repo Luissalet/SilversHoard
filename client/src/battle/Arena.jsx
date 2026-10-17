@@ -162,6 +162,7 @@ function PortraitImage({ sprites, species, emotion, num, className }) {
 const MOOD = { intro: "Determined", win: "Joyous", lose: "Sad", last: "Determined", on_ko: "Joyous", on_faint: "Sad", on_super: "Happy",
   on_switch: "Determined", last_low: "Worried", after: "Normal", banter: "Normal" };
 const other = (side) => (side === "p1" ? "p2" : "p1");
+const newTalk = (lines) => ({ lines, at: 0, faint: { p1: 0, p2: 0 }, switched: { p1: 0, p2: 0 }, lastSwitch: { p1: 0, p2: 0 }, last: { p1: false, p2: false }, low: { p1: false, p2: false }, shown: new Set() });
 
 export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "es", exact = true, children, bubble, toolbar, backdrop = "", banter = null }) {
   const t = battleT(lang);
@@ -256,7 +257,14 @@ export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "
   // switch (seats[side].dialogue.on_*), for sending their last Pokémon (last) and for that one falling to half its HP (last_low, once),
   // and the lines the family's model wrote for the AI's moves (banter: [{turn, side, line}])
   const [auto, setAuto] = useState(null);
-  const talk = useRef({ at: 0, faint: { p1: 0, p2: 0 }, switched: { p1: 0, p2: 0 }, lastSwitch: { p1: 0, p2: 0 }, last: { p1: false, p2: false }, low: { p1: false, p2: false }, shown: new Set() });
+  const talk = useRef(newTalk(player.lines));
+  const atStart = st.turn === 0;
+  useEffect(() => {
+    if (talk.current.lines !== player.lines || atStart) {
+      talk.current = newTalk(player.lines);
+      setAuto(null);
+    }
+  }, [player.lines, atStart]);
   const say = (side, text, mood) => {
     const k = talk.current;
     if (!text || Date.now() - k.at < 2500) return false;
@@ -299,7 +307,7 @@ export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "
     const fresh = banter.filter((x) => (x.turn === st.turn || x.turn === st.turn - 1) && !k.shown.has(`${x.turn}${x.side}`));
     const pick = fresh[fresh.length - 1];
     if (pick && say(pick.side, pick.line, "banter")) k.shown.add(`${pick.turn}${pick.side}`);
-  }, [st.turn, banter?.length]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [st.turn, banter?.length, player.lines]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (!auto) return undefined;
     const h = setTimeout(() => setAuto((a) => (a && a.id === auto.id ? null : a)), 3200);
