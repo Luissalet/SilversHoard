@@ -36,7 +36,7 @@ const ARENA = {
   floor_meteor: ["Cascada Meteoro", "Meteor Falls"],
   floor_champion: ["Sala del campeón", "Champion's room"],
   floor_castle: ["Castillo", "Castle"],
-  rt_show_crowd: ["Público de Pokémon del lugar en los bordes de la arena (salta con los golpes grandes)", "Pokémon of the place watching from the edges (they jump on big blows)"],
+  rt_show_crowd: ["Público aleatorio de entrenadores y Pokémon del lugar en los bordes de la arena (salta con los golpes grandes)", "Random trainers and local Pokémon watching from the edges (they jump on big blows)"],
   rt_show_talk: ["Los entrenadores dicen sus frases en bocadillos durante el combate", "Trainers say their lines in speech bubbles during the battle"],
   arena_save: ["Guardar arena", "Save arena"],
   arena_saved: ["Arena guardada.", "Arena saved."],
