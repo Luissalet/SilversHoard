@@ -206,7 +206,7 @@ class DuplicateArgs(BaseModel):
 class DialogueWriteArgs(BaseModel):
     id: str = IdField
     personality: str = Field("", max_length=400)
-    lang: Literal["es", "en"] = "es"
+    lang: Literal["es", "en"] = "en"
 
 
 class CreditsArgs(BaseModel):
@@ -227,7 +227,7 @@ class CanonArgs(BaseModel):
 class CanonInstallArgs(BaseModel):
     trainer_key: str = Field("", max_length=60, description="One in-game trainer (key from canon_list).")
     league_key: str = Field("", max_length=60, description="A whole league: its gyms, badges, Elite Four and champion.")
-    lang: Literal["es", "en"] = Field("es", description="A league of the HeartGold/SoulSilver games: the language of the lines its trainers say.")
+    lang: Literal["es", "en"] = Field("en", description="A league of the HeartGold/SoulSilver games: the language of the lines its trainers say.")
 
 
 class HgssRomArgs(BaseModel):
@@ -263,7 +263,7 @@ class CharacterInstallArgs(BaseModel):
     custom: bool = Field(False, description="An own team for the character: the chosen team as a start (or empty without variant), to edit freely.")
     ai_level: str = Field("", max_length=12)
     ai_style: str = Field("", max_length=12)
-    lang: Literal["es", "en"] = "es"
+    lang: Literal["es", "en"] = "en"
     avatar: str = Field("", max_length=120, description="Instead of a sprite: file:<name>, a picture of your own (avatar_images; its official art after avatar_from_url or the app's picture dialog).")
     art: str = Field("", max_length=200, description="The official artwork that avatar is (its wiki file name), so the same choice gives back the same trainer.")
 

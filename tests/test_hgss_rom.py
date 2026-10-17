@@ -199,7 +199,7 @@ def test_a_cartridge_team_installs_with_its_ai_its_lines_and_its_mark(call):
     assert falkner["dialogue"] and "pret/pokeheartgold" in falkner["notes"] and "Bulbapedia" not in falkner["notes"]
     silver = call("character_install", {"key": "silver", "variant": "hgssfirstbattlechikorita"})["trainer"]
     assert (silver["ai_level"], silver["ai_style"]) == ("easy", "balanced")              # flags 1: basic only
-    whitney = call("character_install", {"key": "whitney", "variant": "hgssgymbattle"})["trainer"]
+    whitney = call("character_install", {"key": "whitney", "variant": "hgssgymbattle", "lang": "es"})["trainer"]
     assert whitney["dialogue"]["last_low"] == "¡Ay, pobre de mí!" and whitney["dialogue"]["lose"] == "Ugh..."
     assert whitney["team"][1]["item"] == "Lum Berry" and whitney["team"][1]["ivs"]["hp"] == 12
     # the player's own choice wins over the cartridge's; English lines come with lang en
@@ -235,7 +235,7 @@ def test_the_hgss_leagues_come_with_their_gym_trainers_and_maps(call, services):
     assert "kanto-hgss" in listed and len(listed["kanto-hgss"]["gyms"]) == 8 and listed["kanto-hgss"]["gyms"][6]["city_es"] == "Islas Espuma"
     assert listed["kanto-hgss"]["gyms"][7]["leader"] == "char:blue"
     for key in ("johto-hgss", "kanto-hgss"):
-        lg = call("canon_install", {"league_key": key})["league"]
+        lg = call("canon_install", {"league_key": key, "lang": "es"})["league"]
         assert len(lg["gyms"]) == 8 and lg["badges_required"] == 8 and len(lg["elite_four"]) == 4 and lg["champion_id"], key
     gyms = {g["canon_key"]: g for g in services.store.gyms() if g.get("canon_key")}
     assert len(gyms) == 16
