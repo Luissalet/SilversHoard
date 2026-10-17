@@ -71,6 +71,8 @@ function Challenge({ data, lang, setLang, t }) {
   const [results, setResults] = useState([]);
   const [code, setCode] = useState({ short: "", full: "" });
   const [copied, setCopied] = useState(false);
+  const [includeTeamText, setIncludeTeamText] = useState(false);
+  const resultDate = useRef("");
   // how the friend may fight: the owner chose when exporting (turns, real time, or "choose": the friend picks for each battle)
   const rtInfo = data.rt && typeof data.rt === "object" ? data.rt : null;
   const allowed = !rtInfo || data.mode === "turns" ? "turns" : data.mode === "realtime" ? "realtime" : "choose";
@@ -127,6 +129,8 @@ function Challenge({ data, lang, setLang, t }) {
     if (!sets || !name.trim()) return;
     try { localStorage.setItem("silver-play-name", name.trim()); } catch { /* not critical */ }
     setResults([]);
+    setIncludeTeamText(false);
+    resultDate.current = "";
     setStage(0);
     setSeq(all.map((_, i) => i));
     try { localStorage.removeItem(`silver-play-walk-${target.source_id}-${name.trim()}`); } catch { /* not critical */ }
@@ -160,12 +164,17 @@ function Challenge({ data, lang, setLang, t }) {
 
   useEffect(() => {
     if (phase !== "done") return;
+    let cancelled = false;
+    setCode({ short: "", full: "" });
+    setCopied(false);
+    if (!resultDate.current) resultDate.current = new Date().toISOString();
     const won = results.length === stages.length && results.every((r) => r.won);
     const withRt = results.some((r) => r.rt);
     const base = {
       kind, gym_id: kind === "gym" ? target.source_id : "", gym_name: kind === "gym" ? target.name : "", trainer_id: kind === "trainer" ? target.source_id : "",
       trainer_name: kind === "trainer" ? target.name : "", challenger: name.trim(), won, turns: results.reduce((a, r) => a + r.turns, 0),
-      date: new Date().toISOString(), team: sets, team_paste: sets ? exportTeam(sets) : "",
+      date: resultDate.current, team: sets,
+      ...(includeTeamText && sets ? { team_paste: exportTeam(sets) } : {}),
       // each battle travels with its record (the real-time replay, or the turn-based input log): the app plays it again
       stages: results.map((r) => (r.rt ? { name: r.opponent, won: r.won, turns: 0, mode: "realtime", rt: r.rt }
         : { name: r.opponent, won: r.won, turns: r.turns, ...(r.input ? { input: r.input, rng: r.rng, forfeit: r.forfeit || "" } : {}) })),
@@ -181,12 +190,13 @@ function Challenge({ data, lang, setLang, t }) {
         const log = results.flatMap((r) => r.lines);
         const full = prefix + await deflateB64(JSON.stringify({ ...base, log }));
         const short = withRt && !log.length ? full : prefix + await deflateB64(JSON.stringify(base));
-        setCode({ short, full });
+        if (!cancelled) setCode({ short, full });
       } catch {
-        setCode({ short: "", full: "" });
+        if (!cancelled) setCode({ short: "", full: "" });
       }
     })();
-  }, [phase]); // eslint-disable-line react-hooks/exhaustive-deps
+    return () => { cancelled = true; };
+  }, [phase, includeTeamText]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const header = (
     <header className="p-head">
@@ -270,6 +280,12 @@ function Challenge({ data, lang, setLang, t }) {
           <div className="space-y-2 w-full">
             <b>{t("result_code")}</b>
             <p className="help">{t("result_help", { name: owner || target.name })}</p>
+            <label className="flex min-h-11 items-center gap-2 text-left">
+              <input type="checkbox" checked={includeTeamText} onChange={(e) => setIncludeTeamText(e.target.checked)} />
+              {t("include_team_text")}
+            </label>
+            <p className="help">{t("include_team_text_help")}</p>
+            <p className="help num" role="status">{code.short ? t("result_code_size", { n: code.short.length }) : t("preparing_result")}</p>
             {results.some((r) => r.rt) && !code.short && <div className="banner banner-warn">{t("rt_code_unavailable")}</div>}
             {code.short.length > LONG_CODE && <div className="banner banner-info">{t("code_long", { n: code.short.length })}</div>}
             <textarea className="field" rows={4} readOnly value={code.short} onFocus={(e) => e.target.select()} />

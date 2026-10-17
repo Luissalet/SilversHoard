@@ -808,6 +808,8 @@ const D = {
   no_challenges: ["Sin retos.", "No challenges."],
 
   // share
+  result_team_text: ["Equipo incluido en el resultado", "Team included with the result"],
+  result_team_save: ["Guardar como entrenador", "Save as trainer"],
   share_help: ["Pega un código, un ejercicio, un resultado de un amigo o un equipo de Showdown, o sube un archivo .hoardtrainer, .hoardgym, .hoardleague, .silverexercise o una página jugable.", "Paste a code, an exercise, a friend's result or a Showdown team, or upload a .hoardtrainer, .hoardgym, .hoardleague, .silverexercise file or a playable page."],
   import_paste: ["Pegar", "Paste"],
   import_paste_ph: ["SILVER1-…, SILVERWIN1-…, SILVERMASS1-…, JSON, un equipo de Showdown o un enlace de pokepast.es", "SILVER1-…, SILVERWIN1-…, SILVERMASS1-…, JSON, a Showdown team or a pokepast.es link"],

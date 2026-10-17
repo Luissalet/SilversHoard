@@ -63,6 +63,8 @@ Un simulador de combates Pokémon local de la familia Hoard. Funciona con el mot
 - **Frases con IA.** El modelo de la familia (por Hoard Hub: las Sparks, Faustus u Ollama) escribe las cuatro frases de un entrenador a partir de su equipo y de la personalidad que describas. Los entrenadores tienen además cuatro frases que dicen solos durante el combate (cuando su Pokémon deja K.O. a otro, cuando cae uno de los suyos, con un golpe muy eficaz y al cambiar), en la app y en la página jugable; y con el ajuste «La IA comenta sus jugadas», el modelo escribe en segundo plano una frase en personaje para cada jugada de la IA (una por turno, sin parar nunca el combate).
 - **Familia.** El copiloto de Faustus en todas las páginas, un servidor MCP con 174 herramientas (`mcp_server.py`), eventos en el bus de la familia y el aspecto común de los Hoards.
 
+- **Incluir el equipo en el resultado.** La página jugable ofrece una copia opcional del equipo en texto Showdown, desactivada en cada intento nuevo. Muestra los caracteres reales del código y añadir el texto lo alarga. Los datos de la repetición siguen incluyendo el equipo estructurado. Al importar el resultado con texto puedes copiar su equipo canónico o guardarlo expresamente como entrenador, con un nombre editable; importar por sí solo no crea entrenadores. Las dos presentaciones de una misma partida cuentan una sola vez y se conservan los códigos antiguos.
+
 ## Qué no hace
 
 - No hay combates en línea entre dos copias de la app: tus amigos juegan tus gimnasios y entrenadores contra la IA en la página jugable y te mandan el resultado.
@@ -158,5 +160,7 @@ La exportación de vídeo conecta la captura de audio antes de cargar la repetic
 Los trabajos de vídeo informan de la duración del MP4 o WebM terminado, redondeada a décimas de segundo, cuando ffprobe puede leerla. Si no hay metadatos de duración legibles, conservan la estimación del grabador. También se aplica a los vídeos de batallas campales.
 
 Al editar un equipo, cada Pokémon tiene su botón **Sets de Smogon**. Elige una variante publicada y **Aplicar set** para rellenar solo los movimientos, objeto, habilidad, naturaleza, EV, IV y teratipo de ese miembro; después guarda el equipo. Los demás conservan sus sets. **Equipo de muestra** sigue siendo una acción distinta que sustituye la plantilla.
+
+La presentación VS de tiempo real espera a que esté disponible la imagen del entrenador, el retrato o el sprite de combate, hasta 1,5 segundos. Una descarga lenta todavía puede dejar vacíos los primeros fotogramas; véase la [carga de imágenes](docs/RT_INTRO.md).
 
 Rayo Hielo y proyectiles como Canto Helado y Carámbano usan arte original animado en combates de tiempo real, vídeos y páginas jugables. Se conservan los efectos sencillos y la alternativa mientras carga la imagen. El PNG original, el WebP sin pérdida, el prompt y las instrucciones de reconstrucción están en la [procedencia del arte de hielo](client/src/battle/rt/art/ice/PROVENANCE.md).

@@ -3064,7 +3064,13 @@ class Services:
             return {"kind": "exercise", "exercise": self.training.import_(json.dumps(candidate))}
         kind, payload = sharing.parse_any(content)
         if kind == "result":
-            return {"kind": "result", **self.import_result(payload)}
+            included = payload.get("team_paste")
+            team_text = self._result_team_text(payload) if isinstance(included, str) and included.strip() else ""
+            out = {"kind": "result", **self.import_result(payload)}
+            if team_text:
+                target = out.get("gym") or out.get("trainer") or {}
+                out.update(team_paste=team_text, team_format=target.get("format") or "")
+            return out
         if kind == "mass_result":
             return {"kind": "mass_result", **self.mass.import_result(payload)}
         if kind == "mass_page":
@@ -3096,7 +3102,7 @@ class Services:
         played in real time come with their replay: they are replayed here and what the replay says is what counts."""
         stages_in = r.get("stages") if isinstance(r.get("stages"), list) else []
         fp = self._result_fingerprint(r)
-        self._check_new_result(fp)
+        self._check_new_result(fp, r)
         if r.get("v") in (2, 3) or r.get("weekly") or any(isinstance(x, dict) and (x.get("rt") or x.get("input")) for x in stages_in):
             return self._import_rt_result(r)
         kind = r.get("kind")
@@ -3204,7 +3210,7 @@ class Services:
                 raise SilverError("invalid", "The order of the battles in this result is damaged.")
             order = [by_id[i] for i in walked]
         fp = self._result_fingerprint(r)
-        self._check_new_result(fp)
+        self._check_new_result(fp, r)
         week = str(r.get("weekly") or "")
         if week and not WEEK_RE.match(week):
             raise SilverError("invalid", "The week of this challenge is damaged.")
@@ -3363,10 +3369,32 @@ class Services:
 
     @staticmethod
     def _result_fingerprint(r: dict[str, Any]) -> str:
-        return sharing.fingerprint({k: v for k, v in r.items() if k != "log"})
+        return sharing.fingerprint({k: v for k, v in r.items() if k not in ("log", "team_paste")})
 
-    def _check_new_result(self, fp: str) -> None:
-        seen = self.store.friend_result_by_fingerprint(fp)
+    def _result_team_text(self, r: dict[str, Any]) -> str:
+        team = r.get("team")
+        if not isinstance(team, list) or not team or not all(isinstance(x, dict) for x in team):
+            return ""
+        try:
+            return self.export_team(team)
+        except SilverError:
+            # Old, unverified codes still import when their optional text cannot be reconstructed.
+            return ""
+
+    def _check_new_result(self, fp: str, result: Optional[dict[str, Any]] = None) -> None:
+        candidates = [fp]
+        if result is not None:
+            # Before optional text, fingerprints included the page's redundant Showdown copy.
+            legacy = {k: v for k, v in result.items() if k != "log"}
+            candidates.extend((sharing.fingerprint(legacy), sharing.fingerprint({**legacy, "team_paste": ""})))
+            text = self._result_team_text(result)
+            if text:
+                candidates.append(sharing.fingerprint({**legacy, "team_paste": text}))
+        seen = None
+        for candidate in dict.fromkeys(candidates):
+            seen = self.store.friend_result_by_fingerprint(candidate)
+            if seen:
+                break
         if seen:
             raise SilverError("conflict", f"This result was already imported: {seen['challenger']} against {seen['target_name']}.",
                               hint="Each result code counts once in the friends' leaderboard.")
