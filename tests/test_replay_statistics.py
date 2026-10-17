@@ -9,7 +9,7 @@ def classic():
     return {"kind": "watch", "status": "ended", "mode": "classic",
             "p1": {"trainer_id": "a"}, "p2": {"trainer_id": "b"},
             "log_text": "\n".join([
-                "|start", "|switch|p1a: Fish|Magikarp, L1|11/11", "|switch|p2a: Mouse|Pikachu, L100|300/300",
+                "|tier|[Gen 9] Custom Game", "|start", "|switch|p1a: Fish|Magikarp, L1|11/11", "|switch|p2a: Mouse|Pikachu, L100|300/300",
                 "|turn|1", "|move|p1a: Fish|Splash|p1a: Fish", "|-nothing", "|move|p2a: Mouse|Double Slap|p1a: Fish",
                 "|-damage|p1a: Fish|5/11", "|-damage|p1a: Fish|0 fnt", "|-hitcount|p1a: Fish|2", "|win|B"])}
 
@@ -130,6 +130,16 @@ def test_truncated_classic_log_is_not_complete_participation():
     result = compute([battle])
     assert result["coverage"]["species"] == result["coverage"]["moves"] == 0
     assert result["coverage"]["openings"] == 1
+    assert result["totals"]["move_uses"] == 2
+    assert counts(result["species"]) == {"Magikarp": 1, "Pikachu": 1}
+
+
+@pytest.mark.parametrize("terminal", ["|tie", "|tie|", "|win|B"])
+def test_classic_terminal_commands_are_recognized(terminal):
+    battle = classic()
+    battle["log_text"] = battle["log_text"].replace("|win|B", terminal)
+    result = compute([battle])
+    assert result["coverage"]["moves"] == result["coverage"]["species"] == 1
 
 
 def test_shared_handler_reads_all_rows_without_writing_or_using_engine(call, services, monkeypatch):
