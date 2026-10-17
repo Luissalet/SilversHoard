@@ -36,6 +36,7 @@ DEFAULT_SETTINGS: dict[str, Any] = {
     "sprite_server": "https://play.pokemonshowdown.com/sprites",
     "smogon_data": True,
     "ai_banter": False,           # the AI trainers comment their moves in character, written by the family's language model as the battle goes
+    "expert_combinations": True,  # label two publicly completed expert doubles actions; no extra search or model
     "ai_hidden_info": False,       # the AI sees only what the battle has shown of the opponent's team (guessing the rest)           # popular sets and usage stats from data.pkmn.cc, fetched when asked for, kept in data/cache/smogon
     "sound_downloads": True,      # fetch Pokémon cries and battle music from the Showdown audio server and keep them in data/cache/audio
     "audio_server": "https://play.pokemonshowdown.com/audio",

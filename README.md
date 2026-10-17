@@ -2,6 +2,8 @@
 
 Trainer cards can be exported as PNG posters with their current portrait, team and earned badges, using existing sprites and badge artwork. Selected style references supply the palette; recorded credits and origins stay in the image and PNG metadata. Available in the trainer page and `trainer_poster` (REST/MCP), as a local background job using Playwright and Chrome/Edge. [Details](docs/TRAINER_POSTER.md).
 
+Expert doubles battles can label the two moves actually executed by both slots, after the turn resolves. The same recorded pairs appear in the log and `battle_explain`, with an ordinary saved setting to hide them. Replays do not reveal pair labels before their public boundary. See [executed expert pairs](docs/EXPERT_COMBINATIONS.md).
+
 Finished replays can export a printable battle newspaper in English or Spanish, with the saved result, damage table, MVP ties and original log. It uses saved engine figures with explicit units and missing-record notices; no simulation or image generation is needed. See [battle newspapers](docs/BATTLE_JOURNAL.md).
 
 History can search all saved replays by species, move used, trainer, format and result, with paused links to matching turns or RT moments. Filters follow the same recorded actor, report unavailable or ambiguous replay evidence, and leave the originals intact. See [replay search](docs/BATTLE_SEARCH.md).
