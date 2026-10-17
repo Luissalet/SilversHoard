@@ -4,20 +4,22 @@ import { useApp } from "../context.js";
 import { Busy, CopyButton, ErrorBox, Field, Icon, ICONS, useBusy, useLoad } from "../components/ui.jsx";
 import { Avatar, MonIcon, TrainerSelect, useTrainers } from "../components/silver.jsx";
 import LeisureArt from "../components/LeisureArt.jsx";
+import { suppliedSprites, spriteLabel } from "../components/SuppliedSprite.jsx";
 import "./leisure.css";
 
 const EMPTY = { name: "", trainer_id: "", style: "tree", message: "", decorations: [] };
 const DIRS = { ArrowUp: [0, -1], ArrowDown: [0, 1], ArrowLeft: [-1, 0], ArrowRight: [1, 0], w: [0, -1], s: [0, 1], a: [-1, 0], d: [1, 0] };
 
 export default function Bases() {
-  const { t, go, notify } = useApp();
-  const catalog = useLoad(() => api.call("leisure_catalog"), []);
+  const { t, lang, go, notify } = useApp();
+  const catalog = useLoad(() => api.call("leisure_catalog", { limit: 0 }), []);
   const [archived, setArchived] = useState(false);
   const list = useLoad(() => api.call("secret_bases_list", { archived }), [archived]);
   const [base, setBase] = useState({ ...EMPTY });
   const [editing, setEditing] = useState(true);
   const [dirty, setDirty] = useState(false);
   const [tool, setTool] = useState("plant");
+  const [filter, setFilter] = useState("");
   const [species, setSpecies] = useState("Pikachu");
   const [position, setPosition] = useState([3, 7]);
   const [guest, setGuest] = useState("");
@@ -35,8 +37,12 @@ export default function Bases() {
     setBase(saved); setDirty(false); list.reload(); notify(t("saved"));
   });
   const solid = new Set((catalog.data?.decorations || []).filter((d) => d.solid).map((d) => d.id));
+  const footprint = (kind) => suppliedSprites[kind]?.footprint || [1, 1];
+  const covers = (p, x, y) => { const [w, h] = footprint(p.kind); return x >= p.x && x < p.x + w && y >= p.y && y < p.y + h; };
+  const labelOf = (id) => id === "erase" ? t("base_erase") : id.includes("-") ? spriteLabel(id, lang) : t(`decor_${id}`);
+  const filtered = (catalog.data?.decorations || []).filter((d) => labelOf(d.id).toLocaleLowerCase().includes(filter.toLocaleLowerCase()));
   const walk = (x, y) => {
-    if (x < 0 || x >= 8 || y < 0 || y >= 8 || Math.abs(x - position[0]) + Math.abs(y - position[1]) !== 1 || base.decorations.some((p) => p.x === x && p.y === y && solid.has(p.kind))) return;
+    if (x < 0 || x >= 8 || y < 0 || y >= 8 || Math.abs(x - position[0]) + Math.abs(y - position[1]) !== 1 || base.decorations.some((p) => covers(p, x, y) && solid.has(p.kind))) return;
     setPosition([x, y]);
   };
   useEffect(() => {
@@ -52,7 +58,16 @@ export default function Bases() {
   const tile = (x, y) => {
     if (!editing) { walk(x, y); return; }
     if (x === 3 && (y === 1 || y === 7)) return;
-    const others = base.decorations.filter((p) => p.x !== x || p.y !== y);
+    const hit = base.decorations.find((p) => covers(p, x, y));
+    const others = base.decorations.filter((p) => p !== hit);
+    if (tool !== "erase") {
+      const [w, h] = footprint(tool);
+      const cells = Array.from({ length: w * h }, (_, i) => [x + i % w, y + Math.floor(i / w)]);
+      if (base.decorations.length >= 16 && !hit || cells.some(([cx, cy]) => cx >= 8 || cy >= 8 || cx === 3 && (cy === 1 || cy === 7) || others.some((p) => covers(p, cx, cy)))) {
+        setError(new Error(t("base_no_space"))); return;
+      }
+    }
+    setError(null);
     set("decorations", tool === "erase" ? others : [...others, { kind: tool, x, y, ...(tool === "doll" ? { species } : {}) }]);
   };
   const share = () => action("share", async () => { setShared(JSON.stringify(await api.call("secret_base_export", { id: base.id }), null, 2)); });
@@ -67,22 +82,26 @@ export default function Bases() {
       <div className="space-y-3">
         <div className="leisure-choices flex flex-wrap gap-2"><button type="button" className="btn" aria-pressed={editing} onClick={() => setEditing(true)}>{t("base_edit")}</button>
           <button type="button" className="btn" aria-pressed={!editing} onClick={() => { setEditing(false); setPosition([3, 7]); }}>{t("base_visit")}</button>{dirty && <span className="help">{t("base_unsaved")}</span>}</div>
-        <div className={`base-room base-${base.style}`} role="group" aria-label={base.name || t("nav_bases")} tabIndex={0}>
+        <div className={`base-room base-${base.style}`} style={{ backgroundImage: `url(${suppliedSprites[`floor-${base.style}`].image})`, backgroundSize: "48px 48px" }} role="group" aria-label={base.name || t("nav_bases")} tabIndex={0}>
           {Array.from({ length: 64 }, (_, i) => {
-            const x = i % 8, y = Math.floor(i / 8), item = base.decorations.find((p) => p.x === x && p.y === y);
+            const x = i % 8, y = Math.floor(i / 8), item = base.decorations.find((p) => covers(p, x, y));
+            const anchor = item && item.x === x && item.y === y;
+            const [w, h] = item ? footprint(item.kind) : [1, 1];
             const isHost = x === 3 && y === 1, entrance = x === 3 && y === 7, player = !editing && x === position[0] && y === position[1];
-            const label = t(isHost ? "base_host" : entrance ? "base_entrance" : item ? `decor_${item.kind}` : "base_empty");
+            const label = item ? labelOf(item.kind) : t(isHost ? "base_host" : entrance ? "base_entrance" : "base_empty");
             return <button type="button" key={i} className={`base-tile ${entrance ? "is-entrance" : ""} ${player ? "is-player" : ""}`} onClick={() => tile(x, y)} aria-label={t("base_cell", { x: x + 1, y: y + 1, item: player ? t("base_player") : label })}>
-              {isHost ? <Avatar url={host?.avatar_url} name={base.owner_name || host?.name || "?"} size={36} /> : player ? <Avatar url={trainers.find((tr) => tr.id === guest)?.avatar_url} name={t("base_player")} size={32} /> : item?.kind === "doll" ? <MonIcon species={item.species} size={36} /> : item ? <LeisureArt kind={item.kind} /> : entrance ? <Icon d={ICONS.external} size={22} /> : null}
+              {isHost ? <Avatar url={host?.avatar_url} name={base.owner_name || host?.name || "?"} size={36} /> : player ? <Avatar url={trainers.find((tr) => tr.id === guest)?.avatar_url} name={t("base_player")} size={32} /> : item?.kind === "doll" ? <MonIcon species={item.species} size={36} /> : anchor ? <span className="base-furniture" style={{ width: `${w * 100}%`, height: `${h * 100}%` }}><LeisureArt kind={item.kind} size={32 * Math.max(w, h)} /></span> : entrance ? <Icon d={ICONS.external} size={22} /> : null}
             </button>;
           })}
         </div>
         <p className="help">{t(editing ? "base_decor_help" : "base_walk_help")}</p>
         {editing && <>
-          <div className="leisure-palette" role="group" aria-label={t("base_edit")}>{catalog.data?.decorations.map((d) => <button type="button" key={d.id} className="btn" aria-pressed={tool === d.id} onClick={() => setTool(d.id)}><LeisureArt kind={d.id} size={24} />{t(`decor_${d.id}`)}</button>)}
+          <Field label={t("sprite_search")}><input className="field" type="search" value={filter} onChange={(e) => setFilter(e.target.value)} /></Field>
+          <div className="leisure-palette base-palette" role="group" aria-label={t("base_edit")}>{filtered.map((d) => <button type="button" key={d.id} className="btn" aria-pressed={tool === d.id} onClick={() => setTool(d.id)}><LeisureArt kind={d.id} size={32} /><span>{labelOf(d.id)}<small className="help block">{d.footprint?.join(" × ") || "1 × 1"}</small></span></button>)}
             <button type="button" className="btn" aria-pressed={tool === "erase"} onClick={() => setTool("erase")}><Icon d={ICONS.trash} />{t("base_erase")}</button></div>
           {tool === "doll" && <Field label="Pokémon"><input className="field" value={species} onChange={(e) => setSpecies(e.target.value)} /></Field>}
-          <p className="help">{base.decorations.length}/16</p>
+          <p className="help">{base.decorations.length}/16 · {labelOf(tool)} {tool !== "erase" && footprint(tool).join(" × ")}</p>
+          <p className="help">{t("base_gen4_replicas")}</p>
         </>}
         {!editing && <><p>{base.message}</p><TrainerSelect label={t("base_choose_guest")} value={guest} onChange={setGuest} />
           <Busy busy={busy.battle} className="btn btn-primary" disabled={!base.id || dirty || !guest || !near} onClick={challenge}>{t("base_challenge")}</Busy></>}
