@@ -52,7 +52,7 @@ const TRAINER = [{x: 1.6, y: ARENA.h / 2}, {x: ARENA.w - 1.6, y: ARENA.h / 2}];
 // summary; without starting PP moves have no PP, as before.
 // 10: calmer movement and rolls, and AI dodges after its reaction delay, once per continuous threat.
 // 11: Silver's extra special attack is opt-in; older replays retain their original gauge and attacks.
-export const RULES_VERSION = 11;
+export const RULES_VERSION = 12;
 export const TRICK_ROOM_TURN = 6;   // seconds of real time per turn of Trick Room
 const TRICK_ROOM_BASE = 200;        // walking: base Speed s walks like base Speed 200 - s
 const FOG_HIT = 0.6;
@@ -225,7 +225,9 @@ export function customRocks(rocks) {
 export function arenaOf(arena, seed) {
   if (arena && typeof arena === 'object' && Array.isArray(arena.rocks)) {
     return {kind: 'custom', rocks: customRocks(arena.rocks), floor: FLOORS.includes(arena.floor) ? arena.floor : 'grass',
-      name: String(arena.name || '').slice(0, 60)};
+      name: String(arena.name || '').slice(0, 60),
+      weather: ['sunnyday', 'raindance', 'snow', 'fog'].includes(arena.weather) ? arena.weather : '',
+      weather_rules: arena.weather_rules === true};
   }
   if (arena === 'rocks') return {kind: 'rocks', rocks: placeRocks(seed), floor: 'grass', name: ''};
   return {kind: 'open', rocks: [], floor: 'grass', name: ''};
@@ -282,6 +284,8 @@ export class RtBattle {
     this.rocks = field.rocks;
     this.floor = field.floor;
     this.arenaName = field.name;
+    this.arenaWeather = this.version >= 12 ? field.weather || '' : '';
+    this.arenaWeatherRules = this.version >= 12 && field.weather_rules === true;
     this.t = 0;
     this.events = [];
     this.inputLog = [];
@@ -296,14 +300,17 @@ export class RtBattle {
     // training (singles): the second seat is a dummy; nobody faints, a knockout sets the Pokémon back to full health instead
     this.training = !this.doubles && spec.training ? {pattern: String(spec.training.pattern || 'still')} : null;
     this.sides = ['p1', 'p2'].map((id, i) => this.makeSide(id, i, spec[id] || {}));
-    const startWeather = {sunnyday: 'sunnyday', raindance: 'raindance', sandstorm: 'sandstorm', hail: 'hail'}[spec.start?.field?.weather];
+    // Explicit Frontier/training starting state wins over the saved arena climate.
+    const startingWeather = spec.start?.field?.weather || (this.arenaWeatherRules ? this.arenaWeather : '');
+    const startWeather = {sunnyday: 'sunnyday', raindance: 'raindance', sandstorm: 'sandstorm', hail: 'hail',
+      ...(this.version >= 12 ? {snow: 'snow'} : {})}[startingWeather];
     if (startWeather) this.weather = {id: startWeather, until: this.timeLimit};   // a starting weather lasts the whole battle
     this.trickRoom = null;   // {until} (version 9)
     this.fog = null;         // {until} (version 9)
     if (this.version >= 9) {
       const tr = Math.floor(Number(spec.start?.field?.trickroom) || 0);
       if (tr > 0) { this.trickRoom = {until: Math.min(this.timeLimit, tr * TRICK_ROOM_TURN * TPS)}; this.ev('trickroom', {secs: tr * TRICK_ROOM_TURN}); }
-      if (spec.start?.field?.weather === 'fog') { this.fog = {until: this.timeLimit}; this.ev('fog', {}); }
+      if (startingWeather === 'fog') { this.fog = {until: this.timeLimit}; this.ev('fog', {}); }
     }
     if (!this.doubles) {
       // singles: each trainer is its own (only) slot
@@ -2236,6 +2243,7 @@ export class RtBattle {
       t: this.t, seconds: this.t / TPS, time_limit: this.timeLimit / TPS, ended: this.ended, winner: this.winner, reason: this.reason,
       version: this.version, plus_moves: this.plusMoves, ...(this.version >= 11 ? {silver_special: this.silverSpecial} : {}), arena: this.arena, ...(this.training ? {training: {...this.training}} : {}), rocks: this.rocks.map((r) => ({...r})), floor: this.floor,
       ...(this.arenaName ? {arena_name: this.arenaName} : {}),
+      ...(this.arenaWeather && !this.arenaWeatherRules ? {arena_weather: this.arenaWeather} : {}),
       ...(this.doubles ? {doubles: true} : {}),
       weather: this.weather && this.weather.until > this.t ? {id: this.weather.id, left: (this.weather.until - this.t) / TPS} : null,
       terrain: this.terrain && this.terrain.until > this.t ? {id: this.terrain.id, left: (this.terrain.until - this.t) / TPS} : null,
