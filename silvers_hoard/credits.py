@@ -28,6 +28,12 @@ TAG = re.compile(r"<[^>]+>")
 
 # what the app shows or plays and where it comes from (the README's credits, as data for the credits page and the tool)
 SOURCES: list[dict[str, str]] = [
+    {"id": "supplied-sheets", "what": "Menu icons, contest accessories, secret-base furniture and move textures",
+     "what_es": "Iconos de menú, accesorios de concursos, muebles de bases y texturas de movimientos",
+     "by": "Spaceemotion, redblueyellow, Pimplup, Biohazard13 and K.L.NOTHINCOMIN (ripping); original game artists",
+     "by_es": "Spaceemotion, redblueyellow, Pimplup, Biohazard13 y K.L.NOTHINCOMIN (extracción); artistas originales de los juegos",
+     "licence": "Pokémon © Nintendo, Creatures, GAME FREAK; original sheet credits retained in the supplied sprite manifest",
+     "url": "https://bulbapedia.bulbagarden.net/wiki/List_of_decoration_goods_in_Generation_IV"},
     {"id": "crowd-frlg", "what": "Overworld trainer audience: FRLG Accurate NPC Megapack", "what_es": "Público de entrenadores overworld: FRLG Accurate NPC Megapack",
      "by": "SoulfulLex (compilation); Avatar, Aveontrainer, Daman, Kalarie, MrDollSteak, Pokésho, Spherical Ice, Delta231, Mimi, M.vit, Kimoras, Poffin_Case, Mr. Gela, Marnic, Reign, KisiroKitsune, Othienka and the original artists listed in art/crowd/CREDITS.txt",
      "by_es": "SoulfulLex (recopilación); Avatar, Aveontrainer, Daman, Kalarie, MrDollSteak, Pokésho, Spherical Ice, Delta231, Mimi, M.vit, Kimoras, Poffin_Case, Mr. Gela, Marnic, Reign, KisiroKitsune, Othienka y los autores originales de art/crowd/CREDITS.txt",

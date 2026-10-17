@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+Los sprites aportados aparecen en la navegación, concursos, bases secretas y proyectiles del estilo pixel: 288 recortes de 13 hojas, con sus créditos. Hay 117 accesorios y 138 objetos para bases, con búsqueda; los muebles grandes reservan todas sus casillas y se conservan al compartir JSON. `leisure_catalog` permite recorrerlos por sección, búsqueda y página desde API/MCP. [Cobertura y límites](docs/SUPPLIED_SPRITES.md), incluidas las hojas todavía sin utilizar.
+
 Los tipos de sonido de los movimientos se cargan como datos JSON generados; el HTML jugable incorpora la misma tabla. Se conservan las 935 correspondencias y el respaldo existente si los datos no pueden cargarse.
 
 Los comentarios nuevos de la IA usan el idioma elegido al iniciar el combate, reto, copa, práctica o ejercicio (inglés por defecto mediante API/MCP). Las fases posteriores conservan esa elección aunque cambie el idioma de la interfaz. Las frases ya guardadas y los diálogos de los entrenadores se conservan literalmente.

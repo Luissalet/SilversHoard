@@ -14,6 +14,7 @@ import { playRtEvent } from "../sfx.js";
 import { rtMove } from "../../../../engine/src/realtime/moves.mjs";
 import { motionFor, poseFor, tossLift } from "./visuals/choreography.js";
 import { FLOOR_TEXTURES, floorVariant, drawWaterTextures } from "./visuals/textures.js";
+import { drawSuppliedProjectiles } from "./supplied-fx.js";
 
 const ARENA = { w: 28, h: 17 };
 const MARGIN_X = 2.6;
@@ -567,6 +568,7 @@ export class ArenaRenderer {
     // projectiles, rays, melee marks, particles
     this.vfx.drawOver(ctx, view, battle);
     if (particleStyle() !== "plain") drawWaterTextures(ctx, this, view, !!this.reducedMotion?.matches);
+    if (particleStyle() === "pixel") drawSuppliedProjectiles(ctx, this, view, !!this.reducedMotion?.matches);
     this.drawEffects(dt, false);
     this.show.drawWorld(ctx);
     // floating texts

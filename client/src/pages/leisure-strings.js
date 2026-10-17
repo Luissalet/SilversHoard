@@ -1,4 +1,6 @@
 export default {
+  sprite_search: ["Buscar objetos", "Search objects"],
+  base_no_space: ["El objeto no cabe aquí. Deja libres la entrada, el propietario y los demás muebles.", "This object does not fit here. Leave the entrance, host and other furniture clear."],
   contest_you: ["Tú", "You"],
   nav_contests: ["Concursos", "Contests"], nav_bases: ["Bases secretas", "Secret bases"],
   contest_help: ["Elige un Pokémon para la presentación, sigue el ritmo y convence a los jueces con sus movimientos.", "Choose a Pokémon for presentation, follow the rhythm, and appeal to the judges with its moves."],
