@@ -27,10 +27,10 @@ export class MegaPresentation {
     }
     ctx.restore();
   }
-  draw(ctx, width, height, reduced, title) {
+  draw(ctx, width, height, reduced, title, portrait = false) {
     const n=this.current;
     if (!n) return;
-    const h=Math.max(44,Math.min(height*.19,110)), y=height*.06, inset=width*.025;
+    const h=Math.max(44,Math.min(height*.19,110)), y=portrait?(height-h)/2:height*.06, inset=width*.025;
     const alpha=reduced ? 1 : Math.min(1,n.age/.12,(2.4-n.age)/.2);
     ctx.save(); ctx.globalAlpha*=Math.max(0,alpha);
     ctx.fillStyle='rgba(24,16,32,.95)'; ctx.fillRect(inset,y,width-inset*2,h);
