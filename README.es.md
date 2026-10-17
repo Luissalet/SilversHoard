@@ -2,6 +2,8 @@
 
 Las repeticiones y los clips de combates en tiempo real aplican la rendición guardada en su tick exacto. Los saltos y el reinicio usan el mismo lector. `battle_get` devuelve el lado que se rindió a partir del resultado comprobado, también en registros antiguos con motivo de rendición y ganador guardados, sin reescribir sus datos.
 
+La niebla mecánica de tiempo real muestra ahora la bruma existente en cualquier campo mientras el simulador indique `fog`. Monte Pírico conserva su niebla decorativa sin duplicarla; las reglas y los ajustes de las arenas se mantienen.
+
 Compartir agrupa ejercicios guardados de repeticiones en un paquete temático `.silverexercise`, permite importar sus posiciones en una biblioteca nueva y practicarlas por separado. Las temáticas las elige quien prepara el paquete; la importación reconstruye todas las posiciones antes de guardarlas juntas. Los archivos individuales siguen siendo compatibles. UI, REST y MCP comparten `exercise_pack_export` y la importación normal. Véanse los [paquetes de ejercicios](docs/EXERCISE_PACKS.md).
 
 `trainers_list` devuelve el catálogo completo de entrenadores coincidentes por REST/MCP, incluidos los campos largos, sin el recorte genérico de respuestas. Conserva los filtros por búsqueda, origen, juego y región.
