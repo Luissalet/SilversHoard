@@ -4,11 +4,11 @@
 // The animator follows PokéSurvivor's js/core/sprites.js (MIT): a looping base animation (Idle or Walk) and one-shot animations
 // (Attack, Shoot, Hurt...) that cover it until they end.
 
-const metas = new Map();   // "num|form|shiny" -> Promise<meta|null>
-const images = new Map();  // url -> {img, ready, failed}
+const metas = new Map();   // "base|num|form|shiny" -> Promise<meta|null>
+const images = new Map();  // url -> {img, ready, failed, loaded}
 
 export function loadMeta(num, { form = "", shiny = false, base = "" } = {}) {
-  const key = `${num}|${form}|${shiny ? 1 : 0}`;
+  const key = `${base}|${num}|${form}|${shiny ? 1 : 0}`;
   if (!metas.has(key)) {
     const url = `${base}/api/sprites/pmd/${num}?form=${encodeURIComponent(form || "")}&shiny=${shiny ? "true" : "false"}`;
     metas.set(key, fetch(url).then((r) => (r.ok ? r.json() : null)).catch(() => null));
@@ -19,11 +19,17 @@ export function loadMeta(num, { form = "", shiny = false, base = "" } = {}) {
 export function image(url) {
   let s = images.get(url);
   if (!s) {
-    s = { img: new Image(), ready: false, failed: false };
-    s.img.onload = () => { s.ready = true; };
-    s.img.onerror = () => { s.failed = true; };
-    s.img.src = url;
+    let settle;
+    s = { img: new Image(), ready: false, failed: false, loaded: new Promise(resolve => { settle = resolve; }) };
+    const ready = () => { s.ready = true; settle(true); };
+    const failed = () => { s.failed = true; settle(false); };
+    s.img.onload = () => {
+      if (typeof s.img.decode === "function") s.img.decode().then(ready, failed);
+      else ready();
+    };
+    s.img.onerror = failed;
     images.set(url, s);
+    s.img.src = url;
   }
   return s;
 }
