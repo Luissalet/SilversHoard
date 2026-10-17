@@ -145,7 +145,8 @@ class Cups:
         spec = {"format": fmt, "format_name": fmt_name, "rules": rules or [], "level_rules": level_rules or {}, "mode": mode,
                 "best_of": max(1, int(best_of) | 1), "rt_arena": _rt_arena(rt_arena), "ai_level": ai_level or "",
                 "time_limit": max(30, min(int(time_limit or svc.settings["rt_time_limit"]), 1800)), "pace": max(0.0, min(float(pace), 10.0)),
-                "seeding": seeding, "version": RT_RULES_VERSION if mode == "realtime" else 0}
+                "seeding": seeding, "version": RT_RULES_VERSION if mode == "realtime" else 0,
+                "silver_special": bool(svc.settings.get("rt_silver_special", False))}
         if mode == "realtime":
             svc.arenas.spec(spec["rt_arena"])   # a custom arena must exist
         rounds = build_rounds([e["id"] for e in entrants])
@@ -293,7 +294,8 @@ class Cups:
             res = svc.engine.run_job("tournament", {"format": spec["format"], "rules": spec["rules"], "level_rules": spec["level_rules"],
                                                     "entrants": [a, b], "kind": "bracket", "best_of": 1, "mode": spec["mode"],
                                                     "time_limit": spec["time_limit"], "arena": arena, "max_turns": svc.settings["max_turns"],
-                                                    "version": spec.get("version") or 0}, timeout=3 * 3600)
+                                                    "version": spec.get("version") or 0,
+                                                    "silver_special": spec.get("silver_special", (spec.get("version") or 1) >= 5)}, timeout=3 * 3600)
             g = ((res.get("matches") or [{}])[0].get("games") or [{}])[0]
             summary = g.get("summary") or {}
             seat = lambda e: {"trainer_id": e["id"], "name": e["name"], "avatar": e["avatar"], "avatar_url": svc.avatar_url(e["avatar"]),  # noqa: E731
@@ -305,7 +307,7 @@ class Cups:
                                         "seed": str(g.get("seed")) if rt else json.dumps(g.get("seed")), "run_id": cid,
                                         "title": f"{c['title']} · {a['name']} vs {b['name']}", "mode": spec["mode"],
                                         "replay": {"time_limit": spec["time_limit"], "inputs": [], "version": spec.get("version") or 0,
-                                                   "arena": arena} if rt else {}})
+                                                   "arena": arena, "silver_special": spec.get("silver_special", (spec.get("version") or 1) >= 5)} if rt else {}})
             side = "a" if g.get("winner") == a["id"] else "b" if g.get("winner") == b["id"] else ""
             with self._lock(cid):
                 c = svc.store.cup(cid)
@@ -371,7 +373,8 @@ class Cups:
             p2 = {"trainer_id": rival, "human": False, **({"ai_level": spec["ai_level"]} if spec["ai_level"] else {})}
             b = svc.battle_start(p1={"trainer_id": human, "human": True}, p2=p2, format_=spec["format"], rules=spec["rules"],
                                  level_rules=spec["level_rules"], kind="cup", run_id=cid, mode=spec["mode"], time_limit=spec["time_limit"],
-                                 rt_arena=spec["rt_arena"], title=f"{c['title']} · {names.get(human, '')} vs {names.get(rival, '')}")
+                                 rt_arena=spec["rt_arena"], silver_special=spec.get("silver_special", (spec.get("version") or 1) >= 5),
+                                 title=f"{c['title']} · {names.get(human, '')} vs {names.get(rival, '')}")
             c = svc.store.cup(cid)
             m = c["rounds"][r][i]
             m["games"].append({"battle_id": b["id"], "p1": "a" if m["a"] == human else "b", "winner": "", "tie": False})
@@ -403,6 +406,7 @@ class Cups:
             b = svc.battle_start(p1={"trainer_id": m["a"], "human": False, **lvl}, p2={"trainer_id": m["b"], "human": False, **lvl},
                                  format_=spec["format"], rules=spec["rules"], level_rules=spec["level_rules"], kind="cup", run_id=cid,
                                  mode=spec["mode"], time_limit=spec["time_limit"], rt_arena=spec["rt_arena"],
+                                 silver_special=spec.get("silver_special", (spec.get("version") or 1) >= 5),
                                  title=f"{c['title']} · {names.get(m['a'], '')} vs {names.get(m['b'], '')}")
         except Exception:
             with self._lock(cid):
