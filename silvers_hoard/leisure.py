@@ -79,7 +79,7 @@ class Leisure:
                                 for k, v in DECORATIONS.items()], "base_size": 8,
                 "contest_rules": "silver-super-v1",
                 "sprites": [{"id": k, "url": f"/api/sprites/supplied/{k}",
-                             **{f: v[f] for f in ("group", "width", "height", "source", "name", "name_es", "frames", "columns", "frame_width", "frame_height", "fps", "goods_number", "generation", "footprint", "decoration_only") if f in v}}
+                             **{f: v[f] for f in ("group", "width", "height", "source", "name", "name_es", "frames", "columns", "frame_width", "frame_height", "fps", "goods_number", "generation", "footprint", "decoration_only", "move", "lang", "variant", "frame_rects") if f in v}}
                             for k, v in SPRITES.items()]}
         pages = {}
         for key in ("accessories", "decorations", "sprites"):

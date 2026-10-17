@@ -442,6 +442,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
   const schemes = people === 2 ? ["p1", "p2"] : ["solo", "solo"];
 
   const texts = useMemo(() => ({
+    lang,
     move: (n) => (n === "Ultimate" ? tr("rt_ult") : nameOf("move", n, lang)), ultimate: tr("rt_ult_cut"), crit: tr("rt_crit"), super: tr("rt_super"), weak: tr("rt_weak"), dodged: tr("rt_dodged"),
     blocked: tr("rt_blocked"), immune: tr("rt_immune"), flinch: tr("rt_flinch"), status: (s) => L(STATUS_NAMES[s] || [s, s], lang),
     statusColor: (s) => STATUS_COLORS[s] || "#fff", stat: (k) => L(STAT_SHORT[k] || [k, k], lang),
