@@ -68,7 +68,14 @@ class Training:
                                    "passed": sum(a["passed"] for a in recent), "step": step}}
 
     def list(self, archived=False):
-        return {"exercises": [self.get(e["id"]) for e in self.svc.store.exercises(archived=archived)]}
+        groups = {}
+        for row in self.svc.store.exercises(archived=archived):
+            exercise = self.get(row["id"])
+            key = (exercise.get("pack") or {}).get("id") or exercise["id"]
+            groups.setdefault(key, []).append(exercise)
+        # Keep the recent-group order, but show each imported pack in its curator's sequence.
+        return {"exercises": [e for group in groups.values()
+                for e in sorted(group, key=lambda item: (item.get("pack") or {}).get("index", 0))]}
 
     def archive(self, id_, archived=True):
         self.svc.store.exercise(id_)
