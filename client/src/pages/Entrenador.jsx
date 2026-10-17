@@ -1,5 +1,5 @@
 // One trainer: team (cards and Showdown text), AI and details, battle lines, record. Fight it, send it to a friend, copy it.
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { api } from "../api.js";
 import { useApp } from "../context.js";
 import { Busy, ErrorBox, Field, Icon, ICONS, Modal, Section, Spinner, Tabs, useBusy, useLoad, useStored } from "../components/ui.jsx";
@@ -42,7 +42,7 @@ function TeamTab({ tr, reload, startVisual = false }) {
   const [paste, setPaste] = useState(tr.paste || "");
   const [editing, setEditing] = useState(false);
   const [check, setCheck] = useState(null);
-  const [visual, setVisual] = useState(startVisual);
+  const [visual, setVisual] = useState(startVisual || !tr.team.length);
   const [busy, run] = useBusy();
   useEffect(() => { if (!editing) setPaste(tr.paste || ""); }, [tr.paste, editing]);
   const saveSets = async (sets) => {
@@ -52,7 +52,10 @@ function TeamTab({ tr, reload, startVisual = false }) {
     reload();
     changed();
   };
-  if (visual) return <TeamBuilder team={tr.team} format={tr.format} onSave={saveSets} onCancel={() => setVisual(false)} />;
+  if (visual) return <div className="space-y-3">
+    {!tr.team.length && <p className="help">{t("trainer_empty_team")}</p>}
+    <TeamBuilder team={tr.team} format={tr.format} onSave={saveSets} onCancel={() => setVisual(false)} />
+  </div>;
   const validate = () => run("v", async () => setCheck(await api.call("team_validate", { format: tr.format, paste })));
   const save = () => run("s", async () => {
     await api.call("trainer_update", { id: tr.id, paste });
@@ -64,7 +67,7 @@ function TeamTab({ tr, reload, startVisual = false }) {
   });
   return (
     <div className="space-y-3">
-      {tr.summary ? <TeamCards summary={tr.summary} /> : tr.summary_error ? <div className="banner banner-warn">{tr.summary_error}</div> : <Spinner />}
+      {!tr.team.length ? <p className="help">{t("trainer_empty_team")}</p> : tr.summary ? <TeamCards summary={tr.summary} /> : tr.summary_error ? <div className="banner banner-warn">{tr.summary_error}</div> : <Spinner />}
       <div className="panel space-y-2">
         <div className="flex flex-wrap items-center gap-2">
           <h2 className="flex-1">{t("team_text")}</h2>
@@ -83,7 +86,7 @@ function TeamTab({ tr, reload, startVisual = false }) {
   );
 }
 
-function DetailsTab({ tr, reload }) {
+function DetailsTab({ tr, reload, nameInput }) {
   const { t, notify, changed } = useApp();
   const [form, setForm] = useState(null);
   const [busy, run] = useBusy();
@@ -100,7 +103,7 @@ function DetailsTab({ tr, reload }) {
   return (
     <div className="panel space-y-3 max-w-3xl">
       <div className="grid gap-3 sm:grid-cols-2">
-        <Field label={t("name")}><input className="field" value={form.name} onChange={(e) => set("name", e.target.value)} maxLength={60} /></Field>
+        <Field label={t("name")}><input ref={nameInput} autoFocus className="field" value={form.name} onChange={(e) => set("name", e.target.value)} maxLength={60} /></Field>
         <Field label={t("title_field")}><input className="field" value={form.title} onChange={(e) => set("title", e.target.value)} maxLength={60} placeholder={t("title_ph")} /></Field>
         <Field label={t("owner")}><input className="field" value={form.owner} onChange={(e) => set("owner", e.target.value)} maxLength={60} /></Field>
         <Field label={t("format")}><FormatSelect id="tr-format" value={form.format} onChange={(v) => set("format", v)} /></Field>
@@ -174,6 +177,7 @@ export default function Entrenador({ param, query }) {
   const { data: tr, error, reload } = useLoad(() => api.call("trainer_get", { id: param }), [param]);
   useCopilotRefresh(reload);
   const [tab, setTab] = useStored("silver-trainer-tab", "team");
+  const nameInput = useRef(null);
   useEffect(() => { if (query?.get("builder") === "1") setTab("team"); }, []);   // eslint-disable-line react-hooks/exhaustive-deps
   const [dialog, setDialog] = useState("");
   const [busy, run] = useBusy();
@@ -196,7 +200,12 @@ export default function Entrenador({ param, query }) {
           </button>
         </div>
         <div className="min-w-0">
-          <h1 className="trunc">{loc(tr, lang)}</h1>
+          <div className="flex flex-wrap items-center gap-2">
+            <h1 className="trunc">{loc(tr, lang)}</h1>
+            <button type="button" className="btn" onClick={() => { setTab("details"); nameInput.current?.focus(); nameInput.current?.select(); }}>
+              <Icon d={ICONS.pencil} size={14} /> {t("edit_name")}
+            </button>
+          </div>
           <div className="help">{loc(tr, lang, "title")}</div>
           <div className="mt-1 flex flex-wrap gap-1.5">
             <span className="chip">{originLabel(t, tr.origin)}</span>
@@ -221,7 +230,7 @@ export default function Entrenador({ param, query }) {
       )}
       <Tabs value={tab} onChange={setTab} tabs={[{ id: "team", label: t("tab_team") }, { id: "details", label: t("tab_details") }, { id: "lines", label: t("tab_lines") }, { id: "realtime", label: t("mode_realtime_short") }, { id: "battles", label: t("tab_battles") }]} />
       {tab === "team" && <TeamTab tr={tr} reload={reload} startVisual={query?.get("builder") === "1"} />}
-      {tab === "details" && <DetailsTab tr={tr} reload={reload} />}
+      {tab === "details" && <DetailsTab tr={tr} reload={reload} nameInput={nameInput} />}
       {tab === "lines" && <LinesTab tr={tr} reload={reload} />}
       {tab === "realtime" && <CooldownsTab trainerId={tr.id} t={t} lang={lang} />}
       {tab === "battles" && (tr.battles?.length ? <div className="panel divide-list p-0">{tr.battles.map((b) => <BattleRow key={b.id} b={b} />)}</div> : <p className="help">{t("no_battles")}</p>)}
