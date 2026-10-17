@@ -342,3 +342,15 @@ The species picker compares normalized species IDs. A different species uses the
 `battles_search` reads every saved ended row with a single Store query, matches species and actual move uses on the same actor, and pages lightweight battle cards with all matching positions and coverage. The canonical handler serves UI/REST/MCP without simulating or mutating a battle. Classic positions are turn boundaries; RT positions use rounded native log times and conservative saved aliases, with ambiguous actors omitted.
 
 The search component resolves complete Spanish move names and combines trainer, format, result, kind and mode. `history-search.js` validates URL positions and produces the same classic boundary as ReplayBar. Ended classic replays seek paused after loading; ended RT screens rebuild deterministically to a clamped saved tick and stay paused. Live battles ignore search positions. No schema migration or new server. The current scan loads all selected saved logs into memory; result pagination is not indexed full-text search. See [BATTLE_SEARCH.md](BATTLE_SEARCH.md).
+
+
+## Copilot view updates
+
+The canonical HoardLink Python launcher forwards completed `tool_output` events
+through `hoard:copilot-change` and the host refresh callback, while the current
+turn and panel stay mounted. Silver coalesces tool and turn-end notifications
+through its existing 250 ms refresh registry. Trainer details/dialogue merge saved
+values into untouched fields while preserving local edits. TeamBuilder updates
+from saved props only while its draft matches the prior saved baseline; editors
+are keyed by trainer ID. Native API/MCP tools and persistence are unchanged.
+See [the behavior and verification](COPILOT_LIVE_REFRESH.md).
