@@ -196,9 +196,11 @@
 /* sound: the speaker button in the corner of the field and its panel of sliders */
 .b-sound { position: absolute; top: 8px; right: 8px; z-index: 8; }
 .snd-btn { display: inline-flex; align-items: center; justify-content: center; padding: 4px 8px; background: #0007; color: #fff; border-color: #fff3; }
-.snd-pop { position: absolute; top: 38px; right: 0; width: 240px; max-width: calc(100vw - 48px); display: grid; gap: 8px; padding: 10px 12px; border-radius: 12px;
+.snd-pop { position: fixed; z-index: 100; width: 264px; max-width: calc(100vw - 16px); overflow-y: auto; display: grid; gap: 8px; padding: 10px 12px; border-radius: 12px;
   background: var(--b-surface); color: var(--b-ink, inherit); border: 1px solid var(--b-line); box-shadow: 0 12px 30px #0008; user-select: none; }
 .snd-sliders { display: grid; gap: 8px; }
+.snd-track { display: grid; gap: 4px; min-width: 0; font-size: 13px; }
+.snd-track select { width: 100%; min-width: 0; }
 .snd-row { display: flex; align-items: center; gap: 8px; font-size: 13px; }
 .snd-row input[type="range"] { flex: 1; width: 0; min-width: 0; accent-color: var(--hoard-accent, #c9a24b); }
 .snd-label { width: 96px; flex: none; font-size: 12px; }

@@ -1,8 +1,9 @@
 // The sound mixer on screen: a speaker button for the battle screens (a small panel with the sliders) and the sliders alone for the
 // settings page. State lives in ../audio.js (and localStorage), so every control shows the same values.
 import React, { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
 import { getSettings, setSettings, sfx, subscribe, unlock } from "../audio.js";
-import { sndT } from "../sound-strings.js";
+import { MUSIC_OPTIONS, sndT } from "../sound-strings.js";
 
 export const useSound = () => useSyncExternalStore(subscribe, getSettings, getSettings);
 
@@ -31,6 +32,24 @@ export function SoundSliders({ lang = "es", test = true }) {
   );
 }
 
+export function MusicSelect({ lang }) {
+  const t = sndT(lang);
+  const s = useSound();
+  return (
+    <label className="snd-track grid min-w-0 max-w-lg gap-1">
+      <span>{t("snd_track")}</span>
+      <select className="field" value={s.music_track} onChange={(e) => { unlock(); setSettings({ music_track: e.target.value }); }}>
+        <option value="auto">{t("snd_track_auto")}</option>
+        <option value="none">{t("snd_track_none")}</option>
+        {["showdown", "pokerogue"].map((source) => <optgroup key={source} label={source === "showdown" ? "Showdown" : "PokéRogue"}>
+          {MUSIC_OPTIONS.filter((x) => x.source === source).map((x) => <option key={x.id} value={x.id}>{x.label[lang === "en" ? 1 : 0]}</option>)}
+        </optgroup>)}
+      </select>
+      <span className="help">{t("snd_track_help")}</span>
+    </label>
+  );
+}
+
 function SpeakerIcon({ off }) {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -45,14 +64,29 @@ export default function SoundButton({ lang = "es", className = "b-sound" }) {
   const t = sndT(lang);
   const s = useSound();
   const [open, setOpen] = useState(false);
+  const [position, setPosition] = useState({});
   const box = useRef(null);
+  const popup = useRef(null);
   useEffect(() => {
     if (!open) return undefined;
-    const away = (e) => { if (box.current && !box.current.contains(e.target)) setOpen(false); };
+    const away = (e) => { if (!box.current?.contains(e.target) && !popup.current?.contains(e.target)) setOpen(false); };
     const esc = (e) => { if (e.key === "Escape") setOpen(false); };
+    const reposition = () => {
+      const r = box.current.getBoundingClientRect();
+      const below = window.innerHeight - r.bottom - 16;
+      const above = r.top - 16;
+      const down = below >= Math.min(320, above);
+      setPosition({ left: Math.max(8, Math.min(r.right - 264, window.innerWidth - 272)),
+        top: down ? r.bottom + 6 : undefined, bottom: down ? undefined : window.innerHeight - r.top + 6,
+        maxHeight: Math.max(80, down ? below : above) });
+    };
+    reposition();
     document.addEventListener("pointerdown", away);
     document.addEventListener("keydown", esc);
-    return () => { document.removeEventListener("pointerdown", away); document.removeEventListener("keydown", esc); };
+    window.addEventListener("resize", reposition);
+    window.addEventListener("scroll", reposition, true);
+    return () => { document.removeEventListener("pointerdown", away); document.removeEventListener("keydown", esc);
+      window.removeEventListener("resize", reposition); window.removeEventListener("scroll", reposition, true); };
   }, [open]);
   const off = s.mute || s.master <= 0;
   return (
@@ -61,11 +95,12 @@ export default function SoundButton({ lang = "es", className = "b-sound" }) {
         onClick={() => { unlock(); setOpen((o) => !o); }}>
         <SpeakerIcon off={off} />
       </button>
-      {open && (
-        <div className="snd-pop" role="dialog" aria-label={t("snd_title")}>
+      {open && createPortal(
+        <div ref={popup} className="snd-pop" style={position} role="dialog" aria-label={t("snd_title")}>
           <b>{t("snd_title")}</b>
+          <MusicSelect lang={lang} />
           <SoundSliders lang={lang} test={false} />
-        </div>
+        </div>, document.body,
       )}
     </div>
   );

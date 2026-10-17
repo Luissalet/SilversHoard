@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+Elige **Pista de música** al preparar la partida en Combatir o abre **Sonido → Pista de música** durante un combate clásico o en tiempo real para elegir cualquiera de las 48 pistas existentes, mantener la música automática o quedarte sin música. El cambio se aplica mientras juegas y se recuerda en este navegador con los volúmenes. Los efectos y gritos de Pokémon son independientes. El selector permanece accesible fuera del campo en pantallas pequeñas; las páginas sin conexión siguen teniendo solo efectos y las grabaciones usan las preferencias del navegador que las graba.
+
 Pulsa **Editar nombre** junto al nombre del entrenador para abrir y enfocar su campo Nombre en Datos e IA y pulsa Guardar. El cambio conserva el mismo entrenador, equipo e imagen; REST/MCP utilizan el campo `name` existente de `trainer_update`.
 
 Puedes crear un entrenador solo con su nombre y elegir sus Pokémon después en el editor visual. Pegar un equipo o rellenarlo al azar durante la creación sigue siendo opcional. El entrenador vacío queda guardado; necesita un equipo para combatir. El mismo flujo está disponible mediante `trainer_create` y `trainer_update` en REST/MCP.
