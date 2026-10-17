@@ -131,8 +131,8 @@
 .b-result-faces .b-portrait { width: 64px; height: 64px; }
 .b-result-faces .is-loser { filter: grayscale(0.4); opacity: 0.85; }
 @media (prefers-reduced-motion: reduce) { .b-pop-portrait.is-cut { animation: none; } }
-.b-result { position: absolute; inset: auto 0 0 0; top: 0; z-index: 8; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; background: radial-gradient(closest-side, #000c, #0006 70%, transparent); color: #fff; text-align: center; animation: b-pop 0.35s ease-out; pointer-events: none; }
-.b-result b { font-family: var(--hoard-font-serif, serif); font-size: clamp(22px, 4vw, 34px); text-shadow: 0 2px 6px #000; }
+.b-result { position: absolute; inset: auto 0 0 0; top: 0; z-index: 8; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 12px; background: radial-gradient(closest-side, #000c, #0006 70%, transparent); color: #fff; text-align: center; animation: b-pop 0.35s ease-out; pointer-events: none; }
+.b-result b { max-width: 100%; overflow-wrap: anywhere; font-family: var(--hoard-font-serif, serif); font-size: clamp(22px, 4vw, 34px); line-height: 1.15; text-shadow: 0 2px 6px #000; }
 .b-result img { width: 96px; height: 96px; object-fit: contain; }
 .b-loading { position: absolute; inset: 0; display: grid; place-items: center; color: #fff; z-index: 8; background: #0006; font-weight: 600; }
 
