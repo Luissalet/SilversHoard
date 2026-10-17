@@ -1,5 +1,7 @@
 # Silver's Hoard — architecture
 
+`replay_statistics.py` aggregates saved classic/real-time logs and summaries through the read-only `replay_statistics` tool in `agent_tools.py`. History loads its frequency panel on demand with kind, mode and trainer filters, independent of list pagination. It reports complete-record coverage and skips ambiguous identities, without engine calls or writes. See [replay frequencies](REPLAY_STATISTICS.md) for counting rules and legacy limitations.
+
 Controller diagnostics extends Settings with `components/ControllerDiagnostics.jsx`. The read-only `controller_guide` tool (`controller.py`, `presets/controller_guide.json`) supplies mode bindings, the 2048-entry limit and the configured web port's firewall command through the normal UI/REST/MCP dispatcher. The browser samples its Gamepad API only after Start, records changed normalized readings locally with `controller-diagnostics.js`, pauses sampling while hidden and cancels its animation frame on stop, collapse or unmount. Values are rounded to three decimals, non-finite values become zero, and analog ranges are clamped. The JSON download contains mode/layout transitions, browser-provided device IDs, raw axes/buttons and sampling events; it is not uploaded or persisted automatically. Bindings are help for existing handlers, not a new control layer. Hardware is not exposed through MCP and no firewall command is executed. See [diagnostic behavior](CONTROLLER_DIAGNOSTICS.md).
 
 ## Supplied menu, contest, base and projectile sprites
