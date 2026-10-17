@@ -73,6 +73,29 @@ def test_playable_gym_uses_weather_in_its_starting_spec(call, services):
 
 
 @needs_engine
+@pytest.mark.parametrize("weather,rules", [("raindance", True), ("fog", False)])
+def test_portable_result_replays_the_captured_climate(call, services, weather, rules):
+    from silvers_hoard import sharing
+
+    arena = call("arena_save", {"name": "Portable", "weather": weather, "weather_rules": rules})
+    leader = call("trainer_create", {"name": "Leader", "paste": TEAM})
+    gym = call("gym_save", {"name": "Portable", "leader_id": leader["id"], "rt_arena": arena["value"]})
+    obj = services.store.trainer(leader["id"])
+    info = services._rt_page_info("gym", services.store.gym(gym["id"]))
+    rt = {"trainer": leader["id"], "key": info["keys"][leader["id"]], "v": 12, "arena": info["arena"],
+          "seed": "arena-portable", "limit": 30, "silver_special": False,
+          "inputs": sharing.encode_rt_inputs([]), "tick": 5, "forfeit": "p1"}
+    result = {"kind": "gym", "gym_id": gym["id"], "gym_name": gym["name"], "challenger": "Portable QA", "won": False,
+              "turns": 0, "v": 2, "team": obj["team"], "stages": [{"name": obj["name"], "won": False, "turns": 0, "mode": "realtime", "rt": rt}]}
+    out = call("import", {"content": sharing.pack_code(sharing.RESULT_PREFIX_RT, result)})
+    assert out["verified_real_time"] == 1
+    spec = call("battle_get", {"id": out["battle_id"]})["rt"]["spec"]
+    assert spec["arena"]["weather"] == weather and spec["arena"]["weather_rules"] is rules
+    call("arena_save", {"id": arena["id"], "weather": "snow"})
+    call("import", {"content": sharing.pack_code(sharing.RESULT_PREFIX_RT, result)}, status=409)
+
+
+@needs_engine
 def test_finished_battle_retains_weather_after_arena_edit(call):
     a = call("arena_save", {"name": "Nieve", "weather": "snow", "weather_rules": True})
     trainer = call("trainer_create", {"name": "Weather", "paste": TEAM})

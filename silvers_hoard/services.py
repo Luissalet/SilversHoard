@@ -3188,7 +3188,7 @@ class Services:
         limit = max(30, min(int(self.settings.get("rt_time_limit") or 300), 1800))
         arena = self.arenas.spec(obj["rt_arena"]) if kind == "gym" and obj.get("rt_arena") else "rocks"
         if isinstance(arena, dict):
-            arena = {k: arena[k] for k in ("name", "floor", "rocks")}
+            arena = {k: arena[k] for k in ("name", "floor", "rocks", "weather", "weather_rules") if k in arena}
         return {"format": rt_fmt, "arena": arena, "time_limit": limit, "version": RT_RULES_VERSION,
                 "silver_special": bool(self.settings.get("rt_silver_special", False)),
                 "keys": {t["id"]: self._rt_key(t, rt_fmt, level_rules) for t in self._stage_trainers(kind, obj)}}
