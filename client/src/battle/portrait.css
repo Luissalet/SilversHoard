@@ -13,6 +13,7 @@
 .portrait-layout .b-card-top, .portrait-layout .b-hpnum, .portrait-layout .b-level { font-size: inherit; }
 .portrait-layout .b-mons.foe { top: 23%; right: 6%; width: 60%; height: 24%; }
 .portrait-layout .b-mons.me { left: 5%; bottom: 24%; width: 64%; height: 30%; }
+.portrait-layout .is-doubles .b-mons.me { bottom: 34%; height: 24%; }
 .portrait-layout .b-sprite { --sprite-size: 25cqw !important; }
 .portrait-layout .is-doubles .b-sprite { --sprite-size: 21cqw !important; }
 .portrait-layout .b-trainer { max-width: 29%; font-size: clamp(11px, 2.8cqw, 28px); }
