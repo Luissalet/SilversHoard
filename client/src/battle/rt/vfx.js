@@ -9,6 +9,7 @@ import { KENNEY } from "./kenney.gen.js";
 import { MPW_FX } from "./mpw-fx.gen.js";
 import { drawFireSprite } from "./move-art.js";
 import { drawIceSprite } from "./ice-art.js";
+import { SuppliedEffects } from './supplied-fx.js';
 
 const H = 0.6;          // projectiles fly this many meters over the ground
 const TAU = Math.PI * 2;
@@ -141,6 +142,8 @@ const CHAINS = new Set(["hex", "bind", "wrap", "infestation", "snaptrap", "ancho
 export class Vfx {
   constructor(renderer) {
     this.r = renderer;
+    this.supplied = renderer.canvas ? new SuppliedEffects(renderer) : null;
+    this.reducedMotion = renderer.reducedMotion || (typeof window!=='undefined' ? window.matchMedia?.('(prefers-reduced-motion: reduce)') : null);
     this.parts = [];
     this.rays = new Map();         // projectile id -> ray
     this.fx = [];                  // timed effects (bolts, claws, rings…)
@@ -219,6 +222,7 @@ export class Vfx {
 
   // ------------------------------------------------------------ events
   onEvent(e, battle) {
+    this.supplied?.event(e,battle);
     // the Pokémon of an event: the side's in singles, the slot's (e.u) in doubles; its foe: the other side's, or the one it aims at
     const side = (i) => (battle.doubles ? battle.sides[i].units[e.u || 0] : battle.sides[i]);
     const foeOf = (i) => (battle.doubles ? battle.foe(side(i)) : battle.sides[1 - i]);
@@ -435,6 +439,7 @@ export class Vfx {
   /** An area move's look at (x, y), radius r: all around (arc -1), a cone towards (fx, fy) whose half angle has cosine `arc`,
    * or a drop from the sky landing there. */
   areaAt(move, type, x, y, r, { arc = -1, fx = 1, fy = 0, drop = false } = {}) {
+    this.supplied?.area(move,type,x,y,r,arc,fx,fy,drop);
     const kind = drop ? DROPS[move] || "ring" : arc === -1 ? BURSTS[move] || "ring" : BURSTS[move] || "cone";
     this.area(kind, { x, y, r, arc, fx, fy, type }, drop);
   }
@@ -442,6 +447,7 @@ export class Vfx {
   areaKind(move) { return BURSTS[move] || "ring"; }
   /** A strike's (or a dash's) mark in front of (x, y), facing (fx, fy). */
   meleeAt(move, type, x, y, fx, fy, { dash = false } = {}) {
+    this.supplied?.contact(move,type,x,y,fx,fy,dash);
     const kind = melee(move);
     const reach = dash ? 1.2 : 1.4;
     const len = Math.hypot(fx, fy);   // a direction: a dash's whole path may come in, the mark stays just ahead of the Pokémon
@@ -451,10 +457,12 @@ export class Vfx {
   }
   /** A beam from (x0, y0) to (x1, y1), with the move's own ray (ice crystals, flames, lightning...), fading at once. */
   rayAt(key, move, type, x0, y0, x1, y1) {
+    this.supplied?.beam(move,type,x0,y0,x1,y1);
     this.rays.set(key, { kind: RAYS[move] || "generic", ox: x0, oy: y0, hx: x1, hy: y1, type, t: 0, gone: 0, s: 0 });
   }
   /** A hit on whoever stands at (x, y): the type's burst and, with the pixel-art style, its impact. */
   hitAt(move, type, x, y, { strong = false } = {}) {
+    this.supplied?.impact(move,type,x,y);
     this.burst(type, x, y, { power: strong ? 1.5 : 1 });
     const px = pixelHits ? pixelHitOf(move, type) : "";
     if (px) this.fx.push({ kind: "pixel", sheet: px, x, y, t: 0, life: 0.36, big: strong });
@@ -462,6 +470,7 @@ export class Vfx {
 
   // ------------------------------------------------------------ per frame
   update(dt, view) {
+    this.supplied?.update(dt,view);
     this.shake = Math.max(0, this.shake - dt * 0.9);
     for (const p of this.parts) {
       if (p.delay > 0) { p.delay -= dt; continue; }
@@ -765,6 +774,8 @@ export class Vfx {
     }
     // particles
     for (const p of this.parts) if (!(p.delay > 0)) this.drawPart(ctx, p, s);
+    // Attack material is independent of the particle preference (textured/pixel/plain).
+    this.supplied?.draw(ctx,view,!!this.reducedMotion?.matches);
     // full-screen flashes
     // (on the whole screen, whatever the camera does)
     for (const f of this.fx) if (f.kind === "flash" && f.t >= 0) {
