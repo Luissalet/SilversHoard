@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {importTeam} from '../src/core.mjs';
 import {RtBattle, rtRun} from '../src/realtime/sim.mjs';
 import {ArenaRenderer} from '../../client/src/battle/rt/render.js';
+import {createReplay,stepReplay} from '../../client/src/battle/rt/replay.js';
 
 const sets = importTeam('Glaceon\nAbility: Ice Body\n- Water Pulse\n- Ice Beam\n- Tackle\n- Sunny Day');
 const spec = (weather = '', rules = false, extra = {}) => ({id:'arena-climate', seed:'arena-climate',
@@ -78,6 +79,22 @@ test('mechanical arena fog produces actual accuracy misses', () => {
   const fog = rtRun(spec('fog',true,setup)), clear = rtRun(spec('fog',false,setup));
   assert.ok(fog.events.some(e=>e.fog===true));
   assert.ok(!clear.events.some(e=>e.fog===true));
+});
+
+test('weather version 12 and the saved replay reader retain the same forfeit and weather on every seek', () => {
+  for (const weather of ['sunnyday','raindance','snow','fog']) {
+    const setup = spec(weather,true), original = new RtBattle(setup);
+    for (let i=0;i<90;i++) original.step({});
+    original.forfeit('p1');
+    for (const seek of [0,60,90,900]) {
+      const b = new RtBattle(setup), replay = createReplay(b,{inputs:[],tick:90,forfeit:'p1'},seek);
+      while (!b.ended) stepReplay(b,replay);
+      assert.equal(b.t,90);
+      assert.deepEqual(b.view(),original.view(),`${weather}, seek ${seek}`);
+      assert.deepEqual(b.summary(),original.summary());
+      assert.deepEqual(b.events,original.events);
+    }
+  }
 });
 
 test('drawing climates keeps the floor cached, takes no simulation input and respects reduced motion', () => {

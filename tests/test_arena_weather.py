@@ -107,3 +107,20 @@ def test_finished_battle_retains_weather_after_arena_edit(call):
     assert spec["arena"]["weather"] == "snow" and spec["arena"]["weather_rules"] is True
     call("arena_save", {"id": a["id"], "weather": "sunnyday", "weather_rules": False})
     assert call("battle_get", {"id": bt["id"]})["rt"]["spec"] == spec
+
+
+@needs_engine
+def test_saved_weather_and_forfeit_travel_together(call):
+    arena = call("arena_save", {"name": "Fog replay", "weather": "fog", "weather_rules": True})
+    seat = {"team": [{"species": "Glaceon", "moves": ["Splash"]}], "human": True}
+    battle = call("battle_start", {"p1": seat, "p2": seat, "mode": "realtime", "rt_arena": arena["value"], "time_limit": 30})
+    ended = call("battle_rt_finish", {"id": battle["id"], "inputs": [], "tick": 90, "forfeit": "p1"})
+    assert ended["summary"]["reason"] == "forfeit" and ended["summary"]["seconds"] == 3
+    assert ended["rt"]["forfeit"] == "p1" and ended["rt"]["tick"] == 90
+    assert ended["rt"]["spec"]["version"] == 12
+    original = ended["rt"]["spec"]
+    call("arena_save", {"id": arena["id"], "weather": "snow"})
+    again = call("battle_get", {"id": battle["id"]})
+    assert again["rt"]["spec"] == original
+    assert again["rt"]["spec"]["arena"]["weather"] == "fog"
+    assert again["rt"]["forfeit"] == "p1" and again["rt"]["tick"] == 90
