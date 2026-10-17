@@ -103,11 +103,15 @@ test('drawing climates keeps the floor cached, takes no simulation input and res
     assert.equal(JSON.stringify(b.view()),before);
     const rainLines = records.filter(x=>x[0]==='lineTo').length;
     assert.ok(rainLines>0,'rain is visible, beyond the tint');
-    records.length=0;
-    ArenaRenderer.prototype.drawCourt.call(r,{...b.view(),arena_weather:'snow',floor:'summit'});
-    const snow = records.filter(x=>x[0]==='arc').length;
-    records.length=0;
-    ArenaRenderer.prototype.drawCourt.call(r,{...b.view(),arena_weather:'snow',floor:'summit'});
-    assert.equal(records.filter(x=>x[0]==='arc').length,snow-1,'only the first render draws the cached central court circle');
+    const snowOn = floor => {
+      const view = {...b.view(),arena_weather:'snow',floor};
+      ArenaRenderer.prototype.drawCourt.call(r,view); // warm the floor cache
+      records.length=0;
+      ArenaRenderer.prototype.drawCourt.call(r,view);
+      return records.filter(x=>x[0]==='arc').length;
+    };
+    const ordinarySnow = snowOn('grass');
+    assert.ok(ordinarySnow>0);
+    assert.equal(snowOn('summit'),ordinarySnow,'floor snow and selected snow must not stack');
   } finally {globalThis.document=previous;}
 });
