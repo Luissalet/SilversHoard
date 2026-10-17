@@ -200,6 +200,7 @@ const D = {
   save: ["Guardar", "Save"],
   saved: ["Guardado", "Saved"],
   edit: ["Editar", "Edit"],
+  edit_name: ["Editar nombre", "Edit name"],
   create: ["Crear", "Create"],
   open: ["Abrir", "Open"],
   add: ["Añadir", "Add"],
