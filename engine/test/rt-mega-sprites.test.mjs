@@ -1,6 +1,16 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {ArenaRenderer} from '../../client/src/battle/rt/render.js';
+import {makeSprites} from '../../client/src/battle/dex.js';
+
+test('exported pages resolve new Mega form models without an app or a PokeAPI name lookup', () => {
+  const sprites = makeSprites({server: 'https://play.example/sprites', set: 'gen5ani'});
+  assert.match(sprites.fallback('Delphox-Mega'), /legends-za\/10293.webp$/);
+  assert.match(sprites.fallback('Raichu-Mega-X', {back: true, shiny: true}), /legends-za\/back\/shiny\/10304.webp$/);
+  assert.match(sprites.fallback('Delphox'), /gen5\/delphox.png$/);
+  assert.match(makeSprites({server: 'https://play.example/sprites', set: 'za'}).pokemon('Delphox-Mega'), /legends-za\/10293.webp$/);
+  assert.match(makeSprites().fallback('Delphox-Mega', {shiny: true}), /api\/sprites\/pokemon\/delphox-mega\?back=0&shiny=1&set=gen5$/);
+});
 
 test('Mega Delphox uses its battle sprite when PMD returns its normal or shiny base sheets', async () => {
   const previous = {window: globalThis.window, document: globalThis.document, Image: globalThis.Image, fetch: globalThis.fetch};
