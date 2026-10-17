@@ -106,7 +106,7 @@ class Cups:
     def create(self, *, trainer_ids: Optional[list[str]] = None, random_count: int = 0, human_id: str = "", seeding: str = "random",
                best_of: int = 1, format_: str = "", rules: Optional[list[str]] = None, level_rules: Optional[dict[str, Any]] = None,
                mode: str = "classic", time_limit: int = 0, rt_arena: str = "rocks", ai_level: str = "", title: str = "",
-               pace: float = PACE_DEFAULT, seed: Optional[int] = None, autoplay: bool = True, random_from: str = "") -> dict[str, Any]:
+               pace: float = PACE_DEFAULT, seed: Optional[int] = None, autoplay: bool = True, random_from: str = "", lang: str = "en") -> dict[str, Any]:
         from .services import RT_RULES_VERSION, _rt_arena
 
         svc = self.svc
@@ -146,7 +146,7 @@ class Cups:
                 "best_of": max(1, int(best_of) | 1), "rt_arena": _rt_arena(rt_arena), "ai_level": ai_level or "",
                 "time_limit": max(30, min(int(time_limit or svc.settings["rt_time_limit"]), 1800)), "pace": max(0.0, min(float(pace), 10.0)),
                 "seeding": seeding, "version": RT_RULES_VERSION if mode == "realtime" else 0,
-                "silver_special": bool(svc.settings.get("rt_silver_special", False))}
+                "silver_special": bool(svc.settings.get("rt_silver_special", False)), "lang": "es" if lang == "es" else "en"}
         if mode == "realtime":
             svc.arenas.spec(spec["rt_arena"])   # a custom arena must exist
         rounds = build_rounds([e["id"] for e in entrants])
@@ -306,8 +306,9 @@ class Cups:
                                         "turns": summary.get("turns", 0), "log_text": "\n".join(g.get("lines") or []), "summary": summary,
                                         "seed": str(g.get("seed")) if rt else json.dumps(g.get("seed")), "run_id": cid,
                                         "title": f"{c['title']} · {a['name']} vs {b['name']}", "mode": spec["mode"],
-                                        "replay": {"time_limit": spec["time_limit"], "inputs": [], "version": spec.get("version") or 0,
-                                                   "arena": arena, "silver_special": spec.get("silver_special", (spec.get("version") or 1) >= 5)} if rt else {}})
+                                        "replay": {"lang": spec.get("lang") or "en", **({"time_limit": spec["time_limit"], "inputs": [],
+                                                   "version": spec.get("version") or 0, "arena": arena,
+                                                   "silver_special": spec.get("silver_special", (spec.get("version") or 1) >= 5)} if rt else {})}})
             side = "a" if g.get("winner") == a["id"] else "b" if g.get("winner") == b["id"] else ""
             with self._lock(cid):
                 c = svc.store.cup(cid)
@@ -373,7 +374,8 @@ class Cups:
             p2 = {"trainer_id": rival, "human": False, **({"ai_level": spec["ai_level"]} if spec["ai_level"] else {})}
             b = svc.battle_start(p1={"trainer_id": human, "human": True}, p2=p2, format_=spec["format"], rules=spec["rules"],
                                  level_rules=spec["level_rules"], kind="cup", run_id=cid, mode=spec["mode"], time_limit=spec["time_limit"],
-                                 rt_arena=spec["rt_arena"], silver_special=spec.get("silver_special", (spec.get("version") or 1) >= 5),
+                                 rt_arena=spec["rt_arena"], lang=spec.get("lang") or "en",
+                                 silver_special=spec.get("silver_special", (spec.get("version") or 1) >= 5),
                                  title=f"{c['title']} · {names.get(human, '')} vs {names.get(rival, '')}")
             c = svc.store.cup(cid)
             m = c["rounds"][r][i]
@@ -405,7 +407,7 @@ class Cups:
         try:
             b = svc.battle_start(p1={"trainer_id": m["a"], "human": False, **lvl}, p2={"trainer_id": m["b"], "human": False, **lvl},
                                  format_=spec["format"], rules=spec["rules"], level_rules=spec["level_rules"], kind="cup", run_id=cid,
-                                 mode=spec["mode"], time_limit=spec["time_limit"], rt_arena=spec["rt_arena"],
+                                 mode=spec["mode"], time_limit=spec["time_limit"], rt_arena=spec["rt_arena"], lang=spec.get("lang") or "en",
                                  silver_special=spec.get("silver_special", (spec.get("version") or 1) >= 5),
                                  title=f"{c['title']} · {names.get(m['a'], '')} vs {names.get(m['b'], '')}")
         except Exception:

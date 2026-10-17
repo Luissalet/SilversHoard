@@ -126,10 +126,10 @@ function MassVideo({ id, query }) {
     <div className="video-stage">
       <div className="video-title">
         <b>{loc(doc, lang, "title")}</b>
-        {run2 && <span className="help">{t("mass_replay_of", { who: run2.challenger, name: run2.name })}</span>}
+        {run2 && <span className="help">{t("mass_replay_of", { who: loc(run2, lang, "challenger"), name: run2.name })}</span>}
       </div>
       <React.Suspense fallback={null}>
-        <MassScreen doc={doc} t={t} sprites={sprites} replay={run2 ? { unit: run2.unit, inputs: run2.inputs } : null}
+        <MassScreen doc={doc} t={t} lang={lang} sprites={sprites} replay={run2 ? { unit: run2.unit, inputs: run2.inputs } : null}
           video={{ playing, speed: rate, ticks, onProgress: (x) => window.__videoProgress?.(x), onDone: done }} />
       </React.Suspense>
     </div>

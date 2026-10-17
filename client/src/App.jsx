@@ -195,7 +195,7 @@ export default function App() {
     if (confirmResolve.current) confirmResolve.current(answer);
     confirmResolve.current = null;
   }, []);
-  const changeLang = useCallback((next) => { saveLang(next); setLang(next); }, []);
+  const changeLang = useCallback((next) => { api.setLanguage(next); saveLang(next); setLang(next); }, []);
   const settings = ov?.settings || {};
   const sprites = useMemo(() => makeSprites({ set: settings.sprite_set || "gen5ani" }), [settings.sprite_set]);
   const go = useCallback((hash) => { window.location.hash = hash; }, []);
