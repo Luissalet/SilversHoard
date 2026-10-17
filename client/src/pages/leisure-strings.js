@@ -1,4 +1,5 @@
 export default {
+  contest_you: ["Tú", "You"],
   nav_contests: ["Concursos", "Contests"], nav_bases: ["Bases secretas", "Secret bases"],
   contest_help: ["Elige un Pokémon para la presentación, sigue el ritmo y convence a los jueces con sus movimientos.", "Choose a Pokémon for presentation, follow the rhythm, and appeal to the judges with its moves."],
   contest_rules: ["Reglas de Silver inspiradas en los Superconcursos: 3 fases, 4 exhibiciones y 3 jueces. No reproduce todas las reglas del cartucho.", "Silver rules inspired by Super Contests: 3 phases, 4 appeals and 3 judges. Does not reproduce every cartridge rule."],
