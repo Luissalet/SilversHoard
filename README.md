@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+Real-time mechanical fog now draws the existing mist on any court while the simulator's public `fog` flag is active. Pyre retains its decorative mist without a duplicate layer; combat rules and arena settings are unchanged.
+
 Share can group saved replay exercises into a themed `.silverexercise` pack, import every position in a fresh library and practise each independently. Themes are curated labels, and imports reconstruct all positions before saving them together. Individual exercise files remain compatible. UI, REST and MCP share `exercise_pack_export` and normal Import. See [exercise packs](docs/EXERCISE_PACKS.md).
 
 `trainers_list` returns the complete matching trainer catalog through REST/MCP, including long fields, without the generic response truncation. Existing query, origin, game and region filters remain available.
