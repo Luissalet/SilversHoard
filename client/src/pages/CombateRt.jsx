@@ -9,6 +9,7 @@ import { useSeats } from "../components/silver.jsx";
 import { battleTitle, loc, winnerName } from "../loc.js";
 import { RunStrip } from "./Combate.jsx";
 import VideoExport from "../components/VideoExport.jsx";
+import BattleJournal from "../components/BattleJournal.jsx";
 import { CupStrip } from "./Copa.jsx";
 import { replayPosition } from "../history-search.js";
 
@@ -86,6 +87,7 @@ export default function CombateRt({ battle, setData, query }) {
           {battle.status === "ended" && runActive && battle.run?.map && <a className="btn btn-primary" href={`#/recorrido/${battle.run.id}`}>{t("gmap_back")}</a>}
           {battle.status === "ended" && battle.run?.frontier && <a className={`btn ${runActive && battle.winner_side === "p1" ? "btn-primary" : ""}`} href={`#/frontera/${battle.run.id}`}>{lang === "en" ? "Battle Frontier streak" : "Racha del Frente Batalla"}</a>}
           {battle.status === "ended" && runActive && !battle.run?.map && !battle.run?.frontier && battle.winner_side === "p1" && <button type="button" className="btn btn-primary" onClick={nextStage}>{t("next_stage")}</button>}
+          {battle.status === "ended" && <BattleJournal battle={battle} />}
           {battle.status === "ended" && battle.log_length > 0 && <VideoExport battle={battle} />}
           <a className="btn" href="#/combatir">{t("new_battle")}</a>
         </div>
