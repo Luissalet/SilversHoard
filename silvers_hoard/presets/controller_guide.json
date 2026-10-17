@@ -1,0 +1,13 @@
+{
+  "log_limit": 2048,
+  "modes": [
+    {"id":"realtime","layouts":["za","simple"],"sources":["client/src/battle/rt/input.js"],"bindings":{
+      "za":[["A0 / A1","move_rt"],["B6","focus"],["B6 + B3 / B1 / B0 / B2","moves_diamond"],["B0 / B2","roll_unfocused"],["B5","mega"],["B14 / B15 → B12","party"],["B9","pause"],["B6 + B9","special"],["B4 / B11","doubles"]],
+      "simple":[["A0 / A1","move_rt"],["B0 / B1 / B2 / B3","moves_four"],["B5 / B7","roll"],["B4","mega"],["B8","special"],["B14 / B15 → B12","party"],["B9","pause"],["B10 / B11","doubles"]]
+    }},
+    {"id":"mass","layouts":["simple"],"sources":["client/src/battle/mass/MassScreen.jsx","client/src/battle/rt/input.js"],"bindings":{"simple":[["A0 / A1","move_mass"],["B0 / B1 / B2 / B3","moves_four"],["B5 / B7","roll"]]}},
+    {"id":"maps","layouts":["standard"],"sources":["client/src/battle/overworld/Overworld.jsx"],"bindings":{"standard":[["A0 / A1 (> 0.5) · B12–B15","map_walk"],["B0","map_talk"]]}},
+    {"id":"pokeathlon","layouts":["standard"],"sources":["client/src/pokeathlon/runner.js","client/src/pokeathlon/events"],"bindings":{"standard":[["A0–A3","pk_sticks"],["B0 / B1","pk_jump"],["B4 / B5","pk_pick"],["B0 · B1 / B2 / B7","pk_snow"],["B0 · B1 / B2 / B3 · B4–B7","pk_ring"]]}},
+    {"id":"roulette","layouts":["standard"],"sources":["client/src/pages/Frontera.jsx"],"bindings":{"standard":[["B0","roulette_stop"]]}}
+  ]
+}
