@@ -149,7 +149,7 @@ class Sprites:
         return out
 
     def pokemon(self, sprite_id: str, *, set_: str = "", back: bool = False, shiny: bool = False) -> Path:
-        """The best picture of a Pokémon in the chosen set, falling back to the gen 5 pixel art (which covers every species)."""
+        """The chosen picture, then gen 5 pixel art; missing Megas try Z-A's models before the base species."""
         sid = sprite_id.lower()
         if not SPRITE_ID.match(sid):
             raise SilverError("invalid", f"Not a sprite id: {sprite_id}")
@@ -172,11 +172,20 @@ class Sprites:
             candidates.append(f"{variant}/{sid}.{ext}")
             if shiny:
                 candidates.append(f"{folder}{'-back' if back else ''}/{sid}.{ext}")
-        base = sid.split("-")[0]
-        if base != sid:
-            candidates += [f"gen5{'-back' if back else ''}/{base}.png"]
         for rel in dict.fromkeys(candidates):
             path = self.fetch(rel)
+            if path:
+                return path
+        # New Mega formes are not all drawn in Showdown's pixel sets yet. Keep their actual appearance with Z-A's models
+        # before resorting to the unevolved species (also used by the real-time arena's static fallback).
+        if "-mega" in sid:
+            for rel, url in self._pokeapi_candidates("za", sid, back, shiny):
+                path = self.fetch(rel, url)
+                if path:
+                    return path
+        base = sid.split("-")[0]
+        if base != sid:
+            path = self.fetch(f"gen5{'-back' if back else ''}/{base}.png")
             if path:
                 return path
         raise SilverError("not_found", f"No sprite for {sprite_id}")

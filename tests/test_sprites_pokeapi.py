@@ -35,3 +35,47 @@ def test_pokeapi_sets_map_formes_and_fall_back(tmp_path):
     n = len(seen)
     assert s.pokemon("charizard", set_="champions").name == "6.webp" and len(seen) == n, "cached after the first time"
     assert s.stats()["cached"] >= 2
+
+
+def test_missing_mega_pixel_sprite_keeps_za_form_before_base(tmp_path):
+    from silvers_hoard.sprites import Sprites
+
+    webp = b"RIFF\x24\x00\x00\x00WEBPVP8 " + b"\x00" * 24
+    png = b"\x89PNG\r\n\x1a\n" + b"\x00" * 24
+    seen = []
+
+    def http(url):
+        seen.append(url)
+        if url.startswith("https://pokeapi.co/"):
+            return 200, json.dumps({"results": [{"name": "raichu-mega-x", "url": "https://pokeapi.co/api/v2/pokemon/10304/"}]}).encode(), "application/json"
+        if "/legends-za/" in url and url.endswith("10304.webp"):
+            return 200, webp, "image/webp"
+        if url.endswith("/raichu.png"):
+            return 200, png, "image/png"
+        return 404, b"", "text/plain"
+
+    s = Sprites(tmp_path / "sprites", tmp_path / "avatars", {"sprite_downloads": True, "sprite_server": "https://play.example/sprites"}, http)
+    for back in (False, True):
+        path = s.pokemon("raichu-megax", set_="gen5", back=back, shiny=True)
+        assert path.name == "10304.webp"
+        assert ("back" in path.parts) == back
+        assert "shiny" in path.parts
+        assert path.read_bytes() == webp
+    assert not any(url.endswith("/raichu.png") for url in seen), "the unevolved sprite must not win over the Mega"
+    calls = len(seen)
+    s.pokemon("raichu-megax", set_="gen5", back=True, shiny=True)
+    assert len(seen) == calls, "the Mega and missing pixel sprites are cached"
+    s.settings["sprite_downloads"] = False
+    assert s.pokemon("raichu-megax", set_="gen5", back=True, shiny=True).name == "10304.webp"
+
+
+def test_missing_mega_art_still_uses_existing_base_fallback(tmp_path):
+    from silvers_hoard.sprites import Sprites
+
+    png = b"\x89PNG\r\n\x1a\n" + b"\x00" * 24
+
+    def http(url):
+        return (200, png, "image/png") if url.endswith("/raichu.png") else (404, b"", "text/plain")
+
+    s = Sprites(tmp_path / "sprites", tmp_path / "avatars", {"sprite_server": "https://play.example/sprites"}, http)
+    assert s.pokemon("raichu-megax", set_="gen5").name == "raichu.png"

@@ -102,7 +102,9 @@ export class ArenaRenderer {
     const one = async ([si, mi, num, form, shiny, table]) => {
       const meta = await loadMeta(num, { form, shiny, base: this.base });
       for (const who of meta?.credit || []) this.credits.add(who);
-      if (meta) {
+      // PMD can return the base species when the requested Mega has no sheets. Let its battle sprite show instead.
+      const formFolder = meta?.key?.split("-")[1];
+      if (meta && (!form?.startsWith("Mega") || (formFolder && formFolder !== "0000"))) {
         table[si][mi] = new Animator(meta, this.base);
         for (const a of Object.keys(meta.a)) image(`${this.base}/api/sprites/pmd-sheet/${meta.key}/${a}.png`);
       }
@@ -311,9 +313,9 @@ export class ArenaRenderer {
     }
   }
 
-  /** The walking sprite of a Pokémon: its Mega forme's while Mega Evolved (the base one when there is no Mega sprite). */
+  /** The walking sprite of the current forme; a missing Mega sheet leaves room for its battle sprite. */
   animOf(si, slot, mega) {
-    return (mega && this.megaAnims[si]?.[slot]) || this.anims[si]?.[slot] || null;
+    return (mega ? this.megaAnims[si]?.[slot] : this.anims[si]?.[slot]) || null;
   }
 
   /** New events since the last frame start animations and floating texts. */
