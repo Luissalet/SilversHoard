@@ -63,6 +63,17 @@ def build(folder: Path) -> dict:
                         "width": im.width, "height": im.height,
                         "image": "data:image/png;base64," + base64.b64encode(stream.getvalue()).decode(), **extra}
 
+    def atlas(sid, id_, frames, name, es, members, *, fps=12):
+        w,h=max(im.width for im in frames),max(im.height for im in frames)
+        cols=min(8,len(frames))
+        sheet=Image.new("RGBA",(w*cols,h*((len(frames)+cols-1)//cols)))
+        for i,im in enumerate(frames):
+            sheet.alpha_composite(im,((i%cols)*w+(w-im.width)//2,(i//cols)*h+(h-im.height)//2))
+        stream=io.BytesIO();sheet.save(stream,format="PNG",optimize=True)
+        sprites[id_]={"name":name,"name_es":es,"group":"effect-atlas","source":sid,"rect":[0,0,sheet.width,sheet.height],
+            "width":sheet.width,"height":sheet.height,"image":"data:image/png;base64,"+base64.b64encode(stream.getvalue()).decode(),
+            "frames":len(frames),"frame_width":w,"frame_height":h,"columns":cols,"fps":fps,"members":members}
+
     bw = source("*Black _ White*Accessories.png", "redblueyellow (ripping); original sheet: no credit needed")
     rows = [
         (0, "Pink Bow|Blue Bow|Red Bow|Gift Bow|Orange Bow|Green Bow|Black Bow|Aqua Bow|Leaf Brooch|Blue Flower|Red Flower|Orange Flower",
@@ -205,9 +216,83 @@ def build(folder: Path) -> dict:
                 backgrounds=[src[1].getpixel((box[0],box[1]))[:3],(255,255,255),(243,243,243)]
                 id_="fx-"+name.removesuffix(".png").lower()+"-"+str(i)
                 cut(src,id_,box,name.removesuffix(".png"),name,"effect",background=backgrounds,frame=True,member=name)
+
+    goods = folder / "Gen IV decoration goods"
+    sizes = {**{i:(2,1) for i in range(1,6)}, 6:(2,2),10:(3,3),11:(2,2),13:(1,3),14:(3,1),15:(3,3),
+             16:(2,2),17:(1,2),18:(2,2),19:(2,2),20:(2,2),21:(1,2),22:(2,2),23:(2,2),24:(2,2),25:(2,1),
+             26:(1,2),27:(2,1),28:(2,3),31:(2,2),32:(2,2),34:(2,2),35:(2,2),36:(1,2),38:(2,3),39:(2,3),40:(1,2),
+             42:(1,2),43:(2,1),44:(2,1),46:(3,3),47:(1,2),**{i:(3,3) for i in range(48,56)},
+             **{i:(2,2) for i in range(77,81)},**{i:(2,1) for i in range(81,85)},89:(2,2),90:(2,2),91:(2,2),125:(2,2),
+             133:(2,1),136:(1,2),137:(1,2),138:(3,1)}
+    spanish = {7:"Cojín amarillo",8:"Cojín azul",9:"Silla de madera",10:"Mesa grande",11:"Mesa sencilla",12:"Mesa pequeña",
+        13:"Mesa larga",14:"Mesa ancha",15:"Mesa Poké",16:"Estantería grande",17:"Estantería pequeña",18:"Estantería de investigación",
+        19:"Herramientas de bicicleta",20:"Estantería de tienda",21:"Expositor",22:"Alacena",23:"Cómoda de madera",24:"Cómoda rosa",
+        25:"Televisor",26:"Nevera",27:"Fregadero",28:"Cama mullida",29:"Papelera",30:"Caja de cartón",31:"Cajón",32:"Contenedor",
+        33:"Bidón",34:"Bidones grandes",35:"Viga de hierro",36:"Planta en maceta",37:"Flor Poké",38:"Máquina de curación",
+        39:"Máquina de laboratorio",40:"Máquina de pruebas",41:"Videoconsola",42:"Máquina expendedora",43:"Bicicleta roja",
+        44:"Bicicleta verde",45:"Prismáticos",46:"Globo terráqueo",47:"Estatua de gimnasio",48:"Tienda roja",49:"Tienda azul",
+        50:"Tienda transparente",51:"Bloque de laberinto 1",52:"Bloque de laberinto 2",53:"Bloque de laberinto 3",
+        54:"Bloque de laberinto 4",55:"Bloque de laberinto 5",56:"Herramienta de agujero",57:"Herramienta de foso",
+        58:"Herramienta de humo",59:"Herramienta de humo grande",60:"Herramienta de roca",61:"Herramienta de rocas",
+        62:"Herramienta de espuma",63:"Herramienta de burbujas",64:"Avisador 1",65:"Avisador 2",66:"Avisador 3",67:"Avisador 4",
+        68:"Herramienta de hojas",69:"Herramienta de flores",70:"Herramienta de brasas",71:"Herramienta de fuego",
+        72:"Copa Dulzura",73:"Copa Carisma",74:"Copa Belleza",75:"Copa Dureza",76:"Copa Ingenio",77:"Cristal azul",
+        78:"Cristal rosa",79:"Cristal rojo",80:"Cristal amarillo",81:"Gema bonita",82:"Gema brillante",83:"Gema mística",84:"Gema reluciente",
+        85:"Trofeo de bronce",86:"Trofeo de plata",87:"Trofeo de oro",88:"Gran trofeo",89:"Adorno Poké Ball",90:"Adorno redondo",
+        91:"Adorno transparente",133:"Sofá ancho",134:"Bonsái",135:"Flores delicadas",136:"Flores preciosas",137:"Flores bonitas",138:"Jardinera"}
+    for path in sorted(goods.glob("*.png")) if goods.exists() else []:
+        number = int(path.name[:3])
+        raw = path.read_bytes()
+        im = Image.open(io.BytesIO(raw))
+        name = re.sub(r"(?:_Sprite_DPPt|_IV)$", "", path.stem.split("_",1)[1]).replace("_", " ")
+        if name.startswith("Doll "):
+            name = name[5:] + " Doll"
+        es = spanish.get(number, "Muñeco de " + name.removesuffix(" Doll") if name.endswith(" Doll") else
+                         "PC (bandera " + ["normal","bronce","plata","oro","platino"][number-1] + ")" if number<=5 else
+                         "Roca grande" if number==6 else "Agujero de base " + str(number-128))
+        sid = str(len(sources))
+        sources[sid] = {"file": path.relative_to(folder).as_posix(), "sha256":hashlib.sha256(raw).hexdigest(),
+                        "credit":"Original game artists; supplied from Bulbagarden Archives", "copyright":"Pokémon © Nintendo, Creatures, GAME FREAK"}
+        sprites[f"gen4-{number:03}"] = {"name":name,"name_es":es,"group":"decoration","source":sid,
+             "rect":[0,0,im.width,im.height],"width":im.width,"height":im.height,
+             "image":"data:image/png;base64,"+base64.b64encode(raw).decode(),"solid":number not in (7,8,129,130,131,132) and number not in range(56,72),
+             "footprint":list(sizes.get(number,(1,1))),"generation":4,"goods_number":number,"decoration_only":True}
+    # Give old generic objects matching art without changing their historical one-cell layout.
+    for old, new in (("bed","gen4-028"),("shelf","gen4-017")):
+        if new in sprites:
+            sprites[old] = {**sprites[new],"group":"legacy-decoration","footprint":[1,1]}
+
+    attack_folder=folder/"attacks"
+    sky_path=next(attack_folder.glob("*Sky*.zip"),None) if attack_folder.exists() else None
+    if sky_path:
+        sid=str(len(sources));sources[sid]={"file":sky_path.relative_to(folder).as_posix(),"sha256":hashlib.sha256(sky_path.read_bytes()).hexdigest(),
+            "credit":"Pokémon Mystery Dungeon: Explorers of Sky; original game artists and archive rippers","copyright":"Pokémon © Nintendo, Creatures, GAME FREAK"}
+        chosen={"Fire":"0053","Ice":"0141","Ghost":"0156","Normal":"0107","Poison":"0046","Dark":"0092","Rock":"0117",
+            "Electric":"0042","Dragon":"0075","Grass":"0129","Water":"0013","Psychic":"0017","Fighting":"0005","Steel":"0136",
+            "Fairy":"0051","Ground":"0041","Bug":"0067","Flying":"0100"}
+        with zipfile.ZipFile(sky_path) as archive:
+            for type_,code in chosen.items():
+                members=sorted(n for n in archive.namelist() if n.startswith(f"move_VFX/{code}/000/") and n.endswith(".png"))
+                if not members:
+                    raise ValueError(f"Missing Explorers animation {code}")
+                frames=[Image.open(archive.open(n)).convert("RGBA") for n in members]
+                atlas(sid,"fx-sky-"+type_.lower(),frames,type_+" projectile",type_+": proyectil",members)
+    ranger_path=next(attack_folder.glob("*Ranger*.zip"),None) if attack_folder.exists() else None
+    if ranger_path:
+        sid=str(len(sources));sources[sid]={"file":ranger_path.relative_to(folder).as_posix(),"sha256":hashlib.sha256(ranger_path.read_bytes()).hexdigest(),
+            "credit":"Pokémon Ranger: Guardian Signs; original game artists and archive rippers","copyright":"Pokémon © Nintendo, Creatures, GAME FREAK"}
+        with zipfile.ZipFile(ranger_path) as archive:
+            im=Image.open(archive.open("17.png")).convert("RGBA")
+            frames=[]
+            for i in range(4):
+                frame=im.crop((0,i*71,71,(i+1)*71))
+                frame.putdata([(r,g,b,0) if (r,g,b)==(255,0,255) else (r,g,b,a) for r,g,b,a in frame.getdata()])
+                frames.append(frame)
+            atlas(sid,"fx-ranger-impact",frames,"Impact burst","Impacto",["17.png"],fps=16)
     # Inventory every supplied file, including sheets not yet connected to a game surface.
-    inventory=[{"file":p.name,"sha256":hashlib.sha256(p.read_bytes()).hexdigest(),
-                "connected":any(s["file"]==p.name for s in sources.values())} for p in sorted(folder.iterdir()) if p.is_file()]
+    source_hashes={s["sha256"] for s in sources.values()}
+    inventory=[{"file":p.relative_to(folder).as_posix(),"sha256":hashlib.sha256(p.read_bytes()).hexdigest(),
+                "connected":hashlib.sha256(p.read_bytes()).hexdigest() in source_hashes} for p in sorted(folder.rglob("*")) if p.is_file()]
     return {"schema":1,"sources":sources,"sprites":sprites,"inventory":inventory,
             "reference":"https://bulbapedia.bulbagarden.net/wiki/List_of_decoration_goods_in_Generation_IV"}
 
@@ -217,5 +302,5 @@ if __name__ == "__main__":
     parser.add_argument("folder",type=Path)
     args=parser.parse_args()
     result=build(args.folder)
-    OUTPUT.write_text(json.dumps(result,ensure_ascii=False,separators=(",",":"))+"\n",encoding="utf-8")
+    OUTPUT.write_text(json.dumps(result,ensure_ascii=False,separators=(",",":"))+"\n",encoding="utf-8",newline="\n")
     print(f"{len(result['sprites'])} sprites from {len(result['sources'])} sheets; {len(result['inventory'])} supplied files inventoried")

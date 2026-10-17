@@ -1,5 +1,6 @@
 export default {
   sprite_search: ["Buscar objetos", "Search objects"],
+  base_gen4_replicas: ["Incluye réplicas decorativas de los 138 objetos de cuarta generación.", "Includes decorative replicas of all 138 Generation IV goods."],
   base_no_space: ["El objeto no cabe aquí. Deja libres la entrada, el propietario y los demás muebles.", "This object does not fit here. Leave the entrance, host and other furniture clear."],
   contest_you: ["Tú", "You"],
   nav_contests: ["Concursos", "Contests"], nav_bases: ["Bases secretas", "Secret bases"],

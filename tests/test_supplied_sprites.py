@@ -1,5 +1,6 @@
 import base64
 import io
+import hashlib
 
 from PIL import Image
 
@@ -11,7 +12,7 @@ def test_manifest_images_and_http_catalog_match(call, client):
     assert len(catalog["sprites"]) == len(SPRITES) >= 190
     assert len(catalog["accessories"]) > 90
     assert len(catalog["decorations"]) > 40
-    assert len(SUPPLIED_ART["inventory"]) == 25
+    assert len(SUPPLIED_ART["inventory"]) >= 174
     for item in catalog["sprites"]:
         sprite = SPRITES[item["id"]]
         response = client.get(item["url"])
@@ -65,5 +66,32 @@ def test_catalog_pages_reach_every_sprite_and_filter_both_languages(call):
     assert len(seen) == len(set(seen)) == len(SPRITES)
     assert set(seen) == set(SPRITES)
     page = call("leisure_catalog", {"section": "decorations", "query": "nevera"})
-    assert [d["id"] for d in page["decorations"]] == ["rotom-fridge"]
+    assert {d["id"] for d in page["decorations"]} == {"rotom-fridge", "gen4-026"}
     assert "sprites" not in call("leisure_catalog")
+
+
+def test_generation_four_complete_goods_keep_original_png_bytes_and_footprints(call):
+    goods = [s for s in SPRITES.values() if s.get("generation") == 4 and s["group"] == "decoration"]
+    assert sorted(s["goods_number"] for s in goods) == list(range(1,139))
+    for sprite in goods:
+        raw = base64.b64decode(sprite["image"].split(",")[1])
+        assert hashlib.sha256(raw).hexdigest() == SUPPLIED_ART["sources"][sprite["source"]]["sha256"]
+    assert SPRITES["gen4-028"]["footprint"] == [2,3]
+    base=call("secret_base_save",{"name":"Generation IV","decorations":[{"kind":"gen4-028","x":0,"y":2},{"kind":"gen4-138","x":4,"y":4}]})
+    imported=call("secret_base_import",{"payload":call("secret_base_export",{"id":base["id"]})})
+    assert imported["decorations"]==base["decorations"]
+    call("secret_base_save",{"name":"Outside","decorations":[{"kind":"gen4-028","x":7,"y":6}]},status=400)
+
+
+def test_attack_atlases_have_every_frame_and_no_ranger_registration_markers():
+    atlases=[s for s in SPRITES.values() if s["group"]=="effect-atlas"]
+    assert len(atlases)==19
+    assert sum(s["frames"] for s in atlases)>=200
+    for s in atlases:
+        im=Image.open(io.BytesIO(base64.b64decode(s["image"].split(",")[1])))
+        assert im.width==s["frame_width"]*s["columns"]
+        for n in range(s["frames"]):
+            x,y=(n%s["columns"])*s["frame_width"],(n//s["columns"])*s["frame_height"]
+            assert im.crop((x,y,x+s["frame_width"],y+s["frame_height"])).getbbox()
+        if s is SPRITES["fx-ranger-impact"]:
+            assert not any((r,g,b)==(255,0,255) and a for r,g,b,a in im.getdata())
