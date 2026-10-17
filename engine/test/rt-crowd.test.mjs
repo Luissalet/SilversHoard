@@ -67,20 +67,22 @@ test('a missing walking sheet keeps a bounded static spectator, with no new requ
     await new Promise(resolve=>setImmediate(resolve));
     const loaded=[images,requests];
     const draws=[];
-    const ctx={beginPath(){},ellipse(){},fill(){},drawImage(...args){draws.push(args);}};
+    const ctx={save(){},restore(){},beginPath(){},ellipse(){},fill(){},drawImage(...args){draws.push(args);}};
     show.drawCrowd(ctx,0.016);
     assert.ok(show.crowd.length>0);
     assert.equal(draws.length,show.crowd.length);
-    assert.ok(draws.every(args=>args[3]<=33 && args[4]<=33));
+    const pokemonDraws=draws.filter(args=>args.length===5);
+    assert.equal(pokemonDraws.length,show.crowd.filter(c=>!c.trainer).length);
+    assert.ok(pokemonDraws.every(args=>args[3]<=33 && args[4]<=33));
     show.drawCrowd(ctx,0.016);
     assert.deepEqual([images,requests],loaded);
     let walkingScale=0;
-    show.crowd[0].anim={meta:{a:{Idle:{w:160,h:120}}},loop(){},update(){},draw(ctx,x,y,row,k){walkingScale=k;return true;}};
+    show.crowd.find(c=>!c.trainer).anim={meta:{a:{Idle:{w:160,h:120}}},loop(){},update(){},draw(ctx,x,y,row,k){walkingScale=k;return true;}};
     show.drawCrowd(ctx,0.016);
     assert.ok(walkingScale>0 && walkingScale*160<=33);
     const offline = new Show({...renderer,offline:true});
     offline.setupCrowd(new RtBattle(spec()));
-    assert.deepEqual(offline.crowd,[]);
+    assert.ok(offline.crowd.length>0 && offline.crowd.every(c=>c.trainer));
     assert.deepEqual([images,requests],loaded);
   } finally {
     if (originalImage === undefined) delete globalThis.Image; else globalThis.Image=originalImage;

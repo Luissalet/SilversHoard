@@ -5,6 +5,7 @@
 // events and never changes the battle (the screen holds the battle still while the intro and the ending play).
 import { Animator, dirRow, image, loadMeta } from "./pmd.js";
 import { crowdMembers } from "./crowd.js";
+import { mixTrainerCrowd, drawCrowdTrainer, loadCrowdTrainerAtlas } from "./crowd-trainers.js";
 
 const TAU = Math.PI * 2;
 const rnd = (a = 0, b = 1) => a + Math.random() * (b - a);
@@ -77,14 +78,18 @@ export class Show {
   }
 
   // ------------------------------------------------------------ the audience
-  /** A different audience for each battle, kept on replay; they hop on the big moments. */
+  /** Trainers and Pokémon watch each battle from the edges, keeping their places on replay. */
   setupCrowd(battle) {
     this.crowd = [];
-    if (!this.on || !showSettings().crowd || this.r.offline || typeof fetch === "undefined") return;
-    crowdMembers(battle).forEach((member) => {
+    if (!this.on || !showSettings().crowd) return;
+    const pokemonOnline = !this.r.offline && typeof fetch !== "undefined";
+    const seed = `${battle.seed}:${battle.id}:${battle.floor || "grass"}`;
+    mixTrainerCrowd(crowdMembers(battle), seed).forEach((member) => {
+      if (!member.trainer && !pokemonOnline) return;
       const one = { ...member, anim: null, hop: -1, delay: 0,
-        fallback: image(this.r.sprites.fallback(member.species)) };
+        fallback: member.trainer ? null : image(this.r.sprites.fallback(member.species)) };
       this.crowd.push(one);
+      if (member.trainer) { loadCrowdTrainerAtlas(); return; }
       loadMeta(member.num, { base: this.r.base }).then((meta) => {
         if (!meta) return;
         one.anim = new Animator(meta, this.r.base);
@@ -99,7 +104,7 @@ export class Show {
     if (!this.crowd?.length) return;
     const r = this.r, s = r.scale;
     for (const c of this.crowd) {
-      if (!c.anim && !c.fallback?.ready) continue;
+      if (!c.trainer && !c.anim && !c.fallback?.ready) continue;
       c.anim?.loop("Idle");
       c.anim?.update(dt);
       let lift = 0;
@@ -117,6 +122,10 @@ export class Show {
       const x = r.px(c.x), y = r.py(c.y);
       ctx.fillStyle = "rgba(0,0,0,0.25)";
       ctx.beginPath(); ctx.ellipse(x, y, 0.35 * s, 0.13 * s, 0, 0, TAU); ctx.fill();
+      if (c.trainer) {
+        drawCrowdTrainer(ctx, c.trainer, x, y - lift * s, c.fx, c.fy, size);
+        continue;
+      }
       const drawn = c.anim?.draw(ctx, x, y - lift * s, dirRow(c.fx, c.fy), k, { alpha: 0.95 });
       if (!drawn && c.fallback?.ready) {
         const img = c.fallback.img;
