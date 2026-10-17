@@ -75,8 +75,7 @@ export default function Medallas() {
   const emblems = useMemo(() => {
     const all = frontierEmblemsFromRuns(runs.data?.challenges || []);
     if (!personId) return all;
-    const name = (runs.data?.challenges || []).find((r) => r.challenger_id === personId)?.challenger_name;
-    return all.filter((e) => !name || e.challenger_name === name || (e.run_id && (runs.data?.challenges || []).some((r) => r.id === e.run_id && r.challenger_id === personId)));
+    return all.filter((e) => e.challenger_id === personId);
   }, [runs.data, personId]);
   const medals = poke.data?.medals || [];
   const achievements = (progress.data?.achievements || []).filter((a) => a.unlocked);
