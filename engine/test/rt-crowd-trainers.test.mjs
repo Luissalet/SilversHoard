@@ -2,6 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {CROWD_TRAINERS, mixTrainerCrowd, drawCrowdTrainer, crowdTrainerDirection} from '../../client/src/battle/rt/crowd-trainers.js';
+import {Show, showSettings, setShowSetting} from '../../client/src/battle/rt/show.js';
+import {RtBattle} from '../src/realtime/sim.mjs';
 
 const seats = Array.from({length: 12}, (_, i) => ({x: i, y: 7, fx: 1, fy: 0, num: i + 1}));
 
@@ -62,4 +64,44 @@ test('spectators use actual left, right and back frames, anchored at their feet,
     }
     assert.equal(ctx.imageSmoothingEnabled, false);
   } finally { globalThis.Image = previous; }
+});
+
+test('the real show draws offline humans, cheers and pauses without fetching Pokémon or changing battle outcomes', () => {
+  const oldImage = globalThis.Image, oldFetch = globalThis.fetch, settings = {...showSettings()};
+  globalThis.Image = class {set src(value) {this.onload?.();}};
+  let requests = 0;
+  globalThis.fetch = async () => {requests++; return {ok:false};};
+  const spec = {id:'human-crowd', seed:'702', format:'gen9customgame', version:10, time_limit:30, arena:'open',
+    p1:{name:'A',sets:[{species:'Pikachu',moves:['Thunderbolt']}],ai:{level:'normal'}},
+    p2:{name:'B',sets:[{species:'Eevee',moves:['Tackle']}],ai:{level:'normal'}}};
+  try {
+    const battle = new RtBattle(spec), control = new RtBattle(spec), before = structuredClone(battle.view());
+    const renderer = {offline:true, scale:20, k:1, px:x=>x*20, py:y=>y*20};
+    const show = new Show(renderer);
+    show.setupCrowd(battle);
+    assert.ok(show.crowd.length > 0 && show.crowd.every(c=>c.trainer && !c.anim && !c.fallback));
+    const draws = [], ctx = {save(){},restore(){},beginPath(){},ellipse(){},fill(){},drawImage(...args){draws.push(args);}};
+    show.cheer(1);
+    for (const c of show.crowd) {c.hop=0; c.delay=0; c.big=1;}
+    show.drawCrowd(ctx,.1);
+    assert.equal(draws.length,show.crowd.length);
+    const phase = structuredClone(draws.map(args=>args.slice(1)));
+    for (let i=0;i<draws.length;i++) assert.ok(draws[i][6]+draws[i][8] < renderer.py(show.crowd[i].y));
+    draws.length=0;
+    show.drawCrowd(ctx,0);
+    assert.deepEqual(draws.map(args=>args.slice(1)),phase);
+    assert.equal(requests,0);
+    assert.deepEqual(battle.view(),before);
+    for (let i=0;i<120;i++) {battle.step(); control.step();}
+    assert.deepEqual(battle.view(),control.view());
+    assert.deepEqual(battle.events,control.events);
+    setShowSetting('crowd',false);
+    const hidden = new Show(renderer); hidden.setupCrowd(battle);
+    assert.deepEqual(hidden.crowd,[]);
+    setShowSetting('crowd',true); setShowSetting('style','plain');
+    hidden.setupCrowd(battle); assert.deepEqual(hidden.crowd,[]);
+  } finally {
+    globalThis.Image = oldImage; globalThis.fetch = oldFetch;
+    setShowSetting('crowd',settings.crowd); setShowSetting('style',settings.style);
+  }
 });

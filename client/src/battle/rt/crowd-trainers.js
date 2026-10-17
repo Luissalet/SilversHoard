@@ -29,10 +29,13 @@ export function crowdTrainerDirection(fx, fy) {
   return Math.abs(fy) > Math.abs(fx) ? (fy < 0 ? 3 : 0) : (fx < 0 ? 1 : 2);
 }
 
+export function loadCrowdTrainerAtlas() {
+  return typeof Image === "undefined" ? null : image(TRAINER_ATLAS);
+}
+
 export function drawCrowdTrainer(ctx, trainer, x, y, fx, fy, height) {
-  if (typeof Image === "undefined") return false;
-  const sheet = image(TRAINER_ATLAS);
-  if (!sheet.ready) return false;
+  const sheet = loadCrowdTrainerAtlas();
+  if (!sheet?.ready) return false;
   const i = CROWD_TRAINERS.indexOf(trainer), direction = crowdTrainerDirection(fx, fy);
   if (i < 0) return false;
   const [w, h] = trainer.sizes[direction];
