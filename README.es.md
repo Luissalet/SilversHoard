@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+Las megas de Z-A conservan su aspecto cuando no existe una animación PMD de esa forma, incluidas las 49 variantes nuevas de género y aspecto, normales/variocolor y de frente/espalda. `overworld_import` y `overworld_list` incorporan el ZIP de megas y la hoja de la línea Delphox como arte persistente del usuario: diez megas tienen sprites que caminan en cuatro direcciones, con créditos y las mismas imágenes incluidas en las páginas jugables exportadas. Las demás usan imágenes estáticas de combate. Consulta las [fuentes](docs/MEGA_SPRITES.md) y la [importación de hojas](docs/OVERWORLD_SPRITES.md).
+
 Los combates nuevos en tiempo real usan las reglas 10: caminar un 35% más despacio, desplazamientos laterales parciales de la IA, esquivas más cortas con 2 s de recuperación y una reacción real de la IA con una oportunidad por peligro continuo. Las partidas guardadas conservan sus reglas. Las arenas guardadas de hierba y arena muestran sus texturas originales en el selector de combate.
 
 El tiempo real distingue visualmente Excavar (ocultación y salida), Volar y Bote (ascenso y descenso), Rodar y Bola Hielo (giro del sprite), y el impacto de Movimiento Sísmico (elevación breve del rival). Las poses PMD ajustan su ritmo a la preparación del motor. Son efectos visuales: no añaden invulnerabilidad, daño ni desplazamiento real. Movimiento Sísmico no introduce una cinemática que pare a los otros combatientes.
