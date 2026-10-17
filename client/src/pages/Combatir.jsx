@@ -235,7 +235,7 @@ function TournamentForm() {
 }
 
 function CupList() {
-  const { t, version } = useApp();
+  const { t, lang, version } = useApp();
   const [cups, setCups] = useState(null);
   useEffect(() => { api.call("cups_list", {}).then((r) => setCups(r.cups)).catch(() => setCups([])); }, [version]);
   if (!cups?.length) return null;
@@ -245,7 +245,7 @@ function CupList() {
         {cups.map((c) => (
           <a key={c.id} href={`#/copa/${c.id}`} className="row-item">
             <span className={`chip cup-row-status ${c.status === "done" ? "chip-ok" : c.status === "active" ? "chip-accent" : ""}`}>{t(`cup_status_${c.status}`)}</span>
-            <span className="min-w-0 flex-1 trunc"><b>{c.title}</b> <span className="help">· {t("cup_entrants_n", { n: c.entrants.length })} · {t("cup_played", { n: c.played, total: c.total })}</span></span>
+            <span className="min-w-0 flex-1 trunc"><b>{loc(c, lang, "title")}</b> <span className="help">· {t("cup_entrants_n", { n: c.entrants.length })} · {t("cup_played", { n: c.played, total: c.total })}</span></span>
             {c.champion_name && <span className="help trunc">{t("cup_champion")}: <b>{c.champion_name}</b></span>}
             <Rel ts={c.updated_at} />
           </a>
