@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+Z-A Mega forms keep their own appearance when no matching PMD animation exists, including all 49 new gender and cosmetic variants, normal/shiny and front/back. `overworld_import` and `overworld_list` add the supplied Mega ZIP and Delphox-line sheet as persistent user art: ten Megas have four-direction walking sprites, with artist credits and the same images embedded in playable exports. Other forms use static battle images. See [sprite sources](docs/MEGA_SPRITES.md) and [sheet import](docs/OVERWORLD_SPRITES.md).
+
 New real-time battles use rules version 11: **Silver special is optional and off by default**. Enable it in Settings for new battles and playable-page exports; saved matches and results keep their choice, and replays from versions 5–10 retain their special attack. Mega Evolution stays available independently. Version 10's slower walking, partial-speed AI sidesteps, shorter rolls with 2 s recovery and delayed AI dodges remain. Saved grass and sand arenas show their original floor textures in the battle picker.
 
 Real-time battles now distinguish Dig (hide/emerge), Fly and Bounce (rise/descent), Rollout and Ice Ball (sprite rotation), and Seismic Toss impacts (a brief target lift). PMD pose playback follows the engine windup. These are presentation effects, without added invulnerability, damage or physical displacement. Seismic Toss does not pause other fighters for a cinematic.

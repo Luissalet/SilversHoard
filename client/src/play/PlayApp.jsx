@@ -51,7 +51,7 @@ export default function PlayApp({ data }) {
 function Challenge({ data, lang, setLang, t }) {
   const kind = data.kind;
   const target = kind === "gym" ? data.payload.gym : data.payload.trainer;
-  const sprites = useMemo(() => makeSprites({ server: data.sprite_server || "https://play.pokemonshowdown.com/sprites", set: data.sprite_set || "gen5ani", dexNum }), [data]);
+  const sprites = useMemo(() => makeSprites({ server: data.sprite_server || "https://play.pokemonshowdown.com/sprites", set: data.sprite_set || "gen5ani", dexNum, overworld: data.overworld }), [data]);
   const all = useMemo(() => (kind === "gym" ? [...(target.trainers || []), target.leader] : [target]), [kind, target]);
   // a gym with a map: the friend walks it and fights whoever they meet, the leader last; seq is the order the battles came in
   const walkMap = useMemo(() => (kind === "gym" && target.map?.w

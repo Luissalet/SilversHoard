@@ -4,7 +4,8 @@
 // leaves on the floor, a wave that sweeps the screen for Surf and the winner's banner. Drawing only: it reads the battle's view and
 // events and never changes the battle (the screen holds the battle still while the intro and the ending play).
 import { Animator, dirRow, image, loadMeta } from "./pmd.js";
-import { CROWDS, crowdSpots } from "./places.js";
+import { crowdMembers } from "./crowd.js";
+import { mixTrainerCrowd, drawCrowdTrainer, loadCrowdTrainerAtlas } from "./crowd-trainers.js";
 import { drawBallFrame } from "../ball-art.js";
 
 const TAU = Math.PI * 2;
@@ -78,23 +79,19 @@ export class Show {
   }
 
   // ------------------------------------------------------------ the audience
-  /** Pokémon that live in the arena's place watch from the edges; they hop on the big moments. */
+  /** Trainers and Pokémon watch each battle from the edges, keeping their places on replay. */
   setupCrowd(battle) {
     this.crowd = [];
-    if (!this.on || !showSettings().crowd || this.r.offline || typeof fetch === "undefined") return;
-    const floor = battle.view?.().floor || "grass";
-    const kinds = CROWDS[floor] || CROWDS.grass;
-    const seed = String(battle.spec?.seed ?? battle.seed ?? "silver");
-    let h = 7;
-    for (const ch of seed) h = (h * 31 + ch.charCodeAt(0)) % 2147483647;
-    const spots = crowdSpots();
-    spots.forEach((sp, i) => {
-      h = (h * 16807) % 2147483647;
-      if (h % 5 === 0) return;   // a few empty places
-      const num = kinds[(h >> 3) % kinds.length];
-      const one = { ...sp, num, anim: null, hop: -1, delay: 0, small: sp.fy !== 0 };
+    if (!this.on || !showSettings().crowd) return;
+    const pokemonOnline = !this.r.offline && typeof fetch !== "undefined";
+    const seed = `${battle.seed}:${battle.id}:${battle.floor || "grass"}`;
+    mixTrainerCrowd(crowdMembers(battle), seed).forEach((member) => {
+      if (!member.trainer && !pokemonOnline) return;
+      const one = { ...member, anim: null, hop: -1, delay: 0,
+        fallback: member.trainer ? null : image(this.r.sprites.fallback(member.species)) };
       this.crowd.push(one);
-      loadMeta(num, { base: this.r.base }).then((meta) => {
+      if (member.trainer) { loadCrowdTrainerAtlas(); return; }
+      loadMeta(member.num, { base: this.r.base }).then((meta) => {
         if (!meta) return;
         one.anim = new Animator(meta, this.r.base);
         for (const who of meta.credit || []) this.r.credits?.add(who);
@@ -108,9 +105,9 @@ export class Show {
     if (!this.crowd?.length) return;
     const r = this.r, s = r.scale;
     for (const c of this.crowd) {
-      if (!c.anim) continue;
-      c.anim.loop("Idle");
-      c.anim.update(dt);
+      if (!c.trainer && !c.anim && !c.fallback?.ready) continue;
+      c.anim?.loop("Idle");
+      c.anim?.update(dt);
       let lift = 0;
       if (c.hop >= 0) {
         if (c.delay > 0) c.delay -= dt; else {
@@ -119,11 +116,23 @@ export class Show {
           if (c.hop > 0.85) c.hop = -1;
         }
       }
-      const k = Math.max(1, Math.round(r.k * (c.small ? 0.75 : 0.85) * 2) / 2);
+      const size = 1.65 * s * (c.small ? 0.75 : 1);
+      const frame = c.anim?.meta?.a?.Idle || c.anim?.meta?.a?.Walk;
+      const zoom = Math.max(1, Math.round(r.k * (c.small ? 0.75 : 0.85) * 2) / 2);
+      const k = frame ? Math.min(zoom, size / Math.max(frame.w, frame.h)) : zoom;
       const x = r.px(c.x), y = r.py(c.y);
       ctx.fillStyle = "rgba(0,0,0,0.25)";
       ctx.beginPath(); ctx.ellipse(x, y, 0.35 * s, 0.13 * s, 0, 0, TAU); ctx.fill();
-      c.anim.draw(ctx, x, y - lift * s, dirRow(c.fx, c.fy), k, { alpha: 0.95 });
+      if (c.trainer) {
+        drawCrowdTrainer(ctx, c.trainer, x, y - lift * s, c.fx, c.fy, size);
+        continue;
+      }
+      const drawn = c.anim?.draw(ctx, x, y - lift * s, dirRow(c.fx, c.fy), k, { alpha: 0.95 });
+      if (!drawn && c.fallback?.ready) {
+        const img = c.fallback.img;
+        const scale = Math.min(size / img.width, size / img.height);
+        ctx.drawImage(img, x - img.width * scale / 2, y - lift * s - img.height * scale, img.width * scale, img.height * scale);
+      }
     }
   }
 

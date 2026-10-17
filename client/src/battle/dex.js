@@ -2,6 +2,7 @@
 // types read in Spanish when the screen is in Spanish (PokeAPI's Spanish names); Pokémon keep their names.
 import NAMES_ES from "./names-es.js";
 import { BattleText } from "./text/battle-text.gen.js";
+import { ZA_MEGA_IDS } from "./mega-sprites.js";
 
 export const toID = (text) => String(text ?? "").toLowerCase().replace(/[^a-z0-9]+/g, "");
 
@@ -53,16 +54,17 @@ export function spriteId(species) {
 /** Where pictures come from: the app's cached sprite routes, or the Showdown sprite server straight (the playable page). */
 const PORTRAITS = "https://raw.githubusercontent.com/PMDCollab/SpriteCollab/master/portrait";
 const PKAPI = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix";
+const PKAPI_PIXEL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon";
 const PKAPI_SETS = { champions: "champions", za: "legends-za", sv: "scarlet-violet" };
 
-export function makeSprites({ base = "", server = "", set = "gen5ani", dexNum = null } = {}) {
+export function makeSprites({ base = "", server = "", set = "gen5ani", dexNum = null, overworld = {} } = {}) {
   const SETS = { gen5: ["gen5", "png"], gen5ani: ["gen5ani", "gif"], ani: ["ani", "gif"], home: ["home", "png"], dex: ["dex", "png"] };
   const pokemon = (species, { back = false, shiny = false, spriteid } = {}) => {
     const id = spriteid || spriteId(species);
     if (!server) return `${base}/api/sprites/pokemon/${id}?back=${back ? 1 : 0}&shiny=${shiny ? 1 : 0}${set ? `&set=${set}` : ""}`;
     if (PKAPI_SETS[set]) {
-      // the playable page: PokeAPI's 3D sprites by Pokédex number for species in their usual forme (others: Showdown's gen 5)
-      const n = !id.includes("-") && dexNum ? dexNum(species) : 0;
+      // The playable page knows Z-A Mega form IDs as well as ordinary Pokédex numbers.
+      const n = ZA_MEGA_IDS[id] || (!id.includes("-") && dexNum ? dexNum(species) : 0);
       if (n > 0) return `${PKAPI}/${PKAPI_SETS[set]}/${back ? "back/" : ""}${shiny ? "shiny/" : ""}${n}.webp`;
       return `${server}/gen5${back ? "-back" : ""}${shiny ? "-shiny" : ""}/${id}.png`;
     }
@@ -70,9 +72,13 @@ export function makeSprites({ base = "", server = "", set = "gen5ani", dexNum = 
     const dir = folder + (back && !["home", "dex"].includes(set) ? "-back" : "") + (shiny && !["home", "dex"].includes(set) ? "-shiny" : "");
     return `${server}/${dir}/${id}.${ext}`;
   };
-  const fallback = (species, { back = false, spriteid } = {}) => {
+  const fallback = (species, { back = false, shiny = false, spriteid } = {}) => {
     const id = spriteid || spriteId(species);
-    return server ? `${server}/gen5${back ? "-back" : ""}/${id}.png` : `${base}/api/sprites/pokemon/${id}?back=${back ? 1 : 0}&set=gen5`;
+    if (server && ZA_MEGA_IDS[id]) {
+      const variant = `${back ? "back/" : ""}${shiny ? "shiny/" : ""}${ZA_MEGA_IDS[id]}`;
+      return id === "zygarde-mega" ? `${PKAPI}/legends-za/${variant}.webp` : `${PKAPI_PIXEL}/${variant}.png`;
+    }
+    return server ? `${server}/gen5${back ? "-back" : ""}${shiny ? "-shiny" : ""}/${id}.png` : `${base}/api/sprites/pokemon/${id}?back=${back ? 1 : 0}&shiny=${shiny ? 1 : 0}&set=gen5`;
   };
   const trainer = (avatar) => {
     if (!avatar) return "";
@@ -96,7 +102,16 @@ export function makeSprites({ base = "", server = "", set = "gen5ani", dexNum = 
   const pixelated = set === "gen5" || set === "gen5ani";
   // how much the pictures of each set are enlarged on the field: [own side (back), opposing side (front)]
   const SCALE = { gen5: [1.75, 1.4], gen5ani: [1.75, 1.4], ani: [1.05, 0.9], home: [0.62, 0.5], dex: [1.1, 0.9], champions: [0.62, 0.5], za: [0.62, 0.5], sv: [0.62, 0.5] };
-  return { pokemon, fallback, trainer, portrait, pixelated, scale: SCALE[set] || SCALE.gen5, server };
+  const walking = async (id, shiny = false) => {
+    if (server) return overworld[`${id}|${shiny ? 1 : 0}`] || overworld[`${id}|0`] || null;
+    try {
+      const r = await fetch(`${base}/api/sprites/overworld/${encodeURIComponent(id)}?shiny=${shiny ? 1 : 0}`);
+      if (!r.ok) return null;
+      const meta = await r.json();
+      return {...meta, url: base + meta.url};
+    } catch { return null; }
+  };
+  return { pokemon, fallback, trainer, portrait, walking, pixelated, scale: SCALE[set] || SCALE.gen5, server };
 }
 
 export const STAT_NAMES = {
