@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+Real-time battles wait for the initial sprite pixels, including each possible Mega image, before advancing. When a Mega walking animation is unavailable, the arena uses that Mega forme's static sprite. Mega Evolution shows a burst and a readable caption with its actual forme; simultaneous transformations keep both captions in order, including with reduced motion and in exported playable pages. Existing battle_get replay data and battle rules are unchanged.
+
 Battles offer horizontal and vertical presentation. Export the same saved replay as independent 16:9 and 9:16 videos (1080p vertical: 1080 × 1920), with preview and sound. Real-time portrait rotates only the camera, keeps trainers and Pokémon upright with the correct available facing, and consumes the original replay inputs unchanged. UI, REST and MCP expose the same `aspect` selection. See [frame formats](docs/VIDEO_FORMATS.md).
 
 Finished real-time replays and recorded clips apply a saved forfeit at its exact simulation tick. Seeking and restarting use the same reader. `battle_get` exposes the forfeiting side from the verified result, including older records with a saved forfeit reason and winner, without rewriting their data.
