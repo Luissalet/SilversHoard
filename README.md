@@ -2,6 +2,8 @@
 
 Finished real-time replays and recorded clips apply a saved forfeit at its exact simulation tick. Seeking and restarting use the same reader. `battle_get` exposes the forfeiting side from the verified result, including older records with a saved forfeit reason and winner, without rewriting their data.
 
+Create a trainer with just a name and choose Pokémon later in the visual team builder. Pasting a team or filling a random team at creation remains optional. Empty trainers are saved normally; they need a team before battling. The same flow is available through `trainer_create` and `trainer_update` in REST/MCP.
+
 Real-time mechanical fog now draws the existing mist on any court while the simulator's public `fog` flag is active. Pyre retains its decorative mist without a duplicate layer; combat rules and arena settings are unchanged.
 
 Share can group saved replay exercises into a themed `.silverexercise` pack, import every position in a fresh library and practise each independently. Themes are curated labels, and imports reconstruct all positions before saving them together. Individual exercise files remain compatible. UI, REST and MCP share `exercise_pack_export` and normal Import. See [exercise packs](docs/EXERCISE_PACKS.md).

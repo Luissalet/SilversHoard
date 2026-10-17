@@ -171,8 +171,8 @@ class Dialogue(BaseModel):
 
 class TrainerCreateArgs(BaseModel):
     name: str = Field(..., min_length=1, max_length=60)
-    paste: str = Field("", max_length=200_000, description="The team as Showdown export text.")
-    team: Optional[list[dict[str, Any]]] = Field(None, description="Or the team as a list of sets.")
+    paste: str = Field("", max_length=200_000, description="Optional team as Showdown export text; omit to choose Pokémon later.")
+    team: Optional[list[dict[str, Any]]] = Field(None, description="Optional team as a list of sets; omit for an empty trainer.")
     format: str = Field("", max_length=120, description="Empty = the default of the settings (gen9nationaldexag: anything goes, Mega, Z and Terastal).")
     title: str = Field("", max_length=60, description="Trainer class or title shown under the name.")
     ai_level: Optional[Level] = None
@@ -1142,7 +1142,7 @@ TOOLS: list[Tool] = [
                               "Background job. Reuses existing portraits, sprites, badges and selected style-reference colours; no image model. Includes recorded artwork credits and provenance in the picture and PNG metadata.",
                               synonyms="tarjeta de entrenador, medallas, compartir PNG"), TrainerPosterArgs, W,
          lambda s, a: trainer_poster.create(s, a.id, lang=a.lang)),
-    Tool("trainer_create", _d("Create a trainer from a team (Showdown text or sets) with AI, avatar and lines. Crear entrenador.",
+    Tool("trainer_create", _d("Create a trainer with an optional team, AI, avatar and lines. Crear entrenador sin equipo o con él.",
                               synonyms="nuevo entrenador, importar equipo de personaje, npc"), TrainerCreateArgs, WD,
          lambda s, a: s.trainer_create(name=a.name, team=a.team, paste=a.paste, format_=a.format, title=a.title, ai_level=a.ai_level or "",
                                        ai_style=a.ai_style or "", avatar=a.avatar, dialogue=a.dialogue.model_dump() if a.dialogue else None,

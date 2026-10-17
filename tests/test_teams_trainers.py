@@ -57,6 +57,23 @@ def test_bad_inputs(call):
     call("trainer_update", {"id": "tr_nope", "name": "y"}, status=404)
 
 
+def test_create_trainer_without_team_and_choose_later(call):
+    tr = call("trainer_create", {"name": "Choose later", "avatar": "sd:red"})
+    assert tr["team"] == [] and tr["paste"] == "" and tr["species"] == []
+    assert tr["avatar"] == "sd:red"
+    saved = call("trainer_get", {"id": tr["id"]})
+    assert saved["team"] == []
+    assert tr["id"] in {t["id"] for t in call("trainers_list")["trainers"]}
+    dup = call("trainer_duplicate", {"id": tr["id"]})
+    assert dup["team"] == [] and dup["id"] != tr["id"]
+    opponent = call("trainer_create", {"name": "Opponent", "paste": TEAM})
+    call("battle_start", {"p1": {"trainer_id": tr["id"]}, "p2": {"trainer_id": opponent["id"]}}, status=400)
+    up = call("trainer_update", {"id": tr["id"], "team": [{"species": "Pikachu", "moves": ["Thunderbolt"]}]})
+    assert [s["species"] for s in up["team"]] == ["Pikachu"]
+    assert up["team"][0]["moves"] == ["Thunderbolt"] and up["avatar"] == "sd:red"
+    assert call("trainer_get", {"id": tr["id"]})["team"] == up["team"]
+
+
 def test_canon_league(call):
     lst = call("canon_list", {"region": "Hoenn"})
     assert any(t["key"] == "em-wallace" for t in lst["trainers"]) and all(t["region"] == "Hoenn" for t in lst["trainers"])
