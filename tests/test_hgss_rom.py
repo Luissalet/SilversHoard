@@ -283,7 +283,7 @@ def test_a_league_installed_before_gets_its_gym_trainers_when_installed_again(ca
 
 @needs_engine
 def test_a_gym_challenge_meets_the_gym_trainers_with_their_lines(call, services):
-    call("canon_install", {"league_key": "johto-hgss"})
+    call("canon_install", {"league_key": "johto-hgss", "lang": "es"})
     falkner = services.store.gym_by_canon("johto-hgss:falkner")
     me = call("trainer_create", {"name": "Luis", "paste": TEAM})
     r = call("challenge_start", {"kind": "gym", "target_id": falkner["id"], "challenger_id": me["id"]})
