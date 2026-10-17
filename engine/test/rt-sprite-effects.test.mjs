@@ -98,3 +98,23 @@ test('replay speed uses the public battle clock and seeking never restarts old i
   seek.event({k:'use',s:0,move:'firepunch',t:7},{...battle,t:300});
   seek.update(0,{...view,seconds:10});calls.length=0;seek.draw(ctx,view);assert.equal(calls.length,0);
 }));
+
+test('cardinal cones and windups keep the real facing axis, including zero horizontal direction',()=>harness(({r,ctx,calls,view})=>{
+  for(const [ax,ay] of [[0,1],[0,-1],[1,0],[-1,0]]) {
+    for(const reduced of [false,true]) {
+      const effect=new SuppliedEffects(r);calls.length=0;
+      effect.area('heatwave','Fire',5,5,4,.55,ax,ay);effect.update(.2);effect.draw(ctx,view,reduced);
+      const points=calls.filter(c=>c[0]==='at').map(c=>[c[1]/r.scale-5,(c[2]+.6*r.scale)/r.scale-5]);
+      assert.equal(points.length,reduced?8:18);
+      assert.ok(points.every(([x,y])=>x*ax+y*ay>0),'cone stays in front of the actual facing');
+      assert.ok(Math.abs(points.reduce((sum,[x,y])=>sum-x*ay+y*ax,0)/points.length)<1e-9,'cone remains centred on its real axis');
+    }
+    const effect=new SuppliedEffects(r);calls.length=0;
+    const unit={...view.sides[0],x:5,y:5,fx:ax,fy:ay};
+    effect.event({k:'windup',s:0,move:'solarbeam',ticks:48},{sides:[unit]});effect.update(.2);effect.draw(ctx,{...view,sides:[unit]});
+    const points=calls.filter(c=>c[0]==='at');
+    assert.equal(points.length,2);
+    assert.equal(points[1][1],(5+ax*.6)*r.scale,'windup preserves horizontal facing');
+    assert.equal(points[1][2],(5+ay*.6)*r.scale-.6*r.scale,'windup preserves vertical facing');
+  }
+}));
