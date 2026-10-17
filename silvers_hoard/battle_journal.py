@@ -21,7 +21,7 @@ TEXT = {
         'complete': 'El registro conserva el inicio y el final del combate.',
         'empty': 'Este combate no conserva un resumen individual. No se han inventado cifras.',
         'source': 'Fuentes y método', 'log': 'Registro original', 'missing_log': 'No hay registro guardado.',
-        'source_help': 'Cifras: summary.sides del combate guardado. Registro: log_text, reproducido sin traducir ni modificar. Los nombres se conservan como se guardaron. «—» indica un dato ausente.',
+        'source_help': 'Cifras: resumen individual que el motor guardó al terminar. El registro original se reproduce sin traducir ni modificar. Los nombres se conservan como se guardaron. «—» indica un dato ausente.',
         'turns': 'Turnos guardados', 'seconds': 'Duración guardada (s)', 'format': 'Formato', 'date': 'Fecha guardada',
     },
     'en': {
@@ -36,7 +36,7 @@ TEXT = {
         'complete': 'The log retains the battle opening and ending.',
         'empty': 'This battle has no saved individual summary. No figures have been invented.',
         'source': 'Sources and method', 'log': 'Original log', 'missing_log': 'No saved log.',
-        'source_help': 'Figures: summary.sides in the saved battle. Log: log_text, reproduced without translation or changes. Names remain as saved. “—” means a missing value.',
+        'source_help': 'Figures: the individual summary saved by the engine at the end. The original log is reproduced without translation or changes. Names remain as saved. “—” means a missing value.',
         'turns': 'Saved turns', 'seconds': 'Saved duration (s)', 'format': 'Format', 'date': 'Saved date',
     },
 }
@@ -95,12 +95,12 @@ def render(battle, report, lang='en'):
     return f"""<!doctype html><html lang='{lang}'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
 <title>{e(s['title'])} · {e(report['id'])}</title><style>
 *{{box-sizing:border-box}}body{{margin:0;background:#f9f6f1;color:#241b1c;font:16px/1.55 'Source Sans 3',Segoe UI,sans-serif}}main{{max-width:960px;margin:auto;padding:40px 24px}}header{{border-bottom:2px solid #433536;padding-bottom:24px}}h1,h2{{font-family:Cinzel,Georgia,serif;line-height:1.15;overflow-wrap:anywhere}}h1{{font-size:clamp(30px,5vw,52px);margin:12px 0 20px}}h2{{font-size:23px;margin-top:32px}}p{{max-width:75ch}}.masthead{{font:700 22px Georgia,serif}}.meta,small{{color:#58494b}}small{{display:block;font-size:13px}}button{{border:1px solid #433536;border-radius:6px;padding:10px 16px;background:#b62436;color:#fff;font:inherit;font-weight:600;cursor:pointer}}button:focus-visible{{outline:3px solid #241b1c;outline-offset:3px}}.actions{{margin-bottom:28px}}.table-wrap{{overflow-x:auto}}table{{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}}caption{{text-align:left;font-weight:700;margin-bottom:10px}}th,td{{border-bottom:1px solid #b4a7a6;padding:10px 8px;text-align:left;overflow-wrap:anywhere}}th{{font-weight:650}}td:nth-child(n+3){{text-align:right;white-space:nowrap}}thead{{background:#ece4e0}}code,pre{{font:12px/1.5 Consolas,monospace;overflow-wrap:anywhere;white-space:pre-wrap;word-break:break-word}}.notice{{font-weight:600}}details{{margin-top:24px}}summary{{cursor:pointer;font-weight:650}}::selection{{background:#e2404f;color:#fff}}
-@page{{size:A4;margin:15mm}}@media(max-width:520px){{main{{padding:24px 16px}}table{{font-size:13px}}th,td{{padding:8px 4px}}}}@media print{{body{{background:white;color:#111;font-size:10pt}}main{{max-width:none;padding:0}}.actions{{display:none}}h1{{font-size:28pt}}h2{{break-after:avoid}}thead{{display:table-header-group}}tr{{break-inside:avoid}}.table-wrap{{overflow:visible}}table{{table-layout:fixed}}td:nth-child(n+3){{white-space:normal}}details{{display:block}}details>pre{{display:block!important}}pre{{font-size:8pt}}header{{break-inside:avoid}}}}
+@page{{size:A4;margin:15mm}}@media(max-width:520px){{main{{padding:24px 16px}}table{{font-size:13px;min-width:520px}}th,td{{padding:8px 6px}}th:first-child{{min-width:90px}}}}@media print{{body{{background:white;color:#111;font-size:10pt}}main{{max-width:none;padding:0}}.actions{{display:none}}h1{{font-size:28pt}}h2{{break-after:avoid}}thead{{display:table-header-group}}tr{{break-inside:avoid}}.table-wrap{{overflow:visible}}table{{table-layout:fixed;min-width:0}}td:nth-child(n+3){{white-space:normal}}details{{display:block}}details>pre{{display:block!important}}pre{{font-size:8pt}}header{{break-inside:avoid}}}}
 </style></head><body><main><div class='actions'><button onclick='document.querySelector("details").open=true;window.print()'>{e(s['print'])}</button></div>
 <header><div class='masthead'>Silver's Hoard · {e(s['title'])}</div><h1>{e(headline)}</h1><p class='meta'>{e(s['format'])}: {e(report['format'])} · {e(s['date'])}: {e(report['date'] or '—')}<br>{e(report['id'])} · {e(s['turns'])}: {fmt(report['turns'])}{(' · '+e(s['seconds'])+': '+fmt(report['seconds'])) if report['seconds'] is not None else ''}</p></header>
 <section><h2>{e(s['mvp'])}</h2><p><strong>{mvps or e(s['no_mvp'])}</strong></p><p>{e(s['rule'])}</p></section>
 <section>{table}<p>{e(s[report['mode']])}</p><p class='notice'>{e(s['complete'] if report['log_complete'] else s['partial'])}</p></section>
-<section><h2>{e(s['source'])}</h2><p>{e(s['source_help'])}</p><p>SHA-256 log_text: <code>{report['log_sha256']}</code> · {report['log_lines']}</p><details><summary>{e(s['log'])}</summary><pre>{e(log or s['missing_log'])}</pre></details></section>
+<section><h2>{e(s['source'])}</h2><p>{e(s['source_help'])}</p><p>SHA-256: <code>{report['log_sha256']}</code> · {report['log_lines']}</p><details><summary>{e(s['log'])}</summary><pre>{e(log or s['missing_log'])}</pre></details></section>
 </main></body></html>"""
 
 
