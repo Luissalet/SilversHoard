@@ -15,7 +15,7 @@ from .hoard_link.agentkit import Empty, Tool, ann
 from .hoard_link.agentkit import call_tool as _call_tool
 from .hoard_link.agentkit import tool_catalog as _catalog
 from .hoard_link.agentkit import uncapped  # noqa: F401 - re-exported for the UI routes
-from . import controller, gymmap, hgss_rom, replay_statistics
+from . import controller, gymmap, hgss_rom, replay_statistics, trainer_poster
 from . import pokeathlon as pk
 from . import pokeathlon_rooms as pkr
 from . import battle_search
@@ -59,6 +59,10 @@ IdField = Field(..., min_length=1, max_length=80)
 
 class IdArg(BaseModel):
     id: str = IdField
+
+
+class TrainerPosterArgs(IdArg):
+    lang: Literal["en", "es"] = "en"
 
 
 class IdsArg(BaseModel):
@@ -1122,6 +1126,10 @@ TOOLS: list[Tool] = [
                              synonyms="entrenadores, personajes, npc, equipos guardados"), TrainersArgs, R, lambda s, a: {"trainers": s.trainers_list(a.query, a.origin, game=a.game, region=a.region)}),
     Tool("trainer_get", _d("One trainer with team details, Showdown text, recent battles and badges. Ver entrenador.",
                            synonyms="ficha, equipo completo"), IdArg, R, lambda s, a: s.trainer_get(a.id)),
+    Tool("trainer_poster", _d("Export a trainer, team and earned badges as a PNG poster. Póster del entrenador.",
+                              "Background job. Reuses existing portraits, sprites, badges and selected style-reference colours; no image model. Includes recorded artwork credits and provenance in the picture and PNG metadata.",
+                              synonyms="tarjeta de entrenador, medallas, compartir PNG"), TrainerPosterArgs, W,
+         lambda s, a: trainer_poster.create(s, a.id, lang=a.lang)),
     Tool("trainer_create", _d("Create a trainer from a team (Showdown text or sets) with AI, avatar and lines. Crear entrenador.",
                               synonyms="nuevo entrenador, importar equipo de personaje, npc"), TrainerCreateArgs, WD,
          lambda s, a: s.trainer_create(name=a.name, team=a.team, paste=a.paste, format_=a.format, title=a.title, ai_level=a.ai_level or "",

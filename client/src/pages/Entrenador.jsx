@@ -9,6 +9,7 @@ import { AiFields, Avatar, AvatarDialog, ExportDialog, FormatSelect, GymBadge, R
 import { BattleRow } from "./Historial.jsx";
 import { loc } from "../loc.js";
 import TeamBuilder from "../components/TeamBuilder.jsx";
+import TrainerPoster from "../components/TrainerPoster.jsx";
 
 function FightDialog({ trainer, onClose }) {
   const { t, lang, go, changed } = useApp();
@@ -209,6 +210,7 @@ export default function Entrenador({ param, query }) {
         <div className="flex flex-wrap gap-2">
           <button type="button" className="btn btn-primary" onClick={() => setDialog("fight")}><Icon d={ICONS.play} size={14} /> {t("fight")}</button>
           <button type="button" className="btn" onClick={() => setDialog("export")}><Icon d={ICONS.send} size={14} /> {t("send_friend")}</button>
+          <button type="button" className="btn" onClick={() => setDialog("poster")}><Icon d={ICONS.image} size={14} /> {t("poster_button")}</button>
           <Busy busy={busy.fav} className="btn btn-icon" onClick={fav} aria-label={t("favorite")}><Icon d={ICONS.star} size={15} fill={tr.favorite ? "currentColor" : undefined} /></Busy>
           <Busy busy={busy.dup} className="btn" onClick={duplicate}>{t("duplicate")}</Busy>
           <Busy busy={busy.del} className="btn btn-danger" onClick={del}><Icon d={ICONS.trash} size={14} /></Busy>
@@ -226,6 +228,7 @@ export default function Entrenador({ param, query }) {
       {dialog === "avatar" && <AvatarDialog trainer={tr} onClose={() => setDialog("")} onSaved={() => { reload(); changed(); }} />}
       {dialog === "view" && <TrainerPictureViewer trainer={tr} onClose={() => setDialog("")} onChange={() => setDialog("avatar")} />}
       {dialog === "export" && <ExportDialog kind="trainer" id={tr.id} name={tr.name} onClose={() => setDialog("")} />}
+      {dialog === "poster" && <TrainerPoster trainer={tr} onClose={() => setDialog("")} />}
       {dialog === "fight" && <FightDialog trainer={tr} onClose={() => setDialog("")} />}
     </div>
   );
