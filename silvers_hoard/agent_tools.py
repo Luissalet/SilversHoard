@@ -621,6 +621,12 @@ class ExerciseListArgs(BaseModel):
     archived: bool = False
 
 
+class ExercisePackExportArgs(BaseModel):
+    ids: list[str] = Field(..., min_length=1, description="Saved exercise IDs in the curator's chosen order; repeated IDs appear once.")
+    title: str = Field("", max_length=200)
+    theme: Literal["attrition", "openings", "doubles"] = Field("openings", description="Editorial theme chosen by the curator, not an automatic assessment.")
+
+
 class ExerciseArchiveArgs(IdArg):
     archived: bool = True
 
@@ -1264,6 +1270,12 @@ TOOLS: list[Tool] = [
          ExerciseStartArgs, W, lambda s, a: s.training.start(a.id, adaptive=a.adaptive, ai_level=a.ai_level, lang=a.lang), 120.0),
     Tool("exercise_export", _d("Export a portable exercise as text and a .silverexercise file. Compartir ejercicio.", synonyms="enviar posición, exportar entrenamiento"),
          IdArg, W, lambda s, a: s.training.export(a.id)),
+    Tool("exercise_pack_export", _d("Export selected exercises as one themed .silverexercise pack. Paquete de ejercicios.",
+         "Choose attrition, openings or doubles as an editorial label; no automated tactical classification. "
+         "Import text or upload the file through import: all positions are reconstructed before an atomic save. "
+         "The receiver needs no source replay; individual exercises remain compatible. No attempts or future choices are shared.",
+         synonyms="desgaste, salidas, colocación en dobles, compartir entrenamiento"),
+         ExercisePackExportArgs, W, lambda s, a: s.training.export_pack(a.ids, title=a.title, theme=a.theme), capped=False),
     Tool("exercise_archive", _d("Archive or restore a saved exercise without removing its attempts. Archivar ejercicio.", synonyms="restaurar entrenamiento"),
          ExerciseArchiveArgs, W, lambda s, a: s.training.archive(a.id, a.archived)),
     Tool("battle_compare", _d("Compare a practice battle with its original: winner, turns and team results. Comparar práctica.",
