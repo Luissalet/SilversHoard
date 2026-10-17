@@ -4,6 +4,10 @@ The Battle setup screen also renders the shared `MusicSelect`, so the same brows
 
 `SoundControl` adds the existing 48-track catalog to its battle mixer. The viewer's `silver-sound.music_track` preference accepts `auto`, `none` or a catalog ID, with legacy/unknown values falling back to automatic. `audio.music` retains the current requested battle URL separately from the selected track, preserves its `/api/music/` origin, and switches on preference changes without restarting a battle or changing other mixer channels. Explicit stop/end clears that request, so changing a preference after a battle cannot restart its music. The sound popup is anchored to the speaker through a body portal, avoiding clipping by the classic/RT canvas container; viewport and scroll changes reposition it. This reuses existing audio routes/catalog/credits without changing battle snapshots, API/MCP schemas or server settings. Browser preferences are not written into portable battles or shared with the video recorder's separate browser context; offline pages retain effects-only playback.
 
+`video_format.py` supplies validated output dimensions to the existing battle/mass recorders; their UI/REST/MCP models accept `aspect`. `VideoExport` previews the recorder's own `Video` page. Presentation wrappers retain mounted players when changing layout. RT `portrait-camera.js` turns an unchanged world canvas, counter-rotates sprite billboards and maps animation facing; `Show` renders its intro and screen overlays upright. New live movement is converted to world axes before normal logging; replay inputs are never converted again. No engine rule or saved-battle schema changes. See [frame formats and fallbacks](VIDEO_FORMATS.md).
+
+`Services._rt_view` projects `rt.forfeit` from a finished battle's verified terminal reason and winner; legacy and imported rows need no migration or write. `rt/replay.js` feeds the recorded inputs and applies that event at the saved tick, including tick zero. `RtScreen` uses this reader for incremental playback and seeking, so ordinary replays, restart and the existing `Video` capture stop at the same state. Live play and the deterministic engine rules are unchanged; records without a terminal forfeit keep their natural ending.
+
 The trainer header exposes **Edit name** in both UI languages. It opens the existing Details and AI tab and focuses its Name input, including when that tab was already open. Saving continues through `trainer_update`; no separate rename handler, schema or data migration is needed.
 
 Trainer creation requires only a name in the client, matching the existing `trainer_create` service. Optional pasted text is trimmed before dispatch; a new empty trainer opens the existing TeamBuilder via `builder=1`, independently of the last remembered trainer tab. Empty trainers also default to that visual editor when their Team tab opens. Cancelling shows an explicit empty-team message instead of waiting for a nonexistent summary. Existing team import, random fill and text editing remain available. REST/MCP tool descriptions document the optional team; persistence and battle eligibility rules are unchanged.
@@ -346,3 +350,15 @@ The species picker compares normalized species IDs. A different species uses the
 `battles_search` reads every saved ended row with a single Store query, matches species and actual move uses on the same actor, and pages lightweight battle cards with all matching positions and coverage. The canonical handler serves UI/REST/MCP without simulating or mutating a battle. Classic positions are turn boundaries; RT positions use rounded native log times and conservative saved aliases, with ambiguous actors omitted.
 
 The search component resolves complete Spanish move names and combines trainer, format, result, kind and mode. `history-search.js` validates URL positions and produces the same classic boundary as ReplayBar. Ended classic replays seek paused after loading; ended RT screens rebuild deterministically to a clamped saved tick and stay paused. Live battles ignore search positions. No schema migration or new server. The current scan loads all selected saved logs into memory; result pagination is not indexed full-text search. See [BATTLE_SEARCH.md](BATTLE_SEARCH.md).
+
+
+## Copilot view updates
+
+The canonical HoardLink Python launcher forwards completed `tool_output` events
+through `hoard:copilot-change` and the host refresh callback, while the current
+turn and panel stay mounted. Silver coalesces tool and turn-end notifications
+through its existing 250 ms refresh registry. Trainer details/dialogue merge saved
+values into untouched fields while preserving local edits. TeamBuilder updates
+from saved props only while its draft matches the prior saved baseline; editors
+are keyed by trainer ID. Native API/MCP tools and persistence are unchanged.
+See [the behavior and verification](COPILOT_LIVE_REFRESH.md).

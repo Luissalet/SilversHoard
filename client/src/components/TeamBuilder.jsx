@@ -1,7 +1,7 @@
 // A visual team builder: up to six Pokémon, each with species, nickname, level, item, ability, nature, Tera type, stat points
 // (Pokémon Champions' 66 / 32, kept as EVs) or classic EVs and IVs, and four moves picked with a click from what the species learns
 // (or typed by hand), with suggestions from the Pokédex of the format's generation, and a damage calculator for the team.
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { api } from "../api.js";
 import { useApp } from "../context.js";
 import { TYPE_COLORS, nameOf, typeName } from "../battle/dex.js";
@@ -284,7 +284,15 @@ export default function TeamBuilder({ team, format, onSave, onCancel }) {
   const { t, lang } = useApp();
   const [evMode, setEvMode] = useStored("silver-ev-mode", "sp");
   const gen = Number(String(format || "gen9").match(/gen(\d)/)?.[1] || 9);
-  const [sets, setSets] = useState(() => (team && team.length ? team.map((s) => ({ ...empty(), ...s, moves: [...(s.moves || []), "", "", "", ""].slice(0, 4) })) : [empty()]));
+  const normalizeTeam = (value) => value?.length ? value.map((s) => ({ ...empty(), ...s, moves: [...(s.moves || []), "", "", "", ""].slice(0, 4) })) : [empty()];
+  const [sets, setSets] = useState(() => normalizeTeam(team));
+  const baseline = useRef(sets);
+  useEffect(() => {
+    const previous = baseline.current, next = normalizeTeam(team);
+    baseline.current = next;
+    // A pristine editor follows saved changes; a person's unfinished team stays intact.
+    setSets((draft) => JSON.stringify(draft) === JSON.stringify(previous) ? next : draft);
+  }, [team]);
   const [busy, run] = useBusy();
   const clean = useMemo(() => sets.filter((s) => s.species.trim()).map((s) => ({ ...s, moves: s.moves.map((m) => m.trim()).filter(Boolean) })), [sets]);
   return (

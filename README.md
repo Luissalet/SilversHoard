@@ -2,6 +2,10 @@
 
 Choose **Music track** on the Battle setup screen or open **Sound → Music track** during a classic or real-time battle to select any of the 48 existing tracks, keep automatic battle music or choose no music. Changes apply during playback and are remembered in this browser with the volume mixer. Effects and Pokémon cries remain independent. The selector stays usable outside the field on small screens; standalone offline pages still have effects only, and video recordings use their own browser's mixer preferences.
 
+Battles offer horizontal and vertical presentation. Export the same saved replay as independent 16:9 and 9:16 videos (1080p vertical: 1080 × 1920), with preview and sound. Real-time portrait rotates only the camera, keeps trainers and Pokémon upright with the correct available facing, and consumes the original replay inputs unchanged. UI, REST and MCP expose the same `aspect` selection. See [frame formats](docs/VIDEO_FORMATS.md).
+
+Finished real-time replays and recorded clips apply a saved forfeit at its exact simulation tick. Seeking and restarting use the same reader. `battle_get` exposes the forfeiting side from the verified result, including older records with a saved forfeit reason and winner, without rewriting their data.
+
 Use **Edit name** beside a trainer's name to open and focus its editable Name field in Details and AI, then Save. Renaming keeps the same trainer, team and picture; REST/MCP use the existing `trainer_update` name field.
 
 Create a trainer with just a name and choose Pokémon later in the visual team builder. Pasting a team or filling a random team at creation remains optional. Empty trainers are saved normally; they need a team before battling. The same flow is available through `trainer_create` and `trainer_update` in REST/MCP.
@@ -184,3 +188,9 @@ When editing a team, each Pokémon has its own **Smogon sets** button. Pick a pu
 The real-time VS presentation waits for an available trainer picture, portrait or battle sprite, for up to 1.5 seconds. Slow image downloads can still leave early frames empty; see [picture loading](docs/RT_INTRO.md).
 
 Ice Beam and ice projectiles such as Ice Shard and Icicle Spear use original animated ice artwork in real-time battles, videos and playable pages. Plain effects and image-loading fallbacks remain available. The original PNG, exact lossless WebP, prompt and rebuild instructions are included in [ice artwork provenance](client/src/battle/rt/art/ice/PROVENANCE.md).
+
+
+Copilot tool results refresh the open view while the turn continues. Trainer
+forms keep locally edited fields; a pristine team builder follows the saved team,
+including trainers created empty. No manual page reload is needed for these
+updates. [Live updates and draft behavior](docs/COPILOT_LIVE_REFRESH.md).

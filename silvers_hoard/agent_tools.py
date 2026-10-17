@@ -514,6 +514,7 @@ class MassVideoArgs(BaseModel):
     play_id: str = Field("", max_length=60, description="A played run of it (empty: the battle as the AI fought it).")
     speed: Literal["slow", "normal", "fast"] = Field("normal", description="slow: as it happened; normal: twice as fast; fast: four times.")
     size: Literal["720p", "1080p"] = "720p"
+    aspect: Literal["landscape", "portrait"] = Field("landscape", description="landscape 16:9; portrait 9:16 for vertical social video. 1080p portrait is 1080x1920.")
     lang: Literal["", "es", "en"] = Field("", description="Language of the texts; empty = the app's.")
     lumiere: bool = Field(False, description="Also send the clip to Lumiere's Hoard, the family's video editor.")
 
@@ -946,6 +947,7 @@ class BattleVideoArgs(BaseModel):
     id: str = IdField
     speed: Literal["slow", "normal", "fast"] = Field("normal", description="Replay speed of the clip.")
     size: Literal["720p", "1080p"] = "720p"
+    aspect: Literal["landscape", "portrait"] = Field("landscape", description="landscape 16:9; portrait 9:16 for vertical social video. 1080p portrait is 1080x1920.")
     lang: Literal["", "es", "en"] = Field("", description="Language of the battle texts; empty = the app's.")
     lumiere: bool = Field(False, description="Also send the clip to Lumiere's Hoard, the family's video editor.")
 
@@ -1353,9 +1355,9 @@ TOOLS: list[Tool] = [
                            synonyms="mandar batalla campal a un amigo, compartir batalla campal"),
          MassIdArg, W, lambda s, a: s.mass.export_page(a.id)),
     Tool("mass_video", _d("Record a mass battle, or a played run of it, as a video clip with its sound (a job). Vídeo campal.",
-                          "MP4 in the exports folder (job_get gives its url and path); the camera follows the action; lumiere=true hands it to the video editor.",
+                          "MP4 in the exports folder (job_get gives its url and path); aspect=portrait makes a 9:16 clip; the camera follows the action; lumiere=true hands it to the video editor.",
                           synonyms="grabar batalla campal, vídeo del battle royale"),
-         MassVideoArgs, WD, lambda s, a: s.mass.video(a.id, play_id=a.play_id, speed=a.speed, size=a.size, lang=a.lang, lumiere=a.lumiere), 60.0),
+         MassVideoArgs, WD, lambda s, a: s.mass.video(a.id, play_id=a.play_id, speed=a.speed, size=a.size, lang=a.lang, lumiere=a.lumiere, aspect=a.aspect), 60.0),
     Tool("friends_league", _d("The friends' league: points from the results friends bring back, by season. Liga de amigos.",
                               "Per friend and gym or trainer the best result counts: full win 3 (+1 replay-checked), each battle won 1, the week's challenge +1.",
                               synonyms="clasificación de amigos, temporada, puntos, ranking"), SeasonArg, R, lambda s, a: s.friends.league(a.season)),
@@ -1585,9 +1587,9 @@ TOOLS: list[Tool] = [
                          "as the expert.", synonyms="red neuronal, ia de aprendizaje por refuerzo, metamon, gpu"), NeuralArgs, W,
          lambda s, a: s.neural_ai(a.action, a.wait), 620.0),
     Tool("battle_video", _d("Record a finished battle's replay as a video clip with its sound (a job). Vídeo del combate.",
-                            "MP4 in the exports folder (job_get gives its url and path); lumiere=true hands it to the video editor.",
+                            "MP4 in the exports folder (job_get gives its url and path); aspect=portrait makes a 9:16 clip; lumiere=true hands it to the video editor.",
                             synonyms="exportar vídeo, grabar repetición, clip del combate, mandar a lumiere"), BattleVideoArgs, WD,
-         lambda s, a: s.battle_video(a.id, speed=a.speed, size=a.size, lang=a.lang, lumiere=a.lumiere), 60.0),
+         lambda s, a: s.battle_video(a.id, speed=a.speed, size=a.size, lang=a.lang, lumiere=a.lumiere, aspect=a.aspect), 60.0),
     Tool("video_status", _d("What recording battle videos needs here: Playwright, Chrome or Edge, ffmpeg. Estado del vídeo.",
                             synonyms="requisitos vídeo, grabar vídeo"), Empty, R, lambda s, a: s.video_status()),
     Tool("battle_explain", _d("Why the AI chose each move, turn by turn, and what the expert would do now. Comentar la jugada.",
