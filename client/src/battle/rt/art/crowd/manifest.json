@@ -1,0 +1,6949 @@
+{
+  "cell": 64,
+  "per_row": 8,
+  "directions": [
+    "down",
+    "left",
+    "right",
+    "up"
+  ],
+  "archives": [
+    {
+      "source": "frlg",
+      "filename": "FRLG Accurate NPC Megapack (Relic Castle Edition).zip",
+      "sha256": "82bfd4df6e62f69d2cee199da5566ab8edd6bcea2ada9e9fa95481505bd12bf3"
+    },
+    {
+      "source": "taiga",
+      "filename": "trainer_overworld_sprites_by_0rdinarystrawberry_dfevh7f.zip",
+      "sha256": "2c707487eb1027054d672be258b3967bd2024bc539c19a5c914b2df3cb6dce3a"
+    }
+  ],
+  "trainers": [
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-blaine-in-disguise-png",
+      "name": "Anime Blaine in Disguise",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime Blaine in Disguise.png",
+      "sha256": "2cfc6bdd9229c1545a7a74e8b41dce59e7eae0d0c9e3010208ac151bfdd48b8e",
+      "sizes": [
+        [
+          32,
+          42
+        ],
+        [
+          30,
+          42
+        ],
+        [
+          30,
+          42
+        ],
+        [
+          32,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-brock-png",
+      "name": "Anime Brock",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime Brock.png",
+      "sha256": "b545b04c88144d5829f136b6a5c543b3e57ec5a7331efaa3d78e6a4b76fb3e8f",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-brockfather-png",
+      "name": "Anime Brockfather",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime Brockfather.png",
+      "sha256": "92fbf631301a0714f43f96ea3452b1206f85d2344e100ef7b861341e401815be",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-bruno-png",
+      "name": "Anime Bruno",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime Bruno.png",
+      "sha256": "0da286b28c27f7b36d2dabc9578be5e4d8870e08ef723fce326a10408742e755",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-butch-png",
+      "name": "Anime Butch",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime Butch.png",
+      "sha256": "0cddabd759bb028c33b2d713d88661f3ef1debc317c1f36f2f4973675588e3c9",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-cassidy-png",
+      "name": "Anime Cassidy",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime Cassidy.png",
+      "sha256": "2f4f41b12792f4091e132f79e734ba18683f320ad97caf10924e19ea7094e2cb",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-delia-ketchum-png",
+      "name": "Anime Delia Ketchum",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime Delia Ketchum.png",
+      "sha256": "a6e84e1526f69257fa29634e124a272509d0614a226dd518fb0a3668bfdb2ba8",
+      "sizes": [
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-gary-oak-png",
+      "name": "Anime Gary Oak",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime Gary Oak.png",
+      "sha256": "a442af90fa36fa4ea236dd0d194fc4a5bbd25c67d88d4fdbf6d6da47b85b3d39",
+      "sizes": [
+        [
+          30,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-james-png",
+      "name": "Anime James",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime James.png",
+      "sha256": "df68d0808e0742c3f7ed6634cbd427fe1f6929f27a765b08e1609e8a3129b58e",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-jessie-png",
+      "name": "Anime Jessie",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime Jessie.png",
+      "sha256": "530d80fc3d190b5ff3ebddc856f05476d9ec25587fd9f3080477fc19a69e9726",
+      "sizes": [
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-lorelei-png",
+      "name": "Anime Lorelei",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime Lorelei.png",
+      "sha256": "2e046d36875be80bd400862255a41f30bfde596f659318b212494168649f04d9",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-misty-png",
+      "name": "Anime Misty",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime Misty.png",
+      "sha256": "3df9e7acdc1abc99a7c8d184112b45f44950b2dd6aac238ce3a477fea083154b",
+      "sizes": [
+        [
+          32,
+          38
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          32,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-01-png",
+      "name": "Anime NPC 01",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 01.png",
+      "sha256": "f1814374a540dea626f2a75053bd627c63a28432a624669e568f6f4e6ccf7de4",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-02-png",
+      "name": "Anime NPC 02",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 02.png",
+      "sha256": "a5914c894789989722126d75e334d468a694500f4653232255fbc236b1f100be",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-03-png",
+      "name": "Anime NPC 03",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 03.png",
+      "sha256": "507ae8edb34afb1cfd46145828ca17f16f293e20fcdffdd0335d97bb93607fc0",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-04-png",
+      "name": "Anime NPC 04",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 04.png",
+      "sha256": "a6644107ed4efb4b69fa679ea554a3a335edf6c5b25fe218af16d7903d4d7e43",
+      "sizes": [
+        [
+          32,
+          38
+        ],
+        [
+          32,
+          38
+        ],
+        [
+          32,
+          38
+        ],
+        [
+          32,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-05-png",
+      "name": "Anime NPC 05",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 05.png",
+      "sha256": "c91cbc5a81f7d3b30e803e320bff5c6b3757bcd004b6c1392aa4c07a426a267f",
+      "sizes": [
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-06-png",
+      "name": "Anime NPC 06",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 06.png",
+      "sha256": "1c13cf98eddedc8cd51d6a4070c6fbb7436eb73b2fd0dded5cac9a14c274b676",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-07-png",
+      "name": "Anime NPC 07",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 07.png",
+      "sha256": "a6441fcd9cfe630b86a5cb1563195af77f9b6b86f266cfaeb511b1f1ed1be5f2",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-08-png",
+      "name": "Anime NPC 08",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 08.png",
+      "sha256": "b9b9ab349c456dffda670d2eba63bd0e3fbfd863b8e5b8f7f319f74af0ad6288",
+      "sizes": [
+        [
+          28,
+          42
+        ],
+        [
+          28,
+          42
+        ],
+        [
+          28,
+          42
+        ],
+        [
+          28,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-09-png",
+      "name": "Anime NPC 09",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 09.png",
+      "sha256": "ab5b35618eff34a396f260117f90924fb3a71dfea0f3803c8ce5fd6b2a8bdf8c",
+      "sizes": [
+        [
+          30,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          30,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-10-png",
+      "name": "Anime NPC 10",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 10.png",
+      "sha256": "22050d6f04c9f3fdba089cb43be896e0fae7f97da9796e4cb6fe4238b86f2005",
+      "sizes": [
+        [
+          28,
+          44
+        ],
+        [
+          30,
+          44
+        ],
+        [
+          30,
+          44
+        ],
+        [
+          28,
+          44
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-11-png",
+      "name": "Anime NPC 11",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 11.png",
+      "sha256": "60927de6890f16544e73c06b39ec8363eeeeef3083e4a5e8fd3a163fd5819785",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-12-png",
+      "name": "Anime NPC 12",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 12.png",
+      "sha256": "98723573728ae640422a54ad2a848c1f079b19879763a38282c3dd33cb57710f",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-13-png",
+      "name": "Anime NPC 13",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 13.png",
+      "sha256": "927273636de469f68a44b4c8bb51e8177209eab0e9b159d8fc501b25127ac88d",
+      "sizes": [
+        [
+          32,
+          38
+        ],
+        [
+          26,
+          38
+        ],
+        [
+          26,
+          38
+        ],
+        [
+          32,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-14-png",
+      "name": "Anime NPC 14",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 14.png",
+      "sha256": "2f6da0c9841c9872a5c9b9063e2af99715ff28d46515bdf67ac8e3ae6c415de6",
+      "sizes": [
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-15-png",
+      "name": "Anime NPC 15",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 15.png",
+      "sha256": "9cd375048093f8324be8c2e51f37ab9a83f6b87a7cdb8b1d8edf1f869088e1ef",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-16-png",
+      "name": "Anime NPC 16",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 16.png",
+      "sha256": "0a0aad7f889efdd8082405e03f422256d05682e45893935772989ea4ddc0e5b5",
+      "sizes": [
+        [
+          24,
+          38
+        ],
+        [
+          26,
+          38
+        ],
+        [
+          26,
+          38
+        ],
+        [
+          24,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-17-png",
+      "name": "Anime NPC 17",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 17.png",
+      "sha256": "16e2febf259289094d3428b392d6cbb30d7b6bac67e13d231d364b65c83e70ee",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-18-png",
+      "name": "Anime NPC 18",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 18.png",
+      "sha256": "40056877e9180db39e459d59cc3b563d747281d9a7d3a1236f6237d1bd135d1d",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          24,
+          40
+        ],
+        [
+          24,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-19-png",
+      "name": "Anime NPC 19",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 19.png",
+      "sha256": "f11f6f2e2bd1dabfc8e0b46c39b1a6ab970e45c84882af1ce31acab931df1471",
+      "sizes": [
+        [
+          28,
+          36
+        ],
+        [
+          30,
+          36
+        ],
+        [
+          30,
+          36
+        ],
+        [
+          28,
+          36
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-20-png",
+      "name": "Anime NPC 20",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 20.png",
+      "sha256": "ac4a5cb5507473875901ee783434f216fe06db4a944a86204b4015132a1ce484",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-21-png",
+      "name": "Anime NPC 21",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 21.png",
+      "sha256": "d4ae1f1ec2fecd2a2aa00389c76fade593f5a36c12ef1d37e4548820ac705030",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-22-png",
+      "name": "Anime NPC 22",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 22.png",
+      "sha256": "128282d1342238ce2c7b8df1ddde9682c7c7c55d4d276deed7d2a3f3976f1e1a",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-23-png",
+      "name": "Anime NPC 23",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 23.png",
+      "sha256": "3d2245178b809db0ff502e32f920a0f4ea872e4777f0922dbe7eff0f3b61e2dc",
+      "sizes": [
+        [
+          32,
+          42
+        ],
+        [
+          28,
+          42
+        ],
+        [
+          28,
+          42
+        ],
+        [
+          32,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-24-png",
+      "name": "Anime NPC 24",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 24.png",
+      "sha256": "5d0e868941595acc4d30df014301991acf0b3b6716b3b89dfcd327eca337ac5d",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-25-png",
+      "name": "Anime NPC 25",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 25.png",
+      "sha256": "9713ca7aa15bf2806950824ebfe1610452f13b74df16a9968a05ef1090cd05ef",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-26-png",
+      "name": "Anime NPC 26",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 26.png",
+      "sha256": "819dd10c1673c42b5299c01c1107e1fc8d5af46ba96a9a109c073266a7042b44",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          24,
+          40
+        ],
+        [
+          24,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-27-png",
+      "name": "Anime NPC 27",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 27.png",
+      "sha256": "34c5859b33690c3b3e3d36fff8aecc04125ce3e4499ebb88ee0fd03f936c14a9",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-28-png",
+      "name": "Anime NPC 28",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 28.png",
+      "sha256": "c90cd3ea6f54afb9b380268a186e9e578bfa7c508865e9500e278deacd356081",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-29-png",
+      "name": "Anime NPC 29",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 29.png",
+      "sha256": "dde49175c18f097069e2d310358da1b336f1e9d4a5a74cbf51647b29027145d2",
+      "sizes": [
+        [
+          32,
+          38
+        ],
+        [
+          30,
+          38
+        ],
+        [
+          30,
+          38
+        ],
+        [
+          32,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-30-png",
+      "name": "Anime NPC 30",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 30.png",
+      "sha256": "2a159647b4aa5bd39a40a134c5b29f8a6565b7cc2b961aa735f15b08f92b902f",
+      "sizes": [
+        [
+          24,
+          32
+        ],
+        [
+          22,
+          32
+        ],
+        [
+          22,
+          32
+        ],
+        [
+          24,
+          32
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-31-png",
+      "name": "Anime NPC 31",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 31.png",
+      "sha256": "3fe72659f8b26a59d21d5c5b1c6723b877d23c873d4c81d2ff3848ab0a4fee40",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-32-png",
+      "name": "Anime NPC 32",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 32.png",
+      "sha256": "24e24c2bd577a9a097104670c64987c5c3c41f915a260c9264dfb2cb5922d671",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-33-png",
+      "name": "Anime NPC 33",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 33.png",
+      "sha256": "6d811025506563a28a0f2fb7020ee992559a0b5425d50073f83fa919f7224b4a",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-34-png",
+      "name": "Anime NPC 34",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 34.png",
+      "sha256": "26edec102fc7f95b6432c5e4e7ea73b4e225b1cfde8f5e4fe35c59d072a74ec3",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-35-png",
+      "name": "Anime NPC 35",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 35.png",
+      "sha256": "6f0a8c94d80ffb5cf7bb8bfa192194cc49c5e86700bc4693744fecfd4406aec9",
+      "sizes": [
+        [
+          28,
+          42
+        ],
+        [
+          24,
+          40
+        ],
+        [
+          24,
+          40
+        ],
+        [
+          28,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-36-png",
+      "name": "Anime NPC 36",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 36.png",
+      "sha256": "573e4a70d2550d58b3be7b024c1922978fc8f6c385fdc63a3531cede3c7b019f",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-37-png",
+      "name": "Anime NPC 37",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 37.png",
+      "sha256": "9541540e8310457f9f767f69e9a17334d1556ee40f0ccbdb6f9e1cff833f518a",
+      "sizes": [
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-38-png",
+      "name": "Anime NPC 38",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 38.png",
+      "sha256": "2a93b0db7e86241ca28b55fb9bcd304bcbea36cdb5308c2c56c966e91ff06c79",
+      "sizes": [
+        [
+          30,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          30,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-39-png",
+      "name": "Anime NPC 39",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 39.png",
+      "sha256": "382dcd7e2b8a8228a2223fa264c7b04d1fb4acc5ada24bca1846c3b63884f208",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-40-png",
+      "name": "Anime NPC 40",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 40.png",
+      "sha256": "451cb8550688d7df7202a9eaf973788e31870f6a3f07200ed5622b9b7690c451",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-41-png",
+      "name": "Anime NPC 41",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 41.png",
+      "sha256": "5e3f0c72cde93dfeb16af9658bdf499819388bf7ba22e51037bc541ce011d6ef",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-42-png",
+      "name": "Anime NPC 42",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 42.png",
+      "sha256": "3b95b7aeff3be5df655fc9e873582b271f0968a39972ef2db341516bb2edba18",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-43-png",
+      "name": "Anime NPC 43",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 43.png",
+      "sha256": "5ab4d9aac12f9bd25fa371eaffc923c37b169b97ecd515f34c45192b07863acc",
+      "sizes": [
+        [
+          32,
+          38
+        ],
+        [
+          30,
+          38
+        ],
+        [
+          30,
+          38
+        ],
+        [
+          32,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-44-png",
+      "name": "Anime NPC 44",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 44.png",
+      "sha256": "ba63c557913a47114e74cc252fb8188827756c2e305c699b8b0a1879019db7a1",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-45-png",
+      "name": "Anime NPC 45",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 45.png",
+      "sha256": "bac279b325623f88fdf117f1a1ed2d945be4d198fa526a6b8ebd44a36dafc911",
+      "sizes": [
+        [
+          30,
+          38
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-46-png",
+      "name": "Anime NPC 46",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 46.png",
+      "sha256": "e377c90f330acf964cd6bfbc6a2defd0d29b428dc5b5e6861ccbda529d6162b0",
+      "sizes": [
+        [
+          28,
+          34
+        ],
+        [
+          24,
+          34
+        ],
+        [
+          24,
+          34
+        ],
+        [
+          28,
+          34
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-npc-47-png",
+      "name": "Anime NPC 47",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime NPC 47.png",
+      "sha256": "c73a0a3b314ab6175cf16f77a76cb0a10a8e5fe0e2128929864059a75fa9b058",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-officer-jenny-png",
+      "name": "Anime Officer Jenny",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime Officer Jenny.png",
+      "sha256": "80ddb9ab41171994e5fc646abb9d5dc8aa8c62bbd8836f26927e37136c068c6f",
+      "sizes": [
+        [
+          32,
+          42
+        ],
+        [
+          30,
+          42
+        ],
+        [
+          30,
+          42
+        ],
+        [
+          32,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-prof-ivy-png",
+      "name": "Anime Prof Ivy",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime Prof Ivy.png",
+      "sha256": "d0bc1687a76c9a6712986dd175719ae7ef32be306e12dc44ba644eb87db2ba4e",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-sabrina-png",
+      "name": "Anime Sabrina",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime Sabrina.png",
+      "sha256": "d290082685863f3115b4c9733a13a832b84f8f38b726134cac116ad97be0f4c1",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-salesman-png",
+      "name": "Anime Salesman",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime Salesman.png",
+      "sha256": "00a157ef8b4dfab9851309efc5874a1931ae6b5aa63e8c5c78ec5b65a22ea565",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          24,
+          40
+        ],
+        [
+          24,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-samuel-oak-png",
+      "name": "Anime Samuel Oak",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime Samuel Oak.png",
+      "sha256": "816ecc5e122aafa4243e199c83ada32988c9771e080516e6a821d2d1a38cbcca",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-samurai-png",
+      "name": "Anime Samurai",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime Samurai.png",
+      "sha256": "87038d01e75802f858dbb7235e7d472149ff9c12f27d7efa70823e258e5ad31f",
+      "sizes": [
+        [
+          32,
+          38
+        ],
+        [
+          30,
+          38
+        ],
+        [
+          30,
+          38
+        ],
+        [
+          32,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-anime-tracy-png",
+      "name": "Anime Tracy",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/Anime Tracy.png",
+      "sha256": "330f82003e08a2fcd637e79f72bbf5834abb39b4ff2c7d99589af773ea09bbeb",
+      "sizes": [
+        [
+          32,
+          38
+        ],
+        [
+          26,
+          38
+        ],
+        [
+          26,
+          38
+        ],
+        [
+          32,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-npc-nurse-png",
+      "name": "NPC_Nurse",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/NPC_Nurse.png",
+      "sha256": "cfceda010f2473408b8c3ab99a4988107322023c634f08a4f8dc0805da7c2257",
+      "sizes": [
+        [
+          32,
+          42
+        ],
+        [
+          30,
+          42
+        ],
+        [
+          30,
+          42
+        ],
+        [
+          32,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-anime-npcs-characters-npc-nursebow-png",
+      "name": "NPC_NurseBow",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/Anime NPCs/Characters/NPC_NurseBow.png",
+      "sha256": "88c8f958ba2bf7dfce320e1f463c2fc46ee97c8d8dfdb39fa5557837fea97eb8",
+      "sizes": [
+        [
+          32,
+          42
+        ],
+        [
+          32,
+          40
+        ],
+        [
+          32,
+          40
+        ],
+        [
+          32,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-dppt-npcs-characters-trainer-acetrainersnow-m-png",
+      "name": "trainer_ACETRAINERSNOW_M",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/DPPt NPCs/Characters/trainer_ACETRAINERSNOW_M.png",
+      "sha256": "8f51f7eaf696062ce4c9adb6f15c7632a254ebdd00e0f40552c7a4d559da2c07",
+      "sizes": [
+        [
+          28,
+          42
+        ],
+        [
+          28,
+          42
+        ],
+        [
+          28,
+          42
+        ],
+        [
+          28,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-dppt-npcs-characters-trainer-breeder-f-png",
+      "name": "trainer_BREEDER_F",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/DPPt NPCs/Characters/trainer_BREEDER_F.png",
+      "sha256": "8649f1e7c2a4e6880dbd191241bdde1462d4461a9bafe11e8d22a765eddc3ab3",
+      "sizes": [
+        [
+          28,
+          44
+        ],
+        [
+          30,
+          42
+        ],
+        [
+          30,
+          42
+        ],
+        [
+          28,
+          44
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-dppt-npcs-characters-trainer-cowgirl-png",
+      "name": "trainer_COWGIRL",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/DPPt NPCs/Characters/trainer_COWGIRL.png",
+      "sha256": "50b949dcb5451369051dca813ad31992b18146154078f5b441c9a017b7052a63",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-dppt-npcs-characters-trainer-dpbattlegirl-png",
+      "name": "trainer_DPBATTLEGIRL",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/DPPt NPCs/Characters/trainer_DPBATTLEGIRL.png",
+      "sha256": "74202c6f7c9f3e398bf9fe4ae09eee93c8e61a95694f28ec6795901aa3c5c97d",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-dppt-npcs-characters-trainer-rancher-png",
+      "name": "trainer_RANCHER",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/DPPt NPCs/Characters/trainer_RANCHER.png",
+      "sha256": "4817a289ebbe476cb3d3f573e81bd072e5b4db7f60b56dda4dda81298b9f24b8",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-dppt-npcs-characters-trainer-ranger-f-png",
+      "name": "trainer_RANGER_F",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/DPPt NPCs/Characters/trainer_RANGER_F.png",
+      "sha256": "7b438c90d31137ce436c411e0f976e4f8737fb5bec329dc7b55c5dbde218d16c",
+      "sizes": [
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-dppt-npcs-characters-trainer-ranger-m-png",
+      "name": "trainer_RANGER_M",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/DPPt NPCs/Characters/trainer_RANGER_M.png",
+      "sha256": "d1a2e205044da66c05aeee4d291f7249e9a9db3332cade485ee7b60d561c4021",
+      "sizes": [
+        [
+          28,
+          38
+        ],
+        [
+          26,
+          38
+        ],
+        [
+          26,
+          38
+        ],
+        [
+          28,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-dppt-npcs-characters-trainer-socialite-png",
+      "name": "trainer_SOCIALITE",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/DPPt NPCs/Characters/trainer_SOCIALITE.png",
+      "sha256": "1a01c0cfb7df7434372be602d635d592534aa17d4c8333a8c54f086e6b322b98",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-dppt-npcs-characters-trainer-twins-png",
+      "name": "trainer_TWINS",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/DPPt NPCs/Characters/trainer_TWINS.png",
+      "sha256": "8764a387bf1e8b7c162c1d89cca17ad46632d88f665b8eb12ad2ead2fb930301",
+      "sizes": [
+        [
+          36,
+          40
+        ],
+        [
+          32,
+          44
+        ],
+        [
+          32,
+          44
+        ],
+        [
+          36,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-dppt-npcs-characters-trainer-worker-png",
+      "name": "trainer_WORKER",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/DPPt NPCs/Characters/trainer_WORKER.png",
+      "sha256": "c60fb7cb5cbcffbe60b9e3a0940a4051e4166fe623d62d1b558e304980f0df99",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-acetrainer-f-png",
+      "name": "trainer_ACETRAINER_F",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_ACETRAINER_F.png",
+      "sha256": "424cca86b2522da5d3fa202818433785d234b4ce90adb6e0b192630fc1398b6d",
+      "sizes": [
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-acetrainer-m-png",
+      "name": "trainer_ACETRAINER_M",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_ACETRAINER_M.png",
+      "sha256": "4245036629a7fa075f1a8658a94c862a44ea4a67bee19b6d59ff51d2f74a29c5",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-aromalady-png",
+      "name": "trainer_AROMALADY",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_AROMALADY.png",
+      "sha256": "f2adeca2cc1d6280196684a4f28ddb7d61fee43844f5cf9cb2c0b1fa7c369584",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-biker2-png",
+      "name": "trainer_BIKER2",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_BIKER2.png",
+      "sha256": "7a6158410987defd6607bc57444eaa068e6ca5d0fd3344c46cd5a58379656c7c",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          24,
+          40
+        ],
+        [
+          24,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-birdkeeper-png",
+      "name": "trainer_BIRDKEEPER",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_BIRDKEEPER.png",
+      "sha256": "206c0741cbb6ff6b51ac87ad2366c11823433fabe8b652110f9d3a79c1a925f7",
+      "sizes": [
+        [
+          28,
+          42
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-breeder-png",
+      "name": "trainer_BREEDER",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_BREEDER.png",
+      "sha256": "24755f6d0d9d668b7f27a8b1392e574c4595c21d3f37d28da58d402f3336e286",
+      "sizes": [
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-bugcatcher-png",
+      "name": "trainer_BUGCATCHER",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_BUGCATCHER.png",
+      "sha256": "943ff2b4d964395dcbc3d304beb3fca1dd157bd3f716b286b981cbeb7dba1891",
+      "sizes": [
+        [
+          32,
+          38
+        ],
+        [
+          32,
+          38
+        ],
+        [
+          32,
+          38
+        ],
+        [
+          32,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-burglar-png",
+      "name": "trainer_BURGLAR",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_BURGLAR.png",
+      "sha256": "cb387666f98f23d0d4b97a52207bcbeb76cfa527e8fa335f1f5105b800c99444",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-crushgirl-png",
+      "name": "trainer_CRUSHGIRL",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_CRUSHGIRL.png",
+      "sha256": "7310857e6324252644498a790c6dd9e3df6672f15ad16e9cde548c39381009ad",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-engineer-png",
+      "name": "trainer_ENGINEER",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_ENGINEER.png",
+      "sha256": "62dea21deecde03745ef8570ad8f233e6b3dbc4aa5165f21978a3c618ecf9016",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-juggler-png",
+      "name": "trainer_JUGGLER",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_JUGGLER.png",
+      "sha256": "8e89339909e875e54437b793565f4ededd25cb3fb08a6949ca7c3580025ab094",
+      "sizes": [
+        [
+          28,
+          46
+        ],
+        [
+          28,
+          46
+        ],
+        [
+          28,
+          46
+        ],
+        [
+          28,
+          46
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-lady-png",
+      "name": "trainer_LADY",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_LADY.png",
+      "sha256": "a61b5ad5ebf55e87288d9d462728a575841e09a1dbc805b46a82b8482e568986",
+      "sizes": [
+        [
+          32,
+          42
+        ],
+        [
+          32,
+          40
+        ],
+        [
+          32,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-lass-png",
+      "name": "trainer_LASS",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_LASS.png",
+      "sha256": "b75d38c35e3a5a840501f9fdc4d91639c93dcd0e4f489829bb4a6ac533eece65",
+      "sizes": [
+        [
+          30,
+          38
+        ],
+        [
+          30,
+          38
+        ],
+        [
+          30,
+          38
+        ],
+        [
+          28,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-painter-png",
+      "name": "trainer_PAINTER",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_PAINTER.png",
+      "sha256": "6ac88bb127bb5835a71d981f02f7269ce4c9d5f29dac43aa264a8499e69a0c91",
+      "sizes": [
+        [
+          30,
+          38
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          30,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-pokemaniac-png",
+      "name": "trainer_POKEMANIAC",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_POKEMANIAC.png",
+      "sha256": "36f9979ca2241cf92c89477849d6e18967e3e51f7d32880638bbad8ad4be1e5e",
+      "sizes": [
+        [
+          28,
+          46
+        ],
+        [
+          32,
+          44
+        ],
+        [
+          32,
+          44
+        ],
+        [
+          28,
+          44
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-psychic-f-png",
+      "name": "trainer_PSYCHIC_F",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_PSYCHIC_F.png",
+      "sha256": "60fc8beca516248460f9ac3bcd071edeead2ae35d1320a8f219679bdf323802c",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-psychic-m-png",
+      "name": "trainer_PSYCHIC_M",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_PSYCHIC_M.png",
+      "sha256": "5a4228fddf7abdd781bc72eed196fa47367e07643d4291f1c36078ec84e89d72",
+      "sizes": [
+        [
+          28,
+          42
+        ],
+        [
+          28,
+          42
+        ],
+        [
+          28,
+          42
+        ],
+        [
+          28,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-ranger-f-png",
+      "name": "trainer_RANGER_F",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_RANGER_F.png",
+      "sha256": "88df983896e7de030468f02dbc40f2ce01bb614deb4c2f29d959b637edd2c391",
+      "sizes": [
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-ranger-m-png",
+      "name": "trainer_RANGER_M",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_RANGER_M.png",
+      "sha256": "3cae3e80ee9b8a881a8cc3501760d2e9b6cd9bf6f2a219ea60bf9ae24b21a417",
+      "sizes": [
+        [
+          28,
+          38
+        ],
+        [
+          26,
+          38
+        ],
+        [
+          26,
+          38
+        ],
+        [
+          28,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-rocker-png",
+      "name": "trainer_ROCKER",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_ROCKER.png",
+      "sha256": "c873d614b69204cd3b11a434656f65b088fa691d5088c1a7e63e8172b1449aed",
+      "sizes": [
+        [
+          28,
+          42
+        ],
+        [
+          26,
+          42
+        ],
+        [
+          26,
+          42
+        ],
+        [
+          28,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-roughneck-png",
+      "name": "trainer_ROUGHNECK",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_ROUGHNECK.png",
+      "sha256": "321492136214e58b77da62224b0a05e3e95b083e30eaed63fe63e4dad9923ea9",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          24,
+          40
+        ],
+        [
+          24,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-roughneck2v1-png",
+      "name": "trainer_ROUGHNECK2v1",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_ROUGHNECK2v1.png",
+      "sha256": "b85acbdd8349d7340e76319c19d79f597c45128da16bd6548ab11c19689b8f00",
+      "sizes": [
+        [
+          28,
+          42
+        ],
+        [
+          40,
+          44
+        ],
+        [
+          40,
+          44
+        ],
+        [
+          32,
+          44
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-roughneckv1-png",
+      "name": "trainer_ROUGHNECKv1",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_ROUGHNECKv1.png",
+      "sha256": "df0a5c892195d709a32b383841c6627ddf70cd3621040ab0c935a8852ac7db1e",
+      "sizes": [
+        [
+          28,
+          38
+        ],
+        [
+          24,
+          38
+        ],
+        [
+          24,
+          38
+        ],
+        [
+          28,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-ruinmaniac-png",
+      "name": "trainer_RUINMANIAC",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_RUINMANIAC.png",
+      "sha256": "72ba57ddcb0e4a19def9eb19c9495028e070b0844d0a8367cba1bf71dc21654c",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          32,
+          40
+        ],
+        [
+          32,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-scientist-png",
+      "name": "trainer_SCIENTIST",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_SCIENTIST.png",
+      "sha256": "e70743e4013e3cf58c18785ecd6beece510b2261b639bc43f11cbd0c7f585aa4",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-supernerd-png",
+      "name": "trainer_SUPERNERD",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_SUPERNERD.png",
+      "sha256": "4517197252292f5c65ef4fd9cda47324e0b4a8d8db17293aeb4cc26602fd90b3",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-tamer-png",
+      "name": "trainer_TAMER",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_TAMER.png",
+      "sha256": "4de9c575df74eb5f1ecde799ce7061c6f196872b33e776e24927f38ac685c937",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-twins-png",
+      "name": "trainer_TWINS",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_TWINS.png",
+      "sha256": "7a2c11ca4587b688c3f22a5900b065ee39f955ab2c301a06e1741fd7420a53d5",
+      "sizes": [
+        [
+          26,
+          30
+        ],
+        [
+          24,
+          30
+        ],
+        [
+          24,
+          30
+        ],
+        [
+          26,
+          30
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-youngcouple-f-png",
+      "name": "trainer_YOUNGCOUPLE_F",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_YOUNGCOUPLE_F.png",
+      "sha256": "1f1cbb641ef36f6ffbfe21c28a7c4a7e4dc2d890e79faea507c7bad4e5d3a480",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-frlg-npcs-characters-trainer-youngcouple-m-png",
+      "name": "trainer_YOUNGCOUPLE_M",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/FRLG NPCs/Characters/trainer_YOUNGCOUPLE_M.png",
+      "sha256": "366c23c2ebdfe2bf1acd2425e65926416d4f6ca77758728f693a4f2c4e34e3d4",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-npc-earl-png",
+      "name": "NPC_Earl",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/NPC_Earl.png",
+      "sha256": "3c10cc03330d228e657a8ede7822de1eee865947ec3000e99e5dfabd12bbf968",
+      "sizes": [
+        [
+          32,
+          42
+        ],
+        [
+          26,
+          42
+        ],
+        [
+          26,
+          42
+        ],
+        [
+          32,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-npc-kurt-png",
+      "name": "NPC_Kurt",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/NPC_Kurt.png",
+      "sha256": "0f36604cf5e3f517000cc6cabef71ddab67d5d0449efc39ee7cc8a39cec05924",
+      "sizes": [
+        [
+          28,
+          36
+        ],
+        [
+          28,
+          36
+        ],
+        [
+          28,
+          36
+        ],
+        [
+          28,
+          36
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-npc-midageman-png",
+      "name": "NPC_MidageMan",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/NPC_MidageMan.png",
+      "sha256": "887b27f52f78ed2063c476a4604d38be3a58ff7fb0d6515ebe2c080ca3a8137b",
+      "sizes": [
+        [
+          28,
+          38
+        ],
+        [
+          24,
+          38
+        ],
+        [
+          24,
+          38
+        ],
+        [
+          28,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-npc-midagewoman-png",
+      "name": "NPC_MidageWoman",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/NPC_MidageWoman.png",
+      "sha256": "d26d0e3d994da780343f76667e768a308488c6a095cbdd2a2b23b7606ce0de23",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-npc-schoolboy-png",
+      "name": "NPC_Schoolboy",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/NPC_Schoolboy.png",
+      "sha256": "7b61e9a76e770025af5b27716a5a6f97598d8f43ed85c0cc2672d6ec1d69df77",
+      "sizes": [
+        [
+          24,
+          30
+        ],
+        [
+          22,
+          30
+        ],
+        [
+          22,
+          30
+        ],
+        [
+          24,
+          30
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-npc-shopkeeper-png",
+      "name": "NPC_Shopkeeper",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/NPC_Shopkeeper.png",
+      "sha256": "d50dd194b6d517764cbcff2b5bc5c08ac2aa08f765f48d455cc3326ae20025c5",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-npc-shopkeeper2-png",
+      "name": "NPC_Shopkeeper2",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/NPC_Shopkeeper2.png",
+      "sha256": "35a56f701f4f4e57ff883ae48355959742c6bfeae4843ae9e55082059701a382",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-npc-youngman-png",
+      "name": "NPC_YoungMan",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/NPC_YoungMan.png",
+      "sha256": "4947cc9ddcd5062eeb83bae943b52c19c37410245464005e65bd596243349f1f",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-npc-youngwoman-png",
+      "name": "NPC_YoungWoman",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/NPC_YoungWoman.png",
+      "sha256": "188acdadb0bba46e00a68f0d6a8011377a060e4485ca1e7bb23c7245b4009812",
+      "sizes": [
+        [
+          28,
+          42
+        ],
+        [
+          26,
+          42
+        ],
+        [
+          26,
+          42
+        ],
+        [
+          28,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-acetrainer-f-png",
+      "name": "trainer_ACETRAINER_F",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_ACETRAINER_F.png",
+      "sha256": "1b2aafd549efd2443065933fd9d2624c45f976d71bb8a98942b847b284aeebf9",
+      "sizes": [
+        [
+          28,
+          46
+        ],
+        [
+          30,
+          44
+        ],
+        [
+          30,
+          44
+        ],
+        [
+          28,
+          46
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-acetrainer-m-png",
+      "name": "trainer_ACETRAINER_M",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_ACETRAINER_M.png",
+      "sha256": "c63081c151120d3f1872bc66394c883526c72a6ba7f2489ad1ccc8ca474cb1b8",
+      "sizes": [
+        [
+          28,
+          42
+        ],
+        [
+          24,
+          42
+        ],
+        [
+          24,
+          42
+        ],
+        [
+          28,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-beauty-png",
+      "name": "trainer_BEAUTY",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_BEAUTY.png",
+      "sha256": "eeeadca5be1503f1231b3b6a2112f8713c277553b84d4588661a6fbb0f5b7c42",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-biker-png",
+      "name": "trainer_BIKER",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_BIKER.png",
+      "sha256": "fe601825b7a767c3eff87bf8b1d3c6f92517eac4d6236205846fac078c075145",
+      "sizes": [
+        [
+          32,
+          44
+        ],
+        [
+          42,
+          46
+        ],
+        [
+          42,
+          46
+        ],
+        [
+          32,
+          44
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-blackbelt-png",
+      "name": "trainer_BLACKBELT",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_BLACKBELT.png",
+      "sha256": "5f6211962dccc88c59c08328ecde8817f43e467929ab6bf73ce1f5cd2a6fd8ef",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-bugcatcher-png",
+      "name": "trainer_BUGCATCHER",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_BUGCATCHER.png",
+      "sha256": "4a14322b24d23eeae7f5f3b95a05fbb1e44f664e05578433a3975f1bc1ce7f8c",
+      "sizes": [
+        [
+          32,
+          38
+        ],
+        [
+          32,
+          38
+        ],
+        [
+          32,
+          38
+        ],
+        [
+          32,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-burglar-png",
+      "name": "trainer_BURGLAR",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_BURGLAR.png",
+      "sha256": "38c39473f91e31bc37fc4f1b657be0dc723d71faf98835129652c2392159d9be",
+      "sizes": [
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-camper-png",
+      "name": "trainer_CAMPER",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_CAMPER.png",
+      "sha256": "f69e28dfec0a3d8b0c7d923a0c17223465d1771a74a48ea87297796c4929bca8",
+      "sizes": [
+        [
+          28,
+          38
+        ],
+        [
+          30,
+          38
+        ],
+        [
+          30,
+          38
+        ],
+        [
+          28,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-firebreather-png",
+      "name": "trainer_FIREBREATHER",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_FIREBREATHER.png",
+      "sha256": "f97c20bcb4c1b3ac7c2a24f7f7106019b01ce3105175dfd7384f4c49c641e540",
+      "sizes": [
+        [
+          32,
+          44
+        ],
+        [
+          24,
+          44
+        ],
+        [
+          24,
+          44
+        ],
+        [
+          32,
+          44
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-fisherman-png",
+      "name": "trainer_FISHERMAN",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_FISHERMAN.png",
+      "sha256": "d48ca2a52e0daa759dd3464462009ced08d7a6d3ed9b4cd557e809e9aaed1ca1",
+      "sizes": [
+        [
+          28,
+          42
+        ],
+        [
+          28,
+          42
+        ],
+        [
+          28,
+          42
+        ],
+        [
+          28,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-gentleman-png",
+      "name": "trainer_GENTLEMAN",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_GENTLEMAN.png",
+      "sha256": "b76eca62bebe9d04854d589a9c464c7465113fae0a5618a38023bee8b3ecd109",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-guitarist-png",
+      "name": "trainer_GUITARIST",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_GUITARIST.png",
+      "sha256": "d824b425a890cec1a866b1520498ddd0e9b08bad11100684a864c56e7ff0d1bb",
+      "sizes": [
+        [
+          28,
+          38
+        ],
+        [
+          30,
+          38
+        ],
+        [
+          30,
+          38
+        ],
+        [
+          28,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-hiker-png",
+      "name": "trainer_HIKER",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_HIKER.png",
+      "sha256": "9dbc8ba2cd8e05458ffd6d24ba72dc360fcec46c6b7d7873e0f7003c2400c836",
+      "sizes": [
+        [
+          32,
+          42
+        ],
+        [
+          32,
+          42
+        ],
+        [
+          32,
+          42
+        ],
+        [
+          32,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-juggler-png",
+      "name": "trainer_JUGGLER",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_JUGGLER.png",
+      "sha256": "46521fa996c9af1bdfc5d507705657f8e59b9aa17f4c6343cd3544a067dbf2ce",
+      "sizes": [
+        [
+          28,
+          44
+        ],
+        [
+          26,
+          42
+        ],
+        [
+          26,
+          42
+        ],
+        [
+          28,
+          44
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-lass-png",
+      "name": "trainer_LASS",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_LASS.png",
+      "sha256": "0c192af4522882b365d9a1d188b59553466a6e92d3028e806b45c09bff7b1fdd",
+      "sizes": [
+        [
+          30,
+          38
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          30,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-medium-png",
+      "name": "trainer_MEDIUM",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_MEDIUM.png",
+      "sha256": "c8edbefe54f1c38792f602674b655d8ccded0755f548a7f8a99d3435e9d4f8f7",
+      "sizes": [
+        [
+          28,
+          42
+        ],
+        [
+          30,
+          42
+        ],
+        [
+          30,
+          42
+        ],
+        [
+          28,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-officer-png",
+      "name": "trainer_OFFICER",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_OFFICER.png",
+      "sha256": "ae413e98297dfc284ecb1fa1ba68437bd5d6cf15409547f41eac88fba5c29edf",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-picnicker-png",
+      "name": "trainer_PICNICKER",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_PICNICKER.png",
+      "sha256": "2a95c48bc2075a2aa3caee15f33555076b053d491133fe66fb4e0ab1b489c7c2",
+      "sizes": [
+        [
+          28,
+          38
+        ],
+        [
+          30,
+          38
+        ],
+        [
+          30,
+          38
+        ],
+        [
+          28,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-pokemaniac-png",
+      "name": "trainer_POKEMANIAC",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_POKEMANIAC.png",
+      "sha256": "a37180cdf28dedd7345596040a7485b08bb26a1f1c76417626e79a346fbfb509",
+      "sizes": [
+        [
+          32,
+          42
+        ],
+        [
+          32,
+          42
+        ],
+        [
+          32,
+          42
+        ],
+        [
+          32,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-psychic-m-png",
+      "name": "trainer_PSYCHIC_M",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_PSYCHIC_M.png",
+      "sha256": "157d0aea52b9615e34e2c13fbc8bf951f6d19b2dea388eaf8d226bb28d6c2e01",
+      "sizes": [
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-ruinmaniac-png",
+      "name": "trainer_RUINMANIAC",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_RUINMANIAC.png",
+      "sha256": "0728a26c00d2f45db6ee8eb57881f950465f33e827b8977c3404020b5eafb4c3",
+      "sizes": [
+        [
+          32,
+          38
+        ],
+        [
+          32,
+          38
+        ],
+        [
+          32,
+          38
+        ],
+        [
+          32,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-sailor-png",
+      "name": "trainer_SAILOR",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_SAILOR.png",
+      "sha256": "d0743fc81f24eadc2399e7d45edc1fcd724514841dd5a4bffd5dfc62dbdb684d",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-scientist-png",
+      "name": "trainer_SCIENTIST",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_SCIENTIST.png",
+      "sha256": "57b7291680010bed4df728c0a827a6b23994ff4203e79871ffd360fd92936cef",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          24,
+          40
+        ],
+        [
+          24,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-silver-png",
+      "name": "trainer_SILVER",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_SILVER.png",
+      "sha256": "0a9357c7aca038a3ab373361a972e751ae53fbbc7af11c7b0f5516312eb3c35f",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-supernerd-png",
+      "name": "trainer_SUPERNERD",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_SUPERNERD.png",
+      "sha256": "9d1d833aeb8bb88432a37eecd3941c4fc10020073a3f7016e712c583b9993285",
+      "sizes": [
+        [
+          30,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          30,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-swimmer2-f-png",
+      "name": "trainer_SWIMMER2_F",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_SWIMMER2_F.png",
+      "sha256": "b0ef1ad6d4b0254d4c196f9804d48e59bce4ffb2ec262fe66bc71521097b0918",
+      "sizes": [
+        [
+          32,
+          38
+        ],
+        [
+          30,
+          36
+        ],
+        [
+          30,
+          36
+        ],
+        [
+          32,
+          36
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-swimmer2-m-png",
+      "name": "trainer_SWIMMER2_M",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_SWIMMER2_M.png",
+      "sha256": "7b7079e15094e464c1f4a68f4f8116f6afe57259a6604711a68632d864bc2c1f",
+      "sizes": [
+        [
+          28,
+          32
+        ],
+        [
+          26,
+          32
+        ],
+        [
+          26,
+          32
+        ],
+        [
+          28,
+          28
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-swimmer-f-png",
+      "name": "trainer_SWIMMER_F",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_SWIMMER_F.png",
+      "sha256": "d6c8267dcdcc284ba0a693606cee097bfd70e1b1d800bfbfe0b7aa2887856500",
+      "sizes": [
+        [
+          28,
+          44
+        ],
+        [
+          30,
+          44
+        ],
+        [
+          30,
+          44
+        ],
+        [
+          28,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-swimmer-m-png",
+      "name": "trainer_SWIMMER_M",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_SWIMMER_M.png",
+      "sha256": "d806d6bb6f1a36bc8a6695c5d6c79fa0d26b70f4ea5c6b537b3128fa7068fd32",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-tuber-f-png",
+      "name": "trainer_TUBER_F",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_TUBER_F.png",
+      "sha256": "14e93d6b267bd12001d5fff526be5d1a382368ab7c044dc395f7becdfe9f36f9",
+      "sizes": [
+        [
+          28,
+          32
+        ],
+        [
+          26,
+          32
+        ],
+        [
+          26,
+          32
+        ],
+        [
+          28,
+          32
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-tuber-m-png",
+      "name": "trainer_TUBER_M",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_TUBER_M.png",
+      "sha256": "37a8898086052c59ba425a06d5723af65dc417a8bdce995abf896b374f8448c3",
+      "sizes": [
+        [
+          28,
+          32
+        ],
+        [
+          26,
+          32
+        ],
+        [
+          26,
+          32
+        ],
+        [
+          28,
+          32
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-twins-png",
+      "name": "trainer_TWINS",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_TWINS.png",
+      "sha256": "43c9ec59867211b4da0258f41cea619aa908a5fa497cee728e2ce7b9cd8e9338",
+      "sizes": [
+        [
+          24,
+          34
+        ],
+        [
+          26,
+          34
+        ],
+        [
+          26,
+          34
+        ],
+        [
+          24,
+          34
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-hgss-npcs-characters-trainer-youngster-png",
+      "name": "trainer_YOUNGSTER",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/HGSS NPCs/Characters/trainer_YOUNGSTER.png",
+      "sha256": "61520e7eac090249e1ce88889a789744ccda0b3892efe9e83b5448723e9f65a8",
+      "sizes": [
+        [
+          30,
+          38
+        ],
+        [
+          30,
+          38
+        ],
+        [
+          30,
+          38
+        ],
+        [
+          30,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-hoenn-npc-01-png",
+      "name": "Hoenn NPC 01",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/Hoenn NPC 01.png",
+      "sha256": "b688b84a1db74b146107cb3d6a0c8581b33b79208bd79d253aeaa79ebd535b87",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-hoenn-npc-02-png",
+      "name": "Hoenn NPC 02",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/Hoenn NPC 02.png",
+      "sha256": "a7fc80ada153f936447ba3cce637d53a399476165745a1f5ce3ca8de58cd2e4a",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          24,
+          40
+        ],
+        [
+          24,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-hoenn-npc-03-png",
+      "name": "Hoenn NPC 03",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/Hoenn NPC 03.png",
+      "sha256": "eacbfaef630b585c3f55a62c7f392561ca3694c2af03b4061631c313d168d59d",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-hoenn-npc-04-png",
+      "name": "Hoenn NPC 04",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/Hoenn NPC 04.png",
+      "sha256": "390d2f2420ab008ff14fe106c6ba5b51524a1586e5a430c768b731daca7b7343",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-hoenn-npc-05-png",
+      "name": "Hoenn NPC 05",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/Hoenn NPC 05.png",
+      "sha256": "5d8c33488d9f2a2319527d0d03b5705bd4e3e0d4e4704664c3d8e175da48bac8",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-hoenn-npc-06-png",
+      "name": "Hoenn NPC 06",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/Hoenn NPC 06.png",
+      "sha256": "b51855b96df9f2252f7ae3fc7c5231877960d33fd91049b90bd4c39be521ac8e",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-npc-artist-png",
+      "name": "NPC_Artist",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/NPC_Artist.png",
+      "sha256": "4d11d90dc3ab1c665032ed4a097a748c80c1e3dc9ac6615fb3a86655c0f63d68",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-npc-hoennmom-png",
+      "name": "NPC_HoennMom",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/NPC_HoennMom.png",
+      "sha256": "d5f2f6d3a830bd70dfcd8811b19e53c89916848900b97b76d71d7db5b1b75bd6",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-npc-hoennnurse-png",
+      "name": "NPC_HoennNurse",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/NPC_HoennNurse.png",
+      "sha256": "4b42d32500909beea0c5894bf8014193eb4e0f77ed0b1d5bc362b08208a42924",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-npc-hoennnursebow-png",
+      "name": "NPC_HoennNurseBow",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/NPC_HoennNurseBow.png",
+      "sha256": "7553923cb8b8e3e0482faff19eeeac28663e056eb8917bcce36ee493e593175f",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          32,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-npc-nocapnurse-png",
+      "name": "NPC_NoCapNurse",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/NPC_NoCapNurse.png",
+      "sha256": "ee01e4f14cb2b520fe1768bdcdce51ed7ceee2562b1fa03e0c72fbed62cad331",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-npc-nocapnursebow-png",
+      "name": "NPC_NoCapNurseBow",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/NPC_NoCapNurseBow.png",
+      "sha256": "4588a34929deb548f404383ebbebdf5567593385f41a08021c0bcfa2e0b6704d",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          32,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-npc-pikemaid-png",
+      "name": "NPC_PikeMaid",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/NPC_PikeMaid.png",
+      "sha256": "748a041efa2a92ed33786d3f667129e7399736ccc73ce386a49c7a63db594fef",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-npc-profbirch-png",
+      "name": "NPC_ProfBirch",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/NPC_ProfBirch.png",
+      "sha256": "64bfaa35a5c04297423ee5fefd2fdca0aecd5916bf66cb60dd742ce5935bc25c",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-npc-reporter-m-png",
+      "name": "NPC_REPORTER_M",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/NPC_REPORTER_M.png",
+      "sha256": "b22888731bc282146e4e46446167a660d2bf11a88a6b624f4496a0d888136ffd",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-npc-safarisentry-png",
+      "name": "NPC_SafariSentry",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/NPC_SafariSentry.png",
+      "sha256": "32a8435edcbb0b52d97f32d2e77e65e3bd610bdccd025cca73b334ee00dffced",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-npc-scott-png",
+      "name": "NPC_Scott",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/NPC_Scott.png",
+      "sha256": "06022f018505cd0fbcef49f62c73e4bedcd971f96b7ae4acca7e3a35c2435791",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-npc-teala-png",
+      "name": "NPC_Teala",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/NPC_Teala.png",
+      "sha256": "63c91560e1ca7d8a1ab35181155ffd6c0083c09b41220778e35b2febf506866e",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-acetrainer-f-png",
+      "name": "trainer_ACETRAINER_F",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_ACETRAINER_F.png",
+      "sha256": "64af3b3b61e609edf2dbd97c280b657ddfe940619a88a175e2eed89efdbef5e3",
+      "sizes": [
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-acetrainer-m-png",
+      "name": "trainer_ACETRAINER_M",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_ACETRAINER_M.png",
+      "sha256": "49f373404ada751a54306e3dfac99086c7f1ead34d92c87fe2e4e327007db405",
+      "sizes": [
+        [
+          28,
+          42
+        ],
+        [
+          28,
+          42
+        ],
+        [
+          28,
+          42
+        ],
+        [
+          28,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-aquagrunt-f-png",
+      "name": "trainer_AQUAGRUNT_F",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_AQUAGRUNT_F.png",
+      "sha256": "ac594481de2fa5e1c0c645113f536d87b96a8d1fff3c5edb567018e99e68c7bc",
+      "sizes": [
+        [
+          34,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          34,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-aquagrunt-m-png",
+      "name": "trainer_AQUAGRUNT_M",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_AQUAGRUNT_M.png",
+      "sha256": "8c1aba4d45084a84c8e62fbbf81240df110e6a8a40b46cecaae38b44158210a6",
+      "sizes": [
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-archie-png",
+      "name": "trainer_ARCHIE",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_ARCHIE.png",
+      "sha256": "46afc4ab3bab79834d9dc6047f648266caeb2d7b0529c33b29ed70f47d38a4f6",
+      "sizes": [
+        [
+          28,
+          42
+        ],
+        [
+          28,
+          42
+        ],
+        [
+          28,
+          42
+        ],
+        [
+          28,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-arenatycoon-greta-png",
+      "name": "trainer_ARENATYCOON_Greta",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_ARENATYCOON_Greta.png",
+      "sha256": "793f084268088f44db914ec0adb1b0cb95b1c94f47106209b49b0aba52786b78",
+      "sizes": [
+        [
+          28,
+          36
+        ],
+        [
+          26,
+          36
+        ],
+        [
+          26,
+          36
+        ],
+        [
+          28,
+          36
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-battlegirl-png",
+      "name": "trainer_BATTLEGIRL",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_BATTLEGIRL.png",
+      "sha256": "da00faac72a8c07f906c631ed1827c517b2bcfefaf58a420bb9c4b24d75d3196",
+      "sizes": [
+        [
+          28,
+          42
+        ],
+        [
+          30,
+          42
+        ],
+        [
+          30,
+          42
+        ],
+        [
+          28,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-beauty-png",
+      "name": "trainer_BEAUTY",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_BEAUTY.png",
+      "sha256": "7d3f183aa795abb80cf45e68e10fa8891c459ae79c7efe581593880cb5d223ae",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-birdkeeper-png",
+      "name": "trainer_BIRDKEEPER",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_BIRDKEEPER.png",
+      "sha256": "b5986f9b09c1addc19291cf8c55c3619ac412442a2c3a4c82af8c1a8b8c49fa9",
+      "sizes": [
+        [
+          30,
+          42
+        ],
+        [
+          30,
+          42
+        ],
+        [
+          30,
+          42
+        ],
+        [
+          30,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-blackbelt-png",
+      "name": "trainer_BLACKBELT",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_BLACKBELT.png",
+      "sha256": "b262cb9cf249d2463576e0166213c0ef94ffc2be37ed3f49d7845405da53d989",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-breeder-f-png",
+      "name": "trainer_BREEDER_F",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_BREEDER_F.png",
+      "sha256": "b15a4ad88a3cf1ee7dfcfb5421459d40cbb65475aeed52edfc90c02df5beb4fa",
+      "sizes": [
+        [
+          32,
+          42
+        ],
+        [
+          30,
+          42
+        ],
+        [
+          30,
+          42
+        ],
+        [
+          32,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-breeder-m-png",
+      "name": "trainer_BREEDER_M",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_BREEDER_M.png",
+      "sha256": "1df018e665f06804779b56da2fb309b7c3d1b17e7a20d923ac97224688f2fa6a",
+      "sizes": [
+        [
+          30,
+          42
+        ],
+        [
+          30,
+          42
+        ],
+        [
+          30,
+          42
+        ],
+        [
+          30,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-bugmaniac-png",
+      "name": "trainer_BUGMANIAC",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_BUGMANIAC.png",
+      "sha256": "d9c1ea2d170276f22e8cec930f916c310d2d589ce2135d142ee0c293fbd75370",
+      "sizes": [
+        [
+          32,
+          44
+        ],
+        [
+          30,
+          44
+        ],
+        [
+          30,
+          44
+        ],
+        [
+          32,
+          44
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-cameraman-png",
+      "name": "trainer_CAMERAMAN",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_CAMERAMAN.png",
+      "sha256": "d6cecbe4ed0d3a76c027b4f840be343b16496f90aba232f0a9e1774759049c54",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          32,
+          40
+        ],
+        [
+          32,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-cameraman2-png",
+      "name": "trainer_CAMERAMAN2",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_CAMERAMAN2.png",
+      "sha256": "107d821df9f4c6f0537087b508bfd872ce22cb40cf24b4ff36298505afdd1bb5",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          32,
+          40
+        ],
+        [
+          32,
+          40
+        ],
+        [
+          32,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-collector-png",
+      "name": "trainer_COLLECTOR",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_COLLECTOR.png",
+      "sha256": "2bdf0bc66315ebf8732a60c2b6f9dff2c65e54b068bf4c405b12b80cea4dc997",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-cyclist-f-png",
+      "name": "trainer_CYCLIST_F",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_CYCLIST_F.png",
+      "sha256": "32682d850bcd6e9d0d4ca9992bd7664a83521a4b1c2dd2b0c9ca0d80fe65faeb",
+      "sizes": [
+        [
+          28,
+          44
+        ],
+        [
+          40,
+          44
+        ],
+        [
+          40,
+          44
+        ],
+        [
+          28,
+          44
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-cyclist-m-png",
+      "name": "trainer_CYCLIST_M",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_CYCLIST_M.png",
+      "sha256": "bd9bcc53b26c4d9d20b27b39d1bd74066d58284be29b281a542ee67472b9aead",
+      "sizes": [
+        [
+          28,
+          44
+        ],
+        [
+          40,
+          44
+        ],
+        [
+          40,
+          44
+        ],
+        [
+          28,
+          44
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-domeace-tucker-png",
+      "name": "trainer_DOMEACE_Tucker",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_DOMEACE_Tucker.png",
+      "sha256": "59496bf00807e01d37b63258b86027de0bc644644c5cf3299bf96f9700d8d06e",
+      "sizes": [
+        [
+          36,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-dragontamer-png",
+      "name": "trainer_DRAGONTAMER",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_DRAGONTAMER.png",
+      "sha256": "452aebb536772fbab2e5ad3a9cf50add55265fb42298c1091606ebb4b6df8b10",
+      "sizes": [
+        [
+          30,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          30,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-elitefour-drake-png",
+      "name": "trainer_ELITEFOUR_Drake",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_ELITEFOUR_Drake.png",
+      "sha256": "af444aedd0c4706b528c43fcc0ec761eb2cd8f38821369e57cd2609abc79472f",
+      "sizes": [
+        [
+          28,
+          42
+        ],
+        [
+          28,
+          42
+        ],
+        [
+          28,
+          42
+        ],
+        [
+          28,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-elitefour-glacia-png",
+      "name": "trainer_ELITEFOUR_Glacia",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_ELITEFOUR_Glacia.png",
+      "sha256": "bc00b8516e5c1888845daae31a6dc5ff3066fcea182e154fac10ec7b02480a66",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-elitefour-phoebe-png",
+      "name": "trainer_ELITEFOUR_Phoebe",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_ELITEFOUR_Phoebe.png",
+      "sha256": "846f6737028da7a7b5cf91fd3d674ec87274175203599fca48d39634916b14e3",
+      "sizes": [
+        [
+          36,
+          38
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          36,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-elitefour-sidney-png",
+      "name": "trainer_ELITEFOUR_Sidney",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_ELITEFOUR_Sidney.png",
+      "sha256": "ab596500812d652fce7e346677f1461fa52d9b86472dbcbaa13148add582dfad",
+      "sizes": [
+        [
+          28,
+          42
+        ],
+        [
+          24,
+          42
+        ],
+        [
+          24,
+          42
+        ],
+        [
+          28,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-expert-f-png",
+      "name": "trainer_EXPERT_F",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_EXPERT_F.png",
+      "sha256": "1ac8511bedcc33b169c0cef11a0b4ffcb3ad02c20267dfc2c353a78b5bc1356b",
+      "sizes": [
+        [
+          32,
+          36
+        ],
+        [
+          30,
+          34
+        ],
+        [
+          30,
+          34
+        ],
+        [
+          32,
+          36
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-expert-m-png",
+      "name": "trainer_EXPERT_M",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_EXPERT_M.png",
+      "sha256": "902d65c1a23f9049e91fb5b03b29fe057aa46f0a3e35a50d2e5f3ffc01ccf414",
+      "sizes": [
+        [
+          28,
+          38
+        ],
+        [
+          30,
+          36
+        ],
+        [
+          30,
+          36
+        ],
+        [
+          28,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-factoryhead-noland-png",
+      "name": "trainer_FACTORYHEAD_Noland",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_FACTORYHEAD_Noland.png",
+      "sha256": "789f1db2b5392700b2aae7b023547596ef998e354e6f83dd5e2252f87c01589f",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          32,
+          40
+        ],
+        [
+          32,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-guitarist-png",
+      "name": "trainer_GUITARIST",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_GUITARIST.png",
+      "sha256": "ee55bc70c4f86b00db3e739eac4da3d2f1852abef21aa1d66f0935c385146a07",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-hexmaniac-png",
+      "name": "trainer_HEXMANIAC",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_HEXMANIAC.png",
+      "sha256": "b721bf078ce70ea16336da639a9200ab9e0582fc7e057398fbb70bf60853053f",
+      "sizes": [
+        [
+          32,
+          44
+        ],
+        [
+          28,
+          44
+        ],
+        [
+          28,
+          44
+        ],
+        [
+          32,
+          44
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-hiker-png",
+      "name": "trainer_HIKER",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_HIKER.png",
+      "sha256": "09c0bec7b4296704989b980ec578a6a1d6e8b3504adab23198f79845ec5792b8",
+      "sizes": [
+        [
+          32,
+          42
+        ],
+        [
+          32,
+          42
+        ],
+        [
+          32,
+          42
+        ],
+        [
+          32,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-kindler-png",
+      "name": "trainer_KINDLER",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_KINDLER.png",
+      "sha256": "4f4679744fb0979318166c8ea4b3587e80647d59618f778d8a894182f1ccedcb",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-leader-brawly-png",
+      "name": "trainer_LEADER_Brawly",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_LEADER_Brawly.png",
+      "sha256": "36d60a8da31359d39571e1a974f5b51f72ecda379780e9c87f10fa45a015d37a",
+      "sizes": [
+        [
+          32,
+          42
+        ],
+        [
+          28,
+          42
+        ],
+        [
+          28,
+          42
+        ],
+        [
+          32,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-leader-flannery-png",
+      "name": "trainer_LEADER_Flannery",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_LEADER_Flannery.png",
+      "sha256": "37be1e746a56eaea9315351f08e9176756543d6288880408ba444e5f717a884c",
+      "sizes": [
+        [
+          36,
+          42
+        ],
+        [
+          34,
+          42
+        ],
+        [
+          34,
+          42
+        ],
+        [
+          36,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-leader-juan-png",
+      "name": "trainer_LEADER_Juan",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_LEADER_Juan.png",
+      "sha256": "bb79649eab8ba3bc8fab655d5017e3807fde7a8c7e208dd4c0e9d7b6cdefe1c7",
+      "sizes": [
+        [
+          28,
+          42
+        ],
+        [
+          24,
+          42
+        ],
+        [
+          24,
+          42
+        ],
+        [
+          28,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-leader-liza-png",
+      "name": "trainer_LEADER_Liza",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_LEADER_Liza.png",
+      "sha256": "2a3e8c1d81c5ba2d6cb61ebb972335517354b1c001deac747e71440938c55342",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-leader-norman-png",
+      "name": "trainer_LEADER_Norman",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_LEADER_Norman.png",
+      "sha256": "73a6baea7a7136a2298a209c0c95dae7eeec8285bde7f23dc49ba96ef38d5445",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          24,
+          40
+        ],
+        [
+          24,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-leader-roxanne-png",
+      "name": "trainer_LEADER_Roxanne",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_LEADER_Roxanne.png",
+      "sha256": "873a25e61c1b3b633026ba62b14f0f098c7eedbdc6a93162d230a9803ba8e250",
+      "sizes": [
+        [
+          36,
+          38
+        ],
+        [
+          32,
+          38
+        ],
+        [
+          32,
+          38
+        ],
+        [
+          36,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-leader-tate-png",
+      "name": "trainer_LEADER_Tate",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_LEADER_Tate.png",
+      "sha256": "d8b9188b97017080d8b5c4fbd129d7dae702281ade087c966b4b63e67b165aba",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-leader-wallace-png",
+      "name": "trainer_LEADER_Wallace",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_LEADER_Wallace.png",
+      "sha256": "8eb7577f6090f2dbf9977b181293ba8db71528cab13adf707fec61a2fe8bc900",
+      "sizes": [
+        [
+          32,
+          42
+        ],
+        [
+          28,
+          42
+        ],
+        [
+          28,
+          42
+        ],
+        [
+          32,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-leader-wattson-png",
+      "name": "trainer_LEADER_Wattson",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_LEADER_Wattson.png",
+      "sha256": "166fb98052bd1778d3beb8283cb961e4e0ee020c7d26e97ae0760117b3b4a5c1",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-leader-winona-png",
+      "name": "trainer_LEADER_Winona",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_LEADER_Winona.png",
+      "sha256": "6a656aa9e115ad97a111056e7baebdee4b11bc6acf84d2dd0bac433d50b1c738",
+      "sizes": [
+        [
+          32,
+          42
+        ],
+        [
+          26,
+          44
+        ],
+        [
+          26,
+          44
+        ],
+        [
+          32,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-magmagrunt-f-png",
+      "name": "trainer_MAGMAGRUNT_F",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_MAGMAGRUNT_F.png",
+      "sha256": "871425a58feeb41a962a4f9ae590b0d01809a7c790eb3e055f6745dc6a3ef12e",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-magmagrunt-m-png",
+      "name": "trainer_MAGMAGRUNT_M",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_MAGMAGRUNT_M.png",
+      "sha256": "de2bb26ef39a8d699f22ea2c4becce97a0abc6b95664b6920352ee1a910dd274",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-maxie-png",
+      "name": "trainer_MAXIE",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_MAXIE.png",
+      "sha256": "920d886abeb3d5cfb7388cb0470e7fc608cefda6e86ce53331c9f0e1c0a3dbdc",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-palacemaven-spencer-png",
+      "name": "trainer_PALACEMAVEN_Spencer",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_PALACEMAVEN_Spencer.png",
+      "sha256": "b7448ec201fb66d0b9f31ff83c582979e7bb5f908bbca9dbd2303a2a58dac052",
+      "sizes": [
+        [
+          30,
+          36
+        ],
+        [
+          30,
+          36
+        ],
+        [
+          30,
+          36
+        ],
+        [
+          30,
+          36
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-pikequeen-lucy-png",
+      "name": "trainer_PIKEQUEEN_Lucy",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_PIKEQUEEN_Lucy.png",
+      "sha256": "0be37e3f28b000ed60ecc1c68a015947b47d46d1ba7fb9bfc4090ae880051a9c",
+      "sizes": [
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-pokefan-f-png",
+      "name": "trainer_POKEFAN_F",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_POKEFAN_F.png",
+      "sha256": "d411323fd03a97748ac96c0da933c79c09ed0b22a951b23c7bd19105d7d8d959",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-pokefan-m-png",
+      "name": "trainer_POKEFAN_M",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_POKEFAN_M.png",
+      "sha256": "4a66973cad2cc2d58b7dabe44800fba133ab6a30c9b1fa547aa50c5d44cef7c7",
+      "sizes": [
+        [
+          32,
+          42
+        ],
+        [
+          26,
+          42
+        ],
+        [
+          26,
+          42
+        ],
+        [
+          32,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-pyramidking-brandon-png",
+      "name": "trainer_PYRAMIDKING_Brandon",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_PYRAMIDKING_Brandon.png",
+      "sha256": "0173dc922d86c148b24ba797343631b62cc210823beca7f4fd7e7ffcd19d42f9",
+      "sizes": [
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-reporter2-f-png",
+      "name": "trainer_REPORTER2_F",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_REPORTER2_F.png",
+      "sha256": "8ca9a2b69a630c359d9eb419efc57658b1df71ce518fd3a2c69075d0b1fd4987",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-reporter-f-png",
+      "name": "trainer_REPORTER_F",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_REPORTER_F.png",
+      "sha256": "dca2d511c633bc6abd3c9f3518f0ddd718dac8ad031ef39dd384dd0180d51b7f",
+      "sizes": [
+        [
+          28,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-richboy-png",
+      "name": "trainer_RICHBOY",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_RICHBOY.png",
+      "sha256": "8cede60cbcd548786ba4ba211d5a31d650109a4f9be2814ccc366c7911273d79",
+      "sizes": [
+        [
+          32,
+          38
+        ],
+        [
+          30,
+          38
+        ],
+        [
+          30,
+          38
+        ],
+        [
+          32,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-ruinmaniac-png",
+      "name": "trainer_RUINMANIAC",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_RUINMANIAC.png",
+      "sha256": "22ccfd96e775634835bb7e6ea725a324415a9fa0b7f3ae31a132ee2facb55f3a",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          32,
+          40
+        ],
+        [
+          32,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-salonmaiden-anabel-png",
+      "name": "trainer_SALONMAIDEN_Anabel",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_SALONMAIDEN_Anabel.png",
+      "sha256": "c0408014a1c170bf94ef04a2344ea06eea7121d57a156e239d50ef300a3bdbad",
+      "sizes": [
+        [
+          30,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          30,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-schoolboy-png",
+      "name": "trainer_SCHOOLBOY",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_SCHOOLBOY.png",
+      "sha256": "1aea225b7315071c004ecf19a100d4488f1a3b1e7ab53c8946013ba45a578774",
+      "sizes": [
+        [
+          24,
+          30
+        ],
+        [
+          22,
+          30
+        ],
+        [
+          22,
+          30
+        ],
+        [
+          24,
+          30
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-schoolgirl-png",
+      "name": "trainer_SCHOOLGIRL",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_SCHOOLGIRL.png",
+      "sha256": "0cec4e9f3c1a436e523e88d43c9ea503022bd19c319d7c11442fa3d3348d818b",
+      "sizes": [
+        [
+          28,
+          36
+        ],
+        [
+          28,
+          36
+        ],
+        [
+          28,
+          36
+        ],
+        [
+          28,
+          36
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-steven-png",
+      "name": "trainer_STEVEN",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_STEVEN.png",
+      "sha256": "3dbb60258e17f1987dce05198281bdae8cfe5395c31739db36eb1a2360740053",
+      "sizes": [
+        [
+          32,
+          44
+        ],
+        [
+          32,
+          44
+        ],
+        [
+          32,
+          44
+        ],
+        [
+          32,
+          44
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-swimmer-f-png",
+      "name": "trainer_SWIMMER_F",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_SWIMMER_F.png",
+      "sha256": "1a8d9362d1f584795bf89922fd7f56d09dbf9d6256190e74a844e1ffc282d148",
+      "sizes": [
+        [
+          32,
+          38
+        ],
+        [
+          30,
+          38
+        ],
+        [
+          30,
+          38
+        ],
+        [
+          32,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-triathlete-f-png",
+      "name": "trainer_TRIATHLETE_F",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_TRIATHLETE_F.png",
+      "sha256": "3eb15c820df8f7970160af867d0ea55d147e6dc23295762e19a820446ceca58c",
+      "sizes": [
+        [
+          32,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          32,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-triathlete-m-png",
+      "name": "trainer_TRIATHLETE_M",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_TRIATHLETE_M.png",
+      "sha256": "83b518ea123a4cd2436cf74080691d0ae477d0d0a9e03269c015f34d6db7a376",
+      "sizes": [
+        [
+          28,
+          42
+        ],
+        [
+          24,
+          42
+        ],
+        [
+          24,
+          42
+        ],
+        [
+          28,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-tuber2-m-png",
+      "name": "trainer_TUBER2_M",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_TUBER2_M.png",
+      "sha256": "3c3462d7522eaac1037a0395ec4fa070450d03fab191214ebda7a7d89654b081",
+      "sizes": [
+        [
+          28,
+          28
+        ],
+        [
+          24,
+          28
+        ],
+        [
+          24,
+          28
+        ],
+        [
+          28,
+          28
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-twins-png",
+      "name": "trainer_TWINS",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_TWINS.png",
+      "sha256": "25bfc31d4eada033ed7362f168971e0591755638ba01f3c2a27c23370b3e3258",
+      "sizes": [
+        [
+          26,
+          32
+        ],
+        [
+          24,
+          32
+        ],
+        [
+          24,
+          32
+        ],
+        [
+          26,
+          32
+        ]
+      ]
+    },
+    {
+      "id": "frlg-frlg-accurate-npc-megapack-relic-castle-edition-rse-npcs-characters-trainer-wally-png",
+      "name": "trainer_WALLY",
+      "source": "frlg",
+      "member": "FRLG Accurate NPC Megapack (Relic Castle Edition)/RSE NPCs/Characters/trainer_WALLY.png",
+      "sha256": "893224c2477b1cf0d9f2616838546c11f326364035e580b5f112eda671b33662",
+      "sizes": [
+        [
+          32,
+          42
+        ],
+        [
+          30,
+          42
+        ],
+        [
+          30,
+          42
+        ],
+        [
+          32,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-tracetrainer-f-png",
+      "name": "trAceTrainer_F",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trAceTrainer_F.png",
+      "sha256": "4ce497296722677235490f318de6c4b89bc931c1e8ac20d3bd09bc3d3e3c66fe",
+      "sizes": [
+        [
+          34,
+          46
+        ],
+        [
+          32,
+          46
+        ],
+        [
+          32,
+          46
+        ],
+        [
+          34,
+          46
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-tracetrainer-m-png",
+      "name": "trAceTrainer_M",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trAceTrainer_M.png",
+      "sha256": "abad13369a363171d093eff5f82fbd330a8d7ec5005ae367289c7c206ad63be2",
+      "sizes": [
+        [
+          38,
+          50
+        ],
+        [
+          32,
+          50
+        ],
+        [
+          32,
+          50
+        ],
+        [
+          38,
+          50
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-traromalady-png",
+      "name": "trAromalady",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trAromalady.png",
+      "sha256": "8b6039466071b58cbdb10043c7f829447039d452789dd8a743dab14b2d69aebf",
+      "sizes": [
+        [
+          34,
+          48
+        ],
+        [
+          32,
+          48
+        ],
+        [
+          32,
+          48
+        ],
+        [
+          34,
+          48
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trartist-f-png",
+      "name": "trArtist_F",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trArtist_F.png",
+      "sha256": "38e4a9ad6a8ac3c3a3e04a9f9231b1da227b626290ffffaaa52700f520458e56",
+      "sizes": [
+        [
+          38,
+          48
+        ],
+        [
+          34,
+          48
+        ],
+        [
+          34,
+          48
+        ],
+        [
+          38,
+          48
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trbeauty-png",
+      "name": "trBeauty",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trBeauty.png",
+      "sha256": "8b1b5ab3c84f87949e8c1b3780bbf5a36998181c2df81b6f59f3bbe43d532482",
+      "sizes": [
+        [
+          34,
+          52
+        ],
+        [
+          38,
+          46
+        ],
+        [
+          38,
+          46
+        ],
+        [
+          38,
+          46
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trbirdkeeper-png",
+      "name": "trBirdkeeper",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trBirdkeeper.png",
+      "sha256": "8540df1ff8f1303c2ff93202f287a6b4bf49f501204e1cb98f2673360adb7c36",
+      "sizes": [
+        [
+          36,
+          52
+        ],
+        [
+          36,
+          50
+        ],
+        [
+          36,
+          50
+        ],
+        [
+          36,
+          52
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trburglar-png",
+      "name": "trBurglar",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trBurglar.png",
+      "sha256": "5c2534efad946de882f620250ab03d081933c355dd6acfcbf5081d5ef6ef6e6b",
+      "sizes": [
+        [
+          34,
+          50
+        ],
+        [
+          36,
+          50
+        ],
+        [
+          36,
+          50
+        ],
+        [
+          34,
+          50
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trcafemaster-png",
+      "name": "trCafemaster",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trCafemaster.png",
+      "sha256": "b4b06e7e0d5bb22835276bddbdf9292c227d2143e3eb29f9e050bbc85b78add1",
+      "sizes": [
+        [
+          38,
+          50
+        ],
+        [
+          32,
+          50
+        ],
+        [
+          32,
+          50
+        ],
+        [
+          38,
+          50
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trcameraman-png",
+      "name": "trCameraman",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trCameraman.png",
+      "sha256": "86fe7072a3fecf3d18cb72b2ab5ce5e296ccdc25a7346c5393b453e623755ada",
+      "sizes": [
+        [
+          38,
+          48
+        ],
+        [
+          38,
+          48
+        ],
+        [
+          38,
+          48
+        ],
+        [
+          38,
+          48
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trchef-png",
+      "name": "trChef",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trChef.png",
+      "sha256": "3a46bf9e16d9bf202fa52583f2008fad70586bfa5907c0af9e5be5e09c13c6a2",
+      "sizes": [
+        [
+          38,
+          48
+        ],
+        [
+          34,
+          48
+        ],
+        [
+          34,
+          48
+        ],
+        [
+          38,
+          48
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trcollector-png",
+      "name": "trCollector",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trCollector.png",
+      "sha256": "43c410ae6d630ff5213e9dc0cedd6cc2649fa03b0222c6e200f03d755d6994f8",
+      "sizes": [
+        [
+          38,
+          50
+        ],
+        [
+          34,
+          48
+        ],
+        [
+          34,
+          48
+        ],
+        [
+          38,
+          50
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trdancer-f-png",
+      "name": "trDancer_F",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trDancer_F.png",
+      "sha256": "2d947453912b8d23fb763696d371715d9c9ed3a5136751acd231be92ba795563",
+      "sizes": [
+        [
+          54,
+          50
+        ],
+        [
+          36,
+          48
+        ],
+        [
+          36,
+          48
+        ],
+        [
+          54,
+          48
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trdeliquent-png",
+      "name": "trDeliquent",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trDeliquent.png",
+      "sha256": "cf48ef5cfa64e11d396ba862d71892bc1e71ba2f67a0233d3e80da44a584360d",
+      "sizes": [
+        [
+          42,
+          46
+        ],
+        [
+          34,
+          46
+        ],
+        [
+          34,
+          46
+        ],
+        [
+          42,
+          44
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trdocotorf-png",
+      "name": "trDocotorF",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trDocotorF.png",
+      "sha256": "84f031f94c2e85186ecebd788fd536f3ae0d1f0d3c816503c00cbc5a869f3c2f",
+      "sizes": [
+        [
+          38,
+          50
+        ],
+        [
+          34,
+          50
+        ],
+        [
+          34,
+          50
+        ],
+        [
+          38,
+          48
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trdoctorm-png",
+      "name": "trDoctorM",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trDoctorM.png",
+      "sha256": "c0cdcbacc603adf62b0dc2020103a1fabc9e438eac0613896c757bcc82826ce0",
+      "sizes": [
+        [
+          34,
+          48
+        ],
+        [
+          32,
+          48
+        ],
+        [
+          32,
+          48
+        ],
+        [
+          34,
+          48
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trfairytalegirl-png",
+      "name": "trFairytalegirl",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trFairytalegirl.png",
+      "sha256": "5ecbc70e6f58483c11b61e83a08d15395804b0101ff25de99203a8bb65ddbe39",
+      "sizes": [
+        [
+          30,
+          40
+        ],
+        [
+          30,
+          42
+        ],
+        [
+          30,
+          42
+        ],
+        [
+          30,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trfirefighter-png",
+      "name": "trFirefighter",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trFirefighter.png",
+      "sha256": "090c441ca8f7d708e7c75fcf5b1d17654eea67f6d1ac57d504e3b67b313692c4",
+      "sizes": [
+        [
+          34,
+          48
+        ],
+        [
+          30,
+          46
+        ],
+        [
+          30,
+          46
+        ],
+        [
+          34,
+          48
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trfisher-png",
+      "name": "trFisher",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trFisher.png",
+      "sha256": "3efc5b084aa2b849cacceb449a984b748cba415bb0e3afcb31b0718892ca6ffb",
+      "sizes": [
+        [
+          34,
+          48
+        ],
+        [
+          34,
+          48
+        ],
+        [
+          34,
+          48
+        ],
+        [
+          34,
+          48
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trfisherf-png",
+      "name": "trFisherF",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trFisherF.png",
+      "sha256": "986b70e90e7cd053d7b3798f4b93144dd6848a05aef5f213912f109b850f98ba",
+      "sizes": [
+        [
+          38,
+          50
+        ],
+        [
+          34,
+          50
+        ],
+        [
+          34,
+          50
+        ],
+        [
+          38,
+          48
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trgardener-png",
+      "name": "trGardener",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trGardener.png",
+      "sha256": "8969d5677418dd9195250647c34509de75b99adea394e332ffe6c556cd4c210b",
+      "sizes": [
+        [
+          38,
+          48
+        ],
+        [
+          38,
+          48
+        ],
+        [
+          38,
+          48
+        ],
+        [
+          38,
+          48
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trgentleman-png",
+      "name": "trGentleman",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trGentleman.png",
+      "sha256": "71c3cd6a9ad3290c00db07675a5d9917fac017d9b296cc48ab64f801ae36217b",
+      "sizes": [
+        [
+          34,
+          48
+        ],
+        [
+          32,
+          48
+        ],
+        [
+          32,
+          48
+        ],
+        [
+          34,
+          48
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trhexmaniac-png",
+      "name": "trHexmaniac",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trHexmaniac.png",
+      "sha256": "31e6dac1a223a8fe27889a991d51869f11c4c2ed70d545bd40612db54872a7f8",
+      "sizes": [
+        [
+          34,
+          50
+        ],
+        [
+          32,
+          48
+        ],
+        [
+          32,
+          48
+        ],
+        [
+          34,
+          48
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trjanitor-png",
+      "name": "trJanitor",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trJanitor.png",
+      "sha256": "fc7fb4e6f4cd1c55479b6910d22152c3e19f75e1e9d50d0d5f7e85b8f4594a9f",
+      "sizes": [
+        [
+          34,
+          48
+        ],
+        [
+          34,
+          48
+        ],
+        [
+          34,
+          48
+        ],
+        [
+          34,
+          50
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trlady-png",
+      "name": "trLady",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trLady.png",
+      "sha256": "1bb241c66811ae40746bcb712bbf6999af893a60fd3c9dd8517d1163cb03eef7",
+      "sizes": [
+        [
+          38,
+          50
+        ],
+        [
+          38,
+          50
+        ],
+        [
+          38,
+          50
+        ],
+        [
+          38,
+          52
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trmadame-png",
+      "name": "trMadame",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trMadame.png",
+      "sha256": "4331531015ceb43c28c55be9e035ce8ed3c5bad7bcd14f841b8a13de2b60258d",
+      "sizes": [
+        [
+          38,
+          48
+        ],
+        [
+          36,
+          48
+        ],
+        [
+          36,
+          48
+        ],
+        [
+          38,
+          48
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trmodel-png",
+      "name": "trModel",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trModel.png",
+      "sha256": "31c0c23d200a0a9d8ae8d4b34f84c2da06bc351fb8cf8f2c934663c42236a53c",
+      "sizes": [
+        [
+          36,
+          50
+        ],
+        [
+          32,
+          50
+        ],
+        [
+          32,
+          50
+        ],
+        [
+          36,
+          48
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trneckbeard-png",
+      "name": "trNeckbeard",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trNeckbeard.png",
+      "sha256": "edfeaedd5506635d0906e6e0f6b1cc58574244e1d56acf2f60d1513533054fb2",
+      "sizes": [
+        [
+          42,
+          54
+        ],
+        [
+          38,
+          54
+        ],
+        [
+          38,
+          54
+        ],
+        [
+          42,
+          54
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trparasollady-png",
+      "name": "trParasolLady",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trParasolLady.png",
+      "sha256": "56e474be856329979476511ff5316d3c5e4574f025f50916e81ab80ffd73ce2e",
+      "sizes": [
+        [
+          46,
+          54
+        ],
+        [
+          48,
+          54
+        ],
+        [
+          48,
+          54
+        ],
+        [
+          46,
+          54
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trpokemonbreederf-png",
+      "name": "trPokemonbreederF",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trPokemonbreederF.png",
+      "sha256": "7c52b14b9f47a3d4e627b7bcee9ce5e11e6c2ea10fdd22acec5827b0ef23c12f",
+      "sizes": [
+        [
+          34,
+          48
+        ],
+        [
+          36,
+          48
+        ],
+        [
+          36,
+          48
+        ],
+        [
+          34,
+          48
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trpokemonbreederm-png",
+      "name": "trPokemonbreederM",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trPokemonbreederM.png",
+      "sha256": "e7f3a453529f5315fc1670f6e4cf3a2c9b4e8e2306964b7a45b3a293cdb2f533",
+      "sizes": [
+        [
+          34,
+          46
+        ],
+        [
+          36,
+          46
+        ],
+        [
+          36,
+          46
+        ],
+        [
+          34,
+          46
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trpostman-png",
+      "name": "trPostman",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trPostman.png",
+      "sha256": "e7186c34b620855383dede23cedb81ed9e6b81a312e530ae899ac29dbbb70a03",
+      "sizes": [
+        [
+          34,
+          50
+        ],
+        [
+          34,
+          50
+        ],
+        [
+          34,
+          50
+        ],
+        [
+          34,
+          50
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trpunkf-png",
+      "name": "trPunkF",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trPunkF.png",
+      "sha256": "9828f55f7cba5376dc8f72b16b7d80237a4014f3d2b14880d04d6e3b66f1079e",
+      "sizes": [
+        [
+          50,
+          48
+        ],
+        [
+          32,
+          46
+        ],
+        [
+          32,
+          46
+        ],
+        [
+          50,
+          48
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trpunkm-png",
+      "name": "trPunkM",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trPunkM.png",
+      "sha256": "ff9459df3a55e04dc0fe2adec4194ce7345bee2a0de4a89dc88b86a9119e5082",
+      "sizes": [
+        [
+          34,
+          50
+        ],
+        [
+          28,
+          50
+        ],
+        [
+          28,
+          50
+        ],
+        [
+          34,
+          50
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trreporter-png",
+      "name": "trReporter",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trReporter.png",
+      "sha256": "240cd7709a70cef53e127549d3256bebd9ef936e015577855e06ec9a7de00eae",
+      "sizes": [
+        [
+          32,
+          52
+        ],
+        [
+          38,
+          48
+        ],
+        [
+          38,
+          48
+        ],
+        [
+          32,
+          48
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trrichboy-png",
+      "name": "trRichBoy",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trRichBoy.png",
+      "sha256": "a08b8dde94192b7dd6bd1fa29fd6b92a388114c8618effedef846c3317c006ea",
+      "sizes": [
+        [
+          34,
+          48
+        ],
+        [
+          34,
+          48
+        ],
+        [
+          34,
+          48
+        ],
+        [
+          34,
+          48
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trscientist-f-png",
+      "name": "trScientist_F",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trScientist_F.png",
+      "sha256": "8148ff47c6a9699631d7c07577aa5de8582e3f5404c61dffda72337698f347ef",
+      "sizes": [
+        [
+          34,
+          56
+        ],
+        [
+          38,
+          48
+        ],
+        [
+          38,
+          48
+        ],
+        [
+          34,
+          52
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trstreetthug-png",
+      "name": "trStreetThug",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trStreetThug.png",
+      "sha256": "c2a1be22451629b507c1941015d4c9d07803236908ad0d95b69309382700c314",
+      "sizes": [
+        [
+          42,
+          52
+        ],
+        [
+          32,
+          54
+        ],
+        [
+          32,
+          54
+        ],
+        [
+          42,
+          52
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trteenager-f-png",
+      "name": "trTeenager_F",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trTeenager_F.png",
+      "sha256": "c2df67622614cc3d7dbb2a32733a331e6edb2abedc92af6f85fb91a6ea8051ae",
+      "sizes": [
+        [
+          34,
+          58
+        ],
+        [
+          44,
+          50
+        ],
+        [
+          44,
+          50
+        ],
+        [
+          34,
+          54
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trteenager-m-png",
+      "name": "trTeenager_M",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trTeenager_M.png",
+      "sha256": "03e4ab6604135a33289d096109981737261059ec7be0c368d9a9516ba9bffb68",
+      "sizes": [
+        [
+          34,
+          46
+        ],
+        [
+          36,
+          46
+        ],
+        [
+          36,
+          46
+        ],
+        [
+          34,
+          46
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trtouristf1-png",
+      "name": "trTouristF1",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trTouristF1.png",
+      "sha256": "e861637936ff5cfe81db009ed1e0c5d6a865e56c2c2ae292e21cf6c42202dcee",
+      "sizes": [
+        [
+          34,
+          52
+        ],
+        [
+          36,
+          52
+        ],
+        [
+          36,
+          52
+        ],
+        [
+          34,
+          52
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trtouristf2-png",
+      "name": "trTouristF2",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trTouristF2.png",
+      "sha256": "656abbf2967c127bc60894915784a1ecfad5fe267ef4e3fafb22a77c0718781e",
+      "sizes": [
+        [
+          38,
+          50
+        ],
+        [
+          36,
+          48
+        ],
+        [
+          36,
+          48
+        ],
+        [
+          38,
+          50
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trtouristm-png",
+      "name": "trTouristM",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trTouristM.png",
+      "sha256": "20191facbd4d6d386691f79c5648cbcdbf84f31c3f51eb87f4b3432845682b02",
+      "sizes": [
+        [
+          40,
+          50
+        ],
+        [
+          36,
+          48
+        ],
+        [
+          36,
+          48
+        ],
+        [
+          40,
+          50
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trveteranf-png",
+      "name": "trVeteranF",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trVeteranF.png",
+      "sha256": "f822ddcb6a2dbd74c8c63794c8fc0a725e22a88b6e9a9f0ccdb99145623d94d1",
+      "sizes": [
+        [
+          38,
+          50
+        ],
+        [
+          34,
+          50
+        ],
+        [
+          34,
+          50
+        ],
+        [
+          38,
+          50
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trveteranm-png",
+      "name": "trVeteranM",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trVeteranM.png",
+      "sha256": "16fa23b31bd39de445939af8f13ed4821b90cffd2b95ebd22a28f8f593c489b5",
+      "sizes": [
+        [
+          34,
+          48
+        ],
+        [
+          30,
+          46
+        ],
+        [
+          30,
+          46
+        ],
+        [
+          34,
+          48
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trwaiter-png",
+      "name": "trWaiter",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trWaiter.png",
+      "sha256": "5fc10c69ddf8d1d7ea515b112302884409ab134985abf9ba0d559544db167ae2",
+      "sizes": [
+        [
+          34,
+          46
+        ],
+        [
+          28,
+          44
+        ],
+        [
+          28,
+          44
+        ],
+        [
+          34,
+          46
+        ]
+      ]
+    },
+    {
+      "id": "taiga-taiga-s-trainer-sprites-characters-trwaitress-png",
+      "name": "trWaitress",
+      "source": "taiga",
+      "member": "Taiga\u00b4s Trainer Sprites/Characters/trWaitress.png",
+      "sha256": "b5b17bcbd88559cb9a92ca32ad24adb1285e4c18ddca8ea32cd400b6b4159079",
+      "sizes": [
+        [
+          34,
+          46
+        ],
+        [
+          30,
+          46
+        ],
+        [
+          30,
+          46
+        ],
+        [
+          34,
+          46
+        ]
+      ]
+    }
+  ]
+}
