@@ -63,6 +63,15 @@ def test_original_arena_defaults_and_invalid_weather(call):
     assert call("arena_save", {"name": "Bad", "weather": "storm"}, status=400)
 
 
+def test_playable_gym_uses_weather_in_its_starting_spec(call, services):
+    a = call("arena_save", {"name": "Portable rain", "weather": "raindance", "weather_rules": True})
+    trainer = call("trainer_create", {"name": "Leader", "paste": TEAM})
+    gym = call("gym_save", {"name": "Portable", "leader_id": trainer["id"], "rt_arena": a["value"]})
+    info = services._rt_page_info("gym", services.store.gym(gym["id"]))
+    assert info["arena"]["weather"] == "raindance"
+    assert info["arena"]["weather_rules"] is True
+
+
 @needs_engine
 def test_finished_battle_retains_weather_after_arena_edit(call):
     a = call("arena_save", {"name": "Nieve", "weather": "snow", "weather_rules": True})
