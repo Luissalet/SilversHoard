@@ -6,6 +6,7 @@
 import { Animator, dirRow, image, loadMeta } from "./pmd.js";
 import { crowdMembers } from "./crowd.js";
 import { mixTrainerCrowd, drawCrowdTrainer, loadCrowdTrainerAtlas } from "./crowd-trainers.js";
+import { portraitPoint, portraitFacing, upright } from "./portrait-camera.js";
 import { drawBallFrame } from "../ball-art.js";
 
 const TAU = Math.PI * 2;
@@ -123,16 +124,16 @@ export class Show {
       const x = r.px(c.x), y = r.py(c.y);
       ctx.fillStyle = "rgba(0,0,0,0.25)";
       ctx.beginPath(); ctx.ellipse(x, y, 0.35 * s, 0.13 * s, 0, 0, TAU); ctx.fill();
-      if (c.trainer) {
-        drawCrowdTrainer(ctx, c.trainer, x, y - lift * s, c.fx, c.fy, size);
-        continue;
-      }
-      const drawn = c.anim?.draw(ctx, x, y - lift * s, dirRow(c.fx, c.fy), k, { alpha: 0.95 });
+      upright(ctx, x, y, r.portrait, () => {
+      const facing = r.portrait ? portraitFacing(c.fx, c.fy) : c;
+      if (c.trainer) return drawCrowdTrainer(ctx, c.trainer, x, y - lift * s, facing.fx, facing.fy, size);
+      const drawn = c.anim?.draw(ctx, x, y - lift * s, dirRow(facing.fx, facing.fy), k, { alpha: 0.95 });
       if (!drawn && c.fallback?.ready) {
         const img = c.fallback.img;
         const scale = Math.min(size / img.width, size / img.height);
         ctx.drawImage(img, x - img.width * scale / 2, y - lift * s - img.height * scale, img.width * scale, img.height * scale);
       }
+      });
     }
   }
 
@@ -227,6 +228,11 @@ export class Show {
   /** World point (meters, height z) to canvas pixels, through the camera. */
   toScreen(x, y, z = 0) {
     const r = this.r;
+    if (r.screenPass && r.portrait) {
+      const {tx, ty, z: k} = this.view || {tx:r.worldCanvas.width/2, ty:r.worldCanvas.height/2, z:1};
+      const point = portraitPoint((r.px(x)-tx)*k+r.worldCanvas.width/2, (r.py(y)-ty)*k+r.worldCanvas.height/2, r.worldCanvas.width);
+      return {...point, y:point.y-z*r.scale*k, k};
+    }
     const px = r.px(x), py = r.py(y) - z * r.scale;
     const { tx, ty, z: k } = this.view || { tx: 0, ty: 0, z: 1 };
     return { x: (px - tx) * k + r.canvas.width / 2, y: (py - ty) * k + r.canvas.height / 2, k };
@@ -765,7 +771,8 @@ export class Show {
       const anim = r.animOf(si, side.active, !!mon?.megaOn);
       const p = this.toScreen(side.x, side.y, 0);
       const k = Math.max(1, Math.round(r.k * p.k * 1.15));
-      const row = dirRow(side.fx, side.fy);
+      const facing = r.portrait ? portraitFacing(side.fx, side.fy) : side;
+      const row = dirRow(facing.fx, facing.fy);
       if (!anim || !anim.draw(o, p.x, p.y, row, k)) {
         o.fillStyle = "#000";
         o.beginPath(); o.ellipse(p.x, p.y - 0.7 * r.scale * p.k, 0.6 * r.scale * p.k, 0.8 * r.scale * p.k, 0, 0, TAU); o.fill();
@@ -807,6 +814,7 @@ export class Show {
   /** The VS screen: two slanted panels in the trainers' colours, their pictures and names, "VS", then "Fight!". */
   drawIntro(ctx, W, H) {
     const it = this.intro;
+    const portrait = this.r.portrait;
     const t = it.t;
     const slideIn = ease(t / 0.35);
     const out = t > 1.75 ? ease((t - 1.75) / 0.35) : 0;
@@ -819,9 +827,9 @@ export class Show {
         const sd = it.sides[si];
         const dir = si === 0 ? -1 : 1;
         const off = (1 - slideIn) * W * 0.6 * dir + out * W * 0.7 * dir;
-        const top = si === 0 ? H * 0.12 : H * 0.3;
-        const ph = H * 0.5;
-        const x0 = si === 0 ? 0 : W * 0.5, x1 = si === 0 ? W * 0.5 : W;
+        const top = portrait ? H * (si === 0 ? .55 : .08) : si === 0 ? H * 0.12 : H * 0.3;
+        const ph = H * (portrait ? .34 : .5);
+        const x0 = portrait ? 0 : si === 0 ? 0 : W * 0.5, x1 = portrait ? W : si === 0 ? W * 0.5 : W;
         const slant = W * 0.07;
         ctx.save();
         ctx.translate(off, 0);
@@ -836,8 +844,8 @@ export class Show {
         ctx.stroke();
         // the picture: the trainer's own sprite, else the lead Pokémon's face
         const pic = sd.trainer?.ready ? sd.trainer.img : sd.portrait?.ready ? sd.portrait.img : sd.fallback?.ready ? sd.fallback.img : null;
-        const box = ph * 0.52;
-        const bx = si === 0 ? W * 0.07 : W - W * 0.07 - box;
+        const box = portrait ? Math.min(ph * .52, W * .27) : ph * 0.52;
+        const bx = portrait || si === 0 ? W * 0.07 : W - W * 0.07 - box;
         const by = top + ph * 0.1;
         ctx.fillStyle = SIDE_DARK[si];
         ctx.fillRect(bx - 4, by - 4, box + 8, box + 8);
@@ -851,26 +859,26 @@ export class Show {
         }
         let fs = ph * 0.13;
         ctx.font = this.font(fs);
-        ctx.textAlign = si === 0 ? "left" : "right";
+        ctx.textAlign = portrait || si === 0 ? "left" : "right";
         ctx.textBaseline = "middle";
         const name = (sd.name || "").toUpperCase();
-        const nx = si === 0 ? bx + box + W * 0.025 : bx - W * 0.025;
+        const nx = portrait || si === 0 ? bx + box + W * 0.025 : bx - W * 0.025;
         // room up to the "VS" in the middle of the screen
-        const maxW = Math.max(W * 0.08, si === 0 ? W * 0.4 - nx : nx - W * 0.6);
+        const maxW = portrait ? W * .94 - nx : Math.max(W * 0.08, si === 0 ? W * 0.4 - nx : nx - W * 0.6);
         while (fs > 10 && ctx.measureText(name).width > maxW) { fs -= 1; ctx.font = this.font(fs); }
         ctx.lineWidth = Math.max(2, fs * 0.16);
         ctx.strokeStyle = "#140c1c";
-        ctx.strokeText(name, nx, by + box * 0.45);
+        ctx.strokeText(name, nx, by + box * 0.45, ...(portrait ? [maxW] : []));
         ctx.fillStyle = "#ffffff";
-        ctx.fillText(name, nx, by + box * 0.45);
+        ctx.fillText(name, nx, by + box * 0.45, ...(portrait ? [maxW] : []));
         if (sd.mon) {
           let ms = fs * 0.55;
           ctx.font = this.font(ms);
           while (ms > 9 && ctx.measureText(sd.mon).width > maxW) { ms -= 1; ctx.font = this.font(ms); }
           ctx.lineWidth = Math.max(2, fs * 0.1);
-          ctx.strokeText(sd.mon, nx, by + box * 0.45 + fs * 0.9);
+          ctx.strokeText(sd.mon, nx, by + box * 0.45 + fs * 0.9, ...(portrait ? [maxW] : []));
           ctx.fillStyle = "#ffe9a8";
-          ctx.fillText(sd.mon, nx, by + box * 0.45 + fs * 0.9);
+          ctx.fillText(sd.mon, nx, by + box * 0.45 + fs * 0.9, ...(portrait ? [maxW] : []));
         }
         ctx.restore();
       }
@@ -878,7 +886,7 @@ export class Show {
       if (t > 0.3) {
         const k = clamp((t - 0.3) / 0.22, 0, 1);
         const sc = 2.6 - 1.6 * ease(k);
-        const fs = H * 0.2;
+        const fs = portrait ? Math.min(H * .2, W * .25) : H * 0.2;
         ctx.save();
         ctx.globalAlpha = Math.min(1, k * 2) * (1 - out);
         ctx.translate(W / 2, H * 0.47);
@@ -895,7 +903,7 @@ export class Show {
         if (k >= 1 && !it.shook) { it.shook = true; this.r.vfx.shake = Math.max(this.r.vfx.shake, 0.18); }
       }
       if (t > 0.7) {
-        const fs = H * 0.075;
+        const fs = portrait ? Math.min(H * .075, W * .07) : H * 0.075;
         ctx.globalAlpha = Math.min(1, (t - 0.7) * 3) * (1 - out);
         ctx.font = this.font(fs);
         ctx.textAlign = "center";

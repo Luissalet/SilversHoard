@@ -11,6 +11,7 @@ import { useSeats } from "../components/silver.jsx";
 import { loc, seatNames } from "../loc.js";
 import { battleEnd, genOfFormat, music, pickTrack, unlock } from "../audio.js";
 import { installTap } from "../video/tap.js";
+import "../battle/portrait.css";
 // the real-time arena carries the battle engine: it comes with CombateRt's chunk, only when a real-time battle is recorded
 const RtScreen = React.lazy(() => import("./CombateRt.jsx").then((m) => ({ default: m.RtScreen })));
 const MassScreen = React.lazy(() => import("./CombateRt.jsx").then((m) => ({ default: m.MassScreen })));
@@ -71,12 +72,13 @@ export default function Video({ param, query }) {
   // Real-time music starts while its replay is paused. Hook play() before the
   // asynchronously loaded battle mounts, so that first track enters the mix.
   useEffect(() => { if (recording) installTap(); }, [recording]);
-  if (String(param || "").startsWith("mass_")) return <MassVideo id={param} query={query} />;
-  return <BattleVideo param={param} query={query} />;
+  const stageClass = `video-stage${query?.get("aspect") === "portrait" ? " is-portrait portrait-layout" : ""}`;
+  if (String(param || "").startsWith("mass_")) return <MassVideo id={param} query={query} stageClass={stageClass} />;
+  return <BattleVideo param={param} query={query} stageClass={stageClass} />;
 }
 
 /** A mass battle (or one played run of it) on the 16:9 stage, its camera directing itself (or following whoever played). */
-function MassVideo({ id, query }) {
+function MassVideo({ id, query, stageClass }) {
   const { t, lang, setLang, sprites } = useApp();
   const rate = Math.max(1, Math.min(8, Number(query?.get("mspeed")) || 2));
   const playId = query?.get("play") || "";
@@ -120,10 +122,10 @@ function MassVideo({ id, query }) {
     r.ended = true;
     setTimeout(() => { if (r.recorder && r.recorder.state !== "inactive") r.recorder.stop(); }, TAIL_MS);
   };
-  if (!ready) return <div className="video-stage" />;
+  if (!ready) return <div className={stageClass} />;
   const ticks = Math.round(((run2?.seconds ?? doc.summary?.seconds) || 0) * 30);
   return (
-    <div className="video-stage">
+    <div className={stageClass}>
       <div className="video-title">
         <b>{loc(doc, lang, "title")}</b>
         {run2 && <span className="help">{t("mass_replay_of", { who: loc(run2, lang, "challenger"), name: run2.name })}</span>}
@@ -136,7 +138,7 @@ function MassVideo({ id, query }) {
   );
 }
 
-function BattleVideo({ param, query }) {
+function BattleVideo({ param, query, stageClass }) {
   const { lang, setLang, sprites } = useApp();
   const speedMs = Math.max(200, Math.min(3000, Number(query?.get("speed")) || 900));
   const recording = query?.get("record") === "1";
@@ -208,10 +210,10 @@ function BattleVideo({ param, query }) {
     setTimeout(() => { if (r.recorder && r.recorder.state !== "inactive") r.recorder.stop(); }, TAIL_MS);
   }, [player.applied, player.state.ended, player.caughtUp]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (error) return <div className="video-stage"><p className="help">{error}</p></div>;
-  if (!battle) return <div className="video-stage" />;
+  if (error) return <div className={stageClass}><p className="help">{error}</p></div>;
+  if (!battle) return <div className={stageClass} />;
   return (
-    <div className="video-stage">
+    <div className={stageClass}>
       <div className="video-title">
         <b>{loc(battle.p1, lang)}</b><span>vs</span><b>{loc(battle.p2, lang)}</b>
         <span className="help">{battle.format_info?.name || battle.format}</span>

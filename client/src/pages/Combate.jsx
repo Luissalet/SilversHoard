@@ -14,6 +14,7 @@ import { battleTitle, loc, seatNames, winnerName } from "../loc.js";
 import { lazyChunk } from "../lazy.js";
 import AiNotes from "../components/AiNotes.jsx";
 import VideoExport from "../components/VideoExport.jsx";
+import BattlePresentation from "../battle/portrait.jsx";
 import BattleJournal from "../components/BattleJournal.jsx";
 import { CupStrip } from "./Copa.jsx";
 import { SaveExercise, ExerciseProgress, PracticeSuggestions } from "../components/Training.jsx";
@@ -295,7 +296,7 @@ export default function Combate({ param, query }) {
       ) : battle.status === "failed" ? (
         <ErrorBox error={{ message: battle.summary?.error || t("battle_failed") }} onRetry={reload} />
       ) : (
-        <Arena player={player} seats={seats} me={me} sprites={sprites} lang={lang} bubble={bubble} backdrop={battle.run?.backdrop || ""} banter={battle.banter}
+        <BattlePresentation lang={lang}><Arena player={player} seats={seats} me={me} sprites={sprites} lang={lang} bubble={bubble} backdrop={battle.run?.backdrop || ""} banter={battle.banter}
           combinations={settings.expert_combinations ? battle.expert_combinations || [] : []}
           toolbar={!live || !player.caughtUp ? <ReplayBar player={player} lang={lang} speedMs={speedMs} onSpeed={setSpeedMs} /> : null}>
           {request && (
@@ -303,7 +304,7 @@ export default function Combate({ param, query }) {
               sideLabel={humans.length === 2 ? who(requestSide) : ""} onChoose={(c) => choose(requestSide, c)} onForfeit={() => forfeit(requestSide)} />
           )}
           {live && !request && player.caughtUp && <div className="b-controls"><div className="b-wait">{remote ? t("pvp_waiting_friend", { name: who(remote) }) : t("waiting_ai")}</div></div>}
-        </Arena>
+        </Arena></BattlePresentation>
       )}
       {battle.status === "ended" && player.state.ended && player.caughtUp && ["p2", "p1"].some((s) => seats[s]?.dialogue?.after) && (
         <div className="panel space-y-2">
