@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+Las fichas de entrenador se pueden exportar como póster PNG con el retrato actual, el equipo y las medallas ganadas, reutilizando sprites y medallas existentes. Las referencias de estilo aportan la paleta; los créditos y la procedencia registrados se conservan en la imagen y sus metadatos. Disponible en la ficha y en `trainer_poster` (REST/MCP), como trabajo local con Playwright y Chrome/Edge. [Detalles](docs/TRAINER_POSTER.md).
+
 El Historial busca en todas las repeticiones guardadas por especie, movimiento usado, entrenador, formato y resultado, con enlaces en pausa al turno o momento de tiempo real coincidente. Los filtros siguen al mismo actor registrado, muestran la cobertura de los datos y conservan los originales. Véase [búsqueda de repeticiones](docs/BATTLE_SEARCH.md).
 
 El historial incluye frecuencias de movimientos, especies participantes y especies de apertura, con filtros de tipo, modo y entrenador. Las tablas indican la cobertura y omiten identidades ambiguas; leen los registros guardados sin simular combates. La misma herramienta `replay_statistics` está disponible por UI, REST y MCP. Véase [estadísticas de repeticiones](docs/REPLAY_STATISTICS.md).

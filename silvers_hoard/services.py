@@ -3488,7 +3488,7 @@ class Services:
         return {"res": res, "opp": opp, "ai_checked": same}
 
     def export_file(self, filename: str) -> Path:
-        if not sharing.re.match(r"^[\w\- ]+\.(html|hoardtrainer|hoardgym|hoardleague|silverexercise|mp4|webm)$", filename, flags=sharing.re.UNICODE):
+        if not sharing.re.match(r"^[\w\- ]+\.(html|hoardtrainer|hoardgym|hoardleague|silverexercise|mp4|webm|png)$", filename, flags=sharing.re.UNICODE):
             raise SilverError("invalid", "Not an export file.")
         path = self.config.exports_dir / filename
         if not path.exists():
