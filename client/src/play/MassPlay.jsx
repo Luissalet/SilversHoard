@@ -9,6 +9,7 @@ import UnitPicker from "../battle/mass/UnitPicker.jsx";
 import { massT } from "../pages/mass-strings.js";
 import { playT } from "./strings.js";
 import { packCode, packMassInputs } from "./rtcode.js";
+import { loc } from "../loc.js";
 import "../battle/mass/mass.css";
 
 const PREFIX = "SILVERMASS1-";
@@ -48,17 +49,17 @@ export default function MassPlay({ data, lang, setLang }) {
   const [name, setName] = useState(readName);
   const [view, setView] = useState({ kind: "watch" });
   const [round, setRound] = useState(0);
-  const doc = useMemo(() => ({ id: m.id, title: m.title, spec: m.spec }), [m]);
+  const doc = useMemo(() => ({ id: m.id, title: loc(m, lang, "title"), spec: m.spec }), [m, lang]);
   const saveName = (v) => { setName(v); try { localStorage.setItem("silver-play-name", v.trim()); } catch { /* not critical */ } };
   const onPlayed = async ({ unit, inputs, hash }) => {
-    const code = await packCode(PREFIX, { kind: "mass", v: 1, mass_id: m.id, title: m.title, challenger: (name || "Amigo").trim().slice(0, 60), unit,
+    const code = await packCode(PREFIX, { kind: "mass", v: 1, mass_id: m.id, title: m.title, challenger: name.trim().slice(0, 60), unit,
       inputs: await packMassInputs(inputs), hash });
     return { node: <CodeBox code={code} owner={owner || "Silver's Hoard"} t={t} /> };
   };
   return (
     <div className="p-wrap">
       <header className="p-head">
-        <div className="p-target"><h1>{m.title}</h1></div>
+        <div className="p-target"><h1>{loc(m, lang, "title")}</h1></div>
         <button type="button" className="btn btn-sm" onClick={() => setLang(lang === "es" ? "en" : "es")}>{t("language")}</button>
       </header>
       <p className="help">{t("mass_page_intro", { name: owner || "Silver's Hoard" })} {t(`mass_mode_${m.mode}`)} · {t("mass_units", { n: m.units })}</p>
@@ -73,7 +74,7 @@ export default function MassPlay({ data, lang, setLang }) {
       </div>
       {view.kind === "pick" && <div className="panel"><UnitPicker spec={m.spec} t={t} onPick={(unit) => { setRound((n) => n + 1); setView({ kind: "play", unit }); }} onCancel={() => setView({ kind: "watch" })} /></div>}
       {view.kind !== "pick" && (
-        <MassScreen key={`${view.kind}:${view.unit ?? ""}:${round}`} doc={doc} t={t} sprites={sprites} offline
+        <MassScreen key={`${view.kind}:${view.unit ?? ""}:${round}`} doc={doc} t={t} lang={lang} sprites={sprites} offline
           play={view.kind === "play" ? { unit: view.unit } : null}
           onPlayed={view.kind === "play" ? onPlayed : null}
           onCheck={view.kind === "watch" ? async (hash) => ({ same: hash === m.hash }) : null}
@@ -86,7 +87,7 @@ export default function MassPlay({ data, lang, setLang }) {
           <table className="mass-rank">
             <thead><tr><th>{t("mass_place")}</th><th>{t("mass_player")}</th><th>{t("mass_pokemon")}</th><th>{t("mass_kos_h")}</th><th>{t("mass_damage")}</th></tr></thead>
             <tbody>
-              {m.plays.map((p) => <tr key={p.id}><td className="num">{p.place}/{p.of}</td><td>{p.challenger}</td><td>{p.name}</td><td className="num">{p.kos}</td><td className="num">{p.dealt}</td></tr>)}
+              {m.plays.map((p) => <tr key={p.id}><td className="num">{p.place}/{p.of}</td><td>{loc(p, lang, "challenger")}</td><td>{p.name}</td><td className="num">{p.kos}</td><td className="num">{p.dealt}</td></tr>)}
             </tbody>
           </table>
         </section>

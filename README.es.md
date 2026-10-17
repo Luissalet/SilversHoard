@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+Los comentarios nuevos de la IA usan el idioma elegido al iniciar el combate, reto, copa, práctica o ejercicio (inglés por defecto mediante API/MCP). Las fases posteriores conservan esa elección aunque cambie el idioma de la interfaz. Las frases ya guardadas y los diálogos de los entrenadores se conservan literalmente.
+
 Las megas de Z-A conservan su aspecto cuando no existe una animación PMD de esa forma, incluidas las 49 variantes nuevas de género y aspecto, normales/variocolor y de frente/espalda. `overworld_import` y `overworld_list` incorporan el ZIP de megas y la hoja de la línea Delphox como arte persistente del usuario: diez megas tienen sprites que caminan en cuatro direcciones, con créditos y las mismas imágenes incluidas en las páginas jugables exportadas. Las demás usan imágenes estáticas de combate. Consulta las [fuentes](docs/MEGA_SPRITES.md) y la [importación de hojas](docs/OVERWORLD_SPRITES.md).
 
 Los combates nuevos en tiempo real usan las reglas 11: el **Especial de Silver es opcional y viene desactivado**. Se activa en Ajustes para los nuevos combates y páginas jugables exportadas; cada partida y resultado conserva su elección, y las repeticiones de las versiones 5–10 mantienen su ataque especial. La megaevolución sigue disponible de forma independiente. Se conserva el movimiento más lento de la versión 10, los desplazamientos laterales parciales de la IA, las esquivas más cortas con 2 s de recuperación y su reacción con una oportunidad por peligro continuo. Las arenas guardadas de hierba y arena muestran sus texturas originales en el selector de combate.
@@ -112,6 +114,8 @@ Las repeticiones de tiempo real limpian el cartel del ganador y los efectos al v
 
 El idioma inicial es inglés cuando no hay una preferencia válida guardada, también si el navegador bloquea el almacenamiento. Se conserva la elección explícita de inglés o español.
 
+Las partidas campales nuevas distinguen las etiquetas automáticas «Tú»/«Amigo» de los nombres personales: la app, el vídeo de repetición y la página compartida traducen las etiquetas sin cambiar los nombres escritos por la persona. Las partidas anteriores sin esa distinción conservan su nombre guardado. Las páginas campales compartidas traducen también los títulos de lista y los nombres de movimientos. `mass_video` usa inglés si no se indica idioma y conserva la selección explícita de español.
+
 Los nombres que inventa la app salen en el idioma de quien lee y cambian con él: entrenadores de personaje y de cartucho, entrenadores aleatorios («Entrenador 512»), gimnasios y ligas de los juegos (ciudad, medalla, descripción y miembros), retos y medallas, campales de lista, rivales y etapas de racha de las instalaciones guardados en castellano («Entrenadora Guay Nora», los Cerebros de la Frontera, los emblemas de jefe) y los asientos, el título y el ganador de cada combate. El registro del combate, la presentación del vídeo y la arena en tiempo real dicen los nombres igual. Lo que escribe el usuario se queda como lo escribió. El API añade los nombres en los dos idiomas como `i18n` a lo que devuelven `/api/ui/call` y `/api/overview` (`silvers_hoard/names_i18n.py`); el cliente los lee con `loc()` (`client/src/loc.js`).
 
 Gimnasios, Ligas e Instalaciones se filtran por región y juego (gimnasios y ligas también por origen), con los mismos desplegables que Entrenadores y el selector de entrenadores; el API da a cada gimnasio, liga e instalación de los juegos su `region` y su `game_id`.
@@ -144,5 +148,7 @@ Cambiar un miembro a otra especie crea un Pokémon limpio: movimientos, habilida
 El selector de arenas de tiempo real de combate, serie y torneo muestra las arenas guardadas con miniaturas seleccionables de su suelo ilustrado y sus rocas reales. El editor y el selector comparten el mismo dibujo. Para elegir un suelo ilustrado en un combate hay que guardar una arena con él desde Arenas; un estilo de suelo por sí solo no crea una arena guardada.
 
 La exportación de vídeo conecta la captura de audio antes de cargar la repetición de tiempo real, para incluir en el MP4 la música que empieza mientras la repetición está en pausa. Los archivos exportados anteriormente deben exportarse de nuevo para incorporar esa música.
+
+Los trabajos de vídeo informan de la duración del MP4 o WebM terminado, redondeada a décimas de segundo, cuando ffprobe puede leerla. Si no hay metadatos de duración legibles, conservan la estimación del grabador. También se aplica a los vídeos de batallas campales.
 
 Al editar un equipo, cada Pokémon tiene su botón **Sets de Smogon**. Elige una variante publicada y **Aplicar set** para rellenar solo los movimientos, objeto, habilidad, naturaleza, EV, IV y teratipo de ese miembro; después guarda el equipo. Los demás conservan sus sets. **Equipo de muestra** sigue siendo una acción distinta que sustituye la plantilla.

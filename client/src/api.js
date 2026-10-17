@@ -1,4 +1,8 @@
 // Thin fetch wrapper: JSON in/out. `{ error, code, hint }` bodies become exceptions that keep those fields.
+import { initialLang } from "./i18n.js";
+
+let language = initialLang();
+const commentaryCalls = new Set(["battle_start", "challenge_start", "battle_practice", "exercise_start", "cup_start"]);
 async function request(method, path, { params, body, form, timeoutMs = 0 } = {}) {
   const url = new URL(path, window.location.origin);
   for (const [key, value] of Object.entries(params || {})) {
@@ -46,7 +50,9 @@ function parse(status, ok, text) {
 }
 
 // Every write and most reads go through the same tool handlers the assistant uses.
-const call = (name, args, options = {}) => request("POST", "/api/ui/call", { ...options, body: { name, arguments: args || {} } });
+const call = (name, args, options = {}) => request("POST", "/api/ui/call", {
+  ...options, body: { name, arguments: commentaryCalls.has(name) ? { lang: language, ...args } : args || {} },
+});
 
 function upload(path, fields) {
   const form = new FormData();
@@ -55,6 +61,7 @@ function upload(path, fields) {
 }
 
 export const api = {
+  setLanguage: (lang) => { language = lang === "es" ? "es" : "en"; },
   health: () => request("GET", "/api/health"),
   overview: () => request("GET", "/api/overview"),
   call,

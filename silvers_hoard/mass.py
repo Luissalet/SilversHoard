@@ -239,7 +239,12 @@ class Mass:
     # ------------------------------------------------------------ playing one of the Pokémon
     @staticmethod
     def _play_card(p: dict[str, Any]) -> dict[str, Any]:
-        return {k: v for k, v in p.items() if k != "inputs"}
+        card = {k: v for k, v in p.items() if k != "inputs"}
+        if p.get("challenger_default") is True:
+            friend = p.get("source") == "friend"
+            card["i18n"] = {"es": {"challenger": "Amigo" if friend else "Tú"},
+                            "en": {"challenger": "Friend" if friend else "You"}}
+        return card
 
     def play(self, id_: str, *, unit: int, inputs: Any, hash_: str = "", challenger: str = "", source: str = "app") -> dict[str, Any]:
         """A battle played by a person (``unit``: the Pokémon they played, by its place in the battle; ``inputs``: the screen's log).
@@ -254,7 +259,11 @@ class Mass:
             raise SilverError("conflict", "Replayed here, this played battle does not end the way it says: it was altered or made with another version.")
         sm = res["summary"]
         me = sm.get("player") or {}
-        who = " ".join(str(challenger or "").split())[:60] or (self.s.settings.get("player_name") or "Tú")
+        who = " ".join(str(challenger or "").split())[:60]
+        if not who and source != "friend":
+            who = self.s.settings.get("player_name") or ""
+        default_name = not who
+        who = who or ("Friend" if source == "friend" else "You")
         for old in doc.get("plays") or []:
             if old.get("hash") == res["hash"] and old.get("unit") == unit and old.get("challenger") == who:
                 raise SilverError("conflict", "This played battle is already recorded.")
@@ -263,6 +272,8 @@ class Mass:
                 "of": sm["units"], "kos": me.get("kos", 0), "dealt": me.get("dealt", 0), "alive": bool(me.get("alive")),
                 "team_won": bool(me.get("team_won")), "winner_name": sm.get("winner_name", ""), "reason": sm.get("reason", ""),
                 "seconds": sm.get("seconds", 0), "hash": res["hash"], "created_at": time.time(), "inputs": sharing.encode_mass_inputs(rows)}
+        if default_name:
+            play["challenger_default"] = True
         with self._lock:
             doc = self._load(id_)
             doc.setdefault("plays", []).append(play)
@@ -298,11 +309,13 @@ class Mass:
         """A playable page with this battle inside: a friend opens it in any browser, watches the battle or plays one of its Pokémon,
         and sends back the code the page gives (``SILVERMASS1-``)."""
         from .services import PLAY_TEMPLATE
+        from . import names_i18n
         doc = self._load(id_)
         owner = self.s.settings["player_name"]
         data = {"kind": "mass", "from": owner, "sprite_server": self.s.settings["sprite_server"], "sprite_set": self.s.settings["sprite_set"],
-                "mass": {"id": doc["id"], "title": doc["title"], "mode": doc["mode"], "floor": doc.get("floor", "grass"), "units": doc.get("units", 0),
+                "mass": {"id": doc["id"], "title": doc["title"], "preset": doc.get("preset", ""), "mode": doc["mode"], "floor": doc.get("floor", "grass"), "units": doc.get("units", 0),
                          "spec": doc["spec"], "hash": doc.get("hash", ""), "from": owner, "plays": self.plays(doc)[:10]}}
+        names_i18n.annotate(data, self.s)
         html = sharing.playable_page(PLAY_TEMPLATE, data)
         # a new file every time: an earlier page (already sent, maybe) is never overwritten by another battle with the same title
         filename = sharing.safe_filename(f"{doc['title'][:40]} - Silver {new_id('x')[-8:]}", "html")
@@ -322,7 +335,7 @@ class Mass:
             raise SilverError("not_found", f"This code is for a mass battle you do not have here: {str(r.get('title') or mid)[:120]}") from None
         unit = r.get("unit")
         play = self.play(mid, unit=unit if type(unit) is int else -1, inputs=sharing.decode_mass_inputs(r.get("inputs") or ""),
-                         hash_=str(r.get("hash") or ""), challenger=str(r.get("challenger") or "Amigo"), source="friend")
+                         hash_=str(r.get("hash") or ""), challenger=str(r.get("challenger") or ""), source="friend")
         return {"mass_id": mid, "play": play}
 
     # ------------------------------------------------------------ video
@@ -345,7 +358,7 @@ class Mass:
         status = s.video_status()
         if not status["playwright"] or not status["browser"]:
             raise SilverError("unavailable", "Recording needs Playwright and Chrome or Edge on this computer.", hint=status["hint"])
-        lang = lang if lang in ("es", "en") else str(s.settings.get("language") or "es")[:2]
+        lang = lang if lang in ("es", "en") else str(s.settings.get("language") or "en")[:2]
         rate = VIDEO_RATES[speed]
         path = f"video/{id_}?mspeed={rate}" + (f"&play={play_id}" if play_id else "")
         clean = lambda text, n: re.sub(r"[^\w\- ]+", "", text, flags=re.UNICODE).strip()[:n]  # noqa: E731
