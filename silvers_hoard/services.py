@@ -3079,6 +3079,8 @@ class Services:
             candidate = None
         if isinstance(candidate, dict) and candidate.get("kind") == "silvers-hoard/exercise":
             return {"kind": "exercise", "exercise": self.training.import_(json.dumps(candidate))}
+        if isinstance(candidate, dict) and candidate.get("kind") == "silvers-hoard/exercise-pack":
+            return {"kind": "exercise_pack", **self.training.import_pack(json.dumps(candidate))}
         kind, payload = sharing.parse_any(content)
         if kind == "result":
             included = payload.get("team_paste")

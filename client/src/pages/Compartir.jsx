@@ -34,6 +34,7 @@ function ResultTeam({ r }) {
 function ResultView({ r }) {
   const { t, lang } = useApp();
   if (!r) return null;
+  if (r.kind === "exercise_pack") return <p className="banner banner-info" role="status">{t("pack_imported",{name:r.title,n:r.exercises.length})}</p>;
   if (r.kind === "exercise") return <p className="banner banner-info" role="status">{t("training_imported",{name:r.exercise.title})}</p>;
   if (r.kind === "trainer") {
     return (

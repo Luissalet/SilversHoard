@@ -61,14 +61,16 @@ export function SaveExercise({ battle, turn, side }) {
   </details>;
 }
 
-function ExerciseItem({ exercise:e }) {
+function ExerciseItem({ exercise:e, selected, onSelect }) {
   const {t, changed, go} = useApp();
   const [adaptive, setAdaptive] = useState(true);
   const [level, setLevel] = useState("normal");
   const [share, setShare] = useState(null);
   const [busy, run] = useBusy();
   return <article className="space-y-3 py-4 border-b border-line last:border-b-0">
+    <label className="flex gap-2 items-center"><input type="checkbox" checked={selected} onChange={v=>onSelect(e.id,v.target.checked)} />{t("pack_include",{name:e.title})}</label>
     <div><h3>{e.title}</h3><p className="help">{goalText(t,e)} · {t("training_position",{n:e.turn,side:e.side.toUpperCase()})} · {e.format}</p></div>
+    {e.pack && <p className="help">{t("pack_member",{name:e.pack.title,theme:t(`pack_${e.pack.theme}`),index:e.pack.index,total:e.pack.total})}</p>}
     <label className="flex gap-2 items-center"><input type="checkbox" checked={adaptive} onChange={v=>setAdaptive(v.target.checked)} />{t("training_adaptive")}</label>
     {adaptive ? <p className="help max-w-prose">{t("training_recommendation",{level:t(`lvl_${e.recommendation.level}`),passed:e.recommendation.passed,n:e.recommendation.samples})}</p> : <Field label={t("training_manual")} className="max-w-xs"><select className="field" value={level} onChange={v=>setLevel(v.target.value)}>{["random","easy","normal","hard","expert","master"].map(l=><option key={l} value={l}>{t(`lvl_${l}`)}</option>)}</select></Field>}
     <div className="flex flex-wrap gap-2">
@@ -84,14 +86,31 @@ function ExerciseItem({ exercise:e }) {
 export function ExerciseLibrary() {
   const {t, version} = useApp();
   const [archived, setArchived] = useState(false);
+  const [selected, setSelected] = useState([]);
+  const [title, setTitle] = useState("");
+  const [theme, setTheme] = useState("openings");
+  const [share, setShare] = useState(null);
+  const [busy, run] = useBusy();
   const {data,error,loading,reload} = useLoad(()=>api.call("exercises_list",{archived}),[version,archived]);
+  const ids = selected.filter(id=>data?.exercises?.some(e=>e.id === id));
+  const select = (id,checked) => setSelected(old=>checked ? [...old,id] : old.filter(value=>value !== id));
   return <section className="panel space-y-3" aria-label={t("training_title")}>
     <h2>{t("training_title")}</h2><p className="help max-w-prose">{t("training_help")}</p>
-    <label className="flex gap-2 items-center"><input type="checkbox" checked={archived} onChange={e=>setArchived(e.target.checked)} />{t("training_archived")}</label>
+    <label className="flex gap-2 items-center"><input type="checkbox" checked={archived} onChange={e=>{setArchived(e.target.checked);setSelected([]);}} />{t("training_archived")}</label>
     <ErrorBox error={error} onRetry={reload}/>
     {loading && <p className="help" role="status">{t("loading")}</p>}
     {!loading && !error && !data?.exercises?.length && <p className="help">{t("training_empty")}</p>}
-    {data?.exercises?.map(e=><ExerciseItem key={e.id} exercise={e}/>)}
+    {!!data?.exercises?.length && <div className="space-y-3 border-y border-line py-4">
+      <h3>{t("pack_title")}</h3><p className="help max-w-prose">{t("pack_help")}</p>
+      <div className="grid gap-3 sm:grid-cols-2">
+        <Field label={t("pack_name")}><input className="field" value={title} maxLength={200} onChange={e=>setTitle(e.target.value)}/></Field>
+        <Field label={t("pack_theme")}><select className="field" value={theme} onChange={e=>setTheme(e.target.value)}>{["attrition","openings","doubles"].map(value=><option key={value} value={value}>{t(`pack_${value}`)}</option>)}</select></Field>
+      </div>
+      <p className="help" role="status">{t("pack_selected",{n:ids.length})}</p>
+      <div className="flex flex-wrap gap-2"><Busy busy={busy.pack} disabled={!ids.length || loading} onClick={()=>run("pack",async()=>setShare(await api.call("exercise_pack_export",{ids,title,theme})))}>{t("pack_export")}</Busy><button className="btn" disabled={!ids.length} onClick={()=>setSelected([])}>{t("pack_clear")}</button></div>
+      {share && <div className="space-y-2"><Field label={t("pack_code")}><textarea className="field font-mono" rows={4} readOnly value={share.code} onFocus={e=>e.target.select()}/></Field><a className="btn-link" href={share.url} download={share.file}>{t("pack_file")}</a></div>}
+    </div>}
+    {data?.exercises?.map(e=><ExerciseItem key={e.id} exercise={e} selected={ids.includes(e.id)} onSelect={select}/>)}
   </section>;
 }
 

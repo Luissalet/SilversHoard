@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+Compartir agrupa ejercicios guardados de repeticiones en un paquete temático `.silverexercise`, permite importar sus posiciones en una biblioteca nueva y practicarlas por separado. Las temáticas las elige quien prepara el paquete; la importación reconstruye todas las posiciones antes de guardarlas juntas. Los archivos individuales siguen siendo compatibles. UI, REST y MCP comparten `exercise_pack_export` y la importación normal. Véanse los [paquetes de ejercicios](docs/EXERCISE_PACKS.md).
+
 Los combates de dobles de la IA experta pueden señalar los dos movimientos que ejecutaron sus dos puestos, una vez resuelto el turno. Las mismas parejas aparecen en el registro y en `battle_explain`, con un ajuste guardado para ocultarlas. Las repeticiones no adelantan la etiqueta a su límite público. Véanse [las parejas ejecutadas](docs/EXPERT_COMBINATIONS.md).
 
 Las repeticiones terminadas permiten exportar un periódico del combate imprimible en castellano o inglés, con el resultado guardado, tabla de daño, MVP compartido en caso de empate y registro original. Usa las cifras del motor con unidades y avisos sobre datos ausentes; no necesita simular ni generar imágenes. Véase [periódico del combate](docs/BATTLE_JOURNAL.md).
