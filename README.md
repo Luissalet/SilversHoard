@@ -138,4 +138,6 @@ The battle, series and tournament real-time arena picker shows saved arenas as s
 
 Video exports attach the audio recorder before the real-time replay loads, so music that starts while the replay is paused is included in the MP4. Previously exported files need to be exported again to include that music.
 
+Video jobs report the duration of the finished MP4 or WebM, rounded to tenths of a second, when ffprobe can read it. Without readable duration metadata they retain the recorder's estimate. This also applies to mass battle videos.
+
 When editing a team, each Pokémon has its own **Smogon sets** button. Pick a published variant and **Apply set** to fill only that member's moves, item, ability, nature, EVs, IVs and Tera type, then save the team. The other members keep their sets. **Sample team** remains a separate action that replaces the roster.

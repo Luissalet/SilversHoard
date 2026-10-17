@@ -139,4 +139,6 @@ El selector de arenas de tiempo real de combate, serie y torneo muestra las aren
 
 La exportación de vídeo conecta la captura de audio antes de cargar la repetición de tiempo real, para incluir en el MP4 la música que empieza mientras la repetición está en pausa. Los archivos exportados anteriormente deben exportarse de nuevo para incorporar esa música.
 
+Los trabajos de vídeo informan de la duración del MP4 o WebM terminado, redondeada a décimas de segundo, cuando ffprobe puede leerla. Si no hay metadatos de duración legibles, conservan la estimación del grabador. También se aplica a los vídeos de batallas campales.
+
 Al editar un equipo, cada Pokémon tiene su botón **Sets de Smogon**. Elige una variante publicada y **Aplicar set** para rellenar solo los movimientos, objeto, habilidad, naturaleza, EV, IV y teratipo de ese miembro; después guarda el equipo. Los demás conservan sus sets. **Equipo de muestra** sigue siendo una acción distinta que sustituye la plantilla.
