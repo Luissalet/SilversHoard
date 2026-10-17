@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+The arena editor offers sun, rain, snow and fog, visible in the arena previews and battle selector. Weather is decorative by default; an explicit option enables its existing combat rules. Saved battles and gym exports carry the choice. New RT rules version 12 supports it while versions 1–11 keep their recorded behaviour. Existing floors, artwork and sprites are reused. See [arena weather](docs/ARENA_WEATHER.md).
+
 Real-time mechanical fog now draws the existing mist on any court while the simulator's public `fog` flag is active. Pyre retains its decorative mist without a duplicate layer; combat rules and arena settings are unchanged.
 
 Share can group saved replay exercises into a themed `.silverexercise` pack, import every position in a fresh library and practise each independently. Themes are curated labels, and imports reconstruct all positions before saving them together. Individual exercise files remain compatible. UI, REST and MCP share `exercise_pack_export` and normal Import. See [exercise packs](docs/EXERCISE_PACKS.md).
