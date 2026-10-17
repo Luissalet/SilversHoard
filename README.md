@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+Move sound types load from generated JSON data; playable exports embed the same table. The 935 move mappings and the existing fallback when data cannot load are preserved.
+
 New AI commentary uses the language selected when a battle, challenge, cup, practice or exercise starts (English by default through API/MCP). Later stages keep that choice even if the interface language changes. Existing saved lines and trainer dialogue remain literal.
 
 Z-A Mega forms keep their own appearance when no matching PMD animation exists, including all 49 new gender and cosmetic variants, normal/shiny and front/back. `overworld_import` and `overworld_list` add the supplied Mega ZIP and Delphox-line sheet as persistent user art: ten Megas have four-direction walking sprites, with artist credits and the same images embedded in playable exports. Other forms use static battle images. See [sprite sources](docs/MEGA_SPRITES.md) and [sheet import](docs/OVERWORLD_SPRITES.md).

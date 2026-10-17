@@ -6,7 +6,7 @@ import { readFileSync } from "node:fs";
 import { genOfFormat, getSettings, pickTrack, sfx } from "../../client/src/audio.js";
 import { applyLine, newState } from "../../client/src/battle/protocol.js";
 import { levelOf, newSfxState, playLine, playRtEvent, preloadSfx, sfxPre } from "../../client/src/battle/sfx.js";
-import moveTypes from "../../client/src/battle/move-types.js";
+const moveTypes = JSON.parse(readFileSync(new URL("../../client/src/battle/move-types.json", import.meta.url), "utf8"));
 
 const SOUNDS_PY = readFileSync(new URL("../../silvers_hoard/sounds.py", import.meta.url), "utf8");
 const WHITELIST = [...SOUNDS_PY.match(/TRACKS = \(([\s\S]*?)\)/)[1].matchAll(/"([a-z0-9-]+)"/g)].map((m) => m[1]);
@@ -37,7 +37,7 @@ test("the mixer has sane defaults and never throws without a browser", () => {
   assert.doesNotThrow(() => sfx("no-such-cue"));
 });
 
-test("move types are packed for every move", () => {
+test("passive move type data covers every move", () => {
   assert.equal(moveTypes.flamethrower, "Fire");
   assert.equal(moveTypes.surf, "Water");
   assert.equal(moveTypes.thunderbolt, "Electric");
@@ -56,6 +56,7 @@ function run(lines, speedMs = 900) {
   const state = newState();
   const heard = [];
   const crys = [];
+  const types = [];
   const mem = newSfxState();
   for (const line of lines) {
     const pre = sfxPre(state, line);
@@ -63,22 +64,33 @@ function run(lines, speedMs = 900) {
     playLine(state, line, ev, pre, mem, {
       speedMs,
       cryUrl: (sp) => `/cry/${sp}`,
-      sfx: (n, o) => heard.push(o && o.status ? `${n}:${o.status}` : n),
+      sfx: (n, o) => { heard.push(o && o.status ? `${n}:${o.status}` : n); if (n === "move") types.push(o?.type); },
       cry: (u, o) => crys.push(o.faint ? `${u}!` : u),
     });
   }
-  return { heard, crys };
+  return { heard, crys, types };
 }
 
-await preloadSfx();
+const originalFetch = globalThis.fetch;
+try {
+  globalThis.fetch = async (url) => {
+    assert.ok(String(url).endsWith("/move-types.json"));
+    return {ok: true, json: async () => moveTypes};
+  };
+  await preloadSfx();
+} finally {
+  globalThis.fetch = originalFetch;
+}
 
 const OPEN = ["|player|p1|A", "|player|p2|B", "|start", "|switch|p1a: Garchomp|Garchomp, L50|100/100", "|switch|p2a: Charizard|Charizard, L50|100/100", "|turn|1"];
 
 test("a super effective hit makes one impact, not two; resisted, critical and plain hits have their own", () => {
   const sup = run([...OPEN, "|move|p1a: Garchomp|Stone Edge|p2a: Charizard", "|-supereffective|p2a: Charizard", "|-damage|p2a: Charizard|40/100"]);
   assert.deepEqual(sup.heard.slice(2), ["move", "super"]);
+  assert.deepEqual(sup.types, ["Rock"]);
   const res = run([...OPEN, "|move|p1a: Garchomp|Ice Beam|p2a: Charizard", "|-resisted|p2a: Charizard", "|-damage|p2a: Charizard|90/100"]);
   assert.deepEqual(res.heard.slice(2), ["move", "resisted"]);
+  assert.deepEqual(res.types, ["Ice"]);
   const crit = run([...OPEN, "|move|p1a: Garchomp|Dragon Claw|p2a: Charizard", "|-crit|p2a: Charizard", "|-damage|p2a: Charizard|50/100"]);
   assert.deepEqual(crit.heard.slice(2), ["move", "crit"]);
   const plain = run([...OPEN, "|move|p1a: Garchomp|Dragon Claw|p2a: Charizard", "|-damage|p2a: Charizard|70/100",

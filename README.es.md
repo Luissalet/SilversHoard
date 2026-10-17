@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+Los tipos de sonido de los movimientos se cargan como datos JSON generados; el HTML jugable incorpora la misma tabla. Se conservan las 935 correspondencias y el respaldo existente si los datos no pueden cargarse.
+
 Los comentarios nuevos de la IA usan el idioma elegido al iniciar el combate, reto, copa, práctica o ejercicio (inglés por defecto mediante API/MCP). Las fases posteriores conservan esa elección aunque cambie el idioma de la interfaz. Las frases ya guardadas y los diálogos de los entrenadores se conservan literalmente.
 
 Las megas de Z-A conservan su aspecto cuando no existe una animación PMD de esa forma, incluidas las 49 variantes nuevas de género y aspecto, normales/variocolor y de frente/espalda. `overworld_import` y `overworld_list` incorporan el ZIP de megas y la hoja de la línea Delphox como arte persistente del usuario: diez megas tienen sprites que caminan en cuatro direcciones, con créditos y las mismas imágenes incluidas en las páginas jugables exportadas. Las demás usan imágenes estáticas de combate. Consulta las [fuentes](docs/MEGA_SPRITES.md) y la [importación de hojas](docs/OVERWORLD_SPRITES.md).
