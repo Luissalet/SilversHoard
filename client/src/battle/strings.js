@@ -42,7 +42,7 @@ const S = {
   winner: ["¡Gana {name}!", "{name} wins!"],
   phase_change: ["¡Cambio de táctica!", "Change of tactics!"],
   tie: ["Empate", "Tie"],
-  turns: ["{n} turnos", "{n} turns"],
+  turns: ["Turnos: {n}", "Turns: {n}"],
   hp: ["PS", "HP"],
   lv: ["Nv.", "Lv."],
   slot_n: ["Posición {n}", "Slot {n}"],
