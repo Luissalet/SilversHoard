@@ -41,7 +41,7 @@ def test_characters_catalog(call):
 def test_character_install_and_custom(call):
     tr = call("character_install", {"key": "lance", "variant": "gsc", "sprite": "lance-gen1rb"})["trainer"]
     assert tr["avatar"] == "sd:lance-gen1rb" and tr["format"] == "gen2customgame" and tr["origin"] == "canon"
-    assert tr["name"] == "Lance (Oro, Plata y Cristal)" and [s["species"] for s in tr["team"]][-1] == "Dragonite"
+    assert tr["name"] == "Lance (Gold, Silver and Crystal)" and [s["species"] for s in tr["team"]][-1] == "Dragonite"
     assert "Restaurar Todo" not in tr["notes"] and "bolsa" not in tr["notes"]
     again = call("character_install", {"key": "lance", "variant": "gsc", "sprite": "lance-gen1rb"})["trainer"]
     assert again["id"] == tr["id"] and again["existing"]
