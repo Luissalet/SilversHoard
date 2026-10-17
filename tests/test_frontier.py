@@ -6,6 +6,7 @@ import pytest
 from conftest import needs_engine, wait_for
 
 from silvers_hoard import frontier, frontier_runs
+from silvers_hoard.services import RT_RULES_VERSION
 
 TEAM = ("Gengar\nLevel: 100\n- Shadow Ball\n- Thunderbolt\n- Hypnosis\n- Explosion\n\n"
         "Garchomp @ Choice Scarf\nLevel: 100\n- Earthquake\n- Dragon Claw\n- Stone Edge\n- Fire Fang\n\n"
@@ -430,7 +431,7 @@ def test_real_time_arcade_and_castle(call, services):
     services.store.update_run(run["id"], {"challenger": ch})
     r = call("frontier_arcade_stop", {"id": run["id"], "panel": 0})
     b = call("battle_get", {"id": r["stages"][0]["battle_id"]})
-    assert b["mode"] == "realtime" and b["rt"]["version"] == 9 and b["rt"]["spec"]["start"]["field"] == {"trickroom": 5}
+    assert b["mode"] == "realtime" and b["rt"]["version"] == RT_RULES_VERSION and b["rt"]["spec"]["start"]["field"] == {"trickroom": 5}
     call("battle_forfeit", {"id": b["id"], "side": "p1"})
     run = call("challenge_start", {"kind": "facility", "target_id": "castle4", "challenger_id": tid, "mode": "realtime"})
     r = call("frontier_castle", {"id": run["id"], "service": "go"})

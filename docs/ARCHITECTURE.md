@@ -1,5 +1,7 @@
 # Silver's Hoard — architecture
 
+Real-time pacing (rules version 10, matching `RT_RULES_VERSION` and `RULES_VERSION`): walking scales by 0.65 after existing Speed/status/item/weather modifiers; rolls move at 8 m/s and recover for 2 s. AI sidesteps retain their intended magnitude instead of normalizing to full speed. Danger must persist for the difficulty's reaction delay, with one probability check until the continuous danger clears. All changes are gated to version 10: old input logs and exports retain their prior outcomes. `ArenaField` uses the same original grass/sand floor textures as `ArenaRenderer`; saved arenas remain separate records in the native arena collection.
+
 ## Real-time movement presentation and original textures
 
 `rt/visuals/choreography.js` derives body opacity, height and rotation from a read-only unit view and the renderer clock. Dig/Fly/Bounce/Rollout/Ice Ball receive distinct presentation; Seismic Toss hit events start a bounded lift keyed by side/slot and active party index, cleared on replay reset. Only the sprite body is transformed, keeping ground rings, HP bars and collision feedback anchored. Reduced motion retains state cues while removing decorative spatial motion. Existing PMD sheet durations set pose speed against the engine windup; this does not change metadata, backend processes or hit timing, and does not claim new SpAttack sheets where unavailable.

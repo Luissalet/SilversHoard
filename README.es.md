@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+Los combates nuevos en tiempo real usan las reglas 10: caminar un 35% más despacio, desplazamientos laterales parciales de la IA, esquivas más cortas con 2 s de recuperación y una reacción real de la IA con una oportunidad por peligro continuo. Las partidas guardadas conservan sus reglas. Las arenas guardadas de hierba y arena muestran sus texturas originales en el selector de combate.
+
 El tiempo real distingue visualmente Excavar (ocultación y salida), Volar y Bote (ascenso y descenso), Rodar y Bola Hielo (giro del sprite), y el impacto de Movimiento Sísmico (elevación breve del rival). Las poses PMD ajustan su ritmo a la preparación del motor. Son efectos visuales: no añaden invulnerabilidad, daño ni desplazamiento real. Movimiento Sísmico no introduce una cinemática que pare a los otros combatientes.
 
 Los suelos de hierba y arena tienen texturas originales y variantes visuales estables; los proyectiles de agua añaden un atlas animado con transparencia. Se conserva el estilo de partículas simple y los dibujos de respaldo si una imagen no carga. El reloj de repetición controla estos efectos; reducir movimiento elimina los giros y saltos decorativos. Todo viaja con la página jugable exportada.

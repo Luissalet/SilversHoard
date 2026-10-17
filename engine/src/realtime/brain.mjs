@@ -298,8 +298,25 @@ export function think(b, side, opts = {}) {
       return input;
     }
   }
-  // dodging is a reflex, checked every tick
-  if (!side.act || side.act.kind === 'approach') {
+  // New battles give the AI a reaction delay and one chance per continuous danger.
+  if (b.version >= 10) {
+    const d = danger(b, side);
+    if (!d) { brain.dangerSince = null; brain.dangerTried = false; }
+    else {
+      if (brain.dangerSince == null) brain.dangerSince = b.t;
+      if ((!side.act || side.act.kind === 'approach') && b.t >= side.rollReady && !brain.dangerTried && b.t - brain.dangerSince >= reactTicks) {
+        brain.dangerTried = true;
+        if (rng() < c.lv.dodge) {
+          input.dodge = true;
+          input.mx = d.dir.x; input.my = d.dir.y;
+          if (rng() < 0.5 && !d.away) { input.mx = -input.mx; input.my = -input.my; }
+          return input;
+        }
+      }
+    }
+  }
+  // Saved battles retain their original immediate reflex.
+  if (b.version < 10 && (!side.act || side.act.kind === 'approach')) {
     const d = danger(b, side);
     if (d && b.t >= side.rollReady && brain.dodgeCheck !== b.t) {
       brain.dodgeCheck = b.t;
@@ -407,7 +424,8 @@ export function think(b, side, opts = {}) {
       }
     }
     const n = b.steer(side, norm(mx, my));
-    input.mx = n.x; input.my = n.y;
+    const pace = b.version >= 10 ? Math.min(1, hyp(mx, my)) : 1;
+    input.mx = n.x * pace; input.my = n.y * pace;
   }
   return input;
 }

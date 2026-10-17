@@ -79,7 +79,7 @@ PHASE_WHEN = ("half", "last")
 # always locked on, no Mega Evolution; 2 = free aim, the Mega Power gauge, Plus moves and Mega Evolution; 3 = doubles formats
 # field two Pokémon per trainer, singles play as in 2; 4 = no Plus moves, the gauge only for Mega Evolution; 5 = the ultimate
 # gauge) and the arenas.
-RT_RULES_VERSION = 9
+RT_RULES_VERSION = 10
 RT_ARENAS = ("open", "rocks")
 
 
@@ -2041,6 +2041,7 @@ class Services:
                 "Doubles support moves: Helping Hand (the partner's next damaging move within 5 s has x1.5 power; 10 s cooldown); Follow Me and Rage Powder (for 3 s the foes' single-target moves turn to the user and projectiles in flight bend to it; Rage Powder does not draw Grass types, Overcoat or Safety Goggles; 12 s cooldown). In singles they still have no effect.",
                 "Doubles switching: three switches per trainer (shared by both slots), back after every knockout; a fainted Pokémon's slot is refilled from the bench (a person picks from the party bar, or the first one comes out after 6 s; the AI picks at once); with nobody left on the bench the slot stays empty and the trainer plays on with one. A trainer loses when no Pokémon can come out. The Mega Power gauge is the trainer's: one Mega Evolution per battle, Plus moves for the controlled Pokémon.",
                 "Battles stored before lock-on, rocks and Mega Evolution existed keep their rules (always locked on, open arena, no gauge), and battles stored before doubles (rules version 2) play doubles formats as singles, so their replays give the same result.",
+                "Rules version 10: walking is 35% slower, AI sidesteps retain their partial speed, rolls move at 8 m/s with 2 s recovery, and AI dodging waits for its difficulty's reaction delay with one chance per continuous danger. Older saved battles retain their original movement and dodging rules.",
                 "Rules version 9 (the HeartGold/SoulSilver Battle Frontier): a battle can start with HP, statuses, PP, a weather, Trick Room or fog. Trick Room lasts 6 s per turn of the games (the Arcade's 5 turns: 30 s) and turns Speed around: walking goes as base Speed 200 minus the Pokémon's, and cooldowns take the Speed mirrored around a base-80 Pokémon of its level. Fog makes each hit of a move with an accuracy land 3 times in 5, until another weather replaces it (Cloud Nine and Air Lock suppress it). Starting PP (the Castle) count down one per use; a move with none left cannot be used, and the PP left go back to the streak.",
                 "Multi battles (rules version 9, the Frontier's multi challenges): each side is two trainers, one Pokémon each on the field (slot a and slot b); a slot only sends out its own trainer's Pokémon and stays empty when they are gone. A person with an AI partner always moves slot a; the partner drives slot b and sends out its own next Pokémon.",
             ],
