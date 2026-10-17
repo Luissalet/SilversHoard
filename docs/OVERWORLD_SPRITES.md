@@ -21,7 +21,7 @@ Silvers app, and show clickable artist credits separately from PMDCollab credits
 existing remote assets available offline. The direct static Mega fallback also includes Absol Z, Garchomp Z and Lucario Z,
 whose catalog entries do not carry the engine's `isMega` flag.
 
-Static coverage checks found 84 of 86 front/back pixel PNGs for all 43 new Mega forms in PokeAPI. Only Zygarde needs the Z-A
+The static mapping covers all 49 generation 9 Mega forms in the engine, including gender and cosmetic variants. Only Zygarde needs the Z-A
 model fallback. Pixel PNGs are preferred to the larger models when the selected/Showdown image is missing, including Garchomp
 Z whose front model is larger than the existing image-cache limit. Selected 3D sets still try their own models first.
 

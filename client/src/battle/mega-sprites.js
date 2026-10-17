@@ -1,6 +1,13 @@
 // Z-A Mega form IDs from PokeAPI, verified 2026-10-17. Source: https://pokeapi.co/api/v2/pokemon?limit=3000
 // Used by exported pages, which have no app behind them to resolve form IDs. Art remains downloaded on demand.
 export const ZA_MEGA_IDS = {
+  "meowstic-mmega": 10314,
+  "meowstic-fmega": 10326,
+  "magearna-originalmega": 10318,
+  "tatsugiri-curlymega": 10322,
+  "tatsugiri-droopymega": 10323,
+  "tatsugiri-stretchymega": 10324,
+
   "absol-megaz": 10307,
   "garchomp-megaz": 10309,
   "lucario-megaz": 10310,

@@ -2,6 +2,14 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {ArenaRenderer} from '../../client/src/battle/rt/render.js';
 import {makeSprites} from '../../client/src/battle/dex.js';
+import {ZA_MEGA_IDS} from '../../client/src/battle/mega-sprites.js';
+import {Dex} from '@pkmn/sim';
+
+test('every new Mega form in the engine has a direct image ID, including gender and cosmetic variants', () => {
+  const formes = Dex.species.all().filter(s => s.gen === 9 && s.forme.includes('Mega'));
+  for (const s of formes) assert.ok(ZA_MEGA_IDS[s.spriteid], `Missing ${s.name}`);
+  assert.match(makeSprites({server: 'https://play.example/sprites'}).fallback('Meowstic-F-Mega'), /10326.png$/);
+});
 
 test('exported pages resolve new Mega form models without an app or a PokeAPI name lookup', () => {
   const sprites = makeSprites({server: 'https://play.example/sprites', set: 'gen5ani'});
@@ -43,10 +51,13 @@ test('Mega Delphox uses its battle sprite when PMD returns its normal or shiny b
         x: 8, y: 8, r: 1, fx: 1, fy: 0, name: 'Delphox'}, 0, 0);
       assert.ok(draws.includes('sprite:Delphox-Mega'), 'the actual draw uses the Mega image');
     }
-    const alreadyMega = new ArenaRenderer({style: {}, clientWidth: 640, getContext: () => ctx},
-      {sides: [{mons: [{num: 655, species: 'Delphox-Mega', forme: 'Mega'}]}], sprites: {fallback: species => `sprite:${species}`}});
-    await alreadyMega.preload(() => {}, 1);
-    assert.equal(alreadyMega.animOf(0, 0, false), null, 'a team starting in Mega forme also keeps its own appearance');
+    for (const [num, species, forme] of [[655, 'Delphox-Mega', 'Mega'], [801, 'Magearna-Original-Mega', 'Original-Mega'],
+      [678, 'Meowstic-F-Mega', 'F-Mega'], [978, 'Tatsugiri-Curly-Mega', 'Curly-Mega']]) {
+      const alreadyMega = new ArenaRenderer({style: {}, clientWidth: 640, getContext: () => ctx},
+        {sides: [{mons: [{num, species, forme}]}], sprites: {fallback: species => `sprite:${species}`}});
+      await alreadyMega.preload(() => {}, 1);
+      assert.equal(alreadyMega.animOf(0, 0, false), null, `${species} must not use a normal-form animation`);
+    }
     const imported = {url: 'sheet:imported-delphox', source: 'https://example.org/cami', credit: ['CamiLovesO'],
       frames: Array.from({length: 4}, (_, r) => Array.from({length: 4}, (_, c) => [c * 32, r * 32, 32, 32]))};
     const custom = new ArenaRenderer({style: {}, clientWidth: 640, getContext: () => ctx},

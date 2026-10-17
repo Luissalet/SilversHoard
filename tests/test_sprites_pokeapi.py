@@ -81,3 +81,23 @@ def test_missing_mega_art_still_uses_existing_base_fallback(tmp_path):
 
     s = Sprites(tmp_path / "sprites", tmp_path / "avatars", {"sprite_server": "https://play.example/sprites"}, http)
     assert s.pokemon("raichu-megax", set_="gen5").name == "raichu.png"
+
+
+def test_mega_suffix_formes_resolve_gender_aliases_and_keep_their_art(tmp_path):
+    from silvers_hoard.sprites import Sprites
+
+    png = b"\x89PNG\r\n\x1a\n" + b"\x00" * 24
+    listing = {"results": [{"name": "meowstic-male-mega", "url": "https://pokeapi.co/api/v2/pokemon/10314/"},
+                           {"name": "meowstic-female-mega", "url": "https://pokeapi.co/api/v2/pokemon/10326/"},
+                           {"name": "magearna-original-mega", "url": "https://pokeapi.co/api/v2/pokemon/10318/"}]}
+
+    def http(url):
+        if url.startswith("https://pokeapi.co/"):
+            return 200, json.dumps(listing).encode(), "application/json"
+        if "/sprites/pokemon/" in url:
+            return 200, png, "image/png"
+        return 404, b"", "text/plain"
+
+    s = Sprites(tmp_path / "sprites", tmp_path / "avatars", {"sprite_server": "https://play.example/sprites"}, http)
+    for sid, pid in [("meowstic-mmega", 10314), ("meowstic-fmega", 10326), ("magearna-originalmega", 10318)]:
+        assert s.pokemon(sid, set_="gen5").name == f"{pid}.png"
