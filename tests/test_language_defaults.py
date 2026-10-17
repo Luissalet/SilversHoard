@@ -12,7 +12,7 @@ def test_new_cartridge_trainers_default_to_english_lines(call, services, route):
     if route == "api":
         trainer = call("character_install", {"key": "whitney", "variant": "hgssgymbattle"})["trainer"]
     else:
-        trainer = services.character_install("whitney", variant="hgssgymbattle")["trainer"]
+        trainer = services.character_install("whitney", variant="hgssgymbattle")
     assert trainer["dialogue"]["last_low"] == "Poor me!"
     spanish = call("character_install", {"key": "whitney", "variant": "hgssgymbattle", "name": "Spanish choice", "lang": "es"})["trainer"]
     assert spanish["dialogue"]["last_low"] == "¡Ay, pobre de mí!"
