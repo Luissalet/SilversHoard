@@ -3235,8 +3235,6 @@ class Services:
                                   hint="Export the page again and ask your friend to play it again.")
             version, arena, seed, limit = rt.get("v"), rt.get("arena"), rt.get("seed"), rt.get("limit")
             special = {"silver_special": rt.get("silver_special")} if type(version) is int and version >= 11 else {}
-            if special and type(special["silver_special"]) is not bool:
-                raise SilverError("invalid", "The real-time replay is missing its Silver special option.")
             forfeit, tick = rt.get("forfeit") or "", rt.get("tick") or 0
             if isinstance(arena, dict):   # a gym's own arena: it must be the one the gym has here
                 own = self.arenas.spec(obj["rt_arena"]) if kind == "gym" and ARENA_CUSTOM.match(obj.get("rt_arena") or "") else None
@@ -3248,6 +3246,8 @@ class Services:
                     or type(limit) is not int or not 30 <= limit <= 1800
                     or not isinstance(seed, str) or not 1 <= len(seed) <= 64 or forfeit not in ("", "p1") or type(tick) is not int or not 0 <= tick <= 1800 * 30 + 150):
                 raise SilverError("invalid", "The real-time replay inside the code is damaged.")
+            if special and type(special["silver_special"]) is not bool:
+                raise SilverError("invalid", "The real-time replay is missing its Silver special option.")
             inputs = sharing.decode_rt_inputs(rt.get("inputs"))
             spec = {"id": f"friend-{seed}"[:80], "seed": seed, "format": rt_fmt, "level_rules": level_rules, "time_limit": limit, "version": version, "arena": arena,
                     **special, "p1": {"name": challenger, "sets": team, "ai": None},
