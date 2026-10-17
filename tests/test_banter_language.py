@@ -94,3 +94,32 @@ def test_practice_and_exercise_attempts_capture_the_requested_language(call, ser
     assert services.store.battle(attempt["id"])["replay"]["lang"] == "es"
     default = call("exercise_start", {"id": exercise["id"]})
     assert services.store.battle(default["id"])["replay"]["lang"] == "en"
+
+
+@pytest.mark.parametrize("target", ["tower4", "factory4", "hall4"])
+def test_facility_creation_and_deferred_choices_keep_language(call, services, target):
+    trainer = call("trainer_create", {"name": "Facility commentary", "format": "gen4customgame",
+                                      "team": [{"species": name, "moves": ["Tackle"]}
+                                               for name in ("Pikachu", "Eevee", "Bulbasaur")]})
+    run = call("challenge_start", {"kind": "facility", "target_id": target,
+                                   "challenger_id": trainer["id"], "lang": "es"})
+    assert services.store.run(run["id"])["challenger"]["lang"] == "es"
+    if target == "factory4":
+        run = call("factory_pick", {"id": run["id"], "picks": [0, 1, 2]})
+    elif target == "hall4":
+        run = call("frontier_hall_pick", {"id": run["id"], "cell": "fuego"})
+    battle = services.store.battle(run["stages"][0]["battle_id"])
+    assert battle["replay"]["lang"] == "es"
+
+
+def test_cup_play_and_deferred_watch_keep_creation_language(call, services, trainers):
+    a, b = trainers
+    cup = call("cup_start", {"trainer_ids": [a["id"], b["id"]], "human_id": a["id"],
+                             "format": "gen9customgame", "lang": "es"})
+    played = call("cup_play", {"id": cup["id"]})
+    assert services.store.battle(played["battle_id"])["replay"]["lang"] == "es"
+    call("battle_forfeit", {"id": played["battle_id"], "side": "p1"})
+    deferred = services.cups.create(trainer_ids=[a["id"], b["id"]], format_="gen9customgame", autoplay=False, lang="es")
+    watched = call("cup_watch", {"id": deferred["id"], "round": 0, "match": 0})
+    ended = wait_for(lambda: (x := call("battle_get", {"id": watched["battle_id"]}))["status"] == "ended" and x)
+    assert services.store.battle(ended["id"])["replay"]["lang"] == "es"

@@ -13,7 +13,7 @@ test('new battle calls capture the selected UI language even without storage', a
   };
   try {
     api.setLanguage('es');
-    for (const name of ['battle_start', 'challenge_start', 'battle_practice', 'exercise_start']) {
+    for (const name of ['battle_start', 'challenge_start', 'battle_practice', 'exercise_start', 'cup_start']) {
       await api.call(name, {id: 'fixture'});
       assert.equal(bodies.at(-1).arguments.lang, 'es');
     }
