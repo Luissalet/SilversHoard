@@ -1,0 +1,17 @@
+# Search saved replays
+
+History combines species, move used, saved trainer name, format ID, result, battle kind and mode. Names and IDs ignore case, accents and punctuation. Species/move filters accept part of a canonical name or ID; the UI also resolves complete Spanish move names. Filters apply together to one recorded actor, rather than matching a species on one side with a move on the other.
+
+Results offer links to the matching turns or moments. A classic link opens paused at the start of the selected turn, before its actions. RT log timestamps have one decimal place; their links open paused two ticks before that rounded moment, clamped to the saved replay duration. The RT visual cast can precede the native log's use or impact message. This is an approximate time link, rather than a claim that a displayed title begins on that exact tick. The existing replay controls remain available. URL positions do not seek a live battle.
+
+The first six links appear immediately and the rest can be expanded, including the last matching turn of a long battle. Searches page battles in groups of 20; the API accepts offset/limit. The scan covers all ended rows, rather than just the latest 60 shown by the ordinary History list. A metadata-only search opens the start of each replay. Clear search returns to the normal history list.
+
+Result filters distinguish the winning side (p1 or p2), a draw, and a win/loss from the trainer name filter's perspective. Win/loss require a trainer query; the UI enables them after a name is entered. With names matching both sides, the result selects the side with that outcome.
+
+Only recorded participation counts. Classic logs use the active position and revealed species, including switches, doubles and revealed forme changes. Unused bench sets and nicknames are not species matches. RT resolves complete saved trainer/nickname combinations using team and summary aliases. A line that could describe different actors or species is omitted and reported as ambiguous. Missing/incomplete replays are counted and excluded. Old summary-only friend results do not acquire an invented replay or turn.
+
+`battles_search` is one read-only handler shared by the web UI, REST agent route and MCP. It reads a consistent set of saved ended rows and returns lightweight battle cards, every matching position, match_count, total/offset/next_offset and coverage (searched, without_replay, ambiguous_events). It does not run a simulation, load a model, change records or rewrite stored logs. The scan currently loads saved rows and their logs into memory; output pagination does not turn it into an indexed full-text database search.
+
+Implementation: `silvers_hoard/battle_search.py`, `BattleSearchArgs` and tool in `agent_tools.py`; `client/src/components/BattleSearch.jsx` and `history-search.js`; ended-replay hooks in `Combate.jsx`, `CombateRt.jsx` and `RtScreen.jsx`. No database migration or new server.
+
+Verification covers filters with the same actor, accents/canonical IDs, doubles and nicknames, explicit result perspective, ambiguous RT aliases, pagination beyond the newest 60 rows, access to all 18 matching turns, read-only stored-row/settings preservation, malformed URL positions and existing turn boundaries. Native MCP and browser checks use new isolated QA battles; Main's existing data is preserved separately at activation.
