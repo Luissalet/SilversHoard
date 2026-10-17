@@ -3598,6 +3598,8 @@ class Services:
         import base64
         import subprocess
         import threading
+        from .hoard_link.errors import HoardLinkError
+        from .hoard_link.media.ffmpeg import FFmpeg
         from playwright.sync_api import sync_playwright
         width, height = self.VIDEO_SIZES[size]
         exports = self.config.exports_dir
@@ -3690,8 +3692,15 @@ class Services:
                 out = mp4
             else:
                 log.warning("ffmpeg could not convert %s: %s", webm.name, (r.stderr or "")[-300:])
+        duration = float(state["info"].get("seconds") or 0)
+        try:
+            measured = FFmpeg().duration(out)
+            if measured > 0:
+                duration = measured
+        except (HoardLinkError, OSError):
+            pass  # Recording still works without readable container duration metadata.
         result: dict[str, Any] = {"file": out.name, "url": f"/api/exports/{out.name}", "bytes": out.stat().st_size, "path": str(out.resolve()),
-                                  "seconds": round(float(state["info"].get("seconds") or 0), 1), "width": width, "height": height,
+                                  "seconds": round(duration, 1), "width": width, "height": height,
                                   "sound": bool(state["info"].get("sound")), "battle_id": b["id"]}
         if lumiere:
             sent = family.call("lumiere", "media_receive", {"path": str(out.resolve())}, timeout=120)
