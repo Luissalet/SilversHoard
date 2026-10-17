@@ -15,7 +15,7 @@ def _classic(lines: list[str], selected: set[str]):
     leads = set()
     shown = {side: set() for side in SIDES}
     started = any(line == "|start" or line.startswith("|start|") for line in lines)
-    ended = any(line.startswith(("|win|", "|tie")) for line in lines)
+    ended = any(line == "|tie" or line.startswith(("|win|", "|tie|")) for line in lines)
     before_turn = True
     positions = set()
     initial_sides = set()
