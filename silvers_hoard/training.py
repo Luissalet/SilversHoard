@@ -72,7 +72,7 @@ class Training:
         self.svc.store.update_exercise(id_, {"archived": int(archived)})
         return self.get(id_)
 
-    def start(self, id_, *, adaptive=True, ai_level="normal"):
+    def start(self, id_, *, adaptive=True, ai_level="normal", lang="en"):
         exercise = self.svc.store.exercise(id_)
         info = self.get(id_)
         level = info["recommendation"]["level"] if adaptive else ai_level
@@ -88,7 +88,8 @@ class Training:
         bid = self.svc.store.add_battle({"kind": "practice", "status": "live", "format": payload["format"],
                 "rules": payload["rules"], "level_rules": payload["level_rules"], "p1": seats["p1"], "p2": seats["p2"],
                 "seed": point["seed"] if isinstance(point["seed"], str) else ",".join(map(str, point["seed"])),
-                "snapshot": json.dumps(point["snapshot"]), "turns": payload["turn"], "replay": {"practice": meta}})
+                "snapshot": json.dumps(point["snapshot"]), "turns": payload["turn"],
+                "replay": {"practice": meta, "lang": "es" if lang == "es" else "en"}})
         return self.svc.battle_get(bid)
 
     def export(self, id_):

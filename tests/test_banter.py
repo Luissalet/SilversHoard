@@ -28,7 +28,7 @@ def test_the_ai_comments_its_moves_in_the_background(call, services, monkeypatch
     assert lines and all(x["line"].startswith("¡Ahí va el golpe") and x["line"].endswith("!") for x in lines), "quotes and spaces trimmed"
     assert all(x["side"] in ("p1", "p2") and x["turn"] >= 1 for x in lines)
     assert len({(x["turn"], x["side"]) for x in lines}) == len(lines), "one line per trainer and turn"
-    assert "Charla" in asked[0] and "castellano" in asked[0]
+    assert "Charla" in asked[0] and "in English," in asked[0]
 
 
 def test_situational_lines_and_writing_them_keeps_the_change_of_tactics(call, services, monkeypatch):
