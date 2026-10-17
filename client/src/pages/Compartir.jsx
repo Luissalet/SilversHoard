@@ -2,10 +2,34 @@
 import React, { useRef, useState } from "react";
 import { api } from "../api.js";
 import { useApp } from "../context.js";
-import { Busy, Field, Icon, ICONS, Section, useBusy } from "../components/ui.jsx";
+import { Busy, CopyButton, Field, Icon, ICONS, Section, useBusy } from "../components/ui.jsx";
 import { FormatSelect } from "../components/silver.jsx";
 import { ExerciseLibrary } from "../components/Training.jsx";
 import { loc } from "../loc.js";
+
+function ResultTeam({ r }) {
+  const { t, lang, changed } = useApp();
+  const [name, setName] = useState(r.challenger || "");
+  const [saved, setSaved] = useState(null);
+  const [busy, run] = useBusy();
+  const save = () => run("save", async () => {
+    const trainer = await api.call("trainer_create", { name: name.trim(), paste: r.team_paste, format: r.team_format || "" });
+    setSaved(trainer);
+    changed();
+  });
+  return (
+    <div className="panel space-y-3">
+      <div className="flex items-center gap-2"><h2 className="flex-1">{t("result_team_text")}</h2><CopyButton text={r.team_paste} /></div>
+      <textarea className="field" rows={8} value={r.team_paste} readOnly aria-label={t("result_team_text")} />
+      {saved ? <p role="status">{t("imported_trainer", { name: loc(saved, lang) })}{" "}<a className="btn-link" href={`#/entrenador/${saved.id}`}>{t("open")}</a></p> : (
+        <div className="flex flex-wrap items-end gap-2">
+          <Field label={t("name")}><input className="field" value={name} maxLength={60} onChange={(e) => setName(e.target.value)} /></Field>
+          <Busy busy={busy.save} className="btn" disabled={!name.trim()} onClick={save}>{t("result_team_save")}</Busy>
+        </div>
+      )}
+    </div>
+  );
+}
 
 function ResultView({ r }) {
   const { t, lang } = useApp();
@@ -37,13 +61,13 @@ function ResultView({ r }) {
   if (r.kind === "mass") return <div className="banner banner-info">{t("mass_imported_page", { name: loc(r.mass, lang, "title") })} <a className="btn-link" href={`#/campal/${r.mass.id}`}>{t("open")}</a></div>;
   if (r.kind === "result") {
     return (
-      <div className={`banner ${r.won ? "banner-info" : "banner-warn"}`}>
+      <><div className={`banner ${r.won ? "banner-info" : "banner-warn"}`}>
         {r.won ? t("friend_won", { name: r.challenger, target: loc(r.gym || r.trainer, lang) }) : t("friend_lost", { name: r.challenger, target: loc(r.gym || r.trainer, lang) })}{" "}
         {r.verified ? <>{t("friend_checked")}{" "}</> : r.verified_real_time > 0 && <>{t("friend_verified", { n: r.verified_real_time })}{" "}</>}
         {r.week && <>{t("friend_week", { week: r.week })}{" "}</>}
         <a className="btn-link" href="#/amigos">{t("see_leaderboard")}</a>{" · "}
         {r.battle_id && <a className="btn-link" href={`#/combate/${r.battle_id}`}>{t("replay")}</a>}
-      </div>
+      </div>{r.team_paste && <ResultTeam key={r.battle_id} r={r} />}</>
     );
   }
   return null;

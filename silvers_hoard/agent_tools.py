@@ -1473,7 +1473,8 @@ TOOLS: list[Tool] = [
                                  synonyms="pokepaste, enlace del equipo, compartir equipo por enlace"), IdArg, WD,
          lambda s, a: s.pokepaste_export(a.id), 60.0),
     Tool("import", _d("Import a share code, result code, .hoard* file, playable page, Showdown team or pokepast.es link. Importar.",
-                      "Result codes from friends record their badge or win here.", synonyms="código de amigo, resultado, cargar"),
+                      "Result codes from friends record their badge or win here. If the sender included Showdown text, the reply has "
+                      "team_paste and team_format; use trainer_create to save that team when requested.", synonyms="código de amigo, resultado, cargar"),
          ImportArgs, WD, _import),
     Tool("unbound_save_import", _d("A Pokémon Unbound save file's party as a new trainer. Importar equipo de mi partida de Unbound.",
                                    "Reads the .sav/.srm: species, items, Unbound's abilities, moves, levels, natures, EVs, IVs, nicknames; "
