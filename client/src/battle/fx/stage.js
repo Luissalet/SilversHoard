@@ -3,7 +3,8 @@
 // It reads where the sprites are from the DOM (elements marked data-fx-pos="p1a"-style: side + slot), turns the protocol cues the
 // battle player hands it into plans (plan.js), runs them on its own clock and answers how long the line must wait so the effect
 // finishes before the damage shows. Loaded lazily; nothing here changes the battle.
-import { Vfx } from "../rt/vfx.js";
+import { Vfx, particleStyle } from "../rt/vfx.js";
+import { drawSuppliedProjectiles } from "../rt/supplied-fx.js";
 import { fitTiming, planHit, planMove } from "./plan.js";
 import { readFxStyle } from "./setting.js";
 
@@ -307,6 +308,8 @@ export class FxStage {
     if (blank) return;
     this.vfx.drawUnder(ctxU);
     this.vfx.drawOver(ctxO, this.view, this.battle);
+    if (!this.ps && particleStyle() === "pixel") drawSuppliedProjectiles(ctxO, {time: this.clock, scale: this.r.scale,
+      px: this.r.px, py: this.r.py}, this.view, typeof window !== "undefined" && !!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches);
     this.ps?.draw(ctxU, ctxO, { w: this.w, h: this.h, dpr: this.dpr });
     // screen shake moves the whole arena a few pixels (and Showdown's Earthquake and kin shake it up and down)
     const k = Math.min(1, this.vfx.shake * 3) * 7;

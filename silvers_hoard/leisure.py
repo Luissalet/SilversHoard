@@ -2,8 +2,10 @@
 from __future__ import annotations
 
 import copy
+import json
 import random
 import time
+from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
 from .errors import SilverError
@@ -33,6 +35,20 @@ ACCESSORIES = [
 ]
 DECORATIONS = {"desk": True, "chair": True, "plant": True, "bed": True, "shelf": True,
                "cushion": False, "rug": False, "poster": False, "doll": True, "lamp": True}
+SUPPLIED_ART = json.loads((Path(__file__).parent / "presets/supplied_sprites.json").read_text(encoding="utf-8"))
+SPRITES = SUPPLIED_ART["sprites"]
+ACCESSORIES += [{"id": id_, **{k: a[k] for k in ("category", "theme", "name", "name_es")}}
+                for id_, a in SPRITES.items() if a["group"] == "accessory"]
+DECORATIONS.update({id_: a["solid"] for id_, a in SPRITES.items() if a["group"] == "decoration"})
+
+
+def footprint(kind: str) -> tuple[int, int]:
+    return tuple(SPRITES.get(kind, {}).get("footprint", [1, 1]))
+
+
+def cells(kind: str, x: int, y: int) -> set[tuple[int, int]]:
+    w, h = footprint(kind)
+    return {(x + dx, y + dy) for dx in range(w) for dy in range(h)}
 
 
 class Leisure:
@@ -56,10 +72,26 @@ class Leisure:
             self.svc.store.db.execute(f"UPDATE {table} SET state_json = ?, updated_at = ? WHERE id = ?", (dumps(state), now, state["id"]))
         return copy.deepcopy(state)
 
-    def catalog(self) -> dict[str, Any]:
-        return {"categories": CATEGORIES, "ranks": RANKS, "accessories": ACCESSORIES,
-                "decorations": [{"id": k, "solid": v} for k, v in DECORATIONS.items()], "base_size": 8,
-                "contest_rules": "silver-super-v1"}
+    def catalog(self, section: str = "all", query: str = "", offset: int = 0, limit: int = 24) -> dict[str, Any]:
+        result = {"categories": CATEGORIES, "ranks": RANKS, "accessories": ACCESSORIES,
+                "decorations": [{"id": k, "solid": v, "footprint": footprint(k),
+                                 **{f: SPRITES[k][f] for f in ("name", "name_es") if k in SPRITES}}
+                                for k, v in DECORATIONS.items()], "base_size": 8,
+                "contest_rules": "silver-super-v1", "sprite_sources": SUPPLIED_ART["sources"],
+                "sprites": [{"id": k, "url": f"/api/sprites/supplied/{k}",
+                             **{f: v[f] for f in ("group", "width", "height", "source", "name", "name_es")}}
+                            for k, v in SPRITES.items()]}
+        pages = {}
+        for key in ("accessories", "decorations", "sprites"):
+            entries = result.pop(key)
+            if section not in ("all", key) or key == "sprites" and section == "all" and limit:
+                continue
+            matching = [e for e in entries if query.casefold() in " ".join(str(e.get(f, "")) for f in ("id", "name", "name_es", "category", "theme")).casefold()]
+            result[key] = matching[offset:offset + limit] if limit else matching[offset:]
+            pages[key] = {"total": len(matching), "offset": offset, "next_offset": offset + limit if limit and offset + limit < len(matching) else None}
+        result["sprite_count"] = len(SPRITES)
+        result["pages"] = pages
+        return result
 
     def contests(self) -> list[dict[str, Any]]:
         return self._list("silver_contests")
@@ -176,14 +208,17 @@ class Leisure:
             if not isinstance(item, dict):
                 raise SilverError("invalid", "Each decoration is an object with kind, x and y.")
             kind, x, y = item.get("kind"), item.get("x"), item.get("y")
-            if kind not in DECORATIONS or type(x) is not int or type(y) is not int or not 0 <= x < 8 or not 0 <= y < 8 or (x, y) in seen or (x, y) in ((3, 7), (3, 1)):
+            if kind not in DECORATIONS or type(x) is not int or type(y) is not int:
+                raise SilverError("invalid", "Each decoration needs a known kind and integer x/y coordinates.")
+            occupied = cells(kind, x, y)
+            if any(not 0 <= cx < 8 or not 0 <= cy < 8 for cx, cy in occupied) or occupied & (seen | {(3, 7), (3, 1)}):
                 raise SilverError("invalid", "Place known decorations on different cells of the 8×8 room, leaving the entrance and host free.")
-            seen.add((x, y))
+            seen.update(occupied)
             species = str(item.get("species") or "Pikachu")[:60] if kind == "doll" else ""
             if species:
                 self.svc.engine.call("species", {"name": species, "gen": 9})
             clean.append({"kind": kind, "x": x, "y": y, **({"species": species} if species else {})})
-        blocked = {(p["x"], p["y"]) for p in clean if DECORATIONS[p["kind"]]}
+        blocked = set().union(*(cells(p["kind"], p["x"], p["y"]) for p in clean if DECORATIONS[p["kind"]]))
         reachable, todo = {(3, 7)}, [(3, 7)]
         while todo:
             x, y = todo.pop()

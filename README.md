@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+Supplied sprites now appear throughout navigation, contests, secret bases and pixel projectile effects: 288 crops from 13 supplied sheets, with source credits. Search 117 contest accessories and 138 base objects; large furniture reserves every occupied tile and survives normal JSON sharing. `leisure_catalog` supports section/query/offset/limit for complete API/MCP browsing. See [supplied sprites](docs/SUPPLIED_SPRITES.md) for coverage, reproduction and remaining unused sheets.
+
 Move sound types load from generated JSON data; playable exports embed the same table. The 935 move mappings and the existing fallback when data cannot load are preserved.
 
 New AI commentary uses the language selected when a battle, challenge, cup, practice or exercise starts (English by default through API/MCP). Later stages keep that choice even if the interface language changes. Existing saved lines and trainer dialogue remain literal.

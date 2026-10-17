@@ -7,12 +7,13 @@ avatars, exported files, and the uploads (photos, files to import)."""
 from __future__ import annotations
 
 import mimetypes
+import base64
 import time
 from pathlib import Path
 from typing import Any
 
 from fastapi import APIRouter, File, Form, Request, UploadFile
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, Response
 from pydantic import BaseModel, Field
 
 from .. import names_i18n
@@ -72,6 +73,15 @@ def _file(path, *, cache: bool = True, download: str = ""):
 @router.get("/sprites/pokemon/{sprite_id}")
 def pokemon_sprite(request: Request, sprite_id: str, set: str = "", back: bool = False, shiny: bool = False):
     return _file(services(request).sprites.pokemon(sprite_id.removesuffix(".png").removesuffix(".gif"), set_=set, back=back, shiny=shiny))
+
+
+@router.get("/sprites/supplied/{sprite_id}")
+def supplied_sprite(sprite_id: str):
+    from ..leisure import SPRITES
+    sprite = SPRITES.get(sprite_id)
+    if not sprite:
+        raise SilverError("not_found", "Unknown supplied sprite.")
+    return Response(base64.b64decode(sprite["image"].split(",", 1)[1]), media_type="image/png", headers=CACHE)
 
 
 @router.get("/sprites/trainers/{name}")
