@@ -61,7 +61,13 @@ def reference_pair(cache: Path, dex: int, form: str, get: Callable[[str], Option
     paths = [folder / "normal.png", folder / "shiny.png"]
     info = folder / "source.json"
     if info.exists() and all(p.exists() for p in paths):
-        return paths[0].read_bytes(), paths[1].read_bytes(), json.loads(info.read_text("utf-8"))
+        try:
+            pair = [p.read_bytes() for p in paths]
+            provenance = json.loads(info.read_text("utf-8"))
+            if palette_pair(*pair):
+                return *pair, provenance
+        except (OSError, ValueError):
+            pass
     if not enabled:
         return None
     pid = dex
