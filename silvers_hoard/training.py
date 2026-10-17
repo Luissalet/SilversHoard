@@ -3,9 +3,11 @@
 import json
 
 from .errors import SilverError
+from .hoard_link.ids import new_id
 
 
 LEVELS = ("random", "easy", "normal", "hard", "expert")
+PACK_THEMES = ("attrition", "openings", "doubles")
 
 
 class Training:
@@ -61,11 +63,19 @@ class Training:
         return {"id": id_, "title": exercise["title"], "goal": exercise["goal"], "target_turns": exercise["target_turns"],
                 "turn": exercise["payload"]["turn"], "side": exercise["payload"]["side"], "format": exercise["payload"]["format"],
                 "archived": bool(exercise.get("archived")), "attempts": attempts,
+                **({"pack": exercise["payload"]["pack"]} if exercise["payload"].get("pack") else {}),
                 "recommendation": {"level": recommended, "previous_level": level, "samples": len(recent),
                                    "passed": sum(a["passed"] for a in recent), "step": step}}
 
     def list(self, archived=False):
-        return {"exercises": [self.get(e["id"]) for e in self.svc.store.exercises(archived=archived)]}
+        groups = {}
+        for row in self.svc.store.exercises(archived=archived):
+            exercise = self.get(row["id"])
+            key = (exercise.get("pack") or {}).get("id") or exercise["id"]
+            groups.setdefault(key, []).append(exercise)
+        # Keep the recent-group order, but show each imported pack in its curator's sequence.
+        return {"exercises": [e for group in groups.values()
+                for e in sorted(group, key=lambda item: (item.get("pack") or {}).get("index", 0))]}
 
     def archive(self, id_, archived=True):
         self.svc.store.exercise(id_)
@@ -92,18 +102,32 @@ class Training:
                 "replay": {"practice": meta, "lang": "es" if lang == "es" else "en"}})
         return self.svc.battle_get(bid)
 
-    def export(self, id_):
+    def _export_object(self, id_):
         e = self.svc.store.exercise(id_)
-        code = json.dumps({"kind": "silvers-hoard/exercise", "schema": 1, "title": e["title"], "goal": e["goal"],
-                           "target_turns": e["target_turns"], "position": e["payload"]}, ensure_ascii=False, indent=2)
+        return {"kind": "silvers-hoard/exercise", "schema": 1, "title": e["title"], "goal": e["goal"],
+                "target_turns": e["target_turns"], "position": {k: v for k, v in e["payload"].items() if k != "pack"}}
+
+    def _write_export(self, obj, id_):
+        code = json.dumps(obj, ensure_ascii=False, indent=2)
         filename = f"{id_}.silverexercise"
         path = self.svc.config.exports_dir / filename
-        path.write_text(code, encoding="utf-8")
+        path.write_bytes(code.encode("utf-8"))
         return {"code": code, "file": filename, "url": f"/api/exports/{filename}", "bytes": len(code.encode("utf8"))}
 
-    def import_(self, code):
+    def export(self, id_):
+        return self._write_export(self._export_object(id_), id_)
+
+    def export_pack(self, ids, *, title="", theme="openings"):
+        """Theme is the curator's label, not an automatic evaluation of the position."""
+        if not ids or theme not in PACK_THEMES:
+            raise SilverError("invalid", "Choose exercises and an existing pack theme.")
+        exercises = [self._export_object(id_) for id_ in dict.fromkeys(ids)]
+        obj = {"kind": "silvers-hoard/exercise-pack", "schema": 1, "title": title.strip()[:200] or "Practice pack",
+               "theme": theme, "exercises": exercises}
+        return self._write_export(obj, new_id("pack"))
+
+    def _prepare_import(self, obj):
         try:
-            obj = json.loads(code)
             if obj["kind"] != "silvers-hoard/exercise" or obj["schema"] != 1:
                 raise ValueError("Unsupported exercise format")
             p = obj["position"]
@@ -117,8 +141,35 @@ class Training:
             point = self._point(p)
             payload = {"input": point["input"], "turn": p["turn"], "side": p["side"], "format": point["format"],
                        "rules": [], "level_rules": {}, "seats": point["seats"]}
-            eid = self.svc.store.add_exercise({"title": str(obj["title"])[:200], "goal": obj["goal"],
-                                             "target_turns": obj["target_turns"], "payload": payload})
-            return self.get(eid)
+            return {"title": str(obj["title"])[:200], "goal": obj["goal"],
+                    "target_turns": obj["target_turns"], "payload": payload}
         except (ValueError, KeyError, TypeError) as exc:
             raise SilverError("invalid", f"The exercise could not be read: {exc}") from exc
+
+    def import_(self, code):
+        try:
+            obj = json.loads(code)
+        except (ValueError, TypeError) as exc:
+            raise SilverError("invalid", f"The exercise could not be read: {exc}") from exc
+        return self.get(self.svc.store.add_exercise(self._prepare_import(obj)))
+
+    def import_pack(self, code):
+        try:
+            obj = json.loads(code)
+            if not isinstance(obj, dict) or obj.get("kind") != "silvers-hoard/exercise-pack" or obj.get("schema") != 1:
+                raise ValueError("Unsupported exercise pack format")
+            if obj.get("theme") not in PACK_THEMES or not isinstance(obj.get("title"), str):
+                raise ValueError("Invalid title or theme")
+            if not isinstance(obj.get("exercises"), list) or not obj["exercises"]:
+                raise ValueError("An exercise pack needs positions")
+        except (ValueError, TypeError) as exc:
+            raise SilverError("invalid", f"The exercise pack could not be read: {exc}") from exc
+        # Validate/reconstruct every position before any DB write; a later bad entry cannot leave half a pack.
+        prepared = [self._prepare_import(e) for e in obj["exercises"]]
+        pack = {"id": new_id("pack"), "title": obj["title"].strip()[:200] or "Practice pack", "theme": obj["theme"], "total": len(prepared)}
+        with self.svc.store.db.tx():
+            ids = []
+            for index, values in enumerate(prepared, 1):
+                values["payload"]["pack"] = {**pack, "index": index}
+                ids.append(self.svc.store.add_exercise(values))
+        return {"title": pack["title"], "theme": pack["theme"], "exercises": [self.get(id_) for id_ in ids]}
