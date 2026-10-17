@@ -1,6 +1,6 @@
 # Silver's Hoard
 
-Los combates nuevos en tiempo real usan las reglas 10: caminar un 35% más despacio, desplazamientos laterales parciales de la IA, esquivas más cortas con 2 s de recuperación y una reacción real de la IA con una oportunidad por peligro continuo. Las partidas guardadas conservan sus reglas. Las arenas guardadas de hierba y arena muestran sus texturas originales en el selector de combate.
+Los combates nuevos en tiempo real usan las reglas 11: el **Especial de Silver es opcional y viene desactivado**. Se activa en Ajustes para los nuevos combates y páginas jugables exportadas; cada partida y resultado conserva su elección, y las repeticiones de las versiones 5–10 mantienen su ataque especial. La megaevolución sigue disponible de forma independiente. Se conserva el movimiento más lento de la versión 10, los desplazamientos laterales parciales de la IA, las esquivas más cortas con 2 s de recuperación y su reacción con una oportunidad por peligro continuo. Las arenas guardadas de hierba y arena muestran sus texturas originales en el selector de combate.
 
 El tiempo real distingue visualmente Excavar (ocultación y salida), Volar y Bote (ascenso y descenso), Rodar y Bola Hielo (giro del sprite), y el impacto de Movimiento Sísmico (elevación breve del rival). Las poses PMD ajustan su ritmo a la preparación del motor. Son efectos visuales: no añaden invulnerabilidad, daño ni desplazamiento real. Movimiento Sísmico no introduce una cinemática que pare a los otros combatientes.
 
