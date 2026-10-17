@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+`trainers_list` devuelve el catálogo completo de entrenadores coincidentes por REST/MCP, incluidos los campos largos, sin el recorte genérico de respuestas. Conserva los filtros por búsqueda, origen, juego y región.
+
 Las fichas de entrenador se pueden exportar como póster PNG con el retrato actual, el equipo y las medallas ganadas, reutilizando sprites y medallas existentes. Las referencias de estilo aportan la paleta; los créditos y la procedencia registrados se conservan en la imagen y sus metadatos. Disponible en la ficha y en `trainer_poster` (REST/MCP), como trabajo local con Playwright y Chrome/Edge. [Detalles](docs/TRAINER_POSTER.md).
 
 Los combates de dobles de la IA experta pueden señalar los dos movimientos que ejecutaron sus dos puestos, una vez resuelto el turno. Las mismas parejas aparecen en el registro y en `battle_explain`, con un ajuste guardado para ocultarlas. Las repeticiones no adelantan la etiqueta a su límite público. Véanse [las parejas ejecutadas](docs/EXPERT_COMBINATIONS.md).
