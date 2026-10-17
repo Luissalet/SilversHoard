@@ -59,6 +59,8 @@ Un simulador de combates Pokémon local de la familia Hoard. Funciona con el mot
 - **Frases con IA.** El modelo de la familia (por Hoard Hub: las Sparks, Faustus u Ollama) escribe las cuatro frases de un entrenador a partir de su equipo y de la personalidad que describas. Los entrenadores tienen además cuatro frases que dicen solos durante el combate (cuando su Pokémon deja K.O. a otro, cuando cae uno de los suyos, con un golpe muy eficaz y al cambiar), en la app y en la página jugable; y con el ajuste «La IA comenta sus jugadas», el modelo escribe en segundo plano una frase en personaje para cada jugada de la IA (una por turno, sin parar nunca el combate).
 - **Familia.** El copiloto de Faustus en todas las páginas, un servidor MCP con 174 herramientas (`mcp_server.py`), eventos en el bus de la familia y el aspecto común de los Hoards.
 
+- **Incluir el equipo en el resultado.** La página jugable ofrece una copia opcional del equipo en texto Showdown, desactivada en cada intento nuevo. Muestra los caracteres reales del código y añadir el texto lo alarga. Los datos de la repetición siguen incluyendo el equipo estructurado. Al importar el resultado con texto puedes copiar su equipo canónico o guardarlo expresamente como entrenador, con un nombre editable; importar por sí solo no crea entrenadores. Las dos presentaciones de una misma partida cuentan una sola vez y se conservan los códigos antiguos.
+
 ## Qué no hace
 
 - No hay combates en línea entre dos copias de la app: tus amigos juegan tus gimnasios y entrenadores contra la IA en la página jugable y te mandan el resultado.
