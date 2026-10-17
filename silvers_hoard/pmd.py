@@ -313,14 +313,17 @@ class PmdSprites:
             enabled = bool(self.settings.get("pmd_sprites", True) and self.settings.get("sprite_downloads", True))
             try:
                 reference = reference_pair(self.cache_dir, dex, form, self._get, enabled)
+                palette = palette_pair(*reference[:2]) if reference else {}
             except (ValueError, KeyError, OSError):
-                reference = None
-            if not reference:
+                palette = {}
+            if not palette:
                 return None
-            palette = palette_pair(*reference[:2])
             out_dir.mkdir(parents=True, exist_ok=True)
-            for anim, png in originals.items():
-                write_bytes_atomic(out_dir / f"{anim}.png", recolor(png, palette), fsync=False)
+            try:
+                for anim, png in originals.items():
+                    write_bytes_atomic(out_dir / f"{anim}.png", recolor(png, palette), fsync=False)
+            except (OSError, ValueError):
+                return None
             meta = {**normal, "key": key, "source": {"kind": "shiny-recolor", "pmd": normal["key"], "sha256": signature,
                                                       "palette": reference[2]}, "shiny": True}
             write_bytes_atomic(meta_path, json.dumps(meta, separators=(",", ":")).encode("utf-8"), fsync=False)

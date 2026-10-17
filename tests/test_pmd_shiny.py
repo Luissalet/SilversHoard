@@ -145,3 +145,27 @@ def test_sheet_key_validation_still_rejects_path_traversal(tmp_path):
     for key in ['../../secret', '0248-recolor1/../0248', '0248-0001-recolor2']:
         with pytest.raises(SilverError):
             pmd.sheet(key, 'Idle')
+
+
+@pytest.mark.parametrize('damaged', [b'broken PNG', png([CLEAR] * 4)])
+def test_invalid_cached_palette_recovers_online_or_falls_back_offline(tmp_path, damaged):
+    pmd, _ = fixture_pmd(tmp_path)
+    first = pmd.meta(248, form='Mega', shiny=True)
+    (tmp_path / first['key'] / 'meta.json').unlink()
+    path = tmp_path / 'shiny-reference/0248-mega/shiny.png'
+    path.write_bytes(damaged)
+    assert pmd.meta(248, form='Mega', shiny=True)['key'] == first['key']
+    assert path.read_bytes() == SHINY
+    (tmp_path / first['key'] / 'meta.json').unlink()
+    path.write_bytes(damaged)
+    pmd.settings.update(pmd_sprites=False, sprite_downloads=False)
+    with pytest.raises(SilverError):
+        pmd.meta(248, form='Mega', shiny=True)
+
+
+def test_corrupt_original_sheet_uses_typed_fallback(tmp_path):
+    pmd, _ = fixture_pmd(tmp_path)
+    first = pmd.meta(248, form='Mega', shiny=True)
+    pmd.sheet(first['source']['pmd'], 'Idle').write_bytes(b'broken PNG')
+    with pytest.raises(SilverError):
+        pmd.meta(248, form='Mega', shiny=True)
