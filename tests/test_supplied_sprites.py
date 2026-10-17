@@ -85,7 +85,7 @@ def test_generation_four_complete_goods_keep_original_png_bytes_and_footprints(c
 
 def test_attack_atlases_have_every_frame_and_no_ranger_registration_markers():
     atlases=[s for s in SPRITES.values() if s["group"]=="effect-atlas"]
-    assert len(atlases)==28
+    assert len(atlases)==99
     assert sum(s["frames"] for s in atlases)>=200
     for s in atlases:
         im=Image.open(io.BytesIO(base64.b64decode(s["image"].split(",")[1])))
@@ -121,3 +121,24 @@ def test_gba_effect_strips_have_fixed_frames_and_transparent_palette_keys():
         assert len(s['frame_rects'])==s['frames']
         image=Image.open(io.BytesIO(base64.b64decode(s['image'].split(',')[1])))
         assert not any(a and (r,g,b) in ((0,0,0),(96,192,192)) for r,g,b,a in image.getdata())
+
+
+def test_rt_effect_catalog_pages_cover_all_moves_and_resolve_original_material(call):
+    from silvers_hoard.leisure import MOVE_EFFECTS
+    offset = 0
+    seen = []
+    while offset is not None:
+        page = call('leisure_catalog', {'section':'effects','offset':offset})
+        assert page['effects_default_enabled'] is True
+        seen.extend(e['id'] for e in page['effects'])
+        for s in page['effect_sprites'].values():
+            assert s['source'] in page['sprite_sources']
+        offset = page['pages']['effects']['next_offset']
+    assert len(seen) == len(set(seen)) == len(MOVE_EFFECTS) == 938
+    for name,shape in [('Flamethrower','beam'),('Fire Punch','strike'),('Surf','burst'),('Heat Wave','cone'),('Thunder','drop')]:
+        page = call('leisure_catalog', {'section':'effects','query':name})
+        effect = next(e for e in page['effects'] if e['name'] == name)
+        assert effect['shape'] == shape and effect['available']
+        for phase in ('prepare','travel','impact','area','contact'):
+            assert effect[phase] in SPRITES
+    assert call('leisure_catalog', {'section':'effects','query':'unknown-move'})['effects'] == []
