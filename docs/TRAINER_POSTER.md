@@ -16,7 +16,10 @@ trainer, portrait, team and badges are unchanged. A job captures its trainer,
 earned badges, reference selection and recorded artwork metadata when requested.
 The picture and its `SilverPoster` PNG text metadata preserve the available
 artwork categories, credits and origins. Unknown artists are stated explicitly;
-an uploaded style reference currently has a library file identity, not an artist
+generated drawing/sprite titles can contain generation descriptions, so the poster
+uses the trainer or badge's public name instead. Public imported-picture titles
+(photo, official art or uploaded image) are retained; original metadata is unchanged.
+An uploaded style reference currently has a library file identity, not an artist
 record. Pokémon copyright and sprite-source attribution are included.
 
 Rendering runs locally with the same Playwright and installed Chrome/Edge used

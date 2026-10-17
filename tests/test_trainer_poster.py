@@ -89,6 +89,42 @@ def test_custom_badge_art_keeps_its_category_credit_and_origin(services, trainer
     assert source["source"] == "https://example.test/obra/mañana.png"
 
 
+@pytest.mark.parametrize("kind", ["drawing", "sprite"])
+def test_generated_art_titles_do_not_share_the_generation_description(services, trainer, kind, monkeypatch):
+    private_description = "QA generation description: blue coat and an unshared phrase"
+    services._avatar_meta_set(trainer["avatar"][5:], kind=kind, title=private_description)
+    before = copy.deepcopy(services._avatar_meta())
+    badges = [{"gym_name": "Prueba", "badge": "Nombre público de medalla", "badge_image": trainer["avatar"]}]
+    data = build(services, trainer, badges)
+    assert private_description not in json.dumps(data, ensure_ascii=False)
+    for role, name in (("portrait", trainer["name"]), ("badge", badges[0]["badge"])):
+        source = next(row for row in data["sources"] if row["role"] == role)
+        assert source["title"] == name and source["category"] == kind
+        assert source["credit"] == "Áurea López ©" and source["source"] == "https://example.test/obra/mañana.png"
+    assert services._avatar_meta() == before  # Keep the private drawing metadata for the original workflow.
+    pending = fake_renderer(monkeypatch, services)
+    rendered = []
+    def render(s, data, browser, cancelled):
+        rendered.append(copy.deepcopy(data))
+        return picture()
+    monkeypatch.setattr(poster, "render", render)
+    job = poster.create(services, trainer["id"])
+    pending.pop()()
+    result = services.job_get(job["id"])["result"]
+    with Image.open(services.config.exports_dir / result["file"]) as image:
+        assert private_description not in image.info["SilverPoster"]
+    assert private_description not in json.dumps(rendered, ensure_ascii=False)
+
+
+@pytest.mark.parametrize("kind", ["art", "photo", "image"])
+def test_public_picture_titles_and_credits_are_kept(services, trainer, kind):
+    services._avatar_meta_set(trainer["avatar"][5:], kind=kind)
+    data = build(services, trainer)
+    source = next(row for row in data["sources"] if row["role"] == "portrait")
+    assert (source["title"], source["category"], source["credit"], source["source"]) == (
+        "Retrato de María", kind, "Áurea López ©", "https://example.test/obra/mañana.png")
+
+
 def fake_renderer(monkeypatch, services):
     monkeypatch.setattr(type(services), "video_status", lambda self: {"playwright": True, "browser": "fixture-browser", "hint": ""})
     pending = []

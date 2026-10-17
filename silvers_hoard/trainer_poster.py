@@ -35,7 +35,10 @@ def _source(services, image: str, known: dict, role: str, title: str) -> dict:
                 "credit": services.credits.trainer(name, wait=True),
                 "source": str(services.settings["sprite_server"]).rstrip("/") + "/trainers/" + name + ".png"}
     metadata = known.get(image.removeprefix("file:")) or {}
-    return {"role": role, "category": metadata.get("kind") or services.avatar_kind(image) or "image", "title": metadata.get("title") or title,
+    category = metadata.get("kind") or services.avatar_kind(image) or "image"
+    # Drawing/sprite titles store generation input. Only imported-picture titles are public artwork captions.
+    public_title = metadata.get("title") if category in ("photo", "art", "image") else ""
+    return {"role": role, "category": category, "title": public_title or title,
             "credit": metadata.get("credit") or "", "source": metadata.get("source") or image}
 
 
