@@ -2,7 +2,7 @@
 import { initialLang } from "./i18n.js";
 
 let language = initialLang();
-const commentaryCalls = new Set(["battle_start", "challenge_start", "battle_practice", "exercise_start"]);
+const commentaryCalls = new Set(["battle_start", "challenge_start", "battle_practice", "exercise_start", "cup_start"]);
 async function request(method, path, { params, body, form, timeoutMs = 0 } = {}) {
   const url = new URL(path, window.location.origin);
   for (const [key, value] of Object.entries(params || {})) {

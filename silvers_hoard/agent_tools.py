@@ -721,6 +721,7 @@ class BenchmarkArgs(BaseModel):
 
 
 class CupStartArgs(BaseModel):
+    lang: Literal["es", "en"] = "en"
     trainer_ids: list[str] = Field(default_factory=list, max_length=64, description="The trainers you pick (may be empty with random_count).")
     random_count: int = Field(0, ge=0, le=64, description="Fill the cup up to this many trainers drawn at random from yours (0 = only the picked ones).")
     random_from: str = Field("", max_length=80, description="Only draw trainers whose name, title, tags or team match this text.")
@@ -1354,7 +1355,7 @@ TOOLS: list[Tool] = [
          lambda s, a: s.cups.create(trainer_ids=a.trainer_ids, random_count=a.random_count, random_from=a.random_from, human_id=a.human_id,
                                     seeding=a.seeding, best_of=a.best_of, format_=a.format, rules=a.rules, level_rules=a.level_rules,
                                     mode=a.mode, time_limit=a.time_limit, rt_arena=a.rt_arena, ai_level=a.ai_level or "", title=a.title,
-                                    pace=a.pace)),
+                                    pace=a.pace, lang=a.lang)),
     Tool("cup_get", _d("One cup: its bracket round by round, scores, games to replay, your next match and the champion. Ver copa.",
                        synonyms="cuadro, bracket, cómo va la copa"), IdArg, R, lambda s, a: s.cups.get(a.id)),
     Tool("cups_list", _d("Cups, playing or over, with their champions. Copas.", synonyms="torneos, copas jugadas"), CupsArgs, R,
