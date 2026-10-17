@@ -3,11 +3,14 @@
 import { cry as realCry, sfx as realSfx } from "../audio.js";
 import { spriteId, toID } from "./dex.js";
 
-// move -> type table (about 10 KB), loaded the first time a move is heard so it stays out of the first paint
+// Passive move -> type data, loaded the first time a move is heard so it stays out of the first paint.
 let moveTypes = null;
 let loading = null;
 function loadMoveTypes() {
-  if (!loading) loading = import("./move-types.js").then((m) => { moveTypes = m.default; }).catch(() => { moveTypes = {}; });
+  if (!loading) loading = fetch(new URL("./move-types.json", import.meta.url)).then((response) => {
+    if (!response.ok) throw new Error("Move types could not be loaded");
+    return response.json();
+  }).then((data) => { moveTypes = data; }).catch(() => { moveTypes = {}; });
   return loading;
 }
 
