@@ -2,6 +2,7 @@
 // types read in Spanish when the screen is in Spanish (PokeAPI's Spanish names); Pokémon keep their names.
 import NAMES_ES from "./names-es.js";
 import { BattleText } from "./text/battle-text.gen.js";
+import { ZA_MEGA_IDS } from "./mega-sprites.js";
 
 export const toID = (text) => String(text ?? "").toLowerCase().replace(/[^a-z0-9]+/g, "");
 
@@ -61,8 +62,8 @@ export function makeSprites({ base = "", server = "", set = "gen5ani", dexNum = 
     const id = spriteid || spriteId(species);
     if (!server) return `${base}/api/sprites/pokemon/${id}?back=${back ? 1 : 0}&shiny=${shiny ? 1 : 0}${set ? `&set=${set}` : ""}`;
     if (PKAPI_SETS[set]) {
-      // the playable page: PokeAPI's 3D sprites by Pokédex number for species in their usual forme (others: Showdown's gen 5)
-      const n = !id.includes("-") && dexNum ? dexNum(species) : 0;
+      // The playable page knows Z-A Mega form IDs as well as ordinary Pokédex numbers.
+      const n = ZA_MEGA_IDS[id] || (!id.includes("-") && dexNum ? dexNum(species) : 0);
       if (n > 0) return `${PKAPI}/${PKAPI_SETS[set]}/${back ? "back/" : ""}${shiny ? "shiny/" : ""}${n}.webp`;
       return `${server}/gen5${back ? "-back" : ""}${shiny ? "-shiny" : ""}/${id}.png`;
     }
@@ -70,9 +71,10 @@ export function makeSprites({ base = "", server = "", set = "gen5ani", dexNum = 
     const dir = folder + (back && !["home", "dex"].includes(set) ? "-back" : "") + (shiny && !["home", "dex"].includes(set) ? "-shiny" : "");
     return `${server}/${dir}/${id}.${ext}`;
   };
-  const fallback = (species, { back = false, spriteid } = {}) => {
+  const fallback = (species, { back = false, shiny = false, spriteid } = {}) => {
     const id = spriteid || spriteId(species);
-    return server ? `${server}/gen5${back ? "-back" : ""}/${id}.png` : `${base}/api/sprites/pokemon/${id}?back=${back ? 1 : 0}&set=gen5`;
+    if (server && ZA_MEGA_IDS[id]) return `${PKAPI}/legends-za/${back ? "back/" : ""}${shiny ? "shiny/" : ""}${ZA_MEGA_IDS[id]}.webp`;
+    return server ? `${server}/gen5${back ? "-back" : ""}${shiny ? "-shiny" : ""}/${id}.png` : `${base}/api/sprites/pokemon/${id}?back=${back ? 1 : 0}&shiny=${shiny ? 1 : 0}&set=gen5`;
   };
   const trainer = (avatar) => {
     if (!avatar) return "";
