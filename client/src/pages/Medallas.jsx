@@ -39,17 +39,19 @@ function frontierEmblemsFromRuns(runs) {
       const character = (stage.character || "").trim();
       const name = (stage.name || stage.name_en || "").trim();
       const print = brainPrint(kind, number);
-      const id = `${kind}:${character || name || "brain"}:${print}:${number}`;
+      // Include challenger_id so two trainers who beat the same Brain keep distinct emblems.
+      const cid = run.challenger_id || "";
+      const id = `${cid}:${kind}:${character || name || "brain"}:${print}:${number}`;
       if (earned.has(id)) continue;
       earned.set(id, {
         id, facility: kind, character, name, title: stage.title || stage.title_en || "",
         print, number, battle_id: stage.battle_id || "", run_id: run.id || "",
-        challenger_id: run.challenger_id || "",
+        challenger_id: cid,
         challenger_name: run.challenger_name || "",
       });
     }
   }
-  return [...earned.values()].sort((a, b) => a.facility.localeCompare(b.facility) || a.number - b.number);
+  return [...earned.values()].sort((a, b) => a.facility.localeCompare(b.facility) || a.number - b.number || a.id.localeCompare(b.id));
 }
 
 function medalStats(mask) {
@@ -58,7 +60,6 @@ function medalStats(mask) {
 
 export default function Medallas() {
   const { t, lang, go, changed } = useApp();
-  const L = (es, en) => (lang === "en" ? en : es);
   // "" = Pokéathlon guest; a trainer id never merges guest medals (server filters by trainer_id).
   const [personId, setPersonId] = useStored("silver-palmares-person", "");
   const badges = useLoad(() => api.call("badges_list", {}), []);
@@ -72,10 +73,11 @@ export default function Medallas() {
   const [busy, run] = useBusy();
   const byPerson = {};
   for (const b of badges.data?.badges || []) (byPerson[b.challenger_name] ||= []).push(b);
+  // Filter by person BEFORE dedup so a second trainer keeps their Brain win when A already earned the same print.
   const emblems = useMemo(() => {
-    const all = frontierEmblemsFromRuns(runs.data?.challenges || []);
-    if (!personId) return all;
-    return all.filter((e) => e.challenger_id === personId);
+    const list = runs.data?.challenges || [];
+    const scoped = personId ? list.filter((r) => r.challenger_id === personId) : list;
+    return frontierEmblemsFromRuns(scoped);
   }, [runs.data, personId]);
   const medals = poke.data?.medals || [];
   const achievements = (progress.data?.achievements || []).filter((a) => a.unlocked);
@@ -83,10 +85,10 @@ export default function Medallas() {
   const abandon = (r) => run(`a${r.id}`, async () => { await api.call("challenge_abandon", { id: r.id }); runs.reload(); });
   return (
     <div className="space-y-5">
-      <div className="page-head"><div className="min-w-0"><h1>{t("nav_badges")}</h1><p className="help">{t("badges_help")} {L("También Pokéathlon, emblemas de Cerebros y logros de Progreso (invitado o un entrenador).", "Also Pokéathlon, Frontier Brain emblems and Progress achievements (guest or one trainer).")}</p></div></div>
+      <div className="page-head"><div className="min-w-0"><h1>{t("nav_badges")}</h1><p className="help">{t("badges_help")} {t("palmares_help_extra")}</p></div></div>
       <div className="max-w-md">
-        <TrainerSelect value={personId} onChange={setPersonId} label={L("Persona del palmarés", "Palmarés person")} allowNone />
-        <p className="help mt-1">{personId ? L("Medallas Pokéathlon y logros de este entrenador. El invitado no se mezcla.", "Pokéathlon medals and achievements for this trainer. Guest is not mixed in.") : L("Sin entrenador = invitado del Pokéathlon; emblemas de todos los retos.", "No trainer = Pokéathlon guest; emblems from every challenge.")}</p>
+        <TrainerSelect value={personId} onChange={setPersonId} label={t("palmares_person")} allowNone />
+        <p className="help mt-1">{personId ? t("palmares_person_help_trainer") : t("palmares_person_help_guest")}</p>
       </div>
       {badges.error && <ErrorBox error={badges.error} onRetry={badges.reload} />}
       <Section title={t("badge_cases")}>
@@ -129,10 +131,10 @@ export default function Medallas() {
         )}
       </Section>
 
-      <Section title={personId ? L("Pokéathlon (entrenador)", "Pokéathlon (trainer)") : L("Pokéathlon (invitado)", "Pokéathlon (guest)")} count={medals.length}>
+      <Section title={personId ? t("palmares_pokeathlon_trainer") : t("palmares_pokeathlon_guest")} count={medals.length}>
         {poke.error && <ErrorBox error={poke.error} onRetry={poke.reload} />}
         {!poke.data ? <Spinner /> : medals.length === 0 ? (
-          <p className="help">{L("Sin medallas Pokéathlon para esta persona. La pantalla Récords sigue disponible.", "No Pokéathlon medals for this person. The Records screen remains available.")}</p>
+          <p className="help">{t("palmares_pokeathlon_empty")}</p>
         ) : (
           <div className="flex flex-wrap gap-3">
             {medals.map((m) => (
@@ -140,18 +142,18 @@ export default function Medallas() {
                 <MonIcon species={m.species} size={36} />
                 <span className="help trunc">{m.species}</span>
                 <span className="flex gap-1">{medalStats(m.mask).map((stat) => <MedalBadge key={stat} stat={stat} size={28} />)}</span>
-                {m.complete && <span className="chip chip-ok">{L("completo", "complete")}</span>}
+                {m.complete && <span className="chip chip-ok">{t("palmares_complete")}</span>}
               </div>
             ))}
           </div>
         )}
-        <p className="help mt-2"><a href="#/pokeathlon">{L("Abrir Pokéathlon / Récords", "Open Pokéathlon / Records")}</a></p>
+        <p className="help mt-2"><a href="#/pokeathlon">{t("palmares_open_pokeathlon")}</a></p>
       </Section>
 
-      <Section title={L("Emblemas de la Frontera", "Frontier emblems")} count={emblems.length}>
+      <Section title={t("palmares_frontier_emblems")} count={emblems.length}>
         {runs.error && <ErrorBox error={runs.error} onRetry={runs.reload} />}
         {!runs.data ? <Spinner /> : emblems.length === 0 ? (
-          <p className="help">{L("Ningún emblema: hace falta una victoria pública contra un Cerebro (no basta la racha).", "No emblems: a public win against a Frontier Brain is required (streak length alone is not enough).")}</p>
+          <p className="help">{t("palmares_frontier_empty")}</p>
         ) : (
           <div className="panel divide-list p-0">
             {emblems.map((e) => (
@@ -161,19 +163,19 @@ export default function Medallas() {
                   <b>{e.name || e.character || e.facility}</b>
                   <span className="help"> · {e.facility} #{e.number}{e.challenger_name ? ` · ${e.challenger_name}` : ""}</span>
                 </span>
-                {e.battle_id && <a className="btn btn-sm" href={`#/combate/${e.battle_id}`}>{L("Combate", "Battle")}</a>}
+                {e.battle_id && <a className="btn btn-sm" href={`#/combate/${e.battle_id}`}>{t("palmares_battle")}</a>}
               </div>
             ))}
           </div>
         )}
       </Section>
 
-      <Section title={L("Logros (Progreso)", "Achievements (Progress)")} count={personId ? achievements.length : undefined}>
+      <Section title={t("palmares_achievements")} count={personId ? achievements.length : undefined}>
         {!personId ? (
-          <p className="help">{L("Elige un entrenador arriba para ver sus logros desbloqueados aquí.", "Pick a trainer above to see unlocked achievements here.")} <a href="#/progreso">{L("Abrir Progreso", "Open Progress")}</a></p>
+          <p className="help">{t("palmares_achievements_pick")} <a href="#/progreso">{t("palmares_open_progress")}</a></p>
         ) : progress.error ? <ErrorBox error={progress.error} onRetry={progress.reload} />
           : !progress.data ? <Spinner />
-            : achievements.length === 0 ? <p className="help">{L("Este entrenador aún no tiene logros desbloqueados.", "This trainer has no unlocked achievements yet.")}</p>
+            : achievements.length === 0 ? <p className="help">{t("palmares_achievements_empty")}</p>
               : (
                 <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
                   {achievements.map((a) => (
@@ -184,7 +186,7 @@ export default function Medallas() {
                   ))}
                 </div>
               )}
-        {personId && <p className="help mt-2"><a href="#/progreso" onClick={() => { try { localStorage.setItem("silver-progress-trainer", JSON.stringify(personId)); } catch (_) { /* ignore */ } }}>{L("Abrir ficha en Progreso", "Open Progress card")}</a></p>}
+        {personId && <p className="help mt-2"><a href="#/progreso" onClick={() => { try { localStorage.setItem("silver-progress-trainer", JSON.stringify(personId)); } catch (_) { /* ignore */ } }}>{t("palmares_open_progress_card")}</a></p>}
       </Section>
     </div>
   );
