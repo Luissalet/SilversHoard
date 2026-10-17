@@ -415,6 +415,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
   const [importedCredits, setImportedCredits] = useState([]);
   const [hud, setHud] = useState(null);
   const [abilities, setAbilities] = useState([]);
+  const [megaNotice, setMegaNotice] = useState(null);
   const [abilityEpoch, setAbilityEpoch] = useState(0);
   const [log, setLog] = useState([]);
   const [training, setTraining] = useState(null);
@@ -451,6 +452,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
       whoWins: tr("rt_show_who"), wins: (v) => tr("rt_show_wins", v), tie: tr("rt_show_tie") },
     mega: tr("rt_mega_float"), dummyReset: tr("rt_dummy_reset"), phase: tr("rt_phase"), megaEnd: tr("rt_mega_end_float"), plus: tr("rt_plus"), helping: tr("rt_helping_float"), follow: tr("rt_follow_float"),
   }), [lang, tr]);
+  useEffect(() => { if (sim.current?.renderer) sim.current.renderer.texts = texts; }, [texts]);
 
   // build the battle, catch up a live one, load the sprites
   const build = useCallback((untilTick = 0) => {
@@ -532,6 +534,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
       return undefined;
     }
     sim.current = state;
+    setMegaNotice(null);
     setAbilities([]); setAbilityEpoch(old=>old+1);
     state.net?.connect();
     // for checks from the browser console (and the app's QA): the running battle and the classes that rebuild it
@@ -690,6 +693,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
       if (now - lastHud > HUD_MS) {
         lastHud = now;
         setHud(st.b.view());
+        setMegaNotice(st.renderer.megas.current);
         if (running && st.abilityIndex < st.b.events.length) {
           const fresh = [];
           for (;st.abilityIndex < st.b.events.length;st.abilityIndex++) {
@@ -831,6 +835,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
         )}
         <div className="rt-stage" ref={wrapRef}>
           <AbilityBanner notices={abilities} lang={lang} resetKey={abilityEpoch}/>
+          <span className="sr-only" role="status" aria-live="polite" aria-atomic="true">{megaNotice ? `${texts.mega} ${megaNotice.from} → ${megaNotice.species}` : ""}</span>
           <canvas ref={canvasRef} className="rt-canvas" />
           <SoundButton lang={lang} />
           {phase === "loading" && (

@@ -4,7 +4,8 @@
 // start animations; it never changes the battle. In doubles there are four Pokémon: each has its HP bar with its slot (a / b),
 // the one a person controls has a marker over its head and the foe it locks on a reticle (turning while the lock-on is held).
 import { TYPE_COLORS } from "../dex.js";
-import { Animator, dirRow, image, loadMeta } from "./pmd.js";
+import { Animator, dirRow, image, loadMeta, sheetUrl } from "./pmd.js";
+import { MegaPresentation } from "./mega-presentation.js";
 import { OverworldAnimator } from "./overworld.js";
 import { Vfx, particleStyle } from "./vfx.js";
 import { Show, showSettings } from "./show.js";
@@ -91,11 +92,14 @@ export class ArenaRenderer {
     this.hitstop = 0;
     this.winding = [null, null, null, null];
     this.cutin = null;
+    this.megas = new MegaPresentation();
     this.resize(canvas.clientWidth || 900);
   }
 
-  /** Load every walking sprite (resolves when all are in or after `timeout`), reporting progress. */
+  /** Wait for decoded walking sheets within the metadata deadline, and always settle base/Mega fallback images. */
   async preload(onProgress = () => {}, timeout = 15000) {
+    const fallbackImages = [...this.fallbacks.flat(), ...this.megaFallbacks.flat()].filter(Boolean);
+    const fallbackReady = Promise.all(fallbackImages.map(s => s.loaded));
     const jobs = [];
     this.sides.forEach((s, si) => s.mons.forEach((m, mi) => {
       jobs.push([si, mi, m.num, (m.base_look || m).forme, m.shiny, this.anims, (m.base_look || m).sprite_id]);
@@ -108,19 +112,26 @@ export class ArenaRenderer {
       const formFolder = meta?.key?.split("-")[1];
       if (meta && (!form?.includes("Mega") || (formFolder && formFolder !== "0000"))) {
         for (const who of meta.credit || []) this.credits.add(who);
-        table[si][mi] = new Animator(meta, this.base);
+        const animator = new Animator(meta, this.base);
+        table[si][mi] = animator;
         for (const a of Object.keys(meta.a)) image(`${this.base}/api/sprites/pmd-sheet/${meta.key}/${a}.png`);
+        await image(sheetUrl(meta, animator.name("Idle"), this.base)).loaded;
       } else if (spriteId && this.sprites.walking) {
         const imported = await this.sprites.walking(spriteId, shiny);
         if (imported) {
           table[si][mi] = new OverworldAnimator(imported);
           this.importedCredits.set(imported.source, {source: imported.source, credit: imported.credit || []});
+          await image(imported.url).loaded;
         }
       }
       done++;
       onProgress(done, jobs.length);
     };
-    await Promise.race([Promise.all(jobs.map(one)), new Promise((r) => setTimeout(r, timeout))]);
+    let timer;
+    try {
+      await Promise.race([Promise.all(jobs.map(one)), new Promise(r => { timer = setTimeout(r, timeout); })]);
+      await fallbackReady;
+    } finally { clearTimeout(timer); }
   }
 
   resize(width) {
@@ -159,6 +170,7 @@ export class ArenaRenderer {
     this.hitstop = 0;
     this.winding = [null, null, null, null];
     this.cutin = null;
+    this.megas = new MegaPresentation();
     this.tosses = {};
     this.vfx = new Vfx(this);
     this.show = new Show(this);
@@ -444,13 +456,7 @@ export class ArenaRenderer {
       case "mega": {
         this.flash[key] = 1;
         this.hitstop = Math.max(this.hitstop, 0.18);
-        {
-          const w = this.unitOf(battle, s, u);
-          const m = w.mons[e.slot ?? w.active];
-          const url = this.sprites.portrait?.(e.species || m?.species, "Determined", { num: m?.mega?.num || m?.num || 0 });
-          this.cutin = { t: 0, life: 1.25, si: s, img: url ? image(url) : null, fall: url ? image(this.sprites.portrait(e.species || m?.species, "Normal", { num: m?.mega?.num || m?.num || 0 })) : null,
-            text: T.mega, name: e.species || m?.species || "" };
-        }
+        this.megas.add(e, this.megaFallbacks[s]?.[e.slot], T.mega);
         float(s, T.mega, "#ffb3ea", { size: 1.1, dy: -0.5 });
         break;
       }
@@ -494,6 +500,7 @@ export class ArenaRenderer {
     const view = battle.view();
     this.time += dt;
     this.consume(battle);
+    this.megas.update(raw);
     this.vfx.update(dt, view);
     this.show.update(raw, battle);
     ctx.imageSmoothingEnabled = false;
@@ -597,6 +604,7 @@ export class ArenaRenderer {
     this.show.drawBubbles(ctx, raw);
     this.show.drawScreen(ctx, battle);
     drawMoveCard(ctx,this,this.time,this.canvas.width,this.canvas.height,!!this.reducedMotion?.matches);
+    this.megas.draw(ctx,this.canvas.width,this.canvas.height,!!this.reducedMotion?.matches,this.texts.mega);
     this.flash = this.flash.map((v) => Math.max(0, v - dt * 5));
   }
 
@@ -839,6 +847,7 @@ export class ArenaRenderer {
       ctx.ellipse(x, y, side.r * s * k, side.r * s * 0.5 * k, 0, 0, Math.PI * 2);
       ctx.stroke();
     }
+    this.megas.drawBurst(ctx,x,y,s,si,side.pos || 0,side.active,!!this.reducedMotion?.matches);
     const a = this.animOf(si, side.active, mega);
     let headY = y - 1.6 * s;
     let drawn = false;
@@ -860,7 +869,7 @@ export class ArenaRenderer {
     }
     if (!drawn) {
       const megaImg = mega ? this.megaFallbacks[si]?.[side.active] : null;
-      const img = megaImg?.ready ? megaImg : this.fallbacks[si]?.[side.active];
+      const img = mega ? megaImg : this.fallbacks[si]?.[side.active];
       if (img?.ready) {
         const h = 2.2 * s;
         const w = (img.img.width / img.img.height) * h;
