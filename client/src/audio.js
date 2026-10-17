@@ -4,11 +4,15 @@
 //  - battle music is an <audio> element on a URL the caller gives, looped, with fades.
 // A small mixer (master / music / effects / cries + mute) is stored in localStorage. Browsers block audio until the person does
 // something, so the AudioContext is only created after the first click, key or touch.
+import { MUSIC_OPTIONS } from "./sound-strings.js";
+
 const KEY = "silver-sound";
-const DEFAULTS = { master: 0.8, music: 0.5, sfx: 0.8, cries: 0.8, mute: false };
+const MUSIC_IDS = new Set(MUSIC_OPTIONS.map((x) => x.id));
+const DEFAULTS = { master: 0.8, music: 0.5, sfx: 0.8, cries: 0.8, mute: false, music_track: "auto" };
 const clamp01 = (n, d) => (Number.isFinite(Number(n)) ? Math.max(0, Math.min(1, Number(n))) : d);
 const clean = (o) => ({ master: clamp01(o.master, DEFAULTS.master), music: clamp01(o.music, DEFAULTS.music), sfx: clamp01(o.sfx, DEFAULTS.sfx),
-  cries: clamp01(o.cries, DEFAULTS.cries), mute: !!o.mute });
+  cries: clamp01(o.cries, DEFAULTS.cries), mute: !!o.mute,
+  music_track: o.music_track === "none" || MUSIC_IDS.has(o.music_track) ? o.music_track : "auto" });
 
 function load() {
   try {
@@ -21,8 +25,10 @@ const listeners = new Set();
 
 export const getSettings = () => cfg;
 export function setSettings(patch) {
+  const previousTrack = cfg.music_track;
   cfg = clean({ ...cfg, ...patch });
   try { localStorage.setItem(KEY, JSON.stringify(cfg)); } catch { /* private mode: the mixer still works for this visit */ }
+  if (previousTrack !== cfg.music_track && requestedMusic) music.play(requestedMusic);
   applyVolumes();
   listeners.forEach((fn) => { try { fn(cfg); } catch { /* a listener must not break the mixer */ } });
 }
@@ -350,7 +356,14 @@ export function cry(url, { faint = false, vol = 1 } = {}) {
 let tr = null; // {el, url, fade, timer, wanted}
 let held = false;
 let pendingRetry = false;
+let requestedMusic = "";
 const musicLevel = () => (silent() ? 0 : cfg.master * cfg.music * 0.55);
+
+/** Keep the app/export's audio origin; only replace a known battle-music route. */
+export function musicTrackUrl(url, choice = cfg.music_track) {
+  if (!url || choice === "none") return "";
+  return MUSIC_IDS.has(choice) ? url.replace(/(\/api\/music\/)[^/?#]+(?:[?#].*)?$/, `$1${choice}`) : url;
+}
 
 function musicVolume() {
   if (!tr) return;
@@ -388,12 +401,24 @@ function dispose(t) {
   try { t.el.pause(); t.el.removeAttribute("src"); t.el.load(); } catch { /* gone */ }
 }
 
+function stopTrack({ fade = 1.2 } = {}) {
+  const t = tr;
+  if (!t) return;
+  tr = null;
+  t.wanted = false;
+  pendingRetry = false;
+  if (fade <= 0 || t.el.paused) dispose(t); else fadeTo(t, 0, fade, () => dispose(t));
+}
+
 export const music = {
   /** Loop the track at `url` (fades in); the same url again does nothing, another one replaces it. */
   play(url) {
+    requestedMusic = url;
+    url = musicTrackUrl(url);
+    if (!url) { stopTrack({ fade: 0.4 }); return; }
     if (!url || typeof Audio === "undefined") return;
     if (tr && tr.url === url && tr.wanted) return;
-    music.stop({ fade: 0.4 });
+    stopTrack({ fade: 0.4 });
     const el = new Audio();
     el.loop = true;
     el.preload = "auto";
@@ -407,12 +432,8 @@ export const music = {
   },
   /** Fade out and drop the current track. */
   stop({ fade = 1.2 } = {}) {
-    const t = tr;
-    if (!t) return;
-    tr = null;
-    t.wanted = false;
-    pendingRetry = false;
-    if (fade <= 0 || t.el.paused) dispose(t); else fadeTo(t, 0, fade, () => dispose(t));
+    requestedMusic = "";
+    stopTrack({ fade });
   },
   get playing() { return !!tr && tr.wanted && !tr.el.paused; },
   hold(on) { held = on; musicVolume(); if (!on) retryMusic(); },

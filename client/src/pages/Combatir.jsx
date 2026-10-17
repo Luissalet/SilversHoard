@@ -10,6 +10,7 @@ import { loc } from "../loc.js";
 import ModeFields, { useCustomArenas, withEqualLevel } from "../battle/rt/ModeFields.jsx";
 import TeamBenchmark from "../components/TeamBenchmark.jsx";
 import LiveRoom from "./LiveRoom.jsx";
+import { MusicSelect } from "../battle/SoundControl.jsx";
 
 function SeatEditor({ label, seat, onChange, allowHuman = true }) {
   const { t, changed, version } = useApp();
@@ -53,7 +54,7 @@ function SeatEditor({ label, seat, onChange, allowHuman = true }) {
 }
 
 function SingleBattle() {
-  const { t, go, changed, settings } = useApp();
+  const { t, lang, go, changed, settings } = useApp();
   const [p1, setP1] = useStored("silver-seat-1", { trainer_id: "", human: true });
   const [p2, setP2] = useStored("silver-seat-2", { trainer_id: "", human: false });
   const [format, setFormat] = useState("");
@@ -91,6 +92,7 @@ function SingleBattle() {
           </div>
         </div>
         <ModeFields t={t} mode={mode} onMode={setMode} timeLimit={timeLimit} onTimeLimit={setTimeLimit} level={equal} onLevel={setEqual} arena={arena} onArena={setArena} />
+        <MusicSelect lang={lang} />
         <button type="button" className="btn-link" onClick={() => setMore((m) => !m)}>{more ? t("less_rules") : t("more_rules")}</button>
         {more && <RulesFields rules={rules} levelRules={levelRules} onRules={setRules} onLevelRules={setLevelRules} />}
         <div className="flex flex-wrap gap-2">
