@@ -158,3 +158,5 @@ Video jobs report the duration of the finished MP4 or WebM, rounded to tenths of
 When editing a team, each Pokémon has its own **Smogon sets** button. Pick a published variant and **Apply set** to fill only that member's moves, item, ability, nature, EVs, IVs and Tera type, then save the team. The other members keep their sets. **Sample team** remains a separate action that replaces the roster.
 
 Ice Beam and ice projectiles such as Ice Shard and Icicle Spear use original animated ice artwork in real-time battles, videos and playable pages. Plain effects and image-loading fallbacks remain available. The original PNG, exact lossless WebP, prompt and rebuild instructions are included in [ice artwork provenance](client/src/battle/rt/art/ice/PROVENANCE.md).
+
+The real-time VS presentation waits for an available trainer picture, portrait or battle sprite, for up to 1.5 seconds. Slow image downloads can still leave early frames empty; see [picture loading](docs/RT_INTRO.md).
