@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+El historial incluye frecuencias de movimientos, especies participantes y especies de apertura, con filtros de tipo, modo y entrenador. Las tablas indican la cobertura y omiten identidades ambiguas; leen los registros guardados sin simular combates. La misma herramienta `replay_statistics` está disponible por UI, REST y MCP. Véase [estadísticas de repeticiones](docs/REPLAY_STATISTICS.md).
+
 Los sprites aportados aparecen en la navegación, concursos, bases secretas y proyectiles del estilo pixel: 447 entradas, con los 138 objetos de cuarta generación y 207 fotogramas de ataques, con sus créditos. Hay 117 accesorios y 276 objetos para bases, con búsqueda; los muebles grandes reservan todas sus casillas y se conservan al compartir JSON. `leisure_catalog` permite recorrerlos por sección, búsqueda y página desde API/MCP. [Cobertura y límites](docs/SUPPLIED_SPRITES.md), incluidas las hojas todavía sin utilizar.
 
 Los tipos de sonido de los movimientos se cargan como datos JSON generados; el HTML jugable incorpora la misma tabla. Se conservan las 935 correspondencias y el respaldo existente si los datos no pueden cargarse.

@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+History includes read-only replay frequencies for move uses, participating species and opening species, filtered by kind, mode and trainer. Tables show record coverage and omit ambiguous identities; they read saved logs without simulating battles. The same `replay_statistics` tool is available through UI, REST and MCP. See [replay frequencies](docs/REPLAY_STATISTICS.md).
+
 Supplied sprites now appear throughout navigation, contests, secret bases and pixel projectile effects: 447 sprite entries, including 138 Generation IV goods and 207 animated attack frames, with source credits. Search 117 contest accessories and 276 base objects; large furniture reserves every occupied tile and survives normal JSON sharing. `leisure_catalog` supports section/query/offset/limit for complete API/MCP browsing. See [supplied sprites](docs/SUPPLIED_SPRITES.md) for coverage, reproduction and remaining unused sheets.
 
 Move sound types load from generated JSON data; playable exports embed the same table. The 935 move mappings and the existing fallback when data cannot load are preserved.
