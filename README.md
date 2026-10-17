@@ -2,6 +2,8 @@
 
 Finished real-time replays and recorded clips apply a saved forfeit at its exact simulation tick. Seeking and restarting use the same reader. `battle_get` exposes the forfeiting side from the verified result, including older records with a saved forfeit reason and winner, without rewriting their data.
 
+Use **Edit name** beside a trainer's name to open and focus its editable Name field in Details and AI, then Save. Renaming keeps the same trainer, team and picture; REST/MCP use the existing `trainer_update` name field.
+
 Create a trainer with just a name and choose Pokémon later in the visual team builder. Pasting a team or filling a random team at creation remains optional. Empty trainers are saved normally; they need a team before battling. The same flow is available through `trainer_create` and `trainer_update` in REST/MCP.
 
 Real-time mechanical fog now draws the existing mist on any court while the simulator's public `fog` flag is active. Pyre retains its decorative mist without a duplicate layer; combat rules and arena settings are unchanged.
