@@ -389,7 +389,22 @@ class Services:
             variant = next((v for v in (character or {}).get("variants", []) if v["id"] == parts[2]), None)
             if variant and variant.get("pool"):
                 pool = [{k: value for k, value in s.items() if k != "level_range"} for s in variant["sets"]]
-                return pool + [s for s in trainer["team"] if s not in pool]
+                # Catalog sets omit defaults that saving a team fills in. Compare
+                # both through the same normalizer, without inventing edited slots.
+                normalized = self._team_from(pool + trainer["team"])
+                candidates = normalized[:len(pool)]
+                used: set[int] = set()
+                for member, clean in zip(trainer["team"], normalized[len(pool):]):
+                    index = next((i for i, candidate in enumerate(candidates) if i not in used and candidate == clean), None)
+                    if index is None:
+                        index = len(pool)
+                        pool.append(member)
+                        candidates.append(clean)
+                    else:
+                        # Keep exact stored sets so selected indices survive reads.
+                        pool[index] = member
+                    used.add(index)
+                return pool
         return trainer["team"]
 
     @staticmethod
