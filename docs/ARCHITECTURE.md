@@ -1,5 +1,7 @@
 # Silver's Hoard — architecture
 
+The trainer header exposes **Edit name** in both UI languages. It opens the existing Details and AI tab and focuses its Name input, including when that tab was already open. Saving continues through `trainer_update`; no separate rename handler, schema or data migration is needed.
+
 Trainer creation requires only a name in the client, matching the existing `trainer_create` service. Optional pasted text is trimmed before dispatch; a new empty trainer opens the existing TeamBuilder via `builder=1`, independently of the last remembered trainer tab. Empty trainers also default to that visual editor when their Team tab opens. Cancelling shows an explicit empty-team message instead of waiting for a nonexistent summary. Existing team import, random fill and text editing remain available. REST/MCP tool descriptions document the optional team; persistence and battle eligibility rules are unchanged.
 
 `ArenaRenderer.drawCourt` forwards the existing public `view.fog` boolean to `drawAmbient`. Its existing procedural fog draws once when either the current floor requests it or mechanical fog is active; other floor ambience remains independent. The cached floor and simulator state are untouched, so clearing/suppressing fog follows the next public view without changing rules, replay inputs or the arena schema. Existing `battle_get`/Frontier handlers continue to supply the saved RT specification.
