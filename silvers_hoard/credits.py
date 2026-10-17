@@ -28,6 +28,15 @@ TAG = re.compile(r"<[^>]+>")
 
 # what the app shows or plays and where it comes from (the README's credits, as data for the credits page and the tool)
 SOURCES: list[dict[str, str]] = [
+    {"id": "crowd-frlg", "what": "Overworld trainer audience: FRLG Accurate NPC Megapack", "what_es": "Público de entrenadores overworld: FRLG Accurate NPC Megapack",
+     "by": "SoulfulLex (compilation); Avatar, Aveontrainer, Daman, Kalarie, MrDollSteak, Pokésho, Spherical Ice, Delta231, Mimi, M.vit, Kimoras, Poffin_Case, Mr. Gela, Marnic, Reign, KisiroKitsune, Othienka and the original artists listed in art/crowd/CREDITS.txt",
+     "by_es": "SoulfulLex (recopilación); Avatar, Aveontrainer, Daman, Kalarie, MrDollSteak, Pokésho, Spherical Ice, Delta231, Mimi, M.vit, Kimoras, Poffin_Case, Mr. Gela, Marnic, Reign, KisiroKitsune, Othienka y los autores originales de art/crowd/CREDITS.txt",
+     "licence": "Fan resources; original credits retained. Pokémon © Nintendo, Creatures, GAME FREAK",
+     "licence_es": "Recursos de aficionados; créditos originales conservados. Pokémon © Nintendo, Creatures, GAME FREAK", "url": ""},
+    {"id": "crowd-taiga", "what": "Overworld trainer audience: Taiga's Trainer Sprites", "what_es": "Público de entrenadores overworld: Taiga's Trainer Sprites",
+     "by": "Taiga / 0rdinarystrawberry; some assets by DiegoWT", "by_es": "Taiga / 0rdinarystrawberry; algunos recursos de DiegoWT",
+     "licence": "Fan resources; original credits retained. Pokémon © Nintendo, Creatures, GAME FREAK",
+     "licence_es": "Recursos de aficionados; créditos originales conservados. Pokémon © Nintendo, Creatures, GAME FREAK", "url": ""},
     {"id": "showdown", "what": "Battle engine", "what_es": "Motor de combate", "by": "Pokémon Showdown (Guangcong Luo and contributors), through the @pkmn packages", "by_es": "Pokémon Showdown (Guangcong Luo y colaboradores), a través de los paquetes @pkmn",
      "licence": "MIT", "url": "https://github.com/smogon/pokemon-showdown"},
     {"id": "showdown-champions", "what": "Pokémon Champions rules and formats", "what_es": "Reglas y formatos de Pokémon Champions",
