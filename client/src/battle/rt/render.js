@@ -14,7 +14,6 @@ import { playRtEvent } from "../sfx.js";
 import { rtMove } from "../../../../engine/src/realtime/moves.mjs";
 import { motionFor, poseFor, tossLift } from "./visuals/choreography.js";
 import { FLOOR_TEXTURES, floorVariant, drawWaterTextures } from "./visuals/textures.js";
-import { drawSuppliedProjectiles, queueSuppliedImpact, clearSuppliedImpacts } from "./supplied-fx.js";
 import { queueMoveCard, drawMoveCard, clearMoveCards } from "../move-cards.js";
 
 const ARENA = { w: 28, h: 17 };
@@ -146,7 +145,6 @@ export class ArenaRenderer {
 
   resetReplay(battle) {
     clearMoveCards(this);
-    clearSuppliedImpacts(this);
     this.eventIndex = 0;
     this.time = 0;
     this.floats = [];
@@ -400,7 +398,6 @@ export class ArenaRenderer {
       case "dummy_reset": float(s, T.dummyReset || "♥", "#7ee08f", { size: 0.95, dy: -0.6 }); break;
       case "follow": float(s, T.follow || "!", "#ff9f43", { size: 0.85, dy: -0.6 }); break;
       case "hit": {
-        if (particleStyle() === "pixel") { const p=this.posOf(battle,s,u); queueSuppliedImpact(this,p.x,p.y,this.time,e.move); }
         this.flash[key] = 1;
         if (e.move === "seismictoss" && (e.hit === 0 || e.hit === undefined)) {
           this.tosses[key] = {at: this.time, slot: this.unitOf(battle, s, u).active};
@@ -573,7 +570,6 @@ export class ArenaRenderer {
     // projectiles, rays, melee marks, particles
     this.vfx.drawOver(ctx, view, battle);
     if (particleStyle() !== "plain") drawWaterTextures(ctx, this, view, !!this.reducedMotion?.matches);
-    if (particleStyle() === "pixel") drawSuppliedProjectiles(ctx, this, view, !!this.reducedMotion?.matches);
     this.drawEffects(dt, false);
     this.show.drawWorld(ctx);
     // floating texts
