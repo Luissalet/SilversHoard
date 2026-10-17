@@ -34,7 +34,7 @@ from .credits import Credits
 from .arenas import CUSTOM as ARENA_CUSTOM, Arenas, same as arenas_same
 from .benchmarks import Benchmarks
 from .cups import Cups
-from . import gymmap
+from . import expert_combinations, gymmap
 from .fxcache import FxCache
 from .rebornfx import RebornCache
 from .neural import NeuralAI
@@ -1555,6 +1555,7 @@ class Services:
                 pass
         if (b.get("run_id") or "").startswith("cup_"):
             out["cup"] = self.cups.battle_link(b["run_id"])
+        out.update(self._combination_view(self.store.battle(id_)))
         return out
 
     def battle_choose(self, id_: str, side: str, choice: str, since: int = 0, remote: bool = False) -> dict[str, Any]:
@@ -1629,6 +1630,7 @@ class Services:
                 pass
         if (b.get("run_id") or "").startswith("cup_"):
             out["cup"] = self.cups.battle_link(b["run_id"])
+        out.update(self._combination_view(b))
         return out
 
     def _finish(self, id_: str) -> None:
@@ -1700,6 +1702,11 @@ class Services:
 
     # ------------------------------------------------------------ why the AI chose (notes kept with the battle)
     MAX_NOTES = 800
+
+    def _combination_view(self, battle: dict[str, Any]) -> dict[str, Any]:
+        enabled = bool(self.settings.get("expert_combinations"))
+        return {"expert_combinations_enabled": enabled,
+                "expert_combinations": expert_combinations.derive(battle) if enabled else []}
 
     def _keep_notes(self, id_: str, notes: Optional[list[dict[str, Any]]]) -> None:
         if not notes:
@@ -1835,6 +1842,16 @@ class Services:
             picked = notes[-max(1, min(int(limit or 6), self.MAX_NOTES)):]
         out: dict[str, Any] = {"battle_id": id_, "status": b["status"], "turns": b.get("turns") or 0, "total": len(notes), "notes": picked,
                                "text": [self._note_text(n, b) for n in picked]}
+        pair_view = self._combination_view(b)
+        selected = {(n.get("turn"), n.get("side")) for n in picked if n.get("kind") == "turn" and not n.get("partner")}
+        pairs = [pair for pair in pair_view["expert_combinations"] if (pair["turn"], pair["side"]) in selected]
+        out.update(combinations=pairs, combinations_enabled=pair_view["expert_combinations_enabled"])
+        for index, note in enumerate(picked):
+            if note.get("partner") or note.get("kind") != "turn":
+                continue
+            pair = next((p for p in pairs if p["turn"] == note.get("turn") and p["side"] == note.get("side")), None)
+            if pair:
+                out["text"][index] += " Recorded expert pair: " + " + ".join(f"{a['actor']}: {a['move']}" for a in pair["actions"]) + "."
         if advice and b["status"] == "live":
             sides = [side] if side else [s for s in ("p1", "p2") if (b.get(s) or {}).get("human")]
             found = {}

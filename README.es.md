@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+Los combates de dobles de la IA experta pueden señalar los dos movimientos que ejecutaron sus dos puestos, una vez resuelto el turno. Las mismas parejas aparecen en el registro y en `battle_explain`, con un ajuste guardado para ocultarlas. Las repeticiones no adelantan la etiqueta a su límite público. Véanse [las parejas ejecutadas](docs/EXPERT_COMBINATIONS.md).
+
 Las repeticiones terminadas permiten exportar un periódico del combate imprimible en castellano o inglés, con el resultado guardado, tabla de daño, MVP compartido en caso de empate y registro original. Usa las cifras del motor con unidades y avisos sobre datos ausentes; no necesita simular ni generar imágenes. Véase [periódico del combate](docs/BATTLE_JOURNAL.md).
 
 El Historial busca en todas las repeticiones guardadas por especie, movimiento usado, entrenador, formato y resultado, con enlaces en pausa al turno o momento de tiempo real coincidente. Los filtros siguen al mismo actor registrado, muestran la cobertura de los datos y conservan los originales. Véase [búsqueda de repeticiones](docs/BATTLE_SEARCH.md).

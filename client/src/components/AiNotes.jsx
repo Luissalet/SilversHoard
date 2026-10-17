@@ -7,6 +7,8 @@ import { api } from "../api.js";
 import { useApp } from "../context.js";
 import { Busy, Icon, ICONS, useBusy, useStored } from "./ui.jsx";
 import { L, nameOf } from "../battle/dex.js";
+import { battleT } from "../battle/strings.js";
+import { combinationValues } from "../battle/expert-combinations.js";
 
 const S = {
   title: ["Por qué", "Why"],
@@ -80,7 +82,7 @@ function useTexts(lang) {
   }, [lang]);
 }
 
-function Note({ note, names, lang, advice }) {
+function Note({ note, names, lang, advice, pair }) {
   const { s, mon, option, effect, label } = useTexts(lang);
   if (note.kind === "switch_in") {
     return <div className="ai-note">{(note.slots || []).map((sl) => <p key={sl.slot}>{s("sends", { who: names[note.side] || note.side, mon: mon(sl.mon) })}</p>)}</div>;
@@ -93,6 +95,7 @@ function Note({ note, names, lang, advice }) {
         {!advice && <span className="chip">{s("level", { level: L(LEVELS[note.level] || [note.level, note.level], lang), style: L(STYLES[note.style] || [note.style, note.style], lang) })}</span>}
         {!advice && note.hidden && <span className="chip">{s("hidden")}</span>}
       </div>
+      {pair && !advice && <p><strong>{battleT(lang)("expert_pair", combinationValues(pair, names, (move) => nameOf("moves", move, lang)))}</strong></p>}
       {(note.slots || []).map((sl) => {
         const p = sl.picked || {};
         const what = [option(p), effect(p)].filter(Boolean).join(" ");
@@ -143,7 +146,7 @@ function Note({ note, names, lang, advice }) {
   );
 }
 
-export default function AiNotes({ battle, turn, live, requestSide }) {
+export default function AiNotes({ battle, turn, live, requestSide, combinations = [] }) {
   const { lang, toastError } = useApp();
   const { s } = useTexts(lang);
   const [open, setOpen] = useStored("silver-ai-notes", false);
@@ -206,7 +209,8 @@ export default function AiNotes({ battle, turn, live, requestSide }) {
         <div className="space-y-2 mt-2">
           {advice && (advice.none ? <p className="help">{s("advice_none")}</p> : <Note note={advice} names={names} lang={lang} advice />)}
           {!count ? <p className="help">{s("none_battle")}</p>
-            : forTurn.length ? forTurn.map((n) => <Note key={keyOf(n)} note={n} names={names} lang={lang} />)
+            : forTurn.length ? forTurn.map((n) => <Note key={keyOf(n)} note={n} names={names} lang={lang}
+                pair={!n.partner && combinations.find((pair) => pair.turn === n.turn && pair.side === n.side)} />)
               : <p className="help">{s("none")}</p>}
         </div>
       )}
