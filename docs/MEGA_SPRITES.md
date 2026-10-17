@@ -7,7 +7,8 @@ a Mega form use the same rule. Normal Pokémon retain their walking animations.
 Battle sprites still use the selected source, with Showdown's gen 5 sprites as the first fallback. If a Mega has no picture
 there, the shared sprite service tries the corresponding Legends: Z-A model from PokeAPI before falling back to the base
 species. Front/back and shiny requests retain their variants, and cached files remain usable with downloads disabled. This
-also serves exports through the existing sprite pipeline. No new tool is needed: UI, REST and MCP use the same battle handlers.
+also serves the app's arena. Exported pages carry the 40 public PokeAPI Mega form IDs so their direct image fallback can use
+Z-A's models without an app or a name lookup. No new tool is needed: UI, REST and MCP use the same battle handlers.
 
 On 17 October 2026, HTTP checks of the engine's 40 generation 9 Mega forms found 46 of 80 front/back PNGs on Showdown and all
 80 front/back WebPs in PokeAPI's Z-A collection. This is source availability, not a claim of 40 complete PMD animation sets.

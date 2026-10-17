@@ -63,9 +63,9 @@ export class ArenaRenderer {
     this.credits = new Set();    // the walking sprites' artists (SpriteCollab), for the credit line under the arena
     this.megaAnims = sides.map((s) => s.mons.map(() => null));
     const look = (m) => m.base_look || m;
-    this.fallbacks = sides.map((s) => s.mons.map((m) => image(sprites.fallback(look(m).species, { spriteid: look(m).sprite_id }))));
+    this.fallbacks = sides.map((s) => s.mons.map((m) => image(sprites.fallback(look(m).species, { spriteid: look(m).sprite_id, shiny: m.shiny }))));
     // Mega formes: their own sprites, or the base ones when there are none
-    this.megaFallbacks = sides.map((s) => s.mons.map((m) => (m.mega_info ? image(sprites.fallback(m.mega_info.species, { spriteid: m.mega_info.sprite_id })) : null)));
+    this.megaFallbacks = sides.map((s) => s.mons.map((m) => (m.mega_info ? image(sprites.fallback(m.mega_info.species, { spriteid: m.mega_info.sprite_id, shiny: m.shiny })) : null)));
     this.trainers = sides.map((s) => (s.avatarUrl ? image(s.avatarUrl) : null));
     this.floats = [];
     this.effects = [];
