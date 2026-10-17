@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+Choose **Music track** on the Battle setup screen or open **Sound → Music track** during a classic or real-time battle to select any of the 48 existing tracks, keep automatic battle music or choose no music. Changes apply during playback and are remembered in this browser with the volume mixer. Effects and Pokémon cries remain independent. The selector stays usable outside the field on small screens; standalone offline pages still have effects only, and video recordings use their own browser's mixer preferences.
+
 Use **Edit name** beside a trainer's name to open and focus its editable Name field in Details and AI, then Save. Renaming keeps the same trainer, team and picture; REST/MCP use the existing `trainer_update` name field.
 
 Create a trainer with just a name and choose Pokémon later in the visual team builder. Pasting a team or filling a random team at creation remains optional. Empty trainers are saved normally; they need a team before battling. The same flow is available through `trainer_create` and `trainer_update` in REST/MCP.
