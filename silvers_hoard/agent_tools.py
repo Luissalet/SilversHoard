@@ -33,6 +33,7 @@ Levels: level_rules {level: 50} (or 100) on battle_start, series_start, tourname
 Real time: battle_start, challenge_start, series_start, tournament_start and benchmark_start take mode=realtime for battles after Pokémon Legends: Z-A (the same trainers and teams on a 2D arena, no turns: every move has a cooldown in seconds instead of PP, a wind-up and a range; attacks can be dodged; one-stage stat changes that wear off; three switches that come back after each KO; a Mega Power gauge for Mega Evolution (no Plus moves since rules version 4); lock-on held or free aim; doubles formats field two Pokémon per trainer, a person moving one while the AI drives its partner, with spread moves, Helping Hand and Follow Me) and rt_arena=rocks (default: 3-6 rocks that block walking and projectiles) or open. A person plays it on the app's screen; two AI seats play it in the background. rt_cooldowns shows how a team's moves translate (Z-A's own cooldowns, or derived from PP and power); rt_rules explains the rules. battle_get of a real-time battle returns English event lines and the spec + inputs that replay it exactly.
 Sharing: export (fmt file = .hoardtrainer/.hoardgym/.hoardleague, code = a share code for a chat, page = one HTML file a friend opens in a browser to fight the gym or trainer, turn by turn or in real time as friend_mode says, weekly=true for this week's challenge with the same luck for everyone, paste = Showdown text). import takes any of those back, plus the result codes friends send after playing a page (every battle in it is replayed and checked first, then the badge and the leaderboard entry are recorded; a code counts once). leaderboard ranks friends per gym or trainer and per week.
 progress_get shows a trainer's record, streaks, MVPs, achievements and Pokédex (progress_list ranks them).
+palmares_get returns one palmarés card for Medallas: gym badges, Pokéathlon medals, Frontier Brain emblems and Progress achievements (trainer_id empty = Pokéathlon guest; guest medals never merge into a trainer).
 sets_popular gives Smogon's sets and the ladder usage of a species (for the team builder); team_popular_sets gives a trainer a whole team of named Pokémon with their popular sets in one call (names such as Mega Delphox or Shaymin Forma Cielo work); usage_top and sample_team rank the format's Pokémon and build a team from them.
 Mass battles: mass_start runs one (up to 1100 Pokémon, each with its AI); a person can play one of its Pokémon on its page and mass_play records a run from an input log; mass_export makes a page a friend watches or plays (their SILVERMASS1- code goes to import); mass_video records a battle or a run as a clip.
 damage_calc measures one Pokémon's moves against another (rolls, crits, KOs) with the game's own formula.
@@ -752,6 +753,14 @@ class ProgressArgs(BaseModel):
     trainer_id: str = IdField
 
 
+class PalmaresArgs(BaseModel):
+    trainer_id: str = Field(
+        "",
+        max_length=80,
+        description="Whose palmarés ('' = the Pokéathlon guest of this app; a trainer id never merges guest medals).",
+    )
+
+
 class FacilitiesArgs(BaseModel):
     trainer_id: str = Field("", max_length=80, description="Records and open streak of this trainer (empty = everybody's).")
 
@@ -1457,6 +1466,12 @@ TOOLS: list[Tool] = [
                             synonyms="estadísticas, logros, récords, pokédex, mvp, racha"), ProgressArgs, R, lambda s, a: s.progress_get(a.trainer_id)),
     Tool("progress_list", _d("Every own trainer ranked by wins, with best streak, facility record and achievements. Clasificación.",
                              synonyms="ranking, clasificación, mejores entrenadores"), Empty, R, lambda s, a: s.progress_list()),
+    Tool("palmares_get", _d("Unified palmarés: gym badges, Pokéathlon medals, Frontier Brain emblems and Progress achievements. Palmarés.",
+                            "Empty trainer_id = the Pokéathlon guest (guest medals only; emblems from every facility run; no Progress). "
+                            "A trainer id never merges guest medals; Frontier emblems are filtered by challenger before dedup so two trainers "
+                            "who beat the same Brain both keep theirs. Gym badges for a trainer are that person's; for the guest, every badge case.",
+                            synonyms="palmarés, medallas pokeathlon, emblemas frontera, logros, estuche"),
+         PalmaresArgs, R, lambda s, a: s.palmares_get(a.trainer_id)),
     Tool("challenges_list", _d("Gym and league challenges and facility streaks with their stages and results. Retos.", synonyms="progreso, retos activos"),
          ChallengesArgs, R, lambda s, a: {"challenges": s.runs_list(a.status, a.kind)}),
     Tool("badges_list", _d("Badges earned (here or by friends through result codes). Medallas.", synonyms="medallas, estuche"),
