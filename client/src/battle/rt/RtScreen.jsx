@@ -12,6 +12,7 @@ import {realtimeAbility} from "../../../../engine/src/ability-events.mjs";
 import { appCryUrl } from "../sfx.js";
 import { battleEnd, battleRole, battleType, genOfFormat, music, pickTrack } from "../../audio.js";
 import { CONTROL_LAYOUTS, makeInputs } from "./input.js";
+import { createReplay, stepReplay } from "./replay.js";
 import { rtT } from "./strings.js";
 import { NetLink, battleHash, packFrame, unpackFrame } from "./netplay.js";
 import { worldInput } from "./portrait-camera.js";
@@ -334,7 +335,7 @@ function hasPad() {
 }
 
 /**
- * battle: the app's battle (battle_get) with `rt` {spec, inputs, tick, human}. onFinish(inputs, tick, forfeitSide) -> Promise of
+ * battle: the app's battle (battle_get) with `rt` {spec, inputs, tick, forfeit, human}. onFinish(inputs, tick, forfeitSide) -> Promise of
  * the stored battle. seats: {p1, p2} with avatarUrl. base: prefix of the app's routes ("" in the app).
  * offline: the friends' playable page, with no app behind it: no walking sprites, cries or music are asked for. onContinue /
  * continueLabel: a button on the end card that takes the page on (the next battle, the result code).
@@ -469,12 +470,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
         b.inputLog = recorded.slice();
       }
     } else {
-      const byTick = new Map();
-      for (const row of recorded) { if (!byTick.has(row[0])) byTick.set(row[0], []); byTick.get(row[0]).push(row); }
-      state.replay = { byTick, held: [null, null] };
-      if (untilTick) {
-        while (!b.ended && b.t < untilTick) b.step(inputFrame(b, byTick.get(b.t + 1) || [], state.replay.held));
-      }
+      state.replay = createReplay(b, battle.rt, untilTick);
     }
     state.inputs.forEach((inp, i) => {
       if (!inp) return;
@@ -668,7 +664,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
             st.inputs.forEach((inp, i) => { if (inp?.plusArmed && !st.b.plusReady(st.b.sides[i])) inp.setPlus(false); });
             if (st.b.doubles) st.inputs.forEach((inp, i) => { if (inp) inp.effCtl = st.b.leadOf(st.b.sides[i]).pos; });
           } else {
-            st.b.step(inputFrame(st.b, st.replay.byTick.get(st.b.t + 1) || [], st.replay.held));
+            stepReplay(st.b, st.replay);
           }
         }
         if (st.stalledSince && !st.stallShown && now - st.stalledSince > 600) { st.stallShown = true; setNetState((x) => ({ ...x, stalled: true })); }
