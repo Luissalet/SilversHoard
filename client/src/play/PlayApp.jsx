@@ -39,7 +39,10 @@ export function TeamIcons({ sets, sprites }) {
 }
 
 export default function PlayApp({ data }) {
-  const [lang, setLang] = useState(() => (typeof navigator !== "undefined" && !String(navigator.language || "es").startsWith("es") ? "en" : "es"));
+  const [lang, setLang] = useState(() => {
+    const wanted = typeof location !== "undefined" ? new URLSearchParams(location.search).get("lang") : "";
+    return ["es", "en"].includes(wanted) ? wanted : typeof navigator !== "undefined" && !String(navigator.language || "es").startsWith("es") ? "en" : "es";
+  });
   const t = playT(lang);
   useEffect(() => { document.documentElement.lang = lang; }, [lang]);
   // a mass battle sent to watch or play one of its Pokémon (MassPlay.jsx)
@@ -73,6 +76,8 @@ function Challenge({ data, lang, setLang, t }) {
   const [copied, setCopied] = useState(false);
   const [includeTeamText, setIncludeTeamText] = useState(false);
   const resultDate = useRef("");
+  const reported = useRef(false);
+  const [rentalPicks, setRentalPicks] = useState([]);
   // how the friend may fight: the owner chose when exporting (turns, real time, or "choose": the friend picks for each battle)
   const rtInfo = data.rt && typeof data.rt === "object" ? data.rt : null;
   const allowed = !rtInfo || data.mode === "turns" ? "turns" : data.mode === "realtime" ? "realtime" : "choose";
@@ -85,6 +90,8 @@ function Challenge({ data, lang, setLang, t }) {
   const owner = data.from || data.payload.owner || target.owner || "";
   // the week's challenge: every battle with the week's seed and AI luck (battle i: seed-i), the same for everyone who plays it
   const weekly = data.weekly && typeof data.weekly === "object" && data.weekly.seed ? data.weekly : null;
+  const daily = data.daily?.version === 1 && Array.isArray(data.daily.rentals) ? data.daily : null;
+  const sharedSeed = daily?.seed || weekly?.seed || "";
   // the rule friends voted for this week (a Pokémon the team must include, or a team-building rule): checked here and by the app
   const weekRule = weekly?.rule && typeof weekly.rule === "object" ? weekly.rule : null;
   const ruleFid = useMemo(() => { try { return weekRule?.kind === "rule" ? buildFormatId(format, [...rules, weekRule.value]) : fid; } catch { return fid; } }, [weekRule, format, rules, fid]);
@@ -126,7 +133,8 @@ function Challenge({ data, lang, setLang, t }) {
   };
 
   const start = () => {
-    if (!sets || !name.trim()) return;
+    if (!sets || !name.trim() || (daily && rentalPicks.length !== 3)) return;
+    reported.current = false;
     try { localStorage.setItem("silver-play-name", name.trim()); } catch { /* not critical */ }
     setResults([]);
     setIncludeTeamText(false);
@@ -171,7 +179,7 @@ function Challenge({ data, lang, setLang, t }) {
     const won = results.length === stages.length && results.every((r) => r.won);
     const withRt = results.some((r) => r.rt);
     const base = {
-      kind, gym_id: kind === "gym" ? target.source_id : "", gym_name: kind === "gym" ? target.name : "", trainer_id: kind === "trainer" ? target.source_id : "",
+      kind: daily ? "daily" : kind, gym_id: kind === "gym" ? target.source_id : "", gym_name: kind === "gym" ? target.name : "", trainer_id: kind === "trainer" ? target.source_id : "",
       trainer_name: kind === "trainer" ? target.name : "", challenger: name.trim(), won, turns: results.reduce((a, r) => a + r.turns, 0),
       date: resultDate.current, team: sets,
       ...(includeTeamText && sets ? { team_paste: exportTeam(sets) } : {}),
@@ -181,6 +189,7 @@ function Challenge({ data, lang, setLang, t }) {
       ai_version: data.ai_version || "",
       ...(walkMap ? { order: stages.map((x) => x.source_id) } : {}),
       ...(weekly ? { weekly: weekly.week } : {}),
+      ...(daily ? { daily: { version: daily.version, day: daily.day, key: daily.key } } : {}),
       ...(withRt ? { v: 2 } : results.some((r) => r.input) ? { v: 3 } : {}),
     };
     (async () => {
@@ -190,7 +199,13 @@ function Challenge({ data, lang, setLang, t }) {
         const log = results.flatMap((r) => r.lines);
         const full = prefix + await deflateB64(JSON.stringify({ ...base, log }));
         const short = withRt && !log.length ? full : prefix + await deflateB64(JSON.stringify(base));
-        if (!cancelled) setCode({ short, full });
+        if (!cancelled) {
+          setCode({ short, full });
+          if (daily && !reported.current && window.parent !== window) {
+            reported.current = true;
+            window.parent.postMessage({ type: "silver-daily-result", code: short }, location.origin);
+          }
+        }
       } catch {
         if (!cancelled) setCode({ short: "", full: "" });
       }
@@ -201,9 +216,9 @@ function Challenge({ data, lang, setLang, t }) {
   const header = (
     <header className="p-head">
       <div className="p-target">
-        {kind === "gym" ? <Badge image={target.badge_image} color={target.badge_color || TYPE_COLORS[target.type] || "#c0c0c0"} size={56} /> : null}
+        {kind === "gym" && !daily ? <Badge image={target.badge_image} color={target.badge_color || TYPE_COLORS[target.type] || "#c0c0c0"} size={56} /> : null}
         <div className="min-w-0">
-          <h1>{target.name}</h1>
+          <h1>{daily ? t("daily_title", { day: daily.day }) : target.name}</h1>
           <div className="help">{[kind === "gym" ? target.city : target.title, kind === "gym" ? target.badge : "", owner ? t("from", { name: owner }) : ""].filter(Boolean).join(" · ")}</div>
         </div>
       </div>
@@ -220,7 +235,7 @@ function Challenge({ data, lang, setLang, t }) {
         {stageMode === "realtime" && rtInfo
           ? <RtBattleView key={stage} t={t} lang={lang} sprites={sprites} me={{ name: name.trim(), sets }} opp={opp} rtInfo={rtInfo} levelRules={levelRules} onEnd={onBattleEnd} />
           : <BattleView key={stage} t={t} lang={lang} sprites={sprites} me={{ name: name.trim(), sets }} opp={opp} fid={fid} levelRules={levelRules} onEnd={onBattleEnd}
-            seed={weekly ? `${weekly.seed}-${stage}` : ""} backdrop={kind === "gym" ? target.backdrop || "" : ""} />}
+            seed={sharedSeed ? `${sharedSeed}-${stage}` : ""} backdrop={kind === "gym" ? target.backdrop || "" : ""} />}
       </div>
     );
   }
@@ -274,8 +289,8 @@ function Challenge({ data, lang, setLang, t }) {
       <div className="p-wrap">
         {header}
         <div className={`panel p-final ${won ? "is-won" : ""}`}>
-          {won && kind === "gym" && <div className="p-badge-win"><Badge image={target.badge_image} color={target.badge_color || TYPE_COLORS[target.type] || "#c0c0c0"} size={120} /></div>}
-          <h2>{won ? (kind === "gym" ? t("won_all", { badge: target.badge || t("badge") }) : t("won_trainer", { name: target.name })) : t("lost_to", { name: last?.opponent || target.name })}</h2>
+          {won && kind === "gym" && !daily && <div className="p-badge-win"><Badge image={target.badge_image} color={target.badge_color || TYPE_COLORS[target.type] || "#c0c0c0"} size={120} /></div>}
+          <h2>{daily ? t(won ? "daily_won" : "daily_finished", { n: results.filter(r => r.won).length }) : won ? (kind === "gym" ? t("won_all", { badge: target.badge || t("badge") }) : t("won_trainer", { name: target.name })) : t("lost_to", { name: last?.opponent || target.name })}</h2>
           {stages[results.length - 1]?.dialogue?.after && <p className="p-quote">“{stages[results.length - 1].dialogue.after}”</p>}
           <div className="space-y-2 w-full">
             <b>{t("result_code")}</b>
@@ -310,7 +325,7 @@ function Challenge({ data, lang, setLang, t }) {
           <div className="p-leader">
             <img src={avatarSrc(sprites, leader.avatar)} alt="" className="p-avatar pixelated" onError={(e) => { e.currentTarget.style.display = "none"; }} />
             <div className="min-w-0">
-              <span className="help">{kind === "gym" ? t("leader") : t("trainer_intro")}</span>
+              <span className="help">{daily ? t("daily_rivals") : kind === "gym" ? t("leader") : t("trainer_intro")}</span>
               <h2>{leader.name}</h2>
               {leader.title && <div className="help">{leader.title}</div>}
             </div>
@@ -329,23 +344,42 @@ function Challenge({ data, lang, setLang, t }) {
           </div>
           {weekly && <p className="help">{t("weekly_help")}</p>}
           {allowed !== "choose" && rtInfo && <p className="help">{t(allowed === "realtime" ? "mode_realtime_only" : "mode_turns_only")}</p>}
-          {kind === "gym" && <p className="help">{stages.length > 1 ? t("then_leader", { n: stages.length - 1 }) : t("only_leader")}</p>}
+          {daily ? <p className="help">{t("daily_help")}</p> : kind === "gym" && <p className="help">{stages.length > 1 ? t("then_leader", { n: stages.length - 1 }) : t("only_leader")}</p>}
           {target.description && <p className="help">{target.description}</p>}
         </section>
         <section className="panel space-y-3">
           <label className="block"><span className="label">{t("your_name")}</span><input className="field" value={name} onChange={(e) => setName(e.target.value)} maxLength={40} /></label>
           <span className="label">{t("your_team")}</span>
-          <div className="seg" role="group">
+          {daily ? <>
+            <p className="help">{t("daily_pick", { n: rentalPicks.length })}</p>
+            <div className="p-rentals">
+              {daily.rentals.map((rental, i) => {
+                const selected = rentalPicks.includes(i);
+                return <button key={i} type="button" className="p-rental" aria-pressed={selected} disabled={!selected && rentalPicks.length === 3}
+                  onClick={() => {
+                    const next = selected ? rentalPicks.filter(n => n !== i) : [...rentalPicks, i];
+                    setRentalPicks(next); setProblems([]);
+                    if (next.length === 3) check(next.map(n => daily.rentals[n])); else setSets(null);
+                  }}>
+                  <TeamIcons sets={[rental]} sprites={sprites} />
+                  <strong>{rental.species}</strong>
+                  <span className="help">{rental.item || "—"}</span>
+                  <span className="help">{rental.moves.join(" · ")}</span>
+                  {selected && <span className="chip">{t("daily_slot", { n: rentalPicks.indexOf(i) + 1 })}</span>}
+                </button>;
+              })}
+            </div>
+          </> : <><div className="seg" role="group">
             {["paste", "random", "file"].map((x) => <button key={x} type="button" aria-pressed={tab === x} onClick={() => { setTab(x); if (x === "random") roll(); }}>{t(`tab_${x}`)}</button>)}
           </div>
           {tab === "paste" && <textarea className="field" rows={10} value={paste} onChange={(e) => { setPaste(e.target.value); setSets(null); }} placeholder={t("paste_ph")} />}
           {tab === "random" && <button type="button" className="btn btn-sm" onClick={roll}>{t("roll")}</button>}
-          {tab === "file" && <><input type="file" className="field" accept=".hoardtrainer,.json" onChange={(e) => loadFile(e.target.files?.[0])} /><p className="help">{t("file_help")}</p></>}
+          {tab === "file" && <><input type="file" className="field" accept=".hoardtrainer,.json" onChange={(e) => loadFile(e.target.files?.[0])} /><p className="help">{t("file_help")}</p></>}</>}
           {sets && <><TeamIcons sets={sets} sprites={sprites} /><div className="help">{t("team_ok")}</div></>}
           {allowed === "choose" && <ModePicker t={t} value={pick} onChange={setPickSaved} />}
           {problems.length > 0 && <div className="banner banner-warn"><b>{t("problems")}</b><ul className="list-disc pl-5">{problems.map((p, i) => <li key={i}>{p}</li>)}</ul></div>}
           <div className="flex flex-wrap gap-2">
-            {tab === "paste" && <button type="button" className="btn" onClick={() => check(paste)} disabled={!paste.trim()}>{t("check")}</button>}
+            {!daily && tab === "paste" && <button type="button" className="btn" onClick={() => check(paste)} disabled={!paste.trim()}>{t("check")}</button>}
             <button type="button" className="btn btn-primary" onClick={start} disabled={!sets || !name.trim()}>{t("start")}</button>
           </div>
         </section>
