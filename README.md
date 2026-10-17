@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+Battles offer horizontal and vertical presentation. Export the same saved replay as independent 16:9 and 9:16 videos (1080p vertical: 1080 × 1920), with preview and sound. Real-time portrait rotates only the camera, keeps trainers and Pokémon upright with the correct available facing, and consumes the original replay inputs unchanged. UI, REST and MCP expose the same `aspect` selection. See [frame formats](docs/VIDEO_FORMATS.md).
+
 Real-time mechanical fog now draws the existing mist on any court while the simulator's public `fog` flag is active. Pyre retains its decorative mist without a duplicate layer; combat rules and arena settings are unchanged.
 
 Share can group saved replay exercises into a themed `.silverexercise` pack, import every position in a fresh library and practise each independently. Themes are curated labels, and imports reconstruct all positions before saving them together. Individual exercise files remain compatible. UI, REST and MCP share `exercise_pack_export` and normal Import. See [exercise packs](docs/EXERCISE_PACKS.md).

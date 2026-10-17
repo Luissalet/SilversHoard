@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+Los combates ofrecen presentación horizontal y vertical. La misma repetición guardada se exporta como vídeos independientes 16:9 y 9:16 (vertical 1080p: 1080 × 1920), con vista previa y sonido. En tiempo real sólo gira la cámara: entrenadores y Pokémon siguen de pie con la orientación disponible correspondiente, y se reproducen las entradas originales sin cambiarlas. UI, REST y MCP comparten la selección `aspect`. Véanse los [formatos de encuadre](docs/VIDEO_FORMATS.md).
+
 La niebla mecánica de tiempo real muestra ahora la bruma existente en cualquier campo mientras el simulador indique `fog`. Monte Pírico conserva su niebla decorativa sin duplicarla; las reglas y los ajustes de las arenas se mantienen.
 
 Compartir agrupa ejercicios guardados de repeticiones en un paquete temático `.silverexercise`, permite importar sus posiciones en una biblioteca nueva y practicarlas por separado. Las temáticas las elige quien prepara el paquete; la importación reconstruye todas las posiciones antes de guardarlas juntas. Los archivos individuales siguen siendo compatibles. UI, REST y MCP comparten `exercise_pack_export` y la importación normal. Véanse los [paquetes de ejercicios](docs/EXERCISE_PACKS.md).
