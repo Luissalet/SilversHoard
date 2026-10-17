@@ -569,7 +569,7 @@ class BattleStartArgs(BaseModel):
     seed: Optional[str] = Field(None, max_length=60, description="Same seed and choices = same battle.")
     mode: Mode = ModeField
     time_limit: int = TimeLimitField
-    rt_arena: RtArena = RtArenaField
+    rt_arena: Union[RtArena, dict[str, Any]] = Field("rocks", description="Real time: open, rocks, custom:<id>, or a saved arena snapshot {name, floor, rocks} for a rematch.")
 
 
 class RtFinishArgs(BaseModel):

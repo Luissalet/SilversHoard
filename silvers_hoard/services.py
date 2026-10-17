@@ -1430,7 +1430,7 @@ class Services:
 
     def battle_start(self, *, p1: dict[str, Any], p2: dict[str, Any], format_: str = "", rules: Optional[list[str]] = None,
                      level_rules: Optional[dict[str, Any]] = None, kind: str = "", run_id: str = "", title: str = "", seed: Any = None,
-                     mode: str = "classic", time_limit: int = 0, rt_arena: str = "rocks", start: Optional[dict[str, Any]] = None,
+                     mode: str = "classic", time_limit: int = 0, rt_arena: str | dict[str, Any] = "rocks", start: Optional[dict[str, Any]] = None,
                      silver_special: Optional[bool] = None, lang: str = "en") -> dict[str, Any]:
         if mode == "realtime":
             return self._rt_start(p1=p1, p2=p2, format_=format_, level_rules=level_rules, kind=kind, run_id=run_id, title=title, seed=seed,
@@ -1974,10 +1974,10 @@ class Services:
                               kind="training", title="Entrenamiento", time_limit=time_limit, arena=arena, training={"pattern": pattern})
 
     def _rt_start(self, *, p1: dict[str, Any], p2: dict[str, Any], format_: str = "", level_rules: Optional[dict[str, Any]] = None,
-                  kind: str = "", run_id: str = "", title: str = "", seed: Any = None, time_limit: int = 0, arena: str = "rocks",
+                  kind: str = "", run_id: str = "", title: str = "", seed: Any = None, time_limit: int = 0, arena: str | dict[str, Any] = "rocks",
                   training: Optional[dict[str, Any]] = None, start: Optional[dict[str, Any]] = None,
                   silver_special: Optional[bool] = None) -> dict[str, Any]:
-        arena = self.arenas.spec(_rt_arena(arena))
+        arena = self.arenas.spec(arena if isinstance(arena, dict) else _rt_arena(arena))
         s1, s2 = self._seat(p1, "Jugador 1"), self._seat(p2, "Jugador 2")
         if training:
             # a training battle counts for nobody: the seats keep the names and teams but no trainer ids
