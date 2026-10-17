@@ -8,8 +8,10 @@ import TRAINING_STRINGS from "./training-strings.js";
 import PVP_STRINGS from "./pages/pvp-strings.js";
 import MASS_STRINGS from "./pages/mass-strings.js";
 import FRIENDS_STRINGS from "./pages/friends-strings.js";
+import LEISURE_STRINGS from "./pages/leisure-strings.js";
 
 const D = {
+  ...LEISURE_STRINGS,
   // shell
   nav_home: ["Inicio", "Home"],
   nav_battle: ["Combatir", "Battle"],
@@ -413,7 +415,13 @@ const D = {
   avatar_tab_photo: ["Desde una foto", "From a photo"],
   avatar_search: ["Buscar sprite (red, cynthia, brock…)", "Search sprite (red, cynthia, brock…)"],
   avatar_sprites_help: ["Sprites del servidor de Showdown: se descargan la primera vez y se guardan en este ordenador.", "Sprites from the Showdown server: downloaded the first time and kept on this computer."],
-  avatar_pixel: ["Pixel art aquí", "Pixel art here"],
+  avatar_pixel: ["Referencias de estilo", "Style references"],
+  avatar_pixel_convert: ["Convertir primera foto a sprite de 96 px", "Convert first photo to a 96 px sprite"],
+  choose_six_count: ["Equipo para combatir: {n}/6", "Battle team: {n}/6"],
+  choose_six_help: ["Desmarca un Pokémon para elegir otro. El orden de selección es el orden de salida; la reserva se conserva.", "Uncheck a Pokémon to choose another. Selection order is the lead order; the full pool is kept."],
+  style_ref_source: ["Elegir referencias de estilo", "Choose style references"],
+  style_ref_use: ["Usar referencia", "Use reference"],
+  style_ref_failed: ["No se pudo leer la imagen. Prueba a subirla desde un archivo.", "Could not read the picture. Try uploading it from a file."],
   avatar_prospero: ["Dibujar con Prospero", "Draw with Prospero"],
   avatar_upload: ["Usar tal cual", "Use as is"],
   avatar_photo_help: ["Pixel art: recorta el fondo y reduce la primera foto a un sprite de 96 px. Subir: usa la primera foto tal cual.", "Pixel art: removes the background and shrinks the first photo to a 96 px sprite. Upload: uses the first photo as it is."],
@@ -425,7 +433,7 @@ const D = {
   avatar_no_photos: ["Sin fotos: dibuja solo con la descripción", "No photos: drawn from the description only"],
   avatar_draw_help: ["Prospero's Hoard dibuja el entrenador con su motor de imagen a partir de hasta 4 fotos de la misma persona y/o la descripción (necesita Hoard Hub, Prospero y ComfyUI; tarda unos minutos). De cada resultado puedes quedarte con el sprite de 96 px o con el dibujo.", "Prospero's Hoard draws the trainer with its image engine from up to 4 photos of the same person and/or the description (needs Hoard Hub, Prospero and ComfyUI; takes a few minutes). From each result you can keep the 96 px sprite or the drawing."],
   avatar_sprite: ["Sprite", "Sprite"],
-  avatar_game_style: ["Con el estilo de los juegos (referencias de estilo de Ajustes)", "In the games' style (style references from Settings)"],
+  avatar_game_style: ["Usar referencias de estilo", "Use style references"],
   style_refs: ["Referencias de estilo", "Style references"],
   style_refs_help: ["Prospero recibe hasta {n} imágenes para copiar su estilo de dibujo (proporciones, ojos, trazo, sombreado), no su ropa ni su cara. Primero van tus imágenes (arte oficial, capturas del anime) y luego los sprites de entrenador. Las que se usan van marcadas.", "Prospero gets up to {n} pictures to copy their drawing style (proportions, eyes, lines, shading), not their clothes or face. Your pictures go first (official art, anime stills), then the trainer sprites. The ones in use are highlighted."],
   style_refs_add: ["Añadir imágenes", "Add pictures"],
@@ -492,7 +500,7 @@ const D = {
   draw_look_sprite: ["Sprite pixelado", "Pixel sprite"],
   draw_look_art_help: ["Dibujo como el arte oficial de los juegos, a buena resolución; el entrenador se queda con el dibujo (también sale un sprite de 96 px por si lo prefieres).", "A drawing like the games' official art, at a good size; the trainer keeps the drawing (a 96 px sprite comes too, in case you prefer it)."],
   draw_look_sprite_help: ["Sprite de 96 px como los de los juegos; el dibujo original también queda para elegirlo.", "A 96 px sprite like the games' ones; the original drawing stays there to pick too."],
-  avatar_game_style_art: ["Con tus referencias de estilo (arte oficial o del anime que añadas; nunca sprites pixelados)", "With your style references (official or anime art you add; never pixel sprites)"],
+  avatar_game_style_art: ["Usar las referencias de estilo que elijas", "Use your chosen style references"],
   avatar_draw_art: ["Dibujar en estilo Pokémon", "Draw in Pokémon style"],
   viewer_title: ["Imagen", "Picture"],
   viewer_open: ["Abrir o descargar", "Open or download"],

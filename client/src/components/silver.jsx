@@ -9,6 +9,7 @@ import { ImageViewer } from "./viewer.jsx";
 import { usePoll } from "./hooks.js";
 import { BadgeArt } from "./badges.jsx";
 import { loc } from "../loc.js";
+import StyleReferences from "./StyleReferences.jsx";
 
 export const AI_LEVELS = ["random", "easy", "normal", "hard", "expert", "master", "neural"];
 export const AI_STYLES = ["balanced", "aggressive", "defensive", "setup", "stall"];
@@ -499,6 +500,14 @@ export function AvatarDialog({ trainer, onClose, onSaved, initialTab = "" }) {
   const [drag, setDrag] = useState(false);
   const fileRef = useRef(null);
   const pickRef = useRef(null);
+  const [photos, setPhotos] = useState([]);
+  const [photoPreviews, setPhotoPreviews] = useState([]);
+  const [showStyle, setShowStyle] = useState(false);
+  useEffect(() => {
+    const previews = photos.map((file) => ({ url: URL.createObjectURL(file), title: file.name }));
+    setPhotoPreviews(previews);
+    return () => previews.forEach((im) => URL.revokeObjectURL(im.url));
+  }, [photos]);
   useEffect(() => {
     const h = setTimeout(() => api.call("trainer_sprites_search", { query: q, limit: 160 }).then((r) => { setNames(r.sprites); setArtists(r.artists || {}); }).catch(() => setNames([])), 200);
     return () => clearTimeout(h);
@@ -557,7 +566,7 @@ export function AvatarDialog({ trainer, onClose, onSaved, initialTab = "" }) {
   const [picked, setPicked] = useState(0);
   const [gameStyle, setGameStyle] = useState(true);
   const upload = (mode) => {
-    const file = fileRef.current?.files?.[0];
+    const file = photos[0];
     if (!file) return;
     run(mode, async () => {
       await api.uploadAvatar(file, { trainerId: trainer.id, mode, kind: "photo", cutBackground: cut });
@@ -565,7 +574,7 @@ export function AvatarDialog({ trainer, onClose, onSaved, initialTab = "" }) {
     });
   };
   const draw = () => run("prospero", async () => {
-    const files = fileRef.current?.files || [];
+    const files = photos;
     setCandidates([]);
     const r = await api.drawAvatar(files, { description, trainerId: trainer.id, style: gameStyle, look });
     if (r.id) setJobId(r.id);
@@ -627,11 +636,16 @@ export function AvatarDialog({ trainer, onClose, onSaved, initialTab = "" }) {
         {tab === "photo" && (
           <div className="space-y-3">
             <input ref={fileRef} type="file" accept="image/*" multiple className="field" aria-label={t("avatar_photos")}
-              onChange={(e) => setPicked(Math.min(4, e.target.files?.length || 0))} />
+              onChange={(e) => { const files = [...e.target.files].slice(0, 4); setPhotos(files); setPicked(files.length); }} />
+            <div className="style-refs">
+              {photoPreviews.map((im, i) => <button key={im.url} type="button" className="sprite-pick" onClick={() => setViewer({ items: photoPreviews, index: i })}><img src={im.url} alt={im.title} /><span className="trunc">{im.title}</span></button>)}
+            </div>
             <div className="grid gap-2 sm:grid-cols-2">
               <Busy busy={busy.upload} className="btn" disabled={!picked} onClick={() => upload("upload")}>{t("avatar_upload")}</Busy>
-              <Busy busy={busy.pixel} className="btn" disabled={!picked} onClick={() => upload("pixel")}>{t("avatar_pixel")}</Busy>
+              <button type="button" className="btn" aria-expanded={showStyle} onClick={() => setShowStyle((v) => !v)}>{t("style_refs")}</button>
             </div>
+            {showStyle && <StyleReferences query={trainer.name || ""} />}
+            <Busy busy={busy.pixel} className="btn btn-sm" disabled={!picked} onClick={() => upload("pixel")}>{t("avatar_pixel_convert")}</Busy>
             <p className="help">{t("avatar_photo_help")}</p>
             <div className="panel space-y-2">
               <b>{t("avatar_prospero")}</b>
@@ -680,7 +694,7 @@ export function AvatarDialog({ trainer, onClose, onSaved, initialTab = "" }) {
           actions={(item) => (
             <>
               {useButton(item, viewer.art ? t("art_use") : item.avatar?.startsWith("sd:") ? t("avatar_use_this_sprite") : t("avatar_use_this"))}
-              {(viewer.art || item.kind === "art") && (
+              {!item.url.startsWith("blob:") && (
                 <Busy busy={busy.style} className="btn" onClick={() => styleRef(item.url, item.file || item.title)}>{t("art_as_style")}</Busy>
               )}
             </>

@@ -23,7 +23,7 @@ from .hoard_link.atomic import write_bytes_atomic
 
 log = logging.getLogger("silver.pmd")
 
-WANT = ["Idle", "Walk", "Attack", "Shoot", "Charge", "Hurt", "Faint", "Sleep"]
+WANT = ["Idle", "Walk", "Attack", "Shoot", "SpAttack", "Charge", "Hurt", "Faint", "Sleep"]
 FALLBACK = {
     "Idle": ["Walk"], "Walk": ["Idle"], "Attack": ["Strike", "Swing", "Shoot", "Idle"], "Shoot": ["Attack", "Strike", "Idle"],
     "Charge": ["DeepBreath", "Idle"], "Hurt": ["Cringe", "Idle"], "Faint": ["Hurt", "Idle"], "Sleep": ["Laying", "Idle"],
@@ -65,6 +65,9 @@ def parse_animdata(xml: str) -> tuple[dict[str, dict[str, Any]], int]:
             continue
         durs = [int(x) for x in re.findall(r"<Duration>(\d+)</Duration>", blk)]
         anims[name.group(1)] = {"w": int(fw.group(1)), "h": int(fh.group(1)), "n": len(durs), "d": durs}
+        hit = re.search(r"<HitFrame>(\d+)</HitFrame>", blk)
+        if hit and 0 <= int(hit.group(1)) < len(durs):
+            anims[name.group(1)]["hit"] = int(hit.group(1))
     shadow = re.search(r"<ShadowSize>(\d+)</ShadowSize>", xml)
     return anims, int(shadow.group(1)) if shadow else 1
 
@@ -286,9 +289,12 @@ class PmdSprites:
         key = folder.replace("/", "-")
         out_dir = self.cache_dir / key
         meta_path = out_dir / "meta.json"
+        cached = None
         if meta_path.exists():
             try:
-                return json.loads(meta_path.read_text("utf-8"))
+                cached = json.loads(meta_path.read_text("utf-8"))
+                if cached.get("schema", 1) >= 2 or not self.settings.get("pmd_sprites", True):
+                    return cached
             except ValueError:
                 pass
         miss = self.cache_dir / f"{key}.404"
@@ -298,10 +304,14 @@ class PmdSprites:
             return None
         with self._lock(key):
             if meta_path.exists():
-                return json.loads(meta_path.read_text("utf-8"))
+                cached = json.loads(meta_path.read_text("utf-8"))
+                if cached.get("schema", 1) >= 2:
+                    return cached
             base = f"{self._base()}/sprite/{folder}"
             xml = self._get(f"{base}/AnimData.xml")
             if not xml:
+                if cached:
+                    return cached
                 self.cache_dir.mkdir(parents=True, exist_ok=True)
                 miss.write_text("404")
                 return None
@@ -333,16 +343,19 @@ class PmdSprites:
                 anchor = ground_anchor(shadow_png, geom["w"], geom["h"]) if shadow_png else None
                 ax, ay = anchor if anchor else (geom["w"] / 2, geom["h"] * 0.78)
                 write_bytes_atomic(out_dir / f"{want}.png", png, fsync=False)
-                return want, {"w": geom["w"], "h": geom["h"], "n": min(geom["n"], cols), "r": rows, "d": geom["d"][:cols], "ax": ax, "ay": ay}
+                return want, {"w": geom["w"], "h": geom["h"], "n": min(geom["n"], cols), "r": rows, "d": geom["d"][:cols], "ax": ax, "ay": ay,
+                              **({"hit": geom["hit"]} if "hit" in geom and geom["hit"] < min(geom["n"], cols) else {})}
 
             with ThreadPoolExecutor(max_workers=8) as pool:
                 for got in pool.map(one, WANT):
                     if got:
                         geometry[got[0]] = got[1]
             if not REQUIRED & set(geometry):
+                if cached:
+                    return cached
                 miss.write_text("incomplete")
                 return None
-            meta = {"key": key, "s": shadow, "a": geometry}
+            meta = {"key": key, "s": shadow, "a": geometry, "schema": 2}
             write_bytes_atomic(meta_path, json.dumps(meta, separators=(",", ":")).encode("utf-8"), fsync=False)
             return meta
 

@@ -5,6 +5,7 @@ import { L, STATUS_COLORS, STATUS_SHORT, STATUS_SHORT_EN, STAT_SHORT, TYPE_COLOR
 import { battleT } from "./strings.js";
 import SoundButton from "./SoundControl.jsx";
 import AbilityBanner from "./AbilityBanner.jsx";
+import BallRelease from "./BallRelease.jsx";
 import { useBackdropSetting, useMoveFxSetting, usePrefersReducedMotion } from "./fx/setting.js";
 import { backdropFileUrl, backdropUrl, fieldLayer, pixelBackdropUrl, seedOf, weatherLayer } from "./fx/backdrop.js";
 
@@ -28,15 +29,16 @@ const KEYFRAMES = {
     { transform: "translateX(0)", filter: "brightness(1)" }],
   heal: () => [{ filter: "drop-shadow(0 0 0 #6fe08a)" }, { filter: "drop-shadow(0 0 14px #6fe08a)" }, { filter: "drop-shadow(0 0 0 #6fe08a)" }],
   faint: () => [{ transform: "translateY(0)", opacity: 1 }, { transform: "translateY(40px)", opacity: 0 }],
-  switch: () => [{ transform: "scale(0.4)", opacity: 0, filter: "brightness(3)" }, { transform: "scale(1)", opacity: 1, filter: "brightness(1)" }],
+  switch: () => [{ transform: "scale(0.2)", opacity: 0, filter: "brightness(3)" }, { transform: "scale(0.2)", opacity: 0, offset: 0.48 }, { transform: "scale(1)", opacity: 1, filter: "brightness(1)" }],
   status: () => [{ filter: "saturate(1)" }, { filter: "saturate(2.2) hue-rotate(20deg)" }, { filter: "saturate(1)" }],
   boost: () => [{ filter: "brightness(1)" }, { filter: "brightness(1.5)" }, { filter: "brightness(1)" }],
   unboost: () => [{ filter: "brightness(1)" }, { filter: "brightness(0.6)" }, { filter: "brightness(1)" }],
   tera: () => [{ filter: "drop-shadow(0 0 0 #fff)" }, { filter: "drop-shadow(0 0 22px #fff) brightness(1.6)" }, { filter: "drop-shadow(0 0 6px #fff)" }],
 };
-const DURATION = { move: 420, hit: 420, heal: 600, faint: 650, switch: 380, status: 520, boost: 450, unboost: 450, tera: 900 };
+const DURATION = { move: 420, hit: 420, heal: 600, faint: 650, switch: 720, status: 520, boost: 450, unboost: 450, tera: 900 };
 
 function Sprite({ mon, back, sprites, anim, slotKey, size, scale = 1 }) {
+  const reduced = usePrefersReducedMotion();
   const [src, setSrc] = useState("");
   const [failed, setFailed] = useState(0);
   const ref = useRef(null);
@@ -49,7 +51,7 @@ function Sprite({ mon, back, sprites, anim, slotKey, size, scale = 1 }) {
   const mine = anim && anim.key === slotKey ? anim : null;
   useEffect(() => {
     const el = ref.current;
-    if (!mine || !el || !el.animate || !KEYFRAMES[mine.type]) return;
+    if (!mine || !el || !el.animate || !KEYFRAMES[mine.type] || reduced && mine.type === "switch") return;
     try {
       el.animate(KEYFRAMES[mine.type](back, mine), { duration: DURATION[mine.type] || 400, easing: "ease-out", fill: mine.type === "faint" ? "forwards" : "none" });
     } catch { /* animations are decoration */ }
@@ -61,6 +63,7 @@ function Sprite({ mon, back, sprites, anim, slotKey, size, scale = 1 }) {
   const cls = ["b-sprite", back ? "is-back" : "is-front", sprites.pixelated ? "pixelated" : "", mon.fainted ? "is-fainted" : ""];
   return (
     <div className={cls.filter(Boolean).join(" ")} data-fx-pos={slotKey} style={{ "--sprite-size": `${size}px`, "--sprite-scale": scale }}>
+      {mine?.type === "switch" && <BallRelease key={mine.id} id={mine.id} back={back} />}
       <div className="b-sprite-img" ref={ref}>
         {failed < 2 && src ? <img key={`${failed}:${src}`} src={src} alt={mon.species} onError={onError} draggable={false} /> : <div className="b-sprite-missing" aria-label={mon.species}>{mon.species.slice(0, 2)}</div>}
       </div>

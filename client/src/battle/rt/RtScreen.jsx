@@ -70,7 +70,7 @@ function logLine(e, b, lang, tr) {
     case "plus": return { sec, k: "effect", text: es ? `${who(e.s)}: ¡${mv(e.name)} Plus!` : `${who(e.s)}: ${mv(e.name)} Plus!` };
     case "mega": return { sec, k: "big", text: es ? `¡${e.from} de ${side(e.s).name} megaevoluciona!` : `${side(e.s).name}'s ${e.from} Mega Evolved!` };
     case "phase": return { sec, k: "big", text: e.line ? `${side(e.s).name}: «${e.line}»` : (es ? `¡${side(e.s).name} cambia de táctica!` : `${side(e.s).name} changes tactics!`) };
-    case "ultimate": return { sec, k: "big", text: es ? `¡${who(e.s)} usa un ataque especial de tipo ${typeName(e.type, lang)}!` : `${who(e.s)} uses a charged ${e.type}-type attack!` };
+    case "ultimate": return { sec, k: "big", text: es ? `¡${who(e.s)} usa un especial de Silver de tipo ${typeName(e.type, lang)}!` : `${who(e.s)} uses a ${e.type}-type Silver special!` };
     case "dummy_reset": return { sec, k: "big", text: es ? `${who(e.s)} cae y se levanta con todos sus PS` : `${who(e.s)} goes down and stands up again at full HP` };
     case "mega_end": return { sec, k: "info", text: es ? `${monName(e.s, e.slot)} vuelve a su forma` : `${monName(e.s, e.slot)} went back to its usual forme` };
     case "immune": return { sec, k: "minor", text: es ? `No afecta a ${monName(e.s)}` : `It doesn't affect ${monName(e.s)}` };
@@ -234,7 +234,7 @@ function UltGauge({ side, tr, keyHint, onUlt }) {
   );
 }
 
-function Pad({ side, si, lang, tr, partyOpen, cursor, focus, plus, gauge, onUse, onRoll, onSwitch, onParty, onPlus, onMega, onUlt, onSwap, onTarget, keys, sprites, foes }) {
+function Pad({ side, si, lang, tr, partyOpen, cursor, focus, plus, gauge, special, onUse, onRoll, onSwitch, onParty, onPlus, onMega, onUlt, onSwap, onTarget, keys, sprites, foes }) {
   const mon = side.mons[side.active];
   // doubles: a slot waiting for a Pokémon (the switch goes there; the controlled one first)
   const waiting = side.units ? side.units.find((u) => u.pos === side.ctl && u.need) || side.units.find((u) => u.need) : null;
@@ -300,6 +300,7 @@ function Pad({ side, si, lang, tr, partyOpen, cursor, focus, plus, gauge, onUse,
                 </button>
               )}
               {side.ult !== undefined && <UltGauge side={side} tr={tr} keyHint={keys.plus} onUlt={() => onUlt(si)} />}
+              {special === false && <span className="help">{tr("rt_special_off")}</span>}
               {(side.units ? side.units.some((u) => !u.vacant && side.mons[u.active]?.mega_info) : mon?.mega_info) && !side.mega_used && (
                 <button type="button" className={`btn btn-sm rt-mega-btn ${side.can_mega ? "is-ready" : ""}`} title={tr(plusMoves ? "rt_mega_help" : "rt_mega_help_v4")} disabled={!side.can_mega}
                   onClick={() => onMega(si)}>
@@ -456,7 +457,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     nameSides(b);
     const recorded = battle.rt.inputs || [];
     const state = { b, inputs: makeInputs(humans, readLayout()), held: new Set(), acc: 0, last: 0, logIndex: 0, saveAt: 0, savedLen: 0, replay: null, plusScan: 0 };
-    for (const inp of state.inputs) if (inp) inp.ultMode = b.version >= 5;
+    for (const inp of state.inputs) if (inp) inp.ultMode = b.version >= 5; // disabled specials ignore this input; never arm a legacy Plus move
     if (live && net) {
       state.net = new NetLink({ url: net.url, seat: net.seat, delay: net.delay || 4, on: (k, v) => netEvent.current(k, v) });
       state.hashAt = 0;
@@ -946,7 +947,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
         {live && view && (
           <div className={`rt-pads ${people === 2 ? "two" : ""}`}>
             {view.sides.map((s, i) => humans[i] && (
-              <Pad key={i} side={s} si={i} lang={lang} tr={tr} partyOpen={party[i]} cursor={cursor[i]} focus={focus[i]} plus={plus[i]} gauge={view.version >= 2}
+              <Pad key={i} side={s} si={i} lang={lang} tr={tr} partyOpen={party[i]} cursor={cursor[i]} focus={focus[i]} plus={plus[i]} gauge={view.version >= 2} special={view.silver_special}
                 onUse={onUse} onRoll={onRoll} onSwitch={onSwitch} onParty={onParty} onPlus={onPlus} onMega={onMega} onUlt={onUlt} onSwap={onSwap} onTarget={onTarget} foes={view.sides[1 - i]} keys={KEY_HINTS[people === 1 && pad ? (layout === "simple" ? "simple" : "pad") : schemes[i]]} sprites={sprites} />
             ))}
           </div>
