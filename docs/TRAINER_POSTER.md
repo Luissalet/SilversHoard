@@ -19,8 +19,12 @@ artwork categories, credits and origins. Unknown artists are stated explicitly;
 generated drawing/sprite titles can contain generation descriptions, so the poster
 uses the trainer or badge's public name instead. Public imported-picture titles
 (photo, official art or uploaded image) are retained; original metadata is unchanged.
-An uploaded style reference currently has a library file identity, not an artist
-record. Pokémon copyright and sprite-source attribution are included.
+Uploaded style references use a numbered label and a SHA-256 of the library image
+as their public identity, not their filenames (which can also contain generation
+descriptions). A missing reference uses its number in warnings. The library has no
+artist record for these references: unknown credit is stated explicitly. Selection,
+files and their private metadata stay unchanged. Pokémon copyright and sprite-source
+attribution are included.
 
 Rendering runs locally with the same Playwright and installed Chrome/Edge used
 by battle videos; it does not need FFmpeg, a GPU or an image model. The image is
