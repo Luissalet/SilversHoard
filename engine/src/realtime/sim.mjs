@@ -50,7 +50,8 @@ const TRAINER = [{x: 1.6, y: ARENA.h / 2}, {x: ARENA.w - 1.6, y: ARENA.h / 2}];
 // Also in 9: a starting state's PP (the Battle Castle carries them from battle to battle): each use of a move spends 1 PP, a move
 // with no PP left cannot be used (with every move at 0 the Pokémon can only move, roll and switch) and the PP left are in the
 // summary; without starting PP moves have no PP, as before.
-export const RULES_VERSION = 9;
+// 10: calmer movement and rolls, and AI dodges after its reaction delay, once per continuous threat.
+export const RULES_VERSION = 10;
 export const TRICK_ROOM_TURN = 6;   // seconds of real time per turn of Trick Room
 const TRICK_ROOM_BASE = 200;        // walking: base Speed s walks like base Speed 200 - s
 const FOG_HIT = 0.6;
@@ -553,7 +554,7 @@ export class RtBattle {
     if (side.cond.tailwind > this.t) v *= 1.25;
     if (this.speedWeather(side)) v *= 1.3;
     if (m.ability === 'quickfeet' && m.status) v *= 1.3;
-    return v;
+    return this.version >= 10 ? v * 0.65 : v;
   }
 
   speedWeather(side) {
@@ -811,7 +812,7 @@ export class RtBattle {
       let d = norm(input.mx || 0, input.my || 0);
       if (!d.x && !d.y) d = {x: -side.fx, y: -side.fy};
       side.act = {kind: 'roll', end: this.t + ROLL_TICKS, dx: d.x, dy: d.y};
-      side.rollReady = this.t + ROLL_TICKS + ROLL_COOLDOWN;
+      side.rollReady = this.t + ROLL_TICKS + (this.version >= 10 ? 2 * TPS : ROLL_COOLDOWN);
       this.ev('roll', {...this.at(side)});
       return;
     }
@@ -1127,7 +1128,8 @@ export class RtBattle {
       return;
     }
     if (a.kind === 'roll') {
-      this.moveBy(side, (a.dx * ROLL_SPEED) / TPS, (a.dy * ROLL_SPEED) / TPS);
+      const speed = this.version >= 10 ? 8 : ROLL_SPEED;
+      this.moveBy(side, (a.dx * speed) / TPS, (a.dy * speed) / TPS);
       if (this.t >= a.end) side.act = null;
       return;
     }

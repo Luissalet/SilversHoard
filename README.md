@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+New real-time battles use rules version 10: 35% slower walking, partial-speed AI sidesteps, shorter rolls with 2 s recovery, and AI dodges after its reaction delay with one chance per continuous danger. Saved battles keep their original rules. Saved grass and sand arenas show their original floor textures in the battle picker.
+
 Real-time battles now distinguish Dig (hide/emerge), Fly and Bounce (rise/descent), Rollout and Ice Ball (sprite rotation), and Seismic Toss impacts (a brief target lift). PMD pose playback follows the engine windup. These are presentation effects, without added invulnerability, damage or physical displacement. Seismic Toss does not pause other fighters for a cinematic.
 
 Grass and sand floors use original textures with stable visual variants; water projectiles add a transparent animated atlas. Plain particles and loading/decode fallbacks remain available. The replay clock drives these effects; reduced motion removes decorative rotation and aerial displacement. The same assets and renderer ship in exported playable pages.
