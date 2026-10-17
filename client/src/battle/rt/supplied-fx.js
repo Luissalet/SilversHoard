@@ -107,7 +107,7 @@ export class SuppliedEffects {
     const u=unitOf(battle,e),profile=profileFor(e.move,e.type,e.shape);
     if (!u) return;
     this.eventAt=Number.isFinite(e.t)?e.t/30:undefined;
-    const anchor={x:u.x,y:u.y,fx:u.fx || 1,fy:u.fy || 0,s:e.s,u:e.u || 0,slot:u.active};
+    const anchor={x:u.x,y:u.y,fx:u.fx ?? 1,fy:u.fy ?? 0,s:e.s,u:e.u || 0,slot:u.active};
     if (e.k==='windup' && e.ticks>0 && profile.available) {
       this.push('prepare',profile,anchor,Math.max(.04,e.ticks/30));
     } else if (e.k==='use') {
@@ -189,7 +189,7 @@ export class SuppliedEffects {
         const radius=q.r||2.3,phase=reduced?.7:t;
         // Texture fronts follow the real area geometry. They do not imply a hit.
         const n=reduced?8:18,half=q.kind==='cone'?Math.acos(Math.max(-1,Math.min(1,q.arc))):Math.PI;
-        const facing=Math.atan2(q.fy||0,q.fx||1);
+        const facing=Math.atan2(q.fy??0,q.fx??1);
         for(let i=0;i<n;i++) {
           const a=q.kind==='cone'?facing-half+(2*half*i/(n-1)):i*Math.PI*2/n;
           const dist=radius*(q.kind==='drop'?.45:.25+phase*.75);
