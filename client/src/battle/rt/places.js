@@ -169,20 +169,21 @@ export function drawPlace(x, r, floor, textured = false) {
 }
 
 /** The ambience of a place, every frame (time in seconds), over the court and under the Pokémon. */
-export function drawAmbient(ctx, r, floor, time) {
+export function drawAmbient(ctx, r, floor, time, fog = false) {
   const p = PLACE_FLOORS[floor];
-  if (!p || !p.ambient) return;
+  if (!p?.ambient && !fog) return;
   const s = r.scale;
   const W = r.canvas.width, H = r.canvas.height;
   ctx.save();
-  if (p.ambient === "fog") {
+  if (p?.ambient === "fog" || fog) {
     for (let i = 0; i < 6; i++) {
       const cx = ((i * 0.37 + time * 0.012 * (1 + i * 0.3)) % 1.4 - 0.2) * W, cy = (0.15 + (i * 0.29 % 0.8)) * H, rr = (4 + i % 3 * 2) * s;
       const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, rr);
       g.addColorStop(0, "rgba(235,245,245,0.22)"); g.addColorStop(1, "rgba(235,245,245,0)");
       ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(cx, cy, rr, rr * 0.45, 0, 0, TAU); ctx.fill();
     }
-  } else if (p.ambient === "snow") {
+  }
+  if (p?.ambient === "snow") {
     ctx.fillStyle = "rgba(255,255,255,0.85)";
     for (let i = 0; i < 70; i++) {
       const sp = 0.6 + (i % 5) * 0.15;
@@ -190,7 +191,7 @@ export function drawAmbient(ctx, r, floor, time) {
       const y = ((i * 53.71 % 100) / 100 * H + time * sp * s) % H;
       ctx.beginPath(); ctx.arc(x, y, Math.max(1, s * (0.04 + (i % 3) * 0.02)), 0, TAU); ctx.fill();
     }
-  } else if (p.ambient === "shafts") {
+  } else if (p?.ambient === "shafts") {
     for (let i = 0; i < 4; i++) {
       const x0 = (0.12 + i * 0.24) * W, a = 0.07 + 0.04 * Math.sin(time * 0.6 + i * 1.7);
       const g = ctx.createLinearGradient(x0, 0, x0 + 0.08 * W, H);
@@ -198,7 +199,7 @@ export function drawAmbient(ctx, r, floor, time) {
       ctx.fillStyle = g;
       ctx.beginPath(); ctx.moveTo(x0, 0); ctx.lineTo(x0 + 0.05 * W, 0); ctx.lineTo(x0 + 0.16 * W, H); ctx.lineTo(x0 + 0.07 * W, H); ctx.closePath(); ctx.fill();
     }
-  } else if (p.ambient === "emblem") {
+  } else if (p?.ambient === "emblem") {
     const cx = r.px(A.w / 2), cy = r.py(A.h / 2), rr = (2.6 + Math.sin(time * 2) * 0.15) * s;
     const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, rr);
     g.addColorStop(0, "rgba(255,230,140,0.28)"); g.addColorStop(1, "rgba(255,230,140,0)");

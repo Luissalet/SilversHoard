@@ -248,7 +248,7 @@ export class ArenaRenderer {
     const tr = view.terrain?.id;
     const ttint = { electricterrain: "rgba(247,208,44,0.12)", grassyterrain: "rgba(122,199,76,0.14)", psychicterrain: "rgba(249,85,135,0.12)", mistyterrain: "rgba(243,182,216,0.14)" }[tr];
     if (ttint) { this.ctx.fillStyle = ttint; this.ctx.fillRect(this.px(0), this.py(0), ARENA.w * this.scale, ARENA.h * this.scale); }
-    drawAmbient(this.ctx, this, view?.floor, this.time);
+    drawAmbient(this.ctx, this, view?.floor, this.time, !!view?.fog);
   }
 
   /** A rock of the arena: a rounded boulder with a shadow, lit from the top left, some cracks and grass at its foot. */
