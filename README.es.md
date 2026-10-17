@@ -157,4 +157,6 @@ Los trabajos de vídeo informan de la duración del MP4 o WebM terminado, redond
 
 Al editar un equipo, cada Pokémon tiene su botón **Sets de Smogon**. Elige una variante publicada y **Aplicar set** para rellenar solo los movimientos, objeto, habilidad, naturaleza, EV, IV y teratipo de ese miembro; después guarda el equipo. Los demás conservan sus sets. **Equipo de muestra** sigue siendo una acción distinta que sustituye la plantilla.
 
+La presentación VS de tiempo real espera a que esté disponible la imagen del entrenador, el retrato o el sprite de combate, hasta 1,5 segundos. Una descarga lenta todavía puede dejar vacíos los primeros fotogramas; véase la [carga de imágenes](docs/RT_INTRO.md).
+
 Rayo Hielo y proyectiles como Canto Helado y Carámbano usan arte original animado en combates de tiempo real, vídeos y páginas jugables. Se conservan los efectos sencillos y la alternativa mientras carga la imagen. El PNG original, el WebP sin pérdida, el prompt y las instrucciones de reconstrucción están en la [procedencia del arte de hielo](client/src/battle/rt/art/ice/PROVENANCE.md).
