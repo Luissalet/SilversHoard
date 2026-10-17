@@ -8,6 +8,7 @@ import { TYPE_COLORS } from "../dex.js";
 import { KENNEY } from "./kenney.gen.js";
 import { MPW_FX } from "./mpw-fx.gen.js";
 import { drawFireSprite } from "./move-art.js";
+import { drawIceSprite } from "./ice-art.js";
 
 const H = 0.6;          // projectiles fly this many meters over the ground
 const TAU = Math.PI * 2;
@@ -1135,6 +1136,13 @@ export class Vfx {
         for (let i = 1; i < 10; i++) { const f = (i / 10 + ray.t * 2) % 1; const cx = x1 + dx * f, cy = y1 + dy * f; this.drawStar(ctx, cx, cy, s * 0.22, s * 0.07, 6, `rgba(240,252,255,${0.85 * fade})`, null, ray.t * 6 + i); }
         ctx.globalCompositeOperation = "lighter";
         head(0.7 * s, "#c6f2ff");
+        if (textured) {
+          ctx.save();
+          ctx.globalCompositeOperation = "source-over";
+          ctx.globalAlpha *= fade;
+          drawIceSprite(ctx, x2, y2, Math.atan2(dy, dx), 1.6 * s, this.r.time, !!this.r.reducedMotion?.matches);
+          ctx.restore();
+        }
         break;
       }
       case "hyper": glow(0.55 * s * pulse, "#ffb347", 1); line(0.9 * s * pulse, rgba("#ffe7a0", 0.18 * fade)); head(0.9 * s, "#ffe7a0"); break;
@@ -1209,6 +1217,7 @@ export class Vfx {
         break;
       }
       case "ice": case "gem": case "snow": {
+        if (kind === "ice" && textured && drawIceSprite(ctx, x, y, ang, r * 4.2, t, !!this.r.reducedMotion?.matches)) break;
         ctx.translate(x, y); ctx.rotate(ang + t * (kind === "snow" ? 6 : 0));
         ctx.fillStyle = kind === "gem" ? "rgba(255,240,170,0.95)" : "rgba(220,250,255,0.95)"; ctx.strokeStyle = kind === "gem" ? "#b6a136" : "#6fcfe0"; ctx.lineWidth = Math.max(1, s * 0.04);
         ctx.beginPath(); ctx.moveTo(r * 1.6, 0); ctx.lineTo(0, r * 0.55); ctx.lineTo(-r * 1.1, 0); ctx.lineTo(0, -r * 0.55); ctx.closePath(); ctx.fill(); ctx.stroke();
