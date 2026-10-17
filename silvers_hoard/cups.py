@@ -183,7 +183,7 @@ class Cups:
         out = {k: v for k, v in c.items() if k not in ("rounds", "entrants")}
         out.update({"entrants": list(people.values()), "names": people, "rounds": out_rounds, "my_match": mine,
                     "human_alive": bool(human) and human in alive, "played": played, "total": total,
-                    "simulating": c["id"] in self._running or any(m["state"] == "sim" for rnd in rounds for m in rnd), "pending_ai": self._pending_ai(c) if c["status"] == "active" else 0})
+                    "simulating": c["status"] == "active" and (c["id"] in self._running or any(m["state"] == "sim" for rnd in rounds for m in rnd)), "pending_ai": self._pending_ai(c) if c["status"] == "active" else 0})
         if light:
             out.pop("rounds")
             out.pop("names")
@@ -219,10 +219,12 @@ class Cups:
         with self._guard:
             if self.stopped:
                 return {"simulating": False}
+            c = self.svc.store.cup(cid)
+            if c["status"] != "active":
+                return {"simulating": False}
             if cid in self._running:
                 return {"simulating": True}
-            c = self.svc.store.cup(cid)
-            if c["status"] != "active" or not self._pending_ai(c):
+            if not self._pending_ai(c):
                 return {"simulating": False}
             self._running.add(cid)
         threading.Thread(target=self._loop, args=(cid,), name=f"silver-cup-{cid}", daemon=True).start()
