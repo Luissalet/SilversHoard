@@ -441,6 +441,7 @@ function RtBattleView({ t, lang, sprites, me, opp, rtInfo, levelRules, onEnd }) 
     const seed = newSeed();
     return {
       id: `play-${seed}`, seed, format: rtInfo.format, level_rules: levelRules, time_limit: rtInfo.time_limit, version: Math.min(rtInfo.version || RULES_VERSION, RULES_VERSION),
+      silver_special: rtInfo.silver_special === true,
       // a gym's own arena (the arena designer) travels as the field itself; otherwise open or the seed's rocks
       arena: rtInfo.arena && typeof rtInfo.arena === "object" ? rtInfo.arena : rtInfo.arena === "open" ? "open" : "rocks",
       p1: { name: me.name, sets: me.sets, ai: null }, p2: { name: opp.name, sets: opp.team, ai: opp.ai || { level: "normal", style: "balanced" } },
@@ -459,6 +460,7 @@ function RtBattleView({ t, lang, sprites, me, opp, rtInfo, levelRules, onEnd }) 
     let rt = null;
     try {
       rt = { trainer: opp.source_id, key: (rtInfo.keys || {})[opp.source_id] || "", v: spec.version, arena: spec.arena, seed: spec.seed, limit: spec.time_limit,
+        silver_special: spec.silver_special,
         inputs: await packRtInputs(inputs), tick: Math.max(0, Math.round(tick)), forfeit: forfeit || "" };
     } catch { /* no compression in this browser: the page says it cannot give a code */ }
     outcome.current = { won, turns: 0, seconds: Math.round(b.t / 30), opponent: opp.name, lines: [], mode: "realtime", rt };

@@ -2,8 +2,9 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { api } from "../api.js";
 import { useApp } from "../context.js";
-import { Busy, Empty, Field, Icon, ICONS, Rel, Section, Switch, Tabs, useBusy, useStored } from "../components/ui.jsx";
-import { AiFields, Avatar, FormatSelect, JobProgress, RulesFields, TeamStrip, TrainerSelect, useTrainers } from "../components/silver.jsx";
+import { Busy, Empty, Field, Icon, ICONS, Rel, Section, Switch, Tabs, useBusy, useStored, useLoad, ErrorBox } from "../components/ui.jsx";
+import { AiFields, Avatar, AvatarDialog, FormatSelect, JobProgress, RulesFields, TeamStrip, TrainerSelect, useTrainers } from "../components/silver.jsx";
+import TeamSelection from "../components/TeamSelection.jsx";
 import { BattleRow } from "./Historial.jsx";
 import { loc } from "../loc.js";
 import ModeFields, { useCustomArenas, withEqualLevel } from "../battle/rt/ModeFields.jsx";
@@ -11,14 +12,17 @@ import TeamBenchmark from "../components/TeamBenchmark.jsx";
 import LiveRoom from "./LiveRoom.jsx";
 
 function SeatEditor({ label, seat, onChange, allowHuman = true }) {
-  const { t, changed } = useApp();
+  const { t, changed, version } = useApp();
   const list = useTrainers();
   const trainer = list.find((x) => x.id === seat.trainer_id);
   const [busy, run] = useBusy();
+  const [avatarOpen, setAvatarOpen] = useState(false);
+  const detail = useLoad(() => seat.trainer_id ? api.call("trainer_get", { id: seat.trainer_id }) : Promise.resolve(null), [seat.trainer_id, version]);
+  const current = detail.data?.id === seat.trainer_id ? detail.data : null;
   const randomTrainer = () => run("rnd", async () => {
     const tr = await api.call("trainer_random", {});
     changed();
-    onChange({ ...seat, trainer_id: tr.id });
+    onChange({ ...seat, trainer_id: tr.id, team_indices: undefined });
   });
   return (
     <div className="panel space-y-3">
@@ -31,11 +35,15 @@ function SeatEditor({ label, seat, onChange, allowHuman = true }) {
           </div>
         )}
       </div>
-      <TrainerSelect value={seat.trainer_id} onChange={(v) => onChange({ ...seat, trainer_id: v, ai_level: undefined, ai_style: undefined })} label={t("trainer")} />
+      <TrainerSelect value={seat.trainer_id} onChange={(v) => onChange({ ...seat, trainer_id: v, ai_level: undefined, ai_style: undefined, team_indices: undefined })} label={t("trainer")} />
       <div className="flex flex-wrap gap-2">
         <Busy busy={busy.rnd} className="btn btn-sm" onClick={randomTrainer}>{t("random_trainer")}</Busy>
         {trainer && <a className="btn btn-sm" href={`#/entrenador/${trainer.id}`}>{t("open")}</a>}
+        {trainer && <button type="button" className="btn btn-sm" onClick={() => setAvatarOpen(true)}>{t("change_avatar")}</button>}
       </div>
+      {detail.error && <ErrorBox error={detail.error} onRetry={detail.reload} />}
+      {current?.team_pool?.length > 6 && <TeamSelection pool={current.team_pool} value={seat.team_indices ?? current.team_pool_indices} onChange={(team_indices) => onChange({ ...seat, team_indices })} />}
+      {avatarOpen && trainer && <AvatarDialog key={trainer.id} trainer={trainer} onClose={() => setAvatarOpen(false)} onSaved={changed} />}
       {!seat.human && trainer && (
         <AiFields compact level={seat.ai_level || trainer.ai_level} style={seat.ai_style || trainer.ai_style}
           onLevel={(v) => onChange({ ...seat, ai_level: v })} onStyle={(v) => onChange({ ...seat, ai_style: v })} />
@@ -61,7 +69,7 @@ function SingleBattle() {
   const t1 = list.find((x) => x.id === p1.trainer_id);
   useEffect(() => { if (t1 && !format) setFormat(t1.format); }, [t1?.id]); // eslint-disable-line react-hooks/exhaustive-deps
   const start = () => run("start", async () => {
-    const clean = (s) => ({ trainer_id: s.trainer_id, human: !!s.human, ...(s.ai_level ? { ai_level: s.ai_level } : {}), ...(s.ai_style ? { ai_style: s.ai_style } : {}) });
+    const clean = (s) => ({ trainer_id: s.trainer_id, human: !!s.human, ...(s.team_indices ? { team_indices: s.team_indices } : {}), ...(s.ai_level ? { ai_level: s.ai_level } : {}), ...(s.ai_style ? { ai_style: s.ai_style } : {}) });
     const b = await api.call("battle_start", { p1: clean(p1), p2: clean(p2), format: format || "", rules, level_rules: withEqualLevel(levelRules, equal),
       mode, ...(mode === "realtime" ? { time_limit: Number(timeLimit) || 0, rt_arena: arena } : {}) });
     changed();
@@ -86,7 +94,7 @@ function SingleBattle() {
         <button type="button" className="btn-link" onClick={() => setMore((m) => !m)}>{more ? t("less_rules") : t("more_rules")}</button>
         {more && <RulesFields rules={rules} levelRules={levelRules} onRules={setRules} onLevelRules={setLevelRules} />}
         <div className="flex flex-wrap gap-2">
-          <Busy busy={busy.start} className="btn btn-primary" disabled={!p1.trainer_id || !p2.trainer_id} onClick={start}>
+          <Busy busy={busy.start} className="btn btn-primary" disabled={!p1.trainer_id || !p2.trainer_id || [p1, p2].some((s) => s.team_indices && s.team_indices.length !== 6)} onClick={start}>
             <Icon d={ICONS.play} size={14} /> {both ? t("watch_battle") : t("start_battle")}
           </Busy>
           <button type="button" className="btn" onClick={() => { setP1(p2); setP2(p1); }}>{t("swap_sides")}</button>

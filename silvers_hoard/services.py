@@ -27,7 +27,7 @@ from .engine import master_status
 from .engine import Engine
 from .errors import SilverError
 from .hoard_link import family
-from .hoard_link.atomic import write_bytes_atomic, write_json_atomic
+from .hoard_link.atomic import read_json, write_bytes_atomic, write_json_atomic
 from .hoard_link.ids import new_id
 from .hoard_link.tokens import read_or_create_token
 from .credits import Credits
@@ -81,7 +81,7 @@ PHASE_WHEN = ("half", "last")
 # always locked on, no Mega Evolution; 2 = free aim, the Mega Power gauge, Plus moves and Mega Evolution; 3 = doubles formats
 # field two Pokémon per trainer, singles play as in 2; 4 = no Plus moves, the gauge only for Mega Evolution; 5 = the ultimate
 # gauge) and the arenas.
-RT_RULES_VERSION = 10
+RT_RULES_VERSION = 11
 RT_ARENAS = ("open", "rocks")
 
 
@@ -129,6 +129,8 @@ class Services:
         self.reborn = RebornCache(config.sprites_dir.parent / "reborn", self.settings, http_get=http_get)
         self.cups = Cups(self)
         self.arenas = Arenas(self)
+        from .leisure import Leisure
+        self.leisure = Leisure(self)
         self.benchmarks = Benchmarks(self)
         self.training = Training(self)
         self.pvp = Pvp(self)
@@ -372,7 +374,48 @@ class Services:
         view["paste"] = self.export_team(t["team"]) if t["team"] else ""
         view["battles"] = [self.battle_card(b) for b in self.store.battles(trainer_id=id_, limit=15)]
         view["badges"] = self.store.badges(challenger_trainer_id=id_)
+        view["team_pool"] = self._trainer_pool(t)
+        remaining = list(range(len(view["team_pool"])))
+        view["team_pool_indices"] = []
+        for member in t["team"][:6]:
+            index = next((i for i in remaining if view["team_pool"][i] == member), None)
+            if index is not None:
+                view["team_pool_indices"].append(index)
+                remaining.remove(index)
         return view
+
+    def _trainer_pool(self, trainer: dict[str, Any]) -> list[dict[str, Any]]:
+        """Recover a facility's full pool, including trainers installed before roster selection existed."""
+        parts = (trainer.get("canon_key") or "").split(":")
+        if len(parts) >= 3 and parts[0] == "char":
+            character = self.characters()["by_key"].get(parts[1])
+            variant = next((v for v in (character or {}).get("variants", []) if v["id"] == parts[2]), None)
+            if variant and variant.get("pool"):
+                pool = [{k: value for k, value in s.items() if k != "level_range"} for s in variant["sets"]]
+                # Catalog sets omit defaults that saving a team fills in. Compare
+                # both through the same normalizer, without inventing edited slots.
+                normalized = self._team_from(pool + trainer["team"])
+                candidates = normalized[:len(pool)]
+                used: set[int] = set()
+                for member, clean in zip(trainer["team"], normalized[len(pool):]):
+                    index = next((i for i, candidate in enumerate(candidates) if i not in used and candidate == clean), None)
+                    if index is None:
+                        index = len(pool)
+                        pool.append(member)
+                        candidates.append(clean)
+                    else:
+                        # Keep exact stored sets so selected indices survive reads.
+                        pool[index] = member
+                    used.add(index)
+                return pool
+        return trainer["team"]
+
+    @staticmethod
+    def _pick_six(pool: list[dict[str, Any]], indices: list[int]) -> list[dict[str, Any]]:
+        if (len(indices) != min(6, len(pool)) or len(set(indices)) != len(indices)
+                or any(type(i) is not int or i < 0 or i >= len(pool) for i in indices)):
+            raise SilverError("invalid", "Choose six different pool slots (zero-based), or the whole team if it has fewer than six.")
+        return [pool[i] for i in indices]
 
     def trainer_create(self, *, name: str, team: Any = None, paste: str = "", format_: str = "", title: str = "", owner: str = "",
                        ai_level: str = "", ai_style: str = "", avatar: str = "", dialogue: Optional[dict[str, str]] = None, notes: str = "",
@@ -813,7 +856,8 @@ class Services:
                 "source": self.characters().get("source", "")}
 
     def character_install(self, key: str, *, variant: str = "", sprite: str = "", name: str = "", custom: bool = False,
-                          ai_level: str = "", ai_style: str = "", lang: str = "es", avatar: str = "", art: str = "") -> dict[str, Any]:
+                          ai_level: str = "", ai_style: str = "", lang: str = "es", avatar: str = "", art: str = "",
+                          team_indices: Optional[list[int]] = None) -> dict[str, Any]:
         """A trainer from a character: one of its game teams (or an empty team of your own when custom), with the sprite you choose,
         or ``avatar`` (file:<name>, a picture of your own such as its official artwork; ``art`` names that artwork)."""
         c = self._character(key)
@@ -836,6 +880,11 @@ class Services:
         else:
             sprite = (v or {}).get("sprite") or c["base_sprite"]
         canon_key = f"char:{c['key']}:{v['id'] if v and not custom else 'own'}:{('art:' + (art or avatar)[:80]) if avatar else sprite}"
+        if team_indices is not None:
+            if not v or custom:
+                raise SilverError("invalid", "Choose a character team before selecting its pool slots.")
+            self._pick_six(v["sets"], team_indices)
+            canon_key += ":slots:" + ",".join(str(i) for i in team_indices)
         if not custom and not name:
             existing = self.store.trainer_by_canon(canon_key)
             if existing:
@@ -872,8 +921,10 @@ class Services:
             notes.append(f"Imagen: {art or 'propia'} ({self.avatar_credit(avatar) or 'imagen propia'}).")
         sets = [{k: x for k, x in s.items() if k != "level_range"} for s in (v["sets"] if v else [])] if (v and not custom) or (v and custom and variant) else []
         if v and v.get("pool"):   # a battle facility's pool: the trainer takes six of them
-            sets = sets[:6]
-            notes.append(f"Grupo de {v['pool']} Pokémon posibles en la instalación; el entrenador lleva los 6 primeros.")
+            sets = self._pick_six(sets, team_indices) if team_indices is not None else sets[:6]
+            notes.append(f"Grupo de {v['pool']} Pokémon posibles en la instalación; puedes elegir seis desde Combatir.")
+        elif team_indices is not None:
+            sets = self._pick_six(sets, team_indices)
         fmt = v["format"] if v else self.settings["default_format"]
         # a team from the cartridge plays with the AI its flags mean (hgss_rom.ai_for) unless the player chose one
         auto = v["ai"] if cart and not custom else {"level": "hard", "style": "balanced"}
@@ -1281,6 +1332,9 @@ class Services:
             level, style = spec.get("ai_level") or self.settings["default_ai_level"], spec.get("ai_style") or self.settings["default_ai_style"]
         if spec.get("team_size"):
             sets = sets[: int(spec["team_size"])]
+        if spec.get("team_indices") is not None:
+            pool = self._trainer_pool(t) if spec.get("trainer_id") else sets
+            sets = self._pick_six(pool, spec["team_indices"])
         if not sets:
             raise SilverError("empty_team", f"{name} has no team.")
         level, style = self._clean_ai(level, style)
@@ -1376,10 +1430,11 @@ class Services:
 
     def battle_start(self, *, p1: dict[str, Any], p2: dict[str, Any], format_: str = "", rules: Optional[list[str]] = None,
                      level_rules: Optional[dict[str, Any]] = None, kind: str = "", run_id: str = "", title: str = "", seed: Any = None,
-                     mode: str = "classic", time_limit: int = 0, rt_arena: str = "rocks", start: Optional[dict[str, Any]] = None) -> dict[str, Any]:
+                     mode: str = "classic", time_limit: int = 0, rt_arena: str = "rocks", start: Optional[dict[str, Any]] = None,
+                     silver_special: Optional[bool] = None) -> dict[str, Any]:
         if mode == "realtime":
             return self._rt_start(p1=p1, p2=p2, format_=format_, level_rules=level_rules, kind=kind, run_id=run_id, title=title, seed=seed,
-                                  time_limit=time_limit, arena=rt_arena, start=start)
+                                  time_limit=time_limit, arena=rt_arena, start=start, silver_special=silver_special)
         if mode not in ("classic", ""):
             raise SilverError("invalid", "mode is classic or realtime")
         s1, s2 = self._seat(p1, "Jugador 1"), self._seat(p2, "Jugador 2")
@@ -1879,6 +1934,7 @@ class Services:
                 "time_limit": int(replay.get("time_limit") or self.settings.get("rt_time_limit") or 300), "p1": seat(b.get("p1") or {}),
                 "p2": seat(b.get("p2") or {}), "version": int(replay.get("version") or 1),
                 "arena": replay.get("arena") if replay.get("arena") in RT_ARENAS or isinstance(replay.get("arena"), dict) else "open",
+                **({"silver_special": replay["silver_special"]} if "silver_special" in replay else {}),
                 **({"training": replay["training"]} if replay.get("training") else {}),
                 **({"start": replay["start"]} if replay.get("start") else {})}
 
@@ -1899,7 +1955,8 @@ class Services:
 
     def _rt_start(self, *, p1: dict[str, Any], p2: dict[str, Any], format_: str = "", level_rules: Optional[dict[str, Any]] = None,
                   kind: str = "", run_id: str = "", title: str = "", seed: Any = None, time_limit: int = 0, arena: str = "rocks",
-                  training: Optional[dict[str, Any]] = None, start: Optional[dict[str, Any]] = None) -> dict[str, Any]:
+                  training: Optional[dict[str, Any]] = None, start: Optional[dict[str, Any]] = None,
+                  silver_special: Optional[bool] = None) -> dict[str, Any]:
         arena = self.arenas.spec(_rt_arena(arena))
         s1, s2 = self._seat(p1, "Jugador 1"), self._seat(p2, "Jugador 2")
         if training:
@@ -1918,6 +1975,7 @@ class Services:
         bid = self.store.add_battle({"kind": kind, "mode": "realtime", "status": "running" if watch else "live", "format": fmt, "rules": [],
                                      "level_rules": level_rules, "p1": s1, "p2": s2, "run_id": run_id, "title": title, "seed": seed_text,
                                      "replay": {"time_limit": limit, "inputs": [], "tick": 0, "version": RT_RULES_VERSION, "arena": arena,
+                                                "silver_special": bool(self.settings.get("rt_silver_special", False)) if silver_special is None else silver_special,
                                                 **({"training": training} if training else {}), **({"start": start} if start else {})}})
         if not seed_text:
             self.store.update_battle(bid, {"seed": bid})
@@ -2036,7 +2094,7 @@ class Services:
                 "Lock-on: holding focus (Shift / ZL) keeps the Pokémon facing the foe, so walking strafes and moves aim at the foe (and a move out of range walks up to it first). Without focus the Pokémon faces where it walks; moves go along that facing, snapping to the foe only within 30 degrees of it, so projectiles, beams and cones can miss and strikes and dashes lunge forward and only land if they reach. The AI always locks on; the simple control layout always sends focus.",
                 "Arena (rt_arena): open, or rocks (the default for new battles): 3 to 6 round rocks placed from the battle's seed, mirrored left to right, away from the spawn points and the centre line. They block walking, rolls and dashes, and stop projectiles and beams (and cones behind them); blasts that fall from the sky and quakes ignore them. The AI walks around them and avoids firing into them.",
                 "Mega Power gauge: three segments per trainer, filling one every 8 s and faster when dealing damage (a whole HP bar dealt = 0.8 of a segment); battles stored with rules version 2 fill one every 15 s (0.4 for a whole HP bar).",
-                "Ultimate (rules version 5): each trainer has an ultimate gauge that fills when its Pokémon deal damage (a whole HP bar dealt = half the gauge), take it (0.3) and knock out (a quarter). Full, the Plus key (F; ZL + + on a gamepad) unleashes the active Pokémon's ultimate: a 150-power attack of its first type, physical or special after its better attacking stat, that falls on the foe 0.9 s later in a 2.6 m circle drawn on the ground, so it can be rolled out of; it uses no move slot and no cooldown, and the gauge empties.",
+                "Silver special (introduced in rules version 5): an optional extra 150-power attack, separate from the four moves. Rules version 11 disables it by default; enable rt_silver_special in Settings for new battles and exports. Each battle saves the choice; rules versions 5-10 keep it enabled. When enabled, its gauge fills from damage dealt (a whole HP bar = half the gauge), taken (0.3) and knockouts (a quarter). Full, F (ZL + + on a gamepad) unleashes an attack of the Pokémon's first type, using its better attacking stat, falling on the foe 0.9 s later in a 2.6 m circle. It can be dodged; it uses no move slot or cooldown and empties the gauge. Mega Evolution is independent of this option.",
                 "No Plus moves (rules version 4): the gauge is only for Mega Evolution. Battles stored with rules versions 2 and 3 keep theirs (a full segment armed a Plus move: x1.2 damage, x1.3 if super effective, more side effects and healing, larger areas, a quarter of the damage through protection; every move of a Mega Evolved Pokémon was one).",
                 "Mega Evolution: with a full gauge, a Pokémon holding its Mega Stone (or Rayquaza with Dragon Ascent) can Mega Evolve once per battle, from generation 6 formats on: the Mega forme's stats, types and ability, HP kept in proportion; it stays Mega while the gauge drains a segment every 8 s; when it empties (or the Pokémon leaves or faints) it goes back to its usual forme.",
                 "Doubles (doubles formats, rules version 3): each trainer has two Pokémon on the field at once, slot a above the centre line and slot b below it. A person moves one of them (the controlled one: moves 1-4 and roll are its own) and swaps which with Tab / C (gamepad L, or the left stick click in the simple layout); the partner is driven by the AI: it stays within reach, dodges, keeps 4 m from its partner, and attacks the person's locked foe unless the other foe is clearly better. X (the right stick click) switches the foe it locks on, shown with a reticle. The AI trainers play both of their Pokémon the same way and pick targets by the damage they can deal and by who threatens them.",
@@ -2628,13 +2686,14 @@ class Services:
         fmt = format_ or s1["format"] or s2["format"] or self.settings["default_format"]
         count = max(1, min(int(count or self.settings["series_default"]), 1000))
         rt = mode == "realtime"
+        silver_special = bool(self.settings.get("rt_silver_special", False))
         limit = max(30, min(int(time_limit or self.settings["rt_time_limit"]), 1800))
         if rt:
             fmt, rules = self._rt_format(fmt), []
         spec = {"format": fmt, "rules": rules or [], "level_rules": level_rules or {}, "max_turns": self.settings["max_turns"],
                 "p1": {"name": s1["name"], "sets": s1["sets"], "ai": s1["ai"]}, "p2": {"name": s2["name"], "sets": s2["sets"], "ai": s2["ai"]}}
         if rt:
-            spec.update({"mode": "realtime", "time_limit": limit, "arena": arena, "version": RT_RULES_VERSION})
+            spec.update({"mode": "realtime", "time_limit": limit, "arena": arena, "version": RT_RULES_VERSION, "silver_special": silver_special})
 
         def work(jid: str, progress: Callable[[float], None], cancelled: Callable[[], bool]) -> dict[str, Any]:
             res = self.engine.run_job("simulate", {"spec": spec, "count": count}, progress=progress, cancelled=cancelled, timeout=6 * 3600)
@@ -2646,7 +2705,7 @@ class Services:
                                              "turns": summary.get("turns", 0), "log_text": "\n".join(sample.get("lines") or []), "summary": summary,
                                              "seed": str(sample.get("seed")) if rt else json.dumps(sample.get("seed")), "job_id": jid,
                                              "title": f"{s1['name']} vs {s2['name']}", "mode": "realtime" if rt else "classic",
-                                             "replay": {"time_limit": limit, "inputs": [], "version": RT_RULES_VERSION, "arena": arena} if rt else {}})
+                                             "replay": {"time_limit": limit, "inputs": [], "version": RT_RULES_VERSION, "arena": arena, "silver_special": silver_special} if rt else {}})
                 samples[outcome] = bid
             res["samples"] = samples
             res["p1"], res["p2"] = self._public_seat(s1), self._public_seat(s2)
@@ -2673,6 +2732,7 @@ class Services:
         fmt = format_ or self.settings["default_format"]
         self.format_info(fmt, rules)
         rt = mode == "realtime"
+        silver_special = bool(self.settings.get("rt_silver_special", False))
         limit = max(30, min(int(time_limit or self.settings["rt_time_limit"]), 1800))
         if rt:
             fmt, rules = self._rt_format(fmt), []
@@ -2683,7 +2743,7 @@ class Services:
             res = self.engine.run_job("tournament", {"format": fmt, "rules": rules or [], "level_rules": level_rules or {}, "entrants": entrants,
                                                      "max_turns": self.settings["max_turns"],
                                                      "kind": kind, "best_of": best_of, "mode": "realtime" if rt else "classic", "time_limit": limit,
-                                                     "arena": arena, "version": RT_RULES_VERSION},
+                                                     "arena": arena, "version": RT_RULES_VERSION, "silver_special": silver_special},
                                      progress=progress, cancelled=cancelled, timeout=12 * 3600)
             by_id = {e["id"]: e for e in entrants}
             for m in res.get("matches") or []:
@@ -2699,7 +2759,7 @@ class Services:
                                                            "summary": summary, "seed": str(g.get("seed")) if rt else json.dumps(g.get("seed")),
                                                            "job_id": jid, "title": f"{name} · {a['name']} vs {b_['name']}",
                                                            "mode": "realtime" if rt else "classic",
-                                                           "replay": {"time_limit": limit, "inputs": [], "version": RT_RULES_VERSION, "arena": arena} if rt else {}})
+                                                           "replay": {"time_limit": limit, "inputs": [], "version": RT_RULES_VERSION, "arena": arena, "silver_special": silver_special} if rt else {}})
                     g.pop("summary", None)
             res["entrants"] = [{"id": e["id"], "name": e["name"], "avatar_url": self.avatar_url(e["avatar"])} for e in entrants]
             res["title"] = name
@@ -3099,6 +3159,7 @@ class Services:
         if isinstance(arena, dict):
             arena = {k: arena[k] for k in ("name", "floor", "rocks")}
         return {"format": rt_fmt, "arena": arena, "time_limit": limit, "version": RT_RULES_VERSION,
+                "silver_special": bool(self.settings.get("rt_silver_special", False)),
                 "keys": {t["id"]: self._rt_key(t, rt_fmt, level_rules) for t in self._stage_trainers(kind, obj)}}
 
     def _import_rt_result(self, r: dict[str, Any]) -> dict[str, Any]:
@@ -3177,6 +3238,7 @@ class Services:
                 raise SilverError("conflict", f"This result was played against another version of {opp['name']}: {label} changed after the page was exported.",
                                   hint="Export the page again and ask your friend to play it again.")
             version, arena, seed, limit = rt.get("v"), rt.get("arena"), rt.get("seed"), rt.get("limit")
+            special = {"silver_special": rt.get("silver_special")} if type(version) is int and version >= 11 else {}
             forfeit, tick = rt.get("forfeit") or "", rt.get("tick") or 0
             if isinstance(arena, dict):   # a gym's own arena: it must be the one the gym has here
                 own = self.arenas.spec(obj["rt_arena"]) if kind == "gym" and ARENA_CUSTOM.match(obj.get("rt_arena") or "") else None
@@ -3188,16 +3250,18 @@ class Services:
                     or type(limit) is not int or not 30 <= limit <= 1800
                     or not isinstance(seed, str) or not 1 <= len(seed) <= 64 or forfeit not in ("", "p1") or type(tick) is not int or not 0 <= tick <= 1800 * 30 + 150):
                 raise SilverError("invalid", "The real-time replay inside the code is damaged.")
+            if special and type(special["silver_special"]) is not bool:
+                raise SilverError("invalid", "The real-time replay is missing its Silver special option.")
             inputs = sharing.decode_rt_inputs(rt.get("inputs"))
             spec = {"id": f"friend-{seed}"[:80], "seed": seed, "format": rt_fmt, "level_rules": level_rules, "time_limit": limit, "version": version, "arena": arena,
-                    "p1": {"name": challenger, "sets": team, "ai": None},
+                    **special, "p1": {"name": challenger, "sets": team, "ai": None},
                     "p2": {"name": opp["name"], "sets": opp["team"], "ai": {"level": opp["ai_level"], "style": opp["ai_style"]}}}
             res = self.engine.run_job("rt_replay", {"spec": spec, "inputs": inputs, "forfeit": forfeit, "tick": tick}, timeout=600)
             replayed_win = (res.get("summary") or {}).get("winner_side") == "p1"
             if not res.get("ended") or replayed_win != bool(stage.get("won")):
                 raise SilverError("invalid", f"The replay of the battle against {opp['name']} does not end as the code says: the code was altered or is damaged.",
                                   hint="Ask your friend to send the result again, as a file if the code is long.")
-            replays[i] = {"res": res, "opp": opp, "limit": limit, "version": version, "arena": arena, "seed": seed}
+            replays[i] = {"res": res, "opp": opp, "limit": limit, "version": version, "arena": arena, "seed": seed, **special}
         # everything checked: now it is recorded
         battle_ids: dict[int, str] = {}
         for i, tp in turn_replays.items():
@@ -3220,7 +3284,8 @@ class Services:
                 "p1": p_friend, "p2": p_opp, "winner_side": summary.get("winner_side", ""), "winner_name": summary.get("winner", ""), "turns": 0,
                 "log_text": "\n".join(res.get("lines") or []), "summary": {**summary, "from_friend": True},
                 "replay": {"time_limit": rp["limit"], "inputs": res.get("inputs") or [], "tick": int(round((res.get("seconds") or 0) * 30)),
-                           "version": rp["version"], "arena": rp["arena"]},
+                           "version": rp["version"], "arena": rp["arena"],
+                           **({"silver_special": rp["silver_special"]} if "silver_special" in rp else {})},
                 "title": f"{label} · {challenger}" if len(order) == 1 else f"{label} · {opp['name']} · {challenger}"})
         stage_info = [{"name": x.get("name") or order[i]["name"], "won": bool(x.get("won")), "turns": int(x.get("turns") or 0),
                        "mode": "realtime" if i in replays else "classic", **({"battle_id": battle_ids[i]} if i in battle_ids else {}),
@@ -3919,11 +3984,15 @@ class Services:
                     images.append({"file": p.name, "url": f"/api/style-refs/{p.name}", "bytes": p.stat().st_size})
         names = [n for n in str(self.settings["prospero_style_sprites"]).split(",") if n]
         used = [*(i["file"] for i in images), *names][: self.MAX_STYLE_REFS]
+        selection = read_json(folder / "selection.json", None)
+        if isinstance(selection, list):
+            available = {i["file"] for i in images} | set(names)
+            used = [ref for ref in selection if ref in available][: self.MAX_STYLE_REFS]
         return {"images": images, "sprites": names, "used": used, "max": self.MAX_STYLE_REFS,
                 "sprite_urls": {n: f"/api/sprites/trainers/{n}.png" for n in names}}
 
     def avatar_style_set(self, *, sprites: Optional[str] = None, add: Optional[list[tuple[str, bytes]]] = None,
-                         remove: Optional[list[str]] = None) -> dict[str, Any]:
+                         remove: Optional[list[str]] = None, selected: Optional[list[str]] = None) -> dict[str, Any]:
         """Change the style references: the trainer sprite names (comma separated, "" for none), pictures to add, files to remove."""
         if sprites is not None:
             self.settings.update({"prospero_style_sprites": sprites})
@@ -3944,6 +4013,13 @@ class Services:
             folder.mkdir(parents=True, exist_ok=True)
             out = folder / f"{stem}-{int(time.time() * 1000) % 10**9}.png"
             img.convert("RGBA").save(out, "PNG")
+        if selected is not None:
+            info = self.avatar_style_get()
+            available = {i["file"] for i in info["images"]} | set(info["sprites"])
+            if len(selected) > self.MAX_STYLE_REFS or len(set(selected)) != len(selected) or any(ref not in available for ref in selected):
+                raise SilverError("invalid", "Choose up to three different references from avatar_style_get.")
+            folder.mkdir(parents=True, exist_ok=True)
+            write_json_atomic(folder / "selection.json", selected)
         return self.avatar_style_get()
 
     def style_reference_paths(self, own_only: bool = False) -> list[str]:
@@ -3953,7 +4029,10 @@ class Services:
         info = self.avatar_style_get()
         if own_only:
             own = {i["file"] for i in info["images"]}
-            info = {**info, "used": [r for r in info["used"] if r in own] or [i["file"] for i in info["images"]][: self.MAX_STYLE_REFS]}
+            used = [r for r in info["used"] if r in own]
+            if not (self.config.style_refs_dir / "selection.json").exists():
+                used = used or [i["file"] for i in info["images"]][: self.MAX_STYLE_REFS]
+            info = {**info, "used": used}
         out_dir = self.config.data_dir / "cache" / "style_prepared"
         out_dir.mkdir(parents=True, exist_ok=True)
         paths = []

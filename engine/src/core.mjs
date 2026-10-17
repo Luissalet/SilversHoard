@@ -288,7 +288,7 @@ export function dexSearch(kind, query = '', {gen = 9, limit = 30, species = '', 
 
 function dexEntry(kind, e) {
   if (kind === 'species') return {id: e.id, name: e.name, num: e.num, types: e.types, base_stats: e.baseStats, abilities: Object.values(e.abilities || {}), sprite_id: e.spriteid, tier: e.tier || ''};
-  if (kind === 'moves') return {id: e.id, name: e.name, type: e.type, category: e.category, power: e.basePower, accuracy: e.accuracy, pp: e.pp, priority: e.priority, desc: e.shortDesc || e.desc || ''};
+  if (kind === 'moves') return {id: e.id, name: e.name, type: e.type, category: e.category, power: e.basePower, accuracy: e.accuracy, pp: e.pp, priority: e.priority, contest_type: e.contestType || '', desc: e.shortDesc || e.desc || ''};
   if (kind === 'items') return {id: e.id, name: e.name, desc: e.shortDesc || e.desc || ''};
   if (kind === 'abilities') return {id: e.id, name: e.name, desc: e.shortDesc || e.desc || ''};
   return {id: e.id, name: e.name, plus: e.plus || '', minus: e.minus || ''};

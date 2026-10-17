@@ -191,7 +191,10 @@ const RT = {
   rt_hits_n: ["{n} golpes · {c} críticos", "{n} hits · {c} critical"],
   rt_dummy_reset: ["¡Muñeco a tope!", "Dummy healed!"],
   rt_phase: ["¡Cambio de táctica!", "Change of tactics!"],
-  rt_ult: ["Ataque especial", "Charged attack"],
+  rt_ult: ["Especial de Silver", "Silver special"],
+  rt_special_option: ["Activar el Especial de Silver", "Enable Silver special"],
+  rt_special_option_help: ["Desactivado por defecto. Añade un ataque propio de Silver, de potencia 150 y separado de los cuatro movimientos. Se aplica a nuevos combates, torneos y páginas jugables; las partidas y repeticiones guardadas conservan su elección.", "Off by default. Adds Silver's own 150-power attack, separate from the four moves. Applies to new battles, tournaments and playable pages; saved battles and replays keep their choice."],
+  rt_special_off: ["Especial de Silver desactivado", "Silver special disabled"],
   rt_ult_cut: ["¡Ataque especial!", "Charged attack!"],
   rt_show_go: ["¡Adelante, {name}!", "Go, {name}!"],
   rt_show_back: ["¡{name}, vuelve!", "{name}, come back!"],
@@ -205,8 +208,8 @@ const RT = {
   rt_show_who: ["¿Quién ganará?", "Who wins?"],
   rt_show_wins: ["¡Gana {name}!", "{name} wins!"],
   rt_show_tie: ["¡Empate!", "Draw!"],
-  rt_ult_help: ["Ataque especial propio del modo en tiempo real. Su barra se llena al hacer y recibir daño y con cada K.O. Cuando está llena, pulsa F (o ZL + + en el mando) para lanzar un ataque de potencia 150 del tipo del Pokémon. El rival puede esquivarlo con una voltereta.",
-    "A charged attack specific to real-time mode. Its gauge fills when dealing and taking damage and with each knockout. When full, press F (or ZL + + on a gamepad) for a 150-power attack of the Pokémon's type. The opponent can dodge it by rolling."],
+  rt_ult_help: ["Ataque adicional inventado para Silver: no es uno de los cuatro movimientos ni un movimiento de carga del cartucho. La barra se llena al hacer y recibir daño y con cada K.O. Cuando está llena, F (o ZL + + en mando) lanza un ataque de potencia 150 del tipo del Pokémon. Se puede esquivar con una voltereta.",
+    "An extra attack invented for Silver: separate from the four moves and from the games' charging moves. The gauge fills with damage dealt and taken and each knockout. At full gauge, F (or ZL + + on a gamepad) unleashes a 150-power attack of the Pokémon's type. It can be dodged by rolling."],
 };
 
 export default RT;
