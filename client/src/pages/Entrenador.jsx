@@ -42,7 +42,7 @@ function TeamTab({ tr, reload, startVisual = false }) {
   const [paste, setPaste] = useState(tr.paste || "");
   const [editing, setEditing] = useState(false);
   const [check, setCheck] = useState(null);
-  const [visual, setVisual] = useState(startVisual);
+  const [visual, setVisual] = useState(startVisual || !tr.team.length);
   const [busy, run] = useBusy();
   useEffect(() => { if (!editing) setPaste(tr.paste || ""); }, [tr.paste, editing]);
   const saveSets = async (sets) => {
@@ -52,7 +52,10 @@ function TeamTab({ tr, reload, startVisual = false }) {
     reload();
     changed();
   };
-  if (visual) return <TeamBuilder team={tr.team} format={tr.format} onSave={saveSets} onCancel={() => setVisual(false)} />;
+  if (visual) return <div className="space-y-3">
+    {!tr.team.length && <p className="help">{t("trainer_empty_team")}</p>}
+    <TeamBuilder team={tr.team} format={tr.format} onSave={saveSets} onCancel={() => setVisual(false)} />
+  </div>;
   const validate = () => run("v", async () => setCheck(await api.call("team_validate", { format: tr.format, paste })));
   const save = () => run("s", async () => {
     await api.call("trainer_update", { id: tr.id, paste });
@@ -64,7 +67,7 @@ function TeamTab({ tr, reload, startVisual = false }) {
   });
   return (
     <div className="space-y-3">
-      {tr.summary ? <TeamCards summary={tr.summary} /> : tr.summary_error ? <div className="banner banner-warn">{tr.summary_error}</div> : <Spinner />}
+      {!tr.team.length ? <p className="help">{t("trainer_empty_team")}</p> : tr.summary ? <TeamCards summary={tr.summary} /> : tr.summary_error ? <div className="banner banner-warn">{tr.summary_error}</div> : <Spinner />}
       <div className="panel space-y-2">
         <div className="flex flex-wrap items-center gap-2">
           <h2 className="flex-1">{t("team_text")}</h2>
