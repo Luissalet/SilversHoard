@@ -56,3 +56,21 @@ def test_selected_six_reach_battle_engine(call, services, mode):
     assert [s["species"] for s in saved["p1"]["sets"]] == [team[i]["species"] for i in indices]
     assert len(call("trainer_get", {"id": trainer["id"]})["team"]) == 7
     call("battle_forfeit", {"id": battle["id"], "side": "p1"})
+
+
+@pytest.mark.parametrize("rename", [False, True])
+def test_saving_facility_team_only_adds_actual_edits(call, rename):
+    trainer = call("character_install", {"key": "giovanni", "variant": "usumbattleagency"})["trainer"]
+    original = call("trainer_get", {"id": trainer["id"]})
+    assert len(original["team_pool"]) == 11
+    team = copy.deepcopy(original["team"])
+    if rename:
+        team[0]["name"] = "My Marowak"
+    saved = call("trainer_update", {"id": trainer["id"], "team": team})
+    assert len(saved["team_pool"]) == 11 + int(rename)
+    assert saved["team_pool_indices"] == ([11, 1, 2, 3, 4, 5] if rename else list(range(6)))
+    assert [saved["team_pool"][i] for i in saved["team_pool_indices"]] == saved["team"]
+    # A second save must also remain stable after all defaults were normalized.
+    again = call("trainer_update", {"id": trainer["id"], "team": saved["team"]})
+    assert again["team_pool"] == saved["team_pool"]
+    assert again["team_pool_indices"] == saved["team_pool_indices"]
