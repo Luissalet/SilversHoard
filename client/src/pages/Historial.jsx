@@ -6,6 +6,7 @@ import { Busy, Empty, ErrorBox, Icon, ICONS, Rel, Spinner, useBusy, useLoad } fr
 import { Avatar } from "../components/silver.jsx";
 import { loc, winnerName } from "../loc.js";
 import BattleSearch from "../components/BattleSearch.jsx";
+import ReplayStatistics from "../components/ReplayStatistics.jsx";
 
 export function BattleRow({ b, onDelete }) {
   const { t, lang, changed, confirm } = useApp();
@@ -58,6 +59,7 @@ export default function Historial() {
           {KINDS.map((k) => <option key={k} value={k}>{k ? t(`kind_${k}`) : t("all_kinds")}</option>)}
         </select>
       </div>
+      <ReplayStatistics kind={kind} />
       <BattleSearch kind={kind} onActive={setSearchActive} renderBattle={b=><BattleRow b={b} />} />
       {!searchActive && <>
       {error && <ErrorBox error={{ ...error, message: t("history_load_failed") }} onRetry={reload} />}
