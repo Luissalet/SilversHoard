@@ -52,7 +52,7 @@ def test_package_reconstructs_every_position_in_a_fresh_library_without_source(s
             receiver.battle_forfeit(again['id'], 'p1')
         assert not receiver.store.trainers() and not receiver.store.badges() and not receiver.store.hall()
         assert all(b['id'] != source['id'] for b in receiver.store.battles())
-        assert [e['title'] for e in sorted(receiver.training.list()['exercises'], key=lambda e:e['pack']['index'])] == ['Position 1', 'Position 2']
+        assert [e['title'] for e in receiver.training.list()['exercises']] == ['Position 1', 'Position 2']
     finally:
         receiver.stop()
     assert services.store.battle(source['id']) == before
