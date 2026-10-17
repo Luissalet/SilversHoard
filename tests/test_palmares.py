@@ -94,3 +94,36 @@ def test_unify_guest_and_progress_slice():
     assert card["guest"] is True and card["counts"]["pokeathlon_complete"] == 1
     assert card["unlocked_achievements"] == 1 and card["counts"]["achievements_total"] == 2
     assert pm.achievements_slice(progress, unlocked_only=True) == [{"id": "first_win", "unlocked": True}]
+
+
+def _palmer_win(run_id: str, challenger_id: str, battle_id: str) -> dict:
+    return {
+        "id": run_id,
+        "kind": "facility",
+        "challenger_id": challenger_id,
+        "challenger_name": challenger_id,
+        "challenger": {"frontier": {"kind": "tower"}},
+        "stages": [{
+            "number": 21, "boss": True, "result": "won", "character": "palmer",
+            "name": "Tower Tycoon Palmer", "battle_id": battle_id,
+        }],
+    }
+
+
+def test_two_trainers_same_brain_both_keep_emblem_either_order():
+    """CHANGES P1: A then B must not erase B's emblem (and reverse order too)."""
+    a = _palmer_win("run_a", "trainerA", "bt_a")
+    b = _palmer_win("run_b", "trainerB", "bt_b")
+    for order in ([a, b], [b, a]):
+        everyone = pm.frontier_emblems_from_runs(order)
+        assert len(everyone) == 2
+        by_cid = {e["challenger_id"]: e for e in everyone}
+        assert by_cid["trainerA"]["battle_id"] == "bt_a"
+        assert by_cid["trainerB"]["battle_id"] == "bt_b"
+        only_b = pm.frontier_emblems_from_runs(order, trainer_id="trainerB")
+        assert len(only_b) == 1 and only_b[0]["challenger_id"] == "trainerB"
+        only_a = pm.frontier_emblems_from_runs(order, trainer_id="trainerA")
+        assert len(only_a) == 1 and only_a[0]["challenger_id"] == "trainerA"
+        card_b = pm.unify(trainer_id="trainerB", facility_runs=order)
+        assert card_b["counts"]["frontier_emblems"] == 1
+        assert card_b["frontier_emblems"][0]["challenger_id"] == "trainerB"

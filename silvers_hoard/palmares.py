@@ -82,16 +82,27 @@ def _facility_kind(run: dict[str, Any]) -> str:
     return target or "facility"
 
 
-def frontier_emblems_from_runs(runs: Iterable[dict[str, Any]]) -> list[dict[str, Any]]:
+def frontier_emblems_from_runs(
+    runs: Iterable[dict[str, Any]],
+    trainer_id: Optional[str] = None,
+) -> list[dict[str, Any]]:
     """Emblems earned by recorded public wins against a Frontier Brain (stage.boss and result==won).
 
     A later loss or abandoned streak does not remove an emblem already earned. Streak length alone
     (21/49/50/170) never awards one. Stages without boss=True are ignored even if special.
     Proof cites stage number, battle_id and character when present.
+
+    When trainer_id is not None, only that challenger's runs are considered (filter before dedup).
+    Emblem ids include challenger_id so two trainers beating the same Brain keep distinct entries
+    when scanning everyone (trainer_id=None).
     """
+    want = None if trainer_id is None else identity_key(trainer_id)
     earned: dict[str, dict[str, Any]] = {}
     for run in runs:
         if run.get("kind") != "facility":
+            continue
+        cid = identity_key(run.get("challenger_id"))
+        if want is not None and cid != want:
             continue
         kind = _facility_kind(run)
         for stage in run.get("stages") or []:
@@ -103,7 +114,7 @@ def frontier_emblems_from_runs(runs: Iterable[dict[str, Any]]) -> list[dict[str,
             character = (stage.get("character") or "").strip()
             name = (stage.get("name") or stage.get("name_en") or "").strip()
             print_ = _print_for(kind, number)
-            eid = f"{kind}:{character or name or 'brain'}:{print_}:{number}"
+            eid = f"{cid}:{kind}:{character or name or 'brain'}:{print_}:{number}"
             if eid in earned:
                 continue
             earned[eid] = {
@@ -116,6 +127,8 @@ def frontier_emblems_from_runs(runs: Iterable[dict[str, Any]]) -> list[dict[str,
                 "number": number,
                 "battle_id": stage.get("battle_id") or "",
                 "run_id": run.get("id") or "",
+                "challenger_id": cid,
+                "challenger_name": run.get("challenger_name") or "",
                 "avatar": stage.get("avatar") or "",
             }
     return sorted(earned.values(), key=lambda e: (e["facility"], e["number"], e["id"]))
@@ -140,7 +153,11 @@ def unify(
     """One palmarés card for a person (or guest ''). Gym badges are passed through unchanged."""
     tid = identity_key(trainer_id)
     medals = pokeathlon_medals(pokeathlon_rows or (), tid)
-    emblems = frontier_emblems_from_runs(facility_runs or ())
+    # Guest (''): all challengers' emblems; a real trainer id: that person only (filter before dedup).
+    emblems = frontier_emblems_from_runs(
+        facility_runs or (),
+        trainer_id=None if tid == "" else tid,
+    )
     prog = progress or {}
     ach = achievements_slice(prog)
     return {
