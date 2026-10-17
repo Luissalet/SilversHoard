@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+Supplied sprites now appear throughout navigation, contests, secret bases and pixel projectile effects: 447 sprite entries, including 138 Generation IV goods and 207 animated attack frames, with source credits. Search 117 contest accessories and 276 base objects; large furniture reserves every occupied tile and survives normal JSON sharing. `leisure_catalog` supports section/query/offset/limit for complete API/MCP browsing. See [supplied sprites](docs/SUPPLIED_SPRITES.md) for coverage, reproduction and remaining unused sheets.
+
 Move sound types load from generated JSON data; playable exports embed the same table. The 935 move mappings and the existing fallback when data cannot load are preserved.
 
 New AI commentary uses the language selected when a battle, challenge, cup, practice or exercise starts (English by default through API/MCP). Later stages keep that choice even if the interface language changes. Existing saved lines and trainer dialogue remain literal.
@@ -154,3 +156,5 @@ Video exports attach the audio recorder before the real-time replay loads, so mu
 Video jobs report the duration of the finished MP4 or WebM, rounded to tenths of a second, when ffprobe can read it. Without readable duration metadata they retain the recorder's estimate. This also applies to mass battle videos.
 
 When editing a team, each Pokémon has its own **Smogon sets** button. Pick a published variant and **Apply set** to fill only that member's moves, item, ability, nature, EVs, IVs and Tera type, then save the team. The other members keep their sets. **Sample team** remains a separate action that replaces the roster.
+
+Ice Beam and ice projectiles such as Ice Shard and Icicle Spear use original animated ice artwork in real-time battles, videos and playable pages. Plain effects and image-loading fallbacks remain available. The original PNG, exact lossless WebP, prompt and rebuild instructions are included in [ice artwork provenance](client/src/battle/rt/art/ice/PROVENANCE.md).

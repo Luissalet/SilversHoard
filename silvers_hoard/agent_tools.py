@@ -360,6 +360,13 @@ class Seat(BaseModel):
     ai_hidden: Optional[bool] = Field(None, description="The AI sees only what the battle shows of the other team (guessing the rest from usage statistics). Default: the ai_hidden_info setting.")
 
 
+class LeisureCatalogArgs(BaseModel):
+    section: Literal["all", "accessories", "decorations", "sprites", "sources"] = "all"
+    query: str = Field("", max_length=100)
+    offset: int = Field(0, ge=0)
+    limit: int = Field(24, ge=0, description="Page size; 0 returns every matching entry.")
+
+
 class ContestStartArgs(BaseModel):
     trainer_id: str = IdField
     pokemon: int = Field(0, ge=0, le=23)
@@ -1061,7 +1068,7 @@ WD = ann(draft_safe=True)
 D = ann(destructive=True)
 
 TOOLS: list[Tool] = [
-    Tool("leisure_catalog", _d("Contest categories, accessories and secret-base decorations. Concursos y bases secretas."), Empty, R, lambda s, a: s.leisure.catalog()),
+    Tool("leisure_catalog", _d("Browse sprites, accessories and base decorations by section, query and page. Catalogo de sprites."), LeisureCatalogArgs, R, lambda s, a: s.leisure.catalog(**a.model_dump())),
     Tool("contests_list", _d("Saved contests and ribbons. Concursos guardados y cintas."), Empty, R, lambda s, a: {"contests": s.leisure.contests()}),
     Tool("contest_get", _d("Resume a contest: presentation, dance, acting, judging and results. Ver concurso."), IdArg, R, lambda s, a: s.leisure.contest_get(a.id)),
     Tool("contest_start", _d("Enter a Pokémon in a Silver Super Contest with three rounds. Empezar concurso."), ContestStartArgs, WD, lambda s, a: s.leisure.contest_start(**a.model_dump())),

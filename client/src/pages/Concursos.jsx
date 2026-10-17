@@ -4,6 +4,7 @@ import { useApp } from "../context.js";
 import { Busy, ErrorBox, Field, Icon, ICONS, useBusy, useLoad } from "../components/ui.jsx";
 import { MonIcon, TrainerSelect } from "../components/silver.jsx";
 import LeisureArt from "../components/LeisureArt.jsx";
+import { spriteLabel } from "../components/SuppliedSprite.jsx";
 import { nameOf } from "../battle/dex.js";
 import "./leisure.css";
 
@@ -56,7 +57,7 @@ function Dance({ state, onSubmit, busy }) {
 
 export default function Concursos() {
   const { t, lang } = useApp();
-  const catalog = useLoad(() => api.call("leisure_catalog"), []);
+  const catalog = useLoad(() => api.call("leisure_catalog", { limit: 0 }), []);
   const history = useLoad(() => api.call("contests_list"), []);
   const [trainer, setTrainer] = useState("");
   const detail = useLoad(() => trainer ? api.call("trainer_get", { id: trainer }) : Promise.resolve(null), [trainer]);
@@ -66,14 +67,16 @@ export default function Concursos() {
   const [condition, setCondition] = useState(0);
   const [state, setState] = useState(null);
   const [accessories, setAccessories] = useState([]);
+  const [filter, setFilter] = useState("");
   const [move, setMove] = useState(0);
   const [judge, setJudge] = useState(0);
   const [busy, run] = useBusy();
   const [error, setError] = useState(null);
-  const action = (key, fn) => run(key, async () => { setError(null); try { const s = await fn(); setState(s); history.reload(); } catch (e) { setError(e); } });
+  const action = (key, fn) => run(key, async () => { setError(null); try { const s = await fn(); setState(s); setAccessories(s.accessories || []); history.reload(); } catch (e) { setError(e); } });
   const choose = (args) => action("choose", () => api.call("contest_choose", { id: state.id, revision: state.revision, ...args }));
   const start = () => action("start", () => api.call("contest_start", { trainer_id: trainer, pokemon, category, rank, condition: Number(condition) }));
   const team = detail.data?.id === trainer ? detail.data.team : [];
+  const labelOf = (id) => id.includes("-") ? spriteLabel(id, lang) : t(`decor_${id}`);
   const entrantName = (i) => { const e = state.entrants[i]; return `${e.species} · ${e.name}${i === 0 ? ` · ${t("contest_you")}` : ""}`; };
   return <div className="space-y-4">
     <div className="page-head"><div><h1>{t("nav_contests")}</h1><p className="help">{t("contest_help")}</p></div></div>
@@ -90,15 +93,16 @@ export default function Concursos() {
       <div className="flex flex-wrap gap-2">{["dress", "dance", "acting", "result"].map((p) => <span key={p} className={`chip ${state.phase === p ? "chip-accent" : ""}`} aria-current={state.phase === p ? "step" : undefined}>{t(`contest_${p}`)}</span>)}<span className="chip">{t(`category_${state.category}`)} · {t(`rank_${state.rank}`)}</span></div>
       <div className="contest-stage" aria-label={t(`contest_${state.phase}`)}>
         {state.entrants.map((e, i) => <div key={i} className={`contest-performer ${i === 0 ? "is-you" : ""}`}>
-          <div className="contest-costume"><MonIcon species={e.species} size={96} />{i === 0 && <div className="contest-accessory-strip">{state.accessories.map((a) => <LeisureArt key={a} kind={a} size={22} />)}</div>}</div>
+          <div className="contest-costume"><MonIcon species={e.species} size={96} />{i === 0 && <div className="contest-accessory-strip">{(state.phase === "dress" ? accessories : state.accessories).map((a) => <span key={a} title={labelOf(a)}><LeisureArt kind={a} size={28} /></span>)}</div>}</div>
           <b>{e.species}</b><span className="help">{e.name}{i === 0 ? ` · ${t("contest_you")}` : ""}</span><span>{t("contest_score", { n: e.scores.reduce((a, b) => a + b, 0) })}</span>
         </div>)}
       </div>
       <div className="panel space-y-3">
         {state.phase === "dress" && <>
           <h2>{t("contest_theme", { theme: t(`theme_${state.theme}`) })}</h2><p className="help">{t("contest_dress_help")}</p>
-          <div className="leisure-palette" role="group" aria-label={t("contest_accessories")}>{catalog.data?.accessories.map((a) => <button type="button" key={a.id} className={`btn ${accessories.includes(a.id) ? "is-on" : ""}`} aria-pressed={accessories.includes(a.id)} disabled={accessories.length >= 3 && !accessories.includes(a.id)} onClick={() => setAccessories((p) => p.includes(a.id) ? p.filter((x) => x !== a.id) : [...p, a.id])}>
-            <LeisureArt kind={a.id} /><span>{t(`decor_${a.id}`)}<span className="help block">{t(`category_${a.category}`)} · {t(`theme_${a.theme}`)}</span></span></button>)}</div>
+          <Field label={t("sprite_search")}><input className="field" type="search" value={filter} onChange={(e) => setFilter(e.target.value)} /></Field>
+          <div className="leisure-palette accessory-palette" role="group" aria-label={t("contest_accessories")}>{catalog.data?.accessories.filter((a) => labelOf(a.id).toLocaleLowerCase().includes(filter.toLocaleLowerCase())).map((a) => <button type="button" key={a.id} className={`btn ${accessories.includes(a.id) ? "is-on" : ""}`} aria-pressed={accessories.includes(a.id)} disabled={accessories.length >= 3 && !accessories.includes(a.id)} onClick={() => setAccessories((p) => p.includes(a.id) ? p.filter((x) => x !== a.id) : [...p, a.id])}>
+            <LeisureArt kind={a.id} /><span>{labelOf(a.id)}<span className="help block">{t(`category_${a.category}`)} · {t(`theme_${a.theme}`)}</span></span></button>)}</div>
           <Busy busy={busy.choose} className="btn btn-primary" onClick={() => choose({ accessories })}>{t("contest_next")}</Busy>
         </>}
         {state.phase === "dance" && <Dance key={state.id} state={state} busy={busy.choose} onSubmit={choose} />}
