@@ -430,10 +430,13 @@ export class Show {
     const r = this.r;
     if (this.intro) {
       const it = this.intro;
-      // the trainers' pictures load first (at most a second and a half), so the VS panels never come in empty
+      // Wait for a usable picture per side, including the fallback, at most a second and a half.
       if (!it.ready) {
         it.wait = (it.wait || 0) + dt;
-        it.ready = it.wait > 1.5 || it.sides.every((sd) => [sd.trainer, sd.portrait].every((im) => !im || im.ready || im.failed));
+        it.ready = it.wait > 1.5 || it.sides.every((sd) => {
+          const pictures = [sd.trainer, sd.portrait, sd.fallback];
+          return pictures.some((im) => im?.ready) || pictures.every((im) => !im || im.failed);
+        });
       }
       if (it.ready) it.t += dt;
       if (!it.thrown && it.t >= 1.85) {

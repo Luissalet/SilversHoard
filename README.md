@@ -153,3 +153,5 @@ Video exports attach the audio recorder before the real-time replay loads, so mu
 Video jobs report the duration of the finished MP4 or WebM, rounded to tenths of a second, when ffprobe can read it. Without readable duration metadata they retain the recorder's estimate. This also applies to mass battle videos.
 
 When editing a team, each Pokémon has its own **Smogon sets** button. Pick a published variant and **Apply set** to fill only that member's moves, item, ability, nature, EVs, IVs and Tera type, then save the team. The other members keep their sets. **Sample team** remains a separate action that replaces the roster.
+
+The real-time VS presentation waits for an available trainer picture, portrait or battle sprite, for up to 1.5 seconds. Slow image downloads can still leave early frames empty; see [picture loading](docs/RT_INTRO.md).
