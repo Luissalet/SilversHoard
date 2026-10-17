@@ -1,5 +1,6 @@
 import React from "react";
 import { ARENA_ART } from "./arena-art.js";
+import { FLOOR_TEXTURES } from "./visuals/textures.js";
 
 export const W = 28;
 export const H = 17;
@@ -14,12 +15,13 @@ export const blocked = (rk) => HOME.some((h) => Math.hypot(h.x - rk.x, h.y - rk.
 /** The field as a picture: ground, lines, entry spots and rocks (for the list, small; for the editor, with handles). */
 export function ArenaField({ floor = "grass", rocks = [], ghosts = [], selected = -1, onDown, svgRef, small = false }) {
   const [a, b] = FLOORS[floor] || FLOORS.grass;
+  const art = ARENA_ART[floor] || FLOOR_TEXTURES[floor];
   return (
     <svg ref={svgRef} className={`arena-svg ${small ? "is-small" : ""}`} viewBox={`-2.6 -0.6 ${W + 5.2} ${H + 1.2}`} onPointerDown={onDown}
       role="img" aria-label="arena">
       <rect x={-2.6} y={-0.6} width={W + 5.2} height={H + 1.2} fill="#1d2a22" />
       {Array.from({ length: W / 2 }, (_, i) => <rect key={i} x={i * 2} y={0} width={2} height={H} fill={i % 2 ? b : a} />)}
-      {ARENA_ART[floor] && <image href={ARENA_ART[floor]} x={0} y={0} width={W} height={H} preserveAspectRatio="none" pointerEvents="none" />}
+      {art && <image href={art} x={0} y={0} width={W} height={H} preserveAspectRatio="none" pointerEvents="none" />}
       <rect x={0} y={0} width={W} height={H} fill="none" stroke="rgba(255,255,255,.55)" strokeWidth={0.08} />
       <line x1={W / 2} y1={0} x2={W / 2} y2={H} stroke="rgba(255,255,255,.55)" strokeWidth={0.08} />
       <circle cx={W / 2} cy={H / 2} r={2.6} fill="none" stroke="rgba(255,255,255,.55)" strokeWidth={0.08} />
