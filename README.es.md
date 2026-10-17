@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+Las repeticiones y los clips de combates en tiempo real aplican la rendición guardada en su tick exacto. Los saltos y el reinicio usan el mismo lector. `battle_get` devuelve el lado que se rindió a partir del resultado comprobado, también en registros antiguos con motivo de rendición y ganador guardados, sin reescribir sus datos.
+
 Pulsa **Editar nombre** junto al nombre del entrenador para abrir y enfocar su campo Nombre en Datos e IA y pulsa Guardar. El cambio conserva el mismo entrenador, equipo e imagen; REST/MCP utilizan el campo `name` existente de `trainer_update`.
 
 Puedes crear un entrenador solo con su nombre y elegir sus Pokémon después en el editor visual. Pegar un equipo o rellenarlo al azar durante la creación sigue siendo opcional. El entrenador vacío queda guardado; necesita un equipo para combatir. El mismo flujo está disponible mediante `trainer_create` y `trainer_update` en REST/MCP.
