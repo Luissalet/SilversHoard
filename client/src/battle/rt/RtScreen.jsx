@@ -411,6 +411,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
   const [phase, setPhase] = useState("loading");
   const [progress, setProgress] = useState([0, 0]);
   const [credits, setCredits] = useState([]);
+  const [importedCredits, setImportedCredits] = useState([]);
   const [hud, setHud] = useState(null);
   const [abilities, setAbilities] = useState([]);
   const [abilityEpoch, setAbilityEpoch] = useState(0);
@@ -548,6 +549,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     renderer.preload((n, total) => !cancelled && setProgress([n, total])).then(() => {
       if (cancelled) return;
       setCredits([...renderer.credits].slice(0, 12));
+      setImportedCredits([...renderer.importedCredits.values()]);
       if (videoRef.current && state.b.t === 0 && !state.b.ended && !state.b.training) {
         state.introChecked = true;
         renderer.show.startIntro(state.b, {prepared: true});
@@ -951,6 +953,9 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
         )}
         {training && <TrainingPanel stats={training} tr={tr} lang={lang} />}
         {!offline && <div className="help rt-credit">{tr("rt_sprites_note")}{credits.length ? `: ${credits.join(", ")}` : ""}</div>}
+        {importedCredits.length > 0 && <div className="help rt-credit">{importedCredits.map((entry, i) => <React.Fragment key={entry.source}>
+          {i > 0 ? " · " : ""}<a href={entry.source} target="_blank" rel="noopener noreferrer">{entry.credit.join(", ")}</a>
+        </React.Fragment>)}</div>}
       </div>
       <div className="b-log rt-log" aria-live="off" ref={logRef}>
         {log.slice(-120).map((l, i) => (

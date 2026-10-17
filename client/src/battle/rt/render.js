@@ -5,6 +5,7 @@
 // the one a person controls has a marker over its head and the foe it locks on a reticle (turning while the lock-on is held).
 import { TYPE_COLORS } from "../dex.js";
 import { Animator, dirRow, image, loadMeta } from "./pmd.js";
+import { OverworldAnimator } from "./overworld.js";
 import { Vfx, particleStyle } from "./vfx.js";
 import { Show, showSettings } from "./show.js";
 import { PLACE_FLOORS, drawAmbient, drawPlace } from "./places.js";
@@ -61,6 +62,7 @@ export class ArenaRenderer {
     this.humans = humans || [false, false];
     this.anims = sides.map((s) => s.mons.map(() => null));
     this.credits = new Set();    // the walking sprites' artists (SpriteCollab), for the credit line under the arena
+    this.importedCredits = new Map();
     this.megaAnims = sides.map((s) => s.mons.map(() => null));
     const look = (m) => m.base_look || m;
     this.fallbacks = sides.map((s) => s.mons.map((m) => image(sprites.fallback(look(m).species, { spriteid: look(m).sprite_id, shiny: m.shiny }))));
@@ -92,21 +94,26 @@ export class ArenaRenderer {
 
   /** Load every walking sprite (resolves when all are in or after `timeout`), reporting progress. */
   async preload(onProgress = () => {}, timeout = 15000) {
-    if (this.offline) return;
     const jobs = [];
     this.sides.forEach((s, si) => s.mons.forEach((m, mi) => {
-      jobs.push([si, mi, m.num, (m.base_look || m).forme, m.shiny, this.anims]);
-      if (m.mega_info) jobs.push([si, mi, m.mega_info.num, m.mega_info.forme, m.shiny, this.megaAnims]);
+      jobs.push([si, mi, m.num, (m.base_look || m).forme, m.shiny, this.anims, (m.base_look || m).sprite_id]);
+      if (m.mega_info) jobs.push([si, mi, m.mega_info.num, m.mega_info.forme, m.shiny, this.megaAnims, m.mega_info.sprite_id]);
     }));
     let done = 0;
-    const one = async ([si, mi, num, form, shiny, table]) => {
-      const meta = await loadMeta(num, { form, shiny, base: this.base });
-      for (const who of meta?.credit || []) this.credits.add(who);
+    const one = async ([si, mi, num, form, shiny, table, spriteId]) => {
+      const meta = this.offline ? null : await loadMeta(num, { form, shiny, base: this.base });
       // PMD can return the base species when the requested Mega has no sheets. Let its battle sprite show instead.
       const formFolder = meta?.key?.split("-")[1];
       if (meta && (!form?.startsWith("Mega") || (formFolder && formFolder !== "0000"))) {
+        for (const who of meta.credit || []) this.credits.add(who);
         table[si][mi] = new Animator(meta, this.base);
         for (const a of Object.keys(meta.a)) image(`${this.base}/api/sprites/pmd-sheet/${meta.key}/${a}.png`);
+      } else if (spriteId && this.sprites.walking) {
+        const imported = await this.sprites.walking(spriteId, shiny);
+        if (imported) {
+          table[si][mi] = new OverworldAnimator(imported);
+          this.importedCredits.set(imported.source, {source: imported.source, credit: imported.credit || []});
+        }
       }
       done++;
       onProgress(done, jobs.length);

@@ -764,6 +764,12 @@ class JobsArgs(BaseModel):
     status: Literal["", "queued", "running", "done", "failed", "cancelled"] = ""
 
 
+class OverworldImportArgs(BaseModel):
+    path: str = Field(..., min_length=1, description="Local Z-A overworld ZIP or the 265x258 Delphox-line PNG sheet.")
+    source: str = Field(..., min_length=1, description="Original resource page URL, retained with the sprites.")
+    credit: str = Field(..., min_length=1, description="Artists and resource authors, displayed under the arena.")
+
+
 class ExportArgs(BaseModel):
     kind: Literal["trainer", "gym", "league"]
     id: str = IdField
@@ -1383,6 +1389,10 @@ TOOLS: list[Tool] = [
                        synonyms="resultado del torneo, estadísticas de la serie"), IdArg, R, lambda s, a: s.job_get(a.id)),
     Tool("job_cancel", _d("Stop a running job. Cancelar trabajo.", synonyms="parar"), IdArg, W, lambda s, a: s.job_cancel(a.id)),
     Tool("jobs_delete", _d("Delete finished jobs and their battles. Borrar trabajos.", synonyms="limpiar"), IdsArg, D, lambda s, a: s.jobs_delete(a.ids)),
+    Tool("overworld_import", _d("Import directional sprite sheets with source and artist credits. Importar sprites overworld."),
+         OverworldImportArgs, W, lambda s, a: s.overworld.import_(a.path, source=a.source, credit=a.credit)),
+    Tool("overworld_list", _d("Imported directional sprite sheets and their sources. Ver sprites overworld."),
+         Empty, R, lambda s, a: s.overworld.list()),
     Tool("export", _d("Export a trainer, gym or league: file, share code, playable HTML page or Showdown text. Enviar a un amigo.",
                       "page = one HTML file a friend opens in any browser to fight it (friend_mode: choose, turns or realtime); it gives them a result code to send back.",
                       synonyms="compartir, enviar entrenador, código, html jugable"), ExportArgs, R,

@@ -1,6 +1,9 @@
 // Z-A Mega form IDs from PokeAPI, verified 2026-10-17. Source: https://pokeapi.co/api/v2/pokemon?limit=3000
 // Used by exported pages, which have no app behind them to resolve form IDs. Art remains downloaded on demand.
 export const ZA_MEGA_IDS = {
+  "absol-megaz": 10307,
+  "garchomp-megaz": 10309,
+  "lucario-megaz": 10310,
   "raichu-megax": 10304,
   "raichu-megay": 10305,
   "clefable-mega": 10278,
