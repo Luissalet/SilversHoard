@@ -150,7 +150,9 @@ class Cups:
         if mode == "realtime":
             svc.arenas.spec(spec["rt_arena"])   # a custom arena must exist
         rounds = build_rounds([e["id"] for e in entrants])
-        cid = svc.store.add_cup({"title": (title or f"Copa de {len(entrants)}")[:80], "status": "active", "spec": spec, "entrants": entrants,
+        if not title:
+            spec["title_default"] = True
+        cid = svc.store.add_cup({"title": (title or f"Cup: {len(entrants)} trainers")[:80], "status": "active", "spec": spec, "entrants": entrants,
                                  "rounds": rounds, "human_id": human_id or "", "champion": ""})
         svc.emit("cup.created", {"id": cid, "entrants": len(entrants)})
         if autoplay:
@@ -182,6 +184,9 @@ class Cups:
         played = sum(1 for rnd in rounds for m in rnd if m["state"] == "done" and not m.get("bye"))
         total = sum(1 for rnd in rounds for m in rnd if not m.get("bye"))
         out = {k: v for k, v in c.items() if k not in ("rounds", "entrants")}
+        if (c.get("spec") or {}).get("title_default"):
+            n = len(people)
+            out["i18n"] = {"es": {"title": f"Copa: {n} entrenadores"}, "en": {"title": f"Cup: {n} trainers"}}
         out.update({"entrants": list(people.values()), "names": people, "rounds": out_rounds, "my_match": mine,
                     "human_alive": bool(human) and human in alive, "played": played, "total": total,
                     "simulating": c["status"] == "active" and (c["id"] in self._running or any(m["state"] == "sim" for rnd in rounds for m in rnd)), "pending_ai": self._pending_ai(c) if c["status"] == "active" else 0})
@@ -204,7 +209,8 @@ class Cups:
         except SilverError:
             return None
         names = c["names"]
-        return {"id": c["id"], "title": c["title"], "status": c["status"], "champion": c.get("champion") or "",
+        return {"id": c["id"], "title": c["title"], **({"i18n": c["i18n"]} if "i18n" in c else {}),
+                "status": c["status"], "champion": c.get("champion") or "",
                 "champion_name": names.get(c.get("champion") or "", {}).get("name", ""), "my_match": c["my_match"],
                 "human_alive": c["human_alive"]}
 
