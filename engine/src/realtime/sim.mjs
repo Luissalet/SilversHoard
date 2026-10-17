@@ -51,7 +51,8 @@ const TRAINER = [{x: 1.6, y: ARENA.h / 2}, {x: ARENA.w - 1.6, y: ARENA.h / 2}];
 // with no PP left cannot be used (with every move at 0 the Pokémon can only move, roll and switch) and the PP left are in the
 // summary; without starting PP moves have no PP, as before.
 // 10: calmer movement and rolls, and AI dodges after its reaction delay, once per continuous threat.
-export const RULES_VERSION = 10;
+// 11: Silver's extra special attack is opt-in; older replays retain their original gauge and attacks.
+export const RULES_VERSION = 11;
 export const TRICK_ROOM_TURN = 6;   // seconds of real time per turn of Trick Room
 const TRICK_ROOM_BASE = 200;        // walking: base Speed s walks like base Speed 200 - s
 const FOG_HIT = 0.6;
@@ -273,6 +274,7 @@ export class RtBattle {
     this.rng = makeRng(`${this.seed}:battle`);
     this.timeLimit = Math.max(30, Math.min(1800, Number(spec.time_limit) || DEFAULT_TIME_LIMIT)) * TPS;
     this.version = Math.max(1, Math.min(RULES_VERSION, Math.floor(Number(spec.version) || 1)));
+    this.silverSpecial = this.version >= 5 && (this.version < 11 || spec.silver_special === true);
     // Plus moves exist in rules versions 2 and 3 only
     this.plusMoves = this.version >= 2 && this.version < 4;
     const field = arenaOf(spec.arena, this.seed);
@@ -929,12 +931,12 @@ export class RtBattle {
 
   /** The ultimate gauge is full and the trainer's Pokémon can unleash it now (rules version 5). */
   ultReady(side) {
-    return this.version >= 5 && side.ult >= ULT_MAX && this.onField(side) && !this.mon(side).fainted && this.onField(this.foe(side))
+    return this.silverSpecial && side.ult >= ULT_MAX && this.onField(side) && !this.mon(side).fainted && this.onField(this.foe(side))
       && (this.version < 8 || this.t >= (this.mon(side).attackReady || 0));
   }
 
   ultGain(side, n) {
-    if (this.version < 5 || n <= 0) return;
+    if (!this.silverSpecial || n <= 0) return;
     side.ult = Math.min(ULT_MAX, side.ult + Math.floor(n));
   }
 
@@ -1708,7 +1710,7 @@ export class RtBattle {
     }
     if (total <= 0) return;
     if (this.version >= 2 && att.index !== def.index) this.gaugeGain(att, total, dm.maxhp);   // hitting the partner fills nothing
-    if (this.version >= 5 && att.index !== def.index && p.id !== 'silverultimate') {
+    if (this.silverSpecial && att.index !== def.index && p.id !== 'silverultimate') {
       this.ultGain(att, (ULT_DEAL * total) / Math.max(1, dm.maxhp));
       this.ultGain(def, (ULT_TAKE * total) / Math.max(1, dm.maxhp));
     }
@@ -2232,7 +2234,7 @@ export class RtBattle {
   view() {
     return {
       t: this.t, seconds: this.t / TPS, time_limit: this.timeLimit / TPS, ended: this.ended, winner: this.winner, reason: this.reason,
-      version: this.version, plus_moves: this.plusMoves, arena: this.arena, ...(this.training ? {training: {...this.training}} : {}), rocks: this.rocks.map((r) => ({...r})), floor: this.floor,
+      version: this.version, plus_moves: this.plusMoves, ...(this.version >= 11 ? {silver_special: this.silverSpecial} : {}), arena: this.arena, ...(this.training ? {training: {...this.training}} : {}), rocks: this.rocks.map((r) => ({...r})), floor: this.floor,
       ...(this.arenaName ? {arena_name: this.arenaName} : {}),
       ...(this.doubles ? {doubles: true} : {}),
       weather: this.weather && this.weather.until > this.t ? {id: this.weather.id, left: (this.weather.until - this.t) / TPS} : null,
@@ -2247,7 +2249,7 @@ export class RtBattle {
         const out = {
           id: s.id, name: s.name, ai: !!s.ai, ...this.unitView(s), switches_left: s.switchesLeft,
           cond: Object.fromEntries(Object.entries(s.cond).filter(([, v]) => v > this.t).map(([k, v]) => [k, (v - this.t) / TPS])),
-          hazards: {...s.hazards}, gauge: s.gauge / GAUGE_SEGMENT, ...(this.version >= 5 ? {ult: s.ult / ULT_MAX, ult_ready: this.ultReady(s)} : {}), mega: s.mega >= 0, mega_used: s.megaUsed, can_mega: this.canMega(s),
+          hazards: {...s.hazards}, gauge: s.gauge / GAUGE_SEGMENT, ...(this.silverSpecial ? {ult: s.ult / ULT_MAX, ult_ready: this.ultReady(s)} : {}), mega: s.mega >= 0, mega_used: s.megaUsed, can_mega: this.canMega(s),
           plus_moves: this.plusMoves,
           plus_ready: this.plusMoves && ((s.mega >= 0 && s.mega === s.active) || s.gauge >= GAUGE_SEGMENT),
           mons: s.mons.map((x, i) => {

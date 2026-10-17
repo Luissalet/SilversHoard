@@ -56,6 +56,7 @@ DEFAULT_SETTINGS: dict[str, Any] = {
     "default_mode": "classic",    # classic (turns, Showdown's engine) or realtime (Legends: Z-A rules: cooldowns, a 2D arena)
     "default_level": 0,           # 0: every Pokémon at its own level; 50 or 100: new battles equalize both teams to that level
     "rt_time_limit": 300,         # seconds of a real-time battle; then more Pokémon standing wins, then more HP left
+    "rt_silver_special": False,   # opt-in extra attack for new real-time battles; saved battles keep their choice
     "pmd_sprites": True,          # real-time arena: walking sprites from PMDCollab's SpriteCollab, downloaded once and cached
     "pmd_server": "https://raw.githubusercontent.com/PMDCollab/SpriteCollab/master",
     # the neural AI level (silvers_hoard/neural.py): the python of an environment with PyTorch and metamon ("" = off), its model,

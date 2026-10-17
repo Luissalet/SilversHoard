@@ -961,6 +961,7 @@ class SettingsSetArgs(BaseModel):
     default_mode: Optional[Mode] = None
     default_level: Optional[Literal[0, 50, 100]] = None
     rt_time_limit: Optional[int] = Field(None, ge=30, le=1800)
+    rt_silver_special: Optional[bool] = Field(None, description="Enable Silver's optional extra attack for new real-time battles. Off by default; saved battles keep their rules.")
     pmd_sprites: Optional[bool] = None
     neural_ai_python: Optional[str] = Field(None, max_length=500, description="The python of an environment with PyTorch and metamon; empty turns the neural level off.")
     neural_ai_model: Optional[str] = Field(None, max_length=60, description="Pretrained policy (Kakuna by default).")

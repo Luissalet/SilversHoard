@@ -79,7 +79,7 @@ PHASE_WHEN = ("half", "last")
 # always locked on, no Mega Evolution; 2 = free aim, the Mega Power gauge, Plus moves and Mega Evolution; 3 = doubles formats
 # field two Pokémon per trainer, singles play as in 2; 4 = no Plus moves, the gauge only for Mega Evolution; 5 = the ultimate
 # gauge) and the arenas.
-RT_RULES_VERSION = 10
+RT_RULES_VERSION = 11
 RT_ARENAS = ("open", "rocks")
 
 
@@ -1427,10 +1427,11 @@ class Services:
 
     def battle_start(self, *, p1: dict[str, Any], p2: dict[str, Any], format_: str = "", rules: Optional[list[str]] = None,
                      level_rules: Optional[dict[str, Any]] = None, kind: str = "", run_id: str = "", title: str = "", seed: Any = None,
-                     mode: str = "classic", time_limit: int = 0, rt_arena: str = "rocks", start: Optional[dict[str, Any]] = None) -> dict[str, Any]:
+                     mode: str = "classic", time_limit: int = 0, rt_arena: str = "rocks", start: Optional[dict[str, Any]] = None,
+                     silver_special: Optional[bool] = None) -> dict[str, Any]:
         if mode == "realtime":
             return self._rt_start(p1=p1, p2=p2, format_=format_, level_rules=level_rules, kind=kind, run_id=run_id, title=title, seed=seed,
-                                  time_limit=time_limit, arena=rt_arena, start=start)
+                                  time_limit=time_limit, arena=rt_arena, start=start, silver_special=silver_special)
         if mode not in ("classic", ""):
             raise SilverError("invalid", "mode is classic or realtime")
         s1, s2 = self._seat(p1, "Jugador 1"), self._seat(p2, "Jugador 2")
@@ -1930,6 +1931,7 @@ class Services:
                 "time_limit": int(replay.get("time_limit") or self.settings.get("rt_time_limit") or 300), "p1": seat(b.get("p1") or {}),
                 "p2": seat(b.get("p2") or {}), "version": int(replay.get("version") or 1),
                 "arena": replay.get("arena") if replay.get("arena") in RT_ARENAS or isinstance(replay.get("arena"), dict) else "open",
+                **({"silver_special": replay["silver_special"]} if "silver_special" in replay else {}),
                 **({"training": replay["training"]} if replay.get("training") else {}),
                 **({"start": replay["start"]} if replay.get("start") else {})}
 
@@ -1950,7 +1952,8 @@ class Services:
 
     def _rt_start(self, *, p1: dict[str, Any], p2: dict[str, Any], format_: str = "", level_rules: Optional[dict[str, Any]] = None,
                   kind: str = "", run_id: str = "", title: str = "", seed: Any = None, time_limit: int = 0, arena: str = "rocks",
-                  training: Optional[dict[str, Any]] = None, start: Optional[dict[str, Any]] = None) -> dict[str, Any]:
+                  training: Optional[dict[str, Any]] = None, start: Optional[dict[str, Any]] = None,
+                  silver_special: Optional[bool] = None) -> dict[str, Any]:
         arena = self.arenas.spec(_rt_arena(arena))
         s1, s2 = self._seat(p1, "Jugador 1"), self._seat(p2, "Jugador 2")
         if training:
@@ -1969,6 +1972,7 @@ class Services:
         bid = self.store.add_battle({"kind": kind, "mode": "realtime", "status": "running" if watch else "live", "format": fmt, "rules": [],
                                      "level_rules": level_rules, "p1": s1, "p2": s2, "run_id": run_id, "title": title, "seed": seed_text,
                                      "replay": {"time_limit": limit, "inputs": [], "tick": 0, "version": RT_RULES_VERSION, "arena": arena,
+                                                "silver_special": bool(self.settings.get("rt_silver_special", False)) if silver_special is None else silver_special,
                                                 **({"training": training} if training else {}), **({"start": start} if start else {})}})
         if not seed_text:
             self.store.update_battle(bid, {"seed": bid})
@@ -2087,7 +2091,7 @@ class Services:
                 "Lock-on: holding focus (Shift / ZL) keeps the Pokémon facing the foe, so walking strafes and moves aim at the foe (and a move out of range walks up to it first). Without focus the Pokémon faces where it walks; moves go along that facing, snapping to the foe only within 30 degrees of it, so projectiles, beams and cones can miss and strikes and dashes lunge forward and only land if they reach. The AI always locks on; the simple control layout always sends focus.",
                 "Arena (rt_arena): open, or rocks (the default for new battles): 3 to 6 round rocks placed from the battle's seed, mirrored left to right, away from the spawn points and the centre line. They block walking, rolls and dashes, and stop projectiles and beams (and cones behind them); blasts that fall from the sky and quakes ignore them. The AI walks around them and avoids firing into them.",
                 "Mega Power gauge: three segments per trainer, filling one every 8 s and faster when dealing damage (a whole HP bar dealt = 0.8 of a segment); battles stored with rules version 2 fill one every 15 s (0.4 for a whole HP bar).",
-                "Ultimate (rules version 5): each trainer has an ultimate gauge that fills when its Pokémon deal damage (a whole HP bar dealt = half the gauge), take it (0.3) and knock out (a quarter). Full, the Plus key (F; ZL + + on a gamepad) unleashes the active Pokémon's ultimate: a 150-power attack of its first type, physical or special after its better attacking stat, that falls on the foe 0.9 s later in a 2.6 m circle drawn on the ground, so it can be rolled out of; it uses no move slot and no cooldown, and the gauge empties.",
+                "Silver special (introduced in rules version 5): an optional extra 150-power attack, separate from the four moves. Rules version 11 disables it by default; enable rt_silver_special in Settings for new battles and exports. Each battle saves the choice; rules versions 5-10 keep it enabled. When enabled, its gauge fills from damage dealt (a whole HP bar = half the gauge), taken (0.3) and knockouts (a quarter). Full, F (ZL + + on a gamepad) unleashes an attack of the Pokémon's first type, using its better attacking stat, falling on the foe 0.9 s later in a 2.6 m circle. It can be dodged; it uses no move slot or cooldown and empties the gauge. Mega Evolution is independent of this option.",
                 "No Plus moves (rules version 4): the gauge is only for Mega Evolution. Battles stored with rules versions 2 and 3 keep theirs (a full segment armed a Plus move: x1.2 damage, x1.3 if super effective, more side effects and healing, larger areas, a quarter of the damage through protection; every move of a Mega Evolved Pokémon was one).",
                 "Mega Evolution: with a full gauge, a Pokémon holding its Mega Stone (or Rayquaza with Dragon Ascent) can Mega Evolve once per battle, from generation 6 formats on: the Mega forme's stats, types and ability, HP kept in proportion; it stays Mega while the gauge drains a segment every 8 s; when it empties (or the Pokémon leaves or faints) it goes back to its usual forme.",
                 "Doubles (doubles formats, rules version 3): each trainer has two Pokémon on the field at once, slot a above the centre line and slot b below it. A person moves one of them (the controlled one: moves 1-4 and roll are its own) and swaps which with Tab / C (gamepad L, or the left stick click in the simple layout); the partner is driven by the AI: it stays within reach, dodges, keeps 4 m from its partner, and attacks the person's locked foe unless the other foe is clearly better. X (the right stick click) switches the foe it locks on, shown with a reticle. The AI trainers play both of their Pokémon the same way and pick targets by the damage they can deal and by who threatens them.",
@@ -2679,13 +2683,14 @@ class Services:
         fmt = format_ or s1["format"] or s2["format"] or self.settings["default_format"]
         count = max(1, min(int(count or self.settings["series_default"]), 1000))
         rt = mode == "realtime"
+        silver_special = bool(self.settings.get("rt_silver_special", False))
         limit = max(30, min(int(time_limit or self.settings["rt_time_limit"]), 1800))
         if rt:
             fmt, rules = self._rt_format(fmt), []
         spec = {"format": fmt, "rules": rules or [], "level_rules": level_rules or {}, "max_turns": self.settings["max_turns"],
                 "p1": {"name": s1["name"], "sets": s1["sets"], "ai": s1["ai"]}, "p2": {"name": s2["name"], "sets": s2["sets"], "ai": s2["ai"]}}
         if rt:
-            spec.update({"mode": "realtime", "time_limit": limit, "arena": arena, "version": RT_RULES_VERSION})
+            spec.update({"mode": "realtime", "time_limit": limit, "arena": arena, "version": RT_RULES_VERSION, "silver_special": silver_special})
 
         def work(jid: str, progress: Callable[[float], None], cancelled: Callable[[], bool]) -> dict[str, Any]:
             res = self.engine.run_job("simulate", {"spec": spec, "count": count}, progress=progress, cancelled=cancelled, timeout=6 * 3600)
@@ -2697,7 +2702,7 @@ class Services:
                                              "turns": summary.get("turns", 0), "log_text": "\n".join(sample.get("lines") or []), "summary": summary,
                                              "seed": str(sample.get("seed")) if rt else json.dumps(sample.get("seed")), "job_id": jid,
                                              "title": f"{s1['name']} vs {s2['name']}", "mode": "realtime" if rt else "classic",
-                                             "replay": {"time_limit": limit, "inputs": [], "version": RT_RULES_VERSION, "arena": arena} if rt else {}})
+                                             "replay": {"time_limit": limit, "inputs": [], "version": RT_RULES_VERSION, "arena": arena, "silver_special": silver_special} if rt else {}})
                 samples[outcome] = bid
             res["samples"] = samples
             res["p1"], res["p2"] = self._public_seat(s1), self._public_seat(s2)
@@ -2724,6 +2729,7 @@ class Services:
         fmt = format_ or self.settings["default_format"]
         self.format_info(fmt, rules)
         rt = mode == "realtime"
+        silver_special = bool(self.settings.get("rt_silver_special", False))
         limit = max(30, min(int(time_limit or self.settings["rt_time_limit"]), 1800))
         if rt:
             fmt, rules = self._rt_format(fmt), []
@@ -2734,7 +2740,7 @@ class Services:
             res = self.engine.run_job("tournament", {"format": fmt, "rules": rules or [], "level_rules": level_rules or {}, "entrants": entrants,
                                                      "max_turns": self.settings["max_turns"],
                                                      "kind": kind, "best_of": best_of, "mode": "realtime" if rt else "classic", "time_limit": limit,
-                                                     "arena": arena, "version": RT_RULES_VERSION},
+                                                     "arena": arena, "version": RT_RULES_VERSION, "silver_special": silver_special},
                                      progress=progress, cancelled=cancelled, timeout=12 * 3600)
             by_id = {e["id"]: e for e in entrants}
             for m in res.get("matches") or []:
@@ -2750,7 +2756,7 @@ class Services:
                                                            "summary": summary, "seed": str(g.get("seed")) if rt else json.dumps(g.get("seed")),
                                                            "job_id": jid, "title": f"{name} · {a['name']} vs {b_['name']}",
                                                            "mode": "realtime" if rt else "classic",
-                                                           "replay": {"time_limit": limit, "inputs": [], "version": RT_RULES_VERSION, "arena": arena} if rt else {}})
+                                                           "replay": {"time_limit": limit, "inputs": [], "version": RT_RULES_VERSION, "arena": arena, "silver_special": silver_special} if rt else {}})
                     g.pop("summary", None)
             res["entrants"] = [{"id": e["id"], "name": e["name"], "avatar_url": self.avatar_url(e["avatar"])} for e in entrants]
             res["title"] = name
@@ -3149,6 +3155,7 @@ class Services:
         if isinstance(arena, dict):
             arena = {k: arena[k] for k in ("name", "floor", "rocks")}
         return {"format": rt_fmt, "arena": arena, "time_limit": limit, "version": RT_RULES_VERSION,
+                "silver_special": bool(self.settings.get("rt_silver_special", False)),
                 "keys": {t["id"]: self._rt_key(t, rt_fmt, level_rules) for t in self._stage_trainers(kind, obj)}}
 
     def _import_rt_result(self, r: dict[str, Any]) -> dict[str, Any]:
@@ -3227,6 +3234,9 @@ class Services:
                 raise SilverError("conflict", f"This result was played against another version of {opp['name']}: {label} changed after the page was exported.",
                                   hint="Export the page again and ask your friend to play it again.")
             version, arena, seed, limit = rt.get("v"), rt.get("arena"), rt.get("seed"), rt.get("limit")
+            special = {"silver_special": rt.get("silver_special")} if type(version) is int and version >= 11 else {}
+            if special and type(special["silver_special"]) is not bool:
+                raise SilverError("invalid", "The real-time replay is missing its Silver special option.")
             forfeit, tick = rt.get("forfeit") or "", rt.get("tick") or 0
             if isinstance(arena, dict):   # a gym's own arena: it must be the one the gym has here
                 own = self.arenas.spec(obj["rt_arena"]) if kind == "gym" and ARENA_CUSTOM.match(obj.get("rt_arena") or "") else None
@@ -3240,14 +3250,14 @@ class Services:
                 raise SilverError("invalid", "The real-time replay inside the code is damaged.")
             inputs = sharing.decode_rt_inputs(rt.get("inputs"))
             spec = {"id": f"friend-{seed}"[:80], "seed": seed, "format": rt_fmt, "level_rules": level_rules, "time_limit": limit, "version": version, "arena": arena,
-                    "p1": {"name": challenger, "sets": team, "ai": None},
+                    **special, "p1": {"name": challenger, "sets": team, "ai": None},
                     "p2": {"name": opp["name"], "sets": opp["team"], "ai": {"level": opp["ai_level"], "style": opp["ai_style"]}}}
             res = self.engine.run_job("rt_replay", {"spec": spec, "inputs": inputs, "forfeit": forfeit, "tick": tick}, timeout=600)
             replayed_win = (res.get("summary") or {}).get("winner_side") == "p1"
             if not res.get("ended") or replayed_win != bool(stage.get("won")):
                 raise SilverError("invalid", f"The replay of the battle against {opp['name']} does not end as the code says: the code was altered or is damaged.",
                                   hint="Ask your friend to send the result again, as a file if the code is long.")
-            replays[i] = {"res": res, "opp": opp, "limit": limit, "version": version, "arena": arena, "seed": seed}
+            replays[i] = {"res": res, "opp": opp, "limit": limit, "version": version, "arena": arena, "seed": seed, **special}
         # everything checked: now it is recorded
         battle_ids: dict[int, str] = {}
         for i, tp in turn_replays.items():
@@ -3270,7 +3280,8 @@ class Services:
                 "p1": p_friend, "p2": p_opp, "winner_side": summary.get("winner_side", ""), "winner_name": summary.get("winner", ""), "turns": 0,
                 "log_text": "\n".join(res.get("lines") or []), "summary": {**summary, "from_friend": True},
                 "replay": {"time_limit": rp["limit"], "inputs": res.get("inputs") or [], "tick": int(round((res.get("seconds") or 0) * 30)),
-                           "version": rp["version"], "arena": rp["arena"]},
+                           "version": rp["version"], "arena": rp["arena"],
+                           **({"silver_special": rp["silver_special"]} if "silver_special" in rp else {})},
                 "title": f"{label} · {challenger}" if len(order) == 1 else f"{label} · {opp['name']} · {challenger}"})
         stage_info = [{"name": x.get("name") or order[i]["name"], "won": bool(x.get("won")), "turns": int(x.get("turns") or 0),
                        "mode": "realtime" if i in replays else "classic", **({"battle_id": battle_ids[i]} if i in battle_ids else {}),
