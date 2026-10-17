@@ -501,6 +501,7 @@ class WeekArg(BaseModel):
 class BattleStartArgs(BaseModel):
     p1: Seat
     p2: Seat
+    lang: Literal["es", "en"] = Field("en", description="Language of new AI commentary; saved lines stay unchanged.")
     format: str = Field("", max_length=120, description="Empty: the first trainer's format.")
     rules: list[str] = Field(default_factory=list, max_length=20)
     level_rules: dict[str, int] = Field(default_factory=dict, description="{level: 50|100} equalizes every Pokémon at that level; {level_cap}, {level_min} cap or raise.")
@@ -535,6 +536,7 @@ class PracticeArgs(BaseModel):
     id: str = IdField
     turn: int = Field(..., ge=1, description="Rebuild to the start of this turn's move decision.")
     side: Literal["p1", "p2"] = "p1"
+    lang: Literal["es", "en"] = Field("en", description="Language of new AI commentary.")
 
 
 class PracticeSuggestionsArgs(BaseModel):
@@ -565,6 +567,7 @@ class ExerciseArchiveArgs(IdArg):
 class ExerciseStartArgs(IdArg):
     adaptive: bool = True
     ai_level: Literal["random", "easy", "normal", "hard", "expert", "master"] = "normal"
+    lang: Literal["es", "en"] = Field("en", description="Language of new AI commentary.")
 
 
 class BattleGetArgs(BaseModel):
@@ -597,6 +600,7 @@ class ChallengeArgs(BaseModel):
     kind: Literal["gym", "league", "facility"] = Field(..., description="facility = a win streak at a battle facility (target_id from facilities_list).")
     target_id: str = IdField
     challenger_id: str = IdField
+    lang: Literal["es", "en"] = Field("en", description="Language of new AI commentary throughout this challenge.")
     auto: bool = Field(False, description="The AI plays the challenger too (the whole challenge runs by itself).")
     ignore_badges: bool = False
     format: str = Field("", max_length=120, description="Play every battle in this format instead of the gym's (e.g. gen9nationaldexag for a modern team against a gen 2 gym).")
@@ -1134,12 +1138,12 @@ TOOLS: list[Tool] = [
     Tool("battle_start", _d("Start a battle: two seats (trainer or team; person or AI). Two AIs = a watched battle. Empezar combate.",
                             synonyms="combatir, pelea, simular combate, npc contra npc, jugar"), BattleStartArgs, W,
          lambda s, a: s.battle_start(p1=_seat(a.p1), p2=_seat(a.p2), format_=a.format, rules=a.rules, level_rules=a.level_rules, seed=a.seed,
-                                     mode=a.mode, time_limit=a.time_limit, rt_arena=a.rt_arena), 180.0),
+                                     mode=a.mode, time_limit=a.time_limit, rt_arena=a.rt_arena, lang=a.lang), 180.0),
     Tool("battle_practice", _d("Play another move from a finished replay as a separate battle. Practicar otra jugada.",
                                "Requires a saved decision record (new played or individually watched turn-based battles). "
                                "The original and trainer records stay intact; the opponent uses revealed information.",
                                synonyms="practicar turno, repetir jugada, rama, entrenamiento"), PracticeArgs, W,
-         lambda s, a: s.battle_practice(a.id, turn=a.turn, side=a.side), 120.0),
+         lambda s, a: s.battle_practice(a.id, turn=a.turn, side=a.side, lang=a.lang), 120.0),
     Tool("practice_suggestions", _d("Find replay decisions worth practising using a hidden-information trainer. Posiciones sugeridas.",
          "Read-only, incremental turn pages. Scores are trainer heuristics, not winning probabilities or proof of a mistake. "
          "Save a chosen turn with exercise_create or play with battle_practice; discard by ignoring it.", synonyms="analizar repetición, entrenamiento, alternativas"),
@@ -1151,7 +1155,7 @@ TOOLS: list[Tool] = [
     Tool("exercise_get", _d("Exercise goal, attempts and explained difficulty recommendation. Ver ejercicio.", synonyms="objetivo, progreso entrenamiento"),
          IdArg, R, lambda s, a: s.training.get(a.id)),
     Tool("exercise_start", _d("Start a separate practice attempt with adaptive or chosen difficulty. Practicar ejercicio.", synonyms="intentar, entrenamiento adaptativo"),
-         ExerciseStartArgs, W, lambda s, a: s.training.start(a.id, adaptive=a.adaptive, ai_level=a.ai_level), 120.0),
+         ExerciseStartArgs, W, lambda s, a: s.training.start(a.id, adaptive=a.adaptive, ai_level=a.ai_level, lang=a.lang), 120.0),
     Tool("exercise_export", _d("Export a portable exercise as text and a .silverexercise file. Compartir ejercicio.", synonyms="enviar posición, exportar entrenamiento"),
          IdArg, W, lambda s, a: s.training.export(a.id)),
     Tool("exercise_archive", _d("Archive or restore a saved exercise without removing its attempts. Archivar ejercicio.", synonyms="restaurar entrenamiento"),
@@ -1277,7 +1281,7 @@ TOOLS: list[Tool] = [
                                synonyms="reto, medalla, alto mando, desafío"), ChallengeArgs, W,
          lambda s, a: s.run_start(kind=a.kind, target_id=a.target_id, challenger_id=a.challenger_id, auto=a.auto, ignore_badges=a.ignore_badges,
                                   format_override=a.format, mode=a.mode, level=a.level, rt_arena=a.rt_arena, stop_at=a.stop_at,
-                                  walk_map=a.walk_map, picks=a.picks or None, partner=str(a.partner or "")[:80]), 180.0),
+                                  walk_map=a.walk_map, picks=a.picks or None, partner=str(a.partner or "")[:80], lang=a.lang), 180.0),
     Tool("challenge_next", _d("Start the next battle of an active challenge. Siguiente combate del reto.",
                               "On a gym map give stage: the trainer you met (or leader).", synonyms="continuar reto"),
          ChallengeNextArgs, W, lambda s, a: s.run_next(a.id, a.stage), 180.0),

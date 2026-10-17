@@ -104,7 +104,7 @@ def _partner(svc: Any, f: dict[str, Any], kind: str, partner: str, challenger_id
 
 
 def start(svc: Any, *, f: dict[str, Any], challenger: dict[str, Any], challenger_id: str, auto: bool, mode: str, level: int,
-          picks: Optional[list[int]], format_override: str, stop_at: int, rt_arena: str, partner: str = "") -> str:
+          picks: Optional[list[int]], format_override: str, stop_at: int, rt_arena: str, partner: str = "", lang: str = "en") -> str:
     """A new streak: the challenger's Pokémon for it (`picks` are team indexes, the first ones by default: Hall 1, 2 in doubles;
     Arcade and Castle 3, 2 in multi), at the party level (Hall: `level`, 50 if 0) or capped at 50 without held items (Arcade and
     Castle); in multi, the AI partner (`partner`: a facility partner's id, 300 by default, or one of your trainer ids)."""
@@ -141,7 +141,7 @@ def start(svc: Any, *, f: dict[str, Any], challenger: dict[str, Any], challenger
     rid = svc.store.add_run({"kind": "facility", "target_id": f["id"], "target_name": f["name_es"], "challenger_id": challenger_id,
                              "challenger": {"name": challenger["name"], "avatar": challenger["avatar"], "team": challenger["team"], "auto": auto,
                                             "format_override": format_override, "level": int(level or 50), "stop_at": int(stop_at or 0),
-                                            "rt_arena": rt_arena, "picks": picks, "frontier": st},
+                                            "rt_arena": rt_arena, "picks": picks, "frontier": st, "lang": lang},
                              "stages": [], "step": 0, "status": "active", "mode": mode})
     svc.emit("run.started", {"id": rid, "kind": "facility", "target": f["name_es"]})
     begin(svc, rid)
