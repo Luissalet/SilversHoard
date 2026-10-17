@@ -1,5 +1,7 @@
 # Silver's Hoard — architecture
 
+`trainers_list` sets the existing `Tool.capped=False` option so the non-paginated catalog retains every matching row and complete field through the agent route and native MCP. Its read-only handler and query/origin/game/region filters are unchanged. Other tools keep their existing cap policy; the vendored agent kit is unchanged.
+
 `trainer_poster.py` captures a trainer, earned badges, style-reference selection
 and recorded artwork provenance into a background job. `PosterArt.jsx` reuses
 `BadgeArt` and existing cached pictures in a private render context of the normal
