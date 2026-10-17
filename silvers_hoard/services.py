@@ -28,6 +28,7 @@ from .engine import Engine
 from .errors import SilverError
 from .hoard_link import family
 from .hoard_link.atomic import write_bytes_atomic, write_json_atomic
+from .hoard_link.ids import new_id
 from .hoard_link.tokens import read_or_create_token
 from .credits import Credits
 from .arenas import CUSTOM as ARENA_CUSTOM, Arenas, same as arenas_same
@@ -3607,6 +3608,7 @@ class Services:
         if not stem:
             stem = re.sub(r"[^\w\- ]+", "", f"{b['p1'].get('name', 'p1')} vs {b['p2'].get('name', 'p2')}", flags=re.UNICODE).strip()[:60] or "battle"
             stem = f"{stem} {b['id'][-6:]}"
+        stem = f"{stem} {new_id('video')}"
         webm = exports / f"{stem}.webm"
         done = threading.Event()
         capture_requested = threading.Event()
