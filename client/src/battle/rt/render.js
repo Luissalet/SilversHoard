@@ -143,6 +143,8 @@ export class ArenaRenderer {
       this.worldCanvas ||= document.createElement("canvas");
       this.portraitFallbacks ||= this.sides.map((side, si) => side.mons.map((m) => image(this.sprites.fallback((m.base_look || m).species,
         {spriteid:(m.base_look || m).sprite_id, shiny:m.shiny, back:si === 0}))));
+      this.portraitMegaFallbacks ||= this.sides.map((side, si) => side.mons.map((m) => m.mega_info ? image(this.sprites.fallback(m.mega_info.species,
+        {spriteid:m.mega_info.sprite_id, shiny:m.shiny, back:si === 0})) : null));
       this.canvas = this.worldCanvas;
     } else this.canvas = this.outputCanvas;
     this.ctx = this.canvas.getContext("2d");
@@ -759,6 +761,7 @@ export class ArenaRenderer {
     const y = this.py(side.y) - (this.heads[si * 2 + (side.pos || 0)] ?? 2.6 * s) - (0.25 + Math.sin(this.time * 5) * 0.08) * s;
     const w = 0.42 * s;
     ctx.save();
+    if (this.portrait) { ctx.translate(x, this.py(side.y)); ctx.rotate(Math.PI / 2); ctx.translate(-x, -this.py(side.y)); }
     ctx.fillStyle = `rgba(${SIDE_RGB[si]},0.95)`;
     ctx.strokeStyle = "rgba(0,0,0,0.7)";
     ctx.lineWidth = Math.max(1, s * 0.05);
@@ -887,7 +890,8 @@ export class ArenaRenderer {
       headY = y - a.height(this.k) - 0.3 * s;
     }
     if (!drawn) {
-      const megaImg = mega ? this.megaFallbacks[si]?.[side.active] : null;
+      const portraitMega = this.portrait && mega ? this.portraitMegaFallbacks?.[si]?.[side.active] : null;
+      const megaImg = portraitMega?.ready ? portraitMega : mega ? this.megaFallbacks[si]?.[side.active] : null;
       const portraitImg = this.portrait ? this.portraitFallbacks?.[si]?.[side.active] : null;
       const img = megaImg?.ready ? megaImg : portraitImg?.ready ? portraitImg : this.fallbacks[si]?.[side.active];
       if (img?.ready) {
