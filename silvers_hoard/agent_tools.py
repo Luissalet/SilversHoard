@@ -15,7 +15,7 @@ from .hoard_link.agentkit import Empty, Tool, ann
 from .hoard_link.agentkit import call_tool as _call_tool
 from .hoard_link.agentkit import tool_catalog as _catalog
 from .hoard_link.agentkit import uncapped  # noqa: F401 - re-exported for the UI routes
-from . import gymmap, hgss_rom
+from . import gymmap, hgss_rom, replay_statistics
 from . import pokeathlon as pk
 from . import pokeathlon_rooms as pkr
 from .services import Services
@@ -646,6 +646,13 @@ class BattlesArgs(BaseModel):
     trainer_id: str = Field("", max_length=80)
     limit: int = Field(30, ge=1, le=500)
     offset: int = Field(0, ge=0)
+
+
+class ReplayStatisticsArgs(BaseModel):
+    kind: str = Field("", max_length=40)
+    mode: Literal["", "classic", "realtime"] = ""
+    trainer_id: str = Field("", max_length=80, description="Only this trainer's side, or both sides when empty.")
+    limit: int = Field(12, ge=0, description="Rows per frequency table; 0 returns all. Always scans every matching ended battle.")
 
 
 class ChallengeArgs(BaseModel):
@@ -1349,6 +1356,9 @@ TOOLS: list[Tool] = [
          lambda s, a: {"battles": s.battles_list(a.kind, a.status, a.trainer_id, a.limit, a.offset)}),
     Tool("battles_delete", _d("Delete finished battles and their logs. Borrar combates.", synonyms="limpiar historial"), IdsArg, D,
          lambda s, a: s.battles_delete(a.ids)),
+    Tool("replay_statistics", _d("Move uses, participating species and openings from saved replays. Estadísticas de repeticiones.",
+                                 synonyms="movimientos, especies, aperturas, historial"), ReplayStatisticsArgs, R,
+         lambda s, a: replay_statistics.get(s.store, **a.model_dump())),
     Tool("challenge_start", _d("Challenge a gym or a league with a trainer (you play, or the AI with auto). Retar gimnasio.",
                                synonyms="reto, medalla, alto mando, desafío"), ChallengeArgs, W,
          lambda s, a: s.run_start(kind=a.kind, target_id=a.target_id, challenger_id=a.challenger_id, auto=a.auto, ignore_badges=a.ignore_badges,

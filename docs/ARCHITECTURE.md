@@ -1,5 +1,7 @@
 # Silver's Hoard — architecture
 
+`replay_statistics.py` aggregates saved classic/real-time logs and summaries through the read-only `replay_statistics` tool in `agent_tools.py`. History loads its frequency panel on demand with kind, mode and trainer filters, independent of list pagination. It reports complete-record coverage and skips ambiguous identities, without engine calls or writes. See [replay frequencies](REPLAY_STATISTICS.md) for counting rules and legacy limitations.
+
 ## Supplied menu, contest, base and projectile sprites
 
 `presets/supplied_sprites.json` holds 447 PNG and animation-atlas data URLs, named crop/source metadata and a 174-file input inventory. `scripts/build_supplied_sprites.py` rebuilds it without altering the input sheets; edge-connected background removal preserves enclosed white highlights. React's `SuppliedSprite` and both battle effect layers import the same manifest, so Vite embeds the used assets in the app and standalone HTML. The normal PNG route resolves only catalog IDs. Credits expose the original rippers.

@@ -5,6 +5,7 @@ import { useApp } from "../context.js";
 import { Busy, Empty, ErrorBox, Icon, ICONS, Rel, Spinner, useBusy, useLoad } from "../components/ui.jsx";
 import { Avatar } from "../components/silver.jsx";
 import { loc, winnerName } from "../loc.js";
+import ReplayStatistics from "../components/ReplayStatistics.jsx";
 
 export function BattleRow({ b, onDelete }) {
   const { t, lang, changed, confirm } = useApp();
@@ -56,6 +57,7 @@ export default function Historial() {
           {KINDS.map((k) => <option key={k} value={k}>{k ? t(`kind_${k}`) : t("all_kinds")}</option>)}
         </select>
       </div>
+      <ReplayStatistics kind={kind} />
       {error && <ErrorBox error={{ ...error, message: t("history_load_failed") }} onRetry={reload} />}
       {loading && !data ? <Spinner /> : list.length === 0 ? <Empty icon={ICONS.list} title={t("no_battles")}>{t("no_battles_help")}</Empty> : (
         <div className="panel divide-list p-0">{list.map((b) => <BattleRow key={b.id} b={b} onDelete={del} />)}</div>
