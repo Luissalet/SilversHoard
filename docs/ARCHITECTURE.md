@@ -2,6 +2,8 @@
 
 `Training.export_pack` wraps unchanged schema1 exercise objects in a schema1 `silvers-hoard/exercise-pack` container, using the existing `.silverexercise` extension and export route. `exercise_pack_export` shares the UI/REST/MCP handler; generic Import recognizes pasted text and uploaded bytes. `Training._prepare_import` reconstructs every member before the existing DB transaction inserts any of them; pack membership lives in their current payloads. Share selects existing exercises in curator order, labels imported members and preserves all ordinary exercise actions. Themes are editorial, without tactical classification. UTF-8 export bytes match returned text and byte count on Windows. See [exercise packs](EXERCISE_PACKS.md).
 
+`trainers_list` sets the existing `Tool.capped=False` option so the non-paginated catalog retains every matching row and complete field through the agent route and native MCP. Its read-only handler and query/origin/game/region filters are unchanged. Other tools keep their existing cap policy; the vendored agent kit is unchanged.
+
 `trainer_poster.py` captures a trainer, earned badges, style-reference selection
 and recorded artwork provenance into a background job. `PosterArt.jsx` reuses
 `BadgeArt` and existing cached pictures in a private render context of the normal
