@@ -5,15 +5,16 @@ import { useApp } from "../context.js";
 import { Busy, Field, Icon, ICONS, Section, useBusy } from "../components/ui.jsx";
 import { FormatSelect } from "../components/silver.jsx";
 import { ExerciseLibrary } from "../components/Training.jsx";
+import { loc } from "../loc.js";
 
 function ResultView({ r }) {
-  const { t } = useApp();
+  const { t, lang } = useApp();
   if (!r) return null;
   if (r.kind === "exercise") return <p className="banner banner-info" role="status">{t("training_imported",{name:r.exercise.title})}</p>;
   if (r.kind === "trainer") {
     return (
       <div className="banner banner-info">
-        {t("imported_trainer", { name: r.trainer.name })} <a className="btn-link" href={`#/entrenador/${r.trainer.id}`}>{t("open")}</a>
+        {t("imported_trainer", { name: loc(r.trainer, lang) })} <a className="btn-link" href={`#/entrenador/${r.trainer.id}`}>{t("open")}</a>
         {r.player !== undefined && <> {t("imported_save", { n: r.trainer.team.length })}</>}
         {r.skipped?.length > 0 && <> {t("imported_save_skipped", { list: r.skipped.map((s) => {
           const m = String(s).match(/^(\d+): (egg|move|item|ability|species)(?: #(\d+))?$/);
@@ -22,22 +23,22 @@ function ResultView({ r }) {
       </div>
     );
   }
-  if (r.kind === "gym") return <div className="banner banner-info">{t("imported_gym", { name: r.gym.name })} <a className="btn-link" href={`#/gimnasio/${r.gym.id}`}>{t("open")}</a></div>;
-  if (r.kind === "league") return <div className="banner banner-info">{t("imported_league", { name: r.league.name })} <a className="btn-link" href={`#/liga/${r.league.id}`}>{t("open")}</a></div>;
+  if (r.kind === "gym") return <div className="banner banner-info">{t("imported_gym", { name: loc(r.gym, lang) })} <a className="btn-link" href={`#/gimnasio/${r.gym.id}`}>{t("open")}</a></div>;
+  if (r.kind === "league") return <div className="banner banner-info">{t("imported_league", { name: loc(r.league, lang) })} <a className="btn-link" href={`#/liga/${r.league.id}`}>{t("open")}</a></div>;
   if (r.kind === "mass_result") {
     const p = r.play || {};
     return (
       <div className="banner banner-info">
-        {t("mass_imported_play", { name: p.challenger, pokemon: p.name, place: p.place, n: p.of, kos: p.kos })}{" "}
+        {t("mass_imported_play", { name: loc(p, lang, "challenger"), pokemon: p.name, place: p.place, n: p.of, kos: p.kos })}{" "}
         <a className="btn-link" href={`#/campal/${r.mass_id}?play=${p.id}`}>{t("mass_watch_play")}</a>
       </div>
     );
   }
-  if (r.kind === "mass") return <div className="banner banner-info">{t("mass_imported_page", { name: r.mass.title })} <a className="btn-link" href={`#/campal/${r.mass.id}`}>{t("open")}</a></div>;
+  if (r.kind === "mass") return <div className="banner banner-info">{t("mass_imported_page", { name: loc(r.mass, lang, "title") })} <a className="btn-link" href={`#/campal/${r.mass.id}`}>{t("open")}</a></div>;
   if (r.kind === "result") {
     return (
       <div className={`banner ${r.won ? "banner-info" : "banner-warn"}`}>
-        {r.won ? t("friend_won", { name: r.challenger, target: r.gym?.name || r.trainer?.name }) : t("friend_lost", { name: r.challenger, target: r.gym?.name || r.trainer?.name })}{" "}
+        {r.won ? t("friend_won", { name: r.challenger, target: loc(r.gym || r.trainer, lang) }) : t("friend_lost", { name: r.challenger, target: loc(r.gym || r.trainer, lang) })}{" "}
         {r.verified ? <>{t("friend_checked")}{" "}</> : r.verified_real_time > 0 && <>{t("friend_verified", { n: r.verified_real_time })}{" "}</>}
         {r.week && <>{t("friend_week", { week: r.week })}{" "}</>}
         <a className="btn-link" href="#/amigos">{t("see_leaderboard")}</a>{" · "}

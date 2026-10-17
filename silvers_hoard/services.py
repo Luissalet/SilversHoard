@@ -517,7 +517,7 @@ class Services:
         return hits[:limit]
 
     # ------------------------------------------------------------ dialogue with the family's model
-    def trainer_write_dialogue(self, id_: str, *, personality: str = "", lang: str = "es") -> dict[str, Any]:
+    def trainer_write_dialogue(self, id_: str, *, personality: str = "", lang: str = "en") -> dict[str, Any]:
         t = self.store.trainer(id_)
         team = ", ".join(s.get("species", "") for s in t["team"])
         language = "castellano de España" if lang == "es" else "English"
@@ -599,7 +599,7 @@ class Services:
         })
         return self.trainer_view(self.store.trainer(id_))
 
-    def _install_game_league(self, key: str, lang: str = "es") -> dict[str, Any]:
+    def _install_game_league(self, key: str, lang: str = "en") -> dict[str, Any]:
         """A league of game_leagues.py: each member is the character's trainer for that game's team (installed once and reused). ``lang``
         is the language of the lines the cartridge trainers say (the names and titles are made in castellano and shown in the reader's)."""
         lg = game_leagues.BY_KEY[key]
@@ -650,7 +650,7 @@ class Services:
         self.emit("league.installed", {"id": lid, "key": key})
         return self.league_get(lid)
 
-    def canon_install_league(self, key: str, lang: str = "es") -> dict[str, Any]:
+    def canon_install_league(self, key: str, lang: str = "en") -> dict[str, Any]:
         if key in game_leagues.BY_KEY:
             return self._install_game_league(key, "en" if lang == "en" else "es")
         lg = next((x for x in self.canon()["leagues"] if x["key"] == key), None)
@@ -810,7 +810,7 @@ class Services:
                 "source": self.characters().get("source", "")}
 
     def character_install(self, key: str, *, variant: str = "", sprite: str = "", name: str = "", custom: bool = False,
-                          ai_level: str = "", ai_style: str = "", lang: str = "es", avatar: str = "", art: str = "") -> dict[str, Any]:
+                          ai_level: str = "", ai_style: str = "", lang: str = "en", avatar: str = "", art: str = "") -> dict[str, Any]:
         """A trainer from a character: one of its game teams (or an empty team of your own when custom), with the sprite you choose,
         or ``avatar`` (file:<name>, a picture of your own such as its official artwork; ``art`` names that artwork)."""
         c = self._character(key)
@@ -3582,7 +3582,7 @@ class Services:
         status = self.video_status()
         if not status["playwright"] or not status["browser"]:
             raise SilverError("unavailable", "Recording needs Playwright and Chrome or Edge on this computer.", hint=status["hint"])
-        lang = lang if lang in ("es", "en") else str(self.settings.get("language") or "es")[:2]
+        lang = lang if lang in ("es", "en") else str(self.settings.get("language") or "en")[:2]
         title = f"Vídeo: {b.get('title') or (b['p1'].get('name', '') + ' vs ' + b['p2'].get('name', ''))}"
         return self._job("video", title, {"battle_id": id_, "speed": speed, "size": size, "lumiere": lumiere},
                          lambda jid, progress, cancelled: self._record_video(b, speed, size, lang, lumiere, status, progress, cancelled))
