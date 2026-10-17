@@ -311,3 +311,10 @@ The species picker compares normalized species IDs. A different species uses the
 `Show.update` gates the VS presentation on an available trainer/portrait/static fallback per side, all candidate pictures failing, or its existing 1.5-second timeout. Prepared recording at `dt=0` observes readiness without consuming presentation time. See [RT_INTRO.md](RT_INTRO.md) for loading limits and tests.
 
 `rt/ice-art.js` draws four original ice atlas frames at 12 fps using renderer time, measured luminous anchors and flight rotation; reduced motion uses frame zero. `vfx.js` overlays the Ice Beam head and uses the atlas for ice-shaped projectiles, retaining plain/loading/failure fallbacks and the existing beam body. `build_rt_ice_art.py` preserves the original PNG and verifies exact RGBA reconstruction of its lossless WebP. Vite serves one binary asset and embeds it in playable HTML. The [source, prompt and provenance](../client/src/battle/rt/art/ice/PROVENANCE.md) ship with the project; simulation and replay inputs are unchanged.
+
+
+## Search and paused links in History
+
+`battles_search` reads every saved ended row with a single Store query, matches species and actual move uses on the same actor, and pages lightweight battle cards with all matching positions and coverage. The canonical handler serves UI/REST/MCP without simulating or mutating a battle. Classic positions are turn boundaries; RT positions use rounded native log times and conservative saved aliases, with ambiguous actors omitted.
+
+The search component resolves complete Spanish move names and combines trainer, format, result, kind and mode. `history-search.js` validates URL positions and produces the same classic boundary as ReplayBar. Ended classic replays seek paused after loading; ended RT screens rebuild deterministically to a clamped saved tick and stay paused. Live battles ignore search positions. No schema migration or new server. The current scan loads all selected saved logs into memory; result pagination is not indexed full-text search. See [BATTLE_SEARCH.md](BATTLE_SEARCH.md).
