@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+Los tipos de sonido de los movimientos se cargan como datos JSON generados; el HTML jugable incorpora la misma tabla. Se conservan las 935 correspondencias y el respaldo existente si los datos no pueden cargarse.
+
 Los comentarios nuevos de la IA usan el idioma elegido al iniciar el combate, reto, copa, práctica o ejercicio (inglés por defecto mediante API/MCP). Las fases posteriores conservan esa elección aunque cambie el idioma de la interfaz. Las frases ya guardadas y los diálogos de los entrenadores se conservan literalmente.
 
 Los combates nuevos en tiempo real usan las reglas 10: caminar un 35% más despacio, desplazamientos laterales parciales de la IA, esquivas más cortas con 2 s de recuperación y una reacción real de la IA con una oportunidad por peligro continuo. Las partidas guardadas conservan sus reglas. Las arenas guardadas de hierba y arena muestran sus texturas originales en el selector de combate.

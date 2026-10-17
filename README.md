@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+Move sound types load from generated JSON data; playable exports embed the same table. The 935 move mappings and the existing fallback when data cannot load are preserved.
+
 New AI commentary uses the language selected when a battle, challenge, cup, practice or exercise starts (English by default through API/MCP). Later stages keep that choice even if the interface language changes. Existing saved lines and trainer dialogue remain literal.
 
 New real-time battles use rules version 10: 35% slower walking, partial-speed AI sidesteps, shorter rolls with 2 s recovery, and AI dodges after its reaction delay with one chance per continuous danger. Saved battles keep their original rules. Saved grass and sand arenas show their original floor textures in the battle picker.
