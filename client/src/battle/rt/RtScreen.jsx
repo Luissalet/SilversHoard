@@ -234,7 +234,7 @@ function UltGauge({ side, tr, keyHint, onUlt }) {
   );
 }
 
-function Pad({ side, si, lang, tr, partyOpen, cursor, focus, plus, gauge, onUse, onRoll, onSwitch, onParty, onPlus, onMega, onUlt, onSwap, onTarget, keys, sprites, foes }) {
+function Pad({ side, si, lang, tr, partyOpen, cursor, focus, plus, gauge, special, onUse, onRoll, onSwitch, onParty, onPlus, onMega, onUlt, onSwap, onTarget, keys, sprites, foes }) {
   const mon = side.mons[side.active];
   // doubles: a slot waiting for a Pokémon (the switch goes there; the controlled one first)
   const waiting = side.units ? side.units.find((u) => u.pos === side.ctl && u.need) || side.units.find((u) => u.need) : null;
@@ -300,6 +300,7 @@ function Pad({ side, si, lang, tr, partyOpen, cursor, focus, plus, gauge, onUse,
                 </button>
               )}
               {side.ult !== undefined && <UltGauge side={side} tr={tr} keyHint={keys.plus} onUlt={() => onUlt(si)} />}
+              {special === false && <span className="help">{tr("rt_special_off")}</span>}
               {(side.units ? side.units.some((u) => !u.vacant && side.mons[u.active]?.mega_info) : mon?.mega_info) && !side.mega_used && (
                 <button type="button" className={`btn btn-sm rt-mega-btn ${side.can_mega ? "is-ready" : ""}`} title={tr(plusMoves ? "rt_mega_help" : "rt_mega_help_v4")} disabled={!side.can_mega}
                   onClick={() => onMega(si)}>
@@ -455,7 +456,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     nameSides(b);
     const recorded = battle.rt.inputs || [];
     const state = { b, inputs: makeInputs(humans, readLayout()), held: new Set(), acc: 0, last: 0, logIndex: 0, saveAt: 0, savedLen: 0, replay: null, plusScan: 0 };
-    for (const inp of state.inputs) if (inp) inp.ultMode = b.version >= 5;
+    for (const inp of state.inputs) if (inp) inp.ultMode = b.version >= 5; // disabled specials ignore this input; never arm a legacy Plus move
     if (live && net) {
       state.net = new NetLink({ url: net.url, seat: net.seat, delay: net.delay || 4, on: (k, v) => netEvent.current(k, v) });
       state.hashAt = 0;
@@ -944,7 +945,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
         {live && view && (
           <div className={`rt-pads ${people === 2 ? "two" : ""}`}>
             {view.sides.map((s, i) => humans[i] && (
-              <Pad key={i} side={s} si={i} lang={lang} tr={tr} partyOpen={party[i]} cursor={cursor[i]} focus={focus[i]} plus={plus[i]} gauge={view.version >= 2}
+              <Pad key={i} side={s} si={i} lang={lang} tr={tr} partyOpen={party[i]} cursor={cursor[i]} focus={focus[i]} plus={plus[i]} gauge={view.version >= 2} special={view.silver_special}
                 onUse={onUse} onRoll={onRoll} onSwitch={onSwitch} onParty={onParty} onPlus={onPlus} onMega={onMega} onUlt={onUlt} onSwap={onSwap} onTarget={onTarget} foes={view.sides[1 - i]} keys={KEY_HINTS[people === 1 && pad ? (layout === "simple" ? "simple" : "pad") : schemes[i]]} sprites={sprites} />
             ))}
           </div>

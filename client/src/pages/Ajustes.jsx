@@ -107,6 +107,8 @@ export default function Ajustes() {
             </Field>
             <Field label={t("rt_time_limit")} hint={t("rt_time_limit_help")}><input className="field" type="number" min={30} max={1800} step={30} value={f.rt_time_limit || 300} onChange={(e) => set("rt_time_limit", Number(e.target.value))} /></Field>
           </div>
+          <label className="flex items-center gap-2"><Switch checked={!!f.rt_silver_special} onChange={(v) => set("rt_silver_special", v)} label={t("rt_special_option")} /> {t("rt_special_option")}</label>
+          <p className="help">{t("rt_special_option_help")}</p>
           <label className="flex items-center gap-2"><Switch checked={f.pmd_sprites !== false} onChange={(v) => set("pmd_sprites", v)} label={t("rt_pmd_sprites")} /> {t("rt_pmd_sprites")}</label>
           <p className="help">{t("rt_pmd_sprites_help")} {t("rt_sprites_note")}</p>
         </div>
