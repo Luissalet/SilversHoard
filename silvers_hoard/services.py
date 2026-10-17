@@ -3690,7 +3690,8 @@ class Services:
                 "ffmpeg": shutil.which("ffmpeg") or "", "hint": "pip install -r requirements-video.txt, with Chrome or Edge installed; "
                 "ffmpeg turns the recording into an MP4 (without it the clip stays WebM)."}
 
-    def battle_video(self, id_: str, *, speed: str = "normal", size: str = "720p", lang: str = "", lumiere: bool = False) -> dict[str, Any]:
+    def battle_video(self, id_: str, *, speed: str = "normal", size: str = "720p", lang: str = "", lumiere: bool = False,
+                     aspect: str = "landscape") -> dict[str, Any]:
         """Record a finished battle's replay as a video clip (a job): the app's own replay page, alone on a 16:9 stage, played by a
         headless Chrome or Edge that captures the tab's picture and the page's sound (effects, cries, music) as it plays. The clip
         lands in the exports folder as MP4 (WebM without ffmpeg); lumiere=True also hands it to Lumiere's Hoard, the video editor."""
@@ -3701,17 +3702,20 @@ class Services:
             raise SilverError("invalid", f"speed is one of {', '.join(self.VIDEO_SPEEDS)}")
         if size not in self.VIDEO_SIZES:
             raise SilverError("invalid", f"size is one of {', '.join(self.VIDEO_SIZES)}")
+        from .video_format import video_dimensions
+        video_dimensions(size, aspect)
         status = self.video_status()
         if not status["playwright"] or not status["browser"]:
             raise SilverError("unavailable", "Recording needs Playwright and Chrome or Edge on this computer.", hint=status["hint"])
         lang = lang if lang in ("es", "en") else str(self.settings.get("language") or "en")[:2]
         title = f"Vídeo: {b.get('title') or (b['p1'].get('name', '') + ' vs ' + b['p2'].get('name', ''))}"
-        return self._job("video", title, {"battle_id": id_, "speed": speed, "size": size, "lumiere": lumiere},
-                         lambda jid, progress, cancelled: self._record_video(b, speed, size, lang, lumiere, status, progress, cancelled))
+        return self._job("video", title, {"battle_id": id_, "speed": speed, "size": size, "aspect": aspect, "lumiere": lumiere},
+                         lambda jid, progress, cancelled: self._record_video(b, speed, size, lang, lumiere, status, progress, cancelled,
+                                                                            **({"aspect": aspect} if aspect != "landscape" else {})))
 
     def _record_video(self, b: dict[str, Any], speed: str, size: str, lang: str, lumiere: bool, status: dict[str, Any],
                       progress: Callable[[float], None], cancelled: Callable[[], bool], *, url_path: str = "", stem: str = "",
-                      seconds: Optional[float] = None) -> dict[str, Any]:
+                      seconds: Optional[float] = None, aspect: str = "landscape") -> dict[str, Any]:
         """``url_path`` (after #/), ``stem`` and ``seconds`` (how long the clip plays) record another page than a battle's replay
         (mass.py: a mass battle)."""
         import base64
@@ -3720,7 +3724,8 @@ class Services:
         from .hoard_link.errors import HoardLinkError
         from .hoard_link.media.ffmpeg import FFmpeg
         from playwright.sync_api import sync_playwright
-        width, height = self.VIDEO_SIZES[size]
+        from .video_format import video_dimensions
+        width, height = video_dimensions(size, aspect)
         exports = self.config.exports_dir
         exports.mkdir(parents=True, exist_ok=True)
         if not stem:
@@ -3768,7 +3773,7 @@ class Services:
                 page.expose_function("__videoDone", lambda info: (state.update(info=info or {}), done.set()))
                 page.expose_function("__videoError", lambda msg: (state.update(error=str(msg)[:300]), done.set()))
                 path = url_path or f"video/{b['id']}?speed={self.VIDEO_SPEEDS[speed]}"
-                url = f"http://127.0.0.1:{self.config.port}/?lang={lang}#/{path}&record=1&lang={lang}"
+                url = f"http://127.0.0.1:{self.config.port}/?lang={lang}#/{path}&record=1&lang={lang}&aspect={aspect}"
                 page.goto(url, wait_until="load")
                 page.evaluate("""() => {
                     window.__videoCaptureReady = () => new Promise(resolve => {
@@ -3820,7 +3825,7 @@ class Services:
         except (HoardLinkError, OSError):
             pass  # Recording still works without readable container duration metadata.
         result: dict[str, Any] = {"file": out.name, "url": f"/api/exports/{out.name}", "bytes": out.stat().st_size, "path": str(out.resolve()),
-                                  "seconds": round(duration, 1), "width": width, "height": height,
+                                  "seconds": round(duration, 1), "width": width, "height": height, "aspect": aspect,
                                   "sound": bool(state["info"].get("sound")), "battle_id": b["id"]}
         if lumiere:
             sent = family.call("lumiere", "media_receive", {"path": str(out.resolve())}, timeout=120)

@@ -9,6 +9,7 @@ import { useApp } from "../context.js";
 import { Busy, Empty, Field, Rel, Section, Spinner, useBusy, useLoad, useStored } from "../components/ui.jsx";
 import { TrainerSelect } from "../components/silver.jsx";
 import VideoExport from "../components/VideoExport.jsx";
+import BattlePresentation from "../battle/portrait.jsx";
 import UnitPicker from "../battle/mass/UnitPicker.jsx";
 import "../battle/mass/mass.css";
 import { loc } from "../loc.js";
@@ -88,7 +89,7 @@ function Watch({ id, query }) {
       {view.kind === "pick" && <div className="panel"><UnitPicker spec={data.spec} t={t} onPick={(unit) => { setRun2((n) => n + 1); setView({ kind: "play", unit }); }} onCancel={() => setView({ kind: "watch" })} /></div>}
       {view.kind === "replay" && replay && <p className="help">{t("mass_replay_of", { who: loc(replay, lang, "challenger"), name: replay.name })}</p>}
       {view.kind !== "pick" && (view.kind !== "replay" || replay) && (
-        <React.Suspense fallback={<Spinner label={t("mass_loading")} />}>
+        <BattlePresentation lang={lang}><React.Suspense fallback={<Spinner label={t("mass_loading")} />}>
           <MassScreen key={`${data.id}:${view.kind}:${view.unit ?? view.play ?? ""}:${run2}`} doc={data} t={t} lang={lang} sprites={sprites}
             play={view.kind === "play" ? { unit: view.unit } : null}
             replay={view.kind === "replay" && replay ? { unit: replay.unit, inputs: replay.inputs } : null}
@@ -96,7 +97,7 @@ function Watch({ id, query }) {
             onCheck={view.kind === "watch" ? (hash) => api.call("mass_check", { id, hash }) : null}
             onAgain={view.kind === "play" ? () => setRun2((n) => n + 1) : view.kind === "watch" ? again : null}
             onBack={() => (view.kind === "watch" ? go("#/campal") : setView({ kind: "watch" }))} />
-        </React.Suspense>
+        </React.Suspense></BattlePresentation>
       )}
       <Section title={t("mass_plays")} count={plays.length}>
         {!plays.length ? <Empty title={t("mass_plays_none")} /> : (
