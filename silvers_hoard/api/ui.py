@@ -97,6 +97,19 @@ def pmd_meta(request: Request, dex: int, form: str = "", shiny: bool = False):
     return {**meta, "credit": s.credits.walking(str(meta.get("key") or ""))}
 
 
+@router.get("/sprites/overworld/{sprite_id}")
+def overworld_meta(request: Request, sprite_id: str, shiny: bool = False):
+    meta = services(request).overworld.meta(sprite_id, shiny)
+    if not meta:
+        raise SilverError("not_found", "No imported overworld sprite for this form.")
+    return meta
+
+
+@router.get("/sprites/overworld-sheet/{key}.png")
+def overworld_sheet(request: Request, key: str):
+    return _file(services(request).overworld.sheet(key))
+
+
 @router.get("/sprites/portrait")
 def pmd_portrait(request: Request, species: str = "", emotion: str = "Normal"):
     """A Pokémon's portrait with an emotion (Normal, Happy, Pain, Angry, Sad, Crying, Determined, Joyous…), for lines and results."""

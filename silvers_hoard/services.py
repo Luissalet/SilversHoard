@@ -38,6 +38,7 @@ from .fxcache import FxCache
 from .rebornfx import RebornCache
 from .neural import NeuralAI
 from .pmd import PmdSprites
+from .overworld import OverworldSprites
 from .official_art import OfficialArt
 from .pvp import Pvp
 from .mass import Mass
@@ -118,6 +119,7 @@ class Services:
         self.sprites = Sprites(config.sprites_dir, config.avatars_dir, self.settings, http_get=http_get)
         self.sounds = Sounds(config.sprites_dir.parent / "audio", self.settings, http_get=http_get)
         self.pmd = PmdSprites(config.sprites_dir.parent / "pmd", self.settings, http_get or _http_get)
+        self.overworld = OverworldSprites(config.data_dir / "overworld")
         self.smogon = Smogon(config.sprites_dir.parent / "smogon", http_get or _http_get, enabled=lambda: bool(self.settings["smogon_data"]))
         self._http_get = http_get or _http_get
         self.credits = Credits(config.sprites_dir.parent / "credits", self.settings, http_get or _http_get, self.pmd._base)
@@ -2890,6 +2892,7 @@ class Services:
                     "sprite_set": self.settings["sprite_set"], "mode": friend_mode, "ai_version": self.ai_version()}
             if friend_mode != "turns":
                 data["rt"] = self._rt_page_info(kind, obj)
+                data["overworld"] = self.overworld.export()
             week = ""
             if weekly:
                 data["weekly"] = self.weekly_info(kind, obj)
