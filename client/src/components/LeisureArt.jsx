@@ -1,4 +1,5 @@
 import React from "react";
+import SuppliedSprite, { suppliedSprites } from "./SuppliedSprite.jsx";
 
 // Geometric tokens for editable accessories and furniture, drawn from one stroke system.
 const SHAPES = {
@@ -23,5 +24,6 @@ const SHAPES = {
   lamp: "M7 2h10l4 10H3L7 2zM12 12v8M7 22h10",
 };
 export default function LeisureArt({ kind, size = 32 }) {
+  if (suppliedSprites[kind]) return <SuppliedSprite id={kind} size={size} />;
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={SHAPES[kind] || SHAPES.star} /></svg>;
 }
