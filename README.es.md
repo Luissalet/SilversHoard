@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+Ajustes incluye **Diagnóstico del mando**: ver sticks, gatillos analógicos y botones en el navegador, consultar las asignaciones de tiempo real, campales, mapas, Pokéathlon y la ruleta del Frente, y descargar un registro JSON acotado. No cambia controles ni envía lecturas al servidor. `controller_guide` ofrece la misma guía y un comando de firewall de solo lectura para el puerto configurado de Silver; el mando solo es visible desde su navegador. Véanse los [límites y la ayuda de diagnóstico](docs/CONTROLLER_DIAGNOSTICS.md).
+
 Los sprites aportados aparecen en la navegación, concursos, bases secretas y proyectiles del estilo pixel: 447 entradas, con los 138 objetos de cuarta generación y 207 fotogramas de ataques, con sus créditos. Hay 117 accesorios y 276 objetos para bases, con búsqueda; los muebles grandes reservan todas sus casillas y se conservan al compartir JSON. `leisure_catalog` permite recorrerlos por sección, búsqueda y página desde API/MCP. [Cobertura y límites](docs/SUPPLIED_SPRITES.md), incluidas las hojas todavía sin utilizar.
 
 Los tipos de sonido de los movimientos se cargan como datos JSON generados; el HTML jugable incorpora la misma tabla. Se conservan las 935 correspondencias y el respaldo existente si los datos no pueden cargarse.

@@ -7,6 +7,7 @@ import { AiFields, FormatSelect, MonIcon } from "../components/silver.jsx";
 import { SoundSliders } from "../battle/SoundControl.jsx";
 import NeuralAi from "../components/NeuralAi.jsx";
 import StyleRefs from "../components/StyleReferences.jsx";
+import ControllerDiagnostics from "../components/ControllerDiagnostics.jsx";
 import { useBackdropSetting, useFxStyleSetting, useMoveFxSetting } from "../battle/fx/setting.js";
 import { particleStyle, setParticleStyle } from "../battle/rt/vfx.js";
 import { setShowSetting, showSettings } from "../battle/rt/show.js";
@@ -36,6 +37,7 @@ export default function Ajustes() {
   return (
     <div className="space-y-5 max-w-3xl">
       <div className="page-head"><div className="min-w-0"><h1>{t("nav_settings")}</h1></div></div>
+      <ControllerDiagnostics/>
       <div className="panel space-y-3">
         <Field label={t("player_name")} hint={t("player_name_help")}><input className="field" value={f.player_name} onChange={(e) => set("player_name", e.target.value)} /></Field>
         <Field label={t("default_format")}><FormatSelect id="set-format" value={f.default_format} onChange={(v) => set("default_format", v)} /></Field>
