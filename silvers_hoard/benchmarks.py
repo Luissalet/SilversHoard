@@ -82,6 +82,7 @@ class Benchmarks:
             "time_limit": limit,
             "arena": arena,
             "version": RT_RULES_VERSION,
+            "silver_special": bool(self.s.settings.get("rt_silver_special", False)),
             "max_turns": self.s.settings["max_turns"],
         }
 
@@ -93,6 +94,8 @@ class Benchmarks:
             res["variants"] = slim
             res["hall_of_fame_touched"] = False
             res["job_id"] = jid
+            if rt:
+                res.update({"silver_special": payload["silver_special"], "version": payload["version"]})
             return res
 
         return self.s._job(
@@ -104,6 +107,7 @@ class Benchmarks:
                 "games": games,
                 "format": fmt,
                 "mode": "realtime" if rt else "classic",
+                **({"silver_special": payload["silver_special"], "version": RT_RULES_VERSION} if rt else {}),
                 "reference_id": ids[0],
             },
             work,

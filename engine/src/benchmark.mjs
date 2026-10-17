@@ -65,6 +65,7 @@ export function teamBenchmark(args = {}, onProgress = () => {}) {
           time_limit: args.time_limit || 0,
           arena: args.arena || '',
           version: args.version || 0,
+          silver_special: args.silver_special,
           p1: {name: variant.name, sets: variant.sets, ai: variant.ai},
           p2: {name: rival.name, sets: rival.sets, ai: rival.ai},
         };

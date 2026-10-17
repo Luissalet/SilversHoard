@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {RtBattle, ULT_MAX, ULT_SLOT} from '../src/realtime/sim.mjs';
+import {RtBattle, ULT_MAX, ULT_SLOT, GAUGE_SEGMENT, GAUGE_SEGMENTS} from '../src/realtime/sim.mjs';
 
 const spec = (extra = {}) => ({
   id:'special-option', seed:'special-option', version:11, format:'gen9customgame', arena:'open', time_limit:60,
@@ -39,4 +39,14 @@ test('opting in reproduces the previous special attack and its combat effects', 
   assert.deepEqual(current.events,legacy.events);
   assert.deepEqual(current.sides.map(s=>s.mons.map(m=>m.hp)),legacy.sides.map(s=>s.mons.map(m=>m.hp)));
   assert.equal(current.view().silver_special,true);
+});
+
+test('Mega Evolution keeps its separate gauge when Silver special is disabled', () => {
+  const battle=new RtBattle(spec({p1:{name:'A',sets:[{species:'Charizard',item:'Charizardite X',moves:['Flamethrower']}]}}));
+  const side=battle.sides[0];
+  side.gauge=GAUGE_SEGMENT*GAUGE_SEGMENTS;
+  assert.equal(battle.canMega(side),true);
+  battle.step({p1:{mega:true}});
+  assert.equal(battle.mon(side).species,'Charizard-Mega-X');
+  assert.equal(battle.view().sides[0].ult,undefined);
 });
