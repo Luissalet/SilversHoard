@@ -1,0 +1,48 @@
+/* A fixed-width share image. Normal app pages retain their existing layout. */
+body.poster-rendering { margin: 0; min-width: 1080px; background: #1b1517; }
+body.poster-rendering > :not(#root) { display: none !important; }
+body.poster-rendering #root { padding: 0; margin: 0; }
+.trainer-poster-art {
+  box-sizing: border-box; width: 1080px; min-height: 1350px; padding: 50px 60px 44px;
+  display: flex; flex-direction: column; gap: 34px;
+  background: #1b1517; color: #f0e9dd; font-family: var(--hoard-font-sans), sans-serif;
+  font-size: 19px; line-height: 1.45;
+  border-top: 12px solid var(--poster-accent);
+}
+.trainer-poster-art *, .trainer-poster-art *::before, .trainer-poster-art *::after { box-sizing: border-box; }
+.trainer-poster-art h1, .trainer-poster-art h2, .trainer-poster-art p { margin: 0; }
+.poster-topline { display: flex; justify-content: space-between; gap: 30px; font-size: 16px; color: #c3b4af; }
+.poster-topline > :last-child { overflow-wrap: anywhere; text-align: right; }
+.poster-topline > :first-child { color: var(--poster-accent); font-weight: 700; white-space: nowrap; }
+.poster-hero { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 35px; align-items: center; min-height: 460px; }
+.poster-heading { min-width: 0; }
+.poster-eyebrow { font-size: 15px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--poster-accent); margin-bottom: 18px !important; }
+.trainer-poster-art .poster-heading h1 { font-family: var(--hoard-font-serif), Georgia, serif; font-size: 72px; line-height: 1.04; font-weight: 700; overflow-wrap: anywhere; }
+.poster-subtitle { color: #c3b4af; font-size: 25px; line-height: 1.3; margin-top: 23px !important; overflow-wrap: anywhere; }
+.poster-count { display: block; margin-top: 32px; font-size: 16px; color: #c3b4af; }
+.poster-portrait { position: relative; display: grid; place-items: center; min-height: 450px; align-self: stretch; }
+.poster-halo { position: absolute; inset: 28px 0; border: 1px solid var(--poster-accent); border-radius: 200px 200px 24px 24px; opacity: .24; background: radial-gradient(ellipse at 50% 30%, color-mix(in srgb, var(--poster-accent) 28%, transparent), transparent 70%); }
+.poster-portrait img { position: relative; width: 340px; height: 450px; object-fit: contain; object-position: center bottom; }
+.poster-monogram { font: 100px Georgia, serif; color: var(--poster-accent); position: relative; }
+.trainer-poster-art h2 { font-family: var(--hoard-font-serif), Georgia, serif; font-size: 29px; font-weight: 600; margin-bottom: 20px; }
+.poster-team, .poster-medals { border-top: 1px solid #4a393e; padding-top: 24px; }
+.poster-team-strip, .poster-badge-strip { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 22px 18px; }
+.poster-team-strip li { min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.poster-slot { align-self: flex-start; font-size: 12px; color: #b6a4a0; }
+.poster-mon-picture { height: 128px; width: 100%; display: grid; place-items: center; margin-bottom: 8px; }
+.poster-mon-picture img { width: 118px; height: 118px; object-fit: contain; }
+.poster-mon-picture > span { font-size: 40px; color: #b6a4a0; }
+.poster-team-strip b { font-size: 19px; line-height: 1.2; overflow-wrap: anywhere; max-width: 100%; }
+.poster-shiny { color: #e5c77b; }
+.poster-species, .poster-level { font-size: 14px; color: #c3b4af; overflow-wrap: anywhere; max-width: 100%; }
+.poster-badge-strip li { min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 7px; }
+.poster-badge-strip b { font-size: 17px; line-height: 1.25; overflow-wrap: anywhere; }
+.poster-badge-strip li > span { font-size: 13px; color: #c3b4af; overflow-wrap: anywhere; }
+.poster-medals > p, .poster-team > p { color: #c3b4af; }
+.poster-provenance { margin-top: auto; border-top: 1px solid #4a393e; padding-top: 20px; }
+.trainer-poster-art .poster-provenance h2 { font-family: inherit; text-transform: uppercase; letter-spacing: .09em; font-size: 12px; color: #c3b4af; margin-bottom: 13px; }
+.poster-source-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 28px; }
+.poster-source-grid > div { display: flex; flex-direction: column; min-width: 0; font-size: 12px; color: #b6a4a0; overflow-wrap: anywhere; white-space: pre-wrap; }
+.poster-source-grid b { font-size: 12px; color: #e5d7ca; }
+.poster-source-url { font-size: 11px; }
+.poster-warning { font-size: 12px; color: #e5c77b; margin-top: 14px !important; }
