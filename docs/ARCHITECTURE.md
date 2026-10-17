@@ -1,5 +1,11 @@
 # Silver's Hoard — architecture
 
+## Mega form art and imported walking sheets
+
+`Sprites.pokemon` resolves missing Z-A Mega images through PokeAPI pixel PNGs, then models, before any base-species fallback. `battle/mega-sprites.js` maps all 49 generation-9 Mega variants, including forms without `isMega`, for server-free playable exports. The renderer accepts PMD Mega animations only when metadata identifies an actual alternate form; it never presents a base walking animation as the Mega. Static images retain shiny and back selection.
+
+`overworld_import` / `overworld_list` share native UI, REST and MCP handlers. `silvers_hoard/overworld.py` validates the supplied ZIP/Delphox layouts and stores original PNG bytes plus frame/source/credit metadata under persistent `data/overworld`. `rt/overworld.js` uses the existing animator clock, exact frame rectangles and in-memory background color removal. Genuine PMD form animations take precedence, then imported walking sheets, then static sprites. Trainer/gym playable exports embed original PNGs and metadata; artist links remain visible. No new battle rules or attack/hurt animations are introduced; the separate mass renderer does not use these sheets. Details and provenance: [MEGA_SPRITES.md](MEGA_SPRITES.md), [OVERWORLD_SPRITES.md](OVERWORLD_SPRITES.md).
+
 Real-time pacing (rules version 10, matching `RT_RULES_VERSION` and `RULES_VERSION`): walking scales by 0.65 after existing Speed/status/item/weather modifiers; rolls move at 8 m/s and recover for 2 s. AI sidesteps retain their intended magnitude instead of normalizing to full speed. Danger must persist for the difficulty's reaction delay, with one probability check until the continuous danger clears. All changes are gated to version 10: old input logs and exports retain their prior outcomes. `ArenaField` uses the same original grass/sand floor textures as `ArenaRenderer`; saved arenas remain separate records in the native arena collection.
 
 ## Real-time movement presentation and original textures
