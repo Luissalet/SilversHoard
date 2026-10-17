@@ -12,8 +12,9 @@ export default function BattleSearch({kind, renderBattle, onActive}) {
   const [draft, setDraft] = useState(EMPTY);
   const [submitted, setSubmitted] = useState(null);
   const [offset, setOffset] = useState(0);
+  const [searchRun, setSearchRun] = useState(0);
   const request = submitted ? {...submitted, kind, offset, limit:20} : null;
-  const queryKey = JSON.stringify(request);
+  const queryKey = JSON.stringify([request, searchRun]);
   const {data, error, loading, reload} = useLoad(async () => request ? {...await api.call('battles_search', request), queryKey} : null, [queryKey]);
   const current = data?.queryKey === queryKey ? data : null;
   const set = (key, value) => setDraft(old=>({...old,[key]:value,...(key==='trainer' && !value.trim() && ['won','lost'].includes(old.result) ? {result:''} : {})}));
@@ -21,6 +22,7 @@ export default function BattleSearch({kind, renderBattle, onActive}) {
     e.preventDefault();
     setOffset(0);
     setSubmitted({...draft, move:canonicalMoveFilter(draft.move)});
+    setSearchRun(n=>n+1);
     onActive(true);
   };
   const clear = () => { setDraft(EMPTY); setSubmitted(null); setOffset(0); onActive(false); };
