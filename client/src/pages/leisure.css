@@ -9,7 +9,7 @@
 .contest-beats .is-played { border-color: var(--hoard-accent-strong); }
 .leisure-palette { display: flex; flex-wrap: wrap; gap: 6px; }
 .leisure-palette .btn { min-height: 42px; text-align: left; }
-.leisure-palette .btn[aria-pressed="true"] { color: var(--hoard-accent-strong); border-color: var(--hoard-accent-strong); }
+.leisure-palette .btn[aria-pressed="true"], .leisure-choices .btn[aria-pressed="true"] { color: var(--hoard-accent-strong); border-color: var(--hoard-accent-strong); background: var(--hoard-accent-soft); box-shadow: inset 0 -2px currentColor; }
 .leisure-score-table { overflow-x: auto; }
 .leisure-score-table table { width: 100%; border-collapse: collapse; text-align: left; }
 .leisure-score-table td, .leisure-score-table th { padding: 10px; border-bottom: 1px solid var(--line); }

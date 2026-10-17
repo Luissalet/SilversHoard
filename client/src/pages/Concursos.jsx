@@ -74,6 +74,7 @@ export default function Concursos() {
   const choose = (args) => action("choose", () => api.call("contest_choose", { id: state.id, revision: state.revision, ...args }));
   const start = () => action("start", () => api.call("contest_start", { trainer_id: trainer, pokemon, category, rank, condition: Number(condition) }));
   const team = detail.data?.id === trainer ? detail.data.team : [];
+  const entrantName = (i) => { const e = state.entrants[i]; return `${e.species} · ${e.name}${i === 0 ? ` · ${t("contest_you")}` : ""}`; };
   return <div className="space-y-4">
     <div className="page-head"><div><h1>{t("nav_contests")}</h1><p className="help">{t("contest_help")}</p></div></div>
     {error && <ErrorBox error={error} />}{catalog.error && <ErrorBox error={catalog.error} onRetry={catalog.reload} />}
@@ -90,7 +91,7 @@ export default function Concursos() {
       <div className="contest-stage" aria-label={t(`contest_${state.phase}`)}>
         {state.entrants.map((e, i) => <div key={i} className={`contest-performer ${i === 0 ? "is-you" : ""}`}>
           <div className="contest-costume"><MonIcon species={e.species} size={96} />{i === 0 && <div className="contest-accessory-strip">{state.accessories.map((a) => <LeisureArt key={a} kind={a} size={22} />)}</div>}</div>
-          <b>{e.species}</b><span className="help">{e.name}</span><span>{t("contest_score", { n: e.scores.reduce((a, b) => a + b, 0) })}</span>
+          <b>{e.species}</b><span className="help">{e.name}{i === 0 ? ` · ${t("contest_you")}` : ""}</span><span>{t("contest_score", { n: e.scores.reduce((a, b) => a + b, 0) })}</span>
         </div>)}
       </div>
       <div className="panel space-y-3">
@@ -104,12 +105,12 @@ export default function Concursos() {
         {state.phase === "acting" && <>
           <h2>{t("contest_round", { n: state.round + 1 })}</h2><p className="help">{t("contest_appeal_help")}</p>
           <Field label={t("contest_move")}><select className="field" value={move} onChange={(e) => setMove(Number(e.target.value))}>{state.entrants[0].moves.map((m, i) => <option key={i} value={i}>{nameOf("move", m.name, lang)} · {t(`category_${m.category}`)}</option>)}</select></Field>
-          <div className="flex flex-wrap gap-2" role="group" aria-label={t("contest_acting")}>{state.voltage.map((v, i) => <button type="button" className="btn" key={i} aria-pressed={judge === i} onClick={() => setJudge(i)}>{t("contest_judge", { n: i + 1, v })}</button>)}</div>
+          <div className="leisure-choices flex flex-wrap gap-2" role="group" aria-label={t("contest_acting")}>{state.voltage.map((v, i) => <button type="button" className="btn" key={i} aria-pressed={judge === i} onClick={() => setJudge(i)}>{t("contest_judge", { n: i + 1, v })}</button>)}</div>
           <Busy busy={busy.choose} className="btn btn-primary" onClick={() => choose({ move, judge })}>{t("contest_appeal")}</Busy>
-          {state.events.filter((e) => e.phase === "acting" && e.round === state.round - 1).map((e) => <p key={e.entrant} className="help">{t("contest_event", { name: state.entrants[e.entrant].species, move: nameOf("move", e.move, lang), judge: e.judge + 1, points: e.points })}</p>)}
+          {state.events.filter((e) => e.phase === "acting" && e.round === state.round - 1).map((e) => <p key={e.entrant} className="help">{t("contest_event", { name: entrantName(e.entrant), move: nameOf("move", e.move, lang), judge: e.judge + 1, points: e.points })}</p>)}
         </>}
         {state.phase === "result" && <><h2>{t("contest_place", { n: state.place })}{state.ribbon ? ` · ${t("contest_ribbon")}` : ""}</h2>
-          <div className="leisure-score-table"><table><thead><tr><th>Pokémon</th>{["dress", "dance", "acting"].map((p) => <th key={p}>{t(`contest_${p}`)}</th>)}</tr></thead><tbody>{state.entrants.map((e, i) => <tr key={i}><th>{e.species}</th>{e.scores.map((s, j) => <td key={j}>{s}</td>)}</tr>)}</tbody></table></div>
+          <div className="leisure-score-table"><table><thead><tr><th>Pokémon</th>{["dress", "dance", "acting"].map((p) => <th key={p}>{t(`contest_${p}`)}</th>)}</tr></thead><tbody>{state.entrants.map((e, i) => <tr key={i}><th>{e.species}<span className="help block">{e.name}{i === 0 ? ` · ${t("contest_you")}` : ""}</span></th>{e.scores.map((s, j) => <td key={j}>{s}</td>)}</tr>)}</tbody></table></div>
           <button type="button" className="btn" onClick={() => { setState(null); setAccessories([]); }}>{t("contest_start")}</button></>}
       </div>
     </>}

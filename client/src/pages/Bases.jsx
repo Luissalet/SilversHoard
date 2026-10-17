@@ -65,7 +65,7 @@ export default function Bases() {
     {error && <ErrorBox error={error} />}{list.error && <ErrorBox error={list.error} onRetry={list.reload} />}
     <div className="base-workspace">
       <div className="space-y-3">
-        <div className="flex flex-wrap gap-2"><button type="button" className="btn" aria-pressed={editing} onClick={() => setEditing(true)}>{t("base_edit")}</button>
+        <div className="leisure-choices flex flex-wrap gap-2"><button type="button" className="btn" aria-pressed={editing} onClick={() => setEditing(true)}>{t("base_edit")}</button>
           <button type="button" className="btn" aria-pressed={!editing} onClick={() => { setEditing(false); setPosition([3, 7]); }}>{t("base_visit")}</button>{dirty && <span className="help">{t("base_unsaved")}</span>}</div>
         <div className={`base-room base-${base.style}`} role="group" aria-label={base.name || t("nav_bases")} tabIndex={0}>
           {Array.from({ length: 64 }, (_, i) => {
@@ -78,6 +78,12 @@ export default function Bases() {
           })}
         </div>
         <p className="help">{t(editing ? "base_decor_help" : "base_walk_help")}</p>
+        {editing && <>
+          <div className="leisure-palette" role="group" aria-label={t("base_edit")}>{catalog.data?.decorations.map((d) => <button type="button" key={d.id} className="btn" aria-pressed={tool === d.id} onClick={() => setTool(d.id)}><LeisureArt kind={d.id} size={24} />{t(`decor_${d.id}`)}</button>)}
+            <button type="button" className="btn" aria-pressed={tool === "erase"} onClick={() => setTool("erase")}><Icon d={ICONS.trash} />{t("base_erase")}</button></div>
+          {tool === "doll" && <Field label="Pokémon"><input className="field" value={species} onChange={(e) => setSpecies(e.target.value)} /></Field>}
+          <p className="help">{base.decorations.length}/16</p>
+        </>}
         {!editing && <><p>{base.message}</p><TrainerSelect label={t("base_choose_guest")} value={guest} onChange={setGuest} />
           <Busy busy={busy.battle} className="btn btn-primary" disabled={!base.id || dirty || !guest || !near} onClick={challenge}>{t("base_challenge")}</Busy></>}
       </div>
@@ -86,12 +92,6 @@ export default function Bases() {
         <Field label={t("base_style")}><select className="field" value={base.style} onChange={(e) => set("style", e.target.value)}>{["tree", "cave", "shrub"].map((s) => <option key={s} value={s}>{t(`base_${s}`)}</option>)}</select></Field>
         <TrainerSelect label={t("base_owner")} value={base.trainer_id} onChange={(v) => set("trainer_id", v)} allowNone />
         <Field label={t("base_message")}><textarea className="field" rows={2} maxLength={500} value={base.message} onChange={(e) => set("message", e.target.value)} /></Field>
-        {editing && <>
-          <div className="leisure-palette" role="group" aria-label={t("base_edit")}>{catalog.data?.decorations.map((d) => <button type="button" key={d.id} className="btn" aria-pressed={tool === d.id} onClick={() => setTool(d.id)}><LeisureArt kind={d.id} size={24} />{t(`decor_${d.id}`)}</button>)}
-            <button type="button" className="btn" aria-pressed={tool === "erase"} onClick={() => setTool("erase")}><Icon d={ICONS.trash} />{t("base_erase")}</button></div>
-          {tool === "doll" && <Field label="Pokémon"><input className="field" value={species} onChange={(e) => setSpecies(e.target.value)} /></Field>}
-          <p className="help">{base.decorations.length}/16</p>
-        </>}
         <div className="flex flex-wrap gap-2"><Busy busy={busy.save} className="btn btn-primary" disabled={!base.name.trim() || base.decorations.length > 16} onClick={() => save()}>{t("save")}</Busy>
           {base.id && <><Busy busy={busy.share} className="btn" disabled={dirty} onClick={share}>{t("base_export")}</Busy><Busy busy={busy.save} className="btn" onClick={() => save({ archived: !base.archived })}>{t(base.archived ? "base_restore" : "base_archive")}</Busy></>}
         </div>
