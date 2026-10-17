@@ -11,6 +11,8 @@ import FRIENDS_STRINGS from "./pages/friends-strings.js";
 import LEISURE_STRINGS from "./pages/leisure-strings.js";
 
 const D = {
+  expert_combinations: ['Combinaciones ejecutadas de la IA experta', 'Executed expert AI combinations'],
+  expert_combinations_help: ['Señala en el registro y la explicación los dos movimientos que la IA experta ejecutó en un turno de dobles. Se muestran cuando termina ese turno.', 'Label the two moves the expert AI executed in a doubles turn, in the log and explanation. Labels appear after that turn resolves.'],
   bj_create: ['Crear periódico del combate', 'Create battle newspaper'],
   bj_open: ['Abrir e imprimir', 'Open and print'],
   bj_download: ['Descargar HTML', 'Download HTML'],

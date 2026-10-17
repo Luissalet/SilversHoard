@@ -990,6 +990,7 @@ class SettingsSetArgs(BaseModel):
     node_path: Optional[str] = Field(None, max_length=500)
     sprite_downloads: Optional[bool] = None
     ai_hidden_info: Optional[bool] = Field(None, description="AIs see only what the battle has shown of the opponent's team.")
+    expert_combinations: Optional[bool] = Field(None, description="Show completed expert doubles move pairs in battle logs and explanations.")
     music_source: Optional[Literal["showdown", "pokerogue"]] = Field(None, description="Battle music: showdown (trainer and rival themes) or pokerogue (its community's original tracks, CC BY-NC-SA 4.0: by gym type, Elite Four, champion).")
     pokerogue_audio: Optional[str] = Field(None, max_length=300, description="Where PokeRogue's battle tracks are downloaded from.")
     ai_banter: Optional[bool] = Field(None, description="AI trainers comment their moves in character as the battle goes (the family's language model writes the lines in the background; battle_get returns them as banter).")
@@ -1570,7 +1571,10 @@ TOOLS: list[Tool] = [
                             synonyms="requisitos vídeo, grabar vídeo"), Empty, R, lambda s, a: s.video_status()),
     Tool("battle_explain", _d("Why the AI chose each move, turn by turn, and what the expert would do now. Comentar la jugada.",
                               "Each decision lists the options weighed (expected damage, KO, accuracy; a switch's damage taken and dealt), the "
-                              "threat on the Pokémon, who was faster and, for the expert AI, the candidate turns it played out.",
+                              "threat on the Pokémon, who was faster and, for the expert AI, the candidate turns it played out. "
+                              "With expert_combinations enabled, combinations reports exact move pairs publicly completed by both "
+                              "expert doubles slots, with their log indices and resolved turn boundary. Choices or advice alone "
+                              "never prove execution; missing, failed, ambiguous and partner-only actions are omitted.",
                               synonyms="por qué la ia, explicar jugada, consejo, qué haría la ia, comentar combate"), BattleExplainArgs, R,
          lambda s, a: s.battle_explain(a.id, side=a.side, turn=a.turn, from_turn=a.from_turn, advice=a.advice, limit=a.limit), 120.0),
     Tool("avatar_poses_draw", _d("Have Prospero's Hoard draw a trainer's own sprite from behind and in a victory pose (a job). Poses del sprite.",

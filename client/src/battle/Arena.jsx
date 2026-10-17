@@ -3,6 +3,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { L, STATUS_COLORS, STATUS_SHORT, STATUS_SHORT_EN, STAT_SHORT, TYPE_COLORS, nameOf, typeName, toID } from "./dex.js";
 import { battleT } from "./strings.js";
+import { combinationValues, withCombinations } from "./expert-combinations.js";
 import SoundButton from "./SoundControl.jsx";
 import AbilityBanner from "./AbilityBanner.jsx";
 import BallRelease from "./BallRelease.jsx";
@@ -134,7 +135,7 @@ export function LogPanel({ log, lang, compact }) {
   }, [log.length]);
   return (
     <div className={`b-log ${compact ? "compact" : ""}`} ref={ref} aria-live="polite" aria-label={t("log")}>
-      {log.map((e, i) => (e.kind === "turn" ? <div key={i} className="b-log-turn">{e.text}</div> : <div key={i} className={`b-log-line k-${e.kind}`}>{e.text}</div>))}
+      {log.map((e, i) => (e.kind === "turn" ? <div key={i} className="b-log-turn">{e.text}</div> : <div key={i} className={`b-log-line k-${e.kind}`}>{e.kind === "combo" ? <strong>{e.text}</strong> : e.text}</div>))}
     </div>
   );
 }
@@ -164,7 +165,7 @@ const MOOD = { intro: "Determined", win: "Joyous", lose: "Sad", last: "Determine
 const other = (side) => (side === "p1" ? "p2" : "p1");
 const newTalk = (lines) => ({ lines, at: 0, faint: { p1: 0, p2: 0 }, switched: { p1: 0, p2: 0 }, lastSwitch: { p1: 0, p2: 0 }, last: { p1: false, p2: false }, low: { p1: false, p2: false }, shown: new Set() });
 
-export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "es", exact = true, children, bubble, toolbar, backdrop = "", banter = null }) {
+export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "es", exact = true, children, bubble, toolbar, backdrop = "", banter = null, combinations = [] }) {
   const t = battleT(lang);
   const st = player.state;
   const foe = me === "p1" ? "p2" : "p1";
@@ -400,7 +401,8 @@ export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "
         {toolbar}
         {children}
       </div>
-      <LogPanel log={player.log} lang={lang} />
+      <LogPanel log={withCombinations(player.log, combinations, player.applied,
+        (pair) => t("expert_pair", combinationValues(pair, {p1: seats.p1?.name, p2: seats.p2?.name}, (move) => nameOf("move", move, lang))))} lang={lang} />
     </div>
   );
 }
