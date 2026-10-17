@@ -1,5 +1,9 @@
 # Silver's Hoard
 
+**Real-time rematches.** **Again** reuses the saved teams and names of direct seats, preserves saved trainer IDs and human/AI choices, and keeps the format, level rules, time limit and arena. Each rematch is a separate battle with a new seed and fresh controls. A custom arena comes from the saved field snapshot even if its original library entry was edited or deleted. UI, REST and MCP `battle_start` accept that snapshot as `rt_arena: {name, floor, rocks}`, using the existing arena validation without creating another library entry.
+
+Real-time battles wait for the initial sprite pixels, including each possible Mega image, before advancing. When a Mega walking animation is unavailable, the arena uses that Mega forme's static sprite. Mega Evolution shows a burst and a readable caption with its actual forme; simultaneous transformations keep both captions in order, including with reduced motion and in exported playable pages. Existing battle_get replay data and battle rules are unchanged.
+
 Choose **Music track** on the Battle setup screen or open **Sound → Music track** during a classic or real-time battle to select any of the 48 existing tracks, keep automatic battle music or choose no music. Changes apply during playback and are remembered in this browser with the volume mixer. Effects and Pokémon cries remain independent. The selector stays usable outside the field on small screens; standalone offline pages still have effects only, and video recordings use their own browser's mixer preferences.
 
 Battles offer horizontal and vertical presentation. Export the same saved replay as independent 16:9 and 9:16 videos (1080p vertical: 1080 × 1920), with preview and sound. Real-time portrait rotates only the camera, keeps trainers and Pokémon upright with the correct available facing, and consumes the original replay inputs unchanged. UI, REST and MCP expose the same `aspect` selection. See [frame formats](docs/VIDEO_FORMATS.md).

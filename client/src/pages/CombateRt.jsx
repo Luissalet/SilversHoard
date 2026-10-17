@@ -52,9 +52,13 @@ export default function CombateRt({ battle, setData, query }) {
   }, [battle.id]);
 
   const again = async () => {
-    const seat = (s) => (s.trainer_id ? { trainer_id: s.trainer_id, human: s.human, ai_level: s.ai?.level, ai_style: s.ai?.style }
-      : { team: s.sets || [], name: s.name, human: s.human });
-    const b = await api.call("battle_start", { p1: seat(battle.p1), p2: seat(battle.p2), format: battle.format, level_rules: battle.level_rules || {},
+    const seat = (side) => {
+      const s = battle[side];
+      const options = { human: s.human, ai_level: s.ai?.level, ai_style: s.ai?.style, ai_hidden: s.ai?.hidden ?? false };
+      return s.trainer_id ? { trainer_id: s.trainer_id, ...options }
+        : { team: s.sets || battle.rt?.spec?.[side]?.sets || [], name: s.name, ...options };
+    };
+    const b = await api.call("battle_start", { p1: seat("p1"), p2: seat("p2"), format: battle.format, level_rules: battle.level_rules || {}, lang,
       mode: "realtime", time_limit: battle.rt?.time_limit || 0, rt_arena: battle.rt?.arena || "rocks" });
     go(`#/combate/${b.id}`);
   };
