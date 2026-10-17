@@ -11,6 +11,9 @@ import FRIENDS_STRINGS from "./pages/friends-strings.js";
 import LEISURE_STRINGS from "./pages/leisure-strings.js";
 
 const D = {
+  bj_create: ['Crear periódico del combate', 'Create battle newspaper'],
+  bj_open: ['Abrir e imprimir', 'Open and print'],
+  bj_download: ['Descargar HTML', 'Download HTML'],
   hs_title: ['Buscar en las repeticiones', 'Search replays'],
   hs_help: ['Combina filtros. Especie y movimiento deben pertenecer al mismo Pokémon del entrenador indicado. El enlace abre la repetición en pausa, antes del turno o momento encontrado.', 'Combine filters. Species and move must belong to the same Pokémon of the selected trainer. Links open a paused replay before the matching turn or moment.'],
   hs_species: ['Especie', 'Species'],
