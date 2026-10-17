@@ -8,6 +8,7 @@ import { Avatar, MonIcon, OfficialArtGrid, RecordChip, fetchPicture } from "../c
 import { ImageViewer } from "../components/viewer.jsx";
 import { L, nameOf } from "../battle/dex.js";
 import { loc } from "../loc.js";
+import TeamSelection from "../components/TeamSelection.jsx";
 
 // Teams read from the HeartGold/SoulSilver cartridge (pret/pokeheartgold): the mark, and the nature and IVs the game gives each Pokémon
 const CART = {
@@ -64,6 +65,7 @@ export default function Personaje({ param, query }) {
   const { t, lang, notify, changed, go } = useApp();
   const { data: c, error, reload } = useLoad(() => api.call("character_get", { key: param }), [param]);
   const [variantId, setVariantId] = useState("");
+  const [selection, setSelection] = useState(null);
   const [sprite, setSprite] = useState("");
   const [art, setArt] = useState(null);          // an official artwork chosen instead of a sprite
   const [arts, setArts] = useState([]);
@@ -78,6 +80,7 @@ export default function Personaje({ param, query }) {
     return c.variants.find((v) => v.id === variantId) || [...c.variants].reverse().find((v) => !v.side && fits(v)) || [...c.variants].reverse().find(fits) || c.variants[c.variants.length - 1];
   }, [c, variantId, gen, game]); // eslint-disable-line react-hooks/exhaustive-deps
   const spriteId = sprite || variant?.sprite || c?.base_sprite || "";
+  const indices = selection?.variant === variant?.id ? selection.indices : undefined;
   const spriteUrl = art ? art.url : c?.sprites.find((s) => s.id === spriteId)?.url || c?.avatar_url;
 
   const groups = useMemo(() => {
@@ -105,6 +108,7 @@ export default function Personaje({ param, query }) {
       avatar = (await api.uploadAvatar(blob, { mode: "upload", kind: "art", credit: art.credit, source: art.url, title: art.file })).avatar;
     }
     const r = await api.call("character_install", { key: c.key, variant: empty ? "" : variant?.id || "", sprite: art ? "" : spriteId, custom, lang,
+      ...(!custom && indices ? { team_indices: indices } : {}),
       ...(avatar ? { avatar, art: art.file } : {}) });
     changed();
     notify(r.trainer.existing ? t("char_exists") : t("char_created"));
@@ -179,6 +183,9 @@ export default function Personaje({ param, query }) {
         </div>
       </Section>
 
+      {variant?.pool > 6 && <div className="panel"><TeamSelection key={variant.id} pool={variant.sets} value={indices}
+        onChange={(next) => setSelection({ variant: variant.id, indices: next })} /></div>}
+
       {c.installed.length > 0 && (
         <Section title={t("char_made")} count={c.installed.length}>
           <div className="trainer-grid">
@@ -197,7 +204,7 @@ export default function Personaje({ param, query }) {
       <div className="char-actions">
         <Avatar url={spriteUrl} name={name} size={40} />
         <div className="min-w-0 flex-1"><b>{name}</b><div className="help trunc">{variant ? (lang === "en" ? variant.label : variant.label_es) : ""}</div></div>
-        <Busy busy={busy.a} className="btn btn-primary" onClick={() => install(false)} title={t("char_add_help")}>{t("char_add")}</Busy>
+        <Busy busy={busy.a} className="btn btn-primary" disabled={!!indices && indices.length !== 6} onClick={() => install(false)} title={t("char_add_help")}>{t("char_add")}</Busy>
         <Busy busy={busy.c} className="btn" onClick={() => install(true)} title={t("char_custom_help")}>{t("char_custom")}</Busy>
         <Busy busy={busy.e} className="btn btn-ghost" onClick={() => install(true, true)}>{t("char_custom_empty")}</Busy>
       </div>

@@ -70,7 +70,7 @@ function logLine(e, b, lang, tr) {
     case "plus": return { sec, k: "effect", text: es ? `${who(e.s)}: ¡${mv(e.name)} Plus!` : `${who(e.s)}: ${mv(e.name)} Plus!` };
     case "mega": return { sec, k: "big", text: es ? `¡${e.from} de ${side(e.s).name} megaevoluciona!` : `${side(e.s).name}'s ${e.from} Mega Evolved!` };
     case "phase": return { sec, k: "big", text: e.line ? `${side(e.s).name}: «${e.line}»` : (es ? `¡${side(e.s).name} cambia de táctica!` : `${side(e.s).name} changes tactics!`) };
-    case "ultimate": return { sec, k: "big", text: es ? `¡${who(e.s)} usa un ataque especial de tipo ${typeName(e.type, lang)}!` : `${who(e.s)} uses a charged ${e.type}-type attack!` };
+    case "ultimate": return { sec, k: "big", text: es ? `¡${who(e.s)} usa un especial de Silver de tipo ${typeName(e.type, lang)}!` : `${who(e.s)} uses a ${e.type}-type Silver special!` };
     case "dummy_reset": return { sec, k: "big", text: es ? `${who(e.s)} cae y se levanta con todos sus PS` : `${who(e.s)} goes down and stands up again at full HP` };
     case "mega_end": return { sec, k: "info", text: es ? `${monName(e.s, e.slot)} vuelve a su forma` : `${monName(e.s, e.slot)} went back to its usual forme` };
     case "immune": return { sec, k: "minor", text: es ? `No afecta a ${monName(e.s)}` : `It doesn't affect ${monName(e.s)}` };

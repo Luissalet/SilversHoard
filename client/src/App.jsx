@@ -34,6 +34,8 @@ import Video from "./pages/Video.jsx";
 import Compartir from "./pages/Compartir.jsx";
 import Ajustes from "./pages/Ajustes.jsx";
 import Pokeathlon from "./pages/Pokeathlon.jsx";
+import Concursos from "./pages/Concursos.jsx";
+import Bases from "./pages/Bases.jsx";
 
 export { useApp } from "./context.js";
 
@@ -76,6 +78,8 @@ const PAGES = [
   { path: "fabrica", key: "nav_facilities", component: Fabrica, hidden: true, parent: "instalaciones" },
   { path: "frontera", key: "nav_facilities", component: Frontera, hidden: true, parent: "instalaciones" },
   { path: "pokeathlon", key: "nav_facilities", label: ["Pokéathlon", "Pokéathlon"], icon: I.stopwatch, component: Pokeathlon },
+  { path: "concursos", key: "nav_contests", icon: I.trophy, component: Concursos },
+  { path: "bases", key: "nav_bases", icon: I.home, component: Bases },
   { path: "personajes", key: "nav_canon", icon: I.book, component: Personajes },
   { path: "personaje", key: "nav_canon", component: Personaje, hidden: true, parent: "personajes" },
   { path: "historial", key: "nav_history", icon: I.history, component: Historial },

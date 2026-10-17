@@ -256,6 +256,7 @@ class CharacterKeyArg(BaseModel):
 
 
 class CharacterInstallArgs(BaseModel):
+    team_indices: Optional[list[int]] = Field(None, min_length=1, max_length=6, description="Choose six zero-based slots from character_get's variant sets; preserves the full facility pool.")
     key: str = Field(..., max_length=40, description="Character key from characters_list, e.g. lance.")
     variant: str = Field("", max_length=60, description="Team id from character_get (game and battle). Empty: the latest team.")
     sprite: str = Field("", max_length=60, description="Trainer sprite id from character_get (e.g. lance-gen2). Empty: the one of that game.")
@@ -348,6 +349,7 @@ class TrashArgs(BaseModel):
 
 
 class Seat(BaseModel):
+    team_indices: Optional[list[int]] = Field(None, min_length=1, max_length=6, description="Six zero-based slots from trainer_get.team_pool for this battle only; does not edit the trainer.")
     trainer_id: str = Field("", max_length=80)
     paste: str = Field("", max_length=200_000)
     team: Optional[list[dict[str, Any]]] = None
@@ -356,6 +358,49 @@ class Seat(BaseModel):
     ai_level: Optional[Level] = None
     ai_style: Optional[Style] = None
     ai_hidden: Optional[bool] = Field(None, description="The AI sees only what the battle shows of the other team (guessing the rest from usage statistics). Default: the ai_hidden_info setting.")
+
+
+class ContestStartArgs(BaseModel):
+    trainer_id: str = IdField
+    pokemon: int = Field(0, ge=0, le=23)
+    category: Literal["Cool", "Beautiful", "Cute", "Clever", "Tough"] = "Cool"
+    rank: Literal["normal", "great", "ultra", "master"] = "normal"
+    seed: str = Field("", max_length=100)
+    condition: int = Field(0, ge=0, le=255, description="Condition for this category, used in presentation scoring.")
+
+
+class ContestChooseArgs(BaseModel):
+    id: str = IdField
+    revision: int = Field(..., ge=0)
+    accessories: Optional[list[str]] = Field(None, max_length=3)
+    steps: Optional[list[int]] = Field(None, min_length=8, max_length=8)
+    timing: Optional[list[int]] = Field(None, min_length=8, max_length=8)
+    move: int = Field(0, ge=0, le=3)
+    judge: int = Field(0, ge=0, le=2)
+
+
+class BaseSaveArgs(BaseModel):
+    id: str = Field("", max_length=80)
+    name: str = Field(..., min_length=1, max_length=60)
+    trainer_id: str = Field("", max_length=80)
+    style: Literal["tree", "cave", "shrub"] = "tree"
+    decorations: list[dict[str, Any]] = Field(default_factory=list, max_length=16)
+    message: str = Field("", max_length=500)
+    archived: bool = False
+
+
+class BaseListArgs(BaseModel):
+    archived: bool = False
+
+
+class BaseImportArgs(BaseModel):
+    payload: dict[str, Any]
+
+
+class BaseBattleArgs(BaseModel):
+    id: str = IdField
+    trainer_id: str = IdField
+    mode: Literal["classic", "realtime"] = "classic"
 
 
 Mode = Literal["classic", "realtime"]
@@ -882,6 +927,7 @@ class AvatarPoseSetArgs(BaseModel):
 
 
 class AvatarStyleArgs(BaseModel):
+    selected: Optional[list[str]] = Field(None, max_length=3, description="The exact active references, in order, from avatar_style_get. Empty uses none.")
     sprites: Optional[str] = Field(None, max_length=200, description="Showdown trainer sprite names, comma separated (up to 3); empty = none.")
     add_paths: list[str] = Field(default_factory=list, max_length=3, description="Pictures on this computer to add as style references.")
     remove: list[str] = Field(default_factory=list, max_length=20, description="Style pictures to remove (file names from avatar_style_get).")
@@ -1003,6 +1049,17 @@ WD = ann(draft_safe=True)
 D = ann(destructive=True)
 
 TOOLS: list[Tool] = [
+    Tool("leisure_catalog", _d("Contest categories, accessories and secret-base decorations. Concursos y bases secretas."), Empty, R, lambda s, a: s.leisure.catalog()),
+    Tool("contests_list", _d("Saved contests and ribbons. Concursos guardados y cintas."), Empty, R, lambda s, a: {"contests": s.leisure.contests()}),
+    Tool("contest_get", _d("Resume a contest: presentation, dance, acting, judging and results. Ver concurso."), IdArg, R, lambda s, a: s.leisure.contest_get(a.id)),
+    Tool("contest_start", _d("Enter a Pokémon in a Silver Super Contest with three rounds. Empezar concurso."), ContestStartArgs, WD, lambda s, a: s.leisure.contest_start(**a.model_dump())),
+    Tool("contest_choose", _d("Dress, dance or appeal to a judge in a saved contest. Jugar concurso."), ContestChooseArgs, W, lambda s, a: s.leisure.contest_choose(a.id, **a.model_dump(exclude={"id"}, exclude_none=True))),
+    Tool("secret_bases_list", _d("List your secret bases or their recoverable archive. Listar bases secretas."), BaseListArgs, R, lambda s, a: {"bases": s.leisure.bases(a.archived)}),
+    Tool("secret_base_get", _d("Read a secret base, its decorations, host and team. Ver base secreta."), IdArg, R, lambda s, a: s.leisure.base_get(a.id)),
+    Tool("secret_base_save", _d("Build, decorate, archive or restore an 8×8 secret base. Decorar base secreta."), BaseSaveArgs, WD, lambda s, a: s.leisure.base_save(a.id, **a.model_dump(exclude={"id"}))),
+    Tool("secret_base_export", _d("Export a base and its host team as portable JSON. Compartir base secreta."), IdArg, R, lambda s, a: s.leisure.base_export(a.id)),
+    Tool("secret_base_import", _d("Import a shared secret base as a new local base. Importar base secreta."), BaseImportArgs, WD, lambda s, a: s.leisure.base_import(a.payload)),
+    Tool("secret_base_battle", _d("Visit a secret base and battle its host with your trainer. Combatir en base secreta."), BaseBattleArgs, W, lambda s, a: s.leisure.base_battle(a.id, a.trainer_id, a.mode)),
     Tool("silver_overview", _d("Counts, live battles, running jobs, recent battles and active challenges. Resumen del simulador.",
                                synonyms="estado, inicio, pokémon, combates en curso"), Empty, R, lambda s, a: s.overview()),
     Tool("formats_list", _d("Showdown battle formats (all generations, singles and doubles). Formatos de combate.",
@@ -1078,7 +1135,7 @@ TOOLS: list[Tool] = [
                                  "team (cartridge) comes with the game's AI (from its flags, unless you give ai_level and ai_style) and its lines.",
                                  synonyms="añadir lance, equipo propio, elegir sprite, elegir equipo por juego"), CharacterInstallArgs, WD,
          lambda s, a: {"trainer": s.character_install(a.key, variant=a.variant, sprite=a.sprite, name=a.name, custom=a.custom,
-                                                      ai_level=a.ai_level, ai_style=a.ai_style, lang=a.lang, avatar=a.avatar, art=a.art)}),
+                                                      ai_level=a.ai_level, ai_style=a.ai_style, lang=a.lang, avatar=a.avatar, art=a.art, team_indices=a.team_indices)}),
     Tool("hgss_rom_get", _d("HeartGold and SoulSilver cartridge data: gyms, trainers, AI rules and lines. Datos del cartucho.",
                             "Read only. From pret/pokeheartgold: the 16 gyms (rooms and trainers with class, team and the AI their flags mean), what "
                             "the AI flag bits are and how they become a Silver level and style, and with index that trainer's exact sets, flags and lines "
@@ -1467,7 +1524,7 @@ TOOLS: list[Tool] = [
     Tool("avatar_style_set", _d("Change the style references: trainer sprite names, pictures to add or remove. Cambiar estilo.",
                                  "Up to 3 are used: your pictures first (official art, anime stills), then the sprites.",
                                  synonyms="añadir referencia de estilo, arte oficial, estilo anime"), AvatarStyleArgs, WD,
-         lambda s, a: s.avatar_style_set(sprites=a.sprites, add=[(Path(p).name, _read_path(p)) for p in a.add_paths], remove=a.remove)),
+         lambda s, a: s.avatar_style_set(sprites=a.sprites, add=[(Path(p).name, _read_path(p)) for p in a.add_paths], remove=a.remove, selected=a.selected)),
     Tool("avatar_from_photo", _d("Turn a photo into a trainer sprite: pixel art here or drawn by Prospero's Hoard (a job). Sprite desde foto.",
                                  synonyms="avatar, foto, sprite estilo pokémon, prospero"), AvatarPhotoArgs, WD,
          lambda s, a: s.avatar_from_photo(_read_path(a.path), trainer_id=a.trainer_id, mode=a.mode, remove_background=a.remove_background,
