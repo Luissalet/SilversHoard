@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { createSerialPoll } from "../polling.js";
 import { onCopilotRefresh } from "../copilot-context.js";
 
-/** Runs `fn` (reload what this view shows, in place) when the assistant finishes a turn. */
+/** Runs `fn` (reload what this view shows, in place) after each completed assistant tool and at turn end. */
 export function useCopilotRefresh(fn) {
   const ref = useRef(fn);
   ref.current = fn;
