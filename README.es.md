@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+Las repeticiones terminadas permiten exportar un periódico del combate imprimible en castellano o inglés, con el resultado guardado, tabla de daño, MVP compartido en caso de empate y registro original. Usa las cifras del motor con unidades y avisos sobre datos ausentes; no necesita simular ni generar imágenes. Véase [periódico del combate](docs/BATTLE_JOURNAL.md).
+
 El Historial busca en todas las repeticiones guardadas por especie, movimiento usado, entrenador, formato y resultado, con enlaces en pausa al turno o momento de tiempo real coincidente. Los filtros siguen al mismo actor registrado, muestran la cobertura de los datos y conservan los originales. Véase [búsqueda de repeticiones](docs/BATTLE_SEARCH.md).
 
 El historial incluye frecuencias de movimientos, especies participantes y especies de apertura, con filtros de tipo, modo y entrenador. Las tablas indican la cobertura y omiten identidades ambiguas; leen los registros guardados sin simular combates. La misma herramienta `replay_statistics` está disponible por UI, REST y MCP. Véase [estadísticas de repeticiones](docs/REPLAY_STATISTICS.md).

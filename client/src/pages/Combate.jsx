@@ -14,6 +14,7 @@ import { battleTitle, loc, seatNames, winnerName } from "../loc.js";
 import { lazyChunk } from "../lazy.js";
 import AiNotes from "../components/AiNotes.jsx";
 import VideoExport from "../components/VideoExport.jsx";
+import BattleJournal from "../components/BattleJournal.jsx";
 import { CupStrip } from "./Copa.jsx";
 import { SaveExercise, ExerciseProgress, PracticeSuggestions } from "../components/Training.jsx";
 import { classicSeekIndex, replayPosition } from "../history-search.js";
@@ -261,6 +262,7 @@ export default function Combate({ param, query }) {
           ) : wonStage && (battle.run.current?.battle_id && battle.run.current.battle_id !== battle.id
             ? <a className="btn btn-primary" href={`#/combate/${battle.run.current.battle_id}`}>{t("run_go_current")}</a>
             : <Busy busy={busy.next} className="btn btn-primary" onClick={nextStage}>{t("next_stage")}</Busy>)}
+          {battle.status === "ended" && <BattleJournal battle={battle} />}
           {battle.status === "ended" && battle.log_length > 0 && <VideoExport battle={battle} />}
           {battle.status === "ended" && !battle.run && !battle.cup && battle.kind !== "friend" && battle.kind !== "pvp" && <Busy busy={busy.rematch} className="btn" onClick={rematch}>{t("rematch")}</Busy>}
           <a className="btn" href="#/combatir">{t("new_battle")}</a>

@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+Finished replays can export a printable battle newspaper in English or Spanish, with the saved result, damage table, MVP ties and original log. It uses saved engine figures with explicit units and missing-record notices; no simulation or image generation is needed. See [battle newspapers](docs/BATTLE_JOURNAL.md).
+
 History can search all saved replays by species, move used, trainer, format and result, with paused links to matching turns or RT moments. Filters follow the same recorded actor, report unavailable or ambiguous replay evidence, and leave the originals intact. See [replay search](docs/BATTLE_SEARCH.md).
 
 History includes read-only replay frequencies for move uses, participating species and opening species, filtered by kind, mode and trainer. Tables show record coverage and omit ambiguous identities; they read saved logs without simulating battles. The same `replay_statistics` tool is available through UI, REST and MCP. See [replay frequencies](docs/REPLAY_STATISTICS.md).

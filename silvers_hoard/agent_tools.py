@@ -18,7 +18,7 @@ from .hoard_link.agentkit import uncapped  # noqa: F401 - re-exported for the UI
 from . import controller, gymmap, hgss_rom, replay_statistics
 from . import pokeathlon as pk
 from . import pokeathlon_rooms as pkr
-from . import battle_search
+from . import battle_search, battle_journal
 from .services import Services
 
 AGENT_INSTRUCTIONS = """Silver's Hoard is a Pokémon battle simulator (Pokémon Showdown's engine, every generation). It keeps trainers (a name, a team, an AI level and style, an avatar and battle lines), gyms (a leader plus optional gym trainers, a badge and rules), leagues (gyms, an Elite Four and a champion) and every battle with its full log.
@@ -59,6 +59,10 @@ IdField = Field(..., min_length=1, max_length=80)
 
 class IdArg(BaseModel):
     id: str = IdField
+
+
+class BattleJournalArgs(IdArg):
+    lang: Literal["es", "en"] = "en"
 
 
 class IdsArg(BaseModel):
@@ -1374,6 +1378,11 @@ TOOLS: list[Tool] = [
                               "RT log times are rounded: tick points just before that moment. Each battle returns matches and match_count.",
                               synonyms="historial, buscar combate, especie, movimiento, turno"), BattleSearchArgs, R,
          lambda s, a: battle_search.search(s.store, s.battle_card, **a.model_dump())),
+    Tool("battle_journal", _d("Export a printable newspaper from a finished battle's saved summary and log. Periódico del combate.",
+                              "Writes portable HTML in exports. Reports native damage units, shared MVP ties and incomplete logs. "
+                              "Reads saved summary/log only; no simulation, images or model. Open url with ?download=false to print.",
+                              synonyms="imprimir repetición, periódico, MVP, daño, guardar PDF"), BattleJournalArgs, W,
+         lambda s, a: battle_journal.export(s, a.id, a.lang)),
     Tool("battles_delete", _d("Delete finished battles and their logs. Borrar combates.", synonyms="limpiar historial"), IdsArg, D,
          lambda s, a: s.battles_delete(a.ids)),
     Tool("replay_statistics", _d("Move uses, participating species and openings from saved replays. Estadísticas de repeticiones.",
