@@ -4,7 +4,7 @@
 // battle player hands it into plans (plan.js), runs them on its own clock and answers how long the line must wait so the effect
 // finishes before the damage shows. Loaded lazily; nothing here changes the battle.
 import { Vfx, particleStyle } from "../rt/vfx.js";
-import { drawSuppliedProjectiles } from "../rt/supplied-fx.js";
+import { drawSuppliedProjectiles, queueSuppliedImpact, clearSuppliedImpacts } from "../rt/supplied-fx.js";
 import { fitTiming, planHit, planMove } from "./plan.js";
 import { readFxStyle } from "./setting.js";
 
@@ -167,7 +167,10 @@ export class FxStage {
     const me = { x: at.x, y: at.y, fx: 1, fy: 0 };
     let steps = null;
     if (type === "hit" && anim.delta > 0) steps = [{ at: 0, ev: { k: "heal", s: 0 } }];
-    else if (type === "hit") steps = planHit({ move: anim.move, source: anim.source, crit: anim.crit, eff: anim.eff }).steps;
+    else if (type === "hit") {
+      if (particleStyle() === "pixel") queueSuppliedImpact(this,at.x,at.y,this.clock);
+      steps = planHit({ move: anim.move, source: anim.source, crit: anim.crit, eff: anim.eff }).steps;
+    }
     else if (type === "heal") steps = [{ at: 0, ev: { k: "heal", s: 0 } }];
     else if (type === "status") steps = [{ at: 0, ev: { k: "status", s: 0, status: anim.status } }];
     else if (type === "boost" || type === "unboost") steps = [{ at: 0, ev: { k: "boost", s: 0, stage: type === "boost" ? 1 : -1, same: false } }];
@@ -214,6 +217,7 @@ export class FxStage {
 
   /** A new cue replaces whatever is still travelling: no pile-up (particles already in the air fade out by themselves). */
   begin() {
+    clearSuppliedImpacts(this);
     this.queue.length = 0;
     this.flights.length = 0;
     this.vfx.rays.clear();
@@ -308,8 +312,11 @@ export class FxStage {
     if (blank) return;
     this.vfx.drawUnder(ctxU);
     this.vfx.drawOver(ctxO, this.view, this.battle);
-    if (!this.ps && particleStyle() === "pixel") drawSuppliedProjectiles(ctxO, {time: this.clock, scale: this.r.scale,
-      px: this.r.px, py: this.r.py}, this.view, typeof window !== "undefined" && !!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches);
+    if (!this.ps && particleStyle() === "pixel") {
+      // Keep the stable stage identity for impact queues while sharing its projection functions.
+      this.time=this.clock;this.scale=this.r.scale;this.px=this.r.px;this.py=this.r.py;
+      drawSuppliedProjectiles(ctxO,this,this.view,typeof window !== "undefined" && !!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches);
+    }
     this.ps?.draw(ctxU, ctxO, { w: this.w, h: this.h, dpr: this.dpr });
     // screen shake moves the whole arena a few pixels (and Showdown's Earthquake and kin shake it up and down)
     const k = Math.min(1, this.vfx.shake * 3) * 7;

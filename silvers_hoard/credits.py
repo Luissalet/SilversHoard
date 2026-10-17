@@ -30,8 +30,8 @@ TAG = re.compile(r"<[^>]+>")
 SOURCES: list[dict[str, str]] = [
     {"id": "supplied-sheets", "what": "Menu icons, contest accessories, secret-base furniture and move textures",
      "what_es": "Iconos de menú, accesorios de concursos, muebles de bases y texturas de movimientos",
-     "by": "Spaceemotion, redblueyellow, Pimplup, Biohazard13 and K.L.NOTHINCOMIN (ripping); original game artists",
-     "by_es": "Spaceemotion, redblueyellow, Pimplup, Biohazard13 y K.L.NOTHINCOMIN (extracción); artistas originales de los juegos",
+     "by": "Spaceemotion, redblueyellow, Pimplup, Biohazard13, Nidoking, Dragoon, Shaked Silverman, UnEliwygNatu and K.L.NOTHINCOMIN (ripping/edits); Bulbagarden Archives; original game artists",
+     "by_es": "Spaceemotion, redblueyellow, Pimplup, Biohazard13, Nidoking, Dragoon, Shaked Silverman, UnEliwygNatu y K.L.NOTHINCOMIN (extracción/edición); Bulbagarden Archives; artistas originales de los juegos",
      "licence": "Pokémon © Nintendo, Creatures, GAME FREAK; original sheet credits retained in the supplied sprite manifest",
      "url": "https://bulbapedia.bulbagarden.net/wiki/List_of_decoration_goods_in_Generation_IV"},
     {"id": "crowd-frlg", "what": "Overworld trainer audience: FRLG Accurate NPC Megapack", "what_es": "Público de entrenadores overworld: FRLG Accurate NPC Megapack",

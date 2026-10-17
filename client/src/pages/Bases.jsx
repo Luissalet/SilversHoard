@@ -101,6 +101,7 @@ export default function Bases() {
             <button type="button" className="btn" aria-pressed={tool === "erase"} onClick={() => setTool("erase")}><Icon d={ICONS.trash} />{t("base_erase")}</button></div>
           {tool === "doll" && <Field label="Pokémon"><input className="field" value={species} onChange={(e) => setSpecies(e.target.value)} /></Field>}
           <p className="help">{base.decorations.length}/16 · {labelOf(tool)} {tool !== "erase" && footprint(tool).join(" × ")}</p>
+          <p className="help">{t("base_gen4_replicas")}</p>
         </>}
         {!editing && <><p>{base.message}</p><TrainerSelect label={t("base_choose_guest")} value={guest} onChange={setGuest} />
           <Busy busy={busy.battle} className="btn btn-primary" disabled={!base.id || dirty || !guest || !near} onClick={challenge}>{t("base_challenge")}</Busy></>}

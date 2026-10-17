@@ -77,9 +77,9 @@ class Leisure:
                 "decorations": [{"id": k, "solid": v, "footprint": footprint(k),
                                  **{f: SPRITES[k][f] for f in ("name", "name_es") if k in SPRITES}}
                                 for k, v in DECORATIONS.items()], "base_size": 8,
-                "contest_rules": "silver-super-v1", "sprite_sources": SUPPLIED_ART["sources"],
+                "contest_rules": "silver-super-v1",
                 "sprites": [{"id": k, "url": f"/api/sprites/supplied/{k}",
-                             **{f: v[f] for f in ("group", "width", "height", "source", "name", "name_es")}}
+                             **{f: v[f] for f in ("group", "width", "height", "source", "name", "name_es", "frames", "columns", "frame_width", "frame_height", "fps", "goods_number", "generation", "footprint", "decoration_only") if f in v}}
                             for k, v in SPRITES.items()]}
         pages = {}
         for key in ("accessories", "decorations", "sprites"):
@@ -91,6 +91,13 @@ class Leisure:
             pages[key] = {"total": len(matching), "offset": offset, "next_offset": offset + limit if limit and offset + limit < len(matching) else None}
         result["sprite_count"] = len(SPRITES)
         result["pages"] = pages
+        refs = {SPRITES[e["id"]]["source"] for key in ("accessories", "decorations", "sprites")
+                for e in result.get(key, []) if e["id"] in SPRITES}
+        result["sprite_sources"] = {k:v for k,v in SUPPLIED_ART["sources"].items() if k in refs}
+        if section == "sources":
+            matching = [{"id":k,**v} for k,v in SUPPLIED_ART["sources"].items() if query.casefold() in (v["file"]+" "+v["credit"]).casefold()]
+            result["sources"] = matching[offset:offset+limit] if limit else matching[offset:]
+            pages["sources"] = {"total":len(matching),"offset":offset,"next_offset":offset+limit if limit and offset+limit<len(matching) else None}
         return result
 
     def contests(self) -> list[dict[str, Any]]:
