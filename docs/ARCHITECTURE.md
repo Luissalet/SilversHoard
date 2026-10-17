@@ -1,5 +1,7 @@
 # Silver's Hoard — architecture
 
+`CombateRt.again` uses `rt.spec[side].sets` when a direct seat's public summary omits its team, preserving its name, human/AI level, style and hidden-information choice. Saved trainer IDs retain the ordinary trainer lookup. The request keeps format, level rules, time limit, language and arena while leaving seed and inputs to the new battle. `BattleStartArgs.rt_arena` additionally accepts a saved custom field object; `_rt_start` passes it through the existing `Arenas.spec` normalization and rock checks. This preserves the played field after its library entry changes or disappears, without adding an arena row, migration or rematch handler. Other arena argument models and the simulation are unchanged.
+
 `Services._rt_view` projects `rt.forfeit` from a finished battle's verified terminal reason and winner; legacy and imported rows need no migration or write. `rt/replay.js` feeds the recorded inputs and applies that event at the saved tick, including tick zero. `RtScreen` uses this reader for incremental playback and seeking, so ordinary replays, restart and the existing `Video` capture stop at the same state. Live play and the deterministic engine rules are unchanged; records without a terminal forfeit keep their natural ending.
 
 The trainer header exposes **Edit name** in both UI languages. It opens the existing Details and AI tab and focuses its Name input, including when that tab was already open. Saving continues through `trainer_update`; no separate rename handler, schema or data migration is needed.
