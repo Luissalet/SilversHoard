@@ -1,5 +1,7 @@
 # Silver's Hoard — architecture
 
+Mass-run cards mark newly generated challenger labels with `challenger_default` and expose bilingual `i18n.challenger` values through the same API/MCP handlers and standalone export snapshot. An explicit challenger or player profile name never receives that marker; older unmarked names remain literal. `Campal`, `MassVideo` and `MassPlay` use `loc` to render them. The standalone payload retains the preset identity for normal title annotation, and passes its selected language to `MassScreen` without rebuilding the simulation. A missing native `mass_video` language falls back to English; explicit Spanish remains supported.
+
 Real-time pacing (rules version 10, matching `RT_RULES_VERSION` and `RULES_VERSION`): walking scales by 0.65 after existing Speed/status/item/weather modifiers; rolls move at 8 m/s and recover for 2 s. AI sidesteps retain their intended magnitude instead of normalizing to full speed. Danger must persist for the difficulty's reaction delay, with one probability check until the continuous danger clears. All changes are gated to version 10: old input logs and exports retain their prior outcomes. `ArenaField` uses the same original grass/sand floor textures as `ArenaRenderer`; saved arenas remain separate records in the native arena collection.
 
 ## Real-time movement presentation and original textures
