@@ -27,6 +27,7 @@ export function battleTitle(battle, lang) {
   if (!battle.title) return `${shown.p1} vs ${shown.p2}`;
   const swaps = ["p1", "p2"].map((s) => [battle[s].name, shown[s]]);
   if (battle.run) swaps.push([battle.run.target_name, loc(battle.run, lang, "target_name")]);
+  if (battle.cup) swaps.push([battle.cup.title, loc(battle.cup, lang, "title")]);
   let title = battle.title;
   for (const [saved, mine] of swaps) if (saved && mine && saved !== mine) title = title.split(saved).join(mine);
   return title;

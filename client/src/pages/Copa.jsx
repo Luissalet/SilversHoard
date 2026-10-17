@@ -6,6 +6,7 @@ import { useApp } from "../context.js";
 import { Busy, ErrorBox, Icon, ICONS, Spinner, useBusy, useLoad } from "../components/ui.jsx";
 import { usePoll } from "../components/hooks.js";
 import { Avatar } from "../components/silver.jsx";
+import { loc } from "../loc.js";
 
 const TROPHY = "M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0V4zM7 6H4v2a3 3 0 003 3M17 6h3v2a3 3 0 01-3 3";
 const CARD_W = 214;
@@ -131,7 +132,7 @@ function useFresh(cup) {
 }
 
 export function CupStrip({ cup, battle }) {
-  const { t, go } = useApp();
+  const { t, lang, go } = useApp();
   const [busy, run] = useBusy();
   if (!cup) return null;
   const next = cup.my_match && battle?.status !== "live" && cup.my_match.battle_id !== battle?.id;
@@ -141,7 +142,7 @@ export function CupStrip({ cup, battle }) {
   });
   return (
     <div className="run-strip cup-strip">
-      <a href={`#/copa/${cup.id}`} className="run-target"><Icon d={TROPHY} size={18} /> {cup.title}</a>
+      <a href={`#/copa/${cup.id}`} className="run-target"><Icon d={TROPHY} size={18} /> {loc(cup, lang, "title")}</a>
       {cup.champion_name && <span className="chip chip-ok">{t("cup_champion_is", { name: cup.champion_name })}</span>}
       <span className="flex-1" />
       {next && <Busy busy={busy.p} className="btn btn-sm btn-primary" onClick={play}>{t("cup_next_game")}</Busy>}
@@ -151,7 +152,7 @@ export function CupStrip({ cup, battle }) {
 }
 
 export default function Copa({ param }) {
-  const { t, go, confirm, changed } = useApp();
+  const { t, lang, go, confirm, changed } = useApp();
   const { data: cup, error, reload, setData } = useLoad(() => api.call("cup_get", { id: param }), [param]);
   const [busy, run] = useBusy();
   const fresh = useFresh(cup);
@@ -182,7 +183,7 @@ export default function Copa({ param }) {
     <div className="space-y-4">
       <div className="page-head">
         <div className="min-w-0">
-          <h1 className="trunc">{cup.title}</h1>
+          <h1 className="trunc">{loc(cup, lang, "title")}</h1>
           <div className="help flex flex-wrap items-center gap-2">
             <span className={`chip ${cup.status === "done" ? "chip-ok" : cup.status === "active" ? "chip-accent" : ""}`}>{t(`cup_status_${cup.status}`)}</span>
             {spec.mode === "realtime" ? <span className="chip chip-rt">{t("rt_chip")}</span> : <span className="chip">{t("mode_classic_short")}</span>}
