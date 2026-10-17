@@ -392,7 +392,7 @@ function TrainingPanel({ stats, tr, lang }) {
   );
 }
 
-export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish, onSave, onAgain, base = "", offline = false, onContinue = null, continueLabel = "", video = null, musicSource = "showdown", net = null, endActions = null }) {
+export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish, onSave, onAgain, base = "", offline = false, onContinue = null, continueLabel = "", video = null, musicSource = "showdown", net = null, endActions = null, seekTick = null }) {
   const tr = useMemo(() => rtT(lang), [lang]);
   const spec = battle.rt.spec;
   // net (a live battle with a friend on another computer): {url, seat, peerName}; this screen plays only its own seat, the other
@@ -525,7 +525,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     let cancelled = false;
     let state;
     try {
-      state = build();
+      state = build(!live && Number.isInteger(seekTick) && seekTick >= 0 ? Math.min(seekTick, battle.rt.tick || 0) : 0);
     } catch (e) {
       setError(e);
       videoRef.current?.onError?.(e);
@@ -557,7 +557,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
         renderer.show.startIntro(state.b, {prepared: true});
         renderer.draw(state.b, 0, 0);
       }
-      setPhase(live ? (state.b.ended ? "ended" : "ready") : videoRef.current && !videoRef.current.playing ? "replay-paused" : "playing");
+      setPhase(live ? (state.b.ended ? "ended" : "ready") : seekTick !== null || videoRef.current && !videoRef.current.playing ? "replay-paused" : "playing");
       videoRef.current?.onReady?.();
     }).catch((e) => { if (!cancelled) { setError(e); videoRef.current?.onError?.(e); } });
     return () => { cancelled = true; };
