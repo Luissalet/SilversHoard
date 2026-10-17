@@ -49,3 +49,16 @@ test('the transformation burst belongs to its doubles unit and party slot',()=>{
   presentation.drawBurst(ctx,10,20,20,1,1,3,false);
   assert.equal(rings,1,'the burst expires independently of the readable caption');
 });
+
+test('portrait captions avoid the native preview HUD rectangles that occluded the R2 title',()=>{
+  const presentation=new MegaPresentation(),rects=[];
+  const ctx=new Proxy({globalAlpha:1,measureText:s=>({width:s.length*5}),fillRect:(...r)=>rects.push(r)},
+    {get:(o,k)=>o[k]??(()=>{})});
+  presentation.add(event(),null,'Mega Evolution!');
+  presentation.draw(ctx,387,685,true,'Mega Evolution!',true);
+  const [,y,,height]=rects[0];
+  // Actual QA viewport bounds from R2: canvas top107.45, rival HUD bottom237.61,
+  // player HUD top633. The canvas caption must be entirely within the free band.
+  assert.ok(y>237.61-107.45,'the rival HUD must not cover the title or the Mega forme');
+  assert.ok(y+height<633-107.45,'the player HUD must not cover the caption either');
+});
