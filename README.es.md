@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+Los sprites aportados aparecen en la navegación, concursos, bases secretas y proyectiles del estilo pixel: 447 entradas, con los 138 objetos de cuarta generación y 207 fotogramas de ataques, con sus créditos. Hay 117 accesorios y 276 objetos para bases, con búsqueda; los muebles grandes reservan todas sus casillas y se conservan al compartir JSON. `leisure_catalog` permite recorrerlos por sección, búsqueda y página desde API/MCP. [Cobertura y límites](docs/SUPPLIED_SPRITES.md), incluidas las hojas todavía sin utilizar.
+
 Los tipos de sonido de los movimientos se cargan como datos JSON generados; el HTML jugable incorpora la misma tabla. Se conservan las 935 correspondencias y el respaldo existente si los datos no pueden cargarse.
 
 Los comentarios nuevos de la IA usan el idioma elegido al iniciar el combate, reto, copa, práctica o ejercicio (inglés por defecto mediante API/MCP). Las fases posteriores conservan esa elección aunque cambie el idioma de la interfaz. Las frases ya guardadas y los diálogos de los entrenadores se conservan literalmente.
@@ -156,3 +158,5 @@ Los trabajos de vídeo informan de la duración del MP4 o WebM terminado, redond
 Al editar un equipo, cada Pokémon tiene su botón **Sets de Smogon**. Elige una variante publicada y **Aplicar set** para rellenar solo los movimientos, objeto, habilidad, naturaleza, EV, IV y teratipo de ese miembro; después guarda el equipo. Los demás conservan sus sets. **Equipo de muestra** sigue siendo una acción distinta que sustituye la plantilla.
 
 La presentación VS de tiempo real espera a que esté disponible la imagen del entrenador, el retrato o el sprite de combate, hasta 1,5 segundos. Una descarga lenta todavía puede dejar vacíos los primeros fotogramas; véase la [carga de imágenes](docs/RT_INTRO.md).
+
+Rayo Hielo y proyectiles como Canto Helado y Carámbano usan arte original animado en combates de tiempo real, vídeos y páginas jugables. Se conservan los efectos sencillos y la alternativa mientras carga la imagen. El PNG original, el WebP sin pérdida, el prompt y las instrucciones de reconstrucción están en la [procedencia del arte de hielo](client/src/battle/rt/art/ice/PROVENANCE.md).

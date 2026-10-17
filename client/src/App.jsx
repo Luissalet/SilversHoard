@@ -36,6 +36,7 @@ import Ajustes from "./pages/Ajustes.jsx";
 import Pokeathlon from "./pages/Pokeathlon.jsx";
 import Concursos from "./pages/Concursos.jsx";
 import Bases from "./pages/Bases.jsx";
+import SuppliedSprite from "./components/SuppliedSprite.jsx";
 
 export { useApp } from "./context.js";
 
@@ -92,6 +93,12 @@ const PAGES = [
   // a battle's replay alone on a 16:9 stage, recorded as a clip by battle_video: no sidebar, no page chrome
   { path: "video", key: "nav_battle", component: Video, hidden: true, parent: "combatir", bare: true },
 ];
+
+const MENU_ART = { "": "menu-underground-radar", combatir: "menu-pokemon", campal: "menu-underground-sphere",
+  entrenadores: "menu-trainer", gimnasios: "menu-flag", arenas: "menu-underground-radar", ligas: "menu-underground-treasure",
+  instalaciones: "menu-underground-bag", pokeathlon: "menu-watch", concursos: "bw-gift-bow", bases: "doll-pikachu",
+  personajes: "menu-pokedex", historial: "menu-save", medallas: "bw-royal-crown", amigos: "menu-chat",
+  progreso: "menu-watch", compartir: "menu-chat", ajustes: "menu-options" };
 
 function readHash() {
   const raw = window.location.hash.replace(/^#\/?/, "");
@@ -234,7 +241,7 @@ export default function App() {
               const n = p.badge ? badges[p.badge] : 0;
               return (
                 <a key={p.path} href={`#/${p.path}`} className="nav-link shrink-0" aria-current={p.path === current ? "page" : undefined}>
-                  <Icon d={p.icon} />
+                  {MENU_ART[p.path] ? <SuppliedSprite id={MENU_ART[p.path]} size={20} /> : <Icon d={p.icon} />}
                   <span>{p.label ? p.label[lang === "en" ? 1 : 0] : t(p.key)}</span>
                   {n > 0 && <span className="nav-badge" aria-label={t("badge_n", { n })}>{n > 99 ? "99+" : n}</span>}
                 </a>
