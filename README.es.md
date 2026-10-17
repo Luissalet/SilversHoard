@@ -1,6 +1,6 @@
 # Silver's Hoard
 
-Los sprites aportados aparecen en la navegación, concursos, bases secretas y proyectiles del estilo pixel: 447 entradas, con los 138 objetos de cuarta generación y 207 fotogramas de ataques, con sus créditos. Hay 117 accesorios y 276 objetos para bases, con búsqueda; los muebles grandes reservan todas sus casillas y se conservan al compartir JSON. `leisure_catalog` permite recorrerlos por sección, búsqueda y página desde API/MCP. [Cobertura y límites](docs/SUPPLIED_SPRITES.md), incluidas las hojas todavía sin utilizar.
+Los sprites aportados aparecen en la navegación, concursos, bases secretas y efectos de combate: 584 entradas, con los 138 objetos de cuarta generación, 253 fotogramas de ataques y 128 tarjetas de movimientos Z en español e inglés. La opción Z existente previsualiza el arte de Sol/Luna y la ejecución muestra el de Ultrasol/Ultraluna, sin cambiar las reglas del movimiento. Hay 117 accesorios y 276 objetos para bases, con búsqueda; los muebles grandes reservan todas sus casillas y se conservan al compartir JSON. `leisure_catalog` permite recorrerlos por sección, búsqueda y página, con idioma y variante de las tarjetas, desde API/MCP. [Créditos, cobertura y límites](docs/SUPPLIED_SPRITES.md), incluidas las hojas todavía sin utilizar.
 
 Los tipos de sonido de los movimientos se cargan como datos JSON generados; el HTML jugable incorpora la misma tabla. Se conservan las 935 correspondencias y el respaldo existente si los datos no pueden cargarse.
 
