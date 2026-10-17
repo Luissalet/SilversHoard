@@ -65,22 +65,23 @@ export default function Medallas() {
   const badges = useLoad(() => api.call("badges_list", {}), []);
   const runs = useLoad(() => api.call("challenges_list", {}), []);
   const hall = useLoad(() => api.call("hall_of_fame", {}), []);
-  const poke = useLoad(() => api.call("pokeathlon_records", { trainer_id: personId || "", recent: 0 }), [personId]);
-  const progress = useLoad(() => (personId ? api.call("progress_get", { trainer_id: personId }) : Promise.resolve(null)), [personId]);
+  // Unified medals / Frontier emblems / Progress achievements (guest vs trainer; server filters before dedup).
+  const card = useLoad(() => api.call("palmares_get", { trainer_id: personId || "" }), [personId]);
   useCopilotRefresh(() => {
-    badges.reload(); runs.reload(); hall.reload(); poke.reload(); progress.reload();
+    badges.reload(); runs.reload(); hall.reload(); card.reload();
   });
   const [busy, run] = useBusy();
   const byPerson = {};
   for (const b of badges.data?.badges || []) (byPerson[b.challenger_name] ||= []).push(b);
-  // Filter by person BEFORE dedup so a second trainer keeps their Brain win when A already earned the same print.
+  // Prefer API; fall back to client-side derivation (same filter-before-dedup rules) if palmares_get is unavailable.
   const emblems = useMemo(() => {
+    if (card.data?.frontier_emblems) return card.data.frontier_emblems;
     const list = runs.data?.challenges || [];
     const scoped = personId ? list.filter((r) => r.challenger_id === personId) : list;
     return frontierEmblemsFromRuns(scoped);
-  }, [runs.data, personId]);
-  const medals = poke.data?.medals || [];
-  const achievements = (progress.data?.achievements || []).filter((a) => a.unlocked);
+  }, [card.data, runs.data, personId]);
+  const medals = card.data?.pokeathlon_medals || [];
+  const achievements = (card.data?.achievements || []).filter((a) => a.unlocked);
   const next = (r) => run(r.id, async () => { const x = await api.call("challenge_next", { id: r.id }); changed(); const cur = x.stages[x.step]; if (cur?.battle_id) go(`#/combate/${cur.battle_id}`); });
   const abandon = (r) => run(`a${r.id}`, async () => { await api.call("challenge_abandon", { id: r.id }); runs.reload(); });
   return (
@@ -132,8 +133,8 @@ export default function Medallas() {
       </Section>
 
       <Section title={personId ? t("palmares_pokeathlon_trainer") : t("palmares_pokeathlon_guest")} count={medals.length}>
-        {poke.error && <ErrorBox error={poke.error} onRetry={poke.reload} />}
-        {!poke.data ? <Spinner /> : medals.length === 0 ? (
+        {card.error && <ErrorBox error={card.error} onRetry={card.reload} />}
+        {!card.data ? <Spinner /> : medals.length === 0 ? (
           <p className="help">{t("palmares_pokeathlon_empty")}</p>
         ) : (
           <div className="flex flex-wrap gap-3">
@@ -151,8 +152,8 @@ export default function Medallas() {
       </Section>
 
       <Section title={t("palmares_frontier_emblems")} count={emblems.length}>
-        {runs.error && <ErrorBox error={runs.error} onRetry={runs.reload} />}
-        {!runs.data ? <Spinner /> : emblems.length === 0 ? (
+        {card.error && !card.data && <ErrorBox error={card.error} onRetry={card.reload} />}
+        {!card.data && !runs.data ? <Spinner /> : emblems.length === 0 ? (
           <p className="help">{t("palmares_frontier_empty")}</p>
         ) : (
           <div className="panel divide-list p-0">
@@ -173,8 +174,8 @@ export default function Medallas() {
       <Section title={t("palmares_achievements")} count={personId ? achievements.length : undefined}>
         {!personId ? (
           <p className="help">{t("palmares_achievements_pick")} <a href="#/progreso">{t("palmares_open_progress")}</a></p>
-        ) : progress.error ? <ErrorBox error={progress.error} onRetry={progress.reload} />
-          : !progress.data ? <Spinner />
+        ) : card.error ? <ErrorBox error={card.error} onRetry={card.reload} />
+          : !card.data ? <Spinner />
             : achievements.length === 0 ? <p className="help">{t("palmares_achievements_empty")}</p>
               : (
                 <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
