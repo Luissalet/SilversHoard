@@ -1,6 +1,6 @@
 # Silver's Hoard
 
-Supplied sprites now appear throughout navigation, contests, secret bases and pixel projectile effects: 447 sprite entries, including 138 Generation IV goods and 207 animated attack frames, with source credits. Search 117 contest accessories and 276 base objects; large furniture reserves every occupied tile and survives normal JSON sharing. `leisure_catalog` supports section/query/offset/limit for complete API/MCP browsing. See [supplied sprites](docs/SUPPLIED_SPRITES.md) for coverage, reproduction and remaining unused sheets.
+Supplied sprites appear throughout navigation, contests, secret bases and battle effects: 584 entries, including 138 Generation IV goods, 253 animated attack frames and 128 English/Spanish Z-Move title images. The existing Z-Move choice previews Sun/Moon artwork; execution uses the Ultra title without changing move rules. Search 117 contest accessories and 276 base objects; large furniture reserves every occupied tile and survives normal JSON sharing. `leisure_catalog` supports section/query/offset/limit and title language/variant metadata for complete API/MCP browsing. See [supplied sprites](docs/SUPPLIED_SPRITES.md) for credits, coverage, reproduction and remaining unused sheets.
 
 Move sound types load from generated JSON data; playable exports embed the same table. The 935 move mappings and the existing fallback when data cannot load are preserved.
 
