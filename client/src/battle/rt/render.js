@@ -15,6 +15,7 @@ import { rtMove } from "../../../../engine/src/realtime/moves.mjs";
 import { motionFor, poseFor, tossLift } from "./visuals/choreography.js";
 import { FLOOR_TEXTURES, floorVariant, drawWaterTextures } from "./visuals/textures.js";
 import { drawSuppliedProjectiles, queueSuppliedImpact, clearSuppliedImpacts } from "./supplied-fx.js";
+import { queueMoveCard, drawMoveCard, clearMoveCards } from "../move-cards.js";
 
 const ARENA = { w: 28, h: 17 };
 const MARGIN_X = 2.6;
@@ -144,6 +145,7 @@ export class ArenaRenderer {
   }
 
   resetReplay(battle) {
+    clearMoveCards(this);
     clearSuppliedImpacts(this);
     this.eventIndex = 0;
     this.time = 0;
@@ -359,6 +361,7 @@ export class ArenaRenderer {
     this.show.onEvent(e, battle);
     playRtEvent(e, this.audio);
     switch (e.k) {
+      case "use": queueMoveCard(this,e.move,this.texts.lang,this.time); break;
       case "windup": {
         if (["burst", "cone"].includes(e.shape)) {
           const prof = rtMove(e.move, battle.gen || 9);
@@ -397,7 +400,7 @@ export class ArenaRenderer {
       case "dummy_reset": float(s, T.dummyReset || "♥", "#7ee08f", { size: 0.95, dy: -0.6 }); break;
       case "follow": float(s, T.follow || "!", "#ff9f43", { size: 0.85, dy: -0.6 }); break;
       case "hit": {
-        if (particleStyle() === "pixel") { const p=this.posOf(battle,s,u); queueSuppliedImpact(this,p.x,p.y,this.time); }
+        if (particleStyle() === "pixel") { const p=this.posOf(battle,s,u); queueSuppliedImpact(this,p.x,p.y,this.time,e.move); }
         this.flash[key] = 1;
         if (e.move === "seismictoss" && (e.hit === 0 || e.hit === undefined)) {
           this.tosses[key] = {at: this.time, slot: this.unitOf(battle, s, u).active};
@@ -593,6 +596,7 @@ export class ArenaRenderer {
     this.drawCutin(dt);
     this.show.drawBubbles(ctx, raw);
     this.show.drawScreen(ctx, battle);
+    drawMoveCard(ctx,this,this.time,this.canvas.width,this.canvas.height,!!this.reducedMotion?.matches);
     this.flash = this.flash.map((v) => Math.max(0, v - dt * 5));
   }
 

@@ -85,7 +85,7 @@ def test_generation_four_complete_goods_keep_original_png_bytes_and_footprints(c
 
 def test_attack_atlases_have_every_frame_and_no_ranger_registration_markers():
     atlases=[s for s in SPRITES.values() if s["group"]=="effect-atlas"]
-    assert len(atlases)==19
+    assert len(atlases)==28
     assert sum(s["frames"] for s in atlases)>=200
     for s in atlases:
         im=Image.open(io.BytesIO(base64.b64decode(s["image"].split(",")[1])))
@@ -95,3 +95,29 @@ def test_attack_atlases_have_every_frame_and_no_ranger_registration_markers():
             assert im.crop((x,y,x+s["frame_width"],y+s["frame_height"])).getbbox()
         if s is SPRITES["fx-ranger-impact"]:
             assert not any((r,g,b)==(255,0,255) and a for r,g,b,a in im.getdata())
+
+
+def test_z_titles_expose_both_languages_and_variants_through_catalog(call):
+    cards=[s for s in SPRITES.values() if s['group']=='z-move-title']
+    assert len(cards)==128
+    for lang in ('en','es'):
+        for variant,count in [('sm',29),('usum',35)]:
+            page=call('leisure_catalog',{'section':'sprites','query':f'z-{variant}-{lang}-','limit':0})
+            assert len(page['sprites'])==count
+            assert all(s['lang']==lang and s['variant']==variant and s['move'] for s in page['sprites'])
+    assert SPRITES['z-sm-es-gigavolthavoc']['name_es']=='Gigavoltio Destructor'
+    assert SPRITES['z-usum-es-lightthatburnsthesky']['name_es']=='Fotodestrucción Apocalíptica'
+    for s in cards:
+        image=Image.open(io.BytesIO(base64.b64decode(s['image'].split(',')[1])))
+        assert image.mode=='RGBA' and image.getchannel('A').getextrema()==(0,255)
+        assert 1 < image.width <= 512 and 1 < image.height <= 256
+
+
+def test_gba_effect_strips_have_fixed_frames_and_transparent_palette_keys():
+    effects=[s for k,s in SPRITES.items() if k.startswith('fx-gba-')]
+    assert len(effects)==9 and sum(s['frames'] for s in effects)==46
+    for s in effects:
+        assert s['frame_width']==s['frame_height']==32
+        assert len(s['frame_rects'])==s['frames']
+        image=Image.open(io.BytesIO(base64.b64decode(s['image'].split(',')[1])))
+        assert not any(a and (r,g,b) in ((0,0,0),(96,192,192)) for r,g,b,a in image.getdata())

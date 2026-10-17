@@ -15,7 +15,7 @@ from .hoard_link.agentkit import Empty, Tool, ann
 from .hoard_link.agentkit import call_tool as _call_tool
 from .hoard_link.agentkit import tool_catalog as _catalog
 from .hoard_link.agentkit import uncapped  # noqa: F401 - re-exported for the UI routes
-from . import gymmap, hgss_rom, replay_statistics
+from . import controller, gymmap, hgss_rom, replay_statistics
 from . import pokeathlon as pk
 from . import pokeathlon_rooms as pkr
 from .services import Services
@@ -1615,6 +1615,12 @@ TOOLS: list[Tool] = [
          pkr.PkRoomArg, W, lambda s, a: pkr.service(s).start(a.room)),
     Tool("pokeathlon_room_close", _d("Close a Pokéathlon room (its links stop working). Cerrar sala del Pokéathlon.", synonyms="cancelar sala del pokeathlon"),
          pkr.PkRoomArg, W, lambda s, a: pkr.service(s).close(a.room)),
+    Tool("controller_guide", _d("Controller mappings and local diagnostic help, without reading hardware. Diagnóstico del mando.",
+                               "Returns bindings by mode, the local log limit and a firewall command for Silver's configured port. "
+                               "The command is only text and is never executed. Open Settings > Controller diagnostics to observe "
+                               "sticks, analog triggers and buttons and download the browser's session log; MCP cannot read a browser's gamepad.",
+                               synonyms="mando, sticks, gatillos, botones, controles, firewall, registro"),
+         Empty, R, lambda s, a: controller.guide(s)),
     Tool("settings_get", _d("Settings: your name, default format and AI, sprites, playback speed. Ajustes.", synonyms="configuración"),
          Empty, R, lambda s, a: s.settings.snapshot()),
     Tool("settings_set", _d("Change settings. Cambiar ajustes.", synonyms="configurar, nombre del jugador"), SettingsSetArgs, W,

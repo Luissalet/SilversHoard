@@ -7,6 +7,7 @@ import { Vfx, particleStyle } from "../rt/vfx.js";
 import { drawSuppliedProjectiles, queueSuppliedImpact, clearSuppliedImpacts } from "../rt/supplied-fx.js";
 import { fitTiming, planHit, planMove } from "./plan.js";
 import { readFxStyle } from "./setting.js";
+import { queueMoveCard, drawMoveCard, clearMoveCards, moveCardActive, MOVE_CARD_SECONDS } from "../move-cards.js";
 
 const H = 0.6;   // the painter flies projectiles this many meters over the ground
 const WEATHER = { raindance: "raindance", primordialsea: "primordialsea", sunnyday: "sunnyday", desolateland: "desolateland", sandstorm: "sandstorm", hail: "hail",
@@ -142,15 +143,20 @@ export class FxStage {
    * One protocol cue from the battle player ({type: "move"|"hit"|"heal"|"status"|"boost"|"unboost"|"faint"|..., side, slot, ...}).
    * Plays it and returns how many ms the line must last. May add `lunge` ({dx, dy} in px) to a move cue for the sprite's own animation.
    */
-  cue(anim, { budgetMs = 900, speedMs = 900 } = {}) {
+  cue(anim, { budgetMs = 900, speedMs = 900, lang = "en" } = {}) {
     if (this.dead || !anim) return 0;
     const type = anim.type;
     if (type === "move") {
       if (anim.move && !anim.still) {
         const w = this.cuePs(anim, { speedMs });
-        if (w >= 0) return w;
+        if (w >= 0) {
+          if (speedMs >= 260 && queueMoveCard(this, anim.move, lang, this.clock,MOVE_CARD_SECONDS*this.ts)) this.wake();
+          return w;
+        }
       }
-      return this.cueMove(anim, { budgetMs, speedMs });
+      const wait = this.cueMove(anim, { budgetMs, speedMs });
+      if (!anim.still && speedMs >= 260 && queueMoveCard(this, anim.move, lang, this.clock,MOVE_CARD_SECONDS*this.ts)) this.wake();
+      return wait;
     }
     const at = this.anchor(anim.side, anim.slot);
     if (!at) return 0;
@@ -168,7 +174,7 @@ export class FxStage {
     let steps = null;
     if (type === "hit" && anim.delta > 0) steps = [{ at: 0, ev: { k: "heal", s: 0 } }];
     else if (type === "hit") {
-      if (particleStyle() === "pixel") queueSuppliedImpact(this,at.x,at.y,this.clock);
+      if (particleStyle() === "pixel") queueSuppliedImpact(this,at.x,at.y,this.clock,anim.move);
       steps = planHit({ move: anim.move, source: anim.source, crit: anim.crit, eff: anim.eff }).steps;
     }
     else if (type === "heal") steps = [{ at: 0, ev: { k: "heal", s: 0 } }];
@@ -217,6 +223,7 @@ export class FxStage {
 
   /** A new cue replaces whatever is still travelling: no pile-up (particles already in the air fade out by themselves). */
   begin() {
+    clearMoveCards(this);
     clearSuppliedImpacts(this);
     this.queue.length = 0;
     this.flights.length = 0;
@@ -260,7 +267,7 @@ export class FxStage {
 
   busy() {
     const v = this.vfx;
-    return !!this.ps?.busy() || this.queue.length > 0 || this.flights.length > 0 || v.parts.length > 0 || v.fx.length > 0 || v.rays.size > 0 || !!this.view.weather.id || this.view.sides.length > 0;
+    return moveCardActive(this,this.clock) || !!this.ps?.busy() || this.queue.length > 0 || this.flights.length > 0 || v.parts.length > 0 || v.fx.length > 0 || v.rays.size > 0 || !!this.view.weather.id || this.view.sides.length > 0;
   }
 
   frame(now) {
@@ -318,6 +325,8 @@ export class FxStage {
       drawSuppliedProjectiles(ctxO,this,this.view,typeof window !== "undefined" && !!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches);
     }
     this.ps?.draw(ctxU, ctxO, { w: this.w, h: this.h, dpr: this.dpr });
+    // Classic health boxes are inside the stage: keep the title below them.
+    drawMoveCard(ctxO,this,this.clock,over.width,over.height,false,.22);
     // screen shake moves the whole arena a few pixels (and Showdown's Earthquake and kin shake it up and down)
     const k = Math.min(1, this.vfx.shake * 3) * 7;
     const q = this.ps ? this.ps.quake() : 0;
