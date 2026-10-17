@@ -1,5 +1,6 @@
 """PNG provenance and request snapshots; native/browser QA separately exercises the real renderer."""
 import copy
+import hashlib
 import io
 import json
 
@@ -123,6 +124,32 @@ def test_public_picture_titles_and_credits_are_kept(services, trainer, kind):
     source = next(row for row in data["sources"] if row["role"] == "portrait")
     assert (source["title"], source["category"], source["credit"], source["source"]) == (
         "Retrato de María", kind, "Áurea López ©", "https://example.test/obra/mañana.png")
+
+
+@pytest.mark.parametrize("broken", [False, True])
+def test_style_reference_filenames_are_not_shared(services, trainer, broken):
+    # The existing picker names references from avatar titles, which may be generation descriptions.
+    private_word = "privatephrase731"
+    services.avatar_style_set(add=[(private_word + ".png", picture())])
+    ref = next(row["file"] for row in services.avatar_style_get()["images"] if row["file"].startswith(private_word))
+    services.avatar_style_set(selected=[ref])
+    styles = copy.deepcopy(services.avatar_style_get())
+    path = services.config.style_refs_dir / ref
+    if broken:
+        path.write_bytes(b"invalid synthetic reference")
+    before = path.read_bytes()
+    selection = (services.config.style_refs_dir / "selection.json").read_bytes()
+    data = poster.snapshot(services, trainer, [], styles, services._avatar_meta(), "es")
+    assert private_word not in json.dumps(data, ensure_ascii=False)
+    assert private_word not in json.dumps(poster.metadata(data), ensure_ascii=False)
+    if broken:
+        assert {"role": "palette", "name": "#1"} in data["warnings"]
+    else:
+        source = next(row for row in data["sources"] if row["role"] == "palette")
+        assert source["title"] == "#1" and source["category"] == "style_reference" and source["credit"] == ""
+        assert source["source"] == "style-library:sha256:" + hashlib.sha256(before).hexdigest()
+    assert path.read_bytes() == before
+    assert (services.config.style_refs_dir / "selection.json").read_bytes() == selection
 
 
 def fake_renderer(monkeypatch, services):

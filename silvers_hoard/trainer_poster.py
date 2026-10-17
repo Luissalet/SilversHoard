@@ -5,6 +5,7 @@ import base64
 import colorsys
 import copy
 import datetime as dt
+import hashlib
 import io
 import json
 import time
@@ -104,8 +105,9 @@ def snapshot(services, trainer: dict, badges: list, styles: dict, known: dict, l
 
     own_refs = {row["file"] for row in styles["images"]}
     colors = []
-    for ref in styles["used"]:
+    for index, ref in enumerate(styles["used"], 1):
         own = ref in own_refs
+        label = f"#{index}"
         try:
             path = services.config.style_refs_dir / ref if own else services.sprites.trainer(ref)
             with Image.open(path) as original:
@@ -114,11 +116,13 @@ def snapshot(services, trainer: dict, badges: list, styles: dict, known: dict, l
             if not image.getchannel("A").getbbox():
                 continue
             colors.append(ImageStat.Stat(image.convert("RGB"), mask=image.getchannel("A")).mean)
-            source = ({"role": "palette", "category": "style_reference", "title": ref, "credit": "", "source": "style-library:" + ref}
+            # Reference filenames can come from private generation descriptions. Identify the artwork by its bytes.
+            source = ({"role": "palette", "category": "style_reference", "title": label, "credit": "",
+                       "source": "style-library:sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()}
                       if own else _source(services, "sd:" + ref, known, "palette", ref))
             data["sources"].append(source)
         except (SilverError, OSError, ValueError):
-            data["warnings"].append({"role": "palette", "name": ref})
+            data["warnings"].append({"role": "palette", "name": label})
     if colors:
         rgb = [sum(row[channel] for row in colors) / len(colors) / 255 for channel in range(3)]
         hue, light, saturation = colorsys.rgb_to_hls(*rgb)
