@@ -1,4 +1,4 @@
-// Every trainer: your own, friends', in-game characters and random ones. Create one from a team, import, or roll a random one.
+// Every trainer: your own, friends', in-game characters and random ones. Create one, import, or roll a random one.
 import React, { useState } from "react";
 import { api } from "../api.js";
 import { useApp } from "../context.js";
@@ -14,9 +14,9 @@ function NewTrainer({ onClose }) {
   const [format, setFormat] = useState(settings.default_format || "gen9nationaldexag");
   const [busy, run] = useBusy();
   const create = () => run("c", async () => {
-    const tr = await api.call("trainer_create", { name, paste, format });
+    const tr = await api.call("trainer_create", { name, paste: paste.trim(), format });
     changed();
-    go(`#/entrenador/${tr.id}`);
+    go(`#/entrenador/${tr.id}${tr.team.length ? "" : "?builder=1"}`);
   });
   const random = () => run("r", async () => {
     const team = await api.call("team_random", { format: "gen9randombattle" });
@@ -25,11 +25,12 @@ function NewTrainer({ onClose }) {
   });
   return (
     <Modal title={t("new_trainer")} onClose={onClose} wide
-      footer={<><button type="button" className="btn" onClick={onClose}>{t("cancel")}</button><Busy busy={busy.c} className="btn btn-primary" disabled={!name.trim() || !paste.trim()} onClick={create}>{t("create")}</Busy></>}>
+      footer={<><button type="button" className="btn" onClick={onClose}>{t("cancel")}</button><Busy busy={busy.c} className="btn btn-primary" disabled={!name.trim()} onClick={create}>{t("create")}</Busy></>}>
+      <p className="help">{t("new_trainer_help")}</p>
       <Field label={t("name")}><input className="field" value={name} onChange={(e) => setName(e.target.value)} maxLength={60} /></Field>
       <Field label={t("format")}><FormatSelect id="new-format" value={format} onChange={setFormat} /></Field>
-      <Field label={t("team_paste")} hint={t("team_paste_help")}>
-        <textarea className="field" rows={12} value={paste} onChange={(e) => setPaste(e.target.value)} placeholder={"Garchomp @ Choice Scarf\nAbility: Rough Skin\n- Earthquake\n- Outrage"} />
+      <Field label={t("team_paste_optional")} hint={t("team_paste_help")}>
+        <textarea className="field" rows={6} value={paste} onChange={(e) => setPaste(e.target.value)} placeholder={"Garchomp @ Choice Scarf\nAbility: Rough Skin\n- Earthquake\n- Outrage"} />
       </Field>
       <Busy busy={busy.r} className="btn btn-sm" onClick={random}>{t("fill_random_team")}</Busy>
     </Modal>

@@ -2,6 +2,10 @@
 
 El editor de arenas ofrece sol, lluvia, nieve y niebla, visibles en las miniaturas y en el selector de combate. Por defecto cambian el aspecto; una opción explícita activa sus reglas de combate existentes. Los combates guardados y las exportaciones de gimnasios conservan la elección. La versión 12 del tiempo real lo admite; las versiones 1–11 mantienen su comportamiento grabado. Se reutilizan los suelos, el arte y los sprites actuales. Véase el [clima de las arenas](docs/ARENA_WEATHER.md).
 
+Pulsa **Editar nombre** junto al nombre del entrenador para abrir y enfocar su campo Nombre en Datos e IA y pulsa Guardar. El cambio conserva el mismo entrenador, equipo e imagen; REST/MCP utilizan el campo `name` existente de `trainer_update`.
+
+Puedes crear un entrenador solo con su nombre y elegir sus Pokémon después en el editor visual. Pegar un equipo o rellenarlo al azar durante la creación sigue siendo opcional. El entrenador vacío queda guardado; necesita un equipo para combatir. El mismo flujo está disponible mediante `trainer_create` y `trainer_update` en REST/MCP.
+
 La niebla mecánica de tiempo real muestra ahora la bruma existente en cualquier campo mientras el simulador indique `fog`. Monte Pírico conserva su niebla decorativa sin duplicarla; las reglas y los ajustes de las arenas se mantienen.
 
 Compartir agrupa ejercicios guardados de repeticiones en un paquete temático `.silverexercise`, permite importar sus posiciones en una biblioteca nueva y practicarlas por separado. Las temáticas las elige quien prepara el paquete; la importación reconstruye todas las posiciones antes de guardarlas juntas. Los archivos individuales siguen siendo compatibles. UI, REST y MCP comparten `exercise_pack_export` y la importación normal. Véanse los [paquetes de ejercicios](docs/EXERCISE_PACKS.md).
