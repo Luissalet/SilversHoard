@@ -296,6 +296,7 @@ export default function Combate({ param, query }) {
         <ErrorBox error={{ message: battle.summary?.error || t("battle_failed") }} onRetry={reload} />
       ) : (
         <Arena player={player} seats={seats} me={me} sprites={sprites} lang={lang} bubble={bubble} backdrop={battle.run?.backdrop || ""} banter={battle.banter}
+          combinations={settings.expert_combinations ? battle.expert_combinations || [] : []}
           toolbar={!live || !player.caughtUp ? <ReplayBar player={player} lang={lang} speedMs={speedMs} onSpeed={setSpeedMs} /> : null}>
           {request && (
             <Controls request={request} lang={lang} sprites={sprites} gametype={player.state.gametype} busy={busy.choose}
@@ -314,7 +315,8 @@ export default function Combate({ param, query }) {
         </div>
       )}
       {battle.status !== "running" && battle.status !== "failed" && (
-        <AiNotes battle={battle} turn={player.state.turn} live={live} requestSide={requestSide} />
+        <AiNotes battle={battle} turn={player.state.turn} live={live} requestSide={requestSide}
+          combinations={settings.expert_combinations ? (battle.expert_combinations || []).filter((pair) => pair.end_index < player.applied) : []} />
       )}
       {battle.status === "ended" && battle.log_length > 0 && (
         <section className="panel space-y-3" aria-label={t("practice_title")}>
