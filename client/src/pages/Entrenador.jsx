@@ -8,6 +8,7 @@ import { useContextProvider, useCopilotRefresh } from "../components/hooks.js";
 import { AiFields, Avatar, AvatarDialog, ExportDialog, FormatSelect, GymBadge, RecordChip, TeamCards, TrainerPictureViewer, TrainerSelect, creditLabel, originLabel } from "../components/silver.jsx";
 import { BattleRow } from "./Historial.jsx";
 import { loc } from "../loc.js";
+import { mergeDraftFields } from "../copilot-context.js";
 import TeamBuilder from "../components/TeamBuilder.jsx";
 import TrainerPoster from "../components/TrainerPoster.jsx";
 
@@ -90,7 +91,13 @@ function DetailsTab({ tr, reload, nameInput }) {
   const { t, notify, changed } = useApp();
   const [form, setForm] = useState(null);
   const [busy, run] = useBusy();
-  useEffect(() => setForm({ name: tr.name, title: tr.title, owner: tr.owner, format: tr.format, ai_level: tr.ai_level, ai_style: tr.ai_style, notes: tr.notes, tags: (tr.tags || []).join(", ") }), [tr]);
+  const baseline = useRef(null);
+  useEffect(() => {
+    const next = { name: tr.name, title: tr.title, owner: tr.owner, format: tr.format, ai_level: tr.ai_level, ai_style: tr.ai_style, notes: tr.notes, tags: (tr.tags || []).join(", ") };
+    const previous = baseline.current;
+    baseline.current = next;
+    setForm((draft) => mergeDraftFields(draft, previous, next));
+  }, [tr]);
   useContextProvider(() => form ? { kind: "trainer", object_id: tr.id, title: tr.name, dirty: JSON.stringify(form) !== JSON.stringify({ name: tr.name, title: tr.title, owner: tr.owner, format: tr.format, ai_level: tr.ai_level, ai_style: tr.ai_style, notes: tr.notes, tags: (tr.tags || []).join(", ") }), fields: form } : null);
   if (!form) return null;
   const set = (k, v) => setForm((f) => ({ ...f, [k]: v }));
@@ -122,7 +129,12 @@ function LinesTab({ tr, reload }) {
   const [d, setD] = useState(tr.dialogue || {});
   const [personality, setPersonality] = useState("");
   const [busy, run] = useBusy();
-  useEffect(() => setD(tr.dialogue || {}), [tr.dialogue]);
+  const baseline = useRef(tr.dialogue || {});
+  useEffect(() => {
+    const previous = baseline.current, next = tr.dialogue || {};
+    baseline.current = next;
+    setD((draft) => mergeDraftFields(draft, previous, next));
+  }, [tr.dialogue]);
   const save = () => run("s", async () => { await api.call("trainer_update", { id: tr.id, dialogue: d }); notify(t("saved")); reload(); });
   const write = () => run("w", async () => {
     const r = await api.call("trainer_dialogue_write", { id: tr.id, personality, lang });
@@ -229,9 +241,9 @@ export default function Entrenador({ param, query }) {
         <div className="flex flex-wrap items-center gap-2">{tr.badges.map((b) => <span key={b.id} className="badge-pill" title={`${b.gym_name}`}><GymBadge image={b.badge_image} color={b.badge_color} size={22} label={b.badge} /> {b.badge || b.gym_name}</span>)}</div>
       )}
       <Tabs value={tab} onChange={setTab} tabs={[{ id: "team", label: t("tab_team") }, { id: "details", label: t("tab_details") }, { id: "lines", label: t("tab_lines") }, { id: "realtime", label: t("mode_realtime_short") }, { id: "battles", label: t("tab_battles") }]} />
-      {tab === "team" && <TeamTab tr={tr} reload={reload} startVisual={query?.get("builder") === "1"} />}
-      {tab === "details" && <DetailsTab tr={tr} reload={reload} nameInput={nameInput} />}
-      {tab === "lines" && <LinesTab tr={tr} reload={reload} />}
+      {tab === "team" && <TeamTab key={tr.id} tr={tr} reload={reload} startVisual={query?.get("builder") === "1"} />}
+      {tab === "details" && <DetailsTab key={tr.id} tr={tr} reload={reload} nameInput={nameInput} />}
+      {tab === "lines" && <LinesTab key={tr.id} tr={tr} reload={reload} />}
       {tab === "realtime" && <CooldownsTab trainerId={tr.id} t={t} lang={lang} />}
       {tab === "battles" && (tr.battles?.length ? <div className="panel divide-list p-0">{tr.battles.map((b) => <BattleRow key={b.id} b={b} />)}</div> : <p className="help">{t("no_battles")}</p>)}
       {dialog === "avatar" && <AvatarDialog trainer={tr} onClose={() => setDialog("")} onSaved={() => { reload(); changed(); }} />}

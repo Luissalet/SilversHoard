@@ -1,5 +1,5 @@
 // What the shared assistant launcher asks this app for: the real objects open in the current view (trainer, gym, league, battle,
-// job) and what the person is editing, plus a way to refresh the open view when the assistant finishes a turn.
+// job) and what the person is editing, plus a way to refresh the open view as the assistant applies changes.
 const PAGE_NAMES = { "": "home", combatir: "battle_setup", combate: "battle", trabajo: "job", entrenadores: "trainers", entrenador: "trainer",
   gimnasios: "gyms", gimnasio: "gym", ligas: "leagues", liga: "league", personajes: "in_game_teams", historial: "history", medallas: "badges",
   compartir: "share", ajustes: "settings" };
@@ -64,10 +64,21 @@ export function onCopilotRefresh(fn) {
   return () => refreshHandlers.delete(fn);
 }
 
+/** Keep locally changed fields while accepting saved changes to untouched fields. */
+export function mergeDraftFields(draft, previous, latest) {
+  if (!draft || !previous) return latest;
+  const merged = { ...latest };
+  for (const [key, value] of Object.entries(draft)) {
+    if (JSON.stringify(value) !== JSON.stringify(previous[key])) merged[key] = value;
+  }
+  return merged;
+}
+
 export const onTurnEnd = () => scheduleRefresh();
 
 export function installCopilot(target = globalThis.window) {
   if (!target || target.hoardCopilot) return;
-  target.hoardCopilot = { context, onTurnEnd };
+  target.hoardCopilot = { context, onTurnEnd, onChange: scheduleRefresh };
   target.addEventListener("hoard:copilot-turn-end", scheduleRefresh);
+  target.addEventListener("hoard:copilot-change", scheduleRefresh);
 }

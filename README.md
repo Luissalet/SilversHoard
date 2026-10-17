@@ -186,3 +186,9 @@ When editing a team, each Pokémon has its own **Smogon sets** button. Pick a pu
 The real-time VS presentation waits for an available trainer picture, portrait or battle sprite, for up to 1.5 seconds. Slow image downloads can still leave early frames empty; see [picture loading](docs/RT_INTRO.md).
 
 Ice Beam and ice projectiles such as Ice Shard and Icicle Spear use original animated ice artwork in real-time battles, videos and playable pages. Plain effects and image-loading fallbacks remain available. The original PNG, exact lossless WebP, prompt and rebuild instructions are included in [ice artwork provenance](client/src/battle/rt/art/ice/PROVENANCE.md).
+
+
+Copilot tool results refresh the open view while the turn continues. Trainer
+forms keep locally edited fields; a pristine team builder follows the saved team,
+including trainers created empty. No manual page reload is needed for these
+updates. [Live updates and draft behavior](docs/COPILOT_LIVE_REFRESH.md).

@@ -188,3 +188,10 @@ Al editar un equipo, cada Pokémon tiene su botón **Sets de Smogon**. Elige una
 La presentación VS de tiempo real espera a que esté disponible la imagen del entrenador, el retrato o el sprite de combate, hasta 1,5 segundos. Una descarga lenta todavía puede dejar vacíos los primeros fotogramas; véase la [carga de imágenes](docs/RT_INTRO.md).
 
 Rayo Hielo y proyectiles como Canto Helado y Carámbano usan arte original animado en combates de tiempo real, vídeos y páginas jugables. Se conservan los efectos sencillos y la alternativa mientras carga la imagen. El PNG original, el WebP sin pérdida, el prompt y las instrucciones de reconstrucción están en la [procedencia del arte de hielo](client/src/battle/rt/art/ice/PROVENANCE.md).
+
+
+Los resultados de las herramientas del copilot actualizan la vista abierta
+mientras continúa el turno. Los formularios del entrenador conservan los campos
+editados a mano; el constructor sin cambios locales sigue al equipo guardado,
+también en entrenadores creados vacíos. Estas actualizaciones no requieren
+recargar la página. [Actualización y borradores](docs/COPILOT_LIVE_REFRESH.md).
