@@ -1,6 +1,6 @@
 # Arena audience
 
-Real-time show mode mixes local Pokémon with randomly selected overworld trainers at the existing edge seats. Around two fifths of occupied seats are human spectators; the seed fixes their identities and seats, with no duplicate trainer within a crowd. They face the court and use the existing cheering jumps. The crowd switch and plain style still hide the audience. Nothing enters the simulation or changes replay inputs.
+Real-time show mode mixes Pokémon from the generation's catalog with randomly selected overworld trainers at the existing edge seats. Around two fifths of occupied seats are human spectators; the seed fixes their identities and seats, with no duplicate trainer within a crowd. They face the court and use the existing cheering jumps. The crowd switch and plain style still hide the audience. Nothing enters the simulation or changes replay inputs.
 
 The trainer atlas is embedded in the app and exported playable HTML. It needs no remote image service. Offline pages can show these trainers while Pokémon spectators retain their existing dependency on the app's PMD service.
 
