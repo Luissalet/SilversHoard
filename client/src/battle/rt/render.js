@@ -104,7 +104,7 @@ export class ArenaRenderer {
       const meta = this.offline ? null : await loadMeta(num, { form, shiny, base: this.base });
       // PMD can return the base species when the requested Mega has no sheets. Let its battle sprite show instead.
       const formFolder = meta?.key?.split("-")[1];
-      if (meta && (!form?.startsWith("Mega") || (formFolder && formFolder !== "0000"))) {
+      if (meta && (!form?.includes("Mega") || (formFolder && formFolder !== "0000"))) {
         for (const who of meta.credit || []) this.credits.add(who);
         table[si][mi] = new Animator(meta, this.base);
         for (const a of Object.keys(meta.a)) image(`${this.base}/api/sprites/pmd-sheet/${meta.key}/${a}.png`);
