@@ -27,7 +27,7 @@ from .engine import master_status
 from .engine import Engine
 from .errors import SilverError
 from .hoard_link import family
-from .hoard_link.atomic import write_bytes_atomic, write_json_atomic
+from .hoard_link.atomic import read_json, write_bytes_atomic, write_json_atomic
 from .hoard_link.tokens import read_or_create_token
 from .credits import Credits
 from .arenas import CUSTOM as ARENA_CUSTOM, Arenas, same as arenas_same
@@ -126,6 +126,8 @@ class Services:
         self.reborn = RebornCache(config.sprites_dir.parent / "reborn", self.settings, http_get=http_get)
         self.cups = Cups(self)
         self.arenas = Arenas(self)
+        from .leisure import Leisure
+        self.leisure = Leisure(self)
         self.benchmarks = Benchmarks(self)
         self.training = Training(self)
         self.pvp = Pvp(self)
@@ -369,7 +371,33 @@ class Services:
         view["paste"] = self.export_team(t["team"]) if t["team"] else ""
         view["battles"] = [self.battle_card(b) for b in self.store.battles(trainer_id=id_, limit=15)]
         view["badges"] = self.store.badges(challenger_trainer_id=id_)
+        view["team_pool"] = self._trainer_pool(t)
+        remaining = list(range(len(view["team_pool"])))
+        view["team_pool_indices"] = []
+        for member in t["team"][:6]:
+            index = next((i for i in remaining if view["team_pool"][i] == member), None)
+            if index is not None:
+                view["team_pool_indices"].append(index)
+                remaining.remove(index)
         return view
+
+    def _trainer_pool(self, trainer: dict[str, Any]) -> list[dict[str, Any]]:
+        """Recover a facility's full pool, including trainers installed before roster selection existed."""
+        parts = (trainer.get("canon_key") or "").split(":")
+        if len(parts) >= 3 and parts[0] == "char":
+            character = self.characters()["by_key"].get(parts[1])
+            variant = next((v for v in (character or {}).get("variants", []) if v["id"] == parts[2]), None)
+            if variant and variant.get("pool"):
+                pool = [{k: value for k, value in s.items() if k != "level_range"} for s in variant["sets"]]
+                return pool + [s for s in trainer["team"] if s not in pool]
+        return trainer["team"]
+
+    @staticmethod
+    def _pick_six(pool: list[dict[str, Any]], indices: list[int]) -> list[dict[str, Any]]:
+        if (len(indices) != min(6, len(pool)) or len(set(indices)) != len(indices)
+                or any(type(i) is not int or i < 0 or i >= len(pool) for i in indices)):
+            raise SilverError("invalid", "Choose six different pool slots (zero-based), or the whole team if it has fewer than six.")
+        return [pool[i] for i in indices]
 
     def trainer_create(self, *, name: str, team: Any = None, paste: str = "", format_: str = "", title: str = "", owner: str = "",
                        ai_level: str = "", ai_style: str = "", avatar: str = "", dialogue: Optional[dict[str, str]] = None, notes: str = "",
@@ -810,7 +838,8 @@ class Services:
                 "source": self.characters().get("source", "")}
 
     def character_install(self, key: str, *, variant: str = "", sprite: str = "", name: str = "", custom: bool = False,
-                          ai_level: str = "", ai_style: str = "", lang: str = "es", avatar: str = "", art: str = "") -> dict[str, Any]:
+                          ai_level: str = "", ai_style: str = "", lang: str = "es", avatar: str = "", art: str = "",
+                          team_indices: Optional[list[int]] = None) -> dict[str, Any]:
         """A trainer from a character: one of its game teams (or an empty team of your own when custom), with the sprite you choose,
         or ``avatar`` (file:<name>, a picture of your own such as its official artwork; ``art`` names that artwork)."""
         c = self._character(key)
@@ -833,6 +862,11 @@ class Services:
         else:
             sprite = (v or {}).get("sprite") or c["base_sprite"]
         canon_key = f"char:{c['key']}:{v['id'] if v and not custom else 'own'}:{('art:' + (art or avatar)[:80]) if avatar else sprite}"
+        if team_indices is not None:
+            if not v or custom:
+                raise SilverError("invalid", "Choose a character team before selecting its pool slots.")
+            self._pick_six(v["sets"], team_indices)
+            canon_key += ":slots:" + ",".join(str(i) for i in team_indices)
         if not custom and not name:
             existing = self.store.trainer_by_canon(canon_key)
             if existing:
@@ -869,8 +903,10 @@ class Services:
             notes.append(f"Imagen: {art or 'propia'} ({self.avatar_credit(avatar) or 'imagen propia'}).")
         sets = [{k: x for k, x in s.items() if k != "level_range"} for s in (v["sets"] if v else [])] if (v and not custom) or (v and custom and variant) else []
         if v and v.get("pool"):   # a battle facility's pool: the trainer takes six of them
-            sets = sets[:6]
-            notes.append(f"Grupo de {v['pool']} Pokémon posibles en la instalación; el entrenador lleva los 6 primeros.")
+            sets = self._pick_six(sets, team_indices) if team_indices is not None else sets[:6]
+            notes.append(f"Grupo de {v['pool']} Pokémon posibles en la instalación; puedes elegir seis desde Combatir.")
+        elif team_indices is not None:
+            sets = self._pick_six(sets, team_indices)
         fmt = v["format"] if v else self.settings["default_format"]
         # a team from the cartridge plays with the AI its flags mean (hgss_rom.ai_for) unless the player chose one
         auto = v["ai"] if cart and not custom else {"level": "hard", "style": "balanced"}
@@ -1278,6 +1314,9 @@ class Services:
             level, style = spec.get("ai_level") or self.settings["default_ai_level"], spec.get("ai_style") or self.settings["default_ai_style"]
         if spec.get("team_size"):
             sets = sets[: int(spec["team_size"])]
+        if spec.get("team_indices") is not None:
+            pool = self._trainer_pool(t) if spec.get("trainer_id") else sets
+            sets = self._pick_six(pool, spec["team_indices"])
         if not sets:
             raise SilverError("empty_team", f"{name} has no team.")
         level, style = self._clean_ai(level, style)
@@ -3905,11 +3944,15 @@ class Services:
                     images.append({"file": p.name, "url": f"/api/style-refs/{p.name}", "bytes": p.stat().st_size})
         names = [n for n in str(self.settings["prospero_style_sprites"]).split(",") if n]
         used = [*(i["file"] for i in images), *names][: self.MAX_STYLE_REFS]
+        selection = read_json(folder / "selection.json", None)
+        if isinstance(selection, list):
+            available = {i["file"] for i in images} | set(names)
+            used = [ref for ref in selection if ref in available][: self.MAX_STYLE_REFS]
         return {"images": images, "sprites": names, "used": used, "max": self.MAX_STYLE_REFS,
                 "sprite_urls": {n: f"/api/sprites/trainers/{n}.png" for n in names}}
 
     def avatar_style_set(self, *, sprites: Optional[str] = None, add: Optional[list[tuple[str, bytes]]] = None,
-                         remove: Optional[list[str]] = None) -> dict[str, Any]:
+                         remove: Optional[list[str]] = None, selected: Optional[list[str]] = None) -> dict[str, Any]:
         """Change the style references: the trainer sprite names (comma separated, "" for none), pictures to add, files to remove."""
         if sprites is not None:
             self.settings.update({"prospero_style_sprites": sprites})
@@ -3930,6 +3973,13 @@ class Services:
             folder.mkdir(parents=True, exist_ok=True)
             out = folder / f"{stem}-{int(time.time() * 1000) % 10**9}.png"
             img.convert("RGBA").save(out, "PNG")
+        if selected is not None:
+            info = self.avatar_style_get()
+            available = {i["file"] for i in info["images"]} | set(info["sprites"])
+            if len(selected) > self.MAX_STYLE_REFS or len(set(selected)) != len(selected) or any(ref not in available for ref in selected):
+                raise SilverError("invalid", "Choose up to three different references from avatar_style_get.")
+            folder.mkdir(parents=True, exist_ok=True)
+            write_json_atomic(folder / "selection.json", selected)
         return self.avatar_style_get()
 
     def style_reference_paths(self, own_only: bool = False) -> list[str]:
@@ -3939,7 +3989,10 @@ class Services:
         info = self.avatar_style_get()
         if own_only:
             own = {i["file"] for i in info["images"]}
-            info = {**info, "used": [r for r in info["used"] if r in own] or [i["file"] for i in info["images"]][: self.MAX_STYLE_REFS]}
+            used = [r for r in info["used"] if r in own]
+            if not (self.config.style_refs_dir / "selection.json").exists():
+                used = used or [i["file"] for i in info["images"]][: self.MAX_STYLE_REFS]
+            info = {**info, "used": used}
         out_dir = self.config.data_dir / "cache" / "style_prepared"
         out_dir.mkdir(parents=True, exist_ok=True)
         paths = []

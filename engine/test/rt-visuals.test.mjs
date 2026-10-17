@@ -44,6 +44,17 @@ test('pose timing uses the selected sheet and the engine windup, with a special-
   assert.equal(poseFor({shape:'self'},anim,0).speed,1.6);
 });
 
+test('HitFrame reaches the contact pose at the existing windup boundary, without changing a profile', () => {
+  const profile={shape:'beam',category:'Special'}, before=structuredClone(profile);
+  const anim={meta:{a:{SpAttack:{d:[6,9,18],hit:2}}},has(n){return !!this.meta.a[n];}};
+  const pose=poseFor(profile,anim,30);
+  assert.equal(pose.name,'SpAttack');
+  assert.equal((6+9)/pose.speed,30*2);
+  assert.deepEqual(profile,before);
+  delete anim.meta.a.SpAttack.hit;
+  assert.equal(poseFor(profile,anim,30).speed,33/60);
+});
+
 test('water textures follow flight direction and the replay clock, with decode fallback and reduced motion', () => {
   const previous=globalThis.Image; let loaded;
   globalThis.Image=class {constructor(){loaded=this;}};

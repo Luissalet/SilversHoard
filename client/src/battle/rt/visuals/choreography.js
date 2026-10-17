@@ -5,8 +5,15 @@ export function poseFor(profile, animator, ticks) {
   let name = ['strike', 'dash'].includes(profile?.shape) ? 'Attack'
     : ['self', 'field'].includes(profile?.shape) ? 'Charge' : 'Shoot';
   if (profile?.category === 'Special' && animator.has('SpAttack')) name = 'SpAttack';
-  const frames = animator.meta?.a?.[name]?.d || [];
+  const meta = animator.meta?.a?.[name];
+  const frames = meta?.d || [];
   const duration = frames.reduce((sum, n) => sum + n, 0);
+  // HitFrame identifies the first contact/release pose. Reach it at the engine's existing windup boundary.
+  // Old cache entries and sheets without that marker keep their previous full-sequence timing.
+  if (Number.isInteger(meta?.hit) && meta.hit > 0 && meta.hit < frames.length && ticks > 0) {
+    const lead = frames.slice(0, meta.hit).reduce((sum, n) => sum + n, 0);
+    if (lead > 0) return {name, speed: lead / (ticks * 2)};
+  }
   return {name, speed: ticks > 0 && duration > 0 ? clamp(duration / (ticks * 2), .15, 4) : 1.6};
 }
 

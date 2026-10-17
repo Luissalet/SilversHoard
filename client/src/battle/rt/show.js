@@ -5,6 +5,7 @@
 // events and never changes the battle (the screen holds the battle still while the intro and the ending play).
 import { Animator, dirRow, image, loadMeta } from "./pmd.js";
 import { CROWDS, crowdSpots } from "./places.js";
+import { drawBallFrame } from "../ball-art.js";
 
 const TAU = Math.PI * 2;
 const rnd = (a = 0, b = 1) => a + Math.random() * (b - a);
@@ -560,6 +561,7 @@ export class Show {
   /** Poké Balls in the air, the bursts they open in and the trainers' lines. */
   drawWorld(ctx) {
     const r = this.r, s = r.scale;
+    const reduced = !!r.reducedMotion?.matches;
     for (const b of this.balls) {
       if (b.t < 0) continue;
       const k = clamp(b.t / b.life, 0, 1);
@@ -569,7 +571,8 @@ export class Show {
       ctx.beginPath(); ctx.ellipse(r.px(x), r.py(y), rad, rad * 0.4, 0, 0, TAU); ctx.fill();
       ctx.save();
       ctx.translate(cx, cy);
-      ctx.rotate(k * 9);
+      ctx.rotate(reduced ? 0 : k * 9);
+      if (drawBallFrame(ctx, 0, 0, rad * 8, k, false, reduced)) { ctx.restore(); continue; }
       ctx.fillStyle = "#e8433b";
       ctx.beginPath(); ctx.arc(0, 0, rad, Math.PI, TAU); ctx.fill();
       ctx.fillStyle = "#f4f4f4";
@@ -584,6 +587,7 @@ export class Show {
     for (const p of this.pops) {
       const k = p.t / p.life, a = 1 - k;
       const cx = r.px(p.x), cy = r.py(p.y) - 0.6 * s;
+      if (!reduced) drawBallFrame(ctx, cx, cy, 2.6 * s, k, true);
       const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, 1.4 * s * (0.4 + k));
       g.addColorStop(0, `rgba(255,255,255,${0.95 * a})`);
       g.addColorStop(1, "rgba(255,255,255,0)");

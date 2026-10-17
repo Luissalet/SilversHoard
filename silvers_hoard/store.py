@@ -13,6 +13,7 @@ from .errors import SilverError
 from .hoard_link.ids import new_id
 from .hoard_link.sqlkit import Database, dumps, loads
 from .pokeathlon import SCHEMA as SCHEMA_V8   # the Pokéathlon's courses, rounds and medals
+from .leisure import SCHEMA as SCHEMA_V9
 
 SCHEMA_V1 = """
 CREATE TABLE trainers (
@@ -292,7 +293,7 @@ def _encode(values: dict[str, Any], json_cols: dict[str, str]) -> dict[str, Any]
 
 class Store:
     def __init__(self, path: Path):
-        self.db = Database(path, migrations=[SCHEMA_V1, SCHEMA_V2, SCHEMA_V3, SCHEMA_V4, SCHEMA_V5, SCHEMA_V6, SCHEMA_V7, SCHEMA_V8])
+        self.db = Database(path, migrations=[SCHEMA_V1, SCHEMA_V2, SCHEMA_V3, SCHEMA_V4, SCHEMA_V5, SCHEMA_V6, SCHEMA_V7, SCHEMA_V8, SCHEMA_V9])
 
     def close(self) -> None:
         self.db.close()

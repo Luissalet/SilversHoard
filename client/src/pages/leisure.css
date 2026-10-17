@@ -1,0 +1,35 @@
+.contest-stage { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; padding: 24px 12px; background: var(--surface); border-radius: 10px; }
+.contest-performer { display: flex; flex-direction: column; align-items: center; gap: 5px; min-width: 0; text-align: center; }
+.contest-performer.is-you { color: var(--hoard-accent-strong); }
+.contest-costume { position: relative; height: 122px; display: flex; align-items: center; }
+.contest-accessory-strip { display: flex; justify-content: center; gap: 4px; position: absolute; bottom: 0; width: 100%; }
+.contest-beats { display: flex; gap: 4px; flex-wrap: wrap; }
+.contest-beats > span { display: grid; place-items: center; width: 42px; height: 48px; border: 1px solid var(--line); border-radius: 6px; }
+.contest-beats .is-current { background: var(--accent); color: var(--hoard-accent-ink); outline: 2px solid var(--ink); outline-offset: 2px; }
+.contest-beats .is-played { border-color: var(--hoard-accent-strong); }
+.leisure-palette { display: flex; flex-wrap: wrap; gap: 6px; }
+.leisure-palette .btn { min-height: 42px; text-align: left; }
+.leisure-palette .btn[aria-pressed="true"] { color: var(--hoard-accent-strong); border-color: var(--hoard-accent-strong); }
+.leisure-score-table { overflow-x: auto; }
+.leisure-score-table table { width: 100%; border-collapse: collapse; text-align: left; }
+.leisure-score-table td, .leisure-score-table th { padding: 10px; border-bottom: 1px solid var(--line); }
+.base-workspace { display: grid; grid-template-columns: minmax(260px, 1.2fr) minmax(250px, 1fr); gap: 18px; align-items: start; }
+.base-room { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); padding: 12px; background: #59442d; border: 8px solid #344a32; border-radius: 10px; }
+.base-cave { background: #504a52; border-color: #342f3d; }
+.base-shrub { background: #6a704c; border-color: #3f523c; }
+.base-tile { aspect-ratio: 1; min-width: 0; display: grid; place-items: center; border: 1px solid #ffffff12; color: #f1e2b7; background: #ffffff06; cursor: pointer; }
+.base-tile:nth-child(2n) { background: #0000000a; }
+.base-tile:hover { background: #ffffff1c; }
+.base-tile.is-entrance { background: #c8b88b; color: #29231e; }
+.base-tile.is-player { outline: 2px solid #f1e2b7; outline-offset: -3px; }
+.base-tile:focus-visible { outline: 3px solid var(--ink); outline-offset: -3px; }
+.base-tile .avatar { max-width: 100%; max-height: 100%; object-fit: contain; }
+@media (max-width: 700px) {
+  .base-workspace { grid-template-columns: minmax(0, 1fr); }
+  .contest-stage { gap: 6px; padding: 12px 5px; }
+  .contest-costume { height: 90px; }
+  .contest-costume > img { width: 58px; height: 58px; object-fit: contain; }
+  .contest-accessory-strip svg { width: 15px; height: 15px; }
+  .contest-performer { font-size: 12px; overflow-wrap: anywhere; }
+  .contest-beats > span { width: 32px; height: 42px; }
+}
