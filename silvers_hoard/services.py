@@ -2040,8 +2040,13 @@ class Services:
     def _rt_view(self, b: dict[str, Any], out: dict[str, Any], since: int = 0) -> dict[str, Any]:
         lines = b.get("log_text", "").split("\n") if b.get("log_text") else []
         replay = b.get("replay") or {}
+        # Finished legacy and imported rows already retain the verified terminal reason and winner.
+        winner = b.get("winner_side")
+        forfeited = ("p2" if winner == "p1" else "p1" if winner == "p2" else "") if (
+            b.get("status") == "ended" and (b.get("summary") or {}).get("reason") == "forfeit") else ""
         out.update({"lines": lines[since:] if since else lines, "log_length": len(lines), "requests": {}, "turn": 0,
                     "rt": {"spec": self._rt_spec(b), "inputs": replay.get("inputs") or [], "tick": replay.get("tick") or 0,
+                           "forfeit": forfeited,
                            "time_limit": self._rt_spec(b)["time_limit"], "arena": self._rt_spec(b)["arena"], "version": self._rt_spec(b)["version"],
                            "human": [bool((b.get(s) or {}).get("human")) for s in ("p1", "p2")]}})
         try:
