@@ -105,6 +105,8 @@ Restarting a real-time replay clears the victory banner and previous effects. Ex
 
 English is the initial UI language when no valid preference is saved, including when browser storage is blocked. An explicit English or Spanish selection is preserved.
 
+New mass-battle runs distinguish generated “You”/“Friend” labels from personal names, so the app, replay video and shared page translate the labels without changing names someone entered. Earlier runs without that distinction keep their saved names. Shared mass-battle pages also localize preset titles and move names. Native `mass_video` defaults to English when no language is supplied; explicit Spanish remains available.
+
 Names the app made up follow the reader's language, and switch with it: characters' and cartridge trainers, random trainers ("Trainer 512"), the gyms and leagues of the games (city, badge, description and members), challenges and badges, ready-made mass battles, battle facility rivals and streak stages saved in Spanish ("Ace Trainer Nora", the Frontier Brains, the bosses' prints), and every battle's seats, title and winner. The battle log, the video title card and the real-time arena say the trainers' names the same way. A name or title the user typed keeps showing as typed. The API adds the names in both languages as `i18n` to what `/api/ui/call` and `/api/overview` return (`silvers_hoard/names_i18n.py`); the client reads them with `loc()` (`client/src/loc.js`).
 
 Gyms, Leagues and Facilities filter by region and game (and gyms and leagues also by origin), with the same dropdowns as Trainers and the trainer picker; the API gives each gym, league and facility of the games its `region` and `game_id`.

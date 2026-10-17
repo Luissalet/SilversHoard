@@ -86,7 +86,7 @@ function Watch({ id, query }) {
         )}
       </div>
       {view.kind === "pick" && <div className="panel"><UnitPicker spec={data.spec} t={t} onPick={(unit) => { setRun2((n) => n + 1); setView({ kind: "play", unit }); }} onCancel={() => setView({ kind: "watch" })} /></div>}
-      {view.kind === "replay" && replay && <p className="help">{t("mass_replay_of", { who: replay.challenger, name: replay.name })}</p>}
+      {view.kind === "replay" && replay && <p className="help">{t("mass_replay_of", { who: loc(replay, lang, "challenger"), name: replay.name })}</p>}
       {view.kind !== "pick" && (view.kind !== "replay" || replay) && (
         <React.Suspense fallback={<Spinner label={t("mass_loading")} />}>
           <MassScreen key={`${data.id}:${view.kind}:${view.unit ?? view.play ?? ""}:${run2}`} doc={data} t={t} lang={lang} sprites={sprites}
@@ -107,7 +107,7 @@ function Watch({ id, query }) {
                 {plays.map((p) => (
                   <tr key={p.id}>
                     <td className="num">{p.place}/{p.of}{p.alive ? " ★" : ""}</td>
-                    <td>{p.challenger}{p.source === "friend" ? <span className="help"> · {t("mass_source_friend")}</span> : null}</td>
+                    <td>{loc(p, lang, "challenger")}{p.source === "friend" ? <span className="help"> · {t("mass_source_friend")}</span> : null}</td>
                     <td>{p.name}</td>
                     {data.mode !== "ffa" && <td>{p.team_name}{p.team_won ? " ✓" : ""}</td>}
                     <td className="num">{p.kos}</td>
