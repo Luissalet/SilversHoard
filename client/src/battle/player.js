@@ -59,7 +59,7 @@ export function useBattlePlayer({ lang = "es", me = "p1", speedMs = 900, cryUrl 
     let wait = base;
     if (ev && ev.anim && !quiet && p.fx && p.speedMs >= 100) {
       // the effect layer plays the cue and says how long the line must last, so a move's effect ends before its damage shows
-      try { wait = Math.max(base, p.fx.cue(ev.anim, { budgetMs: base * p.speedMs, speedMs: p.speedMs }) / p.speedMs); } catch { wait = base; }
+      try { wait = Math.max(base, p.fx.cue(ev.anim, { budgetMs: base * p.speedMs, speedMs: p.speedMs, lang: p.lang }) / p.speedMs); } catch { wait = base; }
     }
     if (ev && ev.anim) {
       p.animId += 1;

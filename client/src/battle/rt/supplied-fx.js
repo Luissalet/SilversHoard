@@ -5,20 +5,28 @@ const FRAMES = { Fire: ["fx-fire-0", "fx-fire-1"], Ice: Array.from({length: 8}, 
   Ghost: Array.from({length: 6}, (_, i) => `fx-shadow-ball-${i}`), Normal: ["fx-swift-0"] };
 const loaded = new Map();
 const impacts = new WeakMap();
+const idOf = move => String(move || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+const GBA_PROJECTILES = {ember:'ember',flameburst:'fire-burst',pyroball:'flame',thundershock:'lightning',
+  powergem:'gold-sparks',iceshard:'ice-shatter',iciclespear:'ice-shatter'};
+const GBA_IMPACTS = {waterpulse:'water-orbs',bubblebeam:'water-orbs',aquajet:'water-orbs',
+  aurasphere:'blue-pulse',dragonpulse:'blue-pulse',drainingkiss:'hearts',playrough:'hearts',thunderpunch:'lightning'};
 
 export function frameFor(projectile, time, reduced = false) {
   // Swift's star is specific to Swift. Other Normal moves keep their own presentation.
   if (projectile.type === "Normal" && projectile.move !== "swift") return null;
   if (!["ball", "orb", "shard", "star", "shot", "projectile"].includes(projectile.shape)) return null;
+  const specific = `fx-gba-${GBA_PROJECTILES[idOf(projectile.move)]}`;
+  if (art.sprites[specific]) return specific;
   const atlas = `fx-sky-${String(projectile.type).toLowerCase()}`;
   if (art.sprites[atlas]) return atlas;
   const frames = FRAMES[projectile.type];
   return frames?.[(reduced ? 0 : Math.floor(Math.max(0, time) * 12)) % frames.length] || null;
 }
 
-export function queueSuppliedImpact(renderer, x, y, time) {
+export function queueSuppliedImpact(renderer, x, y, time, move = '') {
   const list = impacts.get(renderer) || [];
-  list.push({x,y,time});
+  const specific = `fx-gba-${GBA_IMPACTS[idOf(move)]}`;
+  list.push({x,y,time,id:art.sprites[specific] ? specific : 'fx-ranger-impact'});
   impacts.set(renderer,list);
 }
 
@@ -49,17 +57,17 @@ export function drawSuppliedProjectiles(ctx, renderer, view, reduced = false) {
     drawFrame(ctx,id,frame,size);
     ctx.restore();
   }
-  const sprite=art.sprites['fx-ranger-impact'];
-  if (!sprite) return;
   const keep=[];
   for (const impact of impacts.get(renderer) || []) {
+    const sprite=art.sprites[impact.id];
+    if (!sprite) continue;
     const age=renderer.time-impact.time;
     if (age<0 || age>=sprite.frames/sprite.fps) continue;
     keep.push(impact);
     ctx.save();
     ctx.translate(renderer.px(impact.x),renderer.py(impact.y-.6));
     ctx.imageSmoothingEnabled=false;
-    drawFrame(ctx,'fx-ranger-impact',reduced ? 0 : Math.floor(age*sprite.fps),renderer.scale*1.5);
+    drawFrame(ctx,impact.id,reduced ? 0 : Math.floor(age*sprite.fps),renderer.scale*1.5);
     ctx.restore();
   }
   impacts.set(renderer,keep);
