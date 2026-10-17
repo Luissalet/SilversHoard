@@ -44,7 +44,7 @@ def test_batches_replay_with_the_captured_option(call, services, monkeypatch, en
     seen = []
 
     def run(op, args, **kwargs):
-        if op in ("simulate", "tournament"):
+        if op in ("simulate", "tournament", "benchmark"):
             seen.append(copy.deepcopy(args))
             services.settings.update({"rt_silver_special": not enabled})
         return original(op, args, **kwargs)
@@ -56,10 +56,17 @@ def test_batches_replay_with_the_captured_option(call, services, monkeypatch, en
     assert done["battles"]
     for battle in done["battles"]:
         assert call("battle_get", {"id": battle["id"]})["rt"]["spec"]["silver_special"] is enabled
+
+    call("settings_set", {"rt_silver_special": enabled})
+    benchmark = call("benchmark_start", {"variant_ids": [a["id"], b["id"]], "rival_ids": [b["id"]], "games": 1,
+                                         "mode": "realtime", "time_limit": 30, "seed": "special-benchmark"})
+    done = wait_for(lambda: (j := call("job_get", {"id": benchmark["id"]}))["status"] == "done" and j)
+    assert seen[-1]["silver_special"] is enabled
+    assert done["result"]["silver_special"] is enabled and done["result"]["version"] == 11
     call("settings_set", {"rt_silver_special": enabled})
     tour = call("tournament_start", {"trainer_ids": [a["id"], b["id"]], "mode": "realtime", "time_limit": 30})
     done = wait_for(lambda: (j := call("job_get", {"id": tour["id"]}))["status"] == "done" and j)
-    assert seen[1]["silver_special"] is enabled
+    assert len(seen) == 3 and seen[-1]["silver_special"] is enabled
     assert done["battles"]
     for battle in done["battles"]:
         assert call("battle_get", {"id": battle["id"]})["rt"]["spec"]["silver_special"] is enabled
@@ -89,3 +96,30 @@ def test_exported_result_keeps_choice_after_setting_changes(call, services, enab
         damaged = copy.deepcopy(result)
         damaged["stages"][0]["rt"]["silver_special"] = bad
         call("import", {"content": sharing.pack_code(sharing.RESULT_PREFIX_RT, damaged)}, status=400)
+
+
+@pytest.mark.parametrize("enabled", [False, True])
+def test_cup_captures_choice_for_human_and_background_matches(call, services, monkeypatch, enabled):
+    a, b = seats(call)
+    call("settings_set", {"rt_silver_special": enabled})
+    human = services.cups.create(trainer_ids=[a["id"], b["id"]], human_id=a["id"], mode="realtime", time_limit=30, autoplay=False)
+    ai = services.cups.create(trainer_ids=[a["id"], b["id"]], mode="realtime", time_limit=30, autoplay=False)
+    assert human["spec"]["silver_special"] is enabled and ai["spec"]["silver_special"] is enabled
+    call("settings_set", {"rt_silver_special": not enabled})
+    played = call("cup_play", {"id": human["id"]})
+    assert call("battle_get", {"id": played["battle_id"]})["rt"]["spec"]["silver_special"] is enabled
+    original = services.engine.run_job
+    captured = []
+
+    def run(op, args, **kwargs):
+        if op == "tournament":
+            captured.append(args["silver_special"])
+        return original(op, args, **kwargs)
+
+    monkeypatch.setattr(services.engine, "run_job", run)
+    services.cups.advance(ai["id"])
+    done = wait_for(lambda: (c := call("cup_get", {"id": ai["id"]}))["status"] == "done" and c)
+    assert captured and all(x is enabled for x in captured)
+    for game in done["rounds"][0][0]["games"]:
+        assert call("battle_get", {"id": game["battle_id"]})["rt"]["spec"]["silver_special"] is enabled
+    call("cup_abandon", {"id": human["id"]})
