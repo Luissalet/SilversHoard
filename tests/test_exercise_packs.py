@@ -163,3 +163,17 @@ def test_double_position_keeps_both_slots_after_pack_roundtrip(services):
     services.battle_choose(battle['id'],'p2','move 1, move 1')
     services.battle_forfeit(battle['id'],'p2')
     assert not services.store.badges() and not services.store.hall()
+
+
+def test_large_pack_text_is_complete_through_the_agent_endpoint(services, client):
+    source = finished(services)
+    ids = [services.training.create(source['id'], turn=1, title=f'Long pack position {n}')['id'] for n in range(10)]
+    token = services.config.token_path.read_text(encoding='utf-8').strip()
+    response = client.post('/api/agent/call',headers={'Authorization':'Bearer '+token},
+                           json={'name':'exercise_pack_export','arguments':{'ids':ids,'title':'Large pack Ñ','theme':'openings'}})
+    assert response.status_code == 200, response.text
+    result = response.json()
+    assert 'truncated' not in result
+    assert len(result['code'].encode('utf-8')) > 20000
+    assert len(json.loads(result['code'])['exercises']) == 10
+    assert client.get(result['url']).content == result['code'].encode('utf-8')

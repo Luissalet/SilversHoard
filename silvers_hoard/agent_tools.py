@@ -1274,7 +1274,7 @@ TOOLS: list[Tool] = [
          "Import text or upload the file through import: all positions are reconstructed before an atomic save. "
          "The receiver needs no source replay; individual exercises remain compatible. No attempts or future choices are shared.",
          synonyms="desgaste, salidas, colocación en dobles, compartir entrenamiento"),
-         ExercisePackExportArgs, W, lambda s, a: s.training.export_pack(a.ids, title=a.title, theme=a.theme)),
+         ExercisePackExportArgs, W, lambda s, a: s.training.export_pack(a.ids, title=a.title, theme=a.theme), capped=False),
     Tool("exercise_archive", _d("Archive or restore a saved exercise without removing its attempts. Archivar ejercicio.", synonyms="restaurar entrenamiento"),
          ExerciseArchiveArgs, W, lambda s, a: s.training.archive(a.id, a.archived)),
     Tool("battle_compare", _d("Compare a practice battle with its original: winner, turns and team results. Comparar práctica.",
