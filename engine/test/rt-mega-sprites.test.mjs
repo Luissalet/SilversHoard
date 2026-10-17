@@ -5,8 +5,9 @@ import {makeSprites} from '../../client/src/battle/dex.js';
 
 test('exported pages resolve new Mega form models without an app or a PokeAPI name lookup', () => {
   const sprites = makeSprites({server: 'https://play.example/sprites', set: 'gen5ani'});
-  assert.match(sprites.fallback('Delphox-Mega'), /legends-za\/10293.webp$/);
-  assert.match(sprites.fallback('Raichu-Mega-X', {back: true, shiny: true}), /legends-za\/back\/shiny\/10304.webp$/);
+  assert.match(sprites.fallback('Delphox-Mega'), /pokemon\/10293.png$/);
+  assert.match(sprites.fallback('Raichu-Mega-X', {back: true, shiny: true}), /pokemon\/back\/shiny\/10304.png$/);
+  assert.match(sprites.fallback('Zygarde-Mega'), /legends-za\/10301.webp$/);
   assert.match(sprites.fallback('Delphox'), /gen5\/delphox.png$/);
   assert.match(makeSprites({server: 'https://play.example/sprites', set: 'za'}).pokemon('Delphox-Mega'), /legends-za\/10293.webp$/);
   assert.match(makeSprites().fallback('Delphox-Mega', {shiny: true}), /api\/sprites\/pokemon\/delphox-mega\?back=0&shiny=1&set=gen5$/);
@@ -46,6 +47,15 @@ test('Mega Delphox uses its battle sprite when PMD returns its normal or shiny b
       {sides: [{mons: [{num: 655, species: 'Delphox-Mega', forme: 'Mega'}]}], sprites: {fallback: species => `sprite:${species}`}});
     await alreadyMega.preload(() => {}, 1);
     assert.equal(alreadyMega.animOf(0, 0, false), null, 'a team starting in Mega forme also keeps its own appearance');
+    const imported = {url: 'sheet:imported-delphox', source: 'https://example.org/cami', credit: ['CamiLovesO'],
+      frames: Array.from({length: 4}, (_, r) => Array.from({length: 4}, (_, c) => [c * 32, r * 32, 32, 32]))};
+    const custom = new ArenaRenderer({style: {}, clientWidth: 640, getContext: () => ctx},
+      {sides: [{mons: [{num: 655, species: 'Delphox', forme: '', sprite_id: 'delphox',
+        mega_info: {num: 655, species: 'Delphox-Mega', forme: 'Mega', sprite_id: 'delphox-mega'}}]}],
+        sprites: {fallback: species => `sprite:${species}`, walking: async id => id === 'delphox-mega' ? imported : null}});
+    await custom.preload(() => {}, 1);
+    assert.equal(custom.animOf(0, 0, true).meta.url, imported.url, 'an imported Mega sheet wins over the incorrect PMD base');
+    assert.deepEqual([...custom.importedCredits.values()], [{source: imported.source, credit: imported.credit}]);
     const m = {num: 6, species: 'Charizard', forme: '', mega_info: {num: 6, species: 'Charizard-Mega-X', forme: 'Mega-X'}};
     const renderer = new ArenaRenderer({style: {}, clientWidth: 640, getContext: () => ctx},
       {sides: [{mons: [m]}], sprites: {fallback: species => `sprite:${species}`}});

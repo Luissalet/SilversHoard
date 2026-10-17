@@ -32,6 +32,7 @@ SETS = {
 # Pokémon id (the National Pokédex number, 10000+ for other formes): Pokémon Champions, Legends: Z-A and Scarlet / Violet
 POKEAPI_SETS = {"champions": "champions", "za": "legends-za", "sv": "scarlet-violet"}
 POKEAPI_BASE = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix"
+POKEAPI_PIXEL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon"
 POKEAPI_LIST = "https://pokeapi.co/api/v2/pokemon?limit=3000"
 INDEX_TTL_S = 30 * 24 * 3600
 NEGATIVE_TTL_S = 7 * 24 * 3600
@@ -142,14 +143,16 @@ class Sprites:
         pid = self.pokeapi_id(sid)
         if not pid:
             return []
-        folder = POKEAPI_SETS[chosen]
+        folder = POKEAPI_SETS.get(chosen)
+        base = f"{POKEAPI_BASE}/{folder}" if folder else POKEAPI_PIXEL
+        ext = "webp" if folder else "png"
         out = []
         for sub in ([f"{'back/' if back else ''}shiny/"] if shiny else []) + [f"{'back/' if back else ''}"]:
-            out.append((f"pokeapi/{chosen}/{sub}{pid}.webp", f"{POKEAPI_BASE}/{folder}/{sub}{pid}.webp"))
+            out.append((f"pokeapi/{chosen}/{sub}{pid}.{ext}", f"{base}/{sub}{pid}.{ext}"))
         return out
 
     def pokemon(self, sprite_id: str, *, set_: str = "", back: bool = False, shiny: bool = False) -> Path:
-        """The chosen picture, then gen 5 pixel art; missing Megas try Z-A's models before the base species."""
+        """The chosen picture, then gen 5 pixel art; missing Megas try PokeAPI art before the base species."""
         sid = sprite_id.lower()
         if not SPRITE_ID.match(sid):
             raise SilverError("invalid", f"Not a sprite id: {sprite_id}")
@@ -176,13 +179,14 @@ class Sprites:
             path = self.fetch(rel)
             if path:
                 return path
-        # New Mega formes are not all drawn in Showdown's pixel sets yet. Keep their actual appearance with Z-A's models
+        # New Mega formes are not all drawn in Showdown's pixel sets yet. Keep their actual appearance with PokeAPI's pixel art
         # before resorting to the unevolved species (also used by the real-time arena's static fallback).
         if "-mega" in sid:
-            for rel, url in self._pokeapi_candidates("za", sid, back, shiny):
-                path = self.fetch(rel, url)
-                if path:
-                    return path
+            for source in ["pixel", "za"]:
+                for rel, url in self._pokeapi_candidates(source, sid, back, shiny):
+                    path = self.fetch(rel, url)
+                    if path:
+                        return path
         base = sid.split("-")[0]
         if base != sid:
             path = self.fetch(f"gen5{'-back' if back else ''}/{base}.png")
