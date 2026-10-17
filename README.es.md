@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+Los combates en tiempo real esperan las imágenes iniciales, incluida la de cada posible Mega, antes de avanzar. Cuando falta la animación de una Mega, la arena utiliza la imagen estática de esa forma. La megaevolución muestra una ráfaga y un cartel legible con su forma real; si coinciden varias, conserva los carteles en orden, también con movimiento reducido y en las páginas jugables exportadas. Los datos de repetición de battle_get y las reglas de combate se conservan.
+
 Los combates ofrecen presentación horizontal y vertical. La misma repetición guardada se exporta como vídeos independientes 16:9 y 9:16 (vertical 1080p: 1080 × 1920), con vista previa y sonido. En tiempo real sólo gira la cámara: entrenadores y Pokémon siguen de pie con la orientación disponible correspondiente, y se reproducen las entradas originales sin cambiarlas. UI, REST y MCP comparten la selección `aspect`. Véanse los [formatos de encuadre](docs/VIDEO_FORMATS.md).
 
 Las repeticiones y los clips de combates en tiempo real aplican la rendición guardada en su tick exacto. Los saltos y el reinicio usan el mismo lector. `battle_get` devuelve el lado que se rindió a partir del resultado comprobado, también en registros antiguos con motivo de rendición y ganador guardados, sin reescribir sus datos.
