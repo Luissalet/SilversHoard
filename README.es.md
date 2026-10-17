@@ -2,6 +2,10 @@
 
 Elige **Pista de música** al preparar la partida en Combatir o abre **Sonido → Pista de música** durante un combate clásico o en tiempo real para elegir cualquiera de las 48 pistas existentes, mantener la música automática o quedarte sin música. El cambio se aplica mientras juegas y se recuerda en este navegador con los volúmenes. Los efectos y gritos de Pokémon son independientes. El selector permanece accesible fuera del campo en pantallas pequeñas; las páginas sin conexión siguen teniendo solo efectos y las grabaciones usan las preferencias del navegador que las graba.
 
+Los combates ofrecen presentación horizontal y vertical. La misma repetición guardada se exporta como vídeos independientes 16:9 y 9:16 (vertical 1080p: 1080 × 1920), con vista previa y sonido. En tiempo real sólo gira la cámara: entrenadores y Pokémon siguen de pie con la orientación disponible correspondiente, y se reproducen las entradas originales sin cambiarlas. UI, REST y MCP comparten la selección `aspect`. Véanse los [formatos de encuadre](docs/VIDEO_FORMATS.md).
+
+Las repeticiones y los clips de combates en tiempo real aplican la rendición guardada en su tick exacto. Los saltos y el reinicio usan el mismo lector. `battle_get` devuelve el lado que se rindió a partir del resultado comprobado, también en registros antiguos con motivo de rendición y ganador guardados, sin reescribir sus datos.
+
 Pulsa **Editar nombre** junto al nombre del entrenador para abrir y enfocar su campo Nombre en Datos e IA y pulsa Guardar. El cambio conserva el mismo entrenador, equipo e imagen; REST/MCP utilizan el campo `name` existente de `trainer_update`.
 
 Puedes crear un entrenador solo con su nombre y elegir sus Pokémon después en el editor visual. Pegar un equipo o rellenarlo al azar durante la creación sigue siendo opcional. El entrenador vacío queda guardado; necesita un equipo para combatir. El mismo flujo está disponible mediante `trainer_create` y `trainer_update` en REST/MCP.
@@ -186,3 +190,10 @@ Al editar un equipo, cada Pokémon tiene su botón **Sets de Smogon**. Elige una
 La presentación VS de tiempo real espera a que esté disponible la imagen del entrenador, el retrato o el sprite de combate, hasta 1,5 segundos. Una descarga lenta todavía puede dejar vacíos los primeros fotogramas; véase la [carga de imágenes](docs/RT_INTRO.md).
 
 Rayo Hielo y proyectiles como Canto Helado y Carámbano usan arte original animado en combates de tiempo real, vídeos y páginas jugables. Se conservan los efectos sencillos y la alternativa mientras carga la imagen. El PNG original, el WebP sin pérdida, el prompt y las instrucciones de reconstrucción están en la [procedencia del arte de hielo](client/src/battle/rt/art/ice/PROVENANCE.md).
+
+
+Los resultados de las herramientas del copilot actualizan la vista abierta
+mientras continúa el turno. Los formularios del entrenador conservan los campos
+editados a mano; el constructor sin cambios locales sigue al equipo guardado,
+también en entrenadores creados vacíos. Estas actualizaciones no requieren
+recargar la página. [Actualización y borradores](docs/COPILOT_LIVE_REFRESH.md).

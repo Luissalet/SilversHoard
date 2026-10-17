@@ -9,6 +9,7 @@ import { useSeats } from "../components/silver.jsx";
 import { battleTitle, loc, winnerName } from "../loc.js";
 import { RunStrip } from "./Combate.jsx";
 import VideoExport from "../components/VideoExport.jsx";
+import BattlePresentation from "../battle/portrait.jsx";
 import BattleJournal from "../components/BattleJournal.jsx";
 import { CupStrip } from "./Copa.jsx";
 import { replayPosition } from "../history-search.js";
@@ -96,10 +97,10 @@ export default function CombateRt({ battle, setData, query }) {
       <CupStrip cup={battle.cup} battle={battle} />
       {remote && battle.status === "live" && net?.missing && <div className="banner banner-warn">{t("pvp_room_gone")}</div>}
       {battle.status === "cancelled" ? <p className="help">{t("status_cancelled")}</p> : remote && battle.status === "live" && !net ? null : (
-        <RtScreen key={`${battle.id}:${seekTick ?? 'start'}`} battle={battle} seekTick={seekTick} lang={lang} sprites={sprites} seats={seats} onFinish={onFinish} onSave={onSave} musicSource={settings?.music_source}
+        <BattlePresentation lang={lang}><RtScreen key={`${battle.id}:${seekTick ?? 'start'}`} battle={battle} seekTick={seekTick} lang={lang} sprites={sprites} seats={seats} onFinish={onFinish} onSave={onSave} musicSource={settings?.music_source}
           endActions={battle.status === "ended" && battle.log_length > 0 ? <VideoExport battle={battle} /> : null}
           net={net?.url ? net : null}
-          onAgain={!battle.run && !battle.cup && battle.kind !== "friend" && battle.kind !== "pvp" ? again : null} />
+          onAgain={!battle.run && !battle.cup && battle.kind !== "friend" && battle.kind !== "pvp" ? again : null} /></BattlePresentation>
       )}
     </div>
   );

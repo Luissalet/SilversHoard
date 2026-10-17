@@ -16,6 +16,7 @@ import { motionFor, poseFor, tossLift } from "./visuals/choreography.js";
 import { FLOOR_TEXTURES, floorVariant, drawWaterTextures } from "./visuals/textures.js";
 import { drawSuppliedProjectiles, queueSuppliedImpact, clearSuppliedImpacts } from "./supplied-fx.js";
 import { queueMoveCard, drawMoveCard, clearMoveCards } from "../move-cards.js";
+import { portraitFacing, portraitHeight, presentPortrait, upright } from "./portrait-camera.js";
 
 const ARENA = { w: 28, h: 17 };
 const MARGIN_X = 2.6;
@@ -53,6 +54,7 @@ export class ArenaRenderer {
    * sprites, or a white dot while they load, draw the Pokémon. */
   constructor(canvas, { sides, sprites, base = "", texts, rocks = [], humans = [false, false], offline = false }) {
     this.canvas = canvas;
+    this.outputCanvas = canvas;
     this.ctx = canvas.getContext("2d");
     this.sides = sides;
     this.sprites = sprites;
@@ -71,6 +73,7 @@ export class ArenaRenderer {
     // Mega formes: their own sprites, or the base ones when there are none
     this.megaFallbacks = sides.map((s) => s.mons.map((m) => (m.mega_info ? image(sprites.fallback(m.mega_info.species, { spriteid: m.mega_info.sprite_id, shiny: m.shiny })) : null)));
     this.trainers = sides.map((s) => (s.avatarUrl ? image(s.avatarUrl) : null));
+    this.trainerBacks = sides.map((s) => (s.backUrl ? image(s.backUrl) : null));
     this.floats = [];
     this.effects = [];
     // per Pokémon on the field: key = side in singles, side * 2 + slot in doubles
@@ -125,20 +128,35 @@ export class ArenaRenderer {
 
   resize(width) {
     const dpr = Math.min(2, window.devicePixelRatio || 1);
+    const portrait = !!this.outputCanvas.closest?.(".portrait-layout");
     // the whole court fits on the screen with the bars above and the moves below it
     // (a video clip has no moves, log or replay bar: only the bars above)
     const reserve = typeof document !== "undefined" && document.body?.classList.contains("video-mode") ? 240 : 330;
-    const maxH = Math.max(260, (window.innerHeight || 800) - reserve);
-    const w = Math.max(320, Math.floor(Math.min(width, maxH * WORLD_RATIO)));
+    const frame = this.outputCanvas.closest?.(".video-stage");
+    const maxH = portrait && frame ? portraitHeight(frame) : Math.max(260, (window.innerHeight || 800) - reserve);
+    const outputWidth = Math.max(portrait ? 1 : 320, Math.floor(Math.min(width, maxH * (portrait ? 1 / WORLD_RATIO : WORLD_RATIO))));
+    const w = portrait ? Math.floor(outputWidth * WORLD_RATIO) : outputWidth;
     // a scrollbar coming and going changes the width by a few pixels: ignore that, or the page and the canvas chase each other
-    if (this.cssWidth && Math.abs(this.cssWidth - w) < 24 && this.dpr === dpr) return;
+    if (this.cssWidth && Math.abs(this.cssWidth - w) < 24 && this.dpr === dpr && this.portrait === portrait) return;
+    this.portrait = portrait;
+    if (portrait) {
+      this.worldCanvas ||= document.createElement("canvas");
+      this.portraitFallbacks ||= this.sides.map((side, si) => side.mons.map((m) => image(this.sprites.fallback((m.base_look || m).species,
+        {spriteid:(m.base_look || m).sprite_id, shiny:m.shiny, back:si === 0}))));
+      this.portraitMegaFallbacks ||= this.sides.map((side, si) => side.mons.map((m) => m.mega_info ? image(this.sprites.fallback(m.mega_info.species,
+        {spriteid:m.mega_info.sprite_id, shiny:m.shiny, back:si === 0})) : null));
+      this.canvas = this.worldCanvas;
+    } else this.canvas = this.outputCanvas;
+    this.ctx = this.canvas.getContext("2d");
     this.cssWidth = w;
     this.dpr = dpr;
     const h = Math.floor(w / WORLD_RATIO);
     this.canvas.width = Math.floor(w * dpr);
     this.canvas.height = Math.floor(h * dpr);
-    this.canvas.style.height = `${h}px`;
-    this.canvas.style.width = `${w}px`;
+    this.outputCanvas.width = portrait ? this.canvas.height : this.canvas.width;
+    this.outputCanvas.height = portrait ? this.canvas.width : this.canvas.height;
+    this.outputCanvas.style.height = `${portrait ? w : h}px`;
+    this.outputCanvas.style.width = `${portrait ? h : w}px`;
     this.scale = (w / WORLD.w) * dpr;          // canvas pixels per meter
     this.k = Math.max(1, Math.round((this.scale / 17) * 2) / 2); // canvas pixels per sprite pixel
     this.court = null;
@@ -490,12 +508,15 @@ export class ArenaRenderer {
 
   /** dt: the battle's pace (slowed during a hit-stop); raw: the clock's, for the show's overlays (defaults to dt). */
   draw(battle, dt, raw = dt) {
+    // Changing the frame must not remount or restart a live simulation, even at the same mobile width.
+    if (this.portrait || !!this.outputCanvas.closest?.(".portrait-layout") !== this.portrait) this.resize(this.outputCanvas.parentElement?.clientWidth || this.cssWidth);
     const ctx = this.ctx;
     const view = battle.view();
     this.time += dt;
     this.consume(battle);
     this.vfx.update(dt, view);
     this.show.update(raw, battle);
+    if (this.outputCanvas.dataset) this.outputCanvas.dataset.intro = String(!!this.show.intro && this.show.intro.t < 2.1);
     ctx.imageSmoothingEnabled = false;
     const [shx, shy] = this.vfx.shakeOffset();
     ctx.fillStyle = "#0b0b10";
@@ -509,16 +530,17 @@ export class ArenaRenderer {
     const s = this.scale;
     // trainers
     view.sides.forEach((side, si) => {
-      const img = this.trainers[si];
+      const img = this.portrait && si === 0 && this.trainerBacks[si]?.ready ? this.trainerBacks[si] : this.trainers[si];
       const p = TRAINER[si];
       if (img?.ready) {
         const scale = Math.min(2.6 * s / img.img.height, 1.8 * s / img.img.width);
         const h = img.img.height * scale;
         const w = img.img.width * scale;
         ctx.save();
+        if (this.portrait) { ctx.translate(this.px(p.x), this.py(p.y)); ctx.rotate(Math.PI / 2); ctx.translate(-this.px(p.x), -this.py(p.y)); }
         // pixel art keeps its pixels; a drawing, a photo or an official artwork is smoothed when scaled
         ctx.imageSmoothingEnabled = Math.max(img.img.width, img.img.height) > 200;
-        if (si === 0) { ctx.translate(this.px(p.x), 0); ctx.scale(-1, 1); ctx.translate(-this.px(p.x), 0); }
+        if (si === 0 && !this.portrait) { ctx.translate(this.px(p.x), 0); ctx.scale(-1, 1); ctx.translate(-this.px(p.x), 0); }
         ctx.drawImage(img.img, this.px(p.x) - w / 2, this.py(p.y) - h * 0.85, w, h);
         ctx.restore();
       } else {
@@ -555,7 +577,7 @@ export class ArenaRenderer {
     // facing arrows of Pokémon that are not locked on: their moves go that way
     for (const { side, si } of fighters) if (!side.focus && view.version >= 2) this.drawFacing(side, si);
     // Pokémon, sorted by depth
-    const order = fighters.slice().sort((a, b) => a.side.y - b.side.y);
+    const order = fighters.slice().sort((a, b) => this.portrait ? b.side.x - a.side.x : a.side.y - b.side.y);
     for (const { side, si, key } of order) this.drawMon(view, side, si, dt, key);
     if (view.doubles) {
       // doubles: a marker over the Pokémon a person controls and a reticle on the foe it locks on (turning while ZL / Shift is held)
@@ -582,21 +604,24 @@ export class ArenaRenderer {
     this.floats = this.floats.filter((f) => (f.t += dt) < f.life);
     for (const f of this.floats) {
       const a = 1 - f.t / f.life;
-      const y = f.y - 1.9 + f.dy - f.t * 1.2;
+      const x = this.px(f.x), baseY = this.py(f.y);
+      const y = baseY - (1.9 - f.dy + f.t * 1.2) * s;
       ctx.font = `italic 900 ${Math.round(0.62 * s * f.size)}px "Arial Black", system-ui, sans-serif`;
       ctx.lineWidth = Math.max(2, s * 0.09);
       ctx.strokeStyle = `rgba(0,0,0,${0.75 * a})`;
-      ctx.strokeText(f.text, this.px(f.x), this.py(y));
       ctx.fillStyle = f.color;
-      ctx.globalAlpha = a;
-      ctx.fillText(f.text, this.px(f.x), this.py(y));
+      upright(ctx, x, baseY, this.portrait, () => { ctx.strokeText(f.text, x, y); ctx.globalAlpha = a; ctx.fillText(f.text, x, y); });
       ctx.globalAlpha = 1;
     }
     ctx.restore();
+    const world = this.canvas;
+    const overlay = this.portrait ? presentPortrait(this.outputCanvas, world) : ctx;
+    if (this.portrait) { this.canvas = this.outputCanvas; this.ctx = overlay; this.screenPass = true; }
     this.drawCutin(dt);
-    this.show.drawBubbles(ctx, raw);
-    this.show.drawScreen(ctx, battle);
-    drawMoveCard(ctx,this,this.time,this.canvas.width,this.canvas.height,!!this.reducedMotion?.matches);
+    this.show.drawBubbles(overlay, raw);
+    this.show.drawScreen(overlay, battle);
+    drawMoveCard(overlay,this,this.time,this.canvas.width,this.canvas.height,!!this.reducedMotion?.matches);
+    if (this.portrait) { this.canvas = world; this.ctx = ctx; this.screenPass = false; }
     this.flash = this.flash.map((v) => Math.max(0, v - dt * 5));
   }
 
@@ -736,6 +761,7 @@ export class ArenaRenderer {
     const y = this.py(side.y) - (this.heads[si * 2 + (side.pos || 0)] ?? 2.6 * s) - (0.25 + Math.sin(this.time * 5) * 0.08) * s;
     const w = 0.42 * s;
     ctx.save();
+    if (this.portrait) { ctx.translate(x, this.py(side.y)); ctx.rotate(Math.PI / 2); ctx.translate(-x, -this.py(side.y)); }
     ctx.fillStyle = `rgba(${SIDE_RGB[si]},0.95)`;
     ctx.strokeStyle = "rgba(0,0,0,0.7)";
     ctx.lineWidth = Math.max(1, s * 0.05);
@@ -781,6 +807,10 @@ export class ArenaRenderer {
   }
 
   drawMon(view, side, si, dt, key = si) {
+    return upright(this.ctx, this.px(side.x), this.py(side.y), this.portrait, () => this.drawUprightMon(view, side, si, dt, key));
+  }
+
+  drawUprightMon(view, side, si, dt, key = si) {
     const ctx = this.ctx;
     const s = this.scale;
     const mon = side.mons[side.active];
@@ -854,19 +884,22 @@ export class ArenaRenderer {
       else if (side.moving) a.loop("Walk");
       else a.loop("Idle");
       a.update(dt);
-      const row = dirRow(side.fx, side.fy);
+      const facing = this.portrait ? portraitFacing(side.fx, side.fy) : side;
+      const row = dirRow(facing.fx, facing.fy);
       drawn = a.draw(ctx, x, y, row, this.k, { alpha: bodyAlpha, flash: this.flash[key] });
       headY = y - a.height(this.k) - 0.3 * s;
     }
     if (!drawn) {
-      const megaImg = mega ? this.megaFallbacks[si]?.[side.active] : null;
-      const img = megaImg?.ready ? megaImg : this.fallbacks[si]?.[side.active];
+      const portraitMega = this.portrait && mega ? this.portraitMegaFallbacks?.[si]?.[side.active] : null;
+      const megaImg = portraitMega?.ready ? portraitMega : mega ? this.megaFallbacks[si]?.[side.active] : null;
+      const portraitImg = this.portrait ? this.portraitFallbacks?.[si]?.[side.active] : null;
+      const img = megaImg?.ready ? megaImg : portraitImg?.ready ? portraitImg : this.fallbacks[si]?.[side.active];
       if (img?.ready) {
         const h = 2.2 * s;
         const w = (img.img.width / img.img.height) * h;
         ctx.save();
         ctx.globalAlpha = bodyAlpha;
-        if (side.fx > 0) { ctx.translate(x, 0); ctx.scale(-1, 1); ctx.translate(-x, 0); }
+        if (!this.portrait && side.fx > 0) { ctx.translate(x, 0); ctx.scale(-1, 1); ctx.translate(-x, 0); }
         ctx.drawImage(img.img, x - w / 2, y - h * 0.92, w, h);
         ctx.restore();
         headY = y - h * 0.95;

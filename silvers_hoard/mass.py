@@ -339,7 +339,8 @@ class Mass:
         return {"mass_id": mid, "play": play}
 
     # ------------------------------------------------------------ video
-    def video(self, id_: str, *, play_id: str = "", speed: str = "normal", size: str = "720p", lang: str = "", lumiere: bool = False) -> dict[str, Any]:
+    def video(self, id_: str, *, play_id: str = "", speed: str = "normal", size: str = "720p", lang: str = "", lumiere: bool = False,
+              aspect: str = "landscape") -> dict[str, Any]:
         """Record a battle (or one played run of it) as a video clip, a job: the app's own screen of the battle, alone on a 16:9
         stage with the camera following the action, played by the app's recorder (services.battle_video's). speed: slow (as it
         happened), normal (twice as fast) or fast (four times)."""
@@ -355,6 +356,8 @@ class Mass:
         s = self.s
         if size not in s.VIDEO_SIZES:
             raise SilverError("invalid", f"size is one of {', '.join(s.VIDEO_SIZES)}")
+        from .video_format import video_dimensions
+        video_dimensions(size, aspect)
         status = s.video_status()
         if not status["playwright"] or not status["browser"]:
             raise SilverError("unavailable", "Recording needs Playwright and Chrome or Edge on this computer.", hint=status["hint"])
@@ -367,9 +370,10 @@ class Mass:
             stem += " - " + clean(who, 20)
         stem = f"{stem} {(play_id or id_)[-6:]}"
         title = f"Vídeo: {doc['title']}" + (f" ({who})" if who else "")
-        return s._job("video", title, {"mass_id": id_, "play_id": play_id, "speed": speed, "size": size, "lumiere": lumiere},
+        return s._job("video", title, {"mass_id": id_, "play_id": play_id, "speed": speed, "size": size, "aspect": aspect, "lumiere": lumiere},
                       lambda jid, progress, cancelled: s._record_video({"id": id_}, speed, size, lang, lumiere, status, progress, cancelled,
-                                                                       url_path=path, stem=stem, seconds=seconds / rate))
+                                                                       url_path=path, stem=stem, seconds=seconds / rate,
+                                                                       **({"aspect": aspect} if aspect != "landscape" else {})))
 
     def card(self, doc: dict[str, Any], *, full: bool = False) -> dict[str, Any]:
         s = doc.get("summary") or {}

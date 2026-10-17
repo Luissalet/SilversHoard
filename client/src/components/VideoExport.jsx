@@ -6,6 +6,8 @@ import { useApp } from "../context.js";
 import { Busy, Icon, ICONS, Modal, useBusy } from "./ui.jsx";
 import { JobProgress, useJob } from "./silver.jsx";
 import { L } from "../battle/dex.js";
+import { FormatPicker } from "../battle/portrait.jsx";
+import { videoFormat, videoPreviewPath } from "../video-format.js";
 
 const S = {
   button: ["Exportar MP4", "Export MP4"],
@@ -14,6 +16,8 @@ const S = {
     "The replay is recorded with its sound (effects, cries and music) in a windowless browser and saved as an MP4 in the exports folder. It takes as long as the battle."],
   speed: ["Velocidad", "Speed"], slow: ["Lenta", "Slow"], normal: ["Normal", "Normal"], fast: ["Rápida", "Fast"],
   size: ["Tamaño", "Size"],
+  preview: ["Ver encuadre", "Preview frame"],
+  safe: ["El vertical deja margen arriba y abajo para los controles de las redes.", "Vertical leaves room above and below for social video controls."],
   lumiere: ["Mandarlo también a Lumiere's Hoard (editor de vídeo)", "Also send it to Lumiere's Hoard (video editor)"],
   record: ["Crear MP4", "Create MP4"],
   download: ["Descargar vídeo", "Download video"],
@@ -30,6 +34,7 @@ export default function VideoExport({ battle = null, tool = "battle_video", args
   const [open, setOpen] = useState(false);
   const [speed, setSpeed] = useState("normal");
   const [size, setSize] = useState("720p");
+  const [aspect, setAspect] = useState("landscape");
   const [lumiere, setLumiere] = useState(false);
   const [status, setStatus] = useState(null);
   const [jobId, setJobId] = useState("");
@@ -42,10 +47,12 @@ export default function VideoExport({ battle = null, tool = "battle_video", args
   const running = !!job && ["queued", "running"].includes(job.status);
   const start = () => run("rec", async () => {
     setResult(null);
-    const r = await api.call(tool, { ...(args || { id: battle.id }), speed, size, lang, lumiere });
+    const r = await api.call(tool, { ...(args || { id: battle.id }), speed, size, aspect, lang, lumiere });
     setJobId(r.id || r.job?.id || "");
   });
   const missing = status ? [!status.playwright && "Playwright", !status.browser && "Chrome / Edge"].filter(Boolean) : [];
+  const dimensions = videoFormat(size, aspect);
+  const preview = videoPreviewPath(args?.id || battle?.id, { aspect, speed, lang, play_id: args?.play_id });
   return (
     <>
       <button type="button" className="btn" onClick={() => setOpen(true)}><Icon d={ICONS.video} size={15} /> {label || s("button")}</button>
@@ -54,6 +61,12 @@ export default function VideoExport({ battle = null, tool = "battle_video", args
           <div className="space-y-3">
             <p className="help">{help || s("help")}</p>
             {missing.length > 0 && <div className="banner banner-info">{s("missing", { what: missing.join(", ") })} · {status.hint}</div>}
+            <FormatPicker aspect={aspect} onChange={(value) => { setAspect(value); if (value === "portrait") setSize("1080p"); }} lang={lang} />
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="help video-frame-note">{dimensions.width} × {dimensions.height} · {aspect === "portrait" ? "9:16" : "16:9"}</span>
+              <a className="btn btn-sm" href={preview} target="_blank" rel="noreferrer">{s("preview")}</a>
+            </div>
+            {aspect === "portrait" && <p className="help">{s("safe")}</p>}
             <div className="flex flex-wrap items-center gap-3">
               <span className="help">{s("speed")}</span>
               <div className="seg" role="group" aria-label={s("speed")}>

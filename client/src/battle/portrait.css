@@ -1,0 +1,77 @@
+/* The existing battlefield stays complete. Titles, HUD and log use the vertical space. */
+.battle-format { flex-wrap: wrap; }
+.battle-format button { min-height: 44px; }
+.portrait-layout { container-type: inline-size; }
+.battle-portrait { width: min(100%, 540px); margin-inline: auto; }
+.portrait-layout .b-wrap { grid-template-columns: minmax(0, 1fr); }
+.portrait-layout .b-log { width: 100%; max-height: 26cqw; font-size: clamp(12px, 3cqw, 30px); }
+.portrait-layout .b-stage { aspect-ratio: 3 / 4; max-height: none; min-height: 0; }
+.portrait-layout .b-cards { width: 61%; gap: 1cqw; }
+.portrait-layout .b-cards.foe { top: 3%; left: 3%; }
+.portrait-layout .b-cards.me { bottom: 3%; right: 3%; }
+.portrait-layout .b-card { font-size: clamp(12px, 3cqw, 30px); padding: 1.5cqw; }
+.portrait-layout .b-card-top, .portrait-layout .b-hpnum, .portrait-layout .b-level { font-size: inherit; }
+.portrait-layout .b-mons.foe { top: 23%; right: 6%; width: 60%; height: 24%; }
+.portrait-layout .b-mons.me { left: 5%; bottom: 24%; width: 64%; height: 30%; }
+.portrait-layout .is-doubles .b-mons.me { bottom: 34%; height: 24%; }
+.portrait-layout .b-sprite { --sprite-size: 25cqw !important; }
+.portrait-layout .is-doubles .b-sprite { --sprite-size: 21cqw !important; }
+.portrait-layout .b-trainer { max-width: 29%; font-size: clamp(11px, 2.8cqw, 28px); }
+.portrait-layout .b-trainer.foe { top: 4%; right: 3%; }
+.portrait-layout .b-trainer.me { display: flex; left: 3%; bottom: 3%; }
+.portrait-layout .b-trainer img { width: 12cqw; height: 12cqw; }
+.portrait-layout .b-turn { font-size: clamp(12px, 3cqw, 30px); }
+.portrait-layout .b-result b { font-size: clamp(22px, 5cqw, 54px); }
+.portrait-layout .b-result > img { width: 20cqw; height: 20cqw; }
+.portrait-layout .b-result-faces .b-portrait { width: 12cqw; height: 12cqw; }
+.portrait-layout .rt-top { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2cqw; }
+.portrait-layout .rt-clock { grid-column: 1 / -1; grid-row: 1; }
+.portrait-layout .rt-time { font-size: clamp(22px, 5cqw, 54px); }
+.portrait-layout .rt-sidebar { padding: 2cqw; gap: 1cqw; }
+.portrait-layout .rt-name, .portrait-layout .rt-mon { font-size: clamp(12px, 3cqw, 30px); }
+.portrait-layout .rt-name { white-space: normal; overflow-wrap: anywhere; }
+.portrait-layout .rt-avatar { width: 8cqw; height: 10cqw; }
+.portrait-layout .rt-face { width: 5cqw; height: 5cqw; }
+.portrait-layout .rt-hp { height: max(7px, 1.5cqw); }
+.portrait-layout .rt-hp-num, .portrait-layout .rt-tag, .portrait-layout .rt-status { font-size: clamp(10px, 2.5cqw, 25px); }
+.portrait-layout .rt-ball { width: 2cqw; height: 2cqw; }
+.portrait-layout .rt-card { max-width: 90%; padding: 3cqw; }
+.portrait-layout .rt-big { font-size: clamp(20px, 5cqw, 54px); overflow-wrap: anywhere; }
+.portrait-layout .rt-card .help, .portrait-layout .rt-score { font-size: clamp(11px, 3cqw, 30px); }
+.portrait-layout .rt-score { gap: 2cqw; }
+.portrait-layout .rt-score > div > b { white-space: normal; overflow-wrap: anywhere; }
+.portrait-layout .rt-canvas, .portrait-layout .mass-canvas { max-width: 100%; height: auto !important; }
+.portrait-layout .mass-top { flex-wrap: wrap; }
+.portrait-layout .mass-intro h2, .portrait-layout .mass-banner { overflow-wrap: anywhere; }
+
+.video-stage.is-portrait {
+  --frame-width: min(100vw, 56.25vh);
+  width: var(--frame-width); height: min(100vh, 177.777778vw); margin-inline: auto;
+  padding: calc(var(--frame-width) * .07) calc(var(--frame-width) * .07) calc(var(--frame-width) * .12);
+  gap: calc(var(--frame-width) * .025); justify-content: center;
+}
+.video-stage.is-portrait .video-title { flex-wrap: wrap; justify-content: center; text-align: center; gap: 1cqw 2cqw; font-size: 4.5cqw; overflow-wrap: anywhere; }
+.video-stage.is-portrait .video-title > b { max-width: 100%; }
+.video-stage.is-portrait .video-title .help { flex-basis: 100%; font-size: 3cqw; }
+.video-stage.is-portrait .b-log { display: block !important; width: 100%; max-height: 24cqw; margin-top: 2cqw; }
+.video-stage.is-portrait .b-main { gap: 2cqw; }
+.video-stage.is-portrait .b-stage { max-height: none; aspect-ratio: 1 / 1.15; }
+.video-stage.is-portrait .rt-credit { display: none; }
+.video-stage.is-portrait .rt-log { display: none !important; }
+.video-stage.is-portrait .rt-wrap .b-main { position: relative; }
+.video-stage.is-portrait .rt-top { position: absolute; inset: 0; display: block; z-index: 3; pointer-events: none; }
+.video-stage.is-portrait .rt-sidebar { position: absolute; width: 40%; background: var(--b-surface); }
+.video-stage.is-portrait .rt-sidebar.left { bottom: 2cqw; left: 1cqw; }
+.video-stage.is-portrait .rt-sidebar.right { top: 2cqw; right: 1cqw; }
+.video-stage.is-portrait .rt-clock { position: absolute; top: 2cqw; left: 2cqw; }
+.video-stage.is-portrait .rt-wrap:has(.rt-canvas[data-intro="true"]) .rt-top { visibility: hidden; }
+.video-stage.is-portrait .mass-card { max-width: 94%; padding: 2cqw; }
+.video-stage.is-portrait .mass-rank { font-size: 2.8cqw; }
+.video-stage.is-portrait .mass-result { max-height: 100%; overflow: auto; }
+.video-frame-note { font-variant-numeric: tabular-nums; }
+
+/* Let the recorded landscape court fit below single/double HUDs and above credits. */
+.video-stage:not(.is-portrait) > .rt-wrap { flex: 1; min-height: 0; align-items: stretch; }
+.video-stage:not(.is-portrait) .rt-wrap > .b-main { min-height: 0; }
+.video-stage:not(.is-portrait) .rt-stage { flex: 1; min-height: 0; }
+.video-stage:not(.is-portrait) .rt-canvas { width: 100% !important; height: 100% !important; object-fit: contain; }
