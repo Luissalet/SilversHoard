@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+**Revanchas en tiempo real.** **Otra vez** reutiliza los equipos y nombres guardados de los asientos directos, conserva los identificadores de entrenadores y las opciones de persona o IA, y mantiene formato, reglas de nivel, límite de tiempo y arena. Cada revancha es un combate independiente con semilla nueva y controles desde cero. La arena personalizada se toma de la instantánea del campo guardado aunque su entrada original se haya editado o borrado. La interfaz, REST y MCP `battle_start` aceptan esa instantánea como `rt_arena: {name, floor, rocks}`, con la validación de arenas existente y sin crear otra entrada en la colección.
+
 Las repeticiones y los clips de combates en tiempo real aplican la rendición guardada en su tick exacto. Los saltos y el reinicio usan el mismo lector. `battle_get` devuelve el lado que se rindió a partir del resultado comprobado, también en registros antiguos con motivo de rendición y ganador guardados, sin reescribir sus datos.
 
 Pulsa **Editar nombre** junto al nombre del entrenador para abrir y enfocar su campo Nombre en Datos e IA y pulsa Guardar. El cambio conserva el mismo entrenador, equipo e imagen; REST/MCP utilizan el campo `name` existente de `trainer_update`.

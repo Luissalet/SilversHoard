@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+**Real-time rematches.** **Again** reuses the saved teams and names of direct seats, preserves saved trainer IDs and human/AI choices, and keeps the format, level rules, time limit and arena. Each rematch is a separate battle with a new seed and fresh controls. A custom arena comes from the saved field snapshot even if its original library entry was edited or deleted. UI, REST and MCP `battle_start` accept that snapshot as `rt_arena: {name, floor, rocks}`, using the existing arena validation without creating another library entry.
+
 Finished real-time replays and recorded clips apply a saved forfeit at its exact simulation tick. Seeking and restarting use the same reader. `battle_get` exposes the forfeiting side from the verified result, including older records with a saved forfeit reason and winner, without rewriting their data.
 
 Use **Edit name** beside a trainer's name to open and focus its editable Name field in Details and AI, then Save. Renaming keeps the same trainer, team and picture; REST/MCP use the existing `trainer_update` name field.
