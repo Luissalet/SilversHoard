@@ -16,6 +16,7 @@ import AiNotes from "../components/AiNotes.jsx";
 import VideoExport from "../components/VideoExport.jsx";
 import { CupStrip } from "./Copa.jsx";
 import { SaveExercise, ExerciseProgress, PracticeSuggestions } from "../components/Training.jsx";
+import { classicSeekIndex, replayPosition } from "../history-search.js";
 // the real-time screen carries the battle engine: loaded only when a real-time battle opens
 const CombateRt = lazyChunk(() => import("./CombateRt.jsx"));
 
@@ -73,7 +74,7 @@ function FriendResult({ battle }) {
   );
 }
 
-export default function Combate({ param }) {
+export default function Combate({ param, query }) {
   const { t, lang, sprites, settings, notify, toastError, changed, go, confirm } = useApp();
   const [speedMs, setSpeedMs] = useStored("silver-speed", settings.playback_ms || 900);
   const { data: battle, error, reload, setData } = useLoad(() => api.call("battle_get", { id: param, since: 0 }), [param]);
@@ -105,6 +106,13 @@ export default function Combate({ param }) {
     lengthRef.current = battle.log_length || lines.length;
     if (fresh && seats.p2?.dialogue?.intro) setBubble({ side: "p2", text: seats.p2.dialogue.intro, mood: "intro" });
   }, [battle?.id, battle?.status]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const searchTurn = replayPosition(query, 'classic')?.turn;
+  useEffect(() => {
+    if (battle?.status !== 'ended' || battle.mode === 'realtime' || searchTurn === undefined) return;
+    const at = classicSeekIndex(battle.lines || [], searchTurn);
+    if (at !== null) { player.seek(at, {play: false}); setBubble(null); }
+  }, [battle?.id, battle?.status, searchTurn]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // the rival talks: the lines the family's model writes for the AI's moves arrive while the battle is played back
   usePoll(async () => {
@@ -214,7 +222,7 @@ export default function Combate({ param }) {
   if (battle.mode === "realtime") {
     return (
       <React.Suspense fallback={<div className="flex items-center gap-2"><Spinner /> {t("rt_loading")}</div>}>
-        <CombateRt battle={battle} setData={setData} />
+        <CombateRt battle={battle} setData={setData} query={query} />
       </React.Suspense>
     );
   }

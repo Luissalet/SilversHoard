@@ -18,6 +18,7 @@ from .hoard_link.agentkit import uncapped  # noqa: F401 - re-exported for the UI
 from . import gymmap, hgss_rom
 from . import pokeathlon as pk
 from . import pokeathlon_rooms as pkr
+from . import battle_search
 from .services import Services
 
 AGENT_INSTRUCTIONS = """Silver's Hoard is a Pokémon battle simulator (Pokémon Showdown's engine, every generation). It keeps trainers (a name, a team, an AI level and style, an avatar and battle lines), gyms (a leader plus optional gym trainers, a badge and rules), leagues (gyms, an Elite Four and a champion) and every battle with its full log.
@@ -646,6 +647,18 @@ class BattlesArgs(BaseModel):
     trainer_id: str = Field("", max_length=80)
     limit: int = Field(30, ge=1, le=500)
     offset: int = Field(0, ge=0)
+
+
+class BattleSearchArgs(BaseModel):
+    species: str = Field('', max_length=100, description='Species name or part of its canonical name, not a nickname.')
+    move: str = Field('', max_length=100, description='English move name or canonical ID; searches actual uses, not team moves.')
+    trainer: str = Field('', max_length=160, description='Part of the saved trainer name. Species and move must belong to this side.')
+    format: str = Field('', max_length=100, description='Format ID or part of it, e.g. gen9doubles.')
+    result: Literal['', 'p1', 'p2', 'tie', 'won', 'lost'] = Field('', description='p1/p2 winner, tie, or won/lost from the matching trainer perspective (requires trainer).')
+    kind: str = Field('', max_length=20)
+    mode: Literal['', 'classic', 'realtime'] = ''
+    offset: int = Field(0, ge=0)
+    limit: int = Field(20, ge=1, le=100)
 
 
 class ChallengeArgs(BaseModel):
@@ -1347,6 +1360,13 @@ TOOLS: list[Tool] = [
     Tool("battles_list", _d("Battles: live, watched, gym, league, series, tournament, from friends. Historial de combates.",
                             synonyms="historial, repeticiones"), BattlesArgs, R,
          lambda s, a: {"battles": s.battles_list(a.kind, a.status, a.trainer_id, a.limit, a.offset)}),
+    Tool("battles_search", _d("Find saved replay events by species, move, trainer, format and result. Buscar repeticiones.",
+                              "AND filters refer to the same actor. Matches include turn or tick/seconds for paused replay links. "
+                              "won/lost require a trainer name; p1/p2 refer to the winning side. Reads every ended battle, "
+                              "then paginates results. Reports missing replays and ambiguous RT events; never executes or edits a battle. "
+                              "RT log times are rounded: tick points just before that moment. Each battle returns matches and match_count.",
+                              synonyms="historial, buscar combate, especie, movimiento, turno"), BattleSearchArgs, R,
+         lambda s, a: battle_search.search(s.store, s.battle_card, **a.model_dump())),
     Tool("battles_delete", _d("Delete finished battles and their logs. Borrar combates.", synonyms="limpiar historial"), IdsArg, D,
          lambda s, a: s.battles_delete(a.ids)),
     Tool("challenge_start", _d("Challenge a gym or a league with a trainer (you play, or the AI with auto). Retar gimnasio.",

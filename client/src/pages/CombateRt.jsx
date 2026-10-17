@@ -10,14 +10,16 @@ import { battleTitle, loc, winnerName } from "../loc.js";
 import { RunStrip } from "./Combate.jsx";
 import VideoExport from "../components/VideoExport.jsx";
 import { CupStrip } from "./Copa.jsx";
+import { replayPosition } from "../history-search.js";
 
 export { RtScreen };
 export { default as MassScreen } from "../battle/mass/MassScreen.jsx";   // mass battles (Campal.jsx) come with the same chunk     // the video page records a real-time replay with it (same chunk)
 
-export default function CombateRt({ battle, setData }) {
+export default function CombateRt({ battle, setData, query }) {
   const { t, lang, sprites, changed, go, settings } = useApp();
   const seats = useSeats(battle);
   const title = battleTitle(battle, lang);
+  const seekTick = battle.status === 'ended' ? replayPosition(query, 'realtime')?.tick ?? null : null;
   const humans = ["p1", "p2"].filter((s) => battle[s]?.human && !battle[s]?.remote);
   // a live battle against a friend on another computer: this screen plays its side and the friend's arrives through the room
   const remote = battle.p2?.remote ? "p2" : battle.p1?.remote ? "p1" : "";
@@ -92,7 +94,7 @@ export default function CombateRt({ battle, setData }) {
       <CupStrip cup={battle.cup} battle={battle} />
       {remote && battle.status === "live" && net?.missing && <div className="banner banner-warn">{t("pvp_room_gone")}</div>}
       {battle.status === "cancelled" ? <p className="help">{t("status_cancelled")}</p> : remote && battle.status === "live" && !net ? null : (
-        <RtScreen key={battle.id} battle={battle} lang={lang} sprites={sprites} seats={seats} onFinish={onFinish} onSave={onSave} musicSource={settings?.music_source}
+        <RtScreen key={`${battle.id}:${seekTick ?? 'start'}`} battle={battle} seekTick={seekTick} lang={lang} sprites={sprites} seats={seats} onFinish={onFinish} onSave={onSave} musicSource={settings?.music_source}
           endActions={battle.status === "ended" && battle.log_length > 0 ? <VideoExport battle={battle} /> : null}
           net={net?.url ? net : null}
           onAgain={!battle.run && !battle.cup && battle.kind !== "friend" && battle.kind !== "pvp" ? again : null} />
