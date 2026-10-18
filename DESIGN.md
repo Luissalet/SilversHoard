@@ -243,3 +243,9 @@ The report body uses a (.85rem) grid gap; actions wrap. Findings use two equal c
 Eleven local pixel-art motifs add 117 selected frames from the supplied Pokémon Mystery Dungeon: Explorers of Time/Darkness Dragon and Poison sheets, credited to redblueyellow. They reuse the shared real-time effect geometry, phases and presentation clock. Transparent square cells preserve source aspect ratio and anchors; pixel rendering remains unsmoothed. Exact coverage, source provenance and exclusions are recorded in `docs/DRAGON_POISON_SPRITES.md` and the shared material contract in `docs/SUPPLIED_SPRITES.md`. These are composed motifs rather than reconstructed cartridge choreography.
 
 Reduced motion uses the material's declared `still_frame`, selecting a visible stationary source frame; materials without that metadata retain frame zero. Normal animation, pause, speed changes and seek retain the existing renderer clock and queues. The same embedded material layer serves ordinary real-time battles, mass battles, recordings and standalone HTML, without the original sheets or Internet at runtime.
+
+## Portable battle asset extension
+
+Standalone battle exports embed the available presentation cache once, with URL aliases sharing the embedded bytes. The existing battle surfaces and controls retain their visual system; this asset-resolution contract leaves the ordinary app and live rooms unchanged. The export-time snapshot and presentation limits are documented in `docs/PORTABLE_ASSETS.md`.
+
+**The Portable Artwork Rule.** In generated standalone pages, prefer an embedded static Pokémon sprite when animated art is absent; otherwise show a local SVG disc with up to two uppercase label characters (or ?). Keep missing decorative images transparent and missing Reborn animations on Silver's existing fallback.
