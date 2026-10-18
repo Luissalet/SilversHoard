@@ -162,6 +162,11 @@
         "name": "The Rock Draw Scale Rule",
         "body": "Apply the declared display_scale uniformly to the existing material draw dimensions: 2.4× for Ancient Power, Rock Blast and Rollout, and 1.7× for Rock Tomb. These fixed values are scoped to the four local Rock atlases; materials without the metadata retain the shared 1× default. Preserve source pixels, atlas geometry, anchors and physical collision radii.",
         "section": "shapes"
+      },
+      {
+        "name": "The Paused Particle Rule",
+        "body": "In the shared real-time/classic/mass Vfx painter, advance procedural particle emission and lifecycle only when playback time advances. Zero-time redraws preserve existing particle positions and ages; resuming restores emission and decay.",
+        "section": "components"
       }
     ],
     "dos": [

@@ -273,3 +273,11 @@ The source-pixel preservation above applies to atlas construction. At render tim
 **The Rock Draw Scale Rule.** Apply the declared display_scale uniformly to the existing material draw dimensions: 2.4× for Ancient Power, Rock Blast and Rollout, and 1.7× for Rock Tomb. These fixed values are scoped to the four local Rock atlases; materials without the metadata retain the shared 1× default. Preserve source pixels, atlas geometry, anchors and physical collision radii.
 
 The read-only native sprite catalogue exposes `display_scale` alongside the existing frame and provenance metadata through the same UI/REST/MCP contract. The visible stationary `still_frame` continues to serve reduced motion; real-time, mass, standalone HTML and video share this presentation behavior.
+
+## Paused battle particle extension
+
+The Vfx painter shared by real-time, classic and mass battle renderers keeps paused projectiles and charge effects from accumulating procedural particles across repeated zero-time redraws. This behavior follows playback time and retains the inherited artwork, controls and visual styles.
+
+**The Paused Particle Rule.** In the shared real-time/classic/mass Vfx painter, advance procedural particle emission and lifecycle only when playback time advances. Zero-time redraws preserve existing particle positions and ages; resuming restores emission and decay.
+
+Zero-time public snapshots still reach supplied sprite effects before the procedural update stops, and explicit event bursts remain available when reconstructing a replay frame. This contract covers particle lifecycle: some procedural drawing retains visual jitter, so repeated paused draws need not have identical pixels. Simulation, damage, engine RNG, inputs and audio remain unchanged. Scope and regression details are documented in `docs/RT_PAUSE_PARTICLES.md`.
