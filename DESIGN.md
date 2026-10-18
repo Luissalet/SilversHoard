@@ -265,3 +265,11 @@ Four local pixel-art motifs select 29 interior frames from the supplied Pokémon
 **The Local Rock Material Rule.** Keep local Rock motifs in transparent square cells with recorded per-frame offsets and the flat teal key removed, preserving source pixels without rescaling; exclude separator lines, labels and ambiguous unbounded tiles. Reduced motion selects the most populated source frame through the shared still_frame contract.
 
 The four move profiles use their existing travel, impact, contact or area phases through the shared renderer in real-time battles, mass battles, standalone HTML and video. Presentation timing, pause and seek remain shared. The embedded materials need no original sheet or Internet at runtime; move shapes, availability, damage, RNG, replay versions and simulation rules remain unchanged.
+
+### Rock material visibility
+
+The source-pixel preservation above applies to atlas construction. At render time, per-atlas `display_scale` enlarges the sparse grey fragments for ordinary desktop and mobile viewing through the existing shared material stamp. Pixel smoothing remains disabled and the current projection is retained.
+
+**The Rock Draw Scale Rule.** Apply the declared display_scale uniformly to the existing material draw dimensions: 2.4× for Ancient Power, Rock Blast and Rollout, and 1.7× for Rock Tomb. These fixed values are scoped to the four local Rock atlases; materials without the metadata retain the shared 1× default. Preserve source pixels, atlas geometry, anchors and physical collision radii.
+
+The read-only native sprite catalogue exposes `display_scale` alongside the existing frame and provenance metadata through the same UI/REST/MCP contract. The visible stationary `still_frame` continues to serve reduced motion; real-time, mass, standalone HTML and video share this presentation behavior.

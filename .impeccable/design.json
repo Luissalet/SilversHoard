@@ -157,6 +157,11 @@
         "name": "The Local Rock Material Rule",
         "body": "Keep local Rock motifs in transparent square cells with recorded per-frame offsets and the flat teal key removed, preserving source pixels without rescaling; exclude separator lines, labels and ambiguous unbounded tiles. Reduced motion selects the most populated source frame through the shared still_frame contract.",
         "section": "shapes"
+      },
+      {
+        "name": "The Rock Draw Scale Rule",
+        "body": "Apply the declared display_scale uniformly to the existing material draw dimensions: 2.4× for Ancient Power, Rock Blast and Rollout, and 1.7× for Rock Tomb. These fixed values are scoped to the four local Rock atlases; materials without the metadata retain the shared 1× default. Preserve source pixels, atlas geometry, anchors and physical collision radii.",
+        "section": "shapes"
       }
     ],
     "dos": [
