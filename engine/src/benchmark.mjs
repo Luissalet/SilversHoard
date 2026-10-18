@@ -1,8 +1,9 @@
 // Compare several team variants against the same rivals with shared seeds (no new simulator: playOut / series machinery).
-import {EngineError} from './core.mjs';
+import {applyLevelRules, buildFormatId, EngineError, validateTeam} from './core.mjs';
 import {makeRng} from './ai.mjs';
 import {playOut} from './stats.mjs';
 import {eventLines, rtRun} from './realtime/sim.mjs';
+import {metagameThreats, sampleMetagame} from './metagame.mjs';
 
 function playAny(spec) {
   if (spec.mode === 'realtime') {
@@ -32,16 +33,28 @@ export function sharedSeeds(masterSeed, rivalCount, games) {
  */
 export function teamBenchmark(args = {}, onProgress = () => {}) {
   const variants = args.variants || [];
-  const rivals = args.rivals || [];
+  const metagame = args.rival_source === 'metagame';
+  let rivals = args.rivals || [];
   const games = Math.max(1, Math.min(Number(args.games) || 1, 50));
-  if (variants.length < 2) throw new EngineError('invalid', 'Pick at least two team variants to compare.');
-  if (!rivals.length) throw new EngineError('invalid', 'Pick at least one rival.');
+  if (variants.length < (metagame ? 1 : 2)) throw new EngineError('invalid', 'Pick at least two team variants to compare.');
+  if (!metagame && !rivals.length) throw new EngineError('invalid', 'Pick at least one rival.');
   const format = args.format || 'gen9customgame';
   const rules = args.rules || [];
   const level_rules = args.level_rules || {};
   const mode = args.mode === 'realtime' ? 'realtime' : 'classic';
   const masterSeed = resolveMasterSeed(args.seed);
-  const seeds = sharedSeeds(masterSeed, rivals.length, games);
+  const sample = metagame ? (args.sample || sampleMetagame(args.corpus || {}, {
+    seed: masterSeed, format, rules, level_rules,
+  })) : null;
+  if (metagame) rivals = sample.pool.map((r) => ({...r, ai: {level: args.rival_ai_level || 'normal'}}));
+  if (metagame) {
+    const formatId = buildFormatId(format, rules);
+    for (const team of [...variants, ...rivals]) {
+      const validation = validateTeam(formatId, applyLevelRules(team.sets, level_rules));
+      if (!validation.ok) throw new EngineError('invalid_team', `${team.name}: ${validation.problems.join(' ')}`);
+    }
+  }
+  const seeds = sharedSeeds(metagame ? `${masterSeed}:games` : masterSeed, rivals.length, games);
   const total = variants.length * rivals.length * games;
   let done = 0;
   const rows = [];
@@ -52,11 +65,13 @@ export function teamBenchmark(args = {}, onProgress = () => {}) {
     let losses = 0;
     let ties = 0;
     const perMon = {};
+    const opponents = [];
     for (let ri = 0; ri < rivals.length; ri++) {
       const rival = rivals[ri];
       let rw = 0;
       let rl = 0;
       let rt = 0;
+      const rivalObservations = [];
       for (let g = 0; g < games; g++) {
         const seed = seeds[ri][g];
         const spec = {
@@ -71,6 +86,11 @@ export function teamBenchmark(args = {}, onProgress = () => {}) {
         };
         const r = playAny(spec);
         const w = r.summary.winner_side || 'tie';
+        if (metagame) {
+          const pokemon = r.summary.sides.p2.pokemon;
+          opponents.push({sets: rival.sets, pokemon});
+          rivalObservations.push({winner_side: w, pokemon});
+        }
         if (w === 'p1') { rw++; wins++; }
         else if (w === 'p2') { rl++; losses++; }
         else { rt++; ties++; }
@@ -92,6 +112,7 @@ export function teamBenchmark(args = {}, onProgress = () => {}) {
         wins: rw, losses: rl, ties: rt,
         win_rate: played ? rw / played : 0,
         seeds: seeds[ri],
+        ...(metagame ? {observations: rivalObservations} : {}),
       });
     }
     const played = wins + losses + ties;
@@ -109,6 +130,7 @@ export function teamBenchmark(args = {}, onProgress = () => {}) {
       by_rival: byRival,
       mvp: mons[0] || null,
       pokemon: mons,
+      ...(metagame ? {threats: metagameThreats(opponents), played} : {}),
     });
   }
 
@@ -141,5 +163,7 @@ export function teamBenchmark(args = {}, onProgress = () => {}) {
     improved,
     worsened,
     hall_of_fame_touched: false,
+    ...(metagame ? {rival_source: 'metagame', metagame: sample, rival_ai_level: args.rival_ai_level || 'normal',
+      damage_unit: mode === 'realtime' ? 'opposing_team_hp_fraction' : 'pokemon_hp_bars'} : {}),
   };
 }
