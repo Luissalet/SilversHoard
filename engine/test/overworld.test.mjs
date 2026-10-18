@@ -34,3 +34,21 @@ test('exported sheets need no app and retain source and shiny attribution', asyn
   assert.equal(await sprites.walking('delphox-mega'), normal);
   assert.equal(await sprites.walking('missing-mega'), null);
 });
+
+test('eight-direction imported sheets retain every facing and use the walk clock', () => {
+  const previous = {Image: globalThis.Image, document: globalThis.document};
+  const draws = [];
+  globalThis.Image = class {set src(s) {this.width = 150; this.height = 320; this.onload?.();}};
+  globalThis.document = {createElement: () => ({getContext: () => ({drawImage() {}, fillRect() {}})})};
+  try {
+    const frames = Array.from({length: 8}, (_, r) => [0, 1, 2, 1].map(c => [c * 50, r * 40, 50, 40]));
+    const a = new OverworldAnimator({url: 'sheet:swampert812', directions: 8, frames});
+    const ctx = {globalAlpha: 1, drawImage: (...args) => draws.push(args)};
+    a.loop('Walk'); a.update(.15);
+    for (let row = 0; row < 8; row++) {
+      assert.equal(a.draw(ctx, 100, 80, row, 1), true);
+      assert.deepEqual(draws.at(-1).slice(1, 5), [50, row * 40, 50, 40]);
+    }
+    assert.equal(a.has('Attack'), false);
+  } finally {Object.assign(globalThis, previous);}
+});

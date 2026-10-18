@@ -42,7 +42,8 @@ export class OverworldAnimator extends Animator {
   draw(ctx, x, y, row, k, {alpha = 1, flash = 0} = {}) {
     const art = artwork(this.meta);
     if (!art) return false;
-    const [sx, sy, w, h] = this.meta.frames[DIRECTIONS[row] ?? 0][this.cur === 'Walk' ? this.frame : 0];
+    const direction = this.meta.directions === 8 ? row : DIRECTIONS[row];
+    const [sx, sy, w, h] = this.meta.frames[direction ?? 0][this.cur === 'Walk' ? this.frame : 0];
     const scale = k * 48 / w;
     const dest = [Math.round(x - w * .5 * scale), Math.round(y - h * .95 * scale), w * scale, h * scale];
     const before = ctx.globalAlpha;
