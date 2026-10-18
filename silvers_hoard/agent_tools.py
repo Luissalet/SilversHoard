@@ -793,8 +793,11 @@ class TournamentArgs(BaseModel):
 
 
 class BenchmarkArgs(BaseModel):
-    variant_ids: list[str] = Field(..., min_length=2, max_length=8, description="Team variants to compare (trainers). The first is the reference unless reference_id says otherwise.")
-    rival_ids: list[str] = Field(..., min_length=1, max_length=16, description="Rivals every variant faces with the same seeds.")
+    variant_ids: list[str] = Field(..., min_length=1, max_length=8, description="Saved candidates: at least two for trainer comparison, or one for a metagame sample. First is the reference.")
+    rival_ids: list[str] = Field(default_factory=list, max_length=16, description="Saved rivals for trainer comparison (at least one). Unused for a metagame sample.")
+    rival_source: Literal["trainers", "metagame"] = Field("trainers", description="trainers = existing A/B comparison; metagame = 100 distinct legal teams generated from usage and popular sets, not observed full rosters.")
+    rival_ai_level: Literal["normal", "hard", "expert"] = Field("normal", description="Opponent AI for the generated metagame pool; expert is optional and slower.")
+    sample_job_id: str = Field("", max_length=80, description="Reuse the exact pool of a completed metagame job with matching format, rules, levels and mode; no provider fetch. Empty seed reuses its seed.")
     reference_id: str = Field("", max_length=80, description="Which variant is the baseline for deltas (empty = first of variant_ids).")
     games: int = Field(1, ge=1, le=50, description="Battles per variant×rival with shared seeds.")
     format: str = Field("", max_length=120)
@@ -1474,13 +1477,16 @@ TOOLS: list[Tool] = [
          lambda s, a: s.tournament_start(trainer_ids=a.trainer_ids, kind=a.kind, best_of=a.best_of, format_=a.format, rules=a.rules,
                                          level_rules=a.level_rules, title=a.title, ai_level=a.ai_level or "", mode=a.mode, time_limit=a.time_limit,
                                          rt_arena=a.rt_arena)),
-    Tool("benchmark_start", _d("Compare team variants vs the same rivals with shared seeds (deltas vs a reference; a job). Comparar equipos.",
+    Tool("benchmark_start", _d("Compare teams against saved rivals or 100 generated metagame teams; shared seeds and a job. Comparar equipos.",
                                "Shows wins/losses/ties per rival, win-rate delta against the reference, and which variants improved or worsened. "
-                               "Does not write the hall of fame or competitive records.",
-                               synonyms="banco de pruebas, comparar variantes, mismos rivales"), BenchmarkArgs, W,
+                               "Metagame mode accepts one candidate, freezes its usage/set corpus and exact opponent pool, and ranks three threats "
+                               "by actual engine-summary KOs and damage with roster appearances. May return an explicitly incomplete sample. "
+                               "Does not write the hall of fame or competitive records. Reuse a saved sample with sample_job_id.",
+                               synonyms="banco de pruebas, comparar variantes, mismos rivales, metajuego, cien equipos"), BenchmarkArgs, W,
          lambda s, a: s.benchmarks.start(variant_ids=a.variant_ids, rival_ids=a.rival_ids, reference_id=a.reference_id, games=a.games,
                                          format_=a.format, rules=a.rules, level_rules=a.level_rules, seed=a.seed, ai_level=a.ai_level or "",
-                                         mode=a.mode, time_limit=a.time_limit, rt_arena=a.rt_arena)),
+                                         mode=a.mode, time_limit=a.time_limit, rt_arena=a.rt_arena,
+                                         rival_source=a.rival_source, rival_ai_level=a.rival_ai_level, sample_job_id=a.sample_job_id)),
     Tool("cup_start", _d("A knockout cup with a live bracket: pick trainers or draw them at random, and play your matches. Copa.",
                          "The AI plays every match that is not yours in the background, one after another (pace seconds apart), so "
                          "cup_get shows the bracket filling in. With human_id your matches wait for cup_play (turns or real time) or "
