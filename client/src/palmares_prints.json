@@ -1,0 +1,136 @@
+{
+  "by_facility": {
+    "arcade": {
+      "21": "silver",
+      "49": "gold"
+    },
+    "arcade4": {
+      "21": "silver",
+      "49": "gold"
+    },
+    "castle": {
+      "21": "silver",
+      "49": "gold"
+    },
+    "castle4": {
+      "21": "silver",
+      "49": "gold"
+    },
+    "factory": {
+      "21": "silver",
+      "49": "gold"
+    },
+    "factory4": {
+      "21": "silver",
+      "49": "gold"
+    },
+    "hall": {
+      "50": "silver",
+      "170": "gold"
+    },
+    "hall4": {
+      "50": "silver",
+      "170": "gold"
+    },
+    "maison_double": {
+      "20": "silver",
+      "50": "gold"
+    },
+    "maison_single": {
+      "20": "silver",
+      "50": "gold"
+    },
+    "subway_double": {
+      "21": "silver",
+      "49": "gold"
+    },
+    "subway_single": {
+      "21": "silver",
+      "49": "gold"
+    },
+    "tower": {
+      "21": "silver",
+      "49": "gold"
+    },
+    "tower3": {
+      "35": "silver",
+      "70": "gold"
+    },
+    "tower4": {
+      "21": "silver",
+      "49": "gold"
+    },
+    "tower8": {
+      "10": "silver",
+      "20": "unknown",
+      "30": "unknown",
+      "40": "unknown",
+      "50": "gold"
+    },
+    "tree_double": {
+      "20": "silver",
+      "50": "gold"
+    },
+    "tree_single": {
+      "20": "silver",
+      "50": "gold"
+    }
+  },
+  "by_character": {
+    "anabel": {
+      "35": "silver",
+      "70": "gold"
+    },
+    "argenta": {
+      "50": "silver",
+      "170": "gold"
+    },
+    "blue": {
+      "20": "silver",
+      "50": "gold"
+    },
+    "dahlia": {
+      "21": "silver",
+      "49": "gold"
+    },
+    "darach": {
+      "21": "silver",
+      "49": "gold"
+    },
+    "emmet": {
+      "21": "silver",
+      "49": "gold"
+    },
+    "evelyn": {
+      "20": "silver",
+      "50": "gold"
+    },
+    "ingo": {
+      "21": "silver",
+      "49": "gold"
+    },
+    "leon": {
+      "10": "silver",
+      "20": "unknown",
+      "30": "unknown",
+      "40": "unknown",
+      "50": "gold"
+    },
+    "nita": {
+      "20": "silver",
+      "50": "gold"
+    },
+    "palmer": {
+      "21": "silver",
+      "49": "gold"
+    },
+    "red": {
+      "20": "silver",
+      "50": "gold"
+    },
+    "thorton": {
+      "21": "silver",
+      "49": "gold"
+    }
+  }
+}

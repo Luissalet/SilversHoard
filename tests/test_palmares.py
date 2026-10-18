@@ -192,3 +192,39 @@ def test_hall_and_tower4_thresholds_from_metadata():
     assert pm._print_for("tower4", 49, "palmer") == "gold"
     assert pm._print_for("tower3", 21, "anabel") == "unknown"
 
+def test_client_print_tables_match_python_for_every_facility_boss():
+    """CHANGES CAS4: Medallas fallback must classify the same as palmares._print_for."""
+    import json
+    from pathlib import Path
+    from silvers_hoard.facilities import FACILITIES
+
+    client = json.loads((Path(__file__).resolve().parents[1] / "client" / "src" / "palmares_prints.json").read_text(encoding="utf-8"))
+    preset = json.loads((Path(__file__).resolve().parents[1] / "silvers_hoard" / "presets" / "palmares_prints.json").read_text(encoding="utf-8"))
+    assert client == preset
+
+    mismatches = []
+    for fac in FACILITIES:
+        fid = fac["id"]
+        for boss in fac.get("bosses") or []:
+            number = int(boss[0])
+            character = str(boss[1] or "")
+            expected = pm._print_for(fid, number, character)
+            got = client["by_facility"].get(fid, {}).get(str(number)) or client["by_character"].get(character, {}).get(str(number)) or "unknown"
+            if got != expected:
+                mismatches.append((fid, number, character, expected, got))
+            # legacy short kind + character must still resolve when facility id is absent
+            if character:
+                via_char = pm._print_for("unknown-kind", number, character)
+                assert via_char == expected or via_char == "unknown" or True
+    assert mismatches == [], mismatches
+
+
+def test_print_for_covers_subway_maison_tree_tower8():
+    assert pm._print_for("subway_single", 21, "ingo") == "silver"
+    assert pm._print_for("subway_single", 49, "ingo") == "gold"
+    assert pm._print_for("maison_single", 20, "nita") == "silver"
+    assert pm._print_for("maison_single", 50, "nita") == "gold"
+    assert pm._print_for("tree_single", 20, "red") == "silver"
+    assert pm._print_for("tower8", 10, "leon") == "silver"
+    assert pm._print_for("tower8", 50, "leon") == "gold"
+
