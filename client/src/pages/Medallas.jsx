@@ -8,34 +8,19 @@ import { useCopilotRefresh } from "../components/hooks.js";
 import { Avatar, GymBadge, MonIcon, TrainerSelect } from "../components/silver.jsx";
 import { MedalBadge } from "../pokeathlon/parts.jsx";
 import { loc } from "../loc.js";
+import palmaresPrints from "../palmares_prints.json";
 
 const STAT_BITS = ["speed", "power", "skill", "stamina", "jump"];
 const MEDAL_BITS = { speed: 1, power: 2, skill: 4, stamina: 8, jump: 16 };
-// Facility-id and character maps mirror silvers_hoard/palmares.py (from facilities.FACILITIES).
-const PRINT_AT_FACILITY = {
-  tower3: { 35: "silver", 70: "gold" },
-  tower4: { 21: "silver", 49: "gold" },
-  tower: { 21: "silver", 49: "gold" },
-  factory: { 21: "silver", 49: "gold" },
-  factory4: { 21: "silver", 49: "gold" },
-  arcade: { 21: "silver", 49: "gold" },
-  arcade4: { 21: "silver", 49: "gold" },
-  castle: { 21: "silver", 49: "gold" },
-  castle4: { 21: "silver", 49: "gold" },
-  hall: { 50: "silver", 170: "gold" },
-  hall4: { 50: "silver", 170: "gold" },
-};
-const PRINT_AT_CHARACTER = {
-  anabel: { 35: "silver", 70: "gold" },
-  palmer: { 21: "silver", 49: "gold" },
-  argenta: { 50: "silver", 170: "gold" },
-};
+// Same tables as silvers_hoard.palmares.PRINT_AT_* (generated from facilities.FACILITIES).
+const PRINT_AT_FACILITY = palmaresPrints.by_facility;
+const PRINT_AT_CHARACTER = palmaresPrints.by_character;
 
 function brainPrint(kind, number, character) {
   const byKind = PRINT_AT_FACILITY[kind];
-  if (byKind && byKind[number]) return byKind[number];
+  if (byKind && byKind[String(number)]) return byKind[String(number)];
   const byChar = character && PRINT_AT_CHARACTER[character];
-  if (byChar && byChar[number]) return byChar[number];
+  if (byChar && byChar[String(number)]) return byChar[String(number)];
   return "unknown";
 }
 
