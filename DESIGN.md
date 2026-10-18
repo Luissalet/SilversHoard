@@ -257,3 +257,11 @@ Finished real-time replays add a native frame-range cursor and labelled minus/pl
 **The Replay Seek Rule.** Stop playback at the reconstructed replay frame, retain the selected playback speed and historical log, and clear old move effects, ability banners and Mega notices instead of replaying them in a burst.
 
 The shared replay helper reconstructs saved specification, seed and inputs, clamps seeks to the saved end, and applies recorded forfeits at their saved frame, including tick zero. The read-only native `battle_rt_inspect` tool exposes the same public snapshot and a replay-position link without modifying the saved battle or records. Video capture retains its existing progress display and recording controls. Functional reconstruction details and limits are documented in `docs/RT_REPLAY_SEEK.md`.
+
+## Local Rock material extension
+
+Four local pixel-art motifs select 29 interior frames from the supplied Pokémon Mystery Dungeon: Red Rescue Team Rock-Type Moves sheet, credited to redblueyellow: Ancient Power (6), Rock Blast (7), Rock Tomb (9) and Rollout (7). They extend the existing supplied-material layer and its pixel rendering. Source rectangles, offsets, provenance and selection limits are documented in `docs/ROCK_SPRITES.md`; these composed motifs do not reconstruct the cartridge's complete choreography or every tile on the sheet.
+
+**The Local Rock Material Rule.** Keep local Rock motifs in transparent square cells with recorded per-frame offsets and the flat teal key removed, preserving source pixels without rescaling; exclude separator lines, labels and ambiguous unbounded tiles. Reduced motion selects the most populated source frame through the shared still_frame contract.
+
+The four move profiles use their existing travel, impact, contact or area phases through the shared renderer in real-time battles, mass battles, standalone HTML and video. Presentation timing, pause and seek remain shared. The embedded materials need no original sheet or Internet at runtime; move shapes, availability, damage, RNG, replay versions and simulation rules remain unchanged.

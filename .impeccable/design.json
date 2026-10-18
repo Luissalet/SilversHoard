@@ -152,6 +152,11 @@
         "name": "The Replay Seek Rule",
         "body": "Stop playback at the reconstructed replay frame, retain the selected playback speed and historical log, and clear old move effects, ability banners and Mega notices instead of replaying them in a burst.",
         "section": "components"
+      },
+      {
+        "name": "The Local Rock Material Rule",
+        "body": "Keep local Rock motifs in transparent square cells with recorded per-frame offsets and the flat teal key removed, preserving source pixels without rescaling; exclude separator lines, labels and ambiguous unbounded tiles. Reduced motion selects the most populated source frame through the shared still_frame contract.",
+        "section": "shapes"
       }
     ],
     "dos": [
