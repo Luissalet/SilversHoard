@@ -249,3 +249,11 @@ Reduced motion uses the material's declared `still_frame`, selecting a visible s
 Standalone battle exports embed the available presentation cache once, with URL aliases sharing the embedded bytes. The existing battle surfaces and controls retain their visual system; this asset-resolution contract leaves the ordinary app and live rooms unchanged. The export-time snapshot and presentation limits are documented in `docs/PORTABLE_ASSETS.md`.
 
 **The Portable Artwork Rule.** In generated standalone pages, prefer an embedded static Pokémon sprite when animated art is absent; otherwise show a local SVG disc with up to two uppercase label characters (or ?). Keep missing decorative images transparent and missing Reborn animations on Silver's existing fallback.
+
+## Real-time replay inspection extension
+
+Finished real-time replays add a native frame-range cursor and labelled minus/plus five-second buttons beside the inherited restart, pause/play and speed controls. The cursor advances one simulator tick (1/30 second), supports keyboard arrows, Home and End, uses a translated accessible name, and exposes the selected time through aria-valuetext. Current/end times display minutes, seconds and hundredths using tabular numerals. The range has a (44px) interaction height, the existing battle accent and a (2px) focus outline with a (2px) offset; its flexible label keeps a (140px) minimum width. Spanish and English controls use the existing translation system.
+
+**The Replay Seek Rule.** Stop playback at the reconstructed replay frame, retain the selected playback speed and historical log, and clear old move effects, ability banners and Mega notices instead of replaying them in a burst.
+
+The shared replay helper reconstructs saved specification, seed and inputs, clamps seeks to the saved end, and applies recorded forfeits at their saved frame, including tick zero. The read-only native `battle_rt_inspect` tool exposes the same public snapshot and a replay-position link without modifying the saved battle or records. Video capture retains its existing progress display and recording controls. Functional reconstruction details and limits are documented in `docs/RT_REPLAY_SEEK.md`.

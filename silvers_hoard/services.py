@@ -2064,6 +2064,17 @@ class Services:
             out["cup"] = self.cups.battle_link(b["run_id"])
         return out
 
+    def rt_inspect(self, id_: str, tick: int = 0) -> dict[str, Any]:
+        """Rebuild a finished replay at a frame without writing records or progress."""
+        b = self.store.battle(id_)
+        if b.get("mode") != "realtime" or b.get("status") != "ended":
+            raise SilverError("invalid", "Inspection requires a finished real-time battle.")
+        data = self.battle_get(id_)
+        rt = data["rt"]
+        frame = self.engine.call("rt_inspect", {"spec": rt["spec"], "record": rt, "tick": tick,
+                                              "seconds": (data.get("summary") or {}).get("seconds", 0)}, timeout=120)
+        return {"id": id_, **frame, "ui_url": f"/#/combate/{id_}?tick={frame['tick']}"}
+
     def rt_save(self, id_: str, *, inputs: list[list[Any]], tick: int) -> dict[str, Any]:
         """The screen keeps the inputs of a live real-time battle here as it goes, so a reload picks the battle up where it was."""
         b = self.store.battle(id_)

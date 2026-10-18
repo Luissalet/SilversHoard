@@ -822,6 +822,9 @@ export class ArenaRenderer {
     if (!mon) return;
     if (this.show.hides(key)) return;   // still inside the Poké Ball that is flying in
     const fade = this.fade[key];
+    // A seek has no pending faint event. Only a consumed live/replay faint starts a fade;
+    // a fainted snapshot must stay hidden even when the paused renderer receives dt = 0.
+    if (mon.fainted && fade.slot !== side.active) return;
     const mega = !!mon.is_mega || (mon.fainted && fade.slot === side.active && !!fade.mega);
     const lookKey = `${side.active}:${mega ? 1 : 0}`;
     if (this.lastActive[key] !== lookKey) {
