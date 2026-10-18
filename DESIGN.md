@@ -281,3 +281,35 @@ The Vfx painter shared by real-time, classic and mass battle renderers keeps pau
 **The Paused Particle Rule.** In the shared real-time/classic/mass Vfx painter, advance procedural particle emission and lifecycle only when playback time advances. Zero-time redraws preserve existing particle positions and ages; resuming restores emission and decay.
 
 Zero-time public snapshots still reach supplied sprite effects before the procedural update stops, and explicit event bursts remain available when reconstructing a replay frame. This contract covers particle lifecycle: some procedural drawing retains visual jitter, so repeated paused draws need not have identical pixels. Simulation, damage, engine RNG, inputs and audio remain unchanged. Scope and regression details are documented in `docs/RT_PAUSE_PARTICLES.md`.
+
+## Type challenge extension
+
+This scoped Facilities addition records `client/src/pages/TypeChallenge.jsx`, its placement above the daily challenge in `Instalaciones.jsx`, and `client/src/type-challenge.css`. It inherits the warm dark/crimson system, shared panel, native fields, buttons and type markers. The final desktop (1280×720) and mobile (390×640, reduced motion) captures confirm setup, questions, feedback and results. Functional scope and calculation limits belong in `docs/TYPE_CHALLENGE.md`.
+
+### Components
+
+The panel begins with a compact sans-serif section title, short instructions and a visible type-chart-only explanation. Labelled native selects choose generation (1–9) and one or two defensive types; an optional text seed accompanies the start action. The active question retains the selected generation and mode above an encounter/current-streak row and native progress indicator. Progress uses the accent and the shared dividing-border color, with a (.45rem) height and (3px) corners. Numeric streaks and formulas use tabular figures.
+
+The question heading uses (1.2rem) text and receives programmatic keyboard focus at each new question and at the result. A (2px) accent outline with a (5px) offset makes this focus visible. Defensive type names and answer labels pair text with small circular markers (.7rem) from the existing type colors; marker color supplements the readable names. Four native answer buttons form a labelled group. After an answer, all options remain fully opaque and disabled; the chosen option exposes `aria-pressed`. The best answer gains an accent border, a surface mixed with (14% accent) and its explicit multiplier. An incorrect chosen answer gains a danger border and its own multiplier.
+
+The status feedback follows a thin shared divider and states whether the choice is correct. It spells out each defensive-type factor and the resulting multiplier; an incorrect choice also shows the best formula. A brief opacity change from (.4) to (1) lasts (180ms), with ease-out timing. Reduced motion removes this animation. Next encounter / See result and End practice actions remain explicit; failures use the inherited alert with Retry, retaining the pending answer or start seed. Loading retains native disabled controls.
+
+Results show the correct count, best streak for the current attempt, generation/mode and a numbered review of mistakes with both formulas. Repeat this challenge reuses the deck; a native disclosure reveals its seed. The setup remains available for another challenge. A persistent help line explains that this page-scoped practice creates no battle or history entry. Spanish and English use the existing translation system.
+
+**The Type Challenge Contrast Rule.** Within the type challenge panel, use white labels on the inherited accent mixed with black (90% accent at rest, 85% on hover), retaining the shared accent border and focus treatment. These local primary fills provide measured contrast of 4.95:1 and 5.44:1; separators use `--line`. Keep the global palette and other screens' button variants unchanged.
+
+### Layout
+
+The panel uses (1.25rem) padding. Instructions are bounded by (75ch). Setup fields wrap with a (.8rem) gap and a (10rem) flexible basis; the seed has a (15rem) basis. The answer grid has four equal columns with (.65rem) gaps and (52px) minimum-height buttons. Actions wrap with (.6rem) gaps. Feedback and result review stay in normal flow, using thin border separators rather than additional cards or overlays; long formulas and seeds wrap anywhere.
+
+At (768px) and below, panel padding becomes (1rem), the answer grid has two equal columns and answer/action buttons have a (44px) minimum height. Setup fields use a (9rem) basis; the seed and start action span the row. Question and result headings use `scroll-margin-top: calc(98px + 1rem)` so focus clears the fixed mobile header. Live DOM evidence at (390×640) confirms both focused headings remain below that header without manual scrolling.
+
+**The Type Challenge Focus Rule.** Focus the question or result heading after a deck, encounter or completion change, preserve its visible accent outline, and retain mobile scroll clearance beneath the fixed header.
+
+## Local Dark material extension
+
+Five motifs select 30 frames from the supplied Pokémon Mystery Dungeon: Red Rescue Team Dark-Type Moves sheet, credited to redblueyellow: Bite jaws (10), Crunch jaws (5), Knock Off claws (3), Pursuit column (5) and Torment seal (7). They extend the existing pixel-material system; the contact sheet and captured Crunch video frame confirm the actual art. Source rectangles, offsets, provenance and selection limits are recorded in `docs/DARK_SPRITES.md`.
+
+**The Local Dark Material Rule.** Remove the flat teal key and preserve source pixels in transparent square cells without rescaling. Retain recorded crop offsets and a visible `still_frame` for reduced motion. Apply `display_scale` only when drawing: 2.4× for Bite, Crunch, Knock Off and Torment; 1.8× for Pursuit. Preserve atlas geometry, anchors, pixel rendering and collision dimensions.
+
+The first four motifs use their existing contact/impact texture phases; Torment retains the existing wave phases. The shared presentation clock, pause, speed and seek behavior serve real-time, mass, classic effects, portable HTML and recorded video. These composed motifs do not reconstruct cartridge emitter programs. Their embedded PNGs require no original sheet or Internet at runtime; simulation rules remain unchanged.
