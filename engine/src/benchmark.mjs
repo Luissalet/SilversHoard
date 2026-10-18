@@ -82,8 +82,9 @@ export function teamBenchmark(args = {}, onProgress = () => {}) {
           arena: args.arena || '',
           version: args.version || 0,
           silver_special: args.silver_special,
-          p1: {name: variant.name, sets: variant.sets, ai: variant.ai},
-          p2: {name: rival.name, sets: rival.sets, ai: rival.ai},
+          // Generated labels may equal a saved candidate's name; the summary resolves winners by player name.
+          p1: {name: metagame ? 'p1' : variant.name, sets: variant.sets, ai: variant.ai},
+          p2: {name: metagame ? 'p2' : rival.name, sets: rival.sets, ai: rival.ai},
         };
         const r = playAny(spec);
         const w = r.summary.winner_side || 'tie';

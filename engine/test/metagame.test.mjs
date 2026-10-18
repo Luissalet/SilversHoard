@@ -123,6 +123,17 @@ test('threats in a real hundred-battle run are recoverable from each opponent co
   assert.equal(result.damage_unit,'pokemon_hp_bars');
 });
 
+test('a saved candidate named like a generated rival does not receive that rivals win',()=>{
+  const attacking={...corpus,entries:corpus.entries.map((e)=>({...e,sets:e.sets.map((s)=>({...s,moves:['Tackle']}))}))};
+  const result=teamBenchmark({rival_source:'metagame',corpus:attacking,seed:'name728',format:'gen9customgame',games:1,max_turns:3,
+    variants:[{id:'candidate',name:'meta-001',sets:[{species:'Magikarp',level:1,moves:['Splash']}]}]});
+  assert.equal(result.variants[0].wins,0);
+  assert.equal(result.variants[0].losses,100);
+  assert.equal(result.variants[0].by_rival[0].observations[0].winner_side,'p2');
+  assert.equal(result.variants[0].name,'meta-001');
+  assert.equal(result.rivals[0].name,'meta-001');
+});
+
 test('real-time metagame results preserve their own damage units and game cardinality',()=>{
   const attacking={...corpus,entries:corpus.entries.map((e)=>({...e,sets:e.sets.map((s)=>({...s,moves:['Tackle']}))}))};
   const result=teamBenchmark({rival_source:'metagame',corpus:attacking,seed:'rt-meta728',format:'gen9customgame',
