@@ -1,0 +1,17 @@
+export default {
+  daily_title: ["Reto del día", "Daily challenge"],
+  daily_intro: ["Elige tres de los seis Pokémon de alquiler y gana siete combates seguidos a nivel 50. La fecha fija los equipos y las condiciones del reto para todos los participantes.", "Pick three of six rental Pokémon and win seven consecutive battles at level 50. The date fixes the teams and challenge conditions for every participant."],
+  daily_date: ["Fecha del reto", "Challenge date"],
+  daily_today: ["Hoy", "Today"],
+  daily_loading: ["Preparando los equipos de esta fecha…", "Preparing this date's teams…"],
+  daily_rentals: ["Los seis Pokémon de alquiler de esta fecha", "This date's six rental Pokémon"],
+  daily_play: ["Jugar reto", "Play challenge"],
+  daily_export: ["Preparar HTML para compartir", "Prepare shareable HTML"],
+  daily_board: ["Clasificación de esta fecha", "This date's leaderboard"],
+  daily_empty: ["Aún no hay resultados guardados para esta fecha. Juega aquí o importa el código de un intento compartido.", "No saved results for this date yet. Play here or import a shared attempt's result code."],
+  daily_score: ["{n} de 7 victorias", "{n} of 7 wins"],
+  daily_saving: ["Verificando los combates y guardando el resultado…", "Verifying the battles and saving the result…"],
+  daily_saved: ["Resultado verificado y guardado en la clasificación de esta fecha.", "Result verified and saved to this date's leaderboard."],
+  daily_retry: ["Reintentar guardar el resultado", "Retry saving the result"],
+  daily_result_help: ["Al terminar un intento, su código se importa aquí automáticamente. El HTML compartido también permite copiar el código e importarlo en Silver.", "A finished attempt's code is imported here automatically. The shared HTML also lets you copy its code and import it into Silver."],
+};

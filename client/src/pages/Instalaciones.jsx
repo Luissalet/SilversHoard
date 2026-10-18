@@ -12,6 +12,7 @@ import { Avatar, TrainerSelect } from "../components/silver.jsx";
 import ModeFields from "../battle/rt/ModeFields.jsx";
 import { L } from "../battle/dex.js";
 import PlaceFilters, { matchesPlace } from "../components/PlaceFilters.jsx";
+import DailyChallenge from "./DailyChallenge.jsx";
 
 const S = {
   title: ["Instalaciones de combate", "Battle facilities"],
@@ -169,7 +170,7 @@ function StartDialog({ facility, trainerId, onClose }) {
   );
 }
 
-export default function Instalaciones() {
+export default function Instalaciones({ query }) {
   const { lang, go, changed } = useApp();
   const s = (k, v) => fill(L(S[k], lang), v);
   const [trainerId, setTrainerId] = useStored("silver-facility-trainer", "");
@@ -191,6 +192,7 @@ export default function Instalaciones() {
   return (
     <div className="space-y-4">
       <div className="page-head"><div className="min-w-0"><h1>{s("title")}</h1><p className="help">{s("intro")}</p></div></div>
+      <DailyChallenge initialDay={query?.get("daily") || ""} />
       <div className="max-w-md"><TrainerSelect value={trainerId} onChange={setTrainerId} label={s("trainer")} /></div>
       {data?.facilities?.length > 0 && <PlaceFilters list={data.facilities} {...{ region, setRegion, game, setGame }} />}
       {!trainerId && <p className="help">{s("all")}</p>}

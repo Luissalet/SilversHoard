@@ -9,6 +9,7 @@ import PVP_STRINGS from "./pages/pvp-strings.js";
 import MASS_STRINGS from "./pages/mass-strings.js";
 import FRIENDS_STRINGS from "./pages/friends-strings.js";
 import LEISURE_STRINGS from "./pages/leisure-strings.js";
+import DAILY_STRINGS from "./pages/daily-strings.js";
 
 const D = {
   poster_button: ["Póster PNG", "PNG poster"],
@@ -1009,6 +1010,7 @@ Object.assign(D, TRAINING_STRINGS);
 Object.assign(D, PVP_STRINGS);
 Object.assign(D, MASS_STRINGS);
 Object.assign(D, FRIENDS_STRINGS);
+Object.assign(D, DAILY_STRINGS);
 
 export function saveLang(lang) {
   try {
