@@ -66,8 +66,9 @@ export function teamBenchmark(args = {}, onProgress = () => {}) {
           arena: args.arena || '',
           version: args.version || 0,
           silver_special: args.silver_special,
-          p1: {name: variant.name, sets: variant.sets, ai: variant.ai},
-          p2: {name: rival.name, sets: rival.sets, ai: rival.ai},
+          // Internal seat identities must remain distinct even when public trainer names match.
+          p1: {name: 'p1', sets: variant.sets, ai: variant.ai},
+          p2: {name: 'p2', sets: rival.sets, ai: rival.ai},
         };
         const r = playAny(spec);
         const w = r.summary.winner_side || 'tie';
