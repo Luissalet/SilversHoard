@@ -59,9 +59,10 @@ class DailyChallenge:
 
     def export(self, day: str = "") -> dict[str, Any]:
         spec = self.spec(day)
+        opponents = [{**o, "ai": {"level": o["ai_level"], "style": o["ai_style"]}} for o in spec["opponents"]]
         gym = {"source_id": spec["id"], "name": f"Daily challenge {spec['day']}", "owner": "",
                "format": spec["format"], "rules": spec["rules"], "level_rules": spec["level_rules"],
-               "trainers": spec["opponents"][:-1], "leader": spec["opponents"][-1], "badge": "", "badge_color": "#e3424f"}
+               "trainers": opponents[:-1], "leader": opponents[-1], "badge": "", "badge_color": "#e3424f"}
         data = {"kind": "gym", "payload": {"gym": gym}, "from": self.s.settings["player_name"],
                 "app_version": __version__, "sprite_server": self.s.settings["sprite_server"], "sprite_set": self.s.settings["sprite_set"],
                 "mode": "turns", "ai_version": spec["ai_version"], "daily": spec}

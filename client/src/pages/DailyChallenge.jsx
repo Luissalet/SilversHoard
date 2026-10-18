@@ -3,6 +3,7 @@ import { api } from "../api.js";
 import { useApp } from "../context.js";
 import { Busy, ErrorBox, Field, Modal, useBusy, useLoad } from "../components/ui.jsx";
 import { MonIcon } from "../components/silver.jsx";
+import { useCopilotRefresh } from "../components/hooks.js";
 
 export default function DailyChallenge({ initialDay = "" }) {
   const { t, lang, changed } = useApp();
@@ -15,6 +16,7 @@ export default function DailyChallenge({ initialDay = "" }) {
   const [busy, run] = useBusy();
   const frame = useRef(null), queue = useRef(Promise.resolve());
   const { data, loading, error, reload } = useLoad(() => api.call("daily_challenge", { day }), [day]);
+  useCopilotRefresh(reload);
   useEffect(() => { setDay(initialDay); }, [initialDay]);
   const ready = data && !loading && !error && data.day === (day || data.current_day);
   const exportPage = async (play) => {
