@@ -12,7 +12,7 @@ import {realtimeAbility} from "../../../../engine/src/ability-events.mjs";
 import { appCryUrl } from "../sfx.js";
 import { battleEnd, battleRole, battleType, genOfFormat, music, pickTrack } from "../../audio.js";
 import { CONTROL_LAYOUTS, makeInputs } from "./input.js";
-import { createReplay, stepReplay } from "./replay.js";
+import { createReplay, stepReplay, replayEndTick } from "./replay.js";
 import { rtT } from "./strings.js";
 import { NetLink, battleHash, packFrame, unpackFrame } from "./netplay.js";
 import { worldInput } from "./portrait-camera.js";
@@ -25,6 +25,11 @@ const HUD_MS = 100;
 function fmtTime(s) {
   const v = Math.max(0, Math.ceil(s));
   return `${Math.floor(v / 60)}:${String(v % 60).padStart(2, "0")}`;
+}
+
+function replayTime(tick) {
+  const hundredths = Math.floor(Math.max(0, tick) * 100 / TPS);
+  return `${Math.floor(hundredths / 6000)}:${String(Math.floor(hundredths / 100) % 60).padStart(2, "0")}.${String(hundredths % 100).padStart(2, "0")}`;
 }
 
 function HpBar({ mon }) {
@@ -364,6 +369,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     sim.current?.inputs.forEach((inp) => { if (inp) inp.layout = v; });
   };
   const [speed, setSpeed] = useState(video?.speed || 1);
+  const [seekDraft, setSeekDraft] = useState(null);
   const videoRef = useRef(video);
   videoRef.current = video;
   const [error, setError] = useState(null);
@@ -455,7 +461,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     let cancelled = false;
     let state;
     try {
-      state = build(!live && Number.isInteger(seekTick) && seekTick >= 0 ? Math.min(seekTick, battle.rt.tick || 0) : 0);
+      state = build(!live && Number.isInteger(seekTick) && seekTick >= 0 ? Math.min(seekTick, replayEndTick(battle.rt, battle.summary?.seconds)) : 0);
     } catch (e) {
       setError(e);
       videoRef.current?.onError?.(e);
@@ -716,19 +722,26 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
   const onTarget = (si) => { const inp = sim.current?.inputs[si]; if (inp && phaseRef.current === "running") inp.cycleTarget(); };
   const onParty = (si) => { const inp = sim.current?.inputs[si]; if (inp) { inp.partyOpen = !inp.partyOpen; setParty((p) => { const n = [...p]; n[si] = inp.partyOpen; return n; }); } };
 
-  const restart = () => {
-    const st = build(0);
-    st.renderer = sim.current.renderer;
+  const seekReplay = (tick, playing = false) => {
+    const renderer = sim.current.renderer;
+    const st = build(Math.max(0, Math.min(replayEndTick(battle.rt, battle.summary?.seconds), tick)));
+    st.renderer = renderer;
     st.renderer.resetReplay(st.b);
+    st.renderer.eventIndex = st.b.events.length;
     st.logActive = freshActives();
-    st.logIndex = 0;
+    const lines = buildBattleLog(st.b.events, st.b, lang, tr, st.logActive);
+    st.logIndex = st.b.events.length;
     sim.current = st;
     setAbilities([]); setAbilityEpoch(old=>old+1);
-    setLog([]);
+    setMegaNotice(null);
+    setLog(lines.slice(-200));
     setHud(st.b.view());
     setResult(null);
-    setPhase("playing");
+    setSeekDraft(null);
+    setPhase(st.b.ended ? "done" : playing ? "playing" : "replay-paused");
   };
+  const restart = () => seekReplay(0, true);
+  const commitSeek = () => { if (seekDraft !== null) seekReplay(seekDraft); };
 
   // sound: replays at 4x skip the small effects; the music plays while the fight is on and gives way to a cue at the end
   useEffect(() => { if (sim.current?.renderer) sim.current.renderer.audio.speed = live ? 1 : speed; }, [speed, live, phase]);
@@ -881,8 +894,22 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
             <button type="button" className="btn btn-sm" onClick={restart} title={tr("rt_restart")} aria-label={tr("rt_restart")}>⏮</button>
             <button type="button" className="btn btn-sm" onClick={() => setPhase((p) => (p === "playing" ? "replay-paused" : "playing"))}
               aria-label={phase === "playing" ? tr("rt_ctrl_pause") : tr("rt_ctrl_play")}>{phase === "playing" ? "⏸" : "▶"}</button>
-            <div className="rt-progress"><span style={{ width: `${Math.min(100, (view.seconds / Math.max(1, (battle.summary?.seconds || view.time_limit))) * 100)}%` }} /></div>
-            <span className="help num">{fmtTime(view.seconds)}</span>
+            {video ? <>
+              <div className="rt-progress"><span style={{ width: `${Math.min(100, (view.seconds / Math.max(1, (battle.summary?.seconds || view.time_limit))) * 100)}%` }} /></div>
+              <span className="help num">{fmtTime(view.seconds)}</span>
+            </> : <>
+              <button type="button" className="btn btn-sm" aria-label={tr("rt_seek_back")} title={tr("rt_seek_back")}
+                disabled={view.t === 0} onClick={() => seekReplay(view.t - 5 * TPS)}>−5 s</button>
+              <label className="rt-seek">
+                <input type="range" min="0" max={replayEndTick(battle.rt, battle.summary?.seconds)} step="1"
+                  value={seekDraft ?? view.t} aria-label={tr("rt_seek")} aria-valuetext={replayTime(seekDraft ?? view.t)}
+                  onChange={e => { setSeekDraft(Number(e.target.value)); setPhase("replay-paused"); }}
+                  onPointerUp={commitSeek} onKeyUp={commitSeek} onBlur={commitSeek} />
+                <span className="help num rt-seek-time">{replayTime(seekDraft ?? view.t)} / {replayTime(replayEndTick(battle.rt, battle.summary?.seconds))}</span>
+              </label>
+              <button type="button" className="btn btn-sm" aria-label={tr("rt_seek_forward")} title={tr("rt_seek_forward")}
+                disabled={view.t >= replayEndTick(battle.rt, battle.summary?.seconds)} onClick={() => seekReplay(view.t + 5 * TPS)}>+5 s</button>
+            </>}
             <div className="seg" role="group" aria-label={tr("rt_speed")}>
               {[0.5, 1, 2, 4].map((v) => <button key={v} type="button" aria-pressed={speed === v} onClick={() => setSpeed(v)}>{String(v).replace(".", ",")}×</button>)}
             </div>
