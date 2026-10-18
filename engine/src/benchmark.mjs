@@ -36,7 +36,8 @@ export function teamBenchmark(args = {}, onProgress = () => {}) {
   const metagame = args.rival_source === 'metagame';
   let rivals = args.rivals || [];
   const games = Math.max(1, Math.min(Number(args.games) || 1, 50));
-  if (variants.length < (metagame ? 1 : 2)) throw new EngineError('invalid', 'Pick at least two team variants to compare.');
+  if (variants.length < (metagame ? 1 : 2)) throw new EngineError('invalid', metagame ?
+    'Pick at least one candidate team.' : 'Pick at least two team variants to compare.');
   if (!metagame && !rivals.length) throw new EngineError('invalid', 'Pick at least one rival.');
   const format = args.format || 'gen9customgame';
   const rules = args.rules || [];

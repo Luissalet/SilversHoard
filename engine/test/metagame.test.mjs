@@ -48,6 +48,16 @@ test('six species with one set give one roster rather than a hundred permutation
   assert.equal(empty.reason,'insufficient_species');
 });
 
+test('formats with smaller rosters use their actual team size rather than producing an empty sample',()=>{
+  const names=['Pikachu','Raichu','Snorlax','Blastoise','Charizard','Venusaur','Garchomp','Gardevoir','Lucario',
+    'Tyranitar','Gengar','Arcanine','Vaporeon','Jolteon','Flareon','Eevee','Leafeon','Glaceon','Espeon','Umbreon','Sylveon'];
+  const entries=names.map((species)=>({species,usage:1,sets:[{species,moves:['Rest'],evs:{hp:252}}]}));
+  const sample=sampleMetagame({...corpus,entries},{seed:'one-v-one728',format:'gen91v1'});
+  assert.equal(sample.generated,100);
+  assert.equal(sample.team_size,3);
+  assert.ok(sample.pool.every((p)=>p.sets.length===3 && validateTeam('gen91v1',p.sets).ok));
+});
+
 test('usage weights affect selection without selecting two forms of one base species',()=>{
   const entries=[...corpus.entries,
     {species:'Charizard-Mega-Y',usage:10000,sets:[{species:'Charizard',item:'Charizardite Y',moves:['Splash']}]}];
@@ -105,4 +115,15 @@ test('threats in a real hundred-battle run are recoverable from each opponent co
   assert.equal(observations.reduce((sum,o)=>sum+o.pokemon.reduce((s,p)=>s+p.kos,0),0),100);
   assert.ok(row.threats.every((t)=>t.kos>0 && t.damage>0 && t.appearances>=t.kos));
   assert.equal(result.damage_unit,'pokemon_hp_bars');
+});
+
+test('real-time metagame results preserve their own damage units and game cardinality',()=>{
+  const attacking={...corpus,entries:corpus.entries.map((e)=>({...e,sets:e.sets.map((s)=>({...s,moves:['Tackle']}))}))};
+  const result=teamBenchmark({rival_source:'metagame',corpus:attacking,seed:'rt-meta728',format:'gen9customgame',
+    mode:'realtime',time_limit:30,arena:'open',games:1,
+    variants:[{id:'weak',name:'Weak',sets:[{species:'Magikarp',level:1,moves:['Splash']}]}]});
+  assert.equal(result.damage_unit,'opposing_team_hp_fraction');
+  assert.equal(result.variants[0].played,100);
+  assert.equal(result.variants[0].by_rival.length,100);
+  assert.ok(result.variants[0].threats.length>0);
 });

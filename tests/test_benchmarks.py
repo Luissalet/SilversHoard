@@ -17,12 +17,12 @@ def _meta_data(services, monkeypatch):
 
 
 @needs_engine
-def test_metagame_job_reuses_exact_pool_and_preserves_trainers_records(services, monkeypatch):
+def test_metagame_job_reuses_exact_pool_and_preserves_trainers_records(services, monkeypatch, call):
     _meta_data(services, monkeypatch)
     candidate = services.trainer_create(name="Meta candidate", paste="Magikarp\n- Splash", format_="gen9customgame")
     before = services.store.trainers()
-    job = services.benchmarks.start(variant_ids=[candidate["id"]], rival_ids=[], rival_source="metagame",
-                                    format_="gen9customgame", seed="meta-job728", games=1)
+    job = call("benchmark_start", {"variant_ids": [candidate["id"]], "rival_source": "metagame",
+                                    "format": "gen9customgame", "seed": "meta-job728", "games": 1})
     finished = wait_for(lambda: (x := services.job_get(job["id"]))["status"] in ("done", "failed") and x)
     assert finished["status"] == "done", finished
     result = finished["result"]
@@ -36,8 +36,8 @@ def test_metagame_job_reuses_exact_pool_and_preserves_trainers_records(services,
     def unavailable(*args):
         raise AssertionError("historic sample attempted to fetch current data")
     monkeypatch.setattr(services.smogon, "top", unavailable)
-    replay = services.benchmarks.start(variant_ids=[candidate["id"]], rival_ids=[], rival_source="metagame",
-                                       format_="gen9customgame", sample_job_id=job["id"], games=1)
+    replay = call("benchmark_start", {"variant_ids": [candidate["id"]], "rival_source": "metagame",
+                                       "format": "gen9customgame", "sample_job_id": job["id"], "games": 1})
     repeated = wait_for(lambda: (x := services.job_get(replay["id"]))["status"] in ("done", "failed") and x)
     assert repeated["status"] == "done", repeated
     assert repeated["result"]["metagame"] == result["metagame"]
