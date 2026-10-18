@@ -176,3 +176,48 @@ Catalog failures appear as accessible alerts with Retry in both picker and libra
 - **Don't** infer a translated UI label from a saved trainer's name or overwrite names as part of UI localization.
 - **Don't** treat this focused scan as a redesign of inherited screens or completion of tasks #640 and #641.
 - **Don't** replace the established pixel portraits or warm dark/crimson identity during narrow refinements.
+
+
+## Music library extension
+
+This addition records only the implemented Music surface in `client/src/pages/Musica.jsx`, `client/src/music/MusicPlayer.jsx` and `client/src/music/music.css`. It inherits the visual system above. The final code and desktop/mobile captures are the evidence; no new identity, visual comp or raster asset was introduced. Functional behavior and limits are documented in `docs/MUSIC_LIBRARY.md`.
+
+### Colors
+
+Songs and queue entries use the inherited warm canvas, text and dividing border. Selected library/list buttons use `accent-soft`, ordinary text and an accent border. Queue titles and the dock's current-song link use the brighter `accent-strong`; the active queue occurrence also gains weight (650). Music primary buttons locally darken the inherited accent with `color-mix(in srgb, var(--accent) 90%, black)` and use white text; hover darkens it to (85% accent). These scoped variants do not redefine the shared palette or other screens' primary buttons.
+
+**The Music Contrast Rule.** Use the brighter accent for song links and the locally darkened fill for white-labelled primary music actions; retain the inherited palette elsewhere.
+
+### Typography
+
+The page title retains the inherited serif headline and mobile size. Section headings use compact sans-serif text (15px). Song names use bold body text; source/size metadata uses the shared help style. The dock's song link uses weight (650) with one-line ellipsis, while library and queue titles can wrap anywhere. Elapsed/duration text uses the inherited tabular-number class at (.75rem); mode labels use (12px).
+
+### Layout
+
+The page is bounded by (1400px). A wrapping header pairs title/help with the MP3 import control. Playlist creation and wrapping list buttons sit above the working columns. Desktop uses a flexible library and a queue bounded between (250px) and (320px), separated by (1.75rem). At (1000px) and below the queue follows the library in one column. Song rows separate content with a bottom border and (.85rem) vertical padding; their action buttons wrap.
+
+The player is fixed along the bottom of the ordinary app shell, begins after the (220px) desktop sidebar and uses the surface color with a single top border. Its desktop grid contains current song, transport and seek; modes occupy the next row. At (1000px) and below seek spans the player width. Below (768px) the dock spans the viewport with (.6rem 1rem) padding, filter fields fill the available width, and song/transport buttons have (40px) minimum height. The page reserves (12rem) below its content, rising to (15rem) on mobile; when the player exists the main content also reserves (15rem). Seek time and volume retain a (3.5rem) right inset beside the inherited floating Faustus control.
+
+**The Music Flow Rule.** Keep playlist controls above the library and ordered queue, let row actions wrap, and reserve scrolling space for the persistent dock.
+
+### Elevation & Depth
+
+Music uses flat, border-separated rows rather than additional cards. The dock's fixed position and top border distinguish it from scrolling content; no new shadow vocabulary or animated visual effect is added.
+
+### Shapes
+
+Buttons, fields and list selectors reuse the inherited corner radii. Playback uses native range inputs, a checkbox and a select; their browser-rendered slider appearance is not a new Silver color token.
+
+### Components
+
+- **MP3 import:** a primary-styled label contains the native multiple-file input. Keyboard focus produces a (2px) accent outline with a (3px) offset. Dragging files over the page produces a dashed accent outline. Progress, failures and retry remain text/status or alert content.
+- **Library and playlist rows:** title and source metadata precede wrapping actions. The library, each saved playlist and archived songs share the same row grammar. Selected view buttons expose `aria-pressed`; list counts remain inline with their names.
+- **Ordered queue:** a numbered, wrapping song-title button precedes explicit up/down/remove controls. The current occurrence exposes `aria-current` and a stronger title weight. Repeated songs remain separate occurrences.
+- **Persistent player:** the current-song link returns to Music; previous/play-or-pause/next controls accompany native seek, shuffle, repeat and volume fields. It appears only for a nonempty queue and can show an inline error alert. Shared keyboard focus and reduced-motion handling continue to apply.
+
+### Do's and Don'ts
+
+- **Do** keep song metadata and explicit playback/list actions readable together as rows wrap.
+- **Do** retain visible focus, accessible names and native range/select/checkbox semantics.
+- **Do** preserve the scrolling clearance beneath the fixed dock across ordinary app pages.
+- **Don't** promote Music's scoped primary fill or browser-native slider tint into a replacement global palette.

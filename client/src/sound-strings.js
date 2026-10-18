@@ -1,5 +1,9 @@
 // Words of the sound controls (battle screens and the settings page), Spanish (castellano de España) first, English second.
 export const SND = {
+  snd_own: ["Mis canciones", "My songs"],
+  snd_add: ["Añadir MP3", "Add MP3s"],
+  snd_importing: ["Importando…", "Importing…"],
+  snd_library: ["Biblioteca de música", "Music library"],
   snd_title: ["Sonido", "Sound"],
   snd_mute: ["Silenciar todo", "Mute everything"],
   snd_master: ["Volumen general", "Master volume"],

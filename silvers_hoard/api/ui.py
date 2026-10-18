@@ -143,6 +143,12 @@ def battle_music(request: Request, track: str):
     return _file(services(request).sounds.music(track))
 
 
+@router.post("/music/upload")
+async def upload_music(request: Request, file: UploadFile = File(...)):
+    """Binary transport into the same personal MP3 importer used by music_import."""
+    return services(request).sounds.library.import_bytes(file.filename or "", await file.read())
+
+
 @router.get("/reborn/{kind}/{name}")
 def reborn_file(request: Request, kind: str, name: str):
     """A file of Pokémon Reborn's move animations (anim: the frames, sheet: its picture, sound: a Reborn sound), downloaded once
