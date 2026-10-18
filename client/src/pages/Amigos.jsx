@@ -30,13 +30,15 @@ function Entry({ e, t, busy, onRemove }) {
 }
 
 function Board({ board, t, busy, onRemove }) {
-  const href = board.kind === "gym" ? `#/gimnasio/${board.target_id}` : `#/entrenador/${board.target_id}`;
+  const daily = board.kind === "daily";
+  const href = daily ? `#/instalaciones?daily=${encodeURIComponent(board.target_id.replace(/^daily-v1-/, ""))}`
+    : board.kind === "gym" ? `#/gimnasio/${board.target_id}` : `#/entrenador/${board.target_id}`;
   return (
     <div className="panel divide-list p-0">
       <div className="row-item lb-head">
         {board.kind === "gym" && <GymBadge image={board.badge_image} color={board.badge_color || "#c0c0c0"} size={30} label={board.badge} />}
-        <a className="min-w-0 flex-1 trunc btn-link" href={href}><b>{board.target_name}</b></a>
-        <span className="help">{t(board.kind === "gym" ? "lb_gym" : "lb_trainer")} · {t(board.results === 1 ? "lb_result" : "lb_results", { n: board.results })}</span>
+        <a className="min-w-0 flex-1 trunc btn-link" href={href}><b>{daily ? `${t("daily_title")} ${board.target_id.replace(/^daily-v1-/, "")}` : board.target_name}</b></a>
+        <span className="help">{t(daily ? "daily_title" : board.kind === "gym" ? "lb_gym" : "lb_trainer")} · {t(board.results === 1 ? "lb_result" : "lb_results", { n: board.results })}</span>
       </div>
       {board.entries.map((e) => <Entry key={e.id} e={e} t={t} busy={busy} onRemove={onRemove} />)}
     </div>

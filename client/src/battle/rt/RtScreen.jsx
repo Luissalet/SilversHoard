@@ -16,6 +16,7 @@ import { createReplay, stepReplay } from "./replay.js";
 import { rtT } from "./strings.js";
 import { NetLink, battleHash, packFrame, unpackFrame } from "./netplay.js";
 import { worldInput } from "./portrait-camera.js";
+import { buildBattleLog, freshActives, logLine, trackActive } from "./rt-log.js";
 import "./rt.css";
 
 const SAVE_EVERY_TICKS = 5 * TPS;
@@ -24,76 +25,6 @@ const HUD_MS = 100;
 function fmtTime(s) {
   const v = Math.max(0, Math.ceil(s));
   return `${Math.floor(v / 60)}:${String(v % 60).padStart(2, "0")}`;
-}
-
-const SOURCES = {
-  sandstorm: ["tormenta de arena", "sandstorm"], hail: ["granizo", "hail"], recoil: ["retroceso", "recoil"], trap: ["atrapado", "trapped"],
-  brn: ["quemadura", "burn"], psn: ["veneno", "poison"], tox: ["veneno grave", "bad poison"], curse: ["maldición", "curse"],
-};
-
-/** What hurt a Pokémon, in words: a weather, a status, or the move, ability or item of that id. */
-function sourceName(id, b, lang) {
-  if (SOURCES[id]) return L(SOURCES[id], lang);
-  for (const [kind, table] of [["move", b.dex.moves], ["item", b.dex.items], ["ability", b.dex.abilities]]) {
-    const e = table.get(id);
-    if (e?.exists) return nameOf(kind, e.name, lang);
-  }
-  return id;
-}
-
-/** One line of the log for an event, in Spanish or English. */
-function logLine(e, b, lang, tr) {
-  const side = (i) => b.sides[i];
-  // in doubles an event says its slot (e.u): the Pokémon is the one in that slot
-  const activeOf = (i, u) => (b.doubles ? side(i)?.units[u || 0]?.active : side(i)?.active);
-  const monName = (i, slot, u = e.u) => side(i)?.mons[slot ?? activeOf(i, u)]?.name || "?";
-  const who = (i, u = e.u) => (lang === "en" ? `${side(i).name}'s ${monName(i, undefined, u)}` : `${monName(i, undefined, u)} de ${side(i).name}`);
-  const dodger = () => { const t = b.doubles ? b.foe(side(e.s).units[e.u || 0]) : null; return t ? who(t.index, t.pos) : who(1 - e.s, 0); };
-  const mv = (name) => (name === "Ultimate" ? tr("rt_ult") : nameOf("move", name, lang));
-  const sec = (e.t / TPS).toFixed(1);
-  const es = lang !== "en";
-  switch (e.k) {
-    case "ability": return {sec,k:"ability",text:`${e.pokemon || monName(e.s)}: ${nameOf("ability",b.dex.abilities.get(e.id).name,lang)}`};
-    case "switch": return { sec, k: "switch", text: es ? `${side(e.s).name} saca a ${monName(e.s, e.slot)}` : `${side(e.s).name} sent out ${monName(e.s, e.slot)}` };
-    case "windup": return { sec, k: "move", text: es ? `${who(e.s)} usa ${mv(e.name)}` : `${who(e.s)} used ${mv(e.name)}` };
-    case "hit": {
-      const extra = [e.crit ? tr("rt_crit") : "", e.eff > 1 ? tr("rt_super") : e.eff < 1 && e.eff > 0 ? tr("rt_weak") : ""].filter(Boolean).join(" ");
-      return { sec, k: e.eff > 1 || e.crit ? "big" : "dmg", text: `${who(e.s)} −${Math.max(1, Math.round((e.dmg / Math.max(1, e.maxhp)) * 100))}% ${extra}`.trim() };
-    }
-    case "miss": return { sec, k: "minor", text: e.fog ? (es ? "El ataque falla en la niebla" : "The attack missed in the fog") : es ? `${dodger()} esquiva el ataque` : `${dodger()} dodged` };
-    case "helping": return { sec, k: "effect", text: es ? `${who(e.s)} se prepara para ayudar a su compañero` : `${who(e.s)} is ready to help its partner` };
-    case "follow": return { sec, k: "effect", text: es ? `¡${who(e.s)} atrae todas las miradas!` : `${who(e.s)} became the centre of attention!` };
-    case "fizzle": return e.rock
-      ? { sec, k: "minor", text: es ? `${mv(b.dex.moves.get(e.move).name)} de ${monName(e.s)} choca contra una roca` : `${who(e.s)}'s ${mv(b.dex.moves.get(e.move).name)} hit a rock` }
-      : { sec, k: "minor", text: es ? `${mv(b.dex.moves.get(e.move).name)} de ${monName(e.s)} no alcanza a nadie` : `${who(e.s)}'s ${mv(b.dex.moves.get(e.move).name)} hit nothing` };
-    case "protected": return e.pierced
-      ? { sec, k: "effect", text: es ? `¡El ataque Plus atraviesa la protección de ${monName(e.s)}!` : `The Plus attack pierces ${who(e.s)}'s protection!` }
-      : { sec, k: "minor", text: es ? `${who(e.s)} se protege` : `${who(e.s)} protected itself` };
-    case "plus": return { sec, k: "effect", text: es ? `${who(e.s)}: ¡${mv(e.name)} Plus!` : `${who(e.s)}: ${mv(e.name)} Plus!` };
-    case "mega": return { sec, k: "big", text: es ? `¡${e.from} de ${side(e.s).name} megaevoluciona!` : `${side(e.s).name}'s ${e.from} Mega Evolved!` };
-    case "phase": return { sec, k: "big", text: e.line ? `${side(e.s).name}: «${e.line}»` : (es ? `¡${side(e.s).name} cambia de táctica!` : `${side(e.s).name} changes tactics!`) };
-    case "ultimate": return { sec, k: "big", text: es ? `¡${who(e.s)} usa un especial de Silver de tipo ${typeName(e.type, lang)}!` : `${who(e.s)} uses a ${e.type}-type Silver special!` };
-    case "dummy_reset": return { sec, k: "big", text: es ? `${who(e.s)} cae y se levanta con todos sus PS` : `${who(e.s)} goes down and stands up again at full HP` };
-    case "mega_end": return { sec, k: "info", text: es ? `${monName(e.s, e.slot)} vuelve a su forma` : `${monName(e.s, e.slot)} went back to its usual forme` };
-    case "immune": return { sec, k: "minor", text: es ? `No afecta a ${monName(e.s)}` : `It doesn't affect ${monName(e.s)}` };
-    case "status": return { sec, k: "effect", text: `${who(e.s)}: ${L(STATUS_NAMES[e.status] || [e.status, e.status], lang)}` };
-    case "boost": return e.same ? null : { sec, k: "minor", text: `${who(e.s)}: ${L(STAT_SHORT[e.stat] || [e.stat, e.stat], lang)} ${e.stage > 0 ? "↑" : e.stage < 0 ? "↓" : "="}` };
-    case "faint": return { sec, k: "faint", text: es ? `¡${monName(e.s, e.slot)} de ${side(e.s).name} se debilita!` : `${side(e.s).name}'s ${monName(e.s, e.slot)} fainted!` };
-    case "recall": return { sec, k: "switch", text: es ? `${side(e.s).name} retira a ${monName(e.s, e.slot)} (${e.left} cambios)` : `${side(e.s).name} withdrew ${monName(e.s, e.slot)} (${e.left} switches)` };
-    case "flinch": return { sec, k: "minor", text: es ? `¡${monName(e.s)} retrocede y pierde el ataque!` : `${monName(e.s)} flinched and lost its move!` };
-    case "weather": return { sec, k: "info", text: es ? `Cambia el tiempo (${e.secs} s)` : `The weather changed (${e.secs} s)` };
-    case "terrain": return { sec, k: "info", text: es ? `Cambia el campo (${e.secs} s)` : `The terrain changed (${e.secs} s)` };
-    case "trickroom": return { sec, k: "info", text: es ? `Espacio Raro durante ${e.secs} s: los lentos van más rápido` : `Trick Room for ${e.secs} s: the slow go faster` };
-    case "trickroom_end": return { sec, k: "info", text: es ? "Se acabó el Espacio Raro" : "Trick Room ended" };
-    case "fog": return { sec, k: "info", text: es ? "Hay niebla: 2 de cada 5 golpes fallan" : "Fog: 2 hits in 5 miss" };
-    case "fog_end": return { sec, k: "info", text: es ? "Se ha disipado la niebla" : "The fog lifted" };
-    case "hazard": return { sec, k: "info", text: `${nameOf("move", { stealthrock: "Stealth Rock", spikes: "Spikes", toxicspikes: "Toxic Spikes", stickyweb: "Sticky Web" }[e.id] || e.id, lang)} → ${side(e.s).name}` };
-    case "heal": return e.amount >= 1 ? { sec, k: "minor", text: `${who(e.s)} +${Math.max(1, Math.round((e.amount / Math.max(1, e.maxhp)) * 100))}%` } : null;
-    case "chip": return { sec, k: "minor", text: `${who(e.s)} −${Math.max(1, Math.round((e.amount / Math.max(1, e.maxhp)) * 100))}% (${sourceName(e.source, b, lang)})` };
-    case "forfeit": return { sec, k: "big", text: es ? `${side(e.s).name} se rinde` : `${side(e.s).name} forfeited` };
-    case "end": return { sec, k: "big", text: e.winner === 0 || e.winner === 1 ? tr("rt_winner", { name: side(e.winner).name }) : tr("rt_tie") };
-    default: return null;
-  }
 }
 
 function HpBar({ mon }) {
@@ -545,8 +476,10 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     renderer.audio.cryUrl = offline ? null : (species) => appCryUrl(species, base);
     state.renderer = renderer;
     state.logIndex = 0;
+    state.logActive = freshActives();
     setHud(view);
-    setLog(state.b.events.map((e) => logLine(e, state.b, lang, tr)).filter(Boolean).slice(-200));
+    // walk events with historical actives so a seek/?tick=N log keeps earlier mon names
+    setLog(buildBattleLog(state.b.events, state.b, lang, tr, state.logActive).slice(-200));
     state.logIndex = state.b.events.length;
     renderer.preload((n, total) => !cancelled && setProgress([n, total])).then(() => {
       if (cancelled) return;
@@ -707,8 +640,14 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
         if (st.b.training) setTraining(trainingStats(st.b));
         if (videoRef.current?.onProgress) videoRef.current.onProgress(st.b.t / Math.max(1, battle.rt.tick || (battle.summary?.seconds || 0) * TPS || st.b.t));
         if (st.logIndex < st.b.events.length) {
-          const fresh = st.b.events.slice(st.logIndex).map((e) => logLine(e, st.b, lang, tr)).filter(Boolean);
-          st.logIndex = st.b.events.length;
+          if (!st.logActive) st.logActive = freshActives();
+          const fresh = [];
+          for (; st.logIndex < st.b.events.length; st.logIndex++) {
+            const e = st.b.events[st.logIndex];
+            const line = logLine(e, st.b, lang, tr, st.logActive);
+            trackActive(st.logActive, e);
+            if (line) fresh.push(line);
+          }
           if (fresh.length) setLog((l) => [...l, ...fresh].slice(-200));
         }
       }
@@ -781,6 +720,8 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     const st = build(0);
     st.renderer = sim.current.renderer;
     st.renderer.resetReplay(st.b);
+    st.logActive = freshActives();
+    st.logIndex = 0;
     sim.current = st;
     setAbilities([]); setAbilityEpoch(old=>old+1);
     setLog([]);

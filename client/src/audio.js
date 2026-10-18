@@ -370,7 +370,7 @@ function musicVolume() {
   if (!tr) return;
   const v = Math.max(0, Math.min(1, musicLevel() * tr.fade));
   try { tr.el.volume = v; } catch { /* element gone */ }
-  if (v <= 0 || held) { if (!tr.el.paused) tr.el.pause(); } else if (tr.wanted && tr.el.paused && !pendingRetry) startTrack(tr);
+  if (musicLevel() <= 0 || held) { if (!tr.el.paused) tr.el.pause(); } else if (tr.wanted && tr.el.paused && !pendingRetry) startTrack(tr);
 }
 
 function fadeTo(t, to, secs, done) {
@@ -438,6 +438,16 @@ export const music = {
     stopTrack({ fade });
   },
   get playing() { return !!tr && tr.wanted && !tr.el.paused; },
+  /** Recording waits for the requested track; muted, unavailable and disposed tracks keep their usual silent fallback. */
+  ready() {
+    const el = tr?.el;
+    if (!el || musicLevel() <= 0 || el.readyState >= 3) return Promise.resolve();
+    return new Promise((resolve) => {
+      const events = ["canplay", "error", "emptied"];
+      const done = () => { for (const event of events) el.removeEventListener(event, done); resolve(); };
+      for (const event of events) el.addEventListener(event, done);
+    });
+  },
   hold(on) { held = on; musicVolume(); if (!on) retryMusic(); },
 };
 

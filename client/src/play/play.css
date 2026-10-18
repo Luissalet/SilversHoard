@@ -12,6 +12,11 @@ body { margin: 0; font-family: var(--hoard-font-sans); font-size: 14px; }
 .p-quote { font-style: italic; color: var(--hoard-text-muted); border-left: 3px solid var(--hoard-accent); padding-left: 10px; }
 .p-team { display: flex; flex-wrap: wrap; gap: 2px; }
 .p-team img { width: 56px; height: 56px; object-fit: contain; }
+.p-rentals { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 10px; }
+.p-rental { min-height: 44px; padding: 12px; display: flex; flex-direction: column; gap: 6px; align-items: flex-start; text-align: left; border: 1px solid var(--hoard-border); border-radius: 8px; background: var(--hoard-surface); color: var(--hoard-text); }
+.p-rental[aria-pressed=true] { border-color: var(--hoard-accent); background: var(--hoard-elevated); }
+.p-rental:focus-visible { outline: 2px solid var(--hoard-accent); outline-offset: 3px; }
+.p-rental:disabled { opacity: .5; cursor: not-allowed; }
 .p-between { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; padding: 26px; }
 .p-final { display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; padding: 26px; }
 .p-final h2 { max-width: 100%; font-family: var(--hoard-font-serif); font-size: 26px; margin: 0; }

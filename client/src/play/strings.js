@@ -1,5 +1,12 @@
 // Words of the playable page (Spanish first, English second).
 const S = {
+  daily_title: ["Desafío del día · {day}", "Daily challenge · {day}"],
+  daily_rivals: ["Siete rivales", "Seven opponents"],
+  daily_help: ["Tres Pokémon de alquiler, siete victorias seguidas. Esta fecha ofrece los mismos alquileres y rivales para todos; tu equipo empieza curado cada combate.", "Three rental Pokémon, seven consecutive wins. This date offers the same rentals and opponents to everyone; your team starts healed in each battle."],
+  daily_pick: ["Elige tres de los seis alquileres ({n}/3). El orden elegido será el de tu equipo.", "Choose three of the six rentals ({n}/3). Your selection order is your party order."],
+  daily_slot: ["Puesto {n}", "Slot {n}"],
+  daily_won: ["Desafío completado: siete victorias", "Challenge completed: seven wins"],
+  daily_finished: ["Racha terminada: {n} de siete victorias", "Streak ended: {n} of seven wins"],
   from: ["{name} te reta", "{name} challenges you"],
   gym_intro: ["Gimnasio", "Gym"],
   trainer_intro: ["Entrenador", "Trainer"],

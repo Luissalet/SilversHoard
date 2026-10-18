@@ -69,8 +69,9 @@ export function ArenaFields({ t, arena, onArena, compact = false }) {
       {custom.length > 0 && <div className="arena-picker" role="group" aria-label={t("rt_arena_custom")}>
         {custom.map((a) => <button key={a.id} type="button" className="arena-choice" aria-label={a.name}
           aria-pressed={arena === a.value} onClick={() => onArena(a.value)}>
-          <span aria-hidden="true"><ArenaField floor={a.floor} rocks={a.rocks} small /></span>
+          <span aria-hidden="true"><ArenaField floor={a.floor} weather={a.weather} rocks={a.rocks} small /></span>
           <b>{a.name}</b>
+          {a.weather && <span className="help">{t(`arena_weather_${a.weather}`)} · {t(a.weather_rules ? "arena_weather_rules_short" : "arena_weather_visual")}</span>}
         </button>)}
       </div>}
       {!compact && <p className="help">{isCustom ? t("rt_arena_help_custom", { n: current?.rocks?.length ?? 0 }) : t(`rt_arena_help_${value}`)}</p>}

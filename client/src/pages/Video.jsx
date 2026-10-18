@@ -31,6 +31,7 @@ function startRecording(run, onStart, delay = 1500) {
     try {
       const audio = installTap();
       unlock();
+      await music.ready();
       const tab = await navigator.mediaDevices.getDisplayMedia({ video: { frameRate: 30 }, audio: false, preferCurrentTab: true,
         selfBrowserSurface: "include" });
       await window.__videoCaptureReady?.(); // native recorder may restore the viewport after the sharing bar appears
@@ -188,7 +189,10 @@ function BattleVideo({ param, query, stageClass }) {
     // Let React remove the loading overlay and paint the prepared arena before the native recorder opens capture.
     let first = 0, second = 0, timer = 0;
     first = requestAnimationFrame(() => { second = requestAnimationFrame(() => {
-      window.videoRecord = () => startRecording(run, start);
+      window.videoRecord = () => {
+        if (!realtime) music.play(`/api/music/${pickTrack(battle.id, genOfFormat(battle.format))}`);
+        return startRecording(run, start);
+      };
       window.__videoReady = true;
       if (!recording) timer = setTimeout(start, 800);
     }); });

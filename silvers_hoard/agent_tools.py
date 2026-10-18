@@ -561,6 +561,10 @@ class WeekArg(BaseModel):
     week: str = Field(..., min_length=8, max_length=8, description="The ISO week, like 2026-W42.")
 
 
+class DayArg(BaseModel):
+    day: str = Field("", max_length=10, description="Calendar day YYYY-MM-DD; empty means today on this server.")
+
+
 class BattleStartArgs(BaseModel):
     p1: Seat
     p2: Seat
@@ -861,6 +865,9 @@ class ArenaSaveArgs(BaseModel):
         None, description="The ground; pyre, summit, meteor, champion and castle are places from the games with their own decor, ambience and audience.")
     rocks: Optional[list[dict[str, float]]] = Field(None, max_length=16, description="Up to 16 rocks {x, y, r} in metres on the 28 x 17 m field (r 0.4-3), off the spots at (5, 8.5) and (23, 8.5) where the Pokémon come in.")
     mirror: bool = Field(False, description="Also put each rock's left-right mirror image.")
+    weather: Optional[Literal["", "sunnyday", "raindance", "snow", "fog"]] = Field(
+        None, description="Arena ambience; empty keeps the floor's original look. Purely visual unless weather_rules is true.")
+    weather_rules: Optional[bool] = Field(None, description="Apply the selected arena weather as starting combat weather (RT rules 12). Moves and abilities can replace it.")
 
 
 class JobsArgs(BaseModel):
@@ -886,8 +893,8 @@ class ExportArgs(BaseModel):
 
 
 class LeaderboardArgs(BaseModel):
-    kind: Literal["", "gym", "trainer"] = ""
-    target_id: str = Field("", max_length=80, description="A gym or trainer id, or empty for all.")
+    kind: Literal["", "gym", "trainer", "daily"] = ""
+    target_id: str = Field("", max_length=80, description="A gym, trainer or daily challenge id, or empty for all.")
     week: str = Field("", max_length=12, description="Empty for every result, current for this week's challenge, or a week like 2026-W42.")
 
 
@@ -1388,6 +1395,12 @@ TOOLS: list[Tool] = [
          lambda s, a: s.friends.poll_close(a.id)),
     Tool("week_rule_clear", _d("Remove the voted rule of a week's challenge. Quitar regla de la semana.", synonyms="sin regla"), WeekArg, W,
          lambda s, a: s.friends.clear_week_rule(a.week)),
+    Tool("daily_challenge", _d("View a date's seven-battle rental challenge and local results. Reto diario.",
+                               "Six rentals, choose three, seven shared-seed Factory rivals at level 50. Does not create trainers, gyms or a league.",
+                               synonyms="desafío del día, alquiler, siete victorias, calendario"), DayArg, R, lambda s, a: s.daily.info(a.day), capped=False),
+    Tool("daily_challenge_export", _d("Export a daily rental challenge as one playable HTML page. Compartir reto diario.",
+                                      "The result code imports through the normal import tool; every battle is replayed before the existing local board counts it.",
+                                      synonyms="reto del día, página jugable, código de resultado"), DayArg, W, lambda s, a: s.daily.export(a.day)),
     Tool("training_start", _d("Real-time training against a dummy that never faints: try cooldowns, reach, rolls and combos. Entrenamiento.",
                               "The dummy stands still, walks, dodges or fights back (pattern); a knockout heals it. Open the returned battle in the app "
                               "(#/combate/<id>) to play; the screen shows damage per second. Nothing counts for records, progress or medals.",
@@ -1531,10 +1544,12 @@ TOOLS: list[Tool] = [
                            synonyms="arenas propias, campos de combate, escenarios"), Empty, R, lambda s, a: {"arenas": s.arenas.list()}),
     Tool("arena_get", _d("One arena: its rocks, floor and the gyms that fight on it. Ver arena.", synonyms="arena"), IdArg, R,
          lambda s, a: s.arenas.get(a.id)),
-    Tool("arena_save", _d("Create or change an arena for real-time battles: rocks placed by hand and its floor. Diseñar arena.",
+    Tool("arena_save", _d("Create or change a real-time arena: floor, rocks and optional weather. Diseñar arena y clima.",
                           "Battles use it with rt_arena=custom:<id>; gym_save rt_arena puts a gym on it. A battle keeps the arena "
-                          "it was played on, so later edits never change a replay.", synonyms="editor de arenas, crear arena, poner rocas"),
-         ArenaSaveArgs, WD, lambda s, a: s.arenas.save(a.id, name=a.name, floor=a.floor, rocks=a.rocks, mirror=a.mirror)),
+                          "it was played on, so later edits never change a replay. Weather is visual by default; weather_rules "
+                          "enables its existing combat effects as starting weather, until replaced or the battle ends.", synonyms="editor de arenas, crear arena, poner rocas, clima, lluvia, nieve, niebla, sol"),
+         ArenaSaveArgs, WD, lambda s, a: s.arenas.save(a.id, name=a.name, floor=a.floor, rocks=a.rocks, mirror=a.mirror,
+                                                   weather=a.weather, weather_rules=a.weather_rules)),
     Tool("arenas_delete", _d("Delete arenas; gyms on them go back to the challenger's choice. Borrar arenas.", synonyms="quitar arena"),
          IdsArg, D, lambda s, a: s.arenas.delete(a.ids)),
     Tool("jobs_list", _d("Series, tournaments and sprite drawings, running or finished. Trabajos.", synonyms="progreso, cola"),
