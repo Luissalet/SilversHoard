@@ -29,8 +29,8 @@ export function installTap() {
     const result = play.apply(this, args);
     const el = this;
     if (!hooked.has(el) && el.captureStream) {
-      hooked.add(el);
       const hook = (tries = 0) => {
+        if (hooked.has(el)) return;
         try {
           const s = el.captureStream();
           if (!s.getAudioTracks().length) { if (tries < 25) setTimeout(() => hook(tries + 1), 200); return; }
@@ -40,6 +40,8 @@ export function installTap() {
           g.gain.value = cfg.mute ? 0 : cfg.master * cfg.music * 0.55;
           rctx.createMediaStreamSource(s).connect(g);
           g.connect(rdest);
+          // A rejected play or an unready stream must remain eligible for retry.
+          hooked.add(el);
         } catch { /* no sound from this element */ }
       };
       Promise.resolve(result).then(() => hook(), () => {});
