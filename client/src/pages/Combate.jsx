@@ -16,6 +16,7 @@ import AiNotes from "../components/AiNotes.jsx";
 import VideoExport from "../components/VideoExport.jsx";
 import BattlePresentation from "../battle/portrait.jsx";
 import BattleJournal from "../components/BattleJournal.jsx";
+import RivalScout from "../components/RivalScout.jsx";
 import { CupStrip } from "./Copa.jsx";
 import { SaveExercise, ExerciseProgress, PracticeSuggestions } from "../components/Training.jsx";
 import { classicSeekIndex, replayPosition } from "../history-search.js";
@@ -271,6 +272,7 @@ export default function Combate({ param, query }) {
       </div>
       <RunStrip run={battle.run} />
       <CupStrip cup={battle.cup} battle={battle} />
+      <RivalScout key={`scout:${battle.id}`} battle={battle} />
       {battle.practice && (
         <section className="panel space-y-2" aria-label={t("practice_title")}>
           <h2>{t("practice_title")}</h2>

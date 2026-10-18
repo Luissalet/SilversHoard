@@ -280,7 +280,7 @@ function SetEditor({ set, index, gen, format, onChange, onRemove, lang, t, evMod
 }
 
 /** props: team (sets), format, onSave(sets) */
-export default function TeamBuilder({ team, format, onSave, onCancel }) {
+export default function TeamBuilder({ team, format, onSave, onCancel, saveLabel }) {
   const { t, lang } = useApp();
   const [evMode, setEvMode] = useStored("silver-ev-mode", "sp");
   const gen = Number(String(format || "gen9").match(/gen(\d)/)?.[1] || 9);
@@ -306,7 +306,7 @@ export default function TeamBuilder({ team, format, onSave, onCancel }) {
         <SampleTeam format={format} hasTeam={clean.length > 0} onTeam={(team) => setSets(team.map((m) => ({ ...empty(), ...m })))} />
         <span className="flex-1" />
         {onCancel && <button type="button" className="btn" onClick={onCancel}>{t("cancel")}</button>}
-        <Busy busy={busy.s} className="btn btn-primary" disabled={!clean.length || clean.some((s) => !s.moves.length)} onClick={() => run("s", () => onSave(clean))}>{t("save")}</Busy>
+        <Busy busy={busy.s} className="btn btn-primary" disabled={!clean.length || clean.some((s) => !s.moves.length)} onClick={() => run("s", () => onSave(clean))}>{saveLabel || t("save")}</Busy>
       </div>
       {clean.some((s) => !s.moves.length) && <p className="help">{t("tb_needs_moves")}</p>}
       <DamageCalc sets={clean} format={format} lang={lang} gen={gen} />
