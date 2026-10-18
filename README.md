@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+The visual team editor includes local **Team analysis**: generation-aware type weaknesses, ordinary attack coverage and unmodified Speed, using the current draft without saving it or accessing the Internet. Available through the same `team_analysis` UI/REST/MCP handler. Abilities, items and battle effects stay outside this static report; see [behavior and limits](docs/TEAM_ANALYSIS.md).
+
 Facilities also offers a daily rental challenge: choose three of six dated rentals and face seven classic opponents at level 50. Play in the app or prepare a self-contained HTML page; ordinary Import verifies the result code and records the local dated board. Existing weekly challenges remain available. See [daily challenges](docs/DAILY_CHALLENGE.md).
 
 

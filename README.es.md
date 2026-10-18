@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+El editor visual incluye **Análisis del equipo**: debilidades por tipo de la generación, cobertura de ataques ordinarios y velocidad sin modificadores, calculadas con el borrador actual sin guardarlo ni acceder a Internet. El mismo handler `team_analysis` sirve a UI/REST/MCP. El informe estático excluye habilidades, objetos y efectos de combate; [comportamiento y límites](docs/TEAM_ANALYSIS.md).
+
 Instalaciones también ofrece un reto diario de alquiler: elige tres de los seis Pokémon de la fecha y afronta siete rivales por turnos a nivel 50. Juega en la app o prepara una página HTML autónoma; Importar verifica el código de resultado y lo registra en la clasificación local de esa fecha. El reto semanal sigue disponible. Véase [retos diarios](docs/DAILY_CHALLENGE.md).
 
 

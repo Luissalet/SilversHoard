@@ -142,6 +142,17 @@ class RandomTeamArgs(BaseModel):
     seed: Optional[str] = Field(None, max_length=60)
 
 
+class TeamAnalysisArgs(BaseModel):
+    format: str = Field("gen9nationaldexag", min_length=2, max_length=120)
+    paste: str = Field("", max_length=200_000, description="Showdown export text, packed team or JSON; use this or team.")
+    team: Optional[list[dict[str, Any]]] = Field(None, min_length=1, max_length=6)
+    level_rules: dict[str, int] = Field(default_factory=dict, description="Optional level, level_cap or level_min.")
+
+
+def _team_analysis(s: Services, a: TeamAnalysisArgs) -> Any:
+    return s.engine.call("team_analysis", a.model_dump(exclude_none=True))
+
+
 class TrainersArgs(BaseModel):
     query: str = Field("", max_length=100)
     origin: Literal["", "own", "friend", "canon", "random"] = Field("", description="own = everything you made, the random trainers you rolled included.")
@@ -1154,6 +1165,10 @@ TOOLS: list[Tool] = [
          lambda s, a: s.validate_team(a.format, a.team if a.team else a.paste, a.rules, a.level_rules)),
     Tool("team_random", _d("A random team from Showdown's random-battle sets. Equipo aleatorio.", synonyms="equipo al azar, random battle"),
          RandomTeamArgs, R, lambda s, a: s.random_team(a.format, a.seed)),
+    Tool("team_analysis", _d("Analyse team type weaknesses, attacking coverage and unmodified Speed offline. Analizar equipo.",
+                             "Read-only analysis of one to six sets, using the installed format's generation. Defence uses species types only; coverage compares ordinary damaging moves against single types. Fixed-damage, variable-type and special-effectiveness moves are listed separately. Speed includes level, EVs/IVs and nature, before items, abilities or battle effects. No legality check or win prediction; use team_validate or damage_calc for those questions.",
+                             synonyms="debilidades compartidas, resistencias, inmunidades, cobertura, velocidad, sinergia"),
+         TeamAnalysisArgs, R, _team_analysis, capped=False),
     Tool("trainers_list", _d("Trainers: name, title, team species, AI, avatar, record. Lista de entrenadores.",
                              "Returns every matching trainer without truncating rows or fields; filters by query, origin, game and region.",
                              synonyms="entrenadores, personajes, npc, equipos guardados"), TrainersArgs, R, lambda s, a: {"trainers": s.trainers_list(a.query, a.origin, game=a.game, region=a.region)}, capped=False),

@@ -17,6 +17,7 @@ import {cooldownTable} from './realtime/moves.mjs';
 import {massRun} from './realtime/mass.mjs';
 import {composeMass} from './realtime/mass-roster.mjs';
 import {damageCalc} from './calc.mjs';
+import {teamAnalysis} from './team-analysis.mjs';
 import {practiceSnapshot} from './practice.mjs';
 import {practiceSuggestions} from './practice-suggestions.mjs';
 import {endState, frontierParty} from './frontier.mjs';
@@ -65,6 +66,7 @@ const handlers = {
   species: (a) => core.speciesInfo(a.name, a.gen || 9, a.format || ''),
   species_resolve: (a) => ({species: core.speciesResolve(a.names || [], a.gen || 9)}),
   damage_calc: (a) => damageCalc(a),
+  team_analysis: (a) => teamAnalysis(a),
   practice_snapshot: (a) => practiceSnapshot(a.input, a.turn, a.side),
   practice_suggestions: (a) => practiceSuggestions(a.input, a.side, a.start_turn, a.turn_count, a.min_gap),
   battle_abilities: (a) => {

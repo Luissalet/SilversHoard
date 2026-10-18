@@ -1,5 +1,7 @@
 # Silver's Hoard — architecture
 
+`team-analysis.mjs` computes static generation-aware defensive type multipliers, ordinary single-type attacking coverage and unmodified Speed from the installed Dex and simulator's generation-specific Pokémon construction. Only one side is constructed; no battle is started. The read-only, uncapped `team_analysis` catalogue handler serves UI/REST/MCP. `TeamAnalysis` expands in the visual editor, analyses unsaved sets on request and hides reports whose team/format key no longer matches the draft. Special damage/type/effectiveness moves are disclosed separately; abilities, items and battle state remain outside this report. See [team analysis](TEAM_ANALYSIS.md).
+
 `daily.py` reuses Factory rentals, portable PlayApp, seeded classic Match verification and the existing friend-results board. Two shared UI/API/MCP handlers, `daily_challenge` and `daily_challenge_export`, expose a dated six-rental/seven-opponent challenge without adding saved trainers, gyms, leagues or a scheduler. Each exported stage retains its canonical opposing AI; imports verify every recorded battle before persistence. Facilities embeds the same portable page and imports its result through the normal handler. Date changes invalidate prepared downloads and ignore export responses for a previous selection. See [daily challenges](DAILY_CHALLENGE.md).
 
 
