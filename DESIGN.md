@@ -237,3 +237,9 @@ The Speed list follows the matrix, pairing each wrapping member name and effecti
 ### Layout
 
 The report body uses a (.85rem) grid gap; actions wrap. Findings use two equal columns with a (1.2rem) gap and collapse to one at (640px) and below. At that breakpoint the analysis and segmented buttons have a (44px) minimum height. The matrix alone scrolls horizontally inside a bordered, small-radius, keyboard-focusable named region; its focus outline uses the inherited accent with a (2px) offset. The left type-header column stays fixed while member columns scroll. Cells use (12.5px) tabular text; mobile cells have (.5rem) padding and a (6rem) minimum width. Long member names wrap rather than widening the page.
+
+## Local Dragon and Poison material extension
+
+Eleven local pixel-art motifs add 117 selected frames from the supplied Pokémon Mystery Dungeon: Explorers of Time/Darkness Dragon and Poison sheets, credited to redblueyellow. They reuse the shared real-time effect geometry, phases and presentation clock. Transparent square cells preserve source aspect ratio and anchors; pixel rendering remains unsmoothed. Exact coverage, source provenance and exclusions are recorded in `docs/DRAGON_POISON_SPRITES.md` and the shared material contract in `docs/SUPPLIED_SPRITES.md`. These are composed motifs rather than reconstructed cartridge choreography.
+
+Reduced motion uses the material's declared `still_frame`, selecting a visible stationary source frame; materials without that metadata retain frame zero. Normal animation, pause, speed changes and seek retain the existing renderer clock and queues. The same embedded material layer serves ordinary real-time battles, mass battles, recordings and standalone HTML, without the original sheets or Internet at runtime.
