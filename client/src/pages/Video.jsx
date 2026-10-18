@@ -2,14 +2,14 @@
 // #/video/<id>?record=1 and calls window.videoRecord(): the tab's picture and the page's own sound (effects, cries, music) go into
 // one MediaRecorder whose chunks are handed to the recorder as they come. A person opening the page just watches the replay.
 // A mass battle (#/video/mass_<id>?mspeed=2&play=<run>) is recorded the same way with its own screen (mass.py: video).
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { api } from "../api.js";
 import { useApp } from "../context.js";
 import Arena from "../battle/Arena.jsx";
 import { useBattlePlayer } from "../battle/player.js";
 import { useSeats } from "../components/silver.jsx";
 import { loc, seatNames } from "../loc.js";
-import { battleEnd, genOfFormat, music, pickTrack, unlock } from "../audio.js";
+import { battleEnd, genOfFormat, music, pickTrack, setSettings, unlock } from "../audio.js";
 import { installTap } from "../video/tap.js";
 import "../battle/portrait.css";
 // the real-time arena carries the battle engine: it comes with CombateRt's chunk, only when a real-time battle is recorded
@@ -145,6 +145,10 @@ function BattleVideo({ param, query, stageClass }) {
   const recording = query?.get("record") === "1";
   const [battle, setBattle] = useState(null);
   const [error, setError] = useState("");
+  useLayoutEffect(() => {
+    // Recording has its explicit, frozen mix installed before the app loads.
+    if (!recording && battle?.audio && Object.keys(battle.audio).length) setSettings(battle.audio);
+  }, [battle?.id]);
   const player = useBattlePlayer({ lang, me: "p1", speedMs, names: seatNames(battle, lang) });
   const seats = useSeats(battle);
   const run = useRef({ started: false, ended: false, recorder: null, t0: 0, sound: false });

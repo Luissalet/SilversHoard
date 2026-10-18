@@ -19,6 +19,7 @@ from . import controller, gymmap, hgss_rom, replay_statistics, trainer_poster
 from . import pokeathlon as pk
 from . import pokeathlon_rooms as pkr
 from . import battle_search, battle_journal
+from .audio_settings import AudioSettings
 from .services import Services
 
 AGENT_INSTRUCTIONS = """Silver's Hoard is a Pokémon battle simulator (Pokémon Showdown's engine, every generation). It keeps trainers (a name, a team, an AI level and style, an avatar and battle lines), gyms (a leader plus optional gym trainers, a badge and rules), leagues (gyms, an Elite Four and a champion) and every battle with its full log.
@@ -541,6 +542,7 @@ class MassVideoArgs(BaseModel):
     aspect: Literal["landscape", "portrait"] = Field("landscape", description="landscape 16:9; portrait 9:16 for vertical social video. 1080p portrait is 1080x1920.")
     lang: Literal["", "es", "en"] = Field("", description="Language of the texts; empty = the app's.")
     lumiere: bool = Field(False, description="Also send the clip to Lumiere's Hoard, the family's video editor.")
+    audio: Optional[AudioSettings] = Field(None, description="Mix levels 0..1 and music track; battle defaults to its saved mix.")
 
 
 class FriendIdArg(BaseModel):
@@ -990,6 +992,10 @@ class RefreshArg(BaseModel):
     refresh: bool = Field(False, description="Check poke-engine again (after installing it).")
 
 
+class BattleAudioArgs(IdArg):
+    audio: AudioSettings
+
+
 class BattleVideoArgs(BaseModel):
     id: str = IdField
     speed: Literal["slow", "normal", "fast"] = Field("normal", description="Replay speed of the clip.")
@@ -997,6 +1003,7 @@ class BattleVideoArgs(BaseModel):
     aspect: Literal["landscape", "portrait"] = Field("landscape", description="landscape 16:9; portrait 9:16 for vertical social video. 1080p portrait is 1080x1920.")
     lang: Literal["", "es", "en"] = Field("", description="Language of the battle texts; empty = the app's.")
     lumiere: bool = Field(False, description="Also send the clip to Lumiere's Hoard, the family's video editor.")
+    audio: Optional[AudioSettings] = Field(None, description="Mix levels 0..1 and music track; battle defaults to its saved mix.")
 
 
 class BattleExplainArgs(BaseModel):
@@ -1343,6 +1350,8 @@ TOOLS: list[Tool] = [
          "Uses the same public activation messages as the side banners. Real time reconstructs saved inputs up to the saved tick; "
          "equipped passive abilities and unsupported effects are not proof of activation.", synonyms="popup habilidad, comprobar habilidades"),
          IdArg, R, lambda s, a: s.battle_abilities(a.id), 600.0),
+    Tool("battle_audio_set", _d("Save a battle's music and mix for viewing and video export. Música y volumen del combate."),
+         BattleAudioArgs, W, lambda s, a: s.battle_audio_set(a.id, a.audio.model_dump())),
     Tool("battle_get", _d("A battle: protocol log (from since), pending choices of person seats, result. Ver combate.",
                           synonyms="estado del combate, log, repetición"), BattleGetArgs, R, lambda s, a: s.battle_get(a.id, since=a.since)),
     Tool("battle_choose", _d("Send a person seat's choice: 'move 1', 'move 2 terastallize', 'switch 3', 'team 123456'. Elegir.",
@@ -1414,7 +1423,8 @@ TOOLS: list[Tool] = [
     Tool("mass_video", _d("Record a mass battle, or a played run of it, as a video clip with its sound (a job). Vídeo campal.",
                           "MP4 in the exports folder (job_get gives its url and path); aspect=portrait makes a 9:16 clip; the camera follows the action; lumiere=true hands it to the video editor.",
                           synonyms="grabar batalla campal, vídeo del battle royale"),
-         MassVideoArgs, WD, lambda s, a: s.mass.video(a.id, play_id=a.play_id, speed=a.speed, size=a.size, lang=a.lang, lumiere=a.lumiere, aspect=a.aspect), 60.0),
+         MassVideoArgs, WD, lambda s, a: s.mass.video(a.id, play_id=a.play_id, speed=a.speed, size=a.size, lang=a.lang, lumiere=a.lumiere, aspect=a.aspect,
+             **({"audio": a.audio.model_dump()} if a.audio is not None else {})), 60.0),
     Tool("friends_league", _d("The friends' league: points from the results friends bring back, by season. Liga de amigos.",
                               "Per friend and gym or trainer the best result counts: full win 3 (+1 replay-checked), each battle won 1, the week's challenge +1.",
                               synonyms="clasificación de amigos, temporada, puntos, ranking"), SeasonArg, R, lambda s, a: s.friends.league(a.season)),
@@ -1667,7 +1677,8 @@ TOOLS: list[Tool] = [
     Tool("battle_video", _d("Record a finished battle's replay as a video clip with its sound (a job). Vídeo del combate.",
                             "MP4 in the exports folder (job_get gives its url and path); aspect=portrait makes a 9:16 clip; lumiere=true hands it to the video editor.",
                             synonyms="exportar vídeo, grabar repetición, clip del combate, mandar a lumiere"), BattleVideoArgs, WD,
-         lambda s, a: s.battle_video(a.id, speed=a.speed, size=a.size, lang=a.lang, lumiere=a.lumiere, aspect=a.aspect), 60.0),
+         lambda s, a: s.battle_video(a.id, speed=a.speed, size=a.size, lang=a.lang, lumiere=a.lumiere, aspect=a.aspect,
+             **({"audio": a.audio.model_dump()} if a.audio is not None else {})), 60.0),
     Tool("video_status", _d("What recording battle videos needs here: Playwright, Chrome or Edge, ffmpeg. Estado del vídeo.",
                             synonyms="requisitos vídeo, grabar vídeo"), Empty, R, lambda s, a: s.video_status()),
     Tool("battle_explain", _d("Why the AI chose each move, turn by turn, and what the expert would do now. Comentar la jugada.",

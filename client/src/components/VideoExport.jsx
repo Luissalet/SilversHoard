@@ -1,6 +1,7 @@
 // "Video" on a finished battle: record its replay as a clip with sound (battle_video, a job), watch it here, download it or send it
 // to Lumiere's Hoard, the family's video editor. Mass battles use it too (tool mass_video with their own arguments and help).
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { BattleSoundContext, MusicSelect, SoundSliders, useSound } from "../battle/SoundControl.jsx";
 import { api } from "../api.js";
 import { useApp } from "../context.js";
 import { Busy, Icon, ICONS, Modal, useBusy } from "./ui.jsx";
@@ -24,6 +25,8 @@ const S = {
   sent: ["En Lumiere's Hoard", "In Lumiere's Hoard"],
   not_sent: ["No se pudo mandar a Lumiere's Hoard: {e}", "Could not send it to Lumiere's Hoard: {e}"],
   missing: ["Para grabar hace falta: {what}", "Recording needs: {what}"],
+  mix: ["Mezcla de sonido", "Sound mix"],
+  mix_help: ["La reproducción y el vídeo usan esta misma canción y estos volúmenes.", "Playback and video use this same song and these levels."],
   no_sound: ["Sin sonido", "No sound"],
 };
 const fill = (text, vars = {}) => text.replace(/\{(\w+)\}/g, (_, k) => (vars[k] ?? ""));
@@ -31,6 +34,8 @@ const fill = (text, vars = {}) => text.replace(/\{(\w+)\}/g, (_, k) => (vars[k] 
 export default function VideoExport({ battle = null, tool = "battle_video", args = null, help = "", label = "" }) {
   const { lang, toastError, notify } = useApp();
   const s = (k, v) => fill(L(S[k], lang), v);
+  const audio = useSound();
+  const battleSound = useContext(BattleSoundContext);
   const [open, setOpen] = useState(false);
   const [speed, setSpeed] = useState("normal");
   const [size, setSize] = useState("720p");
@@ -47,7 +52,8 @@ export default function VideoExport({ battle = null, tool = "battle_video", args
   const running = !!job && ["queued", "running"].includes(job.status);
   const start = () => run("rec", async () => {
     setResult(null);
-    const r = await api.call(tool, { ...(args || { id: battle.id }), speed, size, aspect, lang, lumiere });
+    await battleSound?.flush();
+    const r = await api.call(tool, { ...(args || { id: battle.id }), speed, size, aspect, lang, lumiere, audio });
     setJobId(r.id || r.job?.id || "");
   });
   const missing = status ? [!status.playwright && "Playwright", !status.browser && "Chrome / Edge"].filter(Boolean) : [];
@@ -77,6 +83,12 @@ export default function VideoExport({ battle = null, tool = "battle_video", args
                 {["720p", "1080p"].map((k) => <button key={k} type="button" aria-pressed={size === k} onClick={() => setSize(k)}>{k}</button>)}
               </div>
             </div>
+            <fieldset className="space-y-2 min-w-0">
+              <legend>{s("mix")}</legend>
+              <p className="help">{s("mix_help")}</p>
+              <MusicSelect lang={lang} />
+              <SoundSliders lang={lang} test={false} />
+            </fieldset>
             <label className="flex items-center gap-2"><input type="checkbox" checked={lumiere} onChange={(e) => setLumiere(e.target.checked)} /> {s("lumiere")}</label>
             <Busy busy={busy.rec || running} className="btn btn-primary" disabled={missing.length > 0} onClick={start}>{s("record")}</Busy>
             {job && <JobProgress job={job} />}

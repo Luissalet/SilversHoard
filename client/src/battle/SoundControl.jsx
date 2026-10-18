@@ -1,18 +1,55 @@
 // The sound mixer on screen: a speaker button for the battle screens (a small panel with the sliders) and the sliders alone for the
 // settings page. State lives in ../audio.js (and localStorage), so every control shows the same values.
-import React, { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import React, { createContext, useContext, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { getSettings, setSettings, sfx, subscribe, unlock } from "../audio.js";
+import { api } from "../api.js";
 import { MUSIC_OPTIONS, sndT } from "../sound-strings.js";
 import { getLibrary, importFiles, loadLibrary, subscribe as subscribeLibrary } from "../music/store.js";
 
 export const useSound = () => useSyncExternalStore(subscribe, getSettings, getSettings);
+
+// Only the ordinary battle page binds edits to a saved battle. Portable pages keep browser preferences.
+export const BattleSoundContext = createContext(null);
+export function useBattleSound(battle) {
+  const [status, setStatus] = useState("browser");
+  const binding = useRef(null);
+  useLayoutEffect(() => {
+    if (!battle?.id) return undefined;
+    let active = true, timer = null, pending = null, version = 0, chain = Promise.resolve();
+    const saved = battle.audio && Object.keys(battle.audio).length > 0;
+    if (saved) setSettings(battle.audio);
+    setStatus(saved ? "saved" : "browser");
+    const enqueue = (audio) => {
+      pending = null;
+      const revision = ++version;
+      chain = chain.catch(() => {}).then(() => api.call("battle_audio_set", { id: battle.id, audio })).then(() => {
+        if (active && revision === version && !pending) setStatus("saved");
+      }, (error) => { if (active && revision === version && !pending) setStatus("error"); throw error; });
+      return chain;
+    };
+    const flush = () => { clearTimeout(timer); return enqueue(getSettings()); };
+    binding.current = { flush };
+    if (!saved) { setStatus("saving"); enqueue(getSettings()).catch(() => {}); }
+    const unsubscribe = subscribe((audio) => {
+      pending = audio; setStatus("saving"); clearTimeout(timer);
+      timer = setTimeout(() => enqueue(audio).catch(() => {}), 300);
+    });
+    return () => {
+      active = false; unsubscribe(); clearTimeout(timer);
+      if (pending) enqueue(pending).catch(() => {});
+      binding.current = null;
+    };
+  }, [battle?.id]); // Polling the same battle must not overwrite edits waiting to be saved.
+  return { status, flush: () => binding.current?.flush() ?? Promise.resolve() };
+}
 
 const SLIDERS = [["master", "snd_master"], ["music", "snd_music"], ["sfx", "snd_sfx"], ["cries", "snd_cries"]];
 
 export function SoundSliders({ lang = "es", test = true }) {
   const t = sndT(lang);
   const s = useSound();
+  const battleSound = useContext(BattleSoundContext);
   return (
     <div className="snd-sliders">
       <label className="snd-row">
@@ -28,6 +65,10 @@ export function SoundSliders({ lang = "es", test = true }) {
           <span className="num snd-val">{Math.round(s[key] * 100)}</span>
         </label>
       ))}
+      {battleSound && <div className="help" role={battleSound.status === "error" ? "alert" : "status"}>
+        {t(`snd_battle_${battleSound.status}`)}
+        {battleSound.status === "error" && <button type="button" className="btn-link" onClick={() => battleSound.flush().catch(() => {})}>{t("snd_retry")}</button>}
+      </div>}
       {test && <button type="button" className="btn btn-sm" onClick={() => { unlock(); sfx("super", { gap: 0 }); sfx("win", { gap: 0, delay: 0.5 }); }}>{t("snd_test")}</button>}
     </div>
   );
@@ -36,6 +77,7 @@ export function SoundSliders({ lang = "es", test = true }) {
 export function MusicSelect({ lang }) {
   const t = sndT(lang);
   const s = useSound();
+  const battleSound = useContext(BattleSoundContext);
   const library = useSyncExternalStore(subscribeLibrary, getLibrary, getLibrary);
   const [uploading, setUploading] = useState(false);
   const [failure, setFailure] = useState("");
@@ -55,7 +97,7 @@ export function MusicSelect({ lang }) {
         </optgroup>)}
       </select>
       </label>
-      <span className="help">{t("snd_track_help")}</span>
+      <span className="help">{t(battleSound ? "snd_battle_help" : "snd_track_help")}</span>
       {personal && <div className="flex flex-wrap items-center gap-2">
         <label className="btn btn-sm relative overflow-hidden">{t(uploading ? "snd_importing" : "snd_add")}
           <input type="file" accept=".mp3,audio/mpeg" multiple disabled={uploading} aria-label={t("snd_add")} className="absolute inset-0 w-full opacity-0"

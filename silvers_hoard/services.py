@@ -1516,9 +1516,20 @@ class Services:
         self.engine.call("match_start", {"spec": spec, "snapshot": json.loads(b["snapshot"]), "view": "host"}, timeout=60)
         self.engine.call("match_state", {"id": b["id"], "since": 10**9})
 
+    def battle_audio_set(self, id_: str, audio: dict[str, Any]) -> dict[str, Any]:
+        """Save presentation audio independently of the battle's rules, replay and result."""
+        from .audio_settings import validate_audio
+        mix = validate_audio(self.sounds, audio)
+        with self._lock_for(id_):
+            self.store.battle(id_)
+            self.store.update_battle(id_, {"audio": mix})
+        self.emit("battle.audio", {"id": id_, "audio": mix})
+        return {"id": id_, "audio": mix}
+
     def battle_get(self, id_: str, since: int = 0, view: str = "host") -> dict[str, Any]:
         b = self.store.battle(id_)
         out = self.battle_card(b)
+        out["audio"] = b.get("audio") or {}
         summary = b.get("summary") or {}
         out.update({"rules": b.get("rules") or [], "level_rules": b.get("level_rules") or {},
                     "summary": {k: v for k, v in summary.items() if k != "ai_notes"}, "ai_notes_count": len(summary.get("ai_notes") or [])})
@@ -3753,7 +3764,7 @@ class Services:
                 "ffmpeg turns the recording into an MP4 (without it the clip stays WebM)."}
 
     def battle_video(self, id_: str, *, speed: str = "normal", size: str = "720p", lang: str = "", lumiere: bool = False,
-                     aspect: str = "landscape") -> dict[str, Any]:
+                     aspect: str = "landscape", audio: Optional[dict[str, Any]] = None) -> dict[str, Any]:
         """Record a finished battle's replay as a video clip (a job): the app's own replay page, alone on a 16:9 stage, played by a
         headless Chrome or Edge that captures the tab's picture and the page's sound (effects, cries, music) as it plays. The clip
         lands in the exports folder as MP4 (WebM without ffmpeg); lumiere=True also hands it to Lumiere's Hoard, the video editor."""
@@ -3770,14 +3781,18 @@ class Services:
         if not status["playwright"] or not status["browser"]:
             raise SilverError("unavailable", "Recording needs Playwright and Chrome or Edge on this computer.", hint=status["hint"])
         lang = lang if lang in ("es", "en") else str(self.settings.get("language") or "en")[:2]
+        from .audio_settings import validate_audio
+        mix = audio if audio is not None else b.get("audio") or None
+        mix = validate_audio(self.sounds, mix) if mix is not None else None
         title = f"Vídeo: {b.get('title') or (b['p1'].get('name', '') + ' vs ' + b['p2'].get('name', ''))}"
-        return self._job("video", title, {"battle_id": id_, "speed": speed, "size": size, "aspect": aspect, "lumiere": lumiere},
+        return self._job("video", title, {"battle_id": id_, "speed": speed, "size": size, "aspect": aspect, "lumiere": lumiere, **({"audio": mix} if mix is not None else {})},
                          lambda jid, progress, cancelled: self._record_video(b, speed, size, lang, lumiere, status, progress, cancelled,
-                                                                            **({"aspect": aspect} if aspect != "landscape" else {})))
+                                                                            **({"aspect": aspect} if aspect != "landscape" else {}),
+                                                                            **({"audio": mix} if mix is not None else {})))
 
     def _record_video(self, b: dict[str, Any], speed: str, size: str, lang: str, lumiere: bool, status: dict[str, Any],
                       progress: Callable[[float], None], cancelled: Callable[[], bool], *, url_path: str = "", stem: str = "",
-                      seconds: Optional[float] = None, aspect: str = "landscape") -> dict[str, Any]:
+                      seconds: Optional[float] = None, aspect: str = "landscape", audio: Optional[dict[str, Any]] = None) -> dict[str, Any]:
         """``url_path`` (after #/), ``stem`` and ``seconds`` (how long the clip plays) record another page than a battle's replay
         (mass.py: a mass battle)."""
         import base64
@@ -3824,6 +3839,8 @@ class Services:
                     f"--screen-info={{{width * 2}x{height * 2}}}"])
                 page = browser.new_page(viewport={"width": width, "height": height}, device_scale_factor=1,
                                         locale="es-ES" if lang == "es" else "en-US")
+                if audio is not None:
+                    page.add_init_script("localStorage.setItem('silver-sound', " + json.dumps(json.dumps(audio)) + ");")
                 # Tab capture records the real content area, not Playwright's emulated viewport.
                 window = page.context.new_cdp_session(page)
                 window_id = window.send("Browser.getWindowForTarget")["windowId"]
@@ -3889,6 +3906,8 @@ class Services:
         result: dict[str, Any] = {"file": out.name, "url": f"/api/exports/{out.name}", "bytes": out.stat().st_size, "path": str(out.resolve()),
                                   "seconds": round(duration, 1), "width": width, "height": height, "aspect": aspect,
                                   "sound": bool(state["info"].get("sound")), "battle_id": b["id"]}
+        if audio is not None:
+            result["audio"] = audio
         if lumiere:
             sent = family.call("lumiere", "media_receive", {"path": str(out.resolve())}, timeout=120)
             result["lumiere"] = sent.get("result") if sent.get("ok") else {"error": sent.get("error") or sent.get("status")}

@@ -28,3 +28,5 @@ Archiving a personal song retains its file and allows restoring it from **Archiv
 `POST /api/music/upload` transports one multipart `file` into the same importer. The UI processes a batch file by file, reports individual failures and retains successful imports. `GET /api/music/<track-id>` serves both existing catalog tracks and personal MP3s, including normal byte-range seeking. Personal filenames are never used as serving paths.
 
 `MusicLibrary` stores metadata atomically in `data/music/library.json` under the service's in-process lock. MCP forwards to that same running service. An unreadable JSON document is preserved and reported as an error. No new dependency or schema migration is required.
+
+Each ordinary battle now saves its chosen track and channel levels through `battle_audio_set` and returns them in `battle_get.audio`. The speaker controls apply immediately and save with visible status. Battle MP4 export uses that saved mix unless an explicit `audio` override is supplied; the recorder installs the mix before loading the replay. The existing personal MP3 is referenced by its library ID. Portable HTML still does not embed personal audio.
