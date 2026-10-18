@@ -143,11 +143,15 @@ def test_v7_migration_preserves_all_existing_rows(tmp_path):
     db.insert("gyms", {"id":"old-gym","name":"Existing gym","format":"gen9customgame","rt_arena":"custom:old-arena","map_json":'{"entry":[1,1]}',"created_at":1,"updated_at":1})
     tables = [r["name"] for r in db.query("SELECT name FROM sqlite_master WHERE type='table' AND name <> 'schema_version'")]
     before = {t: db.query(f'SELECT * FROM "{t}"') for t in tables}
+    columns = {t: [r["name"] for r in db.query(f'PRAGMA table_info("{t}")')] for t in tables}
     db.close()
     store = module.Store(path)
-    # The migration ledger is expected to grow; business rows must stay byte-for-byte equivalent.
+    # Later migrations can add columns; every original column and value must survive.
     for table, rows in before.items():
-        assert store.db.query(f'SELECT * FROM "{table}"') == rows
+        projection = ",".join(f'"{name}"' for name in columns[table])
+        assert store.db.query(f'SELECT {projection} FROM "{table}"') == rows
+    assert store.arena("old-arena")["weather"] == ""
+    assert store.arena("old-arena")["weather_rules"] == 0
     assert store.exercises() == []
     store.close()
 

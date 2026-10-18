@@ -256,6 +256,11 @@ CREATE TABLE exercises (
 CREATE INDEX exercises_recent ON exercises(updated_at);
 """
 
+SCHEMA_V10 = """
+ALTER TABLE arenas ADD COLUMN weather TEXT NOT NULL DEFAULT '';
+ALTER TABLE arenas ADD COLUMN weather_rules INTEGER NOT NULL DEFAULT 0;
+"""
+
 EXERCISE_JSON = {"payload_json": "payload"}
 TRAINER_JSON = {"team_json": "team", "dialogue_json": "dialogue", "tags_json": "tags"}
 GYM_JSON = {"rules_json": "rules", "level_rules_json": "level_rules", "trainers_json": "trainers", "map_json": "map"}
@@ -293,7 +298,7 @@ def _encode(values: dict[str, Any], json_cols: dict[str, str]) -> dict[str, Any]
 
 class Store:
     def __init__(self, path: Path):
-        self.db = Database(path, migrations=[SCHEMA_V1, SCHEMA_V2, SCHEMA_V3, SCHEMA_V4, SCHEMA_V5, SCHEMA_V6, SCHEMA_V7, SCHEMA_V8, SCHEMA_V9])
+        self.db = Database(path, migrations=[SCHEMA_V1, SCHEMA_V2, SCHEMA_V3, SCHEMA_V4, SCHEMA_V5, SCHEMA_V6, SCHEMA_V7, SCHEMA_V8, SCHEMA_V9, SCHEMA_V10])
 
     def close(self) -> None:
         self.db.close()

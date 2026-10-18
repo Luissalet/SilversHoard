@@ -17,6 +17,6 @@ def test_cup_keeps_language_and_special_choice_after_settings_change(call, servi
     call("settings_set", {"rt_silver_special": not special})
     game = call("cup_play", {"id": cup["id"]})
     saved = services.store.battle(game["battle_id"])
-    assert saved["replay"]["version"] == 11 and saved["replay"]["silver_special"] is special
+    assert saved["replay"]["version"] == 12 and saved["replay"]["silver_special"] is special
     assert call("cup_get", {"id": cup["id"]})["spec"]["lang"] == "es"
     call("battle_forfeit", {"id": game["battle_id"], "side": "p1"})

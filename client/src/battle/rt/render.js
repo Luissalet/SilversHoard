@@ -270,14 +270,14 @@ export class ArenaRenderer {
       this.court = { w: c.width, floor: floorId, artReady, variant, canvas: c };
     }
     this.ctx.drawImage(this.court.canvas, 0, 0);
-    const w = view.weather?.id;
+    const w = view.weather?.id || view.arena_weather;
     const tint = { sunnyday: "rgba(255,190,90,0.13)", desolateland: "rgba(255,150,60,0.18)", raindance: "rgba(60,90,160,0.18)", primordialsea: "rgba(40,70,150,0.22)",
       sandstorm: "rgba(190,150,80,0.22)", snow: "rgba(220,235,255,0.2)", hail: "rgba(220,235,255,0.2)" }[w];
     if (tint) { this.ctx.fillStyle = tint; this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height); }
     const tr = view.terrain?.id;
     const ttint = { electricterrain: "rgba(247,208,44,0.12)", grassyterrain: "rgba(122,199,76,0.14)", psychicterrain: "rgba(249,85,135,0.12)", mistyterrain: "rgba(243,182,216,0.14)" }[tr];
     if (ttint) { this.ctx.fillStyle = ttint; this.ctx.fillRect(this.px(0), this.py(0), ARENA.w * this.scale, ARENA.h * this.scale); }
-    drawAmbient(this.ctx, this, view?.floor, this.time, !!view?.fog);
+    drawAmbient(this.ctx, this, view?.floor, this.reducedMotion?.matches ? 0 : this.time, !!view?.fog, w);
   }
 
   /** A rock of the arena: a rounded boulder with a shadow, lit from the top left, some cracks and grass at its foot. */
