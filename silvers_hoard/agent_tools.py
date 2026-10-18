@@ -804,7 +804,7 @@ class BenchmarkArgs(BaseModel):
     rules: list[str] = Field(default_factory=list, max_length=20)
     level_rules: dict[str, int] = Field(default_factory=dict)
     seed: str = Field("", max_length=60, description="Master seed that builds the shared per-rival seeds.")
-    ai_level: Optional[Level] = Field(None, description="Same AI for everybody; empty = each trainer's own.")
+    ai_level: Optional[Level] = Field(None, description="Override saved candidates and, in trainer mode, saved rivals; empty = each trainer's own AI. Metagame opponents use rival_ai_level.")
     mode: Mode = ModeField
     time_limit: int = TimeLimitField
     rt_arena: RtArena = RtArenaField
