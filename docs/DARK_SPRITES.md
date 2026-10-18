@@ -6,7 +6,7 @@ Five selected motifs use Luis's local `Game Boy Advance - Pokemon Mystery Dungeo
 | --- | --- | ---: | ---: |
 | Bite | `fx-pmd-dark-bite` | 10 | 2.4 |
 | Crunch | `fx-pmd-dark-crunch` | 5 | 2.4 |
-| Knock Off | `fx-pmd-dark-knockoff` | 3 | 2.4 |
+| Knock Off | `fx-pmd-dark-knock-off` | 3 | 2.4 |
 | Pursuit | `fx-pmd-dark-pursuit` | 5 | 1.8 |
 | Torment | `fx-pmd-dark-torment` | 7 | 2.4 |
 
