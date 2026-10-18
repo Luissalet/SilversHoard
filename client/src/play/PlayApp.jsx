@@ -515,7 +515,7 @@ function RtBattleView({ t, lang, sprites, me, opp, rtInfo, levelRules, onEnd }) 
     } catch { /* no compression in this browser: the page says it cannot give a code */ }
     outcome.current = { won, turns: 0, seconds: Math.round(b.t / 30), opponent: opp.name, lines: [], mode: "realtime", rt };
     const ended = { id: spec.id, status: "ended", format: spec.format, kind: "friend", winner_side: summary.winner_side, summary: { seconds: b.t / 30 },
-      rt: { spec, inputs: inputs.slice(), tick: b.t, human: [true, false], time_limit: spec.time_limit, arena: spec.arena } };
+      rt: { spec, inputs: inputs.slice(), tick: b.t, forfeit: forfeit || "", human: [true, false], time_limit: spec.time_limit, arena: spec.arena } };
     setBattle(ended);
     return ended;
   }, [spec, opp, rtInfo]);
