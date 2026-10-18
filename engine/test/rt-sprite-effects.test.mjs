@@ -7,15 +7,16 @@ import {effectProfile} from '../../client/src/battle/rt/supplied-moves.js';
 import {Vfx,particleStyle} from '../../client/src/battle/rt/vfx.js';
 import art from '../../silvers_hoard/presets/supplied_sprites.json' with {type:'json'};
 import catalog from '../../silvers_hoard/presets/rt_move_effects.json' with {type:'json'};
+import {RtBattle} from '../src/realtime/sim.mjs';
 
 function harness(run) {
   const old=globalThis.Image;
   globalThis.Image=class {complete=true;naturalWidth=128;};
   const r={canvas:{width:840,height:510},scale:30,time:0,px:x=>x*30,py:y=>y*30};
-  const calls=[];
-  const ctx={globalAlpha:1,save(){},restore(){this.globalAlpha=1;},translate(...a){calls.push(['at',...a]);},rotate(...a){calls.push(['angle',...a]);},drawImage(...a){calls.push(['image',...a.slice(1)]);}};
+  const calls=[],materials=[];
+  const ctx={globalAlpha:1,save(){},restore(){this.globalAlpha=1;},translate(...a){calls.push(['at',...a]);},rotate(...a){calls.push(['angle',...a]);},drawImage(...a){materials.push(a[0].src);calls.push(['image',...a.slice(1)]);}};
   const view={sides:[{x:2,y:3,fx:1,fy:0,active:0},{x:6,y:3,fx:-1,fy:0,active:0}],projectiles:[]};
-  try {run({r,ctx,calls,view,fx:new SuppliedEffects(r)});} finally {globalThis.Image=old;}
+  try {run({r,ctx,calls,materials,view,fx:new SuppliedEffects(r)});} finally {globalThis.Image=old;}
 }
 
 test('every native move profile matches actual RT shape and valid nonempty sprite material',()=>{
@@ -41,6 +42,59 @@ test('default RT Vfx draws supplied impacts without selecting pixel particles',(
   const vfx=new Vfx(r);vfx.supplied.impact('waterpulse','Water',6,3);
   vfx.update(.1,view);vfx.drawOver(ctx,view,{sides:view.sides});
   assert.ok(calls.some(c=>c[0]==='image'));
+}));
+
+test('remaining supplied motifs reach real move phases rather than unused metadata',()=>harness(({fx,ctx,materials,view})=>{
+  const examples={payday:'coins',bonemerang:'bone-spin',swordsdance:'sword',geargrind:'gears',
+    petalblizzard:'petals',sludgebomb:'sludge',dracometeor:'meteor',icepunch:'ice-fist',
+    calmmind:'psychic-rings',moonblast:'moon',steameruption:'smoke',triattack:'tri-colors'};
+  for(const [move,material] of Object.entries(examples)) {
+    materials.length=0;fx.queue=[];
+    const p=catalog.profiles[move],id='fx-rt-'+material;
+    assert.equal(p.selection,'move');
+    if(p.shape==='self') fx.event({k:'use',s:0,move},{sides:view.sides});
+    else if(['strike','dash'].includes(p.shape))fx.contact(move,p.type,2,3);
+    else if(['burst','cone','drop','field'].includes(p.shape))fx.area(move,p.type,2,3,2);
+    else view.projectiles=[{id:move,move,type:p.type,shape:p.shape,x:3,y:3}];
+    fx.update(0);fx.draw(ctx,view);
+    assert.ok(materials.includes(art.sprites[id].image),move);
+    view.projectiles=[];
+  }
+  assert.ok(Object.values(catalog.profiles).filter(p=>p.available&&p.selection==='move').length>350);
+}));
+
+test('PMD overlays follow real status, confusion, cure, switch, faint and replay state without events',()=>harness(({fx,ctx,calls,materials})=>{
+  const sets=[{species:'Mew',moves:['Tackle']},{species:'Pikachu',moves:['Tackle']}];
+  const b=new RtBattle({seed:'pmd-status',format:'gen9customgame',p1:{sets},p2:{sets}});
+  const side=b.sides[0],mon=b.mon(side);
+  const draw=()=>{calls.length=0;materials.length=0;const v=b.view();fx.update(0,v);fx.draw(ctx,v);return materials.slice();};
+  for(const status of ['brn','psn','tox','par','slp','frz']) {
+    b.setStatus(side,status,undefined,{force:true});
+    assert.equal(mon.status,status);
+    const before=JSON.stringify({view:b.view(),events:b.events});
+    assert.ok(draw().includes(art.sprites[catalog.statuses[status].sprite].image));
+    assert.equal(JSON.stringify({view:b.view(),events:b.events}),before);
+    const first=structuredClone(calls);draw();assert.deepEqual(calls,first,'paused');
+    b.cure(side);assert.equal(draw().length,0,'cured immediately');
+  }
+  b.confuse(side);assert.ok(draw().includes(art.sprites['fx-status-confusion'].image));
+  b.t=side.vol.confusedUntil;assert.equal(draw().length,0,'confusion deadline');
+  mon.status='brn';side.active=1;side.vol={};assert.equal(draw().length,0,'bench status stays on bench');
+  side.active=0;mon.fainted=true;assert.equal(draw().length,0,'faint');
+  mon.fainted=false;b.ended=true;assert.equal(draw().length,0,'end');
+}));
+
+test('PMD overlays cover both doubles slots and visible mass units; reduced motion freezes source frame',()=>harness(({fx,ctx,calls,materials,r})=>{
+  const sides=[{mons:[{status:'brn'},{status:'frz'}],units:[{active:0,x:2,y:3},{active:1,x:5,y:3,confused:true}]}];
+  const view={sides,doubles:true,projectiles:[],seconds:1};
+  fx.update(0,view);fx.draw(ctx,view,true);
+  assert.equal(materials.length,3);const first=structuredClone(calls);
+  calls.length=0;fx.update(0,{...view,seconds:3});fx.draw(ctx,view,true);assert.deepEqual(calls,first);
+  materials.length=0;fx.draw(ctx,{sides:[],projectiles:[],statusUnits:[{x:4,y:4,status:'psn',size:1},{x:5,y:5,status:'frz',fainted:true}]});
+  assert.deepEqual(materials,[art.sprites['fx-status-poison'].image]);
+  materials.length=0;fx.draw(ctx,{...view,sides:[{...sides[0],units:[{active:0,x:2,y:3,vacant:true}]}]});assert.equal(materials.length,0);
+  r.portrait=true;calls.length=0;fx.draw(ctx,view,true);
+  assert.equal(calls.filter(c=>c[0]==='angle'&&c[1]===Math.PI/2).length,2,'indicators stay upright around each portrait fighter');
 }));
 
 test('beams follow their real endpoints, while contact, cones, bursts, drops and status render',()=>harness(({ctx,calls,view,fx})=>{
