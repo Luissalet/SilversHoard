@@ -2646,6 +2646,47 @@ class Services:
         rows.sort(key=lambda r: (-r["record"]["wins"], -r["unlocked"], r["name"]))
         return {"trainers": rows}
 
+    def palmares_get(self, trainer_id: str = "") -> dict[str, Any]:
+        """Unified palmarés for the Medallas page / MCP: gym badges, Pokéathlon medals, Frontier emblems, Progress achievements.
+
+        ``trainer_id`` empty is the Pokéathlon guest: guest medals only, emblems from every facility run, no Progress card.
+        A real trainer never merges guest medals; emblems are filtered by challenger before dedup.
+        """
+        from . import palmares as pm
+        from . import pokeathlon as pk
+
+        tid = pm.identity_key(trainer_id)
+        pk.service(self)  # ensure pokeathlon tables exist
+        db = self.store.db
+        if tid == "":
+            medal_rows = [dict(r) for r in db.query(
+                "SELECT trainer_id, species, bits FROM pokeathlon_medals WHERE trainer_id = ?", ("",))]
+            badges = self.badges_list()
+            facility_runs = self.store.runs(kind="facility", limit=100_000)
+            progress: dict[str, Any] = {}
+        else:
+            self.store.trainer(tid)
+            medal_rows = [dict(r) for r in db.query(
+                "SELECT trainer_id, species, bits FROM pokeathlon_medals WHERE trainer_id = ?", (tid,))]
+            badges = self.badges_list(trainer_id=tid)
+            facility_runs = self.store.runs(kind="facility", challenger_id=tid, limit=100_000)
+            progress = self.progress_get(tid)
+        # run_view light is not required; emboss challenger_name when the JSON blob has it
+        enriched = []
+        for r in facility_runs:
+            ch = r.get("challenger") or {}
+            enriched.append({
+                **r,
+                "challenger_name": r.get("challenger_name") or ch.get("name", ""),
+            })
+        return pm.unify(
+            trainer_id=tid,
+            badges=badges,
+            pokeathlon_rows=medal_rows,
+            facility_runs=enriched,
+            progress=progress,
+        )
+
     # ------------------------------------------------------------ background work: series and tournaments
     def _job(self, kind: str, title: str, args: dict[str, Any], work: Callable[[str, Callable[[float], None], Callable[[], bool]], dict[str, Any]]) -> dict[str, Any]:
         jid = self.store.add_job({"kind": kind, "title": title[:120], "status": "queued", "args": args})

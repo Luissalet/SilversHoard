@@ -2,6 +2,7 @@
 import art from "../../../../silvers_hoard/presets/supplied_sprites.json" with { type: "json" };
 import catalog from "../../../../silvers_hoard/presets/rt_move_effects.json" with { type: "json" };
 import { effectProfile } from './supplied-moves.js';
+import { upright } from './portrait-camera.js';
 
 const FRAMES = { Fire: ["fx-fire-0", "fx-fire-1"], Ice: Array.from({length: 8}, (_, i) => `fx-ice-shards-${i}`),
   Ghost: Array.from({length: 6}, (_, i) => `fx-shadow-ball-${i}`), Normal: ["fx-swift-0"] };
@@ -162,6 +163,26 @@ export class SuppliedEffects {
       const dx=x1-x0,dy=y1-y0,len=Math.hypot(dx,dy),n=Math.min(22,Math.max(1,Math.ceil(len/.7)));
       for(let i=0;i<n;i++) {const t=(i+.5)/n;stamp(p.travel,x0+dx*t,y0+dy*t,.95,age+i*.025,life,Math.atan2(dy,dx),alpha);}
     };
+    // Derive persistent overlays from this frame's public state. No event timer
+    // can outlive a cure, switch, faint, replay seek or doubles slot replacement.
+    if (!view.ended) {
+      const units=view.statusUnits || (view.sides||[]).flatMap(s=>(view.doubles?s.units||[]:[s])
+        .map(u=>({...u,mon:s.mons?.[u.active]})));
+      for (const u of units) {
+        const mon=u.mon||u;
+        if (u.vacant||u.need||mon.fainted||mon.hp===0) continue;
+        const statuses=[mon.status,...['confused','taunt','protect'].filter(k=>u[k])];
+        let above=0;
+        upright(ctx,r.px(u.x),r.py(u.y),!!r.portrait,()=>{
+          for (const status of statuses) {
+            const fx=catalog.statuses?.[status];
+            if (!fx) continue;
+            const head=fx.placement==='head',size=u.size||1;
+            stamp(fx.sprite,u.x+(head?above++*.45:0),u.y-(head?size+.35:.1*size),fx.size*size);
+          }
+        });
+      }
+    }
     const live=new Set();
     for(const shot of view.projectiles||[]) {
       live.add(shot.id);const p=profileFor(shot.move,shot.type,shot.shape);
@@ -173,7 +194,11 @@ export class SuppliedEffects {
         const len=Math.hypot(shot.vx||0,shot.vy||0)||1,dx=(shot.vx||0)/len,dy=(shot.vy||0)/len;
         if(!reduced) for(let i=3;i>0;i--)stamp(p.travel,shot.x-dx*i*.35,shot.y-dy*i*.35,.85-i*.12,0,0,Math.atan2(dy,dx),.3);
       }
-      stamp(p.travel,shot.x,shot.y,Math.max(.8,Math.min(1.55,(shot.r||.35)*3)));
+      const shotSize=Math.max(.8,Math.min(1.55,(shot.r||.35)*3));
+      if(p.motion==='triad') for(let i=0;i<3;i++) {
+        const angle=i*Math.PI*2/3+(reduced?0:this.time*3);
+        stamp(p.travel,shot.x+Math.cos(angle)*.3,shot.y+Math.sin(angle)*.3,shotSize*.65);
+      } else stamp(p.travel,shot.x,shot.y,shotSize,0,0,p.motion==='spin'&&!reduced?this.time*8:0);
     }
     for(const id of this.origins.keys())if(!live.has(id))this.origins.delete(id);
     for(const q of this.queue) {
@@ -191,9 +216,11 @@ export class SuppliedEffects {
         const n=reduced?8:18,half=q.kind==='cone'?Math.acos(Math.max(-1,Math.min(1,q.arc))):Math.PI;
         const facing=Math.atan2(q.fy??0,q.fx??1);
         for(let i=0;i<n;i++) {
-          const a=q.kind==='cone'?facing-half+(2*half*i/(n-1)):i*Math.PI*2/n;
-          const dist=radius*(q.kind==='drop'?.45:.25+phase*.75);
-          stamp(p.area,q.x+Math.cos(a)*dist,q.y+Math.sin(a)*dist,Math.min(1.7,.7+radius*.17),age+i*.012,q.life,0,alpha,q.kind==='field');
+          const spiral=p.motion==='spiral'&&q.kind!=='cone';
+          const a=q.kind==='cone'?facing-half+(2*half*i/(n-1)):i*Math.PI*2/n+(spiral?phase*Math.PI*2:0);
+          const dist=radius*(spiral?.2+.8*i/n:q.kind==='drop'?.45:.25+phase*.75);
+          const falling=p.motion==='rain'&&!reduced&&q.kind!=='cone'?(1-t)*1.8*(.4+i/n):0;
+          stamp(p.area,q.x+Math.cos(a)*dist,q.y+Math.sin(a)*dist-falling,Math.min(1.7,.7+radius*.17),age+i*.012,q.life,spiral?a:0,alpha,q.kind==='field');
         }
         if(q.kind==='drop')stamp(p.impact,q.x,q.y-(reduced?0:(1-t)*2.5),2,age,q.life,0,alpha);
       } else if(q.kind==='contact'||q.kind==='dash') {
@@ -202,8 +229,12 @@ export class SuppliedEffects {
         stamp(p.contact,x,y,1.35,age,q.life,p.contact_kind==='slash'?Math.atan2(q.fy,q.fx):0,alpha);
         if(p.type!=='Normal'&&p.type!=='Fighting')stamp(p.impact,x,y,1.05,age,q.life,0,alpha*.85);
       } else if(q.kind==='self') {
-        stamp(p.area,q.x,q.y,2,age,q.life,0,alpha,true);
-        if(!reduced)for(let i=0;i<4;i++){const a=i*Math.PI/2;stamp(p.area,q.x+Math.cos(a)*.7,q.y+Math.sin(a)*.4-t, .5,age,q.life,0,alpha);}
+        if(p.motion==='orbit') {
+          for(let i=0;i<3;i++){const a=i*Math.PI*2/3+(reduced?0:t*Math.PI*2);stamp(p.area,q.x+Math.cos(a)*.8,q.y+Math.sin(a)*.4,.9,age,q.life,0,alpha);}
+        } else {
+          stamp(p.area,q.x,q.y,2,age,q.life,0,alpha,true);
+          if(!reduced)for(let i=0;i<4;i++){const a=i*Math.PI/2;stamp(p.area,q.x+Math.cos(a)*.7,q.y+Math.sin(a)*.4-t, .5,age,q.life,0,alpha);}
+        }
       } else stamp(q.kind==='impact'?p.impact:p.travel,q.x,q.y,q.kind==='impact'?1.8:.8,age,q.life,0,alpha);
     }
   }

@@ -1,5 +1,7 @@
 import base64
 import io
+import hashlib
+import json
 from zipfile import ZipFile
 
 import pytest
@@ -62,3 +64,76 @@ def test_invalid_pack_does_not_publish_partial_import(tmp_path):
     with pytest.raises(SilverError):
         sprites.import_(str(source), source="source", credit="Artist")
     assert sprites.list() == {"sprites": []}
+
+
+def swampert_sheet(path):
+    sheet = Image.new("RGBA", (270, 437), (30, 30, 30, 255))
+    for row in range(5):
+        for col in range(3):
+            sheet.putpixel((col * 50 + 8, 122 + row * 40 + 10), (24, 152, 224, 255))
+            sheet.putpixel((col * 50 + 9, 122 + row * 40 + 10), (row + 60, col + 60, 80, 255))
+    for y in range(305, 309):
+        sheet.putpixel((50, y), (0, 0, 0, 255))
+    sheet.save(path)
+
+
+def swampert_get(url):
+    if "pokemon-species" in url:
+        return 200, json.dumps({"name": "swampert", "varieties": [{"pokemon": {
+            "name": "swampert-mega", "url": "https://pokeapi.co/api/v2/pokemon/10064/"}}]}).encode(), "application/json"
+    return 200, png((2, 2), (240, 120, 224, 255) if "/shiny/" in url else (24, 152, 224, 255)), "image/png"
+
+
+def test_swampert_native_import_has_eight_directions_shiny_original_and_portable_art(call, client, services, tmp_path):
+    source = tmp_path / "mega_swampert_sprites_by_jhony_rex_d89a70c.png"
+    swampert_sheet(source)
+    raw = source.read_bytes()
+    original = hashlib.sha256(raw).hexdigest()
+    services.overworld._http_get = swampert_get
+    result = call("overworld_import", {"path": str(source), "source": source.name, "credit": "Jhony-Rex"})
+    assert result["imported"] == 2
+    assert services.overworld.sheet(original).read_bytes() == source.read_bytes() == raw
+    images = []
+    for variant in (False, True):
+        meta = client.get(f"/api/sprites/overworld/swampert-mega?shiny={int(variant)}").json()
+        assert meta["original_key"] == original and meta["directions"] == 8
+        assert meta["credit"] == ["Jhony-Rex"] and meta["shiny"] == variant
+        assert meta["derivation"]["palette"]["form_exact"]
+        assert len(meta["frames"]) == 8 and all(len(row) == 4 for row in meta["frames"])
+        data = client.get(meta["url"]).content
+        image = Image.open(io.BytesIO(data)).convert("RGBA")
+        images.append(image)
+        assert image.size == (150, 320)
+        assert image.getpixel((0, 0))[3] == 0
+        for row in range(8):
+            assert image.crop((0, row * 40, 150, row * 40 + 40)).getbbox()
+        assert meta["frames"][3][3] == [50, 120, 50, 40]
+        portable = services.overworld.export()[f"swampert-mega|{int(variant)}"]
+        assert base64.b64decode(portable["url"].split(",")[1]) == data
+    assert images[0].getchannel("A").tobytes() == images[1].getchannel("A").tobytes()
+    assert images[0].getpixel((8, 10)) == (24, 152, 224, 255)
+    assert images[1].getpixel((8, 10)) == (240, 120, 224, 255)
+    # The real first back pose extends across x=50; all four outline pixels belong to it.
+    for y in range(305, 309):
+        assert images[0].getpixel((46, 160 + y - 282)) == (0, 0, 0, 255)
+        assert images[0].getpixel((50, 160 + y - 282))[3] == 0
+    assert sum(p[3] > 0 for p in images[0].crop((0, 160, 50, 200)).getdata()) == 6
+    assert sum(p[3] > 0 for p in images[0].crop((50, 160, 100, 200)).getdata()) == 2
+    for left, right in ((7, 1), (6, 2), (5, 3)):
+        assert images[0].crop((0, left * 40, 50, left * 40 + 40)).transpose(Image.Transpose.FLIP_LEFT_RIGHT).tobytes() == images[0].crop((0, right * 40, 50, right * 40 + 40)).tobytes()
+    restarted = OverworldSprites(services.overworld.directory, http_get=lambda _: pytest.fail("cached palette must work offline"))
+    assert restarted.import_(str(source), source=source.name, credit="Jhony-Rex")["imported"] == 2
+    assert restarted.meta("swampert-mega", True)["key"] == result["sprites"][1]["key"]
+
+
+def test_swampert_missing_reference_keeps_existing_imports(tmp_path):
+    source = tmp_path / "mega_swampert_sprites_by_jhony_rex.png"
+    swampert_sheet(source)
+    sprites = OverworldSprites(tmp_path / "data", http_get=lambda _: (404, b"", ""))
+    old = tmp_path / "delphox.png"
+    old.write_bytes(png((265, 258)))
+    sprites.import_(str(old), source="old", credit="Artist")
+    before = {p.name: p.read_bytes() for p in sprites.directory.iterdir()}
+    with pytest.raises(SilverError, match="shiny palette"):
+        sprites.import_(str(source), source=source.name, credit="Jhony-Rex")
+    assert {p.name: p.read_bytes() for p in sprites.directory.iterdir()} == before

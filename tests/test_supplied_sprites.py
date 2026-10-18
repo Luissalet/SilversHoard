@@ -85,7 +85,7 @@ def test_generation_four_complete_goods_keep_original_png_bytes_and_footprints(c
 
 def test_attack_atlases_have_every_frame_and_no_ranger_registration_markers():
     atlases=[s for s in SPRITES.values() if s["group"]=="effect-atlas"]
-    assert len(atlases)==99
+    assert len(atlases)==207
     assert sum(s["frames"] for s in atlases)>=200
     for s in atlases:
         im=Image.open(io.BytesIO(base64.b64decode(s["image"].split(",")[1])))
@@ -142,3 +142,21 @@ def test_rt_effect_catalog_pages_cover_all_moves_and_resolve_original_material(c
         for phase in ('prepare','travel','impact','area','contact'):
             assert effect[phase] in SPRITES
     assert call('leisure_catalog', {'section':'effects','query':'unknown-move'})['effects'] == []
+
+
+def test_pmd_status_rows_keep_transparency_cells_and_native_catalog_lifecycle(call):
+    page=call('leisure_catalog', {'section':'effects','query':'Pay Day'})
+    assert set(page['status_effects']) == {'brn','par','psn','tox','slp','frz','confused','taunt','protect'}
+    assert page['effects'][0]['travel']=='fx-rt-coins'
+    ids={e['sprite'] for e in page['status_effects'].values()}
+    assert len(ids)==8
+    for id_ in ids:
+        s=SPRITES[id_]
+        assert s['source']=='pmd-red-status'
+        assert s['frames']==len(s['frame_rects'])
+        assert id_ in page['effect_sprites']
+        image=Image.open(io.BytesIO(base64.b64decode(s['image'].split(',')[1])))
+        assert image.getchannel('A').getextrema()==(0,255)
+        assert not any(a and (r,g,b)==(0,120,144) for r,g,b,a in image.getdata())
+    assert sum(SPRITES[id_]['frames'] for id_ in ids)==78
+    assert SPRITES['fx-status-sleep']['frames']==10
