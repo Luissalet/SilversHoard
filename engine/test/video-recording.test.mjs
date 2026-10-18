@@ -7,12 +7,12 @@ const source = readFileSync(new URL('../../client/src/pages/Video.jsx', import.m
 const helper = source.slice(source.indexOf('function toBase64'), source.indexOf('export default function Video'));
 const flush = () => new Promise(resolve => setImmediate(resolve));
 
-function capture({denied = false, resize = false} = {}) {
+function capture({denied = false, resize = false, delayedMusic = false} = {}) {
   const tracks = [{stop() { this.stopped = true; }}];
   const audio = {getAudioTracks: () => [{kind: 'audio'}]};
   const tab = {getVideoTracks: () => tracks, getTracks: () => tracks};
   const callbacks = [], chunks = [], errors = [], completed = [];
-  let frame, recorder, geometry;
+  let frame, recorder, geometry, musicReady, captureRequests = 0;
   const preview = {muted: false, srcObject: null, requestVideoFrameCallback(cb) { frame = cb; },
     async play() {}, pause() { this.paused = true; }};
   class Recorder {
@@ -20,21 +20,38 @@ function capture({denied = false, resize = false} = {}) {
     constructor(stream, options) { this.stream = stream; this.options = options; recorder = this; }
     start() { this.started = true; }
   }
-  const make = new Function('installTap', 'unlock', 'navigator', 'MediaStream', 'MediaRecorder', 'document', 'window', 'performance', 'setTimeout',
+  const make = new Function('installTap', 'unlock', 'navigator', 'MediaStream', 'MediaRecorder', 'document', 'window', 'performance', 'setTimeout', 'music',
     `${helper}\nreturn startRecording;`);
   const startRecording = make(() => audio, () => {}, {mediaDevices: {getDisplayMedia: async () => {
+    captureRequests++;
     if (denied) throw new Error('capture denied');
     return tab;
   }}}, class { constructor(items) { this.tracks = items; } }, Recorder,
   {createElement: () => preview}, {__videoChunk: data => chunks.push(data), __videoDone: info => completed.push(info), __videoError: e => errors.push(e),
     ...(resize ? {__videoCaptureReady: () => new Promise(resolve => { geometry = resolve; })} : {})},
-  {now: () => 2000}, cb => { callbacks.push(cb); return callbacks.length; });
+  {now: () => 2000}, cb => { callbacks.push(cb); return callbacks.length; },
+  {ready: () => delayedMusic ? new Promise(resolve => { musicReady = resolve; }) : Promise.resolve()});
   const run = {current: {t0: 1000}};
   let starts = 0;
   startRecording(run, () => starts++);
   return {run, tracks, preview, callbacks, chunks, errors, completed, get recorder() { return recorder; }, get starts() { return starts; },
-    deliverFrame() { frame(); }, resizeDone() { geometry(); }};
+    get captureRequests() { return captureRequests; },
+    deliverFrame() { frame(); }, resizeDone() { geometry(); }, musicDone() { musicReady(); }};
 }
+
+test('capture waits for requested music before asking for a picture or advancing the replay', async () => {
+  const c = capture({delayedMusic: true, resize: true});
+  await flush();
+  assert.equal(c.captureRequests, 0);
+  assert.equal(c.recorder, undefined);
+  assert.equal(c.starts, 0);
+  c.musicDone(); await flush();
+  assert.equal(c.captureRequests, 1);
+  c.resizeDone(); await flush();
+  assert.equal(c.recorder.started, true);
+  c.deliverFrame(); await flush(); c.callbacks[0]();
+  assert.equal(c.starts, 1);
+});
 
 test('native geometry adjustment completes before the MediaRecorder is created', async () => {
   const c = capture({resize: true});
