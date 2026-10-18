@@ -85,7 +85,7 @@ def test_generation_four_complete_goods_keep_original_png_bytes_and_footprints(c
 
 def test_attack_atlases_have_every_frame_and_no_ranger_registration_markers():
     atlases=[s for s in SPRITES.values() if s["group"]=="effect-atlas"]
-    assert len(atlases)==207
+    assert len(atlases)==218
     assert sum(s["frames"] for s in atlases)>=200
     for s in atlases:
         im=Image.open(io.BytesIO(base64.b64decode(s["image"].split(",")[1])))

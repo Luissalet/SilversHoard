@@ -120,6 +120,23 @@ const MOTIONS = {petals:'spiral',coins:'rain',meteor:'rain','rock-tomb':'rain',
   'leaf-vortex':'spiral','fire-spin':'spiral','water-vortex':'spiral'};
 const idOf = move => String(move || '').toLowerCase().replace(/[^a-z0-9]/g,'');
 
+// Selected local Time/Darkness rows. Keep the move's actual RT geometry and
+// timing; these are sprite motifs rather than copied cartridge emitter programs.
+const pmd = name => `fx-pmd-td-${name}`;
+const LOCAL_PMD = {
+  dragondance: {prepare:pmd('dragon-dance'),area:pmd('dragon-dance')},
+  dragonpulse: {travel:pmd('dragon-pulse'),impact:pmd('dragon-pulse')},
+  outrage: {contact:pmd('outrage'),impact:pmd('outrage'),area:pmd('outrage')},
+  spacialrend: {travel:pmd('spacial-rend'),impact:pmd('spacial-rend'),area:pmd('spacial-rend')},
+  acid: {travel:pmd('acid'),impact:pmd('acid'),area:pmd('acid')},
+  acidarmor: {prepare:pmd('acid-armor'),area:pmd('acid-armor')},
+  gunkshot: {travel:pmd('gunk-shot'),impact:pmd('gunk-shot')},
+  poisongas: {travel:pmd('poison-gas'),impact:pmd('poison-gas'),area:pmd('poison-gas')},
+  poisonfang: {contact:pmd('poison-fang'),impact:pmd('poison-fang')},
+  toxic: {travel:pmd('toxic'),impact:pmd('toxic'),area:pmd('toxic')},
+  toxicspikes: {travel:pmd('toxic-spikes'),area:pmd('toxic-spikes')},
+};
+
 export function effectProfile(move) {
   const id = idOf(move.id || move.move || move.name), type = move.type || 'Normal';
   const [travel,impact,area] = TYPES[type] || TYPES.Normal;
@@ -150,6 +167,7 @@ export function effectProfile(move) {
     if (['strike','dash'].includes(out.shape)) out.contact=sprite;
     if (out.shape==='self' || out.charge) out.prepare=sprite;
   }
+  if (LOCAL_PMD[id]) out={...out,...LOCAL_PMD[id],selection:'move',motion:'direct'};
   return out;
 }
 

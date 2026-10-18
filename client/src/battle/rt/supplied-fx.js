@@ -152,7 +152,7 @@ export class SuppliedEffects {
       if (!img) {img=new Image();img.src=art.sprites[id].image;loaded.set(id,img);}
       if (!img.complete||!img.naturalWidth) return false;
       const a=art.sprites[id],fw=a.frame_width||a.width,fh=a.frame_height||a.height;
-      const frame=reduced?0:life?Math.min((a.frames||1)-1,Math.floor(Math.max(0,age/life)*(a.frames||1))):Math.floor(this.time*(a.fps||12))%(a.frames||1);
+      const frame=reduced?(a.still_frame||0):life?Math.min((a.frames||1)-1,Math.floor(Math.max(0,age/life)*(a.frames||1))):Math.floor(this.time*(a.fps||12))%(a.frames||1);
       const w=size*r.scale*fw/Math.max(fw,fh),h=size*r.scale*fh/Math.max(fw,fh);
       ctx.save();ctx.globalAlpha*=alpha;ctx.translate(r.px(x),r.py(y)-(flat?0:.6*r.scale));ctx.rotate(angle);
       ctx.imageSmoothingEnabled=false;
