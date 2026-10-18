@@ -13,6 +13,8 @@ Readiness settles on `canplay`, a media error or disposal, and removes its liste
 
 Five behavioral Node regressions exercise the initial fade during audio unlock, delayed readiness, already loaded media, unavailable/disposed tracks, silent preferences and hold/resume. The existing mixer-selection and audio-tap regressions remain applicable.
 
+The capture-helper harness supplies the new audio dependency and checks that delayed music prevents a capture request, while the existing geometry, first-frame, encoder/chunk handoff and failure cases still run unchanged in intent.
+
 Own native MCP/Chromium QA used one quiet real-time battle: 300 saved ticks, ten simulation seconds, a recorded forfeit, unchanged winner and both HP values. Three initial observed exports identified music, so the failure was not treated as a deterministic cold-cache problem. A controlled twenty-second delay of the normal music response produced an MP4 with effects but no identified music. Its browser trace showed the initial pause/AbortError and a paused element at time zero throughout the fight. With these changes and the identical delay, the same battle produced twelve coherent one-second matches against the original cached song; music was ready before capture began. All attempts and the negative result are retained in `research-inbox/silver-audio808`.
 
 The delayed response and browser observation are private QA fixtures, removed from product sources before delivery. They do not introduce a production tracing option or new recording settings. Earlier unobserved silent MP4s are evidence of the symptom; their individual historical causes cannot be established from an AAC stream or a successful HTTP request alone.
