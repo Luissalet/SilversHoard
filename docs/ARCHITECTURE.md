@@ -1,5 +1,7 @@
 # Silver's Hoard — architecture
 
+`MusicLibrary` owns personal MP3 bytes plus atomic `data/music/library.json` metadata, separate from the battle database. `Sounds.music` resolves content-derived local IDs alongside its existing catalog. Six `music_tools` handlers are registered into the ordinary UI/REST/MCP catalog; multipart upload is binary transport into the same importer. `music/store.js` owns a single navigation-persistent audio element and serialized queue mutations, rejecting stale read snapshots after newer edits. `Musica` edits songs/playlists/queue; the root `MusicPlayer` keeps the dock mounted. Battle music pauses library listening, and starting the dock stops battle music. The existing volume mixer is shared. Queue/index/modes persist server-side, playback resumes only after a browser gesture, and personal audio is not embedded into standalone HTML or propagated into recorder preferences. See [music behavior and limits](MUSIC_LIBRARY.md).
+
 `overworld_import` also recognizes Jhony-Rex's supplied 270×437 Mega Swampert sheet. Five authored rows of three poses
 become transparent 150×320 atlases with eight headings; the three missing headings are mirrored. The back row's 47px
 stride is cropped independently to retain its outline. The original PNG stays byte-exact under its SHA-256. The existing
