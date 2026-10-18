@@ -261,12 +261,16 @@ ALTER TABLE arenas ADD COLUMN weather TEXT NOT NULL DEFAULT '';
 ALTER TABLE arenas ADD COLUMN weather_rules INTEGER NOT NULL DEFAULT 0;
 """
 
+SCHEMA_V11 = """
+ALTER TABLE battles ADD COLUMN audio_json TEXT NOT NULL DEFAULT '{}';
+"""
+
 EXERCISE_JSON = {"payload_json": "payload"}
 TRAINER_JSON = {"team_json": "team", "dialogue_json": "dialogue", "tags_json": "tags"}
 GYM_JSON = {"rules_json": "rules", "level_rules_json": "level_rules", "trainers_json": "trainers", "map_json": "map"}
 LEAGUE_JSON = {"rules_json": "rules", "level_rules_json": "level_rules", "gyms_json": "gyms", "elite_json": "elite_four"}
 BATTLE_JSON = {"rules_json": "rules", "level_rules_json": "level_rules", "p1_json": "p1", "p2_json": "p2", "summary_json": "summary",
-               "replay_json": "replay"}
+               "replay_json": "replay", "audio_json": "audio"}
 RUN_JSON = {"challenger_json": "challenger", "stages_json": "stages"}
 BADGE_JSON = {"proof_json": "proof"}
 HALL_JSON = {"team_json": "team"}
@@ -298,7 +302,7 @@ def _encode(values: dict[str, Any], json_cols: dict[str, str]) -> dict[str, Any]
 
 class Store:
     def __init__(self, path: Path):
-        self.db = Database(path, migrations=[SCHEMA_V1, SCHEMA_V2, SCHEMA_V3, SCHEMA_V4, SCHEMA_V5, SCHEMA_V6, SCHEMA_V7, SCHEMA_V8, SCHEMA_V9, SCHEMA_V10])
+        self.db = Database(path, migrations=[SCHEMA_V1, SCHEMA_V2, SCHEMA_V3, SCHEMA_V4, SCHEMA_V5, SCHEMA_V6, SCHEMA_V7, SCHEMA_V8, SCHEMA_V9, SCHEMA_V10, SCHEMA_V11])
 
     def close(self) -> None:
         self.db.close()

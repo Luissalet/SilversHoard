@@ -342,7 +342,7 @@ class Mass:
 
     # ------------------------------------------------------------ video
     def video(self, id_: str, *, play_id: str = "", speed: str = "normal", size: str = "720p", lang: str = "", lumiere: bool = False,
-              aspect: str = "landscape") -> dict[str, Any]:
+              aspect: str = "landscape", audio: dict[str, Any] | None = None) -> dict[str, Any]:
         """Record a battle (or one played run of it) as a video clip, a job: the app's own screen of the battle, alone on a 16:9
         stage with the camera following the action, played by the app's recorder (services.battle_video's). speed: slow (as it
         happened), normal (twice as fast) or fast (four times)."""
@@ -364,6 +364,8 @@ class Mass:
         if not status["playwright"] or not status["browser"]:
             raise SilverError("unavailable", "Recording needs Playwright and Chrome or Edge on this computer.", hint=status["hint"])
         lang = lang if lang in ("es", "en") else str(s.settings.get("language") or "en")[:2]
+        from .audio_settings import validate_audio
+        mix = validate_audio(s.sounds, audio) if audio is not None else None
         rate = VIDEO_RATES[speed]
         path = f"video/{id_}?mspeed={rate}" + (f"&play={play_id}" if play_id else "")
         clean = lambda text, n: re.sub(r"[^\w\- ]+", "", text, flags=re.UNICODE).strip()[:n]  # noqa: E731
@@ -372,10 +374,11 @@ class Mass:
             stem += " - " + clean(who, 20)
         stem = f"{stem} {(play_id or id_)[-6:]}"
         title = f"Vídeo: {doc['title']}" + (f" ({who})" if who else "")
-        return s._job("video", title, {"mass_id": id_, "play_id": play_id, "speed": speed, "size": size, "aspect": aspect, "lumiere": lumiere},
+        return s._job("video", title, {"mass_id": id_, "play_id": play_id, "speed": speed, "size": size, "aspect": aspect, "lumiere": lumiere, **({"audio": mix} if mix is not None else {})},
                       lambda jid, progress, cancelled: s._record_video({"id": id_}, speed, size, lang, lumiere, status, progress, cancelled,
                                                                        url_path=path, stem=stem, seconds=seconds / rate,
-                                                                       **({"aspect": aspect} if aspect != "landscape" else {})))
+                                                                       **({"aspect": aspect} if aspect != "landscape" else {}),
+                                                                       **({"audio": mix} if mix is not None else {})))
 
     def card(self, doc: dict[str, Any], *, full: bool = False) -> dict[str, Any]:
         s = doc.get("summary") or {}

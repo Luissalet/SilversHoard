@@ -229,3 +229,5 @@ Finished real-time replays have a frame cursor, five-second jumps and keyboard s
 
 
 Four local Rock motifs add 29 supplied Red Rescue Team frames for Ancient Power, Rock Blast, Rock Tomb and Rollout. They share the existing RT/mass/HTML/video clock and keep visible reduced-motion frames. [Source and limits](docs/ROCK_SPRITES.md).
+
+Battle sound: the speaker mixer saves the chosen music (including personal MP3s) and master/music/effects/cries/mute levels with each battle. Reopening the battle and MP4 export use that saved mix; the export dialog also exposes the same controls. REST/MCP `battle_audio_set` saves it and `battle_video` accepts an optional audio override. The song stays in the local music library; it is not embedded in portable battle HTML.

@@ -24,13 +24,13 @@ def test_version9_database_migrates_without_changing_existing_columns(tmp_path):
     old.close()
     current = module.Store(path)
     try:
-        assert current.db.schema_version == 10
+        assert current.db.schema_version == 11
         for table, names in columns.items():
             projection = ",".join(f'"{c}"' for c in names)
             assert [tuple(r) for r in current.db.query(f'SELECT {projection} FROM "{table}"')] == before[table]
         assert all(r["weather"] == "" and r["weather_rules"] == 0 for r in current.db.query("SELECT * FROM arenas"))
         assert current.arena("old")["floor"] == "pyre"
-        assert current.db.migrate() == 10
+        assert current.db.migrate() == 11
     finally:
         current.close()
 

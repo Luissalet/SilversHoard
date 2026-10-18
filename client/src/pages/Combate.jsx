@@ -2,6 +2,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { api } from "../api.js";
 import { useApp } from "../context.js";
+import { BattleSoundContext, useBattleSound } from "../battle/SoundControl.jsx";
 import Arena from "../battle/Arena.jsx";
 import Controls, { ReplayBar } from "../battle/Controls.jsx";
 import { useBattlePlayer } from "../battle/player.js";
@@ -80,6 +81,7 @@ export default function Combate({ param, query }) {
   const { t, lang, sprites, settings, notify, toastError, changed, go, confirm } = useApp();
   const [speedMs, setSpeedMs] = useStored("silver-speed", settings.playback_ms || 900);
   const { data: battle, error, reload, setData } = useLoad(() => api.call("battle_get", { id: param, since: 0 }), [param]);
+  const battleSound = useBattleSound(battle);
   // a friend playing from another computer (a live-battle room) is not a seat of this screen: it sees and plays its own side only
   const humans = battle ? ["p1", "p2"].filter((s) => battle[s]?.human && !battle[s]?.remote) : [];
   const remote = battle ? ["p1", "p2"].find((s) => battle[s]?.remote) || "" : "";
@@ -223,9 +225,9 @@ export default function Combate({ param, query }) {
   if (!battle) return <div className="flex items-center gap-2"><Spinner /> {t("loading")}</div>;
   if (battle.mode === "realtime") {
     return (
-      <React.Suspense fallback={<div className="flex items-center gap-2"><Spinner /> {t("rt_loading")}</div>}>
+      <BattleSoundContext.Provider value={battleSound}><React.Suspense fallback={<div className="flex items-center gap-2"><Spinner /> {t("rt_loading")}</div>}>
         <CombateRt battle={battle} setData={setData} query={query} />
-      </React.Suspense>
+      </React.Suspense></BattleSoundContext.Provider>
     );
   }
 
@@ -238,7 +240,7 @@ export default function Combate({ param, query }) {
   const wonStage = battle.status === "ended" && battle.winner_side === "p1" && runActive;
 
   return (
-    <div className="space-y-4">
+    <BattleSoundContext.Provider value={battleSound}><div className="space-y-4">
       <div className="page-head">
         <div className="min-w-0">
           <h1 className="trunc">{title}</h1>
@@ -343,6 +345,6 @@ export default function Combate({ param, query }) {
         </section>
       )}
       {battle.errors && battle.errors.length > 0 && <div className="help">{battle.errors.join(" · ")}</div>}
-    </div>
+    </div></BattleSoundContext.Provider>
   );
 }
