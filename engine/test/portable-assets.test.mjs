@@ -52,3 +52,16 @@ test("missing standalone Reborn animation never starts a fetch and leaves Silver
     assert.equal(requests, 0);
   } finally { installPortableAssets(null); globalThis.document = oldDocument; globalThis.fetch = oldFetch; }
 });
+
+test("cached King's Shield sheets and sounds resolve with encodeURIComponent apostrophes", () => {
+  const oldDocument = globalThis.document;
+  globalThis.document = { getElementById: () => ({}) };
+  const runner = new RebornRunner({});
+  const names = [["sheet", "PRAS- King's Shield"], ["sound", "PRSFX- King's Shield1.wav"], ["sound", "PRSFX- King's Shield2.wav"]];
+  const urls = Object.fromEntries(names.map(([kind, name]) => [runner.url(kind, name), `${kind}/${name}`]));
+  const files = Object.fromEntries(names.map(([kind, name]) => [`${kind}/${name}`, `data:${kind === "sheet" ? "image/png" : "audio/wav"};base64,exact`]));
+  installPortableAssets({ files, urls });
+  try {
+    for (const [kind, name] of names) assert.equal(runner.url(kind, name), files[`${kind}/${name}`]);
+  } finally { installPortableAssets(null); globalThis.document = oldDocument; }
+});

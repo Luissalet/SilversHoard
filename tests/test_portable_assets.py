@@ -44,6 +44,24 @@ def test_bundle_reads_existing_files_without_downloads_or_cache_changes(services
     assert all(cache.downloads == 0 for cache in [services.sprites, services.fx, services.reborn])
 
 
+def test_reborn_apostrophes_match_both_python_and_encode_uri_component_aliases(services):
+    names = [("sheet", "PRAS- King's Shield", ".png", PNG_1PX),
+             ("sound", "PRSFX- King's Shield1.wav", "", b"RIFFfixtureWAVE"),
+             ("sound", "PRSFX- King's Shield2.wav", "", b"RIFFfixtureWAVE")]
+    for kind, name, ext, raw in names:
+        assert name in services.reborn.allowed[kind]
+        path = services.reborn.cache_dir / kind / (name + ext)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(raw)
+    assets = portable_assets.bundle(services)
+    for kind, name, ext, raw in names:
+        python_url = services.reborn.url(kind, name)
+        js_url = python_url.replace("%27", "'")
+        key = assets["urls"][python_url]
+        assert assets["urls"][js_url] == key
+        assert base64.b64decode(assets["files"][key].split(",", 1)[1]) == raw
+
+
 @needs_engine
 def test_native_trainer_export_carries_cached_art_for_both_battle_modes(services, call):
     seed_cache(services)

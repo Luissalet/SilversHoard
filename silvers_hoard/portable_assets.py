@@ -46,7 +46,11 @@ def bundle(services: Any) -> dict[str, Any]:
             ext = KINDS[kind][2]
             path = services.reborn.cache_dir / kind / (name + ext)
             folder = KINDS[kind][1]
+            # JavaScript's encodeURIComponent leaves ! ' ( ) * intact; urllib.quote encodes them.
+            component = quote(name + ext, safe="!'()*")
+            component_name = quote(name, safe="!'()*")
             add(path, f"reborn/{kind}/{name}{ext}", [services.reborn.url(kind, name),
-                f"https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/{services.reborn.ref}/{folder}/{quote(name + ext, safe='')}",
-                f"/api/reborn/{kind}/{quote(name, safe='')}"])
+                f"{services.reborn._server()}/{services.reborn.ref}/{folder}/{component}",
+                f"https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/{services.reborn.ref}/{folder}/{component}",
+                f"/api/reborn/{kind}/{quote(name, safe='')}", f"/api/reborn/{kind}/{component_name}"])
     return {"version": 1, "files": files, "urls": urls}
