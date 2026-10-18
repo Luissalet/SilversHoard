@@ -561,6 +561,10 @@ class WeekArg(BaseModel):
     week: str = Field(..., min_length=8, max_length=8, description="The ISO week, like 2026-W42.")
 
 
+class DayArg(BaseModel):
+    day: str = Field("", max_length=10, description="Calendar day YYYY-MM-DD; empty means today on this server.")
+
+
 class BattleStartArgs(BaseModel):
     p1: Seat
     p2: Seat
@@ -886,8 +890,8 @@ class ExportArgs(BaseModel):
 
 
 class LeaderboardArgs(BaseModel):
-    kind: Literal["", "gym", "trainer"] = ""
-    target_id: str = Field("", max_length=80, description="A gym or trainer id, or empty for all.")
+    kind: Literal["", "gym", "trainer", "daily"] = ""
+    target_id: str = Field("", max_length=80, description="A gym, trainer or daily challenge id, or empty for all.")
     week: str = Field("", max_length=12, description="Empty for every result, current for this week's challenge, or a week like 2026-W42.")
 
 
@@ -1388,6 +1392,12 @@ TOOLS: list[Tool] = [
          lambda s, a: s.friends.poll_close(a.id)),
     Tool("week_rule_clear", _d("Remove the voted rule of a week's challenge. Quitar regla de la semana.", synonyms="sin regla"), WeekArg, W,
          lambda s, a: s.friends.clear_week_rule(a.week)),
+    Tool("daily_challenge", _d("View a date's seven-battle rental challenge and local results. Reto diario.",
+                               "Six rentals, choose three, seven shared-seed Factory rivals at level 50. Does not create trainers, gyms or a league.",
+                               synonyms="desafío del día, alquiler, siete victorias, calendario"), DayArg, R, lambda s, a: s.daily.info(a.day), capped=False),
+    Tool("daily_challenge_export", _d("Export a daily rental challenge as one playable HTML page. Compartir reto diario.",
+                                      "The result code imports through the normal import tool; every battle is replayed before the existing local board counts it.",
+                                      synonyms="reto del día, página jugable, código de resultado"), DayArg, W, lambda s, a: s.daily.export(a.day)),
     Tool("training_start", _d("Real-time training against a dummy that never faints: try cooldowns, reach, rolls and combos. Entrenamiento.",
                               "The dummy stands still, walks, dodges or fights back (pattern); a knockout heals it. Open the returned battle in the app "
                               "(#/combate/<id>) to play; the screen shows damage per second. Nothing counts for records, progress or medals.",

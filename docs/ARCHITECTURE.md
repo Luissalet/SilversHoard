@@ -1,5 +1,8 @@
 # Silver's Hoard — architecture
 
+`daily.py` reuses Factory rentals, portable PlayApp, seeded classic Match verification and the existing friend-results board. Two shared UI/API/MCP handlers, `daily_challenge` and `daily_challenge_export`, expose a dated six-rental/seven-opponent challenge without adding saved trainers, gyms, leagues or a scheduler. Each exported stage retains its canonical opposing AI; imports verify every recorded battle before persistence. Facilities embeds the same portable page and imports its result through the normal handler. Date changes invalidate prepared downloads and ignore export responses for a previous selection. See [daily challenges](DAILY_CHALLENGE.md).
+
+
 `Arenas` persists optional `weather` and `weather_rules` through the shared `arena_save` handler; schema 10 adds defaults without rewriting existing columns. Arena snapshots and gym sharing preserve both fields and distinguish climates during deduplication. RT version 12 applies selected mechanical weather before entry abilities, with explicit starting fields taking priority. Older rules ignore arena weather. `ArenaField` previews the selection; `drawAmbient` reuses the renderer clock and cached floor for bounded precipitation/light/fog, with public battle weather taking priority and a static reduced-motion path. See [arena weather](ARENA_WEATHER.md).
 
 

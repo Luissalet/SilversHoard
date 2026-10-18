@@ -44,6 +44,7 @@ from .official_art import OfficialArt
 from .pvp import Pvp
 from .mass import Mass
 from .friends import Friends
+from .daily import DailyChallenge
 from .smogon import Smogon
 from .sounds import Sounds
 from .sprites import Sprites, _http_get
@@ -136,6 +137,7 @@ class Services:
         self.pvp = Pvp(self)
         self.mass = Mass(self)
         self.friends = Friends(self)
+        self.daily = DailyChallenge(self)
         self.neural = NeuralAI(self.settings, config.sprites_dir.parent / "neural", config.data_dir / "logs")
         self._neural_env()
         self.pool = ThreadPoolExecutor(max_workers=2, thread_name_prefix="silver-job")
@@ -3165,6 +3167,8 @@ class Services:
     def import_result(self, r: dict[str, Any]) -> dict[str, Any]:
         """A friend's result from a playable page: records the badge (when they won) and the battle with its log. Battles the friend
         played in real time come with their replay: they are replayed here and what the replay says is what counts."""
+        if r.get("kind") == "daily":
+            return self.daily.import_result(r)
         stages_in = r.get("stages") if isinstance(r.get("stages"), list) else []
         fp = self._result_fingerprint(r)
         self._check_new_result(fp, r)
