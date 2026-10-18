@@ -88,15 +88,18 @@ export function sampleMetagame(corpus, {seed, format, rules = [], level_rules = 
 export function metagameThreats(observations) {
   const totals = new Map();
   for (const {sets, pokemon} of observations) {
+    const roster = new Map();
     for (const species of new Set(sets.map((s) => s.species))) {
       const id = toID(species);
       const row = totals.get(id) || {species, appearances: 0, kos: 0, damage: 0};
       row.appearances++;
       totals.set(id, row);
+      roster.set(id, row);
+      roster.set(toID(Dex.species.get(species).baseSpecies), row);
     }
     for (const p of pokemon) {
       const id = toID(p.species || p.name);
-      const row = totals.get(id) || totals.get(toID(Dex.species.get(p.species).baseSpecies));
+      const row = roster.get(id) || roster.get(toID(Dex.species.get(p.species).baseSpecies));
       if (row) { row.kos += p.kos || 0; row.damage += p.damage || 0; }
     }
   }
