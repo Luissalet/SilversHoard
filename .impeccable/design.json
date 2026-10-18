@@ -142,6 +142,11 @@
         "name": "The Music Flow Rule",
         "body": "Keep playlist controls above the library and ordered queue, let row actions wrap, and reserve scrolling space for the persistent dock.",
         "section": "layout"
+      },
+      {
+        "name": "The Portable Artwork Rule",
+        "body": "In generated standalone pages, prefer an embedded static Pokémon sprite when animated art is absent; otherwise show a local SVG disc with up to two uppercase label characters (or ?). Keep missing decorative images transparent and missing Reborn animations on Silver's existing fallback.",
+        "section": "components"
       }
     ],
     "dos": [
