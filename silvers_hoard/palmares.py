@@ -9,14 +9,71 @@ from __future__ import annotations
 
 from typing import Any, Iterable, Optional
 
-# Battle numbers where a Frontier Brain appears in singles (HGSS). Used only to label silver/gold
-# prints; a win is still required on a stage marked boss — streak length alone never awards an emblem.
+from .facilities import FACILITIES
+
+# Battle numbers where a Frontier Brain appears. Used only to label silver/gold prints; a win is
+# still required on a stage marked boss — streak length alone never awards an emblem.
+# Built from facilities.FACILITIES boss metadata (Anabel 35/70, Palmer 21/49, Argenta 50/170, …)
+# so generic 21/49 is never applied to a modality with different award stages.
+
+
+def _infer_print(label_es: str, label_en: str, index: int, total: int) -> str:
+    es = (label_es or "").lower()
+    en = (label_en or "").lower()
+    if "plata" in es or "silver" in en:
+        return "silver"
+    if "oro" in es or "gold" in en:
+        return "gold"
+    if total == 2:
+        return "silver" if index == 0 else "gold"
+    if index == 0:
+        return "silver"
+    if index == total - 1:
+        return "gold"
+    return "unknown"
+
+
+def _build_print_tables() -> tuple[dict[str, dict[int, str]], dict[str, dict[int, str]]]:
+    by_facility: dict[str, dict[int, str]] = {}
+    by_character: dict[str, dict[int, str]] = {}
+    for fac in FACILITIES:
+        bosses = list(fac.get("bosses") or [])
+        if not bosses:
+            continue
+        fmap: dict[int, str] = {}
+        for i, boss in enumerate(bosses):
+            number = int(boss[0])
+            character = str(boss[1] or "").strip()
+            print_ = _infer_print(
+                boss[3] if len(boss) > 3 else "",
+                boss[4] if len(boss) > 4 else "",
+                i,
+                len(bosses),
+            )
+            fmap[number] = print_
+            if character:
+                by_character.setdefault(character, {})[number] = print_
+        by_facility[str(fac["id"])] = fmap
+    # Legacy frontier.kind values that predate facility ids (do not collide Anabel tower3 with Palmer).
+    by_facility.setdefault("tower", {21: "silver", 49: "gold"})
+    by_facility.setdefault("factory", {21: "silver", 49: "gold"})
+    by_facility.setdefault("arcade", {21: "silver", 49: "gold"})
+    by_facility.setdefault("castle", {21: "silver", 49: "gold"})
+    by_facility.setdefault("hall", {50: "silver", 170: "gold"})
+    return by_facility, by_character
+
+
+PRINT_AT_FACILITY, PRINT_AT_CHARACTER = _build_print_tables()
+
+# Back-compat for callers that still expect (silver_at, gold_at) pairs.
 BRAIN_PRINT_AT: dict[str, tuple[int, int]] = {
     "tower": (21, 49),
     "factory": (21, 49),
     "arcade": (21, 49),
     "castle": (21, 49),
     "hall": (50, 170),
+    "tower3": (35, 70),
+    "tower4": (21, 49),
 }
 
 STAT_BITS = ("speed", "power", "skill", "stamina", "jump")
@@ -62,24 +119,28 @@ def pokeathlon_medals(
     return out
 
 
-def _print_for(kind: str, number: int) -> str:
-    silver, gold = BRAIN_PRINT_AT.get(kind, (21, 49))
-    if number == gold:
-        return "gold"
-    if number == silver:
-        return "silver"
+def _print_for(kind: str, number: int, character: str = "") -> str:
+    """Label silver/gold from facility boss metadata; never invent prints for other stages."""
+    found = PRINT_AT_FACILITY.get(kind, {}).get(number)
+    if found:
+        return found
+    char = (character or "").strip()
+    if char:
+        found = PRINT_AT_CHARACTER.get(char, {}).get(number)
+        if found:
+            return found
     return "unknown"
 
 
 def _facility_kind(run: dict[str, Any]) -> str:
-    st = ((run.get("challenger") or {}).get("frontier") or {})
-    kind = (st.get("kind") or "").strip()
-    if kind:
-        return kind
+    """Prefer concrete facility id (tower3) over legacy short frontier.kind (tower)."""
     target = (run.get("target_id") or "").strip()
     if target.startswith("facility:"):
         return target.split(":", 1)[1]
-    return target or "facility"
+    if target:
+        return target
+    st = ((run.get("challenger") or {}).get("frontier") or {})
+    return (st.get("kind") or "").strip() or "facility"
 
 
 def frontier_emblems_from_runs(
@@ -113,7 +174,7 @@ def frontier_emblems_from_runs(
             number = int(stage.get("number") or 0)
             character = (stage.get("character") or "").strip()
             name = (stage.get("name") or stage.get("name_en") or "").strip()
-            print_ = _print_for(kind, number)
+            print_ = _print_for(kind, number, character)
             eid = f"{cid}:{kind}:{character or name or 'brain'}:{print_}:{number}"
             if eid in earned:
                 continue

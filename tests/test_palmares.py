@@ -127,3 +127,68 @@ def test_two_trainers_same_brain_both_keep_emblem_either_order():
         card_b = pm.unify(trainer_id="trainerB", facility_runs=order)
         assert card_b["counts"]["frontier_emblems"] == 1
         assert card_b["frontier_emblems"][0]["challenger_id"] == "trainerB"
+
+def test_anabel_tower3_uses_facility_symbol_thresholds():
+    """CHANGES CAS3 P2: Anabel 35/70 are Silver/Gold Symbol, not generic 21/49."""
+    run = {
+        "id": "run_anabel",
+        "kind": "facility",
+        "target_id": "tower3",
+        "challenger_id": "tr_a",
+        "challenger": {"frontier": {"kind": "tower"}},
+        "stages": [{
+            "number": 35, "boss": True, "result": "won", "character": "anabel",
+            "name": "Salon Maiden Anabel", "battle_id": "bt_anabel35",
+        }],
+    }
+    emblems = pm.frontier_emblems_from_runs([run])
+    assert len(emblems) == 1
+    assert emblems[0]["print"] == "silver"
+    assert emblems[0]["facility"] == "tower3"
+    gold = {
+        **run,
+        "id": "run_anabel_gold",
+        "stages": [{
+            "number": 70, "boss": True, "result": "won", "character": "anabel",
+            "name": "Salon Maiden Anabel", "battle_id": "bt_anabel70",
+        }],
+    }
+    assert pm.frontier_emblems_from_runs([gold])[0]["print"] == "gold"
+    legacy = {
+        "id": "legacy_anabel",
+        "kind": "facility",
+        "challenger_id": "tr_a",
+        "challenger": {"frontier": {"kind": "tower"}},
+        "stages": [{
+            "number": 35, "boss": True, "result": "won", "character": "anabel",
+            "name": "Salon Maiden Anabel", "battle_id": "bt_legacy",
+        }],
+    }
+    assert pm.frontier_emblems_from_runs([legacy])[0]["print"] == "silver"
+
+
+def test_hall_and_tower4_thresholds_from_metadata():
+    hall = {
+        "id": "hall",
+        "kind": "facility",
+        "target_id": "hall4",
+        "challenger_id": "tr_a",
+        "stages": [{
+            "number": 50, "boss": True, "result": "won", "character": "argenta",
+            "battle_id": "bt_50",
+        }],
+    }
+    assert pm.frontier_emblems_from_runs([hall])[0]["print"] == "silver"
+    hall_gold = {
+        **hall,
+        "id": "hall_g",
+        "stages": [{
+            "number": 170, "boss": True, "result": "won", "character": "argenta",
+            "battle_id": "bt_170",
+        }],
+    }
+    assert pm.frontier_emblems_from_runs([hall_gold])[0]["print"] == "gold"
+    assert pm._print_for("tower4", 21, "palmer") == "silver"
+    assert pm._print_for("tower4", 49, "palmer") == "gold"
+    assert pm._print_for("tower3", 21, "anabel") == "unknown"
+

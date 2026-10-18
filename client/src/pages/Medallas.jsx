@@ -11,20 +11,39 @@ import { loc } from "../loc.js";
 
 const STAT_BITS = ["speed", "power", "skill", "stamina", "jump"];
 const MEDAL_BITS = { speed: 1, power: 2, skill: 4, stamina: 8, jump: 16 };
-const BRAIN_PRINT_AT = { tower: [21, 49], factory: [21, 49], arcade: [21, 49], castle: [21, 49], hall: [50, 170] };
+// Facility-id and character maps mirror silvers_hoard/palmares.py (from facilities.FACILITIES).
+const PRINT_AT_FACILITY = {
+  tower3: { 35: "silver", 70: "gold" },
+  tower4: { 21: "silver", 49: "gold" },
+  tower: { 21: "silver", 49: "gold" },
+  factory: { 21: "silver", 49: "gold" },
+  factory4: { 21: "silver", 49: "gold" },
+  arcade: { 21: "silver", 49: "gold" },
+  arcade4: { 21: "silver", 49: "gold" },
+  castle: { 21: "silver", 49: "gold" },
+  castle4: { 21: "silver", 49: "gold" },
+  hall: { 50: "silver", 170: "gold" },
+  hall4: { 50: "silver", 170: "gold" },
+};
+const PRINT_AT_CHARACTER = {
+  anabel: { 35: "silver", 70: "gold" },
+  palmer: { 21: "silver", 49: "gold" },
+  argenta: { 50: "silver", 170: "gold" },
+};
 
-function brainPrint(kind, number) {
-  const pair = BRAIN_PRINT_AT[kind] || [21, 49];
-  if (number === pair[1]) return "gold";
-  if (number === pair[0]) return "silver";
+function brainPrint(kind, number, character) {
+  const byKind = PRINT_AT_FACILITY[kind];
+  if (byKind && byKind[number]) return byKind[number];
+  const byChar = character && PRINT_AT_CHARACTER[character];
+  if (byChar && byChar[number]) return byChar[number];
   return "unknown";
 }
 
 function facilityKind(run) {
-  const kind = run?.frontier?.kind || run?.challenger?.frontier?.kind || "";
-  if (kind) return kind;
   const target = run?.target_id || "";
-  return target.startsWith("facility:") ? target.slice(9) : (target || "facility");
+  if (target.startsWith("facility:")) return target.slice(9);
+  if (target) return target;
+  return run?.frontier?.kind || run?.challenger?.frontier?.kind || "facility";
 }
 
 /** Emblems from recorded boss wins only; a later loss does not remove one already earned. */
@@ -38,7 +57,7 @@ function frontierEmblemsFromRuns(runs) {
       const number = Number(stage.number) || 0;
       const character = (stage.character || "").trim();
       const name = (stage.name || stage.name_en || "").trim();
-      const print = brainPrint(kind, number);
+      const print = brainPrint(kind, number, character);
       // Include challenger_id so two trainers who beat the same Brain keep distinct emblems.
       const cid = run.challenger_id || "";
       const id = `${cid}:${kind}:${character || name || "brain"}:${print}:${number}`;
@@ -159,7 +178,9 @@ export default function Medallas() {
           <div className="panel divide-list p-0">
             {emblems.map((e) => (
               <div key={e.id} className="row-item">
-                <span className={`chip ${e.print === "gold" ? "chip-accent" : "chip-ok"}`}>{e.print}</span>
+                <span className={`chip ${e.print === "gold" ? "chip-accent" : "chip-ok"}`}>
+                {e.print === "gold" ? t("palmares_print_gold") : e.print === "silver" ? t("palmares_print_silver") : t("palmares_print_unknown")}
+              </span>
                 <span className="min-w-0 flex-1 trunc">
                   <b>{e.name || e.character || e.facility}</b>
                   <span className="help"> · {e.facility} #{e.number}{e.challenger_name ? ` · ${e.challenger_name}` : ""}</span>
