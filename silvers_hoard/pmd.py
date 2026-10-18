@@ -9,6 +9,7 @@ down-right, right, up-right, up, up-left, left, down-left."""
 from __future__ import annotations
 
 import io
+import hashlib
 import json
 import logging
 import re
@@ -273,17 +274,60 @@ class PmdSprites:
     # ------------------------------------------------------------ sheets
     def meta(self, dex: int, *, form: str = "", shiny: bool = False) -> dict[str, Any]:
         """Geometry of the animations of a Pokémon (downloading its sheets the first time): {s: shadow size, a: {Anim: {w, h, n, r,
-        d (durations in 1/60 s), ax, ay (ground anchor)}}, key}. Falls back to the plain form, then to the non-shiny sprite."""
+        d (durations in 1/60 s), ax, ay (ground anchor)}}, key}. Missing shiny sheets are recoloured from the same PMD form."""
         if not 1 <= int(dex) <= 2000:
             raise SilverError("invalid", f"Not a Pokédex number: {dex}")
         if not FORM_ID.match(_toid(form)):
             raise SilverError("invalid", f"Not a form: {form}")
-        tries = [(form, shiny), ("", shiny), (form, False), ("", False)]
-        for f, s in dict.fromkeys(tries):
-            got = self._meta_for(self.folder(int(dex), f, s))
+        for f in dict.fromkeys([form, ""]):
+            got = self._meta_for(self.folder(int(dex), f, shiny))
             if got:
                 return got
+            if shiny:
+                normal = self._meta_for(self.folder(int(dex), f, False))
+                if normal:
+                    derived = self._shiny_for(int(dex), f, normal)
+                    if derived:
+                        return derived
         raise SilverError("not_found", f"No walking sprite for #{dex}")
+
+    def _shiny_for(self, dex: int, form: str, normal: dict[str, Any]) -> Optional[dict[str, Any]]:
+        from .pmd_shiny import palette_pair, recolor, reference_pair
+
+        key = self.folder(dex, form, True).replace("/", "-") + "-recolor1"
+        out_dir = self.cache_dir / key
+        meta_path = out_dir / "meta.json"
+        with self._lock(key):
+            try:
+                originals = {anim: self.sheet(normal["key"], anim).read_bytes() for anim in normal["a"]}
+            except (SilverError, OSError):
+                return None
+            signature = hashlib.sha256(json.dumps(normal, sort_keys=True).encode() + b"".join(originals.values())).hexdigest()
+            if meta_path.exists():
+                try:
+                    cached = json.loads(meta_path.read_text("utf-8"))
+                    if cached.get("source", {}).get("sha256") == signature and all((out_dir / f"{a}.png").exists() for a in originals):
+                        return cached
+                except (ValueError, OSError):
+                    pass
+            enabled = bool(self.settings.get("pmd_sprites", True) and self.settings.get("sprite_downloads", True))
+            try:
+                reference = reference_pair(self.cache_dir, dex, form, self._get, enabled)
+                palette = palette_pair(*reference[:2]) if reference else {}
+            except (ValueError, KeyError, OSError):
+                palette = {}
+            if not palette:
+                return None
+            out_dir.mkdir(parents=True, exist_ok=True)
+            try:
+                for anim, png in originals.items():
+                    write_bytes_atomic(out_dir / f"{anim}.png", recolor(png, palette), fsync=False)
+            except (OSError, ValueError):
+                return None
+            meta = {**normal, "key": key, "source": {"kind": "shiny-recolor", "pmd": normal["key"], "sha256": signature,
+                                                      "palette": reference[2]}, "shiny": True}
+            write_bytes_atomic(meta_path, json.dumps(meta, separators=(",", ":")).encode("utf-8"), fsync=False)
+            return meta
 
     def _meta_for(self, folder: str) -> Optional[dict[str, Any]]:
         key = folder.replace("/", "-")
@@ -368,7 +412,7 @@ class PmdSprites:
                 continue
 
     def sheet(self, key: str, anim: str) -> Path:
-        if not re.match(r"^\d{4}(-\d{4}){0,2}$", key) or anim not in WANT:
+        if not re.match(r"^\d{4}(-\d{4}){0,2}(-recolor1)?$", key) or anim not in WANT:
             raise SilverError("invalid", "Not a walking sprite.")
         path = self.cache_dir / key / f"{anim}.png"
         if not path.exists():
