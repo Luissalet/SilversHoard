@@ -21,7 +21,7 @@ from pathlib import Path
 from typing import Any, Callable, Optional
 
 from . import APP_ID, __version__
-from . import facilities, frontier, frontier_runs, game_leagues, hgss_rom, progress, sharing, unbound_save
+from . import facilities, frontier, frontier_runs, game_leagues, hgss_rom, portable_assets, progress, sharing, unbound_save
 from .config import AI_LEVELS, AI_STYLES, REPO_ROOT, Config, Settings, find_node
 from .engine import master_status
 from .engine import Engine
@@ -2969,11 +2969,12 @@ class Services:
             if weekly:
                 data["weekly"] = self.weekly_info(kind, obj)
                 week = data["weekly"]["week"]
+            data["portable_assets"] = portable_assets.bundle(self)
             html = sharing.playable_page(PLAY_TEMPLATE, data)
             filename = sharing.safe_filename(f"{name} - Silver" + (f" - {week}" if week else ""), "html")
             (exports / filename).write_text(html, encoding="utf-8", newline="\n")
             return {"file": filename, "bytes": len(html.encode("utf-8")), "url": f"/api/exports/{filename}", "name": name,
-                    **({"week": week} if week else {})}
+                    "embedded_assets": len(data["portable_assets"]["files"]), **({"week": week} if week else {})}
         ext = {"trainer": "hoardtrainer", "gym": "hoardgym", "league": "hoardleague"}[kind]
         filename = sharing.safe_filename(name, ext)
         text = json.dumps(wrapped, ensure_ascii=False, indent=1)

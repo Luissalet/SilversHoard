@@ -7,6 +7,7 @@
 // animation is not loaded yet plays Silver's effect while it loads. Same interface as ps/runner.js, so the stage drives either.
 import { sample } from "../../../audio.js";
 import { REBORN_MOVES, REBORN_REF, REBORN_STATUS } from "./index.gen.js";
+import { portableAsset } from "../../../portable-assets.js";
 
 const FRAME_MS = 50;
 const CELL = 96;
@@ -29,7 +30,7 @@ export class RebornRunner {
   url(kind, name) {
     if (!this.local) {
       const path = { anim: `battle-anims/${name}.json`, sheet: `images/battle_anims/${name}.png`, sound: `audio/battle_anims/${name}` }[kind];
-      return `${REPO}/${path.split("/").map(encodeURIComponent).join("/")}`;
+      return portableAsset(`${REPO}/${path.split("/").map(encodeURIComponent).join("/")}`, { missing: "" });
     }
     return `/api/reborn/${kind}/${encodeURIComponent(name)}`;
   }
@@ -39,11 +40,12 @@ export class RebornRunner {
     let rec = this.images.get(name);
     if (!rec) {
       rec = { img: null, ok: false };
-      if (typeof Image !== "undefined") {
+      const src = this.url("sheet", name);
+      if (src && typeof Image !== "undefined") {
         const img = new Image();
         img.decoding = "async";
         img.onload = () => { rec.ok = true; };
-        img.src = this.url("sheet", name);
+        img.src = src;
         rec.img = img;
       }
       this.images.set(name, rec);
@@ -58,8 +60,9 @@ export class RebornRunner {
     if (!rec) {
       rec = { state: "loading", list: null };
       this.anims.set(file, rec);
-      if (typeof fetch === "function") {
-        fetch(this.url("anim", file)).then((r) => (r.ok ? r.json() : null)).then((data) => {
+      const url = this.url("anim", file);
+      if (url && typeof fetch === "function") {
+        fetch(url).then((r) => (r.ok ? r.json() : null)).then((data) => {
           const list = (Array.isArray(data) ? data : data ? [data] : []).filter((a) => a && Array.isArray(a.frames));
           rec.list = list;
           rec.state = list.length ? "ok" : "bad";

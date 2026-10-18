@@ -7,7 +7,7 @@ import hashlib
 from functools import lru_cache
 from typing import Any
 
-from . import __version__, sharing
+from . import __version__, portable_assets, sharing
 from .errors import SilverError
 from .hoard_link.ids import new_id
 
@@ -67,11 +67,12 @@ class DailyChallenge:
                 "app_version": __version__, "sprite_server": self.s.settings["sprite_server"], "sprite_set": self.s.settings["sprite_set"],
                 "mode": "turns", "ai_version": spec["ai_version"], "daily": spec}
         template = self.s.config.engine_dir.parent / "silvers_hoard/static/play/play.html"
+        data["portable_assets"] = portable_assets.bundle(self.s)
         html = sharing.playable_page(template, data)
         filename = f"Daily-{spec['day']}-{new_id('page')}.html"
         (self.s.config.exports_dir / filename).write_text(html, encoding="utf-8", newline="\n")
         return {"day": spec["day"], "key": spec["key"], "file": filename, "url": f"/api/exports/{filename}",
-                "bytes": len(html.encode("utf-8"))}
+                "bytes": len(html.encode("utf-8")), "embedded_assets": len(data["portable_assets"]["files"])}
 
     def import_result(self, result: dict[str, Any]) -> dict[str, Any]:
         meta = result.get("daily")
