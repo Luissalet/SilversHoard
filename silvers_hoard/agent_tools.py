@@ -602,6 +602,11 @@ class RtSaveArgs(BaseModel):
     tick: int = Field(0, ge=0, le=60 * 30 * 30)
 
 
+class RtInspectArgs(BaseModel):
+    id: str = IdField
+    tick: int = Field(0, ge=0, description="Replay frame at 30 ticks/second; positions past the end clamp to the saved end.")
+
+
 class RtCooldownArgs(BaseModel):
     trainer_id: str = Field("", max_length=80)
     paste: str = Field("", max_length=200_000)
@@ -1427,6 +1432,10 @@ TOOLS: list[Tool] = [
          RtFinishArgs, W, lambda s, a: s.rt_finish(a.id, inputs=a.inputs, tick=a.tick, forfeit=a.forfeit), 600.0),
     Tool("battle_rt_save", _d("Keep the inputs of a live real-time battle so a reload resumes it. Guardar combate en tiempo real.",
                               synonyms="tiempo real, guardar partida"), RtSaveArgs, W, lambda s, a: s.rt_save(a.id, inputs=a.inputs, tick=a.tick)),
+    Tool("battle_rt_inspect", _d("Inspect a finished real-time replay at one frame. Examinar una repetición de tiempo real.",
+                                "Returns the public battle view and a paused replay link. Read-only; no records or progress change.",
+                                synonyms="repetición, inspeccionar, tiempo real, instante, fotograma"),
+         RtInspectArgs, R, lambda s, a: s.rt_inspect(a.id, a.tick), 120.0, capped=False),
     Tool("rt_cooldowns", _d("A team's moves in real time: Z-A cooldown or one derived from PP, Speed-adjusted, wind-up. Recargas.",
                             synonyms="tiempo real, PP, enfriamiento, recarga, leyendas z-a"), RtCooldownArgs, R,
          lambda s, a: s.rt_cooldowns(trainer_id=a.trainer_id, team=a.team, paste=a.paste, format_=a.format, level_rules=a.level_rules), 60.0),

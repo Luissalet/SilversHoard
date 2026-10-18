@@ -18,6 +18,7 @@ import {massRun} from './realtime/mass.mjs';
 import {composeMass} from './realtime/mass-roster.mjs';
 import {damageCalc} from './calc.mjs';
 import {teamAnalysis} from './team-analysis.mjs';
+import {inspectReplay} from './realtime/replay.mjs';
 import {practiceSnapshot} from './practice.mjs';
 import {practiceSuggestions} from './practice-suggestions.mjs';
 import {endState, frontierParty} from './frontier.mjs';
@@ -133,6 +134,7 @@ const handlers = {
   rt_cooldowns: (a) => ({moves: cooldownTable(a.moves || [], {gen: a.gen || 9, speed: a.speed || 0})}),
   rt_play_out: (a) => rtResult(rtRun(a.spec), a),
   rt_replay: (a) => rtResult(rtRun(a.spec, {inputs: a.inputs || [], forfeit: a.forfeit || '', tick: a.tick || 0}), a),
+  rt_inspect: (a) => inspectReplay(a.spec, a.record, a.tick || 0, a.seconds || 0),
   mass_compose: (a) => composeMass(a),
   mass_run: (a) => { const b = massRun(a.spec, {inputs: a.inputs || []}); return {summary: b.summary(), hash: b.hash(), ticks: b.t}; },
 };
