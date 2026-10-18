@@ -112,7 +112,7 @@ function MetagameResult({ job }) {
   const r = job.result;
   const sample = r.metagame;
   const repeat = () => run("repeat", async () => {
-    const next = await api.call("benchmark_start", {...job.args, sample_job_id: job.id, seed: String(r.seed)});
+    const next = await api.call("benchmark_start", {...job.args, ai_level: job.args.ai_level || null, sample_job_id: job.id, seed: String(r.seed)});
     go(`#/trabajo/${next.id}`);
   });
   const teams = Object.fromEntries(sample.pool.map((team) => [team.id, team]));
