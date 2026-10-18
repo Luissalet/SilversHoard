@@ -93,6 +93,12 @@ test('ranked threats sum actual contributions with roster appearances and determ
   ]);
 });
 
+test('a transformed opponent credits its current roster form, never another rivals earlier base form',()=>{
+  const observations=[{sets:[{species:'Ogerpon'}],pokemon:[]},
+    {sets:[{species:'Ogerpon-Wellspring'}],pokemon:[{species:'Ogerpon-Wellspring-Tera',kos:1,damage:1}]}];
+  assert.deepEqual(metagameThreats(observations),[{species:'Ogerpon-Wellspring',appearances:1,kos:1,damage:1}]);
+});
+
 test('an old exact pool can be reused without reloading or sampling a changed corpus',()=>{
   const args={rival_source:'metagame',corpus,seed:'snapshot728',format:'gen9customgame',games:1,max_turns:1,
     variants:[{id:'candidate',name:'Candidate',sets:[{species:'Magikarp',moves:['Splash']}]}]};
