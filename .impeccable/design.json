@@ -147,6 +147,11 @@
         "name": "The Portable Artwork Rule",
         "body": "In generated standalone pages, prefer an embedded static Pokémon sprite when animated art is absent; otherwise show a local SVG disc with up to two uppercase label characters (or ?). Keep missing decorative images transparent and missing Reborn animations on Silver's existing fallback.",
         "section": "components"
+      },
+      {
+        "name": "The Replay Seek Rule",
+        "body": "Stop playback at the reconstructed replay frame, retain the selected playback speed and historical log, and clear old move effects, ability banners and Mega notices instead of replaying them in a burst.",
+        "section": "components"
       }
     ],
     "dos": [
