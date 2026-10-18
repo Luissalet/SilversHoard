@@ -106,6 +106,65 @@ function signed(n) {
   return String(n);
 }
 
+function MetagameResult({ job }) {
+  const { t, go } = useApp();
+  const [busy, run] = useBusy();
+  const r = job.result;
+  const sample = r.metagame;
+  const repeat = () => run("repeat", async () => {
+    const next = await api.call("benchmark_start", {...job.args, sample_job_id: job.id, seed: String(r.seed)});
+    go(`#/trabajo/${next.id}`);
+  });
+  const teams = Object.fromEntries(sample.pool.map((team) => [team.id, team]));
+  return <div className="space-y-4">
+    <div className="panel space-y-2">
+      <h2>{t("meta_sample")}: {sample.generated}/{sample.requested}</h2>
+      <p className="help">{t("meta_generated")}</p>
+      {!sample.complete && <p role="status">{t("meta_incomplete", { n: sample.generated })} {t(`meta_reason_${sample.reason}`)}</p>}
+      <p className="help">{t("format")}: <b>{sample.format_requested}</b> · {t("meta_usage_format")}: <b>{sample.usage_format || t("meta_no_data")}</b></p>
+      <p className="help">{t("meta_set_formats")}: {sample.source_formats.join(", ") || t("meta_no_data")}</p>
+      <p className="help">{t("meta_source")}: {sample.source}</p>
+      <p className="help">{t("benchmark_seed")}: <b className="num">{String(r.seed)}</b> · {t("meta_ai")}: {t(`lvl_${r.rival_ai_level}`)}</p>
+      <p className="help break-all">{t("meta_fingerprint")}: <code>{sample.corpus_sha256}</code></p>
+      <Busy busy={busy.repeat} className="btn" onClick={repeat}>{t("meta_repeat")}</Busy>
+      <p className="help">{t("meta_repeat_help")}</p>
+    </div>
+    {r.variants.map((row) => <section key={row.id} className="space-y-3" aria-label={row.name}>
+      <div className="panel space-y-2">
+        <h2>{row.name}</h2>
+        <p>{t("wins_n", { n: row.wins })} · {t("meta_losses", { n: row.losses })} · {t("ties_n", { n: row.ties })} · {t("win_rate")}: <b>{row.played ? pct(row.win_rate) : "—"}</b></p>
+        <p className="help">{t("meta_rate_help", { n: row.played })}</p>
+      </div>
+      <Section title={t("meta_threats")} count={row.threats.length}>
+        <p className="help">{t("meta_threats_help")} {t(r.damage_unit === "pokemon_hp_bars" ? "meta_damage_classic" : "meta_damage_rt")}</p>
+        {row.threats.length ? <div className="panel p-0 scroll-x"><table className="tbl">
+          <thead><tr><th>{t("pokemon")}</th><th className="r">KOs</th><th className="r">{t("meta_damage")}</th><th className="r">{t("meta_appearances")}</th></tr></thead>
+          <tbody>{row.threats.map((mon) => <tr key={mon.species}>
+            <td><span className="flex items-center gap-2"><MonIcon species={mon.species} size={30} />{mon.species}</span></td>
+            <td className="r num">{mon.kos}</td><td className="r num">{mon.damage.toFixed(2)}</td><td className="r num">{mon.appearances}</td>
+          </tr>)}</tbody>
+        </table></div> : <p className="help">{t("meta_no_threats")}</p>}
+      </Section>
+      <Section title={t("benchmark_by_rival")} count={row.by_rival.length}>
+        <div className="panel p-0 scroll-x"><table className="tbl">
+          <thead><tr><th>{t("benchmark_rivals")}</th><th>{t("tab_team")}</th><th className="r">{t("won")}</th><th className="r">{t("lost")}</th><th className="r">{t("tied")}</th><th>{t("benchmark_seed")}</th></tr></thead>
+          <tbody>{row.by_rival.map((br) => <tr key={br.rival_id}>
+            <td>{br.rival_name}</td>
+            <td><details><summary>{teams[br.rival_id].sets.map((s) => s.species).join(", ")}</summary>
+              <ul>{teams[br.rival_id].sets.map((s, index) => <li key={index}>
+                <b>{s.species}</b> · {s.level} · {s.item} · {s.ability}<br />{s.moves.join(", ")}
+              </li>)}</ul>
+            </details></td>
+            <td className="r num">{br.wins}</td><td className="r num">{br.losses}</td><td className="r num">{br.ties}</td>
+            <td className="num">{br.seeds.map((seed) => seed.join(",")).join(" / ")}</td>
+          </tr>)}</tbody>
+        </table></div>
+      </Section>
+    </section>)}
+    <p className="help">{t("benchmark_result_help")}</p>
+  </div>;
+}
+
 function BenchmarkResult({ job }) {
   const { t } = useApp();
   const r = job.result || {};
@@ -225,7 +284,7 @@ export default function Trabajo({ param }) {
       <JobProgress job={job} />
       {job.kind === "series" && job.status === "done" && <SeriesResult job={job} />}
       {job.kind === "tournament" && job.status === "done" && (r.kind === "league" ? <LeagueTable r={r} names={names} /> : <Bracket r={r} names={names} />)}
-      {job.kind === "benchmark" && job.status === "done" && <BenchmarkResult job={job} />}
+      {job.kind === "benchmark" && job.status === "done" && (r.rival_source === "metagame" ? <MetagameResult job={job} /> : <BenchmarkResult job={job} />)}
       {(job.battles || []).length > 0 && (
         <Section title={t("battles")} count={job.battles.length}>
           <div className="panel divide-list p-0">{job.battles.map((b) => <BattleRow key={b.id} b={b} />)}</div>
