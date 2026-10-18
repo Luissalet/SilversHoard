@@ -158,4 +158,5 @@ def test_pmd_status_rows_keep_transparency_cells_and_native_catalog_lifecycle(ca
         image=Image.open(io.BytesIO(base64.b64decode(s['image'].split(',')[1])))
         assert image.getchannel('A').getextrema()==(0,255)
         assert not any(a and (r,g,b)==(0,120,144) for r,g,b,a in image.getdata())
-    assert sum(SPRITES[id_]['frames'] for id_ in ids)==76
+    assert sum(SPRITES[id_]['frames'] for id_ in ids)==78
+    assert SPRITES['fx-status-sleep']['frames']==10
