@@ -221,3 +221,19 @@ Buttons, fields and list selectors reuse the inherited corner radii. Playback us
 - **Do** retain visible focus, accessible names and native range/select/checkbox semantics.
 - **Do** preserve the scrolling clearance beneath the fixed dock across ordinary app pages.
 - **Don't** promote Music's scoped primary fill or browser-native slider tint into a replacement global palette.
+
+## Team analysis extension
+
+This scoped Operate extension records `client/src/components/TeamAnalysis.jsx`, its placement above the set editors in `TeamBuilder.jsx`, and `client/src/team-analysis.css`. It inherits the warm dark/crimson palette, sans-serif controls and existing panel, button, segmented-control, loading and error primitives. The supplied desktop (1280×720) and mobile (390×700) captures confirm the implemented surface, including a horizontally scrolled mobile matrix. Functional calculation limits belong in `docs/TEAM_ANALYSIS.md`.
+
+### Components
+
+The initially closed native **Team analysis** disclosure keeps the editor in flow. Opening it reveals help and an explicit **Analyse team / Analyse again** action against the current unsaved draft and format, without saving or Internet access. Loading uses the inherited spinner and disables that button. An empty team disables analysis and shows an add-member prompt; failures use the inherited alert with Retry. A changed draft or format hides the previous report and displays a status requesting another analysis. English and Spanish labels, help, states, type/species names and excluded-move reasons follow the existing translation system; custom member names remain data.
+
+Successful results place the generation and type-only calculation scope before two border-separated findings: shared weaknesses and types without super-effective coverage. Existing segmented buttons expose Defence and Attack coverage through `aria-pressed`, with a plain-language multiplier legend. The semantic table has a screen-reader caption, column and row headers, member types beneath names, and a final member-count column. Multipliers remain explicit text, including immunity (0×), resistance (¼× / ½×) and unavailable coverage (—); color supplements the values. Weak cells mix the inherited danger into the surface (18%), strong cells mix the accent (12%), and immune cells use the elevated surface. These are scoped matrix treatments, not new global palette tokens.
+
+The Speed list follows the matrix, pairing each wrapping member name and effective level with a right-aligned tabular statistic. Thin dividers separate rows within a (36rem) maximum width. When present, a second native disclosure lists excluded moves with member names and reasons.
+
+### Layout
+
+The report body uses a (.85rem) grid gap; actions wrap. Findings use two equal columns with a (1.2rem) gap and collapse to one at (640px) and below. At that breakpoint the analysis and segmented buttons have a (44px) minimum height. The matrix alone scrolls horizontally inside a bordered, small-radius, keyboard-focusable named region; its focus outline uses the inherited accent with a (2px) offset. The left type-header column stays fixed while member columns scroll. Cells use (12.5px) tabular text; mobile cells have (.5rem) padding and a (6rem) minimum width. Long member names wrap rather than widening the page.
