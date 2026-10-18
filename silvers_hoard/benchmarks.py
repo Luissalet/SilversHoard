@@ -33,14 +33,18 @@ class Benchmarks:
         time_limit: int = 0,
         rt_arena: str = "rocks",
         ai_level: str = "",
+        rival_source: str = "trainers",
+        rival_ai_level: str = "normal",
+        sample_job_id: str = "",
     ) -> dict[str, Any]:
         from .services import RT_RULES_VERSION, _rt_arena
 
         ids = list(dict.fromkeys(variant_ids))
         rivals = list(dict.fromkeys(rival_ids))
-        if len(ids) < 2:
+        meta = rival_source == "metagame"
+        if len(ids) < (1 if meta else 2):
             raise SilverError("invalid", "Pick at least two team variants to compare.")
-        if not rivals:
+        if not meta and not rivals:
             raise SilverError("invalid", "Pick at least one rival.")
         if len(ids) > 8:
             raise SilverError("invalid", "At most 8 variants.")
@@ -60,16 +64,29 @@ class Benchmarks:
         if rt:
             fmt, rules = self.s._rt_format(fmt), []
 
+        sample = None
+        if meta and sample_job_id:
+            previous = self.s.store.job(sample_job_id)
+            result = previous.get("result") or {}
+            sample = result.get("metagame")
+            if previous.get("kind") != "benchmark" or previous.get("status") != "done" or not sample:
+                raise SilverError("invalid", "Choose a completed metagame benchmark to reuse its sample.")
+            if (sample.get("format_requested") != fmt or sample.get("rules") != (rules or []) or
+                    sample.get("level_rules") != (level_rules or {}) or result.get("mode") != ("realtime" if rt else "classic")):
+                raise SilverError("invalid", "The saved sample uses different format, rules, levels or battle mode.")
+            if not seed:
+                seed = str(result["seed"])
+
         variants = []
         for tid in ids:
             seat = self.s._seat({"trainer_id": tid, "ai_level": ai_level or None}, tid)
             variants.append({"id": tid, "name": seat["name"], "sets": seat["sets"], "ai": seat["ai"]})
         rival_seats = []
-        for tid in rivals:
+        for tid in ([] if meta else rivals):
             seat = self.s._seat({"trainer_id": tid, "ai_level": ai_level or None}, tid)
             rival_seats.append({"id": tid, "name": seat["name"], "sets": seat["sets"], "ai": seat["ai"]})
 
-        title = f"Benchmark · {len(variants)} equipos × {len(rival_seats)} rivales"
+        title = f"Benchmark · {len(variants)} equipos × {100 if meta else len(rival_seats)} rivales"
         payload = {
             "variants": variants,
             "rivals": rival_seats,
@@ -84,10 +101,20 @@ class Benchmarks:
             "version": RT_RULES_VERSION,
             "silver_special": bool(self.s.settings.get("rt_silver_special", False)),
             "max_turns": self.s.settings["max_turns"],
+            **({"rival_source": "metagame", "rival_ai_level": rival_ai_level} if meta else {}),
         }
 
         def work(jid: str, progress: Callable[[float], None], cancelled: Callable[[], bool]) -> dict[str, Any]:
-            res = self.s.engine.run_job("benchmark", payload, progress=progress, cancelled=cancelled, timeout=6 * 3600)
+            from .metagame import collect_corpus
+
+            if meta:
+                if sample:
+                    payload["sample"] = sample
+                else:
+                    payload["corpus"] = collect_corpus(self.s, fmt, lambda p: progress(p * 0.15), cancelled)
+            res = self.s.engine.run_job("benchmark", payload,
+                                        progress=(lambda p: progress(0.15 + p * 0.85)) if meta else progress,
+                                        cancelled=cancelled, timeout=6 * 3600)
             slim = []
             for row in res.get("variants") or []:
                 slim.append({k: v for k, v in row.items() if k != "pokemon"})
@@ -109,6 +136,9 @@ class Benchmarks:
                 "mode": "realtime" if rt else "classic",
                 **({"silver_special": payload["silver_special"], "version": RT_RULES_VERSION} if rt else {}),
                 "reference_id": ids[0],
+                **({"rival_source": "metagame", "rival_ai_level": rival_ai_level, "sample_job_id": sample_job_id,
+                    "rules": rules or [], "level_rules": level_rules or {}, "seed": seed,
+                    "ai_level": ai_level, "time_limit": limit, "rt_arena": rt_arena} if meta else {}),
             },
             work,
         )
