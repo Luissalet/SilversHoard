@@ -8,7 +8,7 @@ Create a named playlist, select it as the destination in the library, and add so
 
 **Play**, **Queue** and **Play list** build the listening queue. The dock remains mounted while navigating ordinary app pages; it has pause/resume, previous/next, seeking, volume, shuffle and repeat off/all/one. Queue reordering preserves the current occurrence and playback position. Queue, index and modes are saved on the local service; reloading restores them paused, from the beginning of the selected song. Playback requires an open browser tab. Shuffle chooses a different occurrence at each advance; it does not reorder the saved list. Volume follows the existing master/music/mute mixer. Starting battle music pauses library playback; pressing Play on the dock takes over from battle music.
 
-**Use in battles** selects a song in the existing battle mixer. The mixer also exposes **Add MP3s** and **Music library**. This remains the existing browser-specific battle preference: recordings use their separate browser context, and portable HTML does not embed personal MP3s, queues or playlists.
+**Use in battles** selects a song in the existing battle mixer. The mixer also exposes **Add MP3s** and **Music library**. On an ordinary battle page, the chosen song and channel levels are saved with that battle and applied again on playback and recording. Outside a battle, the mixer remains a browser preference. Portable HTML does not embed personal MP3s, queues or playlists.
 
 Archiving a personal song retains its file and allows restoring it from **Archived**. Archiving removes that song from playlists and the queue; restoring it does not reconstruct those memberships. No battle database, saved replay or imported original is rewritten.
 
