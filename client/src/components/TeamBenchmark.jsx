@@ -21,7 +21,7 @@ function IdPicks({ label, picked, onChange, exclude = [] }) {
         <h2 className="flex-1">{label}</h2>
         <span className="help">{t("n_selected", { n: picked.length })}</span>
       </div>
-      <input className="field" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t("choose_trainer")} />
+      <input className="field" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t("choose_trainer")} aria-label={label} />
       <div className="max-h-48 overflow-auto divide-list border rounded">
         {shown.map((tr) => (
           <label key={tr.id} className="row-item gap-2 cursor-pointer">
@@ -41,6 +41,9 @@ export default function TeamBenchmark() {
   const [rivals, setRivals] = useState([]);
   const [reference, setReference] = useState("");
   const [games, setGames] = useState(2);
+  const [source, setSource] = useState("trainers");
+  const [rivalAi, setRivalAi] = useState("normal");
+  const meta = source === "metagame";
   const [format, setFormat] = useState("");
   const [seed, setSeed] = useState("bench-1");
   const [mode, setMode] = useStored("silver-mode", settings.default_mode || "classic");
@@ -52,7 +55,9 @@ export default function TeamBenchmark() {
   const start = () => run("b", async () => {
     const job = await api.call("benchmark_start", {
       variant_ids: variants,
-      rival_ids: rivals,
+      rival_ids: meta ? [] : rivals,
+      rival_source: source,
+      rival_ai_level: rivalAi,
       reference_id: reference || variants[0] || "",
       games: Number(games) || 1,
       format,
@@ -66,10 +71,23 @@ export default function TeamBenchmark() {
 
   return (
     <div className="space-y-3">
-      <p className="help">{t("benchmark_help")}</p>
+      <Field label={t("meta_source")}>
+        <select className="field" value={source} onChange={(e) => setSource(e.target.value)}>
+          <option value="trainers">{t("benchmark_rivals")}</option>
+          <option value="metagame">{t("meta_sample")}</option>
+        </select>
+      </Field>
+      <p className="help">{t(meta ? "meta_help" : "benchmark_help")}</p>
       <div className="grid gap-3 lg:grid-cols-2">
-        <IdPicks label={t("benchmark_variants")} picked={variants} onChange={(v) => { setVariants(v); if (reference && !v.includes(reference)) setReference(""); }} exclude={rivals} />
-        <IdPicks label={t("benchmark_rivals")} picked={rivals} onChange={setRivals} exclude={variants} />
+        <IdPicks label={t("benchmark_variants")} picked={variants} onChange={(v) => { setVariants(v); if (reference && !v.includes(reference)) setReference(""); }} exclude={meta ? [] : rivals} />
+        {meta ? <div className="panel space-y-2">
+          <Field label={t("meta_ai")}>
+            <select className="field" value={rivalAi} onChange={(e) => setRivalAi(e.target.value)}>
+              {["normal", "hard", "expert"].map((level) => <option key={level} value={level}>{t(`lvl_${level}`)}</option>)}
+            </select>
+          </Field>
+          <p className="help">{t("meta_generated")}</p>
+        </div> : <IdPicks label={t("benchmark_rivals")} picked={rivals} onChange={setRivals} exclude={variants} />}
       </div>
       <div className="panel space-y-3">
         <div className="grid gap-3 sm:grid-cols-2">
@@ -88,8 +106,8 @@ export default function TeamBenchmark() {
           </Field>
         </div>
         <ModeFields t={t} mode={mode} onMode={setMode} compact level={equal} onLevel={setEqual} arena={arena} onArena={setArena} />
-        <Busy busy={busy.b} className="btn btn-primary" disabled={variants.length < 2 || rivals.length < 1} onClick={start}>
-          {t("benchmark_start")}
+        <Busy busy={busy.b} className="btn btn-primary" disabled={variants.length < (meta ? 1 : 2) || (!meta && rivals.length < 1)} onClick={start}>
+          {t(meta ? "meta_start" : "benchmark_start")}
         </Busy>
       </div>
     </div>
