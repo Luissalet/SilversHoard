@@ -9,6 +9,7 @@ import pytest
 from conftest import ROOT, needs_engine
 from silvers_hoard.daily import DailyChallenge
 from silvers_hoard.errors import SilverError
+from silvers_hoard import sharing
 
 
 @needs_engine
@@ -94,3 +95,18 @@ def test_daily_uses_the_normal_ui_agent_handlers_and_board_filter(call):
     assert len(one['opponents']) == 7 and one['boards'] == []
     assert call('leaderboard', {'kind': 'daily', 'target_id': one['id']})['boards'] == []
     assert call('daily_challenge', {'day': '2026-02-30'}, status=400)['error']
+
+
+@needs_engine
+def test_playable_daily_page_uses_each_canonical_opponents_ai_in_every_stage(services):
+    spec = services.daily.spec('2026-10-18')
+    exported = services.daily.export(spec['day'])
+    html = services.export_file(exported['file']).read_text(encoding='utf-8')
+    data = json.loads(html.split(sharing.DATA_TAG, 1)[1].split('</script>', 1)[0])
+    gym = data['payload']['gym']
+    stages = [*gym['trainers'], gym['leader']]
+    assert data['daily']['key'] == spec['key']
+    assert {opponent['ai_style'] for opponent in spec['opponents']} != {'balanced'}
+    for playable, canonical in zip(stages, spec['opponents'], strict=True):
+        assert playable['ai'] == {'level': canonical['ai_level'], 'style': canonical['ai_style']}
+        assert playable['team'] == canonical['team']
