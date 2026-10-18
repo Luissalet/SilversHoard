@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-16T00:06:17Z",
+  "generatedAt": "2026-10-18T01:36:57Z",
   "title": "Design System: Silver's Hoard",
   "extensions": {
     "colorMeta": {
@@ -95,6 +95,20 @@
       "description": "Inherited accessible ErrorBox used for catalog and saved-library failures; demonstration message only.",
       "html": "<div class=\"ds-error\" role=\"alert\">Catalog unavailable. <button type=\"button\" class=\"ds-retry\">Retry</button></div>",
       "css": ".ds-error{border:1px solid color-mix(in srgb,var(--danger,#c4463a) 45%,transparent);border-radius:var(--hoard-radius,8px);padding:8px 12px;font:13px/1.5 var(--hoard-font-sans,'Source Sans 3',sans-serif);color:var(--ink,#ece1e2);background:var(--danger-bg,color-mix(in srgb,#c4463a 14%,transparent))}.ds-retry{background:none;border:0;padding:0;color:var(--accent,#e2404f);font:inherit;font-weight:600;cursor:pointer}.ds-retry:hover{text-decoration:underline}.ds-retry:focus-visible{outline:2px solid var(--accent,#e2404f);outline-offset:1px}"
+    },
+    {
+      "name": "Music Queue Entry",
+      "kind": "custom",
+      "description": "Numbered current queue occurrence with wrapping title and explicit reorder/remove controls. Preview text is illustrative.",
+      "html": "<div class=\"ds-music-entry\" aria-current=\"true\"><button type=\"button\" class=\"ds-music-title\">1. Song title</button><div class=\"ds-music-actions\"><button type=\"button\" disabled>Up</button><button type=\"button\">Down</button><button type=\"button\">Remove</button></div></div>",
+      "css": ".ds-music-entry{padding:.85rem 0;border-bottom:1px solid var(--line,#433536);color:var(--ink,#ece1e2);font:13.5px/1.5 var(--hoard-font-sans,\"Source Sans 3\",sans-serif)}.ds-music-title{display:block;width:100%;margin-bottom:.5rem;padding:0;border:0;background:transparent;color:var(--hoard-accent-strong,#e76370);font:inherit;text-align:left;overflow-wrap:anywhere;cursor:pointer}.ds-music-entry[aria-current] .ds-music-title{font-weight:650}.ds-music-title:hover{text-decoration:underline}.ds-music-actions{display:flex;flex-wrap:wrap;gap:.35rem}.ds-music-actions button{min-height:36px;padding:2px 9px;border:1px solid var(--line,#433536);border-radius:var(--hoard-radius,8px);background:transparent;color:var(--ink,#ece1e2);font:600 12.5px/1.5 var(--hoard-font-sans,\"Source Sans 3\",sans-serif);cursor:pointer;transition:background .12s,border-color .12s}.ds-music-actions button:hover:not(:disabled){background:var(--surface-2,#2f2526);border-color:var(--hoard-border-hover,#6a5859)}.ds-music-title:focus-visible,.ds-music-actions button:focus-visible{outline:2px solid var(--accent,#e2404f);outline-offset:1px}.ds-music-actions button:disabled{opacity:.42;cursor:not-allowed}@media(max-width:767px){.ds-music-actions button{min-height:40px}}@media(prefers-reduced-motion:reduce){.ds-music-actions button{transition:none}}"
+    },
+    {
+      "name": "Music Player",
+      "kind": "custom",
+      "description": "Surface-colored listening dock. This in-flow preview shows native fields and scoped primary contrast without audio behavior or viewport fixation.",
+      "html": "<section class=\"ds-music-dock\" aria-label=\"Music\"><div class=\"ds-music-now\"><a href=\"#/musica\">Song title</a><small>1 / 2</small></div><div class=\"ds-music-transport\"><button type=\"button\">Previous</button><button type=\"button\" class=\"ds-music-play\">Play</button><button type=\"button\">Next</button></div><label class=\"ds-music-seek\"><input aria-label=\"Seek\" type=\"range\" min=\"0\" max=\"100\" value=\"25\"><small>0:15 / 1:00</small></label><div class=\"ds-music-modes\"><label><input type=\"checkbox\"> Shuffle</label><select aria-label=\"Repeat\"><option>Repeat off</option><option>Repeat all</option><option>Repeat one</option></select><input class=\"ds-music-volume\" aria-label=\"Music volume\" type=\"range\" min=\"0\" max=\"100\" value=\"60\"></div></section>",
+      "css": ".ds-music-dock{display:grid;grid-template-columns:minmax(8rem,1fr) auto minmax(10rem,1.4fr);gap:.6rem 1rem;align-items:center;padding:.8rem 1.75rem;border-top:1px solid var(--line,#433536);background:var(--surface,#241b1c);color:var(--ink,#ece1e2);font:13.5px/1.5 var(--hoard-font-sans,\"Source Sans 3\",sans-serif)}.ds-music-now{display:grid;gap:.15rem;min-width:0}.ds-music-now a{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--hoard-accent-strong,#e76370);font-weight:650;text-decoration:none}.ds-music-now a:hover{text-decoration:underline}.ds-music-now small{color:var(--muted,#beb4b5)}.ds-music-transport{display:flex;gap:.35rem}.ds-music-transport button,.ds-music-modes select{min-height:28px;padding:2px 9px;border:1px solid var(--line,#433536);border-radius:var(--hoard-radius,8px);background:transparent;color:var(--ink,#ece1e2);font:600 12.5px/1.5 var(--hoard-font-sans,\"Source Sans 3\",sans-serif);cursor:pointer;transition:background .12s,border-color .12s}.ds-music-transport .ds-music-play{min-height:32px;padding:4px 12px;font-size:13px;background:color-mix(in srgb,var(--accent,#e2404f) 90%,black);color:white;border-color:var(--accent,#e2404f)}.ds-music-transport button:hover{background:var(--surface-2,#2f2526);border-color:var(--hoard-border-hover,#6a5859)}.ds-music-transport .ds-music-play:hover{background:color-mix(in srgb,var(--accent,#e2404f) 85%,black);border-color:var(--hoard-accent-strong,#e76370)}.ds-music-dock a:focus-visible,.ds-music-dock button:focus-visible,.ds-music-dock input:focus-visible,.ds-music-dock select:focus-visible{outline:2px solid var(--accent,#e2404f);outline-offset:1px}.ds-music-seek{display:grid;gap:.1rem;min-width:0}.ds-music-seek input{width:100%;min-width:0}.ds-music-seek small{text-align:right;padding-right:3.5rem;font-size:.75rem;font-variant-numeric:tabular-nums}.ds-music-modes{grid-column:1/-1;display:flex;align-items:center;flex-wrap:wrap;gap:.75rem;font-size:12px}.ds-music-modes select{min-height:32px;padding:5px 9px;background:var(--field,#161011);font-size:13px;font-weight:400}.ds-music-modes input[type=checkbox]{accent-color:var(--accent,#e2404f);width:15px;height:15px}.ds-music-volume{width:7rem;margin-left:auto;margin-right:3.5rem}@media(max-width:1000px){.ds-music-dock{grid-template-columns:minmax(0,1fr) auto}.ds-music-seek{grid-column:1/-1}}@media(max-width:767px){.ds-music-dock{padding:.6rem 1rem}.ds-music-transport button{min-height:40px}}@media(prefers-reduced-motion:reduce){.ds-music-transport button,.ds-music-modes select{transition:none}}"
     }
   ],
   "narrative": {
@@ -106,7 +120,18 @@
       "Trainer portraits and team sprites beside readable names.",
       "Native disclosure and select controls with wrapping filter rows."
     ],
-    "rules": [],
+    "rules": [
+      {
+        "name": "The Music Contrast Rule",
+        "body": "Use the brighter accent for song links and the locally darkened fill for white-labelled primary music actions; retain the inherited palette elsewhere.",
+        "section": "colors"
+      },
+      {
+        "name": "The Music Flow Rule",
+        "body": "Keep playlist controls above the library and ordered queue, let row actions wrap, and reserve scrolling space for the persistent dock.",
+        "section": "layout"
+      }
+    ],
     "dos": [
       "Do reuse the inherited Silver palette and shared type stacks.",
       "Do keep trainer portraits, names and team strips together in selection and library views.",
