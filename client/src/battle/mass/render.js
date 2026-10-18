@@ -13,6 +13,7 @@ import { sfx } from "../../audio.js";
 import { Animator, dirRow, image, loadMeta } from "../rt/pmd.js";
 import { Vfx } from "../rt/vfx.js";
 import { TPS } from "../../../../engine/src/realtime/mass.mjs";
+import { portableAsset } from "../../portable-assets.js";
 
 const FLOOR_COLORS = {
   grass: ["#4f8a4a", "#4a8345", "#2b4a2a"], sand: ["#d7bd86", "#cfb47c", "#8a7448"], ice: ["#cfe6f0", "#c4dfeb", "#7aa3b6"],
@@ -47,8 +48,9 @@ export class MassRenderer {
     this.anims = battle.units.map(() => null);
     // the whole crowd's icons come in one picture (Showdown's icon sheet: through the app, or from the sprite server on a page with
     // no app behind it); single battle sprites only for the giants
-    this.icons = image(offline ? `${String(sprites.server || "https://play.pokemonshowdown.com/sprites").replace(/\/$/, "")}/pokemonicons-sheet.png`
-      : `${base}/api/sprites/pokemon-icons.png`);
+    const iconUrl = portableAsset(offline ? `${String(sprites.server || "https://play.pokemonshowdown.com/sprites").replace(/\/$/, "")}/pokemonicons-sheet.png`
+      : `${base}/api/sprites/pokemon-icons.png`, { missing: "" });
+    this.icons = iconUrl ? image(iconUrl) : null;
     this.statics = battle.units.map((u) => (u.boss ? image(sprites.fallback(u.species, { spriteid: u.sprite_id })) : null));
     this.sound = sound;
     this.me = battle.player ?? -1;   // the Pokémon a person plays

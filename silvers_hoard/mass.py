@@ -316,12 +316,14 @@ class Mass:
                 "mass": {"id": doc["id"], "title": doc["title"], "preset": doc.get("preset", ""), "mode": doc["mode"], "floor": doc.get("floor", "grass"), "units": doc.get("units", 0),
                          "spec": doc["spec"], "hash": doc.get("hash", ""), "from": owner, "plays": self.plays(doc)[:10]}}
         names_i18n.annotate(data, self.s)
+        from . import portable_assets
+        data["portable_assets"] = portable_assets.bundle(self.s)
         html = sharing.playable_page(PLAY_TEMPLATE, data)
         # a new file every time: an earlier page (already sent, maybe) is never overwritten by another battle with the same title
         filename = sharing.safe_filename(f"{doc['title'][:40]} - Silver {new_id('x')[-8:]}", "html")
         (self.s.config.exports_dir / filename).write_text(html, encoding="utf-8", newline="\n")
         return {"file": filename, "bytes": len(html.encode("utf-8")), "url": f"/api/exports/{filename}", "name": doc["title"],
-                "battle_id": doc["id"], "hash": doc.get("hash", "")}
+                "battle_id": doc["id"], "hash": doc.get("hash", ""), "embedded_assets": len(data["portable_assets"]["files"])}
 
     def import_result(self, r: dict[str, Any]) -> dict[str, Any]:
         """A friend's ``SILVERMASS1-`` code: which battle, who played, which Pokémon, the input log and where it ended. Replayed here;

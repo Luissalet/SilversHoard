@@ -3,6 +3,7 @@
 import NAMES_ES from "./names-es.js";
 import { BattleText } from "./text/battle-text.gen.js";
 import { ZA_MEGA_IDS } from "./mega-sprites.js";
+import { portableAsset } from "../portable-assets.js";
 
 export const toID = (text) => String(text ?? "").toLowerCase().replace(/[^a-z0-9]+/g, "");
 
@@ -111,7 +112,11 @@ export function makeSprites({ base = "", server = "", set = "gen5ani", dexNum = 
       return {...meta, url: base + meta.url};
     } catch { return null; }
   };
-  return { pokemon, fallback, trainer, portrait, walking, pixelated, scale: SCALE[set] || SCALE.gen5, server };
+  return { pokemon: (species, options) => portableAsset(pokemon(species, options), { fallback: fallback(species, options), label: species }),
+    fallback: (species, options) => portableAsset(fallback(species, options), { label: species }),
+    trainer: (avatar) => portableAsset(trainer(avatar)),
+    portrait: (species, emotion, options) => portableAsset(portrait(species, emotion, options), { label: species }),
+    walking, pixelated, scale: SCALE[set] || SCALE.gen5, server };
 }
 
 export const STAT_NAMES = {
