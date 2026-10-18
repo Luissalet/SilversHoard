@@ -54,6 +54,8 @@ class Sounds:
         self._locks_guard = threading.Lock()
         self.downloads = 0
         self.misses = 0
+        from .music_library import MusicLibrary
+        self.library = MusicLibrary(self.cache_dir.parent.parent / "music")
 
     def _lock(self, key: str) -> threading.Lock:
         with self._locks_guard:
@@ -109,6 +111,8 @@ class Sounds:
         t = track.lower()
         if t.endswith(".mp3"):
             t = t[:-4]
+        if t.startswith("local-"):
+            return self.library.path(t)
         if t.startswith("pr-"):
             name = t[3:]
             if name not in PR_TRACKS:

@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState, useSyncExternalStore } from "react"
 import { createPortal } from "react-dom";
 import { getSettings, setSettings, sfx, subscribe, unlock } from "../audio.js";
 import { MUSIC_OPTIONS, sndT } from "../sound-strings.js";
+import { getLibrary, importFiles, loadLibrary, subscribe as subscribeLibrary } from "../music/store.js";
 
 export const useSound = () => useSyncExternalStore(subscribe, getSettings, getSettings);
 
@@ -35,18 +36,40 @@ export function SoundSliders({ lang = "es", test = true }) {
 export function MusicSelect({ lang }) {
   const t = sndT(lang);
   const s = useSound();
+  const library = useSyncExternalStore(subscribeLibrary, getLibrary, getLibrary);
+  const [uploading, setUploading] = useState(false);
+  const [failure, setFailure] = useState("");
+  const personal = typeof document !== "undefined" && !document.getElementById("silver-data");
+  useEffect(() => { if (personal) loadLibrary(); }, [personal]);
   return (
-    <label className="snd-track grid min-w-0 max-w-lg gap-1">
-      <span>{t("snd_track")}</span>
-      <select className="field" value={s.music_track} onChange={(e) => { unlock(); setSettings({ music_track: e.target.value }); }}>
+    <div className="snd-track grid min-w-0 max-w-lg gap-1">
+      <label className="grid gap-1"><span>{t("snd_track")}</span>
+      <select className="field min-w-0" value={s.music_track} onChange={(e) => { unlock(); setSettings({ music_track: e.target.value }); }}>
         <option value="auto">{t("snd_track_auto")}</option>
         <option value="none">{t("snd_track_none")}</option>
+        {personal && library.tracks.some((x) => !x.archived) && <optgroup label={t("snd_own")}>
+          {library.tracks.filter((x) => !x.archived).map((x) => <option key={x.id} value={x.id}>{x.title}</option>)}
+        </optgroup>}
         {["showdown", "pokerogue"].map((source) => <optgroup key={source} label={source === "showdown" ? "Showdown" : "PokéRogue"}>
           {MUSIC_OPTIONS.filter((x) => x.source === source).map((x) => <option key={x.id} value={x.id}>{x.label[lang === "en" ? 1 : 0]}</option>)}
         </optgroup>)}
       </select>
+      </label>
       <span className="help">{t("snd_track_help")}</span>
-    </label>
+      {personal && <div className="flex flex-wrap items-center gap-2">
+        <label className="btn btn-sm relative overflow-hidden">{t(uploading ? "snd_importing" : "snd_add")}
+          <input type="file" accept=".mp3,audio/mpeg" multiple disabled={uploading} aria-label={t("snd_add")} className="absolute inset-0 w-full opacity-0"
+            onChange={async (e) => {
+              const files = Array.from(e.target.files); e.target.value = ""; if (!files.length) return;
+              setUploading(true); setFailure("");
+              try { const result = await importFiles(files); setFailure(result.failures.join("; ")); if (result.imported.length) setSettings({ music_track: result.imported[0] }); }
+              finally { setUploading(false); }
+            }} />
+        </label>
+        <a className="btn-link" href="#/musica">{t("snd_library")}</a>
+      </div>}
+      {failure && <span role="alert" className="help">{failure}</span>}
+    </div>
   );
 }
 

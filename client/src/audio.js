@@ -8,11 +8,12 @@ import { MUSIC_OPTIONS } from "./sound-strings.js";
 
 const KEY = "silver-sound";
 const MUSIC_IDS = new Set(MUSIC_OPTIONS.map((x) => x.id));
+const isTrack = (id) => MUSIC_IDS.has(id) || /^local-[a-f0-9]{64}$/.test(id);
 const DEFAULTS = { master: 0.8, music: 0.5, sfx: 0.8, cries: 0.8, mute: false, music_track: "auto" };
 const clamp01 = (n, d) => (Number.isFinite(Number(n)) ? Math.max(0, Math.min(1, Number(n))) : d);
 const clean = (o) => ({ master: clamp01(o.master, DEFAULTS.master), music: clamp01(o.music, DEFAULTS.music), sfx: clamp01(o.sfx, DEFAULTS.sfx),
   cries: clamp01(o.cries, DEFAULTS.cries), mute: !!o.mute,
-  music_track: o.music_track === "none" || MUSIC_IDS.has(o.music_track) ? o.music_track : "auto" });
+  music_track: o.music_track === "none" || isTrack(o.music_track) ? o.music_track : "auto" });
 
 function load() {
   try {
@@ -362,7 +363,7 @@ const musicLevel = () => (silent() ? 0 : cfg.master * cfg.music * 0.55);
 /** Keep the app/export's audio origin; only replace a known battle-music route. */
 export function musicTrackUrl(url, choice = cfg.music_track) {
   if (!url || choice === "none") return "";
-  return MUSIC_IDS.has(choice) ? url.replace(/(\/api\/music\/)[^/?#]+(?:[?#].*)?$/, `$1${choice}`) : url;
+  return isTrack(choice) ? url.replace(/(\/api\/music\/)[^/?#]+(?:[?#].*)?$/, `$1${choice}`) : url;
 }
 
 function musicVolume() {
@@ -413,6 +414,7 @@ function stopTrack({ fade = 1.2 } = {}) {
 export const music = {
   /** Loop the track at `url` (fades in); the same url again does nothing, another one replaces it. */
   play(url) {
+    if (typeof window !== "undefined" && typeof window.dispatchEvent === "function") window.dispatchEvent(new Event("silver-battle-music"));
     requestedMusic = url;
     url = musicTrackUrl(url);
     if (!url) { stopTrack({ fade: 0.4 }); return; }

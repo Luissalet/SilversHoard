@@ -1698,6 +1698,9 @@ TOOLS: list[Tool] = [
          lambda s, a: s.settings_set(a.model_dump(exclude_none=True))),
 ]
 
+from .music_tools import TOOLS as MUSIC_TOOLS
+
+TOOLS.extend(MUSIC_TOOLS)
 TOOLS_BY_NAME = {t.name: t for t in TOOLS}
 
 
