@@ -34,7 +34,9 @@ class OverworldSprites:
         for row, (original, mirror) in enumerate([(0, False), (1, True), (2, True), (3, True),
                                                   (4, False), (3, False), (2, False), (1, False)]):
             for col in range(3):
-                tile = im.crop((col * 50, 122 + original * 40, col * 50 + 50, 162 + original * 40))
+                # The back row has a 47px stride: its first silhouette crosses x=50.
+                x = [4, 51, 98][col] if original == 4 else col * 50
+                tile = im.crop((x, 122 + original * 40, x + 50, 162 + original * 40))
                 tile.putdata([(*p[:3], 0) if p == (30, 30, 30, 255) else p for p in tile.getdata()])
                 if mirror:
                     tile = tile.transpose(Image.Transpose.FLIP_LEFT_RIGHT)

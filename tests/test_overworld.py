@@ -72,6 +72,8 @@ def swampert_sheet(path):
         for col in range(3):
             sheet.putpixel((col * 50 + 8, 122 + row * 40 + 10), (24, 152, 224, 255))
             sheet.putpixel((col * 50 + 9, 122 + row * 40 + 10), (row + 60, col + 60, 80, 255))
+    for y in range(305, 309):
+        sheet.putpixel((50, y), (0, 0, 0, 255))
     sheet.save(path)
 
 
@@ -111,6 +113,12 @@ def test_swampert_native_import_has_eight_directions_shiny_original_and_portable
     assert images[0].getchannel("A").tobytes() == images[1].getchannel("A").tobytes()
     assert images[0].getpixel((8, 10)) == (24, 152, 224, 255)
     assert images[1].getpixel((8, 10)) == (240, 120, 224, 255)
+    # The real first back pose extends across x=50; all four outline pixels belong to it.
+    for y in range(305, 309):
+        assert images[0].getpixel((46, 160 + y - 282)) == (0, 0, 0, 255)
+        assert images[0].getpixel((50, 160 + y - 282))[3] == 0
+    assert sum(p[3] > 0 for p in images[0].crop((0, 160, 50, 200)).getdata()) == 6
+    assert sum(p[3] > 0 for p in images[0].crop((50, 160, 100, 200)).getdata()) == 2
     for left, right in ((7, 1), (6, 2), (5, 3)):
         assert images[0].crop((0, left * 40, 50, left * 40 + 40)).transpose(Image.Transpose.FLIP_LEFT_RIGHT).tobytes() == images[0].crop((0, right * 40, 50, right * 40 + 40)).tobytes()
     restarted = OverworldSprites(services.overworld.directory, http_get=lambda _: pytest.fail("cached palette must work offline"))
