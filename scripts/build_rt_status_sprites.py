@@ -20,7 +20,7 @@ ROWS = {
     'burn': (104, 112, 16, 16, 7, 'Burn', 'Quemado'),
     'paralysis': (104, 128, 16, 16, 8, 'Paralysis', 'Paralizado'),
     'freeze': (104, 144, 32, 32, 6, 'Frozen', 'Congelado'),
-    'sleep': (104, 232, 16, 16, 8, 'Sleep / drowsiness', 'Sueño / somnolencia'),
+    'sleep': (104, 232, 16, 16, 10, 'Sleep / drowsiness', 'Sueño / somnolencia'),
     'poison': (104, 248, 16, 16, 15, 'Poison', 'Envenenado'),
 }
 
@@ -45,8 +45,12 @@ def extend(folder):
             im = sheet.crop(box)
             im.putdata([(r,g,b,0 if (r,g,b)==key else a) for r,g,b,a in im.getdata()])
             frames.append(im); rects.append(list(box))
+        # Do not silently truncate a row's final hold frames, including duplicate Zs.
+        tail=sheet.crop((x+count*w,y,sheet.width,y+h))
+        if tail.width and any(pixel[:3]!=key and pixel[3] for pixel in tail.getdata()):
+            raise ValueError(f'Unextracted status pixels after {name}')
         art['sprites']['fx-status-'+name] = pack(frames, name=en, name_es=es,
-            source=sid, frame_rects=rects, status=name)
+            source=sid, frame_rects=rects, status=name, source_frames=count)
     manifest.write_text(json.dumps(art, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
     print(f'{len(ROWS)} PMD status atlases, {sum(r[4] for r in ROWS.values())} frames')
 
