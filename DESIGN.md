@@ -313,3 +313,18 @@ Five motifs select 30 frames from the supplied Pokémon Mystery Dungeon: Red Res
 **The Local Dark Material Rule.** Remove the flat teal key and preserve source pixels in transparent square cells without rescaling. Retain recorded crop offsets and a visible `still_frame` for reduced motion. Apply `display_scale` only when drawing: 2.4× for Bite, Crunch, Knock Off and Torment; 1.8× for Pursuit. Preserve atlas geometry, anchors, pixel rendering and collision dimensions.
 
 The first four motifs use their existing contact/impact texture phases; Torment retains the existing wave phases. The shared presentation clock, pause, speed and seek behavior serve real-time, mass, classic effects, portable HTML and recorded video. These composed motifs do not reconstruct cartridge emitter programs. Their embedded PNGs require no original sheet or Internet at runtime; simulation rules remain unchanged.
+
+
+## Type challenge defensive variant
+
+This narrow Operate extension keeps the existing Facilities panel and warm dark/crimson identity. A labelled native **Practise** select adds **Defend** beside the default **Attack**. Ten seeded encounters use the selected generation's historical type chart (1–9) and single- or dual-type mode. The defensive question names the incoming attack type and asks for the Pokémon with the lowest multiplier. The existing type-chart-only explanation remains visible; practice stays on this page without creating battles or history entries.
+
+### Layout
+
+Four defending Pokémon use the existing four-column answer grid, becoming two columns at (768px) and below. Each native answer button has a (74px) minimum height on desktop and mobile, with the canonical species name on the first row and wrapping type chips beneath it. Names wrap within the button; the chosen or best multiplier occupies the first row's right edge after grading. Existing mobile question/result focus clearance remains `scroll-margin-top: calc(98px + 1rem)` beneath the fixed header.
+
+### Components
+
+**The Defensive Answer Rule.** Show canonical species names with localized type labels in both visible chips and accessible button names. Color supplements type text. Keep all four options visible and opaque after answering, disable them, expose the chosen option through aria-pressed, and use the inherited accent treatment for the lowest-multiplier answer and danger border for an incorrect choice.
+
+**The Defensive Continuity Rule.** Feedback and numbered mistake review show the incoming attack plus chosen and best species, per-type factors and final multipliers. Retry retains the pending species answer or original start specification; Repeat this challenge reuses the seed, generation, mode and practice goal. Focus moves to the question/result heading as in Attack. The inherited (180ms) feedback fade is removed for reduced motion. Spanish and English use the existing translation system.
