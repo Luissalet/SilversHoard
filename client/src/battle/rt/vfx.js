@@ -145,6 +145,7 @@ export class Vfx {
     this.supplied = renderer.canvas ? new SuppliedEffects(renderer) : null;
     this.reducedMotion = renderer.reducedMotion || (typeof window!=='undefined' ? window.matchMedia?.('(prefers-reduced-motion: reduce)') : null);
     this.parts = [];
+    this.animateParticles = false;
     this.rays = new Map();         // projectile id -> ray
     this.fx = [];                  // timed effects (bolts, claws, rings…)
     this.shake = 0;
@@ -471,6 +472,8 @@ export class Vfx {
   // ------------------------------------------------------------ per frame
   update(dt, view) {
     this.supplied?.update(dt,view);
+    this.animateParticles = dt > 0;
+    if (!this.animateParticles) return;
     this.shake = Math.max(0, this.shake - dt * 0.9);
     for (const p of this.parts) {
       if (p.delay > 0) { p.delay -= dt; continue; }
@@ -757,7 +760,7 @@ export class Vfx {
         ctx.beginPath();
         ctx.arc(cx, cy, rr * 1.6, 0, TAU);
         ctx.fill();
-        if (Math.random() < 0.6) { const ang = rnd(0, TAU); const d = rnd(1, 1.6); this.emit(1, { x: side.x + side.fx * 0.8 + Math.cos(ang) * d, y: side.y + side.fy * 0.8 + Math.sin(ang) * d * 0.6, z: H, vx: -Math.cos(ang) * d * 3, vy: -Math.sin(ang) * d * 1.8, life: 0.3, color: f.color, size: 0.1, kind: "glow" }); }
+        if (this.animateParticles && Math.random() < 0.6) { const ang = rnd(0, TAU); const d = rnd(1, 1.6); this.emit(1, { x: side.x + side.fx * 0.8 + Math.cos(ang) * d, y: side.y + side.fy * 0.8 + Math.sin(ang) * d * 0.6, z: H, vx: -Math.cos(ang) * d * 3, vy: -Math.sin(ang) * d * 1.8, life: 0.3, color: f.color, size: 0.1, kind: "glow" }); }
       }
     }
     for (const f of this.fx) {
