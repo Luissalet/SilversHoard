@@ -165,6 +165,6 @@ export function teamBenchmark(args = {}, onProgress = () => {}) {
     worsened,
     hall_of_fame_touched: false,
     ...(metagame ? {rival_source: 'metagame', metagame: sample, rival_ai_level: args.rival_ai_level || 'normal',
-      damage_unit: mode === 'realtime' ? 'opposing_team_hp_fraction' : 'pokemon_hp_bars'} : {}),
+      damage_unit: mode === 'realtime' ? 'mean_opposing_pokemon_hp_bars' : 'pokemon_hp_bars'} : {}),
   };
 }

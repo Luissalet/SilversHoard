@@ -121,9 +121,15 @@ test('real-time metagame results preserve their own damage units and game cardin
   const attacking={...corpus,entries:corpus.entries.map((e)=>({...e,sets:e.sets.map((s)=>({...s,moves:['Tackle']}))}))};
   const result=teamBenchmark({rival_source:'metagame',corpus:attacking,seed:'rt-meta728',format:'gen9customgame',
     mode:'realtime',time_limit:30,arena:'open',games:1,
-    variants:[{id:'weak',name:'Weak',sets:[{species:'Magikarp',level:1,moves:['Splash']}]}]});
-  assert.equal(result.damage_unit,'opposing_team_hp_fraction');
+    variants:[{id:'weak',name:'Weak',sets:[{species:'Magikarp',level:1,moves:['Splash']},
+      {species:'Snorlax',moves:['Splash']}]}]});
+  assert.equal(result.damage_unit,'mean_opposing_pokemon_hp_bars');
   assert.equal(result.variants[0].played,100);
   assert.equal(result.variants[0].by_rival.length,100);
   assert.ok(result.variants[0].threats.length>0);
+  // Magikarp Lv1 = 11 HP, Snorlax Lv100 = 461 HP: one reference bar is their mean, 236 HP.
+  // Using the team's total (472 HP) would incorrectly halve every reported contribution.
+  const contributors=result.variants[0].by_rival.flatMap((br)=>br.observations.flatMap((o)=>o.pokemon)).filter((p)=>p.dealt>0);
+  assert.ok(contributors.length>0);
+  for(const mon of contributors) assert.equal(mon.damage,Math.round(mon.dealt/236*100)/100);
 });
