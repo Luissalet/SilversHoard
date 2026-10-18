@@ -365,7 +365,8 @@ export class MassRenderer {
     const x = this.ctx;
     const s = this.scale;
     // the real-time effects move on: rays, the balls' trails, particles (a crowd's projectiles only where the camera looks)
-    const view = { projectiles: b.units.length > 60 ? b.projectiles.filter((p) => this.onScreen(p.x, p.y)) : b.projectiles, sides: [], doubles: false };
+    const view = { projectiles: b.units.length > 60 ? b.projectiles.filter((p) => this.onScreen(p.x, p.y)) : b.projectiles, sides: [], doubles: false,
+      seconds:b.t/TPS, ended:b.ended, statusUnits:b.units.filter(u=>!u.fainted&&this.onScreen(u.x,u.y)) };
     this.vfx.update(dt, view);
     x.save();
     const [shx, shy] = this.vfx.shakeOffset();
