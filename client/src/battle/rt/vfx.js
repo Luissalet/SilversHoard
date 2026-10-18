@@ -925,7 +925,7 @@ export class Vfx {
     g.addColorStop(1, "rgba(80,60,200,0)");
     ctx.fillStyle = g;
     ctx.beginPath(); ctx.arc(cx, cy, 0.5 * s * flick, 0, TAU); ctx.fill();
-    if (Math.random() < 0.5) this.emit(1, { x, y, z, vz: rnd(0.4, 1), life: 0.3, color: pick(["#8fa8ff", "#c9d6ff"]), size: 0.12, kind: "glow" });
+    if (this.animateParticles && Math.random() < 0.5) this.emit(1, { x, y, z, vz: rnd(0.4, 1), life: 0.3, color: pick(["#8fa8ff", "#c9d6ff"]), size: 0.12, kind: "glow" });
   }
 
   /** Before a Shadow Ball (or a Sludge Bomb): orbs gather and circle in front of the user. */

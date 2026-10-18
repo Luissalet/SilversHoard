@@ -323,7 +323,7 @@ export class MassRenderer {
         x.beginPath(); x.arc(cx, cy, ri, 0, TAU); x.stroke();
       }
       // spray along the front while it rolls
-      if (!over && this.onScreen(w.x, w.y)) {
+      if (this.vfx.animateParticles && !over && this.onScreen(w.x, w.y)) {
         const [kind, colors] = SPRAY[w.kind] || ["glow", [col, "#ffffff"]];
         this.vfx.emit(Math.min(14, Math.ceil(r * 1.5)), () => {
           const ang = rnd(0, TAU);
