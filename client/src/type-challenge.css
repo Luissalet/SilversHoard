@@ -4,7 +4,7 @@
 .type-challenge header p, .tc-scope { max-width: 75ch; margin-top: .45rem; }
 .tc-config { display: flex; flex-wrap: wrap; align-items: end; gap: .8rem; margin-top: 1rem; }
 .tc-config label { flex: 1 1 10rem; min-width: 0; }
-.tc-config label:nth-child(3) { flex-basis: 15rem; }
+.tc-config label:last-of-type { flex-basis: 15rem; }
 .tc-scoreline { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; margin: 1.3rem 0 .5rem; font-variant-numeric: tabular-nums; }
 .type-challenge progress { display: block; width: 100%; height: .45rem; accent-color: var(--accent); border: 0; border-radius: 3px; overflow: hidden; background: var(--line); }
 .type-challenge progress::-webkit-progress-bar { background: var(--line); }
@@ -19,6 +19,10 @@
 .tc-options { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .65rem; margin: 1rem 0; }
 .tc-option { display: flex; align-items: center; justify-content: start; gap: .6rem; min-height: 52px; }
 .tc-option strong { margin-left: auto; }
+.tc-defender { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-content: center; min-height: 74px; white-space: normal; text-align: left; row-gap: .35rem; }
+.tc-defender-name { min-width: 0; overflow-wrap: anywhere; grid-column: 1; grid-row: 1; }
+.tc-defender-types.tc-defence { grid-column: 1 / -1; grid-row: 2; gap: .6rem; font-weight: 400; }
+.tc-defender strong { grid-column: 2; grid-row: 1; justify-self: end; }
 .type-challenge .tc-option:disabled { opacity: 1; }
 .tc-option.tc-correct { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface)); }
 .tc-option.tc-mistake { border-color: var(--danger); }
@@ -39,8 +43,9 @@
   .tc-question { scroll-margin-top: calc(98px + 1rem); }
   .tc-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .tc-config label { flex-basis: 9rem; }
-  .tc-config label:nth-child(3) { flex-basis: 100%; }
-  .tc-config button { width: 100%; }
+  .tc-config label:last-of-type { flex-basis: 100%; }
+  .tc-config button { width: 100%; min-height: 44px; }
   .tc-option, .tc-actions button { min-height: 44px; }
+  .tc-defender { min-height: 74px; }
 }
 @media (prefers-reduced-motion: reduce) { .tc-feedback { animation: none; } }

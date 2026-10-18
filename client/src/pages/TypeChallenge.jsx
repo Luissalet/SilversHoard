@@ -10,6 +10,7 @@ const factor = n => `${n}×`;
 export default function TypeChallenge() {
   const {t, lang} = useApp();
   const [gen, setGen] = useState("9"), [mode, setMode] = useState("dual"), [seed, setSeed] = useState("");
+  const [goal, setGoal] = useState("attack");
   const [deck, setDeck] = useState(null), [answers, setAnswers] = useState([]), [score, setScore] = useState(null);
   const [index, setIndex] = useState(0), [finished, setFinished] = useState(false);
   const [busy, setBusy] = useState(false), [error, setError] = useState(null), [pending, setPending] = useState(null);
@@ -17,15 +18,16 @@ export default function TypeChallenge() {
   useEffect(() => {mounted.current = true;return () => {mounted.current = false;};}, []);
   useEffect(() => {if (deck) questionTitle.current?.focus();}, [deck, index, finished]);
   const active = !!deck && !finished, question = deck?.questions[index], feedback = score?.feedback[index];
+  const defensive = deck?.spec.goal === "defend";
   async function start(spec = null) {
     if (gate.current) return;
     gate.current = true;setBusy(true);setError(null);setPending(null);
     try {
-      const request = spec || {gen: Number(gen), mode, seed: seed.trim() || crypto.randomUUID()};
+      const request = spec || {gen: Number(gen), mode, goal, seed: seed.trim() || crypto.randomUUID()};
       lastStart.current = request;
       const next = await api.call("type_challenge", request);
       if (!mounted.current) return;
-      setDeck(next);setGen(String(next.spec.gen));setMode(next.spec.mode);setAnswers([]);setScore(null);setIndex(0);setFinished(false);
+      setDeck(next);setGen(String(next.spec.gen));setMode(next.spec.mode);setGoal(next.spec.goal || "attack");setAnswers([]);setScore(null);setIndex(0);setFinished(false);
     } catch (e) {if (mounted.current) setError(e);}
     finally {gate.current = false;if (mounted.current) setBusy(false);}
   }
@@ -41,11 +43,14 @@ export default function TypeChallenge() {
     finally {gate.current = false;if (mounted.current) setBusy(false);}
   }
   const typeLabel = type => typeName(type, lang);
-  const formula = choice => <span className="tc-formula"><b>{typeLabel(choice.type)}</b>: {choice.factors.map(f => `${typeLabel(f.type)} ${factor(f.multiplier)}`).join(" · ")} → <strong>{factor(choice.multiplier)}</strong></span>;
+  const formula = choice => <span className="tc-formula"><b>{choice.species || typeLabel(choice.type)}</b>: {choice.factors.map(f => `${typeLabel(f.type)} ${factor(f.multiplier)}`).join(" · ")} → <strong>{factor(choice.multiplier)}</strong></span>;
+  const chips = types => types.map(type => <span key={type}><i aria-hidden="true" style={{background: TYPE_COLORS[type]}} />{typeLabel(type)}</span>);
+  const settings = () => `${t("tc_settings", {gen: deck.spec.gen, mode: t(deck.spec.mode === "dual" ? "tc_dual" : "tc_single")})} · ${t(defensive ? "tc_goal_defend" : "tc_goal_attack")}`;
   return <section className="panel type-challenge" aria-labelledby="type-challenge-title">
-    <header><h2 id="type-challenge-title">{t("tc_title")}</h2><p className="help">{t("tc_intro")}</p></header>
+    <header><h2 id="type-challenge-title">{t("tc_title")}</h2><p className="help">{t((active ? defensive : goal === "defend") ? "tc_defense_intro" : "tc_intro")}</p></header>
     <p className="help tc-scope">{t("tc_scope")}</p>
     {!active && <form className="tc-config" onSubmit={e => {e.preventDefault();start();}}>
+      <Field label={t("tc_goal")}><select value={goal} disabled={busy} onChange={e => setGoal(e.target.value)}><option value="attack">{t("tc_goal_attack")}</option><option value="defend">{t("tc_goal_defend")}</option></select></Field>
       <Field label={t("tc_gen")}><select value={gen} disabled={busy} onChange={e => setGen(e.target.value)}>{Array.from({length: 9}, (_, i) => <option key={i + 1}>{i + 1}</option>)}</select></Field>
       <Field label={t("tc_mode")}><select value={mode} disabled={busy} onChange={e => setMode(e.target.value)}><option value="single">{t("tc_single")}</option><option value="dual">{t("tc_dual")}</option></select></Field>
       <Field label={t("tc_seed")}><input maxLength={100} value={seed} disabled={busy} placeholder={t("tc_random")} onChange={e => setSeed(e.target.value)} /></Field>
@@ -53,18 +58,24 @@ export default function TypeChallenge() {
     </form>}
     <ErrorBox error={error} onRetry={() => pending ? answer(pending) : start(lastStart.current)} />
     {active && <>
-      <p className="help tc-settings">{t("tc_settings", {gen: deck.spec.gen, mode: t(deck.spec.mode === "dual" ? "tc_dual" : "tc_single")})}</p>
+      <p className="help tc-settings">{settings()}</p>
       <div className="tc-scoreline"><span>{t("tc_round", {n: index + 1})}</span><span>{t("tc_streak", {n: score?.streak || 0})}</span></div>
       <progress aria-label={t("tc_progress")} value={answers.length} max={10} />
-      <h3 className="tc-question" tabIndex={-1} ref={questionTitle}>{t("tc_question", {name: question.species})}</h3>
-      <p className="tc-defence">{question.types.map(type => <span key={type}><i aria-hidden="true" style={{background: TYPE_COLORS[type]}} />{typeLabel(type)}</span>)}</p>
-      <div className="tc-options" role="group" aria-label={t("tc_options")}>
-        {question.options.map(type => <button type="button" key={type} disabled={busy || !!feedback}
-          className={`btn tc-option ${feedback?.best.type === type ? "tc-correct" : feedback?.chosen.type === type ? "tc-mistake" : ""}`}
-          aria-pressed={feedback ? feedback.chosen.type === type : undefined} onClick={() => answer(type)}>
-          <i aria-hidden="true" style={{background: TYPE_COLORS[type]}} />{typeLabel(type)}
-          {feedback && (feedback.best.type === type || feedback.chosen.type === type) && <strong>{factor(feedback.best.type === type ? feedback.best.multiplier : feedback.chosen.multiplier)}</strong>}
-        </button>)}
+      <h3 className="tc-question" tabIndex={-1} ref={questionTitle}>{defensive ? t("tc_defense_question", {type: typeLabel(question.attack)}) : t("tc_question", {name: question.species})}</h3>
+      <p className="tc-defence">{chips(defensive ? [question.attack] : question.types)}</p>
+      <div className="tc-options" role="group" aria-label={t(defensive ? "tc_defense_options" : "tc_options")}>
+        {question.options.map(option => {
+          const key = defensive ? option.species : option;
+          const best = feedback && (defensive ? feedback.best.species : feedback.best.type) === key;
+          const chosen = feedback && (defensive ? feedback.chosen.species : feedback.chosen.type) === key;
+          return <button type="button" key={key} disabled={busy || !!feedback}
+            className={`btn tc-option ${defensive ? "tc-defender" : ""} ${best ? "tc-correct" : chosen ? "tc-mistake" : ""}`}
+            aria-label={defensive ? `${option.species}: ${option.types.map(typeLabel).join(" / ")}` : undefined}
+            aria-pressed={feedback ? !!chosen : undefined} onClick={() => answer(key)}>
+            {defensive ? <><span className="tc-defender-name">{option.species}</span><span className="tc-defender-types tc-defence">{chips(option.types)}</span></> : <><i aria-hidden="true" style={{background: TYPE_COLORS[option]}} />{typeLabel(option)}</>}
+            {feedback && (best || chosen) && <strong>{factor(best ? feedback.best.multiplier : feedback.chosen.multiplier)}</strong>}
+          </button>;
+        })}
       </div>
       {feedback && <div className="tc-feedback" role="status">
         <h4>{t(feedback.correct ? "tc_right" : "tc_wrong")}</h4>
@@ -77,8 +88,8 @@ export default function TypeChallenge() {
       </div>
     </>}
     {finished && score && <div className="tc-result">
-      <h3 className="tc-question" tabIndex={-1} ref={questionTitle}>{t("tc_score", {n: score.correct})}</h3><p>{t("tc_record", {n: score.best_streak})} · {t("tc_settings", {gen: deck.spec.gen, mode: t(deck.spec.mode === "dual" ? "tc_dual" : "tc_single")})}</p>
-      {score.feedback.some(f => !f.correct) ? <><h4>{t("tc_review")}</h4><ol>{score.feedback.filter(f => !f.correct).map(f => <li key={f.round} value={f.round}><b>{f.species}</b><p>{t("tc_yours")}: {formula(f.chosen)}</p><p>{t("tc_best")}: {formula(f.best)}</p></li>)}</ol></> : <p>{t("tc_perfect")}</p>}
+      <h3 className="tc-question" tabIndex={-1} ref={questionTitle}>{t("tc_score", {n: score.correct})}</h3><p>{t("tc_record", {n: score.best_streak})} · {settings()}</p>
+      {score.feedback.some(f => !f.correct) ? <><h4>{t("tc_review")}</h4><ol>{score.feedback.filter(f => !f.correct).map(f => <li key={f.round} value={f.round}><b>{defensive ? t("tc_defense_review", {type: typeLabel(f.attack)}) : f.species}</b><p>{t("tc_yours")}: {formula(f.chosen)}</p><p>{t("tc_best")}: {formula(f.best)}</p></li>)}</ol></> : <p>{t("tc_perfect")}</p>}
       <button type="button" className="btn" disabled={busy} onClick={() => start(deck.spec)}>{t("tc_repeat")}</button>
       <details><summary>{t("tc_seed_used")}</summary><code>{deck.spec.seed}</code></details>
     </div>}

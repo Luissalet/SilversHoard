@@ -1,0 +1,491 @@
+{
+  "base": "dac77c54e2a54c8f2277aad5b7a5dcbc78c817eb",
+  "cases": [
+    {
+      "args": {
+        "gen": 1,
+        "mode": "single",
+        "seed": "A"
+      },
+      "deck": "582febf10b830f9f1103b87e925dfc9431db3acf299b1be4fe997ae7f1881650",
+      "score": "2151ba4efbaa7db0b98076260e7e0585a96b1c6059bd19cc6d5a84e15c550ad5"
+    },
+    {
+      "args": {
+        "gen": 1,
+        "mode": "single",
+        "seed": "B"
+      },
+      "deck": "052e38d6652316590408104b8b870257b4a52d7d120be912d268fa2799f4f4ca",
+      "score": "7341d5493af659a434366747b6771e8d5ef40fa26cf6655df0696c09bfe95947"
+    },
+    {
+      "args": {
+        "gen": 1,
+        "mode": "single",
+        "seed": "C"
+      },
+      "deck": "afb61c4fb7277bcfa7873f8298a006d04822a2f12b4d5afde0485f63a75e937e",
+      "score": "77afa059749828fde9e4e16ae7239e7dc4d8615c33a59d50e3c6dc803fb01e73"
+    },
+    {
+      "args": {
+        "gen": 1,
+        "mode": "dual",
+        "seed": "A"
+      },
+      "deck": "ed2bc9645401ddfa07d902b90fb3dc61b6e52c86ed66a03225f4817142617af8",
+      "score": "b3c9131c48cda14a981432538a04890330f3d934003caec2ba76d6e8014a9f8a"
+    },
+    {
+      "args": {
+        "gen": 1,
+        "mode": "dual",
+        "seed": "B"
+      },
+      "deck": "38ca709ea5f8af8d014cdf9fb48f2579b2f0159c7c3cb7a843960489a95ade3f",
+      "score": "fc31e289c742b07d3a9536961a82d3b9e78b893b9ac4987cb8b53722b18cfabb"
+    },
+    {
+      "args": {
+        "gen": 1,
+        "mode": "dual",
+        "seed": "C"
+      },
+      "deck": "3d5dabbc8b2cf8954aec41c6f57da92a49b18ab06a6b6886c539982c067fcdb7",
+      "score": "cf84c02dac6fb2071f0363d4a74cf447ae86a7435c44eb78a32a1e60f781382b"
+    },
+    {
+      "args": {
+        "gen": 2,
+        "mode": "single",
+        "seed": "A"
+      },
+      "deck": "a0d5258c9560757b0ec11e5afb1579002ccd8c1b9a0b993139b1e0738868b23c",
+      "score": "52ce8c70cf6d35bbce85ad9b805487eef871a6fb33f9817de35872d2ca17e553"
+    },
+    {
+      "args": {
+        "gen": 2,
+        "mode": "single",
+        "seed": "B"
+      },
+      "deck": "d912ba44a563da02cb7112ced949b47d11479f8c16c71b65319f9b2088cd2e37",
+      "score": "d33b291ff9e5b9599d2475b407220af48c366bf3ed438f57072897b97b88a922"
+    },
+    {
+      "args": {
+        "gen": 2,
+        "mode": "single",
+        "seed": "C"
+      },
+      "deck": "af1de8c67ac893c7a77d0c7153fb3f7a3a4a3ec331d195b9332525e167879626",
+      "score": "dbc458197a192a18048db07ce801619674cfaa813fef7385b5817371c93573db"
+    },
+    {
+      "args": {
+        "gen": 2,
+        "mode": "dual",
+        "seed": "A"
+      },
+      "deck": "bce94d53d782b9803d5710f5e7f51f1261d79ca63aa6dad8927b201865c0a5e1",
+      "score": "06cf9a5dbf23a42e85eef4197c716338e920b756b377f76a3c5f38c68758096d"
+    },
+    {
+      "args": {
+        "gen": 2,
+        "mode": "dual",
+        "seed": "B"
+      },
+      "deck": "ea3a30f07dec2ef108c93962855f13ae6920f3127ec0de877e271a34be425327",
+      "score": "2694f7557b356bb6e3a0ed478a5c23c50896caf8e759a9369361e2e99694294e"
+    },
+    {
+      "args": {
+        "gen": 2,
+        "mode": "dual",
+        "seed": "C"
+      },
+      "deck": "2fb1a43b86326e53d40b0b01b5bc01d4ca104e53856855adf5d600fa703ef464",
+      "score": "51c5ba28ca69b53e72d7a536281d1b46f97e4d15218ae90d53237a7476fe33a8"
+    },
+    {
+      "args": {
+        "gen": 3,
+        "mode": "single",
+        "seed": "A"
+      },
+      "deck": "6d616677c35deb72f28dc852748b6161ef5de6a1c287361eee66fe07d4ec3b09",
+      "score": "397917227a91be21b033db955ce7f28825891dbbc8bd26aa1cab875fd945bad2"
+    },
+    {
+      "args": {
+        "gen": 3,
+        "mode": "single",
+        "seed": "B"
+      },
+      "deck": "a3dbcf175936587f6d4049395ceb70e70df3c5c763ad58cc15a27e8d9f789b02",
+      "score": "ee0b01b1b8fac9bebf32b7632dafb00a7b353b1c7c6d6b9153efe4337509ef5f"
+    },
+    {
+      "args": {
+        "gen": 3,
+        "mode": "single",
+        "seed": "C"
+      },
+      "deck": "0528217bb467340b0095eafb5d3fdab9d26323f3529c87b63168ed3f4910d921",
+      "score": "b2960ae637fd4c5e306e15e475681e31ee7edd6fcda6272ee500a1bf76c83e6f"
+    },
+    {
+      "args": {
+        "gen": 3,
+        "mode": "dual",
+        "seed": "A"
+      },
+      "deck": "12a5134bcabeb8c818bcf545534d57c156f907d9857374ae720d2e52e46ec1b3",
+      "score": "14425ebac3c2cf392e53f35006d02b02dca846af130696053378194ae2560050"
+    },
+    {
+      "args": {
+        "gen": 3,
+        "mode": "dual",
+        "seed": "B"
+      },
+      "deck": "3fa180953f0a04fbfb79e5107c7c2230438745c3ee3b0b53c7ff6efa76dd724b",
+      "score": "eeb384996ad5746d5e8f6c787e45bb08bf6efb45b628053281095297ed7326ca"
+    },
+    {
+      "args": {
+        "gen": 3,
+        "mode": "dual",
+        "seed": "C"
+      },
+      "deck": "1010ab51164e04e115884c1eb5fa586c572d2f6e2ad1438c087f272396353905",
+      "score": "12ffabb1d5c136aa62d0960b6637df3d9a8117bf1f8aa5b9a14cb00a88c36bdc"
+    },
+    {
+      "args": {
+        "gen": 4,
+        "mode": "single",
+        "seed": "A"
+      },
+      "deck": "f0504dcff8b8482855c2958a6f1d12af5553a69b82fb356b4c8dccbbd38e01a9",
+      "score": "f6395c630f88dfe3b76cae1fed2c7837b3bff94561de49f735f521f54a4709ce"
+    },
+    {
+      "args": {
+        "gen": 4,
+        "mode": "single",
+        "seed": "B"
+      },
+      "deck": "b2aeaf3f9fe89a99ba0e61b0c4bf2bd46e51c02ba73a467dc4c47f6f09d825c6",
+      "score": "25bb364b26624f8edd5cfc920fb6044f604367f4d63f91894d024daa55a5d967"
+    },
+    {
+      "args": {
+        "gen": 4,
+        "mode": "single",
+        "seed": "C"
+      },
+      "deck": "e14894fee476564050da5a7f2e46afc2223a49ab1116a336d34b2efa65723953",
+      "score": "e64a34eed5260b90ec3e6f90effdd08c056cb7380b02db7da1fddc6f118bb17d"
+    },
+    {
+      "args": {
+        "gen": 4,
+        "mode": "dual",
+        "seed": "A"
+      },
+      "deck": "8201722a47d34826727c165c9203ea650b0dc6717c8e8de010b17670a0b988f5",
+      "score": "3000abca96ac970626463b1dc64828e71a5269cf9fa2871288f9b69ce19788c4"
+    },
+    {
+      "args": {
+        "gen": 4,
+        "mode": "dual",
+        "seed": "B"
+      },
+      "deck": "ae4c59dedd8c353936385dee462e0794d8aab99d9bf4af3a4479647e0b174627",
+      "score": "db525c10cca9f0873d2382d1a1183e83fb1e60983b9a6a1ebb8b1484fdff21cf"
+    },
+    {
+      "args": {
+        "gen": 4,
+        "mode": "dual",
+        "seed": "C"
+      },
+      "deck": "800c5b4d71c393f8b75bf5a2c06b851d8303059eb5ddbf1297469f291085d1f2",
+      "score": "9c63c0e44fa24764cd780634172db5aac67d91c54fbfc15e48fb268ee2169ddd"
+    },
+    {
+      "args": {
+        "gen": 5,
+        "mode": "single",
+        "seed": "A"
+      },
+      "deck": "fa0beb998884bcb7e2be8d10d59b29eb6dfa73d2ccc3ad0fcef34a8c2080a1c1",
+      "score": "206507cf75078983e8701e8064e3e2ca5717fcfad07e740184e129ae91e6f0a8"
+    },
+    {
+      "args": {
+        "gen": 5,
+        "mode": "single",
+        "seed": "B"
+      },
+      "deck": "e974a87c9b753187b9eb0b2a50511db5493d377bf9e328a26401c5157ada6454",
+      "score": "b2795ef0d2f2dfa9248efa899f2a630c0bc4f46c83f29e13380c1177e13b7dd7"
+    },
+    {
+      "args": {
+        "gen": 5,
+        "mode": "single",
+        "seed": "C"
+      },
+      "deck": "4b99267764843f52b3c4524010331d8a010b107ff3753692711655e3b587b3e4",
+      "score": "60b7ba7df69a8b73ffdf1a22fdf8f3474bbf9b8f29351ce35b4c8de7334a7ff9"
+    },
+    {
+      "args": {
+        "gen": 5,
+        "mode": "dual",
+        "seed": "A"
+      },
+      "deck": "2ce34913910a9f31dee93f91c59e3851cc45eda7c6dc4aa0b644f99cf699b0c0",
+      "score": "d62f14a7d58f51657da679ed0a9ce3373c2bb50c0508a6339dc95fe7e1289498"
+    },
+    {
+      "args": {
+        "gen": 5,
+        "mode": "dual",
+        "seed": "B"
+      },
+      "deck": "af1864cad783a0402dab3540dd5c1e731aa1111b11e05906b84da2740aacd23b",
+      "score": "0d2d4272fd01c8fe1001c8162e3f6c7b3f086a1e3a5dc83deda6bd906f29a7b2"
+    },
+    {
+      "args": {
+        "gen": 5,
+        "mode": "dual",
+        "seed": "C"
+      },
+      "deck": "4c9dad13241da9b2fbd99cbbb7170e11ce311907291dcd16fc0dbde72cc95529",
+      "score": "ba2725bd47d98ee7b4bf007db45a7f70829384e92a2be2619450f191b915d119"
+    },
+    {
+      "args": {
+        "gen": 6,
+        "mode": "single",
+        "seed": "A"
+      },
+      "deck": "7378f0746a386eb840e68d4e55e581586f5045422ee6c63d5368980f3c0b7158",
+      "score": "9ee5328d82164d2ea8be6b25b3ace6d573d26109c9fd720e7da3bdf76d341402"
+    },
+    {
+      "args": {
+        "gen": 6,
+        "mode": "single",
+        "seed": "B"
+      },
+      "deck": "bbdfdbe8718f199013eef3dd51803f1703c236f55e11e677597b6072a1e654ca",
+      "score": "e5eef15cd42bb702c92ff8520489abe4efe724ff624ec85c678b07c54aea52ca"
+    },
+    {
+      "args": {
+        "gen": 6,
+        "mode": "single",
+        "seed": "C"
+      },
+      "deck": "ffde2dbdbc20e478b8a356ecfe2e7ed6f45e9e208cc8247ab860b29b57bdae6d",
+      "score": "28278f271dc3030c025a560bcda33b4aa6230353cf94c01be849868ac6d85ab6"
+    },
+    {
+      "args": {
+        "gen": 6,
+        "mode": "dual",
+        "seed": "A"
+      },
+      "deck": "f87d0b091b68deb1e91d11c37a9263e62a390c7cc213e88d30e9020831cb7108",
+      "score": "7efb58b092cd7e01fa13685df2f84a366673ed0fa7ab53cbf14ce1597e4c04fd"
+    },
+    {
+      "args": {
+        "gen": 6,
+        "mode": "dual",
+        "seed": "B"
+      },
+      "deck": "d44d27a4e9c189653bc4e676fcf2da7ab56e47c9c3e2ba8495c73f09950b3d13",
+      "score": "6e9a05c8f1b0d5f24a88c72f3bcd54c6e45df2f3041162770be184d67383ebcc"
+    },
+    {
+      "args": {
+        "gen": 6,
+        "mode": "dual",
+        "seed": "C"
+      },
+      "deck": "a6bd15de8248205d126d1ae79bf05f6af08e4f9f073c410a8d93ff9b7210e788",
+      "score": "1b01e05b261e7691c686b2e0e6034dd73ea9b7264a49a551d917fdc380773eb8"
+    },
+    {
+      "args": {
+        "gen": 7,
+        "mode": "single",
+        "seed": "A"
+      },
+      "deck": "e6349d3b2569f4858a0fa3bcf43e16b988c0bb345593e4694d5bd9362e97c1cf",
+      "score": "c6729de40c5fe481f6178eb66b36c3c1f42589f182862b12e0fe5dca954f5235"
+    },
+    {
+      "args": {
+        "gen": 7,
+        "mode": "single",
+        "seed": "B"
+      },
+      "deck": "401a747ad587576f0de5e13b0b77b77d098d7a6140fcb6c7ca7d7e4e5736deb5",
+      "score": "6e3c953f08352bc0c9c6a23ec868ec41b020b3e372a57839c185cd0fd895a34e"
+    },
+    {
+      "args": {
+        "gen": 7,
+        "mode": "single",
+        "seed": "C"
+      },
+      "deck": "14d949a64a0fc9b29a813f1c3e919ca074e41e4317c9b57099923b6551d55686",
+      "score": "c09571050cc1fa898c2986907dc69d7a399a68edc10acefd399191896d0a78fd"
+    },
+    {
+      "args": {
+        "gen": 7,
+        "mode": "dual",
+        "seed": "A"
+      },
+      "deck": "e1b985915a0f6afa86b5ae160d9f24c6ca41cff9fa6dfcadcc871b81c17146b9",
+      "score": "b3bc97633accd7ac8dd3e3566a4b8423ad13f300a82d4657ecc21b51ebd5e83f"
+    },
+    {
+      "args": {
+        "gen": 7,
+        "mode": "dual",
+        "seed": "B"
+      },
+      "deck": "8327d1909cc7d915c4fd630fa5c94bea5ab7663caa5ad60b302c8a43226a25bb",
+      "score": "a15b7fc12ff44a1b3fe491f8f4a80fc360fbaa360f659b99eec88f2af3ba5311"
+    },
+    {
+      "args": {
+        "gen": 7,
+        "mode": "dual",
+        "seed": "C"
+      },
+      "deck": "f93d6f2de62c2941dac72b359964f291c8cbd33f8c1836455167d2ec26b73ab5",
+      "score": "266ff3996e6e398907efa87cf3df19eefcf6124e63f2a5afe16c6ce8fcd42afa"
+    },
+    {
+      "args": {
+        "gen": 8,
+        "mode": "single",
+        "seed": "A"
+      },
+      "deck": "e0edba5470b8a00ca7ffc37a6dff6bdb496435401d2ca3c8d5bc7c4cb4006e1d",
+      "score": "c5660fade440c8c39431546621398da985904865c1d58a947da31f3bea21293b"
+    },
+    {
+      "args": {
+        "gen": 8,
+        "mode": "single",
+        "seed": "B"
+      },
+      "deck": "42bfb74080052c9a47fb895a21ccdc1affe537d029c466ace937fc96f618972a",
+      "score": "0c3395173fa9f751646359747870ab810c961fa79cab4c8d65f33a7ffc708dee"
+    },
+    {
+      "args": {
+        "gen": 8,
+        "mode": "single",
+        "seed": "C"
+      },
+      "deck": "0824a07ec42a610c6f2469ee82348889e34b18c29e44fb19a89a5fc9da516b5d",
+      "score": "b50d0b045cc6304761b43493eff8bc7276f9ce2790fe2baffeffe70afbd15e9d"
+    },
+    {
+      "args": {
+        "gen": 8,
+        "mode": "dual",
+        "seed": "A"
+      },
+      "deck": "2a54e9578d4491ab506ab758b9913b593502e73cfeb5dee54ebec60ac3002f3b",
+      "score": "9bf293d1ae1ec5352c38f103f3aa0ff7aad38ea4427ba9cb60729322f76d7213"
+    },
+    {
+      "args": {
+        "gen": 8,
+        "mode": "dual",
+        "seed": "B"
+      },
+      "deck": "fa8a3dd7eec6a49b3cc98fa099cfc49e5b3db8c15ee6461c2d0e0ecde5b56933",
+      "score": "135a45af7a71c6b7802812978146d885c557deb2bfac1848b938b9124337f723"
+    },
+    {
+      "args": {
+        "gen": 8,
+        "mode": "dual",
+        "seed": "C"
+      },
+      "deck": "7e6e75174b0fb563d426de2eb41a0d47677c0d87890917d8d195ffecc90dd159",
+      "score": "7f7e5afb661c345706ead852889c8813fb0e8fa24012503c480809d474f85a01"
+    },
+    {
+      "args": {
+        "gen": 9,
+        "mode": "single",
+        "seed": "A"
+      },
+      "deck": "c9a2068061b7c3dcbec906e60687e915494c6be033d4a898958264ec69cece30",
+      "score": "328cf0c07418b25d4d91575e1109480d097ec8b6376a10cbb3c793688fbf13a2"
+    },
+    {
+      "args": {
+        "gen": 9,
+        "mode": "single",
+        "seed": "B"
+      },
+      "deck": "283b22b217a103a0895f9619678c8bb36101b96b43f9990907bdc5683e1cc68e",
+      "score": "4d6da4494dd079ce1529a04f39ba9366a60b214a92e6a40f3e33b5b72f005ece"
+    },
+    {
+      "args": {
+        "gen": 9,
+        "mode": "single",
+        "seed": "C"
+      },
+      "deck": "43b3d069ccb1ff47371347b0d60b974432590596801b0711700a26d9a012e488",
+      "score": "96f040bcf1eccb75b3209bc49345617c8f4937fe787deeb554cb07d3a4851aa7"
+    },
+    {
+      "args": {
+        "gen": 9,
+        "mode": "dual",
+        "seed": "A"
+      },
+      "deck": "a534a98cb484d736b3d10aa16108df37ac1f621508a5c8bd6de08ce223f3a26b",
+      "score": "7a7ae088468c1eedff3297f9fbde7d6241eda25d8b1a14b9adf97cf4d6457ff6"
+    },
+    {
+      "args": {
+        "gen": 9,
+        "mode": "dual",
+        "seed": "B"
+      },
+      "deck": "94501767d64536c185041c1fd503b18c5e5bace72eb29d1f6ca107f554701cb8",
+      "score": "699050daba7fd545ec0e7dd15a140479daf4b724b2c180fb5d1189d4475f3c40"
+    },
+    {
+      "args": {
+        "gen": 9,
+        "mode": "dual",
+        "seed": "C"
+      },
+      "deck": "4fa566d63666f0d740e5d8d335ebbf9f5dd829e50a01d35b0c9ae9a1272c3f86",
+      "score": "2e9f58cfaed2f4762bfce3afada154242daf6fb919bc064b3d3c53a7f9031375"
+    }
+  ]
+}
