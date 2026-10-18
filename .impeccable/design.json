@@ -151,6 +151,13 @@
       "description": "Status feedback with explicit factor text and a shared-line divider. Static illustration of the observed incorrect Grass answer against Dark/Grass Wo-Chien.",
       "html": "<div class=\"ds-tc-feedback\" role=\"status\"><h4>There is a better option</h4><p>Your answer: <span class=\"ds-tc-formula\"><b>Grass</b>: Dark 1× · Grass 0.5× → <strong>0.5×</strong></span></p><p>Best answer: <span class=\"ds-tc-formula\"><b>Bug</b>: Dark 2× · Grass 2× → <strong>4×</strong></span></p></div>",
       "css": ".ds-tc-feedback{padding:1rem 0;border-top:1px solid var(--line,#433536);color:var(--ink,#ece1e2);font:13.5px/1.5 var(--hoard-font-sans,\"Source Sans 3\",sans-serif);animation:ds-tc-answer .18s ease-out}.ds-tc-feedback h4{margin:0;font-size:13.5px;font-weight:650;line-height:1.2}.ds-tc-feedback p{margin:.4rem 0 0}.ds-tc-formula{font-variant-numeric:tabular-nums;overflow-wrap:anywhere}@keyframes ds-tc-answer{from{opacity:.4}to{opacity:1}}@media(prefers-reduced-motion:reduce){.ds-tc-feedback{animation:none}}"
+    },
+    {
+      "name": "Type Challenge Defender Grid",
+      "kind": "custom",
+      "description": "Four canonical species answers with localized type chips, a 74px minimum height and four desktop/two mobile columns. Static question preview from the reviewed Fire attack; the live Defend flow grades the lowest multiplier.",
+      "html": "<div class=\"ds-tcd-grid\" role=\"group\" aria-label=\"Choose a defending Pokémon\"><button type=\"button\" class=\"ds-tcd-option\" aria-label=\"Great Tusk: Ground / Fighting\"><span class=\"ds-tcd-name\">Great Tusk</span><span class=\"ds-tcd-types\"><span><i aria-hidden=\"true\" style=\"background:#e2bf65\"></i>Ground</span><span><i aria-hidden=\"true\" style=\"background:#c22e28\"></i>Fighting</span></span></button><button type=\"button\" class=\"ds-tcd-option\" aria-label=\"Walking Wake: Water / Dragon\"><span class=\"ds-tcd-name\">Walking Wake</span><span class=\"ds-tcd-types\"><span><i aria-hidden=\"true\" style=\"background:#6390f0\"></i>Water</span><span><i aria-hidden=\"true\" style=\"background:#6f35fc\"></i>Dragon</span></span></button><button type=\"button\" class=\"ds-tcd-option\" aria-label=\"Rhydon: Ground / Rock\"><span class=\"ds-tcd-name\">Rhydon</span><span class=\"ds-tcd-types\"><span><i aria-hidden=\"true\" style=\"background:#e2bf65\"></i>Ground</span><span><i aria-hidden=\"true\" style=\"background:#b6a136\"></i>Rock</span></span></button><button type=\"button\" class=\"ds-tcd-option\" aria-label=\"Croagunk: Poison / Fighting\"><span class=\"ds-tcd-name\">Croagunk</span><span class=\"ds-tcd-types\"><span><i aria-hidden=\"true\" style=\"background:#a33ea1\"></i>Poison</span><span><i aria-hidden=\"true\" style=\"background:#c22e28\"></i>Fighting</span></span></button></div>",
+      "css": ".ds-tcd-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.65rem;margin:1rem 0}.ds-tcd-option{display:grid;grid-template-columns:minmax(0,1fr) auto;align-content:center;gap:.35rem .6rem;min-height:74px;padding:4px 12px;border:1px solid var(--line,#433536);border-radius:var(--hoard-radius,8px);background:transparent;color:var(--ink,#ece1e2);font:600 13px/1.5 var(--hoard-font-sans,\"Source Sans 3\",sans-serif);white-space:normal;text-align:left;cursor:pointer;transition:background .12s,border-color .12s}.ds-tcd-name{min-width:0;overflow-wrap:anywhere;grid-column:1;grid-row:1}.ds-tcd-types{grid-column:1/-1;grid-row:2;font-weight:400}.ds-tcd-types,.ds-tcd-types span{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem}.ds-tcd-types i{width:.7rem;height:.7rem;border-radius:50%;flex:0 0 .7rem}.ds-tcd-option strong{grid-column:2;grid-row:1;justify-self:end;font-variant-numeric:tabular-nums}.ds-tcd-option:hover:not(:disabled){background:var(--surface-2,#2f2526);border-color:var(--hoard-border-hover,#6a5859)}.ds-tcd-option:focus-visible{outline:2px solid var(--accent,#e2404f);outline-offset:1px}.ds-tcd-option:disabled{opacity:1;cursor:not-allowed}.ds-tcd-option.ds-tcd-correct{border-color:var(--accent,#e2404f);background:color-mix(in srgb,var(--accent,#e2404f) 14%,var(--surface,#241b1c))}.ds-tcd-option.ds-tcd-mistake{border-color:var(--danger,#c4463a)}@media(max-width:768px){.ds-tcd-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(prefers-reduced-motion:reduce){.ds-tcd-option{transition:none}}"
     }
   ],
   "narrative": {
@@ -212,6 +219,16 @@
         "name": "The Local Dark Material Rule",
         "body": "Remove the flat teal key and preserve source pixels in transparent square cells without rescaling. Retain recorded crop offsets and a visible `still_frame` for reduced motion. Apply `display_scale` only when drawing: 2.4× for Bite, Crunch, Knock Off and Torment; 1.8× for Pursuit. Preserve atlas geometry, anchors, pixel rendering and collision dimensions.",
         "section": "shapes"
+      },
+      {
+        "name": "The Defensive Answer Rule",
+        "body": "Show canonical species names with localized type labels in both visible chips and accessible button names. Color supplements type text. Keep all four options visible and opaque after answering, disable them, expose the chosen option through aria-pressed, and use the inherited accent treatment for the lowest-multiplier answer and danger border for an incorrect choice.",
+        "section": "components"
+      },
+      {
+        "name": "The Defensive Continuity Rule",
+        "body": "Feedback and numbered mistake review show the incoming attack plus chosen and best species, per-type factors and final multipliers. Retry retains the pending species answer or original start specification; Repeat this challenge reuses the seed, generation, mode and practice goal. Focus moves to the question/result heading as in Attack. The inherited (180ms) feedback fade is removed for reduced motion. Spanish and English use the existing translation system.",
+        "section": "components"
       }
     ],
     "dos": [
