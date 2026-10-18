@@ -153,11 +153,12 @@ class TypeChallengeArgs(BaseModel):
     version: Literal[1] = 1
     gen: int = Field(9, ge=1, le=9, strict=True)
     mode: Literal["single", "dual"] = "dual"
+    goal: Literal["attack", "defend"] = "attack"
     seed: str = Field("silver-types", min_length=1, max_length=100)
 
 
 class TypeChallengeScoreArgs(TypeChallengeArgs):
-    answers: list[str] = Field(default_factory=list, max_length=10, description="Chosen attack types in question order.")
+    answers: list[str] = Field(default_factory=list, max_length=10, description="Chosen attack types (attack) or canonical defender species names (defend), in question order.")
 
 
 def _team_analysis(s: Services, a: TeamAnalysisArgs) -> Any:
@@ -1186,10 +1187,10 @@ TOOLS: list[Tool] = [
                              synonyms="debilidades compartidas, resistencias, inmunidades, cobertura, velocidad, sinergia"),
          TeamAnalysisArgs, R, _team_analysis, capped=False),
     Tool("type_challenge", _d("Generate a ten-round offline type matchup game. Reto local de tipos.",
-                               "One or two defensive types, generation 1–9. Four attack types, one uniquely best multiplier. Reuse version/gen/mode/seed to repeat. No abilities, items, STAB, power, weather or Tera; this teaches type multipliers, not actual damage. No saved records or remote resources."),
+                               "Generation 1–9, single/dual defensive types. goal=attack (default): choose the strongest of four attack types. goal=defend: choose which of four species receives the lowest type multiplier from the question's attack type. Exactly one best option. Reuse the returned specification to repeat. No abilities, items, STAB, power, weather or Tera; not actual damage. No saved records or remote resources."),
          TypeChallengeArgs, R, lambda s, a: s.engine.call("type_challenge", a.model_dump()), capped=False),
     Tool("type_challenge_score", _d("Score offline type-game answers and explain each multiplier. Evaluar reto de tipos.",
-                                     "Regenerates the same challenge from version/gen/mode/seed and grades a sequential prefix of up to ten chosen types. Reports per-type factors, current/best streak and mistakes without saving a result. Not a damage calculator."),
+                                     "Regenerates the challenge from its specification and grades a prefix of up to ten answers: attack type names for goal=attack, canonical defender species names for goal=defend. Reports per-defensive-type factors, current/best streak and mistakes without saving a result. Not a damage calculator."),
          TypeChallengeScoreArgs, R, lambda s, a: s.engine.call("type_challenge_score", a.model_dump()), capped=False),
     Tool("trainers_list", _d("Trainers: name, title, team species, AI, avatar, record. Lista de entrenadores.",
                              "Returns every matching trainer without truncating rows or fields; filters by query, origin, game and region.",

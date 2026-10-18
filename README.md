@@ -1,6 +1,6 @@
 # Silver's Hoard
 
-**Type challenge** in Facilities offers ten seeded type-chart questions, generations 1–9, one or two defensive types, immediate factor explanations, streaks and a mistake review. Repeat the same attempt or start another. The native `type_challenge` / `type_challenge_score` handlers also serve REST/MCP. Practice is local and read-only, without a timer or saved history; the multiplier excludes abilities, items and actual damage. See [type practice and limits](docs/TYPE_CHALLENGE.md).
+**Type challenge** in Facilities offers ten seeded type-chart questions: attack a Pokémon with the best type, or choose the Pokémon that best resists an incoming attack. Both variants support generations 1–9, one or two defensive types, immediate factor explanations, streaks and a mistake review. Repeat the same attempt or start another. The native `type_challenge` / `type_challenge_score` handlers also serve REST/MCP. Practice is local and read-only, without a timer or saved history; the multiplier excludes abilities, items and actual damage. See [type practice and limits](docs/TYPE_CHALLENGE.md).
 
 Five more supplied Dark motifs animate Bite, Crunch, Knock Off, Pursuit and Torment with 30 frames from the local Red Rescue Team sheet. They share the existing battle, portable-page and video renderer, preserve previous art and replay rules, and require no downloads. See [Dark sprites](docs/DARK_SPRITES.md).
 

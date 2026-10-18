@@ -33,3 +33,31 @@ def test_type_game_validation_and_empty_prefix(call):
         call('type_challenge', args, status=400)
     call('type_challenge_score', {'answers': ['Stellar']}, status=400)
     call('type_challenge_score', {'answers': ['Fire'] * 11}, status=400)
+
+
+def test_defensive_native_decks_and_scores_remain_read_only(call, services, monkeypatch):
+    def deny(*args, **kwargs):
+        raise AssertionError('Defensive practice must stay offline')
+    monkeypatch.setattr(services.sprites, '_http_get', deny, raising=False)
+    db = services.store.db
+    tables = [r['name'] for r in db.query("SELECT name FROM sqlite_master WHERE type='table'")]
+    before = {name: db.query(f'SELECT * FROM "{name}"') for name in tables}
+    deck = call('type_challenge', {'goal':'defend','gen':1,'mode':'dual','seed':'native-defend'})
+    assert deck['spec']['goal'] == 'defend'
+    assert len({q['attack'] for q in deck['questions']}) == 10
+    assert deck == call('type_challenge', deck['spec'])
+    answers = [q['options'][0]['species'] for q in deck['questions']]
+    score = call('type_challenge_score', {**deck['spec'], 'answers':answers})
+    assert score['complete'] and score['answered'] == 10
+    prefix = call('type_challenge_score', {**deck['spec'], 'answers':answers[:3]})
+    assert prefix['feedback'] == score['feedback'][:3]
+    assert all(f['best']['multiplier'] <= f['chosen']['multiplier'] for f in score['feedback'])
+    assert {name: db.query(f'SELECT * FROM "{name}"') for name in tables} == before
+
+
+def test_native_defensive_validation_and_attack_default_are_explicit(call):
+    legacy = call('type_challenge', {'seed':'same'})
+    assert 'goal' not in legacy['spec']
+    assert legacy == call('type_challenge', {'goal':'attack','seed':'same'})
+    call('type_challenge', {'goal':'other'}, status=400)
+    call('type_challenge_score', {'goal':'defend','answers':['Fire']}, status=400)

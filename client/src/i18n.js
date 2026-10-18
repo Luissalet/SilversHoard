@@ -1085,6 +1085,11 @@ Object.assign(D, FRIENDS_STRINGS);
 Object.assign(D, DAILY_STRINGS);
 Object.assign(D, {
   tc_title: ["Reto de tipos", "Type challenge"],
+  tc_goal: ["Practicar", "Practise"], tc_goal_attack: ["Atacar", "Attack"], tc_goal_defend: ["Resistir", "Defend"],
+  tc_defense_intro: ["Diez encuentros para practicar cambios: elige el Pokémon con menor multiplicador ante cada tipo de ataque. Cada respuesta explica sus resistencias e inmunidades.", "Ten encounters to practise switching: choose the Pokémon with the lowest multiplier against each attack type. Each answer explains its resistances and immunities."],
+  tc_defense_question: ["¿Qué Pokémon resiste mejor un ataque de tipo {type}?", "Which Pokémon resists a {type}-type attack best?"],
+  tc_defense_options: ["Elige un Pokémon defensor", "Choose a defending Pokémon"],
+  tc_defense_review: ["Ataque de tipo {type}", "{type}-type attack"],
   tc_intro: ["Diez encuentros para practicar debilidades y resistencias. Elige el tipo de ataque con el mejor multiplicador; cada respuesta explica por qué.", "Ten encounters to practise weaknesses and resistances. Choose the attack type with the best multiplier; each answer explains why."],
   tc_scope: ["Sólo tabla de tipos de la generación elegida: sin habilidades, objetos, STAB, potencia, clima ni teracristalización. El multiplicador no es el daño real.", "Only the selected generation’s type chart: no abilities, items, STAB, power, weather or Tera. The multiplier is not actual damage."],
   tc_gen: ["Generación", "Generation"], tc_mode: ["Tipos del defensor", "Defender types"],

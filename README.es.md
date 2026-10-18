@@ -1,6 +1,6 @@
 # Silver's Hoard
 
-**Reto de tipos**, en Instalaciones, ofrece diez preguntas con semilla, generaciones 1–9, uno o dos tipos defensivos, explicación de los factores, rachas y repaso de errores. Puedes repetir el mismo intento o empezar otro. Los handlers nativos `type_challenge` / `type_challenge_score` también sirven a REST/MCP. La práctica es local y de solo lectura, sin reloj ni historial guardado; el multiplicador excluye habilidades, objetos y daño real. Véanse el [comportamiento y los límites](docs/TYPE_CHALLENGE.md).
+**Reto de tipos**, en Instalaciones, ofrece diez preguntas con semilla: atacar a un Pokémon con el mejor tipo o elegir el Pokémon que mejor resiste un ataque. Ambas variantes admiten generaciones 1–9, uno o dos tipos defensivos, explicación de los factores, rachas y repaso de errores. Puedes repetir el mismo intento o empezar otro. Los handlers nativos `type_challenge` / `type_challenge_score` también sirven a REST/MCP. La práctica es local y de solo lectura, sin reloj ni historial guardado; el multiplicador excluye habilidades, objetos y daño real. Véanse el [comportamiento y los límites](docs/TYPE_CHALLENGE.md).
 
 Cinco motivos más de Siniestro animan Mordisco, Triturar, Desarme, Persecución y Tormento con 30 cuadros de la hoja local de Red Rescue Team. Comparten el renderer de combates, páginas portátiles y vídeo, conservan el arte anterior y las reglas de replay, y no requieren descargas. Véanse los [sprites de Siniestro](docs/DARK_SPRITES.md).
 
