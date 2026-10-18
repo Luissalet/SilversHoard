@@ -169,13 +169,14 @@ export function drawPlace(x, r, floor, textured = false) {
 }
 
 /** The ambience of a place, every frame (time in seconds), over the court and under the Pokémon. */
-export function drawAmbient(ctx, r, floor, time, fog = false) {
+export function drawAmbient(ctx, r, floor, time, fog = false, weather = "") {
   const p = PLACE_FLOORS[floor];
-  if (!p?.ambient && !fog) return;
+  const climate = fog ? "fog" : ({sunnyday: "sun", desolateland: "sun", raindance: "rain", primordialsea: "rain", snow: "snow", hail: "snow", fog: "fog"}[weather] || p?.ambient);
+  if (!p?.ambient && !climate) return;
   const s = r.scale;
   const W = r.canvas.width, H = r.canvas.height;
   ctx.save();
-  if (p?.ambient === "fog" || fog) {
+  if (climate === "fog") {
     for (let i = 0; i < 6; i++) {
       const cx = ((i * 0.37 + time * 0.012 * (1 + i * 0.3)) % 1.4 - 0.2) * W, cy = (0.15 + (i * 0.29 % 0.8)) * H, rr = (4 + i % 3 * 2) * s;
       const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, rr);
@@ -183,7 +184,24 @@ export function drawAmbient(ctx, r, floor, time, fog = false) {
       ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(cx, cy, rr, rr * 0.45, 0, 0, TAU); ctx.fill();
     }
   }
-  if (p?.ambient === "snow") {
+  if (climate === "rain") {
+    ctx.strokeStyle = "rgba(190,215,245,0.5)"; ctx.lineWidth = Math.max(1, s * 0.035);
+    ctx.beginPath();
+    for (let i = 0; i < 84; i++) {
+      const x = ((i * 97.13 % 100) / 100 * W + time * 1.1 * s) % W;
+      const y = ((i * 53.71 % 100) / 100 * H + time * (9 + i % 3) * s) % H;
+      ctx.moveTo(x, y); ctx.lineTo(x - s * 0.13, y - s * 0.6);
+    }
+    ctx.stroke();
+  }
+  if (climate === "sun") {
+    const cx = W * 0.18, cy = H * 0.08, rr = W * 0.65;
+    const glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, rr);
+    glow.addColorStop(0, `rgba(255,222,145,${0.2 + Math.sin(time * 0.35) * 0.025})`);
+    glow.addColorStop(1, "rgba(255,222,145,0)");
+    ctx.fillStyle = glow; ctx.fillRect(0, 0, W, H);
+  }
+  if (climate === "snow") {
     ctx.fillStyle = "rgba(255,255,255,0.85)";
     for (let i = 0; i < 70; i++) {
       const sp = 0.6 + (i % 5) * 0.15;
@@ -191,7 +209,8 @@ export function drawAmbient(ctx, r, floor, time, fog = false) {
       const y = ((i * 53.71 % 100) / 100 * H + time * sp * s) % H;
       ctx.beginPath(); ctx.arc(x, y, Math.max(1, s * (0.04 + (i % 3) * 0.02)), 0, TAU); ctx.fill();
     }
-  } else if (p?.ambient === "shafts") {
+  }
+  if (p?.ambient === "shafts") {
     for (let i = 0; i < 4; i++) {
       const x0 = (0.12 + i * 0.24) * W, a = 0.07 + 0.04 * Math.sin(time * 0.6 + i * 1.7);
       const g = ctx.createLinearGradient(x0, 0, x0 + 0.08 * W, H);

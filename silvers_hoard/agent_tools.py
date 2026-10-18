@@ -849,6 +849,9 @@ class ArenaSaveArgs(BaseModel):
         None, description="The ground; pyre, summit, meteor, champion and castle are places from the games with their own decor, ambience and audience.")
     rocks: Optional[list[dict[str, float]]] = Field(None, max_length=16, description="Up to 16 rocks {x, y, r} in metres on the 28 x 17 m field (r 0.4-3), off the spots at (5, 8.5) and (23, 8.5) where the Pokémon come in.")
     mirror: bool = Field(False, description="Also put each rock's left-right mirror image.")
+    weather: Optional[Literal["", "sunnyday", "raindance", "snow", "fog"]] = Field(
+        None, description="Arena ambience; empty keeps the floor's original look. Purely visual unless weather_rules is true.")
+    weather_rules: Optional[bool] = Field(None, description="Apply the selected arena weather as starting combat weather (RT rules 12). Moves and abilities can replace it.")
 
 
 class JobsArgs(BaseModel):
@@ -1510,10 +1513,12 @@ TOOLS: list[Tool] = [
                            synonyms="arenas propias, campos de combate, escenarios"), Empty, R, lambda s, a: {"arenas": s.arenas.list()}),
     Tool("arena_get", _d("One arena: its rocks, floor and the gyms that fight on it. Ver arena.", synonyms="arena"), IdArg, R,
          lambda s, a: s.arenas.get(a.id)),
-    Tool("arena_save", _d("Create or change an arena for real-time battles: rocks placed by hand and its floor. Diseñar arena.",
+    Tool("arena_save", _d("Create or change a real-time arena: floor, rocks and optional weather. Diseñar arena y clima.",
                           "Battles use it with rt_arena=custom:<id>; gym_save rt_arena puts a gym on it. A battle keeps the arena "
-                          "it was played on, so later edits never change a replay.", synonyms="editor de arenas, crear arena, poner rocas"),
-         ArenaSaveArgs, WD, lambda s, a: s.arenas.save(a.id, name=a.name, floor=a.floor, rocks=a.rocks, mirror=a.mirror)),
+                          "it was played on, so later edits never change a replay. Weather is visual by default; weather_rules "
+                          "enables its existing combat effects as starting weather, until replaced or the battle ends.", synonyms="editor de arenas, crear arena, poner rocas, clima, lluvia, nieve, niebla, sol"),
+         ArenaSaveArgs, WD, lambda s, a: s.arenas.save(a.id, name=a.name, floor=a.floor, rocks=a.rocks, mirror=a.mirror,
+                                                   weather=a.weather, weather_rules=a.weather_rules)),
     Tool("arenas_delete", _d("Delete arenas; gyms on them go back to the challenger's choice. Borrar arenas.", synonyms="quitar arena"),
          IdsArg, D, lambda s, a: s.arenas.delete(a.ids)),
     Tool("jobs_list", _d("Series, tournaments and sprite drawings, running or finished. Trabajos.", synonyms="progreso, cola"),

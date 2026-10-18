@@ -81,7 +81,7 @@ PHASE_WHEN = ("half", "last")
 # always locked on, no Mega Evolution; 2 = free aim, the Mega Power gauge, Plus moves and Mega Evolution; 3 = doubles formats
 # field two Pokémon per trainer, singles play as in 2; 4 = no Plus moves, the gauge only for Mega Evolution; 5 = the ultimate
 # gauge) and the arenas.
-RT_RULES_VERSION = 11
+RT_RULES_VERSION = 12
 RT_ARENAS = ("open", "rocks")
 
 
@@ -3193,7 +3193,7 @@ class Services:
         limit = max(30, min(int(self.settings.get("rt_time_limit") or 300), 1800))
         arena = self.arenas.spec(obj["rt_arena"]) if kind == "gym" and obj.get("rt_arena") else "rocks"
         if isinstance(arena, dict):
-            arena = {k: arena[k] for k in ("name", "floor", "rocks")}
+            arena = {k: arena[k] for k in ("name", "floor", "rocks", "weather", "weather_rules") if k in arena}
         return {"format": rt_fmt, "arena": arena, "time_limit": limit, "version": RT_RULES_VERSION,
                 "silver_special": bool(self.settings.get("rt_silver_special", False)),
                 "keys": {t["id"]: self._rt_key(t, rt_fmt, level_rules) for t in self._stage_trainers(kind, obj)}}

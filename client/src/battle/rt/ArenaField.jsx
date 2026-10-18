@@ -13,7 +13,7 @@ export const FLOORS = { grass: ["#4f8a4a", "#4a8345"], sand: ["#d7bd86", "#cfb47
 export const blocked = (rk) => HOME.some((h) => Math.hypot(h.x - rk.x, h.y - rk.y) < rk.r + CLEAR);
 
 /** The field as a picture: ground, lines, entry spots and rocks (for the list, small; for the editor, with handles). */
-export function ArenaField({ floor = "grass", rocks = [], ghosts = [], selected = -1, onDown, svgRef, small = false }) {
+export function ArenaField({ floor = "grass", weather = "", rocks = [], ghosts = [], selected = -1, onDown, svgRef, small = false }) {
   const [a, b] = FLOORS[floor] || FLOORS.grass;
   const art = ARENA_ART[floor] || FLOOR_TEXTURES[floor];
   return (
@@ -22,6 +22,15 @@ export function ArenaField({ floor = "grass", rocks = [], ghosts = [], selected 
       <rect x={-2.6} y={-0.6} width={W + 5.2} height={H + 1.2} fill="#1d2a22" />
       {Array.from({ length: W / 2 }, (_, i) => <rect key={i} x={i * 2} y={0} width={2} height={H} fill={i % 2 ? b : a} />)}
       {art && <image href={art} x={0} y={0} width={W} height={H} preserveAspectRatio="none" pointerEvents="none" />}
+      <g pointerEvents="none" aria-hidden="true">
+        {weather === "sunnyday" && <><rect width={W} height={H} fill="rgba(255,190,90,.16)" /><circle cx={3} cy={2} r={1.4} fill="#ffe4a2" opacity={0.8} /></>}
+        {weather === "raindance" && <><rect width={W} height={H} fill="rgba(60,90,160,.22)" />{Array.from({length: 48}, (_, i) => {
+          const x = (i * 7.3) % W, y = (i * 5.7) % H;
+          return <line key={i} x1={x} y1={y} x2={x - .18} y2={y + .7} stroke="#c5dafa" strokeWidth={.09} />;
+        })}</>}
+        {weather === "snow" && <><rect width={W} height={H} fill="rgba(220,235,255,.18)" />{Array.from({length: 42}, (_, i) => <circle key={i} cx={(i * 7.3) % W} cy={(i * 5.7) % H} r={.09 + i % 3 * .025} fill="white" />)}</>}
+        {weather === "fog" && Array.from({length: 6}, (_, i) => <ellipse key={i} cx={(i * 7.3) % W} cy={2 + i * 2.5} rx={9} ry={1.3} fill="rgba(235,245,245,.23)" />)}
+      </g>
       <rect x={0} y={0} width={W} height={H} fill="none" stroke="rgba(255,255,255,.55)" strokeWidth={0.08} />
       <line x1={W / 2} y1={0} x2={W / 2} y2={H} stroke="rgba(255,255,255,.55)" strokeWidth={0.08} />
       <circle cx={W / 2} cy={H / 2} r={2.6} fill="none" stroke="rgba(255,255,255,.55)" strokeWidth={0.08} />
