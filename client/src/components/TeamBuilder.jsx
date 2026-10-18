@@ -8,6 +8,7 @@ import { TYPE_COLORS, nameOf, typeName } from "../battle/dex.js";
 import { Busy, Field, Icon, ICONS, Modal, useBusy, useStored } from "./ui.jsx";
 import { MonIcon } from "./silver.jsx";
 import DamageCalc from "./DamageCalc.jsx";
+import TeamAnalysis from "./TeamAnalysis.jsx";
 import SmogonSets, { SampleTeam } from "./SmogonSets.jsx";
 import { SP_MAX, SP_TOTAL, calcStat, evFromSp, spFromEv } from "../../../engine/src/points.mjs";
 
@@ -297,6 +298,7 @@ export default function TeamBuilder({ team, format, onSave, onCancel }) {
   const clean = useMemo(() => sets.filter((s) => s.species.trim()).map((s) => ({ ...s, moves: s.moves.map((m) => m.trim()).filter(Boolean) })), [sets]);
   return (
     <div className="space-y-3">
+      <TeamAnalysis sets={clean} format={format} />
       {sets.map((s, i) => (
         <SetEditor key={i} index={i} set={s} gen={gen} format={format} lang={lang} t={t} evMode={evMode} setEvMode={setEvMode} onChange={(v) => setSets((x) => x.map((y, j) => (j === i ? v : y)))}
           onRemove={() => setSets((x) => x.filter((_, j) => j !== i))} />
