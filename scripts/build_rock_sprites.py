@@ -11,6 +11,7 @@ from build_rt_particle_sprites import ROOT, pack
 FILE = 'Game Boy Advance - Pokemon Mystery Dungeon_ Red Rescue Team - Attacks - Rock-Type Moves.png'
 SOURCE = 'pmd-rrt-rock'
 PREFIX = 'fx-pmd-rrt-'
+DISPLAY_SCALE = {'ancient-power': 2.4, 'rock-blast': 2.4, 'rock-tomb': 1.7, 'rollout': 2.4}
 
 
 def between(top, bottom, dividers):
@@ -62,6 +63,7 @@ def extend(folder, manifest=None):
             frame = Image.new('RGBA', (side, side));frame.alpha_composite(tile, offset)
             frames.append(frame);offsets.append(offset)
         art['sprites'][PREFIX + name] = pack(frames, name=en, name_es=es, source=SOURCE,
+            display_scale=DISPLAY_SCALE[name],
             source_frames=len(frames), frame_rects=[list(r) for r in rects], frame_offsets=offsets,
             background_key=list(key), source_band=[rects[0][1], rects[0][3]],
             still_frame=max(range(len(frames)), key=lambda i: sum(bool(a) for a in frames[i].getchannel('A').getdata())))

@@ -32,6 +32,7 @@ test('Rock motifs use the shared clock, freeze when paused, expose a visible red
       else if(phase==='area')fx.area(id,p.type,3,3,2,-1,1,0,p.shape==='drop');
       else view.projectiles=[{id:'rock-qa',move:id,type:p.type,shape:p.shape,x:5,y:3,r:.5}];
       fx.update(0,view);fx.draw(ctx,view);assert.ok(draws.some(d=>d[0]===sprite.image),id);
+      assert.ok(Math.max(...draws.filter(d=>d[0]===sprite.image).map(d=>d[7]))>=48,id+' must remain legible at the standard display scale');
       const paused=structuredClone(draws);draws.length=0;fx.update(0,view);fx.draw(ctx,view);assert.deepEqual(draws,paused);
       draws.length=0;fx.draw(ctx,view,true);assert.ok(draws.length);
       for(const d of draws) {assert.equal(d[1],sprite.still_frame%sprite.columns*sprite.frame_width);assert.equal(d[2],Math.floor(sprite.still_frame/sprite.columns)*sprite.frame_height);}

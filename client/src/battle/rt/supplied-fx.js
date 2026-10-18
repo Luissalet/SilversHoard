@@ -153,7 +153,8 @@ export class SuppliedEffects {
       if (!img.complete||!img.naturalWidth) return false;
       const a=art.sprites[id],fw=a.frame_width||a.width,fh=a.frame_height||a.height;
       const frame=reduced?(a.still_frame||0):life?Math.min((a.frames||1)-1,Math.floor(Math.max(0,age/life)*(a.frames||1))):Math.floor(this.time*(a.fps||12))%(a.frames||1);
-      const w=size*r.scale*fw/Math.max(fw,fh),h=size*r.scale*fh/Math.max(fw,fh);
+      const displayScale=a.display_scale||1;
+      const w=size*r.scale*displayScale*fw/Math.max(fw,fh),h=size*r.scale*displayScale*fh/Math.max(fw,fh);
       ctx.save();ctx.globalAlpha*=alpha;ctx.translate(r.px(x),r.py(y)-(flat?0:.6*r.scale));ctx.rotate(angle);
       ctx.imageSmoothingEnabled=false;
       ctx.drawImage(img,frame%(a.columns||1)*fw,Math.floor(frame/(a.columns||1))*fh,fw,fh,-w/2,-h/2,w,h*(flat?.55:1));
