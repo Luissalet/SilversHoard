@@ -15,12 +15,17 @@ export default function DailyChallenge({ initialDay = "" }) {
   const [saving, setSaving] = useState(false);
   const [busy, run] = useBusy();
   const frame = useRef(null), queue = useRef(Promise.resolve());
+  const selectedDay = useRef(day);
+  selectedDay.current = day;
   const { data, loading, error, reload } = useLoad(() => api.call("daily_challenge", { day }), [day]);
   useCopilotRefresh(reload);
   useEffect(() => { setDay(initialDay); }, [initialDay]);
+  useEffect(() => { setPage(null); }, [day]);
   const ready = data && !loading && !error && data.day === (day || data.current_day);
   const exportPage = async (play) => {
+    const requestedDay = day;
     const doc = await api.call("daily_challenge_export", { day: data.day });
+    if (selectedDay.current !== requestedDay) return;
     if (play) {
       const url = new URL(doc.url, location.href);
       url.searchParams.set("download", "false"); url.searchParams.set("lang", lang);
