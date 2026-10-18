@@ -11,6 +11,7 @@ import { RunStrip } from "./Combate.jsx";
 import VideoExport from "../components/VideoExport.jsx";
 import BattlePresentation from "../battle/portrait.jsx";
 import BattleJournal from "../components/BattleJournal.jsx";
+import RivalScout from "../components/RivalScout.jsx";
 import { CupStrip } from "./Copa.jsx";
 import { replayPosition } from "../history-search.js";
 
@@ -99,6 +100,7 @@ export default function CombateRt({ battle, setData, query }) {
       </div>
       <RunStrip run={battle.run} />
       <CupStrip cup={battle.cup} battle={battle} />
+      <RivalScout key={`scout:${battle.id}`} battle={battle} />
       {remote && battle.status === "live" && net?.missing && <div className="banner banner-warn">{t("pvp_room_gone")}</div>}
       {battle.status === "cancelled" ? <p className="help">{t("status_cancelled")}</p> : remote && battle.status === "live" && !net ? null : (
         <BattlePresentation lang={lang}><RtScreen key={`${battle.id}:${seekTick ?? 'start'}`} battle={battle} seekTick={seekTick} lang={lang} sprites={sprites} seats={seats} onFinish={onFinish} onSave={onSave} musicSource={settings?.music_source}
