@@ -28,7 +28,7 @@ test('every native move profile matches actual RT shape and valid nonempty sprit
   }
   assert.deepEqual([...shapes].sort(),['beam','burst','cone','dash','drop','field','self','shot','strike','wave']);
   assert.equal(catalog.profiles.firepunch.contact,'fx-bw-fist');
-  assert.equal(catalog.profiles.bite.contact,'fx-bw-teeth');
+  assert.equal(catalog.profiles.bite.contact,'fx-pmd-dark-bite');
   assert.equal(catalog.profiles.surf.area,'fx-bw-wave');
   assert.equal(catalog.profiles.splash.available,false);
   harness(({fx})=>{

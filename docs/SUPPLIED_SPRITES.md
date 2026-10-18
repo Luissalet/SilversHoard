@@ -1,6 +1,6 @@
 # Supplied sprites
 
-Silver bundles 778 sprite entries from 161 sources in Luis's `Sprites for Silvers` collection. The input inventory, original filenames, SHA256 hashes, ripping credits and exact crop rectangles are in `silvers_hoard/presets/supplied_sprites.json`. No input files are modified. Rebuild with Pillow and `python scripts/build_supplied_sprites.py <folder>`; runtime use needs no source folder, internet or game installation.
+Silver bundles 783 sprite entries from 162 sources in Luis's `Sprites for Silvers` collection. The input inventory, original filenames, SHA256 hashes, ripping credits and exact crop rectangles are in `silvers_hoard/presets/supplied_sprites.json`. No input files are modified. Rebuild with Pillow and `python scripts/build_supplied_sprites.py <folder>`; runtime use needs no source folder, internet or game installation.
 
 - All 18 navigation entries use Platinum menu icons or relevant contest/base sprites.
 - Contests have 117 accessories, including the ten original choices. Search works in English and Spanish; selected art previews immediately and survives normal save/resume. Additional accessories use Silver's existing category/theme scoring, not cartridge accessory scores.
@@ -16,7 +16,7 @@ Game artwork remains © Nintendo, Creatures and GAME FREAK. Source sheets are no
 
 ## Real-time defaults and move coverage
 
-RT and mass now render supplied material in all three particle preferences, including the default textured setting and plain particles. The classic pixel overlay described above remains unchanged. The manifest contains 222 atlases and 2806 frames, including20 single-texture resources. The original584 entries remain exact. An additional151 Sky sequences provide flames, waves, leaves, snow, rocks, tornadoes, poison, psychic/ghost/dark/dragon effects, webs, hearts, sound, healing and boosts.20 Black textures add actual fists, feet, teeth, slashes, feathers, rocks, hearts, rings, swirls, shields, cracks, waves, webs, snowflakes, notes, roots, gears, lightning, water and fire.
+RT and mass now render supplied material in all three particle preferences, including the default textured setting and plain particles. The classic pixel overlay described above remains unchanged. The manifest contains 227 atlases and 2836 frames, including20 single-texture resources. The original584 entries remain exact. An additional151 Sky sequences provide flames, waves, leaves, snow, rocks, tornadoes, poison, psychic/ghost/dark/dragon effects, webs, hearts, sound, healing and boosts.20 Black textures add actual fists, feet, teeth, slashes, feathers, rocks, hearts, rings, swirls, shields, cracks, waves, webs, snowflakes, notes, roots, gears, lightning, water and fire.
 
 938 unique installed move IDs have a profile for preparation/travel/impact/area/contact. The renderer uses each role when that move actually has the corresponding event/shape. Named mappings and punch/bite/slicing flags take precedence over type families; dynamic public types handle Weather Ball and Hidden Power. Unsupported mechanical moves are marked available=false and receive no invented damage effect. These are composed RT visuals using genuine source material, not exact cartridge emitter programs or a claim that every move has unique art. Thirteen local inventoried files remain unused; the new remote source is separate from the179-file local inventory.
 
@@ -38,3 +38,8 @@ Eleven selected motifs add 117 frames from the supplied Time/Darkness Dragon and
 ## Local Red Rescue Team Rock motifs
 
 Four selected motifs add 29 frames: Ancient Power (6), Rock Blast (7), Rock Tomb (9) and Rollout (7). The local Rock-Type Moves sheet is credited to redblueyellow. Existing 774 sprites, 160 sources and 179 inventory name/SHA256 pairs remain exact; two matching duplicate inputs connect to one new source. The builder excludes separators, labels, loose tiles and unbounded end material, retains source pixels and square padded anchors, and chooses a visible still frame for reduced motion. It does not reproduce cartridge emitters or change mechanics. See [ROCK_SPRITES.md](ROCK_SPRITES.md).
+
+
+## Local Red Rescue Team Dark motifs
+
+Five selected motifs add 30 frames: Bite (10), Crunch (5), Knock Off (3), Pursuit (5) and Torment (7), credited to redblueyellow. The prior 778 sprites, 161 sources and all 179 inventory filename/SHA256 pairs remain exact. Crops retain original pixels, transparent square padding, drawing scale and a visible reduced-motion frame. No emitter programs or simulation rules change. Rebuild after Rock with `python scripts/build_dark_sprites.py "<supplied folder>"`, then regenerate move profiles. See [DARK_SPRITES.md](DARK_SPRITES.md).
