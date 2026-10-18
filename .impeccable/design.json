@@ -25,7 +25,12 @@
     ],
     "motion": [
       { "name": "button-state", "value": "background 0.12s, border-color 0.12s", "purpose": "Inherited button hover transition; disabled under prefers-reduced-motion." },
-      { "name": "trainer-card-state", "value": "border-color 0.12s", "purpose": "Library card hover border transition; disabled under prefers-reduced-motion." }
+      { "name": "trainer-card-state", "value": "border-color 0.12s", "purpose": "Library card hover border transition; disabled under prefers-reduced-motion." },
+      {
+        "name": "supplied-effect-reduced-motion",
+        "value": "a.still_frame || 0",
+        "purpose": "Reduced motion uses the material's declared still_frame, selecting a visible stationary source frame; materials without that metadata retain frame zero. Normal animation, pause, speed changes and seek retain the existing renderer clock and queues."
+      }
     ],
     "breakpoints": [
       { "name": "desktop-shell", "value": "768px" },
