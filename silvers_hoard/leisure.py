@@ -37,6 +37,7 @@ DECORATIONS = {"desk": True, "chair": True, "plant": True, "bed": True, "shelf":
                "cushion": False, "rug": False, "poster": False, "doll": True, "lamp": True}
 SUPPLIED_ART = json.loads((Path(__file__).parent / "presets/supplied_sprites.json").read_text(encoding="utf-8"))
 SPRITES = SUPPLIED_ART["sprites"]
+MOVE_EFFECTS = json.loads((Path(__file__).parent / "presets/rt_move_effects.json").read_text(encoding="utf-8"))["profiles"]
 ACCESSORIES += [{"id": id_, **{k: a[k] for k in ("category", "theme", "name", "name_es")}}
                 for id_, a in SPRITES.items() if a["group"] == "accessory"]
 DECORATIONS.update({id_: a["solid"] for id_, a in SPRITES.items() if a["group"] == "decoration"})
@@ -79,7 +80,7 @@ class Leisure:
                                 for k, v in DECORATIONS.items()], "base_size": 8,
                 "contest_rules": "silver-super-v1",
                 "sprites": [{"id": k, "url": f"/api/sprites/supplied/{k}",
-                             **{f: v[f] for f in ("group", "width", "height", "source", "name", "name_es", "frames", "columns", "frame_width", "frame_height", "fps", "goods_number", "generation", "footprint", "decoration_only", "move", "lang", "variant", "frame_rects") if f in v}}
+                             **{f: v[f] for f in ("group", "width", "height", "source", "name", "name_es", "frames", "columns", "frame_width", "frame_height", "fps", "goods_number", "generation", "footprint", "decoration_only", "move", "lang", "variant", "frame_rects", "narc_member", "texture_index", "archive_sequence", "source_frames", "original_sizes") if f in v}}
                             for k, v in SPRITES.items()]}
         pages = {}
         for key in ("accessories", "decorations", "sprites"):
@@ -90,10 +91,21 @@ class Leisure:
             result[key] = matching[offset:offset + limit] if limit else matching[offset:]
             pages[key] = {"total": len(matching), "offset": offset, "next_offset": offset + limit if limit and offset + limit < len(matching) else None}
         result["sprite_count"] = len(SPRITES)
+        result["effect_count"] = len(MOVE_EFFECTS)
         result["pages"] = pages
         refs = {SPRITES[e["id"]]["source"] for key in ("accessories", "decorations", "sprites")
                 for e in result.get(key, []) if e["id"] in SPRITES}
         result["sprite_sources"] = {k:v for k,v in SUPPLIED_ART["sources"].items() if k in refs}
+        if section == "effects":
+            matching = [e for e in MOVE_EFFECTS.values() if query.casefold() in " ".join(str(e.get(k,"")) for k in ("id","name","type","shape","selection")).casefold()]
+            result["effects"] = matching[offset:offset+limit] if limit else matching
+            pages["effects"] = {"total":len(matching),"offset":offset,"next_offset":offset+limit if limit and offset+limit<len(matching) else None}
+            result["effects_default_enabled"] = True
+            result["effects_note"] = "RT and mass use sprite materials in every particle style. Profiles select move/type families; they do not claim cartridge choreography. available=false marks moves without a mechanical RT effect."
+            ids = {e[k] for e in result["effects"] for k in ("prepare","travel","impact","area","contact")}
+            result["effect_sprites"] = {id_: {"url":f"/api/sprites/supplied/{id_}","source":SPRITES[id_]["source"]} for id_ in ids}
+            refs = {SPRITES[id_]["source"] for id_ in ids}
+            result["sprite_sources"] = {k:v for k,v in SUPPLIED_ART["sources"].items() if k in refs}
         if section == "sources":
             matching = [{"id":k,**v} for k,v in SUPPLIED_ART["sources"].items() if query.casefold() in (v["file"]+" "+v["credit"]).casefold()]
             result["sources"] = matching[offset:offset+limit] if limit else matching[offset:]
