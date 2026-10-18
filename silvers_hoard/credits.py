@@ -28,6 +28,12 @@ TAG = re.compile(r"<[^>]+>")
 
 # what the app shows or plays and where it comes from (the README's credits, as data for the credits page and the tool)
 SOURCES: list[dict[str, str]] = [
+    {"id": "pokeblack-effects", "what": "Pokémon Black texture material for real-time contact, rays and areas",
+     "what_es": "Texturas de Pokémon Negro para contacto, rayos y áreas del tiempo real",
+     "by": "Original Pokémon Black game artists; squiddonaut/pokeblack contributors (decompilation)",
+     "by_es": "Artistas originales de Pokémon Negro; colaboradores de squiddonaut/pokeblack (descompilación)",
+     "licence": "Pokémon © Nintendo, Creatures, GAME FREAK; extracted art is not MIT",
+     "url": "https://github.com/squiddonaut/pokeblack/tree/67d91a78b16caccbd4fbecdddf8a74c823d208a6"},
     {"id": "supplied-sheets", "what": "Menu icons, contest accessories, secret-base furniture and move textures",
      "what_es": "Iconos de menú, accesorios de concursos, muebles de bases y texturas de movimientos",
      "by": "Spaceemotion, redblueyellow, Pimplup, Biohazard13, Nidoking, Dragoon, Shaked Silverman, UnEliwygNatu, K.L.NOTHINCOMIN, Neslug and Random Talking Bush (ripping/edits); Bulbagarden Archives; original game artists",
