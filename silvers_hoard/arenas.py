@@ -20,6 +20,7 @@ if TYPE_CHECKING:  # pragma: no cover
 ARENA_W, ARENA_H = 28.0, 17.0
 HOME = ((5.0, 8.5), (23.0, 8.5))        # where each trainer's Pokémon comes in (sim.mjs HOME)
 FLOORS = ("grass", "sand", "ice", "cave", "indoor", "water", "pyre", "summit", "meteor", "champion", "castle")
+WEATHERS = ("", "sunnyday", "raindance", "snow", "fog")
 MAX_ROCKS = 16
 R_MIN, R_MAX = 0.4, 3.0
 CUSTOM = re.compile(r"^custom:([A-Za-z0-9_]{1,80})$")
@@ -60,7 +61,19 @@ def clean_rocks(rocks: Any, *, mirror: bool = False) -> list[dict[str, float]]:
 
 
 def _key(arena: dict[str, Any]) -> str:
-    return json.dumps({"floor": arena.get("floor") or "grass", "rocks": arena.get("rocks") or []}, sort_keys=True)
+    return json.dumps({"floor": arena.get("floor") or "grass", "rocks": arena.get("rocks") or [],
+                       **clean_weather(arena)}, sort_keys=True)
+
+
+def clean_weather(arena: dict[str, Any]) -> dict[str, Any]:
+    """Omit unselected weather so old arena snapshots keep their original shape."""
+    weather = arena.get("weather") or ""
+    if weather not in WEATHERS:
+        raise SilverError("invalid", f"weather is one of {', '.join(WEATHERS[1:])}, or empty.")
+    rules = arena.get("weather_rules", False)
+    if rules not in (False, True, 0, 1):
+        raise SilverError("invalid", "weather_rules is a boolean.")
+    return {"weather": weather, "weather_rules": bool(rules)} if weather else {}
 
 
 def same(a: Any, b: Any) -> bool:
@@ -74,7 +87,7 @@ class Arenas:
 
     def view(self, a: dict[str, Any]) -> dict[str, Any]:
         gyms = [g["name"] for g in self.svc.store.gyms() if g.get("rt_arena") == f"custom:{a['id']}"]
-        return {**a, "value": f"custom:{a['id']}", "used_by": gyms}
+        return {**a, "weather_rules": bool(a.get("weather_rules")), "value": f"custom:{a['id']}", "used_by": gyms}
 
     def list(self) -> list[dict[str, Any]]:
         return [self.view(a) for a in self.svc.store.arenas()]
@@ -82,7 +95,8 @@ class Arenas:
     def get(self, id_: str) -> dict[str, Any]:
         return self.view(self.svc.store.arena(id_))
 
-    def save(self, id_: str = "", *, name: Optional[str] = None, floor: Optional[str] = None, rocks: Any = None, mirror: bool = False) -> dict[str, Any]:
+    def save(self, id_: str = "", *, name: Optional[str] = None, floor: Optional[str] = None, rocks: Any = None,
+             mirror: bool = False, weather: Optional[str] = None, weather_rules: Optional[bool] = None) -> dict[str, Any]:
         values: dict[str, Any] = {}
         if name is not None:
             values["name"] = str(name).strip()[:60]
@@ -94,6 +108,11 @@ class Arenas:
             values["floor"] = floor
         if rocks is not None:
             values["rocks"] = clean_rocks(rocks, mirror=mirror)
+        if weather is not None:
+            clean_weather({"weather": weather})
+            values["weather"] = weather
+        if weather_rules is not None:
+            values["weather_rules"] = weather_rules
         if id_:
             self.svc.store.arena(id_)
             self.svc.store.update_arena(id_, values)
@@ -113,7 +132,7 @@ class Arenas:
         """What a battle's spec carries for an arena choice: "open", "rocks", or the custom arena itself."""
         if isinstance(value, dict):
             return {"name": str(value.get("name") or "")[:60], "floor": value.get("floor") if value.get("floor") in FLOORS else "grass",
-                    "rocks": clean_rocks(value.get("rocks") or [])}
+                    "rocks": clean_rocks(value.get("rocks") or []), **clean_weather(value)}
         v = str(value or "rocks")
         m = CUSTOM.match(v)
         if not m:
@@ -122,7 +141,7 @@ class Arenas:
             a = self.svc.store.arena(m.group(1))
         except SilverError:
             raise SilverError("not_found", "That arena no longer exists.", hint="arenas_list shows them.") from None
-        return {"id": a["id"], "name": a["name"], "floor": a["floor"], "rocks": a["rocks"]}
+        return {"id": a["id"], "name": a["name"], "floor": a["floor"], "rocks": a["rocks"], **clean_weather(a)}
 
     # ------------------------------------------------------------ sharing
     def export_value(self, value: str) -> Union[str, dict[str, Any]]:
@@ -132,7 +151,7 @@ class Arenas:
                 a = self.spec(value)
             except SilverError:
                 return ""
-            return {k: a[k] for k in ("name", "floor", "rocks")}
+            return {k: a[k] for k in ("name", "floor", "rocks", "weather", "weather_rules") if k in a}
         return value or ""
 
     def import_value(self, value: Any) -> str:
@@ -145,5 +164,5 @@ class Arenas:
         for mine in self.svc.store.arenas():
             if same(mine, a):
                 return f"custom:{mine['id']}"
-        id_ = self.svc.store.add_arena({"name": a["name"] or "Arena", "floor": a["floor"], "rocks": a["rocks"], "origin": "import"})
+        id_ = self.svc.store.add_arena({**a, "name": a["name"] or "Arena", "origin": "import"})
         return f"custom:{id_}"

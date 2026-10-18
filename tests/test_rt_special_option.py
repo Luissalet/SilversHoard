@@ -20,7 +20,7 @@ def test_new_choice_is_captured_and_legacy_replays_keep_their_rules(call, servic
     args = {"p1": {"trainer_id": a["id"], "human": True}, "p2": {"trainer_id": b["id"]}, "mode": "realtime"}
     assert call("settings_get")["rt_silver_special"] is False
     off = call("battle_start", args)
-    assert off["rt"]["spec"]["version"] == 11 and off["rt"]["spec"]["silver_special"] is False
+    assert off["rt"]["spec"]["version"] == 12 and off["rt"]["spec"]["silver_special"] is False
     call("settings_set", {"rt_silver_special": True})
     on = call("battle_start", args)
     call("settings_set", {"rt_silver_special": False})
@@ -62,7 +62,7 @@ def test_batches_replay_with_the_captured_option(call, services, monkeypatch, en
                                          "mode": "realtime", "time_limit": 30, "seed": "special-benchmark"})
     done = wait_for(lambda: (j := call("job_get", {"id": benchmark["id"]}))["status"] == "done" and j)
     assert seen[-1]["silver_special"] is enabled
-    assert done["result"]["silver_special"] is enabled and done["result"]["version"] == 11
+    assert done["result"]["silver_special"] is enabled and done["result"]["version"] == 12
     call("settings_set", {"rt_silver_special": enabled})
     tour = call("tournament_start", {"trainer_ids": [a["id"], b["id"]], "mode": "realtime", "time_limit": 30})
     done = wait_for(lambda: (j := call("job_get", {"id": tour["id"]}))["status"] == "done" and j)

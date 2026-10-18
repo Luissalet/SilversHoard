@@ -31,9 +31,10 @@ function ArenaCard({ a }) {
   const { t } = useApp();
   return (
     <a className="panel arena-card" href={`#/arena/${a.id}`}>
-      <ArenaField floor={a.floor} rocks={a.rocks} small />
+      <ArenaField floor={a.floor} weather={a.weather} rocks={a.rocks} small />
       <b className="trunc">{a.name}</b>
       <span className="help">{t(`floor_${a.floor}`)} · {t("arena_rocks_n", { n: a.rocks.length })}</span>
+      {a.weather && <span className="help">{t(`arena_weather_${a.weather}`)} · {t(a.weather_rules ? "arena_weather_rules_short" : "arena_weather_visual")}</span>}
       {a.used_by?.length > 0 && <span className="help trunc">{t("arena_used_by", { list: a.used_by.join(", ") })}</span>}
     </a>
   );
@@ -77,6 +78,8 @@ function EditorBody({ arena, isNew, t, go, notify, confirm, changed }) {
   const start = useMemo(() => splitMirror(arena?.rocks || []), [arena]);
   const [name, setName] = useState(arena?.name || "");
   const [floor, setFloor] = useState(arena?.floor || "grass");
+  const [weather, setWeather] = useState(arena?.weather || "");
+  const [weatherRules, setWeatherRules] = useState(!!arena?.weather_rules);
   const [mirror, setMirror] = useState(isNew ? true : start.mirror);
   const [rocks, setRocks] = useState(start.rocks);
   const [sel, setSel] = useState(-1);
@@ -129,7 +132,7 @@ function EditorBody({ arena, isNew, t, go, notify, confirm, changed }) {
   const template = (k) => { setMirror(true); setRocks(TEMPLATES[k].map(clampRock)); setSel(-1); };
   const place = (k) => { setMirror(true); setFloor(PLACES[k].floor); setRocks(PLACES[k].rocks.map(clampRock)); setSel(-1); if (!name.trim()) setName(t(`floor_${k}`)); };
   const save = () => run("save", async () => {
-    const out = await api.call("arena_save", { id: arena?.id || "", name: name.trim(), floor, rocks, mirror });
+    const out = await api.call("arena_save", { id: arena?.id || "", name: name.trim(), floor, rocks, mirror, weather, weather_rules: weatherRules });
     forgetCustomArenas();
     changed();
     notify(t("arena_saved"));
@@ -162,7 +165,7 @@ function EditorBody({ arena, isNew, t, go, notify, confirm, changed }) {
       </div>
       <div className="arena-editor">
         <div className="panel p-2" onPointerMove={onMove} onPointerUp={onUp} onPointerLeave={onUp}>
-          <ArenaField floor={floor} rocks={rocks} ghosts={ghosts} selected={sel} onDown={onDown} svgRef={svg} />
+          <ArenaField floor={floor} weather={weather} rocks={rocks} ghosts={ghosts} selected={sel} onDown={onDown} svgRef={svg} />
         </div>
         <div className="panel space-y-3">
           <Field label={t("arena_name")}><input className="field" value={name} onChange={(e) => setName(e.target.value)} placeholder={t("arena_name_ph")} /></Field>
@@ -175,6 +178,15 @@ function EditorBody({ arena, isNew, t, go, notify, confirm, changed }) {
               ))}
             </div>
           </Field>
+          <Field label={t("arena_weather")} hint={t("arena_weather_help")}>
+            <select className="field" value={weather} onChange={(e) => setWeather(e.target.value)}>
+              {["", "sunnyday", "raindance", "snow", "fog"].map((w) => <option key={w} value={w}>{t(`arena_weather_${w || "original"}`)}</option>)}
+            </select>
+          </Field>
+          {weather && <>
+            <label className="flex items-center gap-2"><Switch checked={weatherRules} onChange={setWeatherRules} label={t("arena_weather_rules")} />{t("arena_weather_rules")}</label>
+            <p className="help">{t(weatherRules ? `arena_weather_effect_${weather}` : "arena_weather_visual_help")}</p>
+          </>}
           <label className="flex items-center gap-2"><Switch checked={mirror} onChange={(v) => {
             setRocks(v ? rocks.filter((r) => r.x <= W / 2 + 0.05) : all);
             setSel(-1);

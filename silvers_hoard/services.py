@@ -44,6 +44,7 @@ from .official_art import OfficialArt
 from .pvp import Pvp
 from .mass import Mass
 from .friends import Friends
+from .daily import DailyChallenge
 from .smogon import Smogon
 from .sounds import Sounds
 from .sprites import Sprites, _http_get
@@ -81,7 +82,7 @@ PHASE_WHEN = ("half", "last")
 # always locked on, no Mega Evolution; 2 = free aim, the Mega Power gauge, Plus moves and Mega Evolution; 3 = doubles formats
 # field two Pokémon per trainer, singles play as in 2; 4 = no Plus moves, the gauge only for Mega Evolution; 5 = the ultimate
 # gauge) and the arenas.
-RT_RULES_VERSION = 11
+RT_RULES_VERSION = 12
 RT_ARENAS = ("open", "rocks")
 
 
@@ -136,6 +137,7 @@ class Services:
         self.pvp = Pvp(self)
         self.mass = Mass(self)
         self.friends = Friends(self)
+        self.daily = DailyChallenge(self)
         self.neural = NeuralAI(self.settings, config.sprites_dir.parent / "neural", config.data_dir / "logs")
         self._neural_env()
         self.pool = ThreadPoolExecutor(max_workers=2, thread_name_prefix="silver-job")
@@ -3165,6 +3167,8 @@ class Services:
     def import_result(self, r: dict[str, Any]) -> dict[str, Any]:
         """A friend's result from a playable page: records the badge (when they won) and the battle with its log. Battles the friend
         played in real time come with their replay: they are replayed here and what the replay says is what counts."""
+        if r.get("kind") == "daily":
+            return self.daily.import_result(r)
         stages_in = r.get("stages") if isinstance(r.get("stages"), list) else []
         fp = self._result_fingerprint(r)
         self._check_new_result(fp, r)
@@ -3234,7 +3238,7 @@ class Services:
         limit = max(30, min(int(self.settings.get("rt_time_limit") or 300), 1800))
         arena = self.arenas.spec(obj["rt_arena"]) if kind == "gym" and obj.get("rt_arena") else "rocks"
         if isinstance(arena, dict):
-            arena = {k: arena[k] for k in ("name", "floor", "rocks")}
+            arena = {k: arena[k] for k in ("name", "floor", "rocks", "weather", "weather_rules") if k in arena}
         return {"format": rt_fmt, "arena": arena, "time_limit": limit, "version": RT_RULES_VERSION,
                 "silver_special": bool(self.settings.get("rt_silver_special", False)),
                 "keys": {t["id"]: self._rt_key(t, rt_fmt, level_rules) for t in self._stage_trainers(kind, obj)}}
