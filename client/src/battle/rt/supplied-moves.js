@@ -124,6 +124,10 @@ const idOf = move => String(move || '').toLowerCase().replace(/[^a-z0-9]/g,'');
 // timing; these are sprite motifs rather than copied cartridge emitter programs.
 const pmd = name => `fx-pmd-td-${name}`;
 const LOCAL_PMD = {
+  ancientpower: {travel:'fx-pmd-rrt-ancient-power',impact:'fx-pmd-rrt-ancient-power',area:'fx-pmd-rrt-ancient-power'},
+  rockblast: {travel:'fx-pmd-rrt-rock-blast',impact:'fx-pmd-rrt-rock-blast'},
+  rocktomb: {travel:'fx-pmd-rrt-rock-tomb',impact:'fx-pmd-rrt-rock-tomb',area:'fx-pmd-rrt-rock-tomb'},
+  rollout: {contact:'fx-pmd-rrt-rollout',impact:'fx-pmd-rrt-rollout'},
   dragondance: {prepare:pmd('dragon-dance'),area:pmd('dragon-dance')},
   dragonpulse: {travel:pmd('dragon-pulse'),impact:pmd('dragon-pulse')},
   outrage: {contact:pmd('outrage'),impact:pmd('outrage'),area:pmd('outrage')},
