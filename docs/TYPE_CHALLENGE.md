@@ -1,0 +1,11 @@
+# Type challenge
+
+Facilities includes a ten-question local practice game. Choose a generation (1–9), one or two defensive types, and optionally a seed. Each encounter offers four attacking types with exactly one best multiplier. After answering, the game shows the factors for each defensive type and your current streak. The result reviews mistakes and records the best streak for that attempt. Repeat reuses the same questions; a new unseeded attempt creates a new seed.
+
+The installed historical Dex supplies species and type charts, including generation-one immunities, later type changes and double weaknesses/resistances. The pool contains canonical base species available in that generation's installed Dex; alternate forms and nonstandard entries are excluded. It is not a National Dex completion game. The multiplier uses only the type chart: no abilities, items, STAB, move power, weather, Terastallization or actual damage calculation.
+
+`type_challenge` accepts `version: 1`, `gen`, `mode: "single" | "dual"` and a nonblank `seed` of at most 100 characters. It returns a specification and ten questions, without answers. `type_challenge_score` takes that specification plus zero to ten answers in question order. It regenerates the questions, validates each answer against its four choices and returns feedback, correct/answered counts, current/best streaks and completion. Supplied question objects are never authoritative. Both are uncapped read-only tools shared by UI, REST and MCP.
+
+The UI supports Spanish and English, keyboard choices, focused question/result headings, reduced motion and narrow screens. A failed request can be retried with the same pending answer or generated seed. There is no timer, account, leaderboard, saved attempt, battle or history entry. The current attempt stays in the mounted Facilities page; navigating away or reloading ends it. This mode is in the local app and is not a portable HTML export. It adds no packages or network providers.
+
+Implementation: `engine/src/type-challenge.mjs`, `TypeChallenge.jsx` and scoped `type-challenge.css`. Verification covers historical factors, seeded decks across all generations and difficulties, unique answers/species, forged input, partial scoring and unchanged database tables through the native handlers.

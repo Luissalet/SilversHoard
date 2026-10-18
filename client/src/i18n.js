@@ -1083,6 +1083,28 @@ Object.assign(D, PVP_STRINGS);
 Object.assign(D, MASS_STRINGS);
 Object.assign(D, FRIENDS_STRINGS);
 Object.assign(D, DAILY_STRINGS);
+Object.assign(D, {
+  tc_title: ["Reto de tipos", "Type challenge"],
+  tc_intro: ["Diez encuentros para practicar debilidades y resistencias. Elige el tipo de ataque con el mejor multiplicador; cada respuesta explica por qué.", "Ten encounters to practise weaknesses and resistances. Choose the attack type with the best multiplier; each answer explains why."],
+  tc_scope: ["Sólo tabla de tipos de la generación elegida: sin habilidades, objetos, STAB, potencia, clima ni teracristalización. El multiplicador no es el daño real.", "Only the selected generation’s type chart: no abilities, items, STAB, power, weather or Tera. The multiplier is not actual damage."],
+  tc_gen: ["Generación", "Generation"], tc_mode: ["Tipos del defensor", "Defender types"],
+  tc_single: ["Un tipo", "One type"], tc_dual: ["Dos tipos", "Two types"],
+  tc_seed: ["Semilla (opcional)", "Seed (optional)"], tc_random: ["Vacía: reto al azar", "Empty: random challenge"],
+  tc_start: ["Empezar reto", "Start challenge"], tc_round: ["Encuentro {n} de 10", "Encounter {n} of 10"],
+  tc_question: ["¿Qué tipo de ataque es mejor contra {name}?", "Which attack type is best against {name}?"],
+  tc_options: ["Elige un tipo de ataque", "Choose an attack type"],
+  tc_right: ["¡Correcto!", "Correct!"], tc_wrong: ["Hay una opción mejor", "There is a better option"],
+  tc_yours: ["Tu respuesta", "Your answer"], tc_best: ["Mejor respuesta", "Best answer"],
+  tc_streak: ["Racha actual: {n}", "Current streak: {n}"], tc_next: ["Siguiente encuentro", "Next encounter"],
+  tc_finish: ["Ver resultado", "See result"], tc_score: ["{n} de 10 correctas", "{n} of 10 correct"],
+  tc_record: ["Mejor racha: {n}", "Best streak: {n}"], tc_review: ["Repasa tus errores", "Review your mistakes"],
+  tc_perfect: ["Has acertado los diez encuentros.", "You got all ten encounters right."],
+  tc_repeat: ["Repetir este reto", "Repeat this challenge"], tc_new: ["Jugar otro reto", "Play another challenge"],
+  tc_session: ["El reto se mantiene en esta página mientras practicas; no crea combates ni modifica tu historial.", "This challenge stays on this page while you practise; it creates no battles and does not change your history."],
+  tc_settings: ["Generación {gen} · {mode}", "Generation {gen} · {mode}"],
+  tc_seed_used: ["Semilla del reto", "Challenge seed"], tc_leave: ["Terminar práctica", "End practice"],
+  tc_progress: ["Respuestas completadas", "Answers completed"],
+});
 
 export function saveLang(lang) {
   try {
