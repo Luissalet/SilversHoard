@@ -161,7 +161,6 @@ function MetagameResult({ job }) {
         </table></div>
       </Section>
     </section>)}
-    <p className="help">{t("benchmark_result_help")}</p>
   </div>;
 }
 
@@ -267,6 +266,7 @@ export default function Trabajo({ param }) {
   if (error && !job) return <ErrorBox error={error} onRetry={reload} />;
   if (!job) return <Spinner />;
   const r = job.result || {};
+  const meta = job.kind === "benchmark" && (job.args?.rival_source === "metagame" || r.rival_source === "metagame");
   const names = Object.fromEntries((r.entrants || []).map((e) => [e.id, e]));
   const del = async () => {
     if (!(await confirm({ title: t("delete"), message: t("delete_job_msg") }))) return;
@@ -275,7 +275,7 @@ export default function Trabajo({ param }) {
   return (
     <div className="space-y-4">
       <div className="page-head">
-        <div className="min-w-0"><h1 className="trunc">{job.title || r.title}</h1><p className="help">{t(`job_kind_${job.kind}`)}</p></div>
+        <div className="min-w-0"><h1 className={meta ? undefined : "trunc"}>{meta ? t("meta_sample") : job.title || r.title}</h1><p className="help">{meta ? t(job.args?.mode === "realtime" ? "mode_realtime" : "mode_classic") : t(`job_kind_${job.kind}`)}</p></div>
         <div className="flex gap-2">
           {["queued", "running"].includes(job.status) && <Busy busy={busy.c} className="btn" onClick={() => run("c", async () => { await api.call("job_cancel", { id: job.id }); notify(t("cancelling")); })}>{t("cancel")}</Busy>}
           {!["queued", "running"].includes(job.status) && <Busy busy={busy.del} className="btn btn-danger" onClick={del}><Icon d={ICONS.trash} size={14} /> {t("delete")}</Busy>}
