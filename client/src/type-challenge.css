@@ -36,6 +36,7 @@
 @keyframes tc-answer { from { opacity: .4; } to { opacity: 1; } }
 @media (max-width: 768px) {
   .type-challenge { padding: 1rem; }
+  .tc-question { scroll-margin-top: calc(98px + 1rem); }
   .tc-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .tc-config label { flex-basis: 9rem; }
   .tc-config label:nth-child(3) { flex-basis: 100%; }
