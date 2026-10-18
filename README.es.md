@@ -1,5 +1,8 @@
 # Silver's Hoard
 
+Instalaciones también ofrece un reto diario de alquiler: elige tres de los seis Pokémon de la fecha y afronta siete rivales por turnos a nivel 50. Juega en la app o prepara una página HTML autónoma; Importar verifica el código de resultado y lo registra en la clasificación local de esa fecha. El reto semanal sigue disponible. Véase [retos diarios](docs/DAILY_CHALLENGE.md).
+
+
 Elige **Pista de música** al preparar la partida en Combatir o abre **Sonido → Pista de música** durante un combate clásico o en tiempo real para elegir cualquiera de las 48 pistas existentes, mantener la música automática o quedarte sin música. El cambio se aplica mientras juegas y se recuerda en este navegador con los volúmenes. Los efectos y gritos de Pokémon son independientes. El selector permanece accesible fuera del campo en pantallas pequeñas; las páginas sin conexión siguen teniendo solo efectos y las grabaciones usan las preferencias del navegador que las graba.
 
 Los combates ofrecen presentación horizontal y vertical. La misma repetición guardada se exporta como vídeos independientes 16:9 y 9:16 (vertical 1080p: 1080 × 1920), con vista previa y sonido. En tiempo real sólo gira la cámara: entrenadores y Pokémon siguen de pie con la orientación disponible correspondiente, y se reproducen las entradas originales sin cambiarlas. UI, REST y MCP comparten la selección `aspect`. Véanse los [formatos de encuadre](docs/VIDEO_FORMATS.md).
