@@ -222,3 +222,6 @@ Eleven Dragon/Poison moves use 117 additional frames from the local PMD Time/Dar
 New trainer/gym, weekly, daily and mass HTML exports embed the existing presentation cache without downloading anything. Missing Pokémon art uses a local labelled disc, and missing Reborn animations retain Silver's fallback. Existing cached sprite, effect and Reborn bytes travel once with the file. The HTML grows with the cache; re-export older pages for this behavior. See [standalone assets](docs/PORTABLE_ASSETS.md).
 
 Finished real-time replays have a frame cursor, five-second jumps and keyboard seeking; a jump pauses playback and retains its speed. The read-only local `battle_rt_inspect` tool returns the same public state and a paused app link, without changing records. [Replay inspection and limits](docs/RT_REPLAY_SEEK.md).
+
+
+Four local Rock motifs add 29 supplied Red Rescue Team frames for Ancient Power, Rock Blast, Rock Tomb and Rollout. They share the existing RT/mass/HTML/video clock and keep visible reduced-motion frames. [Source and limits](docs/ROCK_SPRITES.md).

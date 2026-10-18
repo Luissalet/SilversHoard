@@ -225,3 +225,6 @@ Once movimientos de Dragón y Veneno usan 117 cuadros adicionales de las hojas l
 Las nuevas exportaciones HTML de entrenadores, gimnasios, retos semanales/diarios y campales llevan la caché de presentación existente sin descargar nada. Si falta una imagen de Pokémon se muestra un disco local con sus iniciales; si falta una animación Reborn se mantienen los efectos de Silver. Los sprites, efectos y archivos Reborn guardados viajan una sola vez con el HTML, cuyo tamaño crece con esa caché. Vuelve a exportar las páginas antiguas para obtener este comportamiento. Véanse los [recursos autónomos](docs/PORTABLE_ASSETS.md).
 
 Las repeticiones terminadas de tiempo real tienen cursor por fotogramas, saltos de cinco segundos y navegación con teclado. Al saltar se pausan y conservan la velocidad. La herramienta local de solo lectura `battle_rt_inspect` devuelve el mismo estado público y un enlace pausado a la app, sin cambiar el palmarés. [Inspección y límites](docs/RT_REPLAY_SEEK.md).
+
+
+Cuatro motivos locales de Roca añaden 29 cuadros de Red Rescue Team para Poder Pasado, Pedrada, Tumba Rocas y Desenrollar. Comparten el reloj de RT/campales/HTML/vídeo y un cuadro visible con movimiento reducido. [Fuente y límites](docs/ROCK_SPRITES.md).
