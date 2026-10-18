@@ -37,6 +37,8 @@ import Pokeathlon from "./pages/Pokeathlon.jsx";
 import Concursos from "./pages/Concursos.jsx";
 import Bases from "./pages/Bases.jsx";
 import SuppliedSprite from "./components/SuppliedSprite.jsx";
+import Musica from "./pages/Musica.jsx";
+import MusicPlayer from "./music/MusicPlayer.jsx";
 
 export { useApp } from "./context.js";
 
@@ -84,6 +86,7 @@ const PAGES = [
   { path: "personajes", key: "nav_canon", icon: I.book, component: Personajes },
   { path: "personaje", key: "nav_canon", component: Personaje, hidden: true, parent: "personajes" },
   { path: "historial", key: "nav_history", icon: I.history, component: Historial },
+  { path: "musica", label: ["Música", "Music"], icon: "M9 18V5l12-2v13M9 8l12-2M9 18a3 3 0 11-3-3c1.7 0 3 1.3 3 3zM21 16a3 3 0 11-3-3c1.7 0 3 1.3 3 3z", component: Musica },
   { path: "medallas", key: "nav_badges", icon: I.badge, component: Medallas },
   { path: "amigos", key: "nav_friends", icon: I.podium, component: Amigos },
   { path: "progreso", key: "nav_progress", icon: I.chart, component: Progreso },
@@ -271,6 +274,7 @@ export default function App() {
         </main>
       </div>
       <Toasts toasts={toasts} onClose={closeToast} />
+      <MusicPlayer lang={lang} version={version} />
       <ConfirmDialog request={confirmReq} onClose={closeConfirm} />
     </AppContext.Provider>
   );
