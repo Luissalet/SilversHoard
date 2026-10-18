@@ -1,5 +1,13 @@
 # Silver's Hoard — architecture
 
+`overworld_import` also recognizes Jhony-Rex's supplied 270×437 Mega Swampert sheet. Five authored rows of three poses
+become transparent 150×320 atlases with eight headings; the three missing headings are mirrored. The back row's 47px
+stride is cropped independently to retain its outline. The original PNG stays byte-exact under its SHA-256. The existing
+`pmd_shiny` reference resolver supplies Mega Swampert's canonical normal/shiny palette, cached beside the imported art;
+both variants retain source, credit and derivation metadata. `OverworldAnimator` accepts explicit eight-direction metadata
+while retaining existing four-direction sheets. The ordinary walking fallback and portable export embed these atlases.
+No simulator, battle snapshot or new tool/schema is introduced. See [sheet import](OVERWORLD_SPRITES.md).
+
 `PmdSprites.meta` tries the requested form's published shiny first, then derives a missing shiny from that form's normal PMD sheets before trying the base species. `pmd_shiny.py` learns an RGB palette transfer from aligned canonical normal/shiny pixel pairs (HOME or Z-A references when pixel art is absent); unmatched PMD shades transfer the nearest reference colour's RGB delta. A single map preserves every animation's alpha, dimensions, anchors, directions and timing. Cosmetic variants without a form reference use the species' palette. Derived `-recolor1` keys have separate PNGs and metadata with original-sheet SHA-256 and palette URLs; source changes invalidate them. Published shiny misses retain the existing three-day retry policy, so a later published shiny replaces the derivative. Cached derivatives work offline. Missing references leave the ordinary shiny battle-art fallback in place instead of silently returning a normal-colour PMD. The existing PMD routes, room routes, battle prefetch and shared app/recorder renderer use the same resolver; no simulator or saved-battle data changes. Portable offline pages retain their existing battle-art fallback.
 
 `CombateRt.again` uses `rt.spec[side].sets` when a direct seat's public summary omits its team, preserving its name, human/AI level, style and hidden-information choice. Saved trainer IDs retain the ordinary trainer lookup. The request keeps format, level rules, time limit, language and arena while leaving seed and inputs to the new battle. `BattleStartArgs.rt_arena` additionally accepts a saved custom field object; `_rt_start` passes it through the existing `Arenas.spec` normalization and rock checks. This preserves the played field after its library entry changes or disappears, without adding an arena row, migration or rematch handler. Other arena argument models and the simulation are unchanged.
