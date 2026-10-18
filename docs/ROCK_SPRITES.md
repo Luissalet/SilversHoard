@@ -14,6 +14,13 @@ Square padding and per-frame offsets retain geometry without stretching or
 rescaling. Empty/clipped selections or separators fail before writing the
 manifest. The most populated source frame is used for reduced motion.
 
+Only these four motifs carry `display_scale`: 2.4 for the small stone clusters
+and 1.7 for Rock Tomb's ring. The shared material layer applies this uniformly
+at drawing time so fragments remain legible at normal desktop/mobile sizes;
+the atlas pixels, anchors, collision radii and simulation are unchanged.
+The native sprite catalog exposes this presentation value. Earlier atlases
+omit it and retain their existing size.
+
 The four move-specific profiles use their existing travel, impact, contact or
 area phase in RT, mass battles, HTML and video. The public simulation clock,
 pause and seek behavior remain shared. Move shapes, availability, damage,

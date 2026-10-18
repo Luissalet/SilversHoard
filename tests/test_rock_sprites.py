@@ -22,6 +22,7 @@ def test_selected_rock_frames_have_visible_alpha_and_no_separator_or_label_pixel
     assert len(MOTIFS) == 4 and sum(s['frames'] for s in MOTIFS.values()) == 29
     for sprite in MOTIFS.values():
         assert sprite['source'] == SOURCE and sprite['frame_width'] == sprite['frame_height'] <= 160
+        assert sprite['display_scale'] in (1.7, 2.4)
         assert len(sprite['frame_rects']) == len(sprite['frame_offsets']) == sprite['frames']
         atlas = Image.open(io.BytesIO(base64.b64decode(sprite['image'].split(',')[1])))
         for i in range(sprite['frames']):
@@ -38,7 +39,7 @@ def test_native_catalog_exposes_rock_metadata_and_actual_embedded_pngs(call, cli
     assert len(catalog['sprites']) == 4
     for entry in catalog['sprites']:
         sprite = MOTIFS[entry['id']]
-        for key in ['frame_rects', 'frame_offsets', 'background_key', 'source_band', 'still_frame']:
+        for key in ['frame_rects', 'frame_offsets', 'background_key', 'source_band', 'still_frame', 'display_scale']:
             assert entry[key] == sprite[key]
         assert client.get(entry['url']).content == base64.b64decode(sprite['image'].split(',')[1])
     p = call('leisure_catalog', {'section': 'effects', 'query': 'rocktomb', 'limit': 0})
