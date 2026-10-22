@@ -97,6 +97,7 @@ This is a descriptive record of the current implementation, reconciled with the 
 - Self-hosted condensed italic display lettering beside compact sans-serif controls.
 - Existing emblem, trainer portraits and pixel sprites as the visual identity.
 - Cyan/coral battle corners, bevelled controls and restrained selection lifts.
+- Bounded body acting and readable damage bursts in ordinary real-time combat.
 
 ## Colors
 
@@ -180,15 +181,21 @@ Each shortcut pairs an enlarged supplied sprite with a condensed uppercase label
 
 Classic and ordinary real-time combat inherit the sharper slate/gold controls and cyan/coral side information. Existing HUD content, move typing, settings, keyboard controls, log, replay inspection and modes remain available. Existing atlases, source rectangles, material scales and reduced-motion still frames remain authoritative; this visual pass does not change simulation geometry, damage, RNG or saved replay rules.
 
-The ordinary real-time show renderer adds target-anchored elliptical contact rings beneath the sprites. Positive damage on the first hit triggers a type-colored ring; critical, super-effective and KO hits use a larger ring with short radial marks. Normal rings last (320ms); strong rings (480ms). Presentation time advances their age, so paused playback does not accumulate motion. Reduced motion uses a fixed ring shape and omits the radial burst. Existing camera and impact-frame settings keep their prior behavior. This accent layer belongs to ordinary real-time Show presentation; it is not a new mass-battle or classic effect implementation.
+The ordinary real-time show renderer adds target-anchored elliptical contact rings beneath the sprites. Positive damage on the first hit triggers a type-colored ring; critical, super-effective and KO hits use a larger ring with short radial marks. Normal rings last (320ms); strong rings (480ms). The Show clock advances their age only during playback, so paused playback does not accumulate motion. Reduced motion uses a fixed ring shape and omits the radial burst. Existing camera and impact-frame settings keep their prior behavior. This accent layer belongs to ordinary real-time Show presentation; it is not a new mass-battle or classic effect implementation.
+
+Ordinary real-time fighters brace during anticipation, impulse on release and recover through a single decelerating recoil. Melee releases reach farther than ranged releases; protection braces, genuine misses give the aimed defender a sidestep, and healing gives a small lift. Fog misses do not imply a dodge. Four fixed reaction slots cover singles and doubles, merging simultaneous hits into the strongest bounded impulse. A hit recoils away from an identifiable releasing unit; ambiguous same-move releases in doubles compress in place without inventing a lateral direction. Release, block and dodge acting last (280ms), hit recovery (360ms) and healing (550ms).
+
+Body transforms wrap PMD, imported walking and static fallback art. Static fallbacks share the cached white hit silhouette. Direction maps to the portrait camera while sprites and figures remain upright. Ground rings, HP bars, reticles, collision and targeting retain their physical anchors. Dig, Fly, Bounce, Rollout, Ice Ball and Seismic Toss retain their special choreography without the added ordinary anticipation/release lean. Recall, switch and replay reset clear the relevant acting; party-slot identity prevents a replacement inheriting it, and fainted fighters retain their existing fade.
+
+Damage figures use the bundled condensed italic face, a brief scale accent, short rise and late fade over their (1.1s) lifetime. A same-tick multihit burst for the same move, unit and party slot becomes one total with a count, such as `−13% ×5`, retaining the strongest emphasis and the existing percentage/HP preference. Later attacks remain separate. Body acting, particles and figures follow replay speed and hit-stop through the renderer delta; Show overlays retain their real-seconds delta. Pause freezes both clocks, and seek constructs a fresh effect owner. Reduced motion removes the added displacement, rotation, squash and damage-number travel/scale while keeping hit flashes, damage figures and outcome labels visible. This refinement creates no new raster assets or provenance records.
 
 Menu entry uses a small (7px) upward arrival over (280ms). Hover lifts remain brief. Reduced-motion CSS removes the added menu animation and transitions; the existing battle renderer continues its own reduced-motion policy.
 
-**The Presentation Clock Rule.** Advance transient battle accents with presentation time and preserve the existing pause, speed, seek and reduced-motion contracts.
+**The Presentation Clock Rule.** Advance ordinary RT body acting, particles and damage figures with the renderer's pause- and replay-speed-aware delta; keep Show overlays on their existing real-seconds delta, and reset transient owners on replay seek.
 
 **The Existing Material Rule.** Preserve atlas geometry, transparent source pixels, provenance, declared display scales and visible still frames; add presentation around the supplied art without rewriting combat rules.
 
-Portable battle pages include the presentation stylesheet and available assets when newly generated. Previously exported standalone HTML is a snapshot and requires re-export to receive this appearance. Existing portable fallbacks, ordinary/mass/classic material coverage and export limitations remain documented in the corresponding files under `docs/`; the new ring layer does not broaden that coverage.
+Portable battle pages include the presentation stylesheet and available assets when newly generated; recorded ordinary RT replays use the same reaction renderer. Previously exported standalone HTML is a snapshot and requires re-export to receive this appearance. Existing portable fallbacks, ordinary/mass/classic material coverage and export limitations remain documented in the corresponding files under `docs/`; the new rings and body acting do not broaden that coverage or change classic/mass choreography.
 
 ## Do's and Don'ts
 
@@ -202,5 +209,5 @@ Portable battle pages include the presentation stylesheet and available assets w
 ### Don't:
 - **Don't** restore the stale brown/crimson palette or Cinzel page headings as the current global identity.
 - **Don't** use display lettering for dense instructions or replace semantic type/status colors with corner colors.
-- **Don't** imply that ordinary real-time contact rings also add a new mass-battle or classic effect layer.
+- **Don't** imply that ordinary real-time rings and body acting also add a new mass-battle or classic effect layer.
 - **Don't** claim that already exported HTML updates without re-exporting it.
