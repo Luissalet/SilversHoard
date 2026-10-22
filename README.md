@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+Menus and battle HUDs now use a shared arcade presentation: gold selection, cyan/coral fighter corners, large trainer previews and self-hosted display lettering. Existing controls and game rules are preserved. Real-time battles add timed contact rings and VS corner streaks, with stationary reduced-motion feedback. Newly exported playable HTML includes the same presentation. See [visual presentation and limits](docs/VISUAL_PRESENTATION.md).
+
 **Type challenge** in Facilities offers ten seeded type-chart questions: attack a Pokémon with the best type, or choose the Pokémon that best resists an incoming attack. Both variants support generations 1–9, one or two defensive types, immediate factor explanations, streaks and a mistake review. Repeat the same attempt or start another. The native `type_challenge` / `type_challenge_score` handlers also serve REST/MCP. Practice is local and read-only, without a timer or saved history; the multiplier excludes abilities, items and actual damage. See [type practice and limits](docs/TYPE_CHALLENGE.md).
 
 Five more supplied Dark motifs animate Bite, Crunch, Knock Off, Pursuit and Torment with 30 frames from the local Red Rescue Team sheet. They share the existing battle, portable-page and video renderer, preserve previous art and replay rules, and require no downloads. See [Dark sprites](docs/DARK_SPRITES.md).

@@ -1,0 +1,11 @@
+# Menu and battle presentation
+
+The October 2026 visual pass preserves navigation, actions, game rules, saved inputs, teams and results. `client/src/arcade.css` gives the existing surfaces a slate-and-silver cabinet treatment with warm gold selection, cyan and coral fighter corners, squared controls and self-hosted Barlow Condensed display lettering. Body copy keeps the inherited readable sans-serif.
+
+Home actions use the already-catalogued Platinum menu sprites at a larger size. Battle setup adds a large preview of each selected trainer and its existing species list; saved and game character selection, full-team choices, AI, formats and rules remain in their existing controls. Image failures keep the existing initial fallback. Menus retain all nineteen navigation destinations, native disclosures and focus indicators. Small screens retain the scrollable navigation strip.
+
+Classic and real-time HUDs share the new presentation. The RT VS intro adds clipped corner streaks and uses the display font. Its timing, trainer image fallback and simulation hold are unchanged. `ImpactAccents` adds a contact ring and eight rays on a critical, super-effective or finishing hit, using the hit type and actual target coordinates. Ordinary hits get a smaller ring. Zero damage and subsequent multihit events are excluded; at most sixteen marks exist at once. They use `Show.update` presentation time, so pause holds them and a fresh replay renderer clears them. Reduced motion uses a stationary ring and no rays or moving intro streaks. The pre-existing animation toggles and supplied attack atlases remain available.
+
+The app and freshly exported playable pages share the stylesheet, font and renderer. The font embeds into portable HTML; old exports must be exported again. Existing source-art credit remains in the supplied-sprite manifest and Credits. Barlow Condensed is by Jeremy Tribby, under SIL Open Font License 1.1; the unmodified font and license come from `google/fonts`, `ofl/barlowcondensed`. No new Pokémon artwork or externally hosted runtime dependency is introduced.
+
+This is presentation, not a new moveset or a claim of bespoke choreography for every attack. The existing mass renderer keeps its own battle choreography; this pass's new contact rings belong to ordinary RT battles.
