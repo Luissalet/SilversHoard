@@ -1,32 +1,34 @@
 ---
 name: Silver's Hoard
-description: Existing visual system for trainer selection and the saved trainer library.
+description: Slate and silver game menus with gold selection and cyan/coral battle corners.
 colors:
-  accent: "#e2404f"
-  accent-strong: "#e76370"
-  accent-ink: "#ffffff"
-  accent-soft: "rgba(226, 64, 79, 0.14)"
-  deep: "#1c1415"
-  sunken: "#161011"
-  surface: "#241b1c"
-  elevated: "#2f2526"
-  border: "#433536"
-  border-hover: "#6a5859"
-  text: "#ece1e2"
-  text-muted: "#beb4b5"
-  text-dim: "#a69b9c"
+  accent: "#f3cd69"
+  accent-strong: "#ffe4a1"
+  accent-ink: "#171e24"
+  accent-soft: "#f3cd691a"
+  deep: "#101922"
+  sunken: "#0b121b"
+  surface: "#192631"
+  elevated: "#243541"
+  border: "#415360"
+  border-hover: "#7893a2"
+  text: "#f0f4ed"
+  text-muted: "#bacbd1"
+  text-dim: "#a3b7c0"
+  corner-blue: "#6cd6ec"
+  corner-red: "#fa8b81"
   danger: "#c4463a"
 typography:
-  headline:
-    fontFamily: "Cinzel, Iowan Old Style, Charter, Georgia, Liberation Serif, Noto Serif, Times New Roman, serif"
-    fontSize: "28px"
-    fontWeight: 700
-    lineHeight: 1.2
-    letterSpacing: "-0.005em"
+  display:
+    fontFamily: "Barlow Condensed, Arial Narrow, sans-serif"
+    fontSize: "clamp(2rem, 3.5vw, 3.3rem)"
+    fontWeight: 800
+    lineHeight: 1
+    letterSpacing: "0.005em"
   title:
     fontFamily: "Source Sans 3, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Liberation Sans, Arial, sans-serif"
     fontSize: "15px"
-    fontWeight: 650
+    fontWeight: 750
     letterSpacing: "-0.005em"
   body:
     fontFamily: "Source Sans 3, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Liberation Sans, Arial, sans-serif"
@@ -37,294 +39,168 @@ typography:
     fontSize: "12px"
     fontWeight: 600
 rounded:
-  sm: "6px"
-  default: "8px"
-  lg: "10px"
+  sm: "3px"
+  default: "5px"
+  lg: "8px"
+  control: "4px"
 spacing:
-  filter-gap: ".5rem"
   grid-gap: "10px"
   card-padding: "12px"
+  panel-padding: "12px 14px"
+  control-padding: "4px 12px"
 components:
   button-primary:
     backgroundColor: "{colors.accent}"
     textColor: "{colors.accent-ink}"
-    rounded: "{rounded.default}"
-    padding: "4px 12px"
+    rounded: "{rounded.control}"
+    padding: "{spacing.control-padding}"
   button-primary-hover:
     backgroundColor: "{colors.accent-strong}"
   button-secondary:
     backgroundColor: "transparent"
     textColor: "{colors.text}"
-    rounded: "{rounded.default}"
-    padding: "4px 12px"
+    rounded: "{rounded.control}"
+    padding: "{spacing.control-padding}"
   field:
     backgroundColor: "{colors.sunken}"
     textColor: "{colors.text}"
-    rounded: "{rounded.default}"
+    rounded: "{rounded.control}"
     padding: "5px 9px"
-  navigation:
-    textColor: "{colors.text-muted}"
-    rounded: "{rounded.default}"
-    padding: "0 12px"
+  navigation-active:
+    backgroundColor: "{colors.accent}"
+    textColor: "{colors.accent-ink}"
+    rounded: "{rounded.control}"
   chip:
     backgroundColor: "{colors.elevated}"
     textColor: "{colors.text-muted}"
     rounded: "{rounded.sm}"
     padding: "1px 8px"
-  trainer-card:
+  panel:
     backgroundColor: "{colors.surface}"
     textColor: "{colors.text}"
     rounded: "{rounded.lg}"
-    padding: "12px"
-  trainer-picker:
-    rounded: ".6rem"
+    padding: "{spacing.panel-padding}"
 ---
 
 # Design System: Silver's Hoard
 
 ## Overview
 
-**Creative North Star: "Inherited Silver's Hoard visual system"**
+**Creative North Star: "Handheld fighting cabinet"**
 
-This is a descriptive scan of the existing implementation, not a newly approved metaphor or replacement identity. Warm, dark brown surfaces, a crimson accent, serif page headings and compact sans-serif controls frame trainer portraits and Pokémon team strips. The interface uses dense, labelled controls and restrained borders to support selecting and managing trainers.
+Slate metal surfaces, silver text and warm gold selections frame the existing Silver emblem, trainer portraits and supplied Pokémon sprites. Condensed italic display lettering gives menus and battle names weight; compact sans-serif controls keep the dense tools readable. Cyan and coral identify the two battle corners.
 
-The documented change is limited to the shared visual trainer picker and saved trainer library. The surrounding shell, theme, assets and other screens remain inherited. Sources are `client/src/hoard-theme.css` (the `silver` palette), `client/src/index.css`, `client/src/app.css`, `client/src/components/silver.jsx` and `client/src/pages/Entrenadores.jsx`; the supplied desktop/mobile captures confirm the incumbent appearance. This scan does not establish new product strategy or claim an approved visual comp.
+This is a descriptive record of the current implementation, reconciled with the reference-led direction in `.impeccable/surfaces/client-src-app-jsx.md`. The authoritative presentation layer is `client/src/arcade.css`, over the shared theme, `index.css`, `app.css` and existing battle styles. `App.jsx`, `Inicio.jsx`, `Combatir.jsx` and the ordinary real-time show renderer demonstrate its use; captures in `.impeccable/review/` record desktop, mobile, home, classic and real-time surfaces. No separate approved comp or quality-bar card is claimed.
 
 **Key Characteristics:**
-- Warm dark surfaces with a single crimson action accent.
-- Serif page headings paired with compact sans-serif labels.
-- Trainer portraits and team sprites beside readable names.
-- Native disclosure and select controls with wrapping filter rows.
+- Slate layers and silver text with warm gold active states.
+- Self-hosted condensed italic display lettering beside compact sans-serif controls.
+- Existing emblem, trainer portraits and pixel sprites as the visual identity.
+- Cyan/coral battle corners, bevelled controls and restrained selection lifts.
 
 ## Colors
 
 ### Primary
 
-Crimson `accent` identifies primary actions, links and focus outlines. `accent-strong` is the primary button hover state; `accent-ink` is its foreground. `accent-soft` supplies the fallback portrait background and selected segmented controls.
+Warm gold `accent` marks primary actions, selected navigation, selected segmented controls, links and focus. `accent-strong` brightens hover; `accent-ink` supplies the dark foreground. `accent-soft` supports quieter selected surfaces. The frontmatter records the current values rather than the former brown/crimson palette.
+
+### Secondary
+
+Cyan `corner-blue` and coral `corner-red` identify side A and side B respectively in matchup panels and battle HUDs. Their borders and tinted backgrounds connect setup with combat without replacing Pokémon type colors or semantic status colors.
 
 ### Neutral
 
-The warm `deep` canvas supports `surface` cards and `elevated` interaction layers. Fields use `sunken`; `border` separates surfaces and `border-hover` strengthens interactive edges. `text`, `text-muted` and `text-dim` distinguish names, supporting content and quieter metadata. The frontmatter records the actual shared palette values.
+Deep slate `deep` frames the shell, `sunken` recesses fields, `surface` holds panels and `elevated` strengthens hover layers. `border` and `border-hover` separate controls. Silver `text`, `text-muted` and `text-dim` establish the reading hierarchy. The main canvas and home panels use closely related slate shades already in the presentation stylesheet.
 
-### Semantic
+The inherited danger token remains available for destructive actions and errors. Type markers, HP, status colors, battle effects and the Faustus launcher keep their established semantic roles.
 
-The inherited `danger` color supplies error borders and a translucent error banner background. Status colors elsewhere in the application remain inherited and are outside this focused inventory.
+**The Corner Continuity Rule.** Carry cyan and coral consistently from the two setup seats into battle information; retain text names and labels alongside color.
 
 ## Typography
 
-**Display Font:** Cinzel with the serif fallback stack in the frontmatter.
+**Display Font:** Barlow Condensed, with Arial Narrow and sans-serif fallbacks. The extra-bold italic face is self-hosted from `client/src/assets/BarlowCondensed-ExtraBoldItalic.ttf` with font-display swap.
 
-**Body Font:** Source Sans 3 with system sans-serif fallbacks.
+**Body Font:** Source Sans 3 with the existing system sans-serif fallbacks. Body, labels, fields and ordinary buttons retain this stack.
 
-**Label/Mono Font:** Labels use the body family; inherited code and team-paste text use JetBrains Mono with monospace fallbacks.
+**Label/Mono Font:** Labels use the body family; code and team-paste text retain JetBrains Mono and monospace fallbacks.
 
-The serif is concentrated in page headings and the brand. Names, buttons, filters and metadata use compact sans-serif text. Page headings use the headline token and reduce to (23px) below (768px). Section headings use the title token; smaller headings use (13.5px), weight (650). Labels use the label token; help text uses (12.5px). Buttons use (13px), weight (600), and small buttons use (12.5px).
+Page headings use the display token, italic and uppercase. The home title expands to `clamp(2.5rem, 5vw, 4.75rem)` and becomes (38px) below (768px). Brand, shortcut titles, seat labels, trainer names, score figures and the real-time timer reuse the condensed display character at their local scales. Section headings remain sans-serif; help text is (12.5px), ordinary buttons (13px) and small buttons (12.5px). Timers and numeric controls use tabular figures where already implemented.
+
+**The Display Separation Rule.** Use condensed italic lettering for the established display roles; keep instructions, fields and dense working controls in the existing sans-serif family.
 
 ## Layout
 
-The inherited shell has a (220px) sidebar and (64px) desktop brand/header height. At (768px) and above navigation is vertical; below it, navigation flows horizontally with overflow scrolling. Page headers and their actions wrap, with a (280px) flexible heading basis and a (14px) gap in the page stylesheet.
+The ordinary shell retains a (220px) desktop sidebar at (768px) and above. Below that breakpoint, the sticky header carries horizontally scrolling navigation. All existing destinations, labels, language controls and badges remain accessible. Main content uses (16px) horizontal padding on mobile and (28px) on desktop. The bare video route retains its dedicated stage without ordinary shell chrome.
 
-Library cards use an auto-fill grid with (10px) gaps and a minimum width bounded by `min(300px, 100%)`. Cards contain a (72px) portrait beside the name, optional title, team strip and chips.
+Home keeps its emblem/title block, counts, shortcuts and live/recent activity. Shortcuts use an auto-fit grid bounded by `min(230px, 100%)`, with (12px) gaps; their sprite and text occupy two columns. Mobile count summaries use three columns.
 
-The shared picker is an in-flow native disclosure. Its summary has a (48px) portrait; saved and catalog choices use (56px) portraits. Filters wrap with a (.5rem) gap and each labelled field has an (8rem) flexible basis. Results scroll within (20rem), contain scroll chaining, and use an auto-fit grid bounded by `min(100%, 11rem)` with (.35rem) gaps. Long picker names wrap. The character team chooser appears above results with a (64px) portrait, exact-team select, sprite strip and primary action.
+Battle setup keeps the existing tabs, trainer selectors, AI/human controls, rules, mode and start actions. Two seats sit side by side from (1024px), with (22px) separation and a decorative VS at the center; smaller layouts stack them. Each seat contains a substantial portrait, wrapping trainer name and team strip above the existing picker. Mobile portraits fit a (110px by 125px) box. Long names wrap, and the preview follows the selected team rather than decorative substitutes.
+
+Library cards retain auto-fill grids and wrapping team strips. The native trainer picker stays in flow with search and labelled filters, scrollable results and existing keyboard disclosure behavior. Team analysis retains its local horizontal matrix scroll; type practice retains four desktop/two mobile answer columns and its existing focus clearance.
+
+Music retains playlist controls above the library and ordered queue, wrapping row actions, and its persistent bottom dock. The queue follows the library at (1000px) and below; the dock spans the mobile viewport below (768px). Existing content clearance beneath the dock and beside the Faustus launcher remains necessary. It inherits the new slate/gold palette through the shared variables without changing import, playback or queue behavior.
 
 ## Elevation & Depth
 
-The documented cards and picker rely on tonal layers and thin borders. The inherited navigation uses an inset accent indicator for the active route: a vertical (3px) mark on desktop and a bottom (2px) mark on mobile. The shared theme also defines an ambient shadow for inherited overlays; no new overlay or shadow system was introduced by this work.
+Depth comes from slate tonal layers, thin lighter borders and compact bottom bevels rather than broad floating cards. Primary controls have a darker gold bottom edge; pressing moves ordinary buttons down (2px). Trainer, gym, league and stage links lift (2px) on hover; home shortcuts lift (3px). Source sprites carry small dark drop shadows where already used. Battle cards use near-opaque dark surfaces and crisp cyan/coral edges; the classic cards remove backdrop blur.
+
+Shared overlays retain the existing ambient shadow (`0 8px 28px rgba(0, 0, 0, 0.38)`). Selection and navigation do not add a general glow system.
 
 ## Shapes
 
-The inherited radius scale is small (6px), default (8px) and large (10px). Trainer cards and portrait backgrounds use the large radius. Picker disclosure corners use (.6rem); choice buttons use (.4rem). Portraits contain their images without cropping. Pixel sprites retain pixel rendering; the existing artwork classification can preserve smooth rendering for non-pixel artwork.
+The shared radius scale is small (3px), default (5px) and large (8px); ordinary controls use (4px). Small squared corners, straight dividers and bottom bevels establish the cabinet character. Home shortcuts and real-time pads use (6px) corners. HP bars are thin rectangular tracks with (2px) corners. The existing pill forms for type/status metadata and round semantic markers remain appropriate in their established roles.
+
+Portraits contain their source art without cropping. Large setup portraits have transparent, square-edged presentation. Pixel sprites retain pixel rendering; existing artwork classification continues to allow smooth rendering for non-pixel artwork. Supplied raster provenance remains with its asset metadata and credits.
 
 ## Components
 
 ### Buttons
 
-Compact bordered controls use the default radius, (32px) minimum height and (4px 12px) padding. Primary actions fill with the accent; secondary actions remain transparent until hover. Small controls use (28px) minimum height and (2px 9px) padding. Disabled buttons reduce opacity to (.42). The shared focus-visible outline is (2px) accent with a (1px) offset. State transitions last (.12s); inherited reduced-motion handling removes transitions and animation.
+Ordinary buttons have a (36px) minimum height, the shared control padding and a thicker bottom border; small buttons have a (30px) minimum height and (2px 9px) padding. Gold primary buttons use dark labels, brighter gold hover and a dark gold bottom edge. Secondary buttons remain transparent at rest and use the elevated surface and stronger border on hover. Disabled buttons retain the existing (.42) opacity. Keyboard focus retains a (2px) accent outline with (1px) offset.
 
-### Chips
-
-Small metadata labels use the elevated background, muted text, small radius, (11.5px) text and (1px 8px) padding. Trainer cards use these for origin, AI level and optional record.
-
-### Cards / Containers
-
-Library cards are linked, bordered surface containers with (12px) internal padding and a (12px) content gap. Hover strengthens the border. Team sprites wrap within the card. The existing panel primitive uses (12px 14px) padding and the large radius.
+State transitions last (160ms). Pressed buttons move down (2px). The shared reduced-motion treatment removes transitions and animation. Existing local button variants, including music and type practice treatments, continue to use their scoped styles; do not propagate a local override as the global default.
 
 ### Inputs / Fields
 
-Search fields and native selects share a sunken background, thin border, default radius, (32px) minimum height and (5px 9px) padding. Focus shifts the border to the accent; keyboard focus retains the shared visible outline. Search inputs have accessible names; origin, region and game selects have visible wrapping labels.
+Fields and native selects use the sunken surface, a thin border, (4px) corners, (36px) minimum height and (5px 9px) padding. Focus changes the border to gold and adds a one-pixel accent ring. Visible labels, native selects, range inputs, checkboxes and disclosure semantics remain intact.
 
-### Navigation
+### Navigation and Chips
 
-The inherited shell uses sans-serif links with muted resting text and elevated hover/active backgrounds. Active navigation adds the inset accent indicator. Desktop links are (38px) tall with (14px) text; mobile links are (34px) tall with (13.5px) text. Icons are hidden below (441px) in the inherited stylesheet.
+Navigation uses compact sans-serif labels with supplied menu sprites where available and existing SVG icons otherwise. Active routes are filled gold with dark text; hover uses elevated slate and a border. Sprites lift (2px) and rotate slightly on hover. Desktop links have a (39px) minimum height; mobile links have a (42px) minimum height and remain horizontally scrollable. Badges remain readable inside the active route. Metadata chips retain elevated surfaces, muted labels, small corners and explicit text.
 
-### Visual Trainer Picker
+### Cards and Trainer Selection
 
-Native `details`/`summary` supplies disclosure interaction. A CSS chevron rotates with open state. Search and the shared origin/region/game selects precede a scrollable portrait/name grid. Saved choices expose `aria-pressed`; a successful selection closes the disclosure. Catalog characters open an explicit exact-team chooser before installation/selection. Alternate localized character names appear as supporting text where present. The same filter component serves the saved library.
+Panels use the shared surface, border, large radius and panel padding. Trainer library links retain names, optional titles, portraits, chips and team strips. The picker retains its native disclosure, filter labels, saved/catalog choices and actionable retry states. Selected choices use a subdued gold tint and the portrait lift; selection does not conceal other options.
 
-Catalog failures appear as accessible alerts with Retry in both picker and library. The library separately retains its saved-trainer load error and retry action. Saved/generated trainer names remain data; an English interface can therefore display a previously saved Spanish name. English is the default UI language and Spanish remains an explicit option. Spanish-first translation arrays remain a compatibility detail, not a direction to reorder translations. Global translation task #640 and mass Surf/reuse task #641 are outside this implementation.
+### Home Shortcuts
+
+Each shortcut pairs an enlarged supplied sprite with a condensed uppercase label and sans-serif help. The first action uses gold; the remaining actions use slate. Hover raises the tile and gently rotates/scales its sprite. The emblem and sprite shadows give the art separation without changing the source pixels.
+
+### Battle Presentation and Motion
+
+Classic and ordinary real-time combat inherit the sharper slate/gold controls and cyan/coral side information. Existing HUD content, move typing, settings, keyboard controls, log, replay inspection and modes remain available. Existing atlases, source rectangles, material scales and reduced-motion still frames remain authoritative; this visual pass does not change simulation geometry, damage, RNG or saved replay rules.
+
+The ordinary real-time show renderer adds target-anchored elliptical contact rings beneath the sprites. Positive damage on the first hit triggers a type-colored ring; critical, super-effective and KO hits use a larger ring with short radial marks. Normal rings last (320ms); strong rings (480ms). Presentation time advances their age, so paused playback does not accumulate motion. Reduced motion uses a fixed ring shape and omits the radial burst. Existing camera and impact-frame settings keep their prior behavior. This accent layer belongs to ordinary real-time Show presentation; it is not a new mass-battle or classic effect implementation.
+
+Menu entry uses a small (7px) upward arrival over (280ms). Hover lifts remain brief. Reduced-motion CSS removes the added menu animation and transitions; the existing battle renderer continues its own reduced-motion policy.
+
+**The Presentation Clock Rule.** Advance transient battle accents with presentation time and preserve the existing pause, speed, seek and reduced-motion contracts.
+
+**The Existing Material Rule.** Preserve atlas geometry, transparent source pixels, provenance, declared display scales and visible still frames; add presentation around the supplied art without rewriting combat rules.
+
+Portable battle pages include the presentation stylesheet and available assets when newly generated. Previously exported standalone HTML is a snapshot and requires re-export to receive this appearance. Existing portable fallbacks, ordinary/mass/classic material coverage and export limitations remain documented in the corresponding files under `docs/`; the new ring layer does not broaden that coverage.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** reuse the inherited Silver palette and shared type stacks.
-- **Do** keep trainer portraits, names and team strips together in selection and library views.
-- **Do** retain labelled native selects, keyboard disclosure behavior and visible focus.
-- **Do** keep catalog failures actionable through an alert and Retry.
+- **Do** use slate surfaces, silver text and gold selected states from the current presentation layer.
+- **Do** keep cyan/coral corners, readable trainer names and accurate team previews together.
+- **Do** preserve existing routes, controls, language support, music behavior and gameplay while refining presentation.
+- **Do** retain keyboard focus, reduced motion and the shared presentation clock.
+- **Do** preserve supplied-sprite provenance and pixel geometry.
 
 ### Don't:
-- **Don't** infer a translated UI label from a saved trainer's name or overwrite names as part of UI localization.
-- **Don't** treat this focused scan as a redesign of inherited screens or completion of tasks #640 and #641.
-- **Don't** replace the established pixel portraits or warm dark/crimson identity during narrow refinements.
-
-
-## Music library extension
-
-This addition records only the implemented Music surface in `client/src/pages/Musica.jsx`, `client/src/music/MusicPlayer.jsx` and `client/src/music/music.css`. It inherits the visual system above. The final code and desktop/mobile captures are the evidence; no new identity, visual comp or raster asset was introduced. Functional behavior and limits are documented in `docs/MUSIC_LIBRARY.md`.
-
-### Colors
-
-Songs and queue entries use the inherited warm canvas, text and dividing border. Selected library/list buttons use `accent-soft`, ordinary text and an accent border. Queue titles and the dock's current-song link use the brighter `accent-strong`; the active queue occurrence also gains weight (650). Music primary buttons locally darken the inherited accent with `color-mix(in srgb, var(--accent) 90%, black)` and use white text; hover darkens it to (85% accent). These scoped variants do not redefine the shared palette or other screens' primary buttons.
-
-**The Music Contrast Rule.** Use the brighter accent for song links and the locally darkened fill for white-labelled primary music actions; retain the inherited palette elsewhere.
-
-### Typography
-
-The page title retains the inherited serif headline and mobile size. Section headings use compact sans-serif text (15px). Song names use bold body text; source/size metadata uses the shared help style. The dock's song link uses weight (650) with one-line ellipsis, while library and queue titles can wrap anywhere. Elapsed/duration text uses the inherited tabular-number class at (.75rem); mode labels use (12px).
-
-### Layout
-
-The page is bounded by (1400px). A wrapping header pairs title/help with the MP3 import control. Playlist creation and wrapping list buttons sit above the working columns. Desktop uses a flexible library and a queue bounded between (250px) and (320px), separated by (1.75rem). At (1000px) and below the queue follows the library in one column. Song rows separate content with a bottom border and (.85rem) vertical padding; their action buttons wrap.
-
-The player is fixed along the bottom of the ordinary app shell, begins after the (220px) desktop sidebar and uses the surface color with a single top border. Its desktop grid contains current song, transport and seek; modes occupy the next row. At (1000px) and below seek spans the player width. Below (768px) the dock spans the viewport with (.6rem 1rem) padding, filter fields fill the available width, and song/transport buttons have (40px) minimum height. The page reserves (12rem) below its content, rising to (15rem) on mobile; when the player exists the main content also reserves (15rem). Seek time and volume retain a (3.5rem) right inset beside the inherited floating Faustus control.
-
-**The Music Flow Rule.** Keep playlist controls above the library and ordered queue, let row actions wrap, and reserve scrolling space for the persistent dock.
-
-### Elevation & Depth
-
-Music uses flat, border-separated rows rather than additional cards. The dock's fixed position and top border distinguish it from scrolling content; no new shadow vocabulary or animated visual effect is added.
-
-### Shapes
-
-Buttons, fields and list selectors reuse the inherited corner radii. Playback uses native range inputs, a checkbox and a select; their browser-rendered slider appearance is not a new Silver color token.
-
-### Components
-
-- **MP3 import:** a primary-styled label contains the native multiple-file input. Keyboard focus produces a (2px) accent outline with a (3px) offset. Dragging files over the page produces a dashed accent outline. Progress, failures and retry remain text/status or alert content.
-- **Library and playlist rows:** title and source metadata precede wrapping actions. The library, each saved playlist and archived songs share the same row grammar. Selected view buttons expose `aria-pressed`; list counts remain inline with their names.
-- **Ordered queue:** a numbered, wrapping song-title button precedes explicit up/down/remove controls. The current occurrence exposes `aria-current` and a stronger title weight. Repeated songs remain separate occurrences.
-- **Persistent player:** the current-song link returns to Music; previous/play-or-pause/next controls accompany native seek, shuffle, repeat and volume fields. It appears only for a nonempty queue and can show an inline error alert. Shared keyboard focus and reduced-motion handling continue to apply.
-
-### Do's and Don'ts
-
-- **Do** keep song metadata and explicit playback/list actions readable together as rows wrap.
-- **Do** retain visible focus, accessible names and native range/select/checkbox semantics.
-- **Do** preserve the scrolling clearance beneath the fixed dock across ordinary app pages.
-- **Don't** promote Music's scoped primary fill or browser-native slider tint into a replacement global palette.
-
-## Team analysis extension
-
-This scoped Operate extension records `client/src/components/TeamAnalysis.jsx`, its placement above the set editors in `TeamBuilder.jsx`, and `client/src/team-analysis.css`. It inherits the warm dark/crimson palette, sans-serif controls and existing panel, button, segmented-control, loading and error primitives. The supplied desktop (1280×720) and mobile (390×700) captures confirm the implemented surface, including a horizontally scrolled mobile matrix. Functional calculation limits belong in `docs/TEAM_ANALYSIS.md`.
-
-### Components
-
-The initially closed native **Team analysis** disclosure keeps the editor in flow. Opening it reveals help and an explicit **Analyse team / Analyse again** action against the current unsaved draft and format, without saving or Internet access. Loading uses the inherited spinner and disables that button. An empty team disables analysis and shows an add-member prompt; failures use the inherited alert with Retry. A changed draft or format hides the previous report and displays a status requesting another analysis. English and Spanish labels, help, states, type/species names and excluded-move reasons follow the existing translation system; custom member names remain data.
-
-Successful results place the generation and type-only calculation scope before two border-separated findings: shared weaknesses and types without super-effective coverage. Existing segmented buttons expose Defence and Attack coverage through `aria-pressed`, with a plain-language multiplier legend. The semantic table has a screen-reader caption, column and row headers, member types beneath names, and a final member-count column. Multipliers remain explicit text, including immunity (0×), resistance (¼× / ½×) and unavailable coverage (—); color supplements the values. Weak cells mix the inherited danger into the surface (18%), strong cells mix the accent (12%), and immune cells use the elevated surface. These are scoped matrix treatments, not new global palette tokens.
-
-The Speed list follows the matrix, pairing each wrapping member name and effective level with a right-aligned tabular statistic. Thin dividers separate rows within a (36rem) maximum width. When present, a second native disclosure lists excluded moves with member names and reasons.
-
-### Layout
-
-The report body uses a (.85rem) grid gap; actions wrap. Findings use two equal columns with a (1.2rem) gap and collapse to one at (640px) and below. At that breakpoint the analysis and segmented buttons have a (44px) minimum height. The matrix alone scrolls horizontally inside a bordered, small-radius, keyboard-focusable named region; its focus outline uses the inherited accent with a (2px) offset. The left type-header column stays fixed while member columns scroll. Cells use (12.5px) tabular text; mobile cells have (.5rem) padding and a (6rem) minimum width. Long member names wrap rather than widening the page.
-
-## Local Dragon and Poison material extension
-
-Eleven local pixel-art motifs add 117 selected frames from the supplied Pokémon Mystery Dungeon: Explorers of Time/Darkness Dragon and Poison sheets, credited to redblueyellow. They reuse the shared real-time effect geometry, phases and presentation clock. Transparent square cells preserve source aspect ratio and anchors; pixel rendering remains unsmoothed. Exact coverage, source provenance and exclusions are recorded in `docs/DRAGON_POISON_SPRITES.md` and the shared material contract in `docs/SUPPLIED_SPRITES.md`. These are composed motifs rather than reconstructed cartridge choreography.
-
-Reduced motion uses the material's declared `still_frame`, selecting a visible stationary source frame; materials without that metadata retain frame zero. Normal animation, pause, speed changes and seek retain the existing renderer clock and queues. The same embedded material layer serves ordinary real-time battles, mass battles, recordings and standalone HTML, without the original sheets or Internet at runtime.
-
-## Portable battle asset extension
-
-Standalone battle exports embed the available presentation cache once, with URL aliases sharing the embedded bytes. The existing battle surfaces and controls retain their visual system; this asset-resolution contract leaves the ordinary app and live rooms unchanged. The export-time snapshot and presentation limits are documented in `docs/PORTABLE_ASSETS.md`.
-
-**The Portable Artwork Rule.** In generated standalone pages, prefer an embedded static Pokémon sprite when animated art is absent; otherwise show a local SVG disc with up to two uppercase label characters (or ?). Keep missing decorative images transparent and missing Reborn animations on Silver's existing fallback.
-
-## Real-time replay inspection extension
-
-Finished real-time replays add a native frame-range cursor and labelled minus/plus five-second buttons beside the inherited restart, pause/play and speed controls. The cursor advances one simulator tick (1/30 second), supports keyboard arrows, Home and End, uses a translated accessible name, and exposes the selected time through aria-valuetext. Current/end times display minutes, seconds and hundredths using tabular numerals. The range has a (44px) interaction height, the existing battle accent and a (2px) focus outline with a (2px) offset; its flexible label keeps a (140px) minimum width. Spanish and English controls use the existing translation system.
-
-**The Replay Seek Rule.** Stop playback at the reconstructed replay frame, retain the selected playback speed and historical log, and clear old move effects, ability banners and Mega notices instead of replaying them in a burst.
-
-The shared replay helper reconstructs saved specification, seed and inputs, clamps seeks to the saved end, and applies recorded forfeits at their saved frame, including tick zero. The read-only native `battle_rt_inspect` tool exposes the same public snapshot and a replay-position link without modifying the saved battle or records. Video capture retains its existing progress display and recording controls. Functional reconstruction details and limits are documented in `docs/RT_REPLAY_SEEK.md`.
-
-## Local Rock material extension
-
-Four local pixel-art motifs select 29 interior frames from the supplied Pokémon Mystery Dungeon: Red Rescue Team Rock-Type Moves sheet, credited to redblueyellow: Ancient Power (6), Rock Blast (7), Rock Tomb (9) and Rollout (7). They extend the existing supplied-material layer and its pixel rendering. Source rectangles, offsets, provenance and selection limits are documented in `docs/ROCK_SPRITES.md`; these composed motifs do not reconstruct the cartridge's complete choreography or every tile on the sheet.
-
-**The Local Rock Material Rule.** Keep local Rock motifs in transparent square cells with recorded per-frame offsets and the flat teal key removed, preserving source pixels without rescaling; exclude separator lines, labels and ambiguous unbounded tiles. Reduced motion selects the most populated source frame through the shared still_frame contract.
-
-The four move profiles use their existing travel, impact, contact or area phases through the shared renderer in real-time battles, mass battles, standalone HTML and video. Presentation timing, pause and seek remain shared. The embedded materials need no original sheet or Internet at runtime; move shapes, availability, damage, RNG, replay versions and simulation rules remain unchanged.
-
-### Rock material visibility
-
-The source-pixel preservation above applies to atlas construction. At render time, per-atlas `display_scale` enlarges the sparse grey fragments for ordinary desktop and mobile viewing through the existing shared material stamp. Pixel smoothing remains disabled and the current projection is retained.
-
-**The Rock Draw Scale Rule.** Apply the declared display_scale uniformly to the existing material draw dimensions: 2.4× for Ancient Power, Rock Blast and Rollout, and 1.7× for Rock Tomb. These fixed values are scoped to the four local Rock atlases; materials without the metadata retain the shared 1× default. Preserve source pixels, atlas geometry, anchors and physical collision radii.
-
-The read-only native sprite catalogue exposes `display_scale` alongside the existing frame and provenance metadata through the same UI/REST/MCP contract. The visible stationary `still_frame` continues to serve reduced motion; real-time, mass, standalone HTML and video share this presentation behavior.
-
-## Paused battle particle extension
-
-The Vfx painter shared by real-time, classic and mass battle renderers keeps paused projectiles and charge effects from accumulating procedural particles across repeated zero-time redraws. This behavior follows playback time and retains the inherited artwork, controls and visual styles.
-
-**The Paused Particle Rule.** In the shared real-time/classic/mass Vfx painter, advance procedural particle emission and lifecycle only when playback time advances. Zero-time redraws preserve existing particle positions and ages; resuming restores emission and decay.
-
-Zero-time public snapshots still reach supplied sprite effects before the procedural update stops, and explicit event bursts remain available when reconstructing a replay frame. This contract covers particle lifecycle: some procedural drawing retains visual jitter, so repeated paused draws need not have identical pixels. Simulation, damage, engine RNG, inputs and audio remain unchanged. Scope and regression details are documented in `docs/RT_PAUSE_PARTICLES.md`.
-
-## Type challenge extension
-
-This scoped Facilities addition records `client/src/pages/TypeChallenge.jsx`, its placement above the daily challenge in `Instalaciones.jsx`, and `client/src/type-challenge.css`. It inherits the warm dark/crimson system, shared panel, native fields, buttons and type markers. The final desktop (1280×720) and mobile (390×640, reduced motion) captures confirm setup, questions, feedback and results. Functional scope and calculation limits belong in `docs/TYPE_CHALLENGE.md`.
-
-### Components
-
-The panel begins with a compact sans-serif section title, short instructions and a visible type-chart-only explanation. Labelled native selects choose generation (1–9) and one or two defensive types; an optional text seed accompanies the start action. The active question retains the selected generation and mode above an encounter/current-streak row and native progress indicator. Progress uses the accent and the shared dividing-border color, with a (.45rem) height and (3px) corners. Numeric streaks and formulas use tabular figures.
-
-The question heading uses (1.2rem) text and receives programmatic keyboard focus at each new question and at the result. A (2px) accent outline with a (5px) offset makes this focus visible. Defensive type names and answer labels pair text with small circular markers (.7rem) from the existing type colors; marker color supplements the readable names. Four native answer buttons form a labelled group. After an answer, all options remain fully opaque and disabled; the chosen option exposes `aria-pressed`. The best answer gains an accent border, a surface mixed with (14% accent) and its explicit multiplier. An incorrect chosen answer gains a danger border and its own multiplier.
-
-The status feedback follows a thin shared divider and states whether the choice is correct. It spells out each defensive-type factor and the resulting multiplier; an incorrect choice also shows the best formula. A brief opacity change from (.4) to (1) lasts (180ms), with ease-out timing. Reduced motion removes this animation. Next encounter / See result and End practice actions remain explicit; failures use the inherited alert with Retry, retaining the pending answer or start seed. Loading retains native disabled controls.
-
-Results show the correct count, best streak for the current attempt, generation/mode and a numbered review of mistakes with both formulas. Repeat this challenge reuses the deck; a native disclosure reveals its seed. The setup remains available for another challenge. A persistent help line explains that this page-scoped practice creates no battle or history entry. Spanish and English use the existing translation system.
-
-**The Type Challenge Contrast Rule.** Within the type challenge panel, use white labels on the inherited accent mixed with black (90% accent at rest, 85% on hover), retaining the shared accent border and focus treatment. These local primary fills provide measured contrast of 4.95:1 and 5.44:1; separators use `--line`. Keep the global palette and other screens' button variants unchanged.
-
-### Layout
-
-The panel uses (1.25rem) padding. Instructions are bounded by (75ch). Setup fields wrap with a (.8rem) gap and a (10rem) flexible basis; the seed has a (15rem) basis. The answer grid has four equal columns with (.65rem) gaps and (52px) minimum-height buttons. Actions wrap with (.6rem) gaps. Feedback and result review stay in normal flow, using thin border separators rather than additional cards or overlays; long formulas and seeds wrap anywhere.
-
-At (768px) and below, panel padding becomes (1rem), the answer grid has two equal columns and answer/action buttons have a (44px) minimum height. Setup fields use a (9rem) basis; the seed and start action span the row. Question and result headings use `scroll-margin-top: calc(98px + 1rem)` so focus clears the fixed mobile header. Live DOM evidence at (390×640) confirms both focused headings remain below that header without manual scrolling.
-
-**The Type Challenge Focus Rule.** Focus the question or result heading after a deck, encounter or completion change, preserve its visible accent outline, and retain mobile scroll clearance beneath the fixed header.
-
-## Local Dark material extension
-
-Five motifs select 30 frames from the supplied Pokémon Mystery Dungeon: Red Rescue Team Dark-Type Moves sheet, credited to redblueyellow: Bite jaws (10), Crunch jaws (5), Knock Off claws (3), Pursuit column (5) and Torment seal (7). They extend the existing pixel-material system; the contact sheet and captured Crunch video frame confirm the actual art. Source rectangles, offsets, provenance and selection limits are recorded in `docs/DARK_SPRITES.md`.
-
-**The Local Dark Material Rule.** Remove the flat teal key and preserve source pixels in transparent square cells without rescaling. Retain recorded crop offsets and a visible `still_frame` for reduced motion. Apply `display_scale` only when drawing: 2.4× for Bite, Crunch, Knock Off and Torment; 1.8× for Pursuit. Preserve atlas geometry, anchors, pixel rendering and collision dimensions.
-
-The first four motifs use their existing contact/impact texture phases; Torment retains the existing wave phases. The shared presentation clock, pause, speed and seek behavior serve real-time, mass, classic effects, portable HTML and recorded video. These composed motifs do not reconstruct cartridge emitter programs. Their embedded PNGs require no original sheet or Internet at runtime; simulation rules remain unchanged.
-
-
-## Type challenge defensive variant
-
-This narrow Operate extension keeps the existing Facilities panel and warm dark/crimson identity. A labelled native **Practise** select adds **Defend** beside the default **Attack**. Ten seeded encounters use the selected generation's historical type chart (1–9) and single- or dual-type mode. The defensive question names the incoming attack type and asks for the Pokémon with the lowest multiplier. The existing type-chart-only explanation remains visible; practice stays on this page without creating battles or history entries.
-
-### Layout
-
-Four defending Pokémon use the existing four-column answer grid, becoming two columns at (768px) and below. Each native answer button has a (74px) minimum height on desktop and mobile, with the canonical species name on the first row and wrapping type chips beneath it. Names wrap within the button; the chosen or best multiplier occupies the first row's right edge after grading. Existing mobile question/result focus clearance remains `scroll-margin-top: calc(98px + 1rem)` beneath the fixed header.
-
-### Components
-
-**The Defensive Answer Rule.** Show canonical species names with localized type labels in both visible chips and accessible button names. Color supplements type text. Keep all four options visible and opaque after answering, disable them, expose the chosen option through aria-pressed, and use the inherited accent treatment for the lowest-multiplier answer and danger border for an incorrect choice.
-
-**The Defensive Continuity Rule.** Feedback and numbered mistake review show the incoming attack plus chosen and best species, per-type factors and final multipliers. Retry retains the pending species answer or original start specification; Repeat this challenge reuses the seed, generation, mode and practice goal. Focus moves to the question/result heading as in Attack. The inherited (180ms) feedback fade is removed for reduced motion. Spanish and English use the existing translation system.
+- **Don't** restore the stale brown/crimson palette or Cinzel page headings as the current global identity.
+- **Don't** use display lettering for dense instructions or replace semantic type/status colors with corner colors.
+- **Don't** imply that ordinary real-time contact rings also add a new mass-battle or classic effect layer.
+- **Don't** claim that already exported HTML updates without re-exporting it.
