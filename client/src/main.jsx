@@ -5,6 +5,7 @@ import "./hoard-theme.css";
 import "./index.css";
 import "./battle/battle.css";
 import "./app.css";
+import "./arcade.css";
 import { installCopilot } from "./copilot-context.js";
 import { installSmoothArt } from "./smooth-art.js";
 import PosterArt from "./components/PosterArt.jsx";

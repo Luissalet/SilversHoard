@@ -4,6 +4,7 @@ import "../hoard-theme.css";
 import "../index.css";
 import "../battle/battle.css";
 import "./play.css";
+import "../arcade.css";
 import PlayApp from "./PlayApp.jsx";
 import RoomApp from "./RoomApp.jsx";
 import PkRoomApp from "./PkRoomApp.jsx";

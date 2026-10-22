@@ -13,7 +13,7 @@ import LiveRoom from "./LiveRoom.jsx";
 import { MusicSelect } from "../battle/SoundControl.jsx";
 
 function SeatEditor({ label, seat, onChange, allowHuman = true }) {
-  const { t, changed, version } = useApp();
+  const { t, lang, changed, version } = useApp();
   const list = useTrainers();
   const trainer = list.find((x) => x.id === seat.trainer_id);
   const [busy, run] = useBusy();
@@ -26,7 +26,7 @@ function SeatEditor({ label, seat, onChange, allowHuman = true }) {
     onChange({ ...seat, trainer_id: tr.id, team_indices: undefined });
   });
   return (
-    <div className="panel space-y-3">
+    <div className="panel silver-seat space-y-3">
       <div className="flex items-center gap-2">
         <h2 className="flex-1">{label}</h2>
         {allowHuman && (
@@ -35,6 +35,10 @@ function SeatEditor({ label, seat, onChange, allowHuman = true }) {
             <button type="button" aria-pressed={!seat.human} onClick={() => onChange({ ...seat, human: false })}>{t("ai")}</button>
           </div>
         )}
+      </div>
+      <div className="silver-seat-preview">
+        <Avatar url={trainer?.avatar_url} name={loc(trainer, lang)} size={136} />
+        <div className="min-w-0"><b className="silver-seat-name">{loc(trainer, lang) || t("choose_trainer")}</b><TeamStrip species={trainer?.species || []} size={40} /></div>
       </div>
       <TrainerSelect value={seat.trainer_id} onChange={(v) => onChange({ ...seat, trainer_id: v, ai_level: undefined, ai_style: undefined, team_indices: undefined })} label={t("trainer")} />
       <div className="flex flex-wrap gap-2">
@@ -79,7 +83,7 @@ function SingleBattle() {
   const both = !p1.human && !p2.human;
   return (
     <div className="space-y-3">
-      <div className="grid gap-3 lg:grid-cols-2">
+      <div className="silver-matchup grid gap-3 lg:grid-cols-2">
         <SeatEditor label={t("side_a")} seat={p1} onChange={setP1} />
         <SeatEditor label={t("side_b")} seat={p2} onChange={setP2} />
       </div>

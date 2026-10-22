@@ -8,6 +8,7 @@ import { crowdMembers } from "./crowd.js";
 import { mixTrainerCrowd, drawCrowdTrainer, loadCrowdTrainerAtlas } from "./crowd-trainers.js";
 import { portraitPoint, portraitFacing, upright } from "./portrait-camera.js";
 import { drawBallFrame } from "../ball-art.js";
+import { ImpactAccents } from "./impact-accents.js";
 
 const TAU = Math.PI * 2;
 const rnd = (a = 0, b = 1) => a + Math.random() * (b - a);
@@ -77,6 +78,7 @@ export class Show {
     this.talkAt = -99;
     this.faints = 0;
     this.supers = 0;
+    this.accents = new ImpactAccents(renderer);
   }
 
   // ------------------------------------------------------------ the audience
@@ -326,6 +328,7 @@ export class Show {
         break;
       case "hit": {
         const d = unit(e.s, e.u);
+        if (this.on) this.accents.hit(e, d);
         const a = e.from === 0 || e.from === 1 ? e.from : 1 - e.s;
         const first = e.hit === 0 || e.hit === undefined;
         const ko = e.hp <= 0;
@@ -434,6 +437,7 @@ export class Show {
   update(dt, battle) {
     this.battle = battle;
     const r = this.r;
+    this.accents.update(dt);
     if (this.intro) {
       const it = this.intro;
       // Wait for a usable picture per side, including the fallback, at most a second and a half.
@@ -580,6 +584,7 @@ export class Show {
   drawWorld(ctx) {
     const r = this.r, s = r.scale;
     const reduced = !!r.reducedMotion?.matches;
+    if (this.on) this.accents.draw(ctx);
     for (const b of this.balls) {
       if (b.t < 0) continue;
       const k = clamp(b.t / b.life, 0, 1);
@@ -656,7 +661,7 @@ export class Show {
     if (this.intro) this.drawIntro(ctx, W, H);
   }
 
-  font(px) { return `italic 900 ${Math.round(px)}px "Arial Black", "Segoe UI Black", system-ui, sans-serif`; }
+  font(px) { return `italic 800 ${Math.round(px)}px "Barlow Condensed", "Arial Black", system-ui, sans-serif`; }
 
   /** Big outlined words that pop in and leave a ghost behind as they go. */
   drawCallout(ctx, c, W, H) {
@@ -833,13 +838,25 @@ export class Show {
         const slant = W * 0.07;
         ctx.save();
         ctx.translate(off, 0);
-        ctx.fillStyle = SIDE_COLORS[si];
+        ctx.fillStyle = SIDE_DARK[si];
         ctx.beginPath();
         if (si === 0) { ctx.moveTo(x0, top); ctx.lineTo(x1, top); ctx.lineTo(x1 - slant, top + ph); ctx.lineTo(x0, top + ph); }
         else { ctx.moveTo(x0 + slant, top); ctx.lineTo(x1, top); ctx.lineTo(x1, top + ph); ctx.lineTo(x0, top + ph); }
         ctx.closePath();
         ctx.fill();
-        ctx.strokeStyle = "rgba(255,255,255,0.85)";
+        // Racing streaks stay inside each fighter's corner and stop in reduced motion.
+        ctx.save();
+        ctx.clip();
+        ctx.fillStyle = SIDE_COLORS[si];
+        ctx.globalAlpha = .24;
+        const drift = this.r.reducedMotion?.matches ? 0 : (t * W * .24) % (W * .35);
+        for (let i = 0; i < 9; i++) {
+          const yy = top + ph * (.08 + i * .11);
+          const xx = x0 + ((i * W * .137 + drift) % (W * .65));
+          ctx.fillRect(xx, yy, W * (.12 + (i % 3) * .06), Math.max(2, ph * .012));
+        }
+        ctx.restore();
+        ctx.strokeStyle = SIDE_COLORS[si];
         ctx.lineWidth = Math.max(2, H * 0.006);
         ctx.stroke();
         // the picture: the trainer's own sprite, else the lead Pokémon's face
@@ -849,7 +866,7 @@ export class Show {
         const by = top + ph * 0.1;
         ctx.fillStyle = SIDE_DARK[si];
         ctx.fillRect(bx - 4, by - 4, box + 8, box + 8);
-        ctx.fillStyle = "#f2ead8";
+        ctx.fillStyle = "#dce7e8";
         ctx.fillRect(bx, by, box, box);
         if (pic) {
           ctx.imageSmoothingEnabled = false;

@@ -230,7 +230,7 @@ export default function App() {
   return (
     <AppContext.Provider value={value}>
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:z-50 skip-link focus:p-2">{t("skip")}</a>
-      <div className="min-h-dvh md:grid md:grid-cols-[220px_minmax(0,1fr)]">
+      <div className="silver-shell min-h-dvh md:grid md:grid-cols-[220px_minmax(0,1fr)]">
         <aside className="sticky top-0 z-30 border-b md:flex md:h-dvh md:flex-col md:self-start md:border-b-0 md:border-r">
           <div className="brand">
             <img src="/icon-192.png" alt="" width="32" height="32" />
@@ -270,7 +270,7 @@ export default function App() {
               {t("unreachable")}: {ovError.message}. <button type="button" className="btn-link" onClick={refreshOv}>{t("retry")}</button>
             </div>
           )}
-          <Component key={`${page.path}/${route.param || ""}`} param={route.param} query={route.query} />
+          <div className="silver-page" key={`${page.path}/${route.param || ""}`}><Component param={route.param} query={route.query} /></div>
         </main>
       </div>
       <Toasts toasts={toasts} onClose={closeToast} />
