@@ -4,7 +4,7 @@
 // start animations; it never changes the battle. In doubles there are four Pokémon: each has its HP bar with its slot (a / b),
 // the one a person controls has a marker over its head and the foe it locks on a reticle (turning while the lock-on is held).
 import { TYPE_COLORS } from "../dex.js";
-import { Animator, dirRow, image, loadMeta, sheetUrl } from "./pmd.js";
+import { Animator, dirRow, image, loadMeta, sheetUrl, white } from "./pmd.js";
 import { MegaPresentation } from "./mega-presentation.js";
 import { OverworldAnimator } from "./overworld.js";
 import { Vfx, particleStyle } from "./vfx.js";
@@ -14,6 +14,7 @@ import { ARENA_ART } from "./arena-art.js";
 import { playRtEvent } from "../sfx.js";
 import { rtMove } from "../../../../engine/src/realtime/moves.mjs";
 import { motionFor, poseFor, tossLift } from "./visuals/choreography.js";
+import { FighterReactions, damageTextMotion } from "./visuals/reactions.js";
 import { FLOOR_TEXTURES, floorVariant, drawWaterTextures } from "./visuals/textures.js";
 import { queueMoveCard, drawMoveCard, clearMoveCards } from "../move-cards.js";
 import { portraitFacing, portraitHeight, presentPortrait, upright } from "./portrait-camera.js";
@@ -86,6 +87,8 @@ export class ArenaRenderer {
     this.time = 0;
     this.court = null;
     this.tosses = {};
+    this.reactions = new FighterReactions();
+    this.damageFloats = Array(4).fill(null);
     this.reducedMotion = typeof window.matchMedia === "function" ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
     this.vfx = new Vfx(this);
     this.show = new Show(this);
@@ -189,6 +192,8 @@ export class ArenaRenderer {
     this.cutin = null;
     this.megas = new MegaPresentation();
     this.tosses = {};
+    this.reactions = new FighterReactions();
+    this.damageFloats = Array(4).fill(null);
     this.vfx = new Vfx(this);
     this.show = new Show(this);
     this.show.setupCrowd(battle);
@@ -374,9 +379,30 @@ export class ArenaRenderer {
     return { x: s.x, y: s.y };
   }
 
-  float(battle, si, text, color, { size = 1, dy = 0, u = 0 } = {}) {
+  float(battle, si, text, color, { size = 1, dy = 0, u = 0, hit = null } = {}) {
     const p = this.posOf(battle, si, u);
-    this.floats.push({ x: p.x, y: p.y, text, color, t: 0, life: 1.1, size, dy });
+    const label = { x: p.x, y: p.y, text, color, t: 0, life: 1.1, size, dy, hit };
+    this.floats.push(label);
+    return label;
+  }
+
+  damageFloat(battle, e) {
+    const key = battle.doubles ? e.s * 2 + (e.u || 0) : e.s;
+    const slot = this.unitOf(battle, e.s, e.u || 0).active;
+    let burst = this.damageFloats[key];
+    if (!(e.hit > 0 && burst?.tick === e.t && burst.move === e.move && burst.slot === slot && this.floats.includes(burst.label))) {
+      burst = {tick: e.t, move: e.move, slot, dmg: 0, n: 0, crit: false,
+        label: this.float(battle, e.s, '', '#ffffff', {u: e.u || 0, hit: 0})};
+      this.damageFloats[key] = burst;
+    }
+    burst.dmg += e.dmg; burst.n++;
+    const amount = showSettings().numbers === 'hp' ? burst.dmg : Math.max(1, Math.round(burst.dmg / Math.max(1, e.maxhp) * 100));
+    burst.label.text = `−${amount}${showSettings().numbers === 'hp' ? '' : '%'}${burst.n > 1 ? ` ×${burst.n}` : ''}`;
+    burst.label.color = e.eff > 1 ? '#ffd54a' : e.eff < 1 ? '#c9d2dc' : '#ffffff';
+    burst.label.size = Math.max(burst.label.size, e.crit || e.eff > 1 ? 1.3 : 1);
+    const firstCrit = e.crit && !burst.crit;
+    burst.crit ||= !!e.crit;
+    return firstCrit;
   }
 
   onEvent(e, battle) {
@@ -388,6 +414,7 @@ export class ArenaRenderer {
     const float = (si, text, color, opts = {}) => this.float(battle, si, text, color, { ...opts, u });
     this.vfx.onEvent(e, battle);
     this.show.onEvent(e, battle);
+    this.reactions.onEvent(e, battle, this.time);
     playRtEvent(e, this.audio);
     switch (e.k) {
       case "use": queueMoveCard(this,e.move,this.texts.lang,this.time); break;
@@ -437,10 +464,9 @@ export class ArenaRenderer {
         if (e.hit === 0 || e.hit === undefined) this.hitstop = Math.max(this.hitstop, e.hp <= 0 ? 0.22 : e.crit ? 0.12 : e.eff > 1 ? 0.07 : 0);
         const a = anim(s);
         if (a && e.hp > 0) a.play("Hurt");
-        const pct = Math.max(1, Math.round((e.dmg / Math.max(1, e.maxhp)) * 100));
         // the damage as a share of the HP bar, or in HP as the battle videos show it (Settings)
-        float(s, showSettings().numbers === "hp" ? `−${e.dmg}` : `−${pct}%`, e.eff > 1 ? "#ffd54a" : e.eff < 1 ? "#c9d2dc" : "#ffffff", { size: e.crit || e.eff > 1 ? 1.3 : 1 });
-        if (e.crit) float(s, T.crit, "#ff8a65", { size: 0.8, dy: -0.7 });
+        const firstCrit = this.damageFloat(battle, e);
+        if (firstCrit) float(s, T.crit, "#ff8a65", { size: 0.8, dy: -0.7 });
         else if (e.eff > 1 && e.hit === 0) float(s, T.super, "#ffd54a", { size: 0.8, dy: -0.7 });
         else if (e.eff < 1 && e.eff > 0 && e.hit === 0) float(s, T.weak, "#c9d2dc", { size: 0.75, dy: -0.7 });
         break;
@@ -486,6 +512,9 @@ export class ArenaRenderer {
       }
       case "plus": float(s, `${T.plus}!`, "#ff8fdc", { size: 0.85, dy: -0.9 }); break;
       case "switch": {
+        this.flash[key] = 0;
+        this.labels[key] = null;
+        this.damageFloats[key] = null;
         const p = this.posOf(battle, s, u);
         // with the show on, a Poké Ball flies in instead of the beam (show.js)
         if (!this.show.on) this.effects.push({ kind: "beam", x: p.x, y: p.y, from: TRAINER[s], t: 0, life: 0.4 });
@@ -607,14 +636,22 @@ export class ArenaRenderer {
     ctx.textBaseline = "middle";
     this.floats = this.floats.filter((f) => (f.t += dt) < f.life);
     for (const f of this.floats) {
-      const a = 1 - f.t / f.life;
+      const damage = f.hit !== null;
+      const motion = damage ? damageTextMotion(f.t, !!this.reducedMotion?.matches) : null;
+      const a = motion ? motion.alpha : 1 - f.t / f.life;
       const x = this.px(f.x), baseY = this.py(f.y);
-      const y = baseY - (1.9 - f.dy + f.t * 1.2) * s;
-      ctx.font = `italic 900 ${Math.round(0.62 * s * f.size)}px "Arial Black", system-ui, sans-serif`;
+      const y = baseY - (1.9 - f.dy + (motion ? motion.rise : f.t * 1.2)) * s;
+      ctx.font = `italic 800 ${Math.round(0.74 * s * f.size)}px "Barlow Condensed", sans-serif`;
       ctx.lineWidth = Math.max(2, s * 0.09);
       ctx.strokeStyle = `rgba(0,0,0,${0.75 * a})`;
       ctx.fillStyle = f.color;
-      upright(ctx, x, baseY, this.portrait, () => { ctx.strokeText(f.text, x, y); ctx.globalAlpha = a; ctx.fillText(f.text, x, y); });
+      upright(ctx, x, baseY, this.portrait, () => {
+        ctx.save();
+        if (motion) { ctx.translate(x + motion.x * s, y); ctx.scale(motion.scale, motion.scale); ctx.translate(-x, -y); }
+        ctx.globalAlpha = a;
+        ctx.strokeText(f.text, x, y); ctx.fillText(f.text, x, y);
+        ctx.restore();
+      });
       ctx.globalAlpha = 1;
     }
     ctx.restore();
@@ -845,6 +882,8 @@ export class ArenaRenderer {
     const x = this.px(side.x);
     const y = this.py(side.y);
     const motion = motionFor(side, this.time, !!this.reducedMotion?.matches);
+    const body = this.reactions.sample(side, key, this.time, {reduced: !!this.reducedMotion?.matches,
+      portrait: this.portrait, special: !!motion.ring || !!this.tosses[key] && this.tosses[key].slot === side.active && this.time - this.tosses[key].at < .65});
     const toss = this.tosses[key];
     const lift = motion.lift + (toss?.slot === side.active ? tossLift(this.time - toss.at, !!this.reducedMotion?.matches) : 0);
     if (motion.ring === "dig") {
@@ -882,8 +921,11 @@ export class ArenaRenderer {
     let headY = y - 1.6 * s;
     let drawn = false;
     ctx.save();
+    // Offset only the artwork. Ground rings, HP bars, targeting and collision coordinates stay truthful.
+    ctx.translate(body.x * s, (body.y - body.lift) * s);
     ctx.translate(x, y - .8 * s - lift * s);
-    ctx.rotate(motion.turn);
+    ctx.rotate(motion.turn + body.turn);
+    ctx.scale(body.sx, body.sy);
     ctx.translate(-x, -y + .8 * s);
     const bodyAlpha = alpha * motion.opacity;
     if (a) {
@@ -910,6 +952,10 @@ export class ArenaRenderer {
         ctx.globalAlpha = bodyAlpha;
         if (!this.portrait && side.fx > 0) { ctx.translate(x, 0); ctx.scale(-1, 1); ctx.translate(-x, 0); }
         ctx.drawImage(img.img, x - w / 2, y - h * 0.92, w, h);
+        if (this.flash[key] > 0) {
+          ctx.globalAlpha = bodyAlpha * this.flash[key];
+          ctx.drawImage(white(img.img), x - w / 2, y - h * 0.92, w, h);
+        }
         ctx.restore();
         headY = y - h * 0.95;
       } else {
