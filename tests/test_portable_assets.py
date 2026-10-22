@@ -62,6 +62,48 @@ def test_reborn_apostrophes_match_both_python_and_encode_uri_component_aliases(s
         assert base64.b64decode(assets["files"][key].split(",", 1)[1]) == raw
 
 
+def test_portable_pmd_embeds_complete_cached_sheets_portraits_and_form_index(services):
+    pmd = services.pmd.cache_dir
+    folder = pmd / "0006-0001"
+    folder.mkdir(parents=True)
+    (pmd / "forms.json").write_text(json.dumps({"6": {"megax": "0001"}}))
+    (folder / "meta.json").write_text(json.dumps({"key": folder.name, "a": {
+        "Idle": {"w": 1, "h": 1, "n": 1, "r": 1, "d": [1], "ax": 0, "ay": 0}, "Attack": {}}}))
+    (folder / "Idle.png").write_bytes(PNG_1PX)
+    services.credits.cache_dir.mkdir(parents=True, exist_ok=True)
+    (services.credits.cache_dir / "pmd.json").write_text(json.dumps({"0006": ["Fixture artist"]}))
+    face = pmd / "portrait/0006/Normal.png"
+    face.parent.mkdir(parents=True)
+    face.write_bytes(PNG_1PX)
+    incomplete = pmd / "0025"
+    incomplete.mkdir()
+    (incomplete / "meta.json").write_text(json.dumps({"key": "0025", "a": {"Walk": {}}}))
+    def deny(*args, **kwargs):
+        raise AssertionError("Export must not download or populate the PMD cache")
+    services.pmd._http_get = deny
+    before = {p: p.read_bytes() for p in pmd.rglob("*") if p.is_file()}
+    assets = portable_assets.bundle(services)
+    assert assets["pmd"]["forms"]["6"]["megax"] == "0001"
+    assert set(assets["pmd"]["metas"]) == {"0006-0001"}
+    assert set(assets["pmd"]["metas"]["0006-0001"]["a"]) == {"Idle"}
+    assert assets["pmd"]["metas"]["0006-0001"]["credit"] == ["Fixture artist"]
+    for alias in ["/api/sprites/pmd-sheet/0006-0001/Idle.png",
+                  "https://raw.githubusercontent.com/PMDCollab/SpriteCollab/master/portrait/0006/Normal.png"]:
+        assert base64.b64decode(assets["files"][assets["urls"][alias]].split(",", 1)[1]) == PNG_1PX
+    assert before == {p: p.read_bytes() for p in pmd.rglob("*") if p.is_file()}
+
+
+def test_broken_pmd_cache_metadata_does_not_prevent_exporting_valid_assets(services):
+    pmd = services.pmd.cache_dir
+    (pmd / "0006").mkdir(parents=True)
+    (pmd / "forms.json").write_text("{")
+    (pmd / "0006/meta.json").write_text("{")
+    seed_cache(services)
+    assets = portable_assets.bundle(services)
+    assert assets["pmd"] == {"forms": {}, "metas": {}}
+    assert "sprites/gen5/mew.png" in assets["files"]
+
+
 @needs_engine
 def test_native_trainer_export_carries_cached_art_for_both_battle_modes(services, call):
     seed_cache(services)

@@ -45,7 +45,7 @@ function HpBar({ mon }) {
 
 /** The Pokémon's face (SpriteCollab portrait) by its name in the bars; grey once it has fainted. */
 function MonFace({ mon, sprites, offline }) {
-  if (!mon || !sprites || offline) return null;
+  if (!mon || !sprites) return null;
   return <MonFaceImage key={`${mon.species}:${sprites.server}`} mon={mon} sprites={sprites} />;
 }
 
@@ -273,7 +273,7 @@ function hasPad() {
 /**
  * battle: the app's battle (battle_get) with `rt` {spec, inputs, tick, forfeit, human}. onFinish(inputs, tick, forfeitSide) -> Promise of
  * the stored battle. seats: {p1, p2} with avatarUrl. base: prefix of the app's routes ("" in the app).
- * offline: the friends' playable page, with no app behind it: no walking sprites, cries or music are asked for. onContinue /
+ * offline: the friends' playable page uses embedded walking sprites; no app routes, cries or music are requested. onContinue /
  * continueLabel: a button on the end card that takes the page on (the next battle, the result code).
  * video: the replay recorded as a clip (Video.jsx): {playing, speed, onProgress(fraction), onDone()}; it waits paused until
  * `playing`, then plays at `speed` and reports how far it is and when it has ended.
@@ -925,7 +925,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
           </div>
         )}
         {training && <TrainingPanel stats={training} tr={tr} lang={lang} />}
-        {!offline && <div className="help rt-credit">{tr("rt_sprites_note")}{credits.length ? `: ${credits.join(", ")}` : ""}</div>}
+        {(!offline || credits.length > 0) && <div className="help rt-credit">{tr("rt_sprites_note")}{credits.length ? `: ${credits.join(", ")}` : ""}</div>}
         {importedCredits.length > 0 && <div className="help rt-credit">{importedCredits.map((entry, i) => <React.Fragment key={entry.source}>
           {i > 0 ? " · " : ""}<a href={entry.source} target="_blank" rel="noopener noreferrer">{entry.credit.join(", ")}</a>
         </React.Fragment>)}</div>}

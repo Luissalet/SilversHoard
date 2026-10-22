@@ -1,12 +1,37 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { EMPTY_IMAGE, installPortableAssets, portableAsset } from "../../client/src/portable-assets.js";
+import { EMPTY_IMAGE, installPortableAssets, portableAsset, portablePmd } from "../../client/src/portable-assets.js";
+import { loadMeta, sheetUrl } from "../../client/src/battle/rt/pmd.js";
 import { makeSprites } from "../../client/src/battle/dex.js";
 import { fxUrl } from "../../client/src/battle/fx/ps/url.js";
 import { RebornRunner } from "../../client/src/battle/fx/reborn/runner.js";
 
 const SERVER = "https://play.pokemonshowdown.com/sprites";
 const DATA = "data:image/png;base64,cached";
+
+test("portable PMD resolves cached forms and shiny sheets without any app or HTTP", async () => {
+  const previous = globalThis.fetch;
+  globalThis.fetch = () => { throw new Error("Standalone PMD must not fetch"); };
+  const base = {key:"0006", a:{Idle:{}}}, mega = {key:"0006-0001",a:{Idle:{}}};
+  const shiny = {key:"0006-0000-0001-recolor1",a:{Idle:{}}};
+  installPortableAssets({pmd:{forms:{6:{megax:"0001"}},metas:{"0006":base,"0006-0001":mega,[shiny.key]:shiny}},
+    files:{idle:DATA},urls:{"/api/sprites/pmd-sheet/0006/Idle.png":"idle"}});
+  try {
+    assert.equal(await loadMeta(6),base);
+    assert.equal(portablePmd(6,{form:"Mega-X"}),mega);
+    assert.equal(portablePmd(6,{shiny:true}),shiny);
+    const published={key:'0006-0000-0001',a:{Idle:{}}};
+    installPortableAssets({pmd:{metas:{[shiny.key]:shiny,[published.key]:published}}});
+    assert.equal(portablePmd(6,{shiny:true}),published,'published shiny art takes priority over an older recolour');
+    installPortableAssets({pmd:{forms:{6:{megax:"0001"}},metas:{"0006":base,"0006-0001":mega,[shiny.key]:shiny}},
+      files:{idle:DATA},urls:{"/api/sprites/pmd-sheet/0006/Idle.png":"idle"}});
+    assert.equal(portablePmd(6,{form:"Uncached"}),base);
+    assert.equal(portablePmd(25),null);
+    assert.equal(sheetUrl(base,"Idle"),DATA);
+    assert.equal(sheetUrl(base,"Attack"),"");
+  } finally { installPortableAssets(null); globalThis.fetch=previous; }
+  assert.equal(portablePmd(6),undefined);
+});
 
 test("standalone sprites use their cached fallback and every missing presentation stays local", () => {
   installPortableAssets({ files: { mew: DATA, effect: DATA }, urls: { [`${SERVER}/gen5/mew.png`]: "mew", "https://play.pokemonshowdown.com/fx/wisp.png": "effect" } });

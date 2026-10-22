@@ -15,6 +15,7 @@ import { playRtEvent } from "../sfx.js";
 import { rtMove } from "../../../../engine/src/realtime/moves.mjs";
 import { motionFor, poseFor, tossLift } from "./visuals/choreography.js";
 import { FighterReactions, damageTextMotion } from "./visuals/reactions.js";
+import { portablePmd } from "../../portable-assets.js";
 import { FLOOR_TEXTURES, floorVariant, drawWaterTextures } from "./visuals/textures.js";
 import { queueMoveCard, drawMoveCard, clearMoveCards } from "../move-cards.js";
 import { portraitFacing, portraitHeight, presentPortrait, upright } from "./portrait-camera.js";
@@ -51,8 +52,7 @@ Object.assign(FLOORS, PLACE_FLOORS);
 export class ArenaRenderer {
   /** sides: [{mons: [{num, forme, shiny, species, sprite_id, base_look, mega_info}], avatarUrl, name}]; rocks: [{x, y, r}];
    * humans: which sides a person plays (doubles: their controlled Pokémon and locked foe get markers).
-   * offline: there is no app behind the page (the friends' playable page), so no walking sprites are asked for: the static battle
-   * sprites, or a white dot while they load, draw the Pokémon. */
+   * offline: embedded PMD sheets are used without contacting an app; static sprites remain a fallback. */
   constructor(canvas, { sides, sprites, base = "", texts, rocks = [], humans = [false, false], offline = false }) {
     this.canvas = canvas;
     this.outputCanvas = canvas;
@@ -113,14 +113,14 @@ export class ArenaRenderer {
     }));
     let done = 0;
     const one = async ([si, mi, num, form, shiny, table, spriteId]) => {
-      const meta = this.offline ? null : await loadMeta(num, { form, shiny, base: this.base });
+      const meta = this.offline ? portablePmd(num, { form, shiny }) : await loadMeta(num, { form, shiny, base: this.base });
       // PMD can return the base species when the requested Mega has no sheets. Let its battle sprite show instead.
       const formFolder = meta?.key?.split("-")[1];
       if (meta && (!form?.includes("Mega") || (formFolder && formFolder !== "0000"))) {
         for (const who of meta.credit || []) this.credits.add(who);
         const animator = new Animator(meta, this.base);
         table[si][mi] = animator;
-        for (const a of Object.keys(meta.a)) image(`${this.base}/api/sprites/pmd-sheet/${meta.key}/${a}.png`);
+        for (const a of Object.keys(meta.a)) image(sheetUrl(meta, a, this.base));
         await image(sheetUrl(meta, animator.name("Idle"), this.base)).loaded;
       } else if (spriteId && this.sprites.walking) {
         const imported = await this.sprites.walking(spriteId, shiny);

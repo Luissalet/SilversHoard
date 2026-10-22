@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import base64
 import mimetypes
+import json
 from pathlib import Path
 from typing import Any
 from urllib.parse import quote
@@ -34,6 +35,40 @@ def bundle(services: Any) -> dict[str, Any]:
             aliases.append(source + "/" + "/".join(parts[2:]))
         add(path, "sprites/" + rel, aliases)
 
+    # Walking animation geometry and sheets must travel together. Export only complete cached animations.
+    pmd: dict[str, Any] = {"forms": {}, "metas": {}}
+    credits = {}
+    try:
+        credits = json.loads((services.credits.cache_dir / "pmd.json").read_text("utf-8"))
+    except (OSError, ValueError):
+        pass
+    forms = services.pmd.cache_dir / "forms.json"
+    if forms.is_file():
+        try:
+            pmd["forms"] = json.loads(forms.read_text("utf-8"))
+        except (OSError, ValueError):
+            pass
+    for path in sorted(services.pmd.cache_dir.glob("*/meta.json")):
+        try:
+            meta = json.loads(path.read_text("utf-8"))
+        except (OSError, ValueError):
+            continue
+        animations = {name: geom for name, geom in meta.get("a", {}).items()
+                      if (path.parent / f"{name}.png").is_file() and (path.parent / f"{name}.png").stat().st_size}
+        if not ("Idle" in animations or "Walk" in animations):
+            continue
+        key = meta["key"]
+        folder = key.replace("-", "/")
+        while folder and folder not in credits:
+            folder = folder.rsplit("/", 1)[0] if "/" in folder else ""
+        pmd["metas"][key] = {**meta, "a": animations, "credit": credits.get(folder, meta.get("credit", []))}
+        for name in animations:
+            add(path.parent / f"{name}.png", f"pmd/{key}/{name}.png", [f"/api/sprites/pmd-sheet/{key}/{name}.png"])
+    for path in sorted((services.pmd.cache_dir / "portrait").glob("*/*.png")):
+        folder = path.parent.name.replace("-", "/")
+        add(path, f"pmd/portrait/{path.parent.name}/{path.name}",
+            [f"https://raw.githubusercontent.com/PMDCollab/SpriteCollab/master/portrait/{folder}/{path.name}"])
+
     for kind, folder in [("fx", "fx"), ("bg", "sprites/gen6bgs")]:
         for path in sorted((services.fx.cache_dir / kind).glob("*")):
             if path.suffix.lower() not in (".png", ".jpg", ".jpeg", ".gif", ".webp"):
@@ -53,4 +88,4 @@ def bundle(services: Any) -> dict[str, Any]:
                 f"{services.reborn._server()}/{services.reborn.ref}/{folder}/{component}",
                 f"https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/{services.reborn.ref}/{folder}/{component}",
                 f"/api/reborn/{kind}/{quote(name, safe='')}", f"/api/reborn/{kind}/{component_name}"])
-    return {"version": 1, "files": files, "urls": urls}
+    return {"version": 1, "files": files, "urls": urls, "pmd": pmd}
