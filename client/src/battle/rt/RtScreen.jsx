@@ -625,7 +625,8 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
           else setPhase("done");
         }
       }
-      st.renderer.draw(st.b, running ? (held ? dt * 0.1 : dt) : 0, running ? dt : 0);
+      // Sprite acting, particles and damage figures follow replay speed; show overlays keep real seconds.
+      st.renderer.draw(st.b, running ? (held ? dt * 0.1 : dt) * (live ? 1 : speed) : 0, running ? dt : 0);
       if (now - lastHud > HUD_MS) {
         lastHud = now;
         setHud(st.b.view());

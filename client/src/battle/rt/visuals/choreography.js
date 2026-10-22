@@ -30,6 +30,7 @@ export function motionFor(side, time, reduced = false) {
     look.ring = 'fly';
     if (!reduced) look.lift = act.kind === 'windup' ? clamp(p / .6) * 3.2 : (1 - p) * 3.2;
   } else if (move === 'rollout' || move === 'iceball') {
+    look.ring = 'roll';
     if (!reduced) look.turn = time * (act.kind === 'dash' ? 22 : 12);
   }
   return look;

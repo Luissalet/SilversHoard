@@ -132,7 +132,7 @@ export class Animator {
 }
 
 const whites = new WeakMap();
-function white(img) {
+export function white(img) {
   let c = whites.get(img);
   if (c) return c;
   c = document.createElement("canvas");
