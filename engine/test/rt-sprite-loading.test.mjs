@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {ArenaRenderer} from '../../client/src/battle/rt/render.js';
 import {image} from '../../client/src/battle/rt/pmd.js';
+import {installPortableAssets} from '../../client/src/portable-assets.js';
 
 let serial = 0;
 function environment({sheets = false, portrait = false} = {}) {
@@ -114,4 +115,29 @@ test('portrait preload also waits for back sprites and keeps the active Mega whe
     assert.ok(env.draws.some(url=>url.endsWith('Swampert-Mega.png')));
     assert.ok(!env.draws.some(url=>url.endsWith('Swampert.png')));
   } finally {env.restore();await loading;}
+});
+
+test('both standalone sides draw embedded PMD fighters and keep Idle while an action sheet loads',async()=>{
+  const env=environment();
+  const geom={w:32,h:32,n:1,r:8,d:[8],ax:16,ay:24};
+  const idle='data:image/png;base64,pmd-idle-1172', attack='data:image/png;base64,pmd-attack-1172';
+  installPortableAssets({pmd:{metas:{'0260-0000-0001':{key:'0260-0000-0001',a:{Idle:geom,Attack:geom}}}},
+    files:{idle,attack},urls:{'/api/sprites/pmd-sheet/0260-0000-0001/Idle.png':'idle',
+      '/api/sprites/pmd-sheet/0260-0000-0001/Attack.png':'attack'}});
+  try {
+    env.r.base='';
+    env.r.sides=[{mons:[env.member]},{mons:[env.member]}];
+    env.r.anims=[[null],[null]]; env.r.megaAnims=[[null],[null]];
+    env.release(); await env.r.preload();
+    for(let si=0;si<2;si++) {
+      const animator=env.r.animOf(si,0,false);
+      assert.ok(animator,'offline must retain the PMD animator for either team');
+      animator.play('Attack'); image(attack).ready=false;
+      assert.equal(animator.draw(env.r.ctx,80,80,2,2),true);
+      assert.equal(env.draws.at(-1),idle,'a pending action uses PMD Idle, not a static battle fallback');
+      image(attack).ready=true;
+      animator.draw(env.r.ctx,80,80,2,2);
+      assert.equal(env.draws.at(-1),attack);
+    }
+  } finally {installPortableAssets(null);env.restore();}
 });

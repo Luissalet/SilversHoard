@@ -5,6 +5,7 @@
 // A small mixer (master / music / effects / cries + mute) is stored in localStorage. Browsers block audio until the person does
 // something, so the AudioContext is only created after the first click, key or touch.
 import { MUSIC_OPTIONS } from "./sound-strings.js";
+import { makeImpact, IMPACT_VARIANTS } from "./battle/impact-sound.js";
 
 const KEY = "silver-sound";
 const MUSIC_IDS = new Set(MUSIC_OPTIONS.map((x) => x.id));
@@ -196,10 +197,29 @@ function parts(o, list) {
 }
 
 // ---------------------------------------------------------------------------------------------------------- cues
-const hit = (o, k = 1) => {
-  noise(o, { dur: 0.09, vol: 0.5 * k, filter: "lowpass", f: 2600, to: 300 });
-  tone(o, { f: 180, to: 55, dur: 0.12, vol: 0.6 * k });
-};
+const impactBuffers = new Map();
+const impactTurns = {};
+function impact(o, kind = "hit") {
+  if (voices > 40) return;
+  const variant = impactTurns[kind] || 0;
+  impactTurns[kind] = (variant + 1) % IMPACT_VARIANTS;
+  const key = `${kind}:${variant}`;
+  let buffer = impactBuffers.get(key);
+  if (!buffer) {
+    const pcm = makeImpact(kind, ctx.sampleRate, variant);
+    buffer = ctx.createBuffer(1, pcm.length, ctx.sampleRate);
+    buffer.copyToChannel(pcm, 0);
+    impactBuffers.set(key, buffer);
+  }
+  const source = ctx.createBufferSource(), gain = ctx.createGain();
+  source.buffer = buffer;
+  source.playbackRate.value = Math.max(.75, Math.min(1.25, o.pitch || 1));
+  gain.gain.value = o.vol ?? 1;
+  source.connect(gain); gain.connect(o.out);
+  const t = ctx.currentTime + (o.delay || 0);
+  source.start(t);
+  track(source, t + buffer.duration / source.playbackRate.value);
+}
 const arp = (o, notes, { step = 0.07, wave = "triangle", vol = 0.22, dur = 0.14 } = {}) => notes.forEach((n, i) => tone(o, { f: midi(n), dur, wave, vol, delay: i * step }));
 
 const STATUS_CUE = {
@@ -213,24 +233,12 @@ STATUS_CUE.tox = STATUS_CUE.psn;
 
 const CUES = {
   click: (o) => tone(o, { f: 1400, to: 900, dur: 0.04, wave: "square", vol: 0.08 }),
-  hit: (o) => hit(o),
-  chip: (o) => hit(o, 0.45),
-  super: (o) => {
-    hit(o, 0.9);
-    tone(o, { f: 660, to: 1320, dur: 0.12, wave: "square", vol: 0.14 });
-    tone(o, { f: 1760, dur: 0.14, vol: 0.14, delay: 0.1 });
-    noise(o, { dur: 0.12, vol: 0.2, filter: "highpass", f: 5000, delay: 0.02 });
-  },
-  resisted: (o) => {
-    noise(o, { dur: 0.08, vol: 0.22, filter: "lowpass", f: 700 });
-    tone(o, { f: 110, to: 70, dur: 0.1, vol: 0.4 });
-  },
-  crit: (o) => {
-    hit(o, 1.1);
-    tone(o, { f: 500, to: 2400, dur: 0.1, wave: "sawtooth", vol: 0.16 });
-    tone(o, { f: 1568, dur: 0.15, wave: "square", vol: 0.1, delay: 0.08 });
-    tone(o, { f: 2093, dur: 0.2, wave: "square", vol: 0.1, delay: 0.14 });
-  },
+  hit: (o) => impact(o),
+  chip: (o) => impact({ ...o, vol: (o.vol ?? 1) * .35 }, "resisted"),
+  super: (o) => impact(o, "super"),
+  resisted: (o) => impact(o, "resisted"),
+  block: (o) => impact(o, "block"),
+  crit: (o) => impact(o, "crit"),
   miss: (o) => {
     noise(o, { dur: 0.22, vol: 0.18, filter: "bandpass", f: 2400, to: 500, q: 1.5 });
     tone(o, { f: 500, to: 300, dur: 0.15, vol: 0.08 });

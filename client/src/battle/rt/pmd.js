@@ -3,11 +3,14 @@
 // animations have different sizes, so they line up by the ground anchor the app works out from each sheet's shadow.
 // The animator follows PokéSurvivor's js/core/sprites.js (MIT): a looping base animation (Idle or Walk) and one-shot animations
 // (Attack, Shoot, Hurt...) that cover it until they end.
+import { portableAsset, portablePmd } from "../../portable-assets.js";
 
 const metas = new Map();   // "base|num|form|shiny" -> Promise<meta|null>
 const images = new Map();  // url -> {img, ready, failed, loaded}
 
 export function loadMeta(num, { form = "", shiny = false, base = "" } = {}) {
+  const embedded = portablePmd(num, { form, shiny });
+  if (embedded !== undefined) return Promise.resolve(embedded);
   const key = `${base}|${num}|${form}|${shiny ? 1 : 0}`;
   if (!metas.has(key)) {
     const url = `${base}/api/sprites/pmd/${num}?form=${encodeURIComponent(form || "")}&shiny=${shiny ? "true" : "false"}`;
@@ -35,7 +38,7 @@ export function image(url) {
 }
 
 export function sheetUrl(meta, anim, base = "") {
-  return `${base}/api/sprites/pmd-sheet/${meta.key}/${anim}.png`;
+  return portableAsset(`${base}/api/sprites/pmd-sheet/${meta.key}/${anim}.png`, { missing: "" });
 }
 
 /** Screen angle -> sheet row: 0 down, 1 down-right, 2 right, 3 up-right, 4 up, 5 up-left, 6 left, 7 down-left. */
@@ -105,12 +108,17 @@ export class Animator {
 
   /** Draw with the feet at (x, y), `k` screen pixels per sprite pixel. */
   draw(ctx, x, y, row, k, { alpha = 1, flash = 0 } = {}) {
-    const m = this.meta?.a?.[this.cur];
+    let m = this.meta?.a?.[this.cur];
     if (!m) return false;
-    const s = image(sheetUrl(this.meta, this.cur, this.base));
-    if (!s.ready) return false;
+    let s = image(sheetUrl(this.meta, this.cur, this.base)), frame = this.frame;
+    if (!s.ready) {
+      // A late Attack/Hurt sheet must not replace a loaded PMD fighter with a Showdown image.
+      const idle = ["Idle", "Walk"].find(name => this.has(name) && image(sheetUrl(this.meta, name, this.base)).ready);
+      if (!idle) return false;
+      m = this.meta.a[idle]; s = image(sheetUrl(this.meta, idle, this.base)); frame = 0;
+    }
     const r = Math.min(row, m.r - 1);
-    const sx = this.frame * m.w;
+    const sx = frame * m.w;
     const sy = r * m.h;
     const dx = Math.round(x - m.ax * k);
     const dy = Math.round(y - m.ay * k);

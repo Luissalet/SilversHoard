@@ -235,3 +235,7 @@ Four local Rock motifs add 29 supplied Red Rescue Team frames for Ancient Power,
 Battle sound: the speaker mixer saves the chosen music (including personal MP3s) and master/music/effects/cries/mute levels with each battle. Reopening the battle and MP4 export use that saved mix; the export dialog also exposes the same controls. REST/MCP `battle_audio_set` saves it and `battle_video` accepts an optional audio override. The song stays in the local music library; it is not embedded in portable battle HTML.
 
 Ordinary real-time battles add sprite anticipation, attack impulses, directional hit reactions, block/dodge/heal recovery and punchier damage figures, including static fallback art and newly exported pages. Game rules and input logs are unchanged; pause, replay and reduced motion are preserved. See [visual presentation](docs/VISUAL_PRESENTATION.md).
+
+Combat impacts use dry contact and low-mid body with distinct heavy, critical and blocked cues, four short variants and the existing mixer. No sound download is needed. See [impact audio](docs/SOUND_IMPACTS.md).
+
+Fresh standalone pages also embed cached PMD animation geometry, sheets and portraits. Real-time combat uses those sheets for either team and retains its loaded PMD idle pose while another animation loads. A species not present in the export cache still uses its static/labelled fallback; an older HTML needs re-exporting.

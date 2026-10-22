@@ -97,6 +97,18 @@ test("a super effective hit makes one impact, not two; resisted, critical and pl
     "|move|p1a: Garchomp|Dragon Claw|p2a: Charizard", "|-supereffective|p2a: Charizard", "|-damage|p2a: Charizard|10/100",
     "|move|p2a: Charizard|Tackle|p1a: Garchomp", "|-damage|p1a: Garchomp|90/100"]);
   assert.deepEqual(plain.heard.slice(2), ["move", "hit", "move", "super", "move", "hit"]);
+  const both = run([...OPEN, "|move|p1a: Garchomp|Stone Edge|p2a: Charizard", "|-crit|p2a: Charizard", "|-supereffective|p2a: Charizard", "|-damage|p2a: Charizard|0 fnt"]);
+  assert.deepEqual(both.heard.slice(2), ["move", "crit"], "one contact must not become a second delayed heavy hit");
+});
+
+test("blocking has a dry brace cue in both battle protocols", () => {
+  const blocked = run([...OPEN, "|-singleturn|p2a: Charizard|Protect", "|-activate|p2a: Charizard|move: Protect"]);
+  assert.deepEqual(blocked.heard.slice(2), ["block"]);
+  const heard=[];
+  playRtEvent({k:"protected",s:1},{sfx:(name)=>heard.push(name)});
+  assert.deepEqual(heard,["block"]);
+  const ability=run([...OPEN,"|-activate|p2a: Charizard|ability: Sturdy"]);
+  assert.deepEqual(ability.heard.slice(2),[]);
 });
 
 test("chip damage, misses, status, boosts, healing and fainting", () => {

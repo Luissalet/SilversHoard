@@ -238,3 +238,7 @@ Cuatro motivos locales de Roca añaden 29 cuadros de Red Rescue Team para Poder 
 Sonido del combate: el mezclador del altavoz guarda la música elegida (también MP3 propios) y los niveles general/música/efectos/gritos/silencio con cada combate. Al reabrirlo y al exportar MP4 se usa esa mezcla; el diálogo de exportación muestra los mismos controles. REST/MCP `battle_audio_set` la guarda y `battle_video` admite una mezcla opcional. La canción permanece en la biblioteca local; no se incrusta en el HTML portátil.
 
 Los combates normales en tiempo real incorporan preparación del ataque, impulso, reacción direccional al daño, bloqueo, esquiva y recuperación al curarse, además de cifras de daño con más presencia. También se aplica a sprites de respaldo y nuevas páginas exportadas. Se conservan reglas, entradas, pausa, repeticiones y movimiento reducido. Véase [presentación visual](docs/VISUAL_PRESENTATION.md).
+
+Los impactos de combate combinan contacto seco y cuerpo grave, con golpes fuertes, críticos y bloqueos distintos, cuatro variantes cortas y el mezclador habitual. No necesitan descargar sonidos. Véase [audio de impactos](docs/SOUND_IMPACTS.md).
+
+Las páginas portátiles nuevas incluyen también la geometría, hojas y retratos PMD descargados. El combate en tiempo real los usa para ambos equipos y conserva la pose PMD cargada mientras llega otra animación. Una especie ausente de la caché exportada sigue usando su respaldo estático o identificado por nombre; los HTML antiguos necesitan reexportarse.

@@ -71,13 +71,16 @@ export function playLine(state, line, ev, pre, mem, { speedMs = 900, cryUrl = nu
       if (/\[from\]/.test(line)) { if (level > 0) sfx("chip", { gap }); break; }
       const f = mem.flags;
       mem.flags = [];
-      if (f.includes("crit")) { sfx("crit", { gap }); if (f.includes("super") && level > 0) sfx("super", { gap, delay: 0.16, vol: 0.6 }); }
+      if (f.includes("crit")) sfx("crit", { gap });
       else if (f.includes("super")) sfx("super", { gap });
       else if (f.includes("resisted")) sfx("resisted", { gap });
       else sfx("hit", { gap });
       break;
     }
     case "-miss": sfx("miss", { gap }); break;
+    case "-activate":
+      if (/^move: (Protect|Detect|King's Shield|Spiky Shield|Baneful Bunker|Silk Trap|Burning Bulwark|Max Guard)$/.test(parts[2] || "")) sfx("block", { gap: 0.1, vol: 0.8 });
+      break;
     case "-immune": if (level > 0) sfx("resisted", { gap, vol: 0.6 }); break;
     case "faint": {
       sfx("faint", { gap: 0 });
@@ -129,7 +132,7 @@ export function playRtEvent(e, { speed = 1, cryUrl = null, sfx = realSfx, cry = 
     case "chip": if (!fast) sfx("chip", { gap: 0.1 }); break;
     case "heal": if (!fast) sfx("heal", { gap: 0.2 }); break;
     case "miss": sfx("miss", { gap }); break;
-    case "protected": sfx("resisted", { gap: 0.1, vol: 0.7 }); break;
+    case "protected": sfx("block", { gap: 0.1, vol: 0.8 }); break;
     case "status": if (!fast) sfx("status", { status: e.status, gap: 0.2 }); break;
     case "boost": if (!e.same && !fast) sfx((e.delta ?? e.stage) > 0 ? "statUp" : "statDown", { gap: 0.3 }); break;
     case "faint":
