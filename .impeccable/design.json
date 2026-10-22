@@ -1,246 +1,401 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-18T01:36:57Z",
+  "generatedAt": "2026-10-22T21:52:56.899074+00:00",
   "title": "Design System: Silver's Hoard",
   "extensions": {
     "colorMeta": {
-      "accent": { "role": "primary", "displayName": "Crimson action" },
-      "deep": { "role": "neutral", "displayName": "Warm dark canvas" },
-      "sunken": { "role": "neutral", "displayName": "Sunken field" },
-      "surface": { "role": "neutral", "displayName": "Warm card surface" },
-      "elevated": { "role": "neutral", "displayName": "Raised warm surface" },
-      "text": { "role": "neutral", "displayName": "Pale warm text" },
-      "danger": { "role": "semantic", "displayName": "Error border" }
+      "accent": {
+        "role": "primary",
+        "displayName": "Warm gold",
+        "tonalRamp": [
+          "oklch(15% 0.1263 88.79)",
+          "oklch(26% 0.1263 88.79)",
+          "oklch(38% 0.1263 88.79)",
+          "oklch(49% 0.1263 88.79)",
+          "oklch(61% 0.1263 88.79)",
+          "oklch(72% 0.1263 88.79)",
+          "oklch(84% 0.1263 88.79)",
+          "oklch(95% 0.1263 88.79)"
+        ]
+      },
+      "accent-strong": {
+        "role": "primary",
+        "displayName": "Bright gold",
+        "tonalRamp": [
+          "oklch(15% 0.0896 88.54)",
+          "oklch(26% 0.0896 88.54)",
+          "oklch(38% 0.0896 88.54)",
+          "oklch(49% 0.0896 88.54)",
+          "oklch(61% 0.0896 88.54)",
+          "oklch(72% 0.0896 88.54)",
+          "oklch(84% 0.0896 88.54)",
+          "oklch(95% 0.0896 88.54)"
+        ]
+      },
+      "accent-ink": {
+        "role": "primary",
+        "displayName": "Dark gold foreground",
+        "tonalRamp": [
+          "oklch(15% 0.0156 244.39)",
+          "oklch(26% 0.0156 244.39)",
+          "oklch(38% 0.0156 244.39)",
+          "oklch(49% 0.0156 244.39)",
+          "oklch(61% 0.0156 244.39)",
+          "oklch(72% 0.0156 244.39)",
+          "oklch(84% 0.0156 244.39)",
+          "oklch(95% 0.0156 244.39)"
+        ]
+      },
+      "accent-soft": {
+        "role": "primary",
+        "displayName": "Soft gold wash",
+        "tonalRamp": [
+          "oklch(15% 0.1263 88.79)",
+          "oklch(26% 0.1263 88.79)",
+          "oklch(38% 0.1263 88.79)",
+          "oklch(49% 0.1263 88.79)",
+          "oklch(61% 0.1263 88.79)",
+          "oklch(72% 0.1263 88.79)",
+          "oklch(84% 0.1263 88.79)",
+          "oklch(95% 0.1263 88.79)"
+        ]
+      },
+      "deep": {
+        "role": "neutral",
+        "displayName": "Deep slate",
+        "tonalRamp": [
+          "oklch(15% 0.0224 248.94)",
+          "oklch(26% 0.0224 248.94)",
+          "oklch(38% 0.0224 248.94)",
+          "oklch(49% 0.0224 248.94)",
+          "oklch(61% 0.0224 248.94)",
+          "oklch(72% 0.0224 248.94)",
+          "oklch(84% 0.0224 248.94)",
+          "oklch(95% 0.0224 248.94)"
+        ]
+      },
+      "sunken": {
+        "role": "neutral",
+        "displayName": "Recessed slate",
+        "tonalRamp": [
+          "oklch(15% 0.0216 255.00)",
+          "oklch(26% 0.0216 255.00)",
+          "oklch(38% 0.0216 255.00)",
+          "oklch(49% 0.0216 255.00)",
+          "oklch(61% 0.0216 255.00)",
+          "oklch(72% 0.0216 255.00)",
+          "oklch(84% 0.0216 255.00)",
+          "oklch(95% 0.0216 255.00)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Slate panel",
+        "tonalRamp": [
+          "oklch(15% 0.0274 244.65)",
+          "oklch(26% 0.0274 244.65)",
+          "oklch(38% 0.0274 244.65)",
+          "oklch(49% 0.0274 244.65)",
+          "oklch(61% 0.0274 244.65)",
+          "oklch(72% 0.0274 244.65)",
+          "oklch(84% 0.0274 244.65)",
+          "oklch(95% 0.0274 244.65)"
+        ]
+      },
+      "elevated": {
+        "role": "neutral",
+        "displayName": "Raised slate",
+        "tonalRamp": [
+          "oklch(15% 0.0309 239.70)",
+          "oklch(26% 0.0309 239.70)",
+          "oklch(38% 0.0309 239.70)",
+          "oklch(49% 0.0309 239.70)",
+          "oklch(61% 0.0309 239.70)",
+          "oklch(72% 0.0309 239.70)",
+          "oklch(84% 0.0309 239.70)",
+          "oklch(95% 0.0309 239.70)"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Slate edge",
+        "tonalRamp": [
+          "oklch(15% 0.0311 239.81)",
+          "oklch(26% 0.0311 239.81)",
+          "oklch(38% 0.0311 239.81)",
+          "oklch(49% 0.0311 239.81)",
+          "oklch(61% 0.0311 239.81)",
+          "oklch(72% 0.0311 239.81)",
+          "oklch(84% 0.0311 239.81)",
+          "oklch(95% 0.0311 239.81)"
+        ]
+      },
+      "border-hover": {
+        "role": "neutral",
+        "displayName": "Bright slate edge",
+        "tonalRamp": [
+          "oklch(15% 0.0379 232.44)",
+          "oklch(26% 0.0379 232.44)",
+          "oklch(38% 0.0379 232.44)",
+          "oklch(49% 0.0379 232.44)",
+          "oklch(61% 0.0379 232.44)",
+          "oklch(72% 0.0379 232.44)",
+          "oklch(84% 0.0379 232.44)",
+          "oklch(95% 0.0379 232.44)"
+        ]
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "Silver text",
+        "tonalRamp": [
+          "oklch(15% 0.0102 131.36)",
+          "oklch(26% 0.0102 131.36)",
+          "oklch(38% 0.0102 131.36)",
+          "oklch(49% 0.0102 131.36)",
+          "oklch(61% 0.0102 131.36)",
+          "oklch(72% 0.0102 131.36)",
+          "oklch(84% 0.0102 131.36)",
+          "oklch(95% 0.0102 131.36)"
+        ]
+      },
+      "text-muted": {
+        "role": "neutral",
+        "displayName": "Muted silver",
+        "tonalRamp": [
+          "oklch(15% 0.0204 220.91)",
+          "oklch(26% 0.0204 220.91)",
+          "oklch(38% 0.0204 220.91)",
+          "oklch(49% 0.0204 220.91)",
+          "oklch(61% 0.0204 220.91)",
+          "oklch(72% 0.0204 220.91)",
+          "oklch(84% 0.0204 220.91)",
+          "oklch(95% 0.0204 220.91)"
+        ]
+      },
+      "text-dim": {
+        "role": "neutral",
+        "displayName": "Quiet silver",
+        "tonalRamp": [
+          "oklch(15% 0.0256 226.59)",
+          "oklch(26% 0.0256 226.59)",
+          "oklch(38% 0.0256 226.59)",
+          "oklch(49% 0.0256 226.59)",
+          "oklch(61% 0.0256 226.59)",
+          "oklch(72% 0.0256 226.59)",
+          "oklch(84% 0.0256 226.59)",
+          "oklch(95% 0.0256 226.59)"
+        ]
+      },
+      "corner-blue": {
+        "role": "secondary",
+        "displayName": "Cyan corner",
+        "tonalRamp": [
+          "oklch(15% 0.1024 213.02)",
+          "oklch(26% 0.1024 213.02)",
+          "oklch(38% 0.1024 213.02)",
+          "oklch(49% 0.1024 213.02)",
+          "oklch(61% 0.1024 213.02)",
+          "oklch(72% 0.1024 213.02)",
+          "oklch(84% 0.1024 213.02)",
+          "oklch(95% 0.1024 213.02)"
+        ]
+      },
+      "corner-red": {
+        "role": "secondary",
+        "displayName": "Coral corner",
+        "tonalRamp": [
+          "oklch(15% 0.1364 26.19)",
+          "oklch(26% 0.1364 26.19)",
+          "oklch(38% 0.1364 26.19)",
+          "oklch(49% 0.1364 26.19)",
+          "oklch(61% 0.1364 26.19)",
+          "oklch(72% 0.1364 26.19)",
+          "oklch(84% 0.1364 26.19)",
+          "oklch(95% 0.1364 26.19)"
+        ]
+      },
+      "danger": {
+        "role": "semantic",
+        "displayName": "Inherited danger",
+        "tonalRamp": [
+          "oklch(15% 0.1634 28.69)",
+          "oklch(26% 0.1634 28.69)",
+          "oklch(38% 0.1634 28.69)",
+          "oklch(49% 0.1634 28.69)",
+          "oklch(61% 0.1634 28.69)",
+          "oklch(72% 0.1634 28.69)",
+          "oklch(84% 0.1634 28.69)",
+          "oklch(95% 0.1634 28.69)"
+        ]
+      }
     },
     "typographyMeta": {
-      "headline": { "displayName": "Page heading", "purpose": "Inherited serif page heading; 23px below 768px." },
-      "title": { "displayName": "Section heading", "purpose": "Compact sans-serif section titles." },
-      "body": { "displayName": "Body", "purpose": "Names and general interface content." },
-      "label": { "displayName": "Field label", "purpose": "Visible labels above native controls." }
+      "display": {
+        "displayName": "Condensed italic display",
+        "purpose": "Self-hosted extra-bold italic face for page titles, established display labels, trainer names and timers; italic/uppercase is component styling."
+      },
+      "title": {
+        "displayName": "Sans-serif section title",
+        "purpose": "Compact working section headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Existing Source Sans 3 stack for controls and prose."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Visible labels and compact metadata."
+      }
     },
     "shadows": [
-      { "name": "hoard-shadow", "value": "0 8px 28px rgba(0, 0, 0, 0.38)", "purpose": "Inherited overlay token; trainer cards and picker use borders and tonal layering." },
-      { "name": "active-nav-desktop", "value": "inset 3px 0 0 var(--accent)", "purpose": "Inherited active desktop navigation indicator." },
-      { "name": "active-nav-mobile", "value": "inset 0 -2px 0 var(--accent)", "purpose": "Inherited active mobile navigation indicator." }
-    ],
-    "motion": [
-      { "name": "button-state", "value": "background 0.12s, border-color 0.12s", "purpose": "Inherited button hover transition; disabled under prefers-reduced-motion." },
-      { "name": "trainer-card-state", "value": "border-color 0.12s", "purpose": "Library card hover border transition; disabled under prefers-reduced-motion." },
       {
-        "name": "supplied-effect-reduced-motion",
-        "value": "a.still_frame || 0",
-        "purpose": "Reduced motion uses the material's declared still_frame, selecting a visible stationary source frame; materials without that metadata retain frame zero. Normal animation, pause, speed changes and seek retain the existing renderer clock and queues."
+        "name": "overlay-ambient",
+        "value": "0 8px 28px rgba(0, 0, 0, 0.38)",
+        "purpose": "Inherited shared overlay depth."
       },
       {
-        "name": "type-challenge-answer",
-        "value": "opacity .4 to 1; 180ms ease-out",
-        "purpose": "Type challenge status feedback appears with opacity only; prefers-reduced-motion removes the animation."
+        "name": "sprite-lift",
+        "value": "0 5px 4px #0006",
+        "purpose": "Home shortcut sprite drop-shadow filter."
+      }
+    ],
+    "motion": [
+      {
+        "name": "button-state",
+        "value": ".16s",
+        "purpose": "Background, border and press transform."
+      },
+      {
+        "name": "selection-state",
+        "value": ".2s",
+        "purpose": "Card and sprite hover response."
+      },
+      {
+        "name": "page-entry",
+        "value": ".28s cubic-bezier(.16,1,.3,1)",
+        "purpose": "Seven-pixel page arrival; disabled for reduced motion."
+      },
+      {
+        "name": "contact-ring",
+        "value": ".32s / .48s",
+        "purpose": "Ordinary/strong first-hit rings in ordinary real-time Show; presentation clock, stationary reduced-motion shape."
       }
     ],
     "breakpoints": [
-      { "name": "desktop-shell", "value": "768px" },
-      { "name": "hide-nav-icons-max", "value": "440px" },
       {
-        "name": "type-challenge-mobile-max",
-        "value": "768px"
+        "name": "shell-mobile",
+        "value": "767px"
+      },
+      {
+        "name": "matchup-columns",
+        "value": "1024px"
+      },
+      {
+        "name": "music-stack",
+        "value": "1000px"
       }
     ]
   },
   "components": [
     {
-      "name": "Primary Button",
+      "name": "Primary button",
       "kind": "button",
-      "refersTo": "button-primary",
-      "description": "Compact filled action; label is an illustrative existing UI label.",
-      "html": "<button class=\"ds-primary\" type=\"button\">Choose this team</button>",
-      "css": ".ds-primary{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:32px;padding:4px 12px;border-radius:var(--hoard-radius,8px);border:1px solid var(--accent,#e2404f);background:var(--accent,#e2404f);color:var(--hoard-accent-ink,#fff);font:600 13px/1.5 var(--hoard-font-sans,'Source Sans 3',sans-serif);cursor:pointer;white-space:nowrap;transition:background .12s,border-color .12s}.ds-primary:hover:not(:disabled){background:var(--hoard-accent-strong,#e76370);border-color:var(--hoard-accent-strong,#e76370)}.ds-primary:focus-visible{outline:2px solid var(--accent,#e2404f);outline-offset:1px}.ds-primary:disabled{opacity:.42;cursor:not-allowed}@media(prefers-reduced-motion:reduce){.ds-primary{transition:none}}"
+      "description": "Gold action with a dark label and compact bottom bevel.",
+      "html": "<button class=\"ds-primary\" type=\"button\">Start battle</button>",
+      "css": ".ds-primary{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:36px;padding:4px 12px;border:1px solid var(--hoard-border,#415360);border-bottom-width:3px;border-radius:4px;font:600 13px/1.5 var(--hoard-font-sans,'Source Sans 3',sans-serif);cursor:pointer;transition:background .16s,border-color .16s,transform .16s;background:var(--hoard-accent,#f3cd69);color:var(--hoard-accent-ink,#171e24);border-color:var(--hoard-accent,#f3cd69);border-bottom-color:#ac8233}.ds-primary:hover:not(:disabled){background:var(--hoard-accent-strong,#ffe4a1);border-color:var(--hoard-accent-strong,#ffe4a1);border-bottom-color:#ac8233}.ds-primary:focus-visible{outline:2px solid var(--hoard-accent,#f3cd69);outline-offset:1px}.ds-primary:active:not(:disabled){transform:translateY(2px)}.ds-primary:disabled{opacity:.42;cursor:not-allowed}@media(prefers-reduced-motion:reduce){.ds-primary{transition:none;transform:none}}",
+      "refersTo": "button-primary"
     },
     {
-      "name": "Secondary Button",
+      "name": "Secondary button",
       "kind": "button",
-      "refersTo": "button-secondary",
-      "description": "Bordered secondary action used beside the primary action.",
-      "html": "<button class=\"ds-secondary\" type=\"button\">Random trainer</button>",
-      "css": ".ds-secondary{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:32px;padding:4px 12px;border-radius:var(--hoard-radius,8px);border:1px solid var(--line,#433536);background:transparent;color:var(--ink,#ece1e2);font:600 13px/1.5 var(--hoard-font-sans,'Source Sans 3',sans-serif);cursor:pointer;white-space:nowrap;transition:background .12s,border-color .12s}.ds-secondary:hover:not(:disabled){background:var(--surface-2,#2f2526);border-color:var(--hoard-border-hover,#6a5859)}.ds-secondary:focus-visible{outline:2px solid var(--accent,#e2404f);outline-offset:1px}.ds-secondary:disabled{opacity:.42;cursor:not-allowed}@media(prefers-reduced-motion:reduce){.ds-secondary{transition:none}}"
+      "description": "Transparent action with slate hover and the same press response.",
+      "html": "<button class=\"ds-secondary\" type=\"button\">Swap sides</button>",
+      "css": ".ds-secondary{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:36px;padding:4px 12px;border:1px solid var(--hoard-border,#415360);border-bottom-width:3px;border-radius:4px;font:600 13px/1.5 var(--hoard-font-sans,'Source Sans 3',sans-serif);cursor:pointer;transition:background .16s,border-color .16s,transform .16s;background:transparent;color:var(--hoard-text,#f0f4ed)}.ds-secondary:hover:not(:disabled){background:var(--hoard-elevated,#243541);border-color:var(--hoard-border-hover,#7893a2)}.ds-secondary:focus-visible{outline:2px solid var(--hoard-accent,#f3cd69);outline-offset:1px}.ds-secondary:active:not(:disabled){transform:translateY(2px)}.ds-secondary:disabled{opacity:.42;cursor:not-allowed}@media(prefers-reduced-motion:reduce){.ds-secondary{transition:none;transform:none}}",
+      "refersTo": "button-secondary"
     },
     {
-      "name": "Search Field",
+      "name": "Field",
       "kind": "input",
-      "refersTo": "field",
-      "description": "Accessible trainer search field; native selects share its surface and border treatment.",
-      "html": "<input class=\"ds-field\" aria-label=\"Search trainers\" placeholder=\"Search by name, title or Pokémon\" />",
-      "css": ".ds-field{width:100%;min-width:0;min-height:32px;padding:5px 9px;border:1px solid var(--line,#433536);border-radius:var(--hoard-radius,8px);background:var(--field,#161011);color:var(--ink,#ece1e2);font:13px/1.5 var(--hoard-font-sans,'Source Sans 3',sans-serif)}.ds-field::placeholder{color:var(--dim,#a69b9c);opacity:.8}.ds-field:focus{border-color:var(--accent,#e2404f);outline:none}.ds-field:focus-visible{outline:2px solid var(--accent,#e2404f);outline-offset:1px}"
+      "description": "Labelled native field on recessed slate.",
+      "html": "<label class=\"ds-label\" for=\"ds-trainer-search\">Trainer</label><input class=\"ds-field\" id=\"ds-trainer-search\" placeholder=\"Search\" />",
+      "css": ".ds-label{display:block;margin-bottom:4px;color:var(--hoard-text-muted,#bacbd1);font:600 12px/1.5 var(--hoard-font-sans,'Source Sans 3',sans-serif)}.ds-field{width:100%;min-width:0;min-height:36px;padding:5px 9px;border:1px solid var(--hoard-border,#415360);border-radius:4px;background:var(--hoard-sunken,#0b121b);color:var(--hoard-text,#f0f4ed);font:13px/1.5 var(--hoard-font-sans,'Source Sans 3',sans-serif)}.ds-field::placeholder{color:var(--hoard-text-dim,#a3b7c0);opacity:.8}.ds-field:focus{border-color:var(--hoard-accent,#f3cd69);box-shadow:0 0 0 1px var(--hoard-accent,#f3cd69);outline:none}.ds-field:focus-visible{outline:2px solid var(--hoard-accent,#f3cd69);outline-offset:1px}",
+      "refersTo": "field"
     },
     {
-      "name": "Navigation Link",
+      "name": "Navigation",
       "kind": "nav",
-      "refersTo": "navigation",
-      "description": "Inherited active shell navigation; the mobile inset indicator runs along its bottom edge.",
-      "html": "<nav aria-label=\"Preview navigation\"><a class=\"ds-navigation\" href=\"#/entrenadores\" aria-current=\"page\">Trainers</a></nav>",
-      "css": ".ds-navigation{display:flex;align-items:center;gap:10px;min-height:38px;padding:0 12px;border-radius:var(--hoard-radius,8px);color:var(--muted,#beb4b5);font:500 14px/1.5 var(--hoard-font-sans,'Source Sans 3',sans-serif);text-decoration:none}.ds-navigation:hover,.ds-navigation[aria-current=page]{background:var(--hoard-elevated,#2f2526);color:var(--ink,#ece1e2)}.ds-navigation[aria-current=page]{box-shadow:inset 3px 0 0 var(--accent,#e2404f)}.ds-navigation:focus-visible{outline:2px solid var(--accent,#e2404f);outline-offset:1px}@media(max-width:767px){.ds-navigation{min-height:34px;font-size:13.5px;padding:0 11px}.ds-navigation[aria-current=page]{box-shadow:inset 0 -2px 0 var(--accent,#e2404f)}}"
+      "description": "Labelled menu destinations with filled gold active state; static preview uses the existing SVG fallback.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Sections\"><a href=\"#/\" class=\"ds-nav-link\">Home</a><a href=\"#/combatir\" class=\"ds-nav-link\" aria-current=\"page\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" aria-hidden=\"true\"><path d=\"M14.5 17.5 3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2M9.5 6.5 13 3h3v3l-3.5 3.5M5 14l-2 2 4 4 2-2\"/></svg>Battle</a></nav>",
+      "css": ".ds-nav{display:grid;gap:3px;padding:8px;background:var(--hoard-deep,#101922)}.ds-nav-link{display:flex;align-items:center;gap:10px;min-height:39px;padding:0 12px;border:1px solid transparent;border-radius:4px;color:var(--hoard-text-muted,#bacbd1);text-decoration:none;font:650 13px/1.5 var(--hoard-font-sans,'Source Sans 3',sans-serif);transition:color .18s,background .18s,border-color .18s}.ds-nav-link:hover{color:#fff;background:var(--hoard-elevated,#243541);border-color:var(--hoard-border,#415360)}.ds-nav-link[aria-current=\"page\"]{background:var(--hoard-accent,#f3cd69);border-color:var(--hoard-accent-strong,#ffe4a1);color:var(--hoard-accent-ink,#171e24)}.ds-nav-link:focus-visible{outline:2px solid var(--hoard-accent,#f3cd69);outline-offset:1px}@media(max-width:767px){.ds-nav{display:flex;overflow-x:auto;gap:5px}.ds-nav-link{flex:none;min-height:42px;font-size:12px;border-color:var(--hoard-border,#415360)}}@media(prefers-reduced-motion:reduce){.ds-nav-link{transition:none}}",
+      "refersTo": "navigation-active"
     },
     {
-      "name": "Metadata Chip",
+      "name": "Metadata chip",
       "kind": "chip",
-      "refersTo": "chip",
-      "description": "Static origin or AI-level metadata; it has no interactive hover state.",
-      "html": "<span class=\"ds-chip\">From the games</span>",
-      "css": ".ds-chip{display:inline-flex;align-items:center;gap:5px;padding:1px 8px;border-radius:var(--hoard-radius-sm,6px);background:var(--surface-2,#2f2526);color:var(--muted,#beb4b5);font:600 11.5px/1.7 var(--hoard-font-sans,'Source Sans 3',sans-serif);white-space:nowrap}"
+      "description": "Compact, explicit metadata on elevated slate.",
+      "html": "<span class=\"ds-chip\">AI vs AI</span>",
+      "css": ".ds-chip{display:inline-flex;align-items:center;gap:5px;padding:1px 8px;border-radius:var(--hoard-radius-sm,3px);background:var(--hoard-elevated,#243541);color:var(--hoard-text-muted,#bacbd1);font:600 11.5px/1.7 var(--hoard-font-sans,'Source Sans 3',sans-serif);white-space:nowrap}",
+      "refersTo": "chip"
     },
     {
-      "name": "Trainer Card",
+      "name": "Panel",
       "kind": "card",
-      "refersTo": "trainer-card",
-      "description": "Linked library card. The source's real initial fallback is shown instead of introducing an image asset or fictional trainer record.",
-      "html": "<a class=\"ds-trainer-card\" href=\"#/entrenadores\"><span class=\"ds-avatar-fallback\" aria-hidden=\"true\">?</span><span class=\"ds-card-content\"><b>Trainer</b><small>Trainer title</small></span></a>",
-      "css": ".ds-trainer-card{display:flex;gap:12px;align-items:flex-start;padding:12px;background:var(--surface,#241b1c);border:1px solid var(--line,#433536);border-radius:var(--hoard-radius-lg,10px);color:var(--ink,#ece1e2);min-width:0;text-decoration:none;font:13.5px/1.5 var(--hoard-font-sans,'Source Sans 3',sans-serif);transition:border-color .12s}.ds-trainer-card:hover{border-color:var(--hoard-border-hover,#6a5859)}.ds-trainer-card:focus-visible{outline:2px solid var(--accent,#e2404f);outline-offset:1px}.ds-avatar-fallback{display:inline-grid;place-items:center;width:72px;height:72px;border-radius:10px;background:var(--accent-soft,rgba(226,64,79,.14));color:var(--accent,#e2404f);font-size:27.36px;font-weight:800;flex:none}.ds-card-content{min-width:0;flex:1}.ds-card-content b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ds-card-content small{display:block;color:var(--muted,#beb4b5);font-size:12.5px}@media(prefers-reduced-motion:reduce){.ds-trainer-card{transition:none}}"
+      "description": "Bordered working container; body typography stays sans-serif.",
+      "html": "<section class=\"ds-panel\"><h2>Format</h2><p>Choose the rules for this battle.</p></section>",
+      "css": ".ds-panel{padding:12px 14px;border:1px solid var(--hoard-border,#415360);border-radius:var(--hoard-radius-lg,8px);background:var(--hoard-surface,#192631);color:var(--hoard-text,#f0f4ed);font:13.5px/1.5 var(--hoard-font-sans,'Source Sans 3',sans-serif)}.ds-panel h2{margin:0;font-size:15px;font-weight:750;letter-spacing:-.005em}.ds-panel p{margin:8px 0 0;color:var(--hoard-text-muted,#bacbd1);font-size:12.5px}",
+      "refersTo": "panel"
     },
     {
-      "name": "Trainer Disclosure",
+      "name": "Battle corners",
       "kind": "custom",
-      "refersTo": "trainer-picker",
-      "description": "Native in-flow details/summary with the existing fallback portrait and rotating CSS chevron. Preview represents the disclosure shell only.",
-      "html": "<details class=\"ds-picker\"><summary class=\"ds-picker-summary\"><span class=\"ds-picker-avatar\" aria-hidden=\"true\">?</span><span class=\"ds-picker-name\">Choose a trainer…</span></summary><div class=\"ds-picker-body\">Search and labelled origin, region and game filters precede trainer choices.</div></details>",
-      "css": ".ds-picker{border:1px solid var(--line,#433536);border-radius:.6rem;color:var(--ink,#ece1e2);font:13.5px/1.5 var(--hoard-font-sans,'Source Sans 3',sans-serif)}.ds-picker-summary{display:flex;align-items:center;gap:.65rem;padding:.5rem;cursor:pointer;list-style:none}.ds-picker-summary::-webkit-details-marker{display:none}.ds-picker-summary:focus-visible{outline:2px solid var(--accent,#e2404f);outline-offset:1px}.ds-picker-name{flex:1;min-width:0;overflow-wrap:anywhere}.ds-picker-summary::after{content:'';width:.5rem;height:.5rem;margin:0 .5rem;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:rotate(45deg)}.ds-picker[open]>.ds-picker-summary::after{transform:rotate(225deg)}.ds-picker-avatar{display:inline-grid;place-items:center;width:48px;height:48px;font-size:18.24px;font-weight:800;flex:none;border-radius:10px;background:var(--accent-soft,rgba(226,64,79,.14));color:var(--accent,#e2404f)}.ds-picker-body{padding:.65rem;border-top:1px solid var(--line,#433536)}"
-    },
-    {
-      "name": "Library Error and Retry",
-      "kind": "custom",
-      "description": "Inherited accessible ErrorBox used for catalog and saved-library failures; demonstration message only.",
-      "html": "<div class=\"ds-error\" role=\"alert\">Catalog unavailable. <button type=\"button\" class=\"ds-retry\">Retry</button></div>",
-      "css": ".ds-error{border:1px solid color-mix(in srgb,var(--danger,#c4463a) 45%,transparent);border-radius:var(--hoard-radius,8px);padding:8px 12px;font:13px/1.5 var(--hoard-font-sans,'Source Sans 3',sans-serif);color:var(--ink,#ece1e2);background:var(--danger-bg,color-mix(in srgb,#c4463a 14%,transparent))}.ds-retry{background:none;border:0;padding:0;color:var(--accent,#e2404f);font:inherit;font-weight:600;cursor:pointer}.ds-retry:hover{text-decoration:underline}.ds-retry:focus-visible{outline:2px solid var(--accent,#e2404f);outline-offset:1px}"
-    },
-    {
-      "name": "Music Queue Entry",
-      "kind": "custom",
-      "description": "Numbered current queue occurrence with wrapping title and explicit reorder/remove controls. Preview text is illustrative.",
-      "html": "<div class=\"ds-music-entry\" aria-current=\"true\"><button type=\"button\" class=\"ds-music-title\">1. Song title</button><div class=\"ds-music-actions\"><button type=\"button\" disabled>Up</button><button type=\"button\">Down</button><button type=\"button\">Remove</button></div></div>",
-      "css": ".ds-music-entry{padding:.85rem 0;border-bottom:1px solid var(--line,#433536);color:var(--ink,#ece1e2);font:13.5px/1.5 var(--hoard-font-sans,\"Source Sans 3\",sans-serif)}.ds-music-title{display:block;width:100%;margin-bottom:.5rem;padding:0;border:0;background:transparent;color:var(--hoard-accent-strong,#e76370);font:inherit;text-align:left;overflow-wrap:anywhere;cursor:pointer}.ds-music-entry[aria-current] .ds-music-title{font-weight:650}.ds-music-title:hover{text-decoration:underline}.ds-music-actions{display:flex;flex-wrap:wrap;gap:.35rem}.ds-music-actions button{min-height:36px;padding:2px 9px;border:1px solid var(--line,#433536);border-radius:var(--hoard-radius,8px);background:transparent;color:var(--ink,#ece1e2);font:600 12.5px/1.5 var(--hoard-font-sans,\"Source Sans 3\",sans-serif);cursor:pointer;transition:background .12s,border-color .12s}.ds-music-actions button:hover:not(:disabled){background:var(--surface-2,#2f2526);border-color:var(--hoard-border-hover,#6a5859)}.ds-music-title:focus-visible,.ds-music-actions button:focus-visible{outline:2px solid var(--accent,#e2404f);outline-offset:1px}.ds-music-actions button:disabled{opacity:.42;cursor:not-allowed}@media(max-width:767px){.ds-music-actions button{min-height:40px}}@media(prefers-reduced-motion:reduce){.ds-music-actions button{transition:none}}"
-    },
-    {
-      "name": "Music Player",
-      "kind": "custom",
-      "description": "Surface-colored listening dock. This in-flow preview shows native fields and scoped primary contrast without audio behavior or viewport fixation.",
-      "html": "<section class=\"ds-music-dock\" aria-label=\"Music\"><div class=\"ds-music-now\"><a href=\"#/musica\">Song title</a><small>1 / 2</small></div><div class=\"ds-music-transport\"><button type=\"button\">Previous</button><button type=\"button\" class=\"ds-music-play\">Play</button><button type=\"button\">Next</button></div><label class=\"ds-music-seek\"><input aria-label=\"Seek\" type=\"range\" min=\"0\" max=\"100\" value=\"25\"><small>0:15 / 1:00</small></label><div class=\"ds-music-modes\"><label><input type=\"checkbox\"> Shuffle</label><select aria-label=\"Repeat\"><option>Repeat off</option><option>Repeat all</option><option>Repeat one</option></select><input class=\"ds-music-volume\" aria-label=\"Music volume\" type=\"range\" min=\"0\" max=\"100\" value=\"60\"></div></section>",
-      "css": ".ds-music-dock{display:grid;grid-template-columns:minmax(8rem,1fr) auto minmax(10rem,1.4fr);gap:.6rem 1rem;align-items:center;padding:.8rem 1.75rem;border-top:1px solid var(--line,#433536);background:var(--surface,#241b1c);color:var(--ink,#ece1e2);font:13.5px/1.5 var(--hoard-font-sans,\"Source Sans 3\",sans-serif)}.ds-music-now{display:grid;gap:.15rem;min-width:0}.ds-music-now a{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--hoard-accent-strong,#e76370);font-weight:650;text-decoration:none}.ds-music-now a:hover{text-decoration:underline}.ds-music-now small{color:var(--muted,#beb4b5)}.ds-music-transport{display:flex;gap:.35rem}.ds-music-transport button,.ds-music-modes select{min-height:28px;padding:2px 9px;border:1px solid var(--line,#433536);border-radius:var(--hoard-radius,8px);background:transparent;color:var(--ink,#ece1e2);font:600 12.5px/1.5 var(--hoard-font-sans,\"Source Sans 3\",sans-serif);cursor:pointer;transition:background .12s,border-color .12s}.ds-music-transport .ds-music-play{min-height:32px;padding:4px 12px;font-size:13px;background:color-mix(in srgb,var(--accent,#e2404f) 90%,black);color:white;border-color:var(--accent,#e2404f)}.ds-music-transport button:hover{background:var(--surface-2,#2f2526);border-color:var(--hoard-border-hover,#6a5859)}.ds-music-transport .ds-music-play:hover{background:color-mix(in srgb,var(--accent,#e2404f) 85%,black);border-color:var(--hoard-accent-strong,#e76370)}.ds-music-dock a:focus-visible,.ds-music-dock button:focus-visible,.ds-music-dock input:focus-visible,.ds-music-dock select:focus-visible{outline:2px solid var(--accent,#e2404f);outline-offset:1px}.ds-music-seek{display:grid;gap:.1rem;min-width:0}.ds-music-seek input{width:100%;min-width:0}.ds-music-seek small{text-align:right;padding-right:3.5rem;font-size:.75rem;font-variant-numeric:tabular-nums}.ds-music-modes{grid-column:1/-1;display:flex;align-items:center;flex-wrap:wrap;gap:.75rem;font-size:12px}.ds-music-modes select{min-height:32px;padding:5px 9px;background:var(--field,#161011);font-size:13px;font-weight:400}.ds-music-modes input[type=checkbox]{accent-color:var(--accent,#e2404f);width:15px;height:15px}.ds-music-volume{width:7rem;margin-left:auto;margin-right:3.5rem}@media(max-width:1000px){.ds-music-dock{grid-template-columns:minmax(0,1fr) auto}.ds-music-seek{grid-column:1/-1}}@media(max-width:767px){.ds-music-dock{padding:.6rem 1rem}.ds-music-transport button{min-height:40px}}@media(prefers-reduced-motion:reduce){.ds-music-transport button,.ds-music-modes select{transition:none}}"
-    },
-    {
-      "name": "Team Analysis Matrix",
-      "kind": "custom",
-      "description": "Scoped draft-analysis table with a keyboard-focusable local scroll region and fixed type row headers. Static defence excerpt with illustrative member labels; the live disclosure also provides findings, coverage, Speed and calculation states.",
-      "html": "<div class=\"ds-ta-scroll\" tabindex=\"0\" role=\"region\" aria-label=\"Defence\"><table class=\"ds-ta-table\"><caption class=\"ds-ta-caption\">Each cell shows an incoming type multiplier. 0× is immunity; ½× is resistance; 2× is weakness.</caption><thead><tr><th scope=\"col\">Incoming type</th><th scope=\"col\"><span>Member 1</span><small>Fire / Flying</small></th><th scope=\"col\"><span>Member 2</span><small>Water</small></th><th scope=\"col\">Weak</th></tr></thead><tbody><tr><th scope=\"row\">Fire</th><td class=\"ds-ta-strong\">½×</td><td class=\"ds-ta-strong\">½×</td><td class=\"ds-ta-count\">0</td></tr><tr><th scope=\"row\">Ground</th><td class=\"ds-ta-zero\">0×</td><td>1×</td><td class=\"ds-ta-count\">0</td></tr><tr><th scope=\"row\">Electric</th><td class=\"ds-ta-weak\">2×</td><td class=\"ds-ta-weak\">2×</td><td class=\"ds-ta-count\">2</td></tr></tbody></table></div>",
-      "css": ".ds-ta-scroll{overflow-x:auto;max-width:100%;border:1px solid var(--line,#433536);border-radius:var(--hoard-radius-sm,6px);scrollbar-color:var(--hoard-border-hover,#6a5859) var(--surface,#241b1c);color:var(--ink,#ece1e2);background:var(--surface,#241b1c);font-family:var(--hoard-font-sans,'Source Sans 3',sans-serif)}.ds-ta-scroll:focus-visible{outline:2px solid var(--accent,#e2404f);outline-offset:2px}.ds-ta-caption{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.ds-ta-table{width:100%;border-collapse:separate;border-spacing:0;font-variant-numeric:tabular-nums;font-size:12.5px;line-height:1.5}.ds-ta-table th,.ds-ta-table td{padding:.45rem .65rem;border-bottom:1px solid var(--line,#433536);text-align:center;min-width:4rem}.ds-ta-table thead th{background:var(--surface-2,#2f2526);vertical-align:bottom;max-width:9rem}.ds-ta-table th>span{display:block;overflow-wrap:anywhere}.ds-ta-table small{display:block;font-weight:400;color:var(--muted,#beb4b5);margin-top:.2rem}.ds-ta-table tr>th:first-child{position:sticky;left:0;z-index:1;background:var(--surface,#241b1c);text-align:left;min-width:6.5rem}.ds-ta-table thead tr>th:first-child{background:var(--surface-2,#2f2526)}.ds-ta-table tbody tr:last-child>*{border-bottom:0}.ds-ta-table .ds-ta-weak{background:color-mix(in srgb,var(--danger,#c4463a) 18%,var(--surface,#241b1c));font-weight:700}.ds-ta-table .ds-ta-strong{background:color-mix(in srgb,var(--accent,#e2404f) 12%,var(--surface,#241b1c));font-weight:700}.ds-ta-table .ds-ta-zero{background:var(--surface-2,#2f2526);font-weight:700}.ds-ta-table .ds-ta-count{border-left:1px solid var(--line,#433536)}@media(max-width:640px){.ds-ta-table th,.ds-ta-table td{padding:.5rem;min-width:6rem}}"
-    },
-    {
-      "name": "Type Challenge Primary Action",
-      "kind": "button",
-      "description": "Scoped white-labelled primary action used for starting and advancing the local type challenge. Preview label is an existing UI label.",
-      "html": "<button class=\"ds-tc-primary\" type=\"button\">Next encounter</button>",
-      "css": ".ds-tc-primary{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:32px;padding:4px 12px;border:1px solid var(--accent,#e2404f);border-radius:var(--hoard-radius,8px);background:color-mix(in srgb,var(--accent,#e2404f) 90%,black);color:white;font:600 13px/1.5 var(--hoard-font-sans,\"Source Sans 3\",sans-serif);white-space:nowrap;cursor:pointer;transition:background .12s,border-color .12s}.ds-tc-primary:hover:not(:disabled){background:color-mix(in srgb,var(--accent,#e2404f) 85%,black);border-color:var(--hoard-accent-strong,#e76370)}.ds-tc-primary:focus-visible{outline:2px solid var(--accent,#e2404f);outline-offset:1px}.ds-tc-primary:disabled{opacity:.42;cursor:not-allowed}@media(max-width:768px){.ds-tc-primary{min-height:44px}}@media(prefers-reduced-motion:reduce){.ds-tc-primary{transition:none}}"
-    },
-    {
-      "name": "Type Challenge Answer Grid",
-      "kind": "custom",
-      "description": "Four native answer buttons with inherited text/type markers; four desktop columns become two at 768px. This static question preview does not grade answers.",
-      "html": "<div class=\"ds-tc-grid\" role=\"group\" aria-label=\"Choose an attack type\"><button type=\"button\" class=\"ds-tc-option\"><i aria-hidden=\"true\" style=\"background:#7ac74c\"></i>Grass</button><button type=\"button\" class=\"ds-tc-option\"><i aria-hidden=\"true\" style=\"background:#ee8130\"></i>Fire</button><button type=\"button\" class=\"ds-tc-option\"><i aria-hidden=\"true\" style=\"background:#a6b91a\"></i>Bug</button><button type=\"button\" class=\"ds-tc-option\"><i aria-hidden=\"true\" style=\"background:#c22e28\"></i>Fighting</button></div>",
-      "css": ".ds-tc-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.65rem;margin:1rem 0}.ds-tc-option{display:flex;align-items:center;justify-content:start;gap:.6rem;min-height:52px;padding:4px 12px;border:1px solid var(--line,#433536);border-radius:var(--hoard-radius,8px);background:transparent;color:var(--ink,#ece1e2);font:600 13px/1.5 var(--hoard-font-sans,\"Source Sans 3\",sans-serif);white-space:nowrap;cursor:pointer;transition:background .12s,border-color .12s}.ds-tc-option i{width:.7rem;height:.7rem;border-radius:50%;flex:0 0 .7rem}.ds-tc-option strong{margin-left:auto}.ds-tc-option:hover:not(:disabled){background:var(--surface-2,#2f2526);border-color:var(--hoard-border-hover,#6a5859)}.ds-tc-option:focus-visible{outline:2px solid var(--accent,#e2404f);outline-offset:1px}.ds-tc-option:disabled{opacity:1;cursor:not-allowed}.ds-tc-option.ds-tc-correct{border-color:var(--accent,#e2404f);background:color-mix(in srgb,var(--accent,#e2404f) 14%,var(--surface,#241b1c))}.ds-tc-option.ds-tc-mistake{border-color:var(--danger,#c4463a)}@media(max-width:768px){.ds-tc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ds-tc-option{min-height:44px}}@media(prefers-reduced-motion:reduce){.ds-tc-option{transition:none}}"
-    },
-    {
-      "name": "Type Challenge Feedback",
-      "kind": "custom",
-      "description": "Status feedback with explicit factor text and a shared-line divider. Static illustration of the observed incorrect Grass answer against Dark/Grass Wo-Chien.",
-      "html": "<div class=\"ds-tc-feedback\" role=\"status\"><h4>There is a better option</h4><p>Your answer: <span class=\"ds-tc-formula\"><b>Grass</b>: Dark 1× · Grass 0.5× → <strong>0.5×</strong></span></p><p>Best answer: <span class=\"ds-tc-formula\"><b>Bug</b>: Dark 2× · Grass 2× → <strong>4×</strong></span></p></div>",
-      "css": ".ds-tc-feedback{padding:1rem 0;border-top:1px solid var(--line,#433536);color:var(--ink,#ece1e2);font:13.5px/1.5 var(--hoard-font-sans,\"Source Sans 3\",sans-serif);animation:ds-tc-answer .18s ease-out}.ds-tc-feedback h4{margin:0;font-size:13.5px;font-weight:650;line-height:1.2}.ds-tc-feedback p{margin:.4rem 0 0}.ds-tc-formula{font-variant-numeric:tabular-nums;overflow-wrap:anywhere}@keyframes ds-tc-answer{from{opacity:.4}to{opacity:1}}@media(prefers-reduced-motion:reduce){.ds-tc-feedback{animation:none}}"
-    },
-    {
-      "name": "Type Challenge Defender Grid",
-      "kind": "custom",
-      "description": "Four canonical species answers with localized type chips, a 74px minimum height and four desktop/two mobile columns. Static question preview from the reviewed Fire attack; the live Defend flow grades the lowest multiplier.",
-      "html": "<div class=\"ds-tcd-grid\" role=\"group\" aria-label=\"Choose a defending Pokémon\"><button type=\"button\" class=\"ds-tcd-option\" aria-label=\"Great Tusk: Ground / Fighting\"><span class=\"ds-tcd-name\">Great Tusk</span><span class=\"ds-tcd-types\"><span><i aria-hidden=\"true\" style=\"background:#e2bf65\"></i>Ground</span><span><i aria-hidden=\"true\" style=\"background:#c22e28\"></i>Fighting</span></span></button><button type=\"button\" class=\"ds-tcd-option\" aria-label=\"Walking Wake: Water / Dragon\"><span class=\"ds-tcd-name\">Walking Wake</span><span class=\"ds-tcd-types\"><span><i aria-hidden=\"true\" style=\"background:#6390f0\"></i>Water</span><span><i aria-hidden=\"true\" style=\"background:#6f35fc\"></i>Dragon</span></span></button><button type=\"button\" class=\"ds-tcd-option\" aria-label=\"Rhydon: Ground / Rock\"><span class=\"ds-tcd-name\">Rhydon</span><span class=\"ds-tcd-types\"><span><i aria-hidden=\"true\" style=\"background:#e2bf65\"></i>Ground</span><span><i aria-hidden=\"true\" style=\"background:#b6a136\"></i>Rock</span></span></button><button type=\"button\" class=\"ds-tcd-option\" aria-label=\"Croagunk: Poison / Fighting\"><span class=\"ds-tcd-name\">Croagunk</span><span class=\"ds-tcd-types\"><span><i aria-hidden=\"true\" style=\"background:#a33ea1\"></i>Poison</span><span><i aria-hidden=\"true\" style=\"background:#c22e28\"></i>Fighting</span></span></button></div>",
-      "css": ".ds-tcd-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.65rem;margin:1rem 0}.ds-tcd-option{display:grid;grid-template-columns:minmax(0,1fr) auto;align-content:center;gap:.35rem .6rem;min-height:74px;padding:4px 12px;border:1px solid var(--line,#433536);border-radius:var(--hoard-radius,8px);background:transparent;color:var(--ink,#ece1e2);font:600 13px/1.5 var(--hoard-font-sans,\"Source Sans 3\",sans-serif);white-space:normal;text-align:left;cursor:pointer;transition:background .12s,border-color .12s}.ds-tcd-name{min-width:0;overflow-wrap:anywhere;grid-column:1;grid-row:1}.ds-tcd-types{grid-column:1/-1;grid-row:2;font-weight:400}.ds-tcd-types,.ds-tcd-types span{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem}.ds-tcd-types i{width:.7rem;height:.7rem;border-radius:50%;flex:0 0 .7rem}.ds-tcd-option strong{grid-column:2;grid-row:1;justify-self:end;font-variant-numeric:tabular-nums}.ds-tcd-option:hover:not(:disabled){background:var(--surface-2,#2f2526);border-color:var(--hoard-border-hover,#6a5859)}.ds-tcd-option:focus-visible{outline:2px solid var(--accent,#e2404f);outline-offset:1px}.ds-tcd-option:disabled{opacity:1;cursor:not-allowed}.ds-tcd-option.ds-tcd-correct{border-color:var(--accent,#e2404f);background:color-mix(in srgb,var(--accent,#e2404f) 14%,var(--surface,#241b1c))}.ds-tcd-option.ds-tcd-mistake{border-color:var(--danger,#c4463a)}@media(max-width:768px){.ds-tcd-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(prefers-reduced-motion:reduce){.ds-tcd-option{transition:none}}"
+      "description": "Cyan/coral labels and borders carry the same side identities from setup into combat; preview omits source raster art.",
+      "html": "<div class=\"ds-corners\"><section class=\"ds-corner\"><h2>Side A</h2><p>Trainer</p></section><section class=\"ds-corner ds-corner-red\"><h2>Side B</h2><p>Trainer</p></section></div>",
+      "css": ".ds-corners{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.ds-corner{--ds-seat:var(--silver-blue,#6cd6ec);padding:14px;border:1px solid color-mix(in srgb,var(--ds-seat) 60%,#192631);border-radius:8px;background:#142b37;color:var(--hoard-text,#f0f4ed);font:13.5px/1.5 var(--hoard-font-sans,'Source Sans 3',sans-serif)}.ds-corner-red{--ds-seat:var(--silver-red,#fa8b81);background:#30272f}.ds-corner h2{margin:0;color:var(--ds-seat);font:italic 800 24px/1 var(--silver-display,\"Barlow Condensed\",\"Arial Narrow\",sans-serif);text-transform:uppercase}.ds-corner p{margin:14px 0 0;padding:14px 0;border-top:1px solid color-mix(in srgb,var(--ds-seat) 35%,transparent);border-bottom:1px solid color-mix(in srgb,var(--ds-seat) 35%,transparent)}@media(max-width:1023px){.ds-corners{grid-template-columns:1fr}}"
     }
   ],
   "narrative": {
-    "northStar": "Inherited Silver's Hoard visual system",
-    "overview": "This is a descriptive scan of the existing implementation, not a newly approved metaphor or replacement identity. Warm, dark brown surfaces, a crimson accent, serif page headings and compact sans-serif controls frame trainer portraits and Pokémon team strips. The interface uses dense, labelled controls and restrained borders to support selecting and managing trainers.\n\nThe documented change is limited to the shared visual trainer picker and saved trainer library. The surrounding shell, theme, assets and other screens remain inherited. Sources are `client/src/hoard-theme.css` (the `silver` palette), `client/src/index.css`, `client/src/app.css`, `client/src/components/silver.jsx` and `client/src/pages/Entrenadores.jsx`; the supplied desktop/mobile captures confirm the incumbent appearance. This scan does not establish new product strategy or claim an approved visual comp.",
+    "northStar": "Handheld fighting cabinet",
+    "overview": "Slate metal surfaces, silver text and warm gold selections frame the existing Silver emblem, trainer portraits and supplied Pokémon sprites. Condensed italic display lettering gives menus and battle names weight; compact sans-serif controls keep the dense tools readable. Cyan and coral identify the two battle corners.\n\nThis is a descriptive record of the current implementation, reconciled with the reference-led direction in `.impeccable/surfaces/client-src-app-jsx.md`. The authoritative presentation layer is `client/src/arcade.css`, over the shared theme, `index.css`, `app.css` and existing battle styles. `App.jsx`, `Inicio.jsx`, `Combatir.jsx` and the ordinary real-time show renderer demonstrate its use; captures in `.impeccable/review/` record desktop, mobile, home, classic and real-time surfaces. No separate approved comp or quality-bar card is claimed.",
     "keyCharacteristics": [
-      "Warm dark surfaces with a single crimson action accent.",
-      "Serif page headings paired with compact sans-serif labels.",
-      "Trainer portraits and team sprites beside readable names.",
-      "Native disclosure and select controls with wrapping filter rows."
+      "Slate layers and silver text with warm gold active states.",
+      "Self-hosted condensed italic display lettering beside compact sans-serif controls.",
+      "Existing emblem, trainer portraits and pixel sprites as the visual identity.",
+      "Cyan/coral battle corners, bevelled controls and restrained selection lifts."
     ],
     "rules": [
       {
-        "name": "The Music Contrast Rule",
-        "body": "Use the brighter accent for song links and the locally darkened fill for white-labelled primary music actions; retain the inherited palette elsewhere.",
+        "name": "The Corner Continuity Rule",
+        "body": "Carry cyan and coral consistently from the two setup seats into battle information; retain text names and labels alongside color.",
         "section": "colors"
       },
       {
-        "name": "The Music Flow Rule",
-        "body": "Keep playlist controls above the library and ordered queue, let row actions wrap, and reserve scrolling space for the persistent dock.",
-        "section": "layout"
+        "name": "The Display Separation Rule",
+        "body": "Use condensed italic lettering for the established display roles; keep instructions, fields and dense working controls in the existing sans-serif family.",
+        "section": "typography"
       },
       {
-        "name": "The Portable Artwork Rule",
-        "body": "In generated standalone pages, prefer an embedded static Pokémon sprite when animated art is absent; otherwise show a local SVG disc with up to two uppercase label characters (or ?). Keep missing decorative images transparent and missing Reborn animations on Silver's existing fallback.",
+        "name": "The Presentation Clock Rule",
+        "body": "Advance transient battle accents with presentation time and preserve the existing pause, speed, seek and reduced-motion contracts.",
         "section": "components"
       },
       {
-        "name": "The Replay Seek Rule",
-        "body": "Stop playback at the reconstructed replay frame, retain the selected playback speed and historical log, and clear old move effects, ability banners and Mega notices instead of replaying them in a burst.",
-        "section": "components"
-      },
-      {
-        "name": "The Local Rock Material Rule",
-        "body": "Keep local Rock motifs in transparent square cells with recorded per-frame offsets and the flat teal key removed, preserving source pixels without rescaling; exclude separator lines, labels and ambiguous unbounded tiles. Reduced motion selects the most populated source frame through the shared still_frame contract.",
-        "section": "shapes"
-      },
-      {
-        "name": "The Rock Draw Scale Rule",
-        "body": "Apply the declared display_scale uniformly to the existing material draw dimensions: 2.4× for Ancient Power, Rock Blast and Rollout, and 1.7× for Rock Tomb. These fixed values are scoped to the four local Rock atlases; materials without the metadata retain the shared 1× default. Preserve source pixels, atlas geometry, anchors and physical collision radii.",
-        "section": "shapes"
-      },
-      {
-        "name": "The Paused Particle Rule",
-        "body": "In the shared real-time/classic/mass Vfx painter, advance procedural particle emission and lifecycle only when playback time advances. Zero-time redraws preserve existing particle positions and ages; resuming restores emission and decay.",
-        "section": "components"
-      },
-      {
-        "name": "The Type Challenge Contrast Rule",
-        "body": "Within the type challenge panel, use white labels on the inherited accent mixed with black (90% accent at rest, 85% on hover), retaining the shared accent border and focus treatment. These local primary fills provide measured contrast of 4.95:1 and 5.44:1; separators use `--line`. Keep the global palette and other screens' button variants unchanged.",
-        "section": "colors"
-      },
-      {
-        "name": "The Type Challenge Focus Rule",
-        "body": "Focus the question or result heading after a deck, encounter or completion change, preserve its visible accent outline, and retain mobile scroll clearance beneath the fixed header.",
-        "section": "components"
-      },
-      {
-        "name": "The Local Dark Material Rule",
-        "body": "Remove the flat teal key and preserve source pixels in transparent square cells without rescaling. Retain recorded crop offsets and a visible `still_frame` for reduced motion. Apply `display_scale` only when drawing: 2.4× for Bite, Crunch, Knock Off and Torment; 1.8× for Pursuit. Preserve atlas geometry, anchors, pixel rendering and collision dimensions.",
-        "section": "shapes"
-      },
-      {
-        "name": "The Defensive Answer Rule",
-        "body": "Show canonical species names with localized type labels in both visible chips and accessible button names. Color supplements type text. Keep all four options visible and opaque after answering, disable them, expose the chosen option through aria-pressed, and use the inherited accent treatment for the lowest-multiplier answer and danger border for an incorrect choice.",
-        "section": "components"
-      },
-      {
-        "name": "The Defensive Continuity Rule",
-        "body": "Feedback and numbered mistake review show the incoming attack plus chosen and best species, per-type factors and final multipliers. Retry retains the pending species answer or original start specification; Repeat this challenge reuses the seed, generation, mode and practice goal. Focus moves to the question/result heading as in Attack. The inherited (180ms) feedback fade is removed for reduced motion. Spanish and English use the existing translation system.",
+        "name": "The Existing Material Rule",
+        "body": "Preserve atlas geometry, transparent source pixels, provenance, declared display scales and visible still frames; add presentation around the supplied art without rewriting combat rules.",
         "section": "components"
       }
     ],
     "dos": [
-      "Do reuse the inherited Silver palette and shared type stacks.",
-      "Do keep trainer portraits, names and team strips together in selection and library views.",
-      "Do retain labelled native selects, keyboard disclosure behavior and visible focus.",
-      "Do keep catalog failures actionable through an alert and Retry."
+      "Do use slate surfaces, silver text and gold selected states from the current presentation layer.",
+      "Do keep cyan/coral corners, readable trainer names and accurate team previews together.",
+      "Do preserve existing routes, controls, language support, music behavior and gameplay while refining presentation.",
+      "Do retain keyboard focus, reduced motion and the shared presentation clock.",
+      "Do preserve supplied-sprite provenance and pixel geometry."
     ],
     "donts": [
-      "Don't infer a translated UI label from a saved trainer's name or overwrite names as part of UI localization.",
-      "Don't treat this focused scan as a redesign of inherited screens or completion of tasks #640 and #641.",
-      "Don't replace the established pixel portraits or warm dark/crimson identity during narrow refinements."
+      "Don't restore the stale brown/crimson palette or Cinzel page headings as the current global identity.",
+      "Don't use display lettering for dense instructions or replace semantic type/status colors with corner colors.",
+      "Don't imply that ordinary real-time contact rings also add a new mass-battle or classic effect layer.",
+      "Don't claim that already exported HTML updates without re-exporting it."
     ]
   }
 }

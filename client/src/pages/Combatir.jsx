@@ -20,6 +20,9 @@ function SeatEditor({ label, seat, onChange, allowHuman = true }) {
   const [avatarOpen, setAvatarOpen] = useState(false);
   const detail = useLoad(() => seat.trainer_id ? api.call("trainer_get", { id: seat.trainer_id }) : Promise.resolve(null), [seat.trainer_id, version]);
   const current = detail.data?.id === seat.trainer_id ? detail.data : null;
+  const previewSpecies = current?.team_pool?.length > 6
+    ? (seat.team_indices ?? current.team_pool_indices ?? [0, 1, 2, 3, 4, 5]).map((i) => current.team_pool[i]?.species).filter(Boolean)
+    : trainer?.species || [];
   const randomTrainer = () => run("rnd", async () => {
     const tr = await api.call("trainer_random", {});
     changed();
@@ -38,7 +41,7 @@ function SeatEditor({ label, seat, onChange, allowHuman = true }) {
       </div>
       <div className="silver-seat-preview">
         <Avatar url={trainer?.avatar_url} name={loc(trainer, lang)} size={136} />
-        <div className="min-w-0"><b className="silver-seat-name">{loc(trainer, lang) || t("choose_trainer")}</b><TeamStrip species={trainer?.species || []} size={40} /></div>
+        <div className="min-w-0"><b className="silver-seat-name">{loc(trainer, lang) || t("choose_trainer")}</b><TeamStrip species={previewSpecies} size={40} /></div>
       </div>
       <TrainerSelect value={seat.trainer_id} onChange={(v) => onChange({ ...seat, trainer_id: v, ai_level: undefined, ai_style: undefined, team_indices: undefined })} label={t("trainer")} />
       <div className="flex flex-wrap gap-2">
