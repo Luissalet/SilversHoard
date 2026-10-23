@@ -320,6 +320,7 @@ export class Show {
     if (!this.on && !showSettings().camera && !showSettings().impact) return;
     const r = this.r;
     const sec = battle.t / 30;
+    if(this.on)this.accents.onEvent(e,battle);
     const unit = (si, u = 0) => (battle.doubles ? battle.sides[si].units[u || 0] : battle.sides[si]);
     switch (e.k) {
       case "use":
@@ -585,10 +586,10 @@ export class Show {
   }
 
   /** Poké Balls in the air, the bursts they open in and the trainers' lines. */
-  drawWorld(ctx) {
+  drawWorld(ctx,view) {
     const r = this.r, s = r.scale;
     const reduced = !!r.reducedMotion?.matches;
-    if (this.on) this.accents.draw(ctx);
+    if (this.on) this.accents.draw(ctx,view);
     for (const b of this.balls) {
       if (b.t < 0) continue;
       const k = clamp(b.t / b.life, 0, 1);

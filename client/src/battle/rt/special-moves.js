@@ -22,7 +22,7 @@ const Z = {
   oceanicoperetta:['opera','water-orb'],splinteredstormshards:['stone-volley','rock'],letssnuggleforever:['blanket','ghost-flame'],
   clangoroussoulblaze:['scales','dragon-burst'],guardianofalola:['guardian','hand'],
   searingsunrazesmash:['sun-dive','sun-orb'],menacingmoonrazemaelstrom:['moon-gate','moon'],
-  lightthatburnsthesky:['skyburn','light'],soulstealing7starstrike:['seven-stars','spirit'],
+  lightthatburnsthesky:['skyburn','sparkles'],soulstealing7starstrike:['seven-stars','spirit'],
 };
 const GMAX = {
   gmaxbefuddle:['spore-storm','bug-cloud'],gmaxcannonade:['cannons','water-lance'],gmaxcentiferno:['fire-coil','fire-spin'],
@@ -47,6 +47,12 @@ const sat=n=>Math.max(0,Math.min(1,n));
 const rgba=(hex,a)=>{const n=parseInt(hex.slice(1),16);return `rgba(${n>>16},${(n>>8)&255},${n&255},${a})`;};
 const ring=(c,x,y,r,flat=.55)=>{c.beginPath();c.ellipse(x,y,r,r*flat,0,0,TAU);c.stroke();};
 const path=(c,points,fill=false)=>{c.beginPath();points.forEach(([x,y],i)=>i?c.lineTo(x,y):c.moveTo(x,y));if(fill)c.closePath();fill?c.fill():c.stroke();};
+function prism(ctx,x,y,r,color) {
+  ctx.fillStyle=color;
+  path(ctx,[[x,y-r],[x+r*.42,y],[x,y+r],[x-r*.42,y]],true);
+  ctx.strokeStyle='#fff9dc';ctx.lineWidth=Math.max(1,r*.06);
+  path(ctx,[[x,y-r],[x,y+r]]);
+}
 
 /** One bounded actor: a charge, actual projectile head, or confirmed target. No guessed target or damage. */
 export function paintSpecialMove(ctx,recipe,{x,y,scale,age=0,progress=0,stage='impact',reduced=false,color='#f3cd69'}) {
@@ -76,7 +82,7 @@ export function paintSpecialMove(ctx,recipe,{x,y,scale,age=0,progress=0,stage='i
         path(ctx,[[x+Math.cos(a)*d,y+Math.sin(a)*d*.7],[x,y]]);
         stamp('fx-rt-sparkles',Math.cos(a)*d,Math.sin(a)*d*.7,.5);
       }
-      stamp('fx-rt-light',0,0,1.8+t*1.2);
+      prism(ctx,x,y,s*(.6+t*.6),'#ffe7a0');
     } else {
       const tall=(travel?2.5:8)*s,wide=(travel?.7:1.4)*s;
       for(let i=0;i<5;i++) {
@@ -87,7 +93,7 @@ export function paintSpecialMove(ctx,recipe,{x,y,scale,age=0,progress=0,stage='i
       for(let i=0;i<8;i++) {
         const a=i*TAU/8,dx=Math.cos(a)*r,dy=Math.sin(a)*r*.55;
         ctx.strokeStyle=spectrum[i%5];path(ctx,[[x,y],[x+dx*.6-dy*.2,y+dy*.6],[x+dx,y+dy]]);
-        stamp('fx-rt-light',dx,dy,.7);
+        prism(ctx,x+dx,y+dy,s*(travel?.16:.24),spectrum[i%5]);
       }
       if(!travel){ctx.strokeStyle='#fff5ce';ring(ctx,x,y,r);ring(ctx,x,y,r*1.35,.35);}
     }

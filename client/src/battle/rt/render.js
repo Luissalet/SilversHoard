@@ -621,6 +621,7 @@ export class ArenaRenderer {
     this.drawEffects(dt, true);
     this.vfx.drawUnder(ctx);
     this.specials.drawGround(ctx, this, view, !!this.reducedMotion?.matches, this.show.on);
+    if(this.show.on)this.show.accents.drawUnder(ctx,showSettings().impact);
     // every Pokémon on the field: one per side in singles, a side's two slots in doubles (their own place and act, the side's party)
     const fighters = view.doubles
       ? view.sides.flatMap((sd, si) => sd.units.filter((w) => !w.vacant).map((w) => ({ side: { ...sd, ...w }, si, key: si * 2 + w.pos })))
@@ -648,7 +649,7 @@ export class ArenaRenderer {
     this.specials.drawAttacks(ctx, this, view, !!this.reducedMotion?.matches, this.show.on);
     if (particleStyle() !== "plain") drawWaterTextures(ctx, this, view, !!this.reducedMotion?.matches);
     this.drawEffects(dt, false);
-    this.show.drawWorld(ctx);
+    this.show.drawWorld(ctx,view);
     // floating texts
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";

@@ -34,12 +34,14 @@ test('critical damage recoils more strongly, repeated multi-hits stay bounded, n
   assert.equal(motion.sample(battle.sides[1],1,2.06).x,0);
 });
 
-test('block, dodge and heal convey distinct outcomes, fog never invents a dodge', () => {
+test('block, a real roll and heal convey distinct outcomes; misses never invent a dodge', () => {
   const {motion,battle} = setup();
   motion.onEvent({k:'protected',s:1},battle,1);
   assert.ok(motion.sample(battle.sides[1],1,1.05).x > 0);
   assert.ok(motion.sample(battle.sides[1],1,1.05).x < .13);
   motion.onEvent({k:'miss',s:0},battle,2);
+  assert.equal(motion.sample(battle.sides[1],1,2.05).y,0);
+  motion.onEvent({k:'roll',s:1},battle,2);
   assert.ok(Math.abs(motion.sample(battle.sides[1],1,2.05).y) > .4);
   motion.onEvent({k:'switch',s:1},battle,3);
   motion.onEvent({k:'miss',s:0,fog:true},battle,3);

@@ -1,7 +1,7 @@
 // Presentation-only material selection. The simulation never imports this file.
 const rt = id => `fx-rt-${id}`, bw = id => `fx-bw-${id}`, gba = id => `fx-gba-${id}`;
 const TYPES = {
-  Normal: ['star','impact','light'], Fire: ['fire-jet','fire-blast','fire-ring'],
+  Normal: ['star','impact','sparkles'], Fire: ['fire-jet','fire-blast','fire-ring'],
   Water: ['water-column','splash','water-ring'], Electric: ['electric-bolt','electric-burst','electric-blue'],
   Grass: ['leaves','seedlings','leech'], Ice: ['icicles','ice-burst','snow'],
   Rock: ['rock','ground-erupt','stones'], Ground: ['dust','ground-erupt','stones'],
@@ -10,7 +10,7 @@ const TYPES = {
   Psychic: ['psychic-orb','psychic-burst','confusion'], Ghost: ['ghost-orb','ghost-flame','ghost-flame'],
   Dark: ['dark-vortex','dark-flame','dark-pool'], Dragon: ['dragon-helix','dragon-burst','dragon-helix'],
   Bug: ['leaves','bug-cloud','web'], Fairy: ['hearts','fairy-burst','hearts'],
-  Stellar: ['light','sparkles','light'],
+  Stellar: ['sparkles','sparkles','sparkles'],
 };
 const SHOTS = {ember:'ember',flameburst:'fire-burst',pyroball:'flame',thundershock:'lightning',
   powergem:'gold-sparks',iceshard:'ice-shatter',iciclespear:'ice-shatter'};
@@ -25,8 +25,8 @@ const NAMED = {
   explosion:{area:rt('fire-blast'),impact:rt('fire-blast')},selfdestruct:{area:rt('fire-blast')},
   mistyexplosion:{area:rt('fairy-burst')},mindblown:{area:rt('fire-blast')},
   leafstorm:{travel:rt('leaves'),area:rt('leaves')},frenzyplant:{travel:bw('roots'),impact:rt('seedlings')},
-  solarbeam:{prepare:rt('light'),travel:rt('light'),impact:rt('heal')},
-  hyperbeam:{prepare:rt('light'),travel:rt('light'),impact:rt('fire-blast')},
+  solarbeam:{prepare:rt('sparkles'),travel:rt('sparkles'),impact:rt('heal')},
+  hyperbeam:{prepare:rt('sparkles'),travel:rt('sparkles'),impact:rt('fire-blast')},
   focusblast:{travel:gba('blue-pulse')},aurasphere:{travel:gba('blue-pulse')},
   shadowball:{travel:rt('ghost-orb')},darkpulse:{travel:rt('dark-vortex')},
   thunder:{area:bw('lightning'),impact:rt('electric-burst')},
