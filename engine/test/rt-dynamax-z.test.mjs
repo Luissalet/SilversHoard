@@ -100,3 +100,18 @@ test('keyboard controls and netplay preserve both mechanics without changing leg
   assert.equal(packFrame({use:-1}).length,10);
   assert.equal(i.take(new Set()).dynamax,false);
 });
+
+test('G-Max gravity grounds fliers, and ability-ignoring signatures bypass unbreakable defensive abilities',()=>{
+  const b=new RtBattle(spec({species:'Charizard',moves:['Fly']})),a=b.sides[0],d=b.sides[1];
+  assert.equal(b.grounded(a),false);b.maxEffect(d,a,{id:'gmaxgravitas'});assert.equal(b.grounded(a),true);
+  assert.equal(b.usable(a,0),'gravity');
+  b.mon(d).ability='prismarmor';assert.equal(b.defenderAbility(a,d,{ignoreAbility:true}),'');
+  assert.equal(b.defenderAbility(a,d,{}),'prismarmor');
+});
+
+test('a released Max projectile retains its foe/field effect after its caster switches',()=>{
+  const b=new RtBattle(spec()),a=b.sides[0],d=b.sides[1];b.dynamaxStart(a);
+  const source=b.mon(a),p=source.profiles[0];b.sendOut(a,1);
+  b.resolveHit(a,d,p,{mon:0});assert.equal(b.terrain.id,'electricterrain');
+  assert.equal(b.view().sides[0].mons[0].display_scale,1);
+});

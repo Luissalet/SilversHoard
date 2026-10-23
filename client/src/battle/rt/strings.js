@@ -1,6 +1,7 @@
 // Words of the real-time mode (Legends: Z-A rules), Spanish (castellano de España) first, English second. The app's dictionary
 // takes them in (i18n.js), and the battle screen reads them through rtT.
 const RT = {
+  rt_blocked_gravity: ["La gravedad impide volar", "Gravity prevents flying"],
   rt_dynamax: ["Dynamax", "Dynamax"],
   rt_dynamax_help: ["Una vez por entrenador. 18 s, más PS y movimientos Max. Termina al cambiar.", "Once per trainer. 18 s, extra HP and Max Moves. Ends on switching."],
   rt_dynamax_left: ["Dynamax · {n} s", "Dynamax · {n} s"],

@@ -77,6 +77,7 @@ export function logLine(e, b, lang, tr, active) {
     case "mega": return { sec, k: "big", text: es ? `¡${e.from} de ${side(e.s).name} megaevoluciona!` : `${side(e.s).name}'s ${e.from} Mega Evolved!` };
     case "dynamax": return {sec,k:"big",text:es ? `¡${who(e.s)} se vuelve Dynamax durante ${e.seconds} s!` : `${who(e.s)} Dynamaxed for ${e.seconds} s!`};
     case "dynamax_end": return {sec,k:"info",text:es ? `${monName(e.s,e.slot)} recupera su tamaño` : `${monName(e.s,e.slot)} returned to normal size`};
+    case "gravity": return {sec,k:"info",text:es ? `La gravedad aumenta (${e.secs} s)` : `Gravity intensified (${e.secs} s)`};
     case "zmove": return {sec,k:"big",text:es ? `¡${who(e.s)} libera ${mv(e.name)}!` : `${who(e.s)} unleashed ${mv(e.name)}!`};
     case "phase": return { sec, k: "big", text: e.line ? `${side(e.s).name}: «${e.line}»` : (es ? `¡${side(e.s).name} cambia de táctica!` : `${side(e.s).name} changes tactics!`) };
     case "ultimate": return { sec, k: "big", text: es ? `¡${who(e.s)} usa un especial de Silver de tipo ${typeName(e.type, lang)}!` : `${who(e.s)} uses a ${e.type}-type Silver special!` };
