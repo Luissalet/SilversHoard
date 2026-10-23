@@ -46,6 +46,16 @@ function drawFrame(ctx, id, frame, size) {
   } else ctx.drawImage(img,-size/2,-size/2,size,size);
 }
 
+// Special-move choreography reuses these decoded, credited game atlases without duplicating pixels or image caches.
+export function drawSuppliedStamp(ctx, id, x, y, size, time, reduced = false, alpha = 1, angle = 0) {
+  const sprite = art.sprites[id];
+  if (!sprite || typeof Image === 'undefined') return;
+  const frame = reduced ? sprite.still_frame || 0 : Math.floor(Math.max(0,time)*(sprite.fps || 12))%(sprite.frames || 1);
+  const w=sprite.frame_width || sprite.width,h=sprite.frame_height || sprite.height;
+  ctx.save();ctx.translate(x,y);ctx.rotate(angle);ctx.globalAlpha*=alpha;ctx.imageSmoothingEnabled=false;
+  ctx.scale(w/Math.max(w,h),h/Math.max(w,h));drawFrame(ctx,id,frame,size);ctx.restore();
+}
+
 export function drawSuppliedProjectiles(ctx, renderer, view, reduced = false) {
   if (typeof Image === "undefined") return;
   for (const p of view.projectiles || []) {

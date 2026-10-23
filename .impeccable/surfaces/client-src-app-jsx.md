@@ -37,3 +37,5 @@ Finish review: `D:/LocalAI/research-inbox/silver-motion-20261023/finish-review.m
 ## Dynamax and Z motion refinement (#1327)
 
 Extend ordinary RT presentation, including portrait and fresh HTML, with event-driven energy gathering, uniform Dynamax growth and storm clouds, Z crystal charge, actual projectile accents and confirmed-hit remates. Preserve mechanics, source sprite pixels, controls, replay inputs and previous presentation settings. No new raster assets or dependencies. `SpecialPresentation` owns bounded transient effects; pause/seek and reduced motion retain their explicit paths. Detector advisories remain the two inherited renderer colors. Current evidence and independent verdict are under `D:/LocalAI/research-inbox/silver-special1327`; this note does not certify every move or competitor parity.
+
+Luis’s further steering rejects a generic enlarged ball/ray. The same1327 now adapts observed Sword/Shield and USUM reference sequences, with87 move recipes and a published-PMD Ultra Necrozma showcase. This extends the motion refinement and does not change gameplay or add Ultra Burst.
