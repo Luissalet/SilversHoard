@@ -2,6 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {RtBattle} from '../src/realtime/sim.mjs';
 import {SpecialPresentation} from '../../client/src/battle/rt/special-presentation.js';
+import {specialMoveRecipe,paintSpecialMove} from '../../client/src/battle/rt/special-moves.js';
+import {Dex} from '@pkmn/sim';
+import art from '../../silvers_hoard/presets/supplied_sprites.json' with {type:'json'};
 
 const spec=(set={},format='gen9customgame')=>({version:13,format,arena:'open',seed:'presentation1327',time_limit:90,
   p1:{sets:[{species:'Pikachu',moves:['Thunderbolt','Surf','Protect'],...set},{species:'Eevee',moves:['Tackle']}]},
@@ -31,7 +34,8 @@ test('real Z events retain a charging crystal until release, then decorate the c
 test('Dynamax stages one uniform growth and timeout contracts, while seeking is immediately truthful',()=>{
   const b=new RtBattle(spec()),p=new SpecialPresentation();run(b,p,{dynamax:true});
   assert.equal(p.bodyScale(0,0,0,2.2,false),1);
-  p.update(.48,b.view());assert.ok(p.bodyScale(0,0,0,2.2,false)>1.5);
+  p.update(.34,b.view());assert.ok(p.bodyScale(0,0,0,2.2,false)<.1,'the collected sprite is inside the thrown ball');
+  p.update(.48,b.view());assert.ok(p.bodyScale(0,0,0,2.2,false)>1.5,'the giant appears after the throw');
   assert.equal(p.bodyScale(0,0,0,2.2,true),2.2);
   assert.equal(p.bodyScale(0,1,0,2.2,false),2.2);
   p.update(1,b.view());assert.equal(p.bodyScale(0,0,0,2.2,false),2.2);
@@ -91,6 +95,21 @@ test('drawing is allocation-bounded on pause and all eighteen type materials sup
   for(let i=0;i<120;i++){p.drawGround(ctx,r,v,false,true);p.drawAttacks(ctx,r,v,false,true);p.drawScreen(ctx,r,false,true);}
   assert.deepEqual({...p},{...frozen});
   for(const type of ['Normal','Fire','Water','Grass','Electric','Ice','Fighting','Poison','Ground','Flying','Psychic','Bug','Rock','Ghost','Dragon','Dark','Steel','Fairy'])
-    p.material(ctx,type,100,100,30,1,true);
+    paintSpecialMove(ctx,specialMoveRecipe('max-'+type,type),{x:100,y:100,scale:30,age:1,progress:.5,reduced:true});
   p.update(8,v);assert.equal(p.attacks.length,0);assert.equal(p.impacts.length,0);
+});
+
+test('all 52 Max/Gmax and 35 Z identities resolve to existing credited textures, with distinct Z/Gmax motifs',()=>{
+  const moves=Dex.moves.all().filter(m=>m.isMax||m.isZ),ctx=new Proxy({globalAlpha:1},{get:(o,k)=>o[k]??(()=>{})});
+  assert.equal(moves.length,87);
+  for(const m of moves) {
+    const recipe=specialMoveRecipe(m.id,m.type,!!m.isZ);
+    assert.ok(art.sprites[recipe.texture],`${m.id}: missing ${recipe.texture}`);
+    for(const reduced of [false,true])for(const stage of ['charge','travel','impact'])
+      paintSpecialMove(ctx,recipe,{x:100,y:100,scale:20,age:.4,progress:.6,reduced,stage});
+  }
+  assert.equal(new Set(moves.filter(m=>m.isZ).map(m=>specialMoveRecipe(m.id,m.type,true).motif)).size,35);
+  assert.equal(specialMoveRecipe('lightthatburnsthesky','Psychic',true).motif,'skyburn');
+  assert.equal(specialMoveRecipe('gmaxgoldrush','Normal').motif,'gold-rain');
+  assert.notEqual(specialMoveRecipe('maxgeyser','Water').motif,specialMoveRecipe('hydrovortex','Water',true).motif);
 });

@@ -570,6 +570,7 @@ export class ArenaRenderer {
     ctx.translate(shx, shy);
     this.show.applyCamera(ctx);
     this.drawCourt(view);
+    this.specials.drawAtmosphere(ctx,this,!!this.reducedMotion?.matches,this.show.on);
     this.show.drawFloor(ctx);
     this.show.drawCrowd(ctx, raw);
     const s = this.scale;
@@ -946,6 +947,7 @@ export class ArenaRenderer {
     ctx.scale(body.sx, body.sy);
     ctx.translate(-x, -y + .8 * s);
     const bodyAlpha = alpha * motion.opacity;
+    const bodyFlash = Math.max(this.flash[key],this.specials.bodyFlash(si,side.pos || 0,side.active,!!this.reducedMotion?.matches));
     if (a) {
       const act = side.act?.kind;
       if (mon.fainted) { /* holds the faint frame */ } else if (mon.status === "slp" && !a.busy()) a.loop("Sleep");
@@ -955,7 +957,7 @@ export class ArenaRenderer {
       a.update(dt);
       const facing = this.portrait ? portraitFacing(side.fx, side.fy) : side;
       const row = dirRow(facing.fx, facing.fy);
-      drawn = a.draw(ctx, x, y, row, this.k * displayScale, { alpha: bodyAlpha, flash: this.flash[key] });
+      drawn = a.draw(ctx, x, y, row, this.k * displayScale, { alpha: bodyAlpha, flash: bodyFlash });
       headY = y - a.height(this.k * displayScale) - 0.3 * s;
     }
     if (!drawn) {
@@ -970,8 +972,8 @@ export class ArenaRenderer {
         ctx.globalAlpha = bodyAlpha;
         if (!this.portrait && side.fx > 0) { ctx.translate(x, 0); ctx.scale(-1, 1); ctx.translate(-x, 0); }
         ctx.drawImage(img.img, x - w / 2, y - h * 0.92, w, h);
-        if (this.flash[key] > 0) {
-          ctx.globalAlpha = bodyAlpha * this.flash[key];
+        if (bodyFlash > 0) {
+          ctx.globalAlpha = bodyAlpha * bodyFlash;
           ctx.drawImage(white(img.img), x - w / 2, y - h * 0.92, w, h);
         }
         ctx.restore();

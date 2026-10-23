@@ -1,6 +1,9 @@
 // Dynamax and Z choreography reads resolved events; it never delays or changes the simulation.
 import { TYPE_COLORS } from '../dex.js';
 import { rtMove } from '../../../../engine/src/realtime/moves.mjs';
+import {drawBallFrame} from '../ball-art.js';
+import {upright} from './portrait-camera.js';
+import {specialMoveRecipe,paintSpecialMove} from './special-moves.js';
 
 const TAU = Math.PI * 2;
 const clamp = n => Math.max(0, Math.min(1, n));
@@ -37,22 +40,24 @@ export class SpecialPresentation {
       if (e.reason === 'time') this.transforms.push({...who, age:0, x:w.x, y:w.y, life:.55, giant:false});
     } else if (e.k === 'zmove') {
       this.charges = this.charges.filter(n => !same(n, who.s, who.u, who.slot));
-      this.charges.push({...who, move:e.move, type:rtMove(e.move,battle.gen || 9)?.type, age:0, life:4});
+      this.charges.push({...who, move:e.move, z:true, type:rtMove(e.move,battle.gen || 9)?.type, age:0, life:4});
     } else if (e.k === 'windup') {
       const z = this.charges.find(n => same(n, who.s, who.u, who.slot) && n.move === e.move);
       if (z) { z.type = e.type; z.life = Math.max(.2, e.ticks / 30); z.castSlot = w.act?.slot; }
+      else if (m?.dynamaxUntil && m.profiles.some(p=>p.id===e.move && p.isMax))
+        this.charges.push({...who,move:e.move,type:e.type,z:false,age:0,life:Math.max(.2,e.ticks/30),castSlot:w.act?.slot});
     } else if (e.k === 'use') {
       const z = this.charges.find(n => same(n, who.s, who.u, who.slot) && n.move === e.move);
       const max = !!m?.dynamaxUntil && (m.profiles || []).some(p => p.id === e.move && p.isMax);
       if (!z && !max) return;
       this.charges = this.charges.filter(n => n !== z);
       this.attacks.push({...who, move:e.move, type:e.type, category:e.category, shape:e.shape,
-        age:0, life:6, x:w.x, y:w.y, z:!!z, released:e.t});
+        age:0, life:6, x:w.x, y:w.y, z:!!z?.z, recipe:specialMoveRecipe(e.move,e.type,!!z?.z), released:e.t});
       // Never paint an impact at a guessed target: misses, guards and delayed projectiles stay truthful.
     } else if (e.k === 'hit') {
       if (e.hit > 0) return;
       const a = this.attacks.findLast(n => n.s === e.from && n.move === e.move && n.released <= e.t);
-      if (a) this.impacts.push({x:w.x, y:w.y, type:e.type, z:a.z, age:0, life:a.z ? .85 : .65});
+      if (a) this.impacts.push({x:w.x, y:w.y, type:e.type, z:a.z, recipe:a.recipe, age:0, life:a.z ? 1.2 : .95});
     } else if (['switch','faint','recall'].includes(e.k)) {
       this.charges = this.charges.filter(n => n.s !== who.s || n.u !== who.u);
       this.transforms = this.transforms.filter(n => n.s !== who.s || n.u !== who.u);
@@ -83,7 +88,30 @@ export class SpecialPresentation {
     if (reduced) return grown;
     const n = this.transforms.find(n => same(n,s,u,slot));
     if (!n) return grown; // Seeking into Dynamax immediately shows the actual state.
-    return n.giant ? 1 + (grown - 1) * out((n.age-.16)/.65) : 1 + 1.2 * (1-out(n.age/.5));
+    if(!n.giant)return 1 + 1.2 * (1-out(n.age/.5));
+    if(n.age<.16)return 1;
+    if(n.age<.34)return 1-.94*out((n.age-.16)/.18);
+    if(n.age<.52)return .06;
+    return .06+(grown-.06)*out((n.age-.52)/.48);
+  }
+
+  bodyFlash(s,u,slot,reduced) {
+    if(reduced)return 0;
+    const n=this.transforms.find(n=>same(n,s,u,slot) && n.giant);
+    return n && n.age>.12 && n.age<.5 ? Math.sin(Math.PI*clamp((n.age-.12)/.38)) : 0;
+  }
+
+  drawAtmosphere(ctx,r,reduced,detailed) {
+    if(!detailed)return;
+    const sky=this.charges.find(n=>n.move==='lightthatburnsthesky') || this.attacks.find(n=>n.recipe.motif==='skyburn' && n.age<1.4);
+    if(!sky)return;
+    ctx.save();ctx.fillStyle='rgba(8,17,34,.4)';ctx.fillRect(0,0,r.canvas.width,r.canvas.height);
+    ctx.fillStyle='#d7f4ff';
+    for(let i=0;i<24;i++) {
+      const x=((i*.6180339)%1)*r.canvas.width,y=((i*.381966)%1)*r.canvas.height;
+      ctx.globalAlpha=reduced?.5:.35+.25*Math.sin(sky.age*2+i);ctx.fillRect(x,y,Math.max(1,r.scale*.06),Math.max(1,r.scale*.06));
+    }
+    ctx.restore();
   }
 
   // All coordinates here are world-space feet. The renderer rotates this layer with portrait battles.
@@ -94,6 +122,12 @@ export class SpecialPresentation {
       const w = unit(view,n.s,n.u);
       if (!w || w.active !== n.slot) continue;
       const x=r.px(w.x), y=r.py(w.y), p=n.age/n.life;
+      if(!reduced && n.giant && n.age>=.3 && n.age<.58) {
+        const from=r.trainerPos(n.s),f=clamp((n.age-.3)/.28);
+        const bx=r.px(from.x)+(x-r.px(from.x))*f,by=r.py(from.y)+(y-r.py(from.y))*f-Math.sin(f*Math.PI)*s*3;
+        ctx.globalAlpha=1;ctx.strokeStyle='#ff639c';ctx.lineWidth=s*.1;
+        drawBallFrame(ctx,bx,by,s*(.6+f*.9),n.age,false,false);ellipse(ctx,bx,by,s*(.5+f*.6),s*(.5+f*.6));
+      }
       if (!reduced && n.giant) {
         // Converging pillars give the growth a gathering phase and a heavy release.
         const envelope=Math.sin(Math.PI*clamp(n.age/1.1));
@@ -109,9 +143,9 @@ export class SpecialPresentation {
         }
       }
       ctx.globalAlpha = (1-p)*.8; ctx.strokeStyle='#ff639c'; ctx.lineWidth=Math.max(2,s*.1);
-      const spread=reduced ? 2 : 1+out(p)*4;
+      const spread=reduced ? 2 : 1+out(clamp((n.age-.75)/.6))*4;
       ellipse(ctx,x,y,s*spread,s*spread*.34);
-      if (!reduced && p>.42) {
+      if (!reduced && n.age>.8) {
         ctx.globalAlpha=(1-p)*.55;
         for(let i=0;i<10;i++) {
           const a=i*TAU/10, d=s*(1.5+p*3);
@@ -134,7 +168,7 @@ export class SpecialPresentation {
     if (mon.fainted) return;
     const s=r.scale, n=this.transforms.find(n=>same(n,si,side.pos || 0,side.active));
     ctx.save();
-    if (mon.is_dynamax) {
+    if (mon.is_dynamax && !(n?.giant && n.age<.52)) {
       // Three moving storm clouds, rather than a generic enlarged selection ring.
       const top=y-height-s*.35;
       ctx.fillStyle='#4c193f';ctx.strokeStyle='#ff76a9';ctx.lineWidth=Math.max(1,s*.055);
@@ -168,6 +202,8 @@ export class SpecialPresentation {
     const z=this.charges.find(n=>same(n,si,side.pos || 0,side.active));
     if (z) {
       const p=z.progress || 0,cy=y-height*.55;
+      if(detailed)paintSpecialMove(ctx,specialMoveRecipe(z.move,z.type,z.z),{x,y:cy,scale:s,age:z.age,progress:p,stage:'charge',reduced,color:color(z.type)});
+      if(z.z) {
       ctx.strokeStyle=color(z.type);ctx.fillStyle='#fff4c3';ctx.lineWidth=Math.max(1,s*.06);
       ctx.globalAlpha=.9;
       crystal(ctx,x,cy-height*.5-s*.5,s*(.32+p*.16));
@@ -181,6 +217,7 @@ export class SpecialPresentation {
         }
         ellipse(ctx,x,cy,s*(1+p*.3),height*.6+s*.25);
       }
+      }
     }
     ctx.restore();
   }
@@ -193,44 +230,31 @@ export class SpecialPresentation {
     for(const p of view.projectiles) {
       const a=this.attacks.findLast(n=>n.s===p.s && n.u===(p.u || 0) && n.move===p.move);
       if(!a || a.category==='Status')continue;
-      const x=r.px(p.x),y=r.py(p.y),angle=Math.atan2(p.vy || 0,p.vx || 1);
-      ctx.save();ctx.translate(x,y);ctx.rotate(angle);
-      const radius=s*(a.z?.95:.75);
-      ctx.globalAlpha=.6;ctx.fillStyle=color(a.type);
-      ctx.beginPath();ctx.moveTo(-radius*(reduced?1.3:3),0);
-      ctx.quadraticCurveTo(-radius,-radius,radius*.5,-radius*.5);
-      ctx.quadraticCurveTo(radius*1.5,0,radius*.5,radius*.5);
-      ctx.quadraticCurveTo(-radius,radius,-radius*(reduced?1.3:3),0);ctx.fill();
-      ctx.globalAlpha=.95;ctx.strokeStyle='#fff4db';ctx.lineWidth=Math.max(2,s*.1);
-      this.material(ctx,a.type,0,0,radius,r.time,reduced);
-      ctx.restore();
+      const x=r.px(p.x),y=r.py(p.y)-s*.65;
+      upright(ctx,x,y,!!r.portrait,()=>paintSpecialMove(ctx,a.recipe,{x,y,scale:s,age:a.age,progress:.8,stage:'travel',reduced,color:color(a.type)}));
     }
     for(const a of this.attacks) {
       if(a.age>.55)continue;
       const w=unit(view,a.s,a.u);if(!w || w.active!==a.slot)continue;
+      if(a.category==='Status') {
+        const x=r.px(w.x),y=r.py(w.y)-s*.5;
+        upright(ctx,x,y,!!r.portrait,()=>paintSpecialMove(ctx,a.recipe,{x,y,scale:s,age:a.age,progress:a.age/.55,reduced,color:color(a.type)}));
+      }
       ctx.globalAlpha=(1-a.age/.55)*.8;ctx.strokeStyle=color(a.type);ctx.lineWidth=s*.12;
       const radius=s*(1+(reduced?.4:out(a.age/.55)*2.5));
       ellipse(ctx,r.px(w.x),r.py(w.y)-s*.7,radius,radius*.6);
     }
     for(const n of this.impacts) {
       const p=n.age/n.life,x=r.px(n.x),y=r.py(n.y)-s*.65;
-      const radius=s*(n.z?3.4:2.7)*(reduced?.65:out(p));
       ctx.globalAlpha=(1-p)*.9;ctx.strokeStyle=color(n.type);ctx.fillStyle=color(n.type);
-      ctx.lineWidth=Math.max(2,s*.15*(1-p));
-      this.material(ctx,n.type,x,y,radius,n.age,reduced);
-      ctx.globalAlpha=(1-p)*.75;ctx.strokeStyle='#fff1d9';
-      ellipse(ctx,x,y,radius*.72,radius*.5);
-      if(!reduced) for(let i=0;i<12;i++) {
-        const a=i*TAU/12,d=radius*(.8+p*.5);
-        line(ctx,[[x+Math.cos(a)*d*.65,y+Math.sin(a)*d*.65],[x+Math.cos(a)*d,y+Math.sin(a)*d]]);
-      }
+      upright(ctx,x,y,!!r.portrait,()=>paintSpecialMove(ctx,n.recipe,{x,y,scale:s,age:n.age,progress:p,reduced,color:color(n.type)}));
     }
     ctx.restore();
   }
 
   drawScreen(ctx, r, reduced, detailed) {
     if(!detailed)return;
-    const n=this.charges[0] || this.transforms.find(n=>n.giant);
+    const n=this.charges.find(n=>n.z) || this.transforms.find(n=>n.giant);
     if(!n)return;
     const width=r.canvas.width,height=r.canvas.height;
     // A command cut-in sits in a free band in portrait, away from both external HUDs.
@@ -257,36 +281,4 @@ export class SpecialPresentation {
     ctx.restore();
   }
 
-  material(ctx, type, x, y, radius, time, reduced) {
-    const r=radius;
-    if(type==='Electric') {
-      for(let i=0;i<5;i++) {
-        const a=i*TAU/5+(reduced?0:time*.7),dx=Math.cos(a)*r,dy=Math.sin(a)*r;
-        line(ctx,[[x-dx*.18,y-dy*.18],[x+dx*.3-dy*.18,y+dy*.3+dx*.18],
-          [x+dx*.45+dy*.14,y+dy*.45-dx*.14],[x+dx,y+dy]]);
-      }
-    } else if(['Rock','Ground','Steel','Ice'].includes(type)) {
-      for(let i=0;i<6;i++) {
-        const a=i*TAU/6,dx=Math.cos(a)*r*.75,dy=Math.sin(a)*r*.55;
-        crystal(ctx,x+dx,y+dy,r*(type==='Ice'?.32:.24));
-      }
-    } else if(['Fire','Dragon'].includes(type)) {
-      for(let i=0;i<7;i++) {
-        const a=i*TAU/7,dx=Math.cos(a)*r,dy=Math.sin(a)*r;
-        ctx.beginPath();ctx.moveTo(x+dx*.25,y+dy*.25);
-        ctx.quadraticCurveTo(x+dx-dy*.45,y+dy+dx*.45,x+dx*1.15,y+dy*1.15);
-        ctx.quadraticCurveTo(x+dx*.45+dy*.25,y+dy*.45-dx*.25,x+dx*.25,y+dy*.25);ctx.fill();
-      }
-    } else if(['Water','Flying','Ghost','Dark','Psychic'].includes(type)) {
-      for(let i=0;i<3;i++) {
-        ctx.beginPath();ctx.ellipse(x,y,r*(1-i*.22),r*(.65-i*.12),(reduced?0:time)+i*.7,i*.8,Math.PI*1.5+i*.8);ctx.stroke();
-      }
-    } else if(['Fighting','Normal','Bug'].includes(type)) {
-      for(let i=0;i<3;i++)line(ctx,[[x-r,y-r*.5+i*r*.4],[x+r*.9,y-r*.15+i*r*.3]]);
-    } else {
-      for(let i=0;i<6;i++) {
-        const a=i*TAU/6;crystal(ctx,x+Math.cos(a)*r*.8,y+Math.sin(a)*r*.7,r*.17);
-      }
-    }
-  }
 }
