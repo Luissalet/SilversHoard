@@ -54,7 +54,8 @@ const TRAINER = [{x: 1.6, y: ARENA.h / 2}, {x: ARENA.w - 1.6, y: ARENA.h / 2}];
 // 10: calmer movement and rolls, and AI dodges after its reaction delay, once per continuous threat.
 // 11: Silver's extra special attack is opt-in; older replays retain their original gauge and attacks.
 // 13: Dynamax/Gigantamax and held-crystal Z-Moves, with replayed explicit inputs.
-export const RULES_VERSION = 13;
+// 14: Ultra Burst is a battle transformation, separate from Mega Evolution and the subsequent Z-Move.
+export const RULES_VERSION = 14;
 export const TRICK_ROOM_TURN = 6;   // seconds of real time per turn of Trick Room
 const TRICK_ROOM_BASE = 200;        // walking: base Speed s walks like base Speed 200 - s
 const FOG_HIT = 0.6;
@@ -91,7 +92,7 @@ const ROCK_PASS = 2.3;                           // free space kept between rock
 // slots; where each Pokémon stands and what it is doing belongs to its slot.
 export const SPREAD = 0.75;                      // a spread move that hits more than one Pokémon does three quarters of the damage
 const SLOT_Y = [-3, 3];                          // the two slots start 3 m above and below the centre line
-const SHARED = ['id', 'index', 'name', 'ai', 'aiRng', 'mons', 'cond', 'hazards', 'switchesLeft', 'gauge', 'mega', 'megaUsed', 'ult', 'dynamaxUsed', 'zUsed'];
+const SHARED = ['id', 'index', 'name', 'ai', 'aiRng', 'mons', 'cond', 'hazards', 'switchesLeft', 'gauge', 'mega', 'megaUsed', 'ult', 'dynamaxUsed', 'zUsed', 'ultraUsed'];
 const SPREAD_TARGETS = new Set(['allAdjacent', 'allAdjacentFoes']);
 // Support moves that only mean something in doubles; in singles they keep having no effect (moves.mjs NO_EFFECT).
 export const DOUBLES_MOVES = {
@@ -236,7 +237,7 @@ export function arenaOf(arena, seed) {
 }
 
 /** The Pokémon of a team as the real-time battle and its screen use them: real stats, types, moves with their cooldowns. */
-export function prepareRtTeam(sets, {format = 'gen9customgame', levelRules = {}} = {}) {
+export function prepareRtTeam(sets, {format = 'gen9customgame', levelRules = {}, version = RULES_VERSION} = {}) {
   const formatId = buildFormatId(format);
   const gen = genOf(formatId);
   const dex = Dex.forGen(gen);
@@ -244,11 +245,13 @@ export function prepareRtTeam(sets, {format = 'gen9customgame', levelRules = {}}
   const champions = CHAMPIONS_MODS.includes(Dex.formats.get(formatId, true).mod);
   return complete.slice(0, 6).map((set) => {
     const sp = dex.species.get(set.species);
+    if (version >= 14 && sp.id === 'necrozmaultra') throw new EngineError('invalid_team', 'Ultra Necrozma is a battle transformation. Start with Necrozma-Dusk-Mane or Necrozma-Dawn-Wings holding Ultranecrozium Z.');
     const stats = calcStats(dex, sp, set, champions);
     const moves = set.moves.map((m) => rtMove(m, gen)).filter(Boolean);
     if (!moves.length) throw new EngineError('invalid_team', `${sp.name} has no usable moves.`);
     const item = set.item ? dex.items.get(set.item) : null;
     const ability = set.ability ? dex.abilities.get(set.ability) : null;
+    const ultra = version >= 14 && gen >= 7 && ['necrozmaduskmane','necrozmadawnwings'].includes(sp.id) && item?.id === 'ultranecroziumz' ? dex.species.get('Necrozma-Ultra') : null;
     return {
       species: sp.name, base_species: sp.baseSpecies, num: sp.num, forme: sp.forme || '', name: set.name || sp.name, level: set.level,
       types: sp.types.slice(), stats, base_speed: sp.baseStats.spe, heightm: sp.heightm || 1, weightkg: sp.weightkg || 10,
@@ -256,6 +259,8 @@ export function prepareRtTeam(sets, {format = 'gen9customgame', levelRules = {}}
       ability: ability?.exists ? ability.id : '', ability_name: ability?.exists ? ability.name : '', shiny: !!set.shiny,
       gender: set.gender || '', sprite_id: sp.spriteid, mega: megaOf(dex, sp, set, item, champions),
       dynamax_info: dynamaxInfo(sp, set, gen),
+      ...(ultra ? {ultra: {species:ultra.name, forme:ultra.forme, num:ultra.num, sprite_id:ultra.spriteid, types:ultra.types.slice(), stats:calcStats(dex,ultra,set,champions),
+        ability:'neuroforce', ability_name:dex.abilities.get('neuroforce').name, base_speed:ultra.baseStats.spe, heightm:ultra.heightm, weightkg:ultra.weightkg}} : {}),
       z_moves: moves.map(p => {const z=zProfile(p,sp.name,item?.id,gen);return z ? {id:z.id,name:z.name,power:z.power,category:z.category,type:z.type} : null;}),
       moves: moves.map((p) => ({id: p.id, name: p.name, type: p.type, category: p.category, power: p.power, pp: p.pp, cooldown: p.cooldown,
         final: Math.round(finalCooldown(p.cooldown, stats.spe, {priority: p.priority, mod: item?.id === 'choicescarf' ? 1.5 : 1}) * 10) / 10,
@@ -413,7 +418,7 @@ export class RtBattle {
 
   makeSide(id, index, seat) {
     if (!seat.sets || !seat.sets.length) throw new EngineError('empty_team', `${id} has no team.`);
-    const team = prepareRtTeam(seat.sets, {format: this.formatId, levelRules: this.spec.level_rules});
+    const team = prepareRtTeam(seat.sets, {format: this.formatId, levelRules: this.spec.level_rules, version:this.version});
     const mons = team.map((info, slot) => ({
       ...info, slot, maxhp: info.stats.hp, hp: info.stats.hp, status: '', statusUntil: 0, toxN: 0, fainted: false,
       boosts: {atk: 0, def: 0, spa: 0, spd: 0, spe: 0}, boostUntil: {atk: 0, def: 0, spa: 0, spd: 0, spe: 0},
@@ -445,7 +450,7 @@ export class RtBattle {
       aiRng: makeRng(`${this.seed}:${id}:ai`), mons, active: 0, x: HOME[index].x, y: HOME[index].y, fx: index ? -1 : 1, fy: 0,
       act: null, rollReady: 0, switchesLeft: MAX_SWITCHES, need: false, needSince: 0, vol: {}, cond: {}, hazards: {}, wish: null,
       lastInput: null, brain: {}, moving: false, focus: true, gauge: 0, mega: -1, megaUsed: false, ult: 0,
-      ...(this.version >= 13 ? {dynamaxUsed: false, zUsed: false} : {})};
+      ...(this.version >= 13 ? {dynamaxUsed: false, zUsed: false} : {}), ...(this.version >= 14 ? {ultraUsed:false} : {})};
   }
 
   // ------------------------------------------------------------ helpers
@@ -773,7 +778,7 @@ export class RtBattle {
     // a multi battle's AI partner (version 9) sends out its own next Pokémon; otherwise the person picks for both slots
     const swTo = lead.need ? lead : partner.need && !tr.partner ? partner : lead;
     let megaTo = null;
-    if (input.mega) megaTo = this.canMega(lead) ? lead : this.canMega(partner) ? partner : null;
+    if (input.mega) megaTo = this.canUltra(lead) || this.canMega(lead) ? lead : this.canUltra(partner) || this.canMega(partner) ? partner : null;
     this.applyInput(lead, {...input, sw: swTo === lead ? sw : -1, mega: megaTo === lead});
     this.applyInput(partner, {...help, sw: tr.partner ? help.sw ?? -1 : swTo === partner ? sw : -1, mega: megaTo === partner, plus: false});
   }
@@ -832,7 +837,8 @@ export class RtBattle {
     if (input.sw >= 0 && this.canSwitch(side, input.sw)) { this.startSwitch(side, input.sw); return; }
     const busy = side.act && side.act.kind !== 'approach';
     if (m.status === 'frz') return;
-    if (input.mega && this.canMega(side)) this.megaEvolve(side);
+    if (input.mega && this.canUltra(side)) this.ultraBurst(side);
+    else if (input.mega && this.canMega(side)) this.megaEvolve(side);
     if (input.dynamax && this.canDynamax(side)) this.dynamaxStart(side);
     // dodge roll: a short dash with no damage taken, then a short wait
     if (input.dodge && !busy && this.t >= side.rollReady) {
@@ -1151,6 +1157,7 @@ export class RtBattle {
   zMoveFor(side, slot) {
     if (this.version < 13 || side.zUsed || !this.onField(side)) return null;
     const m = this.mon(side);
+    if (this.version >= 14 && m.ultraOn && this.t < m.ultraZReady) return null;
     if (m.dynamaxUntil || m.megaOn || m.itemUsed || !m.profiles[slot] || m.ppLeft?.[slot] === 0) return null;
     const profile = zProfile(m.profiles[slot], m.species, m.item, this.gen);
     return profile?.id === 'lightthatburnsthesky' ? {...profile,category:m.stats.atk > m.stats.spa ? 'Physical' : 'Special'} : profile;
@@ -1212,6 +1219,32 @@ export class RtBattle {
       if (p.id === 'gmaxchistrike') s.vol.focusEnergy = true;
       if (p.id === 'gmaxreplenish' && this.mon(s).itemUsed && this.dex.items.get(this.mon(s).item).isBerry && this.rng() < .5) this.mon(s).itemUsed = false;
     }
+  }
+
+  canUltra(side) {
+    if (this.version < 14 || side.ultraUsed || !this.onField(side)) return false;
+    const m=this.mon(side);
+    return !!m.ultra && !m.ultraOn && !m.itemUsed && m.item === 'ultranecroziumz' && !m.dynamaxUntil && m.status !== 'frz' && (!side.act || side.act.kind === 'approach');
+  }
+
+  ultraBurst(side) {
+    const m=this.mon(side), keep=['species','forme','num','sprite_id','types','stats','ability','ability_name','base_speed','heightm','weightkg'];
+    m.ultraBase=Object.fromEntries(keep.map(k=>[k,m[k]]));
+    m.ultraBase.name=m.name;
+    for(const k of keep)m[k]=k==='types'?m.ultra.types.slice():k==='stats'?{...m.ultra.stats}:m.ultra[k];
+    if(m.name===m.ultraBase.species)m.name=m.species;
+    m.ultraOn=true;side.ultraUsed=true;
+    // Ultra Burst does not spend Z power. The Z attack belongs to a later preparation, not this input.
+    m.ultraZReady=this.t+ATTACK_RECOVERY;
+    delete side.vol.types;
+    this.ev('ultra',{...this.at(side),slot:side.active,species:m.species,from:m.ultraBase.species,hp:m.hp,maxhp:m.maxhp});
+    this.abilityStart(side);this.outOfRocks(side);
+  }
+
+  ultraEnd(side,reason,slot=side.active) {
+    const m=side.mons[slot];if(!m?.ultraBase)return;
+    Object.assign(m,m.ultraBase);delete m.ultraBase;delete m.ultraZReady;m.ultraOn=false;
+    this.ev('ultra_end',{...this.at(side),slot,species:m.species,reason});
   }
 
   /** Can this trainer Mega Evolve its active Pokémon now? Its Mega Stone (or Rayquaza's Dragon Ascent), a full gauge, once per
@@ -2278,6 +2311,7 @@ export class RtBattle {
     }
     m.hp = 0;
     m.fainted = true;
+    if (this.version >= 14 && m.ultraOn) this.ultraEnd(side,'faint');
     if (this.version >= 13 && m.dynamaxUntil) this.dynamaxEnd(side, 'faint');
     side.act = null;
     this.marks = this.marks.filter((mk) => !(mk.s === side.index && mk.mon === side.active));
@@ -2399,6 +2433,7 @@ export class RtBattle {
   }
 
   finish(winner, reason) {
+    if(this.version >= 14)for(const tr of this.sides)for(const m of tr.mons)if(m.ultraOn)this.ultraEnd(this.units.find(u=>u.index===tr.index && u.active===m.slot) || (this.doubles?tr.units[0]:tr),'battle',m.slot);
     this.ended = true;
     this.winner = winner;
     this.reason = reason;
@@ -2429,12 +2464,14 @@ export class RtBattle {
           hazards: {...s.hazards}, gauge: s.gauge / GAUGE_SEGMENT, ...(this.silverSpecial ? {ult: s.ult / ULT_MAX, ult_ready: this.ultReady(s)} : {}), mega: s.mega >= 0, mega_used: s.megaUsed, can_mega: this.canMega(s),
           plus_moves: this.plusMoves,
           ...(this.version >= 13 ? {can_dynamax:this.canDynamax(s), dynamax_used:!!s.dynamaxUsed, z_used:!!s.zUsed} : {}),
+          ...(this.version >= 14 ? {can_ultra:this.canUltra(s),ultra_used:!!s.ultraUsed} : {}),
           plus_ready: this.plusMoves && ((s.mega >= 0 && s.mega === s.active) || s.gauge >= GAUGE_SEGMENT),
           mons: s.mons.map((x, i) => {
             const u = holder(i);
             const on = u && !x.fainted;
             const mon = {slot: i, species: x.species, name: x.name, num: x.num, forme: x.forme, sprite_id: x.sprite_id, shiny: x.shiny, level: x.level,
-              base_look: {species: (x.dynamaxBase?.look || x.base || x).species, forme: (x.dynamaxBase?.look || x.base || x).forme, sprite_id: (x.dynamaxBase?.look || x.base || x).sprite_id}, is_mega: !!x.megaOn,
+              base_look: {species: (x.dynamaxBase?.look || x.ultraBase || x.base || x).species, forme: (x.dynamaxBase?.look || x.ultraBase || x.base || x).forme, sprite_id: (x.dynamaxBase?.look || x.ultraBase || x.base || x).sprite_id}, is_mega: !!x.megaOn,
+              ...(x.ultra && this.version >= 14 ? {ultra_info:{species:x.ultra.species,forme:x.ultra.forme,num:x.ultra.num,sprite_id:x.ultra.sprite_id},is_ultra:!!x.ultraOn} : {}),
               ...(this.version >= 13 ? {dynamax_info:x.dynamax_info, is_dynamax:!!x.dynamaxUntil, dynamax_left:Math.max(0,(x.dynamaxUntil || 0)-this.t)/TPS, display_scale:x.dynamaxUntil ? DYNAMAX_SCALE : 1} : {}),
               mega_info: x.mega && this.version >= 2 ? {species: x.mega.species, forme: x.mega.forme, num: x.mega.num, sprite_id: x.mega.sprite_id} : null,
               hp: x.hp, maxhp: x.maxhp, status: x.status, fainted: x.fainted, types: x.types, item: x.itemUsed ? '' : x.item_name, ability: x.ability_name,
@@ -2554,6 +2591,8 @@ export function eventLines(battle) {
     switch (e.k) {
       case 'switch': active[e.s][e.u || 0] = e.slot; lines.push(`[${sec(e.t)}] ${names[e.s]} sent out ${monName(e.s, e.slot)}`); break;
       case 'use': lines.push(`[${sec(e.t)}] ${who} used ${e.name}`); break;
+      case 'ultra': lines.push(`[${sec(e.t)}] ${who} transformed into Ultra Necrozma with Ultra Burst`); break;
+      case 'ultra_end': lines.push(`[${sec(e.t)}] ${who} returned to its fused forme`); break;
       case 'dynamax': lines.push(`[${sec(e.t)}] ${who} Dynamaxed (${e.seconds}s)`); break;
       case 'dynamax_end': lines.push(`[${sec(e.t)}] ${who} returned to normal size`); break;
       case 'zmove': lines.push(`[${sec(e.t)}] ${who} unleashed ${e.name}`); break;

@@ -71,11 +71,13 @@ export class ArenaRenderer {
     this.importedCredits = new Map();
     this.megaAnims = sides.map((s) => s.mons.map(() => null));
     this.dynamaxAnims = sides.map((s) => s.mons.map(() => null));
+    this.ultraAnims = sides.map((s) => s.mons.map(() => null));
     const look = (m) => m.base_look || m;
     this.fallbacks = sides.map((s) => s.mons.map((m) => image(sprites.fallback(look(m).species, { spriteid: look(m).sprite_id, shiny: m.shiny }))));
     // Mega formes keep their own static image when walking sheets are unavailable.
     this.megaFallbacks = sides.map((s) => s.mons.map((m) => (m.mega_info ? image(sprites.fallback(m.mega_info.species, { spriteid: m.mega_info.sprite_id, shiny: m.shiny })) : null)));
     this.dynamaxFallbacks = sides.map((s) => s.mons.map((m) => m.dynamax_info?.look ? image(sprites.fallback(m.dynamax_info.look.species, {spriteid:m.dynamax_info.look.sprite_id,shiny:m.shiny})) : null));
+    this.ultraFallbacks = sides.map((s) => s.mons.map(m => m.ultra_info ? image(sprites.fallback(m.ultra_info.species,{spriteid:m.ultra_info.sprite_id,shiny:m.shiny})) : null));
     this.trainers = sides.map((s) => (s.avatarUrl ? image(s.avatarUrl) : null));
     this.trainerBacks = sides.map((s) => (s.backUrl ? image(s.backUrl) : null));
     this.floats = [];
@@ -107,7 +109,7 @@ export class ArenaRenderer {
 
   /** Wait for decoded walking sheets within the metadata deadline, and always settle base/Mega fallback images. */
   async preload(onProgress = () => {}, timeout = 15000) {
-    const fallbackImages = [...this.fallbacks.flat(), ...this.megaFallbacks.flat(), ...(this.dynamaxFallbacks?.flat() || []),
+    const fallbackImages = [...this.fallbacks.flat(), ...this.megaFallbacks.flat(), ...(this.dynamaxFallbacks?.flat() || []), ...(this.ultraFallbacks?.flat() || []),
       ...(this.portraitFallbacks?.flat() || []), ...(this.portraitMegaFallbacks?.flat() || [])].filter(Boolean);
     const fallbackReady = Promise.all(fallbackImages.map(s => s.loaded));
     const jobs = [];
@@ -116,6 +118,7 @@ export class ArenaRenderer {
       if (m.mega_info) jobs.push([si, mi, m.mega_info.num, m.mega_info.forme, m.shiny, this.megaAnims, m.mega_info.sprite_id]);
       const dm = m.dynamax_info?.look;
       if (dm) jobs.push([si,mi,dm.num,dm.forme,m.shiny,this.dynamaxAnims,dm.sprite_id]);
+      if(m.ultra_info)jobs.push([si,mi,m.ultra_info.num,m.ultra_info.forme,m.shiny,this.ultraAnims,m.ultra_info.sprite_id]);
     }));
     let done = 0;
     const one = async ([si, mi, num, form, shiny, table, spriteId]) => {
@@ -367,7 +370,8 @@ export class ArenaRenderer {
   }
 
   /** The walking sprite of the current forme; a missing Mega sheet leaves room for its battle sprite. */
-  animOf(si, slot, mega, dynamax = false) {
+  animOf(si, slot, mega, dynamax = false, ultra = false) {
+    if(ultra)return this.ultraAnims?.[si]?.[slot] || null;
     if (dynamax && this.dynamaxAnims?.[si]?.[slot]) return this.dynamaxAnims[si][slot];
     return (mega ? this.megaAnims[si]?.[slot] : this.anims[si]?.[slot]) || null;
   }
@@ -418,7 +422,7 @@ export class ArenaRenderer {
     const T = this.texts;
     const u = e.u || 0;
     const key = battle.doubles ? e.s * 2 + u : e.s;
-    const anim = (si) => { const w = this.unitOf(battle, si, u); return this.animOf(si, w.active, !!w.mons[w.active]?.megaOn, !!w.mons[w.active]?.dynamaxUntil); };
+    const anim = (si) => { const w = this.unitOf(battle, si, u); return this.animOf(si, w.active, !!w.mons[w.active]?.megaOn, !!w.mons[w.active]?.dynamaxUntil, !!w.mons[w.active]?.ultraOn); };
     const s = e.s;
     const float = (si, text, color, opts = {}) => this.float(battle, si, text, color, { ...opts, u });
     this.vfx.onEvent(e, battle);
@@ -879,13 +883,14 @@ export class ArenaRenderer {
     if (mon.fainted && fade.slot !== side.active) return;
     const mega = !!mon.is_mega || (mon.fainted && fade.slot === side.active && !!fade.mega);
     const dynamax = !!mon.is_dynamax;
+    const ultra = !!mon.is_ultra;
     // Event-driven transformation at the registered feet; seeking shows the resolved size immediately.
     const grown = dynamax ? mon.display_scale || 2.2 : 1;
     const displayScale = this.show.on ? this.specials.bodyScale(si, side.pos || 0, side.active, grown, !!this.reducedMotion?.matches) : grown;
-    const lookKey = `${side.active}:${mega ? 1 : 0}${dynamax ? ':dynamax' : ''}`;
+    const lookKey = `${side.active}:${mega ? 1 : 0}${dynamax ? ':dynamax' : ''}${ultra ? ':ultra' : ''}`;
     if (this.lastActive[key] !== lookKey) {
       this.lastActive[key] = lookKey;
-      const a = this.animOf(si, side.active, mega, dynamax);
+      const a = this.animOf(si, side.active, mega, dynamax, ultra);
       if (a && !mon.fainted) a.start("Idle", false);
     }
     const recalling = side.act?.kind === "switch";
@@ -936,7 +941,7 @@ export class ArenaRenderer {
       ctx.stroke();
     }
     this.megas.drawBurst(ctx,x,y,s,si,side.pos || 0,side.active,!!this.reducedMotion?.matches);
-    const a = this.animOf(si, side.active, mega, dynamax);
+    const a = this.animOf(si, side.active, mega, dynamax, ultra);
     let headY = y - 1.6 * s;
     let drawn = false;
     ctx.save();
@@ -964,7 +969,7 @@ export class ArenaRenderer {
       const portraitMega = this.portrait && mega ? this.portraitMegaFallbacks?.[si]?.[side.active] : null;
       const megaImg = portraitMega?.ready ? portraitMega : mega ? this.megaFallbacks[si]?.[side.active] : null;
       const portraitImg = this.portrait ? this.portraitFallbacks?.[si]?.[side.active] : null;
-      const img = dynamax && this.dynamaxFallbacks?.[si]?.[side.active]?.ready ? this.dynamaxFallbacks[si][side.active] : mega ? megaImg : portraitImg?.ready ? portraitImg : this.fallbacks[si]?.[side.active];
+      const img = ultra ? this.ultraFallbacks?.[si]?.[side.active] : dynamax && this.dynamaxFallbacks?.[si]?.[side.active]?.ready ? this.dynamaxFallbacks[si][side.active] : mega ? megaImg : portraitImg?.ready ? portraitImg : this.fallbacks[si]?.[side.active];
       if (img?.ready) {
         const h = 2.2 * s * displayScale;
         const w = (img.img.width / img.img.height) * h;

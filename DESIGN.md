@@ -216,3 +216,5 @@ Portable battle pages include the presentation stylesheet and available assets w
 Dynamax and Z presentation carries the same cabinet direction through energy gathering, a short command cut-in, source-sprite growth, storm clouds and type-shaped releases/confirmed impacts. The pink storm belongs to Dynamax state; Z energy reads the actual move type. Reduced motion and plain presentation keep state feedback. See `docs/VISUAL_PRESENTATION.md` for timing, owner and replay boundaries.
 
 Move-specific special choreography uses the credited pixel-effect atlases: Max/G-Max and Z recipes distinguish material, direction and aftermath. Dynamax follows collection, ball throw and giant reveal; Ultra Necrozma adds starlight gathering and spectral columns. Shared primitives preserve replay/portrait/reduced-motion behavior.
+
+Ultra Burst is a form-change focal moment: converging spectral rays, faceted light envelope, split facets and resolved PMD reveal. The control names Ultra Burst separately from Mega/Z; no gauge cost or fake giant scaling. Preserve stationary reduced-motion feedback and independent form assets.

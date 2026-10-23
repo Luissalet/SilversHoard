@@ -2,6 +2,10 @@
 // takes them in (i18n.js), and the battle screen reads them through rtT.
 const RT = {
   rt_blocked_gravity: ["La gravedad impide volar", "Gravity prevents flying"],
+  rt_ultra: ["Ultraexplosión", "Ultra Burst"],
+  rt_ultra_used: ["Ultraexplosión usada", "Ultra Burst used"],
+  rt_ultra_help: ["Melena Crepuscular o Alas del Alba con Ultranecrostal Z. Una vez por entrenador, sin gastar megaenergía ni el movimiento Z. Mantiene la forma al cambiar.", "Dusk Mane or Dawn Wings holding Ultranecrozium Z. Once per trainer, without spending Mega power or the Z-Move. Persists on switching."],
+  rt_ultra_keys: ["M · R del mando (sencillo: L). Dos jugadores: G / L. Después prepara Z y elige Géiser Fotónico.", "M · gamepad R (simple: L). Two players: G / L. Afterwards arm Z and choose Photon Geyser."],
   rt_dynamax: ["Dynamax", "Dynamax"],
   rt_dynamax_help: ["Una vez por entrenador. 18 s, más PS y movimientos Max. Termina al cambiar.", "Once per trainer. 18 s, extra HP and Max Moves. Ends on switching."],
   rt_dynamax_left: ["Dynamax · {n} s", "Dynamax · {n} s"],

@@ -31,7 +31,12 @@ export class SpecialPresentation {
     const w = unit(battle, e.s, e.u || 0), m = w?.mons[w.active];
     if (!w) return;
     const who = {s:e.s, u:e.u || 0, slot:e.slot ?? w.active};
-    if (e.k === 'dynamax') {
+    if (e.k === 'ultra') {
+      this.transforms=this.transforms.filter(n=>!same(n,who.s,who.u,who.slot));
+      this.transforms.push({...who,age:0,x:w.x,y:w.y,life:1.25,ultra:true});
+    } else if(e.k === 'ultra_end') {
+      this.transforms=this.transforms.filter(n=>!same(n,who.s,who.u,who.slot));
+    } else if (e.k === 'dynamax') {
       this.transforms = this.transforms.filter(n => !same(n, who.s, who.u, who.slot));
       this.transforms.push({...who, age:0, x:w.x, y:w.y, life:1.35, giant:true});
     } else if (e.k === 'dynamax_end') {
@@ -87,7 +92,7 @@ export class SpecialPresentation {
   bodyScale(s, u, slot, grown, reduced) {
     if (reduced) return grown;
     const n = this.transforms.find(n => same(n,s,u,slot));
-    if (!n) return grown; // Seeking into Dynamax immediately shows the actual state.
+    if (!n || n.ultra) return grown; // Ultra Burst changes form, never its physical display scale.
     if(!n.giant)return 1 + 1.2 * (1-out(n.age/.5));
     if(n.age<.16)return 1;
     if(n.age<.34)return 1-.94*out((n.age-.16)/.18);
@@ -97,13 +102,14 @@ export class SpecialPresentation {
 
   bodyFlash(s,u,slot,reduced) {
     if(reduced)return 0;
-    const n=this.transforms.find(n=>same(n,s,u,slot) && n.giant);
+    const n=this.transforms.find(n=>same(n,s,u,slot) && (n.giant || n.ultra));
+    if(n?.ultra)return Math.sin(Math.PI*clamp(n.age/.8))*.9;
     return n && n.age>.12 && n.age<.5 ? Math.sin(Math.PI*clamp((n.age-.12)/.38)) : 0;
   }
 
   drawAtmosphere(ctx,r,reduced,detailed) {
     if(!detailed)return;
-    const sky=this.charges.find(n=>n.move==='lightthatburnsthesky') || this.attacks.find(n=>n.recipe.motif==='skyburn' && n.age<1.4);
+    const sky=this.transforms.find(n=>n.ultra) || this.charges.find(n=>n.move==='lightthatburnsthesky') || this.attacks.find(n=>n.recipe.motif==='skyburn' && n.age<1.4);
     if(!sky)return;
     ctx.save();ctx.fillStyle='rgba(8,17,34,.4)';ctx.fillRect(0,0,r.canvas.width,r.canvas.height);
     ctx.fillStyle='#d7f4ff';
@@ -121,6 +127,7 @@ export class SpecialPresentation {
     if (detailed) for (const n of this.transforms) {
       const w = unit(view,n.s,n.u);
       if (!w || w.active !== n.slot) continue;
+      if(n.ultra)continue;
       const x=r.px(w.x), y=r.py(w.y), p=n.age/n.life;
       if(!reduced && n.giant && n.age>=.3 && n.age<.58) {
         const from=r.trainerPos(n.s),f=clamp((n.age-.3)/.28);
@@ -187,7 +194,21 @@ export class SpecialPresentation {
         }
       }
     }
-    if (detailed && n) {
+    if(detailed && n?.ultra) {
+      const p=n.age/n.life,cy=y-height*.5,burst=out(clamp((p-.4)/.6));
+      const spectrum=['#ffe391','#c5f6ff','#d1b5ff','#fbafce'];
+      // Light enters a faceted cocoon, then its facets split away to reveal the PMD form.
+      for(let i=0;i<8;i++) {
+        const a=i*TAU/8,d=s*(reduced?1.2:p<.4?3.4-5*p:1.4+burst*2.6);
+        const dx=Math.cos(a)*d,dy=Math.sin(a)*d*.8;
+        ctx.globalAlpha=reduced?.65:(1-p)*.9;ctx.strokeStyle=spectrum[i%4];ctx.fillStyle=spectrum[i%4];ctx.lineWidth=s*.06;
+        if(p<.4 || reduced)line(ctx,[[x+dx,cy+dy],[x+dx*.35,cy+dy*.35]]);
+        else crystal(ctx,x+dx,cy+dy,s*(.3+burst*.15));
+      }
+      ctx.strokeStyle='#fff1bc';ctx.fillStyle='rgba(255,237,172,.2)';ctx.globalAlpha=reduced?.7:(1-p)*.9;
+      ctx.lineWidth=s*.08;crystal(ctx,x,cy,s*(reduced?1.2:1.3+burst*.8));
+      if(!reduced && p>.45){ctx.globalAlpha=(1-p)*.5;ellipse(ctx,x,y,s*(1+burst*3),s*(.4+burst));}
+    } else if (detailed && n) {
       const p=n.age/n.life;
       ctx.globalAlpha=(1-p)*.8; ctx.strokeStyle='#ffb6ce';ctx.lineWidth=s*.12;
       const radius=s*(reduced?1.5:1.2+out(clamp(n.age/.7))*1.8);
@@ -254,7 +275,7 @@ export class SpecialPresentation {
 
   drawScreen(ctx, r, reduced, detailed) {
     if(!detailed)return;
-    const n=this.charges.find(n=>n.z) || this.transforms.find(n=>n.giant);
+    const n=this.charges.find(n=>n.z) || this.transforms.find(n=>n.giant || n.ultra);
     if(!n)return;
     const width=r.canvas.width,height=r.canvas.height;
     // A command cut-in sits in a free band in portrait, away from both external HUDs.
@@ -274,7 +295,7 @@ export class SpecialPresentation {
     }
     ctx.fillStyle='#fff4d4';ctx.strokeStyle=n.move?color(n.type):'#ff76a9';
     crystal(ctx,x+h*1.1,y+h*.47,h*.24);
-    const title=n.move?(r.texts.lang==='es'?'PODER Z':'Z-POWER'):'DYNAMAX';
+    const title=n.ultra?(r.texts.lang==='es'?'ULTRAEXPLOSIÓN':'ULTRA BURST'):n.move?(r.texts.lang==='es'?'PODER Z':'Z-POWER'):'DYNAMAX';
     let size=h*.34;ctx.font=`italic 800 ${size}px "Barlow Condensed", sans-serif`;
     while(size>10 && ctx.measureText(title).width>w-h*1.55)ctx.font=`italic 800 ${--size}px "Barlow Condensed", sans-serif`;
     ctx.fillStyle='#f0f4ed';ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillText(title,x+h*1.5,y+h*.5);
