@@ -353,7 +353,8 @@ export class Show {
         // the hardest blows: impact frame, camera push and the red edges
         if (first && (ko || special || (e.crit && big) || (e.eff > 1 && big) || e.dmg / Math.max(1, e.maxhp) >= 0.45)) {
           if (showSettings().impact) this.impact = { t: 0, life: ko ? 0.28 : 0.2, s: e.s, u: e.u || 0, a, dmg: e.dmg, maxhp: e.maxhp, ko, crit: e.crit,
-            bg: ko ? "red" : special || e.crit ? "black" : "white", special:special?.z ? 'z' : special ? 'max' : null, x: d.x, y: d.y, seed: Math.random() * 1e6 };
+            bg: ko ? "red" : special || e.crit ? "black" : "white", special:special?.z ? 'z' : special ? 'max' : null,
+            attacker:special ? {u:special.u,slot:special.slot} : null, x: d.x, y: d.y, seed: Math.random() * 1e6 };
           this.push(d.x, d.y, ko ? 1.45 : 1.25, ko ? 1.1 : 0.7);
           this.vignette = 1;
           this.cheer(ko ? 1.3 : 1);
@@ -780,11 +781,13 @@ export class Show {
     o.globalCompositeOperation = "source-over";
     o.clearRect(0, 0, W, H);
     o.imageSmoothingEnabled = false;
-    const who = im.actorOnly ? [[im.s,im.u]] : [[im.a, 0], [im.s, im.u]];
-    if (battle.doubles && !im.actorOnly) who[0] = [im.a, battle.sides[im.a].ctl ?? 0];
-    for (const [si, u] of who) {
+    const who = im.actorOnly ? [[im.s,im.u]] : [[im.a, im.attacker?.u || 0, im.attacker?.slot], [im.s, im.u]];
+    if (battle.doubles && !im.actorOnly && !im.attacker) who[0] = [im.a, battle.sides[im.a].ctl ?? 0];
+    for (const [si, u, slot] of who) {
       const side = battle.doubles ? battle.sides[si]?.units?.[u] : battle.sides[si];
       if (!side) continue;
+      // A projectile can land after its caster recalls; never substitute the incoming teammate.
+      if(slot !== undefined && side.active !== slot)continue;
       const mon = battle.sides[si].mons[side.active];
       const giant=!!mon?.dynamaxUntil;
       const anim = r.animOf(si, side.active, !!mon?.megaOn, giant, !!mon?.ultraOn);
@@ -794,7 +797,7 @@ export class Show {
       const facing = r.portrait ? portraitFacing(side.fx, side.fy) : side;
       const row = dirRow(facing.fx, facing.fy);
       if (!anim || !anim.draw(o, p.x, p.y, row, k)) {
-        const image=(mon?.ultraOn?r.ultraFallbacks:giant?r.dynamaxFallbacks:mon?.megaOn?r.megaFallbacks:r.fallbacks)?.[si]?.[side.active];
+        const image=(mon?.ultraOn?r.ultraFallbacks:giant && mon?.dynamax_info?.look?r.dynamaxFallbacks:mon?.megaOn?r.megaFallbacks:r.fallbacks)?.[si]?.[side.active];
         if(image?.ready) {
           const height=r.scale*p.k*2.2*grown;
           const width=height*image.img.width/image.img.height;
