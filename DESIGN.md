@@ -218,3 +218,5 @@ Dynamax and Z presentation carries the same cabinet direction through energy gat
 Move-specific special choreography uses the credited pixel-effect atlases: Max/G-Max and Z recipes distinguish material, direction and aftermath. Dynamax follows collection, ball throw and giant reveal; Ultra Necrozma adds starlight gathering and spectral columns. Shared primitives preserve replay/portrait/reduced-motion behavior.
 
 Ultra Burst is a form-change focal moment: converging spectral rays, faceted light envelope, split facets and resolved PMD reveal. The control names Ultra Burst separately from Mega/Z; no gauge cost or fake giant scaling. Preserve stationary reduced-motion feedback and independent form assets.
+
+Transformation spectacle uses anticipation, opaque concealment, one rupture and a clear PMD reveal. Ultra is spectral gold, Mega is a pink/violet double helix, Dynamax a red storm and heavy landing. Fragments are shell geometry, never distorted Pokémon limbs. One dark impact panel punctuates the reveal; Z/Max fractures require a confirmed hit. Keep names/HUD readable above the panel, uniform body proportions and stationary reduced-motion feedback.

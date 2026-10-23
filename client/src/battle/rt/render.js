@@ -679,7 +679,7 @@ export class ArenaRenderer {
     this.drawCutin(dt);
     this.show.drawBubbles(overlay, raw);
     this.show.drawScreen(overlay, battle);
-    this.specials.drawScreen(overlay, this, !!this.reducedMotion?.matches, this.show.on);
+    this.specials.drawScreen(overlay, this, !!this.reducedMotion?.matches, this.show.on, battle, showSettings().impact);
     drawMoveCard(overlay,this,this.time,this.canvas.width,this.canvas.height,!!this.reducedMotion?.matches,this.portrait ? .23 : .04);
     this.megas.draw(overlay,this.canvas.width,this.canvas.height,!!this.reducedMotion?.matches,this.texts.mega,this.portrait);
     if (this.portrait) { this.canvas = world; this.ctx = ctx; this.screenPass = false; }
@@ -903,6 +903,8 @@ export class ArenaRenderer {
     if (recalling) alpha = Math.max(0.15, (side.act.left || 0) / 27);
     if (side.need && !mon.fainted) alpha = 0.15;
     if (side.invulnerable && side.act?.kind === "windup") alpha *= 0.35;
+    const phase = this.specials.bodyPhase(si,side.pos || 0,side.active,!this.show.on || !!this.reducedMotion?.matches);
+    const artMega = mega && !phase.base, artDynamax = dynamax && !phase.base, artUltra = ultra && !phase.base;
     const x = this.px(side.x);
     const y = this.py(side.y);
     const motion = motionFor(side, this.time, !!this.reducedMotion?.matches);
@@ -940,8 +942,7 @@ export class ArenaRenderer {
       ctx.ellipse(x, y, side.r * s * k, side.r * s * 0.5 * k, 0, 0, Math.PI * 2);
       ctx.stroke();
     }
-    this.megas.drawBurst(ctx,x,y,s,si,side.pos || 0,side.active,!!this.reducedMotion?.matches);
-    const a = this.animOf(si, side.active, mega, dynamax, ultra);
+    const a = this.animOf(si, side.active, artMega, artDynamax, artUltra);
     let headY = y - 1.6 * s;
     let drawn = false;
     ctx.save();
@@ -951,8 +952,8 @@ export class ArenaRenderer {
     ctx.rotate(motion.turn + body.turn);
     ctx.scale(body.sx, body.sy);
     ctx.translate(-x, -y + .8 * s);
-    const bodyAlpha = alpha * motion.opacity;
-    const bodyFlash = Math.max(this.flash[key],this.specials.bodyFlash(si,side.pos || 0,side.active,!!this.reducedMotion?.matches));
+    const bodyAlpha = alpha * motion.opacity * phase.alpha;
+    const bodyFlash = Math.max(this.flash[key],phase.flash);
     if (a) {
       const act = side.act?.kind;
       if (mon.fainted) { /* holds the faint frame */ } else if (mon.status === "slp" && !a.busy()) a.loop("Sleep");
@@ -966,10 +967,10 @@ export class ArenaRenderer {
       headY = y - a.height(this.k * displayScale) - 0.3 * s;
     }
     if (!drawn) {
-      const portraitMega = this.portrait && mega ? this.portraitMegaFallbacks?.[si]?.[side.active] : null;
-      const megaImg = portraitMega?.ready ? portraitMega : mega ? this.megaFallbacks[si]?.[side.active] : null;
+      const portraitMega = this.portrait && artMega ? this.portraitMegaFallbacks?.[si]?.[side.active] : null;
+      const megaImg = portraitMega?.ready ? portraitMega : artMega ? this.megaFallbacks[si]?.[side.active] : null;
       const portraitImg = this.portrait ? this.portraitFallbacks?.[si]?.[side.active] : null;
-      const img = ultra ? this.ultraFallbacks?.[si]?.[side.active] : dynamax && this.dynamaxFallbacks?.[si]?.[side.active]?.ready ? this.dynamaxFallbacks[si][side.active] : mega ? megaImg : portraitImg?.ready ? portraitImg : this.fallbacks[si]?.[side.active];
+      const img = artUltra ? this.ultraFallbacks?.[si]?.[side.active] : artDynamax && this.dynamaxFallbacks?.[si]?.[side.active]?.ready ? this.dynamaxFallbacks[si][side.active] : artMega ? megaImg : portraitImg?.ready ? portraitImg : this.fallbacks[si]?.[side.active];
       if (img?.ready) {
         const h = 2.2 * s * displayScale;
         const w = (img.img.width / img.img.height) * h;

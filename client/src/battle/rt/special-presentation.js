@@ -4,6 +4,7 @@ import { rtMove } from '../../../../engine/src/realtime/moves.mjs';
 import {drawBallFrame} from '../ball-art.js';
 import {upright} from './portrait-camera.js';
 import {specialMoveRecipe,paintSpecialMove} from './special-moves.js';
+import {transformationBody,paintTransformation,paintTransformationFrame} from './transformation-art.js';
 
 const TAU = Math.PI * 2;
 const clamp = n => Math.max(0, Math.min(1, n));
@@ -31,7 +32,10 @@ export class SpecialPresentation {
     const w = unit(battle, e.s, e.u || 0), m = w?.mons[w.active];
     if (!w) return;
     const who = {s:e.s, u:e.u || 0, slot:e.slot ?? w.active};
-    if (e.k === 'ultra') {
+    if (e.k === 'mega') {
+      this.transforms=this.transforms.filter(n=>!same(n,who.s,who.u,who.slot));
+      this.transforms.push({...who,age:0,x:w.x,y:w.y,life:1.25,mega:true});
+    } else if (e.k === 'ultra') {
       this.transforms=this.transforms.filter(n=>!same(n,who.s,who.u,who.slot));
       this.transforms.push({...who,age:0,x:w.x,y:w.y,life:1.25,ultra:true});
     } else if(e.k === 'ultra_end') {
@@ -92,7 +96,7 @@ export class SpecialPresentation {
   bodyScale(s, u, slot, grown, reduced) {
     if (reduced) return grown;
     const n = this.transforms.find(n => same(n,s,u,slot));
-    if (!n || n.ultra) return grown; // Ultra Burst changes form, never its physical display scale.
+    if (!n || n.ultra || n.mega) return grown; // Only Dynamax changes physical display scale.
     if(!n.giant)return 1 + 1.2 * (1-out(n.age/.5));
     if(n.age<.16)return 1;
     if(n.age<.34)return 1-.94*out((n.age-.16)/.18);
@@ -101,10 +105,11 @@ export class SpecialPresentation {
   }
 
   bodyFlash(s,u,slot,reduced) {
-    if(reduced)return 0;
-    const n=this.transforms.find(n=>same(n,s,u,slot) && (n.giant || n.ultra));
-    if(n?.ultra)return Math.sin(Math.PI*clamp(n.age/.8))*.9;
-    return n && n.age>.12 && n.age<.5 ? Math.sin(Math.PI*clamp((n.age-.12)/.38)) : 0;
+    return this.bodyPhase(s,u,slot,reduced).flash;
+  }
+
+  bodyPhase(s,u,slot,reduced) {
+    return transformationBody(this.transforms.find(n=>same(n,s,u,slot)),reduced);
   }
 
   drawAtmosphere(ctx,r,reduced,detailed) {
@@ -127,7 +132,7 @@ export class SpecialPresentation {
     if (detailed) for (const n of this.transforms) {
       const w = unit(view,n.s,n.u);
       if (!w || w.active !== n.slot) continue;
-      if(n.ultra)continue;
+      if(n.ultra || n.mega)continue;
       const x=r.px(w.x), y=r.py(w.y), p=n.age/n.life;
       if(!reduced && n.giant && n.age>=.3 && n.age<.58) {
         const from=r.trainerPos(n.s),f=clamp((n.age-.3)/.28);
@@ -194,32 +199,8 @@ export class SpecialPresentation {
         }
       }
     }
-    if(detailed && n?.ultra) {
-      const p=n.age/n.life,cy=y-height*.5,burst=out(clamp((p-.4)/.6));
-      const spectrum=['#ffe391','#c5f6ff','#d1b5ff','#fbafce'];
-      // Light enters a faceted cocoon, then its facets split away to reveal the PMD form.
-      for(let i=0;i<8;i++) {
-        const a=i*TAU/8,d=s*(reduced?1.2:p<.4?3.4-5*p:1.4+burst*2.6);
-        const dx=Math.cos(a)*d,dy=Math.sin(a)*d*.8;
-        ctx.globalAlpha=reduced?.65:(1-p)*.9;ctx.strokeStyle=spectrum[i%4];ctx.fillStyle=spectrum[i%4];ctx.lineWidth=s*.06;
-        if(p<.4 || reduced)line(ctx,[[x+dx,cy+dy],[x+dx*.35,cy+dy*.35]]);
-        else crystal(ctx,x+dx,cy+dy,s*(.3+burst*.15));
-      }
-      ctx.strokeStyle='#fff1bc';ctx.fillStyle='rgba(255,237,172,.2)';ctx.globalAlpha=reduced?.7:(1-p)*.9;
-      ctx.lineWidth=s*.08;crystal(ctx,x,cy,s*(reduced?1.2:1.3+burst*.8));
-      if(!reduced && p>.45){ctx.globalAlpha=(1-p)*.5;ellipse(ctx,x,y,s*(1+burst*3),s*(.4+burst));}
-    } else if (detailed && n) {
-      const p=n.age/n.life;
-      ctx.globalAlpha=(1-p)*.8; ctx.strokeStyle='#ffb6ce';ctx.lineWidth=s*.12;
-      const radius=s*(reduced?1.5:1.2+out(clamp(n.age/.7))*1.8);
-      ellipse(ctx,x,y-height*.45,radius,Math.max(radius,height*.58));
-      if (!reduced) for(let i=0;i<12;i++) {
-        const a=i*TAU/12+n.age*.7,progress=(n.age*1.4+i/12)%1;
-        const d=radius*(1.6-progress);
-        line(ctx,[[x+Math.cos(a)*d,y-height*.45+Math.sin(a)*d],
-          [x+Math.cos(a)*d*.8,y-height*.45+Math.sin(a)*d*.8]]);
-      }
-    }
+    if(detailed && n && (n.ultra || n.mega || n.giant))
+      paintTransformation(ctx,n,x,y,height,s,reduced);
     const z=this.charges.find(n=>same(n,si,side.pos || 0,side.active));
     if (z) {
       const p=z.progress || 0,cy=y-height*.55;
@@ -273,8 +254,12 @@ export class SpecialPresentation {
     ctx.restore();
   }
 
-  drawScreen(ctx, r, reduced, detailed) {
+  drawScreen(ctx, r, reduced, detailed, battle, impact = true) {
     if(!detailed)return;
+    if(!reduced && impact && battle) {
+      const frame=this.transforms.findLast(n=>(n.ultra || n.mega || n.giant) && n.age>=(n.giant?.94:.60) && n.age<(n.giant?1.045:.705));
+      if(frame)paintTransformationFrame(ctx,frame,r,battle);
+    }
     const n=this.charges.find(n=>n.z) || this.transforms.find(n=>n.giant || n.ultra);
     if(!n)return;
     const width=r.canvas.width,height=r.canvas.height;
