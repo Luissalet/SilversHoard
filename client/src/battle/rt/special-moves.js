@@ -54,7 +54,7 @@ export function paintSpecialMove(ctx,recipe,{x,y,scale,age=0,progress=0,stage='i
   const t=reduced?.65:sat(progress),s=scale;
   const r=s*(charge?1.25:travel?1.45:3.1)*(reduced?1:.5+.5*Math.sin(Math.PI*t/2));
   const phase=reduced?0:age;
-  const stamp=(id,dx,dy,size=1,alpha=1,angle=0)=>drawSuppliedStamp(ctx,id,x+dx,y+dy,size*s,age,reduced,alpha,angle);
+  const stamp=(id,dx,dy,size=1,alpha=1,angle=0)=>drawSuppliedStamp(ctx,id,x+dx,y+dy,size*s,age,reduced,alpha,angle,recipe.motif==='gold-rain'?'sepia(1) saturate(4)':'');
   const texture=(dx,dy,size=1,alpha=1,angle=0)=>stamp(recipe.texture,dx,dy,size,alpha,angle);
   ctx.save();ctx.strokeStyle=color;ctx.fillStyle=rgba(color,.25);ctx.lineWidth=Math.max(2,s*.09);
   // Source power gathers in the move's own material; attack and target tell different parts of the same story.
@@ -115,7 +115,56 @@ export function paintSpecialMove(ctx,recipe,{x,y,scale,age=0,progress=0,stage='i
       const a=i*TAU/8,dx=Math.cos(a)*r,dy=Math.sin(a)*r*.4;
       path(ctx,[[x,y],[x+dx*.5,y+dy*.5],[x+dx*.7-dy*.2,y+dy*.8],[x+dx,y+dy]]);
     }
-  } else if(['geyser','cannons','snipe','surf','foam','opera','rain','toxic-fountain','miasma','sleep-cloud'].includes(kind)) {
+  } else if(kind==='rain') {
+    // Acid falls into a spreading pool; it must not read as another upward geyser.
+    for(let i=0;i<9;i++) {
+      const fall=reduced?.72:(phase*1.5+i*.17)%1,dx=(i-4)*s*.5;
+      const dy=-s*5*(1-fall);
+      texture(dx,dy,.8,.85);
+      path(ctx,[[x+dx,y+dy-s*.7],[x+dx,y+dy]]);
+    }
+    ctx.fillStyle=rgba(color,.28);ctx.beginPath();ctx.ellipse(x,y,r,r*.35,0,0,TAU);ctx.fill();
+    ring(ctx,x,y,r,.35);texture(0,0,2.5,.75);
+  } else if(['dive','sun-dive','pounce','body-slam','ring-slam','rush'].includes(kind)) {
+    // A launch trail on the actual projectile, followed by a compressed landing at the confirmed hit.
+    const rush=kind==='rush',heavy=['body-slam','ring-slam'].includes(kind);
+    if(travel) {
+      for(let i=0;i<5;i++) {
+        const d=(i+.3)*s*.65;
+        texture(rush?-d:d*.55,rush?Math.sin(i)*s*.12:-d,1.7-i*.2,1-i*.15,rush?0:-Math.PI*.35);
+      }
+    } else {
+      const land=reduced?1:sat(t*4),height=(1-land)*s*(heavy?5:3);
+      texture(0,-height,heavy?4.8:3,1,kind==='ring-slam'?phase*.7:0);
+      ctx.lineWidth=s*(heavy?.2:.1);
+      for(let i=0;i<3;i++)ring(ctx,x,y,r*(.45+i*.3)*land,heavy?.24:.45);
+      for(let i=0;i<7;i++) {
+        const a=Math.PI+i*Math.PI/6,d=r*land;
+        path(ctx,[[x,y],[x+Math.cos(a)*d*.6,y+Math.sin(a)*d*.5],[x+Math.cos(a)*d,y+Math.sin(a)*d*.35]]);
+      }
+    }
+  } else if(kind==='shatter') {
+    // A prism closes around the point of contact, then breaks into outward shards.
+    const burst=reduced?.7:sat((t-.18)*1.8),radius=s*(travel?1.5:2.2)*(1+burst);
+    for(let i=0;i<8;i++) {
+      const a=i*TAU/8,dx=Math.cos(a)*radius,dy=Math.sin(a)*radius*.7;
+      ctx.fillStyle=rgba(color,.3);ctx.strokeStyle=i%2?'#f2d8ff':color;
+      path(ctx,[[x+dx,y+dy-s*.7],[x+dx+s*.4,y+dy],[x+dx,y+dy+s*.7],[x+dx-s*.4,y+dy]],true);
+      texture(dx,dy,.65,.8,a+burst);
+      if(!travel)path(ctx,[[x+dx*.35,y+dy*.35],[x+dx,y+dy]]);
+    }
+  } else if(kind==='cuddle'||kind==='celebration') {
+    const embrace=kind==='cuddle';
+    for(let i=0;i<10;i++) {
+      const a=i*TAU/10+phase*.6;
+      const rise=reduced?.5:(phase*.65+i*.13)%1;
+      const dx=embrace?Math.cos(a)*r*(1-t*.35):(i-4.5)*s*.48;
+      const dy=embrace?Math.sin(a)*r*.7:-rise*s*4;
+      texture(dx,dy,embrace?1:.65,.85,embrace?a:0);
+    }
+    if(embrace){ring(ctx,x,y,r*(1-t*.35),.8);ring(ctx,x,y,r*.6,.8);}
+    else for(let i=0;i<3;i++){ctx.strokeStyle=['#ffedcc','#ffc3df',color][i];ring(ctx,x,y-s*i*.35,r*(1-i*.2),.25);}
+  } else if(['geyser','cannons','snipe','surf','foam','opera','toxic-fountain','miasma','sleep-cloud'].includes(kind)) {
     const height=s*(travel?2.2:4.5),count=kind==='snipe'?1:5;
     for(let i=0;i<count;i++) {
       const dx=(i-(count-1)/2)*s*.6,offset=reduced?.5:(phase*.9+i*.2)%1;
@@ -133,7 +182,7 @@ export function paintSpecialMove(ctx,recipe,{x,y,scale,age=0,progress=0,stage='i
     }
     texture(0,0,travel?2.1:4);ctx.strokeStyle='#fff5bf';ring(ctx,x,y,r);
     if(kind==='toxic-thunder')stamp('fx-rt-poison-cloud',0,0,3,.55);
-  } else if(['barrage','fists','chi-fist','one-blow','three-strikes','body-slam','ring-slam','pounce','guardian','grasp','haunt','seven-stars'].includes(kind)) {
+  } else if(['barrage','fists','chi-fist','one-blow','three-strikes','guardian','grasp','haunt','seven-stars'].includes(kind)) {
     const count=['one-blow','body-slam','guardian','pounce'].includes(kind)?1:kind==='three-strikes'?3:7;
     for(let i=0;i<count;i++) {
       const a=i*TAU/count,beat=reduced?1:sat(t*4-i*.13),dx=count===1?0:Math.cos(a)*r*.65;
@@ -142,7 +191,7 @@ export function paintSpecialMove(ctx,recipe,{x,y,scale,age=0,progress=0,stage='i
     }
     ctx.strokeStyle='#fff0ce';path(ctx,[[x-r,y+r*.3],[x+r,y-r*.3]]);
     if(['ring-slam','body-slam'].includes(kind)) {ctx.strokeStyle=color;ring(ctx,x,y,r);ring(ctx,x,y,r*.7);}
-  } else if(['bloom','fairy','constellation','cuddle','celebration','evolution','nectar','harvest','acid-fruit','spore-storm','swarm','blanket','cocoon','gold-rain','aurora'].includes(kind)) {
+  } else if(['bloom','fairy','constellation','evolution','nectar','harvest','acid-fruit','spore-storm','swarm','blanket','cocoon','gold-rain','aurora'].includes(kind)) {
     const gold=kind==='gold-rain',cocoon=['cocoon','blanket'].includes(kind);
     if(cocoon)for(let i=0;i<7;i++){ctx.strokeStyle=i%2?'#f0f4ed':color;ring(ctx,x,y-s*.1*i,r*(1-i*.08),.8);}
     for(let i=0;i<12;i++) {
@@ -152,7 +201,7 @@ export function paintSpecialMove(ctx,recipe,{x,y,scale,age=0,progress=0,stage='i
       if(gold){ctx.strokeStyle='#ffda73';path(ctx,[[x+dx,y+dy-s*.7],[x+dx,y+dy-s*.25]]);}
     }
     if(kind==='aurora')for(let i=0;i<4;i++){ctx.strokeStyle=['#77efdf','#c7acff','#ffa9df','#c7f49c'][i];ring(ctx,x,y-s*i*.5,r,.7);}
-  } else if(['eruption','inferno','sun-kick','wildfire','helix','dragon','scales','dive','sun-dive','rush','feather-storm','drums','siege','arrows','nova','prism','shatter','rupture'].includes(kind)) {
+  } else if(['eruption','inferno','sun-kick','wildfire','helix','dragon','scales','feather-storm','drums','siege','arrows','nova','prism','rupture'].includes(kind)) {
     const spiral=['helix','dragon','wildfire','scales'].includes(kind);
     for(let i=0;i<9;i++) {
       const a=i*TAU/9+(spiral?phase*2:0),d=r*(travel?.6:.6+t*.35);
