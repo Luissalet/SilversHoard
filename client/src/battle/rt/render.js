@@ -6,6 +6,7 @@
 import { TYPE_COLORS } from "../dex.js";
 import { Animator, dirRow, image, loadMeta, sheetUrl, white } from "./pmd.js";
 import { MegaPresentation } from "./mega-presentation.js";
+import { SpecialPresentation } from "./special-presentation.js";
 import { OverworldAnimator } from "./overworld.js";
 import { Vfx, particleStyle } from "./vfx.js";
 import { Show, showSettings } from "./show.js";
@@ -100,6 +101,7 @@ export class ArenaRenderer {
     this.winding = [null, null, null, null];
     this.cutin = null;
     this.megas = new MegaPresentation();
+    this.specials = new SpecialPresentation();
     this.resize(canvas.clientWidth || 900);
   }
 
@@ -196,6 +198,7 @@ export class ArenaRenderer {
     this.winding = [null, null, null, null];
     this.cutin = null;
     this.megas = new MegaPresentation();
+    this.specials = new SpecialPresentation();
     this.tosses = {};
     this.reactions = new FighterReactions();
     this.damageFloats = Array(4).fill(null);
@@ -420,6 +423,7 @@ export class ArenaRenderer {
     const float = (si, text, color, opts = {}) => this.float(battle, si, text, color, { ...opts, u });
     this.vfx.onEvent(e, battle);
     this.show.onEvent(e, battle);
+    this.specials.onEvent(e, battle);
     this.reactions.onEvent(e, battle, this.time);
     playRtEvent(e, this.audio);
     switch (e.k) {
@@ -554,6 +558,7 @@ export class ArenaRenderer {
     this.time += dt;
     this.consume(battle);
     this.megas.update(raw);
+    this.specials.update(raw, view);
     this.vfx.update(dt, view);
     this.show.update(raw, battle);
     if (this.outputCanvas.dataset) this.outputCanvas.dataset.intro = String(!!this.show.intro && this.show.intro.t < 2.1);
@@ -610,6 +615,7 @@ export class ArenaRenderer {
     // area effects under the Pokémon
     this.drawEffects(dt, true);
     this.vfx.drawUnder(ctx);
+    this.specials.drawGround(ctx, this, view, !!this.reducedMotion?.matches, this.show.on);
     // every Pokémon on the field: one per side in singles, a side's two slots in doubles (their own place and act, the side's party)
     const fighters = view.doubles
       ? view.sides.flatMap((sd, si) => sd.units.filter((w) => !w.vacant).map((w) => ({ side: { ...sd, ...w }, si, key: si * 2 + w.pos })))
@@ -634,6 +640,7 @@ export class ArenaRenderer {
     }
     // projectiles, rays, melee marks, particles
     this.vfx.drawOver(ctx, view, battle);
+    this.specials.drawAttacks(ctx, this, view, !!this.reducedMotion?.matches, this.show.on);
     if (particleStyle() !== "plain") drawWaterTextures(ctx, this, view, !!this.reducedMotion?.matches);
     this.drawEffects(dt, false);
     this.show.drawWorld(ctx);
@@ -667,6 +674,7 @@ export class ArenaRenderer {
     this.drawCutin(dt);
     this.show.drawBubbles(overlay, raw);
     this.show.drawScreen(overlay, battle);
+    this.specials.drawScreen(overlay, this, !!this.reducedMotion?.matches, this.show.on);
     drawMoveCard(overlay,this,this.time,this.canvas.width,this.canvas.height,!!this.reducedMotion?.matches);
     this.megas.draw(overlay,this.canvas.width,this.canvas.height,!!this.reducedMotion?.matches,this.texts.mega,this.portrait);
     if (this.portrait) { this.canvas = world; this.ctx = ctx; this.screenPass = false; }
@@ -870,9 +878,9 @@ export class ArenaRenderer {
     if (mon.fainted && fade.slot !== side.active) return;
     const mega = !!mon.is_mega || (mon.fainted && fade.slot === side.active && !!fade.mega);
     const dynamax = !!mon.is_dynamax;
-    // A short growth anchored at the sprite's registered feet. Reduced motion retains the meaningful enlarged state.
+    // Event-driven transformation at the registered feet; seeking shows the resolved size immediately.
     const grown = dynamax ? mon.display_scale || 2.2 : 1;
-    const displayScale = dynamax && !this.reducedMotion?.matches ? 1 + (grown-1)*Math.min(1,Math.max(0,(18-mon.dynamax_left)/.22)) : grown;
+    const displayScale = this.show.on ? this.specials.bodyScale(si, side.pos || 0, side.active, grown, !!this.reducedMotion?.matches) : grown;
     const lookKey = `${side.active}:${mega ? 1 : 0}${dynamax ? ':dynamax' : ''}`;
     if (this.lastActive[key] !== lookKey) {
       this.lastActive[key] = lookKey;
@@ -976,6 +984,7 @@ export class ArenaRenderer {
       }
     }
     ctx.restore();
+    this.specials.drawBody(ctx, this, side, si, mon, x, y, y-headY, !!this.reducedMotion?.matches, this.show.on);
     if (side.follow && !mon.fainted) {
       // Follow Me / Rage Powder: a pulsing orange ring that draws the foes' attacks
       const k = 1.4 + Math.sin(this.time * 8) * 0.12;
