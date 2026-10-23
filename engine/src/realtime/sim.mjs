@@ -482,8 +482,9 @@ export class RtBattle {
   // Only abilities marked breakable by the generation's dex are bypassed; Shadow Shield/Prism Armor stay active.
   defenderAbility(att, def, profile = null) {
     const ability = this.mon(def)?.ability || '';
+    if (this.version >= 13 && profile?.ignoreAbility && att !== def) return '';
     return this.version >= 6 && att && att !== def &&
-      (profile?.ignoreAbility || this.hasAbility(att, 'moldbreaker', 'teravolt', 'turboblaze')) && this.dex.abilities.get(ability).flags?.breakable ? '' : ability;
+      this.hasAbility(att, 'moldbreaker', 'teravolt', 'turboblaze') && this.dex.abilities.get(ability).flags?.breakable ? '' : ability;
   }
   grounded(side, ability = this.mon(side)?.ability) {
     const m = this.mon(side);
@@ -987,6 +988,7 @@ export class RtBattle {
     const m = this.mon(side);
     const p = profile || this.prof(m, slot);
     if (!p) return 'none';
+    if (this.version >= 13 && this.gravityUntil > this.t && ['fly','bounce','skydrop'].includes(p.id)) return 'gravity';
     if (this.version >= 8 && this.t < (m.attackReady || 0)) return 'cooldown';
     if (m.cds[slot] > 0) return 'cooldown';
     if (m.ppLeft && slot !== ULT_SLOT && !(m.ppLeft[slot] > 0)) return 'nopp';
@@ -1031,7 +1033,8 @@ export class RtBattle {
   startWindup(side, slot, plus = false, special = null) {
     const m = this.mon(side);
     const p = special || this.prof(m, slot);
-    if (this.version >= 13 && side.vol.attractUntil > this.t && this.onField(this.doubles ? this.unitAt(side.vol.attractSide,side.vol.attractUnit) : this.sides[side.vol.attractSide]) && this.rng() < .5) {
+    const attractor = this.version >= 13 && side.vol.attractUntil > this.t ? (this.doubles ? this.unitAt(side.vol.attractSide,side.vol.attractUnit) : this.sides[side.vol.attractSide]) : null;
+    if (attractor && attractor.active === side.vol.attractSlot && this.onField(attractor) && this.rng() < .5) {
       m.cds[slot] = this.cooldownTicks(side,p); side.act = null; this.ev('fail',{...this.at(side),move:p.id,cause:'attract'}); return;
     }
     if (p.isZ) {
@@ -1164,8 +1167,8 @@ export class RtBattle {
     if (bonus.effect === 'curse' && !this.typesOf(side).includes('Ghost')) this.boost(side, {atk: 1}, side, 'zpower');
   }
 
-  maxEffect(att, def, p) {
-    const allies = this.units.filter(s => s.index === att.index && this.onField(s));
+  maxEffect(att, def, p, source = this.mon(att)) {
+    const allies = this.units.filter(s => s.index === att.index && this.onField(s) && (s !== att || this.mon(s) === source));
     const foes = this.foesOf(att).filter(s => this.onField(s));
     const weather = {maxflare: 'sunnyday', maxgeyser: 'raindance', maxhailstorm: this.gen >= 9 ? 'snow' : 'hail', maxrockfall: 'sandstorm'}[p.id];
     const terrain = {maxlightning: 'electricterrain', maxovergrowth: 'grassyterrain', maxmindstorm: 'psychicterrain', maxstarfall: 'mistyterrain'}[p.id];
@@ -1188,8 +1191,8 @@ export class RtBattle {
       if (p.id === 'gmaxmeltdown') s.vol.tormentUntil = this.t + 18*TPS;
       if (p.id === 'gmaxterror') s.vol.gmaxTerrorUntil = this.t + 18*TPS;
       if (p.id === 'gmaxsteelsurge') s.hazards.steelsurge = 1;
-      if (p.id === 'gmaxcuddle' && ['M','F'].includes(this.mon(att).gender) && ['M','F'].includes(this.mon(s).gender) && this.mon(att).gender !== this.mon(s).gender && !['oblivious','aromaveil'].includes(this.mon(s).ability)) {
-        Object.assign(s.vol,{attractUntil:this.t+18*TPS,attractSide:att.index,attractUnit:att.pos || 0});
+      if (p.id === 'gmaxcuddle' && ['M','F'].includes(source.gender) && ['M','F'].includes(this.mon(s).gender) && source.gender !== this.mon(s).gender && !['oblivious','aromaveil'].includes(this.mon(s).ability)) {
+        Object.assign(s.vol,{attractUntil:this.t+18*TPS,attractSide:att.index,attractUnit:att.pos || 0,attractSlot:att.active});
       }
       if (p.id === 'gmaxstonesurge') s.hazards.stealthrock = 1;
       if (['gmaxsandblast','gmaxcentiferno'].includes(p.id)) { s.vol.trapUntil = this.t + 24*TPS; s.vol.trapBy = att.index; }
@@ -1197,7 +1200,11 @@ export class RtBattle {
       if (immuneType) s.cond[p.id] = this.t + 24*TPS;
     }
     if (p.id === 'gmaxresonance') att.cond.auroraveil = this.t + 30*TPS;
-    if (p.id === 'gmaxgravitas') { this.gravityUntil = this.t + 30*TPS; this.ev('gravity',{secs:30}); }
+    if (p.id === 'gmaxgravitas') {
+      this.gravityUntil = this.t + 30*TPS;
+      for (const s of this.units) if (s.act?.kind === 'windup' && ['fly','bounce','skydrop'].includes(this.prof(this.mon(s),s.act.slot)?.id)) this.flinch(s);
+      this.ev('gravity',{secs:30});
+    }
     if (p.id === 'gmaxwindrage') { for (const s of this.units) { this.clearHazards(s); delete s.cond.reflect; delete s.cond.lightscreen; delete s.cond.auroraveil; } this.terrain = null; }
     for (const s of allies) {
       if (p.id === 'gmaxfinale') this.heal(s, this.mon(s).maxhp/6, p.id);
@@ -1907,9 +1914,9 @@ export class RtBattle {
       if (dab === 'cursedbody' && this.rng() < 0.3) att.vol.tauntUntil = this.t + 6 * TPS;
       if (dab === 'gooey' || dab === 'tanglinghair') this.boost(att, {spe: -1}, def, dab);
     }
+    if (this.version >= 13 && p.isMax && !ctx.later) this.maxEffect(att, def, p, am);
     // the attacker
     if (att.mons[att.active] === am && !am.fainted) {
-      if (this.version >= 13 && p.isMax && !ctx.later) this.maxEffect(att, def, p);
       if (this.version >= 13 && p.isZ && p.id === 'genesissupernova') this.setTerrain('psychicterrain',att);
       if (this.version >= 13 && p.isZ && p.id === 'splinteredstormshards') this.terrain = null;
       if (this.version >= 13 && p.isZ && p.id === 'oceanicoperetta' && dm.status === 'brn') this.cure(def,'brn');
