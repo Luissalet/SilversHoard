@@ -1,0 +1,111 @@
+{
+  "s": 1,
+  "key": "candidate-pikachugmax-shiny-code-v142",
+  "a": {
+    "Idle": {
+      "file": "Idle.png",
+      "w": 64,
+      "h": 64,
+      "n": 1,
+      "r": 4,
+      "d": [
+        40
+      ],
+      "ax": 32,
+      "ay": 52,
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "Walk": {
+      "file": "Walk.png",
+      "w": 64,
+      "h": 64,
+      "n": 2,
+      "r": 4,
+      "d": [
+        7,
+        7
+      ],
+      "ax": 32,
+      "ay": 52,
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "Attack": {
+      "file": "Attack.png",
+      "w": 64,
+      "h": 64,
+      "n": 1,
+      "r": 4,
+      "d": [
+        12
+      ],
+      "ax": 32,
+      "ay": 52,
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    }
+  },
+  "source": {
+    "kind": "shiny-recolor",
+    "tool": "Native HOME palette transfer with explicit user-requested code correction",
+    "parent": {
+      "kind": "generated",
+      "tool": "Gemini web profiles and user-requested native pixel correction with Python/Pillow",
+      "derivation": "Eight front/back poses manually authored from the held draft and canonical reference; opposed foot supports, round yellow torso and one connected bolt. The eight approved side poses are retained as exact right profiles and explicit left mirrors.",
+      "directions": 4,
+      "drawn_directions": 3,
+      "mirrored_directions": [
+        "Left"
+      ],
+      "poses": 16,
+      "drawn_poses": 12,
+      "reference_template": {
+        "repo": "PMDCollab/SpriteCollab",
+        "sha": "341342d7ef2ed3e4427c760e829a417b501be17c",
+        "folder": "0025",
+        "artists": [
+          "CHUNSOFT"
+        ]
+      },
+      "authorization": "User explicitly requested pixel corrections with code."
+    },
+    "palette": {
+      "kind": "canonical-palette-pair",
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10199.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10199.png"
+      ],
+      "sha256": [
+        "185eb3b6be1084d77c0d8a722c48ed62d9705b5a0f7565f5b8881f73d3b2ae2c",
+        "f4ee17f68ebbe428efe9e9f77dba699e76c6ad89628c004e927a04746ab64233"
+      ],
+      "form_exact": true
+    },
+    "manual_palette_scope": "Visible manually authored front/back tail and clouds retain normal RGB, matching unchanged HOME tail/clouds. Body receives the canonical shiny transfer."
+  }
+}

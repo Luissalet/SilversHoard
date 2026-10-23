@@ -387,6 +387,53 @@ def test_incorrect_published_shiny_can_use_canonical_palette_without_losing_sour
     assert {p[:3] for p in decoded.getdata() if p[3]}=={canonical_rgb}
 
 
+@pytest.mark.parametrize("reviewed", [False, True])
+def test_identical_published_shiny_is_replaced_only_after_review(tmp_path, reviewed):
+    stage = tmp_path / "stage"
+    art = tmp_path / "art"
+    art.mkdir()
+    color = (130, 40, 150, 255)
+    target = (210, 170, 30, 255)
+    for folder in ("1025", "1025-0000-0001"):
+        source = stage / "published" / folder
+        source.mkdir(parents=True)
+        image = Image.new("RGBA", (16, 16))
+        ImageDraw.Draw(image).rectangle((5, 4, 10, 12), fill=color)
+        image.save(source / "Idle.png")
+        meta = {"s": 1, "a": {"Idle": {"w": 16, "h": 16, "n": 1, "r": 1,
+                                        "d": [40], "ax": 8, "ay": 13}}}
+        (source / "meta.json").write_text(json.dumps(meta), encoding="utf8")
+    palette = stage / "palettes" / "pecharunt"
+    palette.mkdir(parents=True)
+    for name, rgba in [("normal", color), ("shiny", target)]:
+        Image.new("RGBA", (2, 2), rgba).save(palette / (name + ".png"))
+    (palette / "source.json").write_text(json.dumps({"urls": ["normal-ref", "shiny-ref"]}), encoding="utf8")
+    correction = {"reviewed": reviewed, "shiny_mode": "reference-palette",
+                  "shiny_correction_reason": "Published shiny duplicates every normal sheet"}
+    (art / "registry.json").write_text(json.dumps({"pecharunt": correction}), encoding="utf8")
+    plan = {"source": {"sha": "pinned"}, "credits": {"1025": {"primary": "Artist"},
+            "1025/0000/0001": {"primary": "Artist"}}, "entries": [{"id": "pecharunt",
+            "name": "Pecharunt", "num": 1025, "form": "", "folder": "1025", "shiny_folder": "1025/0000/0001"}]}
+    destination = tmp_path / "library"
+    compile_library(plan, stage, art, destination)
+    assert b"\r" not in (destination / "CREDITS.md").read_bytes()
+    library = PmdLibrary(destination)
+    normal = library.resolve(1025)
+    shiny = library.resolve(1025, shiny=True)
+    a = Image.open(io.BytesIO(library.image_bytes(normal["a"]["Idle"]["file"]))).convert("RGBA")
+    b = Image.open(io.BytesIO(library.image_bytes(shiny["a"]["Idle"]["file"]))).convert("RGBA")
+    assert a.getchannel("A").tobytes() == b.getchannel("A").tobytes()
+    assert normal["credit"] == shiny["credit"] == ["Artist"]
+    if reviewed:
+        assert {p[:3] for p in b.getdata() if p[3]} == {target[:3]}
+        assert shiny["source"]["kind"] == "shiny-recolor"
+        assert shiny["source"]["parent"]["folder"] == "1025"
+        assert shiny["source"]["replaced_published"]["folder"] == "1025/0000/0001"
+    else:
+        assert a.tobytes() == b.tobytes()
+        assert shiny["source"]["kind"] == "published-pmd"
+
+
 def test_authored_walking_adapter_keeps_eight_headings_and_the_original_three_phase_cycle(tmp_path):
     image=Image.new('RGBA',(60,160),(30,30,30,255));draw=ImageDraw.Draw(image)
     frames=[]

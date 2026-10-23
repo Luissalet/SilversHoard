@@ -545,12 +545,12 @@ def _compile_library(plan, stage, generated, output, *, allow_missing=False):
     if any(r.get("reviewed") and r.get("layout") == "indexed-overworld-eight-frame" for r in records.values()):
         manifest["notices"] = {name:(notices/name).read_text("utf-8") for name in ("CREDITS.md","README.md")}
         for name,body in manifest["notices"].items():
-            (output/("HG_ENGINE_"+name)).write_text(body,encoding="utf-8")
+            (output/("HG_ENGINE_"+name)).write_text(body,encoding="utf-8",newline="\n")
     if any(r.get("reviewed") and r.get("upstream",{}).get("repo") == "Eemeliri/soulgold" for r in records.values()):
         for name in ("CREDITS.md","README.md"):
             body=(generated/"published"/"soulgold"/name).read_text("utf-8")
             manifest.setdefault("notices",{})["SOULGOLD_"+name]=body
-            (output/("SOULGOLD_"+name)).write_text(body,encoding="utf-8")
+            (output/("SOULGOLD_"+name)).write_text(body,encoding="utf-8",newline="\n")
     built = {}
     def build(mon, shiny=False):
         cache_key = (mon["id"], shiny)
@@ -568,6 +568,9 @@ def _compile_library(plan, stage, generated, output, *, allow_missing=False):
             originals = {name: read_file(geom["file"]) for name,geom in meta["a"].items()}
         else:
             folder = mon.get("shiny_folder" if shiny else "folder")
+            correction = records.get(mon["id"], {})
+            if shiny and correction.get("reviewed") and correction.get("shiny_mode") == "reference-palette":
+                folder = None
             if folder:
                 source = stage / "published" / folder.replace("/","-")
                 meta_path = source / "meta.json"
@@ -606,6 +609,9 @@ def _compile_library(plan, stage, generated, output, *, allow_missing=False):
                 meta["source"] = {"kind":"shiny-recolor","pmd":normal["key"],
                                   "parent":normal.get("source",{}),
                                   "palette":json.loads((references/"source.json").read_text("utf-8"))}
+                if mon.get("shiny_folder"):
+                    meta["source"]["replaced_published"] = {"folder":mon["shiny_folder"],"sha":SOURCE_SHA,
+                                                            "reason":correction["shiny_correction_reason"]}
             else: return None
         signature = hashlib.sha256(json.dumps(meta["a"], sort_keys=True).encode() + b"".join(originals.values())).hexdigest()[:12]
         meta["key"] = f"lib-{mon['id']}-{'s' if shiny else 'n'}-{signature}"
@@ -656,7 +662,7 @@ def _compile_library(plan, stage, generated, output, *, allow_missing=False):
             meta = manifest["metas"][key]
             values = [mon["name"],"Shiny" if shiny else "Normal",", ".join(meta.get("credit",[])),meta["source"]["kind"]]
             lines.append("| " + " | ".join(v.replace("|","\\|").replace("\n"," ") for v in values) + " |")
-    (output / "CREDITS.md").write_text("\n".join(lines)+"\n",encoding="utf-8")
+    (output / "CREDITS.md").write_text("\n".join(lines)+"\n",encoding="utf-8",newline="\n")
     return manifest
 
 

@@ -5004,5 +5004,20 @@
       "form_exact": true,
       "pokemon_id": 10277
     }
+  ],
+  "pecharunt": [
+    {
+      "kind": "canonical-palette-pair",
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/1025.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/1025.png"
+      ],
+      "sha256": [
+        "97b9042d09e334941c5fbf1da0ef2bfeb5e0c42fc2776fe5de52c67cf0d6c3e4",
+        "23c24879c07d9cb9e9480d4b4eb65b25a68434d5a94c00143f134f02aa39916c"
+      ],
+      "form_exact": true,
+      "pokemon_id": 1025
+    }
   ]
 }
