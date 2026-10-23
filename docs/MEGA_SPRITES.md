@@ -1,8 +1,6 @@
 # Mega form sprites
 
-The real-time arena uses a Mega's PMD animation when that form has sheets. If SpriteCollab returns the normal species instead,
-the arena tries an imported overworld sheet, then the Mega's battle sprite. Normal and shiny base sheets no longer conceal the form change. Teams that start in
-a Mega form use the same rule. Normal Pokémon retain their walking animations.
+The real-time arena first honors an exact explicitly imported walking variant, then the installed PMD library entry for the Mega. An imported normal fallback cannot conceal an available exact shiny PMD variant. If neither supplies the form, the existing battle-art fallback remains. Teams starting in a Mega use the same rule. The installed collection now covers the engine's Mega forms in both palettes; source metadata states their actual headings, poses and available actions. See [the installed PMD library](PMD_LIBRARY.md).
 
 Battle sprites still use the selected source, with Showdown's gen 5 sprites as the first fallback. If a Mega has no picture
 there, the shared sprite service tries the corresponding pixel PNG and then the Legends: Z-A model from PokeAPI before falling back to the base
@@ -14,7 +12,7 @@ the separate [overworld import tools](OVERWORLD_SPRITES.md) add directional art 
 The image mapping covers every generation 9 form whose engine name contains Mega, including Meowstic M/F, the three Tatsugiri
 forms and Magearna Original. Meowstic's gender abbreviations are mapped to PokeAPI's male/female names. Zygarde uses a model
 fallback. This is source availability, not a claim of 49 complete PMD animation sets.
-Art is downloaded on demand into the user's cache and is not shipped in the repository.
+These separate battle-art fallback images download on demand into the user's cache. The reviewed PMD collection ships in the repository and exported HTML independently of that cache.
 
 Sources and attribution:
 
