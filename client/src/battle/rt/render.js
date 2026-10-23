@@ -488,9 +488,9 @@ export class ArenaRenderer {
       case "chip": float(s, `−${Math.max(1, Math.round((e.amount / Math.max(1, e.maxhp)) * 100))}%`, "#e8a0a0", { size: 0.75 }); break;
       case "heal": float(s, `+${Math.max(1, Math.round((e.amount / Math.max(1, e.maxhp)) * 100))}%`, "#7ee08f", { size: 0.9 }); break;
       case "miss": {
-        // over the one that got away: the other side's Pokémon (in doubles, the one the attacker aimed at)
-        if (battle.doubles) { const t = battle.foe(this.unitOf(battle, s, u)); this.float(battle, t.index, T.dodged, "#bfe3ff", { size: 0.85, u: t.pos }); }
-        else this.float(battle, 1 - s, T.dodged, "#bfe3ff", { size: 0.85 });
+        // A miss can come from range, aim or fog; it does not prove the target dodged.
+        if (battle.doubles) { const t = battle.foe(this.unitOf(battle, s, u)); this.float(battle, t.index, T.missed, "#bfe3ff", { size: 0.85, u: t.pos }); }
+        else this.float(battle, 1 - s, T.missed, "#bfe3ff", { size: 0.85 });
         break;
       }
       case "protected": {

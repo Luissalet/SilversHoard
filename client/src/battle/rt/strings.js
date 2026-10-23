@@ -191,6 +191,7 @@ const RT = {
   rt_avg_seconds: ["Duración media", "Average length"],
   rt_seconds_n: ["{n} s", "{n} s"],
   rt_dodged: ["¡Esquivado!", "Dodged!"],
+  rt_missed: ["¡Falló!", "Missed!"],
   rt_blocked: ["¡Bloqueado!", "Blocked!"],
   rt_immune: ["No le afecta", "No effect"],
   rt_flinch: ["¡Se amedrentó!", "Flinched!"],

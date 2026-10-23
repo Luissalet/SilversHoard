@@ -46,13 +46,6 @@ export function logLine(e, b, lang, tr, active) {
     return side(i)?.mons[slot ?? histOf(i, u)]?.name || "?";
   };
   const who = (i, u = e.u) => (lang === "en" ? `${side(i).name}'s ${monName(i, undefined, u)}` : `${monName(i, undefined, u)} de ${side(i).name}`);
-  const dodger = () => {
-    if (b.doubles) {
-      const t = b.foe(side(e.s).units[e.u || 0]);
-      return t ? who(t.index, t.pos) : who(1 - e.s, 0);
-    }
-    return who(1 - e.s, 0);
-  };
   const mv = (name) => (name === "Ultimate" ? tr("rt_ult") : nameOf("move", name, lang));
   const sec = (e.t / TPS).toFixed(1);
   const es = lang !== "en";
@@ -64,7 +57,7 @@ export function logLine(e, b, lang, tr, active) {
       const extra = [e.crit ? tr("rt_crit") : "", e.eff > 1 ? tr("rt_super") : e.eff < 1 && e.eff > 0 ? tr("rt_weak") : ""].filter(Boolean).join(" ");
       return { sec, k: e.eff > 1 || e.crit ? "big" : "dmg", text: `${who(e.s)} −${Math.max(1, Math.round((e.dmg / Math.max(1, e.maxhp)) * 100))}% ${extra}`.trim() };
     }
-    case "miss": return { sec, k: "minor", text: e.fog ? (es ? "El ataque falla en la niebla" : "The attack missed in the fog") : es ? `${dodger()} esquiva el ataque` : `${dodger()} dodged` };
+    case "miss": return { sec, k: "minor", text: e.fog ? (es ? "El ataque falla en la niebla" : "The attack missed in the fog") : es ? `El ataque de ${who(e.s)} falla` : `${who(e.s)}'s attack missed` };
     case "helping": return { sec, k: "effect", text: es ? `${who(e.s)} se prepara para ayudar a su compañero` : `${who(e.s)} is ready to help its partner` };
     case "follow": return { sec, k: "effect", text: es ? `¡${who(e.s)} atrae todas las miradas!` : `${who(e.s)} became the centre of attention!` };
     case "fizzle": return e.rock

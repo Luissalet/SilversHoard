@@ -5,6 +5,9 @@ import {ImpactAccents,contactMaterial} from '../../client/src/battle/rt/impact-a
 import {FighterReactions} from '../../client/src/battle/rt/visuals/reactions.js';
 import {effectProfile} from '../../client/src/battle/rt/supplied-moves.js';
 import {specialMoveRecipe,paintSpecialMove} from '../../client/src/battle/rt/special-moves.js';
+import {ArenaRenderer} from '../../client/src/battle/rt/render.js';
+import {logLine} from '../../client/src/battle/rt/rt-log.js';
+import {rtT} from '../../client/src/battle/rt/strings.js';
 import art from '../../silvers_hoard/presets/supplied_sprites.json' with {type:'json'};
 import catalog from '../../silvers_hoard/presets/rt_move_effects.json' with {type:'json'};
 
@@ -13,6 +16,25 @@ const spec=(move='Thunderbolt',doubles=false)=>({version:14,format:doubles?'gen9
   p2:{sets:[{species:'Blissey',moves:['Splash','Protect']},{species:'Snorlax',moves:['Splash']}]}});
 const renderer=()=>({scale:24,px:x=>x*24,py:y=>y*24,reducedMotion:{matches:false}});
 const context=()=>new Proxy({globalAlpha:1,createRadialGradient:()=>({addColorStop(){}})},{get:(o,k)=>o[k]??(()=>{})});
+
+test('real fog and other misses keep renderer captions and both language logs neutral',()=>{
+  const b=new RtBattle({...spec(),seed:'peer-fog1362'});
+  b.sides[0].x=10;b.sides[1].x=13;b.sides[0].y=b.sides[1].y=8;b.fog={until:b.timeLimit};
+  let miss;
+  for(let t=0;t<700&&!miss;t++){b.step(t%110===0?{p1:{use:0,focus:true}}:{});miss=b.events.find(e=>e.k==='miss'&&e.fog);}
+  assert.ok(miss);assert.equal(b.events.filter(e=>e.k==='roll').length,0);
+  for(const doubles of [false,true])for(const lang of ['es','en']){
+    const sim=doubles?new RtBattle(spec('Thunderbolt',true)):b,tr=rtT(lang),labels=[],reactions=new FighterReactions();
+    const r={texts:{missed:tr('rt_missed'),dodged:tr('rt_dodged')},time:1,reactions,vfx:{onEvent(){}},show:{onEvent(){}},specials:{onEvent(){}},audio:{sfx(){},cry(){}},
+      unitOf:(battle,s,u)=>battle.doubles?battle.sides[s].units[u]:battle.sides[s],float(battle,s,text,color,opts){labels.push({s,text,u:opts.u});}};
+    for(const e of [miss,{...miss,fog:false},{...miss,fog:false,range:true},{...miss,fog:false,aim:true}]){
+      ArenaRenderer.prototype.onEvent.call(r,e,sim);
+      const line=logLine(e,sim,lang,tr);assert.doesNotMatch(line.text,/esquiv|dodg/i);assert.match(line.text,lang==='es'?/falla/:/missed/);
+    }
+    assert.equal(labels.length,4);assert.ok(labels.every(l=>l.s===1&&l.text===tr('rt_missed')));
+    assert.ok(reactions.reactions.every(n=>n===null));
+  }
+});
 
 test('normal attack layers follow real windup/release/hit and never change deterministic combat',()=>{
   for(const move of ['Thunderbolt','Slash','Ice Beam','Flamethrower','Water Pulse']) {
