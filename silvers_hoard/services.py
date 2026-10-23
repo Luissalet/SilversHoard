@@ -552,6 +552,20 @@ class Services:
             num = int(info.get("num") or 0)
             if num <= 0:
                 raise SilverError("not_found", f"{species} has no Pokédex number.")
+            prepared = self.pmd.library.by_species(info["name"])
+            if prepared:
+                source = prepared.get("source", {})
+                licence = prepared.get("licence", "CC BY-NC 4.0" if source.get("kind") in ("published-pmd", "published-pmd-composition") else "Project-generated fan art")
+                origin = source
+                while origin.get("parent"):
+                    origin = origin["parent"]
+                label = ("User-supplied pixel art" if origin.get("kind") == "supplied-overworld" else
+                         "Published overworld pixel art" if origin.get("kind") == "published-overworld" else
+                         "PMDCollab SpriteCollab" if origin.get("kind") in ("published-pmd", "published-pmd-composition") else "Silver generated fan art")
+                return {"species": info["name"], "num": num, "folder": source.get("folder", prepared["key"]),
+                        "artists": prepared.get("credit", []), "licence": licence,
+                        "source": label,
+                        "provenance": source}
             form = info["name"].split("-", 1)[1] if "-" in info["name"] else ""
             folder = self.pmd.folder(num, form)
             return {"species": info["name"], "num": num, "folder": folder, "artists": self.credits.walking(folder, wait=True),

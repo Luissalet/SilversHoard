@@ -80,7 +80,7 @@ def room_app(services: "Services") -> FastAPI:
 
     @app.get("/pkr/{room_id}/{key}/api/sprites/pmd-sheet/{sheet}/{anim}")
     def pk_sheet(room_id: str, key: str, sheet: str, anim: str) -> FileResponse:
-        return FileResponse(pkrooms.sprite_sheet(room_id, key, sheet, anim), media_type="image/png", headers={"Cache-Control": "public, max-age=86400"})
+        return FileResponse(pkrooms.sprite_sheet(room_id, key, sheet, anim), headers={"Cache-Control": "public, max-age=86400"})
 
     @app.websocket("/api/pk/{room_id}/ws")
     async def pk_ws(websocket: WebSocket, room_id: str, k: str = Query("")) -> None:

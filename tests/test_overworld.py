@@ -8,7 +8,7 @@ import pytest
 from PIL import Image
 
 from silvers_hoard.errors import SilverError
-from silvers_hoard.overworld import OverworldSprites
+from silvers_hoard.overworld import DELPHOX_LINE_SOURCE, OverworldSprites
 
 
 def png(size=(64, 64), color=(20, 40, 60, 255)):
@@ -47,12 +47,28 @@ def test_delphox_sheet_has_exact_cells_and_separate_shiny_without_rewriting_pixe
     sprites = OverworldSprites(tmp_path / "data")
     assert sprites.import_(str(source), source="https://example.org/cami", credit="CamiLovesO")["imported"] == 8
     normal, shiny = sprites.meta("delphox-mega"), sprites.meta("delphox-mega", True)
-    assert normal["frames"][0][0] == [100, 1, 32, 32]
+    assert normal["frames"][0][0] == [100, 65, 32, 32]
     assert normal["frames"][1][1] == [100, 161, 32, 32]
-    assert shiny["frames"][3][0] == [232, 65, 32, 32]
+    assert shiny["frames"][3][0] == [232, 1, 32, 32]
     assert normal["background"] == [111, 232, 183, 255]
     assert sprites.sheet(normal["key"]).read_bytes() == raw == source.read_bytes()
     assert sprites.meta("unknown-mega") is None
+
+
+def test_existing_delphox_direction_fix_is_read_only_and_source_specific(tmp_path):
+    directory=tmp_path/'data';directory.mkdir()
+    frames=[[[100,y,32,32],[100,y+32,32,32]]*2 for y in [1,129,193,65]]
+    index={'delphox-mega|0':{'key':DELPHOX_LINE_SOURCE,'frames':frames},
+           'custom|0':{'key':'other-source','frames':frames}}
+    path=directory/'index.json';raw=json.dumps(index).encode();path.write_bytes(raw)
+    sprites=OverworldSprites(directory)
+    fixed=sprites.meta('delphox-mega')['frames']
+    assert [r[0][1] for r in fixed]==[65,129,193,1]
+    assert sprites.meta('custom')['frames']==frames
+    assert path.read_bytes()==raw
+    # Already corrected metadata must not flip a second time after a later native import saves it.
+    index['delphox-mega|0']['frames']=fixed;path.write_text(json.dumps(index))
+    assert sprites.meta('delphox-mega')['frames']==fixed
 
 
 def test_invalid_pack_does_not_publish_partial_import(tmp_path):

@@ -225,7 +225,7 @@ Real-time effects now give 386 supported moves a named material selection (previ
 
 Eleven Dragon/Poison moves use 117 additional frames from the local PMD Time/Darkness sheets, including Dragon Dance, Outrage, Gunk Shot and Toxic. Square atlas cells preserve proportions; reduced motion keeps a visible stationary frame. All material is bundled for RT, mass battles, portable HTML and MP4. See [local Dragon and Poison motifs](docs/DRAGON_POISON_SPRITES.md).
 
-New trainer/gym, weekly, daily and mass HTML exports embed the existing presentation cache without downloading anything. Missing Pokémon art uses a local labelled disc, and missing Reborn animations retain Silver's fallback. Existing cached sprite, effect and Reborn bytes travel once with the file. The HTML grows with the cache; re-export older pages for this behavior. See [standalone assets](docs/PORTABLE_ASSETS.md).
+New trainer/gym, weekly, daily and mass HTML exports embed the installed PMD library and existing presentation cache without downloading anything. PMD bodies and UI previews work independently of previously tried teams; missing Reborn animations retain Silver's fallback. Compressed image packs decode on demand. Re-export older pages for this behavior. See [standalone assets](docs/PORTABLE_ASSETS.md).
 
 Finished real-time replays have a frame cursor, five-second jumps and keyboard seeking; a jump pauses playback and retains its speed. The read-only local `battle_rt_inspect` tool returns the same public state and a paused app link, without changing records. [Replay inspection and limits](docs/RT_REPLAY_SEEK.md).
 
@@ -238,4 +238,4 @@ Ordinary real-time battles add sprite anticipation, attack impulses, directional
 
 Combat impacts use dry contact and low-mid body with distinct heavy, critical and blocked cues, four short variants and the existing mixer. No sound download is needed. See [impact audio](docs/SOUND_IMPACTS.md).
 
-Fresh standalone pages also embed cached PMD animation geometry, sheets and portraits. Real-time combat uses those sheets for either team and retains its loaded PMD idle pose while another animation loads. A species not present in the export cache still uses its static/labelled fallback; an older HTML needs re-exporting.
+The installed PMD library records exact species/form coverage, published artists and reviewed generated sources. `pmd_library_status` exposes its version, coverage and size through REST/MCP. All 1,025 base species have normal and shiny entries; Pikachu-Gmax remains unresolved and retains its previous fallback. Standalone real-time combat uses the library for either team; armies above 300 units keep compact PMD sheets. Imported walking art retains priority, and generated sheets state their actual views/poses. See [the PMD library](docs/PMD_LIBRARY.md).

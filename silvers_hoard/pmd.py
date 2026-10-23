@@ -1,6 +1,6 @@
-"""Walking sprites for the real-time arena: the Mystery Dungeon-style sheets of PMDCollab's SpriteCollab (eight directions per
-animation, every generation; CC BY-NC 4.0, credit in the README). Like the Showdown sprites, none of that art ships with the app:
-a sheet is downloaded the first time a battle needs it and kept in ``data/cache/pmd``.
+"""Mystery Dungeon-style sprites: the installed versioned library, then the existing download cache.
+Published art keeps its SpriteCollab credits and CC BY-NC terms. Reviewed original sheets record their actual
+directions/poses rather than claiming eight authored views. Every standalone export carries the installed library.
 
 Each animation has its own frame size, so the screen lines frames up by a ground anchor worked out from the animation's
 ``-Shadow.png`` (the method of PokéSurvivor's ``tools/fetch_sprites.py``, MIT). Sheet rows are the eight directions: down,
@@ -21,6 +21,7 @@ from typing import Any, Callable, Optional
 
 from .errors import SilverError
 from .hoard_link.atomic import write_bytes_atomic
+from .pmd_library import PmdLibrary
 
 log = logging.getLogger("silver.pmd")
 
@@ -107,6 +108,7 @@ class PmdSprites:
     def __init__(self, cache_dir: Path, settings: Any, http_get: Callable[[str], tuple[int, bytes, str]]):
         self.cache_dir = Path(cache_dir)
         self.settings = settings
+        self.library = PmdLibrary()
         self._http_get = http_get
         self._locks: dict[str, threading.Lock] = {}
         self._guard = threading.Lock()
@@ -279,6 +281,9 @@ class PmdSprites:
             raise SilverError("invalid", f"Not a Pokédex number: {dex}")
         if not FORM_ID.match(_toid(form)):
             raise SilverError("invalid", f"Not a form: {form}")
+        prepared = self.library.resolve(int(dex), form, shiny)
+        if prepared:
+            return prepared
         for f in dict.fromkeys([form, ""]):
             got = self._meta_for(self.folder(int(dex), f, shiny))
             if got:
@@ -412,7 +417,10 @@ class PmdSprites:
                 continue
 
     def sheet(self, key: str, anim: str) -> Path:
-        if not re.match(r"^\d{4}(-\d{4}){0,2}(-recolor1)?$", key) or anim not in WANT:
+        prepared = self.library.sheet(key, anim, self.cache_dir)
+        if prepared:
+            return prepared
+        if not re.match(r"^\d{4}(-\d{4}){0,4}(-recolor1)?$", key) or anim not in WANT:
             raise SilverError("invalid", "Not a walking sprite.")
         path = self.cache_dir / key / f"{anim}.png"
         if not path.exists():

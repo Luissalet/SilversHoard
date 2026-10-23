@@ -1,0 +1,169 @@
+{
+  "key": "v77-falinks-normal",
+  "s": 1,
+  "a": {
+    "Idle": {
+      "n": 1,
+      "r": 8,
+      "d": [
+        40
+      ],
+      "w": 84,
+      "h": 75,
+      "ax": 42,
+      "ay": 42,
+      "file": "Idle.png"
+    },
+    "Walk": {
+      "n": 4,
+      "r": 8,
+      "d": [
+        6,
+        8,
+        6,
+        8
+      ],
+      "w": 86,
+      "h": 76,
+      "ax": 43,
+      "ay": 43,
+      "file": "Walk.png"
+    },
+    "Attack": {
+      "n": 10,
+      "r": 8,
+      "d": [
+        2,
+        4,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "hit": 3,
+      "w": 130,
+      "h": 118,
+      "ax": 65,
+      "ay": 65,
+      "file": "Attack.png"
+    },
+    "Charge": {
+      "n": 10,
+      "r": 8,
+      "d": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "hit": 5,
+      "w": 86,
+      "h": 75,
+      "ax": 43,
+      "ay": 42,
+      "file": "Charge.png"
+    },
+    "Hurt": {
+      "n": 2,
+      "r": 8,
+      "d": [
+        2,
+        8
+      ],
+      "w": 104,
+      "h": 86,
+      "ax": 52,
+      "ay": 49,
+      "file": "Hurt.png"
+    },
+    "Faint": {
+      "n": 2,
+      "r": 8,
+      "d": [
+        2,
+        8
+      ],
+      "w": 104,
+      "h": 86,
+      "ax": 52,
+      "ay": 49,
+      "file": "Faint.png"
+    },
+    "Sleep": {
+      "n": 2,
+      "r": 1,
+      "d": [
+        30,
+        35
+      ],
+      "w": 25,
+      "h": 73,
+      "ax": 13,
+      "ay": 40,
+      "file": "Sleep.png"
+    }
+  },
+  "source": {
+    "kind": "published-pmd-composition",
+    "sha": "341342d7ef2ed3e4427c760e829a417b501be17c",
+    "repo": "PMDCollab/SpriteCollab",
+    "members": {
+      "brass": 1,
+      "troopers": 5
+    },
+    "directions": 8,
+    "composition": "Five copies of the published trooper and one brass, translated without resampling; fixed formation offsets across every gait phase. Native common action frames and clocks; Idle uses first native pose.",
+    "parts": [
+      {
+        "folder": "0870/0002",
+        "credit": [
+          "◥θ┴θ◤"
+        ],
+        "files": {
+          "Attack.png": "920a615c31fe3cdbc4011a57e2de520c168b02aef4ae1f7586db6ba8b7195a1a",
+          "Charge.png": "5e0c59241e69b1d31311ff7afeb2baeacc2ddd65f357ba7c393a3226002c262f",
+          "Faint.png": "95abf5c60c7cb29deadc7314e0d4a9020e3191868076a3fc0d0357a3b6b6ddee",
+          "Hurt.png": "95abf5c60c7cb29deadc7314e0d4a9020e3191868076a3fc0d0357a3b6b6ddee",
+          "Idle.png": "98c3441379d0122b2db091d963a129543dea5a872f9efab1eaeee8cf63b96876",
+          "meta.json": "9f89b2ff5f2842273944827708e1f52feb419edb9ced9e87c516c10385f22739",
+          "Shoot.png": "25721874e245f296a8769eb0c04675c617c147d3c02849c5afe81847c5fe8c79",
+          "Sleep.png": "4bd986b6bb2ac164b0424539baa03ce4eec648ba5c142488331da21cc839d662",
+          "Walk.png": "0723932c4b2574f1c84cb8cea752b2243355a75d9b74a10c1d2c72d722c8b777"
+        }
+      },
+      {
+        "folder": "0870/0003",
+        "credit": [
+          "baronessfaron"
+        ],
+        "files": {
+          "Attack.png": "1690af8fddacb4d2fcf7e949e7e474a641aba421fd158c8025a8e75760b9a2c9",
+          "Charge.png": "325ee35fabf3e4a82b6a70ecadcbf094fa18ce30eab86a01bf76e732fc5e90e8",
+          "Faint.png": "af410b1f59dbd87f94e7baf0f2b5a886c2e6fd6d892a2c63ec019c7cfa68ada1",
+          "Hurt.png": "af410b1f59dbd87f94e7baf0f2b5a886c2e6fd6d892a2c63ec019c7cfa68ada1",
+          "Idle.png": "87fdfad6a035794bbc010cdc8fc30eb06121681a9ef37cc6d685908ba6737d94",
+          "meta.json": "c14153ad6c80af357ae1cd9d8bc543a3a8680dea67a938df9d0d695b93d0a97c",
+          "Shoot.png": "52e632c9eb48f250ed584c89bc2d2cba28d463efa129e95e71a976d3db394bbb",
+          "Sleep.png": "4668c2bf5df5a424b74063259bef9677632685c69b1bd99ac4b224ac33214d9c",
+          "Walk.png": "23861886df58ad7f39752bc0d9483c7dc318d4bdad4c2a925820b883de6d8c69"
+        }
+      }
+    ]
+  },
+  "credit": [
+    "◥θ┴θ◤",
+    "baronessfaron",
+    "Emmuffin"
+  ],
+  "licence": "CC BY-NC 4.0"
+}

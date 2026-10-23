@@ -38,6 +38,8 @@ def fake_http(url):
 
 @pytest.fixture(autouse=True)
 def hermetic(monkeypatch, tmp_path):
+    # Unit fixtures exercise their own tiny art inputs; the shipped collection has its own coverage test and native QA.
+    monkeypatch.setattr("silvers_hoard.pmd_library.LIBRARY_ROOT", tmp_path / "pmd-library")
     for key in ("SILVER_DATA_DIR", "SILVER_PORT", "SILVER_NODE"):
         monkeypatch.delenv(key, raising=False)
     monkeypatch.setenv("HOARD_HUB_URL", "http://127.0.0.1:9")   # no hub in tests

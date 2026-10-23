@@ -21,6 +21,8 @@ ZA_FILES = {"CLEFABLE_1": "clefable-mega", "VICTREEBEL_1": "victreebel-mega", "H
             "MALAMAR_1": "malamar-mega", "STARMIE_1": "starmie-mega", "DRAGONITE_1": "dragonite-mega",
             "RAICHU_3": "raichu-megax", "RAICHU_4": "raichu-megay", "LUCARIO_2": "lucario-megaz"}
 
+DELPHOX_LINE_SOURCE = "a87be9f43881fc99b16adc88baad9ad40f02d4fdbcc6b1581344f9e712684445"
+
 
 class OverworldSprites:
     def __init__(self, directory: Path, http_get=None):
@@ -62,7 +64,13 @@ class OverworldSprites:
 
     def _index(self):
         path = self.directory / "index.json"
-        return json.loads(path.read_text("utf-8")) if path.exists() else {}
+        index = json.loads(path.read_text("utf-8")) if path.exists() else {}
+        for meta in index.values():
+            frames=meta.get("frames",[])
+            # Correct the known author's legacy import in memory, without rewriting user data.
+            if meta.get("key")==DELPHOX_LINE_SOURCE and len(frames)==4 and frames[0][0][1]==1:
+                meta["frames"]=[frames[3],frames[1],frames[2],frames[0]]
+        return index
 
     def list(self):
         with self._lock:
@@ -126,8 +134,9 @@ class OverworldSprites:
                     im = im.convert("RGBA")
                     for col, sid in enumerate(["fennekin", "braixen", "delphox", "delphox-mega"] * 2):
                         x = 1 + col * 33
-                        # Two vertical frames per direction: down, up, left, right. White column separators are outside the cells.
-                        frames = [[[x, 1 + (r + c % 2) * 32, 32, 32] for c in range(4)] for r in [0, 4, 6, 2]]
+                        # Source pairs: back, front, left, right. Runtime rows: front, left, right, back.
+                        # White column separators are outside the cells.
+                        frames = [[[x, 1 + (r + c % 2) * 32, 32, 32] for c in range(4)] for r in [2, 4, 6, 0]]
                         add(raw, sid, col >= 4, frames, list(im.getpixel((x, 1))))
                 else:
                     raise SilverError("invalid", "Expected a Delphox-line PNG, Jhony-Rex Mega Swampert PNG, or Z-A overworld ZIP.")

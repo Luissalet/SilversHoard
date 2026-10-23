@@ -1,4 +1,4 @@
-"""Read already cached presentation files into a standalone page; never fetch or alter the cache."""
+"""Embed the installed PMD collection and cached presentation files; never fetch or alter the cache."""
 from __future__ import annotations
 
 import base64
@@ -88,4 +88,12 @@ def bundle(services: Any) -> dict[str, Any]:
                 f"{services.reborn._server()}/{services.reborn.ref}/{folder}/{component}",
                 f"https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/{services.reborn.ref}/{folder}/{component}",
                 f"/api/reborn/{kind}/{quote(name, safe='')}", f"/api/reborn/{kind}/{component_name}"])
-    return {"version": 1, "files": files, "urls": urls, "pmd": pmd}
+    library = services.pmd.library.portable()
+    files.update(library["files"])
+    urls.update(library["urls"])
+    pmd["metas"].update(library["metas"])
+    if library["entries"]:
+        pmd["entries"] = library["entries"]
+        pmd["species"] = library["species"]
+        pmd["notices"] = library["notices"]
+    return {"version": 1, "files": files, "urls": urls, "pmd": pmd, "pmd_chunks": library["chunks"]}

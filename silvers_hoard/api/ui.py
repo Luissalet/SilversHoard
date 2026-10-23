@@ -104,7 +104,7 @@ def pmd_meta(request: Request, dex: int, form: str = "", shiny: bool = False):
     """Geometry of a Pokémon's walking sprites for the real-time arena (downloads its sheets the first time)."""
     s = services(request)
     meta = s.pmd.meta(dex, form=form, shiny=shiny)
-    return {**meta, "credit": s.credits.walking(str(meta.get("key") or ""))}
+    return meta if "credit" in meta else {**meta, "credit": s.credits.walking(str(meta.get("key") or ""))}
 
 
 @router.get("/sprites/overworld/{sprite_id}")

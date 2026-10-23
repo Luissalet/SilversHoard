@@ -108,6 +108,7 @@ export class Animator {
 
   /** Draw with the feet at (x, y), `k` screen pixels per sprite pixel. */
   draw(ctx, x, y, row, k, { alpha = 1, flash = 0 } = {}) {
+    k *= this.meta.display_scale || 1;
     let m = this.meta?.a?.[this.cur];
     if (!m) return false;
     let s = image(sheetUrl(this.meta, this.cur, this.base)), frame = this.frame;
@@ -117,7 +118,7 @@ export class Animator {
       if (!idle) return false;
       m = this.meta.a[idle]; s = image(sheetUrl(this.meta, idle, this.base)); frame = 0;
     }
-    const r = Math.min(row, m.r - 1);
+    const r = Math.min(m.row_map?.[row] ?? row, m.r - 1);
     const sx = frame * m.w;
     const sy = r * m.h;
     const dx = Math.round(x - m.ax * k);
@@ -135,7 +136,7 @@ export class Animator {
 
   height(k) {
     const m = this.meta?.a?.Idle || this.meta?.a?.Walk;
-    return m ? m.ay * k : 30;
+    return m ? m.ay * k * (this.meta.display_scale || 1) : 30;
   }
 }
 

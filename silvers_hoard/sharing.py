@@ -256,8 +256,14 @@ def playable_page(template: Path, data: dict[str, Any]) -> str:
     slot = DATA_TAG + PLACEHOLDER + "</script>"
     if slot not in html:
         raise SilverError("unavailable", "The playable page template has no data slot.")
-    blob = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/").replace("<!--", "<\\!--")
-    return html.replace(slot, DATA_TAG + blob + "</script>", 1)
+    assets = dict(data.get("portable_assets") or {})
+    chunks = assets.pop("pmd_chunks", [])
+    payload = {**data, "portable_assets": assets} if "portable_assets" in data else data
+    blob = json.dumps(payload, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
+    # Small binary chunks avoid one enormous JSON string and leave PNG decoding lazy in the browser.
+    binary = "".join(f'<script type="application/octet-stream" data-silver-pmd="{i}">{chunk}</script>'
+                     for i, chunk in enumerate(chunks))
+    return html.replace(slot, binary + DATA_TAG + blob + "</script>", 1)
 
 
 def safe_filename(name: str, ext: str) -> str:

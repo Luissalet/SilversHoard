@@ -1,0 +1,5008 @@
+{
+  "venusaurmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10033.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10033.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10033
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10033.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10033.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10033
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10033.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10033.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10033
+    }
+  ],
+  "venusaurgmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10195.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10195.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10195
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10195.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10195.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10195
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10195.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10195.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10195
+    }
+  ],
+  "charizardmegay": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10035.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10035.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10035
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10035.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10035.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10035
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10035.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10035.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10035
+    }
+  ],
+  "blastoisemega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10036.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10036.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10036
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10036.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10036.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10036
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10036.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10036.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10036
+    }
+  ],
+  "blastoisegmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10197.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10197.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10197
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10197.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10197.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10197
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10197.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10197.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10197
+    }
+  ],
+  "butterfreegmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10198.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10198.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10198
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10198.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10198.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10198
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10198.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10198.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10198
+    }
+  ],
+  "beedrillmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10090.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10090.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10090
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10090.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10090.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10090
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10090.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10090.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10090
+    }
+  ],
+  "pidgeotmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10073.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10073.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10073
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10073.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10073.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10073
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10073.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10073.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10073
+    }
+  ],
+  "pikachurockstar": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10080.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10080.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10080
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10080.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10080.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10080
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10080.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10080.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10080
+    }
+  ],
+  "pikachubelle": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10081.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10081.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10081
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10081.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10081.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10081
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10081.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10081.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10081
+    }
+  ],
+  "pikachupopstar": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10082.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10082.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10082
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10082.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10082.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10082
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10082.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10082.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10082
+    }
+  ],
+  "pikachuphd": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10083.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10083.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10083
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10083.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10083.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10083
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10083.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10083.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10083
+    }
+  ],
+  "pikachuoriginal": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10094.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10094.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10094
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10094.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10094.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10094
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10094.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10094.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10094
+    }
+  ],
+  "pikachuhoenn": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10095.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10095.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10095
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10095.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10095.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10095
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10095.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10095.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10095
+    }
+  ],
+  "pikachusinnoh": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10096.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10096.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10096
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10096.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10096.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10096
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10096.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10096.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10096
+    }
+  ],
+  "pikachuunova": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10097.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10097.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10097
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10097.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10097.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10097
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10097.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10097.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10097
+    }
+  ],
+  "pikachukalos": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10098.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10098.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10098
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10098.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10098.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10098
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10098.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10098.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10098
+    }
+  ],
+  "pikachualola": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10099.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10099.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10099
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10099.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10099.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10099
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10099.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10099.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10099
+    }
+  ],
+  "pikachupartner": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10148.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10148.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10148
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10148.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10148.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10148
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10148.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10148.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10148
+    }
+  ],
+  "pikachugmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10199.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10199.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10199
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10199.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10199.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10199
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10199.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10199.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10199
+    }
+  ],
+  "pikachuworld": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10160.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10160.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10160
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10160.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10160.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10160
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10160.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10160.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10160
+    }
+  ],
+  "raichumegax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10304.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10304.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10304
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10304.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10304.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10304
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10304.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10304.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10304
+    }
+  ],
+  "raichumegay": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10305.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10305.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10305
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10305.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10305.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10305
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10305.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10305.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10305
+    }
+  ],
+  "clefablemega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10278.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10278.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10278
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10278.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10278.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10278
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10278.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10278.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10278
+    }
+  ],
+  "meowthgalar": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10161.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10161.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10161
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10161.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10161.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10161
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10161.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10161.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10161
+    }
+  ],
+  "meowthgmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10200.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10200.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10200
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10200.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10200.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10200
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10200.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10200.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10200
+    }
+  ],
+  "machampgmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10201.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10201.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10201
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10201.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10201.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10201
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10201.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10201.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10201
+    }
+  ],
+  "victreebelmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10279.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10279.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10279
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10279.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10279.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10279
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10279.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10279.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10279
+    }
+  ],
+  "gengargmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10202.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10202.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10202
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10202.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10202.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10202
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10202.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10202.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10202
+    }
+  ],
+  "kinglergmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10203.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10203.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10203
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10203.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10203.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10203
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10203.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10203.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10203
+    }
+  ],
+  "starmiemega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10280.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10280.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10280
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10280.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10280.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10280
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10280.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10280.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10280
+    }
+  ],
+  "pinsirmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10040.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10040.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10040
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10040.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10040.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10040
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10040.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10040.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10040
+    }
+  ],
+  "gyaradosmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10041.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10041.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10041
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10041.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10041.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10041
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10041.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10041.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10041
+    }
+  ],
+  "laprasgmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10204.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10204.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10204
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10204.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10204.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10204
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10204.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10204.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10204
+    }
+  ],
+  "eeveegmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10205.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10205.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10205
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10205.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10205.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10205
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10205.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10205.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10205
+    }
+  ],
+  "snorlaxgmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10206.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10206.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10206
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10206.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10206.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10206
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10206.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10206.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10206
+    }
+  ],
+  "dragonitemega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10281.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10281.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10281
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10281.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10281.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10281
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10281.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10281.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10281
+    }
+  ],
+  "mewtwomegax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10043.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10043.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10043
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10043.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10043.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10043
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10043.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10043.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10043
+    }
+  ],
+  "meganiummega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10282.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10282.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10282
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10282.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10282.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10282
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10282.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10282.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10282
+    }
+  ],
+  "feraligatrmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10283.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10283.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10283
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10283.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10283.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10283
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10283.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10283.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10283
+    }
+  ],
+  "ampharosmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10045.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10045.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10045
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10045.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10045.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10045
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10045.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10045.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10045
+    }
+  ],
+  "scizormega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10046.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10046.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10046
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10046.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10046.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10046
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10046.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10046.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10046
+    }
+  ],
+  "heracrossmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10047.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10047.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10047
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10047.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10047.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10047
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10047.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10047.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10047
+    }
+  ],
+  "skarmorymega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10284.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10284.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10284
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10284.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10284.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10284
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10284.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10284.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10284
+    }
+  ],
+  "tyranitarmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10049.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10049.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10049
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10049.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10049.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10049
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10049.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10049.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10049
+    }
+  ],
+  "blazikenmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10050.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10050.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10050
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10050.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10050.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10050
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10050.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10050.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10050
+    }
+  ],
+  "swampertmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10064.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10064.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10064
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10064.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10064.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10064
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10064.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10064.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10064
+    }
+  ],
+  "aggronmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10053.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10053.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10053
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10053.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10053.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10053
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10053.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10053.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10053
+    }
+  ],
+  "medichammega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10054.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10054.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10054
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10054.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10054.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10054
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10054.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10054.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10054
+    }
+  ],
+  "absolmegaz": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10307.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10307.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10307
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10307.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10307.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10307
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10307.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10307.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10307
+    }
+  ],
+  "salamencemega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10089.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10089.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10089
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10089.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10089.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10089
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10089.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10089.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10089
+    }
+  ],
+  "metagrossmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10076.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10076.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10076
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10076.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10076.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10076
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10076.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10076.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10076
+    }
+  ],
+  "staraptormega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10308.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10308.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10308
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10308.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10308.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10308
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10308.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10308.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10308
+    }
+  ],
+  "garchompmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10058.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10058.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10058
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10058.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10058.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10058
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10058.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10058.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10058
+    }
+  ],
+  "garchompmegaz": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10309.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10309.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10309
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10309.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10309.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10309
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10309.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10309.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10309
+    }
+  ],
+  "lucariomegaz": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10310.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10310.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10310
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10310.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10310.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10310
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10310.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10310.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10310
+    }
+  ],
+  "abomasnowmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10060.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10060.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10060
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10060.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10060.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10060
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10060.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10060.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10060
+    }
+  ],
+  "froslassmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10285.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10285.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10285
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10285.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10285.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10285
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10285.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10285.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10285
+    }
+  ],
+  "heatranmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10311.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10311.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10311
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10311.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10311.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10311
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10311.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10311.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10311
+    }
+  ],
+  "darkraimega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10312.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10312.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10312
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10312.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10312.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10312
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10312.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10312.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10312
+    }
+  ],
+  "emboarmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10286.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10286.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10286
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10286.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10286.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10286
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10286.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10286.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10286
+    }
+  ],
+  "simisear": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/514.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/514.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 514
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/514.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/514.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 514
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/514.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/514.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 514
+    }
+  ],
+  "simipour": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/516.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/516.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 516
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/516.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/516.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 516
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/516.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/516.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 516
+    }
+  ],
+  "tranquill": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/520.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/520.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 520
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/520.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/520.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 520
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/520.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/520.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 520
+    }
+  ],
+  "blitzle": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/522.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/522.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 522
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/522.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/522.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 522
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/522.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/522.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 522
+    }
+  ],
+  "zebstrika": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/523.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/523.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 523
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/523.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/523.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 523
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/523.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/523.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 523
+    }
+  ],
+  "audinomega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10069.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10069.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10069
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10069.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10069.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10069
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10069.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10069.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10069
+    }
+  ],
+  "throh": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/538.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/538.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 538
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/538.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/538.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 538
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/538.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/538.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 538
+    }
+  ],
+  "scolipedemega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10288.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10288.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10288
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10288.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10288.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10288
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10288.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10288.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10288
+    }
+  ],
+  "darumakagalar": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10176.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10176.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10176
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10176.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10176.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10176
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10176.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10176.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10176
+    }
+  ],
+  "darmanitangalarzen": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10178.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10178.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10178
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10178.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10178.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10178
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10178.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10178.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10178
+    }
+  ],
+  "crustle": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/558.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/558.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 558
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/558.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/558.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 558
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/558.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/558.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 558
+    }
+  ],
+  "tirtouga": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/564.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/564.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 564
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/564.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/564.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 564
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/564.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/564.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 564
+    }
+  ],
+  "carracosta": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/565.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/565.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 565
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/565.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/565.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 565
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/565.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/565.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 565
+    }
+  ],
+  "garbodorgmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10207.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10207.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10207
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10207.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10207.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10207
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10207.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10207.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10207
+    }
+  ],
+  "karrablast": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/588.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/588.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 588
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/588.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/588.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 588
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/588.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/588.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 588
+    }
+  ],
+  "amoonguss": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/591.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/591.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 591
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/591.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/591.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 591
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/591.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/591.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 591
+    }
+  ],
+  "frillish": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/592.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/592.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 592
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/592.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/592.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 592
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/592.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/592.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 592
+    }
+  ],
+  "chandeluremega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10291.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10291.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10291
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10291.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10291.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10291
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10291.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10291.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10291
+    }
+  ],
+  "shelmet": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/616.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/616.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 616
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/616.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/616.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 616
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/616.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/616.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 616
+    }
+  ],
+  "stunfiskgalar": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10180.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10180.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10180
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10180.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10180.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10180
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10180.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10180.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10180
+    }
+  ],
+  "golurkmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10313.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10313.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10313
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10313.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10313.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10313
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10313.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10313.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10313
+    }
+  ],
+  "bouffalant": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/626.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/626.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 626
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/626.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/626.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 626
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/626.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/626.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 626
+    }
+  ],
+  "tornadustherian": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10019.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10019.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10019
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10019.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10019.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10019
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10019.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10019.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10019
+    }
+  ],
+  "thundurustherian": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10020.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10020.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10020
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10020.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10020.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10020
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10020.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10020.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10020
+    }
+  ],
+  "keldeoresolute": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10024.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10024.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10024
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10024.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10024.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10024
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10024.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10024.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10024
+    }
+  ],
+  "chesnaughtmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10292.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10292.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10292
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10292.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10292.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10292
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10292.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10292.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10292
+    }
+  ],
+  "delphoxmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10293.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10293.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10293
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10293.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10293.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10293
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10293.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10293.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10293
+    }
+  ],
+  "greninjaash": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10117.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10117.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10117
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10117.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10117.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10117
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10117.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10117.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10117
+    }
+  ],
+  "greninjamega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10294.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10294.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10294
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10294.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10294.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10294
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10294.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10294.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10294
+    }
+  ],
+  "pyroar": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/668.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/668.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 668
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/668.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/668.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 668
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/668.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/668.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 668
+    }
+  ],
+  "pyroarmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10295.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10295.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10295
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10295.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10295.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10295
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10295.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10295.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10295
+    }
+  ],
+  "furfroudandy": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/676-dandy.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/676-dandy.png"
+      ],
+      "source": "PokeAPI sprites official-artwork cosmetics"
+    },
+    {
+      "urls": [
+        "https://www.serebii.net/xy/pokemon/676-da.png",
+        "https://www.serebii.net/Shiny/XY/676-da.png"
+      ],
+      "form_exact": true
+    }
+  ],
+  "furfroudebutante": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/676-debutante.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/676-debutante.png"
+      ],
+      "source": "PokeAPI sprites official-artwork cosmetics"
+    },
+    {
+      "urls": [
+        "https://www.serebii.net/xy/pokemon/676-de.png",
+        "https://www.serebii.net/Shiny/XY/676-de.png"
+      ],
+      "form_exact": true
+    }
+  ],
+  "furfroudiamond": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/676-diamond.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/676-diamond.png"
+      ],
+      "source": "PokeAPI sprites official-artwork cosmetics"
+    },
+    {
+      "urls": [
+        "https://www.serebii.net/xy/pokemon/676-d.png",
+        "https://www.serebii.net/Shiny/XY/676-d.png"
+      ],
+      "form_exact": true
+    }
+  ],
+  "furfrouheart": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/676-heart.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/676-heart.png"
+      ],
+      "source": "PokeAPI sprites official-artwork cosmetics"
+    },
+    {
+      "urls": [
+        "https://www.serebii.net/xy/pokemon/676-h.png",
+        "https://www.serebii.net/Shiny/XY/676-h.png"
+      ],
+      "form_exact": true
+    }
+  ],
+  "furfroulareine": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/676-la-reine.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/676-la-reine.png"
+      ],
+      "source": "PokeAPI sprites official-artwork cosmetics"
+    },
+    {
+      "urls": [
+        "https://www.serebii.net/xy/pokemon/676-l.png",
+        "https://www.serebii.net/Shiny/XY/676-l.png"
+      ],
+      "form_exact": true
+    }
+  ],
+  "furfroumatron": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/676-matron.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/676-matron.png"
+      ],
+      "source": "PokeAPI sprites official-artwork cosmetics"
+    },
+    {
+      "urls": [
+        "https://www.serebii.net/xy/pokemon/676-m.png",
+        "https://www.serebii.net/Shiny/XY/676-m.png"
+      ],
+      "form_exact": true
+    }
+  ],
+  "furfroupharaoh": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/676-pharaoh.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/676-pharaoh.png"
+      ],
+      "source": "PokeAPI sprites official-artwork cosmetics"
+    },
+    {
+      "urls": [
+        "https://www.serebii.net/xy/pokemon/676-p.png",
+        "https://www.serebii.net/Shiny/XY/676-p.png"
+      ],
+      "form_exact": true
+    }
+  ],
+  "furfroustar": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/676-star.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/676-star.png"
+      ],
+      "source": "PokeAPI sprites official-artwork cosmetics"
+    },
+    {
+      "urls": [
+        "https://www.serebii.net/xy/pokemon/676-s.png",
+        "https://www.serebii.net/Shiny/XY/676-s.png"
+      ],
+      "form_exact": true
+    }
+  ],
+  "meowsticmmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10314.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10314.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10314
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10314.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10314.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10314
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10314.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10314.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10314
+    }
+  ],
+  "meowsticfmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10326.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10326.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10326
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10326.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10326.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10326
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10326.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10326.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10326
+    }
+  ],
+  "malamarmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10297.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10297.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10297
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10297.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10297.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10297
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10297.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10297.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10297
+    }
+  ],
+  "barbaraclemega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10298.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10298.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10298
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10298.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10298.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10298
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10298.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10298.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10298
+    }
+  ],
+  "trumbeak": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/732.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/732.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 732
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/732.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/732.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 732
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/732.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/732.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 732
+    }
+  ],
+  "gumshoos": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/735.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/735.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 735
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/735.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/735.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 735
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/735.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/735.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 735
+    }
+  ],
+  "crabominablemega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10315.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10315.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10315
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10315.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10315.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10315
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10315.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10315.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10315
+    }
+  ],
+  "shiinotic": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/756.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/756.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 756
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/756.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/756.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 756
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/756.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/756.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 756
+    }
+  ],
+  "oranguru": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/765.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/765.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 765
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/765.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/765.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 765
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/765.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/765.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 765
+    }
+  ],
+  "golisopodmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10316.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10316.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10316
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10316.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10316.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10316
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10316.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10316.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10316
+    }
+  ],
+  "minior": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10136.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10136.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10136
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10136.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10136.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10136
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10136.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10136.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10136
+    }
+  ],
+  "miniororange": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10137.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10137.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10137
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10137.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10137.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10137
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10137.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10137.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10137
+    }
+  ],
+  "minioryellow": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10138.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10138.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10138
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10138.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10138.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10138
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10138.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10138.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10138
+    }
+  ],
+  "miniorgreen": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10139.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10139.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10139
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10139.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10139.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10139
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10139.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10139.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10139
+    }
+  ],
+  "miniorblue": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10140.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10140.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10140
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10140.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10140.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10140
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10140.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10140.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10140
+    }
+  ],
+  "miniorindigo": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10141.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10141.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10141
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10141.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10141.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10141
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10141.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10141.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10141
+    }
+  ],
+  "miniorviolet": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10142.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10142.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10142
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10142.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10142.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10142
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10142.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10142.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10142
+    }
+  ],
+  "necrozmaduskmane": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10155.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10155.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10155
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10155.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10155.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10155
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10155.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10155.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10155
+    }
+  ],
+  "necrozmadawnwings": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10156.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10156.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10156
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10156.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10156.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10156
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10156.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10156.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10156
+    }
+  ],
+  "magearnamega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10317.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10317.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10317
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10317.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10317.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10317
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10317.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10317.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10317
+    }
+  ],
+  "magearnaoriginalmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10318.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10318.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10318
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10318.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10318.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10318
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10318.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10318.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10318
+    }
+  ],
+  "melmetalgmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10208.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10208.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10208
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10208.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10208.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10208
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10208.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10208.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10208
+    }
+  ],
+  "rillaboomgmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10209.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10209.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10209
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10209.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10209.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10209
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10209.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10209.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10209
+    }
+  ],
+  "cinderacegmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10210.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10210.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10210
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10210.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10210.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10210
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10210.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10210.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10210
+    }
+  ],
+  "inteleongmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10211.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10211.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10211
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10211.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10211.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10211
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10211.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10211.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10211
+    }
+  ],
+  "greedent": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/820.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/820.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 820
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/820.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/820.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 820
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/820.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/820.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 820
+    }
+  ],
+  "corviknightgmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10212.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10212.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10212
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10212.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10212.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10212
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10212.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10212.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10212
+    }
+  ],
+  "orbeetlegmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10213.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10213.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10213
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10213.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10213.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10213
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10213.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10213.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10213
+    }
+  ],
+  "drednawgmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10214.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10214.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10214
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10214.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10214.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10214
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10214.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10214.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10214
+    }
+  ],
+  "rolycoly": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/837.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/837.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 837
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/837.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/837.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 837
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/837.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/837.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 837
+    }
+  ],
+  "carkol": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/838.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/838.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 838
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/838.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/838.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 838
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/838.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/838.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 838
+    }
+  ],
+  "coalossal": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/839.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/839.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 839
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/839.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/839.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 839
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/839.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/839.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 839
+    }
+  ],
+  "coalossalgmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10215.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10215.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10215
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10215.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10215.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10215
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10215.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10215.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10215
+    }
+  ],
+  "flapplegmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10216.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10216.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10216
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10216.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10216.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10216
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10216.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10216.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10216
+    }
+  ],
+  "appletungmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10217.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10217.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10217
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10217.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10217.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10217
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10217.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10217.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10217
+    }
+  ],
+  "sandacondagmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10218.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10218.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10218
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10218.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10218.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10218
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10218.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10218.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10218
+    }
+  ],
+  "cramorantgulping": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10182.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10182.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10182
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10182.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10182.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10182
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10182.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10182.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10182
+    }
+  ],
+  "cramorantgorging": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10183.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10183.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10183
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10183.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10183.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10183
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10183.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10183.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10183
+    }
+  ],
+  "toxtricitygmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10219.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10219.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10219
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10219.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10219.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10219
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10219.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10219.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10219
+    }
+  ],
+  "toxtricitylowkeygmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10228.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10228.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10228
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10228.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10228.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10228
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10228.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10228.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10228
+    }
+  ],
+  "centiskorchgmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10220.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10220.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10220
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10220.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10220.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10220
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10220.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10220.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10220
+    }
+  ],
+  "hatterenegmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10221.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10221.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10221
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10221.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10221.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10221
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10221.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10221.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10221
+    }
+  ],
+  "grimmsnarlgmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10222.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10222.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10222
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10222.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10222.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10222
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10222.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10222.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10222
+    }
+  ],
+  "mrrime": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/866.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/866.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 866
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/866.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/866.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 866
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/866.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/866.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 866
+    }
+  ],
+  "milcery": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/868.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/868.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 868
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/868.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/868.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 868
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/868.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/868.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 868
+    }
+  ],
+  "falinks": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/870.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/870.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 870
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/870.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/870.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 870
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/870.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/870.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 870
+    }
+  ],
+  "falinksmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10303.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10303.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10303
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10303.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10303.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10303
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10303.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10303.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10303
+    }
+  ],
+  "cufant": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/878.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/878.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 878
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/878.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/878.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 878
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/878.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/878.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 878
+    }
+  ],
+  "copperajahgmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10224.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10224.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10224
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10224.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10224.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10224
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10224.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10224.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10224
+    }
+  ],
+  "duraludongmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10225.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10225.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10225
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10225.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10225.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10225
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10225.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10225.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10225
+    }
+  ],
+  "eternatuseternamax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10190.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10190.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10190
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10190.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10190.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10190
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10190.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10190.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10190
+    }
+  ],
+  "urshifugmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10226.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10226.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10226
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10226.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10226.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10226
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10226.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10226.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10226
+    }
+  ],
+  "urshifurapidstrikegmax": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10227.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10227.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10227
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10227.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10227.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10227
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10227.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10227.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10227
+    }
+  ],
+  "zarude": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/893.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/893.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 893
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/893.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/893.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 893
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/893.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/893.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 893
+    }
+  ],
+  "zarudedada": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10192.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10192.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10192
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10192.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10192.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10192
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10192.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10192.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10192
+    }
+  ],
+  "glastrier": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/896.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/896.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 896
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/896.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/896.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 896
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/896.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/896.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 896
+    }
+  ],
+  "calyrexice": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10193.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10193.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10193
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10193.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10193.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10193
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10193.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10193.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10193
+    }
+  ],
+  "calyrexshadow": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10194.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10194.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10194
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10194.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10194.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10194
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10194.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10194.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10194
+    }
+  ],
+  "oinkologne": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/916.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/916.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 916
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/916.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/916.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 916
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/916.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/916.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 916
+    }
+  ],
+  "oinkolognef": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10254.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10254.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10254
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10254.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10254.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10254
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10254.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10254.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10254
+    }
+  ],
+  "squawkabilly": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/931.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/931.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 931
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/931.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/931.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 931
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/931.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/931.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 931
+    }
+  ],
+  "squawkabillyblue": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10260.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10260.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10260
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10260.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10260.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10260
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10260.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10260.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10260
+    }
+  ],
+  "squawkabillyyellow": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10261.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10261.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10261
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10261.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10261.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10261
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10261.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10261.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10261
+    }
+  ],
+  "squawkabillywhite": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10262.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10262.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10262
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10262.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10262.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10262
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10262.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10262.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10262
+    }
+  ],
+  "naclstack": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/933.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/933.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 933
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/933.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/933.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 933
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/933.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/933.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 933
+    }
+  ],
+  "maschiff": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/942.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/942.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 942
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/942.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/942.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 942
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/942.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/942.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 942
+    }
+  ],
+  "mabosstiff": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/943.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/943.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 943
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/943.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/943.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 943
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/943.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/943.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 943
+    }
+  ],
+  "shroodle": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/944.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/944.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 944
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/944.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/944.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 944
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/944.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/944.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 944
+    }
+  ],
+  "brambleghast": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/947.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/947.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 947
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/947.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/947.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 947
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/947.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/947.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 947
+    }
+  ],
+  "toedscruel": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/949.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/949.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 949
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/949.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/949.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 949
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/949.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/949.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 949
+    }
+  ],
+  "klawf": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/950.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/950.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 950
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/950.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/950.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 950
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/950.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/950.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 950
+    }
+  ],
+  "scovillainmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10320.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10320.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10320
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10320.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10320.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10320
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10320.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10320.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10320
+    }
+  ],
+  "rabsca": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/954.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/954.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 954
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/954.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/954.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 954
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/954.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/954.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 954
+    }
+  ],
+  "espathra": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/956.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/956.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 956
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/956.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/956.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 956
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/956.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/956.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 956
+    }
+  ],
+  "bombirdier": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/962.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/962.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 962
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/962.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/962.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 962
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/962.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/962.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 962
+    }
+  ],
+  "glimmoramega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10321.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10321.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10321
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10321.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10321.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10321
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10321.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10321.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10321
+    }
+  ],
+  "flamigo": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/973.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/973.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 973
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/973.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/973.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 973
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/973.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/973.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 973
+    }
+  ],
+  "tatsugiridroopymega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10323.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10323.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10323
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10323.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10323.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10323
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10323.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10323.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10323
+    }
+  ],
+  "tatsugiristretchymega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10324.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10324.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10324
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10324.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10324.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10324
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10324.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10324.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10324
+    }
+  ],
+  "dudunsparcethreesegment": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10255.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10255.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10255
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10255.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10255.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10255
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10255.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10255.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10255
+    }
+  ],
+  "brutebonnet": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/986.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/986.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 986
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/986.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/986.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 986
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/986.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/986.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 986
+    }
+  ],
+  "ironjugulis": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/993.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/993.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 993
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/993.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/993.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 993
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/993.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/993.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 993
+    }
+  ],
+  "baxcaliburmega": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10325.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10325.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10325
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10325.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10325.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10325
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10325.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10325.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10325
+    }
+  ],
+  "gimmighoul": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/999.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/999.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 999
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/999.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/999.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 999
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/999.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/999.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 999
+    }
+  ],
+  "wochien": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1001.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1001.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 1001
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/1001.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/1001.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 1001
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/1001.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/1001.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 1001
+    }
+  ],
+  "chienpao": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1002.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1002.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 1002
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/1002.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/1002.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 1002
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/1002.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/1002.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 1002
+    }
+  ],
+  "koraidon": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1007.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1007.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 1007
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/1007.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/1007.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 1007
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/1007.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/1007.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 1007
+    }
+  ],
+  "miraidon": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1008.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1008.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 1008
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/1008.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/1008.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 1008
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/1008.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/1008.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 1008
+    }
+  ],
+  "okidogi": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1014.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1014.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 1014
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/1014.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/1014.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 1014
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/1014.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/1014.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 1014
+    }
+  ],
+  "ogerpontealtera": [
+    {
+      "urls": [
+        "https://play.pokemonshowdown.com/sprites/home/ogerpon-tealtera.png",
+        "https://play.pokemonshowdown.com/sprites/home-shiny/ogerpon-tealtera.png"
+      ],
+      "form_exact": true,
+      "kind": "Showdown normal/shiny model render palette reference"
+    },
+    {
+      "urls": [
+        "https://www.serebii.net/scarletviolet/pokemon/new/1017-tmt.png",
+        "https://www.serebii.net/Shiny/SV/new/1017-tmt.png"
+      ],
+      "form_exact": true
+    }
+  ],
+  "ogerponwellspringtera": [
+    {
+      "urls": [
+        "https://play.pokemonshowdown.com/sprites/home/ogerpon-wellspringtera.png",
+        "https://play.pokemonshowdown.com/sprites/home-shiny/ogerpon-wellspringtera.png"
+      ],
+      "form_exact": true,
+      "kind": "Showdown normal/shiny model render palette reference"
+    },
+    {
+      "urls": [
+        "https://www.serebii.net/scarletviolet/pokemon/new/1017-wmt.png",
+        "https://www.serebii.net/Shiny/SV/new/1017-wmt.png"
+      ],
+      "form_exact": true
+    }
+  ],
+  "ogerponhearthflametera": [
+    {
+      "urls": [
+        "https://play.pokemonshowdown.com/sprites/home/ogerpon-hearthflametera.png",
+        "https://play.pokemonshowdown.com/sprites/home-shiny/ogerpon-hearthflametera.png"
+      ],
+      "form_exact": true,
+      "kind": "Showdown normal/shiny model render palette reference"
+    },
+    {
+      "urls": [
+        "https://www.serebii.net/scarletviolet/pokemon/new/1017-hmt.png",
+        "https://www.serebii.net/Shiny/SV/new/1017-hmt.png"
+      ],
+      "form_exact": true
+    }
+  ],
+  "ogerponcornerstonetera": [
+    {
+      "urls": [
+        "https://play.pokemonshowdown.com/sprites/home/ogerpon-cornerstonetera.png",
+        "https://play.pokemonshowdown.com/sprites/home-shiny/ogerpon-cornerstonetera.png"
+      ],
+      "form_exact": true,
+      "kind": "Showdown normal/shiny model render palette reference"
+    },
+    {
+      "urls": [
+        "https://www.serebii.net/scarletviolet/pokemon/new/1017-cmt.png",
+        "https://www.serebii.net/Shiny/SV/new/1017-cmt.png"
+      ],
+      "form_exact": true
+    }
+  ],
+  "ironboulder": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1022.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1022.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 1022
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/1022.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/1022.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 1022
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/1022.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/1022.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 1022
+    }
+  ],
+  "ironcrown": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1023.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1023.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 1023
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/1023.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/1023.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 1023
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/1023.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/1023.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 1023
+    }
+  ],
+  "terapagosterastal": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10276.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10276.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10276
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10276.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10276.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10276
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10276.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10276.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10276
+    }
+  ],
+  "terapagosstellar": [
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10277.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/10277.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10277
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10277.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10277.png"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10277
+    },
+    {
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/10277.webp",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ix/legends-za/shiny/10277.webp"
+      ],
+      "form_exact": true,
+      "pokemon_id": 10277
+    }
+  ]
+}
