@@ -73,6 +73,15 @@ test('doubles charge and transformation owners are independent; recall clears on
   p.onEvent({k:'faint',s:0,u:0,slot:0},b);assert.equal(p.charges.length,0);assert.equal(p.transforms.length,0);
 });
 
+test('a real doubles snapshot keeps the shared party lookup through Z charge, pause and release',()=>{
+  const b=new RtBattle(spec({item:'Electrium Z'},'gen9doublescustomgame')),p=new SpecialPresentation();
+  run(b,p,{use:0,zmove:true},2);
+  assert.equal(p.charges.length,1);assert.equal(p.charges[0].u,0);
+  const v=b.view();assert.equal(v.sides[0].units[0].mons,undefined);
+  p.update(0,v);assert.equal(p.charges.length,1);
+  run(b,p,{},25);assert.equal(p.charges.length,0);assert.ok(p.attacks.some(a=>a.z));
+});
+
 test('drawing is allocation-bounded on pause and all eighteen type materials support reduced motion',()=>{
   const b=new RtBattle(spec({item:'Electrium Z'})),p=new SpecialPresentation();close(b);run(b,p,{use:0,zmove:true},23);
   p.onEvent({k:'hit',s:1,from:0,move:'gigavolthavoc',type:'Electric',t:b.t,hit:0},b);

@@ -68,7 +68,7 @@ export class SpecialPresentation {
       this[key] = this[key].filter(n => (n.age += dt) < n.life);
     this.charges = this.charges.filter(n => {
       const w = unit(view,n.s,n.u);
-      return w?.active === n.slot && !w.mons[n.slot]?.fainted && w.act?.kind === 'windup' && w.act.slot === n.castSlot;
+      return w?.active === n.slot && !view.sides[n.s].mons[n.slot]?.fainted && w.act?.kind === 'windup' && w.act.slot === n.castSlot;
     });
     // A presentation clock can run ahead during existing hit-stop, or behind at replay speed.
     // Keep the crystal until the actual cast releases or is interrupted, never until a guessed deadline.
