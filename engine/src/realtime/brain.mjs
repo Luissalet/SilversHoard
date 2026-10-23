@@ -289,6 +289,7 @@ export function think(b, side, opts = {}) {
   if (!me || me.fainted || side.vacant) return input;
   // Mega Evolution as soon as the gauge allows it (rules version 2)
   if (b.version >= 2 && !partner && b.canMega(side)) input.mega = true;
+  if (b.version >= 13 && !me.mega && !me.profiles.some((p,i) => b.zMoveFor(side,i)) && b.t >= 3*TPS && b.canDynamax(side)) input.dynamax = true;
   // the ultimate (rules version 5): after a reaction delay, with the foe within reach and not rolling away
   if (b.version >= 5 && !partner && b.ultReady(side) && (!side.act || side.act.kind === 'approach')) {
     if (brain.ultSince == null) brain.ultSince = b.t;
@@ -364,6 +365,7 @@ export function think(b, side, opts = {}) {
         }
         if (pick >= 0) {
           input.use = pick;
+          if (b.version >= 13 && !input.dynamax && b.zMoveFor(side,pick) && me.profiles[pick].category !== 'Status') input.zmove = true;
           brain.lastUse = b.t;
           // a Plus move on its strongest move when a gauge segment is full and the foe is in reach (rules version 2); a Pokémon
           // that can still Mega Evolve keeps the gauge for that

@@ -69,10 +69,12 @@ export class ArenaRenderer {
     this.credits = new Set();    // the walking sprites' artists (SpriteCollab), for the credit line under the arena
     this.importedCredits = new Map();
     this.megaAnims = sides.map((s) => s.mons.map(() => null));
+    this.dynamaxAnims = sides.map((s) => s.mons.map(() => null));
     const look = (m) => m.base_look || m;
     this.fallbacks = sides.map((s) => s.mons.map((m) => image(sprites.fallback(look(m).species, { spriteid: look(m).sprite_id, shiny: m.shiny }))));
     // Mega formes keep their own static image when walking sheets are unavailable.
     this.megaFallbacks = sides.map((s) => s.mons.map((m) => (m.mega_info ? image(sprites.fallback(m.mega_info.species, { spriteid: m.mega_info.sprite_id, shiny: m.shiny })) : null)));
+    this.dynamaxFallbacks = sides.map((s) => s.mons.map((m) => m.dynamax_info?.look ? image(sprites.fallback(m.dynamax_info.look.species, {spriteid:m.dynamax_info.look.sprite_id,shiny:m.shiny})) : null));
     this.trainers = sides.map((s) => (s.avatarUrl ? image(s.avatarUrl) : null));
     this.trainerBacks = sides.map((s) => (s.backUrl ? image(s.backUrl) : null));
     this.floats = [];
@@ -103,13 +105,15 @@ export class ArenaRenderer {
 
   /** Wait for decoded walking sheets within the metadata deadline, and always settle base/Mega fallback images. */
   async preload(onProgress = () => {}, timeout = 15000) {
-    const fallbackImages = [...this.fallbacks.flat(), ...this.megaFallbacks.flat(),
+    const fallbackImages = [...this.fallbacks.flat(), ...this.megaFallbacks.flat(), ...(this.dynamaxFallbacks?.flat() || []),
       ...(this.portraitFallbacks?.flat() || []), ...(this.portraitMegaFallbacks?.flat() || [])].filter(Boolean);
     const fallbackReady = Promise.all(fallbackImages.map(s => s.loaded));
     const jobs = [];
     this.sides.forEach((s, si) => s.mons.forEach((m, mi) => {
       jobs.push([si, mi, m.num, (m.base_look || m).forme, m.shiny, this.anims, (m.base_look || m).sprite_id]);
       if (m.mega_info) jobs.push([si, mi, m.mega_info.num, m.mega_info.forme, m.shiny, this.megaAnims, m.mega_info.sprite_id]);
+      const dm = m.dynamax_info?.look;
+      if (dm) jobs.push([si,mi,dm.num,dm.forme,m.shiny,this.dynamaxAnims,dm.sprite_id]);
     }));
     let done = 0;
     const one = async ([si, mi, num, form, shiny, table, spriteId]) => {
@@ -360,7 +364,8 @@ export class ArenaRenderer {
   }
 
   /** The walking sprite of the current forme; a missing Mega sheet leaves room for its battle sprite. */
-  animOf(si, slot, mega) {
+  animOf(si, slot, mega, dynamax = false) {
+    if (dynamax && this.dynamaxAnims?.[si]?.[slot]) return this.dynamaxAnims[si][slot];
     return (mega ? this.megaAnims[si]?.[slot] : this.anims[si]?.[slot]) || null;
   }
 
@@ -410,7 +415,7 @@ export class ArenaRenderer {
     const T = this.texts;
     const u = e.u || 0;
     const key = battle.doubles ? e.s * 2 + u : e.s;
-    const anim = (si) => { const w = this.unitOf(battle, si, u); return this.animOf(si, w.active, !!w.mons[w.active]?.megaOn); };
+    const anim = (si) => { const w = this.unitOf(battle, si, u); return this.animOf(si, w.active, !!w.mons[w.active]?.megaOn, !!w.mons[w.active]?.dynamaxUntil); };
     const s = e.s;
     const float = (si, text, color, opts = {}) => this.float(battle, si, text, color, { ...opts, u });
     this.vfx.onEvent(e, battle);
@@ -864,10 +869,14 @@ export class ArenaRenderer {
     // a fainted snapshot must stay hidden even when the paused renderer receives dt = 0.
     if (mon.fainted && fade.slot !== side.active) return;
     const mega = !!mon.is_mega || (mon.fainted && fade.slot === side.active && !!fade.mega);
-    const lookKey = `${side.active}:${mega ? 1 : 0}`;
+    const dynamax = !!mon.is_dynamax;
+    // A short growth anchored at the sprite's registered feet. Reduced motion retains the meaningful enlarged state.
+    const grown = dynamax ? mon.display_scale || 2.2 : 1;
+    const displayScale = dynamax && !this.reducedMotion?.matches ? 1 + (grown-1)*Math.min(1,Math.max(0,(18-mon.dynamax_left)/.22)) : grown;
+    const lookKey = `${side.active}:${mega ? 1 : 0}${dynamax ? ':dynamax' : ''}`;
     if (this.lastActive[key] !== lookKey) {
       this.lastActive[key] = lookKey;
-      const a = this.animOf(si, side.active, mega);
+      const a = this.animOf(si, side.active, mega, dynamax);
       if (a && !mon.fainted) a.start("Idle", false);
     }
     const recalling = side.act?.kind === "switch";
@@ -903,7 +912,7 @@ export class ArenaRenderer {
     ctx.ellipse(x, y, side.r * s * 0.9, side.r * s * 0.38, 0, 0, Math.PI * 2);
     ctx.fill();
     // ring under the feet: blue for p1, red for p2
-    ctx.strokeStyle = si === 0 ? `rgba(90,170,255,${0.8 * alpha})` : `rgba(255,95,95,${0.8 * alpha})`;
+    ctx.strokeStyle = dynamax ? `rgba(255,80,145,${.9*alpha})` : si === 0 ? `rgba(90,170,255,${0.8 * alpha})` : `rgba(255,95,95,${0.8 * alpha})`;
     ctx.lineWidth = Math.max(1.5, s * 0.06);
     ctx.beginPath();
     ctx.ellipse(x, y, side.r * s * 1.05, side.r * s * 0.45, 0, 0, Math.PI * 2);
@@ -918,7 +927,7 @@ export class ArenaRenderer {
       ctx.stroke();
     }
     this.megas.drawBurst(ctx,x,y,s,si,side.pos || 0,side.active,!!this.reducedMotion?.matches);
-    const a = this.animOf(si, side.active, mega);
+    const a = this.animOf(si, side.active, mega, dynamax);
     let headY = y - 1.6 * s;
     let drawn = false;
     ctx.save();
@@ -938,16 +947,16 @@ export class ArenaRenderer {
       a.update(dt);
       const facing = this.portrait ? portraitFacing(side.fx, side.fy) : side;
       const row = dirRow(facing.fx, facing.fy);
-      drawn = a.draw(ctx, x, y, row, this.k, { alpha: bodyAlpha, flash: this.flash[key] });
-      headY = y - a.height(this.k) - 0.3 * s;
+      drawn = a.draw(ctx, x, y, row, this.k * displayScale, { alpha: bodyAlpha, flash: this.flash[key] });
+      headY = y - a.height(this.k * displayScale) - 0.3 * s;
     }
     if (!drawn) {
       const portraitMega = this.portrait && mega ? this.portraitMegaFallbacks?.[si]?.[side.active] : null;
       const megaImg = portraitMega?.ready ? portraitMega : mega ? this.megaFallbacks[si]?.[side.active] : null;
       const portraitImg = this.portrait ? this.portraitFallbacks?.[si]?.[side.active] : null;
-      const img = mega ? megaImg : portraitImg?.ready ? portraitImg : this.fallbacks[si]?.[side.active];
+      const img = dynamax && this.dynamaxFallbacks?.[si]?.[side.active]?.ready ? this.dynamaxFallbacks[si][side.active] : mega ? megaImg : portraitImg?.ready ? portraitImg : this.fallbacks[si]?.[side.active];
       if (img?.ready) {
-        const h = 2.2 * s;
+        const h = 2.2 * s * displayScale;
         const w = (img.img.width / img.img.height) * h;
         ctx.save();
         ctx.globalAlpha = bodyAlpha;

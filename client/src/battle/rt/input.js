@@ -17,19 +17,19 @@ const SCHEMES = {
     up: ["KeyW", "ArrowUp"], down: ["KeyS", "ArrowDown"], left: ["KeyA", "ArrowLeft"], right: ["KeyD", "ArrowRight"],
     // diamond order: slot 0 top (X), 1 right (A), 2 bottom (B), 3 left (Y)
     moves: [["Digit1", "KeyI", "Numpad8"], ["Digit2", "KeyL", "Numpad6"], ["Digit3", "KeyK", "Numpad2"], ["Digit4", "KeyJ", "Numpad4"]],
-    focus: ["ShiftLeft", "ShiftRight"], roll: ["Space"], plus: ["KeyF"], mega: ["KeyM"],
+    focus: ["ShiftLeft", "ShiftRight"], roll: ["Space"], plus: ["KeyF"], mega: ["KeyM"], dynamax:["KeyB"], zmove:["KeyZ"],
     prev: ["KeyQ"], next: ["KeyE"], send: ["KeyR"], party: ["Tab"],
     slots: ["Digit1", "Digit2", "Digit3", "Digit4", "Digit5", "Digit6"], swap: ["Tab", "KeyC"], target: ["KeyX"],
   },
   p1: {
     up: ["KeyW"], down: ["KeyS"], left: ["KeyA"], right: ["KeyD"],
-    moves: [["Digit1"], ["Digit2"], ["Digit3"], ["Digit4"]], focus: ["ShiftLeft"], roll: ["Space"], plus: ["KeyF"], mega: ["KeyG"],
+    moves: [["Digit1"], ["Digit2"], ["Digit3"], ["Digit4"]], focus: ["ShiftLeft"], roll: ["Space"], plus: ["KeyF"], mega: ["KeyG"], dynamax:["KeyB"], zmove:["KeyV"],
     prev: ["KeyQ"], next: ["KeyE"], send: ["KeyR"], party: [],
     slots: ["Digit1", "Digit2", "Digit3", "Digit4", "Digit5", "Digit6"], swap: ["KeyC"], target: ["KeyX"],
   },
   p2: {
     up: ["ArrowUp"], down: ["ArrowDown"], left: ["ArrowLeft"], right: ["ArrowRight"],
-    moves: [["KeyU"], ["KeyI"], ["KeyO"], ["KeyP"]], focus: ["ShiftRight"], roll: ["Enter", "NumpadEnter"], plus: ["KeyK"], mega: ["KeyL"],
+    moves: [["KeyU"], ["KeyI"], ["KeyO"], ["KeyP"]], focus: ["ShiftRight"], roll: ["Enter", "NumpadEnter"], plus: ["KeyK"], mega: ["KeyL"], dynamax:["KeyN"], zmove:["KeyH"],
     prev: ["BracketLeft"], next: ["BracketRight"], send: ["Backslash", "Backspace"], party: [],
     slots: ["KeyU", "KeyI", "KeyO", "KeyP", "BracketLeft", "BracketRight"], swap: ["Semicolon"], target: ["Quote"],
   },
@@ -50,6 +50,9 @@ export class SeatInput {
     this.layout = CONTROL_LAYOUTS.includes(layout) ? layout : "za";
     this.queue = { use: -1, dodge: false, sw: -1, mega: false };
     this.plusArmed = false;  // F / ZL + +: the next move goes out as a Plus move (the screen disarms it once the battle used it)
+    this.zArmed = false;
+    this.mechanics = false;
+    this.onZ = null;
     this.ultMode = false;    // rules version 5: there are no Plus moves and the same key unleashes the ultimate
     this.partyOpen = false;
     this.padPrev = {};
@@ -86,6 +89,11 @@ export class SeatInput {
     this.onPlus?.(this.plusArmed);
   }
 
+  setZ(armed) {
+    this.zArmed = !!armed;
+    this.onZ?.(this.zArmed);
+  }
+
   openParty(cursor) {
     if (cursor !== undefined) this.partyCursor = cursor;
     this.partyOpen = true;
@@ -115,6 +123,8 @@ export class SeatInput {
     if (move >= 0) { this.queue.use = move; return true; }
     if (k.roll.includes(code)) { this.queue.dodge = true; return true; }
     if (k.plus.includes(code)) { this.plusKey(); return true; }
+    if (this.mechanics && k.dynamax.includes(code)) { this.queue.dynamax = true; return true; }
+    if (this.mechanics && k.zmove.includes(code)) { this.setZ(!this.zArmed); return true; }
     if (k.mega.includes(code)) { this.queue.mega = true; return true; }
     return [...k.up, ...k.down, ...k.left, ...k.right, ...k.focus].includes(code) || held === undefined;
   }
@@ -137,6 +147,7 @@ export class SeatInput {
     // the simple layout is always locked on (the old feel); the Z-A one locks on while the focus key is held
     const out = { mx: Math.round(mx * 100) / 100, my: Math.round(my * 100) / 100, ...this.queue, focus: this.layout === "simple" || focus,
       plus: this.plusArmed && this.queue.use >= 0 };
+    if (this.mechanics) { out.dynamax = !!this.queue.dynamax; out.zmove = this.zArmed && this.queue.use >= 0 && this.queue.use < 4; }
     if (this.doubles) { out.ctl = this.ctl; out.tgt = this.tgt; }
     this.queue = { use: -1, dodge: false, sw: -1, mega: false };
     return out;
@@ -156,6 +167,8 @@ export class SeatInput {
       if (hit[this.layout === "za" ? 4 : 10]) this.swap();
       if (hit[11]) this.cycleTarget();
     }
+    if (this.mechanics && hit[8] && focus) this.setZ(!this.zArmed);
+    if (this.mechanics && hit[7] && (this.layout === "za" || focus)) this.queue.dynamax = true;
     if (this.layout === "za") {
       // ZL + X A B Y: the move in that corner of the diamond; without ZL, Y rolls (and B, the dash: there is no running here)
       for (const [btn, slot] of Object.entries(FACE_TO_SLOT)) {
@@ -169,9 +182,9 @@ export class SeatInput {
     } else {
       // simple: A B X Y (Xbox positions 0 1 2 3) -> moves 1-4 without focusing; RB / ZR roll; L Mega Evolves; - arms Plus
       for (let i = 0; i < 4; i++) if (hit[i]) this.queue.use = i;
-      if (hit[5] || hit[7]) this.queue.dodge = true;
+      if (hit[5] || hit[7] && !(this.mechanics && focus)) this.queue.dodge = true;
       if (hit[4]) this.queue.mega = true;
-      if (hit[8]) this.plusKey();
+      if (hit[8] && !(this.mechanics && focus)) this.plusKey();
     }
     if (hit[14]) this.openParty((this.partyCursor + partySize - 1) % partySize);
     if (hit[15]) this.openParty((this.partyCursor + 1) % partySize);

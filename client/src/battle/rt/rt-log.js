@@ -71,10 +71,13 @@ export function logLine(e, b, lang, tr, active) {
       ? { sec, k: "minor", text: es ? `${mv(b.dex.moves.get(e.move).name)} de ${monName(e.s)} choca contra una roca` : `${who(e.s)}'s ${mv(b.dex.moves.get(e.move).name)} hit a rock` }
       : { sec, k: "minor", text: es ? `${mv(b.dex.moves.get(e.move).name)} de ${monName(e.s)} no alcanza a nadie` : `${who(e.s)}'s ${mv(b.dex.moves.get(e.move).name)} hit nothing` };
     case "protected": return e.pierced
-      ? { sec, k: "effect", text: es ? `¡El ataque Plus atraviesa la protección de ${monName(e.s)}!` : `The Plus attack pierces ${who(e.s)}'s protection!` }
+      ? { sec, k: "effect", text: es ? `¡El ataque atraviesa la protección de ${monName(e.s)}!` : `The attack pierces ${who(e.s)}'s protection!` }
       : { sec, k: "minor", text: es ? `${who(e.s)} se protege` : `${who(e.s)} protected itself` };
     case "plus": return { sec, k: "effect", text: es ? `${who(e.s)}: ¡${mv(e.name)} Plus!` : `${who(e.s)}: ${mv(e.name)} Plus!` };
     case "mega": return { sec, k: "big", text: es ? `¡${e.from} de ${side(e.s).name} megaevoluciona!` : `${side(e.s).name}'s ${e.from} Mega Evolved!` };
+    case "dynamax": return {sec,k:"big",text:es ? `¡${who(e.s)} se vuelve Dynamax durante ${e.seconds} s!` : `${who(e.s)} Dynamaxed for ${e.seconds} s!`};
+    case "dynamax_end": return {sec,k:"info",text:es ? `${monName(e.s,e.slot)} recupera su tamaño` : `${monName(e.s,e.slot)} returned to normal size`};
+    case "zmove": return {sec,k:"big",text:es ? `¡${who(e.s)} libera ${mv(e.name)}!` : `${who(e.s)} unleashed ${mv(e.name)}!`};
     case "phase": return { sec, k: "big", text: e.line ? `${side(e.s).name}: «${e.line}»` : (es ? `¡${side(e.s).name} cambia de táctica!` : `${side(e.s).name} changes tactics!`) };
     case "ultimate": return { sec, k: "big", text: es ? `¡${who(e.s)} usa un especial de Silver de tipo ${typeName(e.type, lang)}!` : `${who(e.s)} uses a ${e.type}-type Silver special!` };
     case "dummy_reset": return { sec, k: "big", text: es ? `${who(e.s)} cae y se levanta con todos sus PS` : `${who(e.s)} goes down and stands up again at full HP` };
