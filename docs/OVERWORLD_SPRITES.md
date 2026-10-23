@@ -21,10 +21,9 @@ Starmie, Raichu X/Y and Lucario Z. Its 4×4 sheets use down/left/right/up rows. 
 Delphox and Mega Delphox, normal and shiny, with two frames per direction. The importer records their exact rectangles and
 background color; the renderer removes that color in memory. Original PNG bytes and foreground colors are preserved.
 
-Real-time singles/doubles use these sheets when the requested form has no matching PMD animation; genuine PMD sheets keep
-precedence. Four directions are mapped to arena headings and walking follows the existing animation clock. These sheets do
+Real-time singles/doubles honor an exact explicitly imported variant before the installed PMD library. An imported normal fallback does not override an exact shiny library entry. Four directions are mapped to arena headings and walking follows the existing animation clock. These sheets do
 not contain directional attack/hurt/faint animations, so none are claimed or synthesized. Failed images retain the static
-Mega fallback. This does not add art to the separate mass renderer, nor change movement, damage, hit timing or replay rules.
+Mega fallback. New manual imports do not feed the separate mass renderer, which uses the installed PMD library. Importing does not change movement, damage, hit timing or replay rules.
 
 Trainer/gym playable exports embed the imported PNGs and frame metadata. They draw the same walking sprites without a running
 Silvers app, and show clickable artist credits separately from PMDCollab credits. This does not make battle music and other
@@ -44,4 +43,4 @@ Sources supplied or verified on 17 October 2026:
   [Z-A update](https://eeveeexpo.com/resources/1475/updates). Credit: DarkusShadow, BluebirdDxD; Willøw for compilation/porting.
   Its Z-A update lists the nine included forms; it is not a complete animated catalog of all new Megas.
 
-No art from these packs ships in the repository and no external simulator, plugin or executable is required.
+Reviewed original supplied sheets also ship in the installed PMD library under art/pmd, with their source records and attribution. New manual imports remain in the user collection. No external simulator, plugin or executable is required.
