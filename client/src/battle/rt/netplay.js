@@ -6,14 +6,17 @@
 
 /** An input (SeatInput.take) as a frame: [mx, my, use, dodge, sw, focus, plus, mega, ctl, tgt]. */
 export function packFrame(q) {
-  return [q.mx || 0, q.my || 0, q.use ?? -1, q.dodge ? 1 : 0, q.sw ?? -1, q.focus ? 1 : 0, q.plus ? 1 : 0, q.mega ? 1 : 0,
+  const frame = [q.mx || 0, q.my || 0, q.use ?? -1, q.dodge ? 1 : 0, q.sw ?? -1, q.focus ? 1 : 0, q.plus ? 1 : 0, q.mega ? 1 : 0,
     q.ctl ?? null, q.tgt ?? null];
+  if (q.dynamax !== undefined || q.zmove !== undefined) frame.push(q.dynamax ? 1 : 0, q.zmove ? 1 : 0);
+  return frame;
 }
 
 export function unpackFrame(f) {
   if (!f) return null;
-  const [mx, my, use, dodge, sw, focus, plus, mega, ctl, tgt] = f;
-  return { mx, my, use, dodge: !!dodge, sw, focus: !!focus, plus: !!plus, mega: !!mega, ...(ctl != null ? { ctl } : {}), ...(tgt != null ? { tgt } : {}) };
+  const [mx, my, use, dodge, sw, focus, plus, mega, ctl, tgt, dynamax, zmove] = f;
+  return { mx, my, use, dodge: !!dodge, sw, focus: !!focus, plus: !!plus, mega: !!mega, ...(ctl != null ? { ctl } : {}), ...(tgt != null ? { tgt } : {}),
+    ...(f.length > 10 ? {dynamax:!!dynamax, zmove:!!zmove} : {}) };
 }
 
 /** A short fingerprint of where the battle is: positions and HP of everything on the field. */

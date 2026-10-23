@@ -605,7 +605,7 @@ class BattleStartArgs(BaseModel):
 
 class RtFinishArgs(BaseModel):
     id: str = IdField
-    inputs: list[list[Any]] = Field(default_factory=list, max_length=200_000, description="The screen's input log: [tick, side, mx, my, move, roll, switch, focus, plus, mega] plus [ctl, tgt] in doubles (controlled slot, locked foe slot; older rows have the first seven).")
+    inputs: list[list[Any]] = Field(default_factory=list, max_length=200_000, description="Input rows [tick, side, mx, my, move, roll, switch, focus, plus, mega]. Rules13 append [ctl,tgt,dynamax,zmove] in singles and doubles; rules3-12 doubles append [ctl,tgt]. Older rows may have seven columns.")
     tick: int = Field(0, ge=0, le=60 * 30 * 30)
     forfeit: Literal["", "p1", "p2"] = ""
 

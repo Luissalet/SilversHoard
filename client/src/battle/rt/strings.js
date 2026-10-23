@@ -1,6 +1,18 @@
 // Words of the real-time mode (Legends: Z-A rules), Spanish (castellano de España) first, English second. The app's dictionary
 // takes them in (i18n.js), and the battle screen reads them through rtT.
 const RT = {
+  rt_dynamax: ["Dynamax", "Dynamax"],
+  rt_dynamax_help: ["Una vez por entrenador. 18 s, más PS y movimientos Max. Termina al cambiar.", "Once per trainer. 18 s, extra HP and Max Moves. Ends on switching."],
+  rt_dynamax_left: ["Dynamax · {n} s", "Dynamax · {n} s"],
+  rt_dynamax_used: ["Dynamax usado", "Dynamax used"],
+  rt_zmove: ["Movimiento Z", "Z-Move"],
+  rt_zmove_help: ["Activa Z y elige un movimiento compatible con el cristal. Una vez por entrenador.", "Arm Z and choose a move compatible with the crystal. Once per trainer."],
+  rt_zmove_armed: ["Z preparado", "Z armed"],
+  rt_zmove_used: ["Z usado", "Z used"],
+  rt_ctrl_dynamax: ["Dynamax / Gigamax", "Dynamax / Gigantamax"],
+  rt_keys_dynamax: ["B · ZR (sencillo: ZL + ZR). Dos jugadores: B / N.", "B · ZR (simple: ZL + ZR). Two players: B / N."],
+  rt_ctrl_zmove: ["Preparar movimiento Z", "Arm a Z-Move"],
+  rt_keys_zmove: ["Z · ZL + −. Dos jugadores: V / H. Después elige el movimiento.", "Z · ZL + −. Two players: V / H. Then choose the move."],
   rt_mode: ["Modo de combate", "Battle mode"],
   eq_title: ["Niveles", "Levels"],
   eq_off: ["Como vienen", "As they are"],

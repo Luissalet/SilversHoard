@@ -82,7 +82,7 @@ PHASE_WHEN = ("half", "last")
 # always locked on, no Mega Evolution; 2 = free aim, the Mega Power gauge, Plus moves and Mega Evolution; 3 = doubles formats
 # field two Pokémon per trainer, singles play as in 2; 4 = no Plus moves, the gauge only for Mega Evolution; 5 = the ultimate
 # gauge) and the arenas.
-RT_RULES_VERSION = 12
+RT_RULES_VERSION = 13
 RT_ARENAS = ("open", "rocks")
 
 
@@ -2143,6 +2143,8 @@ class Services:
         return {
             "source": "Pokémon Legends: Z-A (Bulbapedia: Pokémon battle (Legends: Z-A), Cooldown; Serebii: usable attacks).",
             "rules": [
+                "Rules version 13: Dynamax is available from generation 8, once per trainer, for 18 seconds (three six-second turns), ending on recall or knockout. Dynamax level scales HP from x1.5 to x2 (Shedinja stays at 1 HP), sprites grow uniformly x2.2, and moves become Max Moves with their base move's power/category and cooldown. Gigantamax-capable sets with gigantamax:true use their exact forme and signature G-Max move. Mega Stones, Z crystals, Mega/Primal formes and species forbidden to Dynamax cannot activate it. Max Guard blocks Max/Z attacks; ordinary Protect takes a quarter. Standard Max field/stat effects and G-Max effects use real-time durations. Older saved rules retain their behaviour.",
+                "Rules version 13: a matching held Z crystal enables its generic or species-specific Z-Move, from generation 7, once per trainer shared by doubles slots. Arm Z then select a compatible move. Its canonical power/category and status Z bonus use the existing real-time stat limits and move cooldown; the use is spent when windup starts, so cancelling or dodging does not refund it. It cannot be combined with Dynamax. Inputs travel through replay, online rooms and portable HTML result codes.",
                 "One Pokémon per trainer on a 28 x 17 m arena seen from above in singles formats, two in doubles formats; the screen runs at 30 ticks per second.",
                 "No PP and no turns: every move has a base cooldown of 3-60 s. Moves Legends: Z-A has keep its value (337 moves); the rest get one from PP, power and kind fitted to that table (mean error 1.3 s).",
                 "Speed shortens cooldowns: final = max(3, base - 3 * max(0, Speed * modifier - 25) / 100). Priority moves always take 3 s. Choice Scarf, Tailwind and weather abilities count as Speed modifiers; stat stages do not.",
@@ -2169,13 +2171,15 @@ class Services:
                 "Rules version 9 (the HeartGold/SoulSilver Battle Frontier): a battle can start with HP, statuses, PP, a weather, Trick Room or fog. Trick Room lasts 6 s per turn of the games (the Arcade's 5 turns: 30 s) and turns Speed around: walking goes as base Speed 200 minus the Pokémon's, and cooldowns take the Speed mirrored around a base-80 Pokémon of its level. Fog makes each hit of a move with an accuracy land 3 times in 5, until another weather replaces it (Cloud Nine and Air Lock suppress it). Starting PP (the Castle) count down one per use; a move with none left cannot be used, and the PP left go back to the streak.",
                 "Multi battles (rules version 9, the Frontier's multi challenges): each side is two trainers, one Pokémon each on the field (slot a and slot b); a slot only sends out its own trainer's Pokémon and stays empty when they are gone. A person with an AI partner always moves slot a; the partner drives slot b and sends out its own next Pokémon.",
             ],
-            "not_covered": ["triples (played as singles)", "Z-Moves, Dynamax and Terastallization", "Alpha Pokémon of Z-A",
+            "not_covered": ["triples (played as singles)", "Terastallization", "Alpha Pokémon of Z-A",
                             "Trick Room as a move, Transform, Baton Pass-style copying and other moves listed as no_effect in rt_cooldowns (the Arcade's Trick Room panel works from rules version 9)",
                             "in doubles: Wide Guard, Quick Guard, Ally Switch, After You, Instruct, Spotlight and other ally-targeting moves have no effect; healing moves for allies (Life Dew, Jungle Healing...) heal the user only"],
             "controls": {"move": "WASD or arrows; gamepad left stick", "focus": "hold Shift; gamepad hold ZL",
                          "moves": "I L K J in a diamond (or 1-4); gamepad ZL + X A B Y (simple layout: A B X Y)",
                          "roll": "Space; gamepad Y without ZL (simple layout: RB)",
                          "mega": "M; gamepad R (simple layout: L)", "switch": "Q / E pick, R sends out; gamepad D-pad left/right + up",
+                         "dynamax": "B; gamepad ZR (simple: ZL+ZR); two people B/N",
+                         "zmove": "Z then a compatible move; gamepad ZL+minus; two people V/H",
                          "doubles_swap": "Tab or C swaps the Pokémon you control; gamepad L (simple layout: left stick click)",
                          "doubles_target": "X switches the locked foe; gamepad right stick click",
                          "pause": "Esc; gamepad plus without ZL (only against the AI)",

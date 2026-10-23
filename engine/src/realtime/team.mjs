@@ -55,6 +55,8 @@ export function rtSets(sets, formatId, rules = {}) {
       name: String(s.name && s.name !== species ? s.name : '').trim(), species, item: String(s.item || '').trim(),
       ability: String(s.ability || '').trim() || (dex.gen >= 3 ? sp.abilities?.['0'] || '' : ''), moves, nature: String(s.nature || '').trim(),
       gender: String(s.gender || '').trim().toUpperCase().slice(0, 1), evs: table(s.evs, 0), ivs: table(s.ivs, 31), level, shiny: !!s.shiny,
+      ...(s.gigantamax ? {gigantamax: true} : {}),
+      ...(s.dynamaxLevel != null ? {dynamaxLevel: Math.max(0, Math.min(10, Math.floor(Number(s.dynamaxLevel) || 0)))} : {}),
     };
   });
 }

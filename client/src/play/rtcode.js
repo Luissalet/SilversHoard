@@ -9,8 +9,9 @@
  * integers per row: the nine above plus ctl and tgt. */
 export function flatRtInputs(rows) {
   const flat = [];
-  const wide = rows.some((row) => row[1] === 0 && row.length > 10);
-  if (wide) flat.push(-11);
+  const special = rows.some((row) => row[1] === 0 && row.length > 12);
+  const wide = special || rows.some((row) => row[1] === 0 && row.length > 10);
+  if (wide) flat.push(special ? -13 : -11);
   let prev = 0;
   for (const row of rows) {
     if (row[1] !== 0) continue;
@@ -18,6 +19,7 @@ export function flatRtInputs(rows) {
     while (r.length < 10) r.push(r.length === 7 ? 1 : 0);
     flat.push(r[0] - prev, Math.round(r[2] * 1000), Math.round(r[3] * 1000), r[4], r[5] ? 1 : 0, r[6], r[7] ? 1 : 0, r[8] ? 1 : 0, r[9] ? 1 : 0);
     if (wide) flat.push(r[10] ? 1 : 0, r[11] ? 1 : 0);
+    if (special) flat.push(r[12] ? 1 : 0, r[13] ? 1 : 0);
     prev = r[0];
   }
   return flat;
@@ -45,15 +47,17 @@ export async function unpackRtInputs(text) {
   const bytes = Uint8Array.from(bin, (c) => c.charCodeAt(0));
   const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("deflate"));
   const flat = JSON.parse(await new Response(stream).text());
-  const wide = flat[0] === -11;
-  const width = wide ? 11 : 9;
+  const special = flat[0] === -13;
+  const wide = special || flat[0] === -11;
+  const width = special ? 13 : wide ? 11 : 9;
   const rows = [];
   let tick = 0;
   for (let i = wide ? 1 : 0; i < flat.length; i += width) {
-    const [dt, mx, my, use, dodge, sw, focus, plus, mega, ctl, tgt] = flat.slice(i, i + width);
+    const [dt, mx, my, use, dodge, sw, focus, plus, mega, ctl, tgt, dynamax, zmove] = flat.slice(i, i + width);
     tick += dt;
     const row = [tick, 0, mx / 1000, my / 1000, use, dodge, sw, focus, plus, mega];
     if (wide) row.push(ctl, tgt);
+    if (special) row.push(dynamax, zmove);
     rows.push(row);
   }
   return rows;

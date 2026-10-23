@@ -13983,6 +13983,13 @@
       "runtime": "Silver actual Animator, native size and enlargement",
       "independent_report": "review-art-native-v23.md",
       "source_sha256": "7a70a42bdc39966acc539198237e728c820cc1946c86628c1c37e342c9b13d48"
+    },
+    "shiny_file": "darmanitangalarzen-shiny.png",
+    "shiny_generation": {
+      "tool": "Manual pixel palette correction (Python/Pillow, user-authorized)",
+      "method": "Existing aligned shiny palette with explicit hand masks in all sixteen poses; fire and belly marks retained. HOME shiny reference confirms red/fuchsia hands. No anatomy or phase changes.",
+      "source_normal_sha256": "7a70a42bdc39966acc539198237e728c820cc1946c86628c1c37e342c9b13d48",
+      "shiny_sha256": "ddb9dded4a4db88c803975d9416936ecc35ce14a2820bee8a13bc8b42673f6ec"
     }
   },
   "glimmoramega": {
