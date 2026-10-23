@@ -82,7 +82,7 @@ PHASE_WHEN = ("half", "last")
 # always locked on, no Mega Evolution; 2 = free aim, the Mega Power gauge, Plus moves and Mega Evolution; 3 = doubles formats
 # field two Pokémon per trainer, singles play as in 2; 4 = no Plus moves, the gauge only for Mega Evolution; 5 = the ultimate
 # gauge) and the arenas.
-RT_RULES_VERSION = 13
+RT_RULES_VERSION = 14
 RT_ARENAS = ("open", "rocks")
 
 
@@ -2143,6 +2143,7 @@ class Services:
         return {
             "source": "Pokémon Legends: Z-A (Bulbapedia: Pokémon battle (Legends: Z-A), Cooldown; Serebii: usable attacks).",
             "rules": [
+                "Rules version 14: Necrozma-Dusk-Mane or Necrozma-Dawn-Wings holding Ultranecrozium Z can activate Ultra Burst once per trainer from generation 7, with M/the Mega command but no Mega gauge or Mega use spent. It changes stats, typing and ability to Ultra Necrozma with Neuroforce, persists on switching, and reverts on fainting or battle end. Ultra Necrozma cannot be chosen as the initial form in new RT battles. Ultra Burst does not spend Z power: after a one-second real-time separation, Photon Geyser can become Light That Burns the Sky with the ordinary Z command. A normal attack may accompany the transformation. Versions 1-13 retain their old behaviour.",
                 "Rules version 13: Dynamax is available from generation 8, once per trainer, for 18 seconds (three six-second turns), ending on recall or knockout. Dynamax level scales HP from x1.5 to x2 (Shedinja stays at 1 HP), sprites grow uniformly x2.2, and moves become Max Moves with their base move's power/category and cooldown. Gigantamax-capable sets with gigantamax:true use their exact forme and signature G-Max move. Mega Stones, Z crystals, Mega/Primal formes and species forbidden to Dynamax cannot activate it. Max Guard blocks Max/Z attacks; ordinary Protect takes a quarter. Standard Max field/stat effects and G-Max effects use real-time durations. Older saved rules retain their behaviour.",
                 "Rules version 13: a matching held Z crystal enables its generic or species-specific Z-Move, from generation 7, once per trainer shared by doubles slots. Arm Z then select a compatible move. Its canonical power/category and status Z bonus use the existing real-time stat limits and move cooldown; the use is spent when windup starts, so cancelling or dodging does not refund it. It cannot be combined with Dynamax. Inputs travel through replay, online rooms and portable HTML result codes.",
                 "One Pokémon per trainer on a 28 x 17 m arena seen from above in singles formats, two in doubles formats; the screen runs at 30 ticks per second.",
@@ -2178,6 +2179,7 @@ class Services:
                          "moves": "I L K J in a diamond (or 1-4); gamepad ZL + X A B Y (simple layout: A B X Y)",
                          "roll": "Space; gamepad Y without ZL (simple layout: RB)",
                          "mega": "M; gamepad R (simple layout: L)", "switch": "Q / E pick, R sends out; gamepad D-pad left/right + up",
+                         "ultra_burst": "M; gamepad R (simple: L); two people G/L; separate from Z",
                          "dynamax": "B; gamepad ZR (simple: ZL+ZR); two people B/N",
                          "zmove": "Z then a compatible move; gamepad ZL+minus; two people V/H",
                          "doubles_swap": "Tab or C swaps the Pokémon you control; gamepad L (simple layout: left stick click)",

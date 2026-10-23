@@ -288,7 +288,7 @@ export function think(b, side, opts = {}) {
   const me = b.mon(side);
   if (!me || me.fainted || side.vacant) return input;
   // Mega Evolution as soon as the gauge allows it (rules version 2)
-  if (b.version >= 2 && !partner && b.canMega(side)) input.mega = true;
+  if (b.version >= 14 && b.canUltra(side) || b.version >= 2 && !partner && b.canMega(side)) input.mega = true;
   if (b.version >= 13 && !me.mega && !me.profiles.some((p,i) => b.zMoveFor(side,i)) && b.t >= 3*TPS && b.canDynamax(side)) input.dynamax = true;
   // the ultimate (rules version 5): after a reaction delay, with the foe within reach and not rolling away
   if (b.version >= 5 && !partner && b.ultReady(side) && (!side.act || side.act.kind === 'approach')) {

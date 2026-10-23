@@ -103,7 +103,7 @@ def test_finished_battle_retains_weather_after_arena_edit(call):
                               "mode": "realtime", "rt_arena": a["value"], "time_limit": 30})
     done = wait_for(lambda: (x := call("battle_get", {"id": bt["id"]}))["status"] == "ended" and x)
     spec = done["rt"]["spec"]
-    assert spec["version"] == 13
+    assert spec["version"] == 14
     assert spec["arena"]["weather"] == "snow" and spec["arena"]["weather_rules"] is True
     call("arena_save", {"id": a["id"], "weather": "sunnyday", "weather_rules": False})
     assert call("battle_get", {"id": bt["id"]})["rt"]["spec"] == spec
@@ -117,7 +117,7 @@ def test_saved_weather_and_forfeit_travel_together(call):
     ended = call("battle_rt_finish", {"id": battle["id"], "inputs": [], "tick": 90, "forfeit": "p1"})
     assert ended["summary"]["reason"] == "forfeit" and ended["summary"]["seconds"] == 3
     assert ended["rt"]["forfeit"] == "p1" and ended["rt"]["tick"] == 90
-    assert ended["rt"]["spec"]["version"] == 13
+    assert ended["rt"]["spec"]["version"] == 14
     original = ended["rt"]["spec"]
     call("arena_save", {"id": arena["id"], "weather": "snow"})
     again = call("battle_get", {"id": battle["id"]})

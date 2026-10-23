@@ -237,6 +237,9 @@ function Pad({ side, si, lang, tr, partyOpen, cursor, focus, plus, zArmed, gauge
               {tr(side.z_used ? "rt_zmove_used" : zArmed ? "rt_zmove_armed" : "rt_zmove")} <span className="rt-key">{keys.zmove}</span>
             </button>
           )}
+          {mon?.ultra_info && <button type="button" className={`btn btn-sm rt-mega-btn ${side.can_ultra ? "is-ready" : ""}`} title={tr("rt_ultra_help")} disabled={!side.can_ultra} onClick={() => onMega(si)}>
+            {tr(side.ultra_used ? "rt_ultra_used" : "rt_ultra")} <span className="rt-key">{keys.mega}</span>
+          </button>}
           <button type="button" className="btn btn-sm" onClick={() => onRoll(si)} disabled={side.roll_ready > 0 || need}>
             {tr("rt_roll")} <span className="rt-key">{keys.roll}</span>{side.roll_ready > 0 ? ` ${side.roll_ready.toFixed(1)}` : ""}
           </button>
@@ -604,7 +607,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
             for (; st.plusScan < st.b.events.length; st.plusScan++) {
               const e = st.b.events[st.plusScan];
               if ((e.k === "plus" || e.k === "mega") && st.inputs[e.s]?.plusArmed) st.inputs[e.s].setPlus(false);
-              if (["zmove","dynamax","switch"].includes(e.k) && st.inputs[e.s]?.zArmed) st.inputs[e.s].setZ(false);
+              if (["zmove","dynamax","ultra","switch"].includes(e.k) && st.inputs[e.s]?.zArmed) st.inputs[e.s].setZ(false);
             }
             if (st.b.doubles && st.inputs[me]) st.inputs[me].effCtl = st.b.leadOf(st.b.sides[me]).pos;
             if (!watching && st.b.t - st.hashAt >= 60) { st.hashAt = st.b.t; nl.send({ k: "hash", t: st.b.t, h: battleHash(st.b) }); }
@@ -621,7 +624,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
             for (; st.plusScan < st.b.events.length; st.plusScan++) {
               const e = st.b.events[st.plusScan];
               if ((e.k === "plus" || e.k === "mega") && st.inputs[e.s]?.plusArmed) st.inputs[e.s].setPlus(false);
-              if (["zmove","dynamax","switch"].includes(e.k) && st.inputs[e.s]?.zArmed) st.inputs[e.s].setZ(false);
+              if (["zmove","dynamax","ultra","switch"].includes(e.k) && st.inputs[e.s]?.zArmed) st.inputs[e.s].setZ(false);
             }
             st.inputs.forEach((inp, i) => { if (inp?.plusArmed && !st.b.plusReady(st.b.sides[i])) inp.setPlus(false); });
             if (st.b.doubles) st.inputs.forEach((inp, i) => { if (inp) inp.effCtl = st.b.leadOf(st.b.sides[i]).pos; });
@@ -837,6 +840,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
                       {view?.version >= 2 && (
                         <>
                           {view.plus_moves !== false && <><dt>{tr("rt_ctrl_plus")}</dt><dd>{tr(layout === "simple" ? "rt_keys_plus_simple" : "rt_keys_plus")}</dd></>}
+                          {spec.version >= 14 && <><dt>{tr("rt_ultra")}</dt><dd>{tr("rt_ultra_keys")}</dd></>}
                           {spec.version >= 13 && <><dt>{tr("rt_ctrl_dynamax")}</dt><dd>{tr("rt_keys_dynamax")}</dd><dt>{tr("rt_ctrl_zmove")}</dt><dd>{tr("rt_keys_zmove")}</dd></>}
                           <dt>{tr("rt_ctrl_mega")}</dt><dd>{tr(layout === "simple" ? "rt_keys_mega_simple" : "rt_keys_mega")}</dd>
                         </>

@@ -26,3 +26,13 @@ After arming Z, use the ordinary move keys/buttons. The UI keeps used indicators
 ## Generated artwork review
 
 The1317 review checked69generated identities/138normal-shiny variants at native size and2x: Idle, WalkA/B/A and Attack in all four authored headings, using local anatomy/palette references. Fourteen variants with small or hidden supports were additionally captured in the actual Animator. The only HOLD was Darmanitan Galar Zen shiny's orange hands. Its16poses now use explicit fuchsia/red hand masks; alpha and geometry remain exact, and the correction passed independent visual review before compilation. Original supplied/published sources and the other137generated variants remain unchanged. Full evidence and source/sheet hashes: D:/LocalAI/research-inbox/silver-quality1317/review-generated-art1317.md and resolved-matrix.json. This is a finite artistic review, not a mathematical guarantee of perfect anatomy.
+
+## Ultra Burst — rules 14
+
+Start with Necrozma-Dusk-Mane or Necrozma-Dawn-Wings holding Ultranecrozium Z. Ultra is a battle-only transformation; new RT teams cannot start as Necrozma-Ultra. M/the existing Mega input activates the dedicated Ultra Burst action, once per trainer shared by doubles, without a Mega gauge cost or spending the independent Mega/Z uses. The AI uses the same eligibility. Photon Geyser is not required for the transformation, but is required for the signature Z attack afterwards.
+
+The transformation changes actual Dex stats, Psychic/Dragon typing, Neuroforce, movement/cooldowns and exact PMD normal/shiny form together. It persists on switching, and restores the fused form on fainting or battle end. A normal move may accompany it. RT has no turns: Z preparation becomes available one second after Ultra Burst; this is an explicit real-time adaptation of the game's separate transformation turn and later Z turn. Input logs retain their fourteen columns and portable -13 marker, with the battle spec version distinguishing rules; versions 1–13 retain their old team preparation and mechanics.
+
+UI, REST/MCP rt_rules/rt_cooldowns/battle_rt_inspect, online inputs, new portable HTML and recorder use the same engine. Existing classic battles already use Showdown's native Ultra Burst. This change does not regenerate Pokémon pixels or change mass battle rules.
+
+References: [official mechanics](https://www.pokemon.co.jp/ex/usum/story/171114_01.html), [official Dusk Mane gameplay](https://www.youtube.com/watch?v=ufKFP6XqLaY), [official Dawn Wings gameplay](https://www.youtube.com/watch?v=tpC0XYJtcQg), and the installed simulator's canUltraBurst/runMegaEvo. The two short original game clips were inspected in a browser, without downloading/copying their art.

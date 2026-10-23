@@ -21,7 +21,7 @@ def test_api_exposes_dynamax_and_z_and_replays_a_transformation(call):
     team = [{"species": "Pikachu", "gigantamax": True, "moves": ["Thunderbolt", "Protect"]}]
     seat = {"team": team, "human": True}
     battle = call("battle_start", {"p1": seat, "p2": seat, "format": "gen9customgame", "mode": "realtime", "time_limit": 30})
-    assert battle["rt"]["spec"]["version"] == 13
+    assert battle["rt"]["spec"]["version"] == 14
     assert battle["rt"]["spec"]["p1"]["sets"][0]["gigantamax"] is True
     inputs = [[1, 0, 0, 0, -1, 0, -1, 1, 0, 0, 0, 0, 1, 0]]
     done = call("battle_rt_finish", {"id": battle["id"], "inputs": inputs, "tick": 60, "forfeit": "p1"})

@@ -75,6 +75,8 @@ export function logLine(e, b, lang, tr, active) {
       : { sec, k: "minor", text: es ? `${who(e.s)} se protege` : `${who(e.s)} protected itself` };
     case "plus": return { sec, k: "effect", text: es ? `${who(e.s)}: ¡${mv(e.name)} Plus!` : `${who(e.s)}: ${mv(e.name)} Plus!` };
     case "mega": return { sec, k: "big", text: es ? `¡${e.from} de ${side(e.s).name} megaevoluciona!` : `${side(e.s).name}'s ${e.from} Mega Evolved!` };
+    case "ultra": return {sec,k:"big",text:es ? `¡${who(e.s)} se transforma en Ultra Necrozma mediante la Ultraexplosión!` : `${who(e.s)} transformed into Ultra Necrozma with Ultra Burst!`};
+    case "ultra_end": return {sec,k:"info",text:es ? `${monName(e.s,e.slot)} recupera su forma fusionada` : `${monName(e.s,e.slot)} returned to its fused forme`};
     case "dynamax": return {sec,k:"big",text:es ? `¡${who(e.s)} se vuelve Dynamax durante ${e.seconds} s!` : `${who(e.s)} Dynamaxed for ${e.seconds} s!`};
     case "dynamax_end": return {sec,k:"info",text:es ? `${monName(e.s,e.slot)} recupera su tamaño` : `${monName(e.s,e.slot)} returned to normal size`};
     case "gravity": return {sec,k:"info",text:es ? `La gravedad aumenta (${e.secs} s)` : `Gravity intensified (${e.secs} s)`};
