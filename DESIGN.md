@@ -211,3 +211,6 @@ Portable battle pages include the presentation stylesheet and available assets w
 - **Don't** use display lettering for dense instructions or replace semantic type/status colors with corner colors.
 - **Don't** imply that ordinary real-time rings and body acting also add a new mass-battle or classic effect layer.
 - **Don't** claim that already exported HTML updates without re-exporting it.
+
+
+Dynamax and Z presentation carries the same cabinet direction through energy gathering, a short command cut-in, source-sprite growth, storm clouds and type-shaped releases/confirmed impacts. The pink storm belongs to Dynamax state; Z energy reads the actual move type. Reduced motion and plain presentation keep state feedback. See `docs/VISUAL_PRESENTATION.md` for timing, owner and replay boundaries.
