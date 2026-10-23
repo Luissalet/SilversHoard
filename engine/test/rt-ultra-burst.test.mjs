@@ -82,7 +82,7 @@ test('Ultra presentation freezes on pause, keeps its scale, settles on seek and 
   p.onEvent(b.events.find(e=>e.k==='ultra'),b);p.update(.3,b.view());
   assert.equal(p.transforms.length,1);assert.equal(p.bodyScale(0,0,0,1,false),1);
   const age=p.transforms[0].age;p.update(0,b.view());assert.equal(p.transforms[0].age,age);
-  assert.ok(p.bodyFlash(0,0,0,false)>0);assert.equal(p.bodyFlash(0,0,0,true),0);
+  assert.equal(p.bodyPhase(0,0,0,false).alpha,0);assert.equal(p.bodyFlash(0,0,0,true),0);
   p.update(2,b.view());assert.equal(p.transforms.length,0);
   assert.equal(new SpecialPresentation().bodyScale(0,0,0,1,false),1);
   const r=Object.create(ArenaRenderer.prototype),base={},ultra={};r.anims=[[base]];r.ultraAnims=[[ultra]];

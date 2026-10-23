@@ -250,7 +250,7 @@ export class Show {
     if (this.callouts.length > 4) this.callouts.shift();
   }
   push(x, y, z, life, hold = false) {
-    if (!showSettings().camera) return;
+    if (!showSettings().camera || this.r.reducedMotion?.matches) return;
     if (this.punch && this.punch.z > z && this.punch.t < this.punch.life * 0.6) return;
     this.punch = { x, y, z, t: 0, life, hold };
   }
@@ -333,6 +333,7 @@ export class Show {
         const first = e.hit === 0 || e.hit === undefined;
         const ko = e.hp <= 0;
         const big = e.dmg / Math.max(1, e.maxhp) >= 0.3;
+        const special = this.on && r.specials?.attacks.findLast(n => n.s === a && n.move === e.move && n.released <= e.t);
         // combos: blows in a row without being hit back
         if (first) {
           const c = this.combo[a];
@@ -350,9 +351,9 @@ export class Show {
           this.lastHit[a] = sec;
         }
         // the hardest blows: impact frame, camera push and the red edges
-        if (first && (ko || (e.crit && big) || (e.eff > 1 && big) || e.dmg / Math.max(1, e.maxhp) >= 0.45)) {
+        if (first && (ko || special || (e.crit && big) || (e.eff > 1 && big) || e.dmg / Math.max(1, e.maxhp) >= 0.45)) {
           if (showSettings().impact) this.impact = { t: 0, life: ko ? 0.28 : 0.2, s: e.s, u: e.u || 0, a, dmg: e.dmg, maxhp: e.maxhp, ko, crit: e.crit,
-            bg: ko ? "red" : e.crit ? "black" : "white", x: d.x, y: d.y, seed: Math.random() * 1e6 };
+            bg: ko ? "red" : special || e.crit ? "black" : "white", special:special?.z ? 'z' : special ? 'max' : null, x: d.x, y: d.y, seed: Math.random() * 1e6 };
           this.push(d.x, d.y, ko ? 1.45 : 1.25, ko ? 1.1 : 0.7);
           this.vignette = 1;
           this.cheer(ko ? 1.3 : 1);
@@ -418,9 +419,11 @@ export class Show {
         this.scar("crater", d.x, d.y, { r: 0.6, soft: true });
         break;
       }
+      case "ultra":
+      case "dynamax":
       case "mega": {
         const d = unit(e.s, e.u);
-        this.push(d.x, d.y, 1.35, 1.2);
+        if(e.k === 'mega' || this.on) this.push(d.x, d.y, e.k === 'dynamax' ? 1.12 : 1.35, 1.2);
         this.cheer(1);
         break;
       }
@@ -651,7 +654,7 @@ export class Show {
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, W, H);
     }
-    if (this.impact) this.drawImpact(ctx, battle, W, H);
+    if (this.impact && !r.reducedMotion?.matches) this.drawImpact(ctx, battle, W, H);
     if (this.flash) {
       ctx.fillStyle = `rgba(255,255,255,${0.7 * (1 - this.flash.t / this.flash.life)})`;
       ctx.fillRect(0, 0, W, H);
@@ -740,6 +743,16 @@ export class Show {
     }
     ctx.closePath();
     ctx.fill();
+    if(im.special) {
+      // The confirmed hit gets an angular fracture, rather than another spherical projectile.
+      ctx.strokeStyle=im.special==='z'?'#ffe58c':'#ff80b3';ctx.lineWidth=Math.max(2,Math.min(W,H)*.007);
+      for(let i=0;i<7;i++) {
+        const angle=i*TAU/7, reach=R*(3+i%3);
+        ctx.beginPath();ctx.moveTo(t.x,t.y);
+        ctx.lineTo(t.x+Math.cos(angle+.12)*reach*.45,t.y+Math.sin(angle+.12)*reach*.45);
+        ctx.lineTo(t.x+Math.cos(angle)*reach,t.y+Math.sin(angle)*reach);ctx.stroke();
+      }
+    }
     // the damage
     const txt = showSettings().numbers === "hp" ? String(im.dmg) : `${Math.max(1, Math.round((im.dmg / Math.max(1, im.maxhp)) * 100))}%`;
     const fs = Math.min(H * 0.13, W * 0.07);
@@ -767,18 +780,27 @@ export class Show {
     o.globalCompositeOperation = "source-over";
     o.clearRect(0, 0, W, H);
     o.imageSmoothingEnabled = false;
-    const who = [[im.a, 0], [im.s, im.u]];
-    if (battle.doubles) who[0] = [im.a, battle.sides[im.a].ctl ?? 0];
+    const who = im.actorOnly ? [[im.s,im.u]] : [[im.a, 0], [im.s, im.u]];
+    if (battle.doubles && !im.actorOnly) who[0] = [im.a, battle.sides[im.a].ctl ?? 0];
     for (const [si, u] of who) {
       const side = battle.doubles ? battle.sides[si]?.units?.[u] : battle.sides[si];
       if (!side) continue;
       const mon = battle.sides[si].mons[side.active];
-      const anim = r.animOf(si, side.active, !!mon?.megaOn);
+      const giant=!!mon?.dynamaxUntil;
+      const anim = r.animOf(si, side.active, !!mon?.megaOn, giant, !!mon?.ultraOn);
       const p = this.toScreen(side.x, side.y, 0);
-      const k = Math.max(1, Math.round(r.k * p.k * 1.15));
+      const grown=giant ? 2.2 : 1;
+      const k = r.k * p.k * 1.15 * grown;
       const facing = r.portrait ? portraitFacing(side.fx, side.fy) : side;
       const row = dirRow(facing.fx, facing.fy);
       if (!anim || !anim.draw(o, p.x, p.y, row, k)) {
+        const image=(mon?.ultraOn?r.ultraFallbacks:giant?r.dynamaxFallbacks:mon?.megaOn?r.megaFallbacks:r.fallbacks)?.[si]?.[side.active];
+        if(image?.ready) {
+          const height=r.scale*p.k*2.2*grown;
+          const width=height*image.img.width/image.img.height;
+          o.drawImage(image.img,p.x-width/2,p.y-height*.92,width,height);
+          continue;
+        }
         o.fillStyle = "#000";
         o.beginPath(); o.ellipse(p.x, p.y - 0.7 * r.scale * p.k, 0.6 * r.scale * p.k, 0.8 * r.scale * p.k, 0, 0, TAU); o.fill();
       }
