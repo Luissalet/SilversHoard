@@ -22,25 +22,20 @@ export class FighterReactions {
       return;
     }
     if (e.k === 'use') {
-      this.releases[key] = {slot: side.active, time, s: e.s, u, move: e.move, shape: e.shape,
+      this.releases[key] = {slot: side.active, time, s: e.s, u, move: e.move, shape: e.shape, category:e.category,x:side.x,y:side.y,
         dir: direction(side.fx || 0, side.fy || 0)};
       return;
     }
     let target = side, targetKey = key, kind = e.k;
-    if (kind === 'miss') {
-      // A fog miss says nothing about the defender evading; don't invent a dodge.
-      if (e.fog) return;
-      target = battle.doubles ? battle.foe(side) : battle.sides[1 - e.s];
-      if (!target) return;
-      targetKey = keyOf(battle, target.index ?? 1 - e.s, target.pos || 0);
-      kind = 'dodge';
-    }
+    // Range, aim and fog misses do not prove an evade. Only an actual roll owns dodge acting.
+    if (kind === 'miss') return;
+    if (kind === 'roll') kind='dodge';
     if (!['hit', 'protected', 'dodge', 'flinch', 'heal'].includes(kind)) return;
     if (kind === 'hit' && !(e.dmg > 0)) return;
     // Resolve the actual releasing unit in doubles where the event records only its side.
-    const candidates = this.releases.filter(r => r && r.s === e.from && r.move === e.move && time >= r.time && time - r.time < 2);
+    const candidates = this.releases.filter(r => r && r.s === e.from && r.move === e.move && time >= r.time && time - r.time < 6);
     const release = candidates.length === 1 ? candidates[0] : null;
-    const source = release ? unitOf(battle, release.s, release.u) : !battle.doubles && Number.isInteger(e.from) ? unitOf(battle, e.from) : null;
+    const source = release || (!battle.doubles && Number.isInteger(e.from) ? unitOf(battle, e.from) : null);
     // A hit records the attacker's side, not its unit. Ambiguous doubles compress in place.
     const ambiguous = battle.doubles && Number.isInteger(e.from) && !release;
     const dir = ambiguous ? {x: 0, y: 0} : source && source !== target
@@ -53,8 +48,9 @@ export class FighterReactions {
       old.strength = Math.max(old.strength, strength);
       return;
     }
-    this.reactions[targetKey] = {kind, slot: target.active, time, dir, strength,
-      life: kind === 'hit' ? .36 : kind === 'heal' ? .55 : .28};
+    const heavy=!!e.crit || e.hp<=0 || e.dmg/Math.max(1,e.maxhp)>=.28;
+    this.reactions[targetKey] = {kind, slot: target.active, time, dir, strength, heavy, physical:release?.category !== 'Special',
+      life: kind === 'hit' ? heavy?.46:.36 : kind === 'heal' ? .55 : .28};
   }
 
   sample(side, key, time, {reduced = false, portrait = false, special = false} = {}) {
@@ -66,19 +62,19 @@ export class FighterReactions {
     // Existing Dig/Fly/Rollout choreography owns its silhouette and leaves no extra body lean.
     if (!special && side.act?.kind === 'windup') {
       const p = ease(1 - side.act.left / Math.max(1, side.act.total || 30));
-      out.x = -face.x * .18 * p;
-      out.y = -face.y * .18 * p;
-      out.sx += .04 * p; out.sy -= .07 * p;
-      out.turn = -face.x * .09 * p;
+      out.x = -face.x * .24 * p;
+      out.y = -face.y * .24 * p;
+      out.sx = out.sy = 1-.035*p;
+      out.turn = -face.x * .12 * p;
     } else if (!special && age >= 0 && age < .28) {
       const p = age / .28;
       const kick = p < .18 ? ease(p / .18) : (1 - (p - .18) / .82) ** 3;
       const self = ['self', 'field'].includes(release.shape);
-      const reach = ['strike', 'dash'].includes(release.shape) ? .42 : .23;
+      const reach = ['strike', 'dash'].includes(release.shape) ? .55 : release.shape==='beam' ? -.18 : .23;
       out.x = self ? 0 : face.x * reach * kick;
       out.y = self ? 0 : face.y * reach * kick;
       out.lift = (self ? .18 : .08) * kick;
-      out.sx -= .025 * kick; out.sy += .05 * kick;
+      out.sx = out.sy = 1+.025*kick;
       out.turn = self ? 0 : face.x * .1 * kick;
     }
     const hit = this.reactions[key];
@@ -98,8 +94,8 @@ export class FighterReactions {
       const block = hit.kind === 'protected';
       const push = (block ? .12 : .5 * hit.strength) * impulse;
       out.x += d.x * push; out.y += d.y * push;
-      out.turn += -d.x * (block ? .055 : .18) * impulse;
-      out.sx += .06 * impulse; out.sy -= .075 * impulse;
+      out.turn += -d.x * (block ? .055 : hit.physical ? .21 : .11) * impulse;
+      out.sx = out.sy = Math.min(out.sx,1-.045*impulse);
       if (!block) out.lift += .1 * hit.strength * impulse;
     }
     return out;
