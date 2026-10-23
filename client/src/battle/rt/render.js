@@ -675,7 +675,7 @@ export class ArenaRenderer {
     this.show.drawBubbles(overlay, raw);
     this.show.drawScreen(overlay, battle);
     this.specials.drawScreen(overlay, this, !!this.reducedMotion?.matches, this.show.on);
-    drawMoveCard(overlay,this,this.time,this.canvas.width,this.canvas.height,!!this.reducedMotion?.matches);
+    drawMoveCard(overlay,this,this.time,this.canvas.width,this.canvas.height,!!this.reducedMotion?.matches,this.portrait ? .23 : .04);
     this.megas.draw(overlay,this.canvas.width,this.canvas.height,!!this.reducedMotion?.matches,this.texts.mega,this.portrait);
     if (this.portrait) { this.canvas = world; this.ctx = ctx; this.screenPass = false; }
     this.flash = this.flash.map((v) => Math.max(0, v - dt * 5));
