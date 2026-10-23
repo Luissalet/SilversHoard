@@ -1159,6 +1159,8 @@ WD = ann(draft_safe=True)
 D = ann(destructive=True)
 
 TOOLS: list[Tool] = [
+    Tool("pmd_library_status", _d("Read the shipped PMD library version, complete roster coverage and size. Biblioteca de sprites."),
+         Empty, R, lambda s, a: s.pmd.library.status()),
     Tool("leisure_catalog", _d("Browse RT move effects, sprites, accessories and decor by section/query/page. Efectos y sprites."), LeisureCatalogArgs, R, lambda s, a: s.leisure.catalog(**a.model_dump())),
     Tool("contests_list", _d("Saved contests and ribbons. Concursos guardados y cintas."), Empty, R, lambda s, a: {"contests": s.leisure.contests()}),
     Tool("contest_get", _d("Resume a contest: presentation, dance, acting, judging and results. Ver concurso."), IdArg, R, lambda s, a: s.leisure.contest_get(a.id)),

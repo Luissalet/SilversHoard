@@ -10,7 +10,7 @@
 // Pokémon on the frame it is hit.
 import { TYPE_COLORS, nameOf } from "../dex.js";
 import { sfx } from "../../audio.js";
-import { Animator, dirRow, image, loadMeta } from "../rt/pmd.js";
+import { Animator, dirRow, image, loadMeta, sheetUrl } from "../rt/pmd.js";
 import { Vfx } from "../rt/vfx.js";
 import { TPS } from "../../../../engine/src/realtime/mass.mjs";
 import { portableAsset } from "../../portable-assets.js";
@@ -75,12 +75,10 @@ export class MassRenderer {
 
   /** Load the walking sprites, one per species (shared by every unit of that species). */
   async preload(onProgress = () => {}, timeout = 20000) {
-    if (this.offline) return;
     const bySpecies = new Map();
-    // a crowd of hundreds stays with its icons (one picture for all); walking sprites for up to 300, and always for the giants
+    // Large armies use compact directional PMD sheets; bosses keep their full animation sheets.
     const crowd = this.b.units.length > 300;
     this.b.units.forEach((u, i) => {
-      if (crowd && !u.boss) return;
       const key = `${u.num}|${u.forme}|${u.shiny ? 1 : 0}`;
       if (!bySpecies.has(key)) bySpecies.set(key, []);
       bySpecies.get(key).push(i);
@@ -95,8 +93,13 @@ export class MassRenderer {
         const meta = await loadMeta(Number(num), { form, shiny: shiny === "1", base: this.base });
         if (meta) {
           for (const who of meta.credit || []) this.credits.add(who);
-          for (const i of list) this.anims[i] = new Animator(meta, this.base);
-          for (const a of ["Idle", "Walk"]) if (meta.a?.[a]) image(`${this.base}/api/sprites/pmd-sheet/${meta.key}/${a}.png`);
+          const variants = new Set();
+          for (const i of list) {
+            const chosen = crowd && !this.b.units[i].boss && meta.crowd ? meta.crowd : meta;
+            variants.add(chosen);
+            this.anims[i] = new Animator(chosen, this.base);
+          }
+          await Promise.all([...variants].flatMap(m => ["Idle", "Walk"].filter(a => m.a?.[a]).map(a => image(sheetUrl(m,a,this.base)).loaded)));
         }
         done++;
         onProgress(done, jobs.length);

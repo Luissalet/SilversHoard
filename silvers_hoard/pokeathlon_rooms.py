@@ -415,7 +415,7 @@ class PkRooms:
     def sprite_meta(self, room_id: str, key: str, dex: int, form: str = "", shiny: bool = False) -> dict[str, Any]:
         self._visitor(room_id, key)
         meta = self.s.pmd.meta(dex, form=form, shiny=shiny)
-        return {**meta, "credit": self.s.credits.walking(str(meta.get("key") or ""))}
+        return meta if "credit" in meta else {**meta, "credit": self.s.credits.walking(str(meta.get("key") or ""))}
 
     def sprite_sheet(self, room_id: str, key: str, sheet_key: str, anim: str):
         self._visitor(room_id, key)

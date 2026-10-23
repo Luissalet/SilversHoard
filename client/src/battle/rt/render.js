@@ -113,22 +113,23 @@ export class ArenaRenderer {
     }));
     let done = 0;
     const one = async ([si, mi, num, form, shiny, table, spriteId]) => {
-      const meta = this.offline ? portablePmd(num, { form, shiny }) : await loadMeta(num, { form, shiny, base: this.base });
+      // Explicitly imported art keeps its selection when the bundled library gains that forme.
+      const imported = spriteId && this.sprites.walking ? await this.sprites.walking(spriteId, shiny) : null;
+      const importedExact = imported && !!imported.shiny === !!shiny;
+      const meta = importedExact ? null : this.offline ? portablePmd(num, { form, shiny }) : await loadMeta(num, { form, shiny, base: this.base });
       // PMD can return the base species when the requested Mega has no sheets. Let its battle sprite show instead.
       const formFolder = meta?.key?.split("-")[1];
-      if (meta && (!form?.includes("Mega") || (formFolder && formFolder !== "0000"))) {
+      const pmdEligible = meta && (meta.form_exact || !form?.includes("Mega") || (formFolder && formFolder !== "0000"));
+      if (imported && (importedExact || !pmdEligible || (shiny && meta.shiny === false))) {
+        table[si][mi] = new OverworldAnimator(imported);
+        this.importedCredits.set(imported.source, {source: imported.source, credit: imported.credit || []});
+        await image(imported.url).loaded;
+      } else if (pmdEligible) {
         for (const who of meta.credit || []) this.credits.add(who);
         const animator = new Animator(meta, this.base);
         table[si][mi] = animator;
         for (const a of Object.keys(meta.a)) image(sheetUrl(meta, a, this.base));
         await image(sheetUrl(meta, animator.name("Idle"), this.base)).loaded;
-      } else if (spriteId && this.sprites.walking) {
-        const imported = await this.sprites.walking(spriteId, shiny);
-        if (imported) {
-          table[si][mi] = new OverworldAnimator(imported);
-          this.importedCredits.set(imported.source, {source: imported.source, credit: imported.credit || []});
-          await image(imported.url).loaded;
-        }
       }
       done++;
       onProgress(done, jobs.length);

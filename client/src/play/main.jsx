@@ -22,7 +22,12 @@ function readData() {
 }
 
 const data = readData();
-installPortableAssets(data?.kind === "room" || data?.kind === "pkroom" ? null : data?.portable_assets || { version: 1, files: {}, urls: {} });
+installPortableAssets(data?.kind === "room" || data?.kind === "pkroom" ? null : data?.portable_assets || { version: 1, files: {}, urls: {} },
+  {readChunk: i => {
+    const node=document.querySelector(`script[data-silver-pmd="${i}"]`), encoded=node?.textContent || "";
+    node?.remove();
+    return encoded;
+  }});
 installSmoothArt();
 // a live-battle room served by a friend's Silver's Hoard (pvp.py), a Pokéathlon room (pokeathlon_rooms.py), or a playable page with a gym or trainer inside
 createRoot(document.getElementById("root")).render(data?.kind === "room" ? <RoomApp data={data} /> : data?.kind === "pkroom" ? <PkRoomApp data={data} /> : <PlayApp data={data} />);

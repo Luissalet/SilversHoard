@@ -23,7 +23,7 @@ python scripts/make_icon.py --family "../Icons"                                 
 - Real time lives in `engine/src/realtime` (rules, simulator, AI) and `client/src/battle/rt` (screen). It must stay deterministic and browser-safe: randomness only from `makeRng` generators seeded from the spec, fixed ticks, `Math.sqrt` instead of `Math.hypot`, no trigonometry or `Math.random` in the simulation; the engine replays a screen's inputs to store a result, so any difference between Node and the browser breaks results. `engine/test/realtime.test.mjs` checks replays and cooldowns.
 - The AI reads the battle through a deep copy (`freeze` + `Battle.fromJSON`); it must never change the live battle (`engine/test` checks it).
 - Live battles keep a snapshot in the database after every choice; a restarted engine resumes them. `since` counts lines of the live log; finished battles store the omniscient log.
-- No Pokémon art ships with the app: sprites come from the Showdown sprite server on first use and stay in `data/cache/sprites`.
+- The versioned PMD library ships in `presets/pmd`; its reviewed sources and build instructions live in `art/pmd` and `docs/PMD_LIBRARY.md`. Existing Showdown art and optional portraits still use `data/cache/sprites` and the normal presentation cache. Standalone pages embed the installed PMD library independently of those caches.
 - `hoard_link/` is vendored and byte-identical to upstream HoardLink: never edit it here.
 - User-facing text in `client/src/i18n.js`, `client/src/battle/strings.js` and `client/src/play/strings.js` (castellano de España first, English second). No taglines.
 - Deletes of trainers, gyms and leagues go to the trash (`trash` tool with restore and purge).

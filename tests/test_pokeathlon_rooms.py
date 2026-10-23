@@ -368,6 +368,16 @@ def test_the_sprites_of_a_room_need_a_key_of_that_room(call, rooms):
     assert rooms.get(f"/pkr/nothere/{jk}/api/sprites/pmd/25").status_code == 404
 
 
+def test_room_sheet_content_type_matches_the_library_image(services, rooms, tmp_path, monkeypatch):
+    from PIL import Image
+    sheet = tmp_path / "library-sheet.webp"
+    Image.new("RGBA", (2, 2), (60, 120, 170, 255)).save(sheet, "WEBP", lossless=True)
+    monkeypatch.setattr(services.pokeathlon_rooms, "sprite_sheet", lambda *args: sheet)
+    response = rooms.get("/pkr/fixture/key/api/sprites/pmd-sheet/lib-fixture/Idle.png")
+    assert response.status_code == 200 and response.content == sheet.read_bytes()
+    assert response.headers["content-type"] == "image/webp"
+
+
 def test_rooms_are_limited_and_forgotten(call):
     ids = [call("pokeathlon_room_open", {"course": "speed"})["id"] for _ in range(pkr.MAX_ROOMS)]
     call("pokeathlon_room_open", {"course": "speed"}, status=409)
