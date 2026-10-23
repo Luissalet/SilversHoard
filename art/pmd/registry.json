@@ -18076,5 +18076,120 @@
         }
       ]
     }
+  },
+  "pecharunt": {
+    "id": "pecharunt",
+    "layout": "published-pmd-palette-correction",
+    "reviewed": true,
+    "shiny_mode": "reference-palette",
+    "shiny_correction_reason": "Pinned published shiny duplicates every normal animation; canonical HOME golden inner body correction independently reviewed.",
+    "credit": [
+      "G〜"
+    ],
+    "licence": "CC BY-NC 4.0",
+    "source": {
+      "repo": "PMDCollab/SpriteCollab",
+      "sha": "341342d7ef2ed3e4427c760e829a417b501be17c",
+      "normal_folder": "1025",
+      "replaced_shiny_folder": "1025/0000/0001"
+    },
+    "palette_reference": {
+      "kind": "canonical-palette-pair",
+      "urls": [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/1025.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/1025.png"
+      ],
+      "sha256": [
+        "97b9042d09e334941c5fbf1da0ef2bfeb5e0c42fc2776fe5de52c67cf0d6c3e4",
+        "23c24879c07d9cb9e9480d4b4eb65b25a68434d5a94c00143f134f02aa39916c"
+      ],
+      "form_exact": true
+    },
+    "quality_review": {
+      "shiny": true,
+      "report": "review-pecharunt-v137.md",
+      "scope": "Eight native animation sheets, unchanged poses/alpha/geometry/timing; previews/crowd validated after compilation.",
+      "outline_note": "Some RGB-black pixels transfer to near-black blue (0,0,32); no exact contour RGB claim.",
+      "probe_sha256": "e3a3db95648b8d806a37bc1b118e272d94697e328d233dcfc8f93cbb3ca7a4fe"
+    }
+  },
+  "pikachugmax": {
+    "id": "pikachugmax",
+    "name": "Pikachu-Gmax",
+    "layout": "native-pmd-animation-sheets",
+    "variants": {
+      "normal": "native/pikachugmax/normal",
+      "shiny": "native/pikachugmax/shiny"
+    },
+    "reviewed": true,
+    "credit": [
+      "Silver generated/manual fan art; CHUNSOFT base Pikachu movement reference"
+    ],
+    "licence": "Generated/manual fan art; CHUNSOFT reference retains SpriteCollab CC BY-NC 4.0 terms",
+    "tool": "Gemini web profile generation and user-requested Python/Pillow pixel correction",
+    "derivation": "Eight front/back poses manually authored at native 64px from the held draft and canonical HOME reference. Four accepted right profiles retained; four left poses are explicit horizontal mirrors. Sixteen positions, twelve authored figures, four mirrors. Native sheets preserve pixels, anchors and actual two-phase gait without resampling.",
+    "shiny_generation": {
+      "kind": "shiny-recolor",
+      "tool": "Native HOME palette transfer with explicit user-requested code correction",
+      "parent": {
+        "kind": "generated",
+        "tool": "Gemini web profiles and user-requested native pixel correction with Python/Pillow",
+        "derivation": "Eight front/back poses manually authored from the held draft and canonical reference; opposed foot supports, round yellow torso and one connected bolt. The eight approved side poses are retained as exact right profiles and explicit left mirrors.",
+        "directions": 4,
+        "drawn_directions": 3,
+        "mirrored_directions": [
+          "Left"
+        ],
+        "poses": 16,
+        "drawn_poses": 12,
+        "reference_template": {
+          "repo": "PMDCollab/SpriteCollab",
+          "sha": "341342d7ef2ed3e4427c760e829a417b501be17c",
+          "folder": "0025",
+          "artists": [
+            "CHUNSOFT"
+          ]
+        },
+        "authorization": "User explicitly requested pixel corrections with code."
+      },
+      "palette": {
+        "kind": "canonical-palette-pair",
+        "urls": [
+          "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10199.png",
+          "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/10199.png"
+        ],
+        "sha256": [
+          "185eb3b6be1084d77c0d8a722c48ed62d9705b5a0f7565f5b8881f73d3b2ae2c",
+          "f4ee17f68ebbe428efe9e9f77dba699e76c6ad89628c004e927a04746ab64233"
+        ],
+        "form_exact": true
+      },
+      "manual_palette_scope": "Visible manually authored front/back tail and clouds retain normal RGB, matching unchanged HOME tail/clouds. Body receives the canonical shiny transfer."
+    },
+    "source_hashes": {
+      "normal": {
+        "Idle.png": "7a4a9205be952aa5b7c825dd0b561a2ced5ec8910e8b262524a15f632c240144",
+        "Walk.png": "51a0ab9e67824f1852e360aa8b91fb92958cf526e17349a1fe2af8f4bb1d6e6c",
+        "Attack.png": "99fd6a488e0f95125ee9d8901be8e1a4051b48ea7874e14c59f1216d161efa16",
+        "meta.json": "3c3bb0d279aa7a394f4f01c61247b594023e5cf54aa1c4ab3d1e491b96bc794c"
+      },
+      "shiny": {
+        "Idle.png": "fc9ab6266effa0ec68754769dc3760c49b8a8b889d9af1bd5406a9f235fffa2b",
+        "Walk.png": "58f1fd78e3a907716a49dd85865cae5e58d78c7aab7e1c058f9db39c1767f83f",
+        "Attack.png": "b42168dba5037ada6b30aa285df9b351f20f30dd895f0438ae4a65025b8f3f2f",
+        "meta.json": "72b080cee0470e1a85a667a5dd4606e31b4085d7af1f5baef839132a1d8446f1"
+      }
+    },
+    "authoring_recipes": {
+      "draw-pikachu-pmd-v142.py": "18e01fd9a49e533606c023a7f1a598be05fd700de51addc64eb9869789bd38b1",
+      "derive-pikachu-shiny-v142.py": "f23989eb7fdfe5cde766376f785527b54c437a7af18e4c2bbf1018ab0da7a091"
+    },
+    "quality_review": {
+      "normal": true,
+      "shiny": true,
+      "full_locomotion_cycle": true,
+      "report": "review-v142.md",
+      "decisions_sha256": "cdc4bd7ccee5423cea591a0f74d5b35242d84d0366788f7c623ee2cf247487ce"
+    }
   }
 }

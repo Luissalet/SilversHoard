@@ -1,0 +1,94 @@
+{
+  "s": 1,
+  "key": "candidate-pikachugmax-code-v142",
+  "a": {
+    "Idle": {
+      "file": "Idle.png",
+      "w": 64,
+      "h": 64,
+      "n": 1,
+      "r": 4,
+      "d": [
+        40
+      ],
+      "ax": 32,
+      "ay": 52,
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "Walk": {
+      "file": "Walk.png",
+      "w": 64,
+      "h": 64,
+      "n": 2,
+      "r": 4,
+      "d": [
+        7,
+        7
+      ],
+      "ax": 32,
+      "ay": 52,
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "Attack": {
+      "file": "Attack.png",
+      "w": 64,
+      "h": 64,
+      "n": 1,
+      "r": 4,
+      "d": [
+        12
+      ],
+      "ax": 32,
+      "ay": 52,
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    }
+  },
+  "source": {
+    "kind": "generated",
+    "tool": "Gemini web profiles and user-requested native pixel correction with Python/Pillow",
+    "derivation": "Eight front/back poses manually authored from the held draft and canonical reference; opposed foot supports, round yellow torso and one connected bolt. The eight approved side poses are retained as exact right profiles and explicit left mirrors.",
+    "directions": 4,
+    "drawn_directions": 3,
+    "mirrored_directions": [
+      "Left"
+    ],
+    "poses": 16,
+    "drawn_poses": 12,
+    "reference_template": {
+      "repo": "PMDCollab/SpriteCollab",
+      "sha": "341342d7ef2ed3e4427c760e829a417b501be17c",
+      "folder": "0025",
+      "artists": [
+        "CHUNSOFT"
+      ]
+    },
+    "authorization": "User explicitly requested pixel corrections with code."
+  }
+}
