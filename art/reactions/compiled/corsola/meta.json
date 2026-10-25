@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "corsola",
+        "tool": "builtin-imagegen",
+        "source_sha256": "1a92556d1fb537d016078858813e91441639f65caf8fb731de5139f678995658",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 222,
+          "form": "",
+          "key": "lib-corsola-n-6eb100b33739"
+        },
+        "sha256": "12c934da8a102336e7e872ffee56ae23e8202e179de2181cc7013da8bbfe9bdd"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "corsola",
+        "tool": "builtin-imagegen",
+        "source_sha256": "1a92556d1fb537d016078858813e91441639f65caf8fb731de5139f678995658",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 222,
+          "form": "",
+          "key": "lib-corsola-n-6eb100b33739"
+        },
+        "sha256": "eb169276d52bb8ba0ce63b4ba7b731cd281bf9f4ba94f9ba37e161528db8b3e8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "corsola",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1a92556d1fb537d016078858813e91441639f65caf8fb731de5139f678995658",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 222,
+            "form": "",
+            "key": "lib-corsola-n-6eb100b33739"
+          },
+          "sha256": "cbb0997e1a3708a073c30cfe38ec3d24a7547d9593c541fa84137ed33c6a7b9f",
+          "palette_from": "lib-corsola-s-59c767c944ea"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "corsola",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1a92556d1fb537d016078858813e91441639f65caf8fb731de5139f678995658",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 222,
+            "form": "",
+            "key": "lib-corsola-n-6eb100b33739"
+          },
+          "sha256": "9bca40a290f741884cf47297a00a64131368b2de93126e557f2d20329e318cc6",
+          "palette_from": "lib-corsola-s-59c767c944ea"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "corsola",
+    "num": 222,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Corsola, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "corsola-cardinal.png",
+    "source_sha256": "1a92556d1fb537d016078858813e91441639f65caf8fb731de5139f678995658",
+    "source_record": "corsola-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

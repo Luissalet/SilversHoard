@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "donphan",
+        "tool": "builtin-imagegen",
+        "source_sha256": "585cf63522ae1231152ca70a90f6da1465385757ac1c6b65330fc11a862bf82a",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 232,
+          "form": "",
+          "key": "lib-donphan-n-c9966a7e9441"
+        },
+        "sha256": "22ff8994b158717a39c0d4ec7aee755d3691eee29c48a035f88a53e7d90599d8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "donphan",
+        "tool": "builtin-imagegen",
+        "source_sha256": "585cf63522ae1231152ca70a90f6da1465385757ac1c6b65330fc11a862bf82a",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 232,
+          "form": "",
+          "key": "lib-donphan-n-c9966a7e9441"
+        },
+        "sha256": "f249f5679df6620361d72af6d7e29f50d59e8d72f02d33816358130e8cd9de98"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "donphan",
+          "tool": "builtin-imagegen",
+          "source_sha256": "eb0aa7b3d97e59f30459e4dee102447250fb27a277d82cf5ee821b2bcaa73ff6",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 232,
+            "form": "",
+            "key": "lib-donphan-s-ca7ec82c0e85"
+          },
+          "sha256": "16967d5553fd2ace82dcb1ec021831e9687b63bc608b296c81b3301f23c2b67d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "donphan",
+          "tool": "builtin-imagegen",
+          "source_sha256": "eb0aa7b3d97e59f30459e4dee102447250fb27a277d82cf5ee821b2bcaa73ff6",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 232,
+            "form": "",
+            "key": "lib-donphan-s-ca7ec82c0e85"
+          },
+          "sha256": "2e42db8a47b17e284ca7019bb8a99a30b47d3be88d2ed6e504d6e81fb0a9a706"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "donphan",
+    "num": 232,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Donphan, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "donphan-cardinal.png",
+    "source_sha256": "585cf63522ae1231152ca70a90f6da1465385757ac1c6b65330fc11a862bf82a",
+    "source_record": "donphan-cardinal.json",
+    "shiny_source_image": "donphan-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Image1 EDIT TARGET is a transparent eight-column four-row pixel-art animation atlas. Image2 ONLY native shiny colour reference. Recolour image1 using image2: the exposed skin and ALL FOUR LEGS are GREEN, separate from the golden orange trunk and dorsal armour. Do not make legs orange. Keep white tusks and all native colour regions. Change colours only, retain all32 poses and complete anatomy, exactly8columns4rows, fixed front/right/rear/left cameras, alpha transparency and wide empty gutters, no effects, text, shadows or smooth illustration."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

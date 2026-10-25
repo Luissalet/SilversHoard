@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "beautifly",
+        "tool": "builtin-imagegen",
+        "source_sha256": "38bf1c1f887b3d1ebb590aea629a6794de270b2951036ab718afcfb882c70261",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 267,
+          "form": "",
+          "key": "lib-beautifly-n-96461736718b"
+        },
+        "sha256": "71605055168e1bb8bfb4cbdbf5478737553a63064bf43ea83ff0a51388779175"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "beautifly",
+        "tool": "builtin-imagegen",
+        "source_sha256": "38bf1c1f887b3d1ebb590aea629a6794de270b2951036ab718afcfb882c70261",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 267,
+          "form": "",
+          "key": "lib-beautifly-n-96461736718b"
+        },
+        "sha256": "a4cca31fd3e4db4fffbb18e91eafe22ec68e728f3678d03d03a2ce5051a009aa"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "beautifly",
+          "tool": "builtin-imagegen",
+          "source_sha256": "38bf1c1f887b3d1ebb590aea629a6794de270b2951036ab718afcfb882c70261",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 267,
+            "form": "",
+            "key": "lib-beautifly-n-96461736718b"
+          },
+          "sha256": "309dd90bce6e9ff6e0e1fba378143f9efcfe5336258b9ed8885b60607002db7b",
+          "palette_from": "lib-beautifly-s-b8abf7aa3903"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "beautifly",
+          "tool": "builtin-imagegen",
+          "source_sha256": "38bf1c1f887b3d1ebb590aea629a6794de270b2951036ab718afcfb882c70261",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 267,
+            "form": "",
+            "key": "lib-beautifly-n-96461736718b"
+          },
+          "sha256": "2f92d078571c995ffaf1fd25cd9b43fae7344afdcf0bb7f66336cd36cf47e2af",
+          "palette_from": "lib-beautifly-s-b8abf7aa3903"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "beautifly",
+    "num": 267,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Beautifly, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "beautifly-cardinal.png",
+    "source_sha256": "38bf1c1f887b3d1ebb590aea629a6794de270b2951036ab718afcfb882c70261",
+    "source_record": "beautifly-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

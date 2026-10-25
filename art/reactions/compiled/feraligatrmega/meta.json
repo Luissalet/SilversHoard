@@ -98,11 +98,106 @@
     }
   },
   "shiny": {
-    "a": {}
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "feraligatrmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "661d4142db00f42aafc1d77114c9e6ad205dca64147c8266a5ab567051edf22d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 160,
+            "form": "Mega",
+            "key": "lib-feraligatrmega-s-77a512e67487"
+          },
+          "sha256": "55e3b6dddfac67c6e1b8b4b766593ce3934f11ef379ee17944829ceb1c3f7998"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "feraligatrmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "661d4142db00f42aafc1d77114c9e6ad205dca64147c8266a5ab567051edf22d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 160,
+            "form": "Mega",
+            "key": "lib-feraligatrmega-s-77a512e67487"
+          },
+          "sha256": "17e5604736c2aa36d3c471aee27ea7ee7ffa8281ff6d98c79babb38418dfa4c6"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
   },
-  "pending": [
-    "shiny"
-  ],
+  "pending": [],
   "provenance": {
     "id": "feraligatrmega",
     "num": 160,
@@ -111,8 +206,10 @@
     "prompt": "Create a new pixel-art game animation sheet for Feraligatr-Mega, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
     "source_image": "feraligatrmega-cardinal.png",
     "source_sha256": "9cd7b3bc14deec0d417a09e6aaa736cb19b927e668e26a4e7744df1fc0a9ffb1",
-    "source_record": "feraligatrmega-cardinal.json"
+    "source_record": "feraligatrmega-cardinal.json",
+    "shiny_source_image": "feraligatrmega-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Image1 is the EDIT TARGET: a transparent eight-column four-row pixel-art game animation atlas. Image2 is ONLY the exact native SHINY COLOUR reference. Recolour image1 to match image2. Use the exact native shiny colours shown in image2, preserving the distribution between skin, belly, large blades/spines, claws and all identifying parts. This is the same Mega form, not base Feraligatr. CHANGE COLOURS ONLY. Preserve all32 physical poses, all four fixed row cameras, complete anatomy/part counts, same8x4 layout and transparent gutters. No effects, extra objects, shadows, text or smooth illustration."
   },
   "reviewed": true,
-  "shiny_reviewed": false
+  "shiny_reviewed": true
 }

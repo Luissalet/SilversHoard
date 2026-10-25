@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "swinub",
+        "tool": "builtin-imagegen",
+        "source_sha256": "1332a7b085913dcd7dfaa0c15c1d6e5a318463dd304b8df056bb5b45a89e29b1",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 220,
+          "form": "",
+          "key": "lib-swinub-n-3b02362121a5"
+        },
+        "sha256": "0d2e85a2c07d8dd9e4be08aff88158cfb131eb906b8f6568a82a5774d2f6f54e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "swinub",
+        "tool": "builtin-imagegen",
+        "source_sha256": "1332a7b085913dcd7dfaa0c15c1d6e5a318463dd304b8df056bb5b45a89e29b1",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 220,
+          "form": "",
+          "key": "lib-swinub-n-3b02362121a5"
+        },
+        "sha256": "a6b907d62eea27ab52e466452fb84aa2e496b260aa2ddf4af4c85c13803c79e9"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "swinub",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1332a7b085913dcd7dfaa0c15c1d6e5a318463dd304b8df056bb5b45a89e29b1",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 220,
+            "form": "",
+            "key": "lib-swinub-n-3b02362121a5"
+          },
+          "sha256": "f5d9be27a88d614effb05bb5b45c7442da5a17fb9047e1f3fdbf18ef48a6b5e5",
+          "palette_from": "lib-swinub-s-79bf47c0198d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "swinub",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1332a7b085913dcd7dfaa0c15c1d6e5a318463dd304b8df056bb5b45a89e29b1",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 220,
+            "form": "",
+            "key": "lib-swinub-n-3b02362121a5"
+          },
+          "sha256": "185afd7081d8fe1ffdc00348ec8ff6d9a3054c9be1a1f5661c821571dd9db87d",
+          "palette_from": "lib-swinub-s-79bf47c0198d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "swinub",
+    "num": 220,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Swinub, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "swinub-cardinal.png",
+    "source_sha256": "1332a7b085913dcd7dfaa0c15c1d6e5a318463dd304b8df056bb5b45a89e29b1",
+    "source_record": "swinub-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

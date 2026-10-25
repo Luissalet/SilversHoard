@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "linoonegalar",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6722ba9770c0d029592f286d4fd932d88f649dfc9cb99a9e949d8355b448722d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 264,
+          "form": "Galar",
+          "key": "lib-linoonegalar-n-054c976eb732"
+        },
+        "sha256": "9719b0d8b5f4826487d5285249846ecb56d775ec2cf146c8688dc616be2914c8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "linoonegalar",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6722ba9770c0d029592f286d4fd932d88f649dfc9cb99a9e949d8355b448722d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 264,
+          "form": "Galar",
+          "key": "lib-linoonegalar-n-054c976eb732"
+        },
+        "sha256": "0b79c857d25f203d830aae6beb96fd39ca0c36866383bb72da5944ccee87a8c9"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "linoonegalar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6722ba9770c0d029592f286d4fd932d88f649dfc9cb99a9e949d8355b448722d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 264,
+            "form": "Galar",
+            "key": "lib-linoonegalar-n-054c976eb732"
+          },
+          "sha256": "6d741a26ced82e51d814c1a65a0d485ae8f8486cea8afb57417cf160aea0973d",
+          "palette_from": "lib-linoonegalar-s-a8ba7e5f9915"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "linoonegalar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6722ba9770c0d029592f286d4fd932d88f649dfc9cb99a9e949d8355b448722d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 264,
+            "form": "Galar",
+            "key": "lib-linoonegalar-n-054c976eb732"
+          },
+          "sha256": "9abd3f295e10efc02906b234839e682869343c9d3a4e9349a657e06bfaee8a24",
+          "palette_from": "lib-linoonegalar-s-a8ba7e5f9915"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "linoonegalar",
+    "num": 264,
+    "form": "Galar",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Linoone-Galar, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "linoonegalar-cardinal.png",
+    "source_sha256": "6722ba9770c0d029592f286d4fd932d88f649dfc9cb99a9e949d8355b448722d",
+    "source_record": "linoonegalar-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "wobbuffet",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e91670ad173c7d1a02dec6cd7680d7d9d70679c213f7338906a9753dfe427bb1",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 202,
+          "form": "",
+          "key": "lib-wobbuffet-n-0729b1af8e88"
+        },
+        "sha256": "7c5aa5861e2d02f2ada607e6686127976db30bfec01721b038aa2180494491d3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "wobbuffet",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e91670ad173c7d1a02dec6cd7680d7d9d70679c213f7338906a9753dfe427bb1",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 202,
+          "form": "",
+          "key": "lib-wobbuffet-n-0729b1af8e88"
+        },
+        "sha256": "47e9bc416ba61f582bcd75f1bf3f7be81634f75f480af87739680d91f32f4f11"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "wobbuffet",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e91670ad173c7d1a02dec6cd7680d7d9d70679c213f7338906a9753dfe427bb1",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 202,
+            "form": "",
+            "key": "lib-wobbuffet-n-0729b1af8e88"
+          },
+          "sha256": "55e6f6b798c0551fc270bf5f5beca70d986feac38e8445d6adc2355a0f7788d3",
+          "palette_from": "lib-wobbuffet-s-85c4133bc2a8"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "wobbuffet",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e91670ad173c7d1a02dec6cd7680d7d9d70679c213f7338906a9753dfe427bb1",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 202,
+            "form": "",
+            "key": "lib-wobbuffet-n-0729b1af8e88"
+          },
+          "sha256": "6bf1f97b3803915a71c88ad069e5bfd39f009122c599d080e0d000ad8382f860",
+          "palette_from": "lib-wobbuffet-s-85c4133bc2a8"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "wobbuffet",
+    "num": 202,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Use case: precise-object-edit. Image1 EDIT TARGET is a transparent eight-column four-row pixel-art game animation atlas. Image2 is ONLY the exact native identity reference. Correct the duplicated black tail in ROW3 COLUMNS7 and8 only: the rear resting Wobbuffet has exactly ONE attached black tail with its two white eye-like markings, never two tails. Keep the left black tail and remove the extra black tail under the center. Preserve the blue body and resting pose. Retain every other cell unchanged, all32 full body poses, exact8x4 layout, fixed row cameras front/right/rear/left, native colours, crisp pixels and transparent background, no text, extra objects or effects.",
+    "source_image": "wobbuffet-cardinal-v2.png",
+    "source_sha256": "e91670ad173c7d1a02dec6cd7680d7d9d70679c213f7338906a9753dfe427bb1",
+    "source_record": "wobbuffet-cardinal-v2.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

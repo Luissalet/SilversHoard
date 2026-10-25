@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "hitmontop",
+        "tool": "builtin-imagegen",
+        "source_sha256": "47898b6a88096679b365da73988de69c145aaca4ab6cbae9dae2c5ea2c8bceb8",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 237,
+          "form": "",
+          "key": "lib-hitmontop-n-e7d17523b592"
+        },
+        "sha256": "96fe82f61766844b6e576d62d8f15be54348268a767889bf79b4535e580a9465"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "hitmontop",
+        "tool": "builtin-imagegen",
+        "source_sha256": "47898b6a88096679b365da73988de69c145aaca4ab6cbae9dae2c5ea2c8bceb8",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 237,
+          "form": "",
+          "key": "lib-hitmontop-n-e7d17523b592"
+        },
+        "sha256": "d43d403662f566bcf47393e217fab23434bc1e96e043c43d82e8b0c3a49de684"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "hitmontop",
+          "tool": "builtin-imagegen",
+          "source_sha256": "47898b6a88096679b365da73988de69c145aaca4ab6cbae9dae2c5ea2c8bceb8",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 237,
+            "form": "",
+            "key": "lib-hitmontop-n-e7d17523b592"
+          },
+          "sha256": "9e02188a8e9cb8ef7cefc29a4a132ec859fd5848d2b0649f343b6cb56fd7a4ee",
+          "palette_from": "lib-hitmontop-s-f307aa36d9d5"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "hitmontop",
+          "tool": "builtin-imagegen",
+          "source_sha256": "47898b6a88096679b365da73988de69c145aaca4ab6cbae9dae2c5ea2c8bceb8",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 237,
+            "form": "",
+            "key": "lib-hitmontop-n-e7d17523b592"
+          },
+          "sha256": "a68d2be78d9fde332765b0ac5434c473f8447f290193482e7fa97f4b4e88ee4e",
+          "palette_from": "lib-hitmontop-s-f307aa36d9d5"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "hitmontop",
+    "num": 237,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Hitmontop, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "hitmontop-cardinal.png",
+    "source_sha256": "47898b6a88096679b365da73988de69c145aaca4ab6cbae9dae2c5ea2c8bceb8",
+    "source_record": "hitmontop-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

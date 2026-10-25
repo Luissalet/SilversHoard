@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 96,
+      "h": 80,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 48.0,
+      "ay": 74,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "hooh",
+        "tool": "builtin-imagegen",
+        "source_sha256": "2d80a53cfd05c96d03f4306f5f6d4ab3933b31e99fdd5d23e8e2a57339298a33",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 250,
+          "form": "",
+          "key": "lib-hooh-n-1c94869320c7"
+        },
+        "sha256": "06ba07b1b71732d681eb952af8a74ce20625084ef3366dc737df25b044256e72"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 96,
+      "h": 80,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 48.0,
+      "ay": 74,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "hooh",
+        "tool": "builtin-imagegen",
+        "source_sha256": "2d80a53cfd05c96d03f4306f5f6d4ab3933b31e99fdd5d23e8e2a57339298a33",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 250,
+          "form": "",
+          "key": "lib-hooh-n-1c94869320c7"
+        },
+        "sha256": "7c69b1a54e16a2475071d497c543d7a782d18991c4ba555bfd64c1c4fe2423b0"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 88,
+        "h": 80,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 44.0,
+        "ay": 74,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "hooh",
+          "tool": "builtin-imagegen",
+          "source_sha256": "cb48a041960a5d0d9c5cc98808b75ea01355944347f52f473f20c895eaaf511b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 250,
+            "form": "",
+            "key": "lib-hooh-s-8c9e7f9863aa"
+          },
+          "sha256": "81d5a6994fd58faf776769b83f25a0045073cc132138ec00dbaa7ea294b72c33"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 88,
+        "h": 80,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 44.0,
+        "ay": 74,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "hooh",
+          "tool": "builtin-imagegen",
+          "source_sha256": "cb48a041960a5d0d9c5cc98808b75ea01355944347f52f473f20c895eaaf511b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 250,
+            "form": "",
+            "key": "lib-hooh-s-8c9e7f9863aa"
+          },
+          "sha256": "01399b3dce837fddbda3cf03457ef7f7abc51452e8ce382eef78c391efc14bd9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "hooh",
+    "num": 250,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Ho-Oh, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "hooh-cardinal.png",
+    "source_sha256": "2d80a53cfd05c96d03f4306f5f6d4ab3933b31e99fdd5d23e8e2a57339298a33",
+    "source_record": "hooh-cardinal.json",
+    "shiny_source_image": "hooh-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Image1 EDIT TARGET is a transparent eight-column four-row pixel-art sprite atlas. Image2 is ONLY the native shiny COLOUR reference. Recolour image1 faithfully to image2. All tail feathers are SILVER GREY and WHITE, including their bases, centers and tips; do not leave gold or orange spots on the tail. Gold belongs to body feathers, red to the native wing borders. Change colours only. Preserve all32 sprites and their individual poses, fixed row camera directions, anatomy, exact8x4 arrangement, pixel clusters, transparent alpha and wide empty gutters. No effects, extra objects, text, background, shadows, smooth painting or redesigned anatomy."
+  },
+  "reviewed": true,
+  "shiny_reviewed": false
+}

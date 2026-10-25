@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "skarmory",
+        "tool": "builtin-imagegen",
+        "source_sha256": "574ded8b076ffca91e74cfe3d1d91f4bac20ef4e17e4b1b66d3b963b8dd3db5c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 227,
+          "form": "",
+          "key": "lib-skarmory-n-a939a20d67fd"
+        },
+        "sha256": "9c9d0d93444756009a172c95b426559c83118053875aba80b740366d288cdf0d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "skarmory",
+        "tool": "builtin-imagegen",
+        "source_sha256": "574ded8b076ffca91e74cfe3d1d91f4bac20ef4e17e4b1b66d3b963b8dd3db5c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 227,
+          "form": "",
+          "key": "lib-skarmory-n-a939a20d67fd"
+        },
+        "sha256": "c8341538aa8b1b897dc815dc6cc0eafb1c294f18153350d135d371d7b4e60338"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "skarmory",
+          "tool": "builtin-imagegen",
+          "source_sha256": "574ded8b076ffca91e74cfe3d1d91f4bac20ef4e17e4b1b66d3b963b8dd3db5c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 227,
+            "form": "",
+            "key": "lib-skarmory-n-a939a20d67fd"
+          },
+          "sha256": "7d8d8c5b363cb86d6f8e7f8d397c417973859a5b777d8139238edff6d1a43479",
+          "palette_from": "lib-skarmory-s-2eb7dfb92c90"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "skarmory",
+          "tool": "builtin-imagegen",
+          "source_sha256": "574ded8b076ffca91e74cfe3d1d91f4bac20ef4e17e4b1b66d3b963b8dd3db5c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 227,
+            "form": "",
+            "key": "lib-skarmory-n-a939a20d67fd"
+          },
+          "sha256": "d5e298f81ac374a57efee7b3a9aeb5bc44344a13d835384f462ad0dc80d9cb1e",
+          "palette_from": "lib-skarmory-s-2eb7dfb92c90"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "skarmory",
+    "num": 227,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Skarmory, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "skarmory-cardinal.png",
+    "source_sha256": "574ded8b076ffca91e74cfe3d1d91f4bac20ef4e17e4b1b66d3b963b8dd3db5c",
+    "source_record": "skarmory-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

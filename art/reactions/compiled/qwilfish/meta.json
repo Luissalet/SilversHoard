@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "qwilfish",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7eaafcbabcc0b06d81f253329020bf3658bdb8d15f0b2d2139722fec6efde877",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 211,
+          "form": "",
+          "key": "lib-qwilfish-n-ffe046f44c58"
+        },
+        "sha256": "76631a0c6583fc2cdec92bf7097a28f78611d7d7bb5021711826af93e86213e1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "qwilfish",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7eaafcbabcc0b06d81f253329020bf3658bdb8d15f0b2d2139722fec6efde877",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 211,
+          "form": "",
+          "key": "lib-qwilfish-n-ffe046f44c58"
+        },
+        "sha256": "149ae3b7338e336d8c5862951b75900c77dc5c4c26c0801e9105e7f0549a81f1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "qwilfish",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7eaafcbabcc0b06d81f253329020bf3658bdb8d15f0b2d2139722fec6efde877",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 211,
+            "form": "",
+            "key": "lib-qwilfish-n-ffe046f44c58"
+          },
+          "sha256": "0f4693aeb3d5e070b6367a5dc4b7505afc366289f1f8eff57a7f0633e3af9e4e",
+          "palette_from": "lib-qwilfish-s-5d7c8d388ab5"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "qwilfish",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7eaafcbabcc0b06d81f253329020bf3658bdb8d15f0b2d2139722fec6efde877",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 211,
+            "form": "",
+            "key": "lib-qwilfish-n-ffe046f44c58"
+          },
+          "sha256": "81ce84170efd17843b56829a06cbed5f496b71ef2d62a9bc28c286b28e1584c0",
+          "palette_from": "lib-qwilfish-s-5d7c8d388ab5"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "qwilfish",
+    "num": 211,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Qwilfish, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "qwilfish-cardinal.png",
+    "source_sha256": "7eaafcbabcc0b06d81f253329020bf3658bdb8d15f0b2d2139722fec6efde877",
+    "source_record": "qwilfish-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

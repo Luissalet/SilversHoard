@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "pupitar",
+        "tool": "builtin-imagegen",
+        "source_sha256": "bbe05f331a7a8fdd324d0b3aca50bf933a7e5206890e7e32159ce11302bbecbb",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 247,
+          "form": "",
+          "key": "lib-pupitar-n-7061cc7ae414"
+        },
+        "sha256": "7c8d5b5b47c4cd6f3fdb79e0d18b6ed08603cb592370679cee8a78b7863e57fa"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "pupitar",
+        "tool": "builtin-imagegen",
+        "source_sha256": "bbe05f331a7a8fdd324d0b3aca50bf933a7e5206890e7e32159ce11302bbecbb",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 247,
+          "form": "",
+          "key": "lib-pupitar-n-7061cc7ae414"
+        },
+        "sha256": "7a5c7dee02d22899ceea1c9e8796bb5704062621aeb4ad391c266d936705f96b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "pupitar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "bbe05f331a7a8fdd324d0b3aca50bf933a7e5206890e7e32159ce11302bbecbb",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 247,
+            "form": "",
+            "key": "lib-pupitar-n-7061cc7ae414"
+          },
+          "sha256": "fa7c588eb6288918c5405b3620817f7cd7e2d799c7c919b118664ca69c481f88",
+          "palette_from": "lib-pupitar-s-a158afabc83b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "pupitar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "bbe05f331a7a8fdd324d0b3aca50bf933a7e5206890e7e32159ce11302bbecbb",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 247,
+            "form": "",
+            "key": "lib-pupitar-n-7061cc7ae414"
+          },
+          "sha256": "47e954f7da2d935bd03200602ad15f606c559ef0899d7bd9586dc0028450b0b4",
+          "palette_from": "lib-pupitar-s-a158afabc83b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "pupitar",
+    "num": 247,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Pupitar, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "pupitar-cardinal.png",
+    "source_sha256": "bbe05f331a7a8fdd324d0b3aca50bf933a7e5206890e7e32159ce11302bbecbb",
+    "source_record": "pupitar-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}
