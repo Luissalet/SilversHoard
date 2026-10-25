@@ -84,6 +84,13 @@ components:
 
 # Design System: Silver's Hoard
 
+Real-time damage/defeat refinement (25 October 2026): Pain after a single hit
+above 35% maximum HP; HitGround followed by a held downed pose, independent of
+the replacement and recalled after at least 2.4 playback seconds. Use authored
+PMD sequences where published, explicit acting of the same identity elsewhere,
+and preserve uniform source proportions. Pause and speed share the pose clock;
+reduced motion keeps the stationary downed state. See [battle reactions](BATTLE_REACTIONS.md).
+
 ## Overview
 
 **Creative North Star: "Handheld fighting cabinet"**

@@ -7,6 +7,7 @@ import { TYPE_COLORS } from "../dex.js";
 import { Animator, dirRow, image, loadMeta, sheetUrl, white } from "./pmd.js";
 import { MegaPresentation } from "./mega-presentation.js";
 import { SpecialPresentation } from "./special-presentation.js";
+import { DefeatPresentation } from "./defeats.js";
 import { OverworldAnimator } from "./overworld.js";
 import { Vfx, particleStyle } from "./vfx.js";
 import { Show, showSettings } from "./show.js";
@@ -85,7 +86,8 @@ export class ArenaRenderer {
     // per Pokémon on the field: key = side in singles, side * 2 + slot in doubles
     this.flash = [0, 0, 0, 0];
     this.labels = [null, null, null, null];
-    this.fade = [0, 1, 2, 3].map(() => ({ slot: -1, t: 0 }));
+    this.defeats = new DefeatPresentation();
+    this.pains = Array(4).fill(null);
     this.lastActive = [-1, -1, -1, -1];
     this.heads = [];
     this.eventIndex = 0;
@@ -138,7 +140,7 @@ export class ArenaRenderer {
         const animator = new Animator(meta, this.base);
         table[si][mi] = animator;
         for (const a of Object.keys(meta.a)) image(sheetUrl(meta, a, this.base));
-        await image(sheetUrl(meta, animator.name("Idle"), this.base)).loaded;
+        await Promise.all(["Idle", "Pain", "HitGround"].map(name => image(sheetUrl(animator.meta, animator.name(name), this.base)).loaded));
       }
       done++;
       onProgress(done, jobs.length);
@@ -196,7 +198,8 @@ export class ArenaRenderer {
     this.labels = [null, null, null, null];
     this.heads = [];
     this.lastActive = [-1, -1, -1, -1];
-    this.fade = [0, 1, 2, 3].map(() => ({ slot: -1, t: 0 }));
+    this.defeats = new DefeatPresentation();
+    this.pains = Array(4).fill(null);
     this.hitstop = 0;
     this.winding = [null, null, null, null];
     this.cutin = null;
@@ -208,6 +211,7 @@ export class ArenaRenderer {
     this.vfx = new Vfx(this);
     this.show = new Show(this);
     this.show.setupCrowd(battle);
+    this.defeats.restore(battle, this);
   }
 
   px(x) { return (x - WORLD.x0) * this.scale; }
@@ -429,6 +433,7 @@ export class ArenaRenderer {
     this.show.onEvent(e, battle);
     this.specials.onEvent(e, battle);
     this.reactions.onEvent(e, battle, this.time);
+    if (["faint", "switch", "recall"].includes(e.k)) this.defeats.onEvent(e, battle, this);
     playRtEvent(e, this.audio);
     switch (e.k) {
       case "use": queueMoveCard(this,e.move,this.texts.lang,this.time); break;
@@ -477,7 +482,12 @@ export class ArenaRenderer {
         // a short freeze sells the blow: longest for a K.O., then a critical hit, then a super-effective one
         if (e.hit === 0 || e.hit === undefined) this.hitstop = Math.max(this.hitstop, e.hp <= 0 ? 0.22 : e.crit ? 0.12 : e.eff > 1 ? 0.07 : 0);
         const a = anim(s);
-        if (a && e.hp > 0) a.play("Hurt");
+        if (e.hp > 0 && e.dmg > 0) {
+          const large = e.maxhp > 0 && e.dmg * 100 > e.maxhp * 35;
+          if (large) this.pains[key] = {slot:this.unitOf(battle,s,u).active, at:this.time};
+          // Smaller follow-up hits must not truncate a large-hit Pain sequence.
+          if (a && (large || a.cur !== "Pain" || !a.busy())) a.play(large ? "Pain" : "Hurt", large ? {duration:.65} : {});
+        }
         // the damage as a share of the HP bar, or in HP as the battle videos show it (Settings)
         const firstCrit = this.damageFloat(battle, e);
         if (firstCrit) float(s, T.crit, "#ff8a65", { size: 0.8, dy: -0.7 });
@@ -504,9 +514,7 @@ export class ArenaRenderer {
       case "status": float(s, T.status(e.status), T.statusColor(e.status), { size: 0.85 }); break;
       case "boost": if (!e.same) float(s, `${T.stat(e.stat)} ${e.stage > 0 ? "↑" : e.stage < 0 ? "↓" : "="}`, e.stage > 0 ? "#ffb15c" : "#7fb2ff", { size: 0.8, dy: -0.4 }); break;
       case "faint": {
-        const a = this.animOf(s, e.slot, !!battle.sides[s].mons[e.slot]?.megaOn);
-        if (a) a.play("Faint", { hold: true });
-        this.fade[key] = { slot: e.slot, t: 0, at: e.t, mega: false };
+        this.pains[key] = null;
         break;
       }
       case "mega": {
@@ -517,11 +525,8 @@ export class ArenaRenderer {
         break;
       }
       case "mega_end": {
-        // a Mega Pokémon that faints keeps its Mega look while it fades out
-        if (this.fade[key].slot === e.slot && this.fade[key].at === e.t) {
-          this.fade[key].mega = true;
-          this.megaAnims[s]?.[e.slot]?.play("Faint", { hold: true });
-        } else float(s, T.megaEnd, "#e6d3ff", { size: 0.8, dy: -0.5 });
+        if (!battle.events.some(x => x.k === "faint" && x.s === s && x.slot === e.slot && x.t === e.t))
+          float(s, T.megaEnd, "#e6d3ff", { size: 0.8, dy: -0.5 });
         break;
       }
       case "plus": float(s, `${T.plus}!`, "#ff8fdc", { size: 0.85, dy: -0.9 }); break;
@@ -532,7 +537,7 @@ export class ArenaRenderer {
         const p = this.posOf(battle, s, u);
         // with the show on, a Poké Ball flies in instead of the beam (show.js)
         if (!this.show.on) this.effects.push({ kind: "beam", x: p.x, y: p.y, from: TRAINER[s], t: 0, life: 0.4 });
-        this.fade[key] = { slot: -1, t: 0 };
+        this.pains[key] = null;
         break;
       }
       case "recall": {
@@ -631,6 +636,7 @@ export class ArenaRenderer {
     // Pokémon, sorted by depth
     const order = fighters.slice().sort((a, b) => this.portrait ? b.side.x - a.side.x : a.side.y - b.side.y);
     for (const { side, si, key } of order) this.drawMon(view, side, si, dt, key);
+    this.defeats.draw(this, dt);
     if (view.doubles) {
       // doubles: a marker over the Pokémon a person controls and a reticle on the foe it locks on (turning while ZL / Shift is held)
       view.sides.forEach((sd, si) => {
@@ -878,11 +884,9 @@ export class ArenaRenderer {
     const mon = side.mons[side.active];
     if (!mon) return;
     if (this.show.hides(key)) return;   // still inside the Poké Ball that is flying in
-    const fade = this.fade[key];
-    // A seek has no pending faint event. Only a consumed live/replay faint starts a fade;
-    // a fainted snapshot must stay hidden even when the paused renderer receives dt = 0.
-    if (mon.fainted && fade.slot !== side.active) return;
-    const mega = !!mon.is_mega || (mon.fainted && fade.slot === side.active && !!fade.mega);
+    // DefeatPresentation owns the downed artwork independently of this active slot.
+    if (mon.fainted) return;
+    const mega = !!mon.is_mega;
     const dynamax = !!mon.is_dynamax;
     const ultra = !!mon.is_ultra;
     // Event-driven transformation at the registered feet; seeking shows the resolved size immediately.
@@ -892,15 +896,10 @@ export class ArenaRenderer {
     if (this.lastActive[key] !== lookKey) {
       this.lastActive[key] = lookKey;
       const a = this.animOf(si, side.active, mega, dynamax, ultra);
-      if (a && !mon.fainted) a.start("Idle", false);
+      if (a && !a.busy()) a.start("Idle", false);
     }
     const recalling = side.act?.kind === "switch";
     let alpha = 1;
-    if (mon.fainted) {
-      fade.t += dt;
-      alpha = Math.max(0, 1 - fade.t / 1.2);
-      if (alpha <= 0) return;
-    }
     if (recalling) alpha = Math.max(0.15, (side.act.left || 0) / 27);
     if (side.need && !mon.fainted) alpha = 0.15;
     if (side.invulnerable && side.act?.kind === "windup") alpha *= 0.35;
@@ -964,7 +963,7 @@ export class ArenaRenderer {
       a.update(dt);
       const facing = this.portrait ? portraitFacing(side.fx, side.fy) : side;
       const row = dirRow(facing.fx, facing.fy);
-      drawn = a.draw(ctx, x, y, row, this.k * displayScale, { alpha: bodyAlpha, flash: bodyFlash });
+      drawn = a.draw(ctx, x, y, row, this.k * displayScale, { alpha: bodyAlpha, flash: bodyFlash, reduced:!!this.reducedMotion?.matches });
       headY = y - a.height(this.k * displayScale) - 0.3 * s;
     }
     if (!drawn) {
@@ -976,6 +975,10 @@ export class ArenaRenderer {
         const h = 2.2 * s * displayScale;
         const w = (img.img.width / img.img.height) * h;
         ctx.save();
+        const pain = this.pains[key];
+        if (pain?.slot === side.active && this.time - pain.at < .65 && !this.reducedMotion?.matches) {
+          ctx.translate(x,y); ctx.rotate(-.2*Math.sin((this.time-pain.at)/.65*Math.PI)); ctx.translate(-x,-y);
+        }
         ctx.globalAlpha = bodyAlpha;
         if (!this.portrait && side.fx > 0) { ctx.translate(x, 0); ctx.scale(-1, 1); ctx.translate(-x, 0); }
         ctx.drawImage(img.img, x - w / 2, y - h * 0.92, w, h);

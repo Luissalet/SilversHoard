@@ -39,7 +39,7 @@ export class OverworldAnimator extends Animator {
     image(meta.url);
   }
 
-  draw(ctx, x, y, row, k, {alpha = 1, flash = 0} = {}) {
+  draw(ctx, x, y, row, k, {alpha = 1, flash = 0, reduced = false} = {}) {
     const art = artwork(this.meta);
     if (!art) return false;
     const direction = this.meta.directions === 8 ? row : DIRECTIONS[row];
@@ -47,6 +47,8 @@ export class OverworldAnimator extends Animator {
     const scale = k * 48 / w;
     const dest = [Math.round(x - w * .5 * scale), Math.round(y - h * .95 * scale), w * scale, h * scale];
     const before = ctx.globalAlpha;
+    const acting = !!this.meta.a[this.cur]?.reaction;
+    if (acting) { ctx.save(); this.pose(ctx, x, y, row, scale, reduced, [0, 0, w, h * .95]); }
     ctx.globalAlpha = before * alpha;
     ctx.drawImage(art.art, sx, sy, w, h, ...dest);
     if (flash > 0) {
@@ -54,6 +56,7 @@ export class OverworldAnimator extends Animator {
       ctx.drawImage(art.white, sx, sy, w, h, ...dest);
     }
     ctx.globalAlpha = before;
+    if (acting) ctx.restore();
     return true;
   }
 
