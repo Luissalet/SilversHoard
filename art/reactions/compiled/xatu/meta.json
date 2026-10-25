@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "xatu",
+        "tool": "builtin-imagegen",
+        "source_sha256": "c0d438f8f0b1736024fde0f55edb33ee03b8b575bd7ba02b1b4047e3c44e288b",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 178,
+          "form": "",
+          "key": "lib-xatu-n-4f74069876c8"
+        },
+        "sha256": "f203fae3bf12d8813bbd9eba56c895bb697c3e9f11633c4f11f7b3235439f64a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "xatu",
+        "tool": "builtin-imagegen",
+        "source_sha256": "c0d438f8f0b1736024fde0f55edb33ee03b8b575bd7ba02b1b4047e3c44e288b",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 178,
+          "form": "",
+          "key": "lib-xatu-n-4f74069876c8"
+        },
+        "sha256": "1f6e0835366450766be7964c31b17fe35e8ae369547a09246a2811bfb24ffe55"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "xatu",
+          "tool": "builtin-imagegen",
+          "source_sha256": "c0d438f8f0b1736024fde0f55edb33ee03b8b575bd7ba02b1b4047e3c44e288b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 178,
+            "form": "",
+            "key": "lib-xatu-n-4f74069876c8"
+          },
+          "sha256": "d6f8b2cda5e85bc5705f7a37ed383968fb77a2741349f38926e51151bfbbdc2e",
+          "palette_from": "lib-xatu-s-ce269dd07c94"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "xatu",
+          "tool": "builtin-imagegen",
+          "source_sha256": "c0d438f8f0b1736024fde0f55edb33ee03b8b575bd7ba02b1b4047e3c44e288b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 178,
+            "form": "",
+            "key": "lib-xatu-n-4f74069876c8"
+          },
+          "sha256": "08e100d101e7dada6086062552f031786608c4bf30a3283b7a753e6937357616",
+          "palette_from": "lib-xatu-s-ce269dd07c94"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "xatu",
+    "num": 178,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Xatu, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "xatu-cardinal.png",
+    "source_sha256": "c0d438f8f0b1736024fde0f55edb33ee03b8b575bd7ba02b1b4047e3c44e288b",
+    "source_record": "xatu-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

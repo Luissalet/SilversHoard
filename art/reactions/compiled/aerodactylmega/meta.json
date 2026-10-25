@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "aerodactylmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a20ec833397c05426ba909756b264a7b737f90e0a03f430a4e00b17bd191ec20",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 142,
+          "form": "Mega",
+          "key": "lib-aerodactylmega-n-ed30e5bda9b6"
+        },
+        "sha256": "ef1db3d6f8b7a7de97f485c4798dc7cf1bf88446cdc339b2448a23366be7da9b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "aerodactylmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a20ec833397c05426ba909756b264a7b737f90e0a03f430a4e00b17bd191ec20",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 142,
+          "form": "Mega",
+          "key": "lib-aerodactylmega-n-ed30e5bda9b6"
+        },
+        "sha256": "f65057ff29bfe4488442bf0f1fc37acfdf20e871d55de873269c5afaa1723497"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "aerodactylmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a20ec833397c05426ba909756b264a7b737f90e0a03f430a4e00b17bd191ec20",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 142,
+            "form": "Mega",
+            "key": "lib-aerodactylmega-n-ed30e5bda9b6"
+          },
+          "sha256": "3e67611927622c9beffcaf311e27bb0647e68a9c6075ca9aa82176c9c6ab2c7f",
+          "palette_from": "lib-aerodactylmega-s-af85a820db6f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "aerodactylmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a20ec833397c05426ba909756b264a7b737f90e0a03f430a4e00b17bd191ec20",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 142,
+            "form": "Mega",
+            "key": "lib-aerodactylmega-n-ed30e5bda9b6"
+          },
+          "sha256": "30f93257ecb8c993d5edc5f1ac43690b334716a82211ed1e6443776dc724d411",
+          "palette_from": "lib-aerodactylmega-s-af85a820db6f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "aerodactylmega",
+    "num": 142,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Aerodactyl-Mega, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "aerodactylmega-cardinal.png",
+    "source_sha256": "a20ec833397c05426ba909756b264a7b737f90e0a03f430a4e00b17bd191ec20",
+    "source_record": "aerodactylmega-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

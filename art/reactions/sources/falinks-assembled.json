@@ -1,0 +1,215 @@
+{
+  "id": "falinks",
+  "name": "Falinks components",
+  "num": 870,
+  "form": "",
+  "directions": 4,
+  "frames": 2,
+  "image": "falinks-components.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Create a new pixel-art COMPONENT animation atlas for the supplied Falinks character pieces. The reference contains TWO distinct individual types: LEFT4columns are the LEADER with the tall plume crest; RIGHT4columns are one regular TROOPER with the shorter crest. Exactly ONE individual per cell, not a formation. Preserve the native tiny helmet, shields, feet, palette and dark-outlined pixel style.\nExactly8columns by4rows,32 complete individual sprites, transparent background, wide transparent gutters, no text, effects or scenery.\nRows are fixed cameras: row1FRONT facing the viewer; row2RIGHT profile facing right; row3BACK facing away with no visible eyes or front face; row4LEFT profile facing left. Never turn a member during its row.\nFor BOTH4-column blocks, draw these4new poses: column1/5 startled wince with eyes shut and feet braced; column2/6 sustained wince with head/helmet lowered and limbs tense; column3/7 helmet and body buckle towards the floor with feet folding; column4/8 individual fully lying on its side, helmet tipped sideways and feet tucked, relaxed and stationary on the floor. Preserve the tall leader plume versus short regular crest. Make true changes in limbs and helmet/body pose, not rotated standing cutouts. No missing or added parts. This atlas will be assembled into exactly one leader plus five troopers by the game, so draw ONLY one individual in each cell.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "component_only": false,
+  "shiny_reviewed": true,
+  "baseline_offsets": [
+    29,
+    2,
+    27,
+    2
+  ],
+  "composition": {
+    "kind": "six-member-native-formation",
+    "canvas": [
+      84,
+      75
+    ],
+    "component_heights": [
+      [
+        15,
+        13
+      ],
+      [
+        16,
+        14
+      ],
+      [
+        15,
+        13
+      ],
+      [
+        16,
+        14
+      ]
+    ],
+    "draw_order": [
+      [
+        1,
+        2,
+        3,
+        4,
+        5,
+        0
+      ],
+      [
+        1,
+        2,
+        3,
+        4,
+        5,
+        0
+      ],
+      [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      [
+        1,
+        2,
+        3,
+        4,
+        5,
+        0
+      ]
+    ],
+    "members": [
+      {
+        "component": 0,
+        "positions": [
+          [
+            42,
+            71
+          ],
+          [
+            72,
+            44
+          ],
+          [
+            42,
+            19
+          ],
+          [
+            12,
+            44
+          ]
+        ]
+      },
+      {
+        "component": 1,
+        "positions": [
+          [
+            42,
+            18
+          ],
+          [
+            12,
+            44
+          ],
+          [
+            42,
+            29
+          ],
+          [
+            72,
+            44
+          ]
+        ]
+      },
+      {
+        "component": 1,
+        "positions": [
+          [
+            42,
+            28
+          ],
+          [
+            24,
+            44
+          ],
+          [
+            42,
+            39
+          ],
+          [
+            60,
+            44
+          ]
+        ]
+      },
+      {
+        "component": 1,
+        "positions": [
+          [
+            42,
+            38
+          ],
+          [
+            36,
+            44
+          ],
+          [
+            42,
+            49
+          ],
+          [
+            48,
+            44
+          ]
+        ]
+      },
+      {
+        "component": 1,
+        "positions": [
+          [
+            42,
+            48
+          ],
+          [
+            48,
+            44
+          ],
+          [
+            42,
+            59
+          ],
+          [
+            36,
+            44
+          ]
+        ]
+      },
+      {
+        "component": 1,
+        "positions": [
+          [
+            42,
+            58
+          ],
+          [
+            60,
+            44
+          ],
+          [
+            42,
+            69
+          ],
+          [
+            24,
+            44
+          ]
+        ]
+      }
+    ]
+  },
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-shiny3.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  },
+  "shiny_image": "falinks-reaction-shiny-v1.png",
+  "shiny_prompt": "Use case: precise-object-edit. Image1 is the EDIT TARGET: a complete transparent8-column x4-row pixel-art atlas with32poses. Image2 is ONLY the exact native SHINY COLOR reference. Recolour image1 to match image2. Every helmet becomes shiny BROWN with tan/light-brown highlights, including the back-view helmets and lowered helmets. Keep red plume crests red, faces/legs dark navy/black and eyes cyan like the native reference. No gold/yellow armour left where the native shiny has brown. The two helmet types keep their original size and crests. CHANGE COLOURS ONLY. Preserve all32physical poses, all4fixed row cameras, anatomy, part count, pixel clusters, exact silhouettes, same complete8x4layout, generous gutters and transparent alpha zero outside sprites. Do not replace any pose with the idle reference, do not turn any character or add effects. No text, background, shadows, smooth illustration or redesign."
+}

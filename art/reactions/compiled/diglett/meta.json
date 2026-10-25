@@ -628,7 +628,7 @@
               ]
             ]
           },
-          "sha256": "dd60fb67edcb3f46efa19db0893466d1cce7f5efbf457e4216fe8da49e299be5",
+          "sha256": "32f05db86042919d15588ada78c06f8e171a4d71505829907cdf748892da7830",
           "palette_from": "lib-diglett-s-38a9f4a5cb7f"
         }
       },
@@ -835,7 +835,7 @@
               ]
             ]
           },
-          "sha256": "b6e156fa4ba9a9cee45f82ab60c412a5632f9b778ca858ffe2d82ddf8fdb300a",
+          "sha256": "4ac47f25897b46edd3b52aa07e795a7ab37307fc3069795dc6c896e82ed59251",
           "palette_from": "lib-diglett-s-38a9f4a5cb7f"
         },
         "ground_frames": [
@@ -1024,7 +1024,8 @@
         5,
         3
       ]
-    ]
+    ],
+    "source_record": "diglett-v2.json"
   },
   "reviewed": true,
   "shiny_reviewed": true

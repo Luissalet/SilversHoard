@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "starmiemega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f503ac45621147aa83887d968fe56923c01ef93442f61c1011845c4eba940c79",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 121,
+          "form": "Mega",
+          "key": "lib-starmiemega-n-076a34ff57c8"
+        },
+        "sha256": "5fa4b08db262311614342e35463c09d23b81d0f24726515ba388cda76e78f9d1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "starmiemega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f503ac45621147aa83887d968fe56923c01ef93442f61c1011845c4eba940c79",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 121,
+          "form": "Mega",
+          "key": "lib-starmiemega-n-076a34ff57c8"
+        },
+        "sha256": "f2fe8b0c0f958caf0ccb161602ff1e5766021dd5f3f5d8baf2a5490de11ff60b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "starmiemega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f503ac45621147aa83887d968fe56923c01ef93442f61c1011845c4eba940c79",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 121,
+            "form": "Mega",
+            "key": "lib-starmiemega-n-076a34ff57c8"
+          },
+          "sha256": "df8d1c5a539851b6d6c01c205adf505409a98f987561a9bda0c6381c8b6bda89",
+          "palette_from": "lib-starmiemega-s-b12eaa3f3a6e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "starmiemega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f503ac45621147aa83887d968fe56923c01ef93442f61c1011845c4eba940c79",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 121,
+            "form": "Mega",
+            "key": "lib-starmiemega-n-076a34ff57c8"
+          },
+          "sha256": "78bf0b232c08da88f3ae49cf06d50e48d3fbc0b1397fd6423f04d0482837179e",
+          "palette_from": "lib-starmiemega-s-b12eaa3f3a6e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "starmiemega",
+    "num": 121,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Starmie-Mega, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "starmiemega-cardinal.png",
+    "source_sha256": "f503ac45621147aa83887d968fe56923c01ef93442f61c1011845c4eba940c79",
+    "source_record": "starmiemega-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,19 @@
+{
+  "id": "weezinggalar",
+  "name": "Weezing-Galar",
+  "num": 110,
+  "form": "Galar",
+  "directions": 4,
+  "frames": 2,
+  "image": "weezinggalar-compact-v3.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Create a new four-column by four-row pixel-art game animation atlas, using the supplied atlas only as the exact identity, colours and fixed camera reference. Exactly sixteen complete sprites, transparent background with wide empty gutters, no scenery or text. Rows: SOUTH/front, EAST/right profile, NORTH/rear, WEST/left profile. Each camera stays fixed across the entire row. Column1: sudden wince and braced body. Column2: stronger sustained wince with head lowered. Column3: body lowers and limbs fold while settling on the ground. Column4: body rests completely flat on its side/front, eyes closed; no getting up. Draw genuinely new head/body/limb poses, retain the precise character anatomy, native colours and pixel clusters. For rear views show only the backs of the head and body, never eyes or the face. No detached particles, impact marks, shadows or extra objects. Subject: Weezing-Galar. Every cell has TWO heads, one large and one small, each with its OWN separate chimney top hat: TWO complete chimneys in every cell, including both profile resting poses. Keep the green moustache-like gas and white chimney tops. The rear resting view must hide BOTH faces, including the small head. Both heads settle down onto the ground while their two hats remain attached.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-corrections6.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

@@ -131,7 +131,7 @@
             "form": "",
             "key": "lib-metapod-n-1f4757c97d74"
           },
-          "sha256": "7eaa4987435ffb42f75b826941765e60e4495e5a5cae713e1267c5504247929a",
+          "sha256": "af86e832a8063c899f9ef04072180815fef64355ab84d62a2e54bf44243d1227",
           "palette_from": "lib-metapod-s-11fed4f6252d"
         },
         "row_map": [
@@ -177,7 +177,7 @@
             "form": "",
             "key": "lib-metapod-n-1f4757c97d74"
           },
-          "sha256": "44007e8fe7315f79a153c1af2166eb2ee27d0da8b3a0f7f3375c3669621ee422",
+          "sha256": "5709f790d049c04ddbc003a68fc01eeac9562fdf7d7e5306121d49673f4e32cd",
           "palette_from": "lib-metapod-s-11fed4f6252d"
         },
         "row_map": [
@@ -207,7 +207,8 @@
     "tool": "builtin-imagegen",
     "prompt": "Create a new pixel-art game animation sheet for Metapod, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
     "source_image": "metapod-cardinal.png",
-    "source_sha256": "a37a84838e60695cdaa9d388dd35dd2794fec72e393edca67d8f654f61383016"
+    "source_sha256": "a37a84838e60695cdaa9d388dd35dd2794fec72e393edca67d8f654f61383016",
+    "source_record": "metapod-cardinal.json"
   },
   "reviewed": true,
   "shiny_reviewed": true

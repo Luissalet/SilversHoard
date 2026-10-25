@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "shellder",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d500ee1dbfa5a3b24eaec6af9f75d712fe29219bfc437ed78a6e87f21f996219",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 90,
+          "form": "",
+          "key": "lib-shellder-n-1662687d34bf"
+        },
+        "sha256": "4d6c50b2d0fb952e6246077d92404333a5fdc7bd307e6f9f85aaa0662c5cbd21"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "shellder",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d500ee1dbfa5a3b24eaec6af9f75d712fe29219bfc437ed78a6e87f21f996219",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 90,
+          "form": "",
+          "key": "lib-shellder-n-1662687d34bf"
+        },
+        "sha256": "8893ab6b81a87919e70574b69d0c112f6ea5a45c4271091df7c03c3168f27cfc"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "shellder",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d500ee1dbfa5a3b24eaec6af9f75d712fe29219bfc437ed78a6e87f21f996219",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 90,
+            "form": "",
+            "key": "lib-shellder-n-1662687d34bf"
+          },
+          "sha256": "6b32c28c309a976f8aa20d0cbeac748336d6bf6c1b3f14218a023621e4fe4257",
+          "palette_from": "lib-shellder-s-d83c7a3f534f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "shellder",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d500ee1dbfa5a3b24eaec6af9f75d712fe29219bfc437ed78a6e87f21f996219",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 90,
+            "form": "",
+            "key": "lib-shellder-n-1662687d34bf"
+          },
+          "sha256": "5c5832cd2aa6211c6475bee37567c653e0560f1ab902c50cbe0bcf3f79f24974",
+          "palette_from": "lib-shellder-s-d83c7a3f534f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "shellder",
+    "num": 90,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Shellder, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "shellder-cardinal.png",
+    "source_sha256": "d500ee1dbfa5a3b24eaec6af9f75d712fe29219bfc437ed78a6e87f21f996219",
+    "source_record": "shellder-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

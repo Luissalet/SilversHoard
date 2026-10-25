@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "krabby",
+        "tool": "builtin-imagegen",
+        "source_sha256": "dc99df1dcdac5eee5247d2d1dbfe4e7f5071d71d93395bde5555256945614542",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 98,
+          "form": "",
+          "key": "lib-krabby-n-ce09731cb45a"
+        },
+        "sha256": "583c1447bba30eadef42dabd7649a9546b0b8c178cce84fb1e0f59227f89185a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "krabby",
+        "tool": "builtin-imagegen",
+        "source_sha256": "dc99df1dcdac5eee5247d2d1dbfe4e7f5071d71d93395bde5555256945614542",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 98,
+          "form": "",
+          "key": "lib-krabby-n-ce09731cb45a"
+        },
+        "sha256": "1bb8c4174bde5f9837f005162b3b738383065bf3c2cfc2efd0ca73f182ffe808"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "krabby",
+          "tool": "builtin-imagegen",
+          "source_sha256": "dc99df1dcdac5eee5247d2d1dbfe4e7f5071d71d93395bde5555256945614542",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 98,
+            "form": "",
+            "key": "lib-krabby-n-ce09731cb45a"
+          },
+          "sha256": "ebdc42f53d4a0d1cc41af684621f6ed8dc3029885750cdb18c93712a2c03eff4",
+          "palette_from": "lib-krabby-s-4435dd581c3d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "krabby",
+          "tool": "builtin-imagegen",
+          "source_sha256": "dc99df1dcdac5eee5247d2d1dbfe4e7f5071d71d93395bde5555256945614542",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 98,
+            "form": "",
+            "key": "lib-krabby-n-ce09731cb45a"
+          },
+          "sha256": "e466ff9a10e4cf2aac623f90a904555a4ce5e1c98ee256faa45c6cc52ca2483b",
+          "palette_from": "lib-krabby-s-4435dd581c3d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "krabby",
+    "num": 98,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Krabby, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "krabby-cardinal.png",
+    "source_sha256": "dc99df1dcdac5eee5247d2d1dbfe4e7f5071d71d93395bde5555256945614542",
+    "source_record": "krabby-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

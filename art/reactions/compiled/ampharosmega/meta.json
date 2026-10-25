@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ampharosmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f5116e00055728eff585bc66f95680ffa738ac440513b44754547a6116787f41",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 181,
+          "form": "Mega",
+          "key": "lib-ampharosmega-n-9b05ef2eeaf3"
+        },
+        "sha256": "ec6db3f23be7a4a52a11daebe74205ed9d4a83c66df9f1e94fdd1ffaef7ba981"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ampharosmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f5116e00055728eff585bc66f95680ffa738ac440513b44754547a6116787f41",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 181,
+          "form": "Mega",
+          "key": "lib-ampharosmega-n-9b05ef2eeaf3"
+        },
+        "sha256": "f28cb7a1536669a7f7b92a3542dca1d5fa5a86eb5815a3199e274f38fa4b9fad"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ampharosmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f5116e00055728eff585bc66f95680ffa738ac440513b44754547a6116787f41",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 181,
+            "form": "Mega",
+            "key": "lib-ampharosmega-n-9b05ef2eeaf3"
+          },
+          "sha256": "ba2dcb0f3975ba5786fa57c73504181003431461c89aa15e6a68f843314e9ae0",
+          "palette_from": "lib-ampharosmega-s-627faaa4e214"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ampharosmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f5116e00055728eff585bc66f95680ffa738ac440513b44754547a6116787f41",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 181,
+            "form": "Mega",
+            "key": "lib-ampharosmega-n-9b05ef2eeaf3"
+          },
+          "sha256": "a586dc57513aaa091665ac22e41ad590c88b14be43424b9ce864c49c0a08f37b",
+          "palette_from": "lib-ampharosmega-s-627faaa4e214"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "ampharosmega",
+    "num": 181,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Ampharos-Mega, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "ampharosmega-cardinal.png",
+    "source_sha256": "f5116e00055728eff585bc66f95680ffa738ac440513b44754547a6116787f41",
+    "source_record": "ampharosmega-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

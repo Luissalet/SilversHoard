@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "koffing",
+        "tool": "builtin-imagegen",
+        "source_sha256": "3b5dd24197ff567cc092a4cdeb568906d6480de8d0c5490dd6b7017e605450ca",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 109,
+          "form": "",
+          "key": "lib-koffing-n-be4959e3c142"
+        },
+        "sha256": "1749ef08c1a517e72d9c60596317fd0ef40c091745d22fae150f05f86a249a57"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "koffing",
+        "tool": "builtin-imagegen",
+        "source_sha256": "3b5dd24197ff567cc092a4cdeb568906d6480de8d0c5490dd6b7017e605450ca",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 109,
+          "form": "",
+          "key": "lib-koffing-n-be4959e3c142"
+        },
+        "sha256": "70211d81308fbda17374852faf5fe4badcf614356c7d2e48445f1f0d0e86f9b0"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "koffing",
+          "tool": "builtin-imagegen",
+          "source_sha256": "716be30f1750ab5f39d16c1244b6ee2eb3691d0d91711f3c03fd4c1dac2df4b3",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 109,
+            "form": "",
+            "key": "lib-koffing-s-a5db5410ef39"
+          },
+          "sha256": "1a25ccb784f46c03cfb679115d43e8d8a60c70abe5db59479abea99d1088a7fd"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "koffing",
+          "tool": "builtin-imagegen",
+          "source_sha256": "716be30f1750ab5f39d16c1244b6ee2eb3691d0d91711f3c03fd4c1dac2df4b3",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 109,
+            "form": "",
+            "key": "lib-koffing-s-a5db5410ef39"
+          },
+          "sha256": "eab7e58479c9595858036bd3e7fc8f71552892e65abf313a85043de5441681bc"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "koffing",
+    "num": 109,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Koffing, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "koffing-cardinal.png",
+    "source_sha256": "3b5dd24197ff567cc092a4cdeb568906d6480de8d0c5490dd6b7017e605450ca",
+    "source_record": "koffing-cardinal.json",
+    "shiny_source_image": "koffing-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Image1 is the EDIT TARGET: a complete transparent8-column x4-row pixel-art atlas with32poses. Image2 is ONLY the exact native SHINY COLOR reference. Recolour image1 to match image2. Body becomes shiny BLUE; ALL floating gas clouds/puffs become VIOLET/PURPLE, never yellow or brown. Keep the skull/crossbones marking cream and the original eye/mouth details. CHANGE COLOURS ONLY. Preserve all32physical poses, all4fixed row cameras, anatomy, part count, pixel clusters, exact silhouettes, same complete8x4layout, generous gutters and transparent alpha zero outside sprites. Do not replace any pose with the idle reference, do not turn any character or add effects. No text, background, shadows, smooth illustration or redesign."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

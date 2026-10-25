@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "taurospaldeablaze",
+        "tool": "builtin-imagegen",
+        "source_sha256": "084d9b12ead07fd1d1aaeea839d76bc67772f0e8ca45eba01f9d3f74ce036b14",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 128,
+          "form": "Paldea-Blaze",
+          "key": "lib-taurospaldeablaze-n-b2eaa7fae827"
+        },
+        "sha256": "c5c2f23885711b6809968faa2fac1e77717f407b17ae63b5604ac683e5c1795c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "taurospaldeablaze",
+        "tool": "builtin-imagegen",
+        "source_sha256": "084d9b12ead07fd1d1aaeea839d76bc67772f0e8ca45eba01f9d3f74ce036b14",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 128,
+          "form": "Paldea-Blaze",
+          "key": "lib-taurospaldeablaze-n-b2eaa7fae827"
+        },
+        "sha256": "5a271f9f3a4c728339130cd705dd53a9adf3fa178b4711cfd848debb7ff1e452"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "taurospaldeablaze",
+          "tool": "builtin-imagegen",
+          "source_sha256": "084d9b12ead07fd1d1aaeea839d76bc67772f0e8ca45eba01f9d3f74ce036b14",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 128,
+            "form": "Paldea-Blaze",
+            "key": "lib-taurospaldeablaze-n-b2eaa7fae827"
+          },
+          "sha256": "b78e7a66d7896d71eda3fd68d945d0c3103252b53f8bca0b9cbbd126022ddcc2",
+          "palette_from": "lib-taurospaldeablaze-s-0775ba8e0e98"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "taurospaldeablaze",
+          "tool": "builtin-imagegen",
+          "source_sha256": "084d9b12ead07fd1d1aaeea839d76bc67772f0e8ca45eba01f9d3f74ce036b14",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 128,
+            "form": "Paldea-Blaze",
+            "key": "lib-taurospaldeablaze-n-b2eaa7fae827"
+          },
+          "sha256": "eda3dc28f13e4aa5753543fd950e66b52cb8bc7675e43298081ae74b7e55a0bb",
+          "palette_from": "lib-taurospaldeablaze-s-0775ba8e0e98"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "taurospaldeablaze",
+    "num": 128,
+    "form": "Paldea-Blaze",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Tauros-Paldea-Blaze, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "taurospaldeablaze-cardinal.png",
+    "source_sha256": "084d9b12ead07fd1d1aaeea839d76bc67772f0e8ca45eba01f9d3f74ce036b14",
+    "source_record": "taurospaldeablaze-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

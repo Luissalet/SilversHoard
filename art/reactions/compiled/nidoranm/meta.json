@@ -131,7 +131,7 @@
             "form": "",
             "key": "lib-nidoranm-n-4c6d1db9ff52"
           },
-          "sha256": "1c2375b3856ad7957f5da0d34bf4d1e7fcb7d3335e8de241ed2528d289ebe85b",
+          "sha256": "7057f12fa878ba75752769eec8aa324f1ce30ec4cc2ed59b8f9aacd27c24411b",
           "palette_from": "lib-nidoranm-s-d12cf0dc3000"
         },
         "row_map": [
@@ -177,7 +177,7 @@
             "form": "",
             "key": "lib-nidoranm-n-4c6d1db9ff52"
           },
-          "sha256": "dfd1cb12cd7b17e3a137666a31da1754bc6614158845c6d8eaf4131a82c110b1",
+          "sha256": "1938dfbadf50cd3b0f3d33d7ab2c981df8f705d53dc8722ee049f9192cfbe642",
           "palette_from": "lib-nidoranm-s-d12cf0dc3000"
         },
         "row_map": [
@@ -207,7 +207,8 @@
     "tool": "builtin-imagegen",
     "prompt": "Create a new pixel-art game animation sheet for Nidoran-M, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
     "source_image": "nidoranm-cardinal.png",
-    "source_sha256": "4e904e7e9b1ecc6851c96360aac446f967a2837d6423225e7ee2e63c5698ddc9"
+    "source_sha256": "4e904e7e9b1ecc6851c96360aac446f967a2837d6423225e7ee2e63c5698ddc9",
+    "source_record": "nidoranm-cardinal.json"
   },
   "reviewed": true,
   "shiny_reviewed": true

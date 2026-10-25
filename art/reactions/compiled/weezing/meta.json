@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "weezing",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e61f92fdf043aad444a082743ca58cbc88d939d218ad71e80ea3018d28efd4fa",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 110,
+          "form": "",
+          "key": "lib-weezing-n-1d70fda3946d"
+        },
+        "sha256": "ba90aa550e7d6eef5fe15a61c1a1e900bc69d908567cac30133b4cb62dda1335"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "weezing",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e61f92fdf043aad444a082743ca58cbc88d939d218ad71e80ea3018d28efd4fa",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 110,
+          "form": "",
+          "key": "lib-weezing-n-1d70fda3946d"
+        },
+        "sha256": "88c1ade41d5cdfaf5e1f22739eebbca61b23052c993bf80786e4f0dea46f6338"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "weezing",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7e8de0babeca79345c92e9fec3f43c52ca9401d8f28b814ad32292706bdadf56",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 110,
+            "form": "",
+            "key": "lib-weezing-s-77e609028ff3"
+          },
+          "sha256": "bdd8c900281fc555aa608834bc32b47085a25d75ff5b2083b3652fee1f217ff9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "weezing",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7e8de0babeca79345c92e9fec3f43c52ca9401d8f28b814ad32292706bdadf56",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 110,
+            "form": "",
+            "key": "lib-weezing-s-77e609028ff3"
+          },
+          "sha256": "0f732e4354bf83e546b6372b46ed342e385d1c74ac5efbeee00b12d777bef109"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "weezing",
+    "num": 110,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Weezing, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "weezing-cardinal.png",
+    "source_sha256": "e61f92fdf043aad444a082743ca58cbc88d939d218ad71e80ea3018d28efd4fa",
+    "source_record": "weezing-cardinal.json",
+    "shiny_source_image": "weezing-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Image1 is the EDIT TARGET: a complete transparent8-column x4-row pixel-art atlas with32poses. Image2 is ONLY the exact native SHINY COLOR reference. Recolour image1 to match image2. BOTH heads become shiny BLUE; ALL gas clouds/puffs around either head become VIOLET/PURPLE, never yellow/brown. Keep cream skull markings and all original face details. CHANGE COLOURS ONLY. Preserve all32physical poses, all4fixed row cameras, anatomy, part count, pixel clusters, exact silhouettes, same complete8x4layout, generous gutters and transparent alpha zero outside sprites. Do not replace any pose with the idle reference, do not turn any character or add effects. No text, background, shadows, smooth illustration or redesign."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

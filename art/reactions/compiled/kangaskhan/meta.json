@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "kangaskhan",
+        "tool": "builtin-imagegen",
+        "source_sha256": "be761afbacf8dbe5f6e3d8ed9cf58acb45491c807681aa734627941a12ee38e6",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 115,
+          "form": "",
+          "key": "lib-kangaskhan-n-cdb179a9b9eb"
+        },
+        "sha256": "07214936ec9656571f429ae8c5ec44d263b127cbdf2da0cb651781d2a5e856c7"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "kangaskhan",
+        "tool": "builtin-imagegen",
+        "source_sha256": "be761afbacf8dbe5f6e3d8ed9cf58acb45491c807681aa734627941a12ee38e6",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 115,
+          "form": "",
+          "key": "lib-kangaskhan-n-cdb179a9b9eb"
+        },
+        "sha256": "6d186d7e951480309f9e08a10ed786240e1e81e5a0847534a97b7e39943956b8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "kangaskhan",
+          "tool": "builtin-imagegen",
+          "source_sha256": "be761afbacf8dbe5f6e3d8ed9cf58acb45491c807681aa734627941a12ee38e6",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 115,
+            "form": "",
+            "key": "lib-kangaskhan-n-cdb179a9b9eb"
+          },
+          "sha256": "361028854c7cf41dbfc9a51e7d796e9e305277c08392fa1c66e34fb396a2c125",
+          "palette_from": "lib-kangaskhan-s-3b2a2004608a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "kangaskhan",
+          "tool": "builtin-imagegen",
+          "source_sha256": "be761afbacf8dbe5f6e3d8ed9cf58acb45491c807681aa734627941a12ee38e6",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 115,
+            "form": "",
+            "key": "lib-kangaskhan-n-cdb179a9b9eb"
+          },
+          "sha256": "54f8ef56bb3b2f4b15ba94becec32b760b854f35c8fcf4a420f6a0a87194be6a",
+          "palette_from": "lib-kangaskhan-s-3b2a2004608a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "kangaskhan",
+    "num": 115,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Kangaskhan, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "kangaskhan-cardinal.png",
+    "source_sha256": "be761afbacf8dbe5f6e3d8ed9cf58acb45491c807681aa734627941a12ee38e6",
+    "source_record": "kangaskhan-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "hoothoot",
+        "tool": "builtin-imagegen",
+        "source_sha256": "824eac13cdb5423e1598d0ed2bd6476c87f0b48d73e9b20943353e3414f617a0",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 163,
+          "form": "",
+          "key": "lib-hoothoot-n-0cb330d8f35b"
+        },
+        "sha256": "a1f5628e989a242655c4675135559d88b7887d4a770b58bbee13772da7c440d5"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "hoothoot",
+        "tool": "builtin-imagegen",
+        "source_sha256": "824eac13cdb5423e1598d0ed2bd6476c87f0b48d73e9b20943353e3414f617a0",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 163,
+          "form": "",
+          "key": "lib-hoothoot-n-0cb330d8f35b"
+        },
+        "sha256": "fafa6a49db09100192273fef12810c4cdb9df8336af911826fde880336044875"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "hoothoot",
+          "tool": "builtin-imagegen",
+          "source_sha256": "824eac13cdb5423e1598d0ed2bd6476c87f0b48d73e9b20943353e3414f617a0",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 163,
+            "form": "",
+            "key": "lib-hoothoot-n-0cb330d8f35b"
+          },
+          "sha256": "64854ec21776707534c7394be837d2fbba4051a4964dac1add5d891ebc24cdb7",
+          "palette_from": "lib-hoothoot-s-86f928b63b6c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "hoothoot",
+          "tool": "builtin-imagegen",
+          "source_sha256": "824eac13cdb5423e1598d0ed2bd6476c87f0b48d73e9b20943353e3414f617a0",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 163,
+            "form": "",
+            "key": "lib-hoothoot-n-0cb330d8f35b"
+          },
+          "sha256": "35f7e371860add5f045c874eb8041d94fcaf1164e3c583ba11de726bf936ba4a",
+          "palette_from": "lib-hoothoot-s-86f928b63b6c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "hoothoot",
+    "num": 163,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Hoothoot, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "hoothoot-cardinal.png",
+    "source_sha256": "824eac13cdb5423e1598d0ed2bd6476c87f0b48d73e9b20943353e3414f617a0",
+    "source_record": "hoothoot-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

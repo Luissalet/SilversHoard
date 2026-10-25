@@ -131,7 +131,7 @@
             "form": "",
             "key": "lib-gloom-n-8c64681be786"
           },
-          "sha256": "4f3cdf6ff9949567b781dc1f941e6cdccdd13ba9760912100ec39c917355b17a",
+          "sha256": "a83292d91952d40d1f8435fa2cae49a52f83aadd256b252d6df077bd93a2cca0",
           "palette_from": "lib-gloom-s-b0a8414f44b1"
         },
         "row_map": [
@@ -177,7 +177,7 @@
             "form": "",
             "key": "lib-gloom-n-8c64681be786"
           },
-          "sha256": "2d8b8486e52c9810d9366fb500179cf636230d15e98d15cd2c0ee647c119947c",
+          "sha256": "87e6007782676338f83704a5babddfae47c2cc96c5a958416f1d0711fbb361e5",
           "palette_from": "lib-gloom-s-b0a8414f44b1"
         },
         "row_map": [
@@ -207,7 +207,8 @@
     "tool": "builtin-imagegen",
     "prompt": "Create a new pixel-art game animation sheet for Gloom, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
     "source_image": "gloom-cardinal.png",
-    "source_sha256": "4d35c5430047adf59a04626e4d61c064f351bb2e25f41d6e0a13ba2147c875b9"
+    "source_sha256": "4d35c5430047adf59a04626e4d61c064f351bb2e25f41d6e0a13ba2147c875b9",
+    "source_record": "gloom-cardinal.json"
   },
   "reviewed": true,
   "shiny_reviewed": true

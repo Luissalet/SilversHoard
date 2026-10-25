@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "lapras",
+        "tool": "builtin-imagegen",
+        "source_sha256": "489cd80ec90a61caa984b3f6ca31dd8df550b4ea72835e443cdd04e0831ca4a4",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 131,
+          "form": "",
+          "key": "lib-lapras-n-8e60ba4db23e"
+        },
+        "sha256": "55f144ff37f1923416d9d2b10c7a812ba7e550ea2baf73917759001bdfd29215"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "lapras",
+        "tool": "builtin-imagegen",
+        "source_sha256": "489cd80ec90a61caa984b3f6ca31dd8df550b4ea72835e443cdd04e0831ca4a4",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 131,
+          "form": "",
+          "key": "lib-lapras-n-8e60ba4db23e"
+        },
+        "sha256": "d09960d69554aaf3241b65ad31aff9c61a03510dd1e844e417f884c68d4abf46"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "lapras",
+          "tool": "builtin-imagegen",
+          "source_sha256": "489cd80ec90a61caa984b3f6ca31dd8df550b4ea72835e443cdd04e0831ca4a4",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 131,
+            "form": "",
+            "key": "lib-lapras-n-8e60ba4db23e"
+          },
+          "sha256": "b744703169340b80322b456011e7ce4d45f569e416873cdf270f0838ecf52494",
+          "palette_from": "lib-lapras-s-4cb89302c944"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "lapras",
+          "tool": "builtin-imagegen",
+          "source_sha256": "489cd80ec90a61caa984b3f6ca31dd8df550b4ea72835e443cdd04e0831ca4a4",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 131,
+            "form": "",
+            "key": "lib-lapras-n-8e60ba4db23e"
+          },
+          "sha256": "e39a0f16155687d9d73b62f74f4fef91a09f387e6cca5d994adf3fc55f62f95d",
+          "palette_from": "lib-lapras-s-4cb89302c944"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "lapras",
+    "num": 131,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Lapras, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "lapras-cardinal.png",
+    "source_sha256": "489cd80ec90a61caa984b3f6ca31dd8df550b4ea72835e443cdd04e0831ca4a4",
+    "source_record": "lapras-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

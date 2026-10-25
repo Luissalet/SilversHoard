@@ -131,7 +131,7 @@
             "form": "Alola",
             "key": "lib-ninetalesalola-n-04beb94c27e2"
           },
-          "sha256": "d948ba382bb9e54be9bbc29fda0bacb930ff6b200a60d9c98f22fc9f4a0edcd4",
+          "sha256": "5c335424cb77a39a15520a30f4ac637e58395caab5e2d090b4476d52fe9905d0",
           "palette_from": "lib-ninetalesalola-s-3cc22acb8aa4"
         },
         "row_map": [
@@ -177,7 +177,7 @@
             "form": "Alola",
             "key": "lib-ninetalesalola-n-04beb94c27e2"
           },
-          "sha256": "bb58f00a8e038a36b18cbf77d3c12eb284408ad96de67605cddede7aec4d967b",
+          "sha256": "6b78a1fbb6fd4c7476fd7b4be9241997f7b83fedf12815df9d15b3acf22c3042",
           "palette_from": "lib-ninetalesalola-s-3cc22acb8aa4"
         },
         "row_map": [
@@ -207,7 +207,8 @@
     "tool": "builtin-imagegen",
     "prompt": "Create a new pixel-art game animation sheet for Ninetales-Alola, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
     "source_image": "ninetalesalola-cardinal.png",
-    "source_sha256": "9366b11ec1be218f423eda2912a89ae52bbb42b52cea293ab57c950db134eee4"
+    "source_sha256": "9366b11ec1be218f423eda2912a89ae52bbb42b52cea293ab57c950db134eee4",
+    "source_record": "ninetalesalola-cardinal.json"
   },
   "reviewed": true,
   "shiny_reviewed": true

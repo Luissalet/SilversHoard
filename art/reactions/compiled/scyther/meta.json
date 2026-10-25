@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "scyther",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ed4b155c5b130fd7fc3a9c4c91f9e9bffacc7f9756b6f156f0f8cbf9074646bf",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 123,
+          "form": "",
+          "key": "lib-scyther-n-5c6fa5d6ae63"
+        },
+        "sha256": "711968c761e9628f3db8a6c3700060dc2b7525fde676a7347c07455cf58f5eec"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "scyther",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ed4b155c5b130fd7fc3a9c4c91f9e9bffacc7f9756b6f156f0f8cbf9074646bf",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 123,
+          "form": "",
+          "key": "lib-scyther-n-5c6fa5d6ae63"
+        },
+        "sha256": "d2e709a650bf0411f7d564047bfceb2ee740929adc9c530f5b92ed229a4b6532"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "scyther",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ed4b155c5b130fd7fc3a9c4c91f9e9bffacc7f9756b6f156f0f8cbf9074646bf",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 123,
+            "form": "",
+            "key": "lib-scyther-n-5c6fa5d6ae63"
+          },
+          "sha256": "53723a98de9421a7d32dd19287dfe2727afb58c12c69a63092291e50568dbde2",
+          "palette_from": "lib-scyther-s-679a31651e3a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "scyther",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ed4b155c5b130fd7fc3a9c4c91f9e9bffacc7f9756b6f156f0f8cbf9074646bf",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 123,
+            "form": "",
+            "key": "lib-scyther-n-5c6fa5d6ae63"
+          },
+          "sha256": "6cb5a8e3fe75d7827317be3b1e0aadffb9d6817e34c84b0fcf5fd660d20f5e0a",
+          "palette_from": "lib-scyther-s-679a31651e3a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "scyther",
+    "num": 123,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Precise local pose correction of this complete transparent 8column x4row pixel-art atlas. Edit ONLY row3 columns6,7,8. These are the BACK-camera settling and lying poses. They must show Scyther strictly from BEHIND, keeping the back of the green head, rear thorax, white wings and both scythe arms facing the viewer. Hide the eyes, mouth and entire front face on the far side; do not turn the head to profile and do not alternate left/right profile during this row. Column6: rear-facing body buckles down. Columns7 and8: rear-facing body is fully flat on the floor with folded legs and scythes and retained wings. Keep the same rear camera as row3 columns1-5. Preserve all other29sprites exactly, identity, anatomy, pixel scale, palette, gutters and true transparent alpha. Output the same full atlas with just these3back-view poses corrected. No effects, ground shadows, text or scenery.",
+    "source_image": "scyther-cardinal-v2.png",
+    "source_sha256": "ed4b155c5b130fd7fc3a9c4c91f9e9bffacc7f9756b6f156f0f8cbf9074646bf",
+    "source_record": "scyther-cardinal-v2.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

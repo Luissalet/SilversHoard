@@ -131,7 +131,7 @@
             "form": "",
             "key": "lib-venomoth-n-fa68f4bba869"
           },
-          "sha256": "675d217e356d8bdda80d5ef80c817b57b5e500b3b86dd4ed495900507b02f847",
+          "sha256": "176ce1fd93123eac5ba999af3c069d618f7e9ce6f221372d77ba8979dd7f2acf",
           "palette_from": "lib-venomoth-s-45247375d77a"
         },
         "row_map": [
@@ -177,7 +177,7 @@
             "form": "",
             "key": "lib-venomoth-n-fa68f4bba869"
           },
-          "sha256": "191f95024ca24376df80266d783a5dbc2ae1dc0403b8af567185751050274e06",
+          "sha256": "53fd6e085d1c28eab900a3ed7b4f265896e63fb0a2ff204d03cea57eb6dec82a",
           "palette_from": "lib-venomoth-s-45247375d77a"
         },
         "row_map": [
@@ -207,7 +207,8 @@
     "tool": "builtin-imagegen",
     "prompt": "Create a new pixel-art game animation sheet for Venomoth, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
     "source_image": "venomoth-cardinal.png",
-    "source_sha256": "80857e4d7d1a569a7cf98a1a693dbb462df1fa4ff2ce68173d84b60b46ae4713"
+    "source_sha256": "80857e4d7d1a569a7cf98a1a693dbb462df1fa4ff2ce68173d84b60b46ae4713",
+    "source_record": "venomoth-cardinal.json"
   },
   "reviewed": true,
   "shiny_reviewed": true

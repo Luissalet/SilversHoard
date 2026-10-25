@@ -131,7 +131,7 @@
             "form": "",
             "key": "lib-kakuna-n-7501076e0092"
           },
-          "sha256": "2ffab4c7b54d0bd36c3c5f866d8447c71f3980ca3aab7501136ab39816413c9b",
+          "sha256": "37552758d60d5fd4783c36833185bb7f08d8e890f4b488840e1bc081eee1c3e9",
           "palette_from": "lib-kakuna-s-e79cb290120e"
         },
         "row_map": [
@@ -177,7 +177,7 @@
             "form": "",
             "key": "lib-kakuna-n-7501076e0092"
           },
-          "sha256": "67b0d19aba18c3ad93df3af2c682709d517132fe5788e3bf4f734d04b3ddd0f1",
+          "sha256": "1e161f4e9b51301b2b4221f8cb4604fbdefa6fb6f7014ef333031fbf15fbd051",
           "palette_from": "lib-kakuna-s-e79cb290120e"
         },
         "row_map": [
@@ -207,7 +207,8 @@
     "tool": "builtin-imagegen",
     "prompt": "Create a new pixel-art game animation sheet for Kakuna, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
     "source_image": "kakuna-cardinal.png",
-    "source_sha256": "676ee47c126a5282fb3fc0f482e8b5cbd78de06e6c9518dda7f210a945c57558"
+    "source_sha256": "676ee47c126a5282fb3fc0f482e8b5cbd78de06e6c9518dda7f210a945c57558",
+    "source_record": "kakuna-cardinal.json"
   },
   "reviewed": true,
   "shiny_reviewed": true

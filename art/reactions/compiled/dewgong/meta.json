@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dewgong",
+        "tool": "builtin-imagegen",
+        "source_sha256": "33bb694e6ab106e0cca596beca6c647b77207ea1e975552a31885675bd0f9014",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 87,
+          "form": "",
+          "key": "lib-dewgong-n-65ddf2ed2149"
+        },
+        "sha256": "3e42270123d0ed50c3711bf973c8308838eb6ec74542a9535111ae9219e76cb8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dewgong",
+        "tool": "builtin-imagegen",
+        "source_sha256": "33bb694e6ab106e0cca596beca6c647b77207ea1e975552a31885675bd0f9014",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 87,
+          "form": "",
+          "key": "lib-dewgong-n-65ddf2ed2149"
+        },
+        "sha256": "1815c060feabd8b92f41c374a2415f0d9aace9747e0d5cca85a56fed79325f18"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dewgong",
+          "tool": "builtin-imagegen",
+          "source_sha256": "33bb694e6ab106e0cca596beca6c647b77207ea1e975552a31885675bd0f9014",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 87,
+            "form": "",
+            "key": "lib-dewgong-n-65ddf2ed2149"
+          },
+          "sha256": "f2fc25c8a45728dc71b7eebfb84386a4379c922ffa3f82226d1ab499a8c094f0",
+          "palette_from": "lib-dewgong-s-acbe6fd1fb52"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dewgong",
+          "tool": "builtin-imagegen",
+          "source_sha256": "33bb694e6ab106e0cca596beca6c647b77207ea1e975552a31885675bd0f9014",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 87,
+            "form": "",
+            "key": "lib-dewgong-n-65ddf2ed2149"
+          },
+          "sha256": "1c08e4b6a28a354cd4073b4b87fe25245ad34fb2bd3117515ae90cecabcde406",
+          "palette_from": "lib-dewgong-s-acbe6fd1fb52"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "dewgong",
+    "num": 87,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Dewgong, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "dewgong-cardinal.png",
+    "source_sha256": "33bb694e6ab106e0cca596beca6c647b77207ea1e975552a31885675bd0f9014",
+    "source_record": "dewgong-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -268,7 +268,7 @@
               ]
             ]
           },
-          "sha256": "d5b11d81cc19bf51efe1b14b7ddad3e1df6fccb1941a0b0eaed219cb81b5989d",
+          "sha256": "98eacf0b99c3bee11b494a4c99e826d8df23f1f21f6d79a12acb754bb250e54a",
           "palette_from": "lib-charizard-s-80056d5abb96"
         }
       },
@@ -355,7 +355,7 @@
               ]
             ]
           },
-          "sha256": "c560433d025422441cc3ec59cc0e977ae681e2045b5d8f0981deddbe6fc98ba2",
+          "sha256": "ec98d721f20281e8fa4fbf32bab358a95070a38d4027359932f315c80b99b4fe",
           "palette_from": "lib-charizard-s-80056d5abb96"
         },
         "ground_frames": [
@@ -424,7 +424,8 @@
         5,
         3
       ]
-    ]
+    ],
+    "source_record": "charizard-v2.json"
   },
   "reviewed": true,
   "shiny_reviewed": true

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "vaporeon",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a5e574bc3d1cf0cfdf74b4b02768b584d4e0cbe4046b2ca8ad229cb39761ceed",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 134,
+          "form": "",
+          "key": "lib-vaporeon-n-52bcb07fdada"
+        },
+        "sha256": "b2c0180e3c25f860d618adcca5b80cc10af31e627f6c3e67bb28b5edd8d7f340"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "vaporeon",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a5e574bc3d1cf0cfdf74b4b02768b584d4e0cbe4046b2ca8ad229cb39761ceed",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 134,
+          "form": "",
+          "key": "lib-vaporeon-n-52bcb07fdada"
+        },
+        "sha256": "61b31eb75f0e190ffd1549abf0268a868f4d3e3a81cb7261ea39d2eb50a4e58f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "vaporeon",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a5e574bc3d1cf0cfdf74b4b02768b584d4e0cbe4046b2ca8ad229cb39761ceed",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 134,
+            "form": "",
+            "key": "lib-vaporeon-n-52bcb07fdada"
+          },
+          "sha256": "f15ae1e611a3df7c81c651c9e09e094a438c3ee3506a41c6c3f79c8f2ebf716d",
+          "palette_from": "lib-vaporeon-s-6cbcbf2e9da9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "vaporeon",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a5e574bc3d1cf0cfdf74b4b02768b584d4e0cbe4046b2ca8ad229cb39761ceed",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 134,
+            "form": "",
+            "key": "lib-vaporeon-n-52bcb07fdada"
+          },
+          "sha256": "0f50d70c136d02a171d46cd87302c7b97196e913faccbcbac95e81a9081193e5",
+          "palette_from": "lib-vaporeon-s-6cbcbf2e9da9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "vaporeon",
+    "num": 134,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Vaporeon, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "vaporeon-cardinal.png",
+    "source_sha256": "a5e574bc3d1cf0cfdf74b4b02768b584d4e0cbe4046b2ca8ad229cb39761ceed",
+    "source_record": "vaporeon-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

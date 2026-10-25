@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 88,
+      "h": 64,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 44.0,
+      "ay": 58,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "moltres",
+        "tool": "builtin-imagegen",
+        "source_sha256": "07ac0da8a4c430dc6ea51da4196cf67b106f772fc4ee39612e455003deaeae5e",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 146,
+          "form": "",
+          "key": "lib-moltres-n-be24ccf7db88"
+        },
+        "sha256": "0bb70ff932e4fe1b85ce93e5b8e7c8782be189d8298fb5ce8e4c867bcab53683"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 88,
+      "h": 64,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 44.0,
+      "ay": 58,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "moltres",
+        "tool": "builtin-imagegen",
+        "source_sha256": "07ac0da8a4c430dc6ea51da4196cf67b106f772fc4ee39612e455003deaeae5e",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 146,
+          "form": "",
+          "key": "lib-moltres-n-be24ccf7db88"
+        },
+        "sha256": "1592b0fd15e0cf87b11a44e710f44cfbb90892f74b8dd16c5f4edd51c2b6e922"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 88,
+        "h": 64,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 44.0,
+        "ay": 58,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "moltres",
+          "tool": "builtin-imagegen",
+          "source_sha256": "07ac0da8a4c430dc6ea51da4196cf67b106f772fc4ee39612e455003deaeae5e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 146,
+            "form": "",
+            "key": "lib-moltres-n-be24ccf7db88"
+          },
+          "sha256": "74bca41c005716c28a3313db3d28bbaee6e9e922083cf200e640eb3420b591b8",
+          "palette_from": "lib-moltres-s-c1e0b90a796e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 88,
+        "h": 64,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 44.0,
+        "ay": 58,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "moltres",
+          "tool": "builtin-imagegen",
+          "source_sha256": "07ac0da8a4c430dc6ea51da4196cf67b106f772fc4ee39612e455003deaeae5e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 146,
+            "form": "",
+            "key": "lib-moltres-n-be24ccf7db88"
+          },
+          "sha256": "f733fec1886890e6894fd86eef22eb0f7cf196a4bad98e74ad48c83f7e5d0106",
+          "palette_from": "lib-moltres-s-c1e0b90a796e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "moltres",
+    "num": 146,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Moltres, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "moltres-cardinal.png",
+    "source_sha256": "07ac0da8a4c430dc6ea51da4196cf67b106f772fc4ee39612e455003deaeae5e",
+    "source_record": "moltres-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

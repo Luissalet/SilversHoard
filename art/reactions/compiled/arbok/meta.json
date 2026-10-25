@@ -131,7 +131,7 @@
             "form": "",
             "key": "lib-arbok-n-871c1de7df1a"
           },
-          "sha256": "0818e9cb8788e32608d8d21cfc728afcc1aad7df24abc62c943b2e5fed5544fe",
+          "sha256": "77d5dc70abf7d4417499554cab513c0c097adaa713bf189154a00664ea4ac6f2",
           "palette_from": "lib-arbok-s-6e278706e810"
         },
         "row_map": [
@@ -177,7 +177,7 @@
             "form": "",
             "key": "lib-arbok-n-871c1de7df1a"
           },
-          "sha256": "1c6ed6ab4a8687a1b7818e20d6bcf046fdf308a5cc516394b6223866c640336a",
+          "sha256": "35a0e44e6e0e39b5ec6ad8965243d53adc0ca7bad15a449a556d4858754f4eeb",
           "palette_from": "lib-arbok-s-6e278706e810"
         },
         "row_map": [
@@ -207,7 +207,8 @@
     "tool": "builtin-imagegen",
     "prompt": "Create a new pixel-art game animation sheet for Arbok, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
     "source_image": "arbok-cardinal.png",
-    "source_sha256": "b18dc7a0379c340a006878214aaabaa7f9713a8606a9212b8ed01f9bcf6ba981"
+    "source_sha256": "b18dc7a0379c340a006878214aaabaa7f9713a8606a9212b8ed01f9bcf6ba981",
+    "source_record": "arbok-cardinal.json"
   },
   "reviewed": true,
   "shiny_reviewed": true

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "farfetchd",
+        "tool": "builtin-imagegen",
+        "source_sha256": "eb7ccad17cedc4308b11f3053d01b8961f6cc5096c4e3352c81ee15bd2e4c929",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 83,
+          "form": "",
+          "key": "lib-farfetchd-n-2a67fdea7d41"
+        },
+        "sha256": "0c70d45147efe84d25f0b5947d6c0e09b734fd46713bb832e74a26c699535b46"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "farfetchd",
+        "tool": "builtin-imagegen",
+        "source_sha256": "eb7ccad17cedc4308b11f3053d01b8961f6cc5096c4e3352c81ee15bd2e4c929",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 83,
+          "form": "",
+          "key": "lib-farfetchd-n-2a67fdea7d41"
+        },
+        "sha256": "7d31d33254853c37a65dc761bcbb1d702a107234d876102dfd3b37e0905bb574"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "farfetchd",
+          "tool": "builtin-imagegen",
+          "source_sha256": "eb7ccad17cedc4308b11f3053d01b8961f6cc5096c4e3352c81ee15bd2e4c929",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 83,
+            "form": "",
+            "key": "lib-farfetchd-n-2a67fdea7d41"
+          },
+          "sha256": "670a2ffcdd5eb54dad784c02efc3c3440d3bf2274e270fab669f975c7d5675d2",
+          "palette_from": "lib-farfetchd-s-a64ca32987a0"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "farfetchd",
+          "tool": "builtin-imagegen",
+          "source_sha256": "eb7ccad17cedc4308b11f3053d01b8961f6cc5096c4e3352c81ee15bd2e4c929",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 83,
+            "form": "",
+            "key": "lib-farfetchd-n-2a67fdea7d41"
+          },
+          "sha256": "3b9ea7faa6364d93c4414d5d23400c16aec52024aab8fd70fd04c8b3112dabc5",
+          "palette_from": "lib-farfetchd-s-a64ca32987a0"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "farfetchd",
+    "num": 83,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Farfetch\u2019d, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "farfetchd-cardinal.png",
+    "source_sha256": "eb7ccad17cedc4308b11f3053d01b8961f6cc5096c4e3352c81ee15bd2e4c929",
+    "source_record": "farfetchd-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

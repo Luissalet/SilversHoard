@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "lickitung",
+        "tool": "builtin-imagegen",
+        "source_sha256": "622356cec89f28b749a5dc2d9b921bd564872408aecdfa953e0167416b212569",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 108,
+          "form": "",
+          "key": "lib-lickitung-n-26af8cd24b11"
+        },
+        "sha256": "fc2d3080a44050051563f48f053419b5b4041ea363e405ba9fc6fb3ca1e804cd"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "lickitung",
+        "tool": "builtin-imagegen",
+        "source_sha256": "622356cec89f28b749a5dc2d9b921bd564872408aecdfa953e0167416b212569",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 108,
+          "form": "",
+          "key": "lib-lickitung-n-26af8cd24b11"
+        },
+        "sha256": "e74a0ac0dff8bbcb62fd56acbaa3bab19c617c587072180a916821d4522bf8d5"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "lickitung",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9834cff4a188084986b1b0cc54c703fbc90e79137784be11021e02f176973d3e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 108,
+            "form": "",
+            "key": "lib-lickitung-s-7097d68034b8"
+          },
+          "sha256": "c02a310d0c07d6449af900ca3ec73d62cc5536ba602b837b309e08a7366273fb"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "lickitung",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9834cff4a188084986b1b0cc54c703fbc90e79137784be11021e02f176973d3e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 108,
+            "form": "",
+            "key": "lib-lickitung-s-7097d68034b8"
+          },
+          "sha256": "446f1299c516f07e144245973f25773c176324dd954785c254d374abca5afee6"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "lickitung",
+    "num": 108,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Lickitung, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "lickitung-cardinal.png",
+    "source_sha256": "622356cec89f28b749a5dc2d9b921bd564872408aecdfa953e0167416b212569",
+    "source_record": "lickitung-cardinal.json",
+    "shiny_source_image": "lickitung-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Image1 is the EDIT TARGET: a complete transparent8-column x4-row pixel-art atlas with32poses. Image2 is ONLY the exact native SHINY COLOR reference. Recolour image1 to match image2. Body becomes shiny GOLDEN-YELLOW but the whole long TONGUE remains PINK. Do not colour any part of the tongue yellow. Keep cream/white belly markings. CHANGE COLOURS ONLY. Preserve all32physical poses, all4fixed row cameras, anatomy, part count, pixel clusters, exact silhouettes, same complete8x4layout, generous gutters and transparent alpha zero outside sprites. Do not replace any pose with the idle reference, do not turn any character or add effects. No text, background, shadows, smooth illustration or redesign."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

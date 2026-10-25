@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "exeggcute",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b3533e919c97cf3be432ec106586601d8b4471b2f227988f497381a73874e426",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 102,
+          "form": "",
+          "key": "lib-exeggcute-n-5c81d0fb5d6a"
+        },
+        "sha256": "7436d888c44684e13bf33f1da16026e05778e63b8d99dc1b459ed4ff7cc095b0"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "exeggcute",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b3533e919c97cf3be432ec106586601d8b4471b2f227988f497381a73874e426",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 102,
+          "form": "",
+          "key": "lib-exeggcute-n-5c81d0fb5d6a"
+        },
+        "sha256": "af42089e64bf4a10642d488705feec80fa4829fe980eecccee958dfa108483b0"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "exeggcute",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b3533e919c97cf3be432ec106586601d8b4471b2f227988f497381a73874e426",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 102,
+            "form": "",
+            "key": "lib-exeggcute-n-5c81d0fb5d6a"
+          },
+          "sha256": "9b4730191e2de3dbdf958feb37cbd669b2ccba04c5d3c3f3d2db936d21a62913",
+          "palette_from": "lib-exeggcute-s-7b97976370fd"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "exeggcute",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b3533e919c97cf3be432ec106586601d8b4471b2f227988f497381a73874e426",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 102,
+            "form": "",
+            "key": "lib-exeggcute-n-5c81d0fb5d6a"
+          },
+          "sha256": "94bd741adde792f21629389ded5ae8c185e48a324be4083a3be91436eae62a37",
+          "palette_from": "lib-exeggcute-s-7b97976370fd"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "exeggcute",
+    "num": 102,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Exeggcute, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "exeggcute-cardinal.png",
+    "source_sha256": "b3533e919c97cf3be432ec106586601d8b4471b2f227988f497381a73874e426",
+    "source_record": "exeggcute-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

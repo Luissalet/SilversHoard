@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "electrode",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5fb90581d78a836206d124415064088d8fd72ccbf952785ccc2e097f5475454b",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 101,
+          "form": "",
+          "key": "lib-electrode-n-fda7d4b6e6c4"
+        },
+        "sha256": "1d64649ea33a66a7d6d53815db2f4d035991e92de5afdc4783abbca0484fc39f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "electrode",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5fb90581d78a836206d124415064088d8fd72ccbf952785ccc2e097f5475454b",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 101,
+          "form": "",
+          "key": "lib-electrode-n-fda7d4b6e6c4"
+        },
+        "sha256": "8bccd1a2cba169a0e2908148441d6cd10fad906d90653c36b153eeb8e5d9a74f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "electrode",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5fb90581d78a836206d124415064088d8fd72ccbf952785ccc2e097f5475454b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 101,
+            "form": "",
+            "key": "lib-electrode-n-fda7d4b6e6c4"
+          },
+          "sha256": "a9fd03e22b50ca32d8e59e81aeda57ee44ba29e0f25ef1ed64eee5051d052f2a",
+          "palette_from": "lib-electrode-s-46c13c504730"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "electrode",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5fb90581d78a836206d124415064088d8fd72ccbf952785ccc2e097f5475454b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 101,
+            "form": "",
+            "key": "lib-electrode-n-fda7d4b6e6c4"
+          },
+          "sha256": "9e740d83d5bc112eef23e3d252cda8d5954c601d196e16f324fae3e43fde5024",
+          "palette_from": "lib-electrode-s-46c13c504730"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "electrode",
+    "num": 101,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Electrode, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "electrode-cardinal.png",
+    "source_sha256": "5fb90581d78a836206d124415064088d8fd72ccbf952785ccc2e097f5475454b",
+    "source_record": "electrode-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

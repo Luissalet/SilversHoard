@@ -1,0 +1,19 @@
+{
+  "id": "sandslashalola",
+  "name": "Sandslash-Alola",
+  "num": 28,
+  "form": "Alola",
+  "directions": 4,
+  "frames": 4,
+  "image": "sandslashalola-cardinal-v2.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Precise local pose correction to this complete transparent 8-column 4-row pixel-art atlas. Edit ONLY row3, columns7 and8: these two prone poses wrongly turn to show the face in profile. Redraw those TWO sprites as a fully lying AL0LAN SANDSLASH seen strictly from BEHIND, facing away from the viewer. The blue ice-spike back and back of head face the viewer; white muzzle, face and eyes are completely hidden on the far side. Keep its body flat on the floor with folded limbs and all characteristic ice spikes. Match the rear camera of row3 columns1-6. Preserve all other30sprites exactly, all colours, anatomy, scale, pixel style, layout, gutters and transparent alpha. No background or effects. Output the full same atlas with those two rear-facing prone poses corrected.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-corrections1.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

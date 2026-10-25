@@ -131,7 +131,7 @@
             "form": "",
             "key": "lib-weedle-n-c6e4337af544"
           },
-          "sha256": "ec7b16c0a9197cc9d4a0376930b74394aed7f604e689e3644ed4f5dcbbfd8a98",
+          "sha256": "a8044d3dc29e40dc37d863e9a9fd2b1ab3a8fb4d51ae3c258a68b656ac4ab795",
           "palette_from": "lib-weedle-s-a8950f0d8e6f"
         },
         "row_map": [
@@ -177,7 +177,7 @@
             "form": "",
             "key": "lib-weedle-n-c6e4337af544"
           },
-          "sha256": "39fee6d1acfa54939d37fc4917548b272caea3942d9d814372259cb8cfd5cc2a",
+          "sha256": "73e31bd4d89d1f61b51fa6a375673946feb4b9d27fae1447ff47c4d63de2591d",
           "palette_from": "lib-weedle-s-a8950f0d8e6f"
         },
         "row_map": [
@@ -207,7 +207,8 @@
     "tool": "builtin-imagegen",
     "prompt": "Create a new pixel-art game animation sheet for Weedle, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
     "source_image": "weedle-cardinal.png",
-    "source_sha256": "5c495e29b20c6d2cdc25a1d46c06beb28e2fa30dc578f787c5467b7e601fd3f8"
+    "source_sha256": "5c495e29b20c6d2cdc25a1d46c06beb28e2fa30dc578f787c5467b7e601fd3f8",
+    "source_record": "weedle-cardinal.json"
   },
   "reviewed": true,
   "shiny_reviewed": true

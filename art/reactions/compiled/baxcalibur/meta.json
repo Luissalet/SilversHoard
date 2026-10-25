@@ -127,7 +127,7 @@
             "form": "",
             "key": "lib-baxcalibur-n-9e9aff46b24c"
           },
-          "sha256": "3f050bf92a582a9c3a400dcc37846c2a28428eef9091cf4843697e4f4c5f630b",
+          "sha256": "ab4285a5e84aaede68c5a7fea5472c76c048fb5c03eecada6c35024cb45b123e",
           "palette_from": "lib-baxcalibur-s-28873cbb926b"
         }
       },
@@ -167,7 +167,7 @@
             "form": "",
             "key": "lib-baxcalibur-n-9e9aff46b24c"
           },
-          "sha256": "bea5a8b70d95cd92b539fd4b9e0f38a1fbdbbfc765c923c257968ed6f8331a0a",
+          "sha256": "24a8bb199dc15ecc691b2c84444e81c206fc5d555d46ce70d5f9f72017e03002",
           "palette_from": "lib-baxcalibur-s-28873cbb926b"
         },
         "ground_frames": [
@@ -191,7 +191,8 @@
     "tool": "builtin-imagegen",
     "prompt": "EDIT THIS PRE-LAID-OUT SPRITE ATLAS IN PLACE. Every cell already contains the correct Pokemon, correct form, correct facing, correct pixel size and correct anchor. These are strict invariants: preserve the exact number of rows/columns, preserve every cell's camera/facing (especially the BACK views), preserve all identifying anatomy/colors/parts, preserve consistent scale. Do not turn a character towards the viewer, do not replace a back view with a face, do not alternate facing inside a row. Each row's existing facing is fixed. Transparent background and wide gutters remain transparent. Do not paste a reference strip into the output.\nRedraw the Pokemon inside each cell to make TWO new animation sequences. Columns1-4: PAIN frames \u2014 sudden wince, body bends/braces in pain, sustained hurt with head lowered and eyes shut, recovers towards ready pose. Columns5-8: HITGROUND frames \u2014 body/knees buckle, crumples onto side/front, lands fully prone with folded limbs and closed eyes, remains fully LYING defeated. Last two columns are a clearly downed pose, no getting back up. In back-facing rows the back of the head remains visible, not the face. Use genuine changes in head/limbs/body pose, not just translating/rotating/scaling the standing drawing. Keep distinctive wings, tails, flowers, axes and markings intact. Pixel art with hard pixel clusters and limited palette matching the reference; no smooth cartoon style, no text, no gridlines, no floor/shadows. Each full-body sprite stays inside its own cell. Subject is Baxcalibur.",
     "source_image": "baxcalibur-v2.png",
-    "source_sha256": "3836c2589d52dbd6d6f122e3d44204ecffa282db1fa1d6d10d071b3e562fc9c2"
+    "source_sha256": "3836c2589d52dbd6d6f122e3d44204ecffa282db1fa1d6d10d071b3e562fc9c2",
+    "source_record": "baxcalibur-v2.json"
   },
   "reviewed": true,
   "shiny_reviewed": true

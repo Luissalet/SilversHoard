@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "kabutops",
+        "tool": "builtin-imagegen",
+        "source_sha256": "dd2b8f285c25296005b246868680562e12b2de5acc6b17d96fdbe1dddef3e991",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 141,
+          "form": "",
+          "key": "lib-kabutops-n-574771517637"
+        },
+        "sha256": "da1ac2c28e290662ed14c2ab32fbed82b74356099a8f7eb8bf60da63e107c4c5"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "kabutops",
+        "tool": "builtin-imagegen",
+        "source_sha256": "dd2b8f285c25296005b246868680562e12b2de5acc6b17d96fdbe1dddef3e991",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 141,
+          "form": "",
+          "key": "lib-kabutops-n-574771517637"
+        },
+        "sha256": "b64117dfa63942fb1896cddd5b141f18bfb3527e488fb7ab1e9a0f88c81c8b2f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "kabutops",
+          "tool": "builtin-imagegen",
+          "source_sha256": "dd2b8f285c25296005b246868680562e12b2de5acc6b17d96fdbe1dddef3e991",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 141,
+            "form": "",
+            "key": "lib-kabutops-n-574771517637"
+          },
+          "sha256": "1a220e8a5a0835e788accf9fbde05d00d571ba2d61eb6fd9c10c987b98599b5c",
+          "palette_from": "lib-kabutops-s-7773b44e8de0"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "kabutops",
+          "tool": "builtin-imagegen",
+          "source_sha256": "dd2b8f285c25296005b246868680562e12b2de5acc6b17d96fdbe1dddef3e991",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 141,
+            "form": "",
+            "key": "lib-kabutops-n-574771517637"
+          },
+          "sha256": "60c7f84abae7330a7633d340542e023dbedb140409282f32b181c78b0d66b8fc",
+          "palette_from": "lib-kabutops-s-7773b44e8de0"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "kabutops",
+    "num": 141,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Kabutops, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "kabutops-cardinal.png",
+    "source_sha256": "dd2b8f285c25296005b246868680562e12b2de5acc6b17d96fdbe1dddef3e991",
+    "source_record": "kabutops-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}
