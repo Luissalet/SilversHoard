@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "abomasnowmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ee09b3bc19de97af61a2579752e49590d068c5ddc89581214ca995ba678822a1",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 460,
+          "form": "Mega",
+          "key": "lib-abomasnowmega-n-4efa07079806"
+        },
+        "sha256": "dbff9d26bb4c2e3a6863129b2082ae181c580198d440067051dcf0ee320e212d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "abomasnowmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ee09b3bc19de97af61a2579752e49590d068c5ddc89581214ca995ba678822a1",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 460,
+          "form": "Mega",
+          "key": "lib-abomasnowmega-n-4efa07079806"
+        },
+        "sha256": "df80a0af1a0c144210050966c277a53f7cb006ee2b09ceb698cb07ac2e77e0b8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "abomasnowmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ee09b3bc19de97af61a2579752e49590d068c5ddc89581214ca995ba678822a1",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 460,
+            "form": "Mega",
+            "key": "lib-abomasnowmega-n-4efa07079806"
+          },
+          "sha256": "03208e31686e3d5b6ae0a66798cc422b2b5a41c89a6d623cb40199289ee2c338",
+          "palette_from": "lib-abomasnowmega-s-e36b844dcf24"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "abomasnowmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ee09b3bc19de97af61a2579752e49590d068c5ddc89581214ca995ba678822a1",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 460,
+            "form": "Mega",
+            "key": "lib-abomasnowmega-n-4efa07079806"
+          },
+          "sha256": "f3e3bb9d5f9719d81aa4297abdfd499e5ba586057888c4d4c50a95746f5d803a",
+          "palette_from": "lib-abomasnowmega-s-e36b844dcf24"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "abomasnowmega",
+    "num": 460,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Abomasnow-Mega, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "abomasnowmega-cardinal.png",
+    "source_sha256": "ee09b3bc19de97af61a2579752e49590d068c5ddc89581214ca995ba678822a1",
+    "source_record": "abomasnowmega-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "escavalier",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0173476f4663f58a097cd66ef32922e3a09b16ee36e97fde0e397faaf2d8c8d6",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 589,
+          "form": "",
+          "key": "lib-escavalier-n-335a25862b92"
+        },
+        "sha256": "529a707dc95a9dad2d94fd4c6e70f8bae6b57bec12e9d8ccefe784f6e61c8c1e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "escavalier",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0173476f4663f58a097cd66ef32922e3a09b16ee36e97fde0e397faaf2d8c8d6",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 589,
+          "form": "",
+          "key": "lib-escavalier-n-335a25862b92"
+        },
+        "sha256": "2f0e83566f448b21232dfbfebadb63bfa9ed8eb889c3a7df672ea921809d0aa5"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "escavalier",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0173476f4663f58a097cd66ef32922e3a09b16ee36e97fde0e397faaf2d8c8d6",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 589,
+            "form": "",
+            "key": "lib-escavalier-n-335a25862b92"
+          },
+          "sha256": "306a9d9f51b53aa87d7664af9485c920e4dd599491b35baba9383053f7a7c715",
+          "palette_from": "lib-escavalier-s-ce288be64a34"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "escavalier",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0173476f4663f58a097cd66ef32922e3a09b16ee36e97fde0e397faaf2d8c8d6",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 589,
+            "form": "",
+            "key": "lib-escavalier-n-335a25862b92"
+          },
+          "sha256": "475cf072be73603286820e3bdecb3b31fdaafb56912dbddf3325654c8f024132",
+          "palette_from": "lib-escavalier-s-ce288be64a34"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "escavalier",
+    "num": 589,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Escavalier, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "escavalier-cardinal.png",
+    "source_sha256": "0173476f4663f58a097cd66ef32922e3a09b16ee36e97fde0e397faaf2d8c8d6",
+    "source_record": "escavalier-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "zebstrika",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f7de242839da3afb5e847073094ef619214932bff921be07ffdff417599c497d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 523,
+          "form": "",
+          "key": "lib-zebstrika-n-d1fe2f4e33e7"
+        },
+        "sha256": "674361e2e84348d994ed32778ed2e42e336ee32619b4336abb6bd6bdfd15c6fb"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "zebstrika",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f7de242839da3afb5e847073094ef619214932bff921be07ffdff417599c497d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 523,
+          "form": "",
+          "key": "lib-zebstrika-n-d1fe2f4e33e7"
+        },
+        "sha256": "204a0a5b9338f6a47a635aac9f2aa76a259d97a1972f13c66400b623e3033828"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "zebstrika",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f7de242839da3afb5e847073094ef619214932bff921be07ffdff417599c497d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 523,
+            "form": "",
+            "key": "lib-zebstrika-n-d1fe2f4e33e7"
+          },
+          "sha256": "b6ca947b4526da0b7b8a9531c881427eb2c3b6e83f06d7a19167beeee3790550",
+          "palette_from": "lib-zebstrika-s-70eefaec82ef"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "zebstrika",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f7de242839da3afb5e847073094ef619214932bff921be07ffdff417599c497d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 523,
+            "form": "",
+            "key": "lib-zebstrika-n-d1fe2f4e33e7"
+          },
+          "sha256": "27d8df12401aade4dd8fbda93e9b5541cf30212ddbb2750ba10180d28bf4aaea",
+          "palette_from": "lib-zebstrika-s-70eefaec82ef"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "zebstrika",
+    "num": 523,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Zebstrika, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "zebstrika-cardinal.png",
+    "source_sha256": "f7de242839da3afb5e847073094ef619214932bff921be07ffdff417599c497d",
+    "source_record": "zebstrika-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

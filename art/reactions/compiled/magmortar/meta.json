@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "magmortar",
+        "tool": "builtin-imagegen",
+        "source_sha256": "2a8cb053f31f6700dd26a96b6d9c0620ff77d0f8284f9e1f97ae61f9d61d41b5",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 467,
+          "form": "",
+          "key": "lib-magmortar-n-6718c518637a"
+        },
+        "sha256": "a120403f1a39ad750fb08efcb525039ce65702b6ef3747ff3b46c1bd2c0679cb"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "magmortar",
+        "tool": "builtin-imagegen",
+        "source_sha256": "2a8cb053f31f6700dd26a96b6d9c0620ff77d0f8284f9e1f97ae61f9d61d41b5",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 467,
+          "form": "",
+          "key": "lib-magmortar-n-6718c518637a"
+        },
+        "sha256": "63899a8b0311c9eddf1c637c40b5f09eabe86a130b50e32cd64fcb79a5921bc4"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "magmortar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "2a8cb053f31f6700dd26a96b6d9c0620ff77d0f8284f9e1f97ae61f9d61d41b5",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 467,
+            "form": "",
+            "key": "lib-magmortar-n-6718c518637a"
+          },
+          "sha256": "33e2af9495f10c8fc0d47cf3a654b8e1bab0b6d20abd21d38c4a46d8b83697b7",
+          "palette_from": "lib-magmortar-s-8345ade21e2e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "magmortar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "2a8cb053f31f6700dd26a96b6d9c0620ff77d0f8284f9e1f97ae61f9d61d41b5",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 467,
+            "form": "",
+            "key": "lib-magmortar-n-6718c518637a"
+          },
+          "sha256": "e6db158ffa5a867332bd5e44615036fbcbad3308fc359817245f730c468e8382",
+          "palette_from": "lib-magmortar-s-8345ade21e2e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "magmortar",
+    "num": 467,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Magmortar, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "magmortar-cardinal.png",
+    "source_sha256": "2a8cb053f31f6700dd26a96b6d9c0620ff77d0f8284f9e1f97ae61f9d61d41b5",
+    "source_record": "magmortar-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

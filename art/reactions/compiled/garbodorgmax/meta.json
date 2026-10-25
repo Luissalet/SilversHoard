@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "garbodorgmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "439dc3c5940cc762e1b2616c1b20ab66e13f8088f164f919de52b5278b265da8",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 569,
+          "form": "Gmax",
+          "key": "lib-garbodorgmax-n-3a5d2c954b49"
+        },
+        "sha256": "81d4a82682a252b50cd9f09d185b27f00bb6db000aa5efac5047f04b393500f2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "garbodorgmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "439dc3c5940cc762e1b2616c1b20ab66e13f8088f164f919de52b5278b265da8",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 569,
+          "form": "Gmax",
+          "key": "lib-garbodorgmax-n-3a5d2c954b49"
+        },
+        "sha256": "d43879d8c4398a90b0403ac2a580a28a3e5dfbeb36371d904ee0d41def1a8fbf"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "garbodorgmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8aed5cbf710dc22228912af1532e0ee159fee00969fb204dc62eed1cea99bd22",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 569,
+            "form": "Gmax",
+            "key": "lib-garbodorgmax-s-c896dea6ec97"
+          },
+          "sha256": "16e00535b40b724601a727884939f5cf5020e44d0ecba73039d8e51c840dd73e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "garbodorgmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8aed5cbf710dc22228912af1532e0ee159fee00969fb204dc62eed1cea99bd22",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 569,
+            "form": "Gmax",
+            "key": "lib-garbodorgmax-s-c896dea6ec97"
+          },
+          "sha256": "1a3d519dc0180eb76ce8e138bc96ead6069fcdb26d43a113b911b17190d5ac56"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "garbodorgmax",
+    "num": 569,
+    "form": "Gmax",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Garbodor-Gmax, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "garbodorgmax-cardinal.png",
+    "source_sha256": "439dc3c5940cc762e1b2616c1b20ab66e13f8088f164f919de52b5278b265da8",
+    "source_record": "garbodorgmax-cardinal.json",
+    "shiny_source_image": "garbodorgmax-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Recolour transparent8column4row pixel-art game atlas image1 to EXACT NATIVE SHINY colours in image2. The large central main body is DARK TEAL/CYAN BLUE, separate from brown/beige refuse at bottom and sides. Keep pink eye/mouth features, bright pink/red cloud crown, small colourful debris, toy boat/train/building and all attached objects as in native reference. Do not recolour refuse into teal; only main creature skin. Preserve all32 poses, anatomy and complete object count, exact grid, fixed FRONT/RIGHT/REAR/LEFT cameras, crisp pixels and wide transparent gutters. No added objects/effects/text."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

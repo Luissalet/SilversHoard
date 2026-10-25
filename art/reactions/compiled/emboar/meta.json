@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "emboar",
+        "tool": "builtin-imagegen",
+        "source_sha256": "185c11abf7517797c757e59625adbbda40b0e50ff1bdb96538e737230ad83179",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 500,
+          "form": "",
+          "key": "lib-emboar-n-0ae74c210197"
+        },
+        "sha256": "b30add6515c3fc1bc528639ebbac7b6455cd7c9a1bcd9a86b5a653a0bf3b5ef0"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "emboar",
+        "tool": "builtin-imagegen",
+        "source_sha256": "185c11abf7517797c757e59625adbbda40b0e50ff1bdb96538e737230ad83179",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 500,
+          "form": "",
+          "key": "lib-emboar-n-0ae74c210197"
+        },
+        "sha256": "106f97ca70d85b1416fc7100a3f93e8aaa779722f1e6843756c60d9e08276cb1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "emboar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "185c11abf7517797c757e59625adbbda40b0e50ff1bdb96538e737230ad83179",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 500,
+            "form": "",
+            "key": "lib-emboar-n-0ae74c210197"
+          },
+          "sha256": "fd4b072ebfe6a699c8788830afa55106908734916b6ca049e803da8491212f51",
+          "palette_from": "lib-emboar-s-80549b4448c0"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "emboar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "185c11abf7517797c757e59625adbbda40b0e50ff1bdb96538e737230ad83179",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 500,
+            "form": "",
+            "key": "lib-emboar-n-0ae74c210197"
+          },
+          "sha256": "08e0b3141f25fb24e97aea1e264eeee323115456d9639eaecb97741c5c431146",
+          "palette_from": "lib-emboar-s-80549b4448c0"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "emboar",
+    "num": 500,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Emboar, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "emboar-cardinal.png",
+    "source_sha256": "185c11abf7517797c757e59625adbbda40b0e50ff1bdb96538e737230ad83179",
+    "source_record": "emboar-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

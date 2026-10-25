@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "mandibuzz",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7c7c078b195c0623b4bd571b575c48bd556c802cc050aa5a1f368fac846a50a5",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 630,
+          "form": "",
+          "key": "lib-mandibuzz-n-55f83b3dcc7e"
+        },
+        "sha256": "d3b9df33c417d33c63acadc2b370dcb3c9ee7fe16f73d258bf29ecdf83164868"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "mandibuzz",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7c7c078b195c0623b4bd571b575c48bd556c802cc050aa5a1f368fac846a50a5",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 630,
+          "form": "",
+          "key": "lib-mandibuzz-n-55f83b3dcc7e"
+        },
+        "sha256": "b83dbe8d00f06e4d900f77d5f9fa5beb85b5bf7e5631292c3d380569ebd3004d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "mandibuzz",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7c7c078b195c0623b4bd571b575c48bd556c802cc050aa5a1f368fac846a50a5",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 630,
+            "form": "",
+            "key": "lib-mandibuzz-n-55f83b3dcc7e"
+          },
+          "sha256": "29393938cad0f8bf84026de545f1145959818237fd1ea101fbb7696742f8d2cf",
+          "palette_from": "lib-mandibuzz-s-51a232986be8"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "mandibuzz",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7c7c078b195c0623b4bd571b575c48bd556c802cc050aa5a1f368fac846a50a5",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 630,
+            "form": "",
+            "key": "lib-mandibuzz-n-55f83b3dcc7e"
+          },
+          "sha256": "8cc0c51572e30d5c64c56c9114399c0b350007cd1bec2e144eb4c6ac70cf4281",
+          "palette_from": "lib-mandibuzz-s-51a232986be8"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "mandibuzz",
+    "num": 630,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Mandibuzz, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "mandibuzz-cardinal.png",
+    "source_sha256": "7c7c078b195c0623b4bd571b575c48bd556c802cc050aa5a1f368fac846a50a5",
+    "source_record": "mandibuzz-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

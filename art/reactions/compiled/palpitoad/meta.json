@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "palpitoad",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f2b994e6c56f6043e6378c09cfe923a09096006ec95145de1d5f302114043b4e",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 536,
+          "form": "",
+          "key": "lib-palpitoad-n-30e7c2162e9f"
+        },
+        "sha256": "fa9393dbca4aa529fa3dfd47861e343eedc47c3ba4474cb99216f50d4eb2df82"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "palpitoad",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f2b994e6c56f6043e6378c09cfe923a09096006ec95145de1d5f302114043b4e",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 536,
+          "form": "",
+          "key": "lib-palpitoad-n-30e7c2162e9f"
+        },
+        "sha256": "765515120eb4ea4cc6c5fd1e12aa0198f63ed0beeeac4ce4a6f482b90c0d4467"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "palpitoad",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f2b994e6c56f6043e6378c09cfe923a09096006ec95145de1d5f302114043b4e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 536,
+            "form": "",
+            "key": "lib-palpitoad-n-30e7c2162e9f"
+          },
+          "sha256": "f78c0aa09095432f01cdd93c6d82193ad765c57ea498da65e9445e8e9cddbc78",
+          "palette_from": "lib-palpitoad-s-085300a7a12c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "palpitoad",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f2b994e6c56f6043e6378c09cfe923a09096006ec95145de1d5f302114043b4e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 536,
+            "form": "",
+            "key": "lib-palpitoad-n-30e7c2162e9f"
+          },
+          "sha256": "e21e48889a0d15b654b29e0ed9d48fb574f970bb3e99332cd52079855211b47e",
+          "palette_from": "lib-palpitoad-s-085300a7a12c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "palpitoad",
+    "num": 536,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Palpitoad, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "palpitoad-cardinal.png",
+    "source_sha256": "f2b994e6c56f6043e6378c09cfe923a09096006ec95145de1d5f302114043b4e",
+    "source_record": "palpitoad-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

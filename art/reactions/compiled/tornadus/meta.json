@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tornadus",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5ee526bba97f9e322ed986e2e7a9dcb30e47fd37f74dacc3307559b0c0157cdb",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 641,
+          "form": "",
+          "key": "lib-tornadus-n-90e0816d5b36"
+        },
+        "sha256": "572493e8c01d0c58cd09d04cd9248d00efaac453f4d01dbe0977f474e8f09c90"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tornadus",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5ee526bba97f9e322ed986e2e7a9dcb30e47fd37f74dacc3307559b0c0157cdb",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 641,
+          "form": "",
+          "key": "lib-tornadus-n-90e0816d5b36"
+        },
+        "sha256": "255cc3ce34004232ff53940cf4ba429cc8686c49d7d435ad84c168df6cdd2914"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tornadus",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5ee526bba97f9e322ed986e2e7a9dcb30e47fd37f74dacc3307559b0c0157cdb",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 641,
+            "form": "",
+            "key": "lib-tornadus-n-90e0816d5b36"
+          },
+          "sha256": "4ccc8cfc0c960e7885e0a18f639aff5dd315fbb4e686511a4a49e193e560342d",
+          "palette_from": "lib-tornadus-s-299ac82fec6b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tornadus",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5ee526bba97f9e322ed986e2e7a9dcb30e47fd37f74dacc3307559b0c0157cdb",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 641,
+            "form": "",
+            "key": "lib-tornadus-n-90e0816d5b36"
+          },
+          "sha256": "d98e595418a74307ae64f8829d5eec1aa101fb34ea52f619be8e211188c24fdf",
+          "palette_from": "lib-tornadus-s-299ac82fec6b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "tornadus",
+    "num": 641,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Tornadus, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "tornadus-cardinal.png",
+    "source_sha256": "5ee526bba97f9e322ed986e2e7a9dcb30e47fd37f74dacc3307559b0c0157cdb",
+    "source_record": "tornadus-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

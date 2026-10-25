@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "lilliganthisui",
+        "tool": "builtin-imagegen",
+        "source_sha256": "267ac06df9d3e4c5a0422350f5efd27139ba26a746b3d4120dd638494abe0d36",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 549,
+          "form": "Hisui",
+          "key": "lib-lilliganthisui-n-303c3e6e92c5"
+        },
+        "sha256": "24b25f0838c3d002119060a8bc13e281881826cdbfc198ecf42da4d8517c4167"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "lilliganthisui",
+        "tool": "builtin-imagegen",
+        "source_sha256": "267ac06df9d3e4c5a0422350f5efd27139ba26a746b3d4120dd638494abe0d36",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 549,
+          "form": "Hisui",
+          "key": "lib-lilliganthisui-n-303c3e6e92c5"
+        },
+        "sha256": "d477281038b583e9857d334cf33952db637f3f378b68e35a2cd8c93eaa76e2a4"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "lilliganthisui",
+          "tool": "builtin-imagegen",
+          "source_sha256": "267ac06df9d3e4c5a0422350f5efd27139ba26a746b3d4120dd638494abe0d36",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 549,
+            "form": "Hisui",
+            "key": "lib-lilliganthisui-n-303c3e6e92c5"
+          },
+          "sha256": "1d71399f5f8c337d922aa6d9de6b586c6e2da79774d7de8abec0b77e69bdf3ec",
+          "palette_from": "lib-lilliganthisui-s-573dd215dd8a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "lilliganthisui",
+          "tool": "builtin-imagegen",
+          "source_sha256": "267ac06df9d3e4c5a0422350f5efd27139ba26a746b3d4120dd638494abe0d36",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 549,
+            "form": "Hisui",
+            "key": "lib-lilliganthisui-n-303c3e6e92c5"
+          },
+          "sha256": "a59c6a74123c2f9bbb95026d36b73ad9e55ab013715ae3f0f17004daad9cea60",
+          "palette_from": "lib-lilliganthisui-s-573dd215dd8a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "lilliganthisui",
+    "num": 549,
+    "form": "Hisui",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Lilligant-Hisui, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "lilliganthisui-cardinal.png",
+    "source_sha256": "267ac06df9d3e4c5a0422350f5efd27139ba26a746b3d4120dd638494abe0d36",
+    "source_record": "lilliganthisui-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

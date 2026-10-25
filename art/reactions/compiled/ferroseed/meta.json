@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ferroseed",
+        "tool": "builtin-imagegen",
+        "source_sha256": "59b5316a1543dd4f0d94d0f0cbbab1fccf23ab6fc1b1e504e3dcce2c987f0f97",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 597,
+          "form": "",
+          "key": "lib-ferroseed-n-2daa6dccfcd6"
+        },
+        "sha256": "f96611476e74ff1e2b2871869b419ae3d265650b6c75fb7e7c1e8822f6c1e984"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ferroseed",
+        "tool": "builtin-imagegen",
+        "source_sha256": "59b5316a1543dd4f0d94d0f0cbbab1fccf23ab6fc1b1e504e3dcce2c987f0f97",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 597,
+          "form": "",
+          "key": "lib-ferroseed-n-2daa6dccfcd6"
+        },
+        "sha256": "a77305daf07b00628af6e7290e7db6d2b073491e8a115539de1da76d88a9d160"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ferroseed",
+          "tool": "builtin-imagegen",
+          "source_sha256": "59b5316a1543dd4f0d94d0f0cbbab1fccf23ab6fc1b1e504e3dcce2c987f0f97",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 597,
+            "form": "",
+            "key": "lib-ferroseed-n-2daa6dccfcd6"
+          },
+          "sha256": "8d083f75ef73da945e8a3fb12caabf0e203cf9b571394af60e545cb2d81e09a8",
+          "palette_from": "lib-ferroseed-s-088317da8bcc"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ferroseed",
+          "tool": "builtin-imagegen",
+          "source_sha256": "59b5316a1543dd4f0d94d0f0cbbab1fccf23ab6fc1b1e504e3dcce2c987f0f97",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 597,
+            "form": "",
+            "key": "lib-ferroseed-n-2daa6dccfcd6"
+          },
+          "sha256": "e5bb13e6af948d50d41ed3c3350215b8af0b4f2f79f405c694487c0ab6b54795",
+          "palette_from": "lib-ferroseed-s-088317da8bcc"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "ferroseed",
+    "num": 597,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Ferroseed, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "ferroseed-cardinal.png",
+    "source_sha256": "59b5316a1543dd4f0d94d0f0cbbab1fccf23ab6fc1b1e504e3dcce2c987f0f97",
+    "source_record": "ferroseed-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

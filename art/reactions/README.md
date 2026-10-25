@@ -15,6 +15,8 @@ Four-heading sheets author S/E/N/W and map diagonal headings explicitly through
 mirrored direction or native frame used during assembly. It does not count that
 frame as a newly drawn pose. Normal and shiny have separate visual acceptance;
 a missing or rejected shiny never publishes normal colours as a shiny copy.
+Declared native frames retain their exact original RGBA pixels in both palettes,
+including after the generated frames receive their shiny palette transfer.
 Falinks reuses newly drawn leader/trooper component poses in its six-member
 formation. Metadata records that composition and the native formation anchor
 for each heading; these are not six independently drawn groups.
@@ -35,10 +37,10 @@ credits remain unchanged.
 
 Task 1503 is in progress. The initial audit found 1,201 normal forms needing at
 least one new reaction; shiny palettes must also be derived and checked before
-installation. There are reviewed raster exports for 806 normal/shiny variants,
-with both actions. The pack uses 802 new Pain and 803 new HitGround sequences;
+installation. There are reviewed raster exports for 1,135 normal/shiny variants,
+with both actions. The pack uses 1,125 new Pain and 1,132 new HitGround sequences;
 existing published reactions take priority where already available. Pain still
-has 1,605 variants using the previous runtime fallback, and HitGround has 1,619.
+has 1,282 variants using the previous runtime fallback, and HitGround has 1,290.
 This directory does not establish complete
 roster coverage. Source prompts and per-frame provenance accompany each accepted
 export. Rejected candidates remain outside the generated pack.

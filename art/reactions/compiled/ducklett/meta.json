@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ducklett",
+        "tool": "builtin-imagegen",
+        "source_sha256": "43c53947347bf61bbaf681bb2e281b738d8ac62e9438820fe7e8b0a1af659916",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 580,
+          "form": "",
+          "key": "lib-ducklett-n-fe784ca8e011"
+        },
+        "sha256": "148ca48f9fe957c0f3e5abbe637bce970c3f1b78b5a5731304cc6819e5de7bb2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ducklett",
+        "tool": "builtin-imagegen",
+        "source_sha256": "43c53947347bf61bbaf681bb2e281b738d8ac62e9438820fe7e8b0a1af659916",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 580,
+          "form": "",
+          "key": "lib-ducklett-n-fe784ca8e011"
+        },
+        "sha256": "8f18623bbb77a281fc583583dd0f6fbd74eba7ec0741e3b6e81722940dd057bc"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ducklett",
+          "tool": "builtin-imagegen",
+          "source_sha256": "43c53947347bf61bbaf681bb2e281b738d8ac62e9438820fe7e8b0a1af659916",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 580,
+            "form": "",
+            "key": "lib-ducklett-n-fe784ca8e011"
+          },
+          "sha256": "a596ac3c07419a3554b542fd940060fe6b2f3a150f3228bf054de078f23600e2",
+          "palette_from": "lib-ducklett-s-cac518198c59"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ducklett",
+          "tool": "builtin-imagegen",
+          "source_sha256": "43c53947347bf61bbaf681bb2e281b738d8ac62e9438820fe7e8b0a1af659916",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 580,
+            "form": "",
+            "key": "lib-ducklett-n-fe784ca8e011"
+          },
+          "sha256": "9a325e586dd3ffd3a6a483df80f4de2914e18d028decfc7460c5b0ea08a07fd2",
+          "palette_from": "lib-ducklett-s-cac518198c59"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "ducklett",
+    "num": 580,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Ducklett, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "ducklett-cardinal.png",
+    "source_sha256": "43c53947347bf61bbaf681bb2e281b738d8ac62e9438820fe7e8b0a1af659916",
+    "source_record": "ducklett-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

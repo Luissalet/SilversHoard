@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "darmanitangalarzen",
+        "tool": "builtin-imagegen",
+        "source_sha256": "852d7d3908516ad46b7df9546af2082aa93f5e33838e5b3f86f19b8a4101c705",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 555,
+          "form": "Galar-Zen",
+          "key": "lib-darmanitangalarzen-n-65f7fbd12425"
+        },
+        "sha256": "413f17b3889cc0f7706f0edd8a97c0b04151d1fe5b0c0354401124ecf8905373"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "darmanitangalarzen",
+        "tool": "builtin-imagegen",
+        "source_sha256": "852d7d3908516ad46b7df9546af2082aa93f5e33838e5b3f86f19b8a4101c705",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 555,
+          "form": "Galar-Zen",
+          "key": "lib-darmanitangalarzen-n-65f7fbd12425"
+        },
+        "sha256": "fa46211bde9669311a2991545a0425d7ae4c84c8c80b902a85e6bec0b8b9fba1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "darmanitangalarzen",
+          "tool": "builtin-imagegen",
+          "source_sha256": "21490c4509c9917f54b233e364c5e5b9a3a133c1df3668205a0559780b69a092",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 555,
+            "form": "Galar-Zen",
+            "key": "lib-darmanitangalarzen-s-0f0601de7206"
+          },
+          "sha256": "c7c87a26cc09784a6e4bbf122d19257f5bffc8485023feeb3e15cc33badeb201"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "darmanitangalarzen",
+          "tool": "builtin-imagegen",
+          "source_sha256": "21490c4509c9917f54b233e364c5e5b9a3a133c1df3668205a0559780b69a092",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 555,
+            "form": "Galar-Zen",
+            "key": "lib-darmanitangalarzen-s-0f0601de7206"
+          },
+          "sha256": "4ab44d7111e8eeab8d8941e0cc305f97dea300ad21081ec02485ebd47473a295"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "darmanitangalarzen",
+    "num": 555,
+    "form": "Galar-Zen",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Darmanitan-Galar-Zen, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "darmanitangalarzen-cardinal.png",
+    "source_sha256": "852d7d3908516ad46b7df9546af2082aa93f5e33838e5b3f86f19b8a4101c705",
+    "source_record": "darmanitangalarzen-cardinal.json",
+    "shiny_source_image": "darmanitangalarzen-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Recolour image1 transparent8column4row pixel-art atlas to EXACT native SHINY image2. The TWO LARGE HANDS/ARMS must be completely saturated PINK/MAGENTA filled shapes, matching image2, in every frontal/profile/rear frame including lying poses; do not leave orange interiors on the hands. White snowy body, pink eye/chest markings, orange/yellow head flame and orange/yellow belly detail as reference. Preserve all32 poses, two snowball body sections, all limbs, exact grid, fixed front/right/rear/left cameras, crisp pixels and transparent gutters. No extra objects, scenery, effects or text."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

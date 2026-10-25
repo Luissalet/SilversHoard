@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "boldore",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e82ccb7780f8fa8a269a3f35b3e27f76a24eed725edf3cb610bc20bd9dc4fb7d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 525,
+          "form": "",
+          "key": "lib-boldore-n-1a79b7505bed"
+        },
+        "sha256": "88f3a16a70c5eae96ee4213b7ea5cabd98116b37d6685f6958a4e42331fa4997"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "boldore",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e82ccb7780f8fa8a269a3f35b3e27f76a24eed725edf3cb610bc20bd9dc4fb7d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 525,
+          "form": "",
+          "key": "lib-boldore-n-1a79b7505bed"
+        },
+        "sha256": "75627b2ae4fb5de5571345d91f69596752d79263ed3ba293c779c534ab5c0da1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "boldore",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e82ccb7780f8fa8a269a3f35b3e27f76a24eed725edf3cb610bc20bd9dc4fb7d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 525,
+            "form": "",
+            "key": "lib-boldore-n-1a79b7505bed"
+          },
+          "sha256": "b7054729b0d490f430ebca2db2e1a975ce0fc1d575480b4ca1d070d60aecc08a",
+          "palette_from": "lib-boldore-s-2f973f6bd583"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "boldore",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e82ccb7780f8fa8a269a3f35b3e27f76a24eed725edf3cb610bc20bd9dc4fb7d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 525,
+            "form": "",
+            "key": "lib-boldore-n-1a79b7505bed"
+          },
+          "sha256": "19dfdcf69cb72a7ae748f1a6324dd5722e4e4cb1806c675e0c9cff199e2f0a95",
+          "palette_from": "lib-boldore-s-2f973f6bd583"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "boldore",
+    "num": 525,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Boldore, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "boldore-cardinal.png",
+    "source_sha256": "e82ccb7780f8fa8a269a3f35b3e27f76a24eed725edf3cb610bc20bd9dc4fb7d",
+    "source_record": "boldore-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

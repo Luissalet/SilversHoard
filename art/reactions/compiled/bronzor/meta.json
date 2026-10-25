@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "bronzor",
+        "tool": "builtin-imagegen",
+        "source_sha256": "022d53fe73ff5c126c8079bb762a1412430a80bad528cfc0eba8c5ecd99ede26",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 436,
+          "form": "",
+          "key": "lib-bronzor-n-bfb4049d2a0d"
+        },
+        "sha256": "ffc9f1be205194cd310888600d9382e7ecbe4214741196a97b4c546c3c323d7c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "bronzor",
+        "tool": "builtin-imagegen",
+        "source_sha256": "022d53fe73ff5c126c8079bb762a1412430a80bad528cfc0eba8c5ecd99ede26",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 436,
+          "form": "",
+          "key": "lib-bronzor-n-bfb4049d2a0d"
+        },
+        "sha256": "f48227f5808943a2e2a55321dbd5c943aa13984254f39764c49326ee3f35c343"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "bronzor",
+          "tool": "builtin-imagegen",
+          "source_sha256": "022d53fe73ff5c126c8079bb762a1412430a80bad528cfc0eba8c5ecd99ede26",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 436,
+            "form": "",
+            "key": "lib-bronzor-n-bfb4049d2a0d"
+          },
+          "sha256": "560af9990921f3f21831f4134c0bbf5c5cafd872344b7dc69572e7100967325c",
+          "palette_from": "lib-bronzor-s-a44785319531"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "bronzor",
+          "tool": "builtin-imagegen",
+          "source_sha256": "022d53fe73ff5c126c8079bb762a1412430a80bad528cfc0eba8c5ecd99ede26",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 436,
+            "form": "",
+            "key": "lib-bronzor-n-bfb4049d2a0d"
+          },
+          "sha256": "55d5f1e7e69346ed0a40c7d82bced71aea411a92e11c724614b8a72dd49b92a2",
+          "palette_from": "lib-bronzor-s-a44785319531"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "bronzor",
+    "num": 436,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Bronzor, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "bronzor-cardinal.png",
+    "source_sha256": "022d53fe73ff5c126c8079bb762a1412430a80bad528cfc0eba8c5ecd99ede26",
+    "source_record": "bronzor-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

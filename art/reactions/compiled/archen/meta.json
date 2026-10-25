@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "archen",
+        "tool": "builtin-imagegen",
+        "source_sha256": "99a88245927ffcc7ba5f5cfb8afa2796ae27b4b54da4bba9472dc2c3f21d3baf",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 566,
+          "form": "",
+          "key": "lib-archen-n-780cd8e8c91a"
+        },
+        "sha256": "ff9b7da086b5cbde96d82c08977b3fdf9e97623048bdcb582ead0bc46657a81e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "archen",
+        "tool": "builtin-imagegen",
+        "source_sha256": "99a88245927ffcc7ba5f5cfb8afa2796ae27b4b54da4bba9472dc2c3f21d3baf",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 566,
+          "form": "",
+          "key": "lib-archen-n-780cd8e8c91a"
+        },
+        "sha256": "6590a436f8d5dc2c89814e5e57499bb0b76e9b0b0e4faf6a4a7fa028ef7efb6e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "archen",
+          "tool": "builtin-imagegen",
+          "source_sha256": "bcd9ba244753bd92263e9a83fc2791e8465870d5ca45977767845d194f2e808e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 566,
+            "form": "",
+            "key": "lib-archen-s-5f2d234b0558"
+          },
+          "sha256": "665d12845d1be4267fbe04d3a402a6f93f9c7e605e2ce88f453dd3c01d7181a0"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "archen",
+          "tool": "builtin-imagegen",
+          "source_sha256": "bcd9ba244753bd92263e9a83fc2791e8465870d5ca45977767845d194f2e808e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 566,
+            "form": "",
+            "key": "lib-archen-s-5f2d234b0558"
+          },
+          "sha256": "1551a2d9c34fc9ce5c730d5650fa677e8e53d1db9c334820a10a635a883e1fb5"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "archen",
+    "num": 566,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Archen, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "archen-cardinal.png",
+    "source_sha256": "99a88245927ffcc7ba5f5cfb8afa2796ae27b4b54da4bba9472dc2c3f21d3baf",
+    "source_record": "archen-cardinal.json",
+    "shiny_source_image": "archen-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Recolour transparent8column4row pixel-art game atlas image1 to EXACT SHINY colours of image2. Blue crown/back-of-head plumage and blue wing/tail feathers become VIVID GREEN. Reddish head/face becomes warm ORANGE/BROWN, yellow body and broad yellow wing feathers stay yellow, pale teeth/eyes unchanged. Preserve each native material zone as in image2. Keep all32 poses, full anatomy/feather counts, exact grid, fixed front/right/rear/left cameras, crisp pixels and transparent gutters. No extra objects, scenery, effects or text."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

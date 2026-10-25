@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "timburr",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a6692a58701ce85ad5df5097fcbe4b071c2083d64778cab9bfd437f0aab7b97e",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 532,
+          "form": "",
+          "key": "lib-timburr-n-54b930fa56b1"
+        },
+        "sha256": "fdb91a67493e41ef0067b98ef680b8ad71d5e684456a019e1a8c106d242be7a2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "timburr",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a6692a58701ce85ad5df5097fcbe4b071c2083d64778cab9bfd437f0aab7b97e",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 532,
+          "form": "",
+          "key": "lib-timburr-n-54b930fa56b1"
+        },
+        "sha256": "f49fd1414054fc4c584d88a033cf194f6610f2398575bb804ea844f2c1c07b19"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "timburr",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a6692a58701ce85ad5df5097fcbe4b071c2083d64778cab9bfd437f0aab7b97e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 532,
+            "form": "",
+            "key": "lib-timburr-n-54b930fa56b1"
+          },
+          "sha256": "9b9dec2d7d5dcadaf63ad0bf9db20628bad66814ae4ee2787d1501be88f7539a",
+          "palette_from": "lib-timburr-s-60c57b266674"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "timburr",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a6692a58701ce85ad5df5097fcbe4b071c2083d64778cab9bfd437f0aab7b97e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 532,
+            "form": "",
+            "key": "lib-timburr-n-54b930fa56b1"
+          },
+          "sha256": "da603840ea8c0fdf9117b52dd17b26bd45e12836431da28ab6765729c980f58d",
+          "palette_from": "lib-timburr-s-60c57b266674"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "timburr",
+    "num": 532,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Timburr, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "timburr-cardinal.png",
+    "source_sha256": "a6692a58701ce85ad5df5097fcbe4b071c2083d64778cab9bfd437f0aab7b97e",
+    "source_record": "timburr-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

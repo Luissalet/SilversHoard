@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "garchompmegaz",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a92d60fbdeed79838ac7739da521ca10663e84efd4136243a98824a01beec218",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 445,
+          "form": "Mega-Z",
+          "key": "lib-garchompmegaz-n-6aab93a51a04"
+        },
+        "sha256": "7c92ac7b1f530c758bac05d919574736a52605a8aa8fcdcf7efc823ecb971420"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "garchompmegaz",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a92d60fbdeed79838ac7739da521ca10663e84efd4136243a98824a01beec218",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 445,
+          "form": "Mega-Z",
+          "key": "lib-garchompmegaz-n-6aab93a51a04"
+        },
+        "sha256": "8897ec0b1996009e6d36187e9f598512456658e8b5a17db585fe948ae5ea53d1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "garchompmegaz",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5a0640a5d836f22dd4e89b775e853de3fc5f7ee3554a2b820b82a5f3010a6c3f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 445,
+            "form": "Mega-Z",
+            "key": "lib-garchompmegaz-s-6a956844eb17"
+          },
+          "sha256": "7871c3380fcef907661a4463042eaf2a2b9d0b356c171996904c080e8de61034"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "garchompmegaz",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5a0640a5d836f22dd4e89b775e853de3fc5f7ee3554a2b820b82a5f3010a6c3f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 445,
+            "form": "Mega-Z",
+            "key": "lib-garchompmegaz-s-6a956844eb17"
+          },
+          "sha256": "ea558dac327daee651b4a5526f4ac6671a1bd3267ae36c2a8d77bcbf209ff0d0"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "garchompmegaz",
+    "num": 445,
+    "form": "Mega-Z",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Garchomp-Mega-Z, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "garchompmegaz-cardinal.png",
+    "source_sha256": "a92d60fbdeed79838ac7739da521ca10663e84efd4136243a98824a01beec218",
+    "source_record": "garchompmegaz-cardinal.json",
+    "shiny_source_image": "garchompmegaz-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Recolour image1 transparent8column4row pixel-game atlas to EXACT SHINY palette/material zones of image2. Preserve every one of32 poses, all anatomy and appendages, exact grid and fixed FRONT/RIGHT/REAR/LEFT row cameras. Crisp pixel edges, transparent gutters, no text, scenery, extra objects or effects.  Body charcoal/grey, long blade arms and lateral head fins VIVID CRIMSON/PINK RED, forehead cross and centre abdominal spot YELLOW, jaw/chest marking RED as exact reference. White teeth and short body spikes stay white. Keep all head fins, blade arms, tail and body parts intact. The dark grey body and vivid red blade parts must have distinct material shading."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

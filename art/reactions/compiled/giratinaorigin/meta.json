@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 88,
+      "h": 64,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 44.0,
+      "ay": 58,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "giratinaorigin",
+        "tool": "builtin-imagegen",
+        "source_sha256": "099f1f67cc0f69b4cd3235b0917303cb5e217594f92196fefb53410afc5f7bc9",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 487,
+          "form": "Origin",
+          "key": "lib-giratinaorigin-n-fc457d84e8df"
+        },
+        "sha256": "7b55bcbeb4e31d63046b1cae273d29ff9895c9f4349e01e3fb811f6278f8540a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 88,
+      "h": 64,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 44.0,
+      "ay": 58,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "giratinaorigin",
+        "tool": "builtin-imagegen",
+        "source_sha256": "099f1f67cc0f69b4cd3235b0917303cb5e217594f92196fefb53410afc5f7bc9",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 487,
+          "form": "Origin",
+          "key": "lib-giratinaorigin-n-fc457d84e8df"
+        },
+        "sha256": "e4e20a7c32beeea49f98ccf4fdf6404de828a316cc74746586084cd38d4573af"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 80,
+        "h": 64,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 40.0,
+        "ay": 58,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "giratinaorigin",
+          "tool": "builtin-imagegen",
+          "source_sha256": "222c02bb50ae6e48d484fc110d6703c5ae3676faa12d6044902ee56eb5c3e1e8",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 487,
+            "form": "Origin",
+            "key": "lib-giratinaorigin-s-51a44e02ecf4"
+          },
+          "sha256": "e5006534d07e8833e7bc698226737112194e9911c376d9c641c081afc0776ea0"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 80,
+        "h": 64,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 40.0,
+        "ay": 58,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "giratinaorigin",
+          "tool": "builtin-imagegen",
+          "source_sha256": "222c02bb50ae6e48d484fc110d6703c5ae3676faa12d6044902ee56eb5c3e1e8",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 487,
+            "form": "Origin",
+            "key": "lib-giratinaorigin-s-51a44e02ecf4"
+          },
+          "sha256": "1927e443bf822761b9ebfb3b8fa2403a33cb260f21ca5f8c3db47cd8d382cd0c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "giratinaorigin",
+    "num": 487,
+    "form": "Origin",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Giratina-Origin, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "giratinaorigin-cardinal.png",
+    "source_sha256": "099f1f67cc0f69b4cd3235b0917303cb5e217594f92196fefb53410afc5f7bc9",
+    "source_record": "giratinaorigin-cardinal.json",
+    "shiny_source_image": "giratinaorigin-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Recolour image1 transparent8column4row pixel-game atlas to EXACT SHINY palette/material zones of image2. Preserve every one of32 poses, all anatomy and appendages, exact grid and fixed FRONT/RIGHT/REAR/LEFT row cameras. Crisp pixel edges, transparent gutters, no text, scenery, extra objects or effects.  Body/long neck flesh is CONTINUOUS PALE CREAM/BEIGE, while armour bands are SILVER/GREY and ring stripes/pincers BLUE/CYAN. Do not add gray patches or gray stripes across the soft cream neck, especially the FRONT neck under blue collar band and REAR length of neck. Every continuous flesh patch stays cream, separate from actual grey armour bands. Black tendrils with blue ends stay distinct."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

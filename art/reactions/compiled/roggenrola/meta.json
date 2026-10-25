@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "roggenrola",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b7b97e83c4657eb31761475d1715dbff6af5a62fc5027f6c06f19f8e4c990ee9",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 524,
+          "form": "",
+          "key": "lib-roggenrola-n-189512749aa6"
+        },
+        "sha256": "fc9e20d25f41de16b76dadcddfe518d110a27967b7dac0edec8509362317f2d2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "roggenrola",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b7b97e83c4657eb31761475d1715dbff6af5a62fc5027f6c06f19f8e4c990ee9",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 524,
+          "form": "",
+          "key": "lib-roggenrola-n-189512749aa6"
+        },
+        "sha256": "5da449c7a86ff5e7822be19f722a42258d6ac8f372ef4bd9299873760887f4ea"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "roggenrola",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b7b97e83c4657eb31761475d1715dbff6af5a62fc5027f6c06f19f8e4c990ee9",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 524,
+            "form": "",
+            "key": "lib-roggenrola-n-189512749aa6"
+          },
+          "sha256": "b04780c3ff34aa97ffa266265a8753ffc5119a33df823f1e84fcc152fff87841",
+          "palette_from": "lib-roggenrola-s-6c5ea11b2347"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "roggenrola",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b7b97e83c4657eb31761475d1715dbff6af5a62fc5027f6c06f19f8e4c990ee9",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 524,
+            "form": "",
+            "key": "lib-roggenrola-n-189512749aa6"
+          },
+          "sha256": "fd0d015f03e50395e53fdc9aaaa5b9a42fe8dcb5ac0ed340d6014a607700f262",
+          "palette_from": "lib-roggenrola-s-6c5ea11b2347"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "roggenrola",
+    "num": 524,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Roggenrola, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "roggenrola-cardinal.png",
+    "source_sha256": "b7b97e83c4657eb31761475d1715dbff6af5a62fc5027f6c06f19f8e4c990ee9",
+    "source_record": "roggenrola-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

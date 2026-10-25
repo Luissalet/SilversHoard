@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "krokorok",
+        "tool": "builtin-imagegen",
+        "source_sha256": "92f36532d7a51ecb54e79107e76ce4bd8cf01292eebbdca37e67eb84c97a491b",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 552,
+          "form": "",
+          "key": "lib-krokorok-n-c13c2e5700f4"
+        },
+        "sha256": "3b2b6c6b40139b943b6ed4bf85e63c65ba13574da59ba4e325b5a6059da8be41"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "krokorok",
+        "tool": "builtin-imagegen",
+        "source_sha256": "92f36532d7a51ecb54e79107e76ce4bd8cf01292eebbdca37e67eb84c97a491b",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 552,
+          "form": "",
+          "key": "lib-krokorok-n-c13c2e5700f4"
+        },
+        "sha256": "ef71e04d6e62b1ab3c6ba79dcda4b3d6bfff8e479e65a66d03c0cbec4170da6f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "krokorok",
+          "tool": "builtin-imagegen",
+          "source_sha256": "92f36532d7a51ecb54e79107e76ce4bd8cf01292eebbdca37e67eb84c97a491b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 552,
+            "form": "",
+            "key": "lib-krokorok-n-c13c2e5700f4"
+          },
+          "sha256": "dd182de071fe2736c468d8960b8d2f1c02df11373823d97d708bb9c17b3bdb0a",
+          "palette_from": "lib-krokorok-s-a398099034d2"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "krokorok",
+          "tool": "builtin-imagegen",
+          "source_sha256": "92f36532d7a51ecb54e79107e76ce4bd8cf01292eebbdca37e67eb84c97a491b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 552,
+            "form": "",
+            "key": "lib-krokorok-n-c13c2e5700f4"
+          },
+          "sha256": "abd1014395b74a1d2c8b9551494b368470240f7e4911b5146b224922e7578033",
+          "palette_from": "lib-krokorok-s-a398099034d2"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "krokorok",
+    "num": 552,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Krokorok, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "krokorok-cardinal.png",
+    "source_sha256": "92f36532d7a51ecb54e79107e76ce4bd8cf01292eebbdca37e67eb84c97a491b",
+    "source_record": "krokorok-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

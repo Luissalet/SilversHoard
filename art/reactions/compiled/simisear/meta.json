@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "simisear",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b23f96b3442eca055591b976444bef0c569e12f194d70c2f6755d6abf9681f5f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 514,
+          "form": "",
+          "key": "lib-simisear-n-a51a86ce9687"
+        },
+        "sha256": "61ad8d05bf3f981cdf08b141168bc06df60b5b0a26f7b8d8660ce60270552157"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "simisear",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b23f96b3442eca055591b976444bef0c569e12f194d70c2f6755d6abf9681f5f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 514,
+          "form": "",
+          "key": "lib-simisear-n-a51a86ce9687"
+        },
+        "sha256": "87d1ed576e7fe238a06464c35b1caac78e18cc5af8fda2cc65b80401d68a84b2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "simisear",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b23f96b3442eca055591b976444bef0c569e12f194d70c2f6755d6abf9681f5f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 514,
+            "form": "",
+            "key": "lib-simisear-n-a51a86ce9687"
+          },
+          "sha256": "3cf3b453c46ece089e9a6dadf439f05a483a46390b20344d03137a1b0cb3a6cf",
+          "palette_from": "lib-simisear-s-04522bcc6b4c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "simisear",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b23f96b3442eca055591b976444bef0c569e12f194d70c2f6755d6abf9681f5f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 514,
+            "form": "",
+            "key": "lib-simisear-n-a51a86ce9687"
+          },
+          "sha256": "c63f4f108030d8062bf6c138d565885882e268bd3362b4d38bf99dd096cf55d5",
+          "palette_from": "lib-simisear-s-04522bcc6b4c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "simisear",
+    "num": 514,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Simisear, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "simisear-cardinal.png",
+    "source_sha256": "b23f96b3442eca055591b976444bef0c569e12f194d70c2f6755d6abf9681f5f",
+    "source_record": "simisear-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

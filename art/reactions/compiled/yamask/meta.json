@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "yamask",
+        "tool": "builtin-imagegen",
+        "source_sha256": "30dd5f446635d53010a968e3d6b55d14d1c091bde89170b153510c9213382569",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 562,
+          "form": "",
+          "key": "lib-yamask-n-13310ce860d5"
+        },
+        "sha256": "133a35ef66746285a25fc71acaa457cf8855153394f6a751636b4fd065803953"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "yamask",
+        "tool": "builtin-imagegen",
+        "source_sha256": "30dd5f446635d53010a968e3d6b55d14d1c091bde89170b153510c9213382569",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 562,
+          "form": "",
+          "key": "lib-yamask-n-13310ce860d5"
+        },
+        "sha256": "09780fd8e9fbc95e8bcaa58bb4fb14a89062bf397ff401925e3e028222de5e4e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "yamask",
+          "tool": "builtin-imagegen",
+          "source_sha256": "30dd5f446635d53010a968e3d6b55d14d1c091bde89170b153510c9213382569",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 562,
+            "form": "",
+            "key": "lib-yamask-n-13310ce860d5"
+          },
+          "sha256": "00f0f3ed1a0408efa32fa51d362cda7708a894b00b405adbc80892a001982bb4",
+          "palette_from": "lib-yamask-s-5203abf7c9ce"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "yamask",
+          "tool": "builtin-imagegen",
+          "source_sha256": "30dd5f446635d53010a968e3d6b55d14d1c091bde89170b153510c9213382569",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 562,
+            "form": "",
+            "key": "lib-yamask-n-13310ce860d5"
+          },
+          "sha256": "c2ab7505be351d4f43ee08868a2d33c65dbcef4fbe23d1c32692c69744ed29c4",
+          "palette_from": "lib-yamask-s-5203abf7c9ce"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "yamask",
+    "num": 562,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Yamask, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "yamask-cardinal.png",
+    "source_sha256": "30dd5f446635d53010a968e3d6b55d14d1c091bde89170b153510c9213382569",
+    "source_record": "yamask-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

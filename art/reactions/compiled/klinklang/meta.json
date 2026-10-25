@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "klinklang",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7d47461338532d3b0b0e33af5e363d0f3932c31ac35a51859358b21e4fc1ba39",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 601,
+          "form": "",
+          "key": "lib-klinklang-n-fda9dbdec981"
+        },
+        "sha256": "a8c8e0da695860644414d193c9d96f45f02505606f2cd4c22defca9074b1204c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "klinklang",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7d47461338532d3b0b0e33af5e363d0f3932c31ac35a51859358b21e4fc1ba39",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 601,
+          "form": "",
+          "key": "lib-klinklang-n-fda9dbdec981"
+        },
+        "sha256": "651e0bcdd235382a3659de08670a748407ec8af9121951aee78f80e053a1f894"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "klinklang",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7d47461338532d3b0b0e33af5e363d0f3932c31ac35a51859358b21e4fc1ba39",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 601,
+            "form": "",
+            "key": "lib-klinklang-n-fda9dbdec981"
+          },
+          "sha256": "de015250a4d6f7fb5674b280a5f10b9759df7e75bd31325baf0910f8726ee1ee",
+          "palette_from": "lib-klinklang-s-73cbb3e71875"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "klinklang",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7d47461338532d3b0b0e33af5e363d0f3932c31ac35a51859358b21e4fc1ba39",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 601,
+            "form": "",
+            "key": "lib-klinklang-n-fda9dbdec981"
+          },
+          "sha256": "de4bd8b9122c7968d69cea4c405a1064f49e872a81fca6478075054b7a5de37a",
+          "palette_from": "lib-klinklang-s-73cbb3e71875"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "klinklang",
+    "num": 601,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Klinklang, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "klinklang-cardinal.png",
+    "source_sha256": "7d47461338532d3b0b0e33af5e363d0f3932c31ac35a51859358b21e4fc1ba39",
+    "source_record": "klinklang-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

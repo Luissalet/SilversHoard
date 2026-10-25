@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "darmanitangalar",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f57f0e2c0037eebfe8823687deee09e092c728355cb1376f1e19e358f31ea44c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 555,
+          "form": "Galar",
+          "key": "lib-darmanitangalar-n-26f39e67d087"
+        },
+        "sha256": "f5868783f7272a008df19c7f329f3f966e673763ddbea42304f86e837fd6b646"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "darmanitangalar",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f57f0e2c0037eebfe8823687deee09e092c728355cb1376f1e19e358f31ea44c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 555,
+          "form": "Galar",
+          "key": "lib-darmanitangalar-n-26f39e67d087"
+        },
+        "sha256": "33d82f5967d2b1f6e6a5a7cac9df5d6e20e69e7da76e6c4725057282ed39fe6c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "darmanitangalar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f57f0e2c0037eebfe8823687deee09e092c728355cb1376f1e19e358f31ea44c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 555,
+            "form": "Galar",
+            "key": "lib-darmanitangalar-n-26f39e67d087"
+          },
+          "sha256": "d050208e0132f182963be39e0ee20143add742a9edfc0846224257ad16376835",
+          "palette_from": "lib-darmanitangalar-s-e4275030dc5b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "darmanitangalar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f57f0e2c0037eebfe8823687deee09e092c728355cb1376f1e19e358f31ea44c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 555,
+            "form": "Galar",
+            "key": "lib-darmanitangalar-n-26f39e67d087"
+          },
+          "sha256": "24a31ed1311b56b722607064cc13b0d4aa95ffe745c8d52dc3550c452cac2c37",
+          "palette_from": "lib-darmanitangalar-s-e4275030dc5b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "darmanitangalar",
+    "num": 555,
+    "form": "Galar",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Darmanitan-Galar, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "darmanitangalar-cardinal.png",
+    "source_sha256": "f57f0e2c0037eebfe8823687deee09e092c728355cb1376f1e19e358f31ea44c",
+    "source_record": "darmanitangalar-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

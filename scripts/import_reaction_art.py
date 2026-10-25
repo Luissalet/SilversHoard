@@ -193,7 +193,8 @@ def extract(record: dict, library: PmdLibrary, art: Path = ART, *, shiny=False):
                 native = native_frames.get((name, row, frame))
                 tile = native.copy() if native is not None else tile.resize(
                     (max(1, round(tile.width * factor)), max(1, round(tile.height * factor))), Image.Resampling.NEAREST)
-                tile = align_palette(tile, palette)
+                if native is None:
+                    tile = align_palette(tile, palette)
                 distinct.add(hashlib.sha256(tile.tobytes()).hexdigest())
                 sheet.alpha_composite(tile, (frame * width + (width - tile.width) // 2,
                                              row * cell_height + anchor_y + offsets[row] - tile.height))
@@ -268,7 +269,25 @@ def compile_one(record, library, art=ART):
             # Delta transfer can create new shades when generated normal pixels
             # have no exact reference match. Export only installed shiny colours.
             recolored = Image.open(io.BytesIO(recolor(raw, palette))).convert("RGBA")
-            shiny_images[name] = png(align_palette(recolored, shiny_palette))
+            recolored = align_palette(recolored, shiny_palette)
+            g = shiny_geometry[name]
+            for spec in record.get("native_frames", []):
+                if spec["action"] != name:
+                    continue
+                original = shiny["a"][spec["animation"]]
+                sheet = Image.open(io.BytesIO(library.image_bytes(original["file"]))).convert("RGBA")
+                row, frame = spec["row"], spec.get("index", 0)
+                tile = sheet.crop((frame*original["w"], row*original["h"],
+                                   (frame+1)*original["w"], (row+1)*original["h"]))
+                tile = tile.crop(tile.getbbox())
+                row, frame = spec["direction"], spec["frame"]
+                offset = record.get("baseline_offsets", [0] * record["directions"])[row]
+                if tile.width > g["w"] or tile.height > g["ay"] + offset:
+                    raise ValueError(f"Native shiny frame outside cell: {record['id']}:{name}:{row}:{frame}")
+                recolored.paste((0, 0, 0, 0), (frame*g["w"], row*g["h"], (frame+1)*g["w"], (row+1)*g["h"]))
+                recolored.alpha_composite(tile, (frame*g["w"] + (g["w"] - tile.width)//2,
+                                                 row*g["h"] + int(g["ay"]) + offset - tile.height))
+            shiny_images[name] = png(recolored)
             source = shiny_geometry[name]["source"]
             source.update(kind="shiny-composed-pmd-reaction" if record.get("composition") else "shiny-generated-pmd-reaction", palette_from=shiny["key"],
                           sha256=hashlib.sha256(shiny_images[name]).hexdigest())

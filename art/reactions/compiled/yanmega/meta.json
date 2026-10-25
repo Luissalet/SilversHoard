@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "yanmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a5997acee4c8f063ac8a96787acfb5319934dc1dd178bd32a0573fa947130a98",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 469,
+          "form": "",
+          "key": "lib-yanmega-n-9c7816db22eb"
+        },
+        "sha256": "641beb53dc1cc1a2ec525829a800b188e26e0b8ee9ff6e90b6b25c5d47cbff4b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "yanmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a5997acee4c8f063ac8a96787acfb5319934dc1dd178bd32a0573fa947130a98",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 469,
+          "form": "",
+          "key": "lib-yanmega-n-9c7816db22eb"
+        },
+        "sha256": "b34b4a83412ae31e2d99490a185fd142c2af8b6526f8896ee0e0d74327077a2f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "yanmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a5997acee4c8f063ac8a96787acfb5319934dc1dd178bd32a0573fa947130a98",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 469,
+            "form": "",
+            "key": "lib-yanmega-n-9c7816db22eb"
+          },
+          "sha256": "16e59379ee1e0e70180a7ca20015470bf7c361695e89e816336ae18c9eadf73f",
+          "palette_from": "lib-yanmega-s-64f14110e59b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "yanmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a5997acee4c8f063ac8a96787acfb5319934dc1dd178bd32a0573fa947130a98",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 469,
+            "form": "",
+            "key": "lib-yanmega-n-9c7816db22eb"
+          },
+          "sha256": "9c1c10e2b65e0a3d4a1c7cd69eaa4640dba24b91777ee5e206ab82b2896ad77f",
+          "palette_from": "lib-yanmega-s-64f14110e59b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "yanmega",
+    "num": 469,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Yanmega, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "yanmega-cardinal.png",
+    "source_sha256": "a5997acee4c8f063ac8a96787acfb5319934dc1dd178bd32a0573fa947130a98",
+    "source_record": "yanmega-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

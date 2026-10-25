@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "lucariomegaz",
+        "tool": "builtin-imagegen",
+        "source_sha256": "341021ad77ad68b9f967464368a8bce4ff06adc5078df99fda89dde1ddf8d55f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 448,
+          "form": "Mega-Z",
+          "key": "lib-lucariomegaz-n-55d81785358d"
+        },
+        "sha256": "ffda8bf6595189c85a77a93fce8a26102e25e794848f6ae39e6f5a55e781921f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "lucariomegaz",
+        "tool": "builtin-imagegen",
+        "source_sha256": "341021ad77ad68b9f967464368a8bce4ff06adc5078df99fda89dde1ddf8d55f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 448,
+          "form": "Mega-Z",
+          "key": "lib-lucariomegaz-n-55d81785358d"
+        },
+        "sha256": "2bf9ec43a1186fd45e75ec7ca0757b7e18d77370d2a07f52a6d2177aa4190590"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "lucariomegaz",
+          "tool": "builtin-imagegen",
+          "source_sha256": "341021ad77ad68b9f967464368a8bce4ff06adc5078df99fda89dde1ddf8d55f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 448,
+            "form": "Mega-Z",
+            "key": "lib-lucariomegaz-n-55d81785358d"
+          },
+          "sha256": "f8e538d8f3d34aafd95058681f758dc9a7eacf186eaab676cf0edcceb8a2db0f",
+          "palette_from": "lib-lucariomegaz-s-7e92c9b6cbe1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "lucariomegaz",
+          "tool": "builtin-imagegen",
+          "source_sha256": "341021ad77ad68b9f967464368a8bce4ff06adc5078df99fda89dde1ddf8d55f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 448,
+            "form": "Mega-Z",
+            "key": "lib-lucariomegaz-n-55d81785358d"
+          },
+          "sha256": "b1b34c81e39c42933118ecdcacc0dc8a04c5950e04c03ec0178a0cdcbcddba38",
+          "palette_from": "lib-lucariomegaz-s-7e92c9b6cbe1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "lucariomegaz",
+    "num": 448,
+    "form": "Mega-Z",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Lucario-Mega-Z, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "lucariomegaz-cardinal.png",
+    "source_sha256": "341021ad77ad68b9f967464368a8bce4ff06adc5078df99fda89dde1ddf8d55f",
+    "source_record": "lucariomegaz-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

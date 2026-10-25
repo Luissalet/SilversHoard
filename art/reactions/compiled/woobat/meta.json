@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "woobat",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8a4a1ee9d71968c470bf8814f97cc0e9eb08669f26d9c6f94f6d1e1f8f0ffff9",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 527,
+          "form": "",
+          "key": "lib-woobat-n-6a985f6c46e2"
+        },
+        "sha256": "01b01489aebf25e9e607c5a2f19030e0e64bcb02d7a3e6bcf92ba175b9381809"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "woobat",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8a4a1ee9d71968c470bf8814f97cc0e9eb08669f26d9c6f94f6d1e1f8f0ffff9",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 527,
+          "form": "",
+          "key": "lib-woobat-n-6a985f6c46e2"
+        },
+        "sha256": "db4dcccedfc64982ed5ad58f388a4d344c0acc668dbcc58a44722a114ded0c0a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "woobat",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8a4a1ee9d71968c470bf8814f97cc0e9eb08669f26d9c6f94f6d1e1f8f0ffff9",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 527,
+            "form": "",
+            "key": "lib-woobat-n-6a985f6c46e2"
+          },
+          "sha256": "b122db9b4317392ad25c4f06549438c268f0794ebd36fc66e38d3f78f056943c",
+          "palette_from": "lib-woobat-s-4936225d6ac1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "woobat",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8a4a1ee9d71968c470bf8814f97cc0e9eb08669f26d9c6f94f6d1e1f8f0ffff9",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 527,
+            "form": "",
+            "key": "lib-woobat-n-6a985f6c46e2"
+          },
+          "sha256": "87f90828b6ba0a99112a9b73ed3c3de7fa49d97599c9fd7f62e8790e5449517c",
+          "palette_from": "lib-woobat-s-4936225d6ac1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "woobat",
+    "num": 527,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Woobat, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "woobat-cardinal.png",
+    "source_sha256": "8a4a1ee9d71968c470bf8814f97cc0e9eb08669f26d9c6f94f6d1e1f8f0ffff9",
+    "source_record": "woobat-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

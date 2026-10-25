@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "sawsbuckwinter",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8f6f759b7353399b6d6021c664871cf03ed94925bb107cb4bd29a11d243b0b08",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 586,
+          "form": "Winter",
+          "key": "lib-sawsbuckwinter-n-98f50f433c73"
+        },
+        "sha256": "f5ffebfd9e001ebc7cba4648b4b2fd36e4aea1402636a04568df6857ad50e574"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "sawsbuckwinter",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8f6f759b7353399b6d6021c664871cf03ed94925bb107cb4bd29a11d243b0b08",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 586,
+          "form": "Winter",
+          "key": "lib-sawsbuckwinter-n-98f50f433c73"
+        },
+        "sha256": "5fc221cce3aee7e3f8f4d1fd918598f5e99291b2639c641059ed8fe8f3b383d0"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "sawsbuckwinter",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8f6f759b7353399b6d6021c664871cf03ed94925bb107cb4bd29a11d243b0b08",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 586,
+            "form": "Winter",
+            "key": "lib-sawsbuckwinter-n-98f50f433c73"
+          },
+          "sha256": "9c3fb18c0a8fd97c89510debacce9da9217d77a12e9e934474e1c4e9a2bafb76",
+          "palette_from": "lib-sawsbuckwinter-s-6ca6894d4e53"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "sawsbuckwinter",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8f6f759b7353399b6d6021c664871cf03ed94925bb107cb4bd29a11d243b0b08",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 586,
+            "form": "Winter",
+            "key": "lib-sawsbuckwinter-n-98f50f433c73"
+          },
+          "sha256": "d4108c45da3db5d6ae5ebe909700380a121e6dff446a3ad3c282d2e9ea292058",
+          "palette_from": "lib-sawsbuckwinter-s-6ca6894d4e53"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "sawsbuckwinter",
+    "num": 586,
+    "form": "Winter",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Sawsbuck-Winter, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "sawsbuckwinter-cardinal.png",
+    "source_sha256": "8f6f759b7353399b6d6021c664871cf03ed94925bb107cb4bd29a11d243b0b08",
+    "source_record": "sawsbuckwinter-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}
