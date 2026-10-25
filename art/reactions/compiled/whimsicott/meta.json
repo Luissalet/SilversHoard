@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "whimsicott",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9ed7eedde4a5dfaf7840b0aa97eb6c93d6ea206c5d46a9f91f76440f9409bf1f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 547,
+          "form": "",
+          "key": "lib-whimsicott-n-eecce8632da0"
+        },
+        "sha256": "b5e600083b4b24c08aa5c8c9adb0a9737eab49f003208e264c597616b78ebfeb"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "whimsicott",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9ed7eedde4a5dfaf7840b0aa97eb6c93d6ea206c5d46a9f91f76440f9409bf1f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 547,
+          "form": "",
+          "key": "lib-whimsicott-n-eecce8632da0"
+        },
+        "sha256": "13fe8910b666b5326afd42b6d95439bdaa8a8ebb1628f7923053e6276642be9c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "whimsicott",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9ed7eedde4a5dfaf7840b0aa97eb6c93d6ea206c5d46a9f91f76440f9409bf1f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 547,
+            "form": "",
+            "key": "lib-whimsicott-n-eecce8632da0"
+          },
+          "sha256": "ad52942a69fe5183e361b8b4a0901704e78fcdd505796bb36f2a385ff3443152",
+          "palette_from": "lib-whimsicott-s-9441c917d66f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "whimsicott",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9ed7eedde4a5dfaf7840b0aa97eb6c93d6ea206c5d46a9f91f76440f9409bf1f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 547,
+            "form": "",
+            "key": "lib-whimsicott-n-eecce8632da0"
+          },
+          "sha256": "d7275675b906d8ba116e1a031274227c4780d4b3d92b9f082a4f31f2eddc4ddb",
+          "palette_from": "lib-whimsicott-s-9441c917d66f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "whimsicott",
+    "num": 547,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Whimsicott, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "whimsicott-cardinal.png",
+    "source_sha256": "9ed7eedde4a5dfaf7840b0aa97eb6c93d6ea206c5d46a9f91f76440f9409bf1f",
+    "source_record": "whimsicott-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

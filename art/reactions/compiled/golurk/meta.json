@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "golurk",
+        "tool": "builtin-imagegen",
+        "source_sha256": "3ba232b23bfae71654ec5e7148ccaf995a38300a2b6b2b05a79706e919beeb7e",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 623,
+          "form": "",
+          "key": "lib-golurk-n-e413084540b1"
+        },
+        "sha256": "e3d0f8f7b07fa6fffc9db9a4681de075580188390b421569059f29ece6f81680"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "golurk",
+        "tool": "builtin-imagegen",
+        "source_sha256": "3ba232b23bfae71654ec5e7148ccaf995a38300a2b6b2b05a79706e919beeb7e",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 623,
+          "form": "",
+          "key": "lib-golurk-n-e413084540b1"
+        },
+        "sha256": "9c86d1c463920faef70705315d1cc21e755f3ed40bbc837701b67688d847861b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "golurk",
+          "tool": "builtin-imagegen",
+          "source_sha256": "3ba232b23bfae71654ec5e7148ccaf995a38300a2b6b2b05a79706e919beeb7e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 623,
+            "form": "",
+            "key": "lib-golurk-n-e413084540b1"
+          },
+          "sha256": "cd29178704f918187436866f4f317e1b5ed8581a6ae69f2541332aad896b7bc7",
+          "palette_from": "lib-golurk-s-0478581ff0ae"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "golurk",
+          "tool": "builtin-imagegen",
+          "source_sha256": "3ba232b23bfae71654ec5e7148ccaf995a38300a2b6b2b05a79706e919beeb7e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 623,
+            "form": "",
+            "key": "lib-golurk-n-e413084540b1"
+          },
+          "sha256": "2bc3b962b61a57ec5a7487ffedcd72e07f371b470fb9af136f105c010698c7a7",
+          "palette_from": "lib-golurk-s-0478581ff0ae"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "golurk",
+    "num": 623,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Golurk, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "golurk-cardinal.png",
+    "source_sha256": "3ba232b23bfae71654ec5e7148ccaf995a38300a2b6b2b05a79706e919beeb7e",
+    "source_record": "golurk-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

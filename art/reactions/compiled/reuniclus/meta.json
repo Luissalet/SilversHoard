@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "reuniclus",
+        "tool": "builtin-imagegen",
+        "source_sha256": "15d1c0505922a7cbffe371f78497051e9173ffba88161556176ac9a8450ac185",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 579,
+          "form": "",
+          "key": "lib-reuniclus-n-6404bd6ebdc7"
+        },
+        "sha256": "0a007fc884c455d40e6e98d66a09d750b8b3c67e973a080e473b10a0b02320eb"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "reuniclus",
+        "tool": "builtin-imagegen",
+        "source_sha256": "15d1c0505922a7cbffe371f78497051e9173ffba88161556176ac9a8450ac185",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 579,
+          "form": "",
+          "key": "lib-reuniclus-n-6404bd6ebdc7"
+        },
+        "sha256": "dc6cd1f2b0177fbca69d3eaddf4e56aa54d9ed1ba551cea1247477164df99175"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "reuniclus",
+          "tool": "builtin-imagegen",
+          "source_sha256": "15d1c0505922a7cbffe371f78497051e9173ffba88161556176ac9a8450ac185",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 579,
+            "form": "",
+            "key": "lib-reuniclus-n-6404bd6ebdc7"
+          },
+          "sha256": "588946bdc162b835a3b481b2da574a6bd0fd8b26418765fa6733a883fdda1e3f",
+          "palette_from": "lib-reuniclus-s-364af62ec83e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "reuniclus",
+          "tool": "builtin-imagegen",
+          "source_sha256": "15d1c0505922a7cbffe371f78497051e9173ffba88161556176ac9a8450ac185",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 579,
+            "form": "",
+            "key": "lib-reuniclus-n-6404bd6ebdc7"
+          },
+          "sha256": "e52109d26587f24edb3bfbd19c45f0d0cb5d451a6e439eb05511fdca3ec039c8",
+          "palette_from": "lib-reuniclus-s-364af62ec83e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "reuniclus",
+    "num": 579,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Reuniclus, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "reuniclus-cardinal.png",
+    "source_sha256": "15d1c0505922a7cbffe371f78497051e9173ffba88161556176ac9a8450ac185",
+    "source_record": "reuniclus-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

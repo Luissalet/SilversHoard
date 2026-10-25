@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "munna",
+        "tool": "builtin-imagegen",
+        "source_sha256": "db671cb3f5009dfe1479f02377b5e8c14f33a6d3b7f4e849ce9fda05813a53c9",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 517,
+          "form": "",
+          "key": "lib-munna-n-023b6f24763a"
+        },
+        "sha256": "7974eda0c53c35f1e7e4deed0b931ae2a6d0a718a9587c3bc60c7083dffc15fc"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "munna",
+        "tool": "builtin-imagegen",
+        "source_sha256": "db671cb3f5009dfe1479f02377b5e8c14f33a6d3b7f4e849ce9fda05813a53c9",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 517,
+          "form": "",
+          "key": "lib-munna-n-023b6f24763a"
+        },
+        "sha256": "bde4777d463a3cbb638135a88a0e468746003c27acffe4ef24bf8f0b0ae59e85"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "munna",
+          "tool": "builtin-imagegen",
+          "source_sha256": "db671cb3f5009dfe1479f02377b5e8c14f33a6d3b7f4e849ce9fda05813a53c9",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 517,
+            "form": "",
+            "key": "lib-munna-n-023b6f24763a"
+          },
+          "sha256": "41889a5bddaa861de9bb6e061fb8ef88e57ac0367469cc75aa55f5042a4744e2",
+          "palette_from": "lib-munna-s-9dbe7fd16591"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "munna",
+          "tool": "builtin-imagegen",
+          "source_sha256": "db671cb3f5009dfe1479f02377b5e8c14f33a6d3b7f4e849ce9fda05813a53c9",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 517,
+            "form": "",
+            "key": "lib-munna-n-023b6f24763a"
+          },
+          "sha256": "4434bd37ecdcc4baddb979f2725a970f331cbf8dd4b9497c72b1b68da3afbb48",
+          "palette_from": "lib-munna-s-9dbe7fd16591"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "munna",
+    "num": 517,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Munna, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "munna-cardinal.png",
+    "source_sha256": "db671cb3f5009dfe1479f02377b5e8c14f33a6d3b7f4e849ce9fda05813a53c9",
+    "source_record": "munna-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

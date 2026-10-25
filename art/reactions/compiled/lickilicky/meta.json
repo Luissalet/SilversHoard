@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "lickilicky",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4d542f9c4e3be2beb83117cf56abe29f4bcd1796609c335edd647fb2ad25e47b",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 463,
+          "form": "",
+          "key": "lib-lickilicky-n-95a8a9fb09e4"
+        },
+        "sha256": "e0823e1df6b89871591727e74c3cba322118909cb058de72f6cea003e791293c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "lickilicky",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4d542f9c4e3be2beb83117cf56abe29f4bcd1796609c335edd647fb2ad25e47b",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 463,
+          "form": "",
+          "key": "lib-lickilicky-n-95a8a9fb09e4"
+        },
+        "sha256": "ac50ed2f7c9ffd82d8a554e99b099c19ec004eb52b610e5ce97093a957362185"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "lickilicky",
+          "tool": "builtin-imagegen",
+          "source_sha256": "4d542f9c4e3be2beb83117cf56abe29f4bcd1796609c335edd647fb2ad25e47b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 463,
+            "form": "",
+            "key": "lib-lickilicky-n-95a8a9fb09e4"
+          },
+          "sha256": "c112426c5c52fea0c114484b1a1e35a2adc7c895f969f83755d5912aebdbda4e",
+          "palette_from": "lib-lickilicky-s-eb60faa4c5ba"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "lickilicky",
+          "tool": "builtin-imagegen",
+          "source_sha256": "4d542f9c4e3be2beb83117cf56abe29f4bcd1796609c335edd647fb2ad25e47b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 463,
+            "form": "",
+            "key": "lib-lickilicky-n-95a8a9fb09e4"
+          },
+          "sha256": "d6407db6393889b8e4d8b03612dd0c34a1365e5434e4f29a4d28a9e934f9296a",
+          "palette_from": "lib-lickilicky-s-eb60faa4c5ba"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "lickilicky",
+    "num": 463,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Lickilicky, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "lickilicky-cardinal.png",
+    "source_sha256": "4d542f9c4e3be2beb83117cf56abe29f4bcd1796609c335edd647fb2ad25e47b",
+    "source_record": "lickilicky-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": false
+}

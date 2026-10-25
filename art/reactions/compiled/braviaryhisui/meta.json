@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "braviaryhisui",
+        "tool": "builtin-imagegen",
+        "source_sha256": "19f97cd839dd0df52152ba4ba636f9f618034ca8036e0e3567c5a234ab1cdf6d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 628,
+          "form": "Hisui",
+          "key": "lib-braviaryhisui-n-40248b158a31"
+        },
+        "sha256": "32c212e5cc611d2772d69fbff8cbb38da1e6a23d583d37883ad42fcdfafacdce"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "braviaryhisui",
+        "tool": "builtin-imagegen",
+        "source_sha256": "19f97cd839dd0df52152ba4ba636f9f618034ca8036e0e3567c5a234ab1cdf6d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 628,
+          "form": "Hisui",
+          "key": "lib-braviaryhisui-n-40248b158a31"
+        },
+        "sha256": "0e291bead11579f882bac16cd5f96b1cb905b164917dd0ad8262afe4f4173194"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "braviaryhisui",
+          "tool": "builtin-imagegen",
+          "source_sha256": "19f97cd839dd0df52152ba4ba636f9f618034ca8036e0e3567c5a234ab1cdf6d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 628,
+            "form": "Hisui",
+            "key": "lib-braviaryhisui-n-40248b158a31"
+          },
+          "sha256": "25c2c140ad227c3b394b5f4235206fbf4b5f575c141ab06124f9a5c473e78cea",
+          "palette_from": "lib-braviaryhisui-s-2ce031832373"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "braviaryhisui",
+          "tool": "builtin-imagegen",
+          "source_sha256": "19f97cd839dd0df52152ba4ba636f9f618034ca8036e0e3567c5a234ab1cdf6d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 628,
+            "form": "Hisui",
+            "key": "lib-braviaryhisui-n-40248b158a31"
+          },
+          "sha256": "2278ebb9d2adfdbf6ee4065763f5356c76b1d100899aa7ec4e37d38d66021cce",
+          "palette_from": "lib-braviaryhisui-s-2ce031832373"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "braviaryhisui",
+    "num": 628,
+    "form": "Hisui",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Braviary-Hisui, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "braviaryhisui-cardinal.png",
+    "source_sha256": "19f97cd839dd0df52152ba4ba636f9f618034ca8036e0e3567c5a234ab1cdf6d",
+    "source_record": "braviaryhisui-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": false
+}

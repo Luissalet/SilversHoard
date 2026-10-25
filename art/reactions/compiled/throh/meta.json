@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "throh",
+        "tool": "builtin-imagegen",
+        "source_sha256": "20f7fe025829e43e796e56b7a8bf3ce8fed7fef1da0a8e7430ccb9957ed3ebc7",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 538,
+          "form": "",
+          "key": "lib-throh-n-4a98a43f9a59"
+        },
+        "sha256": "0c211c996327c1bb3368ffb9e5b76d36f9c079761d57c3583809ba14230350df"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "throh",
+        "tool": "builtin-imagegen",
+        "source_sha256": "20f7fe025829e43e796e56b7a8bf3ce8fed7fef1da0a8e7430ccb9957ed3ebc7",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 538,
+          "form": "",
+          "key": "lib-throh-n-4a98a43f9a59"
+        },
+        "sha256": "1668878258a12dfb7907f35f33f8bf1a76fe29bc2cc0c6871cb78a7a0228c249"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "throh",
+          "tool": "builtin-imagegen",
+          "source_sha256": "20f7fe025829e43e796e56b7a8bf3ce8fed7fef1da0a8e7430ccb9957ed3ebc7",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 538,
+            "form": "",
+            "key": "lib-throh-n-4a98a43f9a59"
+          },
+          "sha256": "c02598ea87971ff70e746381ab10171abd1f9679d343c11371c3f118c8d5db4d",
+          "palette_from": "lib-throh-s-b92fde9b297d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "throh",
+          "tool": "builtin-imagegen",
+          "source_sha256": "20f7fe025829e43e796e56b7a8bf3ce8fed7fef1da0a8e7430ccb9957ed3ebc7",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 538,
+            "form": "",
+            "key": "lib-throh-n-4a98a43f9a59"
+          },
+          "sha256": "06759b9c0ffd98d894ae528ca4f8a106751a88a9d40787e42dda8895ffb39063",
+          "palette_from": "lib-throh-s-b92fde9b297d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "throh",
+    "num": 538,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Throh, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "throh-cardinal.png",
+    "source_sha256": "20f7fe025829e43e796e56b7a8bf3ce8fed7fef1da0a8e7430ccb9957ed3ebc7",
+    "source_record": "throh-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

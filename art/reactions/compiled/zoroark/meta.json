@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "zoroark",
+        "tool": "builtin-imagegen",
+        "source_sha256": "07b1ac3993a5592eb5a1bd43a427e2846e68ee95f70801fb6570122c95850957",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 571,
+          "form": "",
+          "key": "lib-zoroark-n-67f147b40510"
+        },
+        "sha256": "65e79e79c9d029a2713edfb43a2f0cbbdcf658c023f5a5a8479d978dd2b34643"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "zoroark",
+        "tool": "builtin-imagegen",
+        "source_sha256": "07b1ac3993a5592eb5a1bd43a427e2846e68ee95f70801fb6570122c95850957",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 571,
+          "form": "",
+          "key": "lib-zoroark-n-67f147b40510"
+        },
+        "sha256": "877e8775a92190c9234a741cf4abd62cf566321e03587a623c3a4908af475374"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "zoroark",
+          "tool": "builtin-imagegen",
+          "source_sha256": "07b1ac3993a5592eb5a1bd43a427e2846e68ee95f70801fb6570122c95850957",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 571,
+            "form": "",
+            "key": "lib-zoroark-n-67f147b40510"
+          },
+          "sha256": "3dbc4f03ce5565f273f425984cf823b48610d67b847490b1a5400107676bac8d",
+          "palette_from": "lib-zoroark-s-e8ecdfa47c61"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "zoroark",
+          "tool": "builtin-imagegen",
+          "source_sha256": "07b1ac3993a5592eb5a1bd43a427e2846e68ee95f70801fb6570122c95850957",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 571,
+            "form": "",
+            "key": "lib-zoroark-n-67f147b40510"
+          },
+          "sha256": "49c4d47ac6b89179156cdfeb9a6b726d5e9753eaf1e2e7bd699887327d5096d6",
+          "palette_from": "lib-zoroark-s-e8ecdfa47c61"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "zoroark",
+    "num": 571,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Zoroark, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "zoroark-cardinal.png",
+    "source_sha256": "07b1ac3993a5592eb5a1bd43a427e2846e68ee95f70801fb6570122c95850957",
+    "source_record": "zoroark-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

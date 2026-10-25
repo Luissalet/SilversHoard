@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 96,
+      "h": 80,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 48.0,
+      "ay": 74,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "darkraimega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "003a6ad981a66d6efff2d7294a5d98ed302dd694454ea6f79d345ea0b28eb62c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 491,
+          "form": "Mega",
+          "key": "lib-darkraimega-n-b9edc68f2b3a"
+        },
+        "sha256": "b5d4816e18dc7cc571429d1c14e6515b6e03f80c858c8659bdfa2d91c3d5bde4"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 96,
+      "h": 80,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 48.0,
+      "ay": 74,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "darkraimega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "003a6ad981a66d6efff2d7294a5d98ed302dd694454ea6f79d345ea0b28eb62c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 491,
+          "form": "Mega",
+          "key": "lib-darkraimega-n-b9edc68f2b3a"
+        },
+        "sha256": "f70bbcbb2702c3cf18f1b9246607d54e6e314f2ee58a036b5c4f5f509412d9a0"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 96,
+        "h": 80,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 48.0,
+        "ay": 74,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "darkraimega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "003a6ad981a66d6efff2d7294a5d98ed302dd694454ea6f79d345ea0b28eb62c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 491,
+            "form": "Mega",
+            "key": "lib-darkraimega-n-b9edc68f2b3a"
+          },
+          "sha256": "9d88a8c30d03380f7d51d93a320d7b9d9cf1913f5e2761491843ff600d72b119",
+          "palette_from": "lib-darkraimega-s-089235bde51b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 96,
+        "h": 80,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 48.0,
+        "ay": 74,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "darkraimega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "003a6ad981a66d6efff2d7294a5d98ed302dd694454ea6f79d345ea0b28eb62c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 491,
+            "form": "Mega",
+            "key": "lib-darkraimega-n-b9edc68f2b3a"
+          },
+          "sha256": "61718d80b9beb475c59085b47886cf3feba2b066be06d564692a31554e61087e",
+          "palette_from": "lib-darkraimega-s-089235bde51b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "darkraimega",
+    "num": 491,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Darkrai-Mega, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "darkraimega-cardinal.png",
+    "source_sha256": "003a6ad981a66d6efff2d7294a5d98ed302dd694454ea6f79d345ea0b28eb62c",
+    "source_record": "darkraimega-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

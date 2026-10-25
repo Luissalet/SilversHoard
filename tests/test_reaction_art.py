@@ -182,6 +182,33 @@ def test_shiny_delta_transfer_cannot_introduce_unregistered_colours(tmp_path, mo
         assert exported.getpixel((0, 0))[:3] in shiny_colors
 
 
+def test_generated_shiny_preserves_native_entry_pixels(tmp_path):
+    from scripts.import_reaction_art import compile_one
+
+    record = json.loads((ART / "sources" / "yamaskgalar-assembled.json").read_text("utf8"))
+    (tmp_path / "sources").mkdir()
+    (tmp_path / "sources" / record["image"]).write_bytes((ART / "sources" / record["image"]).read_bytes())
+    library = PmdLibrary(ART.parents[1] / "silvers_hoard" / "presets" / "pmd", with_reactions=False)
+    compile_one(record, library, tmp_path)
+    meta = json.loads((tmp_path / "compiled" / record["id"] / "meta.json").read_text("utf8"))
+    for shiny in (False, True):
+        native = library.resolve(record["num"], record["form"], shiny=shiny)
+        for spec in record["native_frames"]:
+            original = native["a"][spec["animation"]]
+            sheet = Image.open(io.BytesIO(library.image_bytes(original["file"]))).convert("RGBA")
+            row, frame = spec["row"], spec.get("index", 0)
+            expected = sheet.crop((frame*original["w"], row*original["h"],
+                                   (frame+1)*original["w"], (row+1)*original["h"]))
+            g = (meta["shiny"] if shiny else meta)["a"][spec["action"]]
+            suffix = "-shiny" if shiny else ""
+            output = Image.open(tmp_path / "compiled" / record["id"] / f'{spec["action"]}{suffix}.png').convert("RGBA")
+            row, frame = spec["direction"], spec["frame"]
+            actual = output.crop((frame*g["w"], row*g["h"], (frame+1)*g["w"], (row+1)*g["h"]))
+            expected, actual = expected.crop(expected.getbbox()), actual.crop(actual.getbbox())
+            assert actual.size == expected.size
+            assert actual.tobytes() == expected.tobytes(), (shiny, row, frame)
+
+
 def test_drawn_falinks_components_keep_six_members_and_native_formation_anchor():
     record = json.loads((ART / "sources" / "falinks-assembled.json").read_text("utf8"))
     members = record["composition"]["members"]

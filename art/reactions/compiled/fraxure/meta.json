@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "fraxure",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ebe5f5f134d5ab43def0bdeeb80966cd6b76dc29efb6d271aead562f3e18bb31",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 611,
+          "form": "",
+          "key": "lib-fraxure-n-08ead70e1c0d"
+        },
+        "sha256": "f0f4a2731f84c9676e2996a29d1e56acb016e7cc2ffa27be8b8691068b7dc094"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "fraxure",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ebe5f5f134d5ab43def0bdeeb80966cd6b76dc29efb6d271aead562f3e18bb31",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 611,
+          "form": "",
+          "key": "lib-fraxure-n-08ead70e1c0d"
+        },
+        "sha256": "f9044f25f45d3b384aba7eda7b22b98f4464539894de556433a6559fcd81b6c1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "fraxure",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ebe5f5f134d5ab43def0bdeeb80966cd6b76dc29efb6d271aead562f3e18bb31",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 611,
+            "form": "",
+            "key": "lib-fraxure-n-08ead70e1c0d"
+          },
+          "sha256": "47ac4af4a64e6e3dad23041c4b5dd01a003dc3b79faafe9d7c25111b9b26a289",
+          "palette_from": "lib-fraxure-s-31b5bee54845"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "fraxure",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ebe5f5f134d5ab43def0bdeeb80966cd6b76dc29efb6d271aead562f3e18bb31",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 611,
+            "form": "",
+            "key": "lib-fraxure-n-08ead70e1c0d"
+          },
+          "sha256": "40a8ede28e78e057273eb26223fdc75567425cb67cdc8118203533136bb9f228",
+          "palette_from": "lib-fraxure-s-31b5bee54845"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "fraxure",
+    "num": 611,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Fraxure, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "fraxure-cardinal.png",
+    "source_sha256": "ebe5f5f134d5ab43def0bdeeb80966cd6b76dc29efb6d271aead562f3e18bb31",
+    "source_record": "fraxure-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

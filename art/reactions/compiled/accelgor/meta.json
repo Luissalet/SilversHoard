@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "accelgor",
+        "tool": "builtin-imagegen",
+        "source_sha256": "1b8a02f2f04ad7f9ffe2935d4ce241c77a5190eab01d1430edfed61038310e40",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 617,
+          "form": "",
+          "key": "lib-accelgor-n-6c50edb16c5a"
+        },
+        "sha256": "47d3f49c938e804d371c42d5e6559148b43209b7fd02997e3b01c4f17f3c04b2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "accelgor",
+        "tool": "builtin-imagegen",
+        "source_sha256": "1b8a02f2f04ad7f9ffe2935d4ce241c77a5190eab01d1430edfed61038310e40",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 617,
+          "form": "",
+          "key": "lib-accelgor-n-6c50edb16c5a"
+        },
+        "sha256": "a11965ce0613315f259da9f2052174f92b0f3238c14a00c2d68371c9ad75eca1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "accelgor",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1b8a02f2f04ad7f9ffe2935d4ce241c77a5190eab01d1430edfed61038310e40",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 617,
+            "form": "",
+            "key": "lib-accelgor-n-6c50edb16c5a"
+          },
+          "sha256": "5d293714655f5606f3930f5503bef4de0cd90cd0e1d52957ce7a050ed8cca033",
+          "palette_from": "lib-accelgor-s-064ed7eb82b5"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "accelgor",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1b8a02f2f04ad7f9ffe2935d4ce241c77a5190eab01d1430edfed61038310e40",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 617,
+            "form": "",
+            "key": "lib-accelgor-n-6c50edb16c5a"
+          },
+          "sha256": "c944fe16c135d5a20bf8e8bed97afb1e99a6ee442fc776680a68d6b28b66a836",
+          "palette_from": "lib-accelgor-s-064ed7eb82b5"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "accelgor",
+    "num": 617,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Accelgor, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "accelgor-cardinal.png",
+    "source_sha256": "1b8a02f2f04ad7f9ffe2935d4ce241c77a5190eab01d1430edfed61038310e40",
+    "source_record": "accelgor-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

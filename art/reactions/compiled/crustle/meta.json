@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "crustle",
+        "tool": "builtin-imagegen",
+        "source_sha256": "873ba058fed0b10f1538fb55ff643992c0a347aa0192ebf1755655f62ef0a1f3",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 558,
+          "form": "",
+          "key": "lib-crustle-n-2cf590d94214"
+        },
+        "sha256": "2bf23bfe7d61e92190218a9f926a6ed9b927915028a051d3947d544e5bdee4bc"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "crustle",
+        "tool": "builtin-imagegen",
+        "source_sha256": "873ba058fed0b10f1538fb55ff643992c0a347aa0192ebf1755655f62ef0a1f3",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 558,
+          "form": "",
+          "key": "lib-crustle-n-2cf590d94214"
+        },
+        "sha256": "03f21a5db28ce5e3884f74c0c7e64e50c2ad133cde1b9cb0b218ac07b4b0b35d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "crustle",
+          "tool": "builtin-imagegen",
+          "source_sha256": "873ba058fed0b10f1538fb55ff643992c0a347aa0192ebf1755655f62ef0a1f3",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 558,
+            "form": "",
+            "key": "lib-crustle-n-2cf590d94214"
+          },
+          "sha256": "73846cbee83051d87687980b9cab1ee8a8f5805d42fe0b09ea681d78537d06f0",
+          "palette_from": "lib-crustle-s-8cdf3aed7a3c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "crustle",
+          "tool": "builtin-imagegen",
+          "source_sha256": "873ba058fed0b10f1538fb55ff643992c0a347aa0192ebf1755655f62ef0a1f3",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 558,
+            "form": "",
+            "key": "lib-crustle-n-2cf590d94214"
+          },
+          "sha256": "1287122268d4635e06580e58ea09f740268f1e39a2a348d6e69483db0cc995ef",
+          "palette_from": "lib-crustle-s-8cdf3aed7a3c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "crustle",
+    "num": 558,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Crustle, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "crustle-cardinal.png",
+    "source_sha256": "873ba058fed0b10f1538fb55ff643992c0a347aa0192ebf1755655f62ef0a1f3",
+    "source_record": "crustle-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

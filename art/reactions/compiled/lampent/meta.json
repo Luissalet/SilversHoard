@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "lampent",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4b80236c2c2e0f568015eef443a8d62a7dcffe1b08a3f7c259645d4f49e9b335",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 608,
+          "form": "",
+          "key": "lib-lampent-n-0b381ea20cba"
+        },
+        "sha256": "e6af759bb6d552f518027deae7a31cf2fd110659712d21fc7ed9ade30c7aaa5d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "lampent",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4b80236c2c2e0f568015eef443a8d62a7dcffe1b08a3f7c259645d4f49e9b335",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 608,
+          "form": "",
+          "key": "lib-lampent-n-0b381ea20cba"
+        },
+        "sha256": "dcaa7a382c35c9dc6a1b84fa060434a019ae5c2e0c2229409ae65e0774a57973"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "lampent",
+          "tool": "builtin-imagegen",
+          "source_sha256": "4b80236c2c2e0f568015eef443a8d62a7dcffe1b08a3f7c259645d4f49e9b335",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 608,
+            "form": "",
+            "key": "lib-lampent-n-0b381ea20cba"
+          },
+          "sha256": "c46d40701279ec498781c2d202ca5740d75c26b44f9e13aeb2a1dc32675f6663",
+          "palette_from": "lib-lampent-s-c74a194a7747"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "lampent",
+          "tool": "builtin-imagegen",
+          "source_sha256": "4b80236c2c2e0f568015eef443a8d62a7dcffe1b08a3f7c259645d4f49e9b335",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 608,
+            "form": "",
+            "key": "lib-lampent-n-0b381ea20cba"
+          },
+          "sha256": "b87228ec4af36d267b807b25060628b2c97e0d65d7b701e0f07f3bb4601b5fb6",
+          "palette_from": "lib-lampent-s-c74a194a7747"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "lampent",
+    "num": 608,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Lampent, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "lampent-cardinal.png",
+    "source_sha256": "4b80236c2c2e0f568015eef443a8d62a7dcffe1b08a3f7c259645d4f49e9b335",
+    "source_record": "lampent-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "cinccino",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9311359f4d54c1f377d4a4ce4b9158a6032b3875e4cd4515b3f5523fa6657bf0",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 573,
+          "form": "",
+          "key": "lib-cinccino-n-777a02f0b113"
+        },
+        "sha256": "10c4ed9f589859bd0d5837802acd1280c84782a2cd55a58f47ebec0c4950263f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "cinccino",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9311359f4d54c1f377d4a4ce4b9158a6032b3875e4cd4515b3f5523fa6657bf0",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 573,
+          "form": "",
+          "key": "lib-cinccino-n-777a02f0b113"
+        },
+        "sha256": "7085dd1f7cccd4ee8db891e23db925175f8b94d77b8e17a7c04968e5428c0586"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "cinccino",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9311359f4d54c1f377d4a4ce4b9158a6032b3875e4cd4515b3f5523fa6657bf0",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 573,
+            "form": "",
+            "key": "lib-cinccino-n-777a02f0b113"
+          },
+          "sha256": "3055e95c55953f7bb73a01c4278e160c6c67365265df9907ae51517116b1f643",
+          "palette_from": "lib-cinccino-s-6bfc499e6ea8"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "cinccino",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9311359f4d54c1f377d4a4ce4b9158a6032b3875e4cd4515b3f5523fa6657bf0",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 573,
+            "form": "",
+            "key": "lib-cinccino-n-777a02f0b113"
+          },
+          "sha256": "8ad01ef415327d109ee2eb1fce131154ef3ce2aaeb4aaeddc2cd0503a85c29d0",
+          "palette_from": "lib-cinccino-s-6bfc499e6ea8"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "cinccino",
+    "num": 573,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Cinccino, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "cinccino-cardinal.png",
+    "source_sha256": "9311359f4d54c1f377d4a4ce4b9158a6032b3875e4cd4515b3f5523fa6657bf0",
+    "source_record": "cinccino-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

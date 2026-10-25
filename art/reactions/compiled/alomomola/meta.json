@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "alomomola",
+        "tool": "builtin-imagegen",
+        "source_sha256": "3fa0815d3f5e7a855954d791ff4bd05df62d7decb26082fe677099c85da265af",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 594,
+          "form": "",
+          "key": "lib-alomomola-n-e5d2ee4dd260"
+        },
+        "sha256": "e5b59eb2888cd834e08bbe5be84a160dc6fe17970d4db06176825ee059db85cd"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "alomomola",
+        "tool": "builtin-imagegen",
+        "source_sha256": "3fa0815d3f5e7a855954d791ff4bd05df62d7decb26082fe677099c85da265af",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 594,
+          "form": "",
+          "key": "lib-alomomola-n-e5d2ee4dd260"
+        },
+        "sha256": "3faa3dcb1d3d119e1460ccde729ce92660d1fa8253d83992e6706c08aea36339"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "alomomola",
+          "tool": "builtin-imagegen",
+          "source_sha256": "3fa0815d3f5e7a855954d791ff4bd05df62d7decb26082fe677099c85da265af",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 594,
+            "form": "",
+            "key": "lib-alomomola-n-e5d2ee4dd260"
+          },
+          "sha256": "4154d6d2c8fecdab96f29a307478f81c6a23acd0b8c33479a2e3f101c957c69b",
+          "palette_from": "lib-alomomola-s-dad13ac7b1e4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "alomomola",
+          "tool": "builtin-imagegen",
+          "source_sha256": "3fa0815d3f5e7a855954d791ff4bd05df62d7decb26082fe677099c85da265af",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 594,
+            "form": "",
+            "key": "lib-alomomola-n-e5d2ee4dd260"
+          },
+          "sha256": "11114ca1e78f4a40449267f1a8050080b839cce2749f8b3a2c79fcbbc6d74ba3",
+          "palette_from": "lib-alomomola-s-dad13ac7b1e4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "alomomola",
+    "num": 594,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Alomomola, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "alomomola-cardinal.png",
+    "source_sha256": "3fa0815d3f5e7a855954d791ff4bd05df62d7decb26082fe677099c85da265af",
+    "source_record": "alomomola-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

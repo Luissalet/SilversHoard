@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "virizion",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4ad3629a0a3a35950cdc5ceeb20a37c2682492533cba0b5021f02a4119eeb68e",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 640,
+          "form": "",
+          "key": "lib-virizion-n-903c7b01f066"
+        },
+        "sha256": "07f4271ed0b20f966eacb53c7acbd1e404e245ac0e2e233d4960612c52d39b60"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "virizion",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4ad3629a0a3a35950cdc5ceeb20a37c2682492533cba0b5021f02a4119eeb68e",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 640,
+          "form": "",
+          "key": "lib-virizion-n-903c7b01f066"
+        },
+        "sha256": "1476d124c3715c1da289b9bc6ee588ea03d054197d772919a7c0c50e381726aa"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "virizion",
+          "tool": "builtin-imagegen",
+          "source_sha256": "4ad3629a0a3a35950cdc5ceeb20a37c2682492533cba0b5021f02a4119eeb68e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 640,
+            "form": "",
+            "key": "lib-virizion-n-903c7b01f066"
+          },
+          "sha256": "8abe0ea2548d1a24c059e8dd9417f86fcbca4e5814b07f703617d1f8cae2381d",
+          "palette_from": "lib-virizion-s-4a676623c6d4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "virizion",
+          "tool": "builtin-imagegen",
+          "source_sha256": "4ad3629a0a3a35950cdc5ceeb20a37c2682492533cba0b5021f02a4119eeb68e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 640,
+            "form": "",
+            "key": "lib-virizion-n-903c7b01f066"
+          },
+          "sha256": "73c7500d393c60cd30499c3f919b2a8b4ef5a2eb725e2c4d07ac1a52ff568d87",
+          "palette_from": "lib-virizion-s-4a676623c6d4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "virizion",
+    "num": 640,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Virizion, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "virizion-cardinal.png",
+    "source_sha256": "4ad3629a0a3a35950cdc5ceeb20a37c2682492533cba0b5021f02a4119eeb68e",
+    "source_record": "virizion-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

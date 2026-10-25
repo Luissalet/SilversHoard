@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "darmanitanzen",
+        "tool": "builtin-imagegen",
+        "source_sha256": "491da5277039faa7e4adf85df4c5fad2cbc7f254f78eb6f9474babbe1faab622",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 555,
+          "form": "Zen",
+          "key": "lib-darmanitanzen-n-2d7fe0bf2bde"
+        },
+        "sha256": "b05efaf948997004934cee40390a2e028a919f03f13e45c7eac28689cdba758e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "darmanitanzen",
+        "tool": "builtin-imagegen",
+        "source_sha256": "491da5277039faa7e4adf85df4c5fad2cbc7f254f78eb6f9474babbe1faab622",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 555,
+          "form": "Zen",
+          "key": "lib-darmanitanzen-n-2d7fe0bf2bde"
+        },
+        "sha256": "862b2fcc953c14e4836cdf8f6350efb8aa6e21c9cb0e37d501a1f7cd70d93492"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "darmanitanzen",
+          "tool": "builtin-imagegen",
+          "source_sha256": "491da5277039faa7e4adf85df4c5fad2cbc7f254f78eb6f9474babbe1faab622",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 555,
+            "form": "Zen",
+            "key": "lib-darmanitanzen-n-2d7fe0bf2bde"
+          },
+          "sha256": "184dbc47fba533bc3afc25fa509d29a4a8db5148151c2f944380e77e7b2c0238",
+          "palette_from": "lib-darmanitanzen-s-4869240dcaa7"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "darmanitanzen",
+          "tool": "builtin-imagegen",
+          "source_sha256": "491da5277039faa7e4adf85df4c5fad2cbc7f254f78eb6f9474babbe1faab622",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 555,
+            "form": "Zen",
+            "key": "lib-darmanitanzen-n-2d7fe0bf2bde"
+          },
+          "sha256": "698a71bfd3c52f49d064dcb72d40ee3b4801147c6c9e1af1e9bbfd3c3d52249a",
+          "palette_from": "lib-darmanitanzen-s-4869240dcaa7"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "darmanitanzen",
+    "num": 555,
+    "form": "Zen",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Darmanitan-Zen, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "darmanitanzen-cardinal.png",
+    "source_sha256": "491da5277039faa7e4adf85df4c5fad2cbc7f254f78eb6f9474babbe1faab622",
+    "source_record": "darmanitanzen-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

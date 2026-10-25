@@ -19,9 +19,9 @@ All 1,469 installed species/form identities in normal and shiny variants have
 both animations: **2,938 variants**. The supplemental collection contains 531
 authored Pain and 516 authored HitGround variants from the same pinned
 SpriteCollab revision as the original library. Reviewed raster exports now cover
-806 normal/shiny variants; the supplement uses 802 new Pain and 803 new HitGround
+1,135 normal/shiny variants; the supplement uses 1,125 new Pain and 1,132 new HitGround
 sequences, preserving published reactions where already available. The remaining
-1,605 Pain and 1,619 HitGround variants use explicitly marked runtime acting of their own
+1,282 Pain and 1,290 HitGround variants use explicitly marked runtime acting of their own
 installed artwork. These are derived reactions, not newly authored sprite
 sequences. Imported walking sheets and static battle-art fallbacks also have
 pain and a held prone pose; they never borrow another species' art. Artwork

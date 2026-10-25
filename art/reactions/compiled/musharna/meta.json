@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "musharna",
+        "tool": "builtin-imagegen",
+        "source_sha256": "740aedc2cf5be640af2cf348c1d46808294b7664d4732895604f6acb4548c841",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 518,
+          "form": "",
+          "key": "lib-musharna-n-05b719533626"
+        },
+        "sha256": "c0a1099c388bafea37e8f5c4293109077aa05643e8ee2121f88c997952619a7d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "musharna",
+        "tool": "builtin-imagegen",
+        "source_sha256": "740aedc2cf5be640af2cf348c1d46808294b7664d4732895604f6acb4548c841",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 518,
+          "form": "",
+          "key": "lib-musharna-n-05b719533626"
+        },
+        "sha256": "055cc94edb0a896d8a9f908cea3152b68a3a2970660761303fdb8cd3ab83c0ff"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "musharna",
+          "tool": "builtin-imagegen",
+          "source_sha256": "740aedc2cf5be640af2cf348c1d46808294b7664d4732895604f6acb4548c841",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 518,
+            "form": "",
+            "key": "lib-musharna-n-05b719533626"
+          },
+          "sha256": "4e455e1ded59d72c472facb84d618ec7f0579ef3330ef777cfadca081212470e",
+          "palette_from": "lib-musharna-s-38ef869be957"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "musharna",
+          "tool": "builtin-imagegen",
+          "source_sha256": "740aedc2cf5be640af2cf348c1d46808294b7664d4732895604f6acb4548c841",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 518,
+            "form": "",
+            "key": "lib-musharna-n-05b719533626"
+          },
+          "sha256": "3f5072e94053e61040e7858e66d58403962b0371bc425511c35b8054ad8b764e",
+          "palette_from": "lib-musharna-s-38ef869be957"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "musharna",
+    "num": 518,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Musharna, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "musharna-cardinal.png",
+    "source_sha256": "740aedc2cf5be640af2cf348c1d46808294b7664d4732895604f6acb4548c841",
+    "source_record": "musharna-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

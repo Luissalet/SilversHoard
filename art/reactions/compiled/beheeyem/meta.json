@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "beheeyem",
+        "tool": "builtin-imagegen",
+        "source_sha256": "617aa4e05f8d3794d9472448b24471f577f5bcdf8ed41794a60817fc9de00faa",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 606,
+          "form": "",
+          "key": "lib-beheeyem-n-cb6ce6542707"
+        },
+        "sha256": "d9e449effce456ecfae8909163718887dc6a0bf73e57fe784c01c34ced155926"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "beheeyem",
+        "tool": "builtin-imagegen",
+        "source_sha256": "617aa4e05f8d3794d9472448b24471f577f5bcdf8ed41794a60817fc9de00faa",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 606,
+          "form": "",
+          "key": "lib-beheeyem-n-cb6ce6542707"
+        },
+        "sha256": "13b47b4fc0fe02d6ca0b2342b689418afba0fd270a99878c70489777a0495bf5"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "beheeyem",
+          "tool": "builtin-imagegen",
+          "source_sha256": "617aa4e05f8d3794d9472448b24471f577f5bcdf8ed41794a60817fc9de00faa",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 606,
+            "form": "",
+            "key": "lib-beheeyem-n-cb6ce6542707"
+          },
+          "sha256": "05b110295decd1e28b9e72c415428989616d09bf633a986d069839b89eb95008",
+          "palette_from": "lib-beheeyem-s-c34cbc0e4656"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "beheeyem",
+          "tool": "builtin-imagegen",
+          "source_sha256": "617aa4e05f8d3794d9472448b24471f577f5bcdf8ed41794a60817fc9de00faa",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 606,
+            "form": "",
+            "key": "lib-beheeyem-n-cb6ce6542707"
+          },
+          "sha256": "7cc5948a4bc35c025cd71bc629fd1c66e85d133f35d3ca7141f4e630ac7707d9",
+          "palette_from": "lib-beheeyem-s-c34cbc0e4656"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "beheeyem",
+    "num": 606,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Beheeyem, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "beheeyem-cardinal.png",
+    "source_sha256": "617aa4e05f8d3794d9472448b24471f577f5bcdf8ed41794a60817fc9de00faa",
+    "source_record": "beheeyem-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

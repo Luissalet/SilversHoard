@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "lumineon",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b577e4a5c97f45e88edad2fd2dda35c9b94754f0ce5382954539d9d378c1c960",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 457,
+          "form": "",
+          "key": "lib-lumineon-n-b55b492cb64e"
+        },
+        "sha256": "8d9d7dcfb1dd2ccd2d591dde4b91a9f9d006844491c31b600078d6e5998d33ac"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "lumineon",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b577e4a5c97f45e88edad2fd2dda35c9b94754f0ce5382954539d9d378c1c960",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 457,
+          "form": "",
+          "key": "lib-lumineon-n-b55b492cb64e"
+        },
+        "sha256": "1f91ff3031e81d774eed13668e4b5ed92c168872cb01779a3d4f465ee3db6f11"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "lumineon",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b577e4a5c97f45e88edad2fd2dda35c9b94754f0ce5382954539d9d378c1c960",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 457,
+            "form": "",
+            "key": "lib-lumineon-n-b55b492cb64e"
+          },
+          "sha256": "6395585f0736c3eb3c43cc0c2772c678a1eb032fe80ebb357b38b3491592210f",
+          "palette_from": "lib-lumineon-s-5907689fd4a9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "lumineon",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b577e4a5c97f45e88edad2fd2dda35c9b94754f0ce5382954539d9d378c1c960",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 457,
+            "form": "",
+            "key": "lib-lumineon-n-b55b492cb64e"
+          },
+          "sha256": "c01ba0acb9e68880c0d4fe3d583a455e370c1f661a7d2849b79632a5913a8d5a",
+          "palette_from": "lib-lumineon-s-5907689fd4a9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "lumineon",
+    "num": 457,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Lumineon, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "lumineon-cardinal.png",
+    "source_sha256": "b577e4a5c97f45e88edad2fd2dda35c9b94754f0ce5382954539d9d378c1c960",
+    "source_record": "lumineon-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

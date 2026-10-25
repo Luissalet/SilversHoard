@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "mienshao",
+        "tool": "builtin-imagegen",
+        "source_sha256": "55d7b81f1666f2eca007897ebd0130faa19f9c9b04fce2b96b449d1dc7c523d5",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 620,
+          "form": "",
+          "key": "lib-mienshao-n-1ee38bc41bc3"
+        },
+        "sha256": "a934cb08da8b237350a64fbd60654cdc3ccb21274b8eeb74f708db680b66b24d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "mienshao",
+        "tool": "builtin-imagegen",
+        "source_sha256": "55d7b81f1666f2eca007897ebd0130faa19f9c9b04fce2b96b449d1dc7c523d5",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 620,
+          "form": "",
+          "key": "lib-mienshao-n-1ee38bc41bc3"
+        },
+        "sha256": "ec0ec8c45e2b48ab09c2d4f81179810229dec8316326e45dd26d528ec363805e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "mienshao",
+          "tool": "builtin-imagegen",
+          "source_sha256": "55d7b81f1666f2eca007897ebd0130faa19f9c9b04fce2b96b449d1dc7c523d5",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 620,
+            "form": "",
+            "key": "lib-mienshao-n-1ee38bc41bc3"
+          },
+          "sha256": "5c3780f31af4e5c5f85f47f912162e2df4eece23b3301cea0f40a74d153cc814",
+          "palette_from": "lib-mienshao-s-fe9dbcaf45ca"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "mienshao",
+          "tool": "builtin-imagegen",
+          "source_sha256": "55d7b81f1666f2eca007897ebd0130faa19f9c9b04fce2b96b449d1dc7c523d5",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 620,
+            "form": "",
+            "key": "lib-mienshao-n-1ee38bc41bc3"
+          },
+          "sha256": "bc618068bc35f2c9e9cd15b6e201779c34aa357a7e4039243b1120441aded7a5",
+          "palette_from": "lib-mienshao-s-fe9dbcaf45ca"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "mienshao",
+    "num": 620,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Mienshao, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "mienshao-cardinal.png",
+    "source_sha256": "55d7b81f1666f2eca007897ebd0130faa19f9c9b04fce2b96b449d1dc7c523d5",
+    "source_record": "mienshao-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "karrablast",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7211e3458f2c5409d026d5cff751578c62e78801ce4e1788ffca08f52e8f3987",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 588,
+          "form": "",
+          "key": "lib-karrablast-n-ea0ee7fa2b75"
+        },
+        "sha256": "21f49b73bd7e5b99f83b92ac83f250e6dcd0081552a035fb48c0ea42dce1e940"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "karrablast",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7211e3458f2c5409d026d5cff751578c62e78801ce4e1788ffca08f52e8f3987",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 588,
+          "form": "",
+          "key": "lib-karrablast-n-ea0ee7fa2b75"
+        },
+        "sha256": "3adc7997c2786be731f7b06c57d62dafe4f282a08c0db90e5f7890a95ddc5519"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "karrablast",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7211e3458f2c5409d026d5cff751578c62e78801ce4e1788ffca08f52e8f3987",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 588,
+            "form": "",
+            "key": "lib-karrablast-n-ea0ee7fa2b75"
+          },
+          "sha256": "0a96cee641c4f6b748cae9aec3c346b3669cdc5c139adfb8f05fffa20e91a22c",
+          "palette_from": "lib-karrablast-s-ec1219c46e22"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "karrablast",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7211e3458f2c5409d026d5cff751578c62e78801ce4e1788ffca08f52e8f3987",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 588,
+            "form": "",
+            "key": "lib-karrablast-n-ea0ee7fa2b75"
+          },
+          "sha256": "022d8a486d94ce29cd4c40c16b5b0ba14ce87e6b77dd9a125a4dab01119af131",
+          "palette_from": "lib-karrablast-s-ec1219c46e22"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "karrablast",
+    "num": 588,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Karrablast, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "karrablast-cardinal.png",
+    "source_sha256": "7211e3458f2c5409d026d5cff751578c62e78801ce4e1788ffca08f52e8f3987",
+    "source_record": "karrablast-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

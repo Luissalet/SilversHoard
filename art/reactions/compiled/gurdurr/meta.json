@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "gurdurr",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ad7ff9dd7314a38bc39945ba452da8de62386ad21586c32b03749993c39944d7",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 533,
+          "form": "",
+          "key": "lib-gurdurr-n-34cafecca0d9"
+        },
+        "sha256": "8b223bc85c7949c966e53a253c6abd5430a03ddf75fe11b8dff7be45e813fcf3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "gurdurr",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ad7ff9dd7314a38bc39945ba452da8de62386ad21586c32b03749993c39944d7",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 533,
+          "form": "",
+          "key": "lib-gurdurr-n-34cafecca0d9"
+        },
+        "sha256": "323de75aca4271777099cabbf4d787f926b71d66a53755897df5db56970076c8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "gurdurr",
+          "tool": "builtin-imagegen",
+          "source_sha256": "10ba3e307a15640c2fe425819bddf5fa0f10d03a5fba571fde2ff440fee7129b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 533,
+            "form": "",
+            "key": "lib-gurdurr-s-bcd0c2789e14"
+          },
+          "sha256": "b2db402f957c0ea26a68f4021ff6df51e3c399c07688f894fa4bb68af22f361b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "gurdurr",
+          "tool": "builtin-imagegen",
+          "source_sha256": "10ba3e307a15640c2fe425819bddf5fa0f10d03a5fba571fde2ff440fee7129b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 533,
+            "form": "",
+            "key": "lib-gurdurr-s-bcd0c2789e14"
+          },
+          "sha256": "eaa493adc3c2567c2c65000885728446f8171432bd7dcb61fc7a2d09d87a8681"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "gurdurr",
+    "num": 533,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Gurdurr, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "gurdurr-cardinal.png",
+    "source_sha256": "ad7ff9dd7314a38bc39945ba452da8de62386ad21586c32b03749993c39944d7",
+    "source_record": "gurdurr-cardinal.json",
+    "shiny_source_image": "gurdurr-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Recolour transparent8column4row pixel-art atlas image1 to the exact native SHINY materials in image2. The long carried steel BEAM is SATURATED DEEP RED/CRIMSON, not grey, orange, brown or wood. Every broad beam surface stays rich crimson red with dark red shadows in every pose and camera. Keep pale beige skin, vivid pink muscle veins and other native material colours distinct. Preserve all32 poses, full anatomy and beamshape, fixed row cameras front/right/rear/left, exact grid and transparent gutters, crisp pixels. No extra objects, effects or text."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

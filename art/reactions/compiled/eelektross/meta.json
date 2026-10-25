@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "eelektross",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6f20e26e7f5909391a85aa6f092a958b03f182fff11b71b4dd534b8654751361",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 604,
+          "form": "",
+          "key": "lib-eelektross-n-cc2692a8f759"
+        },
+        "sha256": "98efb34c91de1048e5d2e42c79eb66a1e24e6df9e9deb11753ce052916f05b1c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "eelektross",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6f20e26e7f5909391a85aa6f092a958b03f182fff11b71b4dd534b8654751361",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 604,
+          "form": "",
+          "key": "lib-eelektross-n-cc2692a8f759"
+        },
+        "sha256": "c762a629688cad735c457b2499adf289be206af1792242fa2f75d7d5ae5b8a32"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "eelektross",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6f20e26e7f5909391a85aa6f092a958b03f182fff11b71b4dd534b8654751361",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 604,
+            "form": "",
+            "key": "lib-eelektross-n-cc2692a8f759"
+          },
+          "sha256": "8e7c924636e89d0e4d602363e36ae2aa7cd4bfa0aa3542cc4af396ee356169be",
+          "palette_from": "lib-eelektross-s-213a9b70c872"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "eelektross",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6f20e26e7f5909391a85aa6f092a958b03f182fff11b71b4dd534b8654751361",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 604,
+            "form": "",
+            "key": "lib-eelektross-n-cc2692a8f759"
+          },
+          "sha256": "fb34c44bd24ec95b41355a6f36398ef020b1e3d2be536092786d4d4328ef3fcb",
+          "palette_from": "lib-eelektross-s-213a9b70c872"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "eelektross",
+    "num": 604,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Eelektross, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "eelektross-cardinal.png",
+    "source_sha256": "6f20e26e7f5909391a85aa6f092a958b03f182fff11b71b4dd534b8654751361",
+    "source_record": "eelektross-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

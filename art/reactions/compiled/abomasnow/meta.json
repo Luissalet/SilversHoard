@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "abomasnow",
+        "tool": "builtin-imagegen",
+        "source_sha256": "83cc2d7c680568e577898628c6aaf8a052b95cba376b7308e9406155e05dee87",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 460,
+          "form": "",
+          "key": "lib-abomasnow-n-391a2392e8aa"
+        },
+        "sha256": "48f88d0140fe9f0dc3cc0849f9d6ab22acb02b6b841f55db1d48dbd75c40236d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "abomasnow",
+        "tool": "builtin-imagegen",
+        "source_sha256": "83cc2d7c680568e577898628c6aaf8a052b95cba376b7308e9406155e05dee87",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 460,
+          "form": "",
+          "key": "lib-abomasnow-n-391a2392e8aa"
+        },
+        "sha256": "5b831fdcc07db2c257029abbc16ca5626dedb9d17efc5ad507695a7078717ab5"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "abomasnow",
+          "tool": "builtin-imagegen",
+          "source_sha256": "83cc2d7c680568e577898628c6aaf8a052b95cba376b7308e9406155e05dee87",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 460,
+            "form": "",
+            "key": "lib-abomasnow-n-391a2392e8aa"
+          },
+          "sha256": "c2b2a278cc520b9c1c2566d919cf59ffb8e05406df99c42f820a1c6c491e9579",
+          "palette_from": "lib-abomasnow-s-6301053e684d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "abomasnow",
+          "tool": "builtin-imagegen",
+          "source_sha256": "83cc2d7c680568e577898628c6aaf8a052b95cba376b7308e9406155e05dee87",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 460,
+            "form": "",
+            "key": "lib-abomasnow-n-391a2392e8aa"
+          },
+          "sha256": "155f1f441f9040745cb64fdaf54e8c9e560547902917c84ceb3ad15bbdc7aae6",
+          "palette_from": "lib-abomasnow-s-6301053e684d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "abomasnow",
+    "num": 460,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Abomasnow, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "abomasnow-cardinal.png",
+    "source_sha256": "83cc2d7c680568e577898628c6aaf8a052b95cba376b7308e9406155e05dee87",
+    "source_record": "abomasnow-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "cryogonal",
+        "tool": "builtin-imagegen",
+        "source_sha256": "c7d56518692ac336a3786ca9980f925e9e9b868e2e55aff03d712299efd6e1e1",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 615,
+          "form": "",
+          "key": "lib-cryogonal-n-504529677cee"
+        },
+        "sha256": "640612924dd714b11d75f2db2ff9082ec931013cfd5d88ce1d353529aa950c17"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "cryogonal",
+        "tool": "builtin-imagegen",
+        "source_sha256": "c7d56518692ac336a3786ca9980f925e9e9b868e2e55aff03d712299efd6e1e1",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 615,
+          "form": "",
+          "key": "lib-cryogonal-n-504529677cee"
+        },
+        "sha256": "d3d0d563fcfeb405a967baee02d0437a3d72d5b391bcf5152c72c7b48d9145d6"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "cryogonal",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0e1c7206fb47648b7f2229ff68a763bc398429d82b9e213d7ffb9620b4a984e2",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 615,
+            "form": "",
+            "key": "lib-cryogonal-s-40371f288152"
+          },
+          "sha256": "249753eac0ae120b22fed0d2d65365c7dd40dbb75541d03615f90c92f6cb42f9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "cryogonal",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0e1c7206fb47648b7f2229ff68a763bc398429d82b9e213d7ffb9620b4a984e2",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 615,
+            "form": "",
+            "key": "lib-cryogonal-s-40371f288152"
+          },
+          "sha256": "be09175ca119b98551018bf98930001b75c46a9c6f0c15a0c161dfcde1f7a70a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "cryogonal",
+    "num": 615,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Cryogonal, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "cryogonal-cardinal.png",
+    "source_sha256": "c7d56518692ac336a3786ca9980f925e9e9b868e2e55aff03d712299efd6e1e1",
+    "source_record": "cryogonal-cardinal.json",
+    "shiny_source_image": "cryogonal-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Recolour transparent32sprite8column4row pixel-art atlas image1 to EXACT SHINY native colours of image2. Ice crystal body, rear disk ridges and rear centre stay BLUE/CYAN. Orange/yellow is restricted to actual front eyes and the two native chain ends. NORTH row3 has NO ORANGE or RED ridges or dots on its back disk. Keep hexagonal disk and BOTH ice chains fully intact. Preserve all32 poses, entire anatomy and each fixed row camera(front/right/rear/left), crisp pixels, grid and transparent gutters. No new objects, scenery, effects or text."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "joltik",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9f7a948d2c182b0b9e5a9650184af80905d419f9319e69b086cfc9cff7efb1a7",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 595,
+          "form": "",
+          "key": "lib-joltik-n-d80ffee14af8"
+        },
+        "sha256": "e8dd8c14482bdac3afa94808420febf2a9eab2e02ffa709ef341922669fc04e6"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "joltik",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9f7a948d2c182b0b9e5a9650184af80905d419f9319e69b086cfc9cff7efb1a7",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 595,
+          "form": "",
+          "key": "lib-joltik-n-d80ffee14af8"
+        },
+        "sha256": "fb0f9c8768901b213838bad3e75443f8536a5e8543c7968a59759ddde797f96b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "joltik",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9f7a948d2c182b0b9e5a9650184af80905d419f9319e69b086cfc9cff7efb1a7",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 595,
+            "form": "",
+            "key": "lib-joltik-n-d80ffee14af8"
+          },
+          "sha256": "1d445b0d18af7286602c6fe7e4091598e08909ccca77fb892d7e9aaa56a98bd8",
+          "palette_from": "lib-joltik-s-2909513ebdf5"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "joltik",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9f7a948d2c182b0b9e5a9650184af80905d419f9319e69b086cfc9cff7efb1a7",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 595,
+            "form": "",
+            "key": "lib-joltik-n-d80ffee14af8"
+          },
+          "sha256": "38cdc138907bef5de7d664b4cd8eebd26549c7590064e3c963d1ba2690a73af1",
+          "palette_from": "lib-joltik-s-2909513ebdf5"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "joltik",
+    "num": 595,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Joltik, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "joltik-cardinal.png",
+    "source_sha256": "9f7a948d2c182b0b9e5a9650184af80905d419f9319e69b086cfc9cff7efb1a7",
+    "source_record": "joltik-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

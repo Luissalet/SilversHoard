@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "gabite",
+        "tool": "builtin-imagegen",
+        "source_sha256": "73c258e0638236dad5d13e62f5d4c6c21da146ea1cdeced72d647e4089d0ef44",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 444,
+          "form": "",
+          "key": "lib-gabite-n-c188e58477d2"
+        },
+        "sha256": "3b425b07a9c894460673084d059962133a40a92ba9415e84cb3c63ec95c9ed97"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "gabite",
+        "tool": "builtin-imagegen",
+        "source_sha256": "73c258e0638236dad5d13e62f5d4c6c21da146ea1cdeced72d647e4089d0ef44",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 444,
+          "form": "",
+          "key": "lib-gabite-n-c188e58477d2"
+        },
+        "sha256": "567961ee9b56754f5f5a8d79a0f99d754d78848932c6c65074fc8ca4cb44e6b8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "gabite",
+          "tool": "builtin-imagegen",
+          "source_sha256": "73c258e0638236dad5d13e62f5d4c6c21da146ea1cdeced72d647e4089d0ef44",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 444,
+            "form": "",
+            "key": "lib-gabite-n-c188e58477d2"
+          },
+          "sha256": "2db17ad4322a0d62c42b39548381fb49e535d41182f885a204f4042e7cc201cf",
+          "palette_from": "lib-gabite-s-38fe2817a6a3"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "gabite",
+          "tool": "builtin-imagegen",
+          "source_sha256": "73c258e0638236dad5d13e62f5d4c6c21da146ea1cdeced72d647e4089d0ef44",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 444,
+            "form": "",
+            "key": "lib-gabite-n-c188e58477d2"
+          },
+          "sha256": "cd4f642cd69ac5c2c610c40d99380077f2cfed7d0b84423afed88a8ae65ce72e",
+          "palette_from": "lib-gabite-s-38fe2817a6a3"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "gabite",
+    "num": 444,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Gabite, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "gabite-cardinal.png",
+    "source_sha256": "73c258e0638236dad5d13e62f5d4c6c21da146ea1cdeced72d647e4089d0ef44",
+    "source_record": "gabite-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

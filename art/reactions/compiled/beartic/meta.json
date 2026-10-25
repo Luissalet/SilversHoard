@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "beartic",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6e5c3cb56925feb516277e17626a7e44cca79650a3700bfd1021faa6996dde46",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 614,
+          "form": "",
+          "key": "lib-beartic-n-9650d5241db7"
+        },
+        "sha256": "faecead7cb0ec3d153272a01ca9b67ed445d4cbd9e3987a664021aa9d8a3e2f6"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "beartic",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6e5c3cb56925feb516277e17626a7e44cca79650a3700bfd1021faa6996dde46",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 614,
+          "form": "",
+          "key": "lib-beartic-n-9650d5241db7"
+        },
+        "sha256": "661ca32e6da792a1c077419494eada0338cd47a5d7e9f142faeb3c86e4921369"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "beartic",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6e5c3cb56925feb516277e17626a7e44cca79650a3700bfd1021faa6996dde46",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 614,
+            "form": "",
+            "key": "lib-beartic-n-9650d5241db7"
+          },
+          "sha256": "59efaba81f17195e5e54d4e324f28eb60fb12136312842c0e5c5aeff6b430e03",
+          "palette_from": "lib-beartic-s-ea02ce33e378"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "beartic",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6e5c3cb56925feb516277e17626a7e44cca79650a3700bfd1021faa6996dde46",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 614,
+            "form": "",
+            "key": "lib-beartic-n-9650d5241db7"
+          },
+          "sha256": "7ac321b080f03cf458d224c3be8a4bf72e411b89e0dbb4e3576b4c651a195296",
+          "palette_from": "lib-beartic-s-ea02ce33e378"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "beartic",
+    "num": 614,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Beartic, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "beartic-cardinal.png",
+    "source_sha256": "6e5c3cb56925feb516277e17626a7e44cca79650a3700bfd1021faa6996dde46",
+    "source_record": "beartic-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

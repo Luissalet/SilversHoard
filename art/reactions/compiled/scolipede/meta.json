@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 72,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "scolipede",
+        "tool": "builtin-imagegen",
+        "source_sha256": "30e478322334bf30ad530d67c394a56ac38a8baf1091727deee00229746b4aca",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 545,
+          "form": "",
+          "key": "lib-scolipede-n-a73809d4f9de"
+        },
+        "sha256": "51fcce9e96fd96a0ae1a17b78e9ae324df261cd4bac848485c20e35ff756f90c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 72,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "scolipede",
+        "tool": "builtin-imagegen",
+        "source_sha256": "30e478322334bf30ad530d67c394a56ac38a8baf1091727deee00229746b4aca",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 545,
+          "form": "",
+          "key": "lib-scolipede-n-a73809d4f9de"
+        },
+        "sha256": "f432d8629c08e91df269cc049d742f9219d2332612cfc4edaedc6caef65b06db"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 72,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 50,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "scolipede",
+          "tool": "builtin-imagegen",
+          "source_sha256": "4dc5f32d4a54bec8cfbd5c8046c416263375c2dfec4463603f86fc23964df572",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 545,
+            "form": "",
+            "key": "lib-scolipede-s-977d4ab8f046"
+          },
+          "sha256": "0b77dfb243bf803746d08648ab3c19fdeed4dca429b0511fd336905deffa5818"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 72,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 50,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "scolipede",
+          "tool": "builtin-imagegen",
+          "source_sha256": "4dc5f32d4a54bec8cfbd5c8046c416263375c2dfec4463603f86fc23964df572",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 545,
+            "form": "",
+            "key": "lib-scolipede-s-977d4ab8f046"
+          },
+          "sha256": "d6634fda22c0b6424e04501566193534cae4c94451d9d5597dde9d25bc12f024"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "scolipede",
+    "num": 545,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Scolipede, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "scolipede-cardinal.png",
+    "source_sha256": "30e478322334bf30ad530d67c394a56ac38a8baf1091727deee00229746b4aca",
+    "source_record": "scolipede-cardinal.json",
+    "shiny_source_image": "scolipede-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Recolour image1 transparent8column4row pixel-art atlas to exact SHINY colours and markings of image2. Keep all32 poses and anatomy, exact grid, fixed FRONT/RIGHT/REAR/LEFT row views, all parts and scale, crisp pixels and transparent gutters. No extra objects, effects or text.  Body bright RED, throat/belly dark TEAL. The circular rings on flanks/body segments and hip joints must be COMPLETE CLEAR TURQUOISE/CYAN CIRCLES, as native reference, with red interior. Keep each full cyan ring/oval visible and continuous around each segment circle on E/W profile; not scattered cyan dots, broken fragments, red circles or fur-like fringes. Antenna/segment bands cyan. Preserve every ring marking."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

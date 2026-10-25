@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "swadloon",
+        "tool": "builtin-imagegen",
+        "source_sha256": "90b9789a9cd19657dc04a7206a46deeabd7f0d6e102e3633a7bb1d8e855cf0fc",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 541,
+          "form": "",
+          "key": "lib-swadloon-n-b5b1ba477c63"
+        },
+        "sha256": "611e7e727016d0ed67c00e211965f4f5041ecfcbe306e79a91aa02da89f18b6a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "swadloon",
+        "tool": "builtin-imagegen",
+        "source_sha256": "90b9789a9cd19657dc04a7206a46deeabd7f0d6e102e3633a7bb1d8e855cf0fc",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 541,
+          "form": "",
+          "key": "lib-swadloon-n-b5b1ba477c63"
+        },
+        "sha256": "14741690d1a13a4b37299a1a44a7185b8c6d690032ff7f684768b825edd67125"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "swadloon",
+          "tool": "builtin-imagegen",
+          "source_sha256": "90b9789a9cd19657dc04a7206a46deeabd7f0d6e102e3633a7bb1d8e855cf0fc",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 541,
+            "form": "",
+            "key": "lib-swadloon-n-b5b1ba477c63"
+          },
+          "sha256": "eb6987bde738b64b3c5a541fb2a1cde80654e1df2b7db4f1e5db198d856a4fff",
+          "palette_from": "lib-swadloon-s-aa6e0f2bec3f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "swadloon",
+          "tool": "builtin-imagegen",
+          "source_sha256": "90b9789a9cd19657dc04a7206a46deeabd7f0d6e102e3633a7bb1d8e855cf0fc",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 541,
+            "form": "",
+            "key": "lib-swadloon-n-b5b1ba477c63"
+          },
+          "sha256": "6bfc0f876ab98a2904f80ffff209bab0c99c79c5a883e02f2c3a04143413665b",
+          "palette_from": "lib-swadloon-s-aa6e0f2bec3f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "swadloon",
+    "num": 541,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Swadloon, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "swadloon-cardinal.png",
+    "source_sha256": "90b9789a9cd19657dc04a7206a46deeabd7f0d6e102e3633a7bb1d8e855cf0fc",
+    "source_record": "swadloon-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -107,10 +107,10 @@
         "ax": 20.0,
         "ay": 34,
         "source": {
-          "kind": "shiny-generated-pmd-reaction",
+          "kind": "generated-shiny-pmd-reaction",
           "record": "wartortle",
           "tool": "builtin-imagegen",
-          "source_sha256": "bcbc1b80d881b92a7ac212319dd37e8ab589573e3c73641767e5c4b49256db60",
+          "source_sha256": "16f97c99b675b44cbb889dfb3ee610f9d82bb00c7e91b701ffd943eb2a1b56ca",
           "authored_directions": 4,
           "authored_frames": 8,
           "generated_frames": 8,
@@ -123,10 +123,9 @@
           "reference": {
             "num": 8,
             "form": "",
-            "key": "lib-wartortle-n-a5729914936d"
+            "key": "lib-wartortle-s-8c49478a9f35"
           },
-          "sha256": "c31f5ef0970d2928c9b344d8a01d13ce1369c9433245693036ccf253f6d2341d",
-          "palette_from": "lib-wartortle-s-8c49478a9f35"
+          "sha256": "70cecb0aae0410275b5dd5129fcf106c5bb2af01cd6bee6751c008b63cf6ffdf"
         },
         "row_map": [
           0,
@@ -151,10 +150,10 @@
         "ax": 20.0,
         "ay": 34,
         "source": {
-          "kind": "shiny-generated-pmd-reaction",
+          "kind": "generated-shiny-pmd-reaction",
           "record": "wartortle",
           "tool": "builtin-imagegen",
-          "source_sha256": "bcbc1b80d881b92a7ac212319dd37e8ab589573e3c73641767e5c4b49256db60",
+          "source_sha256": "16f97c99b675b44cbb889dfb3ee610f9d82bb00c7e91b701ffd943eb2a1b56ca",
           "authored_directions": 4,
           "authored_frames": 8,
           "generated_frames": 8,
@@ -167,10 +166,9 @@
           "reference": {
             "num": 8,
             "form": "",
-            "key": "lib-wartortle-n-a5729914936d"
+            "key": "lib-wartortle-s-8c49478a9f35"
           },
-          "sha256": "73e56359493aa32a3742aeade54da9d9f05039bd54a478392a29b7da8bc81c81",
-          "palette_from": "lib-wartortle-s-8c49478a9f35"
+          "sha256": "9e5dbe824af7a905645503073a30be7a839fc8f21e03d667c8bc05c4298373a7"
         },
         "row_map": [
           0,
@@ -200,8 +198,10 @@
     "prompt": "Draw a transparent pixel-art animation atlas for Wartortle. Use the reference only for exact character identity, native colours and views. EXACT FOUR COLUMNS and FOUR ROWS,16 full-body sprites separated by wide empty transparent gutters. Each row keeps its camera throughout: FRONT, RIGHT PROFILE, REAR, LEFT PROFILE. Column1 startled wince with braced body; column2 stronger wince with head lowered; column3 body settles low and limbs fold; column4 body rests completely on the ground with closed eyes, limbs relaxed. Keep the rear view strictly posterior when lying down, showing back and hidden face. Actual newly drawn poses, expressive body articulation, consistent pixel scale, all native markings, accessories and anatomy. Crisp pixels, limited original palette. No text, detached effects, shadows or scenery.",
     "source_image": "wartortle-compact-r3.png",
     "source_sha256": "bcbc1b80d881b92a7ac212319dd37e8ab589573e3c73641767e5c4b49256db60",
-    "source_record": "wartortle-compact-r3.json"
+    "source_record": "wartortle-compact-r3.json",
+    "shiny_source_image": "wartortle-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Recolour the sixteen sprites of image1 to match the exact native SHINY colours of image2. Keep all16 poses, fourcolumns/fourrows, exact grid, fixed FRONT/RIGHT/REAR/LEFT camera per row, pixel scale, anatomy and parts. Transparent background/gutters, crisp pixels, no added objects/effects/text. Skin LAVENDER PURPLE, shell GREEN, but ENTIRE FRONT BELLY PLATE stays OCHRE/BROWN with tan panel divisions, including the lower belly under the horizontal line in FRONT row columns1 and2. Never green on the belly: green is for the back shell only. Tail/ears pale grey-cyan, white shell rim. Match those separate native material zones exactly."
   },
   "reviewed": true,
-  "shiny_reviewed": false
+  "shiny_reviewed": true
 }

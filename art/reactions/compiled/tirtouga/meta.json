@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tirtouga",
+        "tool": "builtin-imagegen",
+        "source_sha256": "2b97552ead6dcee80d5955d26b7d3e0c542e8d9906b6a0f7474ed2f6fe533538",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 564,
+          "form": "",
+          "key": "lib-tirtouga-n-d3125327f352"
+        },
+        "sha256": "3d8caaad482ad5c148e647fe9fb98807f79e3304c302f42c3bf9c5dbc34419f7"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tirtouga",
+        "tool": "builtin-imagegen",
+        "source_sha256": "2b97552ead6dcee80d5955d26b7d3e0c542e8d9906b6a0f7474ed2f6fe533538",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 564,
+          "form": "",
+          "key": "lib-tirtouga-n-d3125327f352"
+        },
+        "sha256": "ddadd384828bcf197a28a8365f0cf31b8ee187d25c4790d5d236f0d0439c57bc"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tirtouga",
+          "tool": "builtin-imagegen",
+          "source_sha256": "2b97552ead6dcee80d5955d26b7d3e0c542e8d9906b6a0f7474ed2f6fe533538",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 564,
+            "form": "",
+            "key": "lib-tirtouga-n-d3125327f352"
+          },
+          "sha256": "8cbf7a1c0187869676d602ed227d9b666556716256042189a6d0a98a509b4980",
+          "palette_from": "lib-tirtouga-s-5087d02aae37"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tirtouga",
+          "tool": "builtin-imagegen",
+          "source_sha256": "2b97552ead6dcee80d5955d26b7d3e0c542e8d9906b6a0f7474ed2f6fe533538",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 564,
+            "form": "",
+            "key": "lib-tirtouga-n-d3125327f352"
+          },
+          "sha256": "2d7ea4e1044d2978654bf8f01b1ae686e53c0f5d791a98d0ca0ead7bbd0d4f9d",
+          "palette_from": "lib-tirtouga-s-5087d02aae37"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "tirtouga",
+    "num": 564,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Tirtouga, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "tirtouga-cardinal.png",
+    "source_sha256": "2b97552ead6dcee80d5955d26b7d3e0c542e8d9906b6a0f7474ed2f6fe533538",
+    "source_record": "tirtouga-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}
