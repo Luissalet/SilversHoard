@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 88,
+      "h": 80,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 44.0,
+      "ay": 74,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "wailord",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7422b833f65a02819189bffedc822380c2a4bd87f81563cf80d8e63b0152e88c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 321,
+          "form": "",
+          "key": "lib-wailord-n-e707c7729a44"
+        },
+        "sha256": "7b45ad52b685d2aa0f03ee4e6322281ff06c8022d24caac2aba86319bc019272"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 88,
+      "h": 80,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 44.0,
+      "ay": 74,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "wailord",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7422b833f65a02819189bffedc822380c2a4bd87f81563cf80d8e63b0152e88c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 321,
+          "form": "",
+          "key": "lib-wailord-n-e707c7729a44"
+        },
+        "sha256": "963b3af8667d059c4871eba5aa6135cb0b3142b62cf8c4a256f3ff18250dccb3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 88,
+        "h": 80,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 44.0,
+        "ay": 74,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "wailord",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7422b833f65a02819189bffedc822380c2a4bd87f81563cf80d8e63b0152e88c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 321,
+            "form": "",
+            "key": "lib-wailord-n-e707c7729a44"
+          },
+          "sha256": "0eb9db4ce7f9672ad52e485cb0d79d3958f359d818a54d0dfb5e30afd9722a1d",
+          "palette_from": "lib-wailord-s-4839bec7bb16"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 88,
+        "h": 80,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 44.0,
+        "ay": 74,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "wailord",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7422b833f65a02819189bffedc822380c2a4bd87f81563cf80d8e63b0152e88c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 321,
+            "form": "",
+            "key": "lib-wailord-n-e707c7729a44"
+          },
+          "sha256": "06507687c2496f6bd9018455dfe126660fce0428145cd5ac777f1ebb9f9a687a",
+          "palette_from": "lib-wailord-s-4839bec7bb16"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "wailord",
+    "num": 321,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Wailord, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "wailord-cardinal.png",
+    "source_sha256": "7422b833f65a02819189bffedc822380c2a4bd87f81563cf80d8e63b0152e88c",
+    "source_record": "wailord-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

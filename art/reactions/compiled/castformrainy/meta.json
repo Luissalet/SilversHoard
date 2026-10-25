@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "castformrainy",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4b45816383555642f93deb14d5f4c5a72305091549dc612a33db27e6f5cb8b4f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 351,
+          "form": "Rainy",
+          "key": "lib-castformrainy-n-3d7c0a27d2db"
+        },
+        "sha256": "45d3efe74094b73edc98e228fb56d7d3e59b23f5c179d5580c4373bffad06006"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "castformrainy",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4b45816383555642f93deb14d5f4c5a72305091549dc612a33db27e6f5cb8b4f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 351,
+          "form": "Rainy",
+          "key": "lib-castformrainy-n-3d7c0a27d2db"
+        },
+        "sha256": "5310f4f1c7455d1bdf13548d593de59a66468676470b7b5bf580e9a0de221496"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "castformrainy",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5b453b60cb68aed55ed2f79b31ab59fa1a6f6c9409494021a0140c8dc3452451",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 351,
+            "form": "Rainy",
+            "key": "lib-castformrainy-s-940762ce825f"
+          },
+          "sha256": "c2662961fc40bb8f166d53c9e8ec64818a8d5f9ff854b81b23d563047f1954ce"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "castformrainy",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5b453b60cb68aed55ed2f79b31ab59fa1a6f6c9409494021a0140c8dc3452451",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 351,
+            "form": "Rainy",
+            "key": "lib-castformrainy-s-940762ce825f"
+          },
+          "sha256": "cdf5185f43f8491dd161621a0e5aef167ddf693b12d1a3d7ed8d8d8392a2d1b0"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "castformrainy",
+    "num": 351,
+    "form": "Rainy",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Castform-Rainy, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "castformrainy-cardinal.png",
+    "source_sha256": "4b45816383555642f93deb14d5f4c5a72305091549dc612a33db27e6f5cb8b4f",
+    "source_record": "castformrainy-cardinal.json",
+    "shiny_source_image": "castformrainy-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Image1 EDIT TARGET is a transparent eight-column four-row pixel-art game sprite atlas. Image2 is ONLY the exact native SHINY COLOUR reference. Retain the native shiny bright GREEN face mask and eye surrounds, clearly separate from the blue/teal outer raindrop body. Do not colour the face mask blue, lilac or grey. Keep the grey lower cloud. Preserve all32 distinct poses, exactly8columns4rows, fixed front/right/rear/left cameras, complete anatomy and part counts, crisp pixels and transparent gutters. No extra objects, text, background, effects or shadows. Change ONLY the stated material colours, not poses or anatomy."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

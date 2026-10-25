@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "floatzel",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e20cd0ee060cf4a67d7b251f7f5271257fda7fcd6849bc86ae61d0d00eec51d9",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 419,
+          "form": "",
+          "key": "lib-floatzel-n-01c89ed65ca9"
+        },
+        "sha256": "ddd9037688dc7ed23de252fd00bb4ad947dc95090f58d5505fe978d4545066d3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "floatzel",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e20cd0ee060cf4a67d7b251f7f5271257fda7fcd6849bc86ae61d0d00eec51d9",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 419,
+          "form": "",
+          "key": "lib-floatzel-n-01c89ed65ca9"
+        },
+        "sha256": "871e5b80d0f080059a6677ae9749f98757659b5c38ed74b082440369fb9ee0e0"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "floatzel",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e20cd0ee060cf4a67d7b251f7f5271257fda7fcd6849bc86ae61d0d00eec51d9",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 419,
+            "form": "",
+            "key": "lib-floatzel-n-01c89ed65ca9"
+          },
+          "sha256": "719d26289bd9b99156e7ef8b4bc1d6b2bc59cf4e2f860e37538fd08bcce83df9",
+          "palette_from": "lib-floatzel-s-1f30fbbd4757"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "floatzel",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e20cd0ee060cf4a67d7b251f7f5271257fda7fcd6849bc86ae61d0d00eec51d9",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 419,
+            "form": "",
+            "key": "lib-floatzel-n-01c89ed65ca9"
+          },
+          "sha256": "a62a42546b2f5cf4730863cd695172abaabee3ade42dc70d45aae4f98bd2a1ad",
+          "palette_from": "lib-floatzel-s-1f30fbbd4757"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "floatzel",
+    "num": 419,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a transparent pixel-art animation atlas for Floatzel. Use the reference only for exact character identity, native colours and views. EXACT FOUR COLUMNS and FOUR ROWS,16 full-body sprites separated by wide empty transparent gutters. Each row keeps its camera throughout: FRONT, RIGHT PROFILE, REAR, LEFT PROFILE. Column1 startled wince with braced body; column2 stronger wince with head lowered; column3 body settles low and limbs fold; column4 body rests completely on the ground with closed eyes, limbs relaxed. Keep the rear view strictly posterior when lying down, showing back and hidden face. Actual newly drawn poses, expressive body articulation, consistent pixel scale, all native markings, accessories and anatomy. Crisp pixels, limited original palette. No text, detached effects, shadows or scenery.",
+    "source_image": "floatzel-compact-r3.png",
+    "source_sha256": "e20cd0ee060cf4a67d7b251f7f5271257fda7fcd6849bc86ae61d0d00eec51d9",
+    "source_record": "floatzel-compact-r3.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

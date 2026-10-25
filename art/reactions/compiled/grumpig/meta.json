@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "grumpig",
+        "tool": "builtin-imagegen",
+        "source_sha256": "977a56a382acb5faa0a16d6e9f07fc282d2bd2e6b3f99074dea2aa0c0188f77e",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 326,
+          "form": "",
+          "key": "lib-grumpig-n-eb97ce79f959"
+        },
+        "sha256": "ed5d296233916f24fdf568b18e2839a20306337049cb912b350377ba65c65392"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "grumpig",
+        "tool": "builtin-imagegen",
+        "source_sha256": "977a56a382acb5faa0a16d6e9f07fc282d2bd2e6b3f99074dea2aa0c0188f77e",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 326,
+          "form": "",
+          "key": "lib-grumpig-n-eb97ce79f959"
+        },
+        "sha256": "91dffb00f54844250c9ad116c72d0de9237229b07595ad06e4c74e0c3f32fe8a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "grumpig",
+          "tool": "builtin-imagegen",
+          "source_sha256": "977a56a382acb5faa0a16d6e9f07fc282d2bd2e6b3f99074dea2aa0c0188f77e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 326,
+            "form": "",
+            "key": "lib-grumpig-n-eb97ce79f959"
+          },
+          "sha256": "0ac230a051ea5565893f3cbd517e86ee31a6d5c3832f2c433ec1b596f9772f08",
+          "palette_from": "lib-grumpig-s-e85a2434ce54"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "grumpig",
+          "tool": "builtin-imagegen",
+          "source_sha256": "977a56a382acb5faa0a16d6e9f07fc282d2bd2e6b3f99074dea2aa0c0188f77e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 326,
+            "form": "",
+            "key": "lib-grumpig-n-eb97ce79f959"
+          },
+          "sha256": "5381084e03c00f8946d61d8307804c976903d9e9628ef346529b1ab2c038917b",
+          "palette_from": "lib-grumpig-s-e85a2434ce54"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "grumpig",
+    "num": 326,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Grumpig, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "grumpig-cardinal.png",
+    "source_sha256": "977a56a382acb5faa0a16d6e9f07fc282d2bd2e6b3f99074dea2aa0c0188f77e",
+    "source_record": "grumpig-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

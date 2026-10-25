@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "aggron",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6844129c32320ae15a24acd913b8b351630cd3cbb729809c8d2f34894b1e5968",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 306,
+          "form": "",
+          "key": "lib-aggron-n-c58a4662d933"
+        },
+        "sha256": "61a24554ad1964a9b14594af24a041dbcc6c81e07d4c4d3351190a1c4d6f8627"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "aggron",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6844129c32320ae15a24acd913b8b351630cd3cbb729809c8d2f34894b1e5968",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 306,
+          "form": "",
+          "key": "lib-aggron-n-c58a4662d933"
+        },
+        "sha256": "f85045bfd6073793b01547df103b0b3aa176407de9ebe38a28af503d5567ca16"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "aggron",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6844129c32320ae15a24acd913b8b351630cd3cbb729809c8d2f34894b1e5968",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 306,
+            "form": "",
+            "key": "lib-aggron-n-c58a4662d933"
+          },
+          "sha256": "f04f7ff16746d3923649e91d2c37d55fff56e9a8af3a530cc38c78931f88a373",
+          "palette_from": "lib-aggron-s-e7e766f0ff56"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "aggron",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6844129c32320ae15a24acd913b8b351630cd3cbb729809c8d2f34894b1e5968",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 306,
+            "form": "",
+            "key": "lib-aggron-n-c58a4662d933"
+          },
+          "sha256": "6084057b53f414b671d858114eb3536b364b339c13bbd04d4fce6fa9f5557cc5",
+          "palette_from": "lib-aggron-s-e7e766f0ff56"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "aggron",
+    "num": 306,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Aggron, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "aggron-cardinal.png",
+    "source_sha256": "6844129c32320ae15a24acd913b8b351630cd3cbb729809c8d2f34894b1e5968",
+    "source_record": "aggron-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

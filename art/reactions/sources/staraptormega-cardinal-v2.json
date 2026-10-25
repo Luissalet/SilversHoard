@@ -1,0 +1,19 @@
+{
+  "id": "staraptormega",
+  "name": "Staraptor-Mega",
+  "num": 398,
+  "form": "Mega",
+  "directions": 4,
+  "frames": 4,
+  "image": "staraptormega-cardinal-v2.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Use case: precise-object-edit. Image1 EDIT TARGET is a transparent 8-column 4-row pixel-art game animation atlas; image2 is the exact native colour and identity reference only. Keep the exact 32 distinct poses and grid, all anatomy and fixed row cameras FRONT, RIGHT, REAR, LEFT. Preserve crisp pixels and wide transparent gutters, no text, scenery, detached effects, shadows or extra objects. Repair ONLY row3 NORTH/REAR, columns6,7,8. Redraw resting bird from a strict REAR camera, longitudinal foreshortened body: tail nearest viewer at bottom centre, head farthest away at upper centre, back and folded wings visible, NO visible face/eyes/beak. Keep the rear camera even when lying on the ground: do not rotate into a right-facing side profile. All other 29 cells remain as they are. Keep NORMAL native colours.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-corrections12.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

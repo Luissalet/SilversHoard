@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "deoxysattack",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6eedb50bc34edcf43ff2b0dec71410915f430fba7086142c57391cad65a68edf",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 386,
+          "form": "Attack",
+          "key": "lib-deoxysattack-n-68d59670c09d"
+        },
+        "sha256": "a9e753b256a7604e667c37627cfd9f5f0464971e8af027d44e1feeb587d32b83"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "deoxysattack",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6eedb50bc34edcf43ff2b0dec71410915f430fba7086142c57391cad65a68edf",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 386,
+          "form": "Attack",
+          "key": "lib-deoxysattack-n-68d59670c09d"
+        },
+        "sha256": "90cf27222db4b92df22c833ced82ffb50f8a0735aeb6dfbde747ceb487f860b3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "deoxysattack",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6eedb50bc34edcf43ff2b0dec71410915f430fba7086142c57391cad65a68edf",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 386,
+            "form": "Attack",
+            "key": "lib-deoxysattack-n-68d59670c09d"
+          },
+          "sha256": "0d00056dda9b6615cdd936dca759ca120c1c5e366f3e1dde3e8926767187ae35",
+          "palette_from": "lib-deoxysattack-s-672b3346eeff"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "deoxysattack",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6eedb50bc34edcf43ff2b0dec71410915f430fba7086142c57391cad65a68edf",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 386,
+            "form": "Attack",
+            "key": "lib-deoxysattack-n-68d59670c09d"
+          },
+          "sha256": "7232d1a1378a5a9d79295f70b9462f7636e7da13255079bf66dd7a29b3f0c375",
+          "palette_from": "lib-deoxysattack-s-672b3346eeff"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "deoxysattack",
+    "num": 386,
+    "form": "Attack",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Deoxys-Attack, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "deoxysattack-cardinal.png",
+    "source_sha256": "6eedb50bc34edcf43ff2b0dec71410915f430fba7086142c57391cad65a68edf",
+    "source_record": "deoxysattack-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

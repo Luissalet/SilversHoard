@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "metang",
+        "tool": "builtin-imagegen",
+        "source_sha256": "98a6be7ff140a06960a522f1582d0c4db6bd59515faa6dc85527d71e5067bdef",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 375,
+          "form": "",
+          "key": "lib-metang-n-413d5bd83d36"
+        },
+        "sha256": "e62ef200a404cce190c64b04ceeb46cbc063a131e8dcc0a1057ab776feb2214c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "metang",
+        "tool": "builtin-imagegen",
+        "source_sha256": "98a6be7ff140a06960a522f1582d0c4db6bd59515faa6dc85527d71e5067bdef",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 375,
+          "form": "",
+          "key": "lib-metang-n-413d5bd83d36"
+        },
+        "sha256": "faadbddd449319d0e0612db796c62fbdfe631ba91855d78cf47eb1ba3509c832"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "metang",
+          "tool": "builtin-imagegen",
+          "source_sha256": "98a6be7ff140a06960a522f1582d0c4db6bd59515faa6dc85527d71e5067bdef",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 375,
+            "form": "",
+            "key": "lib-metang-n-413d5bd83d36"
+          },
+          "sha256": "d73547b472b353ab848aaded9408ae3369d9589f3e329b96c0a614c7d95f9e15",
+          "palette_from": "lib-metang-s-05d729096ce2"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "metang",
+          "tool": "builtin-imagegen",
+          "source_sha256": "98a6be7ff140a06960a522f1582d0c4db6bd59515faa6dc85527d71e5067bdef",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 375,
+            "form": "",
+            "key": "lib-metang-n-413d5bd83d36"
+          },
+          "sha256": "dbe65b2a65169deb9461b5b7974f86943894899ee3199ae118c56a15846d6735",
+          "palette_from": "lib-metang-s-05d729096ce2"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "metang",
+    "num": 375,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Metang, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "metang-cardinal.png",
+    "source_sha256": "98a6be7ff140a06960a522f1582d0c4db6bd59515faa6dc85527d71e5067bdef",
+    "source_record": "metang-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

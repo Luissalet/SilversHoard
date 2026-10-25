@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "monferno",
+        "tool": "builtin-imagegen",
+        "source_sha256": "c083f0731866ebbfe3b84564676503fbc10575719169ece3a1288dca6bb73a15",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 391,
+          "form": "",
+          "key": "lib-monferno-n-6c864e1766a5"
+        },
+        "sha256": "9a73beefa6bb71da559700a7b32be2405b19635bbbadf525bec1a21aeb57011a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "monferno",
+        "tool": "builtin-imagegen",
+        "source_sha256": "c083f0731866ebbfe3b84564676503fbc10575719169ece3a1288dca6bb73a15",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 391,
+          "form": "",
+          "key": "lib-monferno-n-6c864e1766a5"
+        },
+        "sha256": "55381993181f9c4321aa0a75d519df213377f994a18db5446a3a2e2eedd95256"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "monferno",
+          "tool": "builtin-imagegen",
+          "source_sha256": "c083f0731866ebbfe3b84564676503fbc10575719169ece3a1288dca6bb73a15",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 391,
+            "form": "",
+            "key": "lib-monferno-n-6c864e1766a5"
+          },
+          "sha256": "0fdeeff0b4bf8485331dcd41aa566c539346411cb297c9b7c92fb7c8bb724098",
+          "palette_from": "lib-monferno-s-ef88ca345f01"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "monferno",
+          "tool": "builtin-imagegen",
+          "source_sha256": "c083f0731866ebbfe3b84564676503fbc10575719169ece3a1288dca6bb73a15",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 391,
+            "form": "",
+            "key": "lib-monferno-n-6c864e1766a5"
+          },
+          "sha256": "4c7ec2d3fc1c3513c04df2ede729d60630508adf13438888955083280a90a07f",
+          "palette_from": "lib-monferno-s-ef88ca345f01"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "monferno",
+    "num": 391,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Monferno, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "monferno-cardinal.png",
+    "source_sha256": "c083f0731866ebbfe3b84564676503fbc10575719169ece3a1288dca6bb73a15",
+    "source_record": "monferno-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

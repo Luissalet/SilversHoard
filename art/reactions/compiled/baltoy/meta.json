@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "baltoy",
+        "tool": "builtin-imagegen",
+        "source_sha256": "00519daf89999422346a1a266429ad631e243a871d825fce93873f05e2de94b7",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 343,
+          "form": "",
+          "key": "lib-baltoy-n-4e735bc895a7"
+        },
+        "sha256": "6a5fff96a9aea0fba56fd45ad651be42d2146e209197d67584bf7bec019246a5"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "baltoy",
+        "tool": "builtin-imagegen",
+        "source_sha256": "00519daf89999422346a1a266429ad631e243a871d825fce93873f05e2de94b7",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 343,
+          "form": "",
+          "key": "lib-baltoy-n-4e735bc895a7"
+        },
+        "sha256": "d93e1c27a4b6ff601bb3c961a71b87721b11bf7adb5b8d7a4194f0e3dd72606a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "baltoy",
+          "tool": "builtin-imagegen",
+          "source_sha256": "00519daf89999422346a1a266429ad631e243a871d825fce93873f05e2de94b7",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 343,
+            "form": "",
+            "key": "lib-baltoy-n-4e735bc895a7"
+          },
+          "sha256": "6dd6f4fd0828aa32e1ce9bf3185470f400fa57f1d9fb9a38d1c8946a12608e93",
+          "palette_from": "lib-baltoy-s-77a53bab5271"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "baltoy",
+          "tool": "builtin-imagegen",
+          "source_sha256": "00519daf89999422346a1a266429ad631e243a871d825fce93873f05e2de94b7",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 343,
+            "form": "",
+            "key": "lib-baltoy-n-4e735bc895a7"
+          },
+          "sha256": "f5c7f38ae041d6c0022e57174fa87517b01141a5d0d6174b8469cc596f09d98e",
+          "palette_from": "lib-baltoy-s-77a53bab5271"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "baltoy",
+    "num": 343,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Baltoy, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "baltoy-cardinal.png",
+    "source_sha256": "00519daf89999422346a1a266429ad631e243a871d825fce93873f05e2de94b7",
+    "source_record": "baltoy-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "solrock",
+        "tool": "builtin-imagegen",
+        "source_sha256": "571b9871e254374039e7fa1672dbe84ce3b69d74f92160d1f5bde03a860575ef",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 338,
+          "form": "",
+          "key": "lib-solrock-n-6966d969afb5"
+        },
+        "sha256": "0cc30b0c168bd2cb99d4f58a7bf33e2cf459d2f8a7aaf06a10eab7dd24e5b2e5"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "solrock",
+        "tool": "builtin-imagegen",
+        "source_sha256": "571b9871e254374039e7fa1672dbe84ce3b69d74f92160d1f5bde03a860575ef",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 338,
+          "form": "",
+          "key": "lib-solrock-n-6966d969afb5"
+        },
+        "sha256": "d2e72f4bb0ab60010eed2f97d5120b4e499c5b16df8b1a5d3ac57b89ad8eeb9f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "solrock",
+          "tool": "builtin-imagegen",
+          "source_sha256": "571b9871e254374039e7fa1672dbe84ce3b69d74f92160d1f5bde03a860575ef",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 338,
+            "form": "",
+            "key": "lib-solrock-n-6966d969afb5"
+          },
+          "sha256": "1d1c3cda5b219cda9267e91ef0dbcf2a119824ef7ade016914edc975358dc23c",
+          "palette_from": "lib-solrock-s-b5cfaeb42e2a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "solrock",
+          "tool": "builtin-imagegen",
+          "source_sha256": "571b9871e254374039e7fa1672dbe84ce3b69d74f92160d1f5bde03a860575ef",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 338,
+            "form": "",
+            "key": "lib-solrock-n-6966d969afb5"
+          },
+          "sha256": "63c81ce90de133dd27aa7452b9e5da552e579fa96399b109e50561e3240170d7",
+          "palette_from": "lib-solrock-s-b5cfaeb42e2a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "solrock",
+    "num": 338,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new transparent pixel-art game sprite atlas of Solrock using the input ONLY as exact identity, native colour and camera reference. EXACTLY FOUR COLUMNS AND FOUR ROWS,16sprites, wide empty gutters with no detached pixels. Rows keep their fixed camera: FRONT, RIGHT PROFILE, REAR, LEFT PROFILE. Column1 genuine sudden wince/body brace, column2 stronger wince/head lowered, column3 body settles onto ground with parts folding, column4 rests completely on the ground with closed eyes. Redraw real expressive body/fin/ray poses, not resized standing copies. Preserve all native part counts and colours, crisp original pixel clusters. No text, effects, bubbles, shadows, scenery or extra objects. The two PROFILE rows must remain a THIN EDGE-ON DISC, like the native reference; never reveal the broad frontal star or BOTH eyes in either profile row, including the ground pose. Rear shows only the back without frontal facial marks. Keep attached sun rays as they bend/settle.",
+    "source_image": "solrock-compact-v2.png",
+    "source_sha256": "571b9871e254374039e7fa1672dbe84ce3b69d74f92160d1f5bde03a860575ef",
+    "source_record": "solrock-compact-v2.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

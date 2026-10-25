@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "butterfree",
+        "tool": "builtin-imagegen",
+        "source_sha256": "28d79af2f85c317cc547711ae00aefbbc25155954299adc8e4c1d6c4faf90613",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 12,
+          "form": "",
+          "key": "lib-butterfree-n-f74d223dd748"
+        },
+        "sha256": "18ca0bfc0a4367dcee93e9a632bfdbf9238ed51f3c2e0681794a4291bfe74ca3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "butterfree",
+        "tool": "builtin-imagegen",
+        "source_sha256": "28d79af2f85c317cc547711ae00aefbbc25155954299adc8e4c1d6c4faf90613",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 12,
+          "form": "",
+          "key": "lib-butterfree-n-f74d223dd748"
+        },
+        "sha256": "5b70ebeb7ad22c812d8fffb668803ab85bf635377776af15fea9c8b3916edebe"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "butterfree",
+          "tool": "builtin-imagegen",
+          "source_sha256": "28d79af2f85c317cc547711ae00aefbbc25155954299adc8e4c1d6c4faf90613",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 12,
+            "form": "",
+            "key": "lib-butterfree-n-f74d223dd748"
+          },
+          "sha256": "f7e29cf80c9cd9d82ee787eb03995d914994482c19c9c1693aad3631f2484d19",
+          "palette_from": "lib-butterfree-s-9f1e6037ba86"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "butterfree",
+          "tool": "builtin-imagegen",
+          "source_sha256": "28d79af2f85c317cc547711ae00aefbbc25155954299adc8e4c1d6c4faf90613",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 12,
+            "form": "",
+            "key": "lib-butterfree-n-f74d223dd748"
+          },
+          "sha256": "9c5c2d521bd04b343d645084f04796ad37e3191239614d1bf2ddeec08fcbe43e",
+          "palette_from": "lib-butterfree-s-9f1e6037ba86"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "butterfree",
+    "num": 12,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a transparent pixel-art animation atlas for Butterfree. Use the reference only for exact character identity, native colours and views. EXACT FOUR COLUMNS and FOUR ROWS,16 full-body sprites separated by wide empty transparent gutters. Each row keeps its camera throughout: FRONT, RIGHT PROFILE, REAR, LEFT PROFILE. Column1 startled wince with braced body; column2 stronger wince with head lowered; column3 body settles low and limbs fold; column4 body rests completely on the ground with closed eyes, limbs relaxed. Keep the rear view strictly posterior when lying down, showing back and hidden face. Actual newly drawn poses, expressive body articulation, consistent pixel scale, all native markings, accessories and anatomy. Crisp pixels, limited original palette. No text, detached effects, shadows or scenery.",
+    "source_image": "butterfree-compact-r3.png",
+    "source_sha256": "28d79af2f85c317cc547711ae00aefbbc25155954299adc8e4c1d6c4faf90613",
+    "source_record": "butterfree-compact-r3.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

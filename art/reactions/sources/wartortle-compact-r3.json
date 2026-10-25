@@ -1,0 +1,19 @@
+{
+  "id": "wartortle",
+  "name": "Wartortle",
+  "num": 8,
+  "form": "",
+  "directions": 4,
+  "frames": 2,
+  "image": "wartortle-compact-r3.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Draw a transparent pixel-art animation atlas for Wartortle. Use the reference only for exact character identity, native colours and views. EXACT FOUR COLUMNS and FOUR ROWS,16 full-body sprites separated by wide empty transparent gutters. Each row keeps its camera throughout: FRONT, RIGHT PROFILE, REAR, LEFT PROFILE. Column1 startled wince with braced body; column2 stronger wince with head lowered; column3 body settles low and limbs fold; column4 body rests completely on the ground with closed eyes, limbs relaxed. Keep the rear view strictly posterior when lying down, showing back and hidden face. Actual newly drawn poses, expressive body articulation, consistent pixel scale, all native markings, accessories and anatomy. Crisp pixels, limited original palette. No text, detached effects, shadows or scenery.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": false,
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-corrections13.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

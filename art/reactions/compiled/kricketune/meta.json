@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "kricketune",
+        "tool": "builtin-imagegen",
+        "source_sha256": "1a6c55c1c74e8520982603cff9605ae2d4f429028b7b951b7f28065c903a01ca",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 402,
+          "form": "",
+          "key": "lib-kricketune-n-50cb106bcd46"
+        },
+        "sha256": "b034b87c579e490b9182bb353fa0cadd41d8c8484dc1ff5941b4581ef2e58477"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "kricketune",
+        "tool": "builtin-imagegen",
+        "source_sha256": "1a6c55c1c74e8520982603cff9605ae2d4f429028b7b951b7f28065c903a01ca",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 402,
+          "form": "",
+          "key": "lib-kricketune-n-50cb106bcd46"
+        },
+        "sha256": "53cbcc8e73bde2da4be8d71d385aa01422913436b85405a19a0fc3212feba0fb"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "kricketune",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1a6c55c1c74e8520982603cff9605ae2d4f429028b7b951b7f28065c903a01ca",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 402,
+            "form": "",
+            "key": "lib-kricketune-n-50cb106bcd46"
+          },
+          "sha256": "67a57d62789d524f1e65ad1f1b31e8f64bcfa9ea0be7d121621252cb9a4482a1",
+          "palette_from": "lib-kricketune-s-18b2678ceabf"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "kricketune",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1a6c55c1c74e8520982603cff9605ae2d4f429028b7b951b7f28065c903a01ca",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 402,
+            "form": "",
+            "key": "lib-kricketune-n-50cb106bcd46"
+          },
+          "sha256": "69a02158e3a2eb191accf6ff7f309903c43469ea251645c85c1b555344e4f7c8",
+          "palette_from": "lib-kricketune-s-18b2678ceabf"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "kricketune",
+    "num": 402,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Kricketune, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "kricketune-cardinal.png",
+    "source_sha256": "1a6c55c1c74e8520982603cff9605ae2d4f429028b7b951b7f28065c903a01ca",
+    "source_record": "kricketune-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

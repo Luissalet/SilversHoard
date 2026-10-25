@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "mothim",
+        "tool": "builtin-imagegen",
+        "source_sha256": "c7befc0bb36005b7c11c7579a725578a5ed89ee42af502fc1e2e1d6d6ba8b1a7",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 414,
+          "form": "",
+          "key": "lib-mothim-n-ae7e3e303ffb"
+        },
+        "sha256": "530b8a6348bac848a160d4cbe538a6ff2a07e534f06a28d3b3c3390d9e9d095d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "mothim",
+        "tool": "builtin-imagegen",
+        "source_sha256": "c7befc0bb36005b7c11c7579a725578a5ed89ee42af502fc1e2e1d6d6ba8b1a7",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 414,
+          "form": "",
+          "key": "lib-mothim-n-ae7e3e303ffb"
+        },
+        "sha256": "4e828562c45394e48d5791cac44baaf964e8a1910f0e21ac2c5e0624f5e7381c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "mothim",
+          "tool": "builtin-imagegen",
+          "source_sha256": "c7befc0bb36005b7c11c7579a725578a5ed89ee42af502fc1e2e1d6d6ba8b1a7",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 414,
+            "form": "",
+            "key": "lib-mothim-n-ae7e3e303ffb"
+          },
+          "sha256": "b9bcfe1e7c688a6c70dc33b9b9450e94830a75b6d300b78d955095ea1449ff01",
+          "palette_from": "lib-mothim-s-eee22d1f4a25"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "mothim",
+          "tool": "builtin-imagegen",
+          "source_sha256": "c7befc0bb36005b7c11c7579a725578a5ed89ee42af502fc1e2e1d6d6ba8b1a7",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 414,
+            "form": "",
+            "key": "lib-mothim-n-ae7e3e303ffb"
+          },
+          "sha256": "cbcc8921ed7620a67db3b63397074f5272419e65d646f713c76ac30854801702",
+          "palette_from": "lib-mothim-s-eee22d1f4a25"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "mothim",
+    "num": 414,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Mothim, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "mothim-cardinal.png",
+    "source_sha256": "c7befc0bb36005b7c11c7579a725578a5ed89ee42af502fc1e2e1d6d6ba8b1a7",
+    "source_record": "mothim-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

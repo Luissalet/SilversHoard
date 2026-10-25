@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "whismur",
+        "tool": "builtin-imagegen",
+        "source_sha256": "61dd56035e3eb9196fc7a844326195ee88f4f36bae5c9c8f92c89292614248b2",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 293,
+          "form": "",
+          "key": "lib-whismur-n-eb51802281f2"
+        },
+        "sha256": "fb4867657848547b75352df3228dd55dc9b64dc1f81776ff4e30b0193b32b19b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "whismur",
+        "tool": "builtin-imagegen",
+        "source_sha256": "61dd56035e3eb9196fc7a844326195ee88f4f36bae5c9c8f92c89292614248b2",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 293,
+          "form": "",
+          "key": "lib-whismur-n-eb51802281f2"
+        },
+        "sha256": "48a2b3eb5618b5a099203d5e7d3be249e3d98806f2eba879735d88907c1ccb29"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "whismur",
+          "tool": "builtin-imagegen",
+          "source_sha256": "61dd56035e3eb9196fc7a844326195ee88f4f36bae5c9c8f92c89292614248b2",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 293,
+            "form": "",
+            "key": "lib-whismur-n-eb51802281f2"
+          },
+          "sha256": "4c66d6ab9345c620fd6aa1c608f450513cf6d55e7f57176751468073dc5711e5",
+          "palette_from": "lib-whismur-s-4d1c4f7b52b6"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "whismur",
+          "tool": "builtin-imagegen",
+          "source_sha256": "61dd56035e3eb9196fc7a844326195ee88f4f36bae5c9c8f92c89292614248b2",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 293,
+            "form": "",
+            "key": "lib-whismur-n-eb51802281f2"
+          },
+          "sha256": "b89cf78df219532b23f261988fc2690442d17ef08e99af502caf011aa7698833",
+          "palette_from": "lib-whismur-s-4d1c4f7b52b6"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "whismur",
+    "num": 293,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Whismur, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "whismur-cardinal.png",
+    "source_sha256": "61dd56035e3eb9196fc7a844326195ee88f4f36bae5c9c8f92c89292614248b2",
+    "source_record": "whismur-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

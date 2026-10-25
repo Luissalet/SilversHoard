@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "honchkrow",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d03273427fd93dc9b9e4a24264a75da66fd86a114fba54177fe256f5411b85ef",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 430,
+          "form": "",
+          "key": "lib-honchkrow-n-cb4eb42a3a8b"
+        },
+        "sha256": "237a74c37cab6f08c65ca174421fd57b198501655389b9608186267ae601278e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "honchkrow",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d03273427fd93dc9b9e4a24264a75da66fd86a114fba54177fe256f5411b85ef",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 430,
+          "form": "",
+          "key": "lib-honchkrow-n-cb4eb42a3a8b"
+        },
+        "sha256": "fd2cd76049d26dfb12b755ed9356d29ad35643f3bf18db46845cc5c66f097192"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "honchkrow",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d03273427fd93dc9b9e4a24264a75da66fd86a114fba54177fe256f5411b85ef",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 430,
+            "form": "",
+            "key": "lib-honchkrow-n-cb4eb42a3a8b"
+          },
+          "sha256": "65d8e5ad0b90052b5c63bda8038678711e13f963468fdf794ce80b01eaa4f676",
+          "palette_from": "lib-honchkrow-s-a15820177735"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "honchkrow",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d03273427fd93dc9b9e4a24264a75da66fd86a114fba54177fe256f5411b85ef",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 430,
+            "form": "",
+            "key": "lib-honchkrow-n-cb4eb42a3a8b"
+          },
+          "sha256": "4194ccf524bae2e8a86bb8840151bd164fa7de5d98fec4aba49e317dee4e823d",
+          "palette_from": "lib-honchkrow-s-a15820177735"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "honchkrow",
+    "num": 430,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Honchkrow, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "honchkrow-cardinal.png",
+    "source_sha256": "d03273427fd93dc9b9e4a24264a75da66fd86a114fba54177fe256f5411b85ef",
+    "source_record": "honchkrow-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

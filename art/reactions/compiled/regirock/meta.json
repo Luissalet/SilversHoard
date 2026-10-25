@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "regirock",
+        "tool": "builtin-imagegen",
+        "source_sha256": "733a7074bbe94580a6e293ebe83311bf5cd3819cd012014277a8a3c462452c5d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 377,
+          "form": "",
+          "key": "lib-regirock-n-3555f4927343"
+        },
+        "sha256": "e2fddd51d60d3b725aef2b7d4733fd4193298162a148bce1598b936bc1738b6e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "regirock",
+        "tool": "builtin-imagegen",
+        "source_sha256": "733a7074bbe94580a6e293ebe83311bf5cd3819cd012014277a8a3c462452c5d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 377,
+          "form": "",
+          "key": "lib-regirock-n-3555f4927343"
+        },
+        "sha256": "5d64bcbbcf6fbaef888a8e2abfef1d54aa728ce4565fa53f6dbc1911a20d2b78"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "regirock",
+          "tool": "builtin-imagegen",
+          "source_sha256": "733a7074bbe94580a6e293ebe83311bf5cd3819cd012014277a8a3c462452c5d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 377,
+            "form": "",
+            "key": "lib-regirock-n-3555f4927343"
+          },
+          "sha256": "af0bcc0f5ee850d7b2e1410ab9fc1812a784cbaceda18681903b623a6d2778f5",
+          "palette_from": "lib-regirock-s-7f66098ff41c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "regirock",
+          "tool": "builtin-imagegen",
+          "source_sha256": "733a7074bbe94580a6e293ebe83311bf5cd3819cd012014277a8a3c462452c5d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 377,
+            "form": "",
+            "key": "lib-regirock-n-3555f4927343"
+          },
+          "sha256": "84dc166cdda4e5bde7126c70026b90f93f4c2c167f4aa9355fae67c79fc3833f",
+          "palette_from": "lib-regirock-s-7f66098ff41c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "regirock",
+    "num": 377,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Regirock, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "regirock-cardinal.png",
+    "source_sha256": "733a7074bbe94580a6e293ebe83311bf5cd3819cd012014277a8a3c462452c5d",
+    "source_record": "regirock-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

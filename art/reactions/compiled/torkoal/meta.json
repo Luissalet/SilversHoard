@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "torkoal",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a0c73f4d43181421dfe7d36806e45a503fbbd2635337e4a1d7ced692bf598603",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 324,
+          "form": "",
+          "key": "lib-torkoal-n-dc2afc2a182d"
+        },
+        "sha256": "38dd2944a33adfed7a8fe317ebbcfe9700056f15f5191322a77b59ade6e978b8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "torkoal",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a0c73f4d43181421dfe7d36806e45a503fbbd2635337e4a1d7ced692bf598603",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 324,
+          "form": "",
+          "key": "lib-torkoal-n-dc2afc2a182d"
+        },
+        "sha256": "317a2014ca0da1f4eb46b25cc2e6a2d9d584e15b4a257c7d7d49c5dd7de43c7c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "torkoal",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a0c73f4d43181421dfe7d36806e45a503fbbd2635337e4a1d7ced692bf598603",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 324,
+            "form": "",
+            "key": "lib-torkoal-n-dc2afc2a182d"
+          },
+          "sha256": "2e676e70bcc3e95367174fe781810b18a6860946d0ab50f48adb4d2efbd762ac",
+          "palette_from": "lib-torkoal-s-74e24beb4506"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "torkoal",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a0c73f4d43181421dfe7d36806e45a503fbbd2635337e4a1d7ced692bf598603",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 324,
+            "form": "",
+            "key": "lib-torkoal-n-dc2afc2a182d"
+          },
+          "sha256": "d02c277e175b63e38e3092c04b345d28845a289cc4671a53d8740e6fecb26258",
+          "palette_from": "lib-torkoal-s-74e24beb4506"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "torkoal",
+    "num": 324,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Torkoal, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "torkoal-cardinal.png",
+    "source_sha256": "a0c73f4d43181421dfe7d36806e45a503fbbd2635337e4a1d7ced692bf598603",
+    "source_record": "torkoal-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

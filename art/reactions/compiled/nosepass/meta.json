@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "nosepass",
+        "tool": "builtin-imagegen",
+        "source_sha256": "3d3358dde322c01733e5a6a18b2820c3836f0fd4a127a8b40da789e176523a91",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 299,
+          "form": "",
+          "key": "lib-nosepass-n-e48ea0b1fdd2"
+        },
+        "sha256": "ea982437d8e2dfcb1b93ff14f81a1f92f7f826b4a1b6610e099e054d5f523769"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "nosepass",
+        "tool": "builtin-imagegen",
+        "source_sha256": "3d3358dde322c01733e5a6a18b2820c3836f0fd4a127a8b40da789e176523a91",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 299,
+          "form": "",
+          "key": "lib-nosepass-n-e48ea0b1fdd2"
+        },
+        "sha256": "1fd14b5f8b1612574f7a28efd984b389349362a6ca11e61df784aa0d3d3d5e76"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "nosepass",
+          "tool": "builtin-imagegen",
+          "source_sha256": "3d3358dde322c01733e5a6a18b2820c3836f0fd4a127a8b40da789e176523a91",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 299,
+            "form": "",
+            "key": "lib-nosepass-n-e48ea0b1fdd2"
+          },
+          "sha256": "af09b5a8de3045a3b10f4e192b933458cf167f83720475a59805aced1281e64b",
+          "palette_from": "lib-nosepass-s-17b30e6b9286"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "nosepass",
+          "tool": "builtin-imagegen",
+          "source_sha256": "3d3358dde322c01733e5a6a18b2820c3836f0fd4a127a8b40da789e176523a91",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 299,
+            "form": "",
+            "key": "lib-nosepass-n-e48ea0b1fdd2"
+          },
+          "sha256": "4d5d74b41481211d95ce53ed0e5ea568e09a2fc1b15b21738e363459b123b11c",
+          "palette_from": "lib-nosepass-s-17b30e6b9286"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "nosepass",
+    "num": 299,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Nosepass, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "nosepass-cardinal.png",
+    "source_sha256": "3d3358dde322c01733e5a6a18b2820c3836f0fd4a127a8b40da789e176523a91",
+    "source_record": "nosepass-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

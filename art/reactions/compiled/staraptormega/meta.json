@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "staraptormega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0c80bdd23cd16dee54330f9779b4584694650e9695f126b9834af4d14991a0be",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 398,
+          "form": "Mega",
+          "key": "lib-staraptormega-n-ddf0c3d2f31f"
+        },
+        "sha256": "613ee523282e09852c54841f004a4e324bbba3e19d96d9aa7fe54221a8680d4a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "staraptormega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0c80bdd23cd16dee54330f9779b4584694650e9695f126b9834af4d14991a0be",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 398,
+          "form": "Mega",
+          "key": "lib-staraptormega-n-ddf0c3d2f31f"
+        },
+        "sha256": "cdab6fa7c3a9d2974fc269932ad284a2e87597572bf612185f1f1fde613e2747"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "staraptormega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0c80bdd23cd16dee54330f9779b4584694650e9695f126b9834af4d14991a0be",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 398,
+            "form": "Mega",
+            "key": "lib-staraptormega-n-ddf0c3d2f31f"
+          },
+          "sha256": "2a455ab04ceca7f79973c1b58ccbea156b470414a5a217c027464228c36b09cc",
+          "palette_from": "lib-staraptormega-s-c169867be068"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "staraptormega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0c80bdd23cd16dee54330f9779b4584694650e9695f126b9834af4d14991a0be",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 398,
+            "form": "Mega",
+            "key": "lib-staraptormega-n-ddf0c3d2f31f"
+          },
+          "sha256": "ff6840d48a6fa2603482bc6a32dca2e945015aef937e85f9e28da1df64e7210a",
+          "palette_from": "lib-staraptormega-s-c169867be068"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "staraptormega",
+    "num": 398,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Use case: precise-object-edit. Image1 EDIT TARGET is a transparent 8-column 4-row pixel-art game animation atlas; image2 is the exact native colour and identity reference only. Keep the exact 32 distinct poses and grid, all anatomy and fixed row cameras FRONT, RIGHT, REAR, LEFT. Preserve crisp pixels and wide transparent gutters, no text, scenery, detached effects, shadows or extra objects. Repair ONLY row3 NORTH/REAR, columns6,7,8. Redraw resting bird from a strict REAR camera, longitudinal foreshortened body: tail nearest viewer at bottom centre, head farthest away at upper centre, back and folded wings visible, NO visible face/eyes/beak. Keep the rear camera even when lying on the ground: do not rotate into a right-facing side profile. All other 29 cells remain as they are. Keep NORMAL native colours.",
+    "source_image": "staraptormega-cardinal-v2.png",
+    "source_sha256": "0c80bdd23cd16dee54330f9779b4584694650e9695f126b9834af4d14991a0be",
+    "source_record": "staraptormega-cardinal-v2.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

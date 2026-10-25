@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "swalot",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4e41827673c0cf909a219da5597f9fcd6a85f0406a64ce7c763fe152480616a9",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 317,
+          "form": "",
+          "key": "lib-swalot-n-de950c7039f2"
+        },
+        "sha256": "ca44d4430292b0891eab0a962de4cc5537babf4cbbc3010f1f0e99f8cdb544a5"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "swalot",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4e41827673c0cf909a219da5597f9fcd6a85f0406a64ce7c763fe152480616a9",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 317,
+          "form": "",
+          "key": "lib-swalot-n-de950c7039f2"
+        },
+        "sha256": "9706b0a7b78022ed616fd6332a046ca12f9aab3a164971697908f191c660203a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "swalot",
+          "tool": "builtin-imagegen",
+          "source_sha256": "4e41827673c0cf909a219da5597f9fcd6a85f0406a64ce7c763fe152480616a9",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 317,
+            "form": "",
+            "key": "lib-swalot-n-de950c7039f2"
+          },
+          "sha256": "0f39889cdc6681eb15fe91b5182101075dd0300227dc06c47e8612e6d0665b48",
+          "palette_from": "lib-swalot-s-64fe21f9ad62"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "swalot",
+          "tool": "builtin-imagegen",
+          "source_sha256": "4e41827673c0cf909a219da5597f9fcd6a85f0406a64ce7c763fe152480616a9",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 317,
+            "form": "",
+            "key": "lib-swalot-n-de950c7039f2"
+          },
+          "sha256": "610cfccf089800028a62297aba555021e8d26d4f8b057882a3202bad30616cab",
+          "palette_from": "lib-swalot-s-64fe21f9ad62"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "swalot",
+    "num": 317,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Swalot, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "swalot-cardinal.png",
+    "source_sha256": "4e41827673c0cf909a219da5597f9fcd6a85f0406a64ce7c763fe152480616a9",
+    "source_record": "swalot-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

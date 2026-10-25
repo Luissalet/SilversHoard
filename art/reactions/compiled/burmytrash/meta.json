@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "burmytrash",
+        "tool": "builtin-imagegen",
+        "source_sha256": "80558e0102a36e6cbae52d09dff47a32987bac6e956fe0357cb821b65806de0e",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 412,
+          "form": "Trash",
+          "key": "lib-burmytrash-n-65a1a9afbf93"
+        },
+        "sha256": "faae5ed79f9029a1e3e1c43a59208b339efc87f2a33550d3192e156dd3f7ef87"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "burmytrash",
+        "tool": "builtin-imagegen",
+        "source_sha256": "80558e0102a36e6cbae52d09dff47a32987bac6e956fe0357cb821b65806de0e",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 412,
+          "form": "Trash",
+          "key": "lib-burmytrash-n-65a1a9afbf93"
+        },
+        "sha256": "527e970c454147c6b6bb74653a071f2778fc6f40564fd9f94edfc8094d37f20e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "burmytrash",
+          "tool": "builtin-imagegen",
+          "source_sha256": "80558e0102a36e6cbae52d09dff47a32987bac6e956fe0357cb821b65806de0e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 412,
+            "form": "Trash",
+            "key": "lib-burmytrash-n-65a1a9afbf93"
+          },
+          "sha256": "444e8a5cbbda23b3f4eacd903cf87dc177eb1cc7c348bf2931e6a063fdaf35e8",
+          "palette_from": "lib-burmytrash-s-d88a26c3ddbf"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "burmytrash",
+          "tool": "builtin-imagegen",
+          "source_sha256": "80558e0102a36e6cbae52d09dff47a32987bac6e956fe0357cb821b65806de0e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 412,
+            "form": "Trash",
+            "key": "lib-burmytrash-n-65a1a9afbf93"
+          },
+          "sha256": "b732a051a1c23e4ee170072eb00f6111a13e70e8d33dba7263c81011dc1ba9b1",
+          "palette_from": "lib-burmytrash-s-d88a26c3ddbf"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "burmytrash",
+    "num": 412,
+    "form": "Trash",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Burmy-Trash, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "burmytrash-cardinal.png",
+    "source_sha256": "80558e0102a36e6cbae52d09dff47a32987bac6e956fe0357cb821b65806de0e",
+    "source_record": "burmytrash-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

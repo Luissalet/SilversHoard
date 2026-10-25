@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "staravia",
+        "tool": "builtin-imagegen",
+        "source_sha256": "cadc3298b7fa80643d291306c74dd9db3bb469a1bfa2819838fdbd895b44f799",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 397,
+          "form": "",
+          "key": "lib-staravia-n-1e30f4191933"
+        },
+        "sha256": "1a421eb599593879f7964577dde18ce658ace52e43c657cc43913d6a383f9907"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "staravia",
+        "tool": "builtin-imagegen",
+        "source_sha256": "cadc3298b7fa80643d291306c74dd9db3bb469a1bfa2819838fdbd895b44f799",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 397,
+          "form": "",
+          "key": "lib-staravia-n-1e30f4191933"
+        },
+        "sha256": "485dfa4bcad4d359ab01908b1143a3dd8edb4a76385d2ad3a3c41053405d5b3f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "staravia",
+          "tool": "builtin-imagegen",
+          "source_sha256": "cadc3298b7fa80643d291306c74dd9db3bb469a1bfa2819838fdbd895b44f799",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 397,
+            "form": "",
+            "key": "lib-staravia-n-1e30f4191933"
+          },
+          "sha256": "3d3e51d26b11e7420141100236ad3e76b8a4512ea393cbee51ba9eff86a717e7",
+          "palette_from": "lib-staravia-s-d2efc45de3b9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "staravia",
+          "tool": "builtin-imagegen",
+          "source_sha256": "cadc3298b7fa80643d291306c74dd9db3bb469a1bfa2819838fdbd895b44f799",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 397,
+            "form": "",
+            "key": "lib-staravia-n-1e30f4191933"
+          },
+          "sha256": "585886cef20de01f57ba12bc32729b31d6e5da63e1ef2f7ceb807c9cf019c4f0",
+          "palette_from": "lib-staravia-s-d2efc45de3b9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "staravia",
+    "num": 397,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Staravia, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "staravia-cardinal.png",
+    "source_sha256": "cadc3298b7fa80643d291306c74dd9db3bb469a1bfa2819838fdbd895b44f799",
+    "source_record": "staravia-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "slakoth",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e475fa1a136d87a066c0d8a342af1a732485e3e4648faca43d96c6eedc10ff26",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 287,
+          "form": "",
+          "key": "lib-slakoth-n-005d12cf6b0e"
+        },
+        "sha256": "ccdba2db420d8ae310f1ba1d6bc1bb8028ab54b2aca3d9bcac9a27fc9e8256b0"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "slakoth",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e475fa1a136d87a066c0d8a342af1a732485e3e4648faca43d96c6eedc10ff26",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 287,
+          "form": "",
+          "key": "lib-slakoth-n-005d12cf6b0e"
+        },
+        "sha256": "911d2122f91cb97431fbedf56c4d1b4e3608e418b722168c9a4fa7876f7dca99"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "slakoth",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e475fa1a136d87a066c0d8a342af1a732485e3e4648faca43d96c6eedc10ff26",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 287,
+            "form": "",
+            "key": "lib-slakoth-n-005d12cf6b0e"
+          },
+          "sha256": "1dba87ce72a08da3dba9437499539c0ae5a2059f08b4f8ff1f20666bc64f0ceb",
+          "palette_from": "lib-slakoth-s-b2d1f0ea519a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "slakoth",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e475fa1a136d87a066c0d8a342af1a732485e3e4648faca43d96c6eedc10ff26",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 287,
+            "form": "",
+            "key": "lib-slakoth-n-005d12cf6b0e"
+          },
+          "sha256": "9fad89fdf2b65c9fa76e1c3a8235286cc85b4324ed95652d00b52976f96060cf",
+          "palette_from": "lib-slakoth-s-b2d1f0ea519a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "slakoth",
+    "num": 287,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Slakoth, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "slakoth-cardinal.png",
+    "source_sha256": "e475fa1a136d87a066c0d8a342af1a732485e3e4648faca43d96c6eedc10ff26",
+    "source_record": "slakoth-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

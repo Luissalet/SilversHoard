@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "sharpedo",
+        "tool": "builtin-imagegen",
+        "source_sha256": "92230a8c68c7be6d342c59f379073e14e8166de6232627c368d358bfff37fc83",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 319,
+          "form": "",
+          "key": "lib-sharpedo-n-fc84e5e20e46"
+        },
+        "sha256": "d9e3437d740221047727051a711427b830002a1fad2473c3c1dcf8715c80c32b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "sharpedo",
+        "tool": "builtin-imagegen",
+        "source_sha256": "92230a8c68c7be6d342c59f379073e14e8166de6232627c368d358bfff37fc83",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 319,
+          "form": "",
+          "key": "lib-sharpedo-n-fc84e5e20e46"
+        },
+        "sha256": "7c1a49d535d8fdd2a3bcd62960fcbb0101b66a3ae14a70a43d44c8e841058637"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "sharpedo",
+          "tool": "builtin-imagegen",
+          "source_sha256": "92230a8c68c7be6d342c59f379073e14e8166de6232627c368d358bfff37fc83",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 319,
+            "form": "",
+            "key": "lib-sharpedo-n-fc84e5e20e46"
+          },
+          "sha256": "8e05892d47043752ba172349ec4bf25f0c04ec71fc0c0fcd91de31e8c4a8b7b5",
+          "palette_from": "lib-sharpedo-s-23a29b18dbe7"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "sharpedo",
+          "tool": "builtin-imagegen",
+          "source_sha256": "92230a8c68c7be6d342c59f379073e14e8166de6232627c368d358bfff37fc83",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 319,
+            "form": "",
+            "key": "lib-sharpedo-n-fc84e5e20e46"
+          },
+          "sha256": "063549a2bce586a46424941bebd2b1a8d8f5f664a3d547239ec4fd7959c1e9c2",
+          "palette_from": "lib-sharpedo-s-23a29b18dbe7"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "sharpedo",
+    "num": 319,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Sharpedo, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "sharpedo-cardinal.png",
+    "source_sha256": "92230a8c68c7be6d342c59f379073e14e8166de6232627c368d358bfff37fc83",
+    "source_record": "sharpedo-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

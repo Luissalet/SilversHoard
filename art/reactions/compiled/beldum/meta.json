@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "beldum",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f90923281d62d17ac52cdf14b2a7b046f4d7e9445f16d74da84a65f8528b75c0",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 374,
+          "form": "",
+          "key": "lib-beldum-n-a0b881136414"
+        },
+        "sha256": "be8c80e2d7118e98732b83ebc723f7166179a6ae0a2d8a7484ffb50de1b23414"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "beldum",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f90923281d62d17ac52cdf14b2a7b046f4d7e9445f16d74da84a65f8528b75c0",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 374,
+          "form": "",
+          "key": "lib-beldum-n-a0b881136414"
+        },
+        "sha256": "630bc5e9d6d120b62b05f08d0928320763e44cb24cf9665b2618bc3f7db3e912"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "beldum",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f90923281d62d17ac52cdf14b2a7b046f4d7e9445f16d74da84a65f8528b75c0",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 374,
+            "form": "",
+            "key": "lib-beldum-n-a0b881136414"
+          },
+          "sha256": "d3601de3a4d4e20f7d22566bc11ff690b26c8a5adb06942f35e21f0de03a4eb1",
+          "palette_from": "lib-beldum-s-697f5ac4f9b0"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "beldum",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f90923281d62d17ac52cdf14b2a7b046f4d7e9445f16d74da84a65f8528b75c0",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 374,
+            "form": "",
+            "key": "lib-beldum-n-a0b881136414"
+          },
+          "sha256": "71fa08f9f3a4423efaff2e8ff5e522c09fe56800e6f2f4097e54082d397dcc36",
+          "palette_from": "lib-beldum-s-697f5ac4f9b0"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "beldum",
+    "num": 374,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Beldum, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "beldum-cardinal.png",
+    "source_sha256": "f90923281d62d17ac52cdf14b2a7b046f4d7e9445f16d74da84a65f8528b75c0",
+    "source_record": "beldum-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

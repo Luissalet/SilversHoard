@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "illumise",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e11f29ef6c0eca56a8f8f95285ab31907388dd7e7fa97dffd363c5829a1d0c8b",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 314,
+          "form": "",
+          "key": "lib-illumise-n-78382a03f054"
+        },
+        "sha256": "3e2d856f810467d2619fd715519751a7bd50d60fe7a3aa62dc9ebc1ee2745d03"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "illumise",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e11f29ef6c0eca56a8f8f95285ab31907388dd7e7fa97dffd363c5829a1d0c8b",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 314,
+          "form": "",
+          "key": "lib-illumise-n-78382a03f054"
+        },
+        "sha256": "8732a4e53db042e33060f29f31b077431155e50e32319df21c156f0c01fd0584"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "illumise",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e11f29ef6c0eca56a8f8f95285ab31907388dd7e7fa97dffd363c5829a1d0c8b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 314,
+            "form": "",
+            "key": "lib-illumise-n-78382a03f054"
+          },
+          "sha256": "bf267e12a0dc45cefb64f55a856f3435aaf23cd897c90f239a8b8001ed339a58",
+          "palette_from": "lib-illumise-s-80ec84d481cb"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "illumise",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e11f29ef6c0eca56a8f8f95285ab31907388dd7e7fa97dffd363c5829a1d0c8b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 314,
+            "form": "",
+            "key": "lib-illumise-n-78382a03f054"
+          },
+          "sha256": "0d82c2082da5cac0b9ca4e46bb0f8fd4fc0dc7b2223b0c06c0cc73bae90c2dd0",
+          "palette_from": "lib-illumise-s-80ec84d481cb"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "illumise",
+    "num": 314,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Illumise, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "illumise-cardinal.png",
+    "source_sha256": "e11f29ef6c0eca56a8f8f95285ab31907388dd7e7fa97dffd363c5829a1d0c8b",
+    "source_record": "illumise-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}
