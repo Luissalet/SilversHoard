@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "wormadamsandy",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5159516d701f3a7cc52fe9552db2d9be9106d9f4e84a3d6bc825003292965595",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 413,
+          "form": "Sandy",
+          "key": "lib-wormadamsandy-n-03b03f5fd75e"
+        },
+        "sha256": "de11510180c82c95927c89384cea3a1cfd86972689ecf1813e9288cff15f9ba2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "wormadamsandy",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5159516d701f3a7cc52fe9552db2d9be9106d9f4e84a3d6bc825003292965595",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 413,
+          "form": "Sandy",
+          "key": "lib-wormadamsandy-n-03b03f5fd75e"
+        },
+        "sha256": "c0c0c4c5f49be5a4a0ee09fd9e2c078e336cee0cacee8ca6292620d9dc657cdc"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "wormadamsandy",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5159516d701f3a7cc52fe9552db2d9be9106d9f4e84a3d6bc825003292965595",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 413,
+            "form": "Sandy",
+            "key": "lib-wormadamsandy-n-03b03f5fd75e"
+          },
+          "sha256": "c8ea1033a593a72b4664727a1ef9dda7fd742e0d133e816b651490f1b94c0a1d",
+          "palette_from": "lib-wormadamsandy-s-614ce1326b95"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "wormadamsandy",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5159516d701f3a7cc52fe9552db2d9be9106d9f4e84a3d6bc825003292965595",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 413,
+            "form": "Sandy",
+            "key": "lib-wormadamsandy-n-03b03f5fd75e"
+          },
+          "sha256": "28458c052b8a0559d661ca2921db84a21f421d73961e52109ae0233199bac1c2",
+          "palette_from": "lib-wormadamsandy-s-614ce1326b95"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "wormadamsandy",
+    "num": 413,
+    "form": "Sandy",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Wormadam-Sandy, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "wormadamsandy-cardinal.png",
+    "source_sha256": "5159516d701f3a7cc52fe9552db2d9be9106d9f4e84a3d6bc825003292965595",
+    "source_record": "wormadamsandy-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

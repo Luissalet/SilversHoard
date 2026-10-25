@@ -113,10 +113,10 @@
         "ax": 20.0,
         "ay": 34,
         "source": {
-          "kind": "shiny-generated-pmd-reaction",
+          "kind": "generated-shiny-pmd-reaction",
           "record": "lombre",
           "tool": "builtin-imagegen",
-          "source_sha256": "65223de079c00cffdac78520ef2792438aecbf60ce394eeda060668389b9bb45",
+          "source_sha256": "54b80ed737454c6816bd6be280187622d2f617b6c7ca244fd1b316971679ae53",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -129,10 +129,9 @@
           "reference": {
             "num": 271,
             "form": "",
-            "key": "lib-lombre-n-8e721b53fe37"
+            "key": "lib-lombre-s-94529f2c5752"
           },
-          "sha256": "14ae145d02496d3b38e06b23253579c1569a8fc5304ad17613477069db3d6ea8",
-          "palette_from": "lib-lombre-s-94529f2c5752"
+          "sha256": "f9e4bf08298a82a976558ddf9ef296544bef715dfe59b37ccb47bdedba1ff785"
         },
         "row_map": [
           0,
@@ -159,10 +158,10 @@
         "ax": 20.0,
         "ay": 34,
         "source": {
-          "kind": "shiny-generated-pmd-reaction",
+          "kind": "generated-shiny-pmd-reaction",
           "record": "lombre",
           "tool": "builtin-imagegen",
-          "source_sha256": "65223de079c00cffdac78520ef2792438aecbf60ce394eeda060668389b9bb45",
+          "source_sha256": "54b80ed737454c6816bd6be280187622d2f617b6c7ca244fd1b316971679ae53",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -175,10 +174,9 @@
           "reference": {
             "num": 271,
             "form": "",
-            "key": "lib-lombre-n-8e721b53fe37"
+            "key": "lib-lombre-s-94529f2c5752"
           },
-          "sha256": "8772664e6fc7eb5f4435b64b4316ddcc220ecb6e9aeddca6dc245f9247d6a572",
-          "palette_from": "lib-lombre-s-94529f2c5752"
+          "sha256": "3e67a6e3cc87063ae2d6990827592ae30e49ff9eaed56101b28f81ffed40f8dc"
         },
         "row_map": [
           0,
@@ -208,8 +206,10 @@
     "prompt": "Create a new pixel-art game animation sheet for Lombre, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
     "source_image": "lombre-cardinal.png",
     "source_sha256": "65223de079c00cffdac78520ef2792438aecbf60ce394eeda060668389b9bb45",
-    "source_record": "lombre-cardinal.json"
+    "source_record": "lombre-cardinal.json",
+    "shiny_source_image": "lombre-reaction-shiny-v2.png",
+    "shiny_prompt": "Use case: precise-object-edit. Image1 EDIT TARGET is a transparent eight-column four-row pixel-art animation atlas. Image2 is only the EXACT NATIVE SHINY COLOUR reference. Change colours only to match image2. The entire large hat LEAF is native shiny TEAL/CYAN blue-green, not lime/yellow green. Keep this leaf colour separate from the shiny lime green skin below. Keep orange bill/feet and all native pale markings. Keep all32 poses, exact8x4 cell arrangement, fixed front/right/rear/left row cameras, all anatomy and part counts. Preserve crisp pixels and transparent gutters. No extra objects, effects, shadows, text, background or smooth illustration."
   },
   "reviewed": true,
-  "shiny_reviewed": false
+  "shiny_reviewed": true
 }

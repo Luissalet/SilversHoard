@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "rampardos",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9aeaae8688153f41f30f20fe9b146aa054f598e672586738d2d26bcdc2da38de",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 409,
+          "form": "",
+          "key": "lib-rampardos-n-9f282e99e92e"
+        },
+        "sha256": "03a2eca7bc2942bb9ae5a3af3fbcf1f651704c84fd07cdd775a246e1b7e2195f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "rampardos",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9aeaae8688153f41f30f20fe9b146aa054f598e672586738d2d26bcdc2da38de",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 409,
+          "form": "",
+          "key": "lib-rampardos-n-9f282e99e92e"
+        },
+        "sha256": "39d731515e0792f6fa324e4a8eea61be63457ebd2c80ecb26c6698514b1071b2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "rampardos",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9aeaae8688153f41f30f20fe9b146aa054f598e672586738d2d26bcdc2da38de",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 409,
+            "form": "",
+            "key": "lib-rampardos-n-9f282e99e92e"
+          },
+          "sha256": "81456f1a8259ef6f77ab8ec440917305dfcbaf28e1d68c1eaf8e0cb774f56643",
+          "palette_from": "lib-rampardos-s-cc5f862201f1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "rampardos",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9aeaae8688153f41f30f20fe9b146aa054f598e672586738d2d26bcdc2da38de",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 409,
+            "form": "",
+            "key": "lib-rampardos-n-9f282e99e92e"
+          },
+          "sha256": "af665ee727badbbc5f216fc870e289044cdaa15fcf880da66f782834180079b4",
+          "palette_from": "lib-rampardos-s-cc5f862201f1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "rampardos",
+    "num": 409,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Rampardos, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "rampardos-cardinal.png",
+    "source_sha256": "9aeaae8688153f41f30f20fe9b146aa054f598e672586738d2d26bcdc2da38de",
+    "source_record": "rampardos-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -116,7 +116,7 @@
           "kind": "generated-shiny-pmd-reaction",
           "record": "diglettalola",
           "tool": "builtin-imagegen",
-          "source_sha256": "249f1b0f4715fc743d90333a8b51c5027f83cee9ce1e0164eba8e7ab5b51484e",
+          "source_sha256": "fed9f7fe4d57245ba8d5397cc6de76371504dc35d532e17c6a2f890cc15d23db",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -131,7 +131,7 @@
             "form": "Alola",
             "key": "lib-diglettalola-s-65c1d0f8113a"
           },
-          "sha256": "7aa13f044a10fe4136b539eb4bad67080f836dd4999c46c77199feaa48c5058a"
+          "sha256": "62843de21662e83f1be4045ebb9e8d8c8f5302d8327de10cf68ee4801c33a8e3"
         },
         "row_map": [
           0,
@@ -161,7 +161,7 @@
           "kind": "generated-shiny-pmd-reaction",
           "record": "diglettalola",
           "tool": "builtin-imagegen",
-          "source_sha256": "249f1b0f4715fc743d90333a8b51c5027f83cee9ce1e0164eba8e7ab5b51484e",
+          "source_sha256": "fed9f7fe4d57245ba8d5397cc6de76371504dc35d532e17c6a2f890cc15d23db",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -176,7 +176,7 @@
             "form": "Alola",
             "key": "lib-diglettalola-s-65c1d0f8113a"
           },
-          "sha256": "0a1f4589c1f54f6bfe00fabd8ca07fbd6aa6ed31941b230994c0ee28f5de0bbb"
+          "sha256": "9a20352c461b623ab8a89ba4aaa59ff252c061d54c129fb7a75aff9dd643cef1"
         },
         "row_map": [
           0,
@@ -207,9 +207,9 @@
     "source_image": "diglettalola-cardinal.png",
     "source_sha256": "5afeebea546e998004a9e55f4ec883dc6d5622bbee0a76c5e03894458d6cb8bd",
     "source_record": "diglettalola-cardinal.json",
-    "shiny_source_image": "diglettalola-reaction-shiny-v1.png",
-    "shiny_prompt": "Use case: precise-object-edit. Image1 EDIT TARGET is a transparent eight-column four-row pixel-art sprite atlas. Image2 is ONLY the native shiny COLOUR reference. Recolour image1 faithfully to image2. Keep every hair strand GOLD YELLOW, nose BLUE and body in its native shiny brown. Change colours only. Preserve all32 sprites and their individual poses, fixed row camera directions, anatomy, exact8x4 arrangement, pixel clusters, transparent alpha and wide empty gutters. No effects, extra objects, text, background, shadows, smooth painting or redesigned anatomy."
+    "shiny_source_image": "diglettalola-reaction-shiny-v3.png",
+    "shiny_prompt": "Use case: precise-object-edit. Image1 EDIT TARGET is a transparent eight-column four-row pixel-art game sprite atlas. Image2 is ONLY the exact native SHINY COLOUR reference. Make every visible HAIR pixel above the crown gold/yellow/cream with a BLACK outline. Replace the brown-red segments of hair tips and hair outer edges with golden yellow. Do not use brown, red, rust or orange as hair shadows. Retain the reddish brown BODY and BLUE nose. The native reference includes enlarged hair detail. Preserve all32 distinct poses, exactly8columns4rows, fixed front/right/rear/left cameras, complete anatomy and part counts, crisp pixels and transparent gutters. No extra objects, text, background, effects or shadows. Change ONLY the stated material colours, not poses or anatomy."
   },
   "reviewed": true,
-  "shiny_reviewed": false
+  "shiny_reviewed": true
 }

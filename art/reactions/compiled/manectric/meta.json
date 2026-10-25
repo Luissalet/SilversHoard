@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "manectric",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5cd9f2c2dd249f02830675c57e92d141ae11db6f432fd8af0b5c6a835cacf716",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 310,
+          "form": "",
+          "key": "lib-manectric-n-1969b2816f70"
+        },
+        "sha256": "06a1d95bdcb31d79f8e1f15249b19a8ebea9b26fe1a61d25bc729ff4fe595d54"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "manectric",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5cd9f2c2dd249f02830675c57e92d141ae11db6f432fd8af0b5c6a835cacf716",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 310,
+          "form": "",
+          "key": "lib-manectric-n-1969b2816f70"
+        },
+        "sha256": "def9bbab3274c1b3aa6ce98d8c2bf578b200bc8a4733ee29f7270b8bc0682796"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "manectric",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5cd9f2c2dd249f02830675c57e92d141ae11db6f432fd8af0b5c6a835cacf716",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 310,
+            "form": "",
+            "key": "lib-manectric-n-1969b2816f70"
+          },
+          "sha256": "de2c34b6ad457d0a72c702be2708de9632b010900eef1d514e63e4fb0a560f0a",
+          "palette_from": "lib-manectric-s-fafd142748e0"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "manectric",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5cd9f2c2dd249f02830675c57e92d141ae11db6f432fd8af0b5c6a835cacf716",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 310,
+            "form": "",
+            "key": "lib-manectric-n-1969b2816f70"
+          },
+          "sha256": "03bac4717566c00fae3ea09fc3238ef2346f57ecc437b5204793d747e062eca6",
+          "palette_from": "lib-manectric-s-fafd142748e0"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "manectric",
+    "num": 310,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Manectric, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "manectric-cardinal.png",
+    "source_sha256": "5cd9f2c2dd249f02830675c57e92d141ae11db6f432fd8af0b5c6a835cacf716",
+    "source_record": "manectric-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

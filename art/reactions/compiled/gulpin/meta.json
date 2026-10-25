@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "gulpin",
+        "tool": "builtin-imagegen",
+        "source_sha256": "28667a57fb81f53a7d99b4d77f9cd0a48ae20442fd61884d6c7a4b7f495caadb",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 316,
+          "form": "",
+          "key": "lib-gulpin-n-6b834f61e2e7"
+        },
+        "sha256": "73916d7a41e5b7df5dae73dde66ddb00c5beb1917852432eef721d7b4990626a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "gulpin",
+        "tool": "builtin-imagegen",
+        "source_sha256": "28667a57fb81f53a7d99b4d77f9cd0a48ae20442fd61884d6c7a4b7f495caadb",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 316,
+          "form": "",
+          "key": "lib-gulpin-n-6b834f61e2e7"
+        },
+        "sha256": "363170469d68f749ab9b6bcb519cd8f9ee846231f1212e0f6c419c2a13aa709f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "gulpin",
+          "tool": "builtin-imagegen",
+          "source_sha256": "28667a57fb81f53a7d99b4d77f9cd0a48ae20442fd61884d6c7a4b7f495caadb",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 316,
+            "form": "",
+            "key": "lib-gulpin-n-6b834f61e2e7"
+          },
+          "sha256": "c18cfa76421671ec2c1dc78e3bf8eeb3a94f1ad66784399c67c5ec3d8d150864",
+          "palette_from": "lib-gulpin-s-91d3cd2fd151"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "gulpin",
+          "tool": "builtin-imagegen",
+          "source_sha256": "28667a57fb81f53a7d99b4d77f9cd0a48ae20442fd61884d6c7a4b7f495caadb",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 316,
+            "form": "",
+            "key": "lib-gulpin-n-6b834f61e2e7"
+          },
+          "sha256": "f5ad77e35dabef428723672b98173018a2bf8fd3ee868cbf1a489a3ca5bc308d",
+          "palette_from": "lib-gulpin-s-91d3cd2fd151"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "gulpin",
+    "num": 316,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Gulpin, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "gulpin-cardinal.png",
+    "source_sha256": "28667a57fb81f53a7d99b4d77f9cd0a48ae20442fd61884d6c7a4b7f495caadb",
+    "source_record": "gulpin-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

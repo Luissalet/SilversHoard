@@ -1,0 +1,19 @@
+{
+  "id": "solrock",
+  "name": "Solrock",
+  "num": 338,
+  "form": "",
+  "directions": 4,
+  "frames": 2,
+  "image": "solrock-compact-v2.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Create a new transparent pixel-art game sprite atlas of Solrock using the input ONLY as exact identity, native colour and camera reference. EXACTLY FOUR COLUMNS AND FOUR ROWS,16sprites, wide empty gutters with no detached pixels. Rows keep their fixed camera: FRONT, RIGHT PROFILE, REAR, LEFT PROFILE. Column1 genuine sudden wince/body brace, column2 stronger wince/head lowered, column3 body settles onto ground with parts folding, column4 rests completely on the ground with closed eyes. Redraw real expressive body/fin/ray poses, not resized standing copies. Preserve all native part counts and colours, crisp original pixel clusters. No text, effects, bubbles, shadows, scenery or extra objects. The two PROFILE rows must remain a THIN EDGE-ON DISC, like the native reference; never reveal the broad frontal star or BOTH eyes in either profile row, including the ground pose. Rear shows only the back without frontal facial marks. Keep attached sun rays as they bend/settle.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-corrections10.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

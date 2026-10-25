@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "barboach",
+        "tool": "builtin-imagegen",
+        "source_sha256": "546c626893ed549490c1e563e0d8952b3fc0300a895c8610aecf5a6f9a6b0701",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 339,
+          "form": "",
+          "key": "lib-barboach-n-541bb0804be5"
+        },
+        "sha256": "368aede9eae3ef843ca37b5e5a6066e22b478267989da5ac82bde1edbe402c57"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "barboach",
+        "tool": "builtin-imagegen",
+        "source_sha256": "546c626893ed549490c1e563e0d8952b3fc0300a895c8610aecf5a6f9a6b0701",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 339,
+          "form": "",
+          "key": "lib-barboach-n-541bb0804be5"
+        },
+        "sha256": "d50956d7efe461509ca8b3742f7600eb302a27f48173d1ab3ceabc41a8a3d01e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "barboach",
+          "tool": "builtin-imagegen",
+          "source_sha256": "546c626893ed549490c1e563e0d8952b3fc0300a895c8610aecf5a6f9a6b0701",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 339,
+            "form": "",
+            "key": "lib-barboach-n-541bb0804be5"
+          },
+          "sha256": "8c740b8ec7d6118b53a4ddea35602495bbc9622ac362f506d77db7c772f8544f",
+          "palette_from": "lib-barboach-s-40cbda475c86"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "barboach",
+          "tool": "builtin-imagegen",
+          "source_sha256": "546c626893ed549490c1e563e0d8952b3fc0300a895c8610aecf5a6f9a6b0701",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 339,
+            "form": "",
+            "key": "lib-barboach-n-541bb0804be5"
+          },
+          "sha256": "9b85e65e11ae66b7da798ecf1582f0ac8da284e50b2bde7a2990ed8ce212db14",
+          "palette_from": "lib-barboach-s-40cbda475c86"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "barboach",
+    "num": 339,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new transparent pixel-art game sprite atlas of Barboach using the input ONLY as exact identity, native colour and camera reference. EXACTLY FOUR COLUMNS AND FOUR ROWS,16sprites, wide empty gutters with no detached pixels. Rows keep their fixed camera: FRONT, RIGHT PROFILE, REAR, LEFT PROFILE. Column1 genuine sudden wince/body brace, column2 stronger wince/head lowered, column3 body settles onto ground with parts folding, column4 rests completely on the ground with closed eyes. Redraw real expressive body/fin/ray poses, not resized standing copies. Preserve all native part counts and colours, crisp original pixel clusters. No text, effects, bubbles, shadows, scenery or extra objects. Keep the grey fish skin with dark zigzag side stripe, blue barbels/whiskers and fins; no water or splashes. The rear row shows the back and tail, no frontal face. Every body, fin and whisker stays fully inside its cell.",
+    "source_image": "barboach-compact-v2.png",
+    "source_sha256": "546c626893ed549490c1e563e0d8952b3fc0300a895c8610aecf5a6f9a6b0701",
+    "source_record": "barboach-compact-v2.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

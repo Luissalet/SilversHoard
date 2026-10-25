@@ -35,10 +35,10 @@ credits remain unchanged.
 
 Task 1503 is in progress. The initial audit found 1,201 normal forms needing at
 least one new reaction; shiny palettes must also be derived and checked before
-installation. There are reviewed raster exports for 530 normal/shiny variants,
-with both actions. The pack uses 527 new Pain and 527 new HitGround sequences;
+installation. There are reviewed raster exports for 806 normal/shiny variants,
+with both actions. The pack uses 802 new Pain and 803 new HitGround sequences;
 existing published reactions take priority where already available. Pain still
-has 1,880 variants using the previous runtime fallback, and HitGround has 1,895.
+has 1,605 variants using the previous runtime fallback, and HitGround has 1,619.
 This directory does not establish complete
 roster coverage. Source prompts and per-frame provenance accompany each accepted
 export. Rejected candidates remain outside the generated pack.

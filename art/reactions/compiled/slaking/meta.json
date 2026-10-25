@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "slaking",
+        "tool": "builtin-imagegen",
+        "source_sha256": "44978d6ca71a128bc0d9a0871e4ff310b2d19e9caed97f830defa89ca0c0cd58",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 289,
+          "form": "",
+          "key": "lib-slaking-n-2c953094bfc8"
+        },
+        "sha256": "e2d2534f922a6ff5ee4a17b6127af5e4019b0688daf6054e1b3d1f95bfa2b025"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "slaking",
+        "tool": "builtin-imagegen",
+        "source_sha256": "44978d6ca71a128bc0d9a0871e4ff310b2d19e9caed97f830defa89ca0c0cd58",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 289,
+          "form": "",
+          "key": "lib-slaking-n-2c953094bfc8"
+        },
+        "sha256": "8f7f8decbcdd784092d973a8a5cc0eb7485ee020f363ede8cf376661320aeaba"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "slaking",
+          "tool": "builtin-imagegen",
+          "source_sha256": "44978d6ca71a128bc0d9a0871e4ff310b2d19e9caed97f830defa89ca0c0cd58",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 289,
+            "form": "",
+            "key": "lib-slaking-n-2c953094bfc8"
+          },
+          "sha256": "08b59a3c1f57f5e4f8f577c8bf7ec811442ae7a125ac84742bf64dd9355f36d1",
+          "palette_from": "lib-slaking-s-6da4ceabb439"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "slaking",
+          "tool": "builtin-imagegen",
+          "source_sha256": "44978d6ca71a128bc0d9a0871e4ff310b2d19e9caed97f830defa89ca0c0cd58",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 289,
+            "form": "",
+            "key": "lib-slaking-n-2c953094bfc8"
+          },
+          "sha256": "63fa06c1a0f365592c4178fb76354bca499a9f7bab916bcffe5c3f19f3363a30",
+          "palette_from": "lib-slaking-s-6da4ceabb439"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "slaking",
+    "num": 289,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Slaking, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "slaking-cardinal.png",
+    "source_sha256": "44978d6ca71a128bc0d9a0871e4ff310b2d19e9caed97f830defa89ca0c0cd58",
+    "source_record": "slaking-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

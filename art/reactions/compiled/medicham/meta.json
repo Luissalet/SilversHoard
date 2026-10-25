@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "medicham",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8716a9ce9496ddda0b18ebe3a40b36fd3becab31fd27010ec5ff230c0d6855af",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 308,
+          "form": "",
+          "key": "lib-medicham-n-10f33871781e"
+        },
+        "sha256": "9d96c32e2efd1f969d7212b11bd390bc3a0423d0fde2c756a5ce74feb21d9b8a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "medicham",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8716a9ce9496ddda0b18ebe3a40b36fd3becab31fd27010ec5ff230c0d6855af",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 308,
+          "form": "",
+          "key": "lib-medicham-n-10f33871781e"
+        },
+        "sha256": "e46485d3d4081e01d756ad670a00ca8c5250a477c1a0878ba5cf42eb7ef008cc"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "medicham",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8716a9ce9496ddda0b18ebe3a40b36fd3becab31fd27010ec5ff230c0d6855af",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 308,
+            "form": "",
+            "key": "lib-medicham-n-10f33871781e"
+          },
+          "sha256": "6e54ca7aa621fd644f7d7f49fc2ce74434f23014f3143870b5a07bdfbc3ae176",
+          "palette_from": "lib-medicham-s-8b6c75ed9a66"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "medicham",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8716a9ce9496ddda0b18ebe3a40b36fd3becab31fd27010ec5ff230c0d6855af",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 308,
+            "form": "",
+            "key": "lib-medicham-n-10f33871781e"
+          },
+          "sha256": "5760d5a4e84c8fbcaab0828968bcce3516ca49c00b2456e0da5479b8c2698576",
+          "palette_from": "lib-medicham-s-8b6c75ed9a66"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "medicham",
+    "num": 308,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Medicham, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "medicham-cardinal.png",
+    "source_sha256": "8716a9ce9496ddda0b18ebe3a40b36fd3becab31fd27010ec5ff230c0d6855af",
+    "source_record": "medicham-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

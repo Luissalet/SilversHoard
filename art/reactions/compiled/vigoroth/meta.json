@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "vigoroth",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6e1f42b8fcf9a65e46215676fa5375ee6e3f61d8984c3d91e2aad435ff3f6098",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 288,
+          "form": "",
+          "key": "lib-vigoroth-n-ec3c9dbde245"
+        },
+        "sha256": "ab9885b5e3649781f620a0c14f47bef2b3d9692deeb4c351cbe8952c2f529814"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "vigoroth",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6e1f42b8fcf9a65e46215676fa5375ee6e3f61d8984c3d91e2aad435ff3f6098",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 288,
+          "form": "",
+          "key": "lib-vigoroth-n-ec3c9dbde245"
+        },
+        "sha256": "6fc03a95884e5949b4fd31d8906c3ba7aabb2c116f17609dd0aedd149c448f9c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "vigoroth",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6e1f42b8fcf9a65e46215676fa5375ee6e3f61d8984c3d91e2aad435ff3f6098",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 288,
+            "form": "",
+            "key": "lib-vigoroth-n-ec3c9dbde245"
+          },
+          "sha256": "6dbcbd5feed916c15210eaa2ec4f7a6ac1561f0b77381d151b5afa3f5fbcc625",
+          "palette_from": "lib-vigoroth-s-3669d8110de5"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "vigoroth",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6e1f42b8fcf9a65e46215676fa5375ee6e3f61d8984c3d91e2aad435ff3f6098",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 288,
+            "form": "",
+            "key": "lib-vigoroth-n-ec3c9dbde245"
+          },
+          "sha256": "bbab91e4006d119d347c02ce9a2645b4dc302307ed4dafd3714e1870152463ce",
+          "palette_from": "lib-vigoroth-s-3669d8110de5"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "vigoroth",
+    "num": 288,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Vigoroth, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "vigoroth-cardinal.png",
+    "source_sha256": "6e1f42b8fcf9a65e46215676fa5375ee6e3f61d8984c3d91e2aad435ff3f6098",
+    "source_record": "vigoroth-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

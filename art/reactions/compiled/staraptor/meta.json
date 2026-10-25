@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "staraptor",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e9ed3f547b7aad06919569f4bd0c90c5af64a03ff1834df5615e139b09360b5a",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 398,
+          "form": "",
+          "key": "lib-staraptor-n-79de4f563af9"
+        },
+        "sha256": "3ec96d540b124d5293875b487644a920ead33627066b2027780fd784d6fa6c05"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "staraptor",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e9ed3f547b7aad06919569f4bd0c90c5af64a03ff1834df5615e139b09360b5a",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 398,
+          "form": "",
+          "key": "lib-staraptor-n-79de4f563af9"
+        },
+        "sha256": "73d380df0268587dcbe815f10e250e2adee481e3bc09a494d4759345311b5a4a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "staraptor",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e9ed3f547b7aad06919569f4bd0c90c5af64a03ff1834df5615e139b09360b5a",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 398,
+            "form": "",
+            "key": "lib-staraptor-n-79de4f563af9"
+          },
+          "sha256": "2f71a190389f72bbcfcc5617012a2116b99c60aee946d09f0295c9ef70bd9b33",
+          "palette_from": "lib-staraptor-s-35e20e0a24ad"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "staraptor",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e9ed3f547b7aad06919569f4bd0c90c5af64a03ff1834df5615e139b09360b5a",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 398,
+            "form": "",
+            "key": "lib-staraptor-n-79de4f563af9"
+          },
+          "sha256": "21ac651a94f4e18bc3dae6df12d88678d8f2975eefaa002281d907ac4343e8f5",
+          "palette_from": "lib-staraptor-s-35e20e0a24ad"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "staraptor",
+    "num": 398,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Staraptor, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "staraptor-cardinal.png",
+    "source_sha256": "e9ed3f547b7aad06919569f4bd0c90c5af64a03ff1834df5615e139b09360b5a",
+    "source_record": "staraptor-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

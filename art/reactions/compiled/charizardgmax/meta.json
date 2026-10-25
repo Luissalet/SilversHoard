@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 152,
+      "h": 120,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 76.0,
+      "ay": 114,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "charizardgmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f513560a2015fe2a4433ccaa5406841bbac197da6b061966c64130db92da74d2",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 6,
+          "form": "Gmax",
+          "key": "lib-charizardgmax-n-00b59041d960"
+        },
+        "sha256": "4751b9c4cd98097d2aecdf0655e102a747518be0de7fcee22b6ed3faca7852fa"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 152,
+      "h": 120,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 76.0,
+      "ay": 114,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "charizardgmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f513560a2015fe2a4433ccaa5406841bbac197da6b061966c64130db92da74d2",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 6,
+          "form": "Gmax",
+          "key": "lib-charizardgmax-n-00b59041d960"
+        },
+        "sha256": "44e5f0586cfdc4bfa5140f45f2f9b083cbd95dbdba2321fae353c35f10b1a89a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 152,
+        "h": 120,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 76.0,
+        "ay": 114,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "charizardgmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f513560a2015fe2a4433ccaa5406841bbac197da6b061966c64130db92da74d2",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 6,
+            "form": "Gmax",
+            "key": "lib-charizardgmax-n-00b59041d960"
+          },
+          "sha256": "a6708e6ed875e75637452578b357e3bc5a3c62a41394dd4e3bbc0eef254ee475",
+          "palette_from": "lib-charizardgmax-s-3833a2f1030e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 152,
+        "h": 120,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 76.0,
+        "ay": 114,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "charizardgmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f513560a2015fe2a4433ccaa5406841bbac197da6b061966c64130db92da74d2",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 6,
+            "form": "Gmax",
+            "key": "lib-charizardgmax-n-00b59041d960"
+          },
+          "sha256": "7a195555be5755ec364e7608576204d5395ea8881693baf4fb35ebcf5bcd03ab",
+          "palette_from": "lib-charizardgmax-s-3833a2f1030e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "charizardgmax",
+    "num": 6,
+    "form": "Gmax",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a transparent pixel-art animation atlas for Charizard-Gmax. Use the reference only for exact character identity, native colours and views. EXACT FOUR COLUMNS and FOUR ROWS,16 full-body sprites separated by wide empty transparent gutters. Each row keeps its camera throughout: FRONT, RIGHT PROFILE, REAR, LEFT PROFILE. Column1 startled wince with braced body; column2 stronger wince with head lowered; column3 body settles low and limbs fold; column4 body rests completely on the ground with closed eyes, limbs relaxed. Keep the rear view strictly posterior when lying down, showing back and hidden face. Actual newly drawn poses, expressive body articulation, consistent pixel scale, all native markings, accessories and anatomy. Crisp pixels, limited original palette. No text, detached effects, shadows or scenery.",
+    "source_image": "charizardgmax-compact-r3.png",
+    "source_sha256": "f513560a2015fe2a4433ccaa5406841bbac197da6b061966c64130db92da74d2",
+    "source_record": "charizardgmax-compact-r3.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": false
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 72,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "latios",
+        "tool": "builtin-imagegen",
+        "source_sha256": "49bf8e38d113ae2bdf3efe1283bc764bcc94250466ccd12efffba4285d721230",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 381,
+          "form": "",
+          "key": "lib-latios-n-cc5bd3b7ae37"
+        },
+        "sha256": "639b453a554dfeadfad47c2b536983ea2e2f43a86c085376d90809fc0a808723"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 72,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "latios",
+        "tool": "builtin-imagegen",
+        "source_sha256": "49bf8e38d113ae2bdf3efe1283bc764bcc94250466ccd12efffba4285d721230",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 381,
+          "form": "",
+          "key": "lib-latios-n-cc5bd3b7ae37"
+        },
+        "sha256": "9479865b539e8c701dedcb3d47351815ebcdd2c18c8ef869670aa9e725dbb385"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 72,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "latios",
+          "tool": "builtin-imagegen",
+          "source_sha256": "49bf8e38d113ae2bdf3efe1283bc764bcc94250466ccd12efffba4285d721230",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 381,
+            "form": "",
+            "key": "lib-latios-n-cc5bd3b7ae37"
+          },
+          "sha256": "a93eef4458244db2bfbfb3efb449872aa6953d1b6de3210a7c3703a67bd73e68",
+          "palette_from": "lib-latios-s-526fd534ab98"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 72,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "latios",
+          "tool": "builtin-imagegen",
+          "source_sha256": "49bf8e38d113ae2bdf3efe1283bc764bcc94250466ccd12efffba4285d721230",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 381,
+            "form": "",
+            "key": "lib-latios-n-cc5bd3b7ae37"
+          },
+          "sha256": "84200cd071d077c8e20111489323daf6387a48bd49f9e6f34e5b6423df92d3df",
+          "palette_from": "lib-latios-s-526fd534ab98"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "latios",
+    "num": 381,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Latios, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "latios-cardinal.png",
+    "source_sha256": "49bf8e38d113ae2bdf3efe1283bc764bcc94250466ccd12efffba4285d721230",
+    "source_record": "latios-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

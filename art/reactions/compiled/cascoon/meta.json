@@ -1,0 +1,273 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "cascoon",
+        "tool": "builtin-imagegen",
+        "source_sha256": "04f831fbf2c5c1e6e0271511595c136d0f0f0d9b92f327b46787c01cb748a737",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 15,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 268,
+          "form": "",
+          "key": "lib-cascoon-n-fc86b45ddb5b"
+        },
+        "assembly": {
+          "native_frames": [
+            {
+              "action": "Pain",
+              "direction": 0,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 0,
+              "index": 0
+            }
+          ]
+        },
+        "sha256": "17ad3f9c6513d9bec38086a4f425f5dac9e8e884a1f4debf43e29c34fcbcb368"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "cascoon",
+        "tool": "builtin-imagegen",
+        "source_sha256": "04f831fbf2c5c1e6e0271511595c136d0f0f0d9b92f327b46787c01cb748a737",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 268,
+          "form": "",
+          "key": "lib-cascoon-n-fc86b45ddb5b"
+        },
+        "assembly": {
+          "native_frames": [
+            {
+              "action": "Pain",
+              "direction": 0,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 0,
+              "index": 0
+            }
+          ]
+        },
+        "sha256": "6cfcefcd5eb99e1292a4ad11f340d4476a38301a3ad9d10754015a1c047a9a42"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "cascoon",
+          "tool": "builtin-imagegen",
+          "source_sha256": "04f831fbf2c5c1e6e0271511595c136d0f0f0d9b92f327b46787c01cb748a737",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 15,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 268,
+            "form": "",
+            "key": "lib-cascoon-n-fc86b45ddb5b"
+          },
+          "assembly": {
+            "native_frames": [
+              {
+                "action": "Pain",
+                "direction": 0,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 0,
+                "index": 0
+              }
+            ]
+          },
+          "sha256": "84452c55c4f929a977b524495a9921c52822e1d3f678785fc47dc1be67d57dfa",
+          "palette_from": "lib-cascoon-s-2414d9338475"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "cascoon",
+          "tool": "builtin-imagegen",
+          "source_sha256": "04f831fbf2c5c1e6e0271511595c136d0f0f0d9b92f327b46787c01cb748a737",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 268,
+            "form": "",
+            "key": "lib-cascoon-n-fc86b45ddb5b"
+          },
+          "assembly": {
+            "native_frames": [
+              {
+                "action": "Pain",
+                "direction": 0,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 0,
+                "index": 0
+              }
+            ]
+          },
+          "sha256": "3aede4db5eeb93158dbd36408fe7d3571e61974ced842af3ead7fe31464f3c80",
+          "palette_from": "lib-cascoon-s-2414d9338475"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "cascoon",
+    "num": 268,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Cascoon, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "cascoon-cardinal.png",
+    "source_sha256": "04f831fbf2c5c1e6e0271511595c136d0f0f0d9b92f327b46787c01cb748a737",
+    "native_frames": [
+      {
+        "action": "Pain",
+        "direction": 0,
+        "frame": 0,
+        "animation": "Idle",
+        "row": 0,
+        "index": 0
+      }
+    ],
+    "source_record": "cascoon-assembled.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

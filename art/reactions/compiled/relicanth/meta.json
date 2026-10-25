@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "relicanth",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ebe3cf24f342dc25001721bfc5e39635edf7c507c8713d7224713ae8426eff6b",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 369,
+          "form": "",
+          "key": "lib-relicanth-n-4ef9c5c8c11d"
+        },
+        "sha256": "bdbc7caf117e7a8bb0e2bd577d457af450eba013ecc86d6b0ab819a5ddef91f0"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "relicanth",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ebe3cf24f342dc25001721bfc5e39635edf7c507c8713d7224713ae8426eff6b",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 369,
+          "form": "",
+          "key": "lib-relicanth-n-4ef9c5c8c11d"
+        },
+        "sha256": "f6afa003edd5ddc3c0c5a7d8c44f449639c3204fc35441dfebc334225ef5f191"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "relicanth",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ebe3cf24f342dc25001721bfc5e39635edf7c507c8713d7224713ae8426eff6b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 369,
+            "form": "",
+            "key": "lib-relicanth-n-4ef9c5c8c11d"
+          },
+          "sha256": "1b22b319a40e3081da357e226faafad3ebbed77e9bd530cfdfaccb2adb0924a8",
+          "palette_from": "lib-relicanth-s-8f8da73a3a0b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "relicanth",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ebe3cf24f342dc25001721bfc5e39635edf7c507c8713d7224713ae8426eff6b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 369,
+            "form": "",
+            "key": "lib-relicanth-n-4ef9c5c8c11d"
+          },
+          "sha256": "80c5829cc5c34e547352e226e713581a1df2758433375443476ab38c71346683",
+          "palette_from": "lib-relicanth-s-8f8da73a3a0b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "relicanth",
+    "num": 369,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Relicanth, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "relicanth-cardinal.png",
+    "source_sha256": "ebe3cf24f342dc25001721bfc5e39635edf7c507c8713d7224713ae8426eff6b",
+    "source_record": "relicanth-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

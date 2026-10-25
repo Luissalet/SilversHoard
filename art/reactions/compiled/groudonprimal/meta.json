@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 88,
+      "h": 72,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 44.0,
+      "ay": 66,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "groudonprimal",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5079109ff5d04c2b29718d4b0e76d3475c9acd085609e6c807f7c8f099edfd77",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 383,
+          "form": "Primal",
+          "key": "lib-groudonprimal-n-cb738cd15c3f"
+        },
+        "sha256": "6fd0a76884269f9e0d409e05de061c8aa9c1b9926b9d98b0dd3d74ed134c5670"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 88,
+      "h": 72,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 44.0,
+      "ay": 66,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "groudonprimal",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5079109ff5d04c2b29718d4b0e76d3475c9acd085609e6c807f7c8f099edfd77",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 383,
+          "form": "Primal",
+          "key": "lib-groudonprimal-n-cb738cd15c3f"
+        },
+        "sha256": "cf2b8458d6a0c8afc379c66d45a1df35db837f30c19aff59743dd9469923dbc2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 80,
+        "h": 72,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 40.0,
+        "ay": 66,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "groudonprimal",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8d9692b7c3521c441e58f30249998e00b98bfd1627db512da756a566a3b0d220",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 383,
+            "form": "Primal",
+            "key": "lib-groudonprimal-s-47759e38acff"
+          },
+          "sha256": "1aaf34cef914f8937274de52a0cf418a4e7e7a75d37b1d2e7b69d13e48759c3a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 80,
+        "h": 72,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 40.0,
+        "ay": 66,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "groudonprimal",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8d9692b7c3521c441e58f30249998e00b98bfd1627db512da756a566a3b0d220",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 383,
+            "form": "Primal",
+            "key": "lib-groudonprimal-s-47759e38acff"
+          },
+          "sha256": "e1cd696a0d46606deff83e2a404e5dec73314845fa0f09b472a22ed862aec19a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "groudonprimal",
+    "num": 383,
+    "form": "Primal",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Groudon-Primal, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "groudonprimal-cardinal.png",
+    "source_sha256": "5079109ff5d04c2b29718d4b0e76d3475c9acd085609e6c807f7c8f099edfd77",
+    "source_record": "groudonprimal-cardinal.json",
+    "shiny_source_image": "groudonprimal-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Image1 EDIT TARGET is a transparent 8-column 4-row pixel-art game animation atlas; image2 is the exact native colour and identity reference only. Keep the exact 32 distinct poses and grid, all anatomy and fixed row cameras FRONT, RIGHT, REAR, LEFT. Preserve crisp pixels and wide transparent gutters, no text, scenery, detached effects, shadows or extra objects. Recolour to the exact SHINY reference: BLACK/DARK armour, PALE YELLOW/CREAM luminous cracks with distinct ORANGE/RED INNER CORES along those cracks. Keep orange/red inner strokes on the back, tail and sides inside the pale outer glow. White claws. The armour is black; the bright lines are pale on their edges with orange cores, never uniform cream."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

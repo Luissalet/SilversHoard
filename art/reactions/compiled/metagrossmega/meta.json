@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 72,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "metagrossmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "c8bb16811c2ecb78717a300157b945f54053fb985831788ff5827402f68c669e",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 376,
+          "form": "Mega",
+          "key": "lib-metagrossmega-n-4c090036ef84"
+        },
+        "sha256": "8ab267239fe30c380fe1fe6e70d4643e0e479910ceb34a47822cb862d42f4b10"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 72,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "metagrossmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "c8bb16811c2ecb78717a300157b945f54053fb985831788ff5827402f68c669e",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 376,
+          "form": "Mega",
+          "key": "lib-metagrossmega-n-4c090036ef84"
+        },
+        "sha256": "37e81c4dd67185d1009fca7ddfc16e2ac0c90b46791606e412700fbc38f3639c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 72,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "metagrossmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "c8bb16811c2ecb78717a300157b945f54053fb985831788ff5827402f68c669e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 376,
+            "form": "Mega",
+            "key": "lib-metagrossmega-n-4c090036ef84"
+          },
+          "sha256": "61d5755803b18224019f094a28f6ab8f29f2a1b1661fc75d8a8e105a9d73df25",
+          "palette_from": "lib-metagrossmega-s-1d9a532bcf3d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 72,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "metagrossmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "c8bb16811c2ecb78717a300157b945f54053fb985831788ff5827402f68c669e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 376,
+            "form": "Mega",
+            "key": "lib-metagrossmega-n-4c090036ef84"
+          },
+          "sha256": "54f4834bd7ef92b29a036e88706c5ad97eebca86d237aa6341253e344b2974f2",
+          "palette_from": "lib-metagrossmega-s-1d9a532bcf3d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "metagrossmega",
+    "num": 376,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Metagross-Mega, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "metagrossmega-cardinal.png",
+    "source_sha256": "c8bb16811c2ecb78717a300157b945f54053fb985831788ff5827402f68c669e",
+    "source_record": "metagrossmega-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 80,
+      "h": 64,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 40.0,
+      "ay": 58,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "kyogreprimal",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8be1a5e7fd57af40c1117e242645cbf168959954349807ecbcd40796d5a5e9c3",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 382,
+          "form": "Primal",
+          "key": "lib-kyogreprimal-n-4458f804b83e"
+        },
+        "sha256": "141eee00d60228c3fa0937e1a2b81d113e8b279801744fbe060844157e9bd263"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 80,
+      "h": 64,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 40.0,
+      "ay": 58,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "kyogreprimal",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8be1a5e7fd57af40c1117e242645cbf168959954349807ecbcd40796d5a5e9c3",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 382,
+          "form": "Primal",
+          "key": "lib-kyogreprimal-n-4458f804b83e"
+        },
+        "sha256": "83111d48a8bbfe3c0a25b5f81b356c3694dfc177276ea4d04df1e8b882ad2975"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 80,
+        "h": 64,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 40.0,
+        "ay": 58,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "kyogreprimal",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1bd3b9b525ff3f08636c0c34983569d9b9eeab8264f0e2b38c4af44d3e55ccc4",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 382,
+            "form": "Primal",
+            "key": "lib-kyogreprimal-s-87f20dbe9008"
+          },
+          "sha256": "0ca79dc5c63e6f347cbb6bd8e31794a18fad9dd315e063418440227017bb2eb4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 80,
+        "h": 64,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 40.0,
+        "ay": 58,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "kyogreprimal",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1bd3b9b525ff3f08636c0c34983569d9b9eeab8264f0e2b38c4af44d3e55ccc4",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 382,
+            "form": "Primal",
+            "key": "lib-kyogreprimal-s-87f20dbe9008"
+          },
+          "sha256": "01de4b4bb9148a895d2dfc82239b1c28cd77a0507fdea564dfeea94ec025dff2"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "kyogreprimal",
+    "num": 382,
+    "form": "Primal",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Kyogre-Primal, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "kyogreprimal-cardinal.png",
+    "source_sha256": "8be1a5e7fd57af40c1117e242645cbf168959954349807ecbcd40796d5a5e9c3",
+    "source_record": "kyogreprimal-cardinal.json",
+    "shiny_source_image": "kyogreprimal-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Image1 EDIT TARGET is a transparent eight-column four-row pixel-art game sprite atlas. Image2 is ONLY the exact native SHINY COLOUR reference. All outer finger pads and tips on BOTH large flippers are shiny PINK/MAGENTA, not grey or white. Keep their pink colour separate from the pale/gold inner circuit markings and the dark black/navy skin. Preserve the pink pads even in rear and lowered profile poses. Preserve all32 distinct poses, exactly8columns4rows, fixed front/right/rear/left cameras, complete anatomy and part counts, crisp pixels and transparent gutters. No extra objects, text, background, effects or shadows. Change ONLY the stated material colours, not poses or anatomy."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

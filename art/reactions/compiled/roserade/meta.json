@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "roserade",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4aa3044fffcdffa69837c3197305235ca8d5e5b64ec75d40fa3bb1062638773f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 407,
+          "form": "",
+          "key": "lib-roserade-n-459b151ca3a8"
+        },
+        "sha256": "0330737b964cb56845263885e4176320fa35c6751f66b5e835d5e1ed53af7950"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "roserade",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4aa3044fffcdffa69837c3197305235ca8d5e5b64ec75d40fa3bb1062638773f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 407,
+          "form": "",
+          "key": "lib-roserade-n-459b151ca3a8"
+        },
+        "sha256": "c74afc7d9ee01e5f4c9ab73206caee87ceb1175168eee24e106583a07e300019"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "roserade",
+          "tool": "builtin-imagegen",
+          "source_sha256": "4aa3044fffcdffa69837c3197305235ca8d5e5b64ec75d40fa3bb1062638773f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 407,
+            "form": "",
+            "key": "lib-roserade-n-459b151ca3a8"
+          },
+          "sha256": "2f75381f2c0e54d7d8ff65988b19412cf92f3bb82a231de615d051cf978d2bef",
+          "palette_from": "lib-roserade-s-eeb56f24c0f2"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "roserade",
+          "tool": "builtin-imagegen",
+          "source_sha256": "4aa3044fffcdffa69837c3197305235ca8d5e5b64ec75d40fa3bb1062638773f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 407,
+            "form": "",
+            "key": "lib-roserade-n-459b151ca3a8"
+          },
+          "sha256": "2fe34853d10d118988c4e627a616053472bca1439735b01b3bd589f6991c4739",
+          "palette_from": "lib-roserade-s-eeb56f24c0f2"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "roserade",
+    "num": 407,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Roserade, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "roserade-cardinal.png",
+    "source_sha256": "4aa3044fffcdffa69837c3197305235ca8d5e5b64ec75d40fa3bb1062638773f",
+    "source_record": "roserade-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

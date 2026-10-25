@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "kricketot",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5d7d041cd8498c7d2a867eab4f83a45b177b45342e6f2783a4ded6235a22c24d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 401,
+          "form": "",
+          "key": "lib-kricketot-n-ff6b2978ad4e"
+        },
+        "sha256": "f7c841553ec8eba74acd565f4788bc9c2a3adb95265a0ec951f8330693ae082f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "kricketot",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5d7d041cd8498c7d2a867eab4f83a45b177b45342e6f2783a4ded6235a22c24d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 401,
+          "form": "",
+          "key": "lib-kricketot-n-ff6b2978ad4e"
+        },
+        "sha256": "b9a8cfa1ef16112c75705ddfbee02f5f8c1df839c637d62986a50a41d3f575a2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "kricketot",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5d7d041cd8498c7d2a867eab4f83a45b177b45342e6f2783a4ded6235a22c24d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 401,
+            "form": "",
+            "key": "lib-kricketot-n-ff6b2978ad4e"
+          },
+          "sha256": "abb797da99dddf248f3e30e658b8676bc2e12a8482f562e58fb199955c0ff2df",
+          "palette_from": "lib-kricketot-s-947c7812d5e9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "kricketot",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5d7d041cd8498c7d2a867eab4f83a45b177b45342e6f2783a4ded6235a22c24d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 401,
+            "form": "",
+            "key": "lib-kricketot-n-ff6b2978ad4e"
+          },
+          "sha256": "b1a4832e49c04a6c5d95a193224b1299ecf8bb8ca5a0c20884c31f0eff156582",
+          "palette_from": "lib-kricketot-s-947c7812d5e9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "kricketot",
+    "num": 401,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Kricketot, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "kricketot-cardinal.png",
+    "source_sha256": "5d7d041cd8498c7d2a867eab4f83a45b177b45342e6f2783a4ded6235a22c24d",
+    "source_record": "kricketot-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

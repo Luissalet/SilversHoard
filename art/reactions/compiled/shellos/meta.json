@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "shellos",
+        "tool": "builtin-imagegen",
+        "source_sha256": "504cc7721265b2810c7cd9e49fb5790ae8cae72df2908318a0917b277a9a38bd",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 422,
+          "form": "",
+          "key": "lib-shellos-n-84c49beb6f2c"
+        },
+        "sha256": "06c6155616a3a3418b73c823b53969606e48da2c2ed8d78784bae84489fa41cc"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "shellos",
+        "tool": "builtin-imagegen",
+        "source_sha256": "504cc7721265b2810c7cd9e49fb5790ae8cae72df2908318a0917b277a9a38bd",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 422,
+          "form": "",
+          "key": "lib-shellos-n-84c49beb6f2c"
+        },
+        "sha256": "1de36464bd066ee5ab9ef16314ef0c834e4e2950ec68a1e944944c42cf3308d2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "shellos",
+          "tool": "builtin-imagegen",
+          "source_sha256": "504cc7721265b2810c7cd9e49fb5790ae8cae72df2908318a0917b277a9a38bd",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 422,
+            "form": "",
+            "key": "lib-shellos-n-84c49beb6f2c"
+          },
+          "sha256": "d5e50e30dc8948626a3b599bb2f531c5685b2ab016a4c9adb1dbcd6fa5f8fca9",
+          "palette_from": "lib-shellos-s-dbabb41fef2c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "shellos",
+          "tool": "builtin-imagegen",
+          "source_sha256": "504cc7721265b2810c7cd9e49fb5790ae8cae72df2908318a0917b277a9a38bd",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 422,
+            "form": "",
+            "key": "lib-shellos-n-84c49beb6f2c"
+          },
+          "sha256": "90783350e7d461be788b05d74e173de5d3924041073bc747f47115a3e7f1208e",
+          "palette_from": "lib-shellos-s-dbabb41fef2c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "shellos",
+    "num": 422,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Shellos, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "shellos-cardinal.png",
+    "source_sha256": "504cc7721265b2810c7cd9e49fb5790ae8cae72df2908318a0917b277a9a38bd",
+    "source_record": "shellos-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

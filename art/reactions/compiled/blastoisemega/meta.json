@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "blastoisemega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9f63d7978df5b4998df8ee6decc0787d3a428161526bd656b9df7ec46fb4e976",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 9,
+          "form": "Mega",
+          "key": "lib-blastoisemega-n-bf861c91ce3c"
+        },
+        "sha256": "186086034dd4f5a057e1a759a49c8101966a1e6c9c9701a480def74cfb401fab"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "blastoisemega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9f63d7978df5b4998df8ee6decc0787d3a428161526bd656b9df7ec46fb4e976",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 9,
+          "form": "Mega",
+          "key": "lib-blastoisemega-n-bf861c91ce3c"
+        },
+        "sha256": "7aa3e8173ca0a93f8b04b00c42340a4d3c522b479613012093d0cf1f97a744c7"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "blastoisemega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9f63d7978df5b4998df8ee6decc0787d3a428161526bd656b9df7ec46fb4e976",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 9,
+            "form": "Mega",
+            "key": "lib-blastoisemega-n-bf861c91ce3c"
+          },
+          "sha256": "424e812017e55f0969b025f31300677db677a1c5b8dde42a6fe53eec278a60ad",
+          "palette_from": "lib-blastoisemega-s-e9c9cc876065"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "blastoisemega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9f63d7978df5b4998df8ee6decc0787d3a428161526bd656b9df7ec46fb4e976",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 9,
+            "form": "Mega",
+            "key": "lib-blastoisemega-n-bf861c91ce3c"
+          },
+          "sha256": "cc72fb5684b3a29039529cb1c37e77d133ad59ac9a6934a47f60b3e897134785",
+          "palette_from": "lib-blastoisemega-s-e9c9cc876065"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "blastoisemega",
+    "num": 9,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a transparent pixel-art animation atlas for Blastoise-Mega. Use the reference only for exact character identity, native colours and views. EXACT FOUR COLUMNS and FOUR ROWS,16 full-body sprites separated by wide empty transparent gutters. Each row keeps its camera throughout: FRONT, RIGHT PROFILE, REAR, LEFT PROFILE. Column1 startled wince with braced body; column2 stronger wince with head lowered; column3 body settles low and limbs fold; column4 body rests completely on the ground with closed eyes, limbs relaxed. Keep the rear view strictly posterior when lying down, showing back and hidden face. Actual newly drawn poses, expressive body articulation, consistent pixel scale, all native markings, accessories and anatomy. Crisp pixels, limited original palette. No text, detached effects, shadows or scenery.",
+    "source_image": "blastoisemega-compact-r3.png",
+    "source_sha256": "9f63d7978df5b4998df8ee6decc0787d3a428161526bd656b9df7ec46fb4e976",
+    "source_record": "blastoisemega-compact-r3.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

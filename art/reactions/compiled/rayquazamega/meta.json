@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 112,
+      "h": 96,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 56.0,
+      "ay": 90,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "rayquazamega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "1e4e8188b400ab48b49e3a4f306cd6b56c4cf78855d49b51e0a2b1e136cfa33a",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 384,
+          "form": "Mega",
+          "key": "lib-rayquazamega-n-3b35d8bdb557"
+        },
+        "sha256": "94d8c68e33e4faab2d6f9981dcd389eedf73545ed50b6b80940a25696d4ae6c7"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 112,
+      "h": 96,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 56.0,
+      "ay": 90,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "rayquazamega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "1e4e8188b400ab48b49e3a4f306cd6b56c4cf78855d49b51e0a2b1e136cfa33a",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 384,
+          "form": "Mega",
+          "key": "lib-rayquazamega-n-3b35d8bdb557"
+        },
+        "sha256": "f8f6fb36f96f5aba19b81b877d283cd5ed04891889668cbaa7930d5e24e06ae4"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 112,
+        "h": 96,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 56.0,
+        "ay": 90,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "rayquazamega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e31aa966ff2b2a5919d845ae15f71db0af90f529ddfe5f1e258f92710dc26658",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 384,
+            "form": "Mega",
+            "key": "lib-rayquazamega-s-1123afad412d"
+          },
+          "sha256": "d9868b398e292876aac2abcd39046f3b07cc0db861fa793c9d9c0cb69e748e10"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 112,
+        "h": 96,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 56.0,
+        "ay": 90,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "rayquazamega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e31aa966ff2b2a5919d845ae15f71db0af90f529ddfe5f1e258f92710dc26658",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 384,
+            "form": "Mega",
+            "key": "lib-rayquazamega-s-1123afad412d"
+          },
+          "sha256": "75c48286837dceacb0d108d82c6d2d0f17535b85728f78639f61d08a64d7ec8b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "rayquazamega",
+    "num": 384,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Rayquaza-Mega, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "rayquazamega-cardinal.png",
+    "source_sha256": "1e4e8188b400ab48b49e3a4f306cd6b56c4cf78855d49b51e0a2b1e136cfa33a",
+    "source_record": "rayquazamega-cardinal.json",
+    "shiny_source_image": "rayquazamega-reaction-shiny-v2.png",
+    "shiny_prompt": "Use case: precise-object-edit. Edit only the LONG STREAMER FILAMENTS in image1. Their main surfaces must be PALE LIGHT LEMON YELLOW, exact RGB(251,226,126) #FBE27E, with limited golden shadow RGB(234,194,107) #EAC26B. Make these long threads clearly LIGHT CREAM YELLOW; remove orange/brown surface colour. The tiny native salmon bands may remain tiny accents, but NEVER orange as the base of the threads. Black body and red-orange armour markings remain as they are; these are separate materials from the pale filaments. Keep all32 sprites, exact8x4 atlas, every pose, fixed front/right/rear/left views, anatomy, crisp pixels and transparent gutters unchanged. Image2 exact native reference."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

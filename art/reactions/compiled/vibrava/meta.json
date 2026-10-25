@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "vibrava",
+        "tool": "builtin-imagegen",
+        "source_sha256": "cbf1e6fe4c960e5c3cf00cb04e07a1c452db045aa4afaa7be955d8c311a72ef0",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 329,
+          "form": "",
+          "key": "lib-vibrava-n-852717f89b94"
+        },
+        "sha256": "667ab9e0208b9ab660a33800e92d83cf08266abe6d978628a23ec19699b4a349"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "vibrava",
+        "tool": "builtin-imagegen",
+        "source_sha256": "cbf1e6fe4c960e5c3cf00cb04e07a1c452db045aa4afaa7be955d8c311a72ef0",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 329,
+          "form": "",
+          "key": "lib-vibrava-n-852717f89b94"
+        },
+        "sha256": "d262a7055381ec1e149e0b006c97964cebc1ee6ea98695fe1389410a449335b6"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "vibrava",
+          "tool": "builtin-imagegen",
+          "source_sha256": "cbf1e6fe4c960e5c3cf00cb04e07a1c452db045aa4afaa7be955d8c311a72ef0",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 329,
+            "form": "",
+            "key": "lib-vibrava-n-852717f89b94"
+          },
+          "sha256": "4273841f07e79fce1aed9dcd1d98609928082d78b48032058e6aa6ec6e28e5a4",
+          "palette_from": "lib-vibrava-s-aeb67fd6bdb2"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "vibrava",
+          "tool": "builtin-imagegen",
+          "source_sha256": "cbf1e6fe4c960e5c3cf00cb04e07a1c452db045aa4afaa7be955d8c311a72ef0",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 329,
+            "form": "",
+            "key": "lib-vibrava-n-852717f89b94"
+          },
+          "sha256": "c0323f755ea6d956deb9dbf9e33e4edfdd4f77bed651c410b6396081af8a2187",
+          "palette_from": "lib-vibrava-s-aeb67fd6bdb2"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "vibrava",
+    "num": 329,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Vibrava, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "vibrava-cardinal.png",
+    "source_sha256": "cbf1e6fe4c960e5c3cf00cb04e07a1c452db045aa4afaa7be955d8c311a72ef0",
+    "source_record": "vibrava-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

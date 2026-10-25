@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "banettemega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "1219d091a9ef1d824b66c98c511def9c961a77e8bf778e0fdf2a97ba4068e4ce",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 354,
+          "form": "Mega",
+          "key": "lib-banettemega-n-eb6cee1ae2cb"
+        },
+        "sha256": "3ad6059748d7423c8d438dbf6544eb49952f9282f632006361b9d63c156199ba"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "banettemega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "1219d091a9ef1d824b66c98c511def9c961a77e8bf778e0fdf2a97ba4068e4ce",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 354,
+          "form": "Mega",
+          "key": "lib-banettemega-n-eb6cee1ae2cb"
+        },
+        "sha256": "42afd810f9e33174590878bbc40b8609616bb66fbd6e86b000e1dc2ea5779af3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "banettemega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1219d091a9ef1d824b66c98c511def9c961a77e8bf778e0fdf2a97ba4068e4ce",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 354,
+            "form": "Mega",
+            "key": "lib-banettemega-n-eb6cee1ae2cb"
+          },
+          "sha256": "ea8b04619d1f8d0085c6304c0854dd36a7fab826436397ca7d60b8d5f91001b5",
+          "palette_from": "lib-banettemega-s-435dc76df93e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "banettemega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1219d091a9ef1d824b66c98c511def9c961a77e8bf778e0fdf2a97ba4068e4ce",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 354,
+            "form": "Mega",
+            "key": "lib-banettemega-n-eb6cee1ae2cb"
+          },
+          "sha256": "703438eb3747a579cb75e18ea33cc4dfda5a7b8bc71777ebab57e648b73390ce",
+          "palette_from": "lib-banettemega-s-435dc76df93e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "banettemega",
+    "num": 354,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Banette-Mega, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "banettemega-cardinal.png",
+    "source_sha256": "1219d091a9ef1d824b66c98c511def9c961a77e8bf778e0fdf2a97ba4068e4ce",
+    "source_record": "banettemega-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

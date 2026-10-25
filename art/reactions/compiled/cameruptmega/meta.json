@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "cameruptmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f7227a1678263c1383bf70e76208800725557bfed32d369279ec3b5c8a195765",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 323,
+          "form": "Mega",
+          "key": "lib-cameruptmega-n-517894fec2a8"
+        },
+        "sha256": "fad6d5ff0b7286b3c7ef887dd8b53d713b25f74f443543c283fca94b22b1fee7"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "cameruptmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f7227a1678263c1383bf70e76208800725557bfed32d369279ec3b5c8a195765",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 323,
+          "form": "Mega",
+          "key": "lib-cameruptmega-n-517894fec2a8"
+        },
+        "sha256": "e1e5a9be7dcbf7b515eb4f732f802f1bcdbb1ef4b062d0f9d6b10afd6f3fa903"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "cameruptmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "33cc4d107d9d7fa0357d7a3fc0d596bbcc54c22aa672258498756851e5b48ee1",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 323,
+            "form": "Mega",
+            "key": "lib-cameruptmega-s-c283d30dba87"
+          },
+          "sha256": "aaed1f28c5f91f801c4e45ac3cd684e56eec33d948bbbd3af26725283b880155"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "cameruptmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "33cc4d107d9d7fa0357d7a3fc0d596bbcc54c22aa672258498756851e5b48ee1",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 323,
+            "form": "Mega",
+            "key": "lib-cameruptmega-s-c283d30dba87"
+          },
+          "sha256": "06dc146fdf14841ce0b990ec5972369cd673918866c91f94311c164af39ee161"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "cameruptmega",
+    "num": 323,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Camerupt-Mega, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "cameruptmega-cardinal.png",
+    "source_sha256": "f7227a1678263c1383bf70e76208800725557bfed32d369279ec3b5c8a195765",
+    "source_record": "cameruptmega-cardinal.json",
+    "shiny_source_image": "cameruptmega-reaction-shiny-v2.png",
+    "shiny_prompt": "Use case: precise-object-edit. Image1 EDIT TARGET is a transparent eight-column four-row pixel-art animation atlas. Image2 is only the EXACT NATIVE SHINY COLOUR reference. Change colours only to match image2. ALL furry body, neck, lower fringes and legs become native DARK GREY with DARK outlines; no red, rust or orange fur edges anywhere. Orange lava remains only in the volcano openings and native glowing cracks on the back. Preserve the white face and grey rock volcanoes. Keep all32 poses, exact8x4 cell arrangement, fixed front/right/rear/left row cameras, all anatomy and part counts. Preserve crisp pixels and transparent gutters. No extra objects, effects, shadows, text, background or smooth illustration."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

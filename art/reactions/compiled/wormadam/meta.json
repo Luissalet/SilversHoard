@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "wormadam",
+        "tool": "builtin-imagegen",
+        "source_sha256": "70b37f3a6e6647e5848d4333e44c052b78fd20c71cd492966d8f5795290a7554",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 413,
+          "form": "",
+          "key": "lib-wormadam-n-3023dff41520"
+        },
+        "sha256": "00387e4f6d8448866ae2bee6df0de67a044ad09d949499810f91362eef441b7e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "wormadam",
+        "tool": "builtin-imagegen",
+        "source_sha256": "70b37f3a6e6647e5848d4333e44c052b78fd20c71cd492966d8f5795290a7554",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 413,
+          "form": "",
+          "key": "lib-wormadam-n-3023dff41520"
+        },
+        "sha256": "c73bea78af388884dd596767f21ee2a6a8984e96519a26d548fc37b6a986a5e2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "wormadam",
+          "tool": "builtin-imagegen",
+          "source_sha256": "70b37f3a6e6647e5848d4333e44c052b78fd20c71cd492966d8f5795290a7554",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 413,
+            "form": "",
+            "key": "lib-wormadam-n-3023dff41520"
+          },
+          "sha256": "ce6cc73d132bfc59d3dde2b4777855d5cf08865c87a60c2c6d2cbccdb6a5f87e",
+          "palette_from": "lib-wormadam-s-09a2440d7727"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "wormadam",
+          "tool": "builtin-imagegen",
+          "source_sha256": "70b37f3a6e6647e5848d4333e44c052b78fd20c71cd492966d8f5795290a7554",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 413,
+            "form": "",
+            "key": "lib-wormadam-n-3023dff41520"
+          },
+          "sha256": "290be34e6546791a9e46d2a5130c759934a2efa4ecb2a89db23be8671047d827",
+          "palette_from": "lib-wormadam-s-09a2440d7727"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "wormadam",
+    "num": 413,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Wormadam, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "wormadam-cardinal.png",
+    "source_sha256": "70b37f3a6e6647e5848d4333e44c052b78fd20c71cd492966d8f5795290a7554",
+    "source_record": "wormadam-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

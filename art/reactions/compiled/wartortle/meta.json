@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "wartortle",
+        "tool": "builtin-imagegen",
+        "source_sha256": "bcbc1b80d881b92a7ac212319dd37e8ab589573e3c73641767e5c4b49256db60",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 8,
+          "form": "",
+          "key": "lib-wartortle-n-a5729914936d"
+        },
+        "sha256": "9f8ca37c380193bff01ff7a826248118cda7a78c8cc607cf682876bf82195113"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "wartortle",
+        "tool": "builtin-imagegen",
+        "source_sha256": "bcbc1b80d881b92a7ac212319dd37e8ab589573e3c73641767e5c4b49256db60",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 8,
+          "form": "",
+          "key": "lib-wartortle-n-a5729914936d"
+        },
+        "sha256": "d75318243616b3091e847445d78fe03ee6331ac1a64d7cc53fe93c73cfb59516"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "wartortle",
+          "tool": "builtin-imagegen",
+          "source_sha256": "bcbc1b80d881b92a7ac212319dd37e8ab589573e3c73641767e5c4b49256db60",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 8,
+            "form": "",
+            "key": "lib-wartortle-n-a5729914936d"
+          },
+          "sha256": "c31f5ef0970d2928c9b344d8a01d13ce1369c9433245693036ccf253f6d2341d",
+          "palette_from": "lib-wartortle-s-8c49478a9f35"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "wartortle",
+          "tool": "builtin-imagegen",
+          "source_sha256": "bcbc1b80d881b92a7ac212319dd37e8ab589573e3c73641767e5c4b49256db60",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 8,
+            "form": "",
+            "key": "lib-wartortle-n-a5729914936d"
+          },
+          "sha256": "73e56359493aa32a3742aeade54da9d9f05039bd54a478392a29b7da8bc81c81",
+          "palette_from": "lib-wartortle-s-8c49478a9f35"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "wartortle",
+    "num": 8,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a transparent pixel-art animation atlas for Wartortle. Use the reference only for exact character identity, native colours and views. EXACT FOUR COLUMNS and FOUR ROWS,16 full-body sprites separated by wide empty transparent gutters. Each row keeps its camera throughout: FRONT, RIGHT PROFILE, REAR, LEFT PROFILE. Column1 startled wince with braced body; column2 stronger wince with head lowered; column3 body settles low and limbs fold; column4 body rests completely on the ground with closed eyes, limbs relaxed. Keep the rear view strictly posterior when lying down, showing back and hidden face. Actual newly drawn poses, expressive body articulation, consistent pixel scale, all native markings, accessories and anatomy. Crisp pixels, limited original palette. No text, detached effects, shadows or scenery.",
+    "source_image": "wartortle-compact-r3.png",
+    "source_sha256": "bcbc1b80d881b92a7ac212319dd37e8ab589573e3c73641767e5c4b49256db60",
+    "source_record": "wartortle-compact-r3.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": false
+}

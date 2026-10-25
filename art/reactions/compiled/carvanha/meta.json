@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "carvanha",
+        "tool": "builtin-imagegen",
+        "source_sha256": "005284d1a29a18092a819dba2ae4928e04371ca6dfde79b58f7553f37050d46f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 318,
+          "form": "",
+          "key": "lib-carvanha-n-d6f3090ea8e9"
+        },
+        "sha256": "ff4a14ca29b4ba182b9f6a35b06b5a4a8b0ba3c57c7a363b3de5496c07a92ff9"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "carvanha",
+        "tool": "builtin-imagegen",
+        "source_sha256": "005284d1a29a18092a819dba2ae4928e04371ca6dfde79b58f7553f37050d46f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 318,
+          "form": "",
+          "key": "lib-carvanha-n-d6f3090ea8e9"
+        },
+        "sha256": "a85129608fb36c11a245c0f4da80564144a3d32eb5564178e4aba456abab1c80"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "carvanha",
+          "tool": "builtin-imagegen",
+          "source_sha256": "005284d1a29a18092a819dba2ae4928e04371ca6dfde79b58f7553f37050d46f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 318,
+            "form": "",
+            "key": "lib-carvanha-n-d6f3090ea8e9"
+          },
+          "sha256": "66504370afdb52dc03f1e56c8cf292ad22ec04b56fc1fb7f99069d68bac11a7d",
+          "palette_from": "lib-carvanha-s-a3b020b1f642"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "carvanha",
+          "tool": "builtin-imagegen",
+          "source_sha256": "005284d1a29a18092a819dba2ae4928e04371ca6dfde79b58f7553f37050d46f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 318,
+            "form": "",
+            "key": "lib-carvanha-n-d6f3090ea8e9"
+          },
+          "sha256": "955e842212494dad86323dc9bdaeccde2b1e0404fe31b8c7d1840e3d2de26668",
+          "palette_from": "lib-carvanha-s-a3b020b1f642"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "carvanha",
+    "num": 318,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Carvanha, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "carvanha-cardinal.png",
+    "source_sha256": "005284d1a29a18092a819dba2ae4928e04371ca6dfde79b58f7553f37050d46f",
+    "source_record": "carvanha-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

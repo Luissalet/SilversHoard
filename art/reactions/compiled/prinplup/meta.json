@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "prinplup",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8571553742959fce0dc3b916c3c7aa9c961a742fd81141e9e4a27bb57c420a44",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 394,
+          "form": "",
+          "key": "lib-prinplup-n-4b696d03bb14"
+        },
+        "sha256": "7e768e5ff4cf1d10a3b7b6a3653fd5ee0e3de75f22aba0e36d04ad161832b6d7"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "prinplup",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8571553742959fce0dc3b916c3c7aa9c961a742fd81141e9e4a27bb57c420a44",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 394,
+          "form": "",
+          "key": "lib-prinplup-n-4b696d03bb14"
+        },
+        "sha256": "b86ab549c98b670bb38517bd56a441fd6454b1bf39c9a50dc7a9deffbebd2bb4"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "prinplup",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8571553742959fce0dc3b916c3c7aa9c961a742fd81141e9e4a27bb57c420a44",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 394,
+            "form": "",
+            "key": "lib-prinplup-n-4b696d03bb14"
+          },
+          "sha256": "2aa3b1574c09f695a78ee08056e7fb6fd8e5094e9fc797abd846f92c1e74eba2",
+          "palette_from": "lib-prinplup-s-5e2320fb4d9f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "prinplup",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8571553742959fce0dc3b916c3c7aa9c961a742fd81141e9e4a27bb57c420a44",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 394,
+            "form": "",
+            "key": "lib-prinplup-n-4b696d03bb14"
+          },
+          "sha256": "8b0116f4207850f9d79c42e4a930d8426d677618996ca4599ac57014e77db13c",
+          "palette_from": "lib-prinplup-s-5e2320fb4d9f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "prinplup",
+    "num": 394,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Prinplup, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "prinplup-cardinal.png",
+    "source_sha256": "8571553742959fce0dc3b916c3c7aa9c961a742fd81141e9e4a27bb57c420a44",
+    "source_record": "prinplup-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

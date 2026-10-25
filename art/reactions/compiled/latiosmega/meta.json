@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 88,
+      "h": 64,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 44.0,
+      "ay": 58,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "latiosmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e3432b39059fb687e9346c427cee465124d52204e4428330176099dd80357b7f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 381,
+          "form": "Mega",
+          "key": "lib-latiosmega-n-ffaef366310b"
+        },
+        "sha256": "bbe75ef67bdc3c441eb72e734b860eb5c5735c7195becd306825c37440ebc85a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 88,
+      "h": 64,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 44.0,
+      "ay": 58,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "latiosmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e3432b39059fb687e9346c427cee465124d52204e4428330176099dd80357b7f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 381,
+          "form": "Mega",
+          "key": "lib-latiosmega-n-ffaef366310b"
+        },
+        "sha256": "7737918922d94c8811c032277456410ac057f559d95ac72b42a6546b9ee58f57"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 88,
+        "h": 64,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 44.0,
+        "ay": 58,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "latiosmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e3432b39059fb687e9346c427cee465124d52204e4428330176099dd80357b7f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 381,
+            "form": "Mega",
+            "key": "lib-latiosmega-n-ffaef366310b"
+          },
+          "sha256": "f4c7fc619645d7697f2523190d367e3f037b57b4cca9cbfc9eb48489492a347f",
+          "palette_from": "lib-latiosmega-s-ec7b5b43025b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 88,
+        "h": 64,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 44.0,
+        "ay": 58,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "latiosmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e3432b39059fb687e9346c427cee465124d52204e4428330176099dd80357b7f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 381,
+            "form": "Mega",
+            "key": "lib-latiosmega-n-ffaef366310b"
+          },
+          "sha256": "b8c6c263472f173c2b6db5184860765b6437ceb12598724c85a3548f3ee7789c",
+          "palette_from": "lib-latiosmega-s-ec7b5b43025b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "latiosmega",
+    "num": 381,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Latios-Mega, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "latiosmega-cardinal.png",
+    "source_sha256": "e3432b39059fb687e9346c427cee465124d52204e4428330176099dd80357b7f",
+    "source_record": "latiosmega-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

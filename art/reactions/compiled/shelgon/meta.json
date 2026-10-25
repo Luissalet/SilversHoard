@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "shelgon",
+        "tool": "builtin-imagegen",
+        "source_sha256": "75de59e9e908a49d3f4e71f9d5e4da0cc3af498b3a18fe660105508e9356dd82",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 372,
+          "form": "",
+          "key": "lib-shelgon-n-8bf208b35d8d"
+        },
+        "sha256": "74a6ea4ac115dfc03ac0734ede58daa837a2d2b84d76837b0f01116ce112b6de"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "shelgon",
+        "tool": "builtin-imagegen",
+        "source_sha256": "75de59e9e908a49d3f4e71f9d5e4da0cc3af498b3a18fe660105508e9356dd82",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 372,
+          "form": "",
+          "key": "lib-shelgon-n-8bf208b35d8d"
+        },
+        "sha256": "b63cf94d27240f49bf1a7f6d8240419d66c315f7998e528dd41ef7055762b0ef"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "shelgon",
+          "tool": "builtin-imagegen",
+          "source_sha256": "75de59e9e908a49d3f4e71f9d5e4da0cc3af498b3a18fe660105508e9356dd82",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 372,
+            "form": "",
+            "key": "lib-shelgon-n-8bf208b35d8d"
+          },
+          "sha256": "9d3ab613403648d23983c947aa4e75d9ae84c0df982362892c39aab44dbf200c",
+          "palette_from": "lib-shelgon-s-28ae9af68de7"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "shelgon",
+          "tool": "builtin-imagegen",
+          "source_sha256": "75de59e9e908a49d3f4e71f9d5e4da0cc3af498b3a18fe660105508e9356dd82",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 372,
+            "form": "",
+            "key": "lib-shelgon-n-8bf208b35d8d"
+          },
+          "sha256": "0acaa0666be67487119afe1a9ce7949d4ff987192ef1a0e0b35f47961d0dc633",
+          "palette_from": "lib-shelgon-s-28ae9af68de7"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "shelgon",
+    "num": 372,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Use case: precise-object-edit. Image1 EDIT TARGET is a transparent eight-column four-row pixel-art game sprite atlas. Image2 is ONLY the exact native IDENTITY reference. Restore the large DARK DIAMOND/REAR OPENING region of the shell on the entire REAR row3, as shown by the native image2. This dark patch stays visible in every rear Pain and HitGround cell and follows the lowered shell. Do not erase it with continuous pale shell bands. The rear hides the face. Keep all other rows unchanged. Preserve all32 distinct poses, exactly8columns4rows, fixed front/right/rear/left cameras, complete anatomy and part counts, crisp pixels and transparent gutters. No extra objects, text, background, effects or shadows. Change ONLY the missing rear shell marking, not poses, other anatomy or colours.",
+    "source_image": "shelgon-cardinal-v2.png",
+    "source_sha256": "75de59e9e908a49d3f4e71f9d5e4da0cc3af498b3a18fe660105508e9356dd82",
+    "source_record": "shelgon-cardinal-v2.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

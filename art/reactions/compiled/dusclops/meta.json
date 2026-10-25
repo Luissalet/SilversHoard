@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dusclops",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0a2e3b2f69543eb08bbbb3423898fddc613bbd3b60a2f5da0a929f4b1b90ae13",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 356,
+          "form": "",
+          "key": "lib-dusclops-n-5da26464202b"
+        },
+        "sha256": "228451365f6bc18fef1fdedde07f961df6dafe4b65615daac86615c4045a2100"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dusclops",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0a2e3b2f69543eb08bbbb3423898fddc613bbd3b60a2f5da0a929f4b1b90ae13",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 356,
+          "form": "",
+          "key": "lib-dusclops-n-5da26464202b"
+        },
+        "sha256": "62438e6a5a2cea99ba4bd65c9ecc911e56fe8fb5931818d4449d2ac21cda3083"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dusclops",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0a2e3b2f69543eb08bbbb3423898fddc613bbd3b60a2f5da0a929f4b1b90ae13",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 356,
+            "form": "",
+            "key": "lib-dusclops-n-5da26464202b"
+          },
+          "sha256": "c98f17ecfe2b058df71a71524a2c1d9c22eae4db880522273ce6d1cda3585f3b",
+          "palette_from": "lib-dusclops-s-4d620a6633b1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dusclops",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0a2e3b2f69543eb08bbbb3423898fddc613bbd3b60a2f5da0a929f4b1b90ae13",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 356,
+            "form": "",
+            "key": "lib-dusclops-n-5da26464202b"
+          },
+          "sha256": "99a8aa5d1a545dc99b75a6c16db48e7efe3018ea8758ae715723c22a631dc416",
+          "palette_from": "lib-dusclops-s-4d620a6633b1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "dusclops",
+    "num": 356,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Dusclops, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "dusclops-cardinal.png",
+    "source_sha256": "0a2e3b2f69543eb08bbbb3423898fddc613bbd3b60a2f5da0a929f4b1b90ae13",
+    "source_record": "dusclops-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -116,7 +116,7 @@
           "kind": "generated-shiny-pmd-reaction",
           "record": "hooh",
           "tool": "builtin-imagegen",
-          "source_sha256": "cb48a041960a5d0d9c5cc98808b75ea01355944347f52f473f20c895eaaf511b",
+          "source_sha256": "c140565a3132401b09f3ea3f533c0c1328268b39ae7b5ea15dd533e4a5ea4d0d",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -131,7 +131,7 @@
             "form": "",
             "key": "lib-hooh-s-8c9e7f9863aa"
           },
-          "sha256": "81d5a6994fd58faf776769b83f25a0045073cc132138ec00dbaa7ea294b72c33"
+          "sha256": "c1e9f84a0009c5f784a09810103d2487f5cab9c885452f6bd855f0742b654975"
         },
         "row_map": [
           0,
@@ -161,7 +161,7 @@
           "kind": "generated-shiny-pmd-reaction",
           "record": "hooh",
           "tool": "builtin-imagegen",
-          "source_sha256": "cb48a041960a5d0d9c5cc98808b75ea01355944347f52f473f20c895eaaf511b",
+          "source_sha256": "c140565a3132401b09f3ea3f533c0c1328268b39ae7b5ea15dd533e4a5ea4d0d",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -176,7 +176,7 @@
             "form": "",
             "key": "lib-hooh-s-8c9e7f9863aa"
           },
-          "sha256": "01399b3dce837fddbda3cf03457ef7f7abc51452e8ce382eef78c391efc14bd9"
+          "sha256": "825602c74fcba0b9ecacf75eea2e648efbcc31a4be59544989fe063325781fdc"
         },
         "row_map": [
           0,
@@ -207,9 +207,9 @@
     "source_image": "hooh-cardinal.png",
     "source_sha256": "2d80a53cfd05c96d03f4306f5f6d4ab3933b31e99fdd5d23e8e2a57339298a33",
     "source_record": "hooh-cardinal.json",
-    "shiny_source_image": "hooh-reaction-shiny-v1.png",
-    "shiny_prompt": "Use case: precise-object-edit. Image1 EDIT TARGET is a transparent eight-column four-row pixel-art sprite atlas. Image2 is ONLY the native shiny COLOUR reference. Recolour image1 faithfully to image2. All tail feathers are SILVER GREY and WHITE, including their bases, centers and tips; do not leave gold or orange spots on the tail. Gold belongs to body feathers, red to the native wing borders. Change colours only. Preserve all32 sprites and their individual poses, fixed row camera directions, anatomy, exact8x4 arrangement, pixel clusters, transparent alpha and wide empty gutters. No effects, extra objects, text, background, shadows, smooth painting or redesigned anatomy."
+    "shiny_source_image": "hooh-reaction-shiny-v2.png",
+    "shiny_prompt": "Use case: precise-object-edit. Image1 EDIT TARGET is a transparent eight-column four-row pixel-art animation atlas. Image2 is only the EXACT NATIVE SHINY COLOUR reference. Change colours only to match image2. Keep the already corrected SILVER/WHITE TAIL. Restore the large OUTER WING FEATHERS to native GOLDEN ORANGE, as in image2; only inner wing markings remain white. The wings and tail are different materials. Never colour the golden outer wings silver or white. Keep all32 poses, exact8x4 cell arrangement, fixed front/right/rear/left row cameras, all anatomy and part counts. Preserve crisp pixels and transparent gutters. No extra objects, effects, shadows, text, background or smooth illustration."
   },
   "reviewed": true,
-  "shiny_reviewed": false
+  "shiny_reviewed": true
 }
