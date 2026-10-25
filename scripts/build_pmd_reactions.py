@@ -1,7 +1,8 @@
-"""Extend the installed PMD collection with pinned Pain/HitGround sheets.
+"""Extend the installed collection with published and newly drawn reactions.
 
-Missing authored poses use explicitly marked runtime acting of that identity's
-existing art. Original library packs, metadata, palettes and portraits stay intact.
+Unfinished identities retain the explicitly marked legacy runtime fallback.
+Use --require-raster to verify complete drawn coverage before the final release.
+Original library packs, palettes and portraits stay intact.
 """
 from __future__ import annotations
 
@@ -23,6 +24,29 @@ from silvers_hoard.pmd_library import PmdLibrary
 from silvers_hoard.pmd_shiny import palette_pair, recolor
 
 ACTIONS = ("Pain", "HitGround")
+
+
+def load_generated(library, art):
+    """Read reviewed raster exports; a pending shiny is never a normal copy."""
+    generated = {}
+    for path in sorted((art / "compiled").glob("*/meta.json")):
+        record = json.loads(path.read_text("utf8"))
+        if not record.get("reviewed"):
+            continue
+        provenance = record["provenance"]
+        for shiny in (False, True):
+            if shiny and not record.get("shiny_reviewed", record["reviewed"]):
+                continue
+            actions = record.get("shiny", {}).get("a", {}) if shiny else record["a"]
+            target = library.resolve(provenance["num"], provenance["form"], shiny=shiny)
+            for action, geom in actions.items():
+                raw = (path.parent / (action + ("-shiny" if shiny else "") + ".png")).read_bytes()
+                image = Image.open(io.BytesIO(raw))
+                if (image.size != (geom["w"] * geom["n"], geom["h"] * geom["r"])
+                        or hashlib.sha256(raw).hexdigest() != geom["source"]["sha256"]):
+                    raise ValueError(f"Changed raster export: {path.parent.name}/{action}")
+                generated.setdefault(target["key"], {})[action] = (geom, raw)
+    return generated
 
 
 def published(source):
@@ -101,7 +125,7 @@ def collect(library, stage, workers):
         return result
 
 
-def compile_reactions(library, collected):
+def compile_reactions(library, collected, generated=None, *, require_raster=False):
     # One additive, content-addressed pack; never rewrite an installed pack.
     manifest = {"version": 1, "metas": {}, "files": {}, "packs": [], "coverage": {}}
     data = bytearray()
@@ -144,6 +168,10 @@ def compile_reactions(library, collected):
                     geom["source"].update(kind="shiny-pmd-reaction", palette_from=key)
                 extra[action] = {**geom, "file": pack(raw)}
                 kind = "authored" if not palette else "recolored"
+            elif action in (generated or {}).get(key, {}):
+                geom, raw = generated[key][action]
+                extra[action] = {**geom, "file": pack(raw)}
+                kind = "generated"
             else:
                 source = "Hurt" if action == "Pain" and "Hurt" in meta["a"] else "Idle"
                 extra[action] = {**meta["a"][source], "reaction": "pain" if action == "Pain" else "ground",
@@ -157,6 +185,8 @@ def compile_reactions(library, collected):
             label = action + ":" + kind
             manifest["coverage"][label] = manifest["coverage"].get(label, 0) + 1
         manifest["metas"][key] = extra
+    if require_raster and any(manifest["coverage"].get(action + ":acting", 0) for action in ACTIONS):
+        raise ValueError(f"Incomplete raster reactions: {manifest['coverage']}")
     name = "reactions-" + hashlib.sha256(data).hexdigest() + ".pmd"
     (library.root / name).write_bytes(data)
     manifest["packs"] = [name]
@@ -168,7 +198,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--stage", type=Path, required=True)
     parser.add_argument("--workers", type=int, default=20)
+    parser.add_argument("--art", type=Path, default=ROOT / "art" / "reactions")
+    parser.add_argument("--require-raster", action="store_true")
     args = parser.parse_args()
     library = PmdLibrary(with_reactions=False)
-    result = compile_reactions(library, collect(library, args.stage, args.workers))
+    result = compile_reactions(library, collect(library, args.stage, args.workers),
+                               load_generated(library, args.art), require_raster=args.require_raster)
     print(json.dumps(result["coverage"]), flush=True)

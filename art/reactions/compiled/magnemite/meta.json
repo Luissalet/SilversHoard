@@ -20,6 +20,7 @@
         "source_sha256": "69340132285e1f7a28e932d64dee44bdf3d84f8b7fd2a4d451f07d1b73817d5e",
         "authored_directions": 8,
         "authored_frames": 32,
+        "generated_frames": 32,
         "distinct_frames_per_direction": [
           4,
           4,
@@ -58,6 +59,7 @@
         "source_sha256": "69340132285e1f7a28e932d64dee44bdf3d84f8b7fd2a4d451f07d1b73817d5e",
         "authored_directions": 8,
         "authored_frames": 32,
+        "generated_frames": 32,
         "distinct_frames_per_direction": [
           4,
           4,
@@ -109,6 +111,7 @@
           "source_sha256": "69340132285e1f7a28e932d64dee44bdf3d84f8b7fd2a4d451f07d1b73817d5e",
           "authored_directions": 8,
           "authored_frames": 32,
+          "generated_frames": 32,
           "distinct_frames_per_direction": [
             4,
             4,
@@ -148,6 +151,7 @@
           "source_sha256": "69340132285e1f7a28e932d64dee44bdf3d84f8b7fd2a4d451f07d1b73817d5e",
           "authored_directions": 8,
           "authored_frames": 32,
+          "generated_frames": 32,
           "distinct_frames_per_direction": [
             4,
             4,
@@ -179,6 +183,7 @@
       }
     }
   },
+  "pending": [],
   "provenance": {
     "id": "magnemite",
     "num": 81,
@@ -188,5 +193,6 @@
     "source_image": "magnemite.png",
     "source_sha256": "69340132285e1f7a28e932d64dee44bdf3d84f8b7fd2a4d451f07d1b73817d5e"
   },
-  "reviewed": true
+  "reviewed": true,
+  "shiny_reviewed": true
 }

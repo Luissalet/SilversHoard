@@ -1,0 +1,214 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "meowthgmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "436c0542a3adefb658f741387cca00a1807f3c8f97b41b5a59fc46c2e4e07870",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 52,
+          "form": "Gmax",
+          "key": "lib-meowthgmax-n-6ddee2447d05"
+        },
+        "sha256": "fcca3f2dd975cef324bc162602a92330cb5364de02f7eb0e93aa559d5942c5a4"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "meowthgmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "436c0542a3adefb658f741387cca00a1807f3c8f97b41b5a59fc46c2e4e07870",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 52,
+          "form": "Gmax",
+          "key": "lib-meowthgmax-n-6ddee2447d05"
+        },
+        "sha256": "5768a4a041de119819b3d35aac552db899e95b91f3dc69dbb79a08ea02bdfdc2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "meowthgmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "436c0542a3adefb658f741387cca00a1807f3c8f97b41b5a59fc46c2e4e07870",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 52,
+            "form": "Gmax",
+            "key": "lib-meowthgmax-n-6ddee2447d05"
+          },
+          "sha256": "29a8f465ef15b05141116ae10af5e16a80bfba705c40462690d7b164e10a0a6e",
+          "palette_from": "lib-meowthgmax-s-168171d0c38f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "meowthgmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "436c0542a3adefb658f741387cca00a1807f3c8f97b41b5a59fc46c2e4e07870",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 52,
+            "form": "Gmax",
+            "key": "lib-meowthgmax-n-6ddee2447d05"
+          },
+          "sha256": "0ecf9e414abdf992fff10c15b00dfcf88bf85457b0b3d59191b6adec807afe68",
+          "palette_from": "lib-meowthgmax-s-168171d0c38f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "meowthgmax",
+    "num": 52,
+    "form": "Gmax",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Meowth-Gmax, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "meowthgmax-cardinal.png",
+    "source_sha256": "436c0542a3adefb658f741387cca00a1807f3c8f97b41b5a59fc46c2e4e07870"
+  },
+  "reviewed": true,
+  "shiny_reviewed": false
+}

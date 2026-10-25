@@ -20,6 +20,7 @@
         "source_sha256": "3836c2589d52dbd6d6f122e3d44204ecffa282db1fa1d6d10d071b3e562fc9c2",
         "authored_directions": 8,
         "authored_frames": 32,
+        "generated_frames": 32,
         "distinct_frames_per_direction": [
           4,
           4,
@@ -58,6 +59,7 @@
         "source_sha256": "3836c2589d52dbd6d6f122e3d44204ecffa282db1fa1d6d10d071b3e562fc9c2",
         "authored_directions": 8,
         "authored_frames": 32,
+        "generated_frames": 32,
         "distinct_frames_per_direction": [
           4,
           4,
@@ -109,6 +111,7 @@
           "source_sha256": "3836c2589d52dbd6d6f122e3d44204ecffa282db1fa1d6d10d071b3e562fc9c2",
           "authored_directions": 8,
           "authored_frames": 32,
+          "generated_frames": 32,
           "distinct_frames_per_direction": [
             4,
             4,
@@ -148,6 +151,7 @@
           "source_sha256": "3836c2589d52dbd6d6f122e3d44204ecffa282db1fa1d6d10d071b3e562fc9c2",
           "authored_directions": 8,
           "authored_frames": 32,
+          "generated_frames": 32,
           "distinct_frames_per_direction": [
             4,
             4,
@@ -179,6 +183,7 @@
       }
     }
   },
+  "pending": [],
   "provenance": {
     "id": "baxcalibur",
     "num": 998,
@@ -188,5 +193,6 @@
     "source_image": "baxcalibur-v2.png",
     "source_sha256": "3836c2589d52dbd6d6f122e3d44204ecffa282db1fa1d6d10d071b3e562fc9c2"
   },
-  "reviewed": true
+  "reviewed": true,
+  "shiny_reviewed": true
 }

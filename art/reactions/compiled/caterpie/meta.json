@@ -1,0 +1,214 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "caterpie",
+        "tool": "builtin-imagegen",
+        "source_sha256": "cd4c27b8cef115d2bbae6c13701aeed586c67266c8ed4c40e8613b5d8f1702a8",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 10,
+          "form": "",
+          "key": "lib-caterpie-n-9cdf60e846e0"
+        },
+        "sha256": "1e67a6e0efc06c7ab5d9012081a8a23a58833eb4cdc70e7c694b9773f7d00582"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "caterpie",
+        "tool": "builtin-imagegen",
+        "source_sha256": "cd4c27b8cef115d2bbae6c13701aeed586c67266c8ed4c40e8613b5d8f1702a8",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 10,
+          "form": "",
+          "key": "lib-caterpie-n-9cdf60e846e0"
+        },
+        "sha256": "9497873c2bea7c878362633de642016bca3de89ab1e7fdcc62f514f68185afe4"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "caterpie",
+          "tool": "builtin-imagegen",
+          "source_sha256": "cd4c27b8cef115d2bbae6c13701aeed586c67266c8ed4c40e8613b5d8f1702a8",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 10,
+            "form": "",
+            "key": "lib-caterpie-n-9cdf60e846e0"
+          },
+          "sha256": "a3227e977beb6995df9f7c82ff3f3c1f256b41d646d7641f017913abb1a9745c",
+          "palette_from": "lib-caterpie-s-acfdfa02ab05"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "caterpie",
+          "tool": "builtin-imagegen",
+          "source_sha256": "cd4c27b8cef115d2bbae6c13701aeed586c67266c8ed4c40e8613b5d8f1702a8",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 10,
+            "form": "",
+            "key": "lib-caterpie-n-9cdf60e846e0"
+          },
+          "sha256": "ab4dd84f1622600e533c03d4a01eea3feb65c547ce1c53d1811c4b70d4fdd38a",
+          "palette_from": "lib-caterpie-s-acfdfa02ab05"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "caterpie",
+    "num": 10,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Caterpie, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "caterpie-cardinal.png",
+    "source_sha256": "cd4c27b8cef115d2bbae6c13701aeed586c67266c8ed4c40e8613b5d8f1702a8"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

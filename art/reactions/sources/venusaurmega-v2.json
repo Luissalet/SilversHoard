@@ -1,0 +1,28 @@
+{
+  "id": "venusaurmega",
+  "name": "Venusaur-Mega",
+  "num": 3,
+  "form": "Mega",
+  "directions": 4,
+  "layout": "direction-rows-action-columns",
+  "image": "venusaurmega.png",
+  "tool": "builtin-imagegen",
+  "prompt": "Create a new production game sprite atlas for Venusaur-Mega from Pokemon. The attached image is an IDENTITY/PALETTE/STYLE REFERENCE ONLY, showing the exact installed character in the directions listed below. Draw new anatomically coherent pain and collapse poses, keeping that exact species AND FORM, all distinguishing anatomy, costume/markings, silhouette, palette and proportions. Never substitute its base form or a different Pokemon. This is small Mystery Dungeon pixel art: hard pixel clusters, dark outline, flat limited shading. Not a smooth illustration.\nLAYOUT: Exactly EIGHT equal columns and 4 equal rows, 32 separate full-body drawings. One facing direction per row, in this precise order: south (towards viewer), east (right), north (away), west (left). Each row keeps its facing across all eight columns. Genuine transparent background, no labels/text/grid/floor/background/shadow. Uniform character pixel scale, generous transparent padding inside each cell. Keep all feet/limbs/wings/tails/blades fully visible.\nCOLUMNS1-4: PAIN animation chronological frames: 1 sudden hit with visible wince, 2 body curls/braces and eyes squeeze closed, 3 sustained hurt with bent limbs and lowered head, 4 recovery toward ready stance. Show real redrawn changes in limbs, head and body silhouette, not a moved, squashed or rotated copy of the standing sprite.\nCOLUMNS5-8: HITGROUND chronological frames: 5 knees/body buckle, 6 folds onto its side/front, 7 lands fully prone with eyes closed and limbs folded, 8 remains fully LYING defeated with head lowered. Last two poses must remain recognisably downed on the floor; do not stand back up, do not present an upright body merely tipped sideways. For a flying or floating species lower it into a plausible resting/defeated pose. For a group species preserve the exact number of members and show the group fallen. For limbless species use a clearly slumped flattened-body resting pose appropriate to that anatomy.\nEvery cell is an actual newly drawn frame, consistent identity and scale across the complete atlas. The reference itself must not appear as a pasted strip in the output. Output only this transparent sprite sheet.",
+  "reviewed": true,
+  "native_frames": [
+    {
+      "action": "HitGround",
+      "direction": 2,
+      "frame": 0,
+      "animation": "Idle",
+      "row": 2,
+      "index": 0
+    }
+  ],
+  "shiny_reviewed": true,
+  "review": {
+    "reviewer": "silver_pain_review",
+    "report": "review-cardinal1.md",
+    "scope": "Visual normal and shiny, headings and prone end"
+  }
+}

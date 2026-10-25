@@ -20,6 +20,7 @@
         "source_sha256": "20da50cb4ee4b0abeefd08070a082d7d1801d40eab849f39745cbe1df81a6207",
         "authored_directions": 8,
         "authored_frames": 32,
+        "generated_frames": 32,
         "distinct_frames_per_direction": [
           4,
           4,
@@ -58,6 +59,7 @@
         "source_sha256": "20da50cb4ee4b0abeefd08070a082d7d1801d40eab849f39745cbe1df81a6207",
         "authored_directions": 8,
         "authored_frames": 32,
+        "generated_frames": 32,
         "distinct_frames_per_direction": [
           4,
           4,
@@ -109,6 +111,7 @@
           "source_sha256": "20da50cb4ee4b0abeefd08070a082d7d1801d40eab849f39745cbe1df81a6207",
           "authored_directions": 8,
           "authored_frames": 32,
+          "generated_frames": 32,
           "distinct_frames_per_direction": [
             4,
             4,
@@ -148,6 +151,7 @@
           "source_sha256": "20da50cb4ee4b0abeefd08070a082d7d1801d40eab849f39745cbe1df81a6207",
           "authored_directions": 8,
           "authored_frames": 32,
+          "generated_frames": 32,
           "distinct_frames_per_direction": [
             4,
             4,
@@ -179,6 +183,7 @@
       }
     }
   },
+  "pending": [],
   "provenance": {
     "id": "charizardmegax",
     "num": 6,
@@ -188,5 +193,6 @@
     "source_image": "charizardmegax-v2.png",
     "source_sha256": "20da50cb4ee4b0abeefd08070a082d7d1801d40eab849f39745cbe1df81a6207"
   },
-  "reviewed": true
+  "reviewed": true,
+  "shiny_reviewed": true
 }

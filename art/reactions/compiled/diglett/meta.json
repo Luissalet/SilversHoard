@@ -1,0 +1,1031 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 32,
+      "r": 8,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "diglett",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8e7531d65fec0f320580d8815f8f1a5e82ff9a9853da2630ea7de4f6c503096f",
+        "authored_directions": 7,
+        "authored_frames": 28,
+        "generated_frames": 28,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 50,
+          "form": "",
+          "key": "lib-diglett-n-660a71e1ccab"
+        },
+        "assembly": {
+          "row_sources": {
+            "5": 3
+          },
+          "mirror_frames": [
+            [
+              "Pain",
+              1,
+              0
+            ],
+            [
+              "Pain",
+              1,
+              1
+            ],
+            [
+              "Pain",
+              1,
+              2
+            ],
+            [
+              "Pain",
+              1,
+              3
+            ],
+            [
+              "Pain",
+              2,
+              0
+            ],
+            [
+              "Pain",
+              2,
+              1
+            ],
+            [
+              "Pain",
+              2,
+              2
+            ],
+            [
+              "Pain",
+              2,
+              3
+            ],
+            [
+              "Pain",
+              6,
+              0
+            ],
+            [
+              "Pain",
+              6,
+              1
+            ],
+            [
+              "Pain",
+              6,
+              2
+            ],
+            [
+              "Pain",
+              6,
+              3
+            ],
+            [
+              "HitGround",
+              1,
+              0
+            ],
+            [
+              "HitGround",
+              1,
+              1
+            ],
+            [
+              "HitGround",
+              1,
+              2
+            ],
+            [
+              "HitGround",
+              1,
+              3
+            ],
+            [
+              "HitGround",
+              2,
+              0
+            ],
+            [
+              "HitGround",
+              2,
+              1
+            ],
+            [
+              "HitGround",
+              2,
+              2
+            ],
+            [
+              "HitGround",
+              2,
+              3
+            ],
+            [
+              "HitGround",
+              6,
+              0
+            ],
+            [
+              "HitGround",
+              6,
+              1
+            ],
+            [
+              "HitGround",
+              6,
+              2
+            ],
+            [
+              "HitGround",
+              6,
+              3
+            ],
+            [
+              "Pain",
+              5,
+              0
+            ],
+            [
+              "Pain",
+              5,
+              1
+            ],
+            [
+              "Pain",
+              5,
+              2
+            ],
+            [
+              "Pain",
+              5,
+              3
+            ],
+            [
+              "HitGround",
+              5,
+              0
+            ],
+            [
+              "HitGround",
+              5,
+              1
+            ],
+            [
+              "HitGround",
+              5,
+              2
+            ],
+            [
+              "HitGround",
+              5,
+              3
+            ]
+          ]
+        },
+        "sha256": "ed313702e1c0d912abcbc35b519ddc7cf6e546009145ec46aa643755c4d7490f"
+      }
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 32,
+      "r": 8,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "diglett",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8e7531d65fec0f320580d8815f8f1a5e82ff9a9853da2630ea7de4f6c503096f",
+        "authored_directions": 7,
+        "authored_frames": 28,
+        "generated_frames": 28,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 50,
+          "form": "",
+          "key": "lib-diglett-n-660a71e1ccab"
+        },
+        "assembly": {
+          "row_sources": {
+            "5": 3
+          },
+          "mirror_frames": [
+            [
+              "Pain",
+              1,
+              0
+            ],
+            [
+              "Pain",
+              1,
+              1
+            ],
+            [
+              "Pain",
+              1,
+              2
+            ],
+            [
+              "Pain",
+              1,
+              3
+            ],
+            [
+              "Pain",
+              2,
+              0
+            ],
+            [
+              "Pain",
+              2,
+              1
+            ],
+            [
+              "Pain",
+              2,
+              2
+            ],
+            [
+              "Pain",
+              2,
+              3
+            ],
+            [
+              "Pain",
+              6,
+              0
+            ],
+            [
+              "Pain",
+              6,
+              1
+            ],
+            [
+              "Pain",
+              6,
+              2
+            ],
+            [
+              "Pain",
+              6,
+              3
+            ],
+            [
+              "HitGround",
+              1,
+              0
+            ],
+            [
+              "HitGround",
+              1,
+              1
+            ],
+            [
+              "HitGround",
+              1,
+              2
+            ],
+            [
+              "HitGround",
+              1,
+              3
+            ],
+            [
+              "HitGround",
+              2,
+              0
+            ],
+            [
+              "HitGround",
+              2,
+              1
+            ],
+            [
+              "HitGround",
+              2,
+              2
+            ],
+            [
+              "HitGround",
+              2,
+              3
+            ],
+            [
+              "HitGround",
+              6,
+              0
+            ],
+            [
+              "HitGround",
+              6,
+              1
+            ],
+            [
+              "HitGround",
+              6,
+              2
+            ],
+            [
+              "HitGround",
+              6,
+              3
+            ],
+            [
+              "Pain",
+              5,
+              0
+            ],
+            [
+              "Pain",
+              5,
+              1
+            ],
+            [
+              "Pain",
+              5,
+              2
+            ],
+            [
+              "Pain",
+              5,
+              3
+            ],
+            [
+              "HitGround",
+              5,
+              0
+            ],
+            [
+              "HitGround",
+              5,
+              1
+            ],
+            [
+              "HitGround",
+              5,
+              2
+            ],
+            [
+              "HitGround",
+              5,
+              3
+            ]
+          ]
+        },
+        "sha256": "9570ef0f29a6ffecbf5e3f16c36aac87d43f525b45e6b8de7771ed7d72a96d38"
+      },
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 32,
+        "r": 8,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "diglett",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8e7531d65fec0f320580d8815f8f1a5e82ff9a9853da2630ea7de4f6c503096f",
+          "authored_directions": 7,
+          "authored_frames": 28,
+          "generated_frames": 28,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 50,
+            "form": "",
+            "key": "lib-diglett-n-660a71e1ccab"
+          },
+          "assembly": {
+            "row_sources": {
+              "5": 3
+            },
+            "mirror_frames": [
+              [
+                "Pain",
+                1,
+                0
+              ],
+              [
+                "Pain",
+                1,
+                1
+              ],
+              [
+                "Pain",
+                1,
+                2
+              ],
+              [
+                "Pain",
+                1,
+                3
+              ],
+              [
+                "Pain",
+                2,
+                0
+              ],
+              [
+                "Pain",
+                2,
+                1
+              ],
+              [
+                "Pain",
+                2,
+                2
+              ],
+              [
+                "Pain",
+                2,
+                3
+              ],
+              [
+                "Pain",
+                6,
+                0
+              ],
+              [
+                "Pain",
+                6,
+                1
+              ],
+              [
+                "Pain",
+                6,
+                2
+              ],
+              [
+                "Pain",
+                6,
+                3
+              ],
+              [
+                "HitGround",
+                1,
+                0
+              ],
+              [
+                "HitGround",
+                1,
+                1
+              ],
+              [
+                "HitGround",
+                1,
+                2
+              ],
+              [
+                "HitGround",
+                1,
+                3
+              ],
+              [
+                "HitGround",
+                2,
+                0
+              ],
+              [
+                "HitGround",
+                2,
+                1
+              ],
+              [
+                "HitGround",
+                2,
+                2
+              ],
+              [
+                "HitGround",
+                2,
+                3
+              ],
+              [
+                "HitGround",
+                6,
+                0
+              ],
+              [
+                "HitGround",
+                6,
+                1
+              ],
+              [
+                "HitGround",
+                6,
+                2
+              ],
+              [
+                "HitGround",
+                6,
+                3
+              ],
+              [
+                "Pain",
+                5,
+                0
+              ],
+              [
+                "Pain",
+                5,
+                1
+              ],
+              [
+                "Pain",
+                5,
+                2
+              ],
+              [
+                "Pain",
+                5,
+                3
+              ],
+              [
+                "HitGround",
+                5,
+                0
+              ],
+              [
+                "HitGround",
+                5,
+                1
+              ],
+              [
+                "HitGround",
+                5,
+                2
+              ],
+              [
+                "HitGround",
+                5,
+                3
+              ]
+            ]
+          },
+          "sha256": "dd60fb67edcb3f46efa19db0893466d1cce7f5efbf457e4216fe8da49e299be5",
+          "palette_from": "lib-diglett-s-38a9f4a5cb7f"
+        }
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 32,
+        "r": 8,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "diglett",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8e7531d65fec0f320580d8815f8f1a5e82ff9a9853da2630ea7de4f6c503096f",
+          "authored_directions": 7,
+          "authored_frames": 28,
+          "generated_frames": 28,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 50,
+            "form": "",
+            "key": "lib-diglett-n-660a71e1ccab"
+          },
+          "assembly": {
+            "row_sources": {
+              "5": 3
+            },
+            "mirror_frames": [
+              [
+                "Pain",
+                1,
+                0
+              ],
+              [
+                "Pain",
+                1,
+                1
+              ],
+              [
+                "Pain",
+                1,
+                2
+              ],
+              [
+                "Pain",
+                1,
+                3
+              ],
+              [
+                "Pain",
+                2,
+                0
+              ],
+              [
+                "Pain",
+                2,
+                1
+              ],
+              [
+                "Pain",
+                2,
+                2
+              ],
+              [
+                "Pain",
+                2,
+                3
+              ],
+              [
+                "Pain",
+                6,
+                0
+              ],
+              [
+                "Pain",
+                6,
+                1
+              ],
+              [
+                "Pain",
+                6,
+                2
+              ],
+              [
+                "Pain",
+                6,
+                3
+              ],
+              [
+                "HitGround",
+                1,
+                0
+              ],
+              [
+                "HitGround",
+                1,
+                1
+              ],
+              [
+                "HitGround",
+                1,
+                2
+              ],
+              [
+                "HitGround",
+                1,
+                3
+              ],
+              [
+                "HitGround",
+                2,
+                0
+              ],
+              [
+                "HitGround",
+                2,
+                1
+              ],
+              [
+                "HitGround",
+                2,
+                2
+              ],
+              [
+                "HitGround",
+                2,
+                3
+              ],
+              [
+                "HitGround",
+                6,
+                0
+              ],
+              [
+                "HitGround",
+                6,
+                1
+              ],
+              [
+                "HitGround",
+                6,
+                2
+              ],
+              [
+                "HitGround",
+                6,
+                3
+              ],
+              [
+                "Pain",
+                5,
+                0
+              ],
+              [
+                "Pain",
+                5,
+                1
+              ],
+              [
+                "Pain",
+                5,
+                2
+              ],
+              [
+                "Pain",
+                5,
+                3
+              ],
+              [
+                "HitGround",
+                5,
+                0
+              ],
+              [
+                "HitGround",
+                5,
+                1
+              ],
+              [
+                "HitGround",
+                5,
+                2
+              ],
+              [
+                "HitGround",
+                5,
+                3
+              ]
+            ]
+          },
+          "sha256": "b6e156fa4ba9a9cee45f82ab60c412a5632f9b778ca858ffe2d82ddf8fdb300a",
+          "palette_from": "lib-diglett-s-38a9f4a5cb7f"
+        },
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "diglett",
+    "num": 50,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "EDIT THIS PRE-LAID-OUT SPRITE ATLAS IN PLACE. Every cell already contains the correct Pokemon, correct form, correct facing, correct pixel size and correct anchor. These are strict invariants: preserve the exact number of rows/columns, preserve every cell's camera/facing (especially the BACK views), preserve all identifying anatomy/colors/parts, preserve consistent scale. Do not turn a character towards the viewer, do not replace a back view with a face, do not alternate facing inside a row. Each row's existing facing is fixed. Transparent background and wide gutters remain transparent. Do not paste a reference strip into the output.\nRedraw the Pokemon inside each cell to make TWO new animation sequences. Columns1-4: PAIN frames \u2014 sudden wince, body bends/braces in pain, sustained hurt with head lowered and eyes shut, recovers towards ready pose. Columns5-8: HITGROUND frames \u2014 body/knees buckle, crumples onto side/front, lands fully prone with folded limbs and closed eyes, remains fully LYING defeated. Last two columns are a clearly downed pose, no getting back up. In back-facing rows the back of the head remains visible, not the face. Use genuine changes in head/limbs/body pose, not just translating/rotating/scaling the standing drawing. Keep distinctive wings, tails, flowers, axes and markings intact. Pixel art with hard pixel clusters and limited palette matching the reference; no smooth cartoon style, no text, no gridlines, no floor/shadows. Each full-body sprite stays inside its own cell. Subject is Diglett.",
+    "source_image": "diglett.png",
+    "source_sha256": "8e7531d65fec0f320580d8815f8f1a5e82ff9a9853da2630ea7de4f6c503096f",
+    "row_sources": {
+      "5": 3
+    },
+    "mirror_frames": [
+      [
+        "Pain",
+        1,
+        0
+      ],
+      [
+        "Pain",
+        1,
+        1
+      ],
+      [
+        "Pain",
+        1,
+        2
+      ],
+      [
+        "Pain",
+        1,
+        3
+      ],
+      [
+        "Pain",
+        2,
+        0
+      ],
+      [
+        "Pain",
+        2,
+        1
+      ],
+      [
+        "Pain",
+        2,
+        2
+      ],
+      [
+        "Pain",
+        2,
+        3
+      ],
+      [
+        "Pain",
+        6,
+        0
+      ],
+      [
+        "Pain",
+        6,
+        1
+      ],
+      [
+        "Pain",
+        6,
+        2
+      ],
+      [
+        "Pain",
+        6,
+        3
+      ],
+      [
+        "HitGround",
+        1,
+        0
+      ],
+      [
+        "HitGround",
+        1,
+        1
+      ],
+      [
+        "HitGround",
+        1,
+        2
+      ],
+      [
+        "HitGround",
+        1,
+        3
+      ],
+      [
+        "HitGround",
+        2,
+        0
+      ],
+      [
+        "HitGround",
+        2,
+        1
+      ],
+      [
+        "HitGround",
+        2,
+        2
+      ],
+      [
+        "HitGround",
+        2,
+        3
+      ],
+      [
+        "HitGround",
+        6,
+        0
+      ],
+      [
+        "HitGround",
+        6,
+        1
+      ],
+      [
+        "HitGround",
+        6,
+        2
+      ],
+      [
+        "HitGround",
+        6,
+        3
+      ],
+      [
+        "Pain",
+        5,
+        0
+      ],
+      [
+        "Pain",
+        5,
+        1
+      ],
+      [
+        "Pain",
+        5,
+        2
+      ],
+      [
+        "Pain",
+        5,
+        3
+      ],
+      [
+        "HitGround",
+        5,
+        0
+      ],
+      [
+        "HitGround",
+        5,
+        1
+      ],
+      [
+        "HitGround",
+        5,
+        2
+      ],
+      [
+        "HitGround",
+        5,
+        3
+      ]
+    ]
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

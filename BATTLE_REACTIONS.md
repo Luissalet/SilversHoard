@@ -18,8 +18,9 @@ larger replacement cannot completely conceal the downed Pokémon.
 All 1,469 installed species/form identities in normal and shiny variants have
 both animations: **2,938 variants**. The supplemental collection contains 531
 authored Pain and 516 authored HitGround variants from the same pinned
-SpriteCollab revision as the original library. The remaining 2,407 Pain and
-2,422 HitGround variants use explicitly marked runtime acting of their own
+SpriteCollab revision as the original library. There are also 100 newly drawn
+variants with both reactions, compiled from reviewed raster poses. The remaining
+2,307 Pain and 2,322 HitGround variants use explicitly marked runtime acting of their own
 installed artwork. These are derived reactions, not newly authored sprite
 sequences. Imported walking sheets and static battle-art fallbacks also have
 pain and a held prone pose; they never borrow another species' art. Artwork
@@ -31,7 +32,13 @@ sheet bytes, their original credits and SHA-256 provenance are retained. Origina
 library packs, roster, metadata, preview art and portraits are unchanged.
 `PmdLibrary` merges the supplement for the existing sheet routes, portable bundle
 and **pmd_library_status** UI/REST/MCP handler; `coverage.reactions` reports exact
-authored/acting counts.
+authored/generated/acting counts. New raster sources, prompts, palette transfer,
+frame geometry and normal/shiny visual acceptance live in `art/reactions/`.
+Four-heading sheets declare their diagonal mapping; eight-heading sheets retain
+all directions. The importer supports two or four distinct poses per action.
+`--require-raster` rejects an incomplete collection before writing a new pack.
+Task 1503 is still creating the missing raster sequences; the current collection
+does not yet provide newly drawn art for the entire roster.
 
 The ordinary real-time app, newly exported standalone pages and recorded MP4s
 share this renderer. Existing HTML must be re-exported. Pause freezes poses and

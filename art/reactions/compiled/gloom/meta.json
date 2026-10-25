@@ -1,0 +1,214 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "gloom",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4d35c5430047adf59a04626e4d61c064f351bb2e25f41d6e0a13ba2147c875b9",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 44,
+          "form": "",
+          "key": "lib-gloom-n-8c64681be786"
+        },
+        "sha256": "cd5c54663d2823234d18855cbc1e992c47c3bde83aa49f02758692551b29bcac"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "gloom",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4d35c5430047adf59a04626e4d61c064f351bb2e25f41d6e0a13ba2147c875b9",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 44,
+          "form": "",
+          "key": "lib-gloom-n-8c64681be786"
+        },
+        "sha256": "081864381d02cfdb356e18e22c939e1b36d2bb97c583819ec165f8e627ce2f54"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "gloom",
+          "tool": "builtin-imagegen",
+          "source_sha256": "4d35c5430047adf59a04626e4d61c064f351bb2e25f41d6e0a13ba2147c875b9",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 44,
+            "form": "",
+            "key": "lib-gloom-n-8c64681be786"
+          },
+          "sha256": "4f3cdf6ff9949567b781dc1f941e6cdccdd13ba9760912100ec39c917355b17a",
+          "palette_from": "lib-gloom-s-b0a8414f44b1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "gloom",
+          "tool": "builtin-imagegen",
+          "source_sha256": "4d35c5430047adf59a04626e4d61c064f351bb2e25f41d6e0a13ba2147c875b9",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 44,
+            "form": "",
+            "key": "lib-gloom-n-8c64681be786"
+          },
+          "sha256": "2d8b8486e52c9810d9366fb500179cf636230d15e98d15cd2c0ee647c119947c",
+          "palette_from": "lib-gloom-s-b0a8414f44b1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "gloom",
+    "num": 44,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Gloom, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "gloom-cardinal.png",
+    "source_sha256": "4d35c5430047adf59a04626e4d61c064f351bb2e25f41d6e0a13ba2147c875b9"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

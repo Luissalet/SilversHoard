@@ -1,0 +1,214 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "persianalola",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5dac331a70e962bfe22022f17ddd0c593ee179e7f3cae2ff34839ce0916c01bd",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 53,
+          "form": "Alola",
+          "key": "lib-persianalola-n-b64268bcd2eb"
+        },
+        "sha256": "fa280f925367ec9236069bc881b20c2801efe7e7e1104dd7a614b0e8fc9ce6c5"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "persianalola",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5dac331a70e962bfe22022f17ddd0c593ee179e7f3cae2ff34839ce0916c01bd",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 53,
+          "form": "Alola",
+          "key": "lib-persianalola-n-b64268bcd2eb"
+        },
+        "sha256": "7bb46e23b09395d84dd7ef38a18e27d722dc4746c6adba52f34c183468ba9189"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "persianalola",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5dac331a70e962bfe22022f17ddd0c593ee179e7f3cae2ff34839ce0916c01bd",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 53,
+            "form": "Alola",
+            "key": "lib-persianalola-n-b64268bcd2eb"
+          },
+          "sha256": "97ee122ac517fc0c2df0d11e9365b63831a5891711e13cee6eb68fa93a6bd301",
+          "palette_from": "lib-persianalola-s-19fd58314d03"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "persianalola",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5dac331a70e962bfe22022f17ddd0c593ee179e7f3cae2ff34839ce0916c01bd",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 53,
+            "form": "Alola",
+            "key": "lib-persianalola-n-b64268bcd2eb"
+          },
+          "sha256": "7aedb3886339d20710e2311a5e5d388e47b56ee0f615b606c4e4163e49d8a665",
+          "palette_from": "lib-persianalola-s-19fd58314d03"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "persianalola",
+    "num": 53,
+    "form": "Alola",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Persian-Alola, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "persianalola-cardinal.png",
+    "source_sha256": "5dac331a70e962bfe22022f17ddd0c593ee179e7f3cae2ff34839ce0916c01bd"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

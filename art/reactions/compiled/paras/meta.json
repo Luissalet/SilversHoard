@@ -1,0 +1,214 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "paras",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4148d6b8c6ea2c49865c2169fcad69f5f8a3b234d222e08ba7dd4c15331fd8b4",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 46,
+          "form": "",
+          "key": "lib-paras-n-15ad4a1a6351"
+        },
+        "sha256": "c283c2a325da9e1aa276a60a2d38c67207efa24f412f25dd4cd3c671e85c2ec9"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "paras",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4148d6b8c6ea2c49865c2169fcad69f5f8a3b234d222e08ba7dd4c15331fd8b4",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 46,
+          "form": "",
+          "key": "lib-paras-n-15ad4a1a6351"
+        },
+        "sha256": "f33cb82185cc2ae391bfc86050fa6856edf346fd81ead024f9bd717e9639a9e3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "paras",
+          "tool": "builtin-imagegen",
+          "source_sha256": "4148d6b8c6ea2c49865c2169fcad69f5f8a3b234d222e08ba7dd4c15331fd8b4",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 46,
+            "form": "",
+            "key": "lib-paras-n-15ad4a1a6351"
+          },
+          "sha256": "df70d4cd24dceab615f7fecceba4ce343fea55c327375e6caad13298311a58cd",
+          "palette_from": "lib-paras-s-b25e79a5793a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "paras",
+          "tool": "builtin-imagegen",
+          "source_sha256": "4148d6b8c6ea2c49865c2169fcad69f5f8a3b234d222e08ba7dd4c15331fd8b4",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 46,
+            "form": "",
+            "key": "lib-paras-n-15ad4a1a6351"
+          },
+          "sha256": "a2640d9fee48e6b8b5db40b498b88a1120c85bd0786961d8fa491b366a638e19",
+          "palette_from": "lib-paras-s-b25e79a5793a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "paras",
+    "num": 46,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Paras, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "paras-cardinal.png",
+    "source_sha256": "4148d6b8c6ea2c49865c2169fcad69f5f8a3b234d222e08ba7dd4c15331fd8b4"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

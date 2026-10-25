@@ -1,0 +1,214 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "spearow",
+        "tool": "builtin-imagegen",
+        "source_sha256": "cc7202af41be51646f5a0bd3bb93354c8ac9049e17d4210c0a082bb3608c2d31",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 21,
+          "form": "",
+          "key": "lib-spearow-n-8778141db3c5"
+        },
+        "sha256": "053b8b835527765e123f61ac5c1d307f320e6843a0978cbc31d4d569ee75215f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "spearow",
+        "tool": "builtin-imagegen",
+        "source_sha256": "cc7202af41be51646f5a0bd3bb93354c8ac9049e17d4210c0a082bb3608c2d31",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 21,
+          "form": "",
+          "key": "lib-spearow-n-8778141db3c5"
+        },
+        "sha256": "d5b66cbd0470bdeaec7338a68e3716c3e84584123bcda870d58c8778a5722de7"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "spearow",
+          "tool": "builtin-imagegen",
+          "source_sha256": "cc7202af41be51646f5a0bd3bb93354c8ac9049e17d4210c0a082bb3608c2d31",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 21,
+            "form": "",
+            "key": "lib-spearow-n-8778141db3c5"
+          },
+          "sha256": "4f462936befe8925b80875ca003ee3861ba3787ff82633a19c44bb2f32069b95",
+          "palette_from": "lib-spearow-s-76804db2325f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "spearow",
+          "tool": "builtin-imagegen",
+          "source_sha256": "cc7202af41be51646f5a0bd3bb93354c8ac9049e17d4210c0a082bb3608c2d31",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 21,
+            "form": "",
+            "key": "lib-spearow-n-8778141db3c5"
+          },
+          "sha256": "52c780167dc4a27d2d044eea2571bf3d083738aa3a1e9a2f76273a4f7d69cc13",
+          "palette_from": "lib-spearow-s-76804db2325f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "spearow",
+    "num": 21,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Spearow, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "spearow-cardinal.png",
+    "source_sha256": "cc7202af41be51646f5a0bd3bb93354c8ac9049e17d4210c0a082bb3608c2d31"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

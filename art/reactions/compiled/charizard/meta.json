@@ -1,0 +1,431 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 8,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "charizard",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4ce86ac4e34748b376d65a9300cb62192f5387b783dbd76b8cda4d8d34357d06",
+        "authored_directions": 7,
+        "authored_frames": 28,
+        "generated_frames": 28,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 6,
+          "form": "",
+          "key": "lib-charizard-n-695d683f675f"
+        },
+        "assembly": {
+          "row_sources": {
+            "5": 3
+          },
+          "mirror_frames": [
+            [
+              "Pain",
+              5,
+              0
+            ],
+            [
+              "Pain",
+              5,
+              1
+            ],
+            [
+              "Pain",
+              5,
+              2
+            ],
+            [
+              "Pain",
+              5,
+              3
+            ],
+            [
+              "HitGround",
+              5,
+              0
+            ],
+            [
+              "HitGround",
+              5,
+              1
+            ],
+            [
+              "HitGround",
+              5,
+              2
+            ],
+            [
+              "HitGround",
+              5,
+              3
+            ]
+          ]
+        },
+        "sha256": "74c0e4db2baab34d55103ffb770553945cc2480054319bf89d8db607b13cdc32"
+      }
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 8,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "charizard",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4ce86ac4e34748b376d65a9300cb62192f5387b783dbd76b8cda4d8d34357d06",
+        "authored_directions": 7,
+        "authored_frames": 28,
+        "generated_frames": 28,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 6,
+          "form": "",
+          "key": "lib-charizard-n-695d683f675f"
+        },
+        "assembly": {
+          "row_sources": {
+            "5": 3
+          },
+          "mirror_frames": [
+            [
+              "Pain",
+              5,
+              0
+            ],
+            [
+              "Pain",
+              5,
+              1
+            ],
+            [
+              "Pain",
+              5,
+              2
+            ],
+            [
+              "Pain",
+              5,
+              3
+            ],
+            [
+              "HitGround",
+              5,
+              0
+            ],
+            [
+              "HitGround",
+              5,
+              1
+            ],
+            [
+              "HitGround",
+              5,
+              2
+            ],
+            [
+              "HitGround",
+              5,
+              3
+            ]
+          ]
+        },
+        "sha256": "7908f50379323bd15f9841979c81d4e6400e884f3829b9f92772d82ba86f7a95"
+      },
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 8,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "charizard",
+          "tool": "builtin-imagegen",
+          "source_sha256": "4ce86ac4e34748b376d65a9300cb62192f5387b783dbd76b8cda4d8d34357d06",
+          "authored_directions": 7,
+          "authored_frames": 28,
+          "generated_frames": 28,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 6,
+            "form": "",
+            "key": "lib-charizard-n-695d683f675f"
+          },
+          "assembly": {
+            "row_sources": {
+              "5": 3
+            },
+            "mirror_frames": [
+              [
+                "Pain",
+                5,
+                0
+              ],
+              [
+                "Pain",
+                5,
+                1
+              ],
+              [
+                "Pain",
+                5,
+                2
+              ],
+              [
+                "Pain",
+                5,
+                3
+              ],
+              [
+                "HitGround",
+                5,
+                0
+              ],
+              [
+                "HitGround",
+                5,
+                1
+              ],
+              [
+                "HitGround",
+                5,
+                2
+              ],
+              [
+                "HitGround",
+                5,
+                3
+              ]
+            ]
+          },
+          "sha256": "d5b11d81cc19bf51efe1b14b7ddad3e1df6fccb1941a0b0eaed219cb81b5989d",
+          "palette_from": "lib-charizard-s-80056d5abb96"
+        }
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 8,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "charizard",
+          "tool": "builtin-imagegen",
+          "source_sha256": "4ce86ac4e34748b376d65a9300cb62192f5387b783dbd76b8cda4d8d34357d06",
+          "authored_directions": 7,
+          "authored_frames": 28,
+          "generated_frames": 28,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 6,
+            "form": "",
+            "key": "lib-charizard-n-695d683f675f"
+          },
+          "assembly": {
+            "row_sources": {
+              "5": 3
+            },
+            "mirror_frames": [
+              [
+                "Pain",
+                5,
+                0
+              ],
+              [
+                "Pain",
+                5,
+                1
+              ],
+              [
+                "Pain",
+                5,
+                2
+              ],
+              [
+                "Pain",
+                5,
+                3
+              ],
+              [
+                "HitGround",
+                5,
+                0
+              ],
+              [
+                "HitGround",
+                5,
+                1
+              ],
+              [
+                "HitGround",
+                5,
+                2
+              ],
+              [
+                "HitGround",
+                5,
+                3
+              ]
+            ]
+          },
+          "sha256": "c560433d025422441cc3ec59cc0e977ae681e2045b5d8f0981deddbe6fc98ba2",
+          "palette_from": "lib-charizard-s-80056d5abb96"
+        },
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "charizard",
+    "num": 6,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "EDIT THIS PRE-LAID-OUT SPRITE ATLAS IN PLACE. Every cell already contains the correct Pokemon, correct form, correct facing, correct pixel size and correct anchor. These are strict invariants: preserve the exact number of rows/columns, preserve every cell's camera/facing (especially the BACK views), preserve all identifying anatomy/colors/parts, preserve consistent scale. Do not turn a character towards the viewer, do not replace a back view with a face, do not alternate facing inside a row. Each row's existing facing is fixed. Transparent background and wide gutters remain transparent. Do not paste a reference strip into the output.\nRedraw the Pokemon inside each cell to make TWO new animation sequences. Columns1-4: PAIN frames \u2014 sudden wince, body bends/braces in pain, sustained hurt with head lowered and eyes shut, recovers towards ready pose. Columns5-8: HITGROUND frames \u2014 body/knees buckle, crumples onto side/front, lands fully prone with folded limbs and closed eyes, remains fully LYING defeated. Last two columns are a clearly downed pose, no getting back up. In back-facing rows the back of the head remains visible, not the face. Use genuine changes in head/limbs/body pose, not just translating/rotating/scaling the standing drawing. Keep distinctive wings, tails, flowers, axes and markings intact. Pixel art with hard pixel clusters and limited palette matching the reference; no smooth cartoon style, no text, no gridlines, no floor/shadows. Each full-body sprite stays inside its own cell. Subject is Charizard.",
+    "source_image": "charizard.png",
+    "source_sha256": "4ce86ac4e34748b376d65a9300cb62192f5387b783dbd76b8cda4d8d34357d06",
+    "row_sources": {
+      "5": 3
+    },
+    "mirror_frames": [
+      [
+        "Pain",
+        5,
+        0
+      ],
+      [
+        "Pain",
+        5,
+        1
+      ],
+      [
+        "Pain",
+        5,
+        2
+      ],
+      [
+        "Pain",
+        5,
+        3
+      ],
+      [
+        "HitGround",
+        5,
+        0
+      ],
+      [
+        "HitGround",
+        5,
+        1
+      ],
+      [
+        "HitGround",
+        5,
+        2
+      ],
+      [
+        "HitGround",
+        5,
+        3
+      ]
+    ]
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

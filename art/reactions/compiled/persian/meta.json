@@ -1,0 +1,214 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "persian",
+        "tool": "builtin-imagegen",
+        "source_sha256": "fee765f9250e9f0e52fa7948ab5fbbfd0bb0769c183b1ec717b6de5fe805ddb9",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 53,
+          "form": "",
+          "key": "lib-persian-n-1355722ac84d"
+        },
+        "sha256": "191f058679217be8d7220c1058039e954ab05d066ac49822c3bed3014be2ed27"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "persian",
+        "tool": "builtin-imagegen",
+        "source_sha256": "fee765f9250e9f0e52fa7948ab5fbbfd0bb0769c183b1ec717b6de5fe805ddb9",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 53,
+          "form": "",
+          "key": "lib-persian-n-1355722ac84d"
+        },
+        "sha256": "bfd63ac71c82a7099baa1d702ebf5c65c8a956bd1785858cd611b87ed4e81cc1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "persian",
+          "tool": "builtin-imagegen",
+          "source_sha256": "fee765f9250e9f0e52fa7948ab5fbbfd0bb0769c183b1ec717b6de5fe805ddb9",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 53,
+            "form": "",
+            "key": "lib-persian-n-1355722ac84d"
+          },
+          "sha256": "cfefe745c0bc4ba0035f06f3ac7921736d34ef4f9b2566f31ef454550aad3b93",
+          "palette_from": "lib-persian-s-5fd1cc51af28"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "persian",
+          "tool": "builtin-imagegen",
+          "source_sha256": "fee765f9250e9f0e52fa7948ab5fbbfd0bb0769c183b1ec717b6de5fe805ddb9",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 53,
+            "form": "",
+            "key": "lib-persian-n-1355722ac84d"
+          },
+          "sha256": "f3b66460d5800728f970579e35d5af3fb14adc814e503a05d3c2ebdd32bef2ea",
+          "palette_from": "lib-persian-s-5fd1cc51af28"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "persian",
+    "num": 53,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Persian, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "persian-cardinal.png",
+    "source_sha256": "fee765f9250e9f0e52fa7948ab5fbbfd0bb0769c183b1ec717b6de5fe805ddb9"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}
