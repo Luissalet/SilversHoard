@@ -1,0 +1,17 @@
+{
+  "id": "charizardmegax",
+  "name": "Charizard-Mega-X",
+  "num": 6,
+  "form": "Mega-X",
+  "directions": 8,
+  "image": "charizardmegax-v2.png",
+  "layout": "direction-rows-action-columns",
+  "tool": "builtin-imagegen",
+  "prompt": "EDIT THIS PRE-LAID-OUT SPRITE ATLAS IN PLACE. Every cell already contains the correct Pokemon, correct form, correct facing, correct pixel size and correct anchor. These are strict invariants: preserve the exact number of rows/columns, preserve every cell's camera/facing (especially the BACK views), preserve all identifying anatomy/colors/parts, preserve consistent scale. Do not turn a character towards the viewer, do not replace a back view with a face, do not alternate facing inside a row. Each row's existing facing is fixed. Transparent background and wide gutters remain transparent. Do not paste a reference strip into the output.\nRedraw the Pokemon inside each cell to make TWO new animation sequences. Columns1-4: PAIN frames — sudden wince, body bends/braces in pain, sustained hurt with head lowered and eyes shut, recovers towards ready pose. Columns5-8: HITGROUND frames — body/knees buckle, crumples onto side/front, lands fully prone with folded limbs and closed eyes, remains fully LYING defeated. Last two columns are a clearly downed pose, no getting back up. In back-facing rows the back of the head remains visible, not the face. Use genuine changes in head/limbs/body pose, not just translating/rotating/scaling the standing drawing. Keep distinctive wings, tails, flowers, axes and markings intact. Pixel art with hard pixel clusters and limited palette matching the reference; no smooth cartoon style, no text, no gridlines, no floor/shadows. Each full-body sprite stays inside its own cell. Subject is Charizard-Mega-X.",
+  "reviewed": true,
+  "review": {
+    "reviewer": "silver_pain_review",
+    "report": "review-pilot-v2.md",
+    "scope": "Visual raster identity, eight headings and prone end pose; runtime integration remains untested"
+  }
+}
