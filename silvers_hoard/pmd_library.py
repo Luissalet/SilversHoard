@@ -14,10 +14,21 @@ LIBRARY_ROOT = Path(__file__).parent / "presets" / "pmd"
 
 
 class PmdLibrary:
-    def __init__(self, root: Path | None = None):
+    def __init__(self, root: Path | None = None, *, with_reactions: bool = True):
         self.root = Path(root if root is not None else LIBRARY_ROOT)
         manifest = self.root / "manifest.json"
         self.manifest = json.loads(manifest.read_text("utf-8")) if manifest.is_file() else {}
+        reactions = self.root / "reactions.json"
+        if with_reactions and reactions.is_file():
+            extra = json.loads(reactions.read_text("utf-8"))
+            offset = len(self.manifest["packs"])
+            self.manifest["packs"].extend(extra["packs"])
+            for key, asset in extra["files"].items():
+                self.manifest["files"][key] = {**asset, "pmd": asset["pmd"] + offset}
+            for key, animations in extra["metas"].items():
+                if key in self.manifest["metas"]:
+                    self.manifest["metas"][key]["a"].update(animations)
+            self.manifest["coverage"]["reactions"] = extra["coverage"]
         self.metas = dict(self.manifest.get("metas", {}))
         self.metas.update((m["crowd"]["key"], m["crowd"]) for m in self.manifest.get("metas", {}).values() if m.get("crowd"))
         self.species = {m["id"]: m for m in self.manifest.get("roster", [])}

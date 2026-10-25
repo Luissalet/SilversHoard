@@ -49,7 +49,11 @@ export function dirRow(fx, fy) {
 
 export class Animator {
   constructor(meta, base = "") {
-    this.meta = meta;
+    const a = {...meta.a};
+    for (const [name, source, reaction] of [["Pain", a.Hurt ? "Hurt" : "Idle", "pain"], ["HitGround", "Idle", "ground"]]) {
+      if (!a[name] && a[source]) a[name] = {...a[source], reaction};
+    }
+    this.meta = {...meta, a};
     this.base = base;
     this.loopName = "Idle";
     this.cur = "Idle";
@@ -70,10 +74,11 @@ export class Animator {
     if (!this.once) this.speed = speed;
   }
 
-  play(anim, { hold = false, speed = 1 } = {}) {
+  play(anim, { hold = false, speed = 1, duration = 0 } = {}) {
     this.start(anim, true);
     this.hold = hold;
-    this.speed = speed;
+    const d = this.meta.a[this.cur]?.d || [];
+    this.speed = duration > 0 ? d.reduce((sum, n) => sum + n, 0) / (60 * duration) : speed;
   }
 
   busy() { return this.once && !this.done; }
@@ -84,6 +89,34 @@ export class Animator {
     this.t = 0;
     this.once = once;
     this.done = false;
+    this.hold = false;
+  }
+
+  progress() {
+    const m = this.meta.a[this.cur];
+    return this.done ? 1 : Math.min(1, ((m?.d || []).slice(0, this.frame).reduce((a, b) => a + b, 0) + this.t)
+      / Math.max(1, (m?.d || []).reduce((a, b) => a + b, 0)));
+  }
+
+  /** Derived poses act with the same artwork; they never borrow another species. */
+  pose(ctx, x, y, row, k, reduced = false, bounds = null, geometry = null) {
+    const m = geometry || this.meta.a[this.cur];
+    if (!m?.reaction) return;
+    const sign = row >= 4 ? -1 : 1;
+    if (m.reaction === "pain") {
+      const p = this.progress(), brace = reduced ? .5 : Math.sin(p * Math.PI);
+      ctx.translate(x, y); ctx.rotate(sign * -.2 * brace); ctx.translate(-x, -y);
+    } else {
+      const p = reduced ? 1 : Math.min(1, this.progress() * 3);
+      const turn = 1 - (1 - p) ** 3;
+      const [left, top, right, bottom] = bounds || m.pose_bounds?.[Math.min(row, m.r - 1)] || [0, 0, m.w, m.ay];
+      const cx = x + ((left + right) / 2 - m.ax) * k;
+      const cy = y + ((top + bottom) / 2 - m.ay) * k;
+      const targetY = y - (right - left) * k / 2;
+      ctx.translate(x + (cx - x) * (1 - turn), cy + (targetY - cy) * turn);
+      ctx.rotate(sign * Math.PI / 2 * turn);
+      ctx.translate(-cx, -cy);
+    }
   }
 
   update(dt) {
@@ -107,23 +140,29 @@ export class Animator {
   }
 
   /** Draw with the feet at (x, y), `k` screen pixels per sprite pixel. */
-  draw(ctx, x, y, row, k, { alpha = 1, flash = 0 } = {}) {
+  draw(ctx, x, y, row, k, { alpha = 1, flash = 0, reduced = false } = {}) {
     k *= this.meta.display_scale || 1;
     let m = this.meta?.a?.[this.cur];
     if (!m) return false;
-    let s = image(sheetUrl(this.meta, this.cur, this.base)), frame = this.frame;
+    let s = image(sheetUrl(this.meta, this.cur, this.base)), frame = this.frame, pose = m;
     if (!s.ready) {
       // A late Attack/Hurt sheet must not replace a loaded PMD fighter with a Showdown image.
       const idle = ["Idle", "Walk"].find(name => this.has(name) && image(sheetUrl(this.meta, name, this.base)).ready);
       if (!idle) return false;
       m = this.meta.a[idle]; s = image(sheetUrl(this.meta, idle, this.base)); frame = 0;
+      if (["Pain", "HitGround"].includes(this.cur)) pose = {...m, reaction:this.cur === "Pain" ? "pain" : "ground"};
     }
     const r = Math.min(m.row_map?.[row] ?? row, m.r - 1);
+    if (m.reaction === "ground") frame = 0;
+    if (reduced && ["Pain", "HitGround"].includes(this.cur) && !m.reaction) frame = m.n - 1;
+    if (this.cur === "HitGround" && m.ground_frames) frame = Math.min(frame,m.ground_frames[r] ?? frame);
     const sx = frame * m.w;
     const sy = r * m.h;
     const dx = Math.round(x - m.ax * k);
     const dy = Math.round(y - m.ay * k);
     const prev = ctx.globalAlpha;
+    const acting = !!pose.reaction;
+    if (acting) { ctx.save(); this.pose(ctx, x, y, r, k, reduced, null, pose); }
     ctx.globalAlpha = prev * alpha;
     ctx.drawImage(s.img, sx, sy, m.w, m.h, dx, dy, m.w * k, m.h * k);
     if (flash > 0) {
@@ -131,6 +170,7 @@ export class Animator {
       ctx.drawImage(white(s.img), sx, sy, m.w, m.h, dx, dy, m.w * k, m.h * k);
     }
     ctx.globalAlpha = prev;
+    if (acting) ctx.restore();
     return true;
   }
 

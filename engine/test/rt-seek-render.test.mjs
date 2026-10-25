@@ -11,11 +11,11 @@ test('a paused fainted snapshot never draws a newly opaque Pokémon after seekin
   assert.equal(r.fade[0].t,0);
 });
 
-test('the actual faint event still starts its ordinary fade', () => {
+test('an active fainted body is drawn exclusively by its defeat owner', () => {
   const r=Object.create(ArenaRenderer.prototype);
   r.ctx={};r.show={hides:()=>false};r.scale=20;r.fade=[{slot:0,t:0}];
   r.lastActive=['0:0'];
   const side={active:0,mons:[{fainted:true,hp:0,is_mega:false}]};
   r.drawUprightMon({t:900},side,0,1.2);
-  assert.equal(r.fade[0].t,1.2);
+  assert.equal(r.fade[0].t,0,'the ordinary sprite path cannot fade or revive it');
 });

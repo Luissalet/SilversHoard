@@ -7,6 +7,13 @@ related_targets: ["client/src/arcade.css","client/src/pages/Inicio.jsx","client/
 
 # Menu and combat presentation
 
+25 October 2026 — Damage/defeat refinement #1502: keep this visual world and
+original art. Pain requires one hit >35% maximum HP; HitGround ends downed, never
+standing back up. The body has its own owner until the red return beam, with a
+2.4-second minimum hold, including when a replacement appears sooner. Original
+published sequences and explicit identity-preserving runtime acting cover all
+2,938 normal/shiny variants. See [behavior and limits](../../BATTLE_REACTIONS.md).
+
 Mode: Operate for menus; Experience for the battle presentation. Preserve all routes, controls, game rules and saved data. This session is built directly in code from Luis's concrete visual references, without storing a new workflow default.
 
 ## Direction contract

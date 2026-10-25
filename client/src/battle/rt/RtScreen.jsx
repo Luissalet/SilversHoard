@@ -6,6 +6,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { RtBattle, fastForward, inputFrame, TPS, ULT_SLOT } from "../../../../engine/src/realtime/sim.mjs";
 import { L, STATUS_COLORS, STATUS_NAMES, STAT_SHORT, TYPE_COLORS, nameOf, typeName } from "../dex.js";
 import { ArenaRenderer } from "./render.js";
+import { GROUND_SECONDS } from "./defeats.js";
 import SoundButton from "../SoundControl.jsx";
 import AbilityBanner from "../AbilityBanner.jsx";
 import {realtimeAbility} from "../../../../engine/src/ability-events.mjs";
@@ -510,6 +511,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     state.logIndex = state.b.events.length;
     renderer.preload((n, total) => !cancelled && setProgress([n, total])).then(() => {
       if (cancelled) return;
+      renderer.defeats.restore(state.b, renderer);
       setCredits([...renderer.credits].slice(0, 12));
       setImportedCredits([...renderer.importedCredits.values()]);
       if (videoRef.current && state.b.t === 0 && !state.b.ended && !state.b.training) {
@@ -641,8 +643,10 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
       }
       // the end: the show's K.O. and the winner's banner play before the result (none with the show off, or after a forfeit)
       if (running && st.b.ended && !st.finishing && !st.endShown) {
-        if (st.endAt == null) st.endAt = now + 1000 * (st.b.view().reason === "forfeit" ? 0 : st.renderer.show.ending(st.b));
-        if (now >= st.endAt) {
+        st.renderer.consume(st.b);
+        if (st.endAt == null) st.endAt = now + 1000 * (st.b.view().reason === "forfeit" ? 0
+          : st.renderer.show.ending(st.b));
+        if (now >= st.endAt && st.renderer.defeats.bodies.every(body => st.renderer.time - body.at >= GROUND_SECONDS)) {
           st.endShown = true;
           if (live) finish();
           else setPhase("done");
