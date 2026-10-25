@@ -1,0 +1,214 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "psyduck",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d1607248cae3e9884dc8dfa7204ded7e82bfad0e7a8828bdd314c4d5109051d9",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 54,
+          "form": "",
+          "key": "lib-psyduck-n-1bf8beaff6ca"
+        },
+        "sha256": "0cff1d8beddb9a45bc70b80e17d8721a9ad912a986ff843da1f88a483bddd719"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "psyduck",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d1607248cae3e9884dc8dfa7204ded7e82bfad0e7a8828bdd314c4d5109051d9",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 54,
+          "form": "",
+          "key": "lib-psyduck-n-1bf8beaff6ca"
+        },
+        "sha256": "05377bd17b10e6d32ec8467f08594f7c490f45ad132cadbec13a21d7a2809d14"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "psyduck",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d1607248cae3e9884dc8dfa7204ded7e82bfad0e7a8828bdd314c4d5109051d9",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 54,
+            "form": "",
+            "key": "lib-psyduck-n-1bf8beaff6ca"
+          },
+          "sha256": "66ebb892f51e4bce9cbabaecde03b1a004b2614e19f456c958d33869563d7876",
+          "palette_from": "lib-psyduck-s-0afda65240d9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "psyduck",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d1607248cae3e9884dc8dfa7204ded7e82bfad0e7a8828bdd314c4d5109051d9",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 54,
+            "form": "",
+            "key": "lib-psyduck-n-1bf8beaff6ca"
+          },
+          "sha256": "4cba154147f1895c84ab3dd7cc75bab4a7106a44ccdb2c99a428782be3aa9324",
+          "palette_from": "lib-psyduck-s-0afda65240d9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "psyduck",
+    "num": 54,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Psyduck, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "psyduck-cardinal.png",
+    "source_sha256": "d1607248cae3e9884dc8dfa7204ded7e82bfad0e7a8828bdd314c4d5109051d9"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

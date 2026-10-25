@@ -1,0 +1,214 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "arbok",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b18dc7a0379c340a006878214aaabaa7f9713a8606a9212b8ed01f9bcf6ba981",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 24,
+          "form": "",
+          "key": "lib-arbok-n-871c1de7df1a"
+        },
+        "sha256": "03997c93c8f74b9d81aa1020c14ab60160a29117bb7c2e5d845f28caf117d6b3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "arbok",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b18dc7a0379c340a006878214aaabaa7f9713a8606a9212b8ed01f9bcf6ba981",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 24,
+          "form": "",
+          "key": "lib-arbok-n-871c1de7df1a"
+        },
+        "sha256": "48c741e4854a4705e79df4c86c8cdffed3ba43c42d81caa4ca1c5c473668dc12"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "arbok",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b18dc7a0379c340a006878214aaabaa7f9713a8606a9212b8ed01f9bcf6ba981",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 24,
+            "form": "",
+            "key": "lib-arbok-n-871c1de7df1a"
+          },
+          "sha256": "0818e9cb8788e32608d8d21cfc728afcc1aad7df24abc62c943b2e5fed5544fe",
+          "palette_from": "lib-arbok-s-6e278706e810"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "arbok",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b18dc7a0379c340a006878214aaabaa7f9713a8606a9212b8ed01f9bcf6ba981",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 24,
+            "form": "",
+            "key": "lib-arbok-n-871c1de7df1a"
+          },
+          "sha256": "1c6ed6ab4a8687a1b7818e20d6bcf046fdf308a5cc516394b6223866c640336a",
+          "palette_from": "lib-arbok-s-6e278706e810"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "arbok",
+    "num": 24,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Arbok, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "arbok-cardinal.png",
+    "source_sha256": "b18dc7a0379c340a006878214aaabaa7f9713a8606a9212b8ed01f9bcf6ba981"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

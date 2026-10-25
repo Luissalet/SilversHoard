@@ -1,0 +1,214 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "metapod",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a37a84838e60695cdaa9d388dd35dd2794fec72e393edca67d8f654f61383016",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 11,
+          "form": "",
+          "key": "lib-metapod-n-1f4757c97d74"
+        },
+        "sha256": "2f43bf54de95bc7b3014947e9ecc6d5066ec571f2406a7ab3958706e8c25023f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "metapod",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a37a84838e60695cdaa9d388dd35dd2794fec72e393edca67d8f654f61383016",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 11,
+          "form": "",
+          "key": "lib-metapod-n-1f4757c97d74"
+        },
+        "sha256": "5e862fb3cdf830999c5ebfa81846d5fd98a54b4aad21944823a37bb04fbc4674"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "metapod",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a37a84838e60695cdaa9d388dd35dd2794fec72e393edca67d8f654f61383016",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 11,
+            "form": "",
+            "key": "lib-metapod-n-1f4757c97d74"
+          },
+          "sha256": "7eaa4987435ffb42f75b826941765e60e4495e5a5cae713e1267c5504247929a",
+          "palette_from": "lib-metapod-s-11fed4f6252d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "metapod",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a37a84838e60695cdaa9d388dd35dd2794fec72e393edca67d8f654f61383016",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 11,
+            "form": "",
+            "key": "lib-metapod-n-1f4757c97d74"
+          },
+          "sha256": "44007e8fe7315f79a153c1af2166eb2ee27d0da8b3a0f7f3375c3669621ee422",
+          "palette_from": "lib-metapod-s-11fed4f6252d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "metapod",
+    "num": 11,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Metapod, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "metapod-cardinal.png",
+    "source_sha256": "a37a84838e60695cdaa9d388dd35dd2794fec72e393edca67d8f654f61383016"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

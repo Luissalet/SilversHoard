@@ -1,0 +1,214 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "venusaur",
+        "tool": "builtin-imagegen",
+        "source_sha256": "1f2edaba9b88122f69cfcf9d54497ca4594e4cb3fbb15d917fbf78de5c33b61d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 3,
+          "form": "",
+          "key": "lib-venusaur-n-fb9555983d15"
+        },
+        "sha256": "611b6bb79066eeb8d71245502c2aed31cd774a06ee40be69e8438cc7b7546ed1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "venusaur",
+        "tool": "builtin-imagegen",
+        "source_sha256": "1f2edaba9b88122f69cfcf9d54497ca4594e4cb3fbb15d917fbf78de5c33b61d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 3,
+          "form": "",
+          "key": "lib-venusaur-n-fb9555983d15"
+        },
+        "sha256": "ba181a7a1fb9b6c6954021d6bec63bf9aa3f505b8531724ed94c7ade5e1ef5de"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "venusaur",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1f2edaba9b88122f69cfcf9d54497ca4594e4cb3fbb15d917fbf78de5c33b61d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 3,
+            "form": "",
+            "key": "lib-venusaur-n-fb9555983d15"
+          },
+          "sha256": "6c564469620a0003048c9c604c1244f77d44262bd3e26c0b48e7b4f9cad2f68e",
+          "palette_from": "lib-venusaur-s-d4ee255ea61e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "venusaur",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1f2edaba9b88122f69cfcf9d54497ca4594e4cb3fbb15d917fbf78de5c33b61d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 3,
+            "form": "",
+            "key": "lib-venusaur-n-fb9555983d15"
+          },
+          "sha256": "a0182bd4d86d86e03b768189720c9e85df3e29bcda19a6c28d04a8884d4884bb",
+          "palette_from": "lib-venusaur-s-d4ee255ea61e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "venusaur",
+    "num": 3,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Venusaur, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "venusaur-cardinal.png",
+    "source_sha256": "1f2edaba9b88122f69cfcf9d54497ca4594e4cb3fbb15d917fbf78de5c33b61d"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

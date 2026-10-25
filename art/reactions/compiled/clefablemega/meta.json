@@ -1,0 +1,214 @@
+{
+  "a": {
+    "Pain": {
+      "w": 72,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "clefablemega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6fed87264a623df147230b178418410bc4d9f6231e15b69c133067f2aa9c4c2d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 36,
+          "form": "Mega",
+          "key": "lib-clefablemega-n-501c2bf964ad"
+        },
+        "sha256": "3b0cf40a2e5c8fe085129817dec27978214aab1f675941c5842fe89ac6c59c36"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 72,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "clefablemega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6fed87264a623df147230b178418410bc4d9f6231e15b69c133067f2aa9c4c2d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 36,
+          "form": "Mega",
+          "key": "lib-clefablemega-n-501c2bf964ad"
+        },
+        "sha256": "9ca838ffb4185699c626cd11e6769b3cc3f2b3ca07c44c310513cdfd531bc3cb"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 72,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "clefablemega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6fed87264a623df147230b178418410bc4d9f6231e15b69c133067f2aa9c4c2d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 36,
+            "form": "Mega",
+            "key": "lib-clefablemega-n-501c2bf964ad"
+          },
+          "sha256": "5abda5e6f47c0a1cf15caf09db6d42798ccb2a58b135eb582fa1aa6a1cc1deab",
+          "palette_from": "lib-clefablemega-s-35af2b5fd8f4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 72,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "clefablemega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6fed87264a623df147230b178418410bc4d9f6231e15b69c133067f2aa9c4c2d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 36,
+            "form": "Mega",
+            "key": "lib-clefablemega-n-501c2bf964ad"
+          },
+          "sha256": "a589574cf00d353b262e5d9ed70387982e5b17a52ca83bb9e619f50153adf142",
+          "palette_from": "lib-clefablemega-s-35af2b5fd8f4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "clefablemega",
+    "num": 36,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Clefable-Mega, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "clefablemega-cardinal.png",
+    "source_sha256": "6fed87264a623df147230b178418410bc4d9f6231e15b69c133067f2aa9c4c2d"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

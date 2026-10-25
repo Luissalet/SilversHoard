@@ -1,0 +1,206 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "metagross",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6ef68d2dc52f9ceace3cefed5de73a91ac7dde224f21e54592f8df81c515cb33",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 376,
+          "form": "",
+          "key": "lib-metagross-n-279ae4c8172e"
+        },
+        "sha256": "4831f732dff3861157cfbecda67af45b7d8ba806c73e8e12266f02a55da5ad64"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "metagross",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6ef68d2dc52f9ceace3cefed5de73a91ac7dde224f21e54592f8df81c515cb33",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 376,
+          "form": "",
+          "key": "lib-metagross-n-279ae4c8172e"
+        },
+        "sha256": "1f81d48c734a9043d7cece3469bae1fe649a72e84f1d13162a156e6d5ec940f8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "metagross",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6ef68d2dc52f9ceace3cefed5de73a91ac7dde224f21e54592f8df81c515cb33",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 376,
+            "form": "",
+            "key": "lib-metagross-n-279ae4c8172e"
+          },
+          "sha256": "cff7bfcf4e2fbecd269311554a3b001e5ac0279bfe116386bfb54dd8fe757196",
+          "palette_from": "lib-metagross-s-3ceddbc5639c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "metagross",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6ef68d2dc52f9ceace3cefed5de73a91ac7dde224f21e54592f8df81c515cb33",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 376,
+            "form": "",
+            "key": "lib-metagross-n-279ae4c8172e"
+          },
+          "sha256": "82410a7ca8c52b8fd90b362f754f04911269cae0e5370e317d6e870a074297e1",
+          "palette_from": "lib-metagross-s-3ceddbc5639c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "metagross",
+    "num": 376,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new 4-column by 4-row pixel-art sprite atlas using the supplied character as the exact visual identity reference. Exactly16 complete sprites, transparent background, wide transparent gutters, no text or background objects. Preserve the original form, all markings and accessories, palette and pixel style. Do not add extra anatomy.\nRows are fixed viewpoints:1 FRONT facing the viewer,2 RIGHT PROFILE pointing right,3 BACK showing the back of the head/body with no front face,4 LEFT PROFILE pointing left. Keep that camera fixed across all4 sprites in the row.\nColumn1: startled wince, eyes squeezed shut, body bracing. Column2: sustained wince with head lowered, shoulders and legs braced, body still upright. Column3: body buckles low, limbs fold while beginning to settle onto the floor. Column4: fully lying flat on its side/front, limbs relaxed and folded, eyes closed; clearly down on the floor, no standing up. Redraw genuine poses rather than rotating or scaling standing sprites. Match each row's exact input silhouette, features and direction. This is a friendly game animation sheet. BACK view must have no silver X: the X and eyes are on the FRONT, hidden from a rear camera.",
+    "source_image": "metagross-compact.png",
+    "source_sha256": "6ef68d2dc52f9ceace3cefed5de73a91ac7dde224f21e54592f8df81c515cb33"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,214 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "pidgeot",
+        "tool": "builtin-imagegen",
+        "source_sha256": "38836e77cb1bdbe6676d24f67769c9f107104a79b9ff63f90366bae481d7fb8c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 18,
+          "form": "",
+          "key": "lib-pidgeot-n-3db2cef583c1"
+        },
+        "sha256": "7dce0790616f412d30709af8e88be4e796ee30debc9b18b590ddd523d0e00511"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "pidgeot",
+        "tool": "builtin-imagegen",
+        "source_sha256": "38836e77cb1bdbe6676d24f67769c9f107104a79b9ff63f90366bae481d7fb8c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 18,
+          "form": "",
+          "key": "lib-pidgeot-n-3db2cef583c1"
+        },
+        "sha256": "7a3152e1ab7ca57da22639c05d205c4cd6274827f4f28e830e046d5948498511"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "pidgeot",
+          "tool": "builtin-imagegen",
+          "source_sha256": "38836e77cb1bdbe6676d24f67769c9f107104a79b9ff63f90366bae481d7fb8c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 18,
+            "form": "",
+            "key": "lib-pidgeot-n-3db2cef583c1"
+          },
+          "sha256": "589a17f3fd96d08b8ca3223ca481006462e0047d800e0b8104d073ed7b09fa15",
+          "palette_from": "lib-pidgeot-s-d1a6caf1b7d8"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "pidgeot",
+          "tool": "builtin-imagegen",
+          "source_sha256": "38836e77cb1bdbe6676d24f67769c9f107104a79b9ff63f90366bae481d7fb8c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 18,
+            "form": "",
+            "key": "lib-pidgeot-n-3db2cef583c1"
+          },
+          "sha256": "f131e187d5514bcba0fbe36a3608909453b901f87bc87fa85abc625e549566dc",
+          "palette_from": "lib-pidgeot-s-d1a6caf1b7d8"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "pidgeot",
+    "num": 18,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Pidgeot, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "pidgeot-cardinal.png",
+    "source_sha256": "38836e77cb1bdbe6676d24f67769c9f107104a79b9ff63f90366bae481d7fb8c"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

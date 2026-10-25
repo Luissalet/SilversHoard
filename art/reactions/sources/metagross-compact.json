@@ -1,0 +1,19 @@
+{
+  "id": "metagross",
+  "name": "Metagross",
+  "num": 376,
+  "form": "",
+  "directions": 4,
+  "frames": 2,
+  "image": "metagross-compact.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Create a new 4-column by 4-row pixel-art sprite atlas using the supplied character as the exact visual identity reference. Exactly16 complete sprites, transparent background, wide transparent gutters, no text or background objects. Preserve the original form, all markings and accessories, palette and pixel style. Do not add extra anatomy.\nRows are fixed viewpoints:1 FRONT facing the viewer,2 RIGHT PROFILE pointing right,3 BACK showing the back of the head/body with no front face,4 LEFT PROFILE pointing left. Keep that camera fixed across all4 sprites in the row.\nColumn1: startled wince, eyes squeezed shut, body bracing. Column2: sustained wince with head lowered, shoulders and legs braced, body still upright. Column3: body buckles low, limbs fold while beginning to settle onto the floor. Column4: fully lying flat on its side/front, limbs relaxed and folded, eyes closed; clearly down on the floor, no standing up. Redraw genuine poses rather than rotating or scaling standing sprites. Match each row's exact input silhouette, features and direction. This is a friendly game animation sheet. BACK view must have no silver X: the X and eyes are on the FRONT, hidden from a rear camera.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-bulk3.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

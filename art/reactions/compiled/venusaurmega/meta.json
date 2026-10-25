@@ -1,0 +1,272 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "venusaurmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "773a392299d6467d5e3a9bbc22f248e961bac035232747b22e5687df3b3ff8e9",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 3,
+          "form": "Mega",
+          "key": "lib-venusaurmega-n-05ec5b6f1a34"
+        },
+        "assembly": {
+          "native_frames": [
+            {
+              "action": "HitGround",
+              "direction": 2,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 2,
+              "index": 0
+            }
+          ]
+        },
+        "sha256": "c337265b244237cff67d9adb4feb9b607b4d719fc0b5949028eedabd891bff78"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "venusaurmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "773a392299d6467d5e3a9bbc22f248e961bac035232747b22e5687df3b3ff8e9",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 15,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 3,
+          "form": "Mega",
+          "key": "lib-venusaurmega-n-05ec5b6f1a34"
+        },
+        "assembly": {
+          "native_frames": [
+            {
+              "action": "HitGround",
+              "direction": 2,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 2,
+              "index": 0
+            }
+          ]
+        },
+        "sha256": "c1a380821dbac7b90874d0633ee71a610b4a131b794b830afc34281f5b354fc1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "venusaurmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "773a392299d6467d5e3a9bbc22f248e961bac035232747b22e5687df3b3ff8e9",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 3,
+            "form": "Mega",
+            "key": "lib-venusaurmega-n-05ec5b6f1a34"
+          },
+          "assembly": {
+            "native_frames": [
+              {
+                "action": "HitGround",
+                "direction": 2,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 2,
+                "index": 0
+              }
+            ]
+          },
+          "sha256": "d0a6d665cee2522f68dc2e2419edea1f6bea7522ec29986c4ad481cca6c21db1",
+          "palette_from": "lib-venusaurmega-s-f43e7f3c20a9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "venusaurmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "773a392299d6467d5e3a9bbc22f248e961bac035232747b22e5687df3b3ff8e9",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 15,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 3,
+            "form": "Mega",
+            "key": "lib-venusaurmega-n-05ec5b6f1a34"
+          },
+          "assembly": {
+            "native_frames": [
+              {
+                "action": "HitGround",
+                "direction": 2,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 2,
+                "index": 0
+              }
+            ]
+          },
+          "sha256": "d9c4b342a91effa5ccb363255226cdb9bb9650f865cf7436033077cfa3fec045",
+          "palette_from": "lib-venusaurmega-s-f43e7f3c20a9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "venusaurmega",
+    "num": 3,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new production game sprite atlas for Venusaur-Mega from Pokemon. The attached image is an IDENTITY/PALETTE/STYLE REFERENCE ONLY, showing the exact installed character in the directions listed below. Draw new anatomically coherent pain and collapse poses, keeping that exact species AND FORM, all distinguishing anatomy, costume/markings, silhouette, palette and proportions. Never substitute its base form or a different Pokemon. This is small Mystery Dungeon pixel art: hard pixel clusters, dark outline, flat limited shading. Not a smooth illustration.\nLAYOUT: Exactly EIGHT equal columns and 4 equal rows, 32 separate full-body drawings. One facing direction per row, in this precise order: south (towards viewer), east (right), north (away), west (left). Each row keeps its facing across all eight columns. Genuine transparent background, no labels/text/grid/floor/background/shadow. Uniform character pixel scale, generous transparent padding inside each cell. Keep all feet/limbs/wings/tails/blades fully visible.\nCOLUMNS1-4: PAIN animation chronological frames: 1 sudden hit with visible wince, 2 body curls/braces and eyes squeeze closed, 3 sustained hurt with bent limbs and lowered head, 4 recovery toward ready stance. Show real redrawn changes in limbs, head and body silhouette, not a moved, squashed or rotated copy of the standing sprite.\nCOLUMNS5-8: HITGROUND chronological frames: 5 knees/body buckle, 6 folds onto its side/front, 7 lands fully prone with eyes closed and limbs folded, 8 remains fully LYING defeated with head lowered. Last two poses must remain recognisably downed on the floor; do not stand back up, do not present an upright body merely tipped sideways. For a flying or floating species lower it into a plausible resting/defeated pose. For a group species preserve the exact number of members and show the group fallen. For limbless species use a clearly slumped flattened-body resting pose appropriate to that anatomy.\nEvery cell is an actual newly drawn frame, consistent identity and scale across the complete atlas. The reference itself must not appear as a pasted strip in the output. Output only this transparent sprite sheet.",
+    "source_image": "venusaurmega.png",
+    "source_sha256": "773a392299d6467d5e3a9bbc22f248e961bac035232747b22e5687df3b3ff8e9",
+    "native_frames": [
+      {
+        "action": "HitGround",
+        "direction": 2,
+        "frame": 0,
+        "animation": "Idle",
+        "row": 2,
+        "index": 0
+      }
+    ]
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

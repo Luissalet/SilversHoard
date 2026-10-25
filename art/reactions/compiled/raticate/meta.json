@@ -1,0 +1,214 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "raticate",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5da310e8aa3237cd296a64e674f4fa212a34316aae0eb2e2b1127ad7b7857821",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 20,
+          "form": "",
+          "key": "lib-raticate-n-871c83de3ed7"
+        },
+        "sha256": "21ff04921c6b52ad321bc6c68ce2188ad7d2065086fb60f292890594228bf515"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "raticate",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5da310e8aa3237cd296a64e674f4fa212a34316aae0eb2e2b1127ad7b7857821",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 20,
+          "form": "",
+          "key": "lib-raticate-n-871c83de3ed7"
+        },
+        "sha256": "2741ad53245704158d04038a37715e2344619a4928a57799875417a24bacb709"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "raticate",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5da310e8aa3237cd296a64e674f4fa212a34316aae0eb2e2b1127ad7b7857821",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 20,
+            "form": "",
+            "key": "lib-raticate-n-871c83de3ed7"
+          },
+          "sha256": "794d8995585e36dcf12858d784e9d9f3a443fe99ac122b4520a16b7d204e81ac",
+          "palette_from": "lib-raticate-s-4030ff85cf81"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "raticate",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5da310e8aa3237cd296a64e674f4fa212a34316aae0eb2e2b1127ad7b7857821",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 20,
+            "form": "",
+            "key": "lib-raticate-n-871c83de3ed7"
+          },
+          "sha256": "538eefa14063eedf498b3beeef91040996c37b25c44cba09bb1ece1847eda551",
+          "palette_from": "lib-raticate-s-4030ff85cf81"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "raticate",
+    "num": 20,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Raticate, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "raticate-cardinal.png",
+    "source_sha256": "5da310e8aa3237cd296a64e674f4fa212a34316aae0eb2e2b1127ad7b7857821"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}
