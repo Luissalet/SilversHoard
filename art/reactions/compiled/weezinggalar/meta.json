@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 72,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 32.0,
+      "ay": 66,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "weezinggalar",
+        "tool": "builtin-imagegen",
+        "source_sha256": "49fdcf98b53c50933a014a269ab21063c96fcb0816dc02f4c587227397b39e95",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 110,
+          "form": "Galar",
+          "key": "lib-weezinggalar-n-ada54723a0d3"
+        },
+        "sha256": "d9b17ed762a5718fafce27f64aff64fb5510b5a2f7e066a27199942b34c2ef7e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 72,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 32.0,
+      "ay": 66,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "weezinggalar",
+        "tool": "builtin-imagegen",
+        "source_sha256": "49fdcf98b53c50933a014a269ab21063c96fcb0816dc02f4c587227397b39e95",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 110,
+          "form": "Galar",
+          "key": "lib-weezinggalar-n-ada54723a0d3"
+        },
+        "sha256": "8487099c2cbcf944b841621d9245fe1613ca1642a1b9e3bf3e0f852f7a2bdddb"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 72,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 32.0,
+        "ay": 66,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "weezinggalar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "49fdcf98b53c50933a014a269ab21063c96fcb0816dc02f4c587227397b39e95",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 110,
+            "form": "Galar",
+            "key": "lib-weezinggalar-n-ada54723a0d3"
+          },
+          "sha256": "560f749b48f2e6b214fc5451436aae19c8a369984ae21f22d562b2e97be5ad8f",
+          "palette_from": "lib-weezinggalar-s-1357d1f31b94"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 72,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 32.0,
+        "ay": 66,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "weezinggalar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "49fdcf98b53c50933a014a269ab21063c96fcb0816dc02f4c587227397b39e95",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 110,
+            "form": "Galar",
+            "key": "lib-weezinggalar-n-ada54723a0d3"
+          },
+          "sha256": "7b4b5134539b10900667a0acc8630cc005ab7ae203b4d61b2deaf0d762bb24e5",
+          "palette_from": "lib-weezinggalar-s-1357d1f31b94"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "weezinggalar",
+    "num": 110,
+    "form": "Galar",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new four-column by four-row pixel-art game animation atlas, using the supplied atlas only as the exact identity, colours and fixed camera reference. Exactly sixteen complete sprites, transparent background with wide empty gutters, no scenery or text. Rows: SOUTH/front, EAST/right profile, NORTH/rear, WEST/left profile. Each camera stays fixed across the entire row. Column1: sudden wince and braced body. Column2: stronger sustained wince with head lowered. Column3: body lowers and limbs fold while settling on the ground. Column4: body rests completely flat on its side/front, eyes closed; no getting up. Draw genuinely new head/body/limb poses, retain the precise character anatomy, native colours and pixel clusters. For rear views show only the backs of the head and body, never eyes or the face. No detached particles, impact marks, shadows or extra objects. Subject: Weezing-Galar. Every cell has TWO heads, one large and one small, each with its OWN separate chimney top hat: TWO complete chimneys in every cell, including both profile resting poses. Keep the green moustache-like gas and white chimney tops. The rear resting view must hide BOTH faces, including the small head. Both heads settle down onto the ground while their two hats remain attached.",
+    "source_image": "weezinggalar-compact-v3.png",
+    "source_sha256": "49fdcf98b53c50933a014a269ab21063c96fcb0816dc02f4c587227397b39e95",
+    "source_record": "weezinggalar-compact-v3.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

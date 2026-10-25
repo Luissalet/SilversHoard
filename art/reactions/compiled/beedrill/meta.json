@@ -131,7 +131,7 @@
             "form": "",
             "key": "lib-beedrill-n-8ef10a15b62d"
           },
-          "sha256": "d4fa406b230fb67a4c6b2ebd118c5f3a10002a6253857d9c1758372c9c58d282",
+          "sha256": "f7e36a72649359f9661ebab167ee899df68eba17c7df9324499f90f7669c62a0",
           "palette_from": "lib-beedrill-s-909989c431b1"
         },
         "row_map": [
@@ -177,7 +177,7 @@
             "form": "",
             "key": "lib-beedrill-n-8ef10a15b62d"
           },
-          "sha256": "c1de444ec1a43d4f4e772fc9c0e1ee09d07cc69da5ee495b68c0133558b5a551",
+          "sha256": "d08ae7c7019429226aa604578ce67ecdff178375588454f175e562e56d814aea",
           "palette_from": "lib-beedrill-s-909989c431b1"
         },
         "row_map": [
@@ -207,7 +207,8 @@
     "tool": "builtin-imagegen",
     "prompt": "Create a new pixel-art game animation sheet for Beedrill, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
     "source_image": "beedrill-cardinal.png",
-    "source_sha256": "e300f7960b0997376f5294b18e74eea0416057c54dcbcd0013b0f198f85f8155"
+    "source_sha256": "e300f7960b0997376f5294b18e74eea0416057c54dcbcd0013b0f198f85f8155",
+    "source_record": "beedrill-cardinal.json"
   },
   "reviewed": true,
   "shiny_reviewed": true

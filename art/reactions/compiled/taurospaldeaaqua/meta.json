@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "taurospaldeaaqua",
+        "tool": "builtin-imagegen",
+        "source_sha256": "72403edef02f961d3db0ba4dd2cc99cb7ee11ffc276cdc788a18312e0d1f2bd1",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 128,
+          "form": "Paldea-Aqua",
+          "key": "lib-taurospaldeaaqua-n-688f45336e3b"
+        },
+        "sha256": "dd949345e05b3be5622b9a637230b43f646ee77e350fdef5fa965103b96b3943"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "taurospaldeaaqua",
+        "tool": "builtin-imagegen",
+        "source_sha256": "72403edef02f961d3db0ba4dd2cc99cb7ee11ffc276cdc788a18312e0d1f2bd1",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 128,
+          "form": "Paldea-Aqua",
+          "key": "lib-taurospaldeaaqua-n-688f45336e3b"
+        },
+        "sha256": "a9f6839a058cc284a5c5b82b8984876ba8a5df1087801ad7df5f24563bd71025"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "taurospaldeaaqua",
+          "tool": "builtin-imagegen",
+          "source_sha256": "72403edef02f961d3db0ba4dd2cc99cb7ee11ffc276cdc788a18312e0d1f2bd1",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 128,
+            "form": "Paldea-Aqua",
+            "key": "lib-taurospaldeaaqua-n-688f45336e3b"
+          },
+          "sha256": "bb66f6b988ce45adf86f62f18c0b608a11318507f99e6221002ae9f4c428cd49",
+          "palette_from": "lib-taurospaldeaaqua-s-4df7d660a49a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "taurospaldeaaqua",
+          "tool": "builtin-imagegen",
+          "source_sha256": "72403edef02f961d3db0ba4dd2cc99cb7ee11ffc276cdc788a18312e0d1f2bd1",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 128,
+            "form": "Paldea-Aqua",
+            "key": "lib-taurospaldeaaqua-n-688f45336e3b"
+          },
+          "sha256": "ec039620b40c3acce7a8376586f358a697cc6ad86916cf0273a622a4ab553d75",
+          "palette_from": "lib-taurospaldeaaqua-s-4df7d660a49a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "taurospaldeaaqua",
+    "num": 128,
+    "form": "Paldea-Aqua",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Tauros-Paldea-Aqua, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "taurospaldeaaqua-cardinal.png",
+    "source_sha256": "72403edef02f961d3db0ba4dd2cc99cb7ee11ffc276cdc788a18312e0d1f2bd1",
+    "source_record": "taurospaldeaaqua-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

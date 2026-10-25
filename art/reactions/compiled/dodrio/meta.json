@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dodrio",
+        "tool": "builtin-imagegen",
+        "source_sha256": "749ba3c749b9f6271a0fc0b6ad05d8d5c40f1b8d813c2a458f3fadbd2466deaf",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 85,
+          "form": "",
+          "key": "lib-dodrio-n-1fd0f123eac8"
+        },
+        "sha256": "f18d9c435e80bb7f172ce681a24fd9468d5f239bb5cc0746b0650bf909340bbe"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dodrio",
+        "tool": "builtin-imagegen",
+        "source_sha256": "749ba3c749b9f6271a0fc0b6ad05d8d5c40f1b8d813c2a458f3fadbd2466deaf",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 85,
+          "form": "",
+          "key": "lib-dodrio-n-1fd0f123eac8"
+        },
+        "sha256": "925aa8b08e1e3091e213aa809efc7f4c8976efee6a8c53dda8859a59750775ee"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dodrio",
+          "tool": "builtin-imagegen",
+          "source_sha256": "749ba3c749b9f6271a0fc0b6ad05d8d5c40f1b8d813c2a458f3fadbd2466deaf",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 85,
+            "form": "",
+            "key": "lib-dodrio-n-1fd0f123eac8"
+          },
+          "sha256": "5a234e948d4d2aeef053369ebeabd0528ecf415eebf821120e495ab91999c11f",
+          "palette_from": "lib-dodrio-s-b9501f66e344"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dodrio",
+          "tool": "builtin-imagegen",
+          "source_sha256": "749ba3c749b9f6271a0fc0b6ad05d8d5c40f1b8d813c2a458f3fadbd2466deaf",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 85,
+            "form": "",
+            "key": "lib-dodrio-n-1fd0f123eac8"
+          },
+          "sha256": "a1d5b6a5c31feee6134e859b4e1ce8c22cc74fdb3c184aab558bf98d9a1a28d0",
+          "palette_from": "lib-dodrio-s-b9501f66e344"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "dodrio",
+    "num": 85,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Dodrio, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "dodrio-cardinal.png",
+    "source_sha256": "749ba3c749b9f6271a0fc0b6ad05d8d5c40f1b8d813c2a458f3fadbd2466deaf",
+    "source_record": "dodrio-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dratini",
+        "tool": "builtin-imagegen",
+        "source_sha256": "41a8b55f30b3deb30530ebe28b8a69ea451f77c25522d71f26fb046869f8de39",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 147,
+          "form": "",
+          "key": "lib-dratini-n-be1eadf1c9e9"
+        },
+        "sha256": "fd827f8936d6dba6fcabec6404205a65c1ba7b0f165bf9d7d486663e5dc2e9d4"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dratini",
+        "tool": "builtin-imagegen",
+        "source_sha256": "41a8b55f30b3deb30530ebe28b8a69ea451f77c25522d71f26fb046869f8de39",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 147,
+          "form": "",
+          "key": "lib-dratini-n-be1eadf1c9e9"
+        },
+        "sha256": "df6cff5e2cc141e356251814d2e2b37544b6ab9e373f0081d3c17260eb37f19b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dratini",
+          "tool": "builtin-imagegen",
+          "source_sha256": "41a8b55f30b3deb30530ebe28b8a69ea451f77c25522d71f26fb046869f8de39",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 147,
+            "form": "",
+            "key": "lib-dratini-n-be1eadf1c9e9"
+          },
+          "sha256": "f98281f1ec5e83e5736235b0c7cdb5a32934749633c00f440958cb5191f026dc",
+          "palette_from": "lib-dratini-s-b5f6f37b6f8a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dratini",
+          "tool": "builtin-imagegen",
+          "source_sha256": "41a8b55f30b3deb30530ebe28b8a69ea451f77c25522d71f26fb046869f8de39",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 147,
+            "form": "",
+            "key": "lib-dratini-n-be1eadf1c9e9"
+          },
+          "sha256": "d91577cc10d17fc5c2208b2abd5670f1f2346e0a695d81f6efc271b5e46ba120",
+          "palette_from": "lib-dratini-s-b5f6f37b6f8a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "dratini",
+    "num": 147,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Dratini, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "dratini-cardinal.png",
+    "source_sha256": "41a8b55f30b3deb30530ebe28b8a69ea451f77c25522d71f26fb046869f8de39",
+    "source_record": "dratini-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

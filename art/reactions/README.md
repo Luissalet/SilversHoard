@@ -15,6 +15,9 @@ Four-heading sheets author S/E/N/W and map diagonal headings explicitly through
 mirrored direction or native frame used during assembly. It does not count that
 frame as a newly drawn pose. Normal and shiny have separate visual acceptance;
 a missing or rejected shiny never publishes normal colours as a shiny copy.
+Falinks reuses newly drawn leader/trooper component poses in its six-member
+formation. Metadata records that composition and the native formation anchor
+for each heading; these are not six independently drawn groups.
 
 Run `python scripts/import_reaction_art.py <candidate-file-stem>` to compile a
 candidate. Without explicit names the importer compiles only reviewed records.
@@ -32,8 +35,10 @@ credits remain unchanged.
 
 Task 1503 is in progress. The initial audit found 1,201 normal forms needing at
 least one new reaction; shiny palettes must also be derived and checked before
-installation. The current pack includes 100 newly drawn normal/shiny variants,
-with both actions. Pain still has 2,307 variants using the previous runtime
-fallback, and HitGround has 2,322. This directory does not establish complete
+installation. There are reviewed raster exports for 348 normal/shiny variants,
+with both actions. The pack uses 345 new Pain and 345 new HitGround sequences;
+existing published reactions take priority where already available. Pain still
+has 2,062 variants using the previous runtime fallback, and HitGround has 2,077.
+This directory does not establish complete
 roster coverage. Source prompts and per-frame provenance accompany each accepted
 export. Rejected candidates remain outside the generated pack.

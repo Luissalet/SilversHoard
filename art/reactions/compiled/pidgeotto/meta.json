@@ -131,7 +131,7 @@
             "form": "",
             "key": "lib-pidgeotto-n-78899e098cdc"
           },
-          "sha256": "c2d3ec95c87517aa0bae2d3f58a69eff3fd17c2e7f5ffb166fbc6ab8e04a81b5",
+          "sha256": "36809f37f604b615452fb97fb82c393d13b9daefb921f6efe3039d61fda5a52a",
           "palette_from": "lib-pidgeotto-s-361c010590b6"
         },
         "row_map": [
@@ -177,7 +177,7 @@
             "form": "",
             "key": "lib-pidgeotto-n-78899e098cdc"
           },
-          "sha256": "8b629d2af321d496babae6e86beac56643e2e9f0f3898a83d4ad169dd6f98ea5",
+          "sha256": "67755d3eac14fc0f27eb7f61e40d366fb8ed24019d22e994a354877d6505678b",
           "palette_from": "lib-pidgeotto-s-361c010590b6"
         },
         "row_map": [
@@ -207,7 +207,8 @@
     "tool": "builtin-imagegen",
     "prompt": "Create a new pixel-art game animation sheet for Pidgeotto, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
     "source_image": "pidgeotto-cardinal.png",
-    "source_sha256": "915da3d8e59d2908bfb4f4dac583f16ec4b29afd512a2dca22a4e87549418714"
+    "source_sha256": "915da3d8e59d2908bfb4f4dac583f16ec4b29afd512a2dca22a4e87549418714",
+    "source_record": "pidgeotto-cardinal.json"
   },
   "reviewed": true,
   "shiny_reviewed": true

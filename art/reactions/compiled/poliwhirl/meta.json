@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "poliwhirl",
+        "tool": "builtin-imagegen",
+        "source_sha256": "31cc376f98363bc9c174d2be4bed65468624696c5e22bb44122d661fc7273ae0",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 61,
+          "form": "",
+          "key": "lib-poliwhirl-n-4c8d8160a68a"
+        },
+        "sha256": "32160ed5c2ceeaf01b3a8a725617e1133fd12c624527ae7a01b7821b99ddb5b7"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "poliwhirl",
+        "tool": "builtin-imagegen",
+        "source_sha256": "31cc376f98363bc9c174d2be4bed65468624696c5e22bb44122d661fc7273ae0",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 61,
+          "form": "",
+          "key": "lib-poliwhirl-n-4c8d8160a68a"
+        },
+        "sha256": "f497dc36c0f6bb1519474bb79358be76e2f2fafe1d781164aa800cc09370e224"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "poliwhirl",
+          "tool": "builtin-imagegen",
+          "source_sha256": "31cc376f98363bc9c174d2be4bed65468624696c5e22bb44122d661fc7273ae0",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 61,
+            "form": "",
+            "key": "lib-poliwhirl-n-4c8d8160a68a"
+          },
+          "sha256": "c57db9e59cd19ee2f9b019e75676281b70db072e89354d22f6089acb5a961ff3",
+          "palette_from": "lib-poliwhirl-s-386f0a323c85"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "poliwhirl",
+          "tool": "builtin-imagegen",
+          "source_sha256": "31cc376f98363bc9c174d2be4bed65468624696c5e22bb44122d661fc7273ae0",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 61,
+            "form": "",
+            "key": "lib-poliwhirl-n-4c8d8160a68a"
+          },
+          "sha256": "bc25b248100379affeb9b7af5812acca08c7462fa4f317446a0e4ca65bf622ee",
+          "palette_from": "lib-poliwhirl-s-386f0a323c85"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "poliwhirl",
+    "num": 61,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Poliwhirl, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "poliwhirl-cardinal.png",
+    "source_sha256": "31cc376f98363bc9c174d2be4bed65468624696c5e22bb44122d661fc7273ae0",
+    "source_record": "poliwhirl-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

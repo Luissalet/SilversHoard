@@ -131,7 +131,7 @@
             "form": "",
             "key": "lib-ditto-n-50c38f243f45"
           },
-          "sha256": "92168b1ab5aa053920da6f919571d5a9828287ddf3e2890829fd89d0a8beb7f7",
+          "sha256": "959b0d5f4a9ef3e5ff8d7584e369a599cd00a06303d5813c8a43aadf9d6ee4f2",
           "palette_from": "lib-ditto-s-b8ca87bf023c"
         },
         "row_map": [
@@ -177,7 +177,7 @@
             "form": "",
             "key": "lib-ditto-n-50c38f243f45"
           },
-          "sha256": "49e94ccf1ae9b754f46d3422a68d74fdcb60e96e7e6a3f35dcb53bfc87c68934",
+          "sha256": "db2ffabac580cda45a1e8ef8951f03f4f928d78847522eaefbfe8ec07bdcf455",
           "palette_from": "lib-ditto-s-b8ca87bf023c"
         },
         "row_map": [
@@ -207,7 +207,8 @@
     "tool": "builtin-imagegen",
     "prompt": "Create a new pixel-art game animation sheet for Ditto, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
     "source_image": "ditto-cardinal.png",
-    "source_sha256": "b57ce83077e3ff8576cbe961dd3f3116bde5274e8814c8b7364fde73a3ddef0a"
+    "source_sha256": "b57ce83077e3ff8576cbe961dd3f3116bde5274e8814c8b7364fde73a3ddef0a",
+    "source_record": "ditto-cardinal.json"
   },
   "reviewed": true,
   "shiny_reviewed": true

@@ -131,7 +131,7 @@
             "form": "",
             "key": "lib-golbat-n-33845f15ba74"
           },
-          "sha256": "27ee6593db9d78448327f895409a2228077143b2891d7a682c743193f0bf3160",
+          "sha256": "1a1574e86b39027686c795f7f7664b06e995e086560e415ff1ca01faa049bd01",
           "palette_from": "lib-golbat-s-a79a9bd3971d"
         },
         "row_map": [
@@ -177,7 +177,7 @@
             "form": "",
             "key": "lib-golbat-n-33845f15ba74"
           },
-          "sha256": "b25a9fc14685f854d1dd3ad414c6a23c1cc5f7de779cc7516e0966019474a8b4",
+          "sha256": "e6b7990419be8e467ba7691a73c9b516ae61b5af2a4cfd958e1902ed4637dc17",
           "palette_from": "lib-golbat-s-a79a9bd3971d"
         },
         "row_map": [
@@ -207,7 +207,8 @@
     "tool": "builtin-imagegen",
     "prompt": "Create a new pixel-art game animation sheet for Golbat, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
     "source_image": "golbat-cardinal.png",
-    "source_sha256": "be1da6611065ea2d673adac81f2cd6f65a5512ccce97d0b1cb09ff9a08b6e309"
+    "source_sha256": "be1da6611065ea2d673adac81f2cd6f65a5512ccce97d0b1cb09ff9a08b6e309",
+    "source_record": "golbat-cardinal.json"
   },
   "reviewed": true,
   "shiny_reviewed": true

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "kangaskhanmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6c481b3f723142a72af890c0060d94969b9b1bc9112fbc5b353693dd37d1628c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 115,
+          "form": "Mega",
+          "key": "lib-kangaskhanmega-n-792b01f8bddb"
+        },
+        "sha256": "d34558cf68f117a53bbddf9ddda9e61de8f70719c69c6115407415ee5dcb150f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "kangaskhanmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6c481b3f723142a72af890c0060d94969b9b1bc9112fbc5b353693dd37d1628c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 115,
+          "form": "Mega",
+          "key": "lib-kangaskhanmega-n-792b01f8bddb"
+        },
+        "sha256": "df1c31cb8290328d8b17b36e1ba70938f6849175878acb746605fe7ca2d98993"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "kangaskhanmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6c481b3f723142a72af890c0060d94969b9b1bc9112fbc5b353693dd37d1628c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 115,
+            "form": "Mega",
+            "key": "lib-kangaskhanmega-n-792b01f8bddb"
+          },
+          "sha256": "9948c8f83ad6e5079b42f4bb6e67c477db2dcf1c6a2e5c972025a31128e0bd48",
+          "palette_from": "lib-kangaskhanmega-s-03cd13f68262"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "kangaskhanmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6c481b3f723142a72af890c0060d94969b9b1bc9112fbc5b353693dd37d1628c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 115,
+            "form": "Mega",
+            "key": "lib-kangaskhanmega-n-792b01f8bddb"
+          },
+          "sha256": "0416ee1cfa3352e5e6e73ef7ec12b409c3f5b3a664a89b1778a44a1c4308c107",
+          "palette_from": "lib-kangaskhanmega-s-03cd13f68262"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "kangaskhanmega",
+    "num": 115,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Kangaskhan-Mega, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "kangaskhanmega-cardinal.png",
+    "source_sha256": "6c481b3f723142a72af890c0060d94969b9b1bc9112fbc5b353693dd37d1628c",
+    "source_record": "kangaskhanmega-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

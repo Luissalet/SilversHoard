@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "igglybuff",
+        "tool": "builtin-imagegen",
+        "source_sha256": "511488daf9ee499f1c76a1d182b09ea036e12aa6352190eafd0c91f4e00226e7",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 174,
+          "form": "",
+          "key": "lib-igglybuff-n-379669e6ef09"
+        },
+        "sha256": "f4cc58cb4484eebdc5c6c48f224337ddcb8874f39c7fa5696a1d57612c489e32"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "igglybuff",
+        "tool": "builtin-imagegen",
+        "source_sha256": "511488daf9ee499f1c76a1d182b09ea036e12aa6352190eafd0c91f4e00226e7",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 174,
+          "form": "",
+          "key": "lib-igglybuff-n-379669e6ef09"
+        },
+        "sha256": "eb02ec15d2716f4023b390b89cfa81a562fb71b4c9d376b9313ae58bdfb42b7d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "igglybuff",
+          "tool": "builtin-imagegen",
+          "source_sha256": "511488daf9ee499f1c76a1d182b09ea036e12aa6352190eafd0c91f4e00226e7",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 174,
+            "form": "",
+            "key": "lib-igglybuff-n-379669e6ef09"
+          },
+          "sha256": "a0ec4f8af4484197f221ce3a5f96c3e5a667a3682b92e340df2d4c9a6b439664",
+          "palette_from": "lib-igglybuff-s-bcc08e3bc50e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "igglybuff",
+          "tool": "builtin-imagegen",
+          "source_sha256": "511488daf9ee499f1c76a1d182b09ea036e12aa6352190eafd0c91f4e00226e7",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 174,
+            "form": "",
+            "key": "lib-igglybuff-n-379669e6ef09"
+          },
+          "sha256": "319e7b6527889c6d792aa25a864788ccfb59ab439735bfa14f6e4da7f709a3f7",
+          "palette_from": "lib-igglybuff-s-bcc08e3bc50e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "igglybuff",
+    "num": 174,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Igglybuff, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "igglybuff-cardinal.png",
+    "source_sha256": "511488daf9ee499f1c76a1d182b09ea036e12aa6352190eafd0c91f4e00226e7",
+    "source_record": "igglybuff-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

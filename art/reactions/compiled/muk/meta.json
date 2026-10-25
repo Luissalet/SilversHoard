@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "muk",
+        "tool": "builtin-imagegen",
+        "source_sha256": "527f603e032f7788e493735e4bdacb607c08cc6dee9d33bdba9181c3f49de44d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 89,
+          "form": "",
+          "key": "lib-muk-n-8330f9739cfa"
+        },
+        "sha256": "e34e382ffc585b66d2be31bed7e82ebfc0c2933c7da6a221065aeaf312b642b8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "muk",
+        "tool": "builtin-imagegen",
+        "source_sha256": "527f603e032f7788e493735e4bdacb607c08cc6dee9d33bdba9181c3f49de44d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 89,
+          "form": "",
+          "key": "lib-muk-n-8330f9739cfa"
+        },
+        "sha256": "46f5294a8b618a16b9a85f22e088a4cca80a7c7c82812cd4836422d9469c4e68"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "muk",
+          "tool": "builtin-imagegen",
+          "source_sha256": "527f603e032f7788e493735e4bdacb607c08cc6dee9d33bdba9181c3f49de44d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 89,
+            "form": "",
+            "key": "lib-muk-n-8330f9739cfa"
+          },
+          "sha256": "ae4564cbc8da0e8138337e2fd258d55b256e0fd6245d712766964efaa50fb504",
+          "palette_from": "lib-muk-s-b963f63037d2"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "muk",
+          "tool": "builtin-imagegen",
+          "source_sha256": "527f603e032f7788e493735e4bdacb607c08cc6dee9d33bdba9181c3f49de44d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 89,
+            "form": "",
+            "key": "lib-muk-n-8330f9739cfa"
+          },
+          "sha256": "4a5b76dbb0b5e68f97f1385ecd6182a560280000b0e4afe67a0a30b5f01448de",
+          "palette_from": "lib-muk-s-b963f63037d2"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "muk",
+    "num": 89,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Muk, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "muk-cardinal.png",
+    "source_sha256": "527f603e032f7788e493735e4bdacb607c08cc6dee9d33bdba9181c3f49de44d",
+    "source_record": "muk-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

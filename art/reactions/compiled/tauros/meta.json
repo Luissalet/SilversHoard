@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tauros",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e21c33ed489dc83124636fdef7664f02dcda963fde8c1513c58c81048b4281dd",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 128,
+          "form": "",
+          "key": "lib-tauros-n-257b50733740"
+        },
+        "sha256": "11712ffa534f83f8c3f545c08a01814097037f8f742a0e238eed4cec78858b3f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tauros",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e21c33ed489dc83124636fdef7664f02dcda963fde8c1513c58c81048b4281dd",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 128,
+          "form": "",
+          "key": "lib-tauros-n-257b50733740"
+        },
+        "sha256": "6f4f5a1171f60b83699016c614ba435c7616a9bcecfeb739e01bb84bcd09e753"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tauros",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e21c33ed489dc83124636fdef7664f02dcda963fde8c1513c58c81048b4281dd",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 128,
+            "form": "",
+            "key": "lib-tauros-n-257b50733740"
+          },
+          "sha256": "41c79f04c2eb3f6a24d7e57ea914d049622decbd28b65a54e86ce2926c96b476",
+          "palette_from": "lib-tauros-s-16bb7708520b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tauros",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e21c33ed489dc83124636fdef7664f02dcda963fde8c1513c58c81048b4281dd",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 128,
+            "form": "",
+            "key": "lib-tauros-n-257b50733740"
+          },
+          "sha256": "2b98e254ac9780442c47d6b4021ffc4c9182fff0db670daf7139ee132560720b",
+          "palette_from": "lib-tauros-s-16bb7708520b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "tauros",
+    "num": 128,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Tauros, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "tauros-cardinal.png",
+    "source_sha256": "e21c33ed489dc83124636fdef7664f02dcda963fde8c1513c58c81048b4281dd",
+    "source_record": "tauros-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

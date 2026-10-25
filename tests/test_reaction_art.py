@@ -180,3 +180,27 @@ def test_shiny_delta_transfer_cannot_introduce_unregistered_colours(tmp_path, mo
         exported = Image.open(tmp_path / "compiled" / "fixture" / f"{action}-shiny.png").convert("RGBA")
         assert normal.getpixel((0, 0))[:3] == extra_shade
         assert exported.getpixel((0, 0))[:3] in shiny_colors
+
+
+def test_drawn_falinks_components_keep_six_members_and_native_formation_anchor():
+    record = json.loads((ART / "sources" / "falinks-assembled.json").read_text("utf8"))
+    members = record["composition"]["members"]
+    assert [m["component"] for m in members].count(0) == 1
+    assert [m["component"] for m in members].count(1) == 5
+    library = PmdLibrary(ART.parents[1] / "silvers_hoard" / "presets" / "pmd", with_reactions=False)
+    geometry, images = extract(record, library)
+    native = library.resolve(870, "")["a"]["Idle"]
+    idle = Image.open(io.BytesIO(library.image_bytes(native["file"]))).convert("RGBA")
+    for action, g in geometry.items():
+        assert g["n"] == 2 and g["r"] == 4
+        assert g["source"]["authored_frames"] == 0
+        assert g["source"]["authored_component_frames"] == 16
+        assert g["source"]["composed_frames"] == 8
+        sheet = Image.open(io.BytesIO(images[action])).convert("RGBA")
+        for row, original_row in enumerate([0, 2, 4, 6]):
+            original = idle.crop((0, original_row*native["h"], native["w"], (original_row+1)*native["h"]))
+            expected_baseline = original.getbbox()[3] - native["ay"]
+            for frame in range(2):
+                tile = sheet.crop((frame*g["w"], row*g["h"], (frame+1)*g["w"], (row+1)*g["h"]))
+                assert tile.getbbox()[3] - g["ay"] == expected_baseline
+                assert tile.getbbox()[0] >= 3 and tile.getbbox()[2] <= g["w"] - 3

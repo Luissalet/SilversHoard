@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "seaking",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4213c63a574bf74825c50b3ded2a2603b1b95f3580eeacb7ceaaae6738dcbd26",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 119,
+          "form": "",
+          "key": "lib-seaking-n-925be013871f"
+        },
+        "sha256": "8aabe063f702ebd18b91692bd3411f2ba1ed5b616d5879e5a77550d2155a05d6"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "seaking",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4213c63a574bf74825c50b3ded2a2603b1b95f3580eeacb7ceaaae6738dcbd26",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 119,
+          "form": "",
+          "key": "lib-seaking-n-925be013871f"
+        },
+        "sha256": "4a61aba5403fb83013c0ae3ddb8b54f6937d650f94f30235a1de0ba787425965"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "seaking",
+          "tool": "builtin-imagegen",
+          "source_sha256": "4213c63a574bf74825c50b3ded2a2603b1b95f3580eeacb7ceaaae6738dcbd26",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 119,
+            "form": "",
+            "key": "lib-seaking-n-925be013871f"
+          },
+          "sha256": "ff273905fe5696c95b6eacc342ca00397f763924abdbb3b9e6b30688979dfc08",
+          "palette_from": "lib-seaking-s-ab5e2473d8ad"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "seaking",
+          "tool": "builtin-imagegen",
+          "source_sha256": "4213c63a574bf74825c50b3ded2a2603b1b95f3580eeacb7ceaaae6738dcbd26",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 119,
+            "form": "",
+            "key": "lib-seaking-n-925be013871f"
+          },
+          "sha256": "8b23824ec952bd5445116b7da0e7791fed785841066ae590ee5cb6e5eccf45f0",
+          "palette_from": "lib-seaking-s-ab5e2473d8ad"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "seaking",
+    "num": 119,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Seaking, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "seaking-cardinal.png",
+    "source_sha256": "4213c63a574bf74825c50b3ded2a2603b1b95f3580eeacb7ceaaae6738dcbd26",
+    "source_record": "seaking-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

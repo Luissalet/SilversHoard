@@ -131,7 +131,7 @@
             "form": "Alola-Totem",
             "key": "lib-raticatealolatotem-n-6da637ee52e0"
           },
-          "sha256": "2dae6ca4346a4b96e5093b0c51c97f2d085039b0cdd4750f7c7f93b0e7574108",
+          "sha256": "0dfc59f0a3b1a6d1c004cd81a704b06e9f2768cf14cb0f23c54b0251801e2ed8",
           "palette_from": "lib-raticatealolatotem-s-fae141fda604"
         },
         "row_map": [
@@ -177,7 +177,7 @@
             "form": "Alola-Totem",
             "key": "lib-raticatealolatotem-n-6da637ee52e0"
           },
-          "sha256": "9e5e8e31c1ec908897fd562c61df9344f45f383a6e48ca4bf858492230b8a05a",
+          "sha256": "a9f1eb9a314e00dcb62d2130f1d5566e6676ffa2b280ec6c28bab7271533a8aa",
           "palette_from": "lib-raticatealolatotem-s-fae141fda604"
         },
         "row_map": [
@@ -207,7 +207,8 @@
     "tool": "builtin-imagegen",
     "prompt": "Create a new pixel-art game animation sheet for Raticate-Alola-Totem, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
     "source_image": "raticatealolatotem-cardinal.png",
-    "source_sha256": "1d18295fc97fa50d60ecaa29439965e13943ef9e8429ff13fe6db4387eb792b5"
+    "source_sha256": "1d18295fc97fa50d60ecaa29439965e13943ef9e8429ff13fe6db4387eb792b5",
+    "source_record": "raticatealolatotem-cardinal.json"
   },
   "reviewed": true,
   "shiny_reviewed": true

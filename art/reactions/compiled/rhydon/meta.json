@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "rhydon",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f9307b9094af8dda4ad34dde155ba0f0edafefcebe98a03429460662f2cf65e5",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 112,
+          "form": "",
+          "key": "lib-rhydon-n-7dd4857916bc"
+        },
+        "sha256": "f20e13058c2961972a371070c6f3d178702c16b112dbafeab2a33055b1cfafd1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "rhydon",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f9307b9094af8dda4ad34dde155ba0f0edafefcebe98a03429460662f2cf65e5",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 112,
+          "form": "",
+          "key": "lib-rhydon-n-7dd4857916bc"
+        },
+        "sha256": "005e048ea17dee2de3377939db0de3824b93b2e42d8d497a2871594bc268c5f1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "rhydon",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f9307b9094af8dda4ad34dde155ba0f0edafefcebe98a03429460662f2cf65e5",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 112,
+            "form": "",
+            "key": "lib-rhydon-n-7dd4857916bc"
+          },
+          "sha256": "24b135d141e53dad0e528dff74838268c20877ea80ea66fa974bcb9c78b13601",
+          "palette_from": "lib-rhydon-s-f2d7af571641"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "rhydon",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f9307b9094af8dda4ad34dde155ba0f0edafefcebe98a03429460662f2cf65e5",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 112,
+            "form": "",
+            "key": "lib-rhydon-n-7dd4857916bc"
+          },
+          "sha256": "edc96092623bc221fcb51ceb6182f44046ff63a2ef31970ef3e3d39467b98bb5",
+          "palette_from": "lib-rhydon-s-f2d7af571641"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "rhydon",
+    "num": 112,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Rhydon, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "rhydon-cardinal.png",
+    "source_sha256": "f9307b9094af8dda4ad34dde155ba0f0edafefcebe98a03429460662f2cf65e5",
+    "source_record": "rhydon-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

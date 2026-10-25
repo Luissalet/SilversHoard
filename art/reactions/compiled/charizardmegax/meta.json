@@ -127,7 +127,7 @@
             "form": "Mega-X",
             "key": "lib-charizardmegax-n-c112297e7e09"
           },
-          "sha256": "a67bf8a3e8fd4d4884c807f303bc6072bac2f54d1819ee7a92ae25f5e57906ce",
+          "sha256": "9380b2b5e6e9ceca6dbb2ba1d435d0c5ccf4e9689fbbe2e383fc9d0457e72520",
           "palette_from": "lib-charizardmegax-s-8fb4cc4670fe"
         }
       },
@@ -167,7 +167,7 @@
             "form": "Mega-X",
             "key": "lib-charizardmegax-n-c112297e7e09"
           },
-          "sha256": "dd9b4b124fbac91bbeaf0eec141c45377e96bd6b9bd9219c4082af62f40a7615",
+          "sha256": "b174442a834ccda0fdeba401539da95e62e6cbe530ff68ccd1ffdcf2bcd2c2cf",
           "palette_from": "lib-charizardmegax-s-8fb4cc4670fe"
         },
         "ground_frames": [
@@ -191,7 +191,8 @@
     "tool": "builtin-imagegen",
     "prompt": "EDIT THIS PRE-LAID-OUT SPRITE ATLAS IN PLACE. Every cell already contains the correct Pokemon, correct form, correct facing, correct pixel size and correct anchor. These are strict invariants: preserve the exact number of rows/columns, preserve every cell's camera/facing (especially the BACK views), preserve all identifying anatomy/colors/parts, preserve consistent scale. Do not turn a character towards the viewer, do not replace a back view with a face, do not alternate facing inside a row. Each row's existing facing is fixed. Transparent background and wide gutters remain transparent. Do not paste a reference strip into the output.\nRedraw the Pokemon inside each cell to make TWO new animation sequences. Columns1-4: PAIN frames \u2014 sudden wince, body bends/braces in pain, sustained hurt with head lowered and eyes shut, recovers towards ready pose. Columns5-8: HITGROUND frames \u2014 body/knees buckle, crumples onto side/front, lands fully prone with folded limbs and closed eyes, remains fully LYING defeated. Last two columns are a clearly downed pose, no getting back up. In back-facing rows the back of the head remains visible, not the face. Use genuine changes in head/limbs/body pose, not just translating/rotating/scaling the standing drawing. Keep distinctive wings, tails, flowers, axes and markings intact. Pixel art with hard pixel clusters and limited palette matching the reference; no smooth cartoon style, no text, no gridlines, no floor/shadows. Each full-body sprite stays inside its own cell. Subject is Charizard-Mega-X.",
     "source_image": "charizardmegax-v2.png",
-    "source_sha256": "20da50cb4ee4b0abeefd08070a082d7d1801d40eab849f39745cbe1df81a6207"
+    "source_sha256": "20da50cb4ee4b0abeefd08070a082d7d1801d40eab849f39745cbe1df81a6207",
+    "source_record": "charizardmegax-v2.json"
   },
   "reviewed": true,
   "shiny_reviewed": true

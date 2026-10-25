@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 72,
+      "h": 72,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 66,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "articunogalar",
+        "tool": "builtin-imagegen",
+        "source_sha256": "32c92f40d81276dc2f5ec24c8a9abb646b8093e00c0126f1678c94b771e7f8a5",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 144,
+          "form": "Galar",
+          "key": "lib-articunogalar-n-2796dad42814"
+        },
+        "sha256": "28498cff17c29e7e8daa25464689128cb8b605c72641b5368c994626afcec384"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 72,
+      "h": 72,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 66,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "articunogalar",
+        "tool": "builtin-imagegen",
+        "source_sha256": "32c92f40d81276dc2f5ec24c8a9abb646b8093e00c0126f1678c94b771e7f8a5",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 144,
+          "form": "Galar",
+          "key": "lib-articunogalar-n-2796dad42814"
+        },
+        "sha256": "388a70ede8432023c1c1b3b37c7852bd3b5ea28979ceacb9198f3f6498931bc4"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 72,
+        "h": 72,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 66,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "articunogalar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "32c92f40d81276dc2f5ec24c8a9abb646b8093e00c0126f1678c94b771e7f8a5",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 144,
+            "form": "Galar",
+            "key": "lib-articunogalar-n-2796dad42814"
+          },
+          "sha256": "450c5fbf0d18ba679da334c55621859541d94de83881b0d733bb3266621191f9",
+          "palette_from": "lib-articunogalar-s-b173cb72c222"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 72,
+        "h": 72,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 66,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "articunogalar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "32c92f40d81276dc2f5ec24c8a9abb646b8093e00c0126f1678c94b771e7f8a5",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 144,
+            "form": "Galar",
+            "key": "lib-articunogalar-n-2796dad42814"
+          },
+          "sha256": "7dbc811c0e98baa2ae99e9f27782b7c96432a14c2cf0f60ba72b9b20591669ff",
+          "palette_from": "lib-articunogalar-s-b173cb72c222"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "articunogalar",
+    "num": 144,
+    "form": "Galar",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Articuno-Galar, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "articunogalar-cardinal.png",
+    "source_sha256": "32c92f40d81276dc2f5ec24c8a9abb646b8093e00c0126f1678c94b771e7f8a5",
+    "source_record": "articunogalar-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

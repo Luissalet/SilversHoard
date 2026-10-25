@@ -131,7 +131,7 @@
             "form": "",
             "key": "lib-wigglytuff-n-355f3923a459"
           },
-          "sha256": "8cedce52e03a8d69d8a8ad9162924904bca0a5d0af9f9699ff30c2ccd8403476",
+          "sha256": "ff384fc1451e548ceb905163f6efa8ae1ae4cdb40e526638b5a0afbd39bf206f",
           "palette_from": "lib-wigglytuff-s-d4daac87d395"
         },
         "row_map": [
@@ -177,7 +177,7 @@
             "form": "",
             "key": "lib-wigglytuff-n-355f3923a459"
           },
-          "sha256": "8c30a5d8759a043756d64e9b90f9f4275f0cc395d48518f3d05917fe39085b6f",
+          "sha256": "6f07bf6acd4d4e73dc6b0e017dac3767e680fff3e50e66663ebf57dd43b72822",
           "palette_from": "lib-wigglytuff-s-d4daac87d395"
         },
         "row_map": [
@@ -207,7 +207,8 @@
     "tool": "builtin-imagegen",
     "prompt": "Create a new pixel-art game animation sheet for Wigglytuff, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
     "source_image": "wigglytuff-cardinal.png",
-    "source_sha256": "be8b94518729161173b76b02a58c20c3586c0b30cbbf77cd406d1ffaa732a0af"
+    "source_sha256": "be8b94518729161173b76b02a58c20c3586c0b30cbbf77cd406d1ffaa732a0af",
+    "source_record": "wigglytuff-cardinal.json"
   },
   "reviewed": true,
   "shiny_reviewed": true

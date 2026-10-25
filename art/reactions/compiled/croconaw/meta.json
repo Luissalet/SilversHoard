@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "croconaw",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6af9be22e1e0f98ddc9754c6f9dcbce5b24ba1076a49267ad76d062b1b5b0e65",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 159,
+          "form": "",
+          "key": "lib-croconaw-n-ce98721d25da"
+        },
+        "sha256": "f4faffcfe52c94e5c517a3d7cf1c86f8bed65b6c7b5a003a5ae164ddff5e2fcb"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "croconaw",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6af9be22e1e0f98ddc9754c6f9dcbce5b24ba1076a49267ad76d062b1b5b0e65",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 159,
+          "form": "",
+          "key": "lib-croconaw-n-ce98721d25da"
+        },
+        "sha256": "a4a67ee2bf6540eea205bdf2e0dc254dee42b7df6d80142680ee8285bf6425df"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "croconaw",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6af9be22e1e0f98ddc9754c6f9dcbce5b24ba1076a49267ad76d062b1b5b0e65",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 159,
+            "form": "",
+            "key": "lib-croconaw-n-ce98721d25da"
+          },
+          "sha256": "47c2ab815a2a0d19d036d0312be6213ef9a202485c2e13581552cd39767e5431",
+          "palette_from": "lib-croconaw-s-df496b37b61a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "croconaw",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6af9be22e1e0f98ddc9754c6f9dcbce5b24ba1076a49267ad76d062b1b5b0e65",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 159,
+            "form": "",
+            "key": "lib-croconaw-n-ce98721d25da"
+          },
+          "sha256": "f30915d70e02f897c6dee39914e7264387d156de56956e42b185e46f07d18bd2",
+          "palette_from": "lib-croconaw-s-df496b37b61a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "croconaw",
+    "num": 159,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new four-column by four-row pixel-art game animation atlas, using the supplied atlas only as the exact identity, colours and fixed camera reference. Exactly sixteen complete sprites, transparent background with wide empty gutters, no scenery or text. Rows: SOUTH/front, EAST/right profile, NORTH/rear, WEST/left profile. Each camera stays fixed across the entire row. Column1: sudden wince and braced body. Column2: stronger sustained wince with head lowered. Column3: body lowers and limbs fold while settling on the ground. Column4: body rests completely flat on its side/front, eyes closed; no getting up. Draw genuinely new head/body/limb poses, retain the precise character anatomy, native colours and pixel clusters. For rear views show only the backs of the head and body, never eyes or the face. No detached particles, impact marks, shadows or extra objects. Subject: Croconaw. Keep the blue skin, yellow belly, red dorsal spines and short tail. The rear resting pose shows red back spines and blue back, never a profile snout or eye.",
+    "source_image": "croconaw-compact-v3.png",
+    "source_sha256": "6af9be22e1e0f98ddc9754c6f9dcbce5b24ba1076a49267ad76d062b1b5b0e65",
+    "source_record": "croconaw-compact-v3.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

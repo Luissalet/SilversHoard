@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "machampgmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "88eb4a4bc257b48749ad0edb3d2848de8230555176694b10bffbf1a7357ad174",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 68,
+          "form": "Gmax",
+          "key": "lib-machampgmax-n-04c8ef7defde"
+        },
+        "sha256": "3f2b9353c774bf4041ad9d53949bde32017b3cb616e800c2299986fc4c5cff69"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "machampgmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "88eb4a4bc257b48749ad0edb3d2848de8230555176694b10bffbf1a7357ad174",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 68,
+          "form": "Gmax",
+          "key": "lib-machampgmax-n-04c8ef7defde"
+        },
+        "sha256": "60815e3052bc02516ff8f4ffa1c3150e4ceb4c63d8ffd1c01d1f5dfe6d3eeaa2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "machampgmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "88eb4a4bc257b48749ad0edb3d2848de8230555176694b10bffbf1a7357ad174",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 68,
+            "form": "Gmax",
+            "key": "lib-machampgmax-n-04c8ef7defde"
+          },
+          "sha256": "cdff7033b443c53cc7320fbd06db937ae0777db4c794707af809c268c8d282f3",
+          "palette_from": "lib-machampgmax-s-317159fc61ec"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "machampgmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "88eb4a4bc257b48749ad0edb3d2848de8230555176694b10bffbf1a7357ad174",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 68,
+            "form": "Gmax",
+            "key": "lib-machampgmax-n-04c8ef7defde"
+          },
+          "sha256": "3767735265d5a5eb5435b69b3437a46c4ad6450aa3ddc8006bef895b5d7b5707",
+          "palette_from": "lib-machampgmax-s-317159fc61ec"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "machampgmax",
+    "num": 68,
+    "form": "Gmax",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Machamp-Gmax, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "machampgmax-cardinal.png",
+    "source_sha256": "88eb4a4bc257b48749ad0edb3d2848de8230555176694b10bffbf1a7357ad174",
+    "source_record": "machampgmax-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

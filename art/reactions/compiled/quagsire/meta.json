@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "quagsire",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6450ad5aba5e04601b0e49f3c5e2227709037ce49769cbe5e0401eaf30a2dbcc",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 195,
+          "form": "",
+          "key": "lib-quagsire-n-779afaa3a70a"
+        },
+        "sha256": "e6e81c0d1fbc6598e93b899819eb559d844d9f0b23eb73ead2a2a9586bd16815"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "quagsire",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6450ad5aba5e04601b0e49f3c5e2227709037ce49769cbe5e0401eaf30a2dbcc",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 195,
+          "form": "",
+          "key": "lib-quagsire-n-779afaa3a70a"
+        },
+        "sha256": "7e35ceadc00deff369408470d0129a170d15d038719c535546a8d606347ddf76"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "quagsire",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6450ad5aba5e04601b0e49f3c5e2227709037ce49769cbe5e0401eaf30a2dbcc",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 195,
+            "form": "",
+            "key": "lib-quagsire-n-779afaa3a70a"
+          },
+          "sha256": "c6b6f43c0493dfaecc386fb930ffdb810c97e41dd1830daa986aacb7b71c4f9e",
+          "palette_from": "lib-quagsire-s-b6c6b63cbaaa"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "quagsire",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6450ad5aba5e04601b0e49f3c5e2227709037ce49769cbe5e0401eaf30a2dbcc",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 195,
+            "form": "",
+            "key": "lib-quagsire-n-779afaa3a70a"
+          },
+          "sha256": "bb6c8f859203049f6284669bb6a34c9e527ffebd46b7921a5bce1a00773686f4",
+          "palette_from": "lib-quagsire-s-b6c6b63cbaaa"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "quagsire",
+    "num": 195,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Quagsire, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "quagsire-cardinal.png",
+    "source_sha256": "6450ad5aba5e04601b0e49f3c5e2227709037ce49769cbe5e0401eaf30a2dbcc",
+    "source_record": "quagsire-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

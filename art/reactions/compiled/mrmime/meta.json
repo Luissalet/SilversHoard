@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "mrmime",
+        "tool": "builtin-imagegen",
+        "source_sha256": "fa5d9797db4c24d815d7e430d26081e7de3c1d8567e19e911c816e12c2d2fd6d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 122,
+          "form": "",
+          "key": "lib-mrmime-n-66c38d98cf71"
+        },
+        "sha256": "ec7f6ddda1cc12780f6f6f740b4af8dfa157ffc571968c724d6b8a2c11c5433b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "mrmime",
+        "tool": "builtin-imagegen",
+        "source_sha256": "fa5d9797db4c24d815d7e430d26081e7de3c1d8567e19e911c816e12c2d2fd6d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 122,
+          "form": "",
+          "key": "lib-mrmime-n-66c38d98cf71"
+        },
+        "sha256": "207ec3f73762043401562dbace7bd07a887177d289f4afcec03414fd1291f9d8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "mrmime",
+          "tool": "builtin-imagegen",
+          "source_sha256": "fa5d9797db4c24d815d7e430d26081e7de3c1d8567e19e911c816e12c2d2fd6d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 122,
+            "form": "",
+            "key": "lib-mrmime-n-66c38d98cf71"
+          },
+          "sha256": "63169f4a23867ef446889a9f2bae9c1975004e95dd4a3e8cb552facfc6b321f6",
+          "palette_from": "lib-mrmime-s-b745f9ce0159"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "mrmime",
+          "tool": "builtin-imagegen",
+          "source_sha256": "fa5d9797db4c24d815d7e430d26081e7de3c1d8567e19e911c816e12c2d2fd6d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 122,
+            "form": "",
+            "key": "lib-mrmime-n-66c38d98cf71"
+          },
+          "sha256": "bf143e0a483615b17ea35ad125e8716591952002c8f116d8418c55007243aff3",
+          "palette_from": "lib-mrmime-s-b745f9ce0159"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "mrmime",
+    "num": 122,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Mr. Mime, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "mrmime-cardinal.png",
+    "source_sha256": "fa5d9797db4c24d815d7e430d26081e7de3c1d8567e19e911c816e12c2d2fd6d",
+    "source_record": "mrmime-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

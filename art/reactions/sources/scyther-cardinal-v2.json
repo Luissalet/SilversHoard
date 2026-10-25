@@ -1,0 +1,19 @@
+{
+  "id": "scyther",
+  "name": "Scyther",
+  "num": 123,
+  "form": "",
+  "directions": 4,
+  "frames": 4,
+  "image": "scyther-cardinal-v2.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Precise local pose correction of this complete transparent 8column x4row pixel-art atlas. Edit ONLY row3 columns6,7,8. These are the BACK-camera settling and lying poses. They must show Scyther strictly from BEHIND, keeping the back of the green head, rear thorax, white wings and both scythe arms facing the viewer. Hide the eyes, mouth and entire front face on the far side; do not turn the head to profile and do not alternate left/right profile during this row. Column6: rear-facing body buckles down. Columns7 and8: rear-facing body is fully flat on the floor with folded legs and scythes and retained wings. Keep the same rear camera as row3 columns1-5. Preserve all other29sprites exactly, identity, anatomy, pixel scale, palette, gutters and true transparent alpha. Output the same full atlas with just these3back-view poses corrected. No effects, ground shadows, text or scenery.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-corrections3.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

@@ -85,11 +85,52 @@ def align_palette(image, colors):
     return image
 
 
+def compose_components(image, record):
+    """Assemble drawn individuals in a declared native formation, without warping."""
+    spec = record["composition"]
+    directions, frames = record["directions"], record["frames"]
+    roles = len(spec["component_heights"][0])
+    columns = 2 * frames * roles
+    ys = grid_cuts(image, 1, directions)
+    units = []
+    for row in range(directions):
+        row_image = image.crop((0, ys[row], image.width, ys[row + 1]))
+        xs = grid_cuts(row_image, 0, columns)
+        parts = []
+        for role in range(roles):
+            drawn = []
+            for frame in range(2 * frames):
+                col = role * 2 * frames + frame
+                tile = row_image.crop((xs[col], 0, xs[col + 1], row_image.height))
+                drawn.append(tile.crop(tile.getbbox()))
+            factor = spec["component_heights"][row][role] / drawn[0].height
+            parts.append([t.resize((max(1, round(t.width * factor)), max(1, round(t.height * factor))),
+                                   Image.Resampling.NEAREST) for t in drawn])
+        units.append(parts)
+    padding = 16
+    width, height = [value + 2 * padding for value in spec["canvas"]]
+    output = Image.new("RGBA", (2 * frames * width, directions * height))
+    for row in range(directions):
+        for frame in range(2 * frames):
+            for member_index in spec["draw_order"][row]:
+                member = spec["members"][member_index]
+                tile = units[row][member["component"]][frame]
+                center, baseline = member["positions"][row]
+                x = frame * width + padding + round(center - tile.width / 2)
+                y = row * height + padding + baseline - tile.height
+                if x < frame * width or x + tile.width > (frame + 1) * width or y < row * height or y + tile.height > (row + 1) * height:
+                    raise ValueError(f"Component outside formation cell: {record['id']}:{row}:{frame}")
+                output.alpha_composite(tile, (x, y))
+    return output
+
+
 def extract(record: dict, library: PmdLibrary, art: Path = ART, *, shiny=False):
     source = art / "sources" / (record["shiny_image"] if shiny else record.get("image", record["id"] + ".png"))
     raw = source.read_bytes()
     image = Image.open(io.BytesIO(raw)).convert("RGBA")
     image.putalpha(image.getchannel("A").point(lambda a: 255 if a >= 128 else 0))
+    if record.get("composition"):
+        image = compose_components(image, record)
     directions = record["directions"]
     frame_count = record.get("frames", 4)
     legacy = record.get("layout") == "action-rows-direction-columns"
@@ -133,6 +174,15 @@ def extract(record: dict, library: PmdLibrary, art: Path = ART, *, shiny=False):
         native_frames[(spec["action"], spec["direction"], spec["frame"])] = tile
         width = max(width, math.ceil((tile.width + 8) / 8) * 8)
         cell_height = max(cell_height, math.ceil((tile.height + 12) / 8) * 8)
+    offsets = record.get("baseline_offsets", [0] * directions)
+    if len(offsets) != directions:
+        raise ValueError(f"Invalid formation baselines: {record['id']}")
+    if record.get("baseline_offsets"):
+        top = max(tile.height * factor - offsets[row]
+                  for action in tiles.values() for row, frames in enumerate(action) for tile in frames)
+        top = max([top] + [tile.height - offsets[row] for (_, row, _), tile in native_frames.items()])
+        cell_height = math.ceil((top + max(offsets) + 12) / 8) * 8
+    anchor_y = cell_height - 6 - max(offsets)
     geometry, images = {}, {}
     for name, headings in tiles.items():
         sheet = Image.new("RGBA", (frame_count * width, directions * cell_height))
@@ -146,7 +196,7 @@ def extract(record: dict, library: PmdLibrary, art: Path = ART, *, shiny=False):
                 tile = align_palette(tile, palette)
                 distinct.add(hashlib.sha256(tile.tobytes()).hexdigest())
                 sheet.alpha_composite(tile, (frame * width + (width - tile.width) // 2,
-                                             row * cell_height + cell_height - 6 - tile.height))
+                                             row * cell_height + anchor_y + offsets[row] - tile.height))
             if len(distinct) < min(3, frame_count):
                 raise ValueError(f"Too few distinct drawn poses: {record['id']}:{name}:{row}")
             hashes.append(len(distinct))
@@ -159,12 +209,16 @@ def extract(record: dict, library: PmdLibrary, art: Path = ART, *, shiny=False):
                            s["action"] == name for s in record.get("native_frames", [])),
                        "distinct_frames_per_direction": hashes,
                        "reference": {"num": record["num"], "form": record.get("form", ""), "key": normal["key"]}}
-        assembly = {k: record[k] for k in ("row_sources", "mirror_frames", "native_frames") if record.get(k)}
+        assembly = {k: record[k] for k in ("row_sources", "mirror_frames", "native_frames", "composition", "baseline_offsets") if record.get(k)}
         if assembly:
             source_info["assembly"] = assembly
+        if record.get("composition"):
+            source_info.update(kind="composed-generated-pmd-reaction", authored_frames=0,
+                               authored_component_frames=frame_count * directions * len(record["composition"]["component_heights"][0]),
+                               composed_frames=frame_count * directions)
         geom = {"w": width, "h": cell_height, "r": directions, "n": frame_count,
                 "d": [12, 20] if frame_count == 2 else [8, 9, 12, 10][:frame_count],
-                "ax": width / 2, "ay": cell_height - 6, "source": source_info}
+                "ax": width / 2, "ay": anchor_y, "source": source_info}
         if directions == 4:
             geom["row_map"] = [0, 1, 1, 2, 2, 3, 3, 0]
         if name == "HitGround":
@@ -216,7 +270,7 @@ def compile_one(record, library, art=ART):
             recolored = Image.open(io.BytesIO(recolor(raw, palette))).convert("RGBA")
             shiny_images[name] = png(align_palette(recolored, shiny_palette))
             source = shiny_geometry[name]["source"]
-            source.update(kind="shiny-generated-pmd-reaction", palette_from=shiny["key"],
+            source.update(kind="shiny-composed-pmd-reaction" if record.get("composition") else "shiny-generated-pmd-reaction", palette_from=shiny["key"],
                           sha256=hashlib.sha256(shiny_images[name]).hexdigest())
     output = art / "compiled" / record["id"]
     for name, raw in images.items():
@@ -228,7 +282,9 @@ def compile_one(record, library, art=ART):
                   "tool": "builtin-imagegen", "prompt": record.get("prompt_template", record.get("prompt", "")),
                   "source_image": record.get("image", record["id"] + ".png"),
                   "source_sha256": geometry["Pain"]["source"]["source_sha256"]}
-    provenance.update({k: record[k] for k in ("row_sources", "mirror_frames", "native_frames") if record.get(k)})
+    provenance.update({k: record[k] for k in ("row_sources", "mirror_frames", "native_frames", "composition", "baseline_offsets") if record.get(k)})
+    if record.get("source_record"):
+        provenance["source_record"] = record["source_record"]
     if record.get("shiny_image"):
         provenance["shiny_source_image"] = record["shiny_image"]
         provenance["shiny_prompt"] = record["shiny_prompt"]
@@ -249,6 +305,7 @@ if __name__ == "__main__":
     failures = 0
     for source in sorted((ART / "sources").glob("*.json")):
         record = json.loads(source.read_text("utf8"))
+        record["source_record"] = source.name
         if args.ids and source.stem not in args.ids:
             continue
         if not args.ids and not record.get("reviewed"):

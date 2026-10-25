@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "pinsir",
+        "tool": "builtin-imagegen",
+        "source_sha256": "1f4b2ba94c7af02cae695f18d7c6efec36d1793acfc6980461177728fdb4bab5",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 127,
+          "form": "",
+          "key": "lib-pinsir-n-d054a014daa9"
+        },
+        "sha256": "a84017eefbd30fc4ecf0c5c5d6851b2747c0737e62110f7f33ca29d9f3f61125"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "pinsir",
+        "tool": "builtin-imagegen",
+        "source_sha256": "1f4b2ba94c7af02cae695f18d7c6efec36d1793acfc6980461177728fdb4bab5",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 127,
+          "form": "",
+          "key": "lib-pinsir-n-d054a014daa9"
+        },
+        "sha256": "29b08926d70a5a9033a81486f4ea9b1e6d514740cf477a8394df66b577633696"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "pinsir",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1f4b2ba94c7af02cae695f18d7c6efec36d1793acfc6980461177728fdb4bab5",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 127,
+            "form": "",
+            "key": "lib-pinsir-n-d054a014daa9"
+          },
+          "sha256": "2957a1ee997eb131ab86ba65f3cfe75e2859de50ad7f2aa63f91a295d94e5128",
+          "palette_from": "lib-pinsir-s-9b479bccd251"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "pinsir",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1f4b2ba94c7af02cae695f18d7c6efec36d1793acfc6980461177728fdb4bab5",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 127,
+            "form": "",
+            "key": "lib-pinsir-n-d054a014daa9"
+          },
+          "sha256": "5adedc0e32fa24fe28d2e18d61c165d9b97ed110be53de686befee16287a983c",
+          "palette_from": "lib-pinsir-s-9b479bccd251"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "pinsir",
+    "num": 127,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Pinsir, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "pinsir-cardinal.png",
+    "source_sha256": "1f4b2ba94c7af02cae695f18d7c6efec36d1793acfc6980461177728fdb4bab5",
+    "source_record": "pinsir-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

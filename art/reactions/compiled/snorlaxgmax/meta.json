@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "snorlaxgmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6cb605c7b6521048543ec692d2290e24331a9d63aaac8d9e78ba905cb76baf08",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 143,
+          "form": "Gmax",
+          "key": "lib-snorlaxgmax-n-a18d5a80cbb0"
+        },
+        "sha256": "68184f3acb5e5eefcaebd73d6f756b308455a386ff5508def94507ad5f9f743f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "snorlaxgmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6cb605c7b6521048543ec692d2290e24331a9d63aaac8d9e78ba905cb76baf08",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 143,
+          "form": "Gmax",
+          "key": "lib-snorlaxgmax-n-a18d5a80cbb0"
+        },
+        "sha256": "6d28224a268ef83123416be7a8d77c11ef1c89192e2e6084367d635bf9a4605a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "snorlaxgmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6cb605c7b6521048543ec692d2290e24331a9d63aaac8d9e78ba905cb76baf08",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 143,
+            "form": "Gmax",
+            "key": "lib-snorlaxgmax-n-a18d5a80cbb0"
+          },
+          "sha256": "b44e6d1835fc3fd2142a5d6a1070ded3104e7f90120c230507209ad7826c4d7e",
+          "palette_from": "lib-snorlaxgmax-s-51e44923ba62"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "snorlaxgmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6cb605c7b6521048543ec692d2290e24331a9d63aaac8d9e78ba905cb76baf08",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 143,
+            "form": "Gmax",
+            "key": "lib-snorlaxgmax-n-a18d5a80cbb0"
+          },
+          "sha256": "f348eb23073412c2425581909ff4370a4406e8757517fb26e48f0b8d86ec62f2",
+          "palette_from": "lib-snorlaxgmax-s-51e44923ba62"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "snorlaxgmax",
+    "num": 143,
+    "form": "Gmax",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Snorlax-Gmax, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "snorlaxgmax-cardinal.png",
+    "source_sha256": "6cb605c7b6521048543ec692d2290e24331a9d63aaac8d9e78ba905cb76baf08",
+    "source_record": "snorlaxgmax-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

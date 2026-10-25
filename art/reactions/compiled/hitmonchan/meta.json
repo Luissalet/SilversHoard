@@ -1,0 +1,313 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "hitmonchan",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a639490e62a5f3a9d085dd9e33b47a1b2a0734512fc7431e4f51054bb2bec788",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 14,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 107,
+          "form": "",
+          "key": "lib-hitmonchan-n-cebcdc9fc3a3"
+        },
+        "assembly": {
+          "native_frames": [
+            {
+              "action": "Pain",
+              "direction": 0,
+              "frame": 0,
+              "animation": "Hurt",
+              "row": 0,
+              "index": 1
+            },
+            {
+              "action": "Pain",
+              "direction": 3,
+              "frame": 0,
+              "animation": "Hurt",
+              "row": 6,
+              "index": 1
+            }
+          ]
+        },
+        "sha256": "bf1492bc7f4de81ab2672ef5aeb621539425baba47cae0fcc771b120f3aad55b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "hitmonchan",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a639490e62a5f3a9d085dd9e33b47a1b2a0734512fc7431e4f51054bb2bec788",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 107,
+          "form": "",
+          "key": "lib-hitmonchan-n-cebcdc9fc3a3"
+        },
+        "assembly": {
+          "native_frames": [
+            {
+              "action": "Pain",
+              "direction": 0,
+              "frame": 0,
+              "animation": "Hurt",
+              "row": 0,
+              "index": 1
+            },
+            {
+              "action": "Pain",
+              "direction": 3,
+              "frame": 0,
+              "animation": "Hurt",
+              "row": 6,
+              "index": 1
+            }
+          ]
+        },
+        "sha256": "f07574158124758fe537db910e9e6e2c1bb3b34a2871fde4ef9dac73c7aea20e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "hitmonchan",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a639490e62a5f3a9d085dd9e33b47a1b2a0734512fc7431e4f51054bb2bec788",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 14,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 107,
+            "form": "",
+            "key": "lib-hitmonchan-n-cebcdc9fc3a3"
+          },
+          "assembly": {
+            "native_frames": [
+              {
+                "action": "Pain",
+                "direction": 0,
+                "frame": 0,
+                "animation": "Hurt",
+                "row": 0,
+                "index": 1
+              },
+              {
+                "action": "Pain",
+                "direction": 3,
+                "frame": 0,
+                "animation": "Hurt",
+                "row": 6,
+                "index": 1
+              }
+            ]
+          },
+          "sha256": "5763a7dc3b324a66252d164c04f3960958767ef5eb3d77cdecba5d124adc02fd",
+          "palette_from": "lib-hitmonchan-s-3d0b6d924d7e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "hitmonchan",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a639490e62a5f3a9d085dd9e33b47a1b2a0734512fc7431e4f51054bb2bec788",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 107,
+            "form": "",
+            "key": "lib-hitmonchan-n-cebcdc9fc3a3"
+          },
+          "assembly": {
+            "native_frames": [
+              {
+                "action": "Pain",
+                "direction": 0,
+                "frame": 0,
+                "animation": "Hurt",
+                "row": 0,
+                "index": 1
+              },
+              {
+                "action": "Pain",
+                "direction": 3,
+                "frame": 0,
+                "animation": "Hurt",
+                "row": 6,
+                "index": 1
+              }
+            ]
+          },
+          "sha256": "b0dd80ce0a9e7a3e8d660934d96beb0437a1e5647aafdd537867c3f3153d97b2",
+          "palette_from": "lib-hitmonchan-s-3d0b6d924d7e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "hitmonchan",
+    "num": 107,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Hitmonchan, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "hitmonchan-cardinal.png",
+    "source_sha256": "a639490e62a5f3a9d085dd9e33b47a1b2a0734512fc7431e4f51054bb2bec788",
+    "native_frames": [
+      {
+        "action": "Pain",
+        "direction": 0,
+        "frame": 0,
+        "animation": "Hurt",
+        "row": 0,
+        "index": 1
+      },
+      {
+        "action": "Pain",
+        "direction": 3,
+        "frame": 0,
+        "animation": "Hurt",
+        "row": 6,
+        "index": 1
+      }
+    ],
+    "source_record": "hitmonchan-assembled.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

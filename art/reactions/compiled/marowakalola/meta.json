@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "marowakalola",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e25a06ac58308a641a76cf8578a8e2001afdc06fac1e4d69b90d47680fc34031",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 105,
+          "form": "Alola",
+          "key": "lib-marowakalola-n-750965b2e610"
+        },
+        "sha256": "d8e80e3d75662bd1a27558659b1eac33b09cbe06004804c73e56f0b47716e8b7"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "marowakalola",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e25a06ac58308a641a76cf8578a8e2001afdc06fac1e4d69b90d47680fc34031",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 105,
+          "form": "Alola",
+          "key": "lib-marowakalola-n-750965b2e610"
+        },
+        "sha256": "7e7e7c283691c43eec5bf58735f68eb59ea90a276bf9879e26a3bf639e74e117"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "marowakalola",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e25a06ac58308a641a76cf8578a8e2001afdc06fac1e4d69b90d47680fc34031",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 105,
+            "form": "Alola",
+            "key": "lib-marowakalola-n-750965b2e610"
+          },
+          "sha256": "b76f2adbcdda666d6d80b7a46a3ed36a032fa5bf8bb97728c981e223eaa35594",
+          "palette_from": "lib-marowakalola-s-aa8a2339d86a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "marowakalola",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e25a06ac58308a641a76cf8578a8e2001afdc06fac1e4d69b90d47680fc34031",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 105,
+            "form": "Alola",
+            "key": "lib-marowakalola-n-750965b2e610"
+          },
+          "sha256": "24660775f6bd685c70ed7eb981c1b32a69bdfb1afe8c9eb75999b1b8620a1f17",
+          "palette_from": "lib-marowakalola-s-aa8a2339d86a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "marowakalola",
+    "num": 105,
+    "form": "Alola",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Marowak-Alola, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "marowakalola-cardinal.png",
+    "source_sha256": "e25a06ac58308a641a76cf8578a8e2001afdc06fac1e4d69b90d47680fc34031",
+    "source_record": "marowakalola-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

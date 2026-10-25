@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "spinarak",
+        "tool": "builtin-imagegen",
+        "source_sha256": "73a183bcbc603075819076b375d36b28da64bb8dc62e67298453b14cadbf30cd",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 167,
+          "form": "",
+          "key": "lib-spinarak-n-9c6d6e7c4fd6"
+        },
+        "sha256": "a344102e2b247abef130d3b81d9678467cc39c632be9e0b044a650a070ef2b02"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "spinarak",
+        "tool": "builtin-imagegen",
+        "source_sha256": "73a183bcbc603075819076b375d36b28da64bb8dc62e67298453b14cadbf30cd",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 167,
+          "form": "",
+          "key": "lib-spinarak-n-9c6d6e7c4fd6"
+        },
+        "sha256": "7390cd1e654a5176ffc098cdf69671c7db95e4602eeefe3911e41837feff5660"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "spinarak",
+          "tool": "builtin-imagegen",
+          "source_sha256": "73a183bcbc603075819076b375d36b28da64bb8dc62e67298453b14cadbf30cd",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 167,
+            "form": "",
+            "key": "lib-spinarak-n-9c6d6e7c4fd6"
+          },
+          "sha256": "395815ae93d50253bd734a8d683f7d837042b2a9f1f94cd07d9dc738959c2837",
+          "palette_from": "lib-spinarak-s-12d5aeb46cc4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "spinarak",
+          "tool": "builtin-imagegen",
+          "source_sha256": "73a183bcbc603075819076b375d36b28da64bb8dc62e67298453b14cadbf30cd",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 167,
+            "form": "",
+            "key": "lib-spinarak-n-9c6d6e7c4fd6"
+          },
+          "sha256": "ad1eb2b959fdf1d74d7e6ad5466ec976ffa253028826dc382f49a9bbf1056773",
+          "palette_from": "lib-spinarak-s-12d5aeb46cc4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "spinarak",
+    "num": 167,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Spinarak, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "spinarak-cardinal.png",
+    "source_sha256": "73a183bcbc603075819076b375d36b28da64bb8dc62e67298453b14cadbf30cd",
+    "source_record": "spinarak-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

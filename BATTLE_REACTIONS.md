@@ -18,9 +18,10 @@ larger replacement cannot completely conceal the downed Pokémon.
 All 1,469 installed species/form identities in normal and shiny variants have
 both animations: **2,938 variants**. The supplemental collection contains 531
 authored Pain and 516 authored HitGround variants from the same pinned
-SpriteCollab revision as the original library. There are also 100 newly drawn
-variants with both reactions, compiled from reviewed raster poses. The remaining
-2,307 Pain and 2,322 HitGround variants use explicitly marked runtime acting of their own
+SpriteCollab revision as the original library. Reviewed raster exports now cover
+348 normal/shiny variants; the supplement uses 345 new Pain and 345 new HitGround
+sequences, preserving published reactions where already available. The remaining
+2,062 Pain and 2,077 HitGround variants use explicitly marked runtime acting of their own
 installed artwork. These are derived reactions, not newly authored sprite
 sequences. Imported walking sheets and static battle-art fallbacks also have
 pain and a held prone pose; they never borrow another species' art. Artwork

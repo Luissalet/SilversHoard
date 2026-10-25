@@ -167,7 +167,7 @@
               }
             ]
           },
-          "sha256": "d0a6d665cee2522f68dc2e2419edea1f6bea7522ec29986c4ad481cca6c21db1",
+          "sha256": "ce868500a717ce1364e982f0d2839795b432ab173032ff044bd56af8f7baa39a",
           "palette_from": "lib-venusaurmega-s-f43e7f3c20a9"
         },
         "row_map": [
@@ -225,7 +225,7 @@
               }
             ]
           },
-          "sha256": "d9c4b342a91effa5ccb363255226cdb9bb9650f865cf7436033077cfa3fec045",
+          "sha256": "aa17ef4e89bcda538884e51a541e446d4cd3a3a62fc58d4c497146fd02775b8e",
           "palette_from": "lib-venusaurmega-s-f43e7f3c20a9"
         },
         "row_map": [
@@ -265,7 +265,8 @@
         "row": 2,
         "index": 0
       }
-    ]
+    ],
+    "source_record": "venusaurmega-v2.json"
   },
   "reviewed": true,
   "shiny_reviewed": true

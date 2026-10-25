@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "mewtwomegay",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b511e1e87354fd33fbc172a403fbb4f264371d1af1f31f5b53b5256046104895",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 150,
+          "form": "Mega-Y",
+          "key": "lib-mewtwomegay-n-f58755c07653"
+        },
+        "sha256": "eebd90acfccdc279ec38c2014885765720d04575bbf88977735b7c51a171c000"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "mewtwomegay",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b511e1e87354fd33fbc172a403fbb4f264371d1af1f31f5b53b5256046104895",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 150,
+          "form": "Mega-Y",
+          "key": "lib-mewtwomegay-n-f58755c07653"
+        },
+        "sha256": "5ceefc51261e0b8479e50f796a0040cac88b365c21edffb228e9e8e5c279de4c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "mewtwomegay",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b511e1e87354fd33fbc172a403fbb4f264371d1af1f31f5b53b5256046104895",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 150,
+            "form": "Mega-Y",
+            "key": "lib-mewtwomegay-n-f58755c07653"
+          },
+          "sha256": "b2747d3faca3f87fcd5031f60e405fb3083791d753b8a2808680c9f9d231b66d",
+          "palette_from": "lib-mewtwomegay-s-391f35dd1673"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "mewtwomegay",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b511e1e87354fd33fbc172a403fbb4f264371d1af1f31f5b53b5256046104895",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 150,
+            "form": "Mega-Y",
+            "key": "lib-mewtwomegay-n-f58755c07653"
+          },
+          "sha256": "aeb8d5c7e2adca097bd0ff040a92e42fa2fab184b10eff1093f455e2e3874f4e",
+          "palette_from": "lib-mewtwomegay-s-391f35dd1673"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "mewtwomegay",
+    "num": 150,
+    "form": "Mega-Y",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Mewtwo-Mega-Y, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "mewtwomegay-cardinal.png",
+    "source_sha256": "b511e1e87354fd33fbc172a403fbb4f264371d1af1f31f5b53b5256046104895",
+    "source_record": "mewtwomegay-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

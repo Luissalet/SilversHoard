@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tentacool",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e0baf920455d0deebbd26bea5dadefbd17c670b100933999513319baee0580c0",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 72,
+          "form": "",
+          "key": "lib-tentacool-n-5963f47a1722"
+        },
+        "sha256": "0a5d3734f52f98a464cd232cfd1dc1061dd207533df54ae5d406adf8a254d4ce"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tentacool",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e0baf920455d0deebbd26bea5dadefbd17c670b100933999513319baee0580c0",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 72,
+          "form": "",
+          "key": "lib-tentacool-n-5963f47a1722"
+        },
+        "sha256": "ff27d4c68467af1980c45a0ddff8c7232ae3f04929fe774a149f09ef9d2090bc"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tentacool",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e0baf920455d0deebbd26bea5dadefbd17c670b100933999513319baee0580c0",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 72,
+            "form": "",
+            "key": "lib-tentacool-n-5963f47a1722"
+          },
+          "sha256": "4a36dd816845e685abc627d07d0e9f77d829e2d1eb38f6528d69704b99316453",
+          "palette_from": "lib-tentacool-s-378c267284bb"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tentacool",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e0baf920455d0deebbd26bea5dadefbd17c670b100933999513319baee0580c0",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 72,
+            "form": "",
+            "key": "lib-tentacool-n-5963f47a1722"
+          },
+          "sha256": "0c626b5dbbeba2f775473f25628390eea3314215ed7688b6da687c98bcd48cfc",
+          "palette_from": "lib-tentacool-s-378c267284bb"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "tentacool",
+    "num": 72,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Tentacool, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "tentacool-cardinal.png",
+    "source_sha256": "e0baf920455d0deebbd26bea5dadefbd17c670b100933999513319baee0580c0",
+    "source_record": "tentacool-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

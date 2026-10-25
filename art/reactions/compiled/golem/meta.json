@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "golem",
+        "tool": "builtin-imagegen",
+        "source_sha256": "16d255b79b9a9ef201a539b31df97de4766d2c74594ca12a7169955d880ed1ff",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 76,
+          "form": "",
+          "key": "lib-golem-n-fcc56ca51d6d"
+        },
+        "sha256": "b576055f99d50b019090520d7e73a116dc0bb6335787e9365f6c62fd81cfa873"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "golem",
+        "tool": "builtin-imagegen",
+        "source_sha256": "16d255b79b9a9ef201a539b31df97de4766d2c74594ca12a7169955d880ed1ff",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 76,
+          "form": "",
+          "key": "lib-golem-n-fcc56ca51d6d"
+        },
+        "sha256": "4d38ac0b0989e190512186e26edf77d371ac69d176cbb421543d7b40b2bf2de1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "golem",
+          "tool": "builtin-imagegen",
+          "source_sha256": "16d255b79b9a9ef201a539b31df97de4766d2c74594ca12a7169955d880ed1ff",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 76,
+            "form": "",
+            "key": "lib-golem-n-fcc56ca51d6d"
+          },
+          "sha256": "4f8198752065caf966422d7ef08db3b8ec57f755bafa6152d0f0294809954243",
+          "palette_from": "lib-golem-s-e0f5b5314ea6"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "golem",
+          "tool": "builtin-imagegen",
+          "source_sha256": "16d255b79b9a9ef201a539b31df97de4766d2c74594ca12a7169955d880ed1ff",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 76,
+            "form": "",
+            "key": "lib-golem-n-fcc56ca51d6d"
+          },
+          "sha256": "fcdb987480a2181599230c6790c4f36de82809a0030558b3a3d76dcdd4bed0a8",
+          "palette_from": "lib-golem-s-e0f5b5314ea6"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "golem",
+    "num": 76,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Golem, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "golem-cardinal.png",
+    "source_sha256": "16d255b79b9a9ef201a539b31df97de4766d2c74594ca12a7169955d880ed1ff",
+    "source_record": "golem-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

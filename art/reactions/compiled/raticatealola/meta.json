@@ -131,7 +131,7 @@
             "form": "Alola",
             "key": "lib-raticatealola-n-c4f6689da82b"
           },
-          "sha256": "e8be19321d4e46fc84ee2629f32e23a46e60b6f96065e92a791b9cbc881d98ea",
+          "sha256": "cc8f75c7fb97a7e6ab5fb5f4593bd6f216228366811aae1813beb133df427e39",
           "palette_from": "lib-raticatealola-s-55071e521fe2"
         },
         "row_map": [
@@ -177,7 +177,7 @@
             "form": "Alola",
             "key": "lib-raticatealola-n-c4f6689da82b"
           },
-          "sha256": "41ef3af2e2eefc3506fef2a90214f864ad4df8f9e2b426fb6d27ab50361e1884",
+          "sha256": "8135d46e4d2f9821cacd7dca0cfea5cb70fe976013261b0adde963987f0942fe",
           "palette_from": "lib-raticatealola-s-55071e521fe2"
         },
         "row_map": [
@@ -207,7 +207,8 @@
     "tool": "builtin-imagegen",
     "prompt": "Create a new pixel-art game animation sheet for Raticate-Alola, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
     "source_image": "raticatealola-cardinal.png",
-    "source_sha256": "ab10711b30db3e263b68d93d7b8d3d2825aa9dbdb56dcf5619bfec0771d157dc"
+    "source_sha256": "ab10711b30db3e263b68d93d7b8d3d2825aa9dbdb56dcf5619bfec0771d157dc",
+    "source_record": "raticatealola-cardinal.json"
   },
   "reviewed": true,
   "shiny_reviewed": true
