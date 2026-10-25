@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "slowking",
+        "tool": "builtin-imagegen",
+        "source_sha256": "66c1d9669e207ccceced35f630e92da66d95ff66330d972c5bf109d6e65153d3",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 199,
+          "form": "",
+          "key": "lib-slowking-n-457ed53fa57b"
+        },
+        "sha256": "f2cfb6d4ec5eea9f3a5a1cbcfaff67ddeca854bab506ac53366c9446d71eab9c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "slowking",
+        "tool": "builtin-imagegen",
+        "source_sha256": "66c1d9669e207ccceced35f630e92da66d95ff66330d972c5bf109d6e65153d3",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 199,
+          "form": "",
+          "key": "lib-slowking-n-457ed53fa57b"
+        },
+        "sha256": "071386e78edf8e4e78e3d967a4f2cf2898ab780c0de99e01922f95b3cca3bf9b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "slowking",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ae1b8b6072e7309f8eff0c9ef238d59e1361fb8b7dbbfa69fdf9ab1df3e76a79",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 199,
+            "form": "",
+            "key": "lib-slowking-s-56b198454af3"
+          },
+          "sha256": "ac146142ab8dec20a7b37ed6ea4a86c0ae17e3e73a3a62e25244ad9a9c9ba608"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "slowking",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ae1b8b6072e7309f8eff0c9ef238d59e1361fb8b7dbbfa69fdf9ab1df3e76a79",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 199,
+            "form": "",
+            "key": "lib-slowking-s-56b198454af3"
+          },
+          "sha256": "613a9eab34c8271dcc1be74196f1cfd66e71b7874f3be624515e5917f8361276"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "slowking",
+    "num": 199,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Slowking, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "slowking-cardinal.png",
+    "source_sha256": "66c1d9669e207ccceced35f630e92da66d95ff66330d972c5bf109d6e65153d3",
+    "source_record": "slowking-cardinal.json",
+    "shiny_source_image": "slowking-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Image1 is the EDIT TARGET: a transparent eight-column four-row pixel-art game animation atlas. Image2 is ONLY the exact native SHINY COLOUR reference. Recolour image1 to match image2. Keep the WHOLE body, back and tail shiny PINK. BLUE appears ONLY on the native neck collar stripes; no blue patches anywhere on the body/back/tail. Keep the shell and cream markings exact. CHANGE COLOURS ONLY. Preserve all32 physical poses, all four fixed row cameras, complete anatomy/part counts, same8x4 layout and transparent gutters. No effects, extra objects, shadows, text or smooth illustration."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

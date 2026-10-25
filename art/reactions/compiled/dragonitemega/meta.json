@@ -113,10 +113,10 @@
         "ax": 32.0,
         "ay": 50,
         "source": {
-          "kind": "shiny-generated-pmd-reaction",
+          "kind": "generated-shiny-pmd-reaction",
           "record": "dragonitemega",
           "tool": "builtin-imagegen",
-          "source_sha256": "d50c5f1a2ca44d541c838895e1ed046e472df0694cb82110ff69963acb921adc",
+          "source_sha256": "b4489a499e9432186c7e47416ff14a9c313f1ba2c1331dda29bbc3096207e3e0",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -129,10 +129,9 @@
           "reference": {
             "num": 149,
             "form": "Mega",
-            "key": "lib-dragonitemega-n-37732afd64d8"
+            "key": "lib-dragonitemega-s-ae7ad29770dd"
           },
-          "sha256": "d41d2782d10e9a54ddbd3a95eee9de4014fbce72fc6094c1483b3512fd55d8f0",
-          "palette_from": "lib-dragonitemega-s-ae7ad29770dd"
+          "sha256": "2b35151b5d60a68e87ca9546c4272ff91227305667622a04db1ac33f42fe0e2b"
         },
         "row_map": [
           0,
@@ -159,10 +158,10 @@
         "ax": 32.0,
         "ay": 50,
         "source": {
-          "kind": "shiny-generated-pmd-reaction",
+          "kind": "generated-shiny-pmd-reaction",
           "record": "dragonitemega",
           "tool": "builtin-imagegen",
-          "source_sha256": "d50c5f1a2ca44d541c838895e1ed046e472df0694cb82110ff69963acb921adc",
+          "source_sha256": "b4489a499e9432186c7e47416ff14a9c313f1ba2c1331dda29bbc3096207e3e0",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -175,10 +174,9 @@
           "reference": {
             "num": 149,
             "form": "Mega",
-            "key": "lib-dragonitemega-n-37732afd64d8"
+            "key": "lib-dragonitemega-s-ae7ad29770dd"
           },
-          "sha256": "409d5613f5fd5ac3f062807dc2bdae519591bde5867cce90aaebf6edd16db313",
-          "palette_from": "lib-dragonitemega-s-ae7ad29770dd"
+          "sha256": "a59306765fe824d8de50fed6bcf7ac7814ab9c44715808c2f476f6e024e459df"
         },
         "row_map": [
           0,
@@ -208,8 +206,10 @@
     "prompt": "Create a new pixel-art game animation sheet for Dragonite-Mega, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
     "source_image": "dragonitemega-cardinal.png",
     "source_sha256": "d50c5f1a2ca44d541c838895e1ed046e472df0694cb82110ff69963acb921adc",
-    "source_record": "dragonitemega-cardinal.json"
+    "source_record": "dragonitemega-cardinal.json",
+    "shiny_source_image": "dragonitemega-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Image1 is the EDIT TARGET: a transparent eight-column four-row pixel-art game animation atlas. Image2 is ONLY the exact native SHINY COLOUR reference. Recolour image1 to match image2. The body is shiny blue, but BOTH large wing-like appendages above the head retain their native BROWN and CREAM regions. Never recolour the brown head appendage material blue. Retain all native cream membranes and brown markings. CHANGE COLOURS ONLY. Preserve all32 physical poses, all four fixed row cameras, complete anatomy/part counts, same8x4 layout and transparent gutters. No effects, extra objects, shadows, text or smooth illustration."
   },
   "reviewed": true,
-  "shiny_reviewed": false
+  "shiny_reviewed": true
 }

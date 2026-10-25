@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "blaziken",
+        "tool": "builtin-imagegen",
+        "source_sha256": "25a3dfdba3d94135709789ee5dd1fdcd488e684d3aeb5e4dee2964a7c0b0d030",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 257,
+          "form": "",
+          "key": "lib-blaziken-n-607b14aeae11"
+        },
+        "sha256": "9ec4d11124fbeb608c029f669c11d5b1fb34362baafb12b27b68fafa6ae95347"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "blaziken",
+        "tool": "builtin-imagegen",
+        "source_sha256": "25a3dfdba3d94135709789ee5dd1fdcd488e684d3aeb5e4dee2964a7c0b0d030",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 257,
+          "form": "",
+          "key": "lib-blaziken-n-607b14aeae11"
+        },
+        "sha256": "9d93b5bb2d2365eb42924f26d896ad96f437a59081a3f4eca8b03c13e114afdd"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "blaziken",
+          "tool": "builtin-imagegen",
+          "source_sha256": "2c49ef5ab1dcba1561e20455f1f136e67317350e78603de781a0e71ab555ab81",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 257,
+            "form": "",
+            "key": "lib-blaziken-s-a90c1d5f4bb2"
+          },
+          "sha256": "d572499d86fe7d537f2d78b3d1b79afc2e5d697d785ad278fbe26201aeff91e7"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "blaziken",
+          "tool": "builtin-imagegen",
+          "source_sha256": "2c49ef5ab1dcba1561e20455f1f136e67317350e78603de781a0e71ab555ab81",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 257,
+            "form": "",
+            "key": "lib-blaziken-s-a90c1d5f4bb2"
+          },
+          "sha256": "9b0c5c67e887df490510308b2b6875cfe135be2fc3a37fe3f30a054037150232"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "blaziken",
+    "num": 257,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Blaziken, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "blaziken-cardinal.png",
+    "source_sha256": "25a3dfdba3d94135709789ee5dd1fdcd488e684d3aeb5e4dee2964a7c0b0d030",
+    "source_record": "blaziken-cardinal.json",
+    "shiny_source_image": "blaziken-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Image1 EDIT TARGET is a transparent eight-column four-row pixel-art sprite atlas. Image2 is ONLY the native shiny COLOUR reference. Recolour image1 faithfully to image2. The large feathered lower legs remain GOLDEN YELLOW all the way from the red thighs to the dark grey feet. Do not turn the large leg feather region white, cream or pink like the head mane. Change colours only. Preserve all32 sprites and their individual poses, fixed row camera directions, anatomy, exact8x4 arrangement, pixel clusters, transparent alpha and wide empty gutters. No effects, extra objects, text, background, shadows, smooth painting or redesigned anatomy."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

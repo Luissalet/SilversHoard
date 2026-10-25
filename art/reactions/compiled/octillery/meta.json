@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "octillery",
+        "tool": "builtin-imagegen",
+        "source_sha256": "1123652d9dfd015bce8c7165e8077eec31bed9638422b09b60df34d41788d0a6",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 224,
+          "form": "",
+          "key": "lib-octillery-n-2340e706a58b"
+        },
+        "sha256": "634862d4784951c9dfbc9b72e2622d424f56894efdac4d009b5679e547ff70cf"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "octillery",
+        "tool": "builtin-imagegen",
+        "source_sha256": "1123652d9dfd015bce8c7165e8077eec31bed9638422b09b60df34d41788d0a6",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 224,
+          "form": "",
+          "key": "lib-octillery-n-2340e706a58b"
+        },
+        "sha256": "0feffd28834d83165426a2bfcd70a205d0622013a3c4da9a11468c85b0bd4a4d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "octillery",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1123652d9dfd015bce8c7165e8077eec31bed9638422b09b60df34d41788d0a6",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 224,
+            "form": "",
+            "key": "lib-octillery-n-2340e706a58b"
+          },
+          "sha256": "62098bba818ceb3fb2f8595867c5689947923e3507d98482eade76dd90dbc51b",
+          "palette_from": "lib-octillery-s-329c0adc47ff"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "octillery",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1123652d9dfd015bce8c7165e8077eec31bed9638422b09b60df34d41788d0a6",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 224,
+            "form": "",
+            "key": "lib-octillery-n-2340e706a58b"
+          },
+          "sha256": "4002a3689aba6253d7542bb78d8409134fd4cfb17997d438b0191c3482e8daec",
+          "palette_from": "lib-octillery-s-329c0adc47ff"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "octillery",
+    "num": 224,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Octillery, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "octillery-cardinal.png",
+    "source_sha256": "1123652d9dfd015bce8c7165e8077eec31bed9638422b09b60df34d41788d0a6",
+    "source_record": "octillery-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

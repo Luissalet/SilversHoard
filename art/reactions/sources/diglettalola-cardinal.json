@@ -13,7 +13,9 @@
   "shiny_reviewed": false,
   "review": {
     "reviewer": "codex-silver-pain-r1502",
-    "report": "review-bulk4.json",
+    "report": "review-shiny7.json",
     "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
-  }
+  },
+  "shiny_image": "diglettalola-reaction-shiny-v1.png",
+  "shiny_prompt": "Use case: precise-object-edit. Image1 EDIT TARGET is a transparent eight-column four-row pixel-art sprite atlas. Image2 is ONLY the native shiny COLOUR reference. Recolour image1 faithfully to image2. Keep every hair strand GOLD YELLOW, nose BLUE and body in its native shiny brown. Change colours only. Preserve all32 sprites and their individual poses, fixed row camera directions, anatomy, exact8x4 arrangement, pixel clusters, transparent alpha and wide empty gutters. No effects, extra objects, text, background, shadows, smooth painting or redesigned anatomy."
 }

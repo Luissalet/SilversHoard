@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "snubbull",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5c1d4ae02d4149edb526d5037a6342321343ed55e4df20ea32fa912503341c75",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 209,
+          "form": "",
+          "key": "lib-snubbull-n-bf535f28f0fc"
+        },
+        "sha256": "0dbfe380a0cbbaea76bc84efc8ab8ce0153f209578b62b12968c3042db954ac3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "snubbull",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5c1d4ae02d4149edb526d5037a6342321343ed55e4df20ea32fa912503341c75",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 209,
+          "form": "",
+          "key": "lib-snubbull-n-bf535f28f0fc"
+        },
+        "sha256": "04b0479f9057441b14d9c9d48d79be68bdf1d8b177e32944e5bf672955ba329e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "snubbull",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5c1d4ae02d4149edb526d5037a6342321343ed55e4df20ea32fa912503341c75",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 209,
+            "form": "",
+            "key": "lib-snubbull-n-bf535f28f0fc"
+          },
+          "sha256": "2f44c36ba01e7774f914ed7c259d1963d8a8ee736fe27d6cfc69f6194751a727",
+          "palette_from": "lib-snubbull-s-7c144a1c0571"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "snubbull",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5c1d4ae02d4149edb526d5037a6342321343ed55e4df20ea32fa912503341c75",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 209,
+            "form": "",
+            "key": "lib-snubbull-n-bf535f28f0fc"
+          },
+          "sha256": "9d7ccbe59537a54ad8eb4f516a854f6f3b95f0acf3a8162182ec8e8df655b51a",
+          "palette_from": "lib-snubbull-s-7c144a1c0571"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "snubbull",
+    "num": 209,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Snubbull, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "snubbull-cardinal.png",
+    "source_sha256": "5c1d4ae02d4149edb526d5037a6342321343ed55e4df20ea32fa912503341c75",
+    "source_record": "snubbull-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

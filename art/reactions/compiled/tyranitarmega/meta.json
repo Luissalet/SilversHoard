@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tyranitarmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d7b4065b5fa1828ffdf169f9226386cb3c15324ab63ed39d81f8561c5a9bd937",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 248,
+          "form": "Mega",
+          "key": "lib-tyranitarmega-n-6b9248a2b998"
+        },
+        "sha256": "e518e7761afb14d4a432720b200923ad85b2411b885c1dec1bbd23fa07878486"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tyranitarmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d7b4065b5fa1828ffdf169f9226386cb3c15324ab63ed39d81f8561c5a9bd937",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 248,
+          "form": "Mega",
+          "key": "lib-tyranitarmega-n-6b9248a2b998"
+        },
+        "sha256": "ec5d4d9b40662470e14e8c8d0296a278abc17c19ce53b721011f421fbd902a84"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tyranitarmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d7b4065b5fa1828ffdf169f9226386cb3c15324ab63ed39d81f8561c5a9bd937",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 248,
+            "form": "Mega",
+            "key": "lib-tyranitarmega-n-6b9248a2b998"
+          },
+          "sha256": "b75c8c74c3db543a9c6ae6805e4b308d437399ef22e0774334e9c561def89cf4",
+          "palette_from": "lib-tyranitarmega-s-ba114607858e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tyranitarmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d7b4065b5fa1828ffdf169f9226386cb3c15324ab63ed39d81f8561c5a9bd937",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 248,
+            "form": "Mega",
+            "key": "lib-tyranitarmega-n-6b9248a2b998"
+          },
+          "sha256": "c114bd87708e32a740b9befbf4849c533d4126355db389a424db580d0df41679",
+          "palette_from": "lib-tyranitarmega-s-ba114607858e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "tyranitarmega",
+    "num": 248,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Tyranitar-Mega, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "tyranitarmega-cardinal.png",
+    "source_sha256": "d7b4065b5fa1828ffdf169f9226386cb3c15324ab63ed39d81f8561c5a9bd937",
+    "source_record": "tyranitarmega-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

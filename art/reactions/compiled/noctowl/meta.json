@@ -113,10 +113,10 @@
         "ax": 20.0,
         "ay": 42,
         "source": {
-          "kind": "shiny-generated-pmd-reaction",
+          "kind": "generated-shiny-pmd-reaction",
           "record": "noctowl",
           "tool": "builtin-imagegen",
-          "source_sha256": "d554708f37cf73db0c41f459c494dc7edb176225fff5936e5d0602c8358e6106",
+          "source_sha256": "bc2eceb4812c1f9776e0231a6208e947828f64574ef2ee9deb5cbb5c58e07974",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -129,10 +129,9 @@
           "reference": {
             "num": 164,
             "form": "",
-            "key": "lib-noctowl-n-4a3de78e7dbd"
+            "key": "lib-noctowl-s-ed805a5850f5"
           },
-          "sha256": "96c989c07fcdce1932ff1055ec5ee4cbeab167ab4294c7f542f3b291f13d15f0",
-          "palette_from": "lib-noctowl-s-ed805a5850f5"
+          "sha256": "bf4a1ce2907313f5871d367f8dbc0d02fdc804df1522ecfaeae4f9a217d293d2"
         },
         "row_map": [
           0,
@@ -159,10 +158,10 @@
         "ax": 20.0,
         "ay": 42,
         "source": {
-          "kind": "shiny-generated-pmd-reaction",
+          "kind": "generated-shiny-pmd-reaction",
           "record": "noctowl",
           "tool": "builtin-imagegen",
-          "source_sha256": "d554708f37cf73db0c41f459c494dc7edb176225fff5936e5d0602c8358e6106",
+          "source_sha256": "bc2eceb4812c1f9776e0231a6208e947828f64574ef2ee9deb5cbb5c58e07974",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -175,10 +174,9 @@
           "reference": {
             "num": 164,
             "form": "",
-            "key": "lib-noctowl-n-4a3de78e7dbd"
+            "key": "lib-noctowl-s-ed805a5850f5"
           },
-          "sha256": "772fee17402c3f7e7122b6b4a8b3c88d8ae7806a136a1f489f1c8151acce9317",
-          "palette_from": "lib-noctowl-s-ed805a5850f5"
+          "sha256": "358628a9a0e68fa593a60088926abf78b579c294583361be5687f80241a855ff"
         },
         "row_map": [
           0,
@@ -208,8 +206,10 @@
     "prompt": "Create a new pixel-art game animation sheet for Noctowl, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
     "source_image": "noctowl-cardinal.png",
     "source_sha256": "d554708f37cf73db0c41f459c494dc7edb176225fff5936e5d0602c8358e6106",
-    "source_record": "noctowl-cardinal.json"
+    "source_record": "noctowl-cardinal.json",
+    "shiny_source_image": "noctowl-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Image1 is the EDIT TARGET: a transparent eight-column four-row pixel-art game animation atlas. Image2 is ONLY the exact native SHINY COLOUR reference. Recolour image1 to match image2. Match the native golden/brown upper feathers and ORANGE lower feathers and tail. Do not turn the orange lower body or tail yellow. Keep the pale markings in their original locations. CHANGE COLOURS ONLY. Preserve all32 physical poses, all four fixed row cameras, complete anatomy/part counts, same8x4 layout and transparent gutters. No effects, extra objects, shadows, text or smooth illustration."
   },
   "reviewed": true,
-  "shiny_reviewed": false
+  "shiny_reviewed": true
 }

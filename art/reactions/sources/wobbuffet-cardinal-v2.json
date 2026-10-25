@@ -1,0 +1,19 @@
+{
+  "id": "wobbuffet",
+  "name": "Wobbuffet",
+  "num": 202,
+  "form": "",
+  "directions": 4,
+  "frames": 4,
+  "image": "wobbuffet-cardinal-v2.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Use case: precise-object-edit. Image1 EDIT TARGET is a transparent eight-column four-row pixel-art game animation atlas. Image2 is ONLY the exact native identity reference. Correct the duplicated black tail in ROW3 COLUMNS7 and8 only: the rear resting Wobbuffet has exactly ONE attached black tail with its two white eye-like markings, never two tails. Keep the left black tail and remove the extra black tail under the center. Preserve the blue body and resting pose. Retain every other cell unchanged, all32 full body poses, exact8x4 layout, fixed row cameras front/right/rear/left, native colours, crisp pixels and transparent background, no text, extra objects or effects.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-corrections8.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

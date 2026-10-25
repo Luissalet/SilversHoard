@@ -113,10 +113,10 @@
         "ax": 16.0,
         "ay": 26,
         "source": {
-          "kind": "shiny-generated-pmd-reaction",
+          "kind": "generated-shiny-pmd-reaction",
           "record": "diglettalola",
           "tool": "builtin-imagegen",
-          "source_sha256": "5afeebea546e998004a9e55f4ec883dc6d5622bbee0a76c5e03894458d6cb8bd",
+          "source_sha256": "249f1b0f4715fc743d90333a8b51c5027f83cee9ce1e0164eba8e7ab5b51484e",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -129,10 +129,9 @@
           "reference": {
             "num": 50,
             "form": "Alola",
-            "key": "lib-diglettalola-n-147740dbed34"
+            "key": "lib-diglettalola-s-65c1d0f8113a"
           },
-          "sha256": "ce69beaf5b9c267d1a2c0c4be75b54aca47eda85da6adafc903d743a6057a733",
-          "palette_from": "lib-diglettalola-s-65c1d0f8113a"
+          "sha256": "7aa13f044a10fe4136b539eb4bad67080f836dd4999c46c77199feaa48c5058a"
         },
         "row_map": [
           0,
@@ -159,10 +158,10 @@
         "ax": 16.0,
         "ay": 26,
         "source": {
-          "kind": "shiny-generated-pmd-reaction",
+          "kind": "generated-shiny-pmd-reaction",
           "record": "diglettalola",
           "tool": "builtin-imagegen",
-          "source_sha256": "5afeebea546e998004a9e55f4ec883dc6d5622bbee0a76c5e03894458d6cb8bd",
+          "source_sha256": "249f1b0f4715fc743d90333a8b51c5027f83cee9ce1e0164eba8e7ab5b51484e",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -175,10 +174,9 @@
           "reference": {
             "num": 50,
             "form": "Alola",
-            "key": "lib-diglettalola-n-147740dbed34"
+            "key": "lib-diglettalola-s-65c1d0f8113a"
           },
-          "sha256": "bee7df2caaf6ba55f6df2f21ce7485ae88dbcbc1220b4415dd820569f07e7364",
-          "palette_from": "lib-diglettalola-s-65c1d0f8113a"
+          "sha256": "0a1f4589c1f54f6bfe00fabd8ca07fbd6aa6ed31941b230994c0ee28f5de0bbb"
         },
         "row_map": [
           0,
@@ -208,7 +206,9 @@
     "prompt": "Create a new pixel-art game animation sheet for Diglett-Alola, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
     "source_image": "diglettalola-cardinal.png",
     "source_sha256": "5afeebea546e998004a9e55f4ec883dc6d5622bbee0a76c5e03894458d6cb8bd",
-    "source_record": "diglettalola-cardinal.json"
+    "source_record": "diglettalola-cardinal.json",
+    "shiny_source_image": "diglettalola-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Image1 EDIT TARGET is a transparent eight-column four-row pixel-art sprite atlas. Image2 is ONLY the native shiny COLOUR reference. Recolour image1 faithfully to image2. Keep every hair strand GOLD YELLOW, nose BLUE and body in its native shiny brown. Change colours only. Preserve all32 sprites and their individual poses, fixed row camera directions, anatomy, exact8x4 arrangement, pixel clusters, transparent alpha and wide empty gutters. No effects, extra objects, text, background, shadows, smooth painting or redesigned anatomy."
   },
   "reviewed": true,
   "shiny_reviewed": false

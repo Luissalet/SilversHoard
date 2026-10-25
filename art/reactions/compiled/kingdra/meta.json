@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "kingdra",
+        "tool": "builtin-imagegen",
+        "source_sha256": "24a474218b97c083195944a622e662378e217cbc588319c7c495a86ce2c429a3",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 230,
+          "form": "",
+          "key": "lib-kingdra-n-85fd17c1fedc"
+        },
+        "sha256": "0a2f134a12496c721e7ccba5392fd57ed7e1fe3d894805690d75d3dec682afc6"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "kingdra",
+        "tool": "builtin-imagegen",
+        "source_sha256": "24a474218b97c083195944a622e662378e217cbc588319c7c495a86ce2c429a3",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 230,
+          "form": "",
+          "key": "lib-kingdra-n-85fd17c1fedc"
+        },
+        "sha256": "7485677dcd679def6fa0048aadd5b945d2f586e0e97f844ec558c2524c172010"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "kingdra",
+          "tool": "builtin-imagegen",
+          "source_sha256": "24a474218b97c083195944a622e662378e217cbc588319c7c495a86ce2c429a3",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 230,
+            "form": "",
+            "key": "lib-kingdra-n-85fd17c1fedc"
+          },
+          "sha256": "78ccbb8ae20c2b67bbdde21e9dbf8a6171e74adc1ddc6b745fdbf00061fef511",
+          "palette_from": "lib-kingdra-s-811e90f7b26a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "kingdra",
+          "tool": "builtin-imagegen",
+          "source_sha256": "24a474218b97c083195944a622e662378e217cbc588319c7c495a86ce2c429a3",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 230,
+            "form": "",
+            "key": "lib-kingdra-n-85fd17c1fedc"
+          },
+          "sha256": "086f859b9e865e63ecd32df16bcffa60aa3a5980cffd797935c39e046a02a102",
+          "palette_from": "lib-kingdra-s-811e90f7b26a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "kingdra",
+    "num": 230,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Kingdra, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "kingdra-cardinal.png",
+    "source_sha256": "24a474218b97c083195944a622e662378e217cbc588319c7c495a86ce2c429a3",
+    "source_record": "kingdra-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

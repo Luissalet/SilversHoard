@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "unownu",
+        "tool": "builtin-imagegen",
+        "source_sha256": "c5b38308cecd2dc322ce44e3fccddfccfcf250b3c235c944791f74720c22b4df",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 201,
+          "form": "U",
+          "key": "lib-unownu-n-b04014442587"
+        },
+        "sha256": "5f75c2d50babe2e67164c69f33610ca316d0550f44862a09fe7826eea43844f0"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "unownu",
+        "tool": "builtin-imagegen",
+        "source_sha256": "c5b38308cecd2dc322ce44e3fccddfccfcf250b3c235c944791f74720c22b4df",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 201,
+          "form": "U",
+          "key": "lib-unownu-n-b04014442587"
+        },
+        "sha256": "ee17f4e582319a85ff39e35f9a28335ab11871593f00c625a66625fbf8d81265"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "unownu",
+          "tool": "builtin-imagegen",
+          "source_sha256": "c5b38308cecd2dc322ce44e3fccddfccfcf250b3c235c944791f74720c22b4df",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 201,
+            "form": "U",
+            "key": "lib-unownu-n-b04014442587"
+          },
+          "sha256": "f97eecc680077b4e61a59917cbbb10e335b7f3f2c540d1a4df18ee4c4c07c21e",
+          "palette_from": "lib-unownu-s-337ea4f43ce1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "unownu",
+          "tool": "builtin-imagegen",
+          "source_sha256": "c5b38308cecd2dc322ce44e3fccddfccfcf250b3c235c944791f74720c22b4df",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 201,
+            "form": "U",
+            "key": "lib-unownu-n-b04014442587"
+          },
+          "sha256": "4d45eaf42adda0d5ca19d7ebc337490db9b8cae3cd99af435c7a95b2aafa3cdd",
+          "palette_from": "lib-unownu-s-337ea4f43ce1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "unownu",
+    "num": 201,
+    "form": "U",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Unown-U, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "unownu-cardinal.png",
+    "source_sha256": "c5b38308cecd2dc322ce44e3fccddfccfcf250b3c235c944791f74720c22b4df",
+    "source_record": "unownu-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

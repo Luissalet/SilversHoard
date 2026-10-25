@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "sceptile",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b5b591e98c0e323b73257f190a92a83b244c3a596c7186987ea4997eca63a2a4",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 254,
+          "form": "",
+          "key": "lib-sceptile-n-7f3303dccb91"
+        },
+        "sha256": "a26e262a04981c6ad31a4692cfc05345440a3dd50d99e828a2266c5489c4b3a5"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "sceptile",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b5b591e98c0e323b73257f190a92a83b244c3a596c7186987ea4997eca63a2a4",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 254,
+          "form": "",
+          "key": "lib-sceptile-n-7f3303dccb91"
+        },
+        "sha256": "ce8bfc10e631f7fd1093517f6b3d447bcb392a7537de455d2e23de869e45d3d1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "sceptile",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b5b591e98c0e323b73257f190a92a83b244c3a596c7186987ea4997eca63a2a4",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 254,
+            "form": "",
+            "key": "lib-sceptile-n-7f3303dccb91"
+          },
+          "sha256": "890876ee74edb1b34ec4c13695189199cd0076506ae0c6d55fed3c5d1af8590e",
+          "palette_from": "lib-sceptile-s-cece1ff22ad0"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "sceptile",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b5b591e98c0e323b73257f190a92a83b244c3a596c7186987ea4997eca63a2a4",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 254,
+            "form": "",
+            "key": "lib-sceptile-n-7f3303dccb91"
+          },
+          "sha256": "4422a6708edd6b89d976d3bed238656f5df5c95f81868776d8d03f3484f63e74",
+          "palette_from": "lib-sceptile-s-cece1ff22ad0"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "sceptile",
+    "num": 254,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Sceptile, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "sceptile-cardinal.png",
+    "source_sha256": "b5b591e98c0e323b73257f190a92a83b244c3a596c7186987ea4997eca63a2a4",
+    "source_record": "sceptile-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

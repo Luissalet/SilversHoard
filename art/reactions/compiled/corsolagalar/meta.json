@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "corsolagalar",
+        "tool": "builtin-imagegen",
+        "source_sha256": "1e2e57b988d230d262e7611a0baaf50d910e71010b6884440cadfc2e06e55dcc",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 222,
+          "form": "Galar",
+          "key": "lib-corsolagalar-n-8355ee4375a6"
+        },
+        "sha256": "05b0afde2b45b5c68cade79df674db3333692c1100d4d8d487a02704a69f12ca"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "corsolagalar",
+        "tool": "builtin-imagegen",
+        "source_sha256": "1e2e57b988d230d262e7611a0baaf50d910e71010b6884440cadfc2e06e55dcc",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 222,
+          "form": "Galar",
+          "key": "lib-corsolagalar-n-8355ee4375a6"
+        },
+        "sha256": "6c7a8ea00df36e770818b380ef92d0078a37edcd13817eb16efb08d2f7ab4fe6"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "corsolagalar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1e2e57b988d230d262e7611a0baaf50d910e71010b6884440cadfc2e06e55dcc",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 222,
+            "form": "Galar",
+            "key": "lib-corsolagalar-n-8355ee4375a6"
+          },
+          "sha256": "0a2570c62bdea1205498fd94fe4d45e9f1f494cabdea227b6c407ed8f520bf6b",
+          "palette_from": "lib-corsolagalar-s-ee82c9808731"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "corsolagalar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1e2e57b988d230d262e7611a0baaf50d910e71010b6884440cadfc2e06e55dcc",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 222,
+            "form": "Galar",
+            "key": "lib-corsolagalar-n-8355ee4375a6"
+          },
+          "sha256": "d8e218556809e9ccb5eb2c0eacac226951e56edbc20dd995727908094eae1f09",
+          "palette_from": "lib-corsolagalar-s-ee82c9808731"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "corsolagalar",
+    "num": 222,
+    "form": "Galar",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Corsola-Galar, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "corsolagalar-cardinal.png",
+    "source_sha256": "1e2e57b988d230d262e7611a0baaf50d910e71010b6884440cadfc2e06e55dcc",
+    "source_record": "corsolagalar-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "unowni",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a7c840ffbf8cc0faaf571b7527d3442e0dedc09be0920b1d5f9aaee72fad4b8a",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 201,
+          "form": "I",
+          "key": "lib-unowni-n-4ff010be509b"
+        },
+        "sha256": "a0fd4d7899b2d433f003a4fab2098f390b188c6b5828b776ee927bece39623c6"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "unowni",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a7c840ffbf8cc0faaf571b7527d3442e0dedc09be0920b1d5f9aaee72fad4b8a",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 201,
+          "form": "I",
+          "key": "lib-unowni-n-4ff010be509b"
+        },
+        "sha256": "a46f833a52c482ef0aa5a4b572b8f63ea5a357a76f004cdb19e3a6a497d49949"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "unowni",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a7c840ffbf8cc0faaf571b7527d3442e0dedc09be0920b1d5f9aaee72fad4b8a",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 201,
+            "form": "I",
+            "key": "lib-unowni-n-4ff010be509b"
+          },
+          "sha256": "7a26165afd837ac60c0900ec428e5313ea82ad98396f7f2374cacec1b7eda6ae",
+          "palette_from": "lib-unowni-s-618ba28c9e31"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "unowni",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a7c840ffbf8cc0faaf571b7527d3442e0dedc09be0920b1d5f9aaee72fad4b8a",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 201,
+            "form": "I",
+            "key": "lib-unowni-n-4ff010be509b"
+          },
+          "sha256": "9dd2de1ac470c1c4f46d57102b6f10865e247cfeeffbf358bdcc7bc0cec8fb7d",
+          "palette_from": "lib-unowni-s-618ba28c9e31"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "unowni",
+    "num": 201,
+    "form": "I",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Unown-I, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "unowni-cardinal.png",
+    "source_sha256": "a7c840ffbf8cc0faaf571b7527d3442e0dedc09be0920b1d5f9aaee72fad4b8a",
+    "source_record": "unowni-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "scizor",
+        "tool": "builtin-imagegen",
+        "source_sha256": "688e7e944b6be628411495ded79f3831cd7195369616bce436100768345f0977",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 212,
+          "form": "",
+          "key": "lib-scizor-n-d06cad747bea"
+        },
+        "sha256": "c7e1198222db7b888ccdf41bcbaed6ad17acfd1fc4e02bc3241dc786ad8691be"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "scizor",
+        "tool": "builtin-imagegen",
+        "source_sha256": "688e7e944b6be628411495ded79f3831cd7195369616bce436100768345f0977",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 212,
+          "form": "",
+          "key": "lib-scizor-n-d06cad747bea"
+        },
+        "sha256": "6f7cf2f18f7fe21b00657de5f8a98c5e17c9d8b08fbd3fc55681c91aedbfa793"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "scizor",
+          "tool": "builtin-imagegen",
+          "source_sha256": "688e7e944b6be628411495ded79f3831cd7195369616bce436100768345f0977",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 212,
+            "form": "",
+            "key": "lib-scizor-n-d06cad747bea"
+          },
+          "sha256": "8d5d64af00a38b41a1e842bcc9a016d224383c8b6970ea746bad68b641dea844",
+          "palette_from": "lib-scizor-s-7f085aae5501"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "scizor",
+          "tool": "builtin-imagegen",
+          "source_sha256": "688e7e944b6be628411495ded79f3831cd7195369616bce436100768345f0977",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 212,
+            "form": "",
+            "key": "lib-scizor-n-d06cad747bea"
+          },
+          "sha256": "4e31d2bdad8e6f7c15df64dc782d501e03ac7ac79bb6252c061c722e5f519444",
+          "palette_from": "lib-scizor-s-7f085aae5501"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "scizor",
+    "num": 212,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Scizor, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "scizor-cardinal.png",
+    "source_sha256": "688e7e944b6be628411495ded79f3831cd7195369616bce436100768345f0977",
+    "source_record": "scizor-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

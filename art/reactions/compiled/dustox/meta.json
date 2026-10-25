@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dustox",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0aa7487af5055de185e41aa2cd1f0427eca46f1fdd3a675c82c7c45ef6da98ed",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 269,
+          "form": "",
+          "key": "lib-dustox-n-ad0ab02439cf"
+        },
+        "sha256": "7a4be90a24f736e527a71bcf4393f32178e7aa57a40b82201df472795552b807"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dustox",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0aa7487af5055de185e41aa2cd1f0427eca46f1fdd3a675c82c7c45ef6da98ed",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 269,
+          "form": "",
+          "key": "lib-dustox-n-ad0ab02439cf"
+        },
+        "sha256": "82763142214dfa22746ea3acd9011aebcd503500c4a7bd58b65c715e7c688f4e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dustox",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0aa7487af5055de185e41aa2cd1f0427eca46f1fdd3a675c82c7c45ef6da98ed",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 269,
+            "form": "",
+            "key": "lib-dustox-n-ad0ab02439cf"
+          },
+          "sha256": "8836cacf14eb2b53212efee1551d17a04ca8ba362aa245fd13f8e778b41f719d",
+          "palette_from": "lib-dustox-s-103cffbdd115"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dustox",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0aa7487af5055de185e41aa2cd1f0427eca46f1fdd3a675c82c7c45ef6da98ed",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 269,
+            "form": "",
+            "key": "lib-dustox-n-ad0ab02439cf"
+          },
+          "sha256": "16cc184b6f16d897ab5dbde86e64bdb2c43ac0506fef455faa2ea36125926622",
+          "palette_from": "lib-dustox-s-103cffbdd115"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "dustox",
+    "num": 269,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Dustox, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "dustox-cardinal.png",
+    "source_sha256": "0aa7487af5055de185e41aa2cd1f0427eca46f1fdd3a675c82c7c45ef6da98ed",
+    "source_record": "dustox-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

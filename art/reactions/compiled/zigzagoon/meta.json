@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "zigzagoon",
+        "tool": "builtin-imagegen",
+        "source_sha256": "1676b5c0a5c75e6ecaa7bbb940262f40ae9f01191c7819838f8664c28d054046",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 263,
+          "form": "",
+          "key": "lib-zigzagoon-n-2c561af87d37"
+        },
+        "sha256": "9aa7b3eb7e20a6f5834933e9e7276b6f9fa60c72e5b1896772ac589199815e45"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "zigzagoon",
+        "tool": "builtin-imagegen",
+        "source_sha256": "1676b5c0a5c75e6ecaa7bbb940262f40ae9f01191c7819838f8664c28d054046",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 263,
+          "form": "",
+          "key": "lib-zigzagoon-n-2c561af87d37"
+        },
+        "sha256": "67a032a154c18b3e900a25407ddeab096385477359bfb9201df4cdcdd6f948cd"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "zigzagoon",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1676b5c0a5c75e6ecaa7bbb940262f40ae9f01191c7819838f8664c28d054046",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 263,
+            "form": "",
+            "key": "lib-zigzagoon-n-2c561af87d37"
+          },
+          "sha256": "db774be5fc6887a43e8d698e9ec41d42901c6275ca3db10aaf1b7113db1db691",
+          "palette_from": "lib-zigzagoon-s-5313ef7d0341"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "zigzagoon",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1676b5c0a5c75e6ecaa7bbb940262f40ae9f01191c7819838f8664c28d054046",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 263,
+            "form": "",
+            "key": "lib-zigzagoon-n-2c561af87d37"
+          },
+          "sha256": "cc325f5f2e9a0dd711c9ad6aaedc408b554d0a068fc029bd651c274932d5215c",
+          "palette_from": "lib-zigzagoon-s-5313ef7d0341"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "zigzagoon",
+    "num": 263,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Zigzagoon, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "zigzagoon-cardinal.png",
+    "source_sha256": "1676b5c0a5c75e6ecaa7bbb940262f40ae9f01191c7819838f8664c28d054046",
+    "source_record": "zigzagoon-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

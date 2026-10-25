@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "entei",
+        "tool": "builtin-imagegen",
+        "source_sha256": "738bc634bfa236bcfd69954ee37a014f220583fcf16ec2478451afb16b828077",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 244,
+          "form": "",
+          "key": "lib-entei-n-9ebd7f832c6e"
+        },
+        "sha256": "8b88d24b1071bb04ff39c730e083e1f4b2169313030fc936b8708d0915b4e5bf"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "entei",
+        "tool": "builtin-imagegen",
+        "source_sha256": "738bc634bfa236bcfd69954ee37a014f220583fcf16ec2478451afb16b828077",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 244,
+          "form": "",
+          "key": "lib-entei-n-9ebd7f832c6e"
+        },
+        "sha256": "26563a6bb91ef0587885d7224592a50d5b04ac9cba2ea18b182d0b09a487603a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "entei",
+          "tool": "builtin-imagegen",
+          "source_sha256": "738bc634bfa236bcfd69954ee37a014f220583fcf16ec2478451afb16b828077",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 244,
+            "form": "",
+            "key": "lib-entei-n-9ebd7f832c6e"
+          },
+          "sha256": "2df5f2faca897975e8fc7b9eb78269e89553bc583ef1a2f241226aeae2445118",
+          "palette_from": "lib-entei-s-d9f1679593d3"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "entei",
+          "tool": "builtin-imagegen",
+          "source_sha256": "738bc634bfa236bcfd69954ee37a014f220583fcf16ec2478451afb16b828077",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 244,
+            "form": "",
+            "key": "lib-entei-n-9ebd7f832c6e"
+          },
+          "sha256": "50e7a65249e32ad632abf9db0fb136b8699ff561c6afe44ec2e56de370573d89",
+          "palette_from": "lib-entei-s-d9f1679593d3"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "entei",
+    "num": 244,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Entei, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "entei-cardinal.png",
+    "source_sha256": "738bc634bfa236bcfd69954ee37a014f220583fcf16ec2478451afb16b828077",
+    "source_record": "entei-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

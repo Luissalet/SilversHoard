@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 80,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 40.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "mantine",
+        "tool": "builtin-imagegen",
+        "source_sha256": "2ca7f28fbbdf360c14b768b5db75c814ab8343932854dc1da0e41641f377bf94",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 226,
+          "form": "",
+          "key": "lib-mantine-n-0a66b33e5387"
+        },
+        "sha256": "bc6a4aedb5eb8ac644ff8efbec708cc6cf77a2f61bb84701676fb52fefd44855"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 80,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 40.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "mantine",
+        "tool": "builtin-imagegen",
+        "source_sha256": "2ca7f28fbbdf360c14b768b5db75c814ab8343932854dc1da0e41641f377bf94",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 226,
+          "form": "",
+          "key": "lib-mantine-n-0a66b33e5387"
+        },
+        "sha256": "050f7d45eec8708c2b77190eef638c8f77641f330a03a971a3d38ce04583b22b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 80,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 40.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "mantine",
+          "tool": "builtin-imagegen",
+          "source_sha256": "2ca7f28fbbdf360c14b768b5db75c814ab8343932854dc1da0e41641f377bf94",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 226,
+            "form": "",
+            "key": "lib-mantine-n-0a66b33e5387"
+          },
+          "sha256": "e13269280680d0542940eacce3eaf6d590d05d18bb722a7428f543673f5ef714",
+          "palette_from": "lib-mantine-s-a6a4d104ea35"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 80,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 40.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "mantine",
+          "tool": "builtin-imagegen",
+          "source_sha256": "2ca7f28fbbdf360c14b768b5db75c814ab8343932854dc1da0e41641f377bf94",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 226,
+            "form": "",
+            "key": "lib-mantine-n-0a66b33e5387"
+          },
+          "sha256": "8edd0a3203e4bef4806e0ebb19d79ec51c39b386d9a7c3a66d36a4f0fa2d15cb",
+          "palette_from": "lib-mantine-s-a6a4d104ea35"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "mantine",
+    "num": 226,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Mantine, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "mantine-cardinal.png",
+    "source_sha256": "2ca7f28fbbdf360c14b768b5db75c814ab8343932854dc1da0e41641f377bf94",
+    "source_record": "mantine-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "linoone",
+        "tool": "builtin-imagegen",
+        "source_sha256": "3f418e68cef300c3d17c905631b5dd371da83a6e8ec52af07e3305b803b717b4",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 264,
+          "form": "",
+          "key": "lib-linoone-n-aa3683b4c454"
+        },
+        "sha256": "cebdd544625cadc61a6555e28fea6b8d10475ea4a379cf9aed9fa35c49c96551"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "linoone",
+        "tool": "builtin-imagegen",
+        "source_sha256": "3f418e68cef300c3d17c905631b5dd371da83a6e8ec52af07e3305b803b717b4",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 264,
+          "form": "",
+          "key": "lib-linoone-n-aa3683b4c454"
+        },
+        "sha256": "15ae33672ad231fd8c09ee35f039b95d327f80e02e9fc4525363acf929b0de37"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "linoone",
+          "tool": "builtin-imagegen",
+          "source_sha256": "3f418e68cef300c3d17c905631b5dd371da83a6e8ec52af07e3305b803b717b4",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 264,
+            "form": "",
+            "key": "lib-linoone-n-aa3683b4c454"
+          },
+          "sha256": "9164fe9f44b10b99931374663621447e032233cf85e5c42878111da6c0bd0b1f",
+          "palette_from": "lib-linoone-s-47ba82169a23"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "linoone",
+          "tool": "builtin-imagegen",
+          "source_sha256": "3f418e68cef300c3d17c905631b5dd371da83a6e8ec52af07e3305b803b717b4",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 264,
+            "form": "",
+            "key": "lib-linoone-n-aa3683b4c454"
+          },
+          "sha256": "1682571b0fd2bb836295965b9fb99f53972706c12dc5174b5ea92f94ba2639e6",
+          "palette_from": "lib-linoone-s-47ba82169a23"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "linoone",
+    "num": 264,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Linoone, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "linoone-cardinal.png",
+    "source_sha256": "3f418e68cef300c3d17c905631b5dd371da83a6e8ec52af07e3305b803b717b4",
+    "source_record": "linoone-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

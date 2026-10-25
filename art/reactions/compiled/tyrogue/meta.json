@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tyrogue",
+        "tool": "builtin-imagegen",
+        "source_sha256": "87e06d8997691be488bf8f34cf53934a938bb0796ba3be30481117b67cce6b44",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 236,
+          "form": "",
+          "key": "lib-tyrogue-n-9f9e3cee6ced"
+        },
+        "sha256": "a181c9e426f12f070d53a6a989286dc4c16ce865bac556e44a3abd3f316b5c2b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tyrogue",
+        "tool": "builtin-imagegen",
+        "source_sha256": "87e06d8997691be488bf8f34cf53934a938bb0796ba3be30481117b67cce6b44",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 236,
+          "form": "",
+          "key": "lib-tyrogue-n-9f9e3cee6ced"
+        },
+        "sha256": "1cbcd67fb40cbf5940b13573977586d1f43fe8d376d332ea2d70586f44b67e43"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tyrogue",
+          "tool": "builtin-imagegen",
+          "source_sha256": "87e06d8997691be488bf8f34cf53934a938bb0796ba3be30481117b67cce6b44",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 236,
+            "form": "",
+            "key": "lib-tyrogue-n-9f9e3cee6ced"
+          },
+          "sha256": "67f8f2cf26222e693059faa9008978b972bad981cdcf6d595fb3db800898c1f5",
+          "palette_from": "lib-tyrogue-s-e41d3396db0c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tyrogue",
+          "tool": "builtin-imagegen",
+          "source_sha256": "87e06d8997691be488bf8f34cf53934a938bb0796ba3be30481117b67cce6b44",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 236,
+            "form": "",
+            "key": "lib-tyrogue-n-9f9e3cee6ced"
+          },
+          "sha256": "a3a08900475cae49f338935e98b3020ee98c08b7e97faf4e2f0c23b63717690d",
+          "palette_from": "lib-tyrogue-s-e41d3396db0c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "tyrogue",
+    "num": 236,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Tyrogue, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "tyrogue-cardinal.png",
+    "source_sha256": "87e06d8997691be488bf8f34cf53934a938bb0796ba3be30481117b67cce6b44",
+    "source_record": "tyrogue-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}
