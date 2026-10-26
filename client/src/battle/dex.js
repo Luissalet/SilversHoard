@@ -3,7 +3,7 @@
 import NAMES_ES from "./names-es.js";
 import { BattleText } from "./text/battle-text.gen.js";
 import { ZA_MEGA_IDS } from "./mega-sprites.js";
-import { portableAsset, portablePmdPreview } from "../portable-assets.js";
+import { portableAsset, portablePmdPreview, portablePortrait } from "../portable-assets.js";
 
 export const toID = (text) => String(text ?? "").toLowerCase().replace(/[^a-z0-9]+/g, "");
 
@@ -94,9 +94,11 @@ export function makeSprites({ base = "", server = "", set = "gen5ani", dexNum = 
   };
   // a Pokémon's portrait with an emotion (SpriteCollab): through the app, which picks the forme and a close emotion and caches it;
   // on the playable page straight from SpriteCollab by Pokédex number (the page then falls back to "Normal" itself)
-  const portrait = (species, emotion = "Normal", { num = 0 } = {}) => {
+  const portrait = (species, emotion = "Normal", { num = 0, shiny = false } = {}) => {
     if (!species) return "";
-    if (!server) return `${base}/api/sprites/portrait?species=${encodeURIComponent(species)}&emotion=${encodeURIComponent(emotion)}`;
+    const installed = portablePortrait(species, emotion, {shiny});
+    if (installed !== undefined) return installed;
+    if (!server) return `${base}/api/sprites/portrait?species=${encodeURIComponent(species)}&emotion=${encodeURIComponent(emotion)}${shiny ? '&shiny=1' : ''}`;
     const n = num || (dexNum ? dexNum(species) : 0);
     return n > 0 ? `${PORTRAITS}/${String(n).padStart(4, "0")}/${emotion}.png` : "";
   };
@@ -115,7 +117,7 @@ export function makeSprites({ base = "", server = "", set = "gen5ani", dexNum = 
   return { pokemon: (species, options) => portableAsset(pokemon(species, options), { fallback: portablePmdPreview(species,options) || fallback(species, options), label: species }),
     fallback: (species, options) => portablePmdPreview(species,options) || portableAsset(fallback(species, options), { label: species }),
     trainer: (avatar) => portableAsset(trainer(avatar)),
-    portrait: (species, emotion, options) => portableAsset(portrait(species, emotion, options), { fallback: portablePmdPreview(species,options), label: species }),
+    portrait: (species, emotion, options) => portableAsset(portrait(species, emotion, options), { fallback: portablePmdPreview(species,options) || fallback(species,options), label: species }),
     walking, pixelated, scale: SCALE[set] || SCALE.gen5, server };
 }
 

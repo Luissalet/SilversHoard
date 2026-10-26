@@ -50,6 +50,16 @@ export function portablePmdPreview(species, {back = false, shiny = false} = {}) 
   return meta?.previews?.[name] ? fileUrl(meta.previews[name]) : "";
 }
 
+/** An exact form/colour portrait; undefined retains the app's existing route. */
+export function portablePortrait(species, emotion = 'Normal', {shiny = false} = {}) {
+  if (bundle === null) return undefined;
+  const id = String(species).toLowerCase().replace(/[^a-z0-9]/g, '');
+  const entry = bundle.portraits?.entries?.[`${id}|${shiny ? 1 : 0}`];
+  const choices = [emotion, ...(bundle.portraits?.fallbacks?.[emotion] || []), 'Normal'];
+  const file = choices.map(e => entry?.[e]).find(Boolean);
+  return file ? fileUrl(file) : '';
+}
+
 function placeholder(label) {
   const letters = String(label || "?").replace(/[^a-z0-9]/gi, "").slice(0, 2).toUpperCase() || "?";
   return "data:image/svg+xml," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96"><circle cx="48" cy="48" r="35" fill="#30272a" stroke="#b49b81" stroke-width="3"/><text x="48" y="58" text-anchor="middle" fill="#f0e6d8" font-family="sans-serif" font-size="28" font-weight="bold">${letters}</text></svg>`);

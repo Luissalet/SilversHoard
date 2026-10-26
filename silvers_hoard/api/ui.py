@@ -121,9 +121,9 @@ def overworld_sheet(request: Request, key: str):
 
 
 @router.get("/sprites/portrait")
-def pmd_portrait(request: Request, species: str = "", emotion: str = "Normal"):
-    """A Pokémon's portrait with an emotion (Normal, Happy, Pain, Angry, Sad, Crying, Determined, Joyous…), for lines and results."""
-    return _file(services(request).pmd.portrait(species[:60], emotion))
+def pmd_portrait(request: Request, species: str = "", emotion: str = "Normal", shiny: bool = False):
+    """Installed form/colour expression portrait, then the legacy published cache for ordinary colours."""
+    return _file(services(request).pmd.portrait(species[:60], emotion, shiny))
 
 
 @router.get("/sprites/pmd-sheet/{key}/{anim}")

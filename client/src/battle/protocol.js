@@ -129,7 +129,7 @@ function findMon(state, ident, details) {
 
 function newMon(name, d) {
   return { name, species: d.species, baseSpecies: String(d.species || "").split("-")[0], level: d.level || 100, gender: d.gender || "", shiny: !!d.shiny,
-    hp: 100, maxhp: 100, status: "", fainted: false, active: false, boosts: {}, volatiles: {}, tera: "", item: "", ability: "", moves: [], seen: false };
+    hp: 100, maxhp: 100, status: "", fainted: false, active: false, boosts: {}, volatiles: {}, tera: "", item: "", ability: "", moves: [], seen: false, revealedForms:[d.species] };
 }
 
 const BOOST_WORDS = {
@@ -268,10 +268,19 @@ function applyRaw(state, line, { lang = "es", me = "p1" } = {}) {
       if (!s) return null;
       const d = parseDetails(parts[2]);
       const old = slot >= 0 && s.active[slot] !== null ? s.team[s.active[slot]] : null;
+      const ball = parts.find(p => p.startsWith('[pokeball]'))?.slice(10);
       let mon;
       if (cmd === "replace" && old) {
         mon = old;
         mon.name = parseIdent(parts[1]).name;
+      } else if (ball) {
+        // Resolve only from what this appearance publicly reveals. Private
+        // simulator IDs would identify an Illusion before its public reveal.
+        mon = s.team.find((m,index) => m.seen && !s.active.includes(index)
+          && m.name === parseIdent(parts[1]).name && (m.species === d.species || m.revealedForms?.includes(d.species))
+          && m.gender === d.gender && !!m.shiny === !!d.shiny && m.pokeball === ball)
+          || s.team.find(m => !m.seen && m.species === d.species);
+        if (!mon) { mon = newMon(parseIdent(parts[1]).name,d); s.team.push(mon); }
       } else {
         mon = findMon(state, parts[1], parts[2]);
       }
@@ -281,7 +290,8 @@ function applyRaw(state, line, { lang = "es", me = "p1" } = {}) {
         old.boosts = {};
         old.volatiles = {};
       }
-      Object.assign(mon, { species: d.species, baseSpecies: d.species.split("-")[0], level: d.level, gender: d.gender, shiny: d.shiny, seen: true, active: true });
+      Object.assign(mon, { name:parseIdent(parts[1]).name, species: d.species, baseSpecies: d.species.split("-")[0], level: d.level, gender: d.gender, shiny: d.shiny, seen: true, active: true });
+      if (ball) mon.pokeball = ball;
       if (d.tera) mon.tera = d.tera;
       const hp = parseHP(parts[3]);
       if (hp) Object.assign(mon, { hp: hp.hp, maxhp: hp.maxhp || mon.maxhp, status: hp.status, fainted: hp.fainted });
@@ -296,6 +306,7 @@ function applyRaw(state, line, { lang = "es", me = "p1" } = {}) {
       const mon = findMon(state, parts[1]);
       if (mon) {
         const d = parseDetails(parts[2]);
+        mon.revealedForms = [...new Set([...(mon.revealedForms || []),mon.species,d.species])];
         mon.species = d.species;
         if (cmd === "detailschange") mon.baseSpecies = d.species.split("-")[0];
       }

@@ -24,7 +24,7 @@ silvers-hoard = "silvers_hoard.__main__:main"
 include = ["silvers_hoard*"]
 
 [tool.setuptools.package-data]
-silvers_hoard = ["static/**/*", "presets/*.json", "presets/pmd/*", "hoard_link/**/*"]
+silvers_hoard = ["static/**/*", "presets/*.json", "presets/pmd/*", "presets/portraits/*", "hoard_link/**/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

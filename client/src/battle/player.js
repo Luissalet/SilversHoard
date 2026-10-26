@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useReducer, useRef } from "react";
 import { applyLine, newState, turnMarks } from "./protocol.js";
 import { newSfxState, playLine, sfxPre } from "./sfx.js";
 import {abilityBoundary} from "../../../engine/src/ability-events.mjs";
+import {PortraitClock} from './portrait-reaction.js';
 
 const PAUSE = { move: 1, switch: 0.8, faint: 1.1, damage: 0.55, heal: 0.45, status: 0.6, boost: 0.5, effect: 0.45, big: 1.2, field: 0.6, turn: 0.35,
   win: 0.2, ability: 0.45, minor: 0.35, info: 0.3, raw: 0.2 };
@@ -15,7 +16,8 @@ export function useBattlePlayer({ lang = "es", me = "p1", speedMs = 900, cryUrl 
   const r = useRef(null);
   if (!r.current) {
     r.current = { lines: [], applied: 0, state: newState(), log: [], anim: null, animId: 0, playing: true, timer: null, speedMs, lang, me,
-      muted: false, sfx: newSfxState(), fx: null, abilities:[], abilitySeen:new Set(), abilityEpoch:0, names, namesKey: JSON.stringify(names) };
+      muted: false, sfx: newSfxState(), fx: null, portraitClock:new PortraitClock(), abilities:[], abilitySeen:new Set(), abilityEpoch:0, names, namesKey: JSON.stringify(names) };
+    r.current.portraitClock.setRunning(r.current.playing);
   }
   const p = r.current;
   p.speedMs = speedMs;
@@ -36,6 +38,7 @@ export function useBattlePlayer({ lang = "es", me = "p1", speedMs = 900, cryUrl 
     p.abilities = [];
     p.abilitySeen.clear();
     p.abilityEpoch++;
+    p.portraitClock.reset(p.playing);
     p.sfx = newSfxState();
     p.fx?.clear?.();
   }, [p]);
@@ -82,6 +85,10 @@ export function useBattlePlayer({ lang = "es", me = "p1", speedMs = 900, cryUrl 
   }, [p, step]);
 
   useEffect(() => () => clearTimeout(p.timer), [p]);
+  useEffect(() => {
+    const timer = setInterval(() => { if (p.portraitClock.running) rerender(); }, 100);
+    return () => clearInterval(timer);
+  }, [p]);
 
   // the language, the side shown at the bottom or the trainers' names changed: rebuild the texts
   const namesKey = JSON.stringify(names);
@@ -112,11 +119,12 @@ export function useBattlePlayer({ lang = "es", me = "p1", speedMs = 900, cryUrl 
       p.lines.push(...lines);
       if (!p.timer) schedule();
     },
-    play() { p.playing = true; schedule(); rerender(); },
-    pause() { p.playing = false; clearTimeout(p.timer); p.timer = null; rerender(); },
+    play() { p.playing = true; p.portraitClock.setRunning(true); schedule(); rerender(); },
+    pause() { p.playing = false; p.portraitClock.setRunning(false); clearTimeout(p.timer); p.timer = null; rerender(); },
     toggle() { if (p.playing && p.timer) api.pause(); else api.play(); },
     stepOne() {
       p.playing = false;
+      p.portraitClock.setRunning(false);
       clearTimeout(p.timer);
       p.timer = null;
       let pause = 0;
@@ -133,14 +141,15 @@ export function useBattlePlayer({ lang = "es", me = "p1", speedMs = 900, cryUrl 
       p.anim = null;
       p.abilities = [];
       p.abilityEpoch++;
+      p.portraitClock.reset(p.playing);
       p.fx?.clear?.();
       rerender();
     },
     seek(index, { play = false } = {}) {
       clearTimeout(p.timer);
       p.timer = null;
-      rebuild(Math.max(0, Math.min(index, p.lines.length)));
       p.playing = play;
+      rebuild(Math.max(0, Math.min(index, p.lines.length)));
       rerender();
       if (play) schedule();
     },
@@ -149,6 +158,7 @@ export function useBattlePlayer({ lang = "es", me = "p1", speedMs = 900, cryUrl 
     get anim() { return p.anim; },
     get abilities() { return p.abilities; },
     get abilityEpoch() { return p.abilityEpoch; },
+    get portraitTime() { return p.portraitClock.time; },
     /** The effect layer of the arena (see battle/fx/stage.js): it plays the cues of the lines as they are shown. Returns a detach function. */
     attachFx(fx) {
       p.fx = fx;

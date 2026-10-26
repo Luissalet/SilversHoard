@@ -279,7 +279,7 @@ export class Show {
     const sides = battle.sides.map((sd, si) => {
       const lead = battle.doubles ? sd.units[0] : sd;
       const mon = sd.mons[lead.active];
-      const portrait = mon && !this.r.offline && this.r.sprites?.portrait ? image(this.r.sprites.portrait(mon.species, "Determined", { num: mon.num || 0 })) : null;
+      const portrait = mon && this.r.sprites?.portrait ? image(this.r.sprites.portrait(mon.species, "Determined", { num: mon.num || 0, shiny: !!mon.shiny })) : null;
       // The full match label stays in the video's header; the VS card gives the trainer's name room to read.
       const name = prepared ? String(sd.name || "").split(" (")[0] : sd.name || "";
       return { name, mon: mon?.name || "", portrait, fallback: this.r.fallbacks?.[si]?.[lead.active] || null, trainer: this.r.trainers?.[si] || null };

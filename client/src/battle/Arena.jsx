@@ -7,6 +7,7 @@ import { combinationValues, withCombinations } from "./expert-combinations.js";
 import SoundButton from "./SoundControl.jsx";
 import AbilityBanner from "./AbilityBanner.jsx";
 import BallRelease from "./BallRelease.jsx";
+import BattleHud, {BallIcon} from "./BattleHud.jsx";
 import { useBackdropSetting, useMoveFxSetting, usePrefersReducedMotion } from "./fx/setting.js";
 import { backdropFileUrl, backdropUrl, fieldLayer, pixelBackdropUrl, seedOf, weatherLayer } from "./fx/backdrop.js";
 
@@ -77,29 +78,16 @@ function Sprite({ mon, back, sprites, anim, slotKey, size, scale = 1 }) {
   );
 }
 
-function InfoCard({ mon, side, lang, exact, t }) {
+function InfoCard({mon, side, lang, exact, t, sprites, reaction, identity, epoch, time, outcome}) {
   if (!mon) return null;
-  const frac = mon.maxhp ? mon.hp / mon.maxhp : 0;
-  const boosts = Object.entries(mon.boosts || {}).filter(([, v]) => v);
-  const stShort = lang === "en" ? STATUS_SHORT_EN : STATUS_SHORT;
-  return (
-    <div className={`b-card ${side}`}>
-      <div className="b-card-top">
-        <b className="trunc">{mon.name}</b>
-        {mon.gender && <span className={`b-gender g-${mon.gender}`}>{mon.gender === "M" ? "♂" : "♀"}</span>}
-        <span className="b-level">{t("lv")}{mon.level}</span>
-      </div>
-      <div className="b-hp" role="meter" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(frac * 100)} aria-label={t("hp")}>
-        <span style={{ width: `${Math.max(0, Math.min(1, frac)) * 100}%`, background: hpColor(frac) }} />
-      </div>
-      <div className="b-card-bottom">
-        {mon.status && <span className="b-status" style={{ background: STATUS_COLORS[mon.status] }}>{stShort[mon.status] || mon.status}</span>}
-        {mon.tera && <span className="b-chip" style={{ background: TYPE_COLORS[mon.tera] }}>{typeName(mon.tera, lang)}</span>}
-        {boosts.map(([k, v]) => <span key={k} className={`b-chip ${v > 0 ? "up" : "down"}`}>{L(STAT_SHORT[k] || [k, k], lang)} {v > 0 ? "+" : ""}{v}</span>)}
-        <span className="b-hpnum">{exact && mon.maxhp && mon.maxhp !== 100 ? `${mon.hp}/${mon.maxhp}` : `${Math.round(frac * 100)}%`}</span>
-      </div>
-    </div>
-  );
+  const boosts = Object.entries(mon.boosts || {}).filter(([,v])=>v);
+  const stShort = lang === 'en' ? STATUS_SHORT_EN : STATUS_SHORT;
+  return <div className={`b-card hud-card ${side}`}><BattleHud {...{mon,sprites,lang,identity,epoch,time,outcome}} event={reaction?.type} eventId={reaction?.id}
+    corner={side === 'me' ? 'left' : 'right'} exact={exact && mon.maxhp !== 100} levelLabel={t('lv')} healthLabel={t('hp')}>
+    {mon.status && <span className="b-status" style={{background:STATUS_COLORS[mon.status]}}>{stShort[mon.status] || mon.status}</span>}
+    {mon.tera && <span className="b-chip" style={{background:TYPE_COLORS[mon.tera]}}>{typeName(mon.tera,lang)}</span>}
+    {boosts.map(([k,v])=><span key={k} className={`b-chip ${v>0?'up':'down'}`}>{L(STAT_SHORT[k] || [k,k],lang)} {v>0?'+':''}{v}</span>)}
+  </BattleHud></div>;
 }
 
 function TeamDots({ side, total }) {
@@ -110,7 +98,7 @@ function TeamDots({ side, total }) {
       {Array.from({ length: n }, (_, i) => {
         const m = team[i];
         const cls = !m || !m.seen ? "unknown" : m.fainted ? "fainted" : m.status ? "status" : "ok";
-        return <span key={i} className={`b-dot ${cls}`} />;
+        return <BallIcon key={i} ball={m?.seen ? m.pokeball : 'unknown'} state={cls === 'fainted' ? 'is-out' : ''} title={m?.seen ? m.name : '?'}/>;
       })}
     </div>
   );
@@ -145,15 +133,15 @@ export function LogPanel({ log, lang, compact }) {
  * lang, exact (show HP numbers), children (controls under the field), bubble ({side, text}) for a trainer line.
  */
 /** A Pokémon's portrait with an emotion; falls back to Normal, a battle sprite, then its initials. */
-export function Portrait({ sprites, species, emotion = "Normal", num = 0, className = "" }) {
-  return <PortraitImage key={`${species}:${emotion}:${num}:${sprites?.server || ""}`} {...{ sprites, species, emotion, num, className }} />;
+export function Portrait({ sprites, species, emotion = "Normal", num = 0, shiny = false, className = "" }) {
+  return <PortraitImage key={`${species}:${emotion}:${num}:${shiny}:${sprites?.server || ""}`} {...{ sprites, species, emotion, num, shiny, className }} />;
 }
 
-function PortraitImage({ sprites, species, emotion, num, className }) {
+function PortraitImage({ sprites, species, emotion, num, shiny, className }) {
   const [step, setStep] = useState(0);
   if (!species || !sprites) return null;
-  const portrait = step < 2 ? sprites.portrait?.(species, step === 0 ? emotion : "Normal", { num }) : "";
-  const src = portrait || sprites.fallback(species);
+  const portrait = step < 2 ? sprites.portrait?.(species, step === 0 ? emotion : "Normal", { num, shiny }) : "";
+  const src = portrait || sprites.fallback(species, {shiny});
   if (step > 2) return <span className={`b-portrait ${className}`} aria-label={species}>{species.slice(0, 2)}</span>;
   if (!src) return null;
   return <img key={`${step}:${src}`} className={`b-portrait ${className}`} src={src} alt={species} draggable={false} onError={() => setStep((s) => s + 1)} />;
@@ -244,7 +232,7 @@ export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "
     // a change of tactics: the band crosses the field with the trainer's line, for longer so it can be read
     const phase = anim.type === "phase";
     setPop({ id: anim.id, side: anim.side, slot, teamIndex: st.sides[anim.side].active[slot], epoch: player.abilityEpoch,
-      species: mon.species, emotion: anim.type === "faint" ? "Pain" : phase ? "Angry" : "Determined",
+      species: mon.species, shiny: !!mon.shiny, emotion: anim.type === "faint" ? "Pain" : phase ? "Angry" : "Determined",
       cut: anim.type !== "faint", line: phase ? anim.line || t("phase_change") : "" });
   }, [anim?.id]); // eslint-disable-line react-hooks/exhaustive-deps
   // A new animation must not cancel the old portrait's expiry timer.
@@ -346,12 +334,12 @@ export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "
           </div>
 
           <div className="b-cards foe">
-            {slots.map((i) => <InfoCard key={i} mon={activeOf(foe, i)} side="foe" lang={lang} exact={exact} t={t} />)}
+            {slots.map((i) => <InfoCard key={i} mon={activeOf(foe, i)} side="foe" lang={lang} exact={exact} t={t} sprites={sprites} identity={`${foe}:${st.sides[foe].active[i]}`} epoch={player.abilityEpoch} time={player.portraitTime} reaction={anim?.key === `${foe}${i}` ? anim : null} outcome={st.ended && !st.tie ? (st.winner === st.sides[foe].name ? 'win' : 'lose') : ''} />)}
             <TeamDots side={st.sides[foe]} total={st.sides[foe].teamSize} />
             <SideConditions side={st.sides[foe]} lang={lang} />
           </div>
           <div className="b-cards me">
-            {slots.map((i) => <InfoCard key={i} mon={activeOf(me, i)} side="me" lang={lang} exact={exact} t={t} />)}
+            {slots.map((i) => <InfoCard key={i} mon={activeOf(me, i)} side="me" lang={lang} exact={exact} t={t} sprites={sprites} identity={`${me}:${st.sides[me].active[i]}`} epoch={player.abilityEpoch} time={player.portraitTime} reaction={anim?.key === `${me}${i}` ? anim : null} outcome={st.ended && !st.tie ? (st.winner === st.sides[me].name ? 'win' : 'lose') : ''} />)}
             <TeamDots side={st.sides[me]} total={st.sides[me].teamSize} />
             <SideConditions side={st.sides[me]} lang={lang} />
           </div>
@@ -373,13 +361,13 @@ export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "
 
           {said && said.text && (
             <div key={said.id || said.text} className={`b-bubble ${said.side === me ? "me" : "foe"}`}>
-              {bubbleMon && <Portrait sprites={sprites} species={bubbleMon.species} emotion={MOOD[said.mood] || "Normal"} />}
+              {bubbleMon && <Portrait sprites={sprites} species={bubbleMon.species} shiny={bubbleMon.shiny} emotion={MOOD[said.mood] || "Normal"} />}
               <span>{said.text}</span>
             </div>
           )}
           {pop && !ended && pop.epoch === player.abilityEpoch && st.sides[pop.side].active[pop.slot] === pop.teamIndex && activeOf(pop.side, pop.slot)?.species === pop.species && (
             <div key={pop.id} className={`b-pop-portrait ${pop.side === me ? "me" : "foe"}${pop.cut ? " is-cut" : ""}${pop.line ? " has-line" : ""}`} aria-hidden="true">
-              <Portrait sprites={sprites} species={pop.species} emotion={pop.emotion} />
+              <Portrait sprites={sprites} species={pop.species} shiny={pop.shiny} emotion={pop.emotion} />
               {pop.line && <span className="b-pop-line">{pop.line}</span>}
             </div>
           )}
@@ -390,8 +378,8 @@ export default function Arena({ player, seats = {}, me = "p1", sprites, lang = "
               {winnerSide && seats[winnerSide]?.avatarUrl && <img src={seats[winnerSide].winUrl || seats[winnerSide].avatarUrl} alt="" className={sprites.pixelated ? "pixelated" : ""} />}
               {winnerSide && (
                 <div className="b-result-faces">
-                  {leadOf(winnerSide) && <Portrait sprites={sprites} species={leadOf(winnerSide).species} emotion={MOOD.win} />}
-                  {leadOf(winnerSide === "p1" ? "p2" : "p1") && <Portrait sprites={sprites} species={leadOf(winnerSide === "p1" ? "p2" : "p1").species} emotion="Crying" className="is-loser" />}
+                  {leadOf(winnerSide) && <Portrait sprites={sprites} species={leadOf(winnerSide).species} shiny={leadOf(winnerSide).shiny} emotion={MOOD.win} />}
+                  {leadOf(winnerSide === "p1" ? "p2" : "p1") && <Portrait sprites={sprites} species={leadOf(winnerSide === "p1" ? "p2" : "p1").species} shiny={leadOf(winnerSide === "p1" ? "p2" : "p1").shiny} emotion="Crying" className="is-loser" />}
                 </div>
               )}
             </div>

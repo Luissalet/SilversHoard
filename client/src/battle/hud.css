@@ -1,0 +1,59 @@
+/* Sun/Moon's oblique health panels, within Silver's cyan/coral battle corners. */
+.battle-hud { --hud-face: 96px; --hud-corner: var(--corner-blue,#6cd6ec); display: grid; grid-template-columns: var(--hud-face) minmax(0,1fr); min-width: 0; padding-block: 1px; background: var(--hud-corner); color: #f0f4ed; clip-path: polygon(0 0,calc(100% - 14px) 0,100% 15px,calc(100% - 8px) 100%,0 100%); }
+.battle-hud.corner-right { --hud-corner: var(--corner-red,#fa8b81); }
+.hud-portrait { position: relative; width: var(--hud-face); height: var(--hud-face); overflow: hidden; background: #182632; }
+.hud-face { display: block; width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated; }
+.hud-face-missing { display: grid; place-items: center; height: 100%; font-weight: 800; }
+.battle-hud.is-fainted .hud-face { filter: grayscale(1) brightness(.65); }
+.hud-data { display: grid; grid-template-rows: 22px 18px 20px 16px 16px; gap: 1px; min-width: 0; padding: 0 14px 0 8px; text-align: left; background: #101922; }
+.hud-name-row { display: flex; align-items: center; gap: 4px; min-width: 0; margin-left: -8px; margin-right: -14px; padding: 0 18px 0 8px; background: var(--hud-corner); color: #10202a; }
+.hud-name-row b { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; font-weight: 800; }
+.hud-level { flex: none; font-size: 11px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.hud-party-row { display: flex; align-items: center; min-width: 0; gap: 2px; }
+.hud-ball { flex: none; display: inline-grid; place-items: center; width: 18px; height: 18px; overflow: hidden; }
+.hud-ball img { width: 34px; height: 34px; max-width: none; object-fit: contain; image-rendering: pixelated; }
+.hud-ball.is-out { filter: grayscale(1) brightness(.45); }
+.hud-ball.is-on { background: color-mix(in srgb,var(--hud-corner) 24%,transparent); box-shadow: inset 0 -2px var(--hud-corner); }
+.hud-ball-unknown { font-size: 11px; color: #bacbd1; }
+.hud-health { padding: 3px; height: 20px; min-width: 0; background: #03090d; clip-path: polygon(3px 0,100% 0,calc(100% - 5px) 100%,0 100%); }
+.hud-health-track { position: relative; height: 100%; overflow: hidden; background: #283c42; }
+.hud-health-fill,.hud-health-lag { display: block; position: absolute; inset: 0 auto 0 0; width: calc(var(--health)*100%); }
+.hud-health-fill { background: var(--health-color); box-shadow: inset 0 2px #ffffff65,inset 0 -2px #0003; transition: width 150ms linear,background-color 150ms; }
+.hud-health-lag { background: #fff5bd; transition: width 550ms cubic-bezier(.55,0,.8,.3) 350ms; }
+.hud-health-numbers { display: flex; justify-content: space-between; align-items: center; gap: 4px; font-size: 11px; line-height: 16px; font-variant-numeric: tabular-nums; color: #bacbd1; }
+.hud-health-numbers b { color: #f0f4ed; }
+.hud-states { display: flex; gap: 4px; align-items: center; min-width: 0; overflow-x: auto; overflow-y: hidden; white-space: nowrap; scrollbar-width: none; }
+.hud-states::-webkit-scrollbar { display: none; }
+.battle-hud .hud-states > span { flex: none; box-sizing: border-box; height: 16px; min-height: 0; padding-block: 0; font-size: 10px; line-height: 14px; }
+.hud-states:empty { visibility: hidden; }
+.hud-health.is-compact { height: 9px; padding: 1px; width: 100%; }
+.rt-sidebar.hud-sidebar { display: block; padding: 0; border: 0; background: transparent; border-radius: 0; text-align: left; }
+.rt-wrap .rt-top .rt-sidebar.hud-sidebar { padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.hud-trainer { display: flex; align-items: center; gap: 6px; min-width: 0; padding: 0 4px 4px; }
+.hud-trainer .rt-avatar { width: 24px; height: 24px; }
+.hud-trainer .rt-name { flex: 1; font-size: 12px; }
+.hud-trainer .rt-switches { margin-left: auto; white-space: nowrap; }
+.hud-sidebar > .rt-gauge { margin: 4px 0 0 96px; }
+.hud-sidebar .rt-duo { display: grid; gap: 6px; }
+.b-card.hud-card { padding: 0; border: 0; border-radius: 0; box-shadow: none; backdrop-filter: none; }
+.portrait-layout .rt-sidebar.hud-sidebar { padding: 0; }
+.b-cards:has(.battle-hud) { width: min(350px,48%); }
+@media (max-width: 620px) {
+  .rt-top:has(.hud-sidebar) { grid-template-columns: minmax(0,1fr); gap: 8px; }
+  .portrait-layout .rt-top:has(.hud-sidebar) { grid-template-columns: minmax(0,1fr); }
+  .rt-top:has(.hud-sidebar) .rt-clock { grid-column: auto; grid-row: 1; flex-direction: row; gap: 8px; }
+  .rt-top:has(.hud-sidebar) .rt-time { font-size: 22px; }
+  .battle-hud { --hud-face: 88px; }
+  .hud-data { grid-template-rows: 19px 15px 18px 13px 19px; }
+  .hud-name-row b { font-size: 13px; }
+  .hud-health { height: 18px; }
+  .hud-health-numbers { line-height: 13px; font-size: 10px; }
+  .hud-ball { width: 15px; height: 15px; }
+  .hud-ball img { width: 30px; height: 30px; }
+  .hud-states { font-size: 10px; }
+  .hud-sidebar > .rt-gauge { margin-left: 88px; }
+  .b-cards:has(.battle-hud) { width: min(310px,76%); }
+  .b-cards.foe:has(.battle-hud) { top: 3%; }
+  .b-cards.me:has(.battle-hud) { bottom: 4%; }
+}
+@media (prefers-reduced-motion: reduce) { .hud-health-fill,.hud-health-lag { transition: none; } }

@@ -7,7 +7,7 @@
 // the battle must have been played with exactly that seed and AI key, so everyone that week faced the same luck.
 import {Battle} from '@pkmn/sim';
 import {buildFormatId, EngineError, seedArray} from './core.mjs';
-import {MAX_TURNS_DEFAULT, phaseAi, phaseReached, prepareTeam, viewLines} from './match.mjs';
+import {MAX_TURNS_DEFAULT, phaseAi, phaseReached, prepareTeam, trackPokeballs, viewLines} from './match.mjs';
 import {chooseFor, makeRng} from './ai.mjs';
 
 const MAX_LINES = 20000;
@@ -40,7 +40,7 @@ export function replayCheck(a) {
     if (same(start.seed) !== same(seedArray(String(a.expect_seed)))) problems.push("not played with this week's seed");
     if (String(a.rng_id || '') !== String(a.expect_seed)) problems.push("not played with this week's AI luck");
   }
-  const b = new Battle({formatid: start.formatid, seed: start.seed, p1: {name: p1.name, team: p1.team}, p2: {name: p2.name, team: p2.team}});
+  const b = trackPokeballs(new Battle({formatid: start.formatid, seed: start.seed, p1: {name: p1.name, team: p1.team}, p2: {name: p2.name, team: p2.team}}),true);
   b.send = () => {};
   const rng = a.ai ? makeRng(`${a.rng_id}:p2`) : null;
   let decisions = 0;
@@ -95,5 +95,5 @@ export function replayCheck(a) {
   const team = b.sides[0].pokemon;
   const hpLeft = team.length ? Math.round(1000 * team.reduce((n, p) => n + (p.fainted || !p.maxhp ? 0 : p.hp / p.maxhp), 0) / team.length) / 10 : 0;
   return {ok: !problems.length && !!b.ended, problems, ended: !!b.ended, winner_side: winnerSide, turns: b.turn,
-    ai_decisions: decisions, ai_mismatches: mismatches, hp_left: hpLeft, lines: viewLines(b.log, 0, 'omniscient')};
+    ai_decisions: decisions, ai_mismatches: mismatches, hp_left: hpLeft, lines: viewLines(b.log, 0, 'omniscient', b)};
 }

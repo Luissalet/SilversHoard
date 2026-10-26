@@ -102,7 +102,7 @@ const handlers = {
   },
   match_log: (a) => {
     const m = getMatch(a.id);
-    const lines = viewLines(m.battle.log, 0, a.view || 'omniscient');
+    const lines = viewLines(m.battle.log, 0, a.view || 'omniscient', m.battle);
     return {lines, summary: summarize(viewLines(m.battle.log, 0, 'omniscient')), input_log: m.inputLog(), notes: m.takeNotes(), end: endState(m.battle)};
   },
   // what the AI would do now for one side of a live battle (a person's side: advice) and why, without choosing

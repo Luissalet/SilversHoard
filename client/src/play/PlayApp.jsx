@@ -416,7 +416,7 @@ function BattleView({ t, lang, sprites, me, opp, fid, levelRules, onEnd, seed = 
       const won = st.winner_side === "p1";
       const line = won ? opp.dialogue?.lose : opp.dialogue?.win;
       if (line) setTimeout(() => setBubble({ side: "p2", text: line, mood: won ? "lose" : "win" }), 600);
-      const lines = viewLines(m.battle.log, 0, "omniscient");
+      const lines = viewLines(m.battle.log, 0, "omniscient", m.battle);
       // the battle's own record (seed, teams, every choice) and the AI's random-number key: the app replays it to check the result
       const record = { input: m.inputLog(), rng: m.id, forfeit: forfeited.current ? "p1" : "" };
       setTimeout(() => onEnd({ won, turns: m.battle.turn, opponent: opp.name, lines, ...record }), 2600);
