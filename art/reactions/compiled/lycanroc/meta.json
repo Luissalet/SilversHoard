@@ -1,0 +1,265 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "lycanroc",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0d9dd6e865a0c5b8c2f3ac03a7654433c0b44117a932126b9c4652b9fa3f43e9",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 7,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 745,
+          "form": "",
+          "key": "lib-lycanroc-n-a3b754e0bd73"
+        },
+        "assembly": {
+          "native_frames": [
+            {
+              "action": "Pain",
+              "direction": 0,
+              "frame": 1,
+              "animation": "Idle",
+              "row": 0,
+              "index": 0
+            }
+          ]
+        },
+        "sha256": "2285f625930cb7fa7ad763b1d77401a8a2f5def6fa3283b0b453c64b10db7f21"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "lycanroc",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0d9dd6e865a0c5b8c2f3ac03a7654433c0b44117a932126b9c4652b9fa3f43e9",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 745,
+          "form": "",
+          "key": "lib-lycanroc-n-a3b754e0bd73"
+        },
+        "assembly": {
+          "native_frames": [
+            {
+              "action": "Pain",
+              "direction": 0,
+              "frame": 1,
+              "animation": "Idle",
+              "row": 0,
+              "index": 0
+            }
+          ]
+        },
+        "sha256": "1f6f17cac02f5c4c43188e8d38074f1304430839e4f7733d77e16ff6071a5d5d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "lycanroc",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0d9dd6e865a0c5b8c2f3ac03a7654433c0b44117a932126b9c4652b9fa3f43e9",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 7,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 745,
+            "form": "",
+            "key": "lib-lycanroc-s-55fa8f3ef37b"
+          },
+          "assembly": {
+            "native_frames": [
+              {
+                "action": "Pain",
+                "direction": 0,
+                "frame": 1,
+                "animation": "Idle",
+                "row": 0,
+                "index": 0
+              }
+            ]
+          },
+          "sha256": "9369f51e62bb1d502fa3b647b270f7f1bdf37c332be0e0657ed86fe909a347d6"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "lycanroc",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0d9dd6e865a0c5b8c2f3ac03a7654433c0b44117a932126b9c4652b9fa3f43e9",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 745,
+            "form": "",
+            "key": "lib-lycanroc-s-55fa8f3ef37b"
+          },
+          "assembly": {
+            "native_frames": [
+              {
+                "action": "Pain",
+                "direction": 0,
+                "frame": 1,
+                "animation": "Idle",
+                "row": 0,
+                "index": 0
+              }
+            ]
+          },
+          "sha256": "3ef7a2fbce20bfe5d117485c9a14e65ccd77665b33d644e5828aed4bedfac4c7"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "lycanroc",
+    "num": 745,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Mechanically repack genuine native/built-in drawn poses. Binary alpha before tight crop; register new prone strip by one uniform factor for both frames, preserving every unrelated crop and pixel. No painting, standing-pose warping or camera rotation. Exact recipe and source hashes included.",
+    "source_image": "lycanroc-assembled56.png",
+    "source_sha256": "0d9dd6e865a0c5b8c2f3ac03a7654433c0b44117a932126b9c4652b9fa3f43e9",
+    "native_frames": [
+      {
+        "action": "Pain",
+        "direction": 0,
+        "frame": 1,
+        "animation": "Idle",
+        "row": 0,
+        "index": 0
+      }
+    ],
+    "source_record": "lycanroc-assembled56.json",
+    "shiny_source_image": "lycanroc-assembled56.png",
+    "shiny_prompt": "Mechanically repack genuine native/built-in drawn poses. Binary alpha before tight crop; register new prone strip by one uniform factor for both frames, preserving every unrelated crop and pixel. No painting, standing-pose warping or camera rotation. Exact recipe and source hashes included."
+  },
+  "reviewed": false,
+  "shiny_reviewed": true
+}

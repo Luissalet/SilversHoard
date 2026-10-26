@@ -98,11 +98,106 @@
     }
   },
   "shiny": {
-    "a": {}
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "absolmegaz",
+          "tool": "builtin-imagegen",
+          "source_sha256": "c0c5069ff0b7b768f0c6bd085b7868a1607c7bc5f691011d4ebb3f6783d7136d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 359,
+            "form": "Mega-Z",
+            "key": "lib-absolmegaz-s-c29775cd646b"
+          },
+          "sha256": "8111dc6367e9bd5fb8d7d916e5dd5ba5092d4c325a6ba5b6f46756b87b8ff760"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "absolmegaz",
+          "tool": "builtin-imagegen",
+          "source_sha256": "c0c5069ff0b7b768f0c6bd085b7868a1607c7bc5f691011d4ebb3f6783d7136d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 359,
+            "form": "Mega-Z",
+            "key": "lib-absolmegaz-s-c29775cd646b"
+          },
+          "sha256": "c8b6f8910f489b4e2970d89ab9761d2d82ecd99180c776766beca4106d584783"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
   },
-  "pending": [
-    "shiny"
-  ],
+  "pending": [],
   "provenance": {
     "id": "absolmegaz",
     "num": 359,
@@ -111,8 +206,10 @@
     "prompt": "Draw a new transparent pixel-art game animation atlas of Absol-Mega-Z, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
     "source_image": "absolmegaz-retry-r4.png",
     "source_sha256": "637f210daed61e56f36093a67404b4b19a0d9d438445313c49d0f033c8ad1fb2",
-    "source_record": "absolmegaz-retry-r4.json"
+    "source_record": "absolmegaz-retry-r4.json",
+    "shiny_source_image": "absolmegaz-shiny49-v1.png",
+    "shiny_prompt": "Use case identity-preserve. Recolour the entire transparent 8column4row atlas IMAGE1 to EXACT native SHINY reference IMAGE2. Mane/large hair fans are CYAN/teal, horn and claws PEACH/salmon, body stays native deep dark blue. Preserve this exact Mega-Z form, no white regular Absol anatomy. Keep every pose, camera, geometry, body part and grid unchanged. NORTH is back-only and final ground poses stay fully prone. Crisp limited native pixel palette, binary transparent background and broad transparent gutters. No new effects, text, marks, scenery or objects."
   },
   "reviewed": true,
-  "shiny_reviewed": false
+  "shiny_reviewed": true
 }

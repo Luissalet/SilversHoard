@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 88,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 44.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "regieleki",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6e6db471f824a94fb9de9714fc0ee3268c678c065b76529401b64e5411fc9971",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 894,
+          "form": "",
+          "key": "lib-regieleki-n-d0152a8c7f8d"
+        },
+        "sha256": "6e8f3cc60ecf21171ec3d16fd83c5af2c538b25180d547570942098751fee9a0"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 88,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 44.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "regieleki",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6e6db471f824a94fb9de9714fc0ee3268c678c065b76529401b64e5411fc9971",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          3,
+          4
+        ],
+        "reference": {
+          "num": 894,
+          "form": "",
+          "key": "lib-regieleki-n-d0152a8c7f8d"
+        },
+        "sha256": "b06da8264aa54bf79059c81ff1a56df6626fe832f106bcb092c2f5fa58c5c7e2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 88,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 44.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "regieleki",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6e6db471f824a94fb9de9714fc0ee3268c678c065b76529401b64e5411fc9971",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 894,
+            "form": "",
+            "key": "lib-regieleki-n-d0152a8c7f8d"
+          },
+          "sha256": "4c7f77a58fde80e836bee1ab275a99d84e9e7b4aa6af881996c31165bb838ab3",
+          "palette_from": "lib-regieleki-s-2ef7cc1996e6"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 88,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 44.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "regieleki",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6e6db471f824a94fb9de9714fc0ee3268c678c065b76529401b64e5411fc9971",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            3,
+            4
+          ],
+          "reference": {
+            "num": 894,
+            "form": "",
+            "key": "lib-regieleki-n-d0152a8c7f8d"
+          },
+          "sha256": "cf3fe788032b0cd228e649d8d500797e35e07ff3485fdd479ce0d2288a40214f",
+          "palette_from": "lib-regieleki-s-2ef7cc1996e6"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "regieleki",
+    "num": 894,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Mechanically repack genuine native/built-in drawn poses. Binary alpha before tight crop; register new prone strip by one uniform factor for both frames, preserving every unrelated crop and pixel. No painting, standing-pose warping or camera rotation. Exact recipe and source hashes included.",
+    "source_image": "regieleki-assembled54.png",
+    "source_sha256": "6e6db471f824a94fb9de9714fc0ee3268c678c065b76529401b64e5411fc9971",
+    "source_record": "regieleki-assembled54.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

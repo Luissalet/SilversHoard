@@ -116,7 +116,7 @@
           "kind": "generated-shiny-pmd-reaction",
           "record": "brutebonnet",
           "tool": "builtin-imagegen",
-          "source_sha256": "08d00a7b548772be3aea818eebd9c27ab20cd9a8302d50bfdcffcfc47bf13c1c",
+          "source_sha256": "356847e1bf68b6a28b0dc6c8c6824c9cddd36afcdae285c6e73fa6873a485d91",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -131,7 +131,7 @@
             "form": "",
             "key": "lib-brutebonnet-s-3b7a07538eb8"
           },
-          "sha256": "c4225991a437ffc77da48600e815a1950a5140afe754049e56f9df8ceb0e5f32"
+          "sha256": "8f905bcf05bb163c35eba5bd174720c282eab3cfd0b56ace0ccca29d70ed3116"
         },
         "row_map": [
           0,
@@ -161,7 +161,7 @@
           "kind": "generated-shiny-pmd-reaction",
           "record": "brutebonnet",
           "tool": "builtin-imagegen",
-          "source_sha256": "08d00a7b548772be3aea818eebd9c27ab20cd9a8302d50bfdcffcfc47bf13c1c",
+          "source_sha256": "356847e1bf68b6a28b0dc6c8c6824c9cddd36afcdae285c6e73fa6873a485d91",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -176,7 +176,7 @@
             "form": "",
             "key": "lib-brutebonnet-s-3b7a07538eb8"
           },
-          "sha256": "e925a569bd993eaf1d9cf7d015831ada1ce895267a2f619d28a46fd93dc9a1a4"
+          "sha256": "ac2c04ce5f427375a8eb2f072da06ea394765c4b9e98f4ec7ac4f6b0b8c7b053"
         },
         "row_map": [
           0,
@@ -207,9 +207,9 @@
     "source_image": "brutebonnet-cardinal.png",
     "source_sha256": "a7443c5452d171c7b237e7bb33cb6c5bec7b83e94b16520d4a0d06727800f4f1",
     "source_record": "brutebonnet-cardinal.json",
-    "shiny_source_image": "brutebonnet-shiny47-v1.png",
-    "shiny_prompt": "Use case identity-preserve. Recolour all32sprites of transparent8column4row atlas IMAGE1 to exact native SHINY colours in IMAGE2. Use exact native SHINY: characteristic cap section PURPLE/blue-violet replacing normal RED. Other cap section BEIGE remains beige; green leaf fringes and each native body region unchanged. Preserve cap section order in all four directions. Preserve every pose, geometry, camera and distinctive part. NORTH remains rear. Finalgroundposesremainfullydown. Crisp exact limited native pixel palette, transparent background, broad gutters. No new effects,text,objects or scenery."
+    "shiny_source_image": "brutebonnet-shiny-assembled59.png",
+    "shiny_prompt": "Mechanically repack genuine native/built-in drawn poses. Binary alpha before tight crop; register new prone strip by one uniform factor for both frames, preserving every unrelated crop and pixel. No painting, standing-pose warping or camera rotation. Exact recipe and source hashes included.\n{\"base\":\"brutebonnet-shiny58-v1.png\",\"supplement\":\"brutebonnet-shiny58-v2.png\",\"replace_north_ground\":[1,2,3],\"strip_uniform_scale\":1.13125,\"preserved_other_rows\":24,\"strict_gutters_not_merged_if_narrow\":true}"
   },
   "reviewed": true,
-  "shiny_reviewed": false
+  "shiny_reviewed": true
 }

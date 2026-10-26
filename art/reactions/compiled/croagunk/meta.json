@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "croagunk",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9ae65859c4bbd00ed7dd0191679a1658dc2e4f50c6a4ad1961921cfe0391423c",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 453,
+          "form": "",
+          "key": "lib-croagunk-n-ebafd6c93b35"
+        },
+        "sha256": "41f1aae5b7243d06117e8e51e0786360b91d32a00c5da516d46bee53d6ada269"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "croagunk",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9ae65859c4bbd00ed7dd0191679a1658dc2e4f50c6a4ad1961921cfe0391423c",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 453,
+          "form": "",
+          "key": "lib-croagunk-n-ebafd6c93b35"
+        },
+        "sha256": "97206d881549a6b40e55dd58cff524656181114b8728af762b74211be834a177"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "croagunk",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9ae65859c4bbd00ed7dd0191679a1658dc2e4f50c6a4ad1961921cfe0391423c",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 453,
+            "form": "",
+            "key": "lib-croagunk-s-c3b85ef82be7"
+          },
+          "sha256": "80cac77bc8f3f7d701e2e312e9ac47a450f94f5634ac5ad0b5e6935076937e0e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "croagunk",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9ae65859c4bbd00ed7dd0191679a1658dc2e4f50c6a4ad1961921cfe0391423c",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 453,
+            "form": "",
+            "key": "lib-croagunk-s-c3b85ef82be7"
+          },
+          "sha256": "5eff9eea3f9251ec0a4f1acb949bc8304de14a24890d7d13623196a541efdaf1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "croagunk",
+    "num": 453,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a transparent pixel-art game atlas of the EXACT SHINY character/form/palette in the reference. Exactly SIXTEEN complete sprites, FOUR columns FOUR rows. Rows SOUTH/front,EAST/right,NORTH/back with no face,WEST/left. Columns1-2 two distinct expressive braced wincing poses: blink/head lowered and bent legs/tense body. Columns3-4 lower onto ground then fully lie flat resting head/body with legs folded and eyes closed. Keep each camera fixed, characteristic body parts/tail/wings/outfit/markings intact, exact shiny regional materials, consistent native pixel scale and crisp limited palette. New anatomical body and limb poses, not rotated/scaled standing copies. Broad transparent gutters and background; no text/grid/effects/marks/scenery/shadow. Identity croagunk.",
+    "source_image": "croagunk-shiny-only-v1.png",
+    "source_sha256": "9ae65859c4bbd00ed7dd0191679a1658dc2e4f50c6a4ad1961921cfe0391423c",
+    "source_record": "croagunk-shiny-only-v1.json",
+    "shiny_source_image": "croagunk-shiny-only-v1.png",
+    "shiny_prompt": "Draw a transparent pixel-art game atlas of the EXACT SHINY character/form/palette in the reference. Exactly SIXTEEN complete sprites, FOUR columns FOUR rows. Rows SOUTH/front,EAST/right,NORTH/back with no face,WEST/left. Columns1-2 two distinct expressive braced wincing poses: blink/head lowered and bent legs/tense body. Columns3-4 lower onto ground then fully lie flat resting head/body with legs folded and eyes closed. Keep each camera fixed, characteristic body parts/tail/wings/outfit/markings intact, exact shiny regional materials, consistent native pixel scale and crisp limited palette. New anatomical body and limb poses, not rotated/scaled standing copies. Broad transparent gutters and background; no text/grid/effects/marks/scenery/shadow. Identity croagunk."
+  },
+  "reviewed": false,
+  "shiny_reviewed": true
+}

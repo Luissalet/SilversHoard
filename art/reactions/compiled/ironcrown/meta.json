@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ironcrown",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7bba90701946a361ed61c31aee1cb534d72860ed7ece90d783bcbf1261d22620",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 1023,
+          "form": "",
+          "key": "lib-ironcrown-n-4240f2d26239"
+        },
+        "sha256": "910afbcf1497d0af6349f861954b7eb4001677ba19e2df2dad3ef916bf2c4c03"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ironcrown",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7bba90701946a361ed61c31aee1cb534d72860ed7ece90d783bcbf1261d22620",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          3,
+          4
+        ],
+        "reference": {
+          "num": 1023,
+          "form": "",
+          "key": "lib-ironcrown-n-4240f2d26239"
+        },
+        "sha256": "7454177aff2be05593a2210b3a2b1b1417057ac1c17c6b7842f381d7c479cbaf"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ironcrown",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7bba90701946a361ed61c31aee1cb534d72860ed7ece90d783bcbf1261d22620",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 1023,
+            "form": "",
+            "key": "lib-ironcrown-n-4240f2d26239"
+          },
+          "sha256": "59ba7bcd2795cedb0ba5fd0d2eb36d5ae4d55e8fd53dfee83b540a7c367bc203",
+          "palette_from": "lib-ironcrown-s-af7f29c995a1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ironcrown",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7bba90701946a361ed61c31aee1cb534d72860ed7ece90d783bcbf1261d22620",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            3,
+            4
+          ],
+          "reference": {
+            "num": 1023,
+            "form": "",
+            "key": "lib-ironcrown-n-4240f2d26239"
+          },
+          "sha256": "5aefcd446e58d5baec43d20ff2928233ec220f10334a545206c8a45026fc4183",
+          "palette_from": "lib-ironcrown-s-af7f29c995a1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "ironcrown",
+    "num": 1023,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Mechanically repack genuine native/built-in drawn poses. Binary alpha before tight crop; register new prone strip by one uniform factor for both frames, preserving every unrelated crop and pixel. No painting, standing-pose warping or camera rotation. Exact recipe and source hashes included.",
+    "source_image": "ironcrown-assembled57.png",
+    "source_sha256": "7bba90701946a361ed61c31aee1cb534d72860ed7ece90d783bcbf1261d22620",
+    "source_record": "ironcrown-assembled57.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

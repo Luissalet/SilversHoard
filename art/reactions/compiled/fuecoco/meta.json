@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "fuecoco",
+        "tool": "builtin-imagegen",
+        "source_sha256": "c30ad6bfbdfbaf887ee7e1664f45d0f0049c2b25fd9dc72e5f1bac1ded89dd97",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 909,
+          "form": "",
+          "key": "lib-fuecoco-n-098ba1c76a24"
+        },
+        "sha256": "baa0f51a0abd00a52d0b5ee1009b739d543feda0de95ec98d4628604cc6051c8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "fuecoco",
+        "tool": "builtin-imagegen",
+        "source_sha256": "c30ad6bfbdfbaf887ee7e1664f45d0f0049c2b25fd9dc72e5f1bac1ded89dd97",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 909,
+          "form": "",
+          "key": "lib-fuecoco-n-098ba1c76a24"
+        },
+        "sha256": "7a796b348ddc65e470866f4e9fa4fb776f00a2eb996d1c0664c83848bb91e53a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "fuecoco",
+          "tool": "builtin-imagegen",
+          "source_sha256": "c30ad6bfbdfbaf887ee7e1664f45d0f0049c2b25fd9dc72e5f1bac1ded89dd97",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 909,
+            "form": "",
+            "key": "lib-fuecoco-s-51c896140171"
+          },
+          "sha256": "918b8da4cc42e1f3071a3f61ee0463e47b70bab7e26fda5466b56c4383cf57e2"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "fuecoco",
+          "tool": "builtin-imagegen",
+          "source_sha256": "c30ad6bfbdfbaf887ee7e1664f45d0f0049c2b25fd9dc72e5f1bac1ded89dd97",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 909,
+            "form": "",
+            "key": "lib-fuecoco-s-51c896140171"
+          },
+          "sha256": "9114c0496b6458efb9a4bdf96a57c6168d8bb595a74f0994b08377368bc68d27"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "fuecoco",
+    "num": 909,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a transparent pixel-art game atlas of the EXACT SHINY character/form/palette in the reference. Exactly SIXTEEN complete sprites, FOUR columns FOUR rows. Rows SOUTH/front,EAST/right,NORTH/back with no face,WEST/left. Columns1-2 two distinct expressive braced wincing poses: blink/head lowered and bent legs/tense body. Columns3-4 lower onto ground then fully lie flat resting head/body with legs folded and eyes closed. Keep each camera fixed, characteristic body parts/tail/wings/outfit/markings intact, exact shiny regional materials, consistent native pixel scale and crisp limited palette. New anatomical body and limb poses, not rotated/scaled standing copies. Broad transparent gutters and background; no text/grid/effects/marks/scenery/shadow. Identity fuecoco.",
+    "source_image": "fuecoco-shiny-only-v1.png",
+    "source_sha256": "c30ad6bfbdfbaf887ee7e1664f45d0f0049c2b25fd9dc72e5f1bac1ded89dd97",
+    "source_record": "fuecoco-shiny-only-v1.json",
+    "shiny_source_image": "fuecoco-shiny-only-v1.png",
+    "shiny_prompt": "Draw a transparent pixel-art game atlas of the EXACT SHINY character/form/palette in the reference. Exactly SIXTEEN complete sprites, FOUR columns FOUR rows. Rows SOUTH/front,EAST/right,NORTH/back with no face,WEST/left. Columns1-2 two distinct expressive braced wincing poses: blink/head lowered and bent legs/tense body. Columns3-4 lower onto ground then fully lie flat resting head/body with legs folded and eyes closed. Keep each camera fixed, characteristic body parts/tail/wings/outfit/markings intact, exact shiny regional materials, consistent native pixel scale and crisp limited palette. New anatomical body and limb poses, not rotated/scaled standing copies. Broad transparent gutters and background; no text/grid/effects/marks/scenery/shadow. Identity fuecoco."
+  },
+  "reviewed": false,
+  "shiny_reviewed": true
+}

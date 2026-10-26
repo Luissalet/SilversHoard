@@ -1,0 +1,74 @@
+{
+  "id": "pikachupopstar",
+  "name": "pikachupopstar",
+  "num": 25,
+  "form": "popstar",
+  "directions": 4,
+  "frames": 2,
+  "layout": "direction-rows-action-columns",
+  "tool": "builtin-imagegen",
+  "reviewed": false,
+  "shiny_reviewed": true,
+  "source_variant": "shiny",
+  "normal_excluded_reason": "This source authors only shiny; normal remains pending separate matching artwork.",
+  "image": "pikachupopstar-shiny-assembled66.png",
+  "assembly_sources": [
+    {
+      "image": "pikachupopstar-shiny-two-pose66-v1.png",
+      "sha256": "02fdd42931f8b74b17a6ba3efbc610bc9aee701ce4385c3a9a5cfac8b8a43071"
+    }
+  ],
+  "assembly_recipe": {
+    "new_source": "pikachupopstar-shiny-two-pose66-v1.png",
+    "pain": [
+      "exact native Idle",
+      "new wince"
+    ],
+    "ground": [
+      "new wince",
+      "new prone"
+    ]
+  },
+  "prompt": "Mechanically repack genuine native/built-in drawn poses. Binary alpha before tight crop; register new prone strip by one uniform factor for both frames, preserving every unrelated crop and pixel. No painting, standing-pose warping or camera rotation. Exact recipe and source hashes included.",
+  "shiny_image": "pikachupopstar-shiny-assembled66.png",
+  "shiny_prompt": "Mechanically repack genuine native/built-in drawn poses. Binary alpha before tight crop; register new prone strip by one uniform factor for both frames, preserving every unrelated crop and pixel. No painting, standing-pose warping or camera rotation. Exact recipe and source hashes included.",
+  "native_frames": [
+    {
+      "action": "Pain",
+      "direction": 0,
+      "frame": 0,
+      "animation": "Idle",
+      "row": 0,
+      "index": 0
+    },
+    {
+      "action": "Pain",
+      "direction": 1,
+      "frame": 0,
+      "animation": "Idle",
+      "row": 1,
+      "index": 0
+    },
+    {
+      "action": "Pain",
+      "direction": 2,
+      "frame": 0,
+      "animation": "Idle",
+      "row": 2,
+      "index": 0
+    },
+    {
+      "action": "Pain",
+      "direction": 3,
+      "frame": 0,
+      "animation": "Idle",
+      "row": 3,
+      "index": 0
+    }
+  ],
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-shiny66b.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

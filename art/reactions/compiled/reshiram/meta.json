@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 80,
+      "h": 72,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 40.0,
+      "ay": 66,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "reshiram",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f40ea91df03d5010f13976c34fd52f43dc301b2ce4062c56dbcffd225c9a330f",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 643,
+          "form": "",
+          "key": "lib-reshiram-n-fdf50312290f"
+        },
+        "sha256": "393a8f5248fa4c40120a8655d0c36fb593d2cae19485cfc6e726c24334fc392d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 80,
+      "h": 72,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 40.0,
+      "ay": 66,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "reshiram",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f40ea91df03d5010f13976c34fd52f43dc301b2ce4062c56dbcffd225c9a330f",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 643,
+          "form": "",
+          "key": "lib-reshiram-n-fdf50312290f"
+        },
+        "sha256": "a79c52c226b57e6e59a18ffc252a120ec10e3993ba2dbb577fd01d03a3c2aceb"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 80,
+        "h": 72,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 40.0,
+        "ay": 66,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "reshiram",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f40ea91df03d5010f13976c34fd52f43dc301b2ce4062c56dbcffd225c9a330f",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 643,
+            "form": "",
+            "key": "lib-reshiram-s-22805e6ee2d7"
+          },
+          "sha256": "b32159da8a4bce26904d3b263566d88e3c3505e989976ca8a6218838db9e2c2a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 80,
+        "h": 72,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 40.0,
+        "ay": 66,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "reshiram",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f40ea91df03d5010f13976c34fd52f43dc301b2ce4062c56dbcffd225c9a330f",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 643,
+            "form": "",
+            "key": "lib-reshiram-s-22805e6ee2d7"
+          },
+          "sha256": "c6c248c89b2ef163f9b5743001439a37c467de67ae1fb5a0705e575d1115c4d7"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "reshiram",
+    "num": 643,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a transparent pixel-art game atlas of the EXACT SHINY character/form/palette in the reference. Exactly SIXTEEN complete sprites, FOUR columns FOUR rows. Rows SOUTH/front,EAST/right,NORTH/back with no face,WEST/left. Columns1-2 two distinct expressive braced wincing poses: blink/head lowered and bent legs/tense body. Columns3-4 lower onto ground then fully lie flat resting head/body with legs folded and eyes closed. Keep each camera fixed, characteristic body parts/tail/wings/outfit/markings intact, exact shiny regional materials, consistent native pixel scale and crisp limited palette. New anatomical body and limb poses, not rotated/scaled standing copies. Broad transparent gutters and background; no text/grid/effects/marks/scenery/shadow. Identity reshiram.",
+    "source_image": "reshiram-shiny-only-v1.png",
+    "source_sha256": "f40ea91df03d5010f13976c34fd52f43dc301b2ce4062c56dbcffd225c9a330f",
+    "source_record": "reshiram-shiny-only-v1.json",
+    "shiny_source_image": "reshiram-shiny-only-v1.png",
+    "shiny_prompt": "Draw a transparent pixel-art game atlas of the EXACT SHINY character/form/palette in the reference. Exactly SIXTEEN complete sprites, FOUR columns FOUR rows. Rows SOUTH/front,EAST/right,NORTH/back with no face,WEST/left. Columns1-2 two distinct expressive braced wincing poses: blink/head lowered and bent legs/tense body. Columns3-4 lower onto ground then fully lie flat resting head/body with legs folded and eyes closed. Keep each camera fixed, characteristic body parts/tail/wings/outfit/markings intact, exact shiny regional materials, consistent native pixel scale and crisp limited palette. New anatomical body and limb poses, not rotated/scaled standing copies. Broad transparent gutters and background; no text/grid/effects/marks/scenery/shadow. Identity reshiram."
+  },
+  "reviewed": false,
+  "shiny_reviewed": true
+}

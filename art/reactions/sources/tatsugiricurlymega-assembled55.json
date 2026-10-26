@@ -1,0 +1,60 @@
+{
+  "id": "tatsugiricurlymega",
+  "name": "Tatsugiri-Curly-Mega",
+  "num": 978,
+  "form": "Curly-Mega",
+  "directions": 4,
+  "frames": 4,
+  "image": "tatsugiricurlymega-assembled55.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Mechanically repack genuine native/built-in drawn poses. Binary alpha before tight crop; register new prone strip by one uniform factor for both frames, preserving every unrelated crop and pixel. No painting, standing-pose warping or camera rotation. Exact recipe and source hashes included.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "assembly_sources": [
+    {
+      "image": "tatsugiricurlymega-cardinal.png",
+      "sha256": "f86402300a03e0bafc6d2ebff0de7916007eed4eb3ba4f2425cd70fd8f1ddcc6"
+    },
+    {
+      "image": "tatsugiricurlymega-west55-v1.png",
+      "sha256": "da29dd012c3a6c52330f003bfd59f48b0b85bd4c04aacf21c3d43640678a500b"
+    }
+  ],
+  "assembly_recipe": {
+    "base": "tatsugiricurlymega-cardinal.png",
+    "strip": "tatsugiricurlymega-west55-v1.png",
+    "replace_cells": [
+      [
+        3,
+        4,
+        0,
+        0
+      ],
+      [
+        3,
+        5,
+        0,
+        1
+      ],
+      [
+        3,
+        6,
+        0,
+        2
+      ],
+      [
+        3,
+        7,
+        0,
+        3
+      ]
+    ],
+    "strip_uniform_scale": 0.4325471698113207
+  },
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-corrections55.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

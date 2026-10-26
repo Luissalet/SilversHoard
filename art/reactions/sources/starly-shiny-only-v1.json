@@ -1,0 +1,23 @@
+{
+  "id": "starly",
+  "name": "starly shiny",
+  "num": 396,
+  "form": "",
+  "directions": 4,
+  "frames": 2,
+  "image": "starly-shiny-only-v1.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Draw a transparent pixel-art game atlas of the EXACT SHINY character/form/palette in the reference. Exactly SIXTEEN complete sprites, FOUR columns FOUR rows. Rows SOUTH/front,EAST/right,NORTH/back with no face,WEST/left. Columns1-2 two distinct expressive braced wincing poses: blink/head lowered and bent legs/tense body. Columns3-4 lower onto ground then fully lie flat resting head/body with legs folded and eyes closed. Keep each camera fixed, characteristic body parts/tail/wings/outfit/markings intact, exact shiny regional materials, consistent native pixel scale and crisp limited palette. New anatomical body and limb poses, not rotated/scaled standing copies. Broad transparent gutters and background; no text/grid/effects/marks/scenery/shadow. Identity starly.",
+  "tool": "builtin-imagegen",
+  "reviewed": false,
+  "shiny_reviewed": true,
+  "shiny_image": "starly-shiny-only-v1.png",
+  "shiny_prompt": "Draw a transparent pixel-art game atlas of the EXACT SHINY character/form/palette in the reference. Exactly SIXTEEN complete sprites, FOUR columns FOUR rows. Rows SOUTH/front,EAST/right,NORTH/back with no face,WEST/left. Columns1-2 two distinct expressive braced wincing poses: blink/head lowered and bent legs/tense body. Columns3-4 lower onto ground then fully lie flat resting head/body with legs folded and eyes closed. Keep each camera fixed, characteristic body parts/tail/wings/outfit/markings intact, exact shiny regional materials, consistent native pixel scale and crisp limited palette. New anatomical body and limb poses, not rotated/scaled standing copies. Broad transparent gutters and background; no text/grid/effects/marks/scenery/shadow. Identity starly.",
+  "source_variant": "shiny",
+  "normal_excluded_reason": "The normal identity retains its native published reactions; this source only authors shiny.",
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-shiny52b.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

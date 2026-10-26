@@ -1,0 +1,40 @@
+{
+  "id": "regieleki",
+  "name": "Regieleki",
+  "num": 894,
+  "form": "",
+  "directions": 4,
+  "frames": 4,
+  "image": "regieleki-assembled54.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Mechanically repack genuine native/built-in drawn poses. Binary alpha before tight crop; register new prone strip by one uniform factor for both frames, preserving every unrelated crop and pixel. No painting, standing-pose warping or camera rotation. Exact recipe and source hashes included.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "assembly_sources": [
+    {
+      "image": "regieleki-cardinal.png",
+      "sha256": "3b453c0afe162b3184bfa65cbbdcf13aadcc68112206822035bd141b6f9b6438"
+    },
+    {
+      "image": "regieleki-north-prone54-v1.png",
+      "sha256": "b14651e5e40f4909d1591d822ecfc325e03b11643e11a41401966babf3c2b138"
+    }
+  ],
+  "assembly_recipe": {
+    "base": "regieleki-cardinal.png",
+    "replace_north_ground": [
+      1,
+      2,
+      3
+    ],
+    "strip": "regieleki-north-prone54-v1.png",
+    "strip_uniform_scale": 0.24071729957805907,
+    "palafin_first_two_from_pain": false
+  },
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-corrections54.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

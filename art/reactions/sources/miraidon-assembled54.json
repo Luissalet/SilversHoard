@@ -1,0 +1,63 @@
+{
+  "id": "miraidon",
+  "name": "Miraidon",
+  "num": 1008,
+  "form": "",
+  "directions": 4,
+  "frames": 4,
+  "image": "miraidon-assembled54.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Mechanically repack genuine native/built-in drawn poses. Binary alpha before tight crop; register new prone strip by one uniform factor for both frames, preserving every unrelated crop and pixel. No painting, standing-pose warping or camera rotation. Exact recipe and source hashes included.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "assembly_sources": [
+    {
+      "image": "miraidon-cardinal.png",
+      "sha256": "9a70aa7aae04f67e014686020442330a30425ec9247777cc8975a10a87c5001e"
+    },
+    {
+      "image": "miraidon-correction44.png",
+      "sha256": "270736b7cc57367c31d4c67d89d5bb167a30874a179a663ecbaf7e8a7e30e2e0"
+    },
+    {
+      "image": "miraidon-assembled46.png",
+      "sha256": "e4614dbb7f988be61eda4bbe6137063901a075902046cf17632903b0d50f4da1"
+    },
+    {
+      "image": "miraidon-north-prone54-v1.png",
+      "sha256": "13a573e56913f35b8e3beac995d1541edb33f97a0a712c282496d0aab4feee58"
+    }
+  ],
+  "assembly_recipe": {
+    "base": "miraidon-assembled46.png",
+    "replace_north_ground": [
+      2,
+      3
+    ],
+    "strip": "miraidon-north-prone54-v1.png",
+    "strip_uniform_scale": 0.33240223463687146,
+    "palafin_first_two_from_pain": false,
+    "parent_recipe": {
+      "base": "miraidon-cardinal.png",
+      "edited": "miraidon-correction44.png",
+      "replace_row_col": [
+        [
+          2,
+          6
+        ],
+        [
+          2,
+          7
+        ]
+      ],
+      "uniform_scale": 0.9904306220095693
+    },
+    "parent_record": "miraidon-assembled46.json"
+  },
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-corrections54.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

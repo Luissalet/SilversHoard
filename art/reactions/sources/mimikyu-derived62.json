@@ -1,0 +1,82 @@
+{
+  "id": "mimikyu",
+  "name": "Mimikyu",
+  "num": 778,
+  "form": "",
+  "directions": 4,
+  "frames": 2,
+  "layout": "direction-rows-action-columns",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "image": "mimikyutotem-assembled60.png",
+  "assembly_sources": [
+    {
+      "image": "mimikyutotem-two-pose60-v1.png",
+      "sha256": "4c1d6b12d94f7f35749ba150894057e97f148e5ccc140326c65bf4dd46a79d32"
+    }
+  ],
+  "assembly_recipe": {
+    "new_source": "mimikyutotem-two-pose60-v1.png",
+    "pain": [
+      {
+        "native": "Idle0"
+      },
+      "new_wince"
+    ],
+    "ground": [
+      "new_wince",
+      "new_prone"
+    ],
+    "repacked_without_paint_or_warp": true
+  },
+  "prompt": "Explicit reuse of the genuinely newly built-in drawn Totem atlas for normal Mimikyu. All eight native actions and all346 cropped frames in each normal/shiny variant are exactly identical across both forms. This is audited equivalent-form derivation, not independent target generation. Repack eight genuinely newly drawn poses, one wince and one grounded pose per cardinal heading, from mimikyutotem-two-pose60-v1.png. Pain uses exact native Idle entry then the newly drawn wince; HitGround transitions from that same wince to the new prone body held until recall. No rotated/warped standing pixels or synthetic fallback. Original generation prompt is saved with the raw source.",
+  "native_frames": [
+    {
+      "action": "Pain",
+      "direction": 0,
+      "frame": 0,
+      "animation": "Idle",
+      "row": 0,
+      "index": 0
+    },
+    {
+      "action": "Pain",
+      "direction": 1,
+      "frame": 0,
+      "animation": "Idle",
+      "row": 2,
+      "index": 0
+    },
+    {
+      "action": "Pain",
+      "direction": 2,
+      "frame": 0,
+      "animation": "Idle",
+      "row": 4,
+      "index": 0
+    },
+    {
+      "action": "Pain",
+      "direction": 3,
+      "frame": 0,
+      "animation": "Idle",
+      "row": 6,
+      "index": 0
+    }
+  ],
+  "derivation": {
+    "kind": "native-equivalent-form",
+    "source_identity": "mimikyutotem",
+    "target_identity": "mimikyu",
+    "audit": "native-mimikyu62-audit.json",
+    "native_actions_per_variant": 8,
+    "native_cropped_frames_per_variant": 346,
+    "all_normal_and_shiny_exact": true
+  },
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-derivation62.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

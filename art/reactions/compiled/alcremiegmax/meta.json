@@ -100,7 +100,7 @@
   "shiny": {
     "a": {
       "Pain": {
-        "w": 120,
+        "w": 128,
         "h": 128,
         "r": 4,
         "n": 4,
@@ -110,13 +110,13 @@
           12,
           10
         ],
-        "ax": 60.0,
+        "ax": 64.0,
         "ay": 122,
         "source": {
           "kind": "generated-shiny-pmd-reaction",
           "record": "alcremiegmax",
           "tool": "builtin-imagegen",
-          "source_sha256": "da468c633a4de0e7211e220cf8132d96f4cdb303291c8fd7fc0fd6884e31b08d",
+          "source_sha256": "5682b2b89c2e6bcfb66f872245d1b90d0b64d863ac678ee75d4fed3a809949b3",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -131,7 +131,7 @@
             "form": "Gmax",
             "key": "lib-alcremiegmax-s-5b23b4caf4d9"
           },
-          "sha256": "fff3b853ce51dae322da89953b5dd1071fefe8893686fb330f71aeee98f42759"
+          "sha256": "9969ef5ab09b3e26240cbcbe641395b682a5a4a6a9f53bf08fd0206b4be2b098"
         },
         "row_map": [
           0,
@@ -145,7 +145,7 @@
         ]
       },
       "HitGround": {
-        "w": 120,
+        "w": 128,
         "h": 128,
         "r": 4,
         "n": 4,
@@ -155,13 +155,13 @@
           12,
           10
         ],
-        "ax": 60.0,
+        "ax": 64.0,
         "ay": 122,
         "source": {
           "kind": "generated-shiny-pmd-reaction",
           "record": "alcremiegmax",
           "tool": "builtin-imagegen",
-          "source_sha256": "da468c633a4de0e7211e220cf8132d96f4cdb303291c8fd7fc0fd6884e31b08d",
+          "source_sha256": "5682b2b89c2e6bcfb66f872245d1b90d0b64d863ac678ee75d4fed3a809949b3",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -176,7 +176,7 @@
             "form": "Gmax",
             "key": "lib-alcremiegmax-s-5b23b4caf4d9"
           },
-          "sha256": "5e5de77057013ce4d2a9d27cd60077030d00473291c3c1d7dc2b04aa5a430191"
+          "sha256": "a2555904c0b6cf63ef29c9b5f6e3ab5929331df606ab65575300c20b5ab6d220"
         },
         "row_map": [
           0,
@@ -207,9 +207,9 @@
     "source_image": "alcremiegmax-cardinal.png",
     "source_sha256": "5f8f4829573f58b70b75239fb222126e7d110ee978b53058f9b124d1b7185743",
     "source_record": "alcremiegmax-cardinal.json",
-    "shiny_source_image": "alcremiegmax-shiny47-v1.png",
-    "shiny_prompt": "Use case identity-preserve. Recolour all32sprites of transparent8column4row atlas IMAGE1 to exact native SHINY colours in IMAGE2. Preserve already corrected black cake/base and yellow star ornaments. Fix only band ornament assignments: LOWER PURPLE band carries GREEN X/bow motifs, UPPER GRAY band carries PINK HEART motifs, as exact native reference. Never swap these two bands. Preserve face/body/frosting and every pose. Preserve every pose, geometry, camera and distinctive part. NORTH remains rear. Finalgroundposesremainfullydown. Crisp exact limited native pixel palette, transparent background, broad gutters. No new effects,text,objects or scenery."
+    "shiny_source_image": "alcremiegmax-shiny-assembled64.png",
+    "shiny_prompt": "Mechanically repack genuine native/built-in drawn poses. Binary alpha before tight crop; register new prone strip by one uniform factor for both frames, preserving every unrelated crop and pixel. No painting, standing-pose warping or camera rotation. Exact recipe and source hashes included.\n{\"base\": \"alcremiegmax-shiny63-v1.png\", \"unchanged_north\": true, \"replaced_rows\": {\"0\": {\"source\": \"alcremie-row64-0-v1.png\", \"uniform_scale\": 0.6963562753036437}, \"1\": {\"source\": \"alcremie-row64-1-v1.png\", \"uniform_scale\": 0.7584745762711864}, \"3\": {\"source\": \"alcremie-row64-3-v1.png\", \"uniform_scale\": 0.8161434977578476}}}"
   },
   "reviewed": true,
-  "shiny_reviewed": false
+  "shiny_reviewed": true
 }

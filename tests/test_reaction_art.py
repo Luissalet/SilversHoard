@@ -150,6 +150,23 @@ def test_pending_shiny_does_not_publish_normal_pixels_as_shiny(tmp_path):
         load_generated(lib, tmp_path)
 
 
+def test_reviewed_shiny_can_publish_without_replacing_a_native_normal(tmp_path):
+    from types import SimpleNamespace
+    source = ART / "compiled" / "magnemite"
+    target = tmp_path / "compiled" / "magnemite"
+    target.mkdir(parents=True)
+    record = json.loads((source / "meta.json").read_text("utf8"))
+    record.update(reviewed=False, shiny_reviewed=True)
+    for action in ("Pain", "HitGround"):
+        (target / f"{action}-shiny.png").write_bytes((source / f"{action}-shiny.png").read_bytes())
+    (target / "meta.json").write_text(json.dumps(record), "utf8")
+    lib = SimpleNamespace(resolve=lambda num, form, shiny=False: {"key": "shiny" if shiny else "normal"})
+    loaded = load_generated(lib, tmp_path)
+    assert set(loaded) == {"shiny"}
+    for action in ("Pain", "HitGround"):
+        assert loaded["shiny"][action][1] == (source / f"{action}-shiny.png").read_bytes()
+
+
 def test_shiny_delta_transfer_cannot_introduce_unregistered_colours(tmp_path, monkeypatch):
     from types import SimpleNamespace
     from scripts import import_reaction_art as importer
