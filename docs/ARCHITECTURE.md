@@ -496,3 +496,24 @@ ancestry, per-cell sources and native component edits. Mega Clefable's partial D
 eye geometry also credits Marill artists CHUNSOFT, Fearless-Quit and Jarleypeño,
 alongside Emmuffin. Coverage counts do not certify the entire art catalogue. Existing
 HTML exports must be re-exported to include these corrected portraits.
+
+
+## Native portrait repairs (partial 64)
+
+Alolan Golem shiny and Gigantamax Lapras normal/shiny now have 48 selected native
+40-pixel expressions. Forty-five generated cells are replaced; three published
+Normal portraits keep their exact priority and pixels. Individual Lapras source
+crops recover available head detail before local cap, palette and eye corrections.
+Golem retains its accepted lateral rock components, with its own materials and a
+partially sourced Lairon Dizzy eye. Lapras Dizzy uses a small manual curve; discarded
+Marill and Igglybuff eye experiments are not selected geometry. Whole faces and
+complete expression contexts were visually reviewed, preserving good components.
+
+The existing generated ancestry, published sources, attribution and per-cell
+operations remain in `art/portraits/reviewed64-provenance.json`. This is an art
+repair without coverage expansion: 2,060 complete, 814 partial, 64 missing sets;
+34,156 mappings, 32,974 PNGs, 14 packs. The other 253 registry records, other
+mappings and 32,929 retained PNG payloads are exact. Native baked atlases preserve
+the accepted expression backgrounds and symbols through app and HTML packing.
+Existing HTML exports require re-exporting. These checks do not certify the whole
+catalogue; unfinished Fearow, Garbodor and Eevee work is not included here.
