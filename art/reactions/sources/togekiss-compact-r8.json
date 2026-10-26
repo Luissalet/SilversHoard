@@ -1,0 +1,19 @@
+{
+  "id": "togekiss",
+  "name": "Togekiss",
+  "num": 468,
+  "form": "",
+  "directions": 4,
+  "frames": 2,
+  "image": "togekiss-compact-r8.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Create a new transparent pixel-art game atlas matching the EXACT character, form and regional colours of the reference. SIXTEEN complete sprites in FOUR columns FOUR rows with broad transparent gaps. Camera rows SOUTHfront/EASTright/NORTHback(no face)/WESTleft. First two columns are expressive wince and braced bend with head low/eyes closed. Last two columns show body lowering and fully flat on ground, head resting and limbs folded; final column stays resting. Preserve distinctive anatomy, tail, ears, wings, accessories and markings. Each view stays fixed through both sequences; back never turns to face the camera. New anatomical poses with crisp original pixel clusters and consistent scale, no rotated/scaled standing copies. No text, effects, extra marks or scenery.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-normal-r8b.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "palafin",
+        "tool": "builtin-imagegen",
+        "source_sha256": "72d949fbf518faf0f9432000063f6d5e917fd8d04d67617f7860eaf3989da940",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 964,
+          "form": "",
+          "key": "lib-palafin-n-e663b3e475dc"
+        },
+        "sha256": "8155ba7ac9db19a1dafc52eac529fbdae48499073017bf8202373090ec94b980"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "palafin",
+        "tool": "builtin-imagegen",
+        "source_sha256": "72d949fbf518faf0f9432000063f6d5e917fd8d04d67617f7860eaf3989da940",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 964,
+          "form": "",
+          "key": "lib-palafin-n-e663b3e475dc"
+        },
+        "sha256": "8a0c49114fdbc2c4f34b3027aec7ead6472108432df72cc267f8dabbd8c4c954"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "palafin",
+          "tool": "builtin-imagegen",
+          "source_sha256": "72d949fbf518faf0f9432000063f6d5e917fd8d04d67617f7860eaf3989da940",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 964,
+            "form": "",
+            "key": "lib-palafin-n-e663b3e475dc"
+          },
+          "sha256": "cccb4062b16de8caaf06eb1e52fa57ef044a135f4dc40af4f4fbdfc60b64bc44",
+          "palette_from": "lib-palafin-s-1f7f0cc44b59"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "palafin",
+          "tool": "builtin-imagegen",
+          "source_sha256": "72d949fbf518faf0f9432000063f6d5e917fd8d04d67617f7860eaf3989da940",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 964,
+            "form": "",
+            "key": "lib-palafin-n-e663b3e475dc"
+          },
+          "sha256": "70249d9f2468a89f7145bc325452f37cfa9e65c67f4fec1c697eb5200c83f1ea",
+          "palette_from": "lib-palafin-s-1f7f0cc44b59"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "palafin",
+    "num": 964,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Mechanically repack genuine native/built-in drawn poses. Binary alpha before tight crop; register new prone strip by one uniform factor for both frames, preserving every unrelated crop and pixel. No painting, standing-pose warping or camera rotation. Exact recipe and source hashes included.",
+    "source_image": "palafin-assembled54.png",
+    "source_sha256": "72d949fbf518faf0f9432000063f6d5e917fd8d04d67617f7860eaf3989da940",
+    "source_record": "palafin-assembled54.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

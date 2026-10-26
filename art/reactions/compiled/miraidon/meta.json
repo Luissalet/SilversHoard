@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 72,
+      "h": 64,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 58,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "miraidon",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f9c872e9ac83f9cd13b9f220b8dfc64afb6e2e13cfe344ac224ce85adff2c714",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 1008,
+          "form": "",
+          "key": "lib-miraidon-n-b33d6455e956"
+        },
+        "sha256": "71ffe6fe7e728723f01fe9801dcb179af5b4d4be11ca0d5dc9d63332cd7a88e9"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 72,
+      "h": 64,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 58,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "miraidon",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f9c872e9ac83f9cd13b9f220b8dfc64afb6e2e13cfe344ac224ce85adff2c714",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 1008,
+          "form": "",
+          "key": "lib-miraidon-n-b33d6455e956"
+        },
+        "sha256": "a61490929fe8db704f06f069720dfbc17d801cf89080de336ca79e53e71103b6"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 72,
+        "h": 64,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 58,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "miraidon",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f9c872e9ac83f9cd13b9f220b8dfc64afb6e2e13cfe344ac224ce85adff2c714",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 1008,
+            "form": "",
+            "key": "lib-miraidon-n-b33d6455e956"
+          },
+          "sha256": "ce12c19ac60daeee774f416f073f7e66f75c04c4852db3240784574a27be1f95",
+          "palette_from": "lib-miraidon-s-880a17684f1a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 72,
+        "h": 64,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 58,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "miraidon",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f9c872e9ac83f9cd13b9f220b8dfc64afb6e2e13cfe344ac224ce85adff2c714",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 1008,
+            "form": "",
+            "key": "lib-miraidon-n-b33d6455e956"
+          },
+          "sha256": "e7ef13a12fb3539319bb44536634bbf0f918fd6ee5b4ac7b31c9d52065ca15bc",
+          "palette_from": "lib-miraidon-s-880a17684f1a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "miraidon",
+    "num": 1008,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Mechanically repack genuine native/built-in drawn poses. Binary alpha before tight crop; register new prone strip by one uniform factor for both frames, preserving every unrelated crop and pixel. No painting, standing-pose warping or camera rotation. Exact recipe and source hashes included.",
+    "source_image": "miraidon-assembled54.png",
+    "source_sha256": "f9c872e9ac83f9cd13b9f220b8dfc64afb6e2e13cfe344ac224ce85adff2c714",
+    "source_record": "miraidon-assembled54.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

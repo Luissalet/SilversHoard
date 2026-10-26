@@ -1,0 +1,60 @@
+{
+  "id": "ironcrown",
+  "name": "Iron Crown",
+  "num": 1023,
+  "form": "",
+  "directions": 4,
+  "frames": 4,
+  "image": "ironcrown-assembled57.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Mechanically repack genuine native/built-in drawn poses. Binary alpha before tight crop; register new prone strip by one uniform factor for both frames, preserving every unrelated crop and pixel. No painting, standing-pose warping or camera rotation. Exact recipe and source hashes included.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "assembly_sources": [
+    {
+      "image": "ironcrown-cardinal.png",
+      "sha256": "ee4fe83ad7053dfe8f3eceb13f5ff441410113b02bc07fbe50be6171cb0112a3"
+    },
+    {
+      "image": "ironcrown-north-prone54-v1.png",
+      "sha256": "af217c75bf7b6060a50b060ae1adf5461cbea1accce2957a20cb983bb9c10acc"
+    },
+    {
+      "image": "ironcrown-assembled54.png",
+      "sha256": "584869215394fbb7fd1adbe668de0b3f881269dd60a1d8b7df15a9dcac2912e5"
+    }
+  ],
+  "assembly_recipe": {
+    "base": "ironcrown-assembled54.png",
+    "parent_recipe": {
+      "base": "ironcrown-cardinal.png",
+      "replace_north_ground": [
+        2,
+        3
+      ],
+      "strip": "ironcrown-north-prone54-v1.png",
+      "strip_uniform_scale": 0.22448979591836735,
+      "palafin_first_two_from_pain": false
+    },
+    "copy_cells": [
+      [
+        2,
+        4,
+        2,
+        0
+      ],
+      [
+        2,
+        5,
+        2,
+        6
+      ]
+    ]
+  },
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-corrections57.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

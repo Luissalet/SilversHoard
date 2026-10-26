@@ -327,7 +327,7 @@ if __name__ == "__main__":
         record["source_record"] = source.name
         if args.ids and source.stem not in args.ids:
             continue
-        if not args.ids and not record.get("reviewed"):
+        if not args.ids and not (record.get("reviewed") or record.get("shiny_reviewed")):
             continue
         try:
             geometry = compile_one(record, library)

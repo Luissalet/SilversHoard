@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "pidgey",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b5bbb7ace70ae7558ef7932bf9c2adc9b96796f178dc215f8689241be27235af",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 16,
+          "form": "",
+          "key": "lib-pidgey-n-599ca64b7024"
+        },
+        "sha256": "be3a5aaaab2fe558c67148d44db996e849bfc4f612d307c21731d90b150f88d7"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "pidgey",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b5bbb7ace70ae7558ef7932bf9c2adc9b96796f178dc215f8689241be27235af",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 16,
+          "form": "",
+          "key": "lib-pidgey-n-599ca64b7024"
+        },
+        "sha256": "8cfc66bd9245c43b73bbda12deae806d4cc217e7b4e393f242ea8fd4a11314ba"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "pidgey",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b5bbb7ace70ae7558ef7932bf9c2adc9b96796f178dc215f8689241be27235af",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 16,
+            "form": "",
+            "key": "lib-pidgey-s-0b4267830301"
+          },
+          "sha256": "f23885b856d649a3eb2b91889ca876882c3adb4ec222988d9a7eaac56406b387"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "pidgey",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b5bbb7ace70ae7558ef7932bf9c2adc9b96796f178dc215f8689241be27235af",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 16,
+            "form": "",
+            "key": "lib-pidgey-s-0b4267830301"
+          },
+          "sha256": "84640c207944afcefcf8e84f84e1c99f2b628b693baffe2bf78bd37444a5d715"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "pidgey",
+    "num": 16,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a transparent pixel-art game atlas of the EXACT SHINY character/form/palette in the reference. Exactly SIXTEEN complete sprites, FOUR columns FOUR rows. Rows SOUTH/front,EAST/right,NORTH/back with no face,WEST/left. Columns1-2 two distinct expressive braced wincing poses: blink/head lowered and bent legs/tense body. Columns3-4 lower onto ground then fully lie flat resting head/body with legs folded and eyes closed. Keep each camera fixed, characteristic body parts/tail/wings/outfit/markings intact, exact shiny regional materials, consistent native pixel scale and crisp limited palette. New anatomical body and limb poses, not rotated/scaled standing copies. Broad transparent gutters and background; no text/grid/effects/marks/scenery/shadow. Identity pidgey.",
+    "source_image": "pidgey-shiny-only-v1.png",
+    "source_sha256": "b5bbb7ace70ae7558ef7932bf9c2adc9b96796f178dc215f8689241be27235af",
+    "source_record": "pidgey-shiny-only-v1.json",
+    "shiny_source_image": "pidgey-shiny-only-v1.png",
+    "shiny_prompt": "Draw a transparent pixel-art game atlas of the EXACT SHINY character/form/palette in the reference. Exactly SIXTEEN complete sprites, FOUR columns FOUR rows. Rows SOUTH/front,EAST/right,NORTH/back with no face,WEST/left. Columns1-2 two distinct expressive braced wincing poses: blink/head lowered and bent legs/tense body. Columns3-4 lower onto ground then fully lie flat resting head/body with legs folded and eyes closed. Keep each camera fixed, characteristic body parts/tail/wings/outfit/markings intact, exact shiny regional materials, consistent native pixel scale and crisp limited palette. New anatomical body and limb poses, not rotated/scaled standing copies. Broad transparent gutters and background; no text/grid/effects/marks/scenery/shadow. Identity pidgey."
+  },
+  "reviewed": false,
+  "shiny_reviewed": true
+}

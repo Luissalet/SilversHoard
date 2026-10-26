@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "greninjaash",
+        "tool": "builtin-imagegen",
+        "source_sha256": "48259df1b5d0cdfa082d3699f716d534cda15d142e80213b2c237f63569dc3ab",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 658,
+          "form": "Ash",
+          "key": "lib-greninjaash-n-1a956aec33bf"
+        },
+        "sha256": "37940918f168b0c4fc15874ae569a5bf208993ec02118edc5bae9fad6c9233dd"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "greninjaash",
+        "tool": "builtin-imagegen",
+        "source_sha256": "48259df1b5d0cdfa082d3699f716d534cda15d142e80213b2c237f63569dc3ab",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 658,
+          "form": "Ash",
+          "key": "lib-greninjaash-n-1a956aec33bf"
+        },
+        "sha256": "24377c41c838748c2e3eb193ce778aab4e91fc1861c7f858c7391d8bb4197c35"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "greninjaash",
+          "tool": "builtin-imagegen",
+          "source_sha256": "48259df1b5d0cdfa082d3699f716d534cda15d142e80213b2c237f63569dc3ab",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 658,
+            "form": "Ash",
+            "key": "lib-greninjaash-n-1a956aec33bf"
+          },
+          "sha256": "90beefc891490978cfc7f000c005e406aaa26bfea90519a3cbea52068e4624ec",
+          "palette_from": "lib-greninjaash-s-434739a3853c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "greninjaash",
+          "tool": "builtin-imagegen",
+          "source_sha256": "48259df1b5d0cdfa082d3699f716d534cda15d142e80213b2c237f63569dc3ab",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 658,
+            "form": "Ash",
+            "key": "lib-greninjaash-n-1a956aec33bf"
+          },
+          "sha256": "2ae86a34fee1ea3b256f286c3b696f9b222b12aac14f2245acd5dc4709195fa1",
+          "palette_from": "lib-greninjaash-s-434739a3853c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "greninjaash",
+    "num": 658,
+    "form": "Ash",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new transparent pixel-art game atlas matching the EXACT character, form and regional colours of the reference. SIXTEEN complete sprites in FOUR columns FOUR rows with broad transparent gaps. Camera rows SOUTHfront/EASTright/NORTHback(no face)/WESTleft. First two columns are expressive wince and braced bend with head low/eyes closed. Last two columns show body lowering and fully flat on ground, head resting and limbs folded; final column stays resting. Preserve distinctive anatomy, tail, ears, wings, accessories and markings. Each view stays fixed through both sequences; back never turns to face the camera. New anatomical poses with crisp original pixel clusters and consistent scale, no rotated/scaled standing copies. No text, effects, extra marks or scenery.",
+    "source_image": "greninjaash-compact-r8.png",
+    "source_sha256": "48259df1b5d0cdfa082d3699f716d534cda15d142e80213b2c237f63569dc3ab",
+    "source_record": "greninjaash-compact-r8.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

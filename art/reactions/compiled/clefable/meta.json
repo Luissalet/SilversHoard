@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "clefable",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ef3954ce50481052479f02677b2e1270ce60435c3a7f180a06deac14209a2736",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 36,
+          "form": "",
+          "key": "lib-clefable-n-130471499128"
+        },
+        "sha256": "45be3f674c7fad63d0ac3ce807c350030921fbd797759bdb4e79388360ab3ee2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "clefable",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ef3954ce50481052479f02677b2e1270ce60435c3a7f180a06deac14209a2736",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 36,
+          "form": "",
+          "key": "lib-clefable-n-130471499128"
+        },
+        "sha256": "64ad3d6b9ae66fc696713a000247387510a32fb5a9d8063b1dcbd2b3b3fc6d1a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "clefable",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ef3954ce50481052479f02677b2e1270ce60435c3a7f180a06deac14209a2736",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 36,
+            "form": "",
+            "key": "lib-clefable-n-130471499128"
+          },
+          "sha256": "c57ead8f72911b3bffef91be73fb400b1a706b7e30908997744fa8ae09131cfe",
+          "palette_from": "lib-clefable-s-0125227140fb"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "clefable",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ef3954ce50481052479f02677b2e1270ce60435c3a7f180a06deac14209a2736",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 36,
+            "form": "",
+            "key": "lib-clefable-n-130471499128"
+          },
+          "sha256": "4df13ae1dfbf11a2edfa437b67daa623d34a8ee5fdb396360246eaa6929d3c61",
+          "palette_from": "lib-clefable-s-0125227140fb"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "clefable",
+    "num": 36,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Mechanically repack genuine native/built-in drawn poses. Binary alpha before tight crop; register new prone strip by one uniform factor for both frames, preserving every unrelated crop and pixel. No painting, standing-pose warping or camera rotation. Exact recipe and source hashes included.",
+    "source_image": "clefable-reordered54.png",
+    "source_sha256": "ef3954ce50481052479f02677b2e1270ce60435c3a7f180a06deac14209a2736",
+    "source_record": "clefable-reordered54.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

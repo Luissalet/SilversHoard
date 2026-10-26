@@ -1,0 +1,385 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "crobat",
+        "tool": "builtin-imagegen",
+        "source_sha256": "2df3d0e7956a65d763921bd5581a149573d847cbdbdaf380c23a7c0453b43dc2",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 4,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 169,
+          "form": "",
+          "key": "lib-crobat-n-927a39db9b2b"
+        },
+        "assembly": {
+          "native_frames": [
+            {
+              "action": "Pain",
+              "direction": 0,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 0,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 1,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 2,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 2,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 4,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 3,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 6,
+              "index": 0
+            }
+          ]
+        },
+        "sha256": "e59d0ff0f3ecb8a5bf4f104a0cf4d45c63ee06e01f55cef55879b4eae7b79503"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "crobat",
+        "tool": "builtin-imagegen",
+        "source_sha256": "2df3d0e7956a65d763921bd5581a149573d847cbdbdaf380c23a7c0453b43dc2",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 169,
+          "form": "",
+          "key": "lib-crobat-n-927a39db9b2b"
+        },
+        "assembly": {
+          "native_frames": [
+            {
+              "action": "Pain",
+              "direction": 0,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 0,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 1,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 2,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 2,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 4,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 3,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 6,
+              "index": 0
+            }
+          ]
+        },
+        "sha256": "1f2ece1b71aef2364e4e644708ced2b2b046ed5f1c23df86bccc412f37995d4d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "crobat",
+          "tool": "builtin-imagegen",
+          "source_sha256": "2df3d0e7956a65d763921bd5581a149573d847cbdbdaf380c23a7c0453b43dc2",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 4,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 169,
+            "form": "",
+            "key": "lib-crobat-n-927a39db9b2b"
+          },
+          "assembly": {
+            "native_frames": [
+              {
+                "action": "Pain",
+                "direction": 0,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 0,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 1,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 2,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 2,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 4,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 3,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 6,
+                "index": 0
+              }
+            ]
+          },
+          "sha256": "2bc6ce863a0d8af583789bac90ad48b330c3f3647028b25a5a5786bb2c5926bd",
+          "palette_from": "lib-crobat-s-2bcf47f3135e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "crobat",
+          "tool": "builtin-imagegen",
+          "source_sha256": "2df3d0e7956a65d763921bd5581a149573d847cbdbdaf380c23a7c0453b43dc2",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 169,
+            "form": "",
+            "key": "lib-crobat-n-927a39db9b2b"
+          },
+          "assembly": {
+            "native_frames": [
+              {
+                "action": "Pain",
+                "direction": 0,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 0,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 1,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 2,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 2,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 4,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 3,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 6,
+                "index": 0
+              }
+            ]
+          },
+          "sha256": "ea396b531c6cc4e27dc2abaab9198bf3df02687aeb959fe699b561d64c7a5310",
+          "palette_from": "lib-crobat-s-2bcf47f3135e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "crobat",
+    "num": 169,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Repack eight genuinely newly drawn poses, one wince and one grounded pose per cardinal heading, from crobat-normal67-v1.png. Pain uses exact native Idle entry then the newly drawn wince; HitGround transitions from that same wince to the new prone body held until recall. No rotated/warped standing pixels or synthetic fallback. Original generation prompt is saved with the raw source.",
+    "source_image": "crobat-assembled67.png",
+    "source_sha256": "2df3d0e7956a65d763921bd5581a149573d847cbdbdaf380c23a7c0453b43dc2",
+    "native_frames": [
+      {
+        "action": "Pain",
+        "direction": 0,
+        "frame": 0,
+        "animation": "Idle",
+        "row": 0,
+        "index": 0
+      },
+      {
+        "action": "Pain",
+        "direction": 1,
+        "frame": 0,
+        "animation": "Idle",
+        "row": 2,
+        "index": 0
+      },
+      {
+        "action": "Pain",
+        "direction": 2,
+        "frame": 0,
+        "animation": "Idle",
+        "row": 4,
+        "index": 0
+      },
+      {
+        "action": "Pain",
+        "direction": 3,
+        "frame": 0,
+        "animation": "Idle",
+        "row": 6,
+        "index": 0
+      }
+    ],
+    "source_record": "crobat-assembled67.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

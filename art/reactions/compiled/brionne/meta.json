@@ -1,0 +1,385 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "brionne",
+        "tool": "builtin-imagegen",
+        "source_sha256": "108ff4cbed5943e3426518fae01fff4e26c42c22a13181747138c87b1bb242aa",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 4,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 729,
+          "form": "",
+          "key": "lib-brionne-n-d4544bb2ffb3"
+        },
+        "assembly": {
+          "native_frames": [
+            {
+              "action": "Pain",
+              "direction": 0,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 0,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 1,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 2,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 2,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 4,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 3,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 6,
+              "index": 0
+            }
+          ]
+        },
+        "sha256": "66010dff9d26715c58872b2f267f96e6d9cb400f7abc47022ec92ab49b506b76"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "brionne",
+        "tool": "builtin-imagegen",
+        "source_sha256": "108ff4cbed5943e3426518fae01fff4e26c42c22a13181747138c87b1bb242aa",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 729,
+          "form": "",
+          "key": "lib-brionne-n-d4544bb2ffb3"
+        },
+        "assembly": {
+          "native_frames": [
+            {
+              "action": "Pain",
+              "direction": 0,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 0,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 1,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 2,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 2,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 4,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 3,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 6,
+              "index": 0
+            }
+          ]
+        },
+        "sha256": "0452f4c9662542658631d9bb8a53e07eb5979289a3ada73d4bad7b1ece817829"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "brionne",
+          "tool": "builtin-imagegen",
+          "source_sha256": "108ff4cbed5943e3426518fae01fff4e26c42c22a13181747138c87b1bb242aa",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 4,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 729,
+            "form": "",
+            "key": "lib-brionne-n-d4544bb2ffb3"
+          },
+          "assembly": {
+            "native_frames": [
+              {
+                "action": "Pain",
+                "direction": 0,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 0,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 1,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 2,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 2,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 4,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 3,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 6,
+                "index": 0
+              }
+            ]
+          },
+          "sha256": "3ef285b7540ad0ecac6a6ae481587e5a259184901f44514aa2ff8c3377fb0986",
+          "palette_from": "lib-brionne-s-62c157a1f290"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "brionne",
+          "tool": "builtin-imagegen",
+          "source_sha256": "108ff4cbed5943e3426518fae01fff4e26c42c22a13181747138c87b1bb242aa",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 729,
+            "form": "",
+            "key": "lib-brionne-n-d4544bb2ffb3"
+          },
+          "assembly": {
+            "native_frames": [
+              {
+                "action": "Pain",
+                "direction": 0,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 0,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 1,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 2,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 2,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 4,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 3,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 6,
+                "index": 0
+              }
+            ]
+          },
+          "sha256": "d4080f7a2a4f4abe7691ef4526bc75a8ce9dfbd51631a1c9011c19cf6d7089b4",
+          "palette_from": "lib-brionne-s-62c157a1f290"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "brionne",
+    "num": 729,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Repack eight genuinely newly drawn poses, one wince and one grounded pose per cardinal heading, from brionne-two-pose60-v1.png. Pain uses exact native Idle entry then the newly drawn wince; HitGround transitions from that same wince to the new prone body held until recall. No rotated/warped standing pixels or synthetic fallback. Original generation prompt is saved with the raw source.",
+    "source_image": "brionne-assembled60.png",
+    "source_sha256": "108ff4cbed5943e3426518fae01fff4e26c42c22a13181747138c87b1bb242aa",
+    "native_frames": [
+      {
+        "action": "Pain",
+        "direction": 0,
+        "frame": 0,
+        "animation": "Idle",
+        "row": 0,
+        "index": 0
+      },
+      {
+        "action": "Pain",
+        "direction": 1,
+        "frame": 0,
+        "animation": "Idle",
+        "row": 2,
+        "index": 0
+      },
+      {
+        "action": "Pain",
+        "direction": 2,
+        "frame": 0,
+        "animation": "Idle",
+        "row": 4,
+        "index": 0
+      },
+      {
+        "action": "Pain",
+        "direction": 3,
+        "frame": 0,
+        "animation": "Idle",
+        "row": 6,
+        "index": 0
+      }
+    ],
+    "source_record": "brionne-assembled60.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

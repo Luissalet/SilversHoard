@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "haunter",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8971e2e9b0489baa13e1fb379ea794ac934f7c396cde2ff8869a5af39225fb36",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 93,
+          "form": "",
+          "key": "lib-haunter-n-8604e88deaa0"
+        },
+        "sha256": "61ddbd3d7b8b65d908278a8c415cb7a20b01d0c1e36412e2b29a195576b10b5d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "haunter",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8971e2e9b0489baa13e1fb379ea794ac934f7c396cde2ff8869a5af39225fb36",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 93,
+          "form": "",
+          "key": "lib-haunter-n-8604e88deaa0"
+        },
+        "sha256": "b81267c025495425b32ca0e562a50e7dc97ba28d1cd5c0c2b968460f45a30974"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "haunter",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8971e2e9b0489baa13e1fb379ea794ac934f7c396cde2ff8869a5af39225fb36",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 93,
+            "form": "",
+            "key": "lib-haunter-n-8604e88deaa0"
+          },
+          "sha256": "5755f9b23ccd9bec62bf571c7c051712e45e49d8b1750303c05147a2fbe9040b",
+          "palette_from": "lib-haunter-s-76ec2303d409"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "haunter",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8971e2e9b0489baa13e1fb379ea794ac934f7c396cde2ff8869a5af39225fb36",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 93,
+            "form": "",
+            "key": "lib-haunter-n-8604e88deaa0"
+          },
+          "sha256": "b81267c025495425b32ca0e562a50e7dc97ba28d1cd5c0c2b968460f45a30974",
+          "palette_from": "lib-haunter-s-76ec2303d409"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "haunter",
+    "num": 93,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new transparent pixel-art game atlas matching the EXACT character, form and regional colours of the reference. SIXTEEN complete sprites in FOUR columns FOUR rows with broad transparent gaps. Camera rows SOUTHfront/EASTright/NORTHback(no face)/WESTleft. First two columns are expressive wince and braced bend with head low/eyes closed. Last two columns show body lowering and fully flat on ground, head resting and limbs folded; final column stays resting. Preserve distinctive anatomy, tail, ears, wings, accessories and markings. Each view stays fixed through both sequences; back never turns to face the camera. New anatomical poses with crisp original pixel clusters and consistent scale, no rotated/scaled standing copies. No text, effects, extra marks or scenery.",
+    "source_image": "haunter-compact-r8.png",
+    "source_sha256": "8971e2e9b0489baa13e1fb379ea794ac934f7c396cde2ff8869a5af39225fb36",
+    "source_record": "haunter-compact-r8.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

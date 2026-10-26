@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "pachirisu",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b30ddcc3a8644d924bb3663dd41ecac2bcfc3864e3cfdef3e6534f507623990a",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 417,
+          "form": "",
+          "key": "lib-pachirisu-n-c3e4a398116e"
+        },
+        "sha256": "d2adc014926ed4cf2e8d1d89d172a5bd10f1b819fd1996742733878d3faa8b32"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "pachirisu",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b30ddcc3a8644d924bb3663dd41ecac2bcfc3864e3cfdef3e6534f507623990a",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 417,
+          "form": "",
+          "key": "lib-pachirisu-n-c3e4a398116e"
+        },
+        "sha256": "eca36325c569f544c086bdfc42ca900459dd9e53a2dc96fc82de6d7326c38f9d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "pachirisu",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b30ddcc3a8644d924bb3663dd41ecac2bcfc3864e3cfdef3e6534f507623990a",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 417,
+            "form": "",
+            "key": "lib-pachirisu-s-21bf9753296a"
+          },
+          "sha256": "0681a1669f78e12e79ffab658477e2d0869e475783cbebd0963334b560bb6346"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "pachirisu",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b30ddcc3a8644d924bb3663dd41ecac2bcfc3864e3cfdef3e6534f507623990a",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 417,
+            "form": "",
+            "key": "lib-pachirisu-s-21bf9753296a"
+          },
+          "sha256": "f328a66683018cf91f2338afc803686fb369f4d7b66ba653dd7c32589ed18e37"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "pachirisu",
+    "num": 417,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a transparent pixel-art game atlas of the EXACT SHINY character/form/palette in the reference. Exactly SIXTEEN complete sprites, FOUR columns FOUR rows. Rows SOUTH/front,EAST/right,NORTH/back with no face,WEST/left. Columns1-2 two distinct expressive braced wincing poses: blink/head lowered and bent legs/tense body. Columns3-4 lower onto ground then fully lie flat resting head/body with legs folded and eyes closed. Keep each camera fixed, characteristic body parts/tail/wings/outfit/markings intact, exact shiny regional materials, consistent native pixel scale and crisp limited palette. New anatomical body and limb poses, not rotated/scaled standing copies. Broad transparent gutters and background; no text/grid/effects/marks/scenery/shadow. Identity pachirisu.",
+    "source_image": "pachirisu-shiny-only-v1.png",
+    "source_sha256": "b30ddcc3a8644d924bb3663dd41ecac2bcfc3864e3cfdef3e6534f507623990a",
+    "source_record": "pachirisu-shiny-only-v1.json",
+    "shiny_source_image": "pachirisu-shiny-only-v1.png",
+    "shiny_prompt": "Draw a transparent pixel-art game atlas of the EXACT SHINY character/form/palette in the reference. Exactly SIXTEEN complete sprites, FOUR columns FOUR rows. Rows SOUTH/front,EAST/right,NORTH/back with no face,WEST/left. Columns1-2 two distinct expressive braced wincing poses: blink/head lowered and bent legs/tense body. Columns3-4 lower onto ground then fully lie flat resting head/body with legs folded and eyes closed. Keep each camera fixed, characteristic body parts/tail/wings/outfit/markings intact, exact shiny regional materials, consistent native pixel scale and crisp limited palette. New anatomical body and limb poses, not rotated/scaled standing copies. Broad transparent gutters and background; no text/grid/effects/marks/scenery/shadow. Identity pachirisu."
+  },
+  "reviewed": false,
+  "shiny_reviewed": true
+}

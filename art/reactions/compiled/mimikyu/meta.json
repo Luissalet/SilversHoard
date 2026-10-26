@@ -1,0 +1,385 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 28.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "mimikyu",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7a05edeebbf501d03a7f0cbcd59e4726970ba02ccc223a28bff9c70029f0a555",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 4,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 778,
+          "form": "",
+          "key": "lib-mimikyu-n-455087bf2460"
+        },
+        "assembly": {
+          "native_frames": [
+            {
+              "action": "Pain",
+              "direction": 0,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 0,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 1,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 2,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 2,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 4,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 3,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 6,
+              "index": 0
+            }
+          ]
+        },
+        "sha256": "697fa5687a0ba9b5a595a800ec8e6865ee59ca2cb223323d1b418e0584c896a2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 28.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "mimikyu",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7a05edeebbf501d03a7f0cbcd59e4726970ba02ccc223a28bff9c70029f0a555",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 778,
+          "form": "",
+          "key": "lib-mimikyu-n-455087bf2460"
+        },
+        "assembly": {
+          "native_frames": [
+            {
+              "action": "Pain",
+              "direction": 0,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 0,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 1,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 2,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 2,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 4,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 3,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 6,
+              "index": 0
+            }
+          ]
+        },
+        "sha256": "ae1ab4c7fe8b0644ec0f5dec50c06883bba68eba49f581c951892075dff14ebd"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 28.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "mimikyu",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7a05edeebbf501d03a7f0cbcd59e4726970ba02ccc223a28bff9c70029f0a555",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 4,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 778,
+            "form": "",
+            "key": "lib-mimikyu-n-455087bf2460"
+          },
+          "assembly": {
+            "native_frames": [
+              {
+                "action": "Pain",
+                "direction": 0,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 0,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 1,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 2,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 2,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 4,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 3,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 6,
+                "index": 0
+              }
+            ]
+          },
+          "sha256": "50fb42f95bfa3ea4eeba19f641e82c1e55dcaee73267657eda3cd8117ddc7fe3",
+          "palette_from": "lib-mimikyu-s-a6bd73ce41a6"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 28.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "mimikyu",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7a05edeebbf501d03a7f0cbcd59e4726970ba02ccc223a28bff9c70029f0a555",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 778,
+            "form": "",
+            "key": "lib-mimikyu-n-455087bf2460"
+          },
+          "assembly": {
+            "native_frames": [
+              {
+                "action": "Pain",
+                "direction": 0,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 0,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 1,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 2,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 2,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 4,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 3,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 6,
+                "index": 0
+              }
+            ]
+          },
+          "sha256": "a02c62cafe6bc43d44814fb20e9093379226a0f39b18c1c2e11a0396eea25949",
+          "palette_from": "lib-mimikyu-s-a6bd73ce41a6"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "mimikyu",
+    "num": 778,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Explicit reuse of the genuinely newly built-in drawn Totem atlas for normal Mimikyu. All eight native actions and all346 cropped frames in each normal/shiny variant are exactly identical across both forms. This is audited equivalent-form derivation, not independent target generation. Repack eight genuinely newly drawn poses, one wince and one grounded pose per cardinal heading, from mimikyutotem-two-pose60-v1.png. Pain uses exact native Idle entry then the newly drawn wince; HitGround transitions from that same wince to the new prone body held until recall. No rotated/warped standing pixels or synthetic fallback. Original generation prompt is saved with the raw source.",
+    "source_image": "mimikyutotem-assembled60.png",
+    "source_sha256": "7a05edeebbf501d03a7f0cbcd59e4726970ba02ccc223a28bff9c70029f0a555",
+    "native_frames": [
+      {
+        "action": "Pain",
+        "direction": 0,
+        "frame": 0,
+        "animation": "Idle",
+        "row": 0,
+        "index": 0
+      },
+      {
+        "action": "Pain",
+        "direction": 1,
+        "frame": 0,
+        "animation": "Idle",
+        "row": 2,
+        "index": 0
+      },
+      {
+        "action": "Pain",
+        "direction": 2,
+        "frame": 0,
+        "animation": "Idle",
+        "row": 4,
+        "index": 0
+      },
+      {
+        "action": "Pain",
+        "direction": 3,
+        "frame": 0,
+        "animation": "Idle",
+        "row": 6,
+        "index": 0
+      }
+    ],
+    "source_record": "mimikyu-derived62.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

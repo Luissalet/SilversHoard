@@ -113,10 +113,10 @@
         "ax": 20.0,
         "ay": 26,
         "source": {
-          "kind": "shiny-generated-pmd-reaction",
+          "kind": "generated-shiny-pmd-reaction",
           "record": "klawf",
           "tool": "builtin-imagegen",
-          "source_sha256": "161c616e6c04a0b7ddf170a6fc6897ed65ffe816acbe507432420797a95309fd",
+          "source_sha256": "d9e3819cb0bc48ff6d91408bcc2819e2c4889eea3ea0700727dd28e3a7e2b488",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -129,10 +129,9 @@
           "reference": {
             "num": 950,
             "form": "",
-            "key": "lib-klawf-n-c044918fef1c"
+            "key": "lib-klawf-s-ecc0899c3762"
           },
-          "sha256": "fa76e1ce6f9899cc6d274a1a12680e957cfd5933ff0e7ee0719719bc2917de4d",
-          "palette_from": "lib-klawf-s-ecc0899c3762"
+          "sha256": "909ab5f10bb8275f5ade91b5ee4253bde263fccf9afd4cd518ef5ea421527e51"
         },
         "row_map": [
           0,
@@ -159,10 +158,10 @@
         "ax": 20.0,
         "ay": 26,
         "source": {
-          "kind": "shiny-generated-pmd-reaction",
+          "kind": "generated-shiny-pmd-reaction",
           "record": "klawf",
           "tool": "builtin-imagegen",
-          "source_sha256": "161c616e6c04a0b7ddf170a6fc6897ed65ffe816acbe507432420797a95309fd",
+          "source_sha256": "d9e3819cb0bc48ff6d91408bcc2819e2c4889eea3ea0700727dd28e3a7e2b488",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -175,10 +174,9 @@
           "reference": {
             "num": 950,
             "form": "",
-            "key": "lib-klawf-n-c044918fef1c"
+            "key": "lib-klawf-s-ecc0899c3762"
           },
-          "sha256": "3c7a9e73f3ad750069b7afb5ae045dfaa92ea8d5bfd10ec2697f1a2b7204b81a",
-          "palette_from": "lib-klawf-s-ecc0899c3762"
+          "sha256": "6e0c532fd73be04f0ea97284c5e2cc9267a11441abc3e197f0e1a936190460ba"
         },
         "row_map": [
           0,
@@ -208,8 +206,10 @@
     "prompt": "Draw a new transparent pixel-art game animation atlas of Klawf, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
     "source_image": "klawf-retry-r4.png",
     "source_sha256": "161c616e6c04a0b7ddf170a6fc6897ed65ffe816acbe507432420797a95309fd",
-    "source_record": "klawf-retry-r4.json"
+    "source_record": "klawf-retry-r4.json",
+    "shiny_source_image": "klawf-shiny49-v1.png",
+    "shiny_prompt": "Use case identity-preserve. Recolour the entire transparent 8column4row atlas IMAGE1 to EXACT native SHINY reference IMAGE2. Carapace and each blue marking are exact native SHINY CYAN/BLUE; legs retain native brown. Never leave normal orange/copper patches on the blue shell. Keep every pose, camera, geometry, body part and grid unchanged. NORTH is back-only and final ground poses stay fully prone. Crisp limited native pixel palette, binary transparent background and broad transparent gutters. No new effects, text, marks, scenery or objects."
   },
   "reviewed": true,
-  "shiny_reviewed": false
+  "shiny_reviewed": true
 }

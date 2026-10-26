@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "sentret",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7b0d5d2947104c93e398b791a754f373ee8dad48efcd715bc2787dda746bbe2f",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 161,
+          "form": "",
+          "key": "lib-sentret-n-f452b667a5ec"
+        },
+        "sha256": "de8d6924eaba07c98a9b20ec2b031a7e413a914686df47d90f8a9a78bf1cfbe8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "sentret",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7b0d5d2947104c93e398b791a754f373ee8dad48efcd715bc2787dda746bbe2f",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 161,
+          "form": "",
+          "key": "lib-sentret-n-f452b667a5ec"
+        },
+        "sha256": "926fe0d5750391835402db7618acc79bb1070b9f971e0398eac989695142f5d7"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "sentret",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7b0d5d2947104c93e398b791a754f373ee8dad48efcd715bc2787dda746bbe2f",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 161,
+            "form": "",
+            "key": "lib-sentret-s-e9b6fc7080e0"
+          },
+          "sha256": "9b695459747ad7b3081c2b71109594f630b5d55f97a12188ceae25c3d82e5ee4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "sentret",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7b0d5d2947104c93e398b791a754f373ee8dad48efcd715bc2787dda746bbe2f",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 161,
+            "form": "",
+            "key": "lib-sentret-s-e9b6fc7080e0"
+          },
+          "sha256": "98222c94ff302f7eccfe889dac5245d22c5652e4f3a320d9a440f8aba7061bea"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "sentret",
+    "num": 161,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a transparent pixel-art game atlas of the EXACT SHINY character/form/palette in the reference. Exactly SIXTEEN complete sprites, FOUR columns FOUR rows. Rows SOUTH/front,EAST/right,NORTH/back with no face,WEST/left. Columns1-2 two distinct expressive braced wincing poses: blink/head lowered and bent legs/tense body. Columns3-4 lower onto ground then fully lie flat resting head/body with legs folded and eyes closed. Keep each camera fixed, characteristic body parts/tail/wings/outfit/markings intact, exact shiny regional materials, consistent native pixel scale and crisp limited palette. New anatomical body and limb poses, not rotated/scaled standing copies. Broad transparent gutters and background; no text/grid/effects/marks/scenery/shadow. Identity sentret.",
+    "source_image": "sentret-shiny-only-v1.png",
+    "source_sha256": "7b0d5d2947104c93e398b791a754f373ee8dad48efcd715bc2787dda746bbe2f",
+    "source_record": "sentret-shiny-only-v1.json",
+    "shiny_source_image": "sentret-shiny-only-v1.png",
+    "shiny_prompt": "Draw a transparent pixel-art game atlas of the EXACT SHINY character/form/palette in the reference. Exactly SIXTEEN complete sprites, FOUR columns FOUR rows. Rows SOUTH/front,EAST/right,NORTH/back with no face,WEST/left. Columns1-2 two distinct expressive braced wincing poses: blink/head lowered and bent legs/tense body. Columns3-4 lower onto ground then fully lie flat resting head/body with legs folded and eyes closed. Keep each camera fixed, characteristic body parts/tail/wings/outfit/markings intact, exact shiny regional materials, consistent native pixel scale and crisp limited palette. New anatomical body and limb poses, not rotated/scaled standing copies. Broad transparent gutters and background; no text/grid/effects/marks/scenery/shadow. Identity sentret."
+  },
+  "reviewed": false,
+  "shiny_reviewed": true
+}

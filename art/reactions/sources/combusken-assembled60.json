@@ -1,0 +1,73 @@
+{
+  "id": "combusken",
+  "name": "combusken",
+  "num": 256,
+  "form": "",
+  "directions": 4,
+  "frames": 2,
+  "layout": "direction-rows-action-columns",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "image": "combusken-assembled60.png",
+  "assembly_sources": [
+    {
+      "image": "combusken-two-pose60-v1.png",
+      "sha256": "28585dce48661ac1965058a3c1c03332c60492996b71d3a70ef7737aa4000314"
+    }
+  ],
+  "assembly_recipe": {
+    "new_source": "combusken-two-pose60-v1.png",
+    "pain": [
+      {
+        "native": "Idle0"
+      },
+      "new_wince"
+    ],
+    "ground": [
+      "new_wince",
+      "new_prone"
+    ],
+    "repacked_without_paint_or_warp": true
+  },
+  "prompt": "Repack eight genuinely newly drawn poses, one wince and one grounded pose per cardinal heading, from combusken-two-pose60-v1.png. Pain uses exact native Idle entry then the newly drawn wince; HitGround transitions from that same wince to the new prone body held until recall. No rotated/warped standing pixels or synthetic fallback. Original generation prompt is saved with the raw source.",
+  "native_frames": [
+    {
+      "action": "Pain",
+      "direction": 0,
+      "frame": 0,
+      "animation": "Idle",
+      "row": 0,
+      "index": 0
+    },
+    {
+      "action": "Pain",
+      "direction": 1,
+      "frame": 0,
+      "animation": "Idle",
+      "row": 2,
+      "index": 0
+    },
+    {
+      "action": "Pain",
+      "direction": 2,
+      "frame": 0,
+      "animation": "Idle",
+      "row": 4,
+      "index": 0
+    },
+    {
+      "action": "Pain",
+      "direction": 3,
+      "frame": 0,
+      "animation": "Idle",
+      "row": 6,
+      "index": 0
+    }
+  ],
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-compact60b.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

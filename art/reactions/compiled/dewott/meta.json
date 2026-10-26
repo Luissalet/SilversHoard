@@ -98,11 +98,106 @@
     }
   },
   "shiny": {
-    "a": {}
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "dewott",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e3775fd05f7dc23ad3e9bab6bc9ecb889bb81a2d18230769fcff797ae811d1a3",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 502,
+            "form": "",
+            "key": "lib-dewott-s-3933f2aaccaa"
+          },
+          "sha256": "eafdb886a33f8378e0011943d8a69cf48c9476fddaa188ef46212b22c0e1ecfb"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "dewott",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e3775fd05f7dc23ad3e9bab6bc9ecb889bb81a2d18230769fcff797ae811d1a3",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 502,
+            "form": "",
+            "key": "lib-dewott-s-3933f2aaccaa"
+          },
+          "sha256": "0b1029d253382081897da44f353a2f5fab016c4dd0da683f4535afeb28ff73ef"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
   },
-  "pending": [
-    "shiny"
-  ],
+  "pending": [],
   "provenance": {
     "id": "dewott",
     "num": 502,
@@ -111,8 +206,10 @@
     "prompt": "Draw a new transparent pixel-art game animation atlas of Dewott, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
     "source_image": "dewott-retry-r4.png",
     "source_sha256": "ba45a066763da4a1a08c603c3b5d7812718d7072a6818f3235eb013ec9978eee",
-    "source_record": "dewott-retry-r4.json"
+    "source_record": "dewott-retry-r4.json",
+    "shiny_source_image": "dewott-shiny49-v1.png",
+    "shiny_prompt": "Use case identity-preserve. Recolour the entire transparent 8column4row atlas IMAGE1 to EXACT native SHINY reference IMAGE2. Use the exact native SHINY head/body green-teal, lower body PURPLE/pink, dark limbs and shell accents, never normal pale-blue/blue palette. Keep every pose, camera, geometry, body part and grid unchanged. NORTH is back-only and final ground poses stay fully prone. Crisp limited native pixel palette, binary transparent background and broad transparent gutters. No new effects, text, marks, scenery or objects."
   },
   "reviewed": true,
-  "shiny_reviewed": false
+  "shiny_reviewed": true
 }

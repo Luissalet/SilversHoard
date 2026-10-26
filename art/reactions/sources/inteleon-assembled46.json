@@ -10,8 +10,8 @@
   "prompt": "Mechanically pack the existing built-in drawn atlas with only the explicitly listed corrected cells from correction44. Other original cells preserved as raw pixels. New source uniformly registered by unchanged SOUTH Pain0 height. No repainting or warping. Both source PNGs and generation prompt retained.",
   "tool": "builtin-imagegen",
   "reviewed": true,
-  "shiny_reviewed": false,
-  "shiny_prompt": "Use case identity-preserve. Recolour all32 sprites of the existing transparent8column4row game atlas image1 to the EXACT native SHINY palette of image2. Keep BLACK lower torso/legs; cyan arms/body accents and pink crest/back webbing. Do not fill the black torso or legs pale blue/gray. Keep all poses, camera directions, body parts and geometry unchanged. Match each MATERIAL/REGION individually, no global hue shift or colour spill into neighbouring parts. NORTH remains back-only. Final ground poses stay fully prone. Crisp native pixel palette and transparent background. No new effects marks text or objects.",
+  "shiny_reviewed": true,
+  "shiny_prompt": "Use case identity-preserve. Recolour the entire transparent 8column4row atlas IMAGE1 to EXACT native SHINY reference IMAGE2. Torso/shirt and arms keep native NEAR-BLACK material, not bright cyan. Crest and dorsal cape are PINK/purple, tail CYAN. Keep each material separate, including the dark torso in every crouched/prone cell. Keep every pose, camera, geometry, body part and grid unchanged. NORTH is back-only and final ground poses stay fully prone. Crisp limited native pixel palette, binary transparent background and broad transparent gutters. No new effects, text, marks, scenery or objects.",
   "assembly_sources": [
     {
       "image": "inteleon-cardinal.png",
@@ -39,7 +39,8 @@
   },
   "review": {
     "reviewer": "codex-silver-pain-r1502",
-    "report": "review-corrections46.json",
+    "report": "review-shiny49.json",
     "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
-  }
+  },
+  "shiny_image": "inteleon-shiny49-v1.png"
 }
