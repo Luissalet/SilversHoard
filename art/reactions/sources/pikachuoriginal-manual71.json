@@ -1,0 +1,425 @@
+{
+  "id": "pikachuoriginalmanual71",
+  "num": 25,
+  "form": "Original",
+  "image": "pikachuoriginal-manual71-assembled.png",
+  "directions": 4,
+  "frames": 2,
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "tool": "manual-pixel-composition",
+  "prompt": "Luis authorized manual pixel composition and retouching after built-in generator rejections; shiny is a recolor.",
+  "assembly_sources": [
+    {
+      "image": "manual71-hoenn-Pain.png",
+      "sha256": "6ac12199ddea499036562c9cfc3e3fa75626b88e5f6a23d379288841f90eb8e8"
+    },
+    {
+      "image": "manual71-hoenn-HitGround.png",
+      "sha256": "6b8a4aa7660c15fd7f119a823276a43ca0354b7bbc8070f56eb4c00b590b34e7"
+    },
+    {
+      "image": "pikachuoriginal-native71-Idle.png",
+      "sha256": "9937eb4fba5dedb6dd4d11203aec9a76e885339c9d44425206c653edea20440f"
+    },
+    {
+      "image": "pikachuoriginal-manual71.png",
+      "sha256": "e1549e45373179c72ec177ef72dac526a278bdaf46a815e7d47ee1db2af649f2"
+    }
+  ],
+  "derivation": {
+    "method": "Retexture existing drawn cap surface using exact native accessory per heading; drawn body and alpha unchanged.",
+    "body_source": "pikachuhoennrecolor69",
+    "body_poses": [
+      "Pain frame1",
+      "HitGround frame1"
+    ],
+    "body_geometry": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "source": {
+          "kind": "palette-derived-pmd-reaction",
+          "tool": "palette-recolor",
+          "record": "pikachuhoennrecolor69",
+          "parent": {
+            "kind": "generated-shiny-pmd-reaction",
+            "record": "pikachuhoenn",
+            "tool": "builtin-imagegen",
+            "source_sha256": "b1ed7dbf943e8637eeeb24db3f35f2e484eaaa1c3754354195291513d02e56cc",
+            "authored_directions": 4,
+            "authored_frames": 8,
+            "generated_frames": 4,
+            "distinct_frames_per_direction": [
+              2,
+              2,
+              2,
+              2
+            ],
+            "reference": {
+              "num": 25,
+              "form": "hoenn",
+              "key": "lib-pikachuhoenn-s-829b6cf1ea5c"
+            },
+            "assembly": {
+              "native_frames": [
+                {
+                  "action": "Pain",
+                  "direction": 0,
+                  "frame": 0,
+                  "animation": "Idle",
+                  "row": 0,
+                  "index": 0
+                },
+                {
+                  "action": "Pain",
+                  "direction": 1,
+                  "frame": 0,
+                  "animation": "Idle",
+                  "row": 1,
+                  "index": 0
+                },
+                {
+                  "action": "Pain",
+                  "direction": 2,
+                  "frame": 0,
+                  "animation": "Idle",
+                  "row": 2,
+                  "index": 0
+                },
+                {
+                  "action": "Pain",
+                  "direction": 3,
+                  "frame": 0,
+                  "animation": "Idle",
+                  "row": 3,
+                  "index": 0
+                }
+              ]
+            },
+            "sha256": "47040e7e4996899bfb228737b7dc01252d888c9ef734943bbb0f84ff7568bae4"
+          },
+          "source_sha256": "47040e7e4996899bfb228737b7dc01252d888c9ef734943bbb0f84ff7568bae4",
+          "palette_from": "lib-pikachuhoenn-n-bf349de2ef55",
+          "sha256": "6ac12199ddea499036562c9cfc3e3fa75626b88e5f6a23d379288841f90eb8e8"
+        }
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "source": {
+          "kind": "palette-derived-pmd-reaction",
+          "tool": "palette-recolor",
+          "record": "pikachuhoennrecolor69",
+          "parent": {
+            "kind": "generated-shiny-pmd-reaction",
+            "record": "pikachuhoenn",
+            "tool": "builtin-imagegen",
+            "source_sha256": "b1ed7dbf943e8637eeeb24db3f35f2e484eaaa1c3754354195291513d02e56cc",
+            "authored_directions": 4,
+            "authored_frames": 8,
+            "generated_frames": 8,
+            "distinct_frames_per_direction": [
+              2,
+              2,
+              2,
+              2
+            ],
+            "reference": {
+              "num": 25,
+              "form": "hoenn",
+              "key": "lib-pikachuhoenn-s-829b6cf1ea5c"
+            },
+            "assembly": {
+              "native_frames": [
+                {
+                  "action": "Pain",
+                  "direction": 0,
+                  "frame": 0,
+                  "animation": "Idle",
+                  "row": 0,
+                  "index": 0
+                },
+                {
+                  "action": "Pain",
+                  "direction": 1,
+                  "frame": 0,
+                  "animation": "Idle",
+                  "row": 1,
+                  "index": 0
+                },
+                {
+                  "action": "Pain",
+                  "direction": 2,
+                  "frame": 0,
+                  "animation": "Idle",
+                  "row": 2,
+                  "index": 0
+                },
+                {
+                  "action": "Pain",
+                  "direction": 3,
+                  "frame": 0,
+                  "animation": "Idle",
+                  "row": 3,
+                  "index": 0
+                }
+              ]
+            },
+            "sha256": "d07f14aa8da9fc70ce7c101661ef0c07df7a44ff0575c73a337d09d9a8a508c7"
+          },
+          "source_sha256": "d07f14aa8da9fc70ce7c101661ef0c07df7a44ff0575c73a337d09d9a8a508c7",
+          "palette_from": "lib-pikachuhoenn-n-bf349de2ef55",
+          "sha256": "6b8a4aa7660c15fd7f119a823276a43ca0354b7bbc8070f56eb4c00b590b34e7"
+        }
+      }
+    },
+    "native_accessory": {
+      "num": 25,
+      "form": "Original",
+      "animation": "Idle",
+      "file": "pmd:9937eb4fba5dedb6dd4d11203aec9a76e885339c9d44425206c653edea20440f",
+      "sha256": "9937eb4fba5dedb6dd4d11203aec9a76e885339c9d44425206c653edea20440f"
+    },
+    "operations": [
+      {
+        "direction": 0,
+        "pose": "Pain",
+        "source_cap_box": [
+          3,
+          1,
+          29,
+          23
+        ],
+        "native_cap_box": [
+          4,
+          0,
+          28,
+          22
+        ],
+        "alpha_preserved": true,
+        "rear_surface_reused": false
+      },
+      {
+        "direction": 0,
+        "pose": "HitGround",
+        "source_cap_box": [
+          5,
+          2,
+          32,
+          21
+        ],
+        "native_cap_box": [
+          4,
+          0,
+          28,
+          22
+        ],
+        "alpha_preserved": true,
+        "rear_surface_reused": false
+      },
+      {
+        "direction": 1,
+        "pose": "Pain",
+        "source_cap_box": [
+          14,
+          1,
+          40,
+          22
+        ],
+        "native_cap_box": [
+          10,
+          2,
+          36,
+          22
+        ],
+        "alpha_preserved": true,
+        "rear_surface_reused": false
+      },
+      {
+        "direction": 1,
+        "pose": "HitGround",
+        "source_cap_box": [
+          26,
+          1,
+          48,
+          18
+        ],
+        "native_cap_box": [
+          10,
+          2,
+          36,
+          22
+        ],
+        "alpha_preserved": true,
+        "rear_surface_reused": false
+      },
+      {
+        "direction": 2,
+        "pose": "Pain",
+        "source_cap_box": [
+          5,
+          1,
+          28,
+          15
+        ],
+        "native_cap_box": [
+          6,
+          0,
+          28,
+          16
+        ],
+        "alpha_preserved": true,
+        "rear_surface_reused": true
+      },
+      {
+        "direction": 2,
+        "pose": "HitGround",
+        "source_cap_box": [
+          7,
+          2,
+          32,
+          16
+        ],
+        "native_cap_box": [
+          6,
+          0,
+          28,
+          16
+        ],
+        "alpha_preserved": true,
+        "rear_surface_reused": true
+      },
+      {
+        "direction": 3,
+        "pose": "Pain",
+        "source_cap_box": [
+          2,
+          1,
+          30,
+          20
+        ],
+        "native_cap_box": [
+          0,
+          0,
+          22,
+          16
+        ],
+        "alpha_preserved": true,
+        "rear_surface_reused": false
+      },
+      {
+        "direction": 3,
+        "pose": "HitGround",
+        "source_cap_box": [
+          2,
+          2,
+          25,
+          18
+        ],
+        "native_cap_box": [
+          0,
+          0,
+          22,
+          16
+        ],
+        "alpha_preserved": true,
+        "rear_surface_reused": false
+      }
+    ],
+    "independently_generated_poses": 0,
+    "compact_assembly": {
+      "source": "pikachuoriginal-manual71.png",
+      "columns": [
+        "wince",
+        "wince",
+        "wince",
+        "prone"
+      ],
+      "native_Pain_entry": true,
+      "independently_generated_poses": 0
+    }
+  },
+  "source_record": "pikachuoriginal-manual71.json",
+  "native_frames": [
+    {
+      "action": "Pain",
+      "direction": 0,
+      "frame": 0,
+      "animation": "Idle",
+      "row": 0,
+      "index": 0
+    },
+    {
+      "action": "Pain",
+      "direction": 1,
+      "frame": 0,
+      "animation": "Idle",
+      "row": 1,
+      "index": 0
+    },
+    {
+      "action": "Pain",
+      "direction": 2,
+      "frame": 0,
+      "animation": "Idle",
+      "row": 2,
+      "index": 0
+    },
+    {
+      "action": "Pain",
+      "direction": 3,
+      "frame": 0,
+      "animation": "Idle",
+      "row": 3,
+      "index": 0
+    }
+  ],
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-manual71.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

@@ -14,6 +14,63 @@ from scripts.build_pmd_reactions import compile_reactions, load_generated
 ART = Path(__file__).resolve().parents[1] / "art" / "reactions"
 
 
+def test_complete_roster_has_raster_reactions_instead_of_runtime_pose_fallbacks():
+    library = PmdLibrary(ART.parents[1] / "silvers_hoard" / "presets" / "pmd")
+    pending = [(key, action) for key, meta in library.manifest["metas"].items()
+               for action in ("Pain", "HitGround")
+               if action not in meta["a"] or meta["a"][action].get("reaction")]
+    assert not pending, pending
+    assert len(library.manifest["entries"]) == 2938
+
+
+@pytest.mark.parametrize("identity", ["pikachuoriginal", "pikachuunova", "pikachukalos",
+                                     "pikachualola", "pikachupartner", "pikachurockstar"])
+def test_manual_compositions_declare_reused_poses_and_recolor_shiny(identity):
+    root = ART / "compiled" / (identity + "manual71")
+    meta = json.loads((root / "meta.json").read_text("utf8"))
+    assert meta["provenance"]["tool"] == "manual-pixel-composition"
+    assert meta["provenance"]["derivation"]["independently_generated_poses"] == 0
+    for action in ("Pain", "HitGround"):
+        normal, shiny = meta["a"][action], meta["shiny"]["a"][action]
+        assert normal["source"]["kind"] == "manually-composed-pmd-reaction"
+        assert normal["source"]["generated_frames"] == normal["source"]["authored_frames"] == 0
+        assert normal["source"]["derived_directions"] == 4
+        assert shiny["source"]["kind"] == "palette-derived-pmd-reaction"
+        assert shiny["source"]["parent"] == normal["source"]
+        a = Image.open(root / (action + ".png")).convert("RGBA")
+        b = Image.open(root / (action + "-shiny.png")).convert("RGBA")
+        assert a.size == b.size
+        assert a.getchannel("A").tobytes() == b.getchannel("A").tobytes()
+
+
+def test_rockstar_shiny_keeps_the_native_green_buckle():
+    folder = ART / "compiled" / "pikachurockstarmanual71"
+    meta = json.loads((folder / "meta.json").read_text("utf8"))
+    for action in ("Pain", "HitGround"):
+        geometry = meta["a"][action]
+        for shiny in (False, True):
+            image = Image.open(folder / (action + ("-shiny" if shiny else "") + ".png")).convert("RGBA")
+            frame = image.crop((geometry["w"], 0, 2 * geometry["w"], geometry["h"]))
+            assert list(frame.getdata()).count((131, 197, 82, 255)) == 4
+
+
+@pytest.mark.parametrize("stem", ["mimikyu-derived62", "mimikyubustedtotem-derived50"])
+def test_existing_native_equivalence_derivations_keep_their_provenance(tmp_path, stem):
+    record = json.loads((ART / "sources" / (stem + ".json")).read_text("utf8"))
+    record["source_record"] = stem + ".json"
+    (tmp_path / "sources").mkdir()
+    for name in {record["image"], *(s["image"] for s in record.get("assembly_sources", []))}:
+        (tmp_path / "sources" / name).write_bytes((ART / "sources" / name).read_bytes())
+    expected = json.loads((ART / "compiled" / record["id"] / "meta.json").read_text("utf8"))
+    compile_one(record, PmdLibrary(ART.parents[1] / "silvers_hoard" / "presets" / "pmd",
+                                  with_reactions=False), tmp_path)
+    actual = json.loads((tmp_path / "compiled" / record["id"] / "meta.json").read_text("utf8"))
+    assert actual["a"] == expected["a"]
+    assert actual["shiny"]["a"] == expected["shiny"]["a"]
+    for name in ("Pain.png", "HitGround.png", "Pain-shiny.png", "HitGround-shiny.png"):
+        assert (tmp_path / "compiled" / record["id"] / name).read_bytes() == (ART / "compiled" / record["id"] / name).read_bytes()
+
+
 @pytest.mark.parametrize("identity", ["raichu", "pikachulibre", "pikachuhoenn", "pikachupopstar"])
 def test_recolor_preserves_authored_poses_timing_alpha_and_source_bytes(tmp_path, identity):
     record = json.loads((ART / "sources" / f"{identity}-recolor69.json").read_text("utf8"))
