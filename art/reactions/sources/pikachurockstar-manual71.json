@@ -1,0 +1,1214 @@
+{
+  "id": "pikachurockstarmanual71",
+  "num": 25,
+  "form": "Rock-Star",
+  "image": "pikachurockstar-manual71-v3-assembled.png",
+  "directions": 4,
+  "frames": 2,
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "tool": "manual-pixel-composition",
+  "prompt": "Luis explicitly authorized manual pixel composition/retouching; shiny is derived by recolor.",
+  "assembly_sources": [
+    {
+      "image": "manual71-popstar-Pain.png",
+      "sha256": "1c408642997a86f9c8cbf7a8d14851338bbc07026b357b9b57a43957589a3a8d"
+    },
+    {
+      "image": "manual71-popstar-HitGround.png",
+      "sha256": "c570e1d51ee9c29492229593eda117738615ddba309a648708a59608e7fc92c8"
+    },
+    {
+      "image": "pikachurockstar-native71-Idle.png",
+      "sha256": "57fb65c88808adcd51d845033937492af75d1ba70b2ae94089d0ae3c38459326"
+    },
+    {
+      "image": "pikachurockstar-manual71-v2.png",
+      "sha256": "cb2615051c23410f1bcaf64cfdc3f01f178853451638aa1f1c28837d4e90f23e"
+    },
+    {
+      "image": "pikachurockstar-manual71-v3.png",
+      "sha256": "1b7e02017799a8eccbdda68eede232317674b58ab200220fe636ab9f30d1f725"
+    }
+  ],
+  "derivation": {
+    "method": "Reuse actual drawn wince/prone poses; manually remove bows and retouch bare head, silver-collared black/red jacket and green buckle from exact native Rock Star reference.",
+    "body_source": "pikachupopstarrecolor69",
+    "body_poses": [
+      "Pain frame1",
+      "HitGround frame1"
+    ],
+    "body_geometry": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "source": {
+          "kind": "palette-derived-pmd-reaction",
+          "tool": "palette-recolor",
+          "record": "pikachupopstarrecolor69",
+          "parent": {
+            "kind": "generated-shiny-pmd-reaction",
+            "record": "pikachupopstar",
+            "tool": "builtin-imagegen",
+            "source_sha256": "8bbb1a6ef0b821f5a44a74a612241e185f1d7d6d3b262731eb10a4b9a8817e06",
+            "authored_directions": 4,
+            "authored_frames": 8,
+            "generated_frames": 4,
+            "distinct_frames_per_direction": [
+              2,
+              2,
+              2,
+              2
+            ],
+            "reference": {
+              "num": 25,
+              "form": "popstar",
+              "key": "lib-pikachupopstar-s-a5baf12e3bbc"
+            },
+            "assembly": {
+              "native_frames": [
+                {
+                  "action": "Pain",
+                  "direction": 0,
+                  "frame": 0,
+                  "animation": "Idle",
+                  "row": 0,
+                  "index": 0
+                },
+                {
+                  "action": "Pain",
+                  "direction": 1,
+                  "frame": 0,
+                  "animation": "Idle",
+                  "row": 1,
+                  "index": 0
+                },
+                {
+                  "action": "Pain",
+                  "direction": 2,
+                  "frame": 0,
+                  "animation": "Idle",
+                  "row": 2,
+                  "index": 0
+                },
+                {
+                  "action": "Pain",
+                  "direction": 3,
+                  "frame": 0,
+                  "animation": "Idle",
+                  "row": 3,
+                  "index": 0
+                }
+              ]
+            },
+            "sha256": "8c479653fee7c75b9af8faee425b91c15109368bb61b3db60af8fa45dd85a858"
+          },
+          "source_sha256": "8c479653fee7c75b9af8faee425b91c15109368bb61b3db60af8fa45dd85a858",
+          "palette_from": "lib-pikachupopstar-n-760e00a6a765",
+          "sha256": "1c408642997a86f9c8cbf7a8d14851338bbc07026b357b9b57a43957589a3a8d"
+        }
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "source": {
+          "kind": "palette-derived-pmd-reaction",
+          "tool": "palette-recolor",
+          "record": "pikachupopstarrecolor69",
+          "parent": {
+            "kind": "generated-shiny-pmd-reaction",
+            "record": "pikachupopstar",
+            "tool": "builtin-imagegen",
+            "source_sha256": "8bbb1a6ef0b821f5a44a74a612241e185f1d7d6d3b262731eb10a4b9a8817e06",
+            "authored_directions": 4,
+            "authored_frames": 8,
+            "generated_frames": 8,
+            "distinct_frames_per_direction": [
+              2,
+              2,
+              2,
+              2
+            ],
+            "reference": {
+              "num": 25,
+              "form": "popstar",
+              "key": "lib-pikachupopstar-s-a5baf12e3bbc"
+            },
+            "assembly": {
+              "native_frames": [
+                {
+                  "action": "Pain",
+                  "direction": 0,
+                  "frame": 0,
+                  "animation": "Idle",
+                  "row": 0,
+                  "index": 0
+                },
+                {
+                  "action": "Pain",
+                  "direction": 1,
+                  "frame": 0,
+                  "animation": "Idle",
+                  "row": 1,
+                  "index": 0
+                },
+                {
+                  "action": "Pain",
+                  "direction": 2,
+                  "frame": 0,
+                  "animation": "Idle",
+                  "row": 2,
+                  "index": 0
+                },
+                {
+                  "action": "Pain",
+                  "direction": 3,
+                  "frame": 0,
+                  "animation": "Idle",
+                  "row": 3,
+                  "index": 0
+                }
+              ]
+            },
+            "sha256": "a203f6593487d9c839a74e177199b8dbd6f65bcb77777197e156cd9554711996"
+          },
+          "source_sha256": "a203f6593487d9c839a74e177199b8dbd6f65bcb77777197e156cd9554711996",
+          "palette_from": "lib-pikachupopstar-n-760e00a6a765",
+          "sha256": "c570e1d51ee9c29492229593eda117738615ddba309a648708a59608e7fc92c8"
+        }
+      }
+    },
+    "native_accessory": {
+      "num": 25,
+      "form": "Rock-Star",
+      "animation": "Idle",
+      "file": "pmd:57fb65c88808adcd51d845033937492af75d1ba70b2ae94089d0ae3c38459326",
+      "sha256": "57fb65c88808adcd51d845033937492af75d1ba70b2ae94089d0ae3c38459326"
+    },
+    "material_map": [
+      [
+        [
+          156,
+          65,
+          148
+        ],
+        [
+          139,
+          65,
+          49
+        ]
+      ],
+      [
+        [
+          189,
+          123,
+          148
+        ],
+        [
+          65,
+          65,
+          65
+        ]
+      ],
+      [
+        [
+          205,
+          49,
+          106
+        ],
+        [
+          205,
+          74,
+          49
+        ]
+      ],
+      [
+        [
+          230,
+          90,
+          131
+        ],
+        [
+          139,
+          65,
+          49
+        ]
+      ],
+      [
+        [
+          230,
+          131,
+          164
+        ],
+        [
+          49,
+          49,
+          49
+        ]
+      ],
+      [
+        [
+          246,
+          180,
+          197
+        ],
+        [
+          49,
+          49,
+          49
+        ]
+      ],
+      [
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          65,
+          65,
+          65
+        ]
+      ]
+    ],
+    "operations": [
+      {
+        "direction": 0,
+        "pose": "Pain",
+        "removed_bow_box": [
+          8,
+          4,
+          28,
+          18
+        ],
+        "bare_head_polygon": [
+          [
+            9,
+            17
+          ],
+          [
+            9,
+            12
+          ],
+          [
+            11,
+            9
+          ],
+          [
+            14,
+            8
+          ],
+          [
+            24,
+            8
+          ],
+          [
+            27,
+            7
+          ],
+          [
+            28,
+            12
+          ],
+          [
+            27,
+            18
+          ]
+        ],
+        "ear_stems": [
+          [
+            8,
+            7
+          ],
+          [
+            12,
+            12
+          ]
+        ],
+        "collar": [
+          [
+            15,
+            25
+          ],
+          [
+            19,
+            27
+          ],
+          [
+            24,
+            25
+          ]
+        ],
+        "waist": [
+          [
+            13,
+            31
+          ],
+          [
+            25,
+            31
+          ]
+        ],
+        "green_buckle": [
+          20,
+          29
+        ],
+        "body_pose_transformed": false
+      },
+      {
+        "direction": 0,
+        "pose": "HitGround",
+        "removed_bow_box": [
+          5,
+          2,
+          24,
+          13
+        ],
+        "bare_head_polygon": [
+          [
+            6,
+            13
+          ],
+          [
+            6,
+            10
+          ],
+          [
+            8,
+            8
+          ],
+          [
+            12,
+            7
+          ],
+          [
+            20,
+            7
+          ],
+          [
+            23,
+            5
+          ],
+          [
+            24,
+            12
+          ]
+        ],
+        "ear_stems": [
+          [
+            3,
+            4
+          ],
+          [
+            8,
+            12
+          ]
+        ],
+        "collar": [
+          [
+            24,
+            17
+          ],
+          [
+            27,
+            18
+          ]
+        ],
+        "waist": [
+          [
+            28,
+            20
+          ],
+          [
+            36,
+            20
+          ]
+        ],
+        "green_buckle": [
+          23,
+          20
+        ],
+        "body_pose_transformed": false
+      },
+      {
+        "direction": 1,
+        "pose": "Pain",
+        "removed_bow_box": [
+          15,
+          0,
+          34,
+          11
+        ],
+        "bare_head_polygon": [
+          [
+            15,
+            11
+          ],
+          [
+            16,
+            8
+          ],
+          [
+            18,
+            6
+          ],
+          [
+            24,
+            6
+          ],
+          [
+            28,
+            8
+          ],
+          [
+            32,
+            10
+          ],
+          [
+            33,
+            12
+          ]
+        ],
+        "ear_stems": [
+          [
+            13,
+            7
+          ],
+          [
+            18,
+            12
+          ]
+        ],
+        "collar": [
+          [
+            16,
+            23
+          ],
+          [
+            20,
+            26
+          ],
+          [
+            23,
+            25
+          ]
+        ],
+        "waist": [
+          [
+            13,
+            30
+          ],
+          [
+            22,
+            31
+          ]
+        ],
+        "green_buckle": [
+          23,
+          30
+        ],
+        "body_pose_transformed": false
+      },
+      {
+        "direction": 1,
+        "pose": "HitGround",
+        "removed_bow_box": [
+          23,
+          0,
+          38,
+          9
+        ],
+        "bare_head_polygon": [
+          [
+            23,
+            9
+          ],
+          [
+            24,
+            7
+          ],
+          [
+            27,
+            6
+          ],
+          [
+            33,
+            7
+          ],
+          [
+            37,
+            10
+          ]
+        ],
+        "ear_stems": [
+          [
+            21,
+            5
+          ],
+          [
+            25,
+            10
+          ]
+        ],
+        "collar": [
+          [
+            21,
+            15
+          ],
+          [
+            23,
+            18
+          ]
+        ],
+        "waist": [
+          [
+            12,
+            20
+          ],
+          [
+            21,
+            21
+          ]
+        ],
+        "green_buckle": [
+          20,
+          20
+        ],
+        "body_pose_transformed": false
+      },
+      {
+        "direction": 2,
+        "pose": "Pain",
+        "removed_bow_box": [
+          9,
+          4,
+          28,
+          18
+        ],
+        "bare_head_polygon": [
+          [
+            9,
+            14
+          ],
+          [
+            9,
+            9
+          ],
+          [
+            12,
+            7
+          ],
+          [
+            24,
+            7
+          ],
+          [
+            27,
+            10
+          ],
+          [
+            27,
+            17
+          ]
+        ],
+        "ear_stems": [
+          [
+            7,
+            5
+          ],
+          [
+            12,
+            11
+          ],
+          [
+            25,
+            11
+          ],
+          [
+            27,
+            5
+          ]
+        ],
+        "collar": [
+          [
+            12,
+            22
+          ],
+          [
+            23,
+            22
+          ]
+        ],
+        "waist": [
+          [
+            11,
+            30
+          ],
+          [
+            23,
+            31
+          ]
+        ],
+        "green_buckle": null,
+        "body_pose_transformed": false
+      },
+      {
+        "direction": 2,
+        "pose": "HitGround",
+        "removed_bow_box": [
+          11,
+          3,
+          33,
+          14
+        ],
+        "bare_head_polygon": [
+          [
+            11,
+            12
+          ],
+          [
+            12,
+            8
+          ],
+          [
+            16,
+            6
+          ],
+          [
+            28,
+            6
+          ],
+          [
+            32,
+            9
+          ],
+          [
+            32,
+            14
+          ]
+        ],
+        "ear_stems": [
+          [
+            10,
+            6
+          ],
+          [
+            14,
+            11
+          ],
+          [
+            29,
+            12
+          ],
+          [
+            32,
+            6
+          ]
+        ],
+        "collar": [
+          [
+            17,
+            13
+          ],
+          [
+            28,
+            14
+          ]
+        ],
+        "waist": [
+          [
+            11,
+            20
+          ],
+          [
+            25,
+            21
+          ]
+        ],
+        "green_buckle": null,
+        "body_pose_transformed": false
+      },
+      {
+        "direction": 3,
+        "pose": "Pain",
+        "removed_bow_box": [
+          10,
+          0,
+          23,
+          13
+        ],
+        "bare_head_polygon": [
+          [
+            9,
+            13
+          ],
+          [
+            12,
+            8
+          ],
+          [
+            17,
+            7
+          ],
+          [
+            22,
+            9
+          ],
+          [
+            23,
+            13
+          ]
+        ],
+        "ear_stems": [
+          [
+            24,
+            7
+          ],
+          [
+            21,
+            12
+          ]
+        ],
+        "collar": [
+          [
+            23,
+            25
+          ],
+          [
+            26,
+            26
+          ],
+          [
+            29,
+            24
+          ]
+        ],
+        "waist": [
+          [
+            24,
+            31
+          ],
+          [
+            33,
+            30
+          ]
+        ],
+        "green_buckle": [
+          22,
+          31
+        ],
+        "body_pose_transformed": false
+      },
+      {
+        "direction": 3,
+        "pose": "HitGround",
+        "removed_bow_box": [
+          6,
+          0,
+          20,
+          10
+        ],
+        "bare_head_polygon": [
+          [
+            5,
+            10
+          ],
+          [
+            8,
+            7
+          ],
+          [
+            13,
+            7
+          ],
+          [
+            18,
+            9
+          ],
+          [
+            20,
+            12
+          ]
+        ],
+        "ear_stems": [
+          [
+            22,
+            5
+          ],
+          [
+            17,
+            10
+          ]
+        ],
+        "collar": [
+          [
+            21,
+            14
+          ],
+          [
+            24,
+            18
+          ]
+        ],
+        "waist": [
+          [
+            25,
+            20
+          ],
+          [
+            35,
+            21
+          ]
+        ],
+        "green_buckle": [
+          25,
+          20
+        ],
+        "body_pose_transformed": false
+      }
+    ],
+    "independently_generated_poses": 0,
+    "compact_assembly": {
+      "source": "pikachurockstar-manual71-v3.png",
+      "columns": [
+        "wince",
+        "wince",
+        "wince",
+        "prone"
+      ],
+      "native_Pain_entry": true,
+      "independently_generated_poses": 0
+    },
+    "manual_cleanup": {
+      "input": "pikachurockstar-manual71-v2.png",
+      "method": "Remove three isolated 8-connected black remnants from manual accessory retouch; retain every pixel in the main body component.",
+      "removed_pixels": [
+        {
+          "row": 0,
+          "column": 1,
+          "pixels": [
+            {
+              "x": 60,
+              "y": 53,
+              "rgba": [
+                0,
+                0,
+                0,
+                255
+              ]
+            },
+            {
+              "x": 60,
+              "y": 54,
+              "rgba": [
+                0,
+                0,
+                0,
+                255
+              ]
+            },
+            {
+              "x": 61,
+              "y": 53,
+              "rgba": [
+                0,
+                0,
+                0,
+                255
+              ]
+            },
+            {
+              "x": 61,
+              "y": 54,
+              "rgba": [
+                0,
+                0,
+                0,
+                255
+              ]
+            },
+            {
+              "x": 62,
+              "y": 53,
+              "rgba": [
+                0,
+                0,
+                0,
+                255
+              ]
+            },
+            {
+              "x": 62,
+              "y": 54,
+              "rgba": [
+                0,
+                0,
+                0,
+                255
+              ]
+            },
+            {
+              "x": 63,
+              "y": 53,
+              "rgba": [
+                0,
+                0,
+                0,
+                255
+              ]
+            },
+            {
+              "x": 63,
+              "y": 54,
+              "rgba": [
+                0,
+                0,
+                0,
+                255
+              ]
+            },
+            {
+              "x": 64,
+              "y": 53,
+              "rgba": [
+                0,
+                0,
+                0,
+                255
+              ]
+            },
+            {
+              "x": 64,
+              "y": 54,
+              "rgba": [
+                0,
+                0,
+                0,
+                255
+              ]
+            }
+          ]
+        },
+        {
+          "row": 2,
+          "column": 0,
+          "pixels": [
+            {
+              "x": 59,
+              "y": 50,
+              "rgba": [
+                0,
+                0,
+                0,
+                255
+              ]
+            },
+            {
+              "x": 60,
+              "y": 50,
+              "rgba": [
+                0,
+                0,
+                0,
+                255
+              ]
+            },
+            {
+              "x": 61,
+              "y": 50,
+              "rgba": [
+                0,
+                0,
+                0,
+                255
+              ]
+            },
+            {
+              "x": 62,
+              "y": 50,
+              "rgba": [
+                0,
+                0,
+                0,
+                255
+              ]
+            },
+            {
+              "x": 63,
+              "y": 50,
+              "rgba": [
+                0,
+                0,
+                0,
+                255
+              ]
+            }
+          ]
+        },
+        {
+          "row": 2,
+          "column": 1,
+          "pixels": [
+            {
+              "x": 67,
+              "y": 55,
+              "rgba": [
+                0,
+                0,
+                0,
+                255
+              ]
+            },
+            {
+              "x": 68,
+              "y": 55,
+              "rgba": [
+                0,
+                0,
+                0,
+                255
+              ]
+            },
+            {
+              "x": 69,
+              "y": 55,
+              "rgba": [
+                0,
+                0,
+                0,
+                255
+              ]
+            },
+            {
+              "x": 70,
+              "y": 55,
+              "rgba": [
+                0,
+                0,
+                0,
+                255
+              ]
+            },
+            {
+              "x": 71,
+              "y": 55,
+              "rgba": [
+                0,
+                0,
+                0,
+                255
+              ]
+            },
+            {
+              "x": 72,
+              "y": 55,
+              "rgba": [
+                0,
+                0,
+                0,
+                255
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "shiny_accessory_material": "Native green buckle RGB131,197,82 is unchanged between normal and shiny; preserve explicitly instead of ambiguous majority RGB correspondence."
+  },
+  "source_record": "pikachurockstar-manual71.json",
+  "native_frames": [
+    {
+      "action": "Pain",
+      "direction": 0,
+      "frame": 0,
+      "animation": "Idle",
+      "row": 0,
+      "index": 0
+    },
+    {
+      "action": "Pain",
+      "direction": 1,
+      "frame": 0,
+      "animation": "Idle",
+      "row": 1,
+      "index": 0
+    },
+    {
+      "action": "Pain",
+      "direction": 2,
+      "frame": 0,
+      "animation": "Idle",
+      "row": 2,
+      "index": 0
+    },
+    {
+      "action": "Pain",
+      "direction": 3,
+      "frame": 0,
+      "animation": "Idle",
+      "row": 3,
+      "index": 0
+    }
+  ],
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-rockstar73.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  },
+  "shiny_palette_overrides": [
+    [
+      [
+        131,
+        197,
+        82
+      ],
+      [
+        131,
+        197,
+        82
+      ]
+    ]
+  ]
+}
