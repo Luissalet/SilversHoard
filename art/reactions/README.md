@@ -35,16 +35,16 @@ library routes, portable export and status MCP consume that same pack. Use
 `--require-raster` to check complete coverage: it fails before writing a pack
 while any identity still needs the explicitly marked runtime fallback.
 
-Creation tool: built-in image generation. The inputs use each exact form's
+Pose creation tool: built-in image generation. The inputs use each exact form's
 installed sprite art as its identity reference. Published art and its existing
 credits remain unchanged.
 
 Task 1503 is in progress. The initial audit found 1,201 normal forms needing at
 least one new reaction; shiny palettes must also be derived and checked before
-installation. There are reviewed raster exports for 2,409 normal/shiny variants,
-with both actions (1,193 normal and 1,216 shiny). The pack uses 2,391 new Pain and 2,406 new HitGround sequences;
+installation. There are reviewed raster exports for 2,413 normal/shiny variants,
+with both actions (1,195 normal and 1,218 shiny). The pack uses 2,395 additional Pain and 2,410 additional HitGround sequences;
 existing published reactions take priority where already available. Pain still
-has 16 variants using the previous runtime fallback, and HitGround has 16.
+has 12 variants using the previous runtime fallback, and HitGround has 12.
 This directory does not establish complete
 roster coverage. Source prompts and per-frame provenance accompany each accepted
 export. Rejected candidates remain outside the generated pack.
@@ -55,3 +55,13 @@ from the drawn wince to the drawn prone pose. Shared poses and native entries
 are declared explicitly. Equivalent Mimikyu/Totem forms reuse the drawn atlas
 only after every native normal/shiny animation crop is verified identical;
 this is recorded derivation, not independent generation for each form.
+
+Records with `recolor` use the existing authored Pain/HitGround PNGs and an
+explicit native RGB map. The importer verifies each source SHA, rejects runtime
+acting and unmapped colours, then preserves alpha, dimensions, frame geometry,
+timing and ground-frame selection exactly. Only the reviewed target variant is
+published. Raichu and Pikachu Libre shiny reuse their own published normal
+reactions. Hoenn and Pop-Star normal use the inverse palette of their accepted
+shiny exports. Libre retains the red/black costume through declared overrides
+because native RGB correspondence is ambiguous across body and costume regions.
+These recolors add no independently drawn poses or camera angles.

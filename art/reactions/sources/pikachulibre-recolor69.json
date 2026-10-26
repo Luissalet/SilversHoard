@@ -1,0 +1,363 @@
+{
+  "id": "pikachulibrerecolor69",
+  "num": 25,
+  "form": "Libre",
+  "reviewed": false,
+  "shiny_reviewed": true,
+  "image": "pikachulibre-source69-Pain.png",
+  "assembly_sources": [
+    {
+      "image": "pikachulibre-source69-Pain.png",
+      "sha256": "7b408abe44abeef9571e4c5933a691a684b1eab04915ba1f22ff849344851608"
+    },
+    {
+      "image": "pikachulibre-source69-HitGround.png",
+      "sha256": "18ab8e8af93ab93a0cd80f9e888b315034fd4ee4db51790816b38a01ee899b5d"
+    }
+  ],
+  "prompt": "Luis requested mechanical recolor from existing authored reaction poses; no new generation.",
+  "recolor": {
+    "target_shiny": true,
+    "source_key": "lib-pikachulibre-n-22fd7c9b5f18",
+    "source_shiny": false,
+    "palette": [
+      [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      [
+        [
+          33,
+          41,
+          41
+        ],
+        [
+          33,
+          41,
+          41
+        ]
+      ],
+      [
+        [
+          143,
+          223,
+          255
+        ],
+        [
+          143,
+          223,
+          255
+        ]
+      ],
+      [
+        [
+          167,
+          111,
+          0
+        ],
+        [
+          183,
+          47,
+          0
+        ]
+      ],
+      [
+        [
+          190,
+          2,
+          0
+        ],
+        [
+          190,
+          2,
+          0
+        ]
+      ],
+      [
+        [
+          190,
+          198,
+          205
+        ],
+        [
+          190,
+          198,
+          205
+        ]
+      ],
+      [
+        [
+          191,
+          119,
+          39
+        ],
+        [
+          191,
+          119,
+          39
+        ]
+      ],
+      [
+        [
+          222,
+          93,
+          0
+        ],
+        [
+          222,
+          93,
+          0
+        ]
+      ],
+      [
+        [
+          223,
+          175,
+          103
+        ],
+        [
+          223,
+          175,
+          103
+        ]
+      ],
+      [
+        [
+          223,
+          183,
+          0
+        ],
+        [
+          239,
+          127,
+          0
+        ]
+      ],
+      [
+        [
+          224,
+          231,
+          231
+        ],
+        [
+          224,
+          231,
+          231
+        ]
+      ],
+      [
+        [
+          255,
+          79,
+          77
+        ],
+        [
+          255,
+          79,
+          77
+        ]
+      ],
+      [
+        [
+          255,
+          156,
+          0
+        ],
+        [
+          255,
+          156,
+          0
+        ]
+      ],
+      [
+        [
+          255,
+          247,
+          0
+        ],
+        [
+          239,
+          191,
+          55
+        ]
+      ],
+      [
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          255,
+          255
+        ]
+      ]
+    ],
+    "references": [
+      {
+        "animation": "Attack",
+        "source_file": "pmd:7bcbac7230106fbe9a89a04d30314252bbc04de985226c142a8783da9c6c6d90",
+        "target_file": "pmd:69a0b7745d579455e7c1a7194f28c7111a7646ce60766d76eea37e9d904eefb1",
+        "matched_poses": 80
+      },
+      {
+        "animation": "Charge",
+        "source_file": "pmd:0d6b4c098fd0e962f02152f05bb7c51b0ded0d1d696bc92bd95d259f4394db97",
+        "target_file": "pmd:f3fb44c76de5f28d40b5d85af9412c9c35094bbb7ddf3500848727efcf67d967",
+        "matched_poses": 80
+      },
+      {
+        "animation": "Hurt",
+        "source_file": "pmd:30c6b8ed60262e8080735ed7a1c2e5992639532149e162c8067e117b45ffa901",
+        "target_file": "pmd:a08e450dca9d693404daa4ba7a44f79c3e9bed17abc65caff3684cfd7c45e2a4",
+        "matched_poses": 16
+      },
+      {
+        "animation": "Idle",
+        "source_file": "pmd:41995693417ea5978b540f2a42eabadd00aa4579c2edce50ca2fdda5f2122794",
+        "target_file": "pmd:e3e60629f40678591579aafbfe08080c80374764cbbf3d45832b3b7b33478757",
+        "matched_poses": 48
+      },
+      {
+        "animation": "Shoot",
+        "source_file": "pmd:ee6bfdd5fb7eddd95b4ce970cfb725e460775d4599c892c5136fbc795e245c46",
+        "target_file": "pmd:86319fe34f98afb8592f098ef80871e97fdeaab0b5faa5647ec877688f24b5d4",
+        "matched_poses": 88
+      },
+      {
+        "animation": "Sleep",
+        "source_file": "pmd:e718ef7541c1037a688072d2889e0c910330717b7c291af77653c95060eb2290",
+        "target_file": "pmd:84d49a07f24ae3d2f5385b8e54b6d16b900d646e9e1136ef48461b629c469371",
+        "matched_poses": 2
+      },
+      {
+        "animation": "Walk",
+        "source_file": "pmd:2c469921ab2c7045c2ebc01b394a2afdb09728dcd96c612705d6c1e7ffb27066",
+        "target_file": "pmd:e50e1687593562517b2541d7669f0d55de44bc401602b6d2e29df4d7cbb2ac0b",
+        "matched_poses": 32
+      }
+    ],
+    "region_preservation_overrides": [
+      [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      [
+        [
+          33,
+          41,
+          41
+        ],
+        [
+          33,
+          41,
+          41
+        ]
+      ],
+      [
+        [
+          190,
+          2,
+          0
+        ],
+        [
+          190,
+          2,
+          0
+        ]
+      ]
+    ],
+    "actions": {
+      "Pain": {
+        "image": "pikachulibre-source69-Pain.png",
+        "sha256": "7b408abe44abeef9571e4c5933a691a684b1eab04915ba1f22ff849344851608",
+        "geometry": {
+          "w": 40,
+          "h": 48,
+          "n": 12,
+          "d": [
+            4,
+            1,
+            1,
+            1,
+            2,
+            1,
+            4,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "r": 8,
+          "ax": 19.5,
+          "ay": 27.5,
+          "source": {
+            "kind": "published-pmd-reaction",
+            "sha": "341342d7ef2ed3e4427c760e829a417b501be17c",
+            "folder": "0025/0006",
+            "animation": "Pain",
+            "sha256": "7b408abe44abeef9571e4c5933a691a684b1eab04915ba1f22ff849344851608"
+          },
+          "file": "pmd:7b408abe44abeef9571e4c5933a691a684b1eab04915ba1f22ff849344851608"
+        }
+      },
+      "HitGround": {
+        "image": "pikachulibre-source69-HitGround.png",
+        "sha256": "18ab8e8af93ab93a0cd80f9e888b315034fd4ee4db51790816b38a01ee899b5d",
+        "geometry": {
+          "w": 40,
+          "h": 40,
+          "n": 8,
+          "d": [
+            4,
+            4,
+            4,
+            4,
+            4,
+            6,
+            4,
+            4
+          ],
+          "r": 1,
+          "ax": 19.5,
+          "ay": 23.5,
+          "source": {
+            "kind": "published-pmd-reaction",
+            "sha": "341342d7ef2ed3e4427c760e829a417b501be17c",
+            "folder": "0025/0006",
+            "animation": "HitGround",
+            "sha256": "18ab8e8af93ab93a0cd80f9e888b315034fd4ee4db51790816b38a01ee899b5d"
+          },
+          "ground_frames": [
+            2
+          ],
+          "file": "pmd:18ab8e8af93ab93a0cd80f9e888b315034fd4ee4db51790816b38a01ee899b5d"
+        }
+      }
+    }
+  },
+  "source_record": "pikachulibre-recolor69.json",
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-recolor69.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

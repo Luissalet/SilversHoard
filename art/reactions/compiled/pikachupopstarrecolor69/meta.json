@@ -1,0 +1,577 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "source": {
+        "kind": "palette-derived-pmd-reaction",
+        "tool": "palette-recolor",
+        "record": "pikachupopstarrecolor69",
+        "parent": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "pikachupopstar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8bbb1a6ef0b821f5a44a74a612241e185f1d7d6d3b262731eb10a4b9a8817e06",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 4,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 25,
+            "form": "popstar",
+            "key": "lib-pikachupopstar-s-a5baf12e3bbc"
+          },
+          "assembly": {
+            "native_frames": [
+              {
+                "action": "Pain",
+                "direction": 0,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 0,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 1,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 1,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 2,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 2,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 3,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 3,
+                "index": 0
+              }
+            ]
+          },
+          "sha256": "8c479653fee7c75b9af8faee425b91c15109368bb61b3db60af8fa45dd85a858"
+        },
+        "source_sha256": "8c479653fee7c75b9af8faee425b91c15109368bb61b3db60af8fa45dd85a858",
+        "palette_from": "lib-pikachupopstar-n-760e00a6a765",
+        "sha256": "1c408642997a86f9c8cbf7a8d14851338bbc07026b357b9b57a43957589a3a8d"
+      }
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "source": {
+        "kind": "palette-derived-pmd-reaction",
+        "tool": "palette-recolor",
+        "record": "pikachupopstarrecolor69",
+        "parent": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "pikachupopstar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8bbb1a6ef0b821f5a44a74a612241e185f1d7d6d3b262731eb10a4b9a8817e06",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 25,
+            "form": "popstar",
+            "key": "lib-pikachupopstar-s-a5baf12e3bbc"
+          },
+          "assembly": {
+            "native_frames": [
+              {
+                "action": "Pain",
+                "direction": 0,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 0,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 1,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 1,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 2,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 2,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 3,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 3,
+                "index": 0
+              }
+            ]
+          },
+          "sha256": "a203f6593487d9c839a74e177199b8dbd6f65bcb77777197e156cd9554711996"
+        },
+        "source_sha256": "a203f6593487d9c839a74e177199b8dbd6f65bcb77777197e156cd9554711996",
+        "palette_from": "lib-pikachupopstar-n-760e00a6a765",
+        "sha256": "c570e1d51ee9c29492229593eda117738615ddba309a648708a59608e7fc92c8"
+      }
+    }
+  },
+  "shiny": {
+    "a": {}
+  },
+  "pending": [],
+  "reviewed": true,
+  "shiny_reviewed": false,
+  "provenance": {
+    "id": "pikachupopstarrecolor69",
+    "num": 25,
+    "form": "Pop-Star",
+    "tool": "palette-recolor",
+    "source_record": "pikachupopstar-recolor69.json",
+    "source_image": "pikachupopstar-source69-Pain.png",
+    "source_sha256": "8c479653fee7c75b9af8faee425b91c15109368bb61b3db60af8fa45dd85a858",
+    "recolor": {
+      "target_shiny": false,
+      "source_key": "lib-pikachupopstar-s-a5baf12e3bbc",
+      "source_shiny": true,
+      "palette": [
+        [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        [
+          [
+            49,
+            49,
+            49
+          ],
+          [
+            49,
+            49,
+            49
+          ]
+        ],
+        [
+          [
+            115,
+            82,
+            57
+          ],
+          [
+            115,
+            82,
+            57
+          ]
+        ],
+        [
+          [
+            115,
+            115,
+            115
+          ],
+          [
+            115,
+            115,
+            115
+          ]
+        ],
+        [
+          [
+            148,
+            57,
+            24
+          ],
+          [
+            205,
+            90,
+            57
+          ]
+        ],
+        [
+          [
+            180,
+            106,
+            148
+          ],
+          [
+            189,
+            123,
+            148
+          ]
+        ],
+        [
+          [
+            197,
+            82,
+            49
+          ],
+          [
+            156,
+            115,
+            57
+          ]
+        ],
+        [
+          [
+            205,
+            49,
+            106
+          ],
+          [
+            205,
+            49,
+            106
+          ]
+        ],
+        [
+          [
+            205,
+            90,
+            57
+          ],
+          [
+            156,
+            65,
+            148
+          ]
+        ],
+        [
+          [
+            230,
+            123,
+            65
+          ],
+          [
+            205,
+            164,
+            65
+          ]
+        ],
+        [
+          [
+            230,
+            131,
+            156
+          ],
+          [
+            230,
+            131,
+            164
+          ]
+        ],
+        [
+          [
+            238,
+            238,
+            255
+          ],
+          [
+            230,
+            90,
+            131
+          ]
+        ],
+        [
+          [
+            246,
+            180,
+            197
+          ],
+          [
+            246,
+            180,
+            197
+          ]
+        ],
+        [
+          [
+            255,
+            172,
+            41
+          ],
+          [
+            255,
+            213,
+            82
+          ]
+        ],
+        [
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ]
+      ],
+      "references": [
+        {
+          "animation": "Idle",
+          "source_file": "pmd:49b494f41abb5759063ed1363e347c5167fb20c06f09b3fc7733e240817d240e",
+          "target_file": "pmd:b2415a71979b8396be76d6afe743c26ebfbd175058cbb3823f462a184eb6f558",
+          "matched_poses": 4
+        },
+        {
+          "animation": "Walk",
+          "source_file": "pmd:efeead19daa7dc9e06d14c8da287315b647805fe9ff067e4233c9ccc667faf6f",
+          "target_file": "pmd:6e151534f7504864cbd2fbf2fbfc497d9d9f2509b88df4231127e80ec08e016d",
+          "matched_poses": 8
+        }
+      ],
+      "region_preservation_overrides": [],
+      "actions": {
+        "Pain": {
+          "image": "pikachupopstar-source69-Pain.png",
+          "sha256": "8c479653fee7c75b9af8faee425b91c15109368bb61b3db60af8fa45dd85a858",
+          "geometry": {
+            "w": 56,
+            "h": 48,
+            "r": 4,
+            "n": 2,
+            "d": [
+              12,
+              20
+            ],
+            "ax": 28.0,
+            "ay": 42,
+            "source": {
+              "kind": "generated-shiny-pmd-reaction",
+              "record": "pikachupopstar",
+              "tool": "builtin-imagegen",
+              "source_sha256": "8bbb1a6ef0b821f5a44a74a612241e185f1d7d6d3b262731eb10a4b9a8817e06",
+              "authored_directions": 4,
+              "authored_frames": 8,
+              "generated_frames": 4,
+              "distinct_frames_per_direction": [
+                2,
+                2,
+                2,
+                2
+              ],
+              "reference": {
+                "num": 25,
+                "form": "popstar",
+                "key": "lib-pikachupopstar-s-a5baf12e3bbc"
+              },
+              "assembly": {
+                "native_frames": [
+                  {
+                    "action": "Pain",
+                    "direction": 0,
+                    "frame": 0,
+                    "animation": "Idle",
+                    "row": 0,
+                    "index": 0
+                  },
+                  {
+                    "action": "Pain",
+                    "direction": 1,
+                    "frame": 0,
+                    "animation": "Idle",
+                    "row": 1,
+                    "index": 0
+                  },
+                  {
+                    "action": "Pain",
+                    "direction": 2,
+                    "frame": 0,
+                    "animation": "Idle",
+                    "row": 2,
+                    "index": 0
+                  },
+                  {
+                    "action": "Pain",
+                    "direction": 3,
+                    "frame": 0,
+                    "animation": "Idle",
+                    "row": 3,
+                    "index": 0
+                  }
+                ]
+              },
+              "sha256": "8c479653fee7c75b9af8faee425b91c15109368bb61b3db60af8fa45dd85a858"
+            },
+            "row_map": [
+              0,
+              1,
+              1,
+              2,
+              2,
+              3,
+              3,
+              0
+            ],
+            "file": "pmd:8c479653fee7c75b9af8faee425b91c15109368bb61b3db60af8fa45dd85a858"
+          }
+        },
+        "HitGround": {
+          "image": "pikachupopstar-source69-HitGround.png",
+          "sha256": "a203f6593487d9c839a74e177199b8dbd6f65bcb77777197e156cd9554711996",
+          "geometry": {
+            "w": 56,
+            "h": 48,
+            "r": 4,
+            "n": 2,
+            "d": [
+              12,
+              20
+            ],
+            "ax": 28.0,
+            "ay": 42,
+            "source": {
+              "kind": "generated-shiny-pmd-reaction",
+              "record": "pikachupopstar",
+              "tool": "builtin-imagegen",
+              "source_sha256": "8bbb1a6ef0b821f5a44a74a612241e185f1d7d6d3b262731eb10a4b9a8817e06",
+              "authored_directions": 4,
+              "authored_frames": 8,
+              "generated_frames": 8,
+              "distinct_frames_per_direction": [
+                2,
+                2,
+                2,
+                2
+              ],
+              "reference": {
+                "num": 25,
+                "form": "popstar",
+                "key": "lib-pikachupopstar-s-a5baf12e3bbc"
+              },
+              "assembly": {
+                "native_frames": [
+                  {
+                    "action": "Pain",
+                    "direction": 0,
+                    "frame": 0,
+                    "animation": "Idle",
+                    "row": 0,
+                    "index": 0
+                  },
+                  {
+                    "action": "Pain",
+                    "direction": 1,
+                    "frame": 0,
+                    "animation": "Idle",
+                    "row": 1,
+                    "index": 0
+                  },
+                  {
+                    "action": "Pain",
+                    "direction": 2,
+                    "frame": 0,
+                    "animation": "Idle",
+                    "row": 2,
+                    "index": 0
+                  },
+                  {
+                    "action": "Pain",
+                    "direction": 3,
+                    "frame": 0,
+                    "animation": "Idle",
+                    "row": 3,
+                    "index": 0
+                  }
+                ]
+              },
+              "sha256": "a203f6593487d9c839a74e177199b8dbd6f65bcb77777197e156cd9554711996"
+            },
+            "row_map": [
+              0,
+              1,
+              1,
+              2,
+              2,
+              3,
+              3,
+              0
+            ],
+            "ground_frames": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "file": "pmd:a203f6593487d9c839a74e177199b8dbd6f65bcb77777197e156cd9554711996"
+          }
+        }
+      }
+    }
+  }
+}
