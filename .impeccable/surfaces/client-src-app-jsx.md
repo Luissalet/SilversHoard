@@ -7,6 +7,10 @@ related_targets: ["client/src/arcade.css","client/src/pages/Inicio.jsx","client/
 
 # Menu and combat presentation
 
+26 October 2026 — Ball HUD repair #1554: each assigned Ball keeps its canonical source and embedded PNG delivery.
+The generated icon removes transparent source margins; the fixed 18-pixel desktop and 15-pixel mobile cells contain
+the complete image instead of clipping an oversized grid track. Unknown, active and fainted party states remain intact.
+
 25 October 2026 — Damage/defeat refinement #1502: keep this visual world and
 original art. Pain requires one hit >35% maximum HP; HitGround ends downed, never
 standing back up. The body has its own owner until the red return beam, with a

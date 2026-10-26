@@ -10,8 +10,8 @@
 .hud-name-row b { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; font-weight: 800; }
 .hud-level { flex: none; font-size: 11px; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .hud-party-row { display: flex; align-items: center; min-width: 0; gap: 2px; }
-.hud-ball { flex: none; display: inline-grid; place-items: center; width: 18px; height: 18px; overflow: hidden; }
-.hud-ball img { width: 34px; height: 34px; max-width: none; object-fit: contain; image-rendering: pixelated; }
+.hud-ball { flex: none; display: inline-grid; grid-template: minmax(0,1fr) / minmax(0,1fr); place-items: center; width: 18px; height: 18px; overflow: hidden; }
+.hud-ball img { display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; object-fit: contain; image-rendering: pixelated; }
 .hud-ball.is-out { filter: grayscale(1) brightness(.45); }
 .hud-ball.is-on { background: color-mix(in srgb,var(--hud-corner) 24%,transparent); box-shadow: inset 0 -2px var(--hud-corner); }
 .hud-ball-unknown { font-size: 11px; color: #bacbd1; }
@@ -49,7 +49,6 @@
   .hud-health { height: 18px; }
   .hud-health-numbers { line-height: 13px; font-size: 10px; }
   .hud-ball { width: 15px; height: 15px; }
-  .hud-ball img { width: 30px; height: 30px; }
   .hud-states { font-size: 10px; }
   .hud-sidebar > .rt-gauge { margin-left: 88px; }
   .b-cards:has(.battle-hud) { width: min(310px,76%); }
