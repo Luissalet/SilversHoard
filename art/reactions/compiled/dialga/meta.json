@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 88,
+      "h": 80,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 44.0,
+      "ay": 74,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dialga",
+        "tool": "builtin-imagegen",
+        "source_sha256": "02b9f452b473fed800cc858e9da4ead27c3ff6283b3d5b145966aa601762f827",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 483,
+          "form": "",
+          "key": "lib-dialga-n-f1338eac8531"
+        },
+        "sha256": "5eb6050d7a40dbb0ae7c7d76719c00fdb43b1a97865261f9b919e4b7c6ce6f00"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 88,
+      "h": 80,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 44.0,
+      "ay": 74,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dialga",
+        "tool": "builtin-imagegen",
+        "source_sha256": "02b9f452b473fed800cc858e9da4ead27c3ff6283b3d5b145966aa601762f827",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 483,
+          "form": "",
+          "key": "lib-dialga-n-f1338eac8531"
+        },
+        "sha256": "1542a7b3776c5ae71725ce6875c3221a0c7ea31fb521b9cc5a5247c99b28d4a8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 88,
+        "h": 80,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 44.0,
+        "ay": 74,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dialga",
+          "tool": "builtin-imagegen",
+          "source_sha256": "02b9f452b473fed800cc858e9da4ead27c3ff6283b3d5b145966aa601762f827",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 483,
+            "form": "",
+            "key": "lib-dialga-n-f1338eac8531"
+          },
+          "sha256": "abe841395023cfd14496d0d2c49df36ff1a599d779703202bc2c6dbef4822ac5",
+          "palette_from": "lib-dialga-s-88f981f0028a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 88,
+        "h": 80,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 44.0,
+        "ay": 74,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dialga",
+          "tool": "builtin-imagegen",
+          "source_sha256": "02b9f452b473fed800cc858e9da4ead27c3ff6283b3d5b145966aa601762f827",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 483,
+            "form": "",
+            "key": "lib-dialga-n-f1338eac8531"
+          },
+          "sha256": "560d0f49189b8a40280ad4269896aa2a4af49d470e63b81070272b5d60e239e7",
+          "palette_from": "lib-dialga-s-88f981f0028a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "dialga",
+    "num": 483,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Dialga, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "dialga-cardinal.png",
+    "source_sha256": "02b9f452b473fed800cc858e9da4ead27c3ff6283b3d5b145966aa601762f827",
+    "source_record": "dialga-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

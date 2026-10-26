@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "furfroudandy",
+        "tool": "builtin-imagegen",
+        "source_sha256": "bd209a15bb85b5a5464760e898d13a6c9e67c0289dd5aa8fe44585056b062765",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 676,
+          "form": "Dandy",
+          "key": "lib-furfroudandy-n-af7b2bbc3e1a"
+        },
+        "sha256": "f2b27fb92978d617e5159249a0a19a04554f617ab65ecd122047128973f64889"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "furfroudandy",
+        "tool": "builtin-imagegen",
+        "source_sha256": "bd209a15bb85b5a5464760e898d13a6c9e67c0289dd5aa8fe44585056b062765",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 676,
+          "form": "Dandy",
+          "key": "lib-furfroudandy-n-af7b2bbc3e1a"
+        },
+        "sha256": "423e7dde22ac939d076423feee10e6d46b8b8a6b895fddd7df0ab45a1538cbdd"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "furfroudandy",
+          "tool": "builtin-imagegen",
+          "source_sha256": "bd209a15bb85b5a5464760e898d13a6c9e67c0289dd5aa8fe44585056b062765",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 676,
+            "form": "Dandy",
+            "key": "lib-furfroudandy-n-af7b2bbc3e1a"
+          },
+          "sha256": "6bf6151c81407dc0b371cc48a01357a3bcbe95a4252bff96069ce7914c8df0af",
+          "palette_from": "lib-furfroudandy-s-bad03158bf8d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "furfroudandy",
+          "tool": "builtin-imagegen",
+          "source_sha256": "bd209a15bb85b5a5464760e898d13a6c9e67c0289dd5aa8fe44585056b062765",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 676,
+            "form": "Dandy",
+            "key": "lib-furfroudandy-n-af7b2bbc3e1a"
+          },
+          "sha256": "49abdf2e4b368be111096f31ee8100f318008cccedf0a5d814b1d77eec590d98",
+          "palette_from": "lib-furfroudandy-s-bad03158bf8d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "furfroudandy",
+    "num": 676,
+    "form": "Dandy",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Furfrou-Dandy, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "furfroudandy-cardinal.png",
+    "source_sha256": "bd209a15bb85b5a5464760e898d13a6c9e67c0289dd5aa8fe44585056b062765",
+    "source_record": "furfroudandy-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

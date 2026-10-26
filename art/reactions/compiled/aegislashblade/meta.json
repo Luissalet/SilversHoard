@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "aegislashblade",
+        "tool": "builtin-imagegen",
+        "source_sha256": "641bb4094ec1f87ee6aed6cb996004fd29b8d322fbf5bdd4b6a1c4e030cdc930",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 681,
+          "form": "Blade",
+          "key": "lib-aegislashblade-n-364286a2365c"
+        },
+        "sha256": "411e7c11937c598fbee654b060616a2101e5d1e6b83e37dbc99644b4cee82a75"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "aegislashblade",
+        "tool": "builtin-imagegen",
+        "source_sha256": "641bb4094ec1f87ee6aed6cb996004fd29b8d322fbf5bdd4b6a1c4e030cdc930",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 681,
+          "form": "Blade",
+          "key": "lib-aegislashblade-n-364286a2365c"
+        },
+        "sha256": "3af0e5bed94c6c1eb1285b8c7eceec997c4219e9b58b68b86e7c74d2ae5fe57b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "aegislashblade",
+          "tool": "builtin-imagegen",
+          "source_sha256": "641bb4094ec1f87ee6aed6cb996004fd29b8d322fbf5bdd4b6a1c4e030cdc930",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 681,
+            "form": "Blade",
+            "key": "lib-aegislashblade-n-364286a2365c"
+          },
+          "sha256": "82651a5d110822f3156e44baa8d99d48abe41f0c8416294328a82c8c75537b48",
+          "palette_from": "lib-aegislashblade-s-2c09d6866328"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "aegislashblade",
+          "tool": "builtin-imagegen",
+          "source_sha256": "641bb4094ec1f87ee6aed6cb996004fd29b8d322fbf5bdd4b6a1c4e030cdc930",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 681,
+            "form": "Blade",
+            "key": "lib-aegislashblade-n-364286a2365c"
+          },
+          "sha256": "a99dc2981fc79bc82d43302b53c306d23e5764e8c84756219c812d7a068ab7f0",
+          "palette_from": "lib-aegislashblade-s-2c09d6866328"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "aegislashblade",
+    "num": 681,
+    "form": "Blade",
+    "tool": "builtin-imagegen",
+    "prompt": "Use case: precise-object-edit. Edit transparent8column4row32sprite pixel-art atlas image1, using native exact identity reference image2. Remove ALL isolated floating impact/anger symbols, golden sparkles and black detached motion strokes around the character in Pain columns1 AND2, in EVERY row. Restore clean transparent gutters around the complete character. Keep the actual sword blade, hilt, purple cloth arm, eye, shield, and all legitimate connected anatomy untouched. Columns3-8 poses stay unchanged. No particle effects in any frame. All other cells, materials, camera directions and anatomy must stay unchanged. Keep exact grid/32sprites, consistent crisp pixel scale, native palette and transparent background. No extra objects, scenery, effects or text.",
+    "source_image": "aegislashblade-cardinal-v2.png",
+    "source_sha256": "641bb4094ec1f87ee6aed6cb996004fd29b8d322fbf5bdd4b6a1c4e030cdc930",
+    "source_record": "aegislashblade-cardinal-v2.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

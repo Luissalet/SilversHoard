@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "zygarde10",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4973e9113c2fc988306f0fd610f93250fe30a2daa6b15daf89cd2963462980ab",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 718,
+          "form": "10%",
+          "key": "lib-zygarde10-n-490c8bed1128"
+        },
+        "sha256": "8b29c0d34c51ac6535714faf4bb52907cdb5ed121da6f8e8da416b7a80308dff"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "zygarde10",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4973e9113c2fc988306f0fd610f93250fe30a2daa6b15daf89cd2963462980ab",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 718,
+          "form": "10%",
+          "key": "lib-zygarde10-n-490c8bed1128"
+        },
+        "sha256": "027781418be461a1d677e02dc056910e43c8ba35a95b33447d839fba3a80d19f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "zygarde10",
+          "tool": "builtin-imagegen",
+          "source_sha256": "4973e9113c2fc988306f0fd610f93250fe30a2daa6b15daf89cd2963462980ab",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 718,
+            "form": "10%",
+            "key": "lib-zygarde10-n-490c8bed1128"
+          },
+          "sha256": "86196e820ef3dee7daa3babf53bbdfe91f2dec1119601effbdd88f0951108201",
+          "palette_from": "lib-zygarde10-s-979f8821aca4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "zygarde10",
+          "tool": "builtin-imagegen",
+          "source_sha256": "4973e9113c2fc988306f0fd610f93250fe30a2daa6b15daf89cd2963462980ab",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 718,
+            "form": "10%",
+            "key": "lib-zygarde10-n-490c8bed1128"
+          },
+          "sha256": "b17fffcb4bba3d41e49efd105c48fd77ecd4ae520ec71781b0112ade1015f9ad",
+          "palette_from": "lib-zygarde10-s-979f8821aca4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "zygarde10",
+    "num": 718,
+    "form": "10%",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Zygarde-10%, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "zygarde10-cardinal.png",
+    "source_sha256": "4973e9113c2fc988306f0fd610f93250fe30a2daa6b15daf89cd2963462980ab",
+    "source_record": "zygarde10-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ribombee",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5355c03551612fee08ed754e765498701d2a5dc9d1a832c50000d0a8309e5dbd",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 743,
+          "form": "",
+          "key": "lib-ribombee-n-bffcbe8ae38c"
+        },
+        "sha256": "99c9d86a05aa4a20110c056bafa8333cd8282b7303797a0b37979030987f688b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ribombee",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5355c03551612fee08ed754e765498701d2a5dc9d1a832c50000d0a8309e5dbd",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 743,
+          "form": "",
+          "key": "lib-ribombee-n-bffcbe8ae38c"
+        },
+        "sha256": "2b6d21cf960dafe98bcc39d708ffa1e0f3dfcbd3800a6a7777962c9084b3e9ef"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ribombee",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5355c03551612fee08ed754e765498701d2a5dc9d1a832c50000d0a8309e5dbd",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 743,
+            "form": "",
+            "key": "lib-ribombee-n-bffcbe8ae38c"
+          },
+          "sha256": "7299768d8317cdb8da513e4a9fc89648bdf38049a9658bdc223c2e97ce1beba8",
+          "palette_from": "lib-ribombee-s-3ddf852ca6b8"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ribombee",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5355c03551612fee08ed754e765498701d2a5dc9d1a832c50000d0a8309e5dbd",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 743,
+            "form": "",
+            "key": "lib-ribombee-n-bffcbe8ae38c"
+          },
+          "sha256": "cbb9af8605e03666035a369015ca6565064b39e7d903e23563a952e9e5783e13",
+          "palette_from": "lib-ribombee-s-3ddf852ca6b8"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "ribombee",
+    "num": 743,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Ribombee, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "ribombee-cardinal.png",
+    "source_sha256": "5355c03551612fee08ed754e765498701d2a5dc9d1a832c50000d0a8309e5dbd",
+    "source_record": "ribombee-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

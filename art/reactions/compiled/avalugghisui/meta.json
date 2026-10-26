@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 72,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "avalugghisui",
+        "tool": "builtin-imagegen",
+        "source_sha256": "303ce04435a0faeef88e97268f2cf8f5588292f1d903034cc2931e41aacaf4d9",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 713,
+          "form": "Hisui",
+          "key": "lib-avalugghisui-n-c4e0d1c66422"
+        },
+        "sha256": "74153fb247ad7514ff3575eabab8d22d0f431092dc7f302489b44036af743dcd"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 72,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "avalugghisui",
+        "tool": "builtin-imagegen",
+        "source_sha256": "303ce04435a0faeef88e97268f2cf8f5588292f1d903034cc2931e41aacaf4d9",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 713,
+          "form": "Hisui",
+          "key": "lib-avalugghisui-n-c4e0d1c66422"
+        },
+        "sha256": "6e62ffa018d4965d997ef0fbe8e54f4e3a882010aea795523b83627a7637f2de"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 72,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "avalugghisui",
+          "tool": "builtin-imagegen",
+          "source_sha256": "400f37d5d2fa55c34768bde3539ef9a3ddebb204c3fa7b7480058466f4648fc2",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 713,
+            "form": "Hisui",
+            "key": "lib-avalugghisui-s-ac62934e6e0b"
+          },
+          "sha256": "b60f2e3c0c787167229dfe31e04561637a4d773f8b0100ac6a4351923fb272e1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 72,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "avalugghisui",
+          "tool": "builtin-imagegen",
+          "source_sha256": "400f37d5d2fa55c34768bde3539ef9a3ddebb204c3fa7b7480058466f4648fc2",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 713,
+            "form": "Hisui",
+            "key": "lib-avalugghisui-s-ac62934e6e0b"
+          },
+          "sha256": "27728e00b97265e763e16dc2f0936cee17a8a31a65a1f995a7f91bd34c7d0695"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "avalugghisui",
+    "num": 713,
+    "form": "Hisui",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Avalugg-Hisui, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "avalugghisui-cardinal.png",
+    "source_sha256": "303ce04435a0faeef88e97268f2cf8f5588292f1d903034cc2931e41aacaf4d9",
+    "source_record": "avalugghisui-cardinal.json",
+    "shiny_source_image": "avalugghisui-shiny-v1.png",
+    "shiny_prompt": "Use case identity-preserve. Recolour existing transparent8column4row32sprite atlas to exact native SHINY Hisuian Avalugg in image2. ORANGE highlights only on front jaws/face/tusk underside; pale blue and white layered dorsal ice plates remain entirely ice-blue/white with gray outlines, NEVER orange veins on the back. Brown-gray rock legs/body retained. NORTH rear all8cells no orange on dorsal ice. Preserve all32 poses/fullbody/cameras/grid/scale and crisp pixelart. Transparent background, no effects symbols text."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

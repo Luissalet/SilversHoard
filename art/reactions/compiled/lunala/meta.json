@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 88,
+      "h": 72,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 44.0,
+      "ay": 66,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "lunala",
+        "tool": "builtin-imagegen",
+        "source_sha256": "bcecf7f7bd98b179b8e4ac090ada8c9499508ef962b40609fea4546f72e7dc72",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 792,
+          "form": "",
+          "key": "lib-lunala-n-9d7979700bbd"
+        },
+        "sha256": "a3f6d293d4b823ca7a05a013c85e6cff77461bfb65c59a2915844bd7d6acc799"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 88,
+      "h": 72,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 44.0,
+      "ay": 66,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "lunala",
+        "tool": "builtin-imagegen",
+        "source_sha256": "bcecf7f7bd98b179b8e4ac090ada8c9499508ef962b40609fea4546f72e7dc72",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 792,
+          "form": "",
+          "key": "lib-lunala-n-9d7979700bbd"
+        },
+        "sha256": "faae72650c65c847da70e81979f6035c35c970c60d56044b16ba496db4348e54"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 88,
+        "h": 72,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 44.0,
+        "ay": 66,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "lunala",
+          "tool": "builtin-imagegen",
+          "source_sha256": "bcecf7f7bd98b179b8e4ac090ada8c9499508ef962b40609fea4546f72e7dc72",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 792,
+            "form": "",
+            "key": "lib-lunala-n-9d7979700bbd"
+          },
+          "sha256": "a49dc3a493d85e544fb7db7abdb98aaf685b8916a3f324ece2da14ec111ec533",
+          "palette_from": "lib-lunala-s-2e1f4f2a0ef4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 88,
+        "h": 72,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 44.0,
+        "ay": 66,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "lunala",
+          "tool": "builtin-imagegen",
+          "source_sha256": "bcecf7f7bd98b179b8e4ac090ada8c9499508ef962b40609fea4546f72e7dc72",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 792,
+            "form": "",
+            "key": "lib-lunala-n-9d7979700bbd"
+          },
+          "sha256": "5690eb45a255acdfa908b3fa889907c10d95dd74a4edbd5d40181a3b3d17bc5b",
+          "palette_from": "lib-lunala-s-2e1f4f2a0ef4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "lunala",
+    "num": 792,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Lunala, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "lunala-cardinal.png",
+    "source_sha256": "bcecf7f7bd98b179b8e4ac090ada8c9499508ef962b40609fea4546f72e7dc72",
+    "source_record": "lunala-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

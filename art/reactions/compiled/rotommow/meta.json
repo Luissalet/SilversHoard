@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "rotommow",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0af3a65c1b0673822291b26a3ad92861d4574c236d26ee05dd6daa36a6fb6cd8",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 479,
+          "form": "Mow",
+          "key": "lib-rotommow-n-45e9abca271a"
+        },
+        "sha256": "b59c0808da5cee0a9ee1635227fa482f6bf8803551484bb51229e9e5243f3d7d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "rotommow",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0af3a65c1b0673822291b26a3ad92861d4574c236d26ee05dd6daa36a6fb6cd8",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 479,
+          "form": "Mow",
+          "key": "lib-rotommow-n-45e9abca271a"
+        },
+        "sha256": "c8ad3a942a289c0052d0314074fc4554a5ae441e861e35423b65643fe8acd9e5"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "rotommow",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d2ce7545feebc74d6e2b0f5ed2a3719b528e7997ee24cd8ff50b3e14802bbfa5",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 479,
+            "form": "Mow",
+            "key": "lib-rotommow-s-81cb98a245b4"
+          },
+          "sha256": "4af1f1df95cfc6cdb2fed23e7c33f8727e8ea235a10dfe3e3c7aca382efdabe8"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "rotommow",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d2ce7545feebc74d6e2b0f5ed2a3719b528e7997ee24cd8ff50b3e14802bbfa5",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 479,
+            "form": "Mow",
+            "key": "lib-rotommow-s-81cb98a245b4"
+          },
+          "sha256": "340247da83bfca8c893e8023fc92d57c21cef070812d396b0842d6caf78af910"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "rotommow",
+    "num": 479,
+    "form": "Mow",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Rotom-Mow, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "rotommow-cardinal.png",
+    "source_sha256": "0af3a65c1b0673822291b26a3ad92861d4574c236d26ee05dd6daa36a6fb6cd8",
+    "source_record": "rotommow-cardinal.json",
+    "shiny_source_image": "rotommow-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Recolour the transparent32sprite8column4row pixel-art atlas image1 to EXACT native SHINY colours of image2. Central mower body becomes PINK/FUCHSIA; BOTH long aura arms and all green outline/aura parts become pale CREAM/PEACH. Remove EVERY green/neon-green aura pixel. Keep black outline, white highlights and material borders matching image2. Preserve all32poses, complete anatomy, each fixed row camera(front/right/rear/left), exact grid, crisp pixels and transparency. No extra objects, scenery, effects or text."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "mareanie",
+        "tool": "builtin-imagegen",
+        "source_sha256": "bfc8a5e88a2571bf274789c55509956078e13bdd47c87944d34698abe1f53c60",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 747,
+          "form": "",
+          "key": "lib-mareanie-n-6e89e5dbf5c5"
+        },
+        "sha256": "0ae6cef4114a55ce0ff604746e750b22ef362d05a4fff21e43110658fbf3b121"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "mareanie",
+        "tool": "builtin-imagegen",
+        "source_sha256": "bfc8a5e88a2571bf274789c55509956078e13bdd47c87944d34698abe1f53c60",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 747,
+          "form": "",
+          "key": "lib-mareanie-n-6e89e5dbf5c5"
+        },
+        "sha256": "399b5b7d1f46d81d51bdcd1dfd94135440126c260b8b1b3fd8ec5698b1488e6a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "mareanie",
+          "tool": "builtin-imagegen",
+          "source_sha256": "bfc8a5e88a2571bf274789c55509956078e13bdd47c87944d34698abe1f53c60",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 747,
+            "form": "",
+            "key": "lib-mareanie-n-6e89e5dbf5c5"
+          },
+          "sha256": "98f7336778988cb0609794a3ce2fe2cf0e705de4c705116615bb49de3357e1b1",
+          "palette_from": "lib-mareanie-s-c23ecfbb9cde"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "mareanie",
+          "tool": "builtin-imagegen",
+          "source_sha256": "bfc8a5e88a2571bf274789c55509956078e13bdd47c87944d34698abe1f53c60",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 747,
+            "form": "",
+            "key": "lib-mareanie-n-6e89e5dbf5c5"
+          },
+          "sha256": "a691100436be756aefbce76256d978d3025546b7ed099773251bb4911e4cf68b",
+          "palette_from": "lib-mareanie-s-c23ecfbb9cde"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "mareanie",
+    "num": 747,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Mareanie, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "mareanie-cardinal.png",
+    "source_sha256": "bfc8a5e88a2571bf274789c55509956078e13bdd47c87944d34698abe1f53c60",
+    "source_record": "mareanie-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

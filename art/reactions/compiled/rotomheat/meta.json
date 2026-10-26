@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "rotomheat",
+        "tool": "builtin-imagegen",
+        "source_sha256": "53b1f004acd8077edd619d5f26f383cca0ac97ad05f6b1a894aac6112f8a85fa",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 479,
+          "form": "Heat",
+          "key": "lib-rotomheat-n-6e56b5fbb868"
+        },
+        "sha256": "a9efcb86f72ceae22c55b3ae121f5ad5a67ecffcef1f6132404913a94f631653"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "rotomheat",
+        "tool": "builtin-imagegen",
+        "source_sha256": "53b1f004acd8077edd619d5f26f383cca0ac97ad05f6b1a894aac6112f8a85fa",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 479,
+          "form": "Heat",
+          "key": "lib-rotomheat-n-6e56b5fbb868"
+        },
+        "sha256": "eb59691d4fe1c03500cc7ca5116d223ddb0d6c66d5db874354eba721be9d98c8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "rotomheat",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0dfa814e4e337549eb243468a7976393f02e8928ffed08f2c6e6a2c20fe047c6",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 479,
+            "form": "Heat",
+            "key": "lib-rotomheat-s-7d9dc0973ac3"
+          },
+          "sha256": "7320b3bd841c582404c564e6fea3392f89b1319b1059f3ae550acbd3c492ed3d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "rotomheat",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0dfa814e4e337549eb243468a7976393f02e8928ffed08f2c6e6a2c20fe047c6",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 479,
+            "form": "Heat",
+            "key": "lib-rotomheat-s-7d9dc0973ac3"
+          },
+          "sha256": "2ee0da381d7fe89ba3cf275c10f6bda7058882683700daf16310ebe9f29d154b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "rotomheat",
+    "num": 479,
+    "form": "Heat",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Rotom-Heat, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "rotomheat-cardinal.png",
+    "source_sha256": "53b1f004acd8077edd619d5f26f383cca0ac97ad05f6b1a894aac6112f8a85fa",
+    "source_record": "rotomheat-cardinal.json",
+    "shiny_source_image": "rotomheat-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Recolour the transparent32sprite8column4row pixel-art atlas image1 to EXACT native SHINY colours of image2. Central appliance body becomes PINK/FUCHSIA. BOTH separate external electrical arms and their entire outside aura are pale CREAM/PEACH, never red/fuchsia. Keep pink confined to actual appliance body, exact material boundaries as image2. Front black grill stays black. Preserve all32poses, complete anatomy, each fixed row camera(front/right/rear/left), exact grid, crisp pixels and transparency. No extra objects, scenery, effects or text."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

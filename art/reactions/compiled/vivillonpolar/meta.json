@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "vivillonpolar",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6bfb849bdba7a9c2663450a2a7f6ce76b670b682310d80dc1fb6748547a0480c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 666,
+          "form": "Polar",
+          "key": "lib-vivillonpolar-n-7e9ebe406a63"
+        },
+        "sha256": "83efdb24bdb088a9ac6c978df253effb7cd2559e6ac218b9d443ef9cb3f609c8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "vivillonpolar",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6bfb849bdba7a9c2663450a2a7f6ce76b670b682310d80dc1fb6748547a0480c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 666,
+          "form": "Polar",
+          "key": "lib-vivillonpolar-n-7e9ebe406a63"
+        },
+        "sha256": "2242a220e4ff910174b0b19b9330d6f0086b172905f8beeb5df90b7d8e1bf58d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "vivillonpolar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6bfb849bdba7a9c2663450a2a7f6ce76b670b682310d80dc1fb6748547a0480c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 666,
+            "form": "Polar",
+            "key": "lib-vivillonpolar-n-7e9ebe406a63"
+          },
+          "sha256": "fbefc9f5c0b92be59ad18450f2b791fc82ad8ce7eedd5e5223e40ab7fecc4bff",
+          "palette_from": "lib-vivillonpolar-s-3032503aef25"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "vivillonpolar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6bfb849bdba7a9c2663450a2a7f6ce76b670b682310d80dc1fb6748547a0480c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 666,
+            "form": "Polar",
+            "key": "lib-vivillonpolar-n-7e9ebe406a63"
+          },
+          "sha256": "ddfc128321c56b6f26178556b743a85e6810f28badce9911851b4d83968f974a",
+          "palette_from": "lib-vivillonpolar-s-3032503aef25"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "vivillonpolar",
+    "num": 666,
+    "form": "Polar",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Vivillon-Polar, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "vivillonpolar-cardinal.png",
+    "source_sha256": "6bfb849bdba7a9c2663450a2a7f6ce76b670b682310d80dc1fb6748547a0480c",
+    "source_record": "vivillonpolar-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

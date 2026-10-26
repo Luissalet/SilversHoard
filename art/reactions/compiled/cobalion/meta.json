@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "cobalion",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0465f4e5fbacf0001d938fba666853a9651bfee9e6de645b6e5b964135ae7061",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 638,
+          "form": "",
+          "key": "lib-cobalion-n-f9a5b683a37d"
+        },
+        "sha256": "ba33be3cd1477afee736d9d7fe1772bd734d29538aa81fbf7b3e576ffdd6e5c3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "cobalion",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0465f4e5fbacf0001d938fba666853a9651bfee9e6de645b6e5b964135ae7061",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 638,
+          "form": "",
+          "key": "lib-cobalion-n-f9a5b683a37d"
+        },
+        "sha256": "208ff555ccb9dfdd5742dcd4f2880f18aa62db7dc42115ffb053a1ac2a51d610"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "cobalion",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0465f4e5fbacf0001d938fba666853a9651bfee9e6de645b6e5b964135ae7061",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 638,
+            "form": "",
+            "key": "lib-cobalion-n-f9a5b683a37d"
+          },
+          "sha256": "09ab46263f642ebf657f9849cbbbc154d50694914beafc88c4388a007c0a71b2",
+          "palette_from": "lib-cobalion-s-41284e9513d4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "cobalion",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0465f4e5fbacf0001d938fba666853a9651bfee9e6de645b6e5b964135ae7061",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 638,
+            "form": "",
+            "key": "lib-cobalion-n-f9a5b683a37d"
+          },
+          "sha256": "a34a86e31d7702967155a0d62dab3718019283e98a5401a7f3e75e6c15f581b4",
+          "palette_from": "lib-cobalion-s-41284e9513d4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "cobalion",
+    "num": 638,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Use case: precise-object-edit. Correct only NORTH row3, columns5-8 ground poses of atlas image1 using exact rear anatomy in native reference image2. Keep EVERY sprite in rows1,2,4 and row3columns1-4 unchanged. The FOUR row3 ground poses must keep a strictly NORTH/REAR camera throughout: back of head/neck faces viewer, face/muzzle/beak/eyes completely hidden. Body settles straight away from camera, back and tail remain centred, no profile or diagonal turning in any frame. Last two are visibly fully prone, retaining native horns/wings/tail/markings and full anatomy. Preserve all32sprites8columns4rows, crisp pixel art, palette and transparent gutters. No text, scenery, shadows or effects.",
+    "source_image": "cobalion-cardinal-v2.png",
+    "source_sha256": "0465f4e5fbacf0001d938fba666853a9651bfee9e6de645b6e5b964135ae7061",
+    "source_record": "cobalion-cardinal-v2.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

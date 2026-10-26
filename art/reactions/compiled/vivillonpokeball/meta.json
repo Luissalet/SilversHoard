@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "vivillonpokeball",
+        "tool": "builtin-imagegen",
+        "source_sha256": "73e355cc381b20beb329da8b30225809f2b9cb2eccca26106e0de86162e8b4e7",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 666,
+          "form": "Pokeball",
+          "key": "lib-vivillonpokeball-n-020f37a31d37"
+        },
+        "sha256": "1e29ed8e4b276b26e45403bcc9589de370b3fbb7a18d9f7d402c29479be72e19"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "vivillonpokeball",
+        "tool": "builtin-imagegen",
+        "source_sha256": "73e355cc381b20beb329da8b30225809f2b9cb2eccca26106e0de86162e8b4e7",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 666,
+          "form": "Pokeball",
+          "key": "lib-vivillonpokeball-n-020f37a31d37"
+        },
+        "sha256": "cbe806e32c2aa1adbf7cfb2ee243ac68895c58098094ea82fc5ecbca7df5ce3a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "vivillonpokeball",
+          "tool": "builtin-imagegen",
+          "source_sha256": "73e355cc381b20beb329da8b30225809f2b9cb2eccca26106e0de86162e8b4e7",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 666,
+            "form": "Pokeball",
+            "key": "lib-vivillonpokeball-n-020f37a31d37"
+          },
+          "sha256": "739659258801f6327a22d18899c6b3f5d14302c1de9ec28596a6d3732021b707",
+          "palette_from": "lib-vivillonpokeball-s-f26f9811c1bb"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "vivillonpokeball",
+          "tool": "builtin-imagegen",
+          "source_sha256": "73e355cc381b20beb329da8b30225809f2b9cb2eccca26106e0de86162e8b4e7",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 666,
+            "form": "Pokeball",
+            "key": "lib-vivillonpokeball-n-020f37a31d37"
+          },
+          "sha256": "68c4144ed9dc467e9b9f860309a70f0690ba590f4df2b961bc93ac954f7a46ee",
+          "palette_from": "lib-vivillonpokeball-s-f26f9811c1bb"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "vivillonpokeball",
+    "num": 666,
+    "form": "Pokeball",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Vivillon-Pokeball, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "vivillonpokeball-cardinal.png",
+    "source_sha256": "73e355cc381b20beb329da8b30225809f2b9cb2eccca26106e0de86162e8b4e7",
+    "source_record": "vivillonpokeball-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

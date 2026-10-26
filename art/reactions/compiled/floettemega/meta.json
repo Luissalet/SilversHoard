@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 96,
+      "h": 64,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 48.0,
+      "ay": 58,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "floettemega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5e590ebdbec92711c2c5bc6f6dcb4d8e3a7774b2cac075d0d0c76fdda89905dd",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 670,
+          "form": "Mega",
+          "key": "lib-floettemega-n-e26b20d045d2"
+        },
+        "sha256": "9a17c24d59358e3771c51244cd90aff922ab3cc3cfea5fc269ade848769e0697"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 96,
+      "h": 64,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 48.0,
+      "ay": 58,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "floettemega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5e590ebdbec92711c2c5bc6f6dcb4d8e3a7774b2cac075d0d0c76fdda89905dd",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 670,
+          "form": "Mega",
+          "key": "lib-floettemega-n-e26b20d045d2"
+        },
+        "sha256": "cbfe399e2060348a3ea18321bf6746265d6ef386fb8f404baef9b7267745ceb4"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 96,
+        "h": 64,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 48.0,
+        "ay": 58,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "floettemega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5e590ebdbec92711c2c5bc6f6dcb4d8e3a7774b2cac075d0d0c76fdda89905dd",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 670,
+            "form": "Mega",
+            "key": "lib-floettemega-n-e26b20d045d2"
+          },
+          "sha256": "9a17c24d59358e3771c51244cd90aff922ab3cc3cfea5fc269ade848769e0697",
+          "palette_from": "lib-floettemega-s-b5760d9edd34"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 96,
+        "h": 64,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 48.0,
+        "ay": 58,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "floettemega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5e590ebdbec92711c2c5bc6f6dcb4d8e3a7774b2cac075d0d0c76fdda89905dd",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 670,
+            "form": "Mega",
+            "key": "lib-floettemega-n-e26b20d045d2"
+          },
+          "sha256": "cbfe399e2060348a3ea18321bf6746265d6ef386fb8f404baef9b7267745ceb4",
+          "palette_from": "lib-floettemega-s-b5760d9edd34"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "floettemega",
+    "num": 670,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Floette-Mega, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "floettemega-cardinal.png",
+    "source_sha256": "5e590ebdbec92711c2c5bc6f6dcb4d8e3a7774b2cac075d0d0c76fdda89905dd",
+    "source_record": "floettemega-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

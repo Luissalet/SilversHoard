@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "hoopa",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f7464b2df9a58acd00415f7511e84a937b9de5648173c6f281a3bf8e95220ce2",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 720,
+          "form": "",
+          "key": "lib-hoopa-n-10d0c7994345"
+        },
+        "sha256": "70d82986a80c49622fca17ac3c13dce2a46af3a7cd68a14da886ff27efdfba18"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "hoopa",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f7464b2df9a58acd00415f7511e84a937b9de5648173c6f281a3bf8e95220ce2",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 720,
+          "form": "",
+          "key": "lib-hoopa-n-10d0c7994345"
+        },
+        "sha256": "16873e0401c1ad145da35f2c10e0e006f58188f6d6dbcd3d002397303cafe024"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "hoopa",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f7464b2df9a58acd00415f7511e84a937b9de5648173c6f281a3bf8e95220ce2",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 720,
+            "form": "",
+            "key": "lib-hoopa-n-10d0c7994345"
+          },
+          "sha256": "a84a26e80e934d4f454f35a0582f0ee541e3e95785568b5f047a28504eed066e",
+          "palette_from": "lib-hoopa-s-5e865c60bdd3"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "hoopa",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f7464b2df9a58acd00415f7511e84a937b9de5648173c6f281a3bf8e95220ce2",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 720,
+            "form": "",
+            "key": "lib-hoopa-n-10d0c7994345"
+          },
+          "sha256": "aec513b2caa9ff3d3c7ed61fbb8b3bbf203869fb8b33da58a8afc3827670f91f",
+          "palette_from": "lib-hoopa-s-5e865c60bdd3"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "hoopa",
+    "num": 720,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Hoopa, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "hoopa-cardinal.png",
+    "source_sha256": "f7464b2df9a58acd00415f7511e84a937b9de5648173c6f281a3bf8e95220ce2",
+    "source_record": "hoopa-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

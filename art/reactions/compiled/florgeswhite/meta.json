@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "florgeswhite",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e4c50885d5b5009a2a88e83b16f51f24e441792948eda4fc287e56e98a617661",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 671,
+          "form": "White",
+          "key": "lib-florgeswhite-n-dafa176833f4"
+        },
+        "sha256": "59d3faf09282894948a7d7a074267ddc66408ed9943c1cda1dd1f63a700d3e41"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "florgeswhite",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e4c50885d5b5009a2a88e83b16f51f24e441792948eda4fc287e56e98a617661",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 671,
+          "form": "White",
+          "key": "lib-florgeswhite-n-dafa176833f4"
+        },
+        "sha256": "2a0769f5026349ebebde02a8e4be155d850c5a4622e90ab3cd2b168dac9c0606"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "florgeswhite",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e4c50885d5b5009a2a88e83b16f51f24e441792948eda4fc287e56e98a617661",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 671,
+            "form": "White",
+            "key": "lib-florgeswhite-n-dafa176833f4"
+          },
+          "sha256": "2d4ddfe5d7cf1557d67dceae6de95f184a62be96252fa8efcd40775193209efc",
+          "palette_from": "lib-florgeswhite-s-a8a5515db906"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "florgeswhite",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e4c50885d5b5009a2a88e83b16f51f24e441792948eda4fc287e56e98a617661",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 671,
+            "form": "White",
+            "key": "lib-florgeswhite-n-dafa176833f4"
+          },
+          "sha256": "a9d505f8909114b6cecbd531f43602bfb48026fa14970c17a352e8fd7bdb787c",
+          "palette_from": "lib-florgeswhite-s-a8a5515db906"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "florgeswhite",
+    "num": 671,
+    "form": "White",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Florges-White, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "florgeswhite-cardinal.png",
+    "source_sha256": "e4c50885d5b5009a2a88e83b16f51f24e441792948eda4fc287e56e98a617661",
+    "source_record": "florgeswhite-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

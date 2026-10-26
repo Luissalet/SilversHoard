@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 72,
+      "h": 64,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 58,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "aurorus",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ca5d6141abc2119a09a485612e34cef0e72d07e87781478a272882238a055599",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 699,
+          "form": "",
+          "key": "lib-aurorus-n-e00b83826063"
+        },
+        "sha256": "deb9b14614df04ca5b8118b800a66267eea17627006c6cc593b2ce3a3e92519e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 72,
+      "h": 64,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 58,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "aurorus",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ca5d6141abc2119a09a485612e34cef0e72d07e87781478a272882238a055599",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 699,
+          "form": "",
+          "key": "lib-aurorus-n-e00b83826063"
+        },
+        "sha256": "1db437d23aede37cb16a0055dde12dc275ace0befa70a5723411ca4a93be43c5"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 72,
+        "h": 64,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 58,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "aurorus",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ca5d6141abc2119a09a485612e34cef0e72d07e87781478a272882238a055599",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 699,
+            "form": "",
+            "key": "lib-aurorus-n-e00b83826063"
+          },
+          "sha256": "9ffb270d761c71d788711793a3ed8c995b75c7594956f656ab7ddcb0b34cdd81",
+          "palette_from": "lib-aurorus-s-24ec95f6a5ee"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 72,
+        "h": 64,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 58,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "aurorus",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ca5d6141abc2119a09a485612e34cef0e72d07e87781478a272882238a055599",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 699,
+            "form": "",
+            "key": "lib-aurorus-n-e00b83826063"
+          },
+          "sha256": "b5fadfbf90d7cd97dbd9e1fdefcc6c40431c81c4546711eddbba63f51426b2f8",
+          "palette_from": "lib-aurorus-s-24ec95f6a5ee"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "aurorus",
+    "num": 699,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Aurorus, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "aurorus-cardinal.png",
+    "source_sha256": "ca5d6141abc2119a09a485612e34cef0e72d07e87781478a272882238a055599",
+    "source_record": "aurorus-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

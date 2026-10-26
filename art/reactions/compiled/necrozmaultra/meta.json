@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 88,
+      "h": 72,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 44.0,
+      "ay": 66,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "necrozmaultra",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b75539b2b32dc3889155aaea72ea6b62037f5eb9a452d766afc8a118bed27e26",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 800,
+          "form": "Ultra",
+          "key": "lib-necrozmaultra-n-23069f73fe69"
+        },
+        "sha256": "124bb1e43a1110921e64fc2bbe08ce13b029667fb299e64ae109aa9b936732d2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 88,
+      "h": 72,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 44.0,
+      "ay": 66,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "necrozmaultra",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b75539b2b32dc3889155aaea72ea6b62037f5eb9a452d766afc8a118bed27e26",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 800,
+          "form": "Ultra",
+          "key": "lib-necrozmaultra-n-23069f73fe69"
+        },
+        "sha256": "f7763eb55dbc4e965cd78f45e49d3049048084b9ed4f3ad316cbf899a157e867"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 88,
+        "h": 72,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 44.0,
+        "ay": 66,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "necrozmaultra",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b75539b2b32dc3889155aaea72ea6b62037f5eb9a452d766afc8a118bed27e26",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 800,
+            "form": "Ultra",
+            "key": "lib-necrozmaultra-n-23069f73fe69"
+          },
+          "sha256": "3c1825032fce4c5981243ddab38844046bfa60d9b235c002331a657c00579bdb",
+          "palette_from": "lib-necrozmaultra-s-38394d0ec0c7"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 88,
+        "h": 72,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 44.0,
+        "ay": 66,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "necrozmaultra",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b75539b2b32dc3889155aaea72ea6b62037f5eb9a452d766afc8a118bed27e26",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 800,
+            "form": "Ultra",
+            "key": "lib-necrozmaultra-n-23069f73fe69"
+          },
+          "sha256": "e78db5920a5eed0c797e69bd7e889b0605c26fb7c3e61d67d3af8e480d6d6a20",
+          "palette_from": "lib-necrozmaultra-s-38394d0ec0c7"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "necrozmaultra",
+    "num": 800,
+    "form": "Ultra",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Necrozma-Ultra, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "necrozmaultra-cardinal.png",
+    "source_sha256": "b75539b2b32dc3889155aaea72ea6b62037f5eb9a452d766afc8a118bed27e26",
+    "source_record": "necrozmaultra-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

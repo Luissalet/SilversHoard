@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "oricorio",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b48338f33d4a0879ae1dc8ee674e151136bb36276c80bcb81f99c044715a03d9",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 741,
+          "form": "",
+          "key": "lib-oricorio-n-5fc84120a621"
+        },
+        "sha256": "efd3420310342e9769faff8b01b88e404a6552244884b3b59d89be14c8bb04a7"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "oricorio",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b48338f33d4a0879ae1dc8ee674e151136bb36276c80bcb81f99c044715a03d9",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 741,
+          "form": "",
+          "key": "lib-oricorio-n-5fc84120a621"
+        },
+        "sha256": "3591891f8041b1e05376fe1ba1c36ca00d15f76157f0bcbd53810ed1cc7b8747"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "oricorio",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b48338f33d4a0879ae1dc8ee674e151136bb36276c80bcb81f99c044715a03d9",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 741,
+            "form": "",
+            "key": "lib-oricorio-n-5fc84120a621"
+          },
+          "sha256": "1c7b90f2b5b65a57ece7602092d32e91c27e3696e359553dfc9f1b5f87dbe82e",
+          "palette_from": "lib-oricorio-s-8af9e550f6f9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "oricorio",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b48338f33d4a0879ae1dc8ee674e151136bb36276c80bcb81f99c044715a03d9",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 741,
+            "form": "",
+            "key": "lib-oricorio-n-5fc84120a621"
+          },
+          "sha256": "b7c14151bb39f0855af2966eb9bdc014935ab1c253c24c78feff78d739e640cd",
+          "palette_from": "lib-oricorio-s-8af9e550f6f9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "oricorio",
+    "num": 741,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Oricorio, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "oricorio-cardinal.png",
+    "source_sha256": "b48338f33d4a0879ae1dc8ee674e151136bb36276c80bcb81f99c044715a03d9",
+    "source_record": "oricorio-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

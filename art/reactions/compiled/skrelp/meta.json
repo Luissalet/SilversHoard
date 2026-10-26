@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "skrelp",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e82b9a40730227ad57236db7de83c29bba851ce925cecf823ab022f6a11f68ea",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 690,
+          "form": "",
+          "key": "lib-skrelp-n-cede276c185d"
+        },
+        "sha256": "1fe5a98661d4d5abef0c78ee1f7c3cfa3ac9e429065349d1a88e80fbc3a7e78b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "skrelp",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e82b9a40730227ad57236db7de83c29bba851ce925cecf823ab022f6a11f68ea",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 690,
+          "form": "",
+          "key": "lib-skrelp-n-cede276c185d"
+        },
+        "sha256": "0b6ae478ddca89a88c8a19be733237e21cdd6d3f2a7c264d3426acf1f8ca4a3e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "skrelp",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e82b9a40730227ad57236db7de83c29bba851ce925cecf823ab022f6a11f68ea",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 690,
+            "form": "",
+            "key": "lib-skrelp-n-cede276c185d"
+          },
+          "sha256": "2f964ff85b7209af8022e508b51a363b67c3d8671b09d86d6348e4a8faa11542",
+          "palette_from": "lib-skrelp-s-21cfe224689d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "skrelp",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e82b9a40730227ad57236db7de83c29bba851ce925cecf823ab022f6a11f68ea",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 690,
+            "form": "",
+            "key": "lib-skrelp-n-cede276c185d"
+          },
+          "sha256": "d6437955d71343c99458496fb814cce2f30d3a32cecd83a7e698886d702e9b45",
+          "palette_from": "lib-skrelp-s-21cfe224689d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "skrelp",
+    "num": 690,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Skrelp, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "skrelp-cardinal.png",
+    "source_sha256": "e82b9a40730227ad57236db7de83c29bba851ce925cecf823ab022f6a11f68ea",
+    "source_record": "skrelp-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

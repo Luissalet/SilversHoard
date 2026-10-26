@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "oricoriopompom",
+        "tool": "builtin-imagegen",
+        "source_sha256": "c0a435ac2b570453be5c61ddf4d4cbc211744244634876d084832d33d9e57f4a",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 741,
+          "form": "Pom-Pom",
+          "key": "lib-oricoriopompom-n-3efd488014b1"
+        },
+        "sha256": "452d2789b57a6650817d6073c0513c3c762359f4ba4f24f29f6590731ed803e7"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "oricoriopompom",
+        "tool": "builtin-imagegen",
+        "source_sha256": "c0a435ac2b570453be5c61ddf4d4cbc211744244634876d084832d33d9e57f4a",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 741,
+          "form": "Pom-Pom",
+          "key": "lib-oricoriopompom-n-3efd488014b1"
+        },
+        "sha256": "0f28c7e4c196b78ba5b5dfb21ff3b2ef640f7a28d70f3125d3576fd2941f864b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "oricoriopompom",
+          "tool": "builtin-imagegen",
+          "source_sha256": "c0a435ac2b570453be5c61ddf4d4cbc211744244634876d084832d33d9e57f4a",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 741,
+            "form": "Pom-Pom",
+            "key": "lib-oricoriopompom-n-3efd488014b1"
+          },
+          "sha256": "024a48208eeb99fb4f783e7e36ec717d23549707b4d5d20a82b0344674b8f751",
+          "palette_from": "lib-oricoriopompom-s-4d0f09c9f33f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "oricoriopompom",
+          "tool": "builtin-imagegen",
+          "source_sha256": "c0a435ac2b570453be5c61ddf4d4cbc211744244634876d084832d33d9e57f4a",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 741,
+            "form": "Pom-Pom",
+            "key": "lib-oricoriopompom-n-3efd488014b1"
+          },
+          "sha256": "cbe481ca84285d21a99ec252feb0584728f5ff98e9a7fc68ea1230bbc15cb8a0",
+          "palette_from": "lib-oricoriopompom-s-4d0f09c9f33f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "oricoriopompom",
+    "num": 741,
+    "form": "Pom-Pom",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Oricorio-Pom-Pom, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "oricoriopompom-cardinal.png",
+    "source_sha256": "c0a435ac2b570453be5c61ddf4d4cbc211744244634876d084832d33d9e57f4a",
+    "source_record": "oricoriopompom-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

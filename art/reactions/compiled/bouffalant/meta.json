@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "bouffalant",
+        "tool": "builtin-imagegen",
+        "source_sha256": "c85d35ed336e05e05f871ff197ccbee719c6344552efeebf2f2eb9a9975d1a60",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 626,
+          "form": "",
+          "key": "lib-bouffalant-n-5b91a748f1f8"
+        },
+        "sha256": "339d0f7b820456e34c765fa8ff91109df9b1860add6215b0bab5f784e9cd9025"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "bouffalant",
+        "tool": "builtin-imagegen",
+        "source_sha256": "c85d35ed336e05e05f871ff197ccbee719c6344552efeebf2f2eb9a9975d1a60",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 626,
+          "form": "",
+          "key": "lib-bouffalant-n-5b91a748f1f8"
+        },
+        "sha256": "f78d41bc5e2262f774ad381516d6ea084c67f01b1b1808d2459bc86f30dc06fe"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "bouffalant",
+          "tool": "builtin-imagegen",
+          "source_sha256": "c85d35ed336e05e05f871ff197ccbee719c6344552efeebf2f2eb9a9975d1a60",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 626,
+            "form": "",
+            "key": "lib-bouffalant-n-5b91a748f1f8"
+          },
+          "sha256": "2ef98229f2e9a9ba37790d1b9e07fe4504af239e5e76330504fa7f9dd5241acc",
+          "palette_from": "lib-bouffalant-s-f68eac46a790"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "bouffalant",
+          "tool": "builtin-imagegen",
+          "source_sha256": "c85d35ed336e05e05f871ff197ccbee719c6344552efeebf2f2eb9a9975d1a60",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 626,
+            "form": "",
+            "key": "lib-bouffalant-n-5b91a748f1f8"
+          },
+          "sha256": "421d145379d1d58338cf6cc140286c18aa2996796f95b4bc316cd5f519304fa6",
+          "palette_from": "lib-bouffalant-s-f68eac46a790"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "bouffalant",
+    "num": 626,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Use case: precise-object-edit. Correct only NORTH row3, columns5-8 ground poses of atlas image1 using exact rear anatomy in native reference image2. Keep EVERY sprite in rows1,2,4 and row3columns1-4 unchanged. The FOUR row3 ground poses must keep a strictly NORTH/REAR camera throughout: back of head/neck faces viewer, face/muzzle/beak/eyes completely hidden. Body settles straight away from camera, back and tail remain centred, no profile or diagonal turning in any frame. Last two are visibly fully prone, retaining native horns/wings/tail/markings and full anatomy. Preserve all32sprites8columns4rows, crisp pixel art, palette and transparent gutters. No text, scenery, shadows or effects.",
+    "source_image": "bouffalant-cardinal-v2.png",
+    "source_sha256": "c85d35ed336e05e05f871ff197ccbee719c6344552efeebf2f2eb9a9975d1a60",
+    "source_record": "bouffalant-cardinal-v2.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

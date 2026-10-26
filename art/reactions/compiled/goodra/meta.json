@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "goodra",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4c0b7291b1d446d38a691447d03a9b8d8ccc737eb19d96d5d0f6bbc89fab4f84",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 706,
+          "form": "",
+          "key": "lib-goodra-n-8aff0f060c64"
+        },
+        "sha256": "0e69d918a3f47267ffaa8ce53f1372415340ff3080976c1b997585267b24ead3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "goodra",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4c0b7291b1d446d38a691447d03a9b8d8ccc737eb19d96d5d0f6bbc89fab4f84",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 706,
+          "form": "",
+          "key": "lib-goodra-n-8aff0f060c64"
+        },
+        "sha256": "a8754f1ad835560e5e6a02b37f5d66a23d5c889527d960fbfaaea7a97123cf94"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "goodra",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d461e4f8c42959072f5e2a761b2eb47f7364fe68908c67d23c7a8dbb5a567623",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 706,
+            "form": "",
+            "key": "lib-goodra-s-dc6030d4e606"
+          },
+          "sha256": "3047c80faf1bce986aaec8da05feccceabd0bf8b714aaff5263915bf7c2dd077"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "goodra",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d461e4f8c42959072f5e2a761b2eb47f7364fe68908c67d23c7a8dbb5a567623",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 706,
+            "form": "",
+            "key": "lib-goodra-s-dc6030d4e606"
+          },
+          "sha256": "985f3ba479d4948e852ed549776750770c17ccb773806991505d6de36ab7bd73"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "goodra",
+    "num": 706,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Goodra, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "goodra-cardinal.png",
+    "source_sha256": "4c0b7291b1d446d38a691447d03a9b8d8ccc737eb19d96d5d0f6bbc89fab4f84",
+    "source_record": "goodra-cardinal.json",
+    "shiny_source_image": "goodra-shiny-v1.png",
+    "shiny_prompt": "Use case identity-preserve. Recolour this existing transparent32sprite8column4row pixel-art atlas to the exact native SHINY Goodra palette shown in image2. Pale creamy gold main body/head/tail, pink cheek marks and pink slime drops, and importantly retain a continuous PINK inner throat/chest/belly patch from beneath head down abdomen in every applicable front/profile pose. That inner patch is pink, never brown/gold. Rear body stays creamy gold. Preserve each of all32 poses, body anatomy, camera,8columns4rows, pixel scale. Only change palette with region-specific accuracy. No particles or extra objects, transparent background."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

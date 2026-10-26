@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "meowsticfmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d219d626f834b9b9eed15784c657fa2dec4e5857d997fa7c64d9b886df483fa9",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 678,
+          "form": "F-Mega",
+          "key": "lib-meowsticfmega-n-a021dbbf052d"
+        },
+        "sha256": "d7fd236eb2e54cd964264d898fd17da52eb1a377dced0479a68fee8908707a09"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "meowsticfmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d219d626f834b9b9eed15784c657fa2dec4e5857d997fa7c64d9b886df483fa9",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 678,
+          "form": "F-Mega",
+          "key": "lib-meowsticfmega-n-a021dbbf052d"
+        },
+        "sha256": "ac8f6522fe24aa0fc38a035b36560f02da281539c289f9780bbbaf7775722a9a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "meowsticfmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d219d626f834b9b9eed15784c657fa2dec4e5857d997fa7c64d9b886df483fa9",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 678,
+            "form": "F-Mega",
+            "key": "lib-meowsticfmega-n-a021dbbf052d"
+          },
+          "sha256": "29725e1bcdcb834d7d7df546430cff23cccee7fb282272c572e747f072757efe",
+          "palette_from": "lib-meowsticfmega-s-8a0aa107ee6f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "meowsticfmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d219d626f834b9b9eed15784c657fa2dec4e5857d997fa7c64d9b886df483fa9",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 678,
+            "form": "F-Mega",
+            "key": "lib-meowsticfmega-n-a021dbbf052d"
+          },
+          "sha256": "f2badb130fce6550a42b76deb5d943282c22c82cc111e00814aa2f39a5c70664",
+          "palette_from": "lib-meowsticfmega-s-8a0aa107ee6f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "meowsticfmega",
+    "num": 678,
+    "form": "F-Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Meowstic-F-Mega, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "meowsticfmega-cardinal.png",
+    "source_sha256": "d219d626f834b9b9eed15784c657fa2dec4e5857d997fa7c64d9b886df483fa9",
+    "source_record": "meowsticfmega-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

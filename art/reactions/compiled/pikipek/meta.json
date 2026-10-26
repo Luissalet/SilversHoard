@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "pikipek",
+        "tool": "builtin-imagegen",
+        "source_sha256": "feba8359e0faf06689ecfe2a900aac3db6a30c46d612cba940fabedb58ca5b0f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 731,
+          "form": "",
+          "key": "lib-pikipek-n-ded20dfc47cc"
+        },
+        "sha256": "ddc9ef668f23ffa1b62cf71ddd37c158e27e0e2a64bd7a260203d96c7db6a295"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "pikipek",
+        "tool": "builtin-imagegen",
+        "source_sha256": "feba8359e0faf06689ecfe2a900aac3db6a30c46d612cba940fabedb58ca5b0f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 731,
+          "form": "",
+          "key": "lib-pikipek-n-ded20dfc47cc"
+        },
+        "sha256": "485aa814811d71cdb7ef925637988f35dd995666cf00c688159f8535766c38ab"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "pikipek",
+          "tool": "builtin-imagegen",
+          "source_sha256": "feba8359e0faf06689ecfe2a900aac3db6a30c46d612cba940fabedb58ca5b0f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 731,
+            "form": "",
+            "key": "lib-pikipek-n-ded20dfc47cc"
+          },
+          "sha256": "671a6673ea427dc54c42e4a94c71e7e491c8609eaea93270fe18271b273da90e",
+          "palette_from": "lib-pikipek-s-e7f8c62d52a3"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "pikipek",
+          "tool": "builtin-imagegen",
+          "source_sha256": "feba8359e0faf06689ecfe2a900aac3db6a30c46d612cba940fabedb58ca5b0f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 731,
+            "form": "",
+            "key": "lib-pikipek-n-ded20dfc47cc"
+          },
+          "sha256": "7e8313d05b349a069241b6007632f17869d2a07ba5e938310f9eabae24d45df5",
+          "palette_from": "lib-pikipek-s-e7f8c62d52a3"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "pikipek",
+    "num": 731,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Pikipek, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "pikipek-cardinal.png",
+    "source_sha256": "feba8359e0faf06689ecfe2a900aac3db6a30c46d612cba940fabedb58ca5b0f",
+    "source_record": "pikipek-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

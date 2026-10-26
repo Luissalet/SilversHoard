@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "bruxish",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0c26acc8bd6eebcfc11b1972d20dd405e976f65a620e333177c33a69d376bc8b",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 779,
+          "form": "",
+          "key": "lib-bruxish-n-cc55bc82eb1c"
+        },
+        "sha256": "cd24b3b428b324db1c656c02bb033d876fa50ad0e93f10af7f8a4b954a29701d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "bruxish",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0c26acc8bd6eebcfc11b1972d20dd405e976f65a620e333177c33a69d376bc8b",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 779,
+          "form": "",
+          "key": "lib-bruxish-n-cc55bc82eb1c"
+        },
+        "sha256": "72ed9d82946d0adc088333b60114952718910782d10e480fc66304f7c0a3a7d5"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "bruxish",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0c26acc8bd6eebcfc11b1972d20dd405e976f65a620e333177c33a69d376bc8b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 779,
+            "form": "",
+            "key": "lib-bruxish-n-cc55bc82eb1c"
+          },
+          "sha256": "eec884b53b842dd23bdc7d2d33b443710cd8c9b45d52010359df00eaf15b8c31",
+          "palette_from": "lib-bruxish-s-cd02a778fe80"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "bruxish",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0c26acc8bd6eebcfc11b1972d20dd405e976f65a620e333177c33a69d376bc8b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 779,
+            "form": "",
+            "key": "lib-bruxish-n-cc55bc82eb1c"
+          },
+          "sha256": "43a1af6ce9ddefa3ecfe2de52203ff877b31f94d2d72fb6a07afed7d0aa5c3a6",
+          "palette_from": "lib-bruxish-s-cd02a778fe80"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "bruxish",
+    "num": 779,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Bruxish, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "bruxish-cardinal.png",
+    "source_sha256": "0c26acc8bd6eebcfc11b1972d20dd405e976f65a620e333177c33a69d376bc8b",
+    "source_record": "bruxish-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

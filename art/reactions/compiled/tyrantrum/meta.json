@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 72,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tyrantrum",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7fa0b1364039eeeb09ceed30c378e96eff221baa083aa1de53ddbdd8114df467",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 697,
+          "form": "",
+          "key": "lib-tyrantrum-n-ce0189d5156c"
+        },
+        "sha256": "6d85e328bfa1e420a95c5fa7319036d520b0a4c8303e3cb6611bcbaee6c2f95a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 72,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tyrantrum",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7fa0b1364039eeeb09ceed30c378e96eff221baa083aa1de53ddbdd8114df467",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 697,
+          "form": "",
+          "key": "lib-tyrantrum-n-ce0189d5156c"
+        },
+        "sha256": "14a0ce85cfc4b924062ac78bc0b8792d40d33041c78f6028c2b3b5443bf5d698"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 72,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tyrantrum",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7fa0b1364039eeeb09ceed30c378e96eff221baa083aa1de53ddbdd8114df467",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 697,
+            "form": "",
+            "key": "lib-tyrantrum-n-ce0189d5156c"
+          },
+          "sha256": "2036f6e30d0bad0deeaba45dc7d24e0f0a24880eaa38a8acb69e77d0325b5dfd",
+          "palette_from": "lib-tyrantrum-s-c33b1e2a71a4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 72,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tyrantrum",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7fa0b1364039eeeb09ceed30c378e96eff221baa083aa1de53ddbdd8114df467",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 697,
+            "form": "",
+            "key": "lib-tyrantrum-n-ce0189d5156c"
+          },
+          "sha256": "836e112ea73c986fbc795eea50e704c5911b8d81389db3d257c25cc0dd2d7a03",
+          "palette_from": "lib-tyrantrum-s-c33b1e2a71a4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "tyrantrum",
+    "num": 697,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Tyrantrum, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "tyrantrum-cardinal.png",
+    "source_sha256": "7fa0b1364039eeeb09ceed30c378e96eff221baa083aa1de53ddbdd8114df467",
+    "source_record": "tyrantrum-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

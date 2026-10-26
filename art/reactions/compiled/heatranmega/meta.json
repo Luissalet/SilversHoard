@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "heatranmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d7809c9d7c878239e20fae19df7e56e7713f82d1d56b23cb140d49832cd42bd4",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 485,
+          "form": "Mega",
+          "key": "lib-heatranmega-n-fd91230f8a1f"
+        },
+        "sha256": "2a61fa68ff6e29c6a3d633e1138206ece22194562b07ddfa264907e0ceccbfdb"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "heatranmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d7809c9d7c878239e20fae19df7e56e7713f82d1d56b23cb140d49832cd42bd4",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 485,
+          "form": "Mega",
+          "key": "lib-heatranmega-n-fd91230f8a1f"
+        },
+        "sha256": "069432af67e8200cbc1dd16be9e2e236921dc71090e6f0f7a98e54a73fbe0934"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "heatranmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "09bf7bf0e6f9fed95b7b53df90b60b972726b2703fcc0ca3d7aa0515f03a1bcc",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 485,
+            "form": "Mega",
+            "key": "lib-heatranmega-s-2338c5b6956e"
+          },
+          "sha256": "9d40be015c2662f2adfc92728da5f40e60ce26341ff76fbb7f718b2005f33273"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "heatranmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "09bf7bf0e6f9fed95b7b53df90b60b972726b2703fcc0ca3d7aa0515f03a1bcc",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 485,
+            "form": "Mega",
+            "key": "lib-heatranmega-s-2338c5b6956e"
+          },
+          "sha256": "b11d8e27f7c97423cd185cb9ce201bf5e9b80c2c869ac51dca409da4f9c14baf"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "heatranmega",
+    "num": 485,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Heatran-Mega, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "heatranmega-cardinal.png",
+    "source_sha256": "d7809c9d7c878239e20fae19df7e56e7713f82d1d56b23cb140d49832cd42bd4",
+    "source_record": "heatranmega-cardinal.json",
+    "shiny_source_image": "heatranmega-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Recolour transparent32sprite8column4row pixel-art atlas image1 to EXACT native SHINY colours of image2. Match the exact SHINY material zones of image2: pale CREAM/BEIGE helmet and rocky metal plates, bright GOLDEN YELLOW face/feet, reddish/brown body with warm glowing spots, dark brown underside, small pink/red eyes. Preserve every rock plate and all limbs, including the rear view. Preserve all32poses, complete anatomy, each fixed row camera(front/right/rear/left), exact grid, crisp pixels and transparency. No new objects, scenery, effects or text."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

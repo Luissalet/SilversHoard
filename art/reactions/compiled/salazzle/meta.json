@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "salazzle",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0ddc89be4109b3dae46abf3b334ae6785a043dd7155a1c5d46114139bff97888",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 758,
+          "form": "",
+          "key": "lib-salazzle-n-35a2831d3c5d"
+        },
+        "sha256": "f18d198b75ca244c89d41cae41aa862ec450be3e184912e7203a4ec0cbb22832"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "salazzle",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0ddc89be4109b3dae46abf3b334ae6785a043dd7155a1c5d46114139bff97888",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 758,
+          "form": "",
+          "key": "lib-salazzle-n-35a2831d3c5d"
+        },
+        "sha256": "cfd23a2042acf7147177065ba24b6c82ca69c8cfde486e00c2dfbf0b3ff1fb6e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "salazzle",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0ddc89be4109b3dae46abf3b334ae6785a043dd7155a1c5d46114139bff97888",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 758,
+            "form": "",
+            "key": "lib-salazzle-n-35a2831d3c5d"
+          },
+          "sha256": "cc5f17d2bcab2c7dce07dfd9f362804c25605c8d2d051e1a8a71c037ecc637b4",
+          "palette_from": "lib-salazzle-s-d4b40ff9ffb1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "salazzle",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0ddc89be4109b3dae46abf3b334ae6785a043dd7155a1c5d46114139bff97888",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 758,
+            "form": "",
+            "key": "lib-salazzle-n-35a2831d3c5d"
+          },
+          "sha256": "6111994888522205b3cf38f1c3ba35265d02750521ecae64044949b168ed318b",
+          "palette_from": "lib-salazzle-s-d4b40ff9ffb1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "salazzle",
+    "num": 758,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Salazzle, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "salazzle-cardinal.png",
+    "source_sha256": "0ddc89be4109b3dae46abf3b334ae6785a043dd7155a1c5d46114139bff97888",
+    "source_record": "salazzle-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

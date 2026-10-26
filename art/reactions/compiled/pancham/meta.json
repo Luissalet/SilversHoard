@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "pancham",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6f7654cf4986f792e370f146b89f2085223ae56b91514eb781320ad256b06009",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 674,
+          "form": "",
+          "key": "lib-pancham-n-ef142323f2aa"
+        },
+        "sha256": "0f54c3207ea24df4b46aec0bd1f413d7374cb8019c402571c5017ef60f6b7eb9"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "pancham",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6f7654cf4986f792e370f146b89f2085223ae56b91514eb781320ad256b06009",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 674,
+          "form": "",
+          "key": "lib-pancham-n-ef142323f2aa"
+        },
+        "sha256": "092bea6f17a1c96bbb2e341c0e479bfe240ce1ecda5a888ceb99787042535aa4"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "pancham",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6f7654cf4986f792e370f146b89f2085223ae56b91514eb781320ad256b06009",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 674,
+            "form": "",
+            "key": "lib-pancham-n-ef142323f2aa"
+          },
+          "sha256": "cb80fe3bbc2355885b5ecccba960539a071eeb980be8cc5d8e463360eb273375",
+          "palette_from": "lib-pancham-s-a7baecc71929"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "pancham",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6f7654cf4986f792e370f146b89f2085223ae56b91514eb781320ad256b06009",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 674,
+            "form": "",
+            "key": "lib-pancham-n-ef142323f2aa"
+          },
+          "sha256": "6db69cf4a9ea0ee48eacfc7e6dc52829893be539c09ce6a64ff589ec5f5faa41",
+          "palette_from": "lib-pancham-s-a7baecc71929"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "pancham",
+    "num": 674,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Pancham, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "pancham-cardinal.png",
+    "source_sha256": "6f7654cf4986f792e370f146b89f2085223ae56b91514eb781320ad256b06009",
+    "source_record": "pancham-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

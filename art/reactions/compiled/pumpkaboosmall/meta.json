@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "pumpkaboosmall",
+        "tool": "builtin-imagegen",
+        "source_sha256": "45ef4af1669824abf96b0377b15c3b251508e3e7ab120ca54b68659555788f18",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 710,
+          "form": "Small",
+          "key": "lib-pumpkaboosmall-n-ba6efeb46768"
+        },
+        "sha256": "a24e51fda5ba7b35bebfc6e7eb1794c98a120c00d9d4409008664ccf3d18ef51"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "pumpkaboosmall",
+        "tool": "builtin-imagegen",
+        "source_sha256": "45ef4af1669824abf96b0377b15c3b251508e3e7ab120ca54b68659555788f18",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 710,
+          "form": "Small",
+          "key": "lib-pumpkaboosmall-n-ba6efeb46768"
+        },
+        "sha256": "05e89ec03b8194b69e20015d4a8a47b6eada2aed217d97c43d7f24d930ba1c1d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "pumpkaboosmall",
+          "tool": "builtin-imagegen",
+          "source_sha256": "45ef4af1669824abf96b0377b15c3b251508e3e7ab120ca54b68659555788f18",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 710,
+            "form": "Small",
+            "key": "lib-pumpkaboosmall-n-ba6efeb46768"
+          },
+          "sha256": "3e0943b47081697821d705c2d5736f0ab1ea3c08801eb631062c07ae9ac48441",
+          "palette_from": "lib-pumpkaboosmall-s-0d26ca5e6c22"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "pumpkaboosmall",
+          "tool": "builtin-imagegen",
+          "source_sha256": "45ef4af1669824abf96b0377b15c3b251508e3e7ab120ca54b68659555788f18",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 710,
+            "form": "Small",
+            "key": "lib-pumpkaboosmall-n-ba6efeb46768"
+          },
+          "sha256": "3b1fb072f22596d6b86ce0b471110734bf4f6f6ea40b540ff0106c60f262426e",
+          "palette_from": "lib-pumpkaboosmall-s-0d26ca5e6c22"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "pumpkaboosmall",
+    "num": 710,
+    "form": "Small",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Pumpkaboo-Small, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "pumpkaboosmall-cardinal.png",
+    "source_sha256": "45ef4af1669824abf96b0377b15c3b251508e3e7ab120ca54b68659555788f18",
+    "source_record": "pumpkaboosmall-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

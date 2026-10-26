@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "sandygast",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f43d4fdc6a6dc4df1c838f919c990e39e0d22d3da0605c96b64447993066e68a",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 769,
+          "form": "",
+          "key": "lib-sandygast-n-c2cc6f09acfc"
+        },
+        "sha256": "06353d885576cd1ad1cc8a882234ef967ad7c6ae409294d2014f478462840721"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "sandygast",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f43d4fdc6a6dc4df1c838f919c990e39e0d22d3da0605c96b64447993066e68a",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 769,
+          "form": "",
+          "key": "lib-sandygast-n-c2cc6f09acfc"
+        },
+        "sha256": "62f805b2bcf6c171b80731109c88f5a7b57f2c001fe16be76984ccad34e02b41"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "sandygast",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f43d4fdc6a6dc4df1c838f919c990e39e0d22d3da0605c96b64447993066e68a",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 769,
+            "form": "",
+            "key": "lib-sandygast-n-c2cc6f09acfc"
+          },
+          "sha256": "08a8b2af35d1a7f740b77f80af7510902a70008377c71a7009ceb36aa364ddcb",
+          "palette_from": "lib-sandygast-s-22f2bdb8b3f2"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "sandygast",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f43d4fdc6a6dc4df1c838f919c990e39e0d22d3da0605c96b64447993066e68a",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 769,
+            "form": "",
+            "key": "lib-sandygast-n-c2cc6f09acfc"
+          },
+          "sha256": "ee120f4c93d55d799080f8c3d67372c03e9574b71ada7fe638842ecce477cce5",
+          "palette_from": "lib-sandygast-s-22f2bdb8b3f2"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "sandygast",
+    "num": 769,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Sandygast, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "sandygast-cardinal.png",
+    "source_sha256": "f43d4fdc6a6dc4df1c838f919c990e39e0d22d3da0605c96b64447993066e68a",
+    "source_record": "sandygast-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

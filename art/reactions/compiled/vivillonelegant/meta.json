@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "vivillonelegant",
+        "tool": "builtin-imagegen",
+        "source_sha256": "036c10c19b59b8e02d4baba56d18382751b874229542865a7c82957ebd949afc",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 666,
+          "form": "Elegant",
+          "key": "lib-vivillonelegant-n-62efabc6788a"
+        },
+        "sha256": "723f749c711567699a4243144ac22df0cb9763090b0d424c2392f5f8b822d32c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "vivillonelegant",
+        "tool": "builtin-imagegen",
+        "source_sha256": "036c10c19b59b8e02d4baba56d18382751b874229542865a7c82957ebd949afc",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 666,
+          "form": "Elegant",
+          "key": "lib-vivillonelegant-n-62efabc6788a"
+        },
+        "sha256": "60476d9a00f7f5fe39f0a4f22dd85c701e05bc10eec91142115dc10c42786d09"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "vivillonelegant",
+          "tool": "builtin-imagegen",
+          "source_sha256": "036c10c19b59b8e02d4baba56d18382751b874229542865a7c82957ebd949afc",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 666,
+            "form": "Elegant",
+            "key": "lib-vivillonelegant-n-62efabc6788a"
+          },
+          "sha256": "7cbc76b54d2df252d9d7615841c92ae49036664587b938d6982e0fc6f5674581",
+          "palette_from": "lib-vivillonelegant-s-127d632aa056"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "vivillonelegant",
+          "tool": "builtin-imagegen",
+          "source_sha256": "036c10c19b59b8e02d4baba56d18382751b874229542865a7c82957ebd949afc",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 666,
+            "form": "Elegant",
+            "key": "lib-vivillonelegant-n-62efabc6788a"
+          },
+          "sha256": "a471b4f9e307a57473bacf060417d81d7f8c7cd2d082f652f0761177555a3879",
+          "palette_from": "lib-vivillonelegant-s-127d632aa056"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "vivillonelegant",
+    "num": 666,
+    "form": "Elegant",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Vivillon-Elegant, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "vivillonelegant-cardinal.png",
+    "source_sha256": "036c10c19b59b8e02d4baba56d18382751b874229542865a7c82957ebd949afc",
+    "source_record": "vivillonelegant-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

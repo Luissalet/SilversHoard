@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "furfroumatron",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e078e3def693b8f8ba656cfaec08b7fed1f26122e3c5df510ec77bdea7a7f49f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 676,
+          "form": "Matron",
+          "key": "lib-furfroumatron-n-c6e9cda5263c"
+        },
+        "sha256": "5629af23435132b045d0b7fa7a1909fccdff710ef45d827baef4932f2eb95eea"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "furfroumatron",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e078e3def693b8f8ba656cfaec08b7fed1f26122e3c5df510ec77bdea7a7f49f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 676,
+          "form": "Matron",
+          "key": "lib-furfroumatron-n-c6e9cda5263c"
+        },
+        "sha256": "9070d5def3a674cc0d27e66e9f4d712739a78bd0dd824c0db929b6c755325763"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "furfroumatron",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e078e3def693b8f8ba656cfaec08b7fed1f26122e3c5df510ec77bdea7a7f49f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 676,
+            "form": "Matron",
+            "key": "lib-furfroumatron-n-c6e9cda5263c"
+          },
+          "sha256": "0cf304d57f7b3c99fa40eddfc2e041243920bb0cc32a1f1be60599ca5eecab9a",
+          "palette_from": "lib-furfroumatron-s-cd3904e18c7f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "furfroumatron",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e078e3def693b8f8ba656cfaec08b7fed1f26122e3c5df510ec77bdea7a7f49f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 676,
+            "form": "Matron",
+            "key": "lib-furfroumatron-n-c6e9cda5263c"
+          },
+          "sha256": "8ba3097387742b1d7067ea549540f5291805f1dac64a769445c2c837a618b64b",
+          "palette_from": "lib-furfroumatron-s-cd3904e18c7f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "furfroumatron",
+    "num": 676,
+    "form": "Matron",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Furfrou-Matron, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "furfroumatron-cardinal.png",
+    "source_sha256": "e078e3def693b8f8ba656cfaec08b7fed1f26122e3c5df510ec77bdea7a7f49f",
+    "source_record": "furfroumatron-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

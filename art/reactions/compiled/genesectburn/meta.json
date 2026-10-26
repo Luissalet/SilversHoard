@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "genesectburn",
+        "tool": "builtin-imagegen",
+        "source_sha256": "97cefb378f9d78bfbaa3f66f9911fd5d9b38d0e2717bae4cd1f00df205d85f55",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 649,
+          "form": "Burn",
+          "key": "lib-genesectburn-n-1f07bee3839c"
+        },
+        "sha256": "57bda917fab610389ffa566847f765581a84367bb8b74aaae3dec23c1ab9ec32"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "genesectburn",
+        "tool": "builtin-imagegen",
+        "source_sha256": "97cefb378f9d78bfbaa3f66f9911fd5d9b38d0e2717bae4cd1f00df205d85f55",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 649,
+          "form": "Burn",
+          "key": "lib-genesectburn-n-1f07bee3839c"
+        },
+        "sha256": "c93d031b9aaa58410d9cbea2936f076738c1929d5cfb32cdadc4d97eb8b03f9e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "genesectburn",
+          "tool": "builtin-imagegen",
+          "source_sha256": "97cefb378f9d78bfbaa3f66f9911fd5d9b38d0e2717bae4cd1f00df205d85f55",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 649,
+            "form": "Burn",
+            "key": "lib-genesectburn-n-1f07bee3839c"
+          },
+          "sha256": "788ff5dcea880a4874bac637b659949859b3f2c5c4a4bcc89c819c1bbc2b1e7a",
+          "palette_from": "lib-genesectburn-s-e209af2848e3"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "genesectburn",
+          "tool": "builtin-imagegen",
+          "source_sha256": "97cefb378f9d78bfbaa3f66f9911fd5d9b38d0e2717bae4cd1f00df205d85f55",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 649,
+            "form": "Burn",
+            "key": "lib-genesectburn-n-1f07bee3839c"
+          },
+          "sha256": "1d31ace4a1d32bb542d54939d1b03625a0687855ed60a708f0791ad37753e4f0",
+          "palette_from": "lib-genesectburn-s-e209af2848e3"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "genesectburn",
+    "num": 649,
+    "form": "Burn",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Genesect-Burn, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "genesectburn-cardinal.png",
+    "source_sha256": "97cefb378f9d78bfbaa3f66f9911fd5d9b38d0e2717bae4cd1f00df205d85f55",
+    "source_record": "genesectburn-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

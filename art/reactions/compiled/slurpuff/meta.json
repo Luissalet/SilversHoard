@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "slurpuff",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0af4f0a8cc5bab150de8d76c5e3d0bed681dec03d1e2326dace6451205557ae8",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 685,
+          "form": "",
+          "key": "lib-slurpuff-n-6e3add968d30"
+        },
+        "sha256": "eb6bd5d3f01001cf0b73e6f749cb62e9bfc32d1c1b0b9355aa5b2287e0de8675"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "slurpuff",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0af4f0a8cc5bab150de8d76c5e3d0bed681dec03d1e2326dace6451205557ae8",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 685,
+          "form": "",
+          "key": "lib-slurpuff-n-6e3add968d30"
+        },
+        "sha256": "7173e7514699017d7ec68404eb04137ff61b5c2317b6cd6d51246bc03511bc15"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "slurpuff",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0af4f0a8cc5bab150de8d76c5e3d0bed681dec03d1e2326dace6451205557ae8",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 685,
+            "form": "",
+            "key": "lib-slurpuff-n-6e3add968d30"
+          },
+          "sha256": "876f35706474f04360dee31f5b1d57058115f2b0a3bc3c3ed6c21037cafb3355",
+          "palette_from": "lib-slurpuff-s-abdb0c389eba"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "slurpuff",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0af4f0a8cc5bab150de8d76c5e3d0bed681dec03d1e2326dace6451205557ae8",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 685,
+            "form": "",
+            "key": "lib-slurpuff-n-6e3add968d30"
+          },
+          "sha256": "eef76cbae43fe22f7d807b893e08ab1fb7916ec14b7ea576db551d83e259ee4b",
+          "palette_from": "lib-slurpuff-s-abdb0c389eba"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "slurpuff",
+    "num": 685,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Slurpuff, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "slurpuff-cardinal.png",
+    "source_sha256": "0af4f0a8cc5bab150de8d76c5e3d0bed681dec03d1e2326dace6451205557ae8",
+    "source_record": "slurpuff-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

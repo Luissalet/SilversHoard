@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "vivillonmonsoon",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9c9d34a35d77c7cb8d914c6bb4f0710d9cf218c010ea706f65a1dd5f6f25122f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 666,
+          "form": "Monsoon",
+          "key": "lib-vivillonmonsoon-n-460b63b367c5"
+        },
+        "sha256": "6242f09896210f7ccacc0bdc3b98974d8e4da20c00d65ebf5cc36a3a2a804453"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "vivillonmonsoon",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9c9d34a35d77c7cb8d914c6bb4f0710d9cf218c010ea706f65a1dd5f6f25122f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 666,
+          "form": "Monsoon",
+          "key": "lib-vivillonmonsoon-n-460b63b367c5"
+        },
+        "sha256": "863605817f99f54554f62ca0faaa3d84fe3a0fea828808d41c4bf830456133cd"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "vivillonmonsoon",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9c9d34a35d77c7cb8d914c6bb4f0710d9cf218c010ea706f65a1dd5f6f25122f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 666,
+            "form": "Monsoon",
+            "key": "lib-vivillonmonsoon-n-460b63b367c5"
+          },
+          "sha256": "94cde34b84b90a804ead6eb14dda016924c2f055b8966ad4463d9527b7fccaa8",
+          "palette_from": "lib-vivillonmonsoon-s-b39668df0efc"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "vivillonmonsoon",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9c9d34a35d77c7cb8d914c6bb4f0710d9cf218c010ea706f65a1dd5f6f25122f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 666,
+            "form": "Monsoon",
+            "key": "lib-vivillonmonsoon-n-460b63b367c5"
+          },
+          "sha256": "5898b32a54d1ef74678397377e5ef9cfe180bd8e54a05a04e06a2715300b49e7",
+          "palette_from": "lib-vivillonmonsoon-s-b39668df0efc"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "vivillonmonsoon",
+    "num": 666,
+    "form": "Monsoon",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Vivillon-Monsoon, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "vivillonmonsoon-cardinal.png",
+    "source_sha256": "9c9d34a35d77c7cb8d914c6bb4f0710d9cf218c010ea706f65a1dd5f6f25122f",
+    "source_record": "vivillonmonsoon-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

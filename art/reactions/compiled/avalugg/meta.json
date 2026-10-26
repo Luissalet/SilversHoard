@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "avalugg",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9fa2e0b7143b3e0bf1c9bab23c0fbe940a6e89da868849a797c00ed2b49039ea",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 713,
+          "form": "",
+          "key": "lib-avalugg-n-e0eb239d0d1c"
+        },
+        "sha256": "da34867458daa2f08a8eec1a206a9a1c743ef9fa1788a6f32091a9c6e1ce31d1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "avalugg",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9fa2e0b7143b3e0bf1c9bab23c0fbe940a6e89da868849a797c00ed2b49039ea",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 713,
+          "form": "",
+          "key": "lib-avalugg-n-e0eb239d0d1c"
+        },
+        "sha256": "9cd6b3367c244a06fc99b4e2608ae7927b997eeb5fc35cf0cb78d2462d48a9e5"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "avalugg",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9fa2e0b7143b3e0bf1c9bab23c0fbe940a6e89da868849a797c00ed2b49039ea",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 713,
+            "form": "",
+            "key": "lib-avalugg-n-e0eb239d0d1c"
+          },
+          "sha256": "9f7a8cae8b1e7bf90183bfe0ce0f3fb8551a6111f51f7852e693baa560055481",
+          "palette_from": "lib-avalugg-s-41476cf02e7e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "avalugg",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9fa2e0b7143b3e0bf1c9bab23c0fbe940a6e89da868849a797c00ed2b49039ea",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 713,
+            "form": "",
+            "key": "lib-avalugg-n-e0eb239d0d1c"
+          },
+          "sha256": "183a74808d5061ef393ee0517d4cf260e864c5e719fa50ac0df207956384bd45",
+          "palette_from": "lib-avalugg-s-41476cf02e7e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "avalugg",
+    "num": 713,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Avalugg, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "avalugg-cardinal.png",
+    "source_sha256": "9fa2e0b7143b3e0bf1c9bab23c0fbe940a6e89da868849a797c00ed2b49039ea",
+    "source_record": "avalugg-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

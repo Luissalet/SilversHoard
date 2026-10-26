@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "gumshoostotem",
+        "tool": "builtin-imagegen",
+        "source_sha256": "2174ce5011533699bf5a4e48c0fad60da436f6afce509018a7e9bbe0d744922f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 735,
+          "form": "Totem",
+          "key": "lib-gumshoostotem-n-45305c268ae4"
+        },
+        "sha256": "114c421f35a126a7449d3d8230588dc05f542cd8b0e768eca21a5d116f016860"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "gumshoostotem",
+        "tool": "builtin-imagegen",
+        "source_sha256": "2174ce5011533699bf5a4e48c0fad60da436f6afce509018a7e9bbe0d744922f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 735,
+          "form": "Totem",
+          "key": "lib-gumshoostotem-n-45305c268ae4"
+        },
+        "sha256": "7a1b7722ba927b6aefda690c2e5c4471d4cbf48f61ec906bfca9b4cf5ad1f449"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "gumshoostotem",
+          "tool": "builtin-imagegen",
+          "source_sha256": "2174ce5011533699bf5a4e48c0fad60da436f6afce509018a7e9bbe0d744922f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 735,
+            "form": "Totem",
+            "key": "lib-gumshoostotem-n-45305c268ae4"
+          },
+          "sha256": "13a50b93140c6595924fb6357e2c89880331af7262a1f348e579b6cc0a2d5d3d",
+          "palette_from": "lib-gumshoostotem-s-0a73031ca031"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "gumshoostotem",
+          "tool": "builtin-imagegen",
+          "source_sha256": "2174ce5011533699bf5a4e48c0fad60da436f6afce509018a7e9bbe0d744922f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 735,
+            "form": "Totem",
+            "key": "lib-gumshoostotem-n-45305c268ae4"
+          },
+          "sha256": "f125a02041ee7bd2f8ec37e5340de69c86d3932e41e72d60e90ea1d90497c3ab",
+          "palette_from": "lib-gumshoostotem-s-0a73031ca031"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "gumshoostotem",
+    "num": 735,
+    "form": "Totem",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Gumshoos-Totem, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "gumshoostotem-cardinal.png",
+    "source_sha256": "2174ce5011533699bf5a4e48c0fad60da436f6afce509018a7e9bbe0d744922f",
+    "source_record": "gumshoostotem-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

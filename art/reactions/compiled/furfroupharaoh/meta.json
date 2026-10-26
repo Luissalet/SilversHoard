@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "furfroupharaoh",
+        "tool": "builtin-imagegen",
+        "source_sha256": "cac8a72689edc669a29d0678f76f1c2807dcc9000516dc8bb4791681254bf537",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 676,
+          "form": "Pharaoh",
+          "key": "lib-furfroupharaoh-n-2711982a9a81"
+        },
+        "sha256": "3736a5cf0dccd1756a041acc06ca4ca5aca123a21f772a3b4bb94f41984fe034"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "furfroupharaoh",
+        "tool": "builtin-imagegen",
+        "source_sha256": "cac8a72689edc669a29d0678f76f1c2807dcc9000516dc8bb4791681254bf537",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 676,
+          "form": "Pharaoh",
+          "key": "lib-furfroupharaoh-n-2711982a9a81"
+        },
+        "sha256": "1be6963cde3a7b823cc78809c83df7231ca9f909e666f2bb7388bd3b01eb5e53"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "furfroupharaoh",
+          "tool": "builtin-imagegen",
+          "source_sha256": "cac8a72689edc669a29d0678f76f1c2807dcc9000516dc8bb4791681254bf537",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 676,
+            "form": "Pharaoh",
+            "key": "lib-furfroupharaoh-n-2711982a9a81"
+          },
+          "sha256": "e5b191d44f7eb74b46d29d5bbab42bb74172aacfd320485f8a2e1ca6c1361afe",
+          "palette_from": "lib-furfroupharaoh-s-8a14d8e494c2"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "furfroupharaoh",
+          "tool": "builtin-imagegen",
+          "source_sha256": "cac8a72689edc669a29d0678f76f1c2807dcc9000516dc8bb4791681254bf537",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 676,
+            "form": "Pharaoh",
+            "key": "lib-furfroupharaoh-n-2711982a9a81"
+          },
+          "sha256": "f5778e78c1c78002f0acd5136e278679dba0730a0069edc4c4683b780bdf4670",
+          "palette_from": "lib-furfroupharaoh-s-8a14d8e494c2"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "furfroupharaoh",
+    "num": 676,
+    "form": "Pharaoh",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Furfrou-Pharaoh, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "furfroupharaoh-cardinal.png",
+    "source_sha256": "cac8a72689edc669a29d0678f76f1c2807dcc9000516dc8bb4791681254bf537",
+    "source_record": "furfroupharaoh-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

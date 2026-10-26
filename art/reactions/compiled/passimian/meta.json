@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "passimian",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d30680cd344bfd3d919d7e8fde022d4d76de6960ae50b6769dc381f265c6ed71",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 766,
+          "form": "",
+          "key": "lib-passimian-n-e1c172ee2127"
+        },
+        "sha256": "61c8005dd221eddd740daea658c7209f4957512c8cba8a816f8edbb52251da62"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "passimian",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d30680cd344bfd3d919d7e8fde022d4d76de6960ae50b6769dc381f265c6ed71",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 766,
+          "form": "",
+          "key": "lib-passimian-n-e1c172ee2127"
+        },
+        "sha256": "8a4dc36a87aea57353e3a1a65cc094528b1e7401f1d23a9cbae1ab52097549f9"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "passimian",
+          "tool": "builtin-imagegen",
+          "source_sha256": "c1b621c0ae7acfada157e3fa147431a57d4c67c9303172a378f4a93ec13c98d8",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 766,
+            "form": "",
+            "key": "lib-passimian-s-28b835b270ff"
+          },
+          "sha256": "b9a81463049ea9778d585341ad0e74f07535c682ccf658183aa7fbea65ed7783"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "passimian",
+          "tool": "builtin-imagegen",
+          "source_sha256": "c1b621c0ae7acfada157e3fa147431a57d4c67c9303172a378f4a93ec13c98d8",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 766,
+            "form": "",
+            "key": "lib-passimian-s-28b835b270ff"
+          },
+          "sha256": "27607122e55652d2e2c200c8592b8fcb7166377b5d77ded444277c4bc72d225d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "passimian",
+    "num": 766,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Passimian, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "passimian-cardinal.png",
+    "source_sha256": "d30680cd344bfd3d919d7e8fde022d4d76de6960ae50b6769dc381f265c6ed71",
+    "source_record": "passimian-cardinal.json",
+    "shiny_source_image": "passimian-shiny-v1.png",
+    "shiny_prompt": "Use case identity-preserve: recolour all32sprites of this transparent8column4row pixel atlas to native SHINY Passimian image2. Exact regional colour mapping: dark BLUE vest/chest/back and blue shoulder/upperarm markings, also BLUE terminal tail tip, cream/ivory main fur, dark neutral limbs, ORANGE ball/fruit and orange head fruit, green crest. NORTH rear row3 must have large visible dark blue shoulder/upperback vest, never only gray; tail tip darkblue in every applicable pose. Preserve poses, cameras, anatomy, scale andgrid. No additional objects/effects/text; transparent background."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

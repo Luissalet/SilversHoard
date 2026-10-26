@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "rotomfan",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0b36b567cc15f1833e29ee253599ed9d7e7ae7e2e2f58954f608573cbd0b5260",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 479,
+          "form": "Fan",
+          "key": "lib-rotomfan-n-744b52728b71"
+        },
+        "sha256": "0cbd23ec2e34971cea9ddfe124c1b9c6b195f6883af5b4ef24f664d1a63741f7"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "rotomfan",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0b36b567cc15f1833e29ee253599ed9d7e7ae7e2e2f58954f608573cbd0b5260",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 479,
+          "form": "Fan",
+          "key": "lib-rotomfan-n-744b52728b71"
+        },
+        "sha256": "c34a9b67cab37f47c7f91dec592c60feb94b0caa0472a07255fa4fe19cd8eb2f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "rotomfan",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d131a2bd4e89867c7a8e338962c106126485ab676dd52d6f51f37d214bb6ffb3",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 479,
+            "form": "Fan",
+            "key": "lib-rotomfan-s-a0b7938f0cf1"
+          },
+          "sha256": "b2ee178bb6b2460926a4977d01662d73eb6837681955b2e6ae89e507eb48c4ea"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "rotomfan",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d131a2bd4e89867c7a8e338962c106126485ab676dd52d6f51f37d214bb6ffb3",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 479,
+            "form": "Fan",
+            "key": "lib-rotomfan-s-a0b7938f0cf1"
+          },
+          "sha256": "80de0e666093b89dc62f12cc26bfb4bc9c3731538d369f4807b88b3be8ba1eeb"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "rotomfan",
+    "num": 479,
+    "form": "Fan",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Rotom-Fan, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "rotomfan-cardinal.png",
+    "source_sha256": "0b36b567cc15f1833e29ee253599ed9d7e7ae7e2e2f58954f608573cbd0b5260",
+    "source_record": "rotomfan-cardinal.json",
+    "shiny_source_image": "rotomfan-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Recolour the transparent32sprite8column4row pixel-art atlas image1 to EXACT native SHINY colours of image2. Exterior aura and both small floating arms are pale CREAM/PEACH matching image2, NEVER yellow or green. The central fan casing/torso changes orange to PINK/FUCHSIA. Keep black fan interior and actual blade material zones intact. Preserve all32poses, complete anatomy, each fixed row camera(front/right/rear/left), exact grid, crisp pixels and transparency. No extra objects, scenery, effects or text."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

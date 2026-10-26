@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "melmetalgmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "bbf1a1840c83f0f2c088aa87a673ac6ee3db2093fb9afd6bf596665b2574e496",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 809,
+          "form": "Gmax",
+          "key": "lib-melmetalgmax-n-97ceab17e7a4"
+        },
+        "sha256": "4bfa024cbe8e9be757d8b364f2028fa95900c6a7b5b7644675317368026bbbf1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "melmetalgmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "bbf1a1840c83f0f2c088aa87a673ac6ee3db2093fb9afd6bf596665b2574e496",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 809,
+          "form": "Gmax",
+          "key": "lib-melmetalgmax-n-97ceab17e7a4"
+        },
+        "sha256": "10be8154070f5b262abe8be7b307c29e95bfffb717d13c641ea3bb06b46bcc9b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "melmetalgmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "bbf1a1840c83f0f2c088aa87a673ac6ee3db2093fb9afd6bf596665b2574e496",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 809,
+            "form": "Gmax",
+            "key": "lib-melmetalgmax-n-97ceab17e7a4"
+          },
+          "sha256": "e9c345f23b4d9afb0dba648fbe3cfb654d79c491672f4b066162d829d3298a16",
+          "palette_from": "lib-melmetalgmax-s-3c25689a12a4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "melmetalgmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "bbf1a1840c83f0f2c088aa87a673ac6ee3db2093fb9afd6bf596665b2574e496",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 809,
+            "form": "Gmax",
+            "key": "lib-melmetalgmax-n-97ceab17e7a4"
+          },
+          "sha256": "350b8e35eead8954c748226617f92c6ea049ceb6e6b89fefbe3314abf6d2204c",
+          "palette_from": "lib-melmetalgmax-s-3c25689a12a4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "melmetalgmax",
+    "num": 809,
+    "form": "Gmax",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Melmetal-Gmax, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "melmetalgmax-cardinal.png",
+    "source_sha256": "bbf1a1840c83f0f2c088aa87a673ac6ee3db2093fb9afd6bf596665b2574e496",
+    "source_record": "melmetalgmax-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "hakamoo",
+        "tool": "builtin-imagegen",
+        "source_sha256": "95dabbb82529f62fefa48f3b5740d6cdafe20b286be651ea0b83c736dc1274b8",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 783,
+          "form": "",
+          "key": "lib-hakamoo-n-cdce51c80a59"
+        },
+        "sha256": "167e257af06c43baf3d796108efed0e4398f9eaef3e996243acbdc4b643a82b2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "hakamoo",
+        "tool": "builtin-imagegen",
+        "source_sha256": "95dabbb82529f62fefa48f3b5740d6cdafe20b286be651ea0b83c736dc1274b8",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 783,
+          "form": "",
+          "key": "lib-hakamoo-n-cdce51c80a59"
+        },
+        "sha256": "0058f061b8a7158658ecd49365de7bcb93bf676229f6d8a292ce07b202f838d4"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "hakamoo",
+          "tool": "builtin-imagegen",
+          "source_sha256": "95dabbb82529f62fefa48f3b5740d6cdafe20b286be651ea0b83c736dc1274b8",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 783,
+            "form": "",
+            "key": "lib-hakamoo-n-cdce51c80a59"
+          },
+          "sha256": "2ec184aeea6b0c7a7645269bb96047532d4e022c42fa2d6b027fde2c422190cb",
+          "palette_from": "lib-hakamoo-s-9100fe5e1bdd"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "hakamoo",
+          "tool": "builtin-imagegen",
+          "source_sha256": "95dabbb82529f62fefa48f3b5740d6cdafe20b286be651ea0b83c736dc1274b8",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 783,
+            "form": "",
+            "key": "lib-hakamoo-n-cdce51c80a59"
+          },
+          "sha256": "446c480180868671e42c46c391ffce4b96c0b77c80929cee20532fb8ed7cfe4e",
+          "palette_from": "lib-hakamoo-s-9100fe5e1bdd"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "hakamoo",
+    "num": 783,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Hakamo-o, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "hakamoo-cardinal.png",
+    "source_sha256": "95dabbb82529f62fefa48f3b5740d6cdafe20b286be651ea0b83c736dc1274b8",
+    "source_record": "hakamoo-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

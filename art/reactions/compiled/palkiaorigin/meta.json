@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 112,
+      "h": 88,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 56.0,
+      "ay": 82,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "palkiaorigin",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0e0929ef050bc07cf8d5ed89e786a18f9292c14564d77917b7d7e869e349ad78",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 484,
+          "form": "Origin",
+          "key": "lib-palkiaorigin-n-514e93c1bc98"
+        },
+        "sha256": "3e085095d2cf1d99afccaeeba2e3224381856542d7a86e7f0cef531efb346cd1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 112,
+      "h": 88,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 56.0,
+      "ay": 82,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "palkiaorigin",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0e0929ef050bc07cf8d5ed89e786a18f9292c14564d77917b7d7e869e349ad78",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 484,
+          "form": "Origin",
+          "key": "lib-palkiaorigin-n-514e93c1bc98"
+        },
+        "sha256": "a72eb890390a96e30b53858856709b6179724bcc03ca43e1f4c515e0c21c6162"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 112,
+        "h": 88,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 56.0,
+        "ay": 82,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "palkiaorigin",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0e0929ef050bc07cf8d5ed89e786a18f9292c14564d77917b7d7e869e349ad78",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 484,
+            "form": "Origin",
+            "key": "lib-palkiaorigin-n-514e93c1bc98"
+          },
+          "sha256": "f727759df1737935652eca0a349585624e38a8acbd161a4cb00224e062ebe5ea",
+          "palette_from": "lib-palkiaorigin-s-7fc54b367a56"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 112,
+        "h": 88,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 56.0,
+        "ay": 82,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "palkiaorigin",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0e0929ef050bc07cf8d5ed89e786a18f9292c14564d77917b7d7e869e349ad78",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 484,
+            "form": "Origin",
+            "key": "lib-palkiaorigin-n-514e93c1bc98"
+          },
+          "sha256": "4677aad02a77bc5110544924f12d690321e85494ffa7b6042a5e4a35a6691235",
+          "palette_from": "lib-palkiaorigin-s-7fc54b367a56"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "palkiaorigin",
+    "num": 484,
+    "form": "Origin",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Palkia-Origin, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "palkiaorigin-cardinal.png",
+    "source_sha256": "0e0929ef050bc07cf8d5ed89e786a18f9292c14564d77917b7d7e869e349ad78",
+    "source_record": "palkiaorigin-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

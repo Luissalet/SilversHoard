@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "heatran",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6fd018277bae6521e122458730191533ecda791c30e0c66c7c9f3dc463112d1c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 485,
+          "form": "",
+          "key": "lib-heatran-n-6ba3ed43b32b"
+        },
+        "sha256": "ab465cd2b10f951aef5cd3697fa7312f4e2190396ceaccb956d33c1c893c5bfc"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "heatran",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6fd018277bae6521e122458730191533ecda791c30e0c66c7c9f3dc463112d1c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 485,
+          "form": "",
+          "key": "lib-heatran-n-6ba3ed43b32b"
+        },
+        "sha256": "63cb3a1a1ceb9382133c675288046ce79d410203085de82a83315b82f1062bfb"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "heatran",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6fd018277bae6521e122458730191533ecda791c30e0c66c7c9f3dc463112d1c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 485,
+            "form": "",
+            "key": "lib-heatran-n-6ba3ed43b32b"
+          },
+          "sha256": "d495f57bbb7323054a167aa7a072704810f946c4c12b8cb118103e695259dfca",
+          "palette_from": "lib-heatran-s-fb31c9038086"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "heatran",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6fd018277bae6521e122458730191533ecda791c30e0c66c7c9f3dc463112d1c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 485,
+            "form": "",
+            "key": "lib-heatran-n-6ba3ed43b32b"
+          },
+          "sha256": "cd0b1585f90360730cddf257d3eeab30f1b3305637053d5c2bf829072c241076",
+          "palette_from": "lib-heatran-s-fb31c9038086"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "heatran",
+    "num": 485,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Heatran, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "heatran-cardinal.png",
+    "source_sha256": "6fd018277bae6521e122458730191533ecda791c30e0c66c7c9f3dc463112d1c",
+    "source_record": "heatran-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

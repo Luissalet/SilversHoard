@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "vivillonriver",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8c9252f07c8c5003a4fcb573bf985690579bb4a0abad50f56c5fb53ecaa89313",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 666,
+          "form": "River",
+          "key": "lib-vivillonriver-n-b17c155d6977"
+        },
+        "sha256": "f58099da0dbffe66ec4daac4fb834c0270d22fadff584f437108a1e1a1784d74"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "vivillonriver",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8c9252f07c8c5003a4fcb573bf985690579bb4a0abad50f56c5fb53ecaa89313",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 666,
+          "form": "River",
+          "key": "lib-vivillonriver-n-b17c155d6977"
+        },
+        "sha256": "c97914976c92d10e4b8fdb9b287a0dbfa4ed56e1febe5c8554ef1c39a06b4856"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "vivillonriver",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8c9252f07c8c5003a4fcb573bf985690579bb4a0abad50f56c5fb53ecaa89313",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 666,
+            "form": "River",
+            "key": "lib-vivillonriver-n-b17c155d6977"
+          },
+          "sha256": "8fa94174fd334a1dd8ed1a94a6bfcd2e74de8f78d8f1a0e6eb79ff6b79ab9196",
+          "palette_from": "lib-vivillonriver-s-2e6347f2f635"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "vivillonriver",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8c9252f07c8c5003a4fcb573bf985690579bb4a0abad50f56c5fb53ecaa89313",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 666,
+            "form": "River",
+            "key": "lib-vivillonriver-n-b17c155d6977"
+          },
+          "sha256": "f2c1324006f1d110de6d3f39fcd889a738a6ad0f1f04cf2d9155dba03e435375",
+          "palette_from": "lib-vivillonriver-s-2e6347f2f635"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "vivillonriver",
+    "num": 666,
+    "form": "River",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Vivillon-River, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "vivillonriver-cardinal.png",
+    "source_sha256": "8c9252f07c8c5003a4fcb573bf985690579bb4a0abad50f56c5fb53ecaa89313",
+    "source_record": "vivillonriver-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 64,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 58,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dragalgemega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "759f61600c0992da120b4f71e506d25ecd93ce9a62457fb6a69684bb9d72c37a",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 691,
+          "form": "Mega",
+          "key": "lib-dragalgemega-n-204a5ee4dbd4"
+        },
+        "sha256": "99d89f52d2d0eac492c8ead5175e0d072acb57f185a6bbd057ca24395875e105"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 64,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 58,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dragalgemega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "759f61600c0992da120b4f71e506d25ecd93ce9a62457fb6a69684bb9d72c37a",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 691,
+          "form": "Mega",
+          "key": "lib-dragalgemega-n-204a5ee4dbd4"
+        },
+        "sha256": "fed38a2472c7dfcf66aa2d039017aebc6fac2c4512612db58019a61c058351cf"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 64,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 58,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "dragalgemega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1586ec557206d2aadcfcdfb64fc81b80b53ec7f23d3a7653943a5ecb68533dec",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 691,
+            "form": "Mega",
+            "key": "lib-dragalgemega-s-5c6ee1d946b6"
+          },
+          "sha256": "20dea078c294451abe54cc26d25cb9eb1596489491f1563b9edccdb3f6a03726"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 64,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 58,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "dragalgemega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1586ec557206d2aadcfcdfb64fc81b80b53ec7f23d3a7653943a5ecb68533dec",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 691,
+            "form": "Mega",
+            "key": "lib-dragalgemega-s-5c6ee1d946b6"
+          },
+          "sha256": "56c0b7021b6938e951051966a52461e588bd7881f32f4a5066175f0e5a7a60df"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "dragalgemega",
+    "num": 691,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Dragalge-Mega, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "dragalgemega-cardinal.png",
+    "source_sha256": "759f61600c0992da120b4f71e506d25ecd93ce9a62457fb6a69684bb9d72c37a",
+    "source_record": "dragalgemega-cardinal.json",
+    "shiny_source_image": "dragalgemega-shiny-v1.png",
+    "shiny_prompt": "Use case identity-preserve. Apply exact native SHINY Mega Dragalge region colours from image2 to ALL32sprites in the existing8column4row transparent pixel atlas. Green head/neck/dorsal fronds, blue-violet side fins and violet lower body/tail, yellow-gold horns and crown accents ONLY. Golden horn colour must not spill onto broad violet fins or their interior. Maintain green rear fronds and violet tail center exactly as native rear reference. Preserve every pose, camera, anatomy,8x4grid, pixelstyle. Transparent background, no added particles symbols text."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

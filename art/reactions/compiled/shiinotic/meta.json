@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "shiinotic",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9ced911a93cd7ab608322b7c5591cd8efa5b88946628c80cfe37bb2d7065c772",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 756,
+          "form": "",
+          "key": "lib-shiinotic-n-868412dbaa24"
+        },
+        "sha256": "7858ad0620ce6b2a4b68b08e31b9d888f2c6862eee0ae5bd841d78cfcf9a7361"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "shiinotic",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9ced911a93cd7ab608322b7c5591cd8efa5b88946628c80cfe37bb2d7065c772",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 756,
+          "form": "",
+          "key": "lib-shiinotic-n-868412dbaa24"
+        },
+        "sha256": "7e8ff478052bf00e6f9d2e89b0ac81819931e605c2ed8566789b7ef9727d4378"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "shiinotic",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9ced911a93cd7ab608322b7c5591cd8efa5b88946628c80cfe37bb2d7065c772",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 756,
+            "form": "",
+            "key": "lib-shiinotic-n-868412dbaa24"
+          },
+          "sha256": "2001c114b6435e5a9033fdd5a85d5c3ea209b59c65bc13bca6a9382262659647",
+          "palette_from": "lib-shiinotic-s-0326c20a60d6"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "shiinotic",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9ced911a93cd7ab608322b7c5591cd8efa5b88946628c80cfe37bb2d7065c772",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 756,
+            "form": "",
+            "key": "lib-shiinotic-n-868412dbaa24"
+          },
+          "sha256": "a43fc1eacf412386c7a67428f7f2d81b52ec394765b2e8f87b08964904cac57e",
+          "palette_from": "lib-shiinotic-s-0326c20a60d6"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "shiinotic",
+    "num": 756,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Shiinotic, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "shiinotic-cardinal.png",
+    "source_sha256": "9ced911a93cd7ab608322b7c5591cd8efa5b88946628c80cfe37bb2d7065c772",
+    "source_record": "shiinotic-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

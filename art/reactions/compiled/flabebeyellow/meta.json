@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "flabebeyellow",
+        "tool": "builtin-imagegen",
+        "source_sha256": "2f0daad4f05bfb90b1073d6da83a9b103a335a6d3590d7c35449459932b5725c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 669,
+          "form": "Yellow",
+          "key": "lib-flabebeyellow-n-daaae3490266"
+        },
+        "sha256": "4dc10b11f8039bebc8292fc095993e8a66ebb70a9e137771138a38d97d2f701c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "flabebeyellow",
+        "tool": "builtin-imagegen",
+        "source_sha256": "2f0daad4f05bfb90b1073d6da83a9b103a335a6d3590d7c35449459932b5725c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 669,
+          "form": "Yellow",
+          "key": "lib-flabebeyellow-n-daaae3490266"
+        },
+        "sha256": "7d0de2c4d11c00018be7691cb872acaa0509df6471d10c5025c7a9dc4b0fcebf"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "flabebeyellow",
+          "tool": "builtin-imagegen",
+          "source_sha256": "2f0daad4f05bfb90b1073d6da83a9b103a335a6d3590d7c35449459932b5725c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 669,
+            "form": "Yellow",
+            "key": "lib-flabebeyellow-n-daaae3490266"
+          },
+          "sha256": "79d97a74d4fea22a7d17aea48fb7ae3070f2c3e185113c24a0b0b999706ceaa5",
+          "palette_from": "lib-flabebeyellow-s-c43d2bf3e011"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "flabebeyellow",
+          "tool": "builtin-imagegen",
+          "source_sha256": "2f0daad4f05bfb90b1073d6da83a9b103a335a6d3590d7c35449459932b5725c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 669,
+            "form": "Yellow",
+            "key": "lib-flabebeyellow-n-daaae3490266"
+          },
+          "sha256": "bff1c6448b3ac32f5efbdf8b4ae81386b3766adf0aeae99da9ff8e1193374df8",
+          "palette_from": "lib-flabebeyellow-s-c43d2bf3e011"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "flabebeyellow",
+    "num": 669,
+    "form": "Yellow",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Flabe\u0301be\u0301-Yellow, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "flabebeyellow-cardinal.png",
+    "source_sha256": "2f0daad4f05bfb90b1073d6da83a9b103a335a6d3590d7c35449459932b5725c",
+    "source_record": "flabebeyellow-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}
