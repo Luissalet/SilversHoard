@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "snorunt",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a96cc46667d2c5df8a9f2e4e0222f26b373ae55496cf5d9419c4ae24f7e6e162",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 361,
+          "form": "",
+          "key": "lib-snorunt-n-9b210f806b19"
+        },
+        "sha256": "9f597f05c29c31a93d42376e7b66b61ca945f5821da1411d1bbca6d4f30ed778"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "snorunt",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a96cc46667d2c5df8a9f2e4e0222f26b373ae55496cf5d9419c4ae24f7e6e162",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 361,
+          "form": "",
+          "key": "lib-snorunt-n-9b210f806b19"
+        },
+        "sha256": "dbf699fafb530b9d057f98367b3798a74c959f27f7812b5ba705e275c6b76544"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "snorunt",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a96cc46667d2c5df8a9f2e4e0222f26b373ae55496cf5d9419c4ae24f7e6e162",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 361,
+            "form": "",
+            "key": "lib-snorunt-s-20f53d3233cf"
+          },
+          "sha256": "659f1b114625bbe9ae40ab1ba2b69d65e13a5f03b4a256d3dc086507d398c74c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "snorunt",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a96cc46667d2c5df8a9f2e4e0222f26b373ae55496cf5d9419c4ae24f7e6e162",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 361,
+            "form": "",
+            "key": "lib-snorunt-s-20f53d3233cf"
+          },
+          "sha256": "e0f91ba7a8cad7b7a17af9772cc0881721e770a3caeaeb4f9ca9284f469a3ba1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "snorunt",
+    "num": 361,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a transparent pixel-art game atlas of the EXACT SHINY character/form/palette in the reference. Exactly SIXTEEN complete sprites, FOUR columns FOUR rows. Rows SOUTH/front,EAST/right,NORTH/back with no face,WEST/left. Columns1-2 two distinct expressive braced wincing poses: blink/head lowered and bent legs/tense body. Columns3-4 lower onto ground then fully lie flat resting head/body with legs folded and eyes closed. Keep each camera fixed, characteristic body parts/tail/wings/outfit/markings intact, exact shiny regional materials, consistent native pixel scale and crisp limited palette. New anatomical body and limb poses, not rotated/scaled standing copies. Broad transparent gutters and background; no text/grid/effects/marks/scenery/shadow. Identity snorunt.",
+    "source_image": "snorunt-shiny-only-v1.png",
+    "source_sha256": "a96cc46667d2c5df8a9f2e4e0222f26b373ae55496cf5d9419c4ae24f7e6e162",
+    "source_record": "snorunt-shiny-only-v1.json",
+    "shiny_source_image": "snorunt-shiny-only-v1.png",
+    "shiny_prompt": "Draw a transparent pixel-art game atlas of the EXACT SHINY character/form/palette in the reference. Exactly SIXTEEN complete sprites, FOUR columns FOUR rows. Rows SOUTH/front,EAST/right,NORTH/back with no face,WEST/left. Columns1-2 two distinct expressive braced wincing poses: blink/head lowered and bent legs/tense body. Columns3-4 lower onto ground then fully lie flat resting head/body with legs folded and eyes closed. Keep each camera fixed, characteristic body parts/tail/wings/outfit/markings intact, exact shiny regional materials, consistent native pixel scale and crisp limited palette. New anatomical body and limb poses, not rotated/scaled standing copies. Broad transparent gutters and background; no text/grid/effects/marks/scenery/shadow. Identity snorunt."
+  },
+  "reviewed": false,
+  "shiny_reviewed": true
+}

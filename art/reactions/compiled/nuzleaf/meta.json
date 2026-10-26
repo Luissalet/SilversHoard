@@ -1,0 +1,265 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "nuzleaf",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7d30a7dd2f0ea086ba775b41ebfd1ba9c08e2e3617b6f82d58c393c077276c37",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 7,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 274,
+          "form": "",
+          "key": "lib-nuzleaf-n-33e8ce62b315"
+        },
+        "assembly": {
+          "native_frames": [
+            {
+              "action": "Pain",
+              "direction": 0,
+              "frame": 1,
+              "animation": "Idle",
+              "row": 0,
+              "index": 0
+            }
+          ]
+        },
+        "sha256": "a0558ce05f9cd264d5488bb5df425af3d7f61c3b8cea7f92dbdcf98cb223c051"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "nuzleaf",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7d30a7dd2f0ea086ba775b41ebfd1ba9c08e2e3617b6f82d58c393c077276c37",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 274,
+          "form": "",
+          "key": "lib-nuzleaf-n-33e8ce62b315"
+        },
+        "assembly": {
+          "native_frames": [
+            {
+              "action": "Pain",
+              "direction": 0,
+              "frame": 1,
+              "animation": "Idle",
+              "row": 0,
+              "index": 0
+            }
+          ]
+        },
+        "sha256": "b58f253be1de6b67be815b80c0f042eb382e9fbe436cc2b1b48a676250f3f2bd"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "nuzleaf",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7d30a7dd2f0ea086ba775b41ebfd1ba9c08e2e3617b6f82d58c393c077276c37",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 7,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 274,
+            "form": "",
+            "key": "lib-nuzleaf-s-4a3b5ce276fb"
+          },
+          "assembly": {
+            "native_frames": [
+              {
+                "action": "Pain",
+                "direction": 0,
+                "frame": 1,
+                "animation": "Idle",
+                "row": 0,
+                "index": 0
+              }
+            ]
+          },
+          "sha256": "5c016b048284fcbf6c96575730e66b3b06283f22d051635e62bc57748eb8c60a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "nuzleaf",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7d30a7dd2f0ea086ba775b41ebfd1ba9c08e2e3617b6f82d58c393c077276c37",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 274,
+            "form": "",
+            "key": "lib-nuzleaf-s-4a3b5ce276fb"
+          },
+          "assembly": {
+            "native_frames": [
+              {
+                "action": "Pain",
+                "direction": 0,
+                "frame": 1,
+                "animation": "Idle",
+                "row": 0,
+                "index": 0
+              }
+            ]
+          },
+          "sha256": "c5b68fc755af0dac49a1709db399a22de84506d5d976eb61b41e3ef118789e4b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "nuzleaf",
+    "num": 274,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Mechanically repack genuine native/built-in drawn poses. Binary alpha before tight crop; register new prone strip by one uniform factor for both frames, preserving every unrelated crop and pixel. No painting, standing-pose warping or camera rotation. Exact recipe and source hashes included.",
+    "source_image": "nuzleaf-assembled56.png",
+    "source_sha256": "7d30a7dd2f0ea086ba775b41ebfd1ba9c08e2e3617b6f82d58c393c077276c37",
+    "native_frames": [
+      {
+        "action": "Pain",
+        "direction": 0,
+        "frame": 1,
+        "animation": "Idle",
+        "row": 0,
+        "index": 0
+      }
+    ],
+    "source_record": "nuzleaf-assembled56.json",
+    "shiny_source_image": "nuzleaf-assembled56.png",
+    "shiny_prompt": "Mechanically repack genuine native/built-in drawn poses. Binary alpha before tight crop; register new prone strip by one uniform factor for both frames, preserving every unrelated crop and pixel. No painting, standing-pose warping or camera rotation. Exact recipe and source hashes included."
+  },
+  "reviewed": false,
+  "shiny_reviewed": true
+}

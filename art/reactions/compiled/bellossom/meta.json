@@ -113,10 +113,10 @@
         "ax": 20.0,
         "ay": 34,
         "source": {
-          "kind": "shiny-generated-pmd-reaction",
+          "kind": "generated-shiny-pmd-reaction",
           "record": "bellossom",
           "tool": "builtin-imagegen",
-          "source_sha256": "3f280fd47602676215bfdc4e6664fdd8be1ea7e862a4607c1368bf66d4967b78",
+          "source_sha256": "c8a213fe0b9c4c12c01b0e3fc95a8ca4b8f83552fdddcd0e80587320b5503634",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -129,10 +129,9 @@
           "reference": {
             "num": 182,
             "form": "",
-            "key": "lib-bellossom-n-1ca5c6314926"
+            "key": "lib-bellossom-s-3b743ab15a49"
           },
-          "sha256": "ca2ef814d96befd8954fe1dee2431372473b59f16d24f5a84a5a8406cdb92df5",
-          "palette_from": "lib-bellossom-s-3b743ab15a49"
+          "sha256": "fcaa383acd8f75fe4718d951370d163b53af76ef3ef398cae556314d47a452d3"
         },
         "row_map": [
           0,
@@ -159,10 +158,10 @@
         "ax": 20.0,
         "ay": 34,
         "source": {
-          "kind": "shiny-generated-pmd-reaction",
+          "kind": "generated-shiny-pmd-reaction",
           "record": "bellossom",
           "tool": "builtin-imagegen",
-          "source_sha256": "3f280fd47602676215bfdc4e6664fdd8be1ea7e862a4607c1368bf66d4967b78",
+          "source_sha256": "c8a213fe0b9c4c12c01b0e3fc95a8ca4b8f83552fdddcd0e80587320b5503634",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -175,10 +174,9 @@
           "reference": {
             "num": 182,
             "form": "",
-            "key": "lib-bellossom-n-1ca5c6314926"
+            "key": "lib-bellossom-s-3b743ab15a49"
           },
-          "sha256": "4467559568bd6af3da92f080f8ee197dffc38f994b6674257a9248523d77cd41",
-          "palette_from": "lib-bellossom-s-3b743ab15a49"
+          "sha256": "2fb6e145dac36b352096b601f95cbf7fdc06080a320c1831ab6e00b2aef11738"
         },
         "row_map": [
           0,
@@ -208,8 +206,10 @@
     "prompt": "Draw a new transparent pixel-art game animation atlas of Bellossom, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
     "source_image": "bellossom-retry-r4.png",
     "source_sha256": "3f280fd47602676215bfdc4e6664fdd8be1ea7e862a4607c1368bf66d4967b78",
-    "source_record": "bellossom-retry-r4.json"
+    "source_record": "bellossom-retry-r4.json",
+    "shiny_source_image": "bellossom-shiny49-v1.png",
+    "shiny_prompt": "Use case identity-preserve. Recolour the entire transparent 8column4row atlas IMAGE1 to EXACT native SHINY reference IMAGE2. Head and exposed torso are LILAC/PURPLE (never normal green), flowers PINK, leaf skirt retains native yellow/green regions. Keep every pose, camera, geometry, body part and grid unchanged. NORTH is back-only and final ground poses stay fully prone. Crisp limited native pixel palette, binary transparent background and broad transparent gutters. No new effects, text, marks, scenery or objects."
   },
   "reviewed": true,
-  "shiny_reviewed": false
+  "shiny_reviewed": true
 }

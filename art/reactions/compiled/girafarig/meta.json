@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "girafarig",
+        "tool": "builtin-imagegen",
+        "source_sha256": "538a3cb2465d016f62cab34aea19b54412fcf15177f0d5dc86a0954cd61e63ef",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 203,
+          "form": "",
+          "key": "lib-girafarig-n-88d628a247c5"
+        },
+        "sha256": "4c1131f06c429c9a28edf0877df4134e9e7903550d87e8a065da244c3776c259"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "girafarig",
+        "tool": "builtin-imagegen",
+        "source_sha256": "538a3cb2465d016f62cab34aea19b54412fcf15177f0d5dc86a0954cd61e63ef",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 203,
+          "form": "",
+          "key": "lib-girafarig-n-88d628a247c5"
+        },
+        "sha256": "02313a6d3201a3437f3077e7fd41841f8497304d3880af425d16d82f22f2c1c8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "girafarig",
+          "tool": "builtin-imagegen",
+          "source_sha256": "538a3cb2465d016f62cab34aea19b54412fcf15177f0d5dc86a0954cd61e63ef",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 203,
+            "form": "",
+            "key": "lib-girafarig-s-51ef06276302"
+          },
+          "sha256": "c62a8a933f34f6d6a345ec6dda0cbef7230942e9c7f04c4c35439bf0000e4dab"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "girafarig",
+          "tool": "builtin-imagegen",
+          "source_sha256": "538a3cb2465d016f62cab34aea19b54412fcf15177f0d5dc86a0954cd61e63ef",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 203,
+            "form": "",
+            "key": "lib-girafarig-s-51ef06276302"
+          },
+          "sha256": "8531ebed87aeec7e2f63bde5590a15711ff40f68e3e2793653e87ce212949b7b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "girafarig",
+    "num": 203,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a transparent pixel-art game atlas of the EXACT SHINY character/form/palette in the reference. Exactly SIXTEEN complete sprites, FOUR columns FOUR rows. Rows SOUTH/front,EAST/right,NORTH/back with no face,WEST/left. Columns1-2 two distinct expressive braced wincing poses: blink/head lowered and bent legs/tense body. Columns3-4 lower onto ground then fully lie flat resting head/body with legs folded and eyes closed. Keep each camera fixed, characteristic body parts/tail/wings/outfit/markings intact, exact shiny regional materials, consistent native pixel scale and crisp limited palette. New anatomical body and limb poses, not rotated/scaled standing copies. Broad transparent gutters and background; no text/grid/effects/marks/scenery/shadow. Identity girafarig.",
+    "source_image": "girafarig-shiny-only-v1.png",
+    "source_sha256": "538a3cb2465d016f62cab34aea19b54412fcf15177f0d5dc86a0954cd61e63ef",
+    "source_record": "girafarig-shiny-only-v1.json",
+    "shiny_source_image": "girafarig-shiny-only-v1.png",
+    "shiny_prompt": "Draw a transparent pixel-art game atlas of the EXACT SHINY character/form/palette in the reference. Exactly SIXTEEN complete sprites, FOUR columns FOUR rows. Rows SOUTH/front,EAST/right,NORTH/back with no face,WEST/left. Columns1-2 two distinct expressive braced wincing poses: blink/head lowered and bent legs/tense body. Columns3-4 lower onto ground then fully lie flat resting head/body with legs folded and eyes closed. Keep each camera fixed, characteristic body parts/tail/wings/outfit/markings intact, exact shiny regional materials, consistent native pixel scale and crisp limited palette. New anatomical body and limb poses, not rotated/scaled standing copies. Broad transparent gutters and background; no text/grid/effects/marks/scenery/shadow. Identity girafarig."
+  },
+  "reviewed": false,
+  "shiny_reviewed": true
+}

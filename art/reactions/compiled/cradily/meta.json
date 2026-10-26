@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "cradily",
+        "tool": "builtin-imagegen",
+        "source_sha256": "cc7106ccdc6ea18c31b8af5b26287c2f6d5661376b053e705b675bdb7b5cd663",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 346,
+          "form": "",
+          "key": "lib-cradily-n-9690210cbe8b"
+        },
+        "sha256": "3bcd87549af55bc6383be9d4cf5eb0151f897850260bdb4076072506f1cf8f63"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "cradily",
+        "tool": "builtin-imagegen",
+        "source_sha256": "cc7106ccdc6ea18c31b8af5b26287c2f6d5661376b053e705b675bdb7b5cd663",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 346,
+          "form": "",
+          "key": "lib-cradily-n-9690210cbe8b"
+        },
+        "sha256": "1cdf9c3094e10d07b7879fcfdeb671341a08671b166bd147f87882fa4df57bff"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "cradily",
+          "tool": "builtin-imagegen",
+          "source_sha256": "cc7106ccdc6ea18c31b8af5b26287c2f6d5661376b053e705b675bdb7b5cd663",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 346,
+            "form": "",
+            "key": "lib-cradily-s-5b33041ad94a"
+          },
+          "sha256": "90ed402b6c6bf01c6f98f0a5c6cec6ca4f8c0afe1777e83a01e32fe150f4cf42"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "cradily",
+          "tool": "builtin-imagegen",
+          "source_sha256": "cc7106ccdc6ea18c31b8af5b26287c2f6d5661376b053e705b675bdb7b5cd663",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 346,
+            "form": "",
+            "key": "lib-cradily-s-5b33041ad94a"
+          },
+          "sha256": "824ec8f154e5982ddfab11587658e31a847bfd469ebc93efdb27b56268330bde"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "cradily",
+    "num": 346,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a transparent pixel-art game atlas of the EXACT SHINY character/form/palette in the reference. Exactly SIXTEEN complete sprites, FOUR columns FOUR rows. Rows SOUTH/front,EAST/right,NORTH/back with no face,WEST/left. Columns1-2 two distinct expressive braced wincing poses: blink/head lowered and bent legs/tense body. Columns3-4 lower onto ground then fully lie flat resting head/body with legs folded and eyes closed. Keep each camera fixed, characteristic body parts/tail/wings/outfit/markings intact, exact shiny regional materials, consistent native pixel scale and crisp limited palette. New anatomical body and limb poses, not rotated/scaled standing copies. Broad transparent gutters and background; no text/grid/effects/marks/scenery/shadow. Identity cradily.",
+    "source_image": "cradily-shiny-only-v1.png",
+    "source_sha256": "cc7106ccdc6ea18c31b8af5b26287c2f6d5661376b053e705b675bdb7b5cd663",
+    "source_record": "cradily-shiny-only-v1.json",
+    "shiny_source_image": "cradily-shiny-only-v1.png",
+    "shiny_prompt": "Draw a transparent pixel-art game atlas of the EXACT SHINY character/form/palette in the reference. Exactly SIXTEEN complete sprites, FOUR columns FOUR rows. Rows SOUTH/front,EAST/right,NORTH/back with no face,WEST/left. Columns1-2 two distinct expressive braced wincing poses: blink/head lowered and bent legs/tense body. Columns3-4 lower onto ground then fully lie flat resting head/body with legs folded and eyes closed. Keep each camera fixed, characteristic body parts/tail/wings/outfit/markings intact, exact shiny regional materials, consistent native pixel scale and crisp limited palette. New anatomical body and limb poses, not rotated/scaled standing copies. Broad transparent gutters and background; no text/grid/effects/marks/scenery/shadow. Identity cradily."
+  },
+  "reviewed": false,
+  "shiny_reviewed": true
+}

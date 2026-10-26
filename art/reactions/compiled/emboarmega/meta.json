@@ -94,11 +94,102 @@
     }
   },
   "shiny": {
-    "a": {}
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "emboarmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "859e763a970253e5811719e116ad17576d573c0a18b49932aebaa0c28648d886",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 500,
+            "form": "Mega",
+            "key": "lib-emboarmega-s-3bf431b0e282"
+          },
+          "sha256": "102c0667a55448f7d412f9b432c47310cf5af3d6f5f0dd3871c4527ca86121bd"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "emboarmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "859e763a970253e5811719e116ad17576d573c0a18b49932aebaa0c28648d886",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 500,
+            "form": "Mega",
+            "key": "lib-emboarmega-s-3bf431b0e282"
+          },
+          "sha256": "e59aafb5730e953815935fd2c01c9a404d9029cc442f6b1c93324b941d1f1c27"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
   },
-  "pending": [
-    "shiny"
-  ],
+  "pending": [],
   "provenance": {
     "id": "emboarmega",
     "num": 500,
@@ -107,8 +198,10 @@
     "prompt": "Create a transparent pixel-art game sprite atlas for Emboar-Mega using the exact native form and colours in the reference. EXACTLY SIXTEEN complete sprites in FOUR columns and FOUR rows. Rows: front/SOUTH, right profile/EAST, back/NORTH with no face, left profile/WEST. Columns1\u20132 are two distinct expressive flinch poses (blink and bend/braced wince). Columns3\u20134 are lowering to rest and fully lying down; final column has body and head resting flat with eyes closed. Keep all characteristic body parts, tails, wings, markings and accessories. Draw new body and limb poses, consistent pixel scale, crisp original palette. Broad transparent gutters, no text, marks, symbols or scenery. This is a nonviolent game character animation.",
     "source_image": "emboarmega-compact-r5.png",
     "source_sha256": "14507cbaa080cd9384dc7e6aef862ac841063353bbdb10d0b3aaeac148c438a3",
-    "source_record": "emboarmega-compact-r5.json"
+    "source_record": "emboarmega-compact-r5.json",
+    "shiny_source_image": "emboarmega-shiny49-v1.png",
+    "shiny_prompt": "Use case identity-preserve. Recolour the entire transparent 4column4row atlas IMAGE1 to EXACT native SHINY reference IMAGE2. Use exact native SHINY brilliant CYAN/BLUE flames, gray/dark body and native black/white material zones. No normal orange/red flame regions. Keep every pose, camera, geometry, body part and grid unchanged. NORTH is back-only and final ground poses stay fully prone. Crisp limited native pixel palette, binary transparent background and broad transparent gutters. No new effects, text, marks, scenery or objects."
   },
   "reviewed": true,
-  "shiny_reviewed": false
+  "shiny_reviewed": true
 }

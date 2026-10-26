@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "nihilego",
+        "tool": "builtin-imagegen",
+        "source_sha256": "2393e29e16dbc3968690827bbdaffdcdd2589270bd60e8cb7ba1f5d2a83e1d37",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 793,
+          "form": "",
+          "key": "lib-nihilego-n-ab59d5db69a1"
+        },
+        "sha256": "5ab8cae05cc4529f6489193fc6adecddd5ad9b0e96f3826f22cc7126e84bd760"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "nihilego",
+        "tool": "builtin-imagegen",
+        "source_sha256": "2393e29e16dbc3968690827bbdaffdcdd2589270bd60e8cb7ba1f5d2a83e1d37",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 793,
+          "form": "",
+          "key": "lib-nihilego-n-ab59d5db69a1"
+        },
+        "sha256": "31664eec8c48cbed01dca72e500ca815709a0ecf527f523b4a83a7b4378c34b0"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "nihilego",
+          "tool": "builtin-imagegen",
+          "source_sha256": "2393e29e16dbc3968690827bbdaffdcdd2589270bd60e8cb7ba1f5d2a83e1d37",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 793,
+            "form": "",
+            "key": "lib-nihilego-n-ab59d5db69a1"
+          },
+          "sha256": "3a83b3093862d008c7d730fad3d6fb775bfb07fdb39c74dce44e2c838a91b867",
+          "palette_from": "lib-nihilego-s-2a7145b5326a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "nihilego",
+          "tool": "builtin-imagegen",
+          "source_sha256": "2393e29e16dbc3968690827bbdaffdcdd2589270bd60e8cb7ba1f5d2a83e1d37",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 793,
+            "form": "",
+            "key": "lib-nihilego-n-ab59d5db69a1"
+          },
+          "sha256": "7f98978eb4377bd9425362c41104c8578e6cdb5e5f49500c8fd4e47b72a66e25",
+          "palette_from": "lib-nihilego-s-2a7145b5326a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "nihilego",
+    "num": 793,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Precise material correction, preserve all16 existing poses and4x4grid of IMAGE1. IMAGE2 TOP ROW is the exact native NORMAL material reference on a gray checkerboard; its lower two rows are the WRONG opaque candidate, do not copy them. Correct every sprite's upper bell/cap: all large BLACK PATCHES INSIDE THE CAP are a mistake. Those locations should be TRANSPARENT HOLES revealing background through a pale white/cyan translucent membrane, like the TOP ROW of IMAGE2. Preserve the pale cyan central FOUR-POINT STAR on the bell, thin white rim and tiny black OUTLINE only. No black filled regions, black eyes or face inside cap. Keep tendrils and genuinely flat final ground poses, exact geometry/cameras and native pale cyan palette. Background and interior cap holes fully transparent, generous gutters, crisp native pixel art. No glow/checkerboard painted into asset/scenery/text.",
+    "source_image": "nihilego-translucent59-v1.png",
+    "source_sha256": "2393e29e16dbc3968690827bbdaffdcdd2589270bd60e8cb7ba1f5d2a83e1d37",
+    "source_record": "nihilego-translucent59-v1.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

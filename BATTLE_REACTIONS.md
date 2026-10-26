@@ -19,9 +19,9 @@ All 1,469 installed species/form identities in normal and shiny variants have
 both animations: **2,938 variants**. The supplemental collection contains 531
 authored Pain and 516 authored HitGround variants from the same pinned
 SpriteCollab revision as the original library. Reviewed raster exports now cover
-2,328 normal/shiny variants; the supplement uses 2,310 new Pain and 2,325 new HitGround
+2,409 normal/shiny variants; the supplement uses 2,391 new Pain and 2,406 new HitGround
 sequences, preserving published reactions where already available. The remaining
-97 Pain and 97 HitGround variants use explicitly marked runtime acting of their own
+16 Pain and 16 HitGround variants use explicitly marked runtime acting of their own
 installed artwork. These are derived reactions, not newly authored sprite
 sequences. Imported walking sheets and static battle-art fallbacks also have
 pain and a held prone pose; they never borrow another species' art. Artwork
@@ -37,6 +37,9 @@ authored/generated/acting counts. New raster sources, prompts, palette transfer,
 frame geometry and normal/shiny visual acceptance live in `art/reactions/`.
 Four-heading sheets declare their diagonal mapping; eight-heading sheets retain
 all directions. The importer supports two or four distinct poses per action.
+Shiny-only reviewed art can publish while the normal variant keeps its original
+authored reactions. Separate variant records can share an exact species/form
+target without replacing the other variant's approved exports.
 `--require-raster` rejects an incomplete collection before writing a new pack.
 Task 1503 is still creating the missing raster sequences; the current collection
 does not yet provide newly drawn art for the entire roster.

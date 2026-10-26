@@ -15,6 +15,10 @@ Four-heading sheets author S/E/N/W and map diagonal headings explicitly through
 mirrored direction or native frame used during assembly. It does not count that
 frame as a newly drawn pose. Normal and shiny have separate visual acceptance;
 a missing or rejected shiny never publishes normal colours as a shiny copy.
+An independently reviewed shiny can also publish without a generated normal.
+Only accepted variants enter the pack; an unreviewed normal candidate from the
+same source stays excluded. A separate shiny record may target an already
+approved normal identity while preserving its original exports byte for byte.
 Declared native frames retain their exact original RGBA pixels in both palettes,
 including after the generated frames receive their shiny palette transfer.
 Falinks reuses newly drawn leader/trooper component poses in its six-member
@@ -37,10 +41,17 @@ credits remain unchanged.
 
 Task 1503 is in progress. The initial audit found 1,201 normal forms needing at
 least one new reaction; shiny palettes must also be derived and checked before
-installation. There are reviewed raster exports for 2,328 normal/shiny variants,
-with both actions. The pack uses 2,310 new Pain and 2,325 new HitGround sequences;
+installation. There are reviewed raster exports for 2,409 normal/shiny variants,
+with both actions (1,193 normal and 1,216 shiny). The pack uses 2,391 new Pain and 2,406 new HitGround sequences;
 existing published reactions take priority where already available. Pain still
-has 97 variants using the previous runtime fallback, and HitGround has 97.
+has 16 variants using the previous runtime fallback, and HitGround has 16.
 This directory does not establish complete
 roster coverage. Source prompts and per-frame provenance accompany each accepted
 export. Rejected candidates remain outside the generated pack.
+
+Compact sources can contain one newly drawn wince and one newly drawn prone
+pose per direction. Pain enters from exact native Idle; HitGround transitions
+from the drawn wince to the drawn prone pose. Shared poses and native entries
+are declared explicitly. Equivalent Mimikyu/Totem forms reuse the drawn atlas
+only after every native normal/shiny animation crop is verified identical;
+this is recorded derivation, not independent generation for each form.

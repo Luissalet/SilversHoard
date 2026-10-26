@@ -1,0 +1,84 @@
+{
+  "id": "ragingbolt",
+  "name": "Raging Bolt",
+  "num": 1021,
+  "form": "",
+  "directions": 4,
+  "frames": 4,
+  "image": "ragingbolt-assembled55.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Mechanically repack genuine native/built-in drawn poses. Binary alpha before tight crop; register new prone strip by one uniform factor for both frames, preserving every unrelated crop and pixel. No painting, standing-pose warping or camera rotation. Exact recipe and source hashes included.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "assembly_sources": [
+    {
+      "image": "ragingbolt-cardinal.png",
+      "sha256": "031b81f3a1dad55a9cf092b8487bb3c53a3b1c55cbaca73e0334b0b346e9dcf1"
+    },
+    {
+      "image": "ragingbolt-sides55-v1.png",
+      "sha256": "b07d0d9b362c937f163a9b9b2a4092d2c82b2401635fad4a13b296c8429ddbc8"
+    }
+  ],
+  "assembly_recipe": {
+    "base": "ragingbolt-cardinal.png",
+    "strip": "ragingbolt-sides55-v1.png",
+    "replace_cells": [
+      [
+        1,
+        4,
+        0,
+        0
+      ],
+      [
+        1,
+        5,
+        0,
+        1
+      ],
+      [
+        1,
+        6,
+        0,
+        2
+      ],
+      [
+        1,
+        7,
+        0,
+        3
+      ],
+      [
+        3,
+        4,
+        1,
+        0
+      ],
+      [
+        3,
+        5,
+        1,
+        1
+      ],
+      [
+        3,
+        6,
+        1,
+        2
+      ],
+      [
+        3,
+        7,
+        1,
+        3
+      ]
+    ],
+    "strip_uniform_scale": 0.5571788413098236
+  },
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-corrections55.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

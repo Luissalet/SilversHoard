@@ -113,10 +113,10 @@
         "ax": 24.0,
         "ay": 42,
         "source": {
-          "kind": "shiny-generated-pmd-reaction",
+          "kind": "generated-shiny-pmd-reaction",
           "record": "malamar",
           "tool": "builtin-imagegen",
-          "source_sha256": "6ffcecb5d77370563ed6669277187e757cad952e657899848f2be433a6dfca0d",
+          "source_sha256": "0e4f75647a0e1cb039268af223f1444f85421fd93edc36cb56052fd8439c968d",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -129,10 +129,9 @@
           "reference": {
             "num": 687,
             "form": "",
-            "key": "lib-malamar-n-47413ebf9963"
+            "key": "lib-malamar-s-17c2905411d7"
           },
-          "sha256": "68b9a1cb37a7875c9271c382a9cffa824757d25d5a96e21774524263cdae3d1e",
-          "palette_from": "lib-malamar-s-17c2905411d7"
+          "sha256": "f9f07099df3250d829e21f190114488c944545a8e0214eca8b212be0fcdc1afe"
         },
         "row_map": [
           0,
@@ -159,10 +158,10 @@
         "ax": 24.0,
         "ay": 42,
         "source": {
-          "kind": "shiny-generated-pmd-reaction",
+          "kind": "generated-shiny-pmd-reaction",
           "record": "malamar",
           "tool": "builtin-imagegen",
-          "source_sha256": "6ffcecb5d77370563ed6669277187e757cad952e657899848f2be433a6dfca0d",
+          "source_sha256": "0e4f75647a0e1cb039268af223f1444f85421fd93edc36cb56052fd8439c968d",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -175,10 +174,9 @@
           "reference": {
             "num": 687,
             "form": "",
-            "key": "lib-malamar-n-47413ebf9963"
+            "key": "lib-malamar-s-17c2905411d7"
           },
-          "sha256": "6679d5c7134b79aa22b08612512ee6c5a79c7a412c2d42fe68a93e0ee50c4761",
-          "palette_from": "lib-malamar-s-17c2905411d7"
+          "sha256": "ceeb988bbeacd7ecd1b31a006a98a33363352433b1c6383d9247cabf184867e9"
         },
         "row_map": [
           0,
@@ -208,8 +206,10 @@
     "prompt": "Draw a new transparent pixel-art game animation atlas of Malamar, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
     "source_image": "malamar-retry-r4.png",
     "source_sha256": "6ffcecb5d77370563ed6669277187e757cad952e657899848f2be433a6dfca0d",
-    "source_record": "malamar-retry-r4.json"
+    "source_record": "malamar-retry-r4.json",
+    "shiny_source_image": "malamar-shiny49-v1.png",
+    "shiny_prompt": "Use case identity-preserve. Recolour the entire transparent 8column4row atlas IMAGE1 to EXACT native SHINY reference IMAGE2. Head and whole crest stay bright GOLD/YELLOW as native, never dark green/brown. Lower body green with exact yellow markings; white tentacles stay white. Keep every pose, camera, geometry, body part and grid unchanged. NORTH is back-only and final ground poses stay fully prone. Crisp limited native pixel palette, binary transparent background and broad transparent gutters. No new effects, text, marks, scenery or objects."
   },
   "reviewed": true,
-  "shiny_reviewed": false
+  "shiny_reviewed": true
 }

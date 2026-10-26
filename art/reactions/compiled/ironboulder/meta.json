@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 72,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ironboulder",
+        "tool": "builtin-imagegen",
+        "source_sha256": "10a94f235cc77317093072ef4efa0ed819fd19e16248740fbcbd262d94bb2674",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 1022,
+          "form": "",
+          "key": "lib-ironboulder-n-39c1c51d1db7"
+        },
+        "sha256": "7135024b17aa731f14981e5b5d50a6d423eca328a330a209aea5e10c3e4c4d17"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 72,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ironboulder",
+        "tool": "builtin-imagegen",
+        "source_sha256": "10a94f235cc77317093072ef4efa0ed819fd19e16248740fbcbd262d94bb2674",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 1022,
+          "form": "",
+          "key": "lib-ironboulder-n-39c1c51d1db7"
+        },
+        "sha256": "60f804ad0f6ff71b8704e5e381bbb08a24e36e2a2638dc87643f22d60cb9e56a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 72,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ironboulder",
+          "tool": "builtin-imagegen",
+          "source_sha256": "10a94f235cc77317093072ef4efa0ed819fd19e16248740fbcbd262d94bb2674",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 1022,
+            "form": "",
+            "key": "lib-ironboulder-n-39c1c51d1db7"
+          },
+          "sha256": "2b13f50976e38a26fc5cd64956a0aeedf3a8a72069793fe8533907f88dd5f241",
+          "palette_from": "lib-ironboulder-s-728e0574a20f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 72,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ironboulder",
+          "tool": "builtin-imagegen",
+          "source_sha256": "10a94f235cc77317093072ef4efa0ed819fd19e16248740fbcbd262d94bb2674",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 1022,
+            "form": "",
+            "key": "lib-ironboulder-n-39c1c51d1db7"
+          },
+          "sha256": "0239fb04ebea91e7dc91721329ee08a011beda000278ce0fe3209cd032df303e",
+          "palette_from": "lib-ironboulder-s-728e0574a20f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "ironboulder",
+    "num": 1022,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Mechanically repack genuine native/built-in drawn poses. Binary alpha before tight crop; register new prone strip by one uniform factor for both frames, preserving every unrelated crop and pixel. No painting, standing-pose warping or camera rotation. Exact recipe and source hashes included.",
+    "source_image": "ironboulder-assembled59.png",
+    "source_sha256": "10a94f235cc77317093072ef4efa0ed819fd19e16248740fbcbd262d94bb2674",
+    "source_record": "ironboulder-assembled59.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

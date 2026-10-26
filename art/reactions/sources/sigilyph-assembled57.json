@@ -1,0 +1,62 @@
+{
+  "id": "sigilyph",
+  "name": "Sigilyph",
+  "num": 561,
+  "form": "",
+  "directions": 4,
+  "frames": 4,
+  "image": "sigilyph-assembled57.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Mechanically repack genuine native/built-in drawn poses. Binary alpha before tight crop; register new prone strip by one uniform factor for both frames, preserving every unrelated crop and pixel. No painting, standing-pose warping or camera rotation. Exact recipe and source hashes included.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "assembly_sources": [
+    {
+      "image": "sigilyph-retry-r4.png",
+      "sha256": "3ef00b6c828533d89ae6ede521dd849cfee37dce7270bd33991d0bb6cee1302a"
+    },
+    {
+      "image": "sigilyph-north-prone54-v1.png",
+      "sha256": "860040a4af863b696fb4685da73a0bd01a5880e725988598449a44c44b9d032f"
+    },
+    {
+      "image": "sigilyph-assembled54.png",
+      "sha256": "6cd30615f14ba0ea052146dbfbcf5e56053d2db0a43df4f0fdb1b4b166dfd0fe"
+    },
+    {
+      "image": "sigilyph-north-prone57-v1.png",
+      "sha256": "03b4c1583fe8955679c9345f20543ea1e88f135141d833799846b371aaefbe27"
+    }
+  ],
+  "assembly_recipe": {
+    "base": "sigilyph-assembled54.png",
+    "parent_recipe": {
+      "base": "sigilyph-retry-r4.png",
+      "replace_north_ground": [
+        2,
+        3
+      ],
+      "strip": "sigilyph-north-prone54-v1.png",
+      "strip_uniform_scale": 0.28594164456233423,
+      "palafin_first_two_from_pain": false
+    },
+    "strip": "sigilyph-north-prone57-v1.png",
+    "strip_scale": 0.2452787258248009,
+    "replace_cells": [
+      [
+        2,
+        6
+      ],
+      [
+        2,
+        7
+      ]
+    ]
+  },
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-corrections57.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}
