@@ -96,6 +96,8 @@ def portrait_inventory(roster, tracker):
     plan["folders"] = {folder: {"emotions": [e for e in EMOTIONS if e in entry.get("portrait_files", {})],
                                 "credit": entry.get("portrait_credit", {})}
                        for folder, entry in folders.items() if entry.get("portrait_files")}
+    plan["visible_frame_equivalences"] = json.loads(
+        (ROOT / "art/portraits/visible-frame-equivalences.json").read_text("utf8"))["groups"]
     return plan
 
 
@@ -179,6 +181,8 @@ def compile_library(plan, stage, destination, registry=None, allow_missing=False
             backgrounds[emotion] = Image.open(path).convert('RGBA')
     entries, files, sources, packs, buffers = {}, {}, {}, [], [bytearray()]
     byid = {row["id"]: row for row in plan["entries"]}
+    visible_frames = {target: group for group in plan.get("visible_frame_equivalences", [])
+                      for target in group["targets"]}
     counts = Counter()
 
     def add(raw):
@@ -223,6 +227,20 @@ def compile_library(plan, stage, destination, registry=None, allow_missing=False
         if equivalent:
             inherited = faces(byid[equivalent], shiny, (*seen, row["id"]))
             result = {**inherited, **result}
+        visible = visible_frames.get(row["id"])
+        if visible and visible["species"] in byid:
+            source_row = byid[visible["species"]]
+            inherited = faces(source_row, shiny, (*seen, row["id"]))
+            source_folder = source_row.get("shiny_folder" if shiny else "folder")
+            for emotion, sha in visible["source_sha256"][str(int(shiny))].items():
+                file = f"portraits/{sha}.png"
+                if emotion not in result and inherited.get(emotion) == file:
+                    result[emotion] = file
+                    sources[f"{row['id']}|{int(shiny)}:{emotion}"] = {
+                        "kind": "visible-frame-equivalence", "species": visible["species"],
+                        "source_pin": visible["source_pin"], "source_sha256": sha,
+                        "folder": source_folder, "credit": plan["folders"][source_folder]["credit"],
+                        "artists": plan["folders"][source_folder].get("artists", [])}
         if record and record.get("reviewed") is True:
             uses_background = record.get('background_key') or record.get('background_mode') == 'alpha'
             if uses_background and not record.get('background_reviewed') and not allow_missing:
