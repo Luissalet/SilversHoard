@@ -276,3 +276,21 @@ La biblioteca PMD instalada cubre las 1.469 especies y formas del motor actual, 
 Ultraexplosión, megaevolución y Dynamax conservan el PMD anterior durante la carga, ocultan el cambio dentro de una envoltura y revelan la forma nueva al romperla. Sus breves impact frames y las fracturas de los impactos confirmados de Z/Max llegan también al HTML recién exportado, conservando pausa, búsqueda, modo sencillo y movimiento reducido. Véase [presentación visual](docs/VISUAL_PRESENTATION.md).
 
 Los ataques normales en tiempo real añaden anticipación breve, descarga direccional, estelas reales e impactos por material. Las reacciones conservan la proporción PMD y distinguen daño y bloqueo; la voltereta real activa la esquiva, un fallo de alcance o puntería no la inventa. El Z de Ultra usa luz prismática en lugar de la textura mal etiquetada. App, MP4 nativo y nuevos HTML comparten estos cambios. Véase [presentación visual](docs/VISUAL_PRESENTATION.md).
+
+
+## Corrección de materiales de los retratos (parcial 63)
+
+Raticate y Mega Clefable tienen 64 expresiones normales y shiny revisadas. Se
+sustituyen 56 casillas generadas anteriores y se conservan exactamente ocho retratos
+publicados. Raticate respeta su pelaje, hocico, dientes y paleta shiny; Mega Clefable
+conserva materiales rosas, detalles verdes shiny y forma de las alas. Ojos, lágrimas
+y soplido se corrigen por componentes, conservando las casillas buenas. Se han
+revisado las caras completas a 40 px y ampliadas sin suavizado, y las dos hojas de
+expresiones de cada especie.
+
+Es una mejora de arte existente: siguen 2.060 conjuntos completos, 814 parciales y
+64 ausentes, contando normal y shiny por separado; 34.156 mapeos, 32.974 PNG y 14 packs.
+Los otros 252 registros y los demás mapeos quedan intactos. La procedencia mantiene
+la generación anterior y los componentes publicados, incluidos los créditos de
+geometría ocular parcial de Marill en Dizzy de Mega Clefable. Las cifras no acreditan
+calidad artística global. Los HTML anteriores necesitan reexportarse.

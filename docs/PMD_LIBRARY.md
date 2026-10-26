@@ -104,3 +104,23 @@ Build 61 completes Gengar, Magneton and Goldeen in normal and shiny palettes wit
 
 
 Build 62 completes Mantyke, Boltund and Dartrix in normal and shiny palettes: six native40 baked atlases,96 inspected whole faces,40 literal published expressions and56 newly filled expressions. Individual repairs preserve good cells and own right-facing close framing: Mantyke retains small credited Marill Dizzy geometry; Boltund closes the Happy smile for Angry and gives Crying a variable physical stream and own published droplet; Dartrix uses a folded own pose for Teary-Eyed, tonal small Dizzy curves and natural physical water. Boltund Pain and Crying inherit six actual generated guide eye positions per palette, with no generated RGB and explicit Emmuffin/Gust credits in both palettes. Own geometry and material donors retain raw artists, SHA, coordinates and licensing in reviewed62-provenance.json. All250 prior records,34,100 mappings and32,918 PNG payloads remain exact. Coverage is2,060 complete,814 partial and64 missing normal/shiny sets, with256 registry records sharing250 atlas inputs,4,096 record cells,34,156 expression mappings and fourteen current packs. Candidate QA:709Python pass/5skip,640engine pass/1skip,app/play builds exit0,195MCP tools/four legal teams. Native app battle ends by KO at22ticks and replay0.3333 shows Boltund Determined/Mantyke shiny Normal. HTML ends by KO at227ticks; replay6.80 shows Mantyke and shiny Dartrix Determined with Dartrix Dynamax. Confuse Ray misses in that HTML fight, so it does not certify Dizzy there. All96 HTTP portraits match installed and embedded bytes; standalone334,342,429-byte HTML verifies68,972 binary assets/39chunks and34,156 portrait mappings. Browser warning/error logs are empty. This describes candidate evidence before actual Main verification. No gameplay/runtime code changes, MP4/import/wheel test or catalogue-wide artistic approval is implied. Legacy portrait palette/anatomy/framing repairs remain an ongoing separate review.
+
+
+## Portrait material corrections (partial 63)
+
+Raticate and Mega Clefable now use 64 reviewed normal/shiny expression portraits.
+The correction replaces 56 previously generated cells and preserves eight published
+portraits exactly. Raticate keeps its own fur, muzzle, teeth and shiny palette;
+Mega Clefable keeps its native pink materials, green shiny details and wing shape.
+Individual eye, tear and sigh components were corrected without regenerating the
+good cells. Every selected face was inspected at native 40 px and enlarged with
+nearest sampling, including both complete expression sheets.
+
+This improves existing art and adds no coverage: 2,060 complete, 814 partial and
+64 missing normal/shiny sets; 34,156 mappings, 32,974 PNGs and 14 installed packs.
+All other 252 registry records and other portrait mappings remain exact. Published
+art has priority. `art/portraits/reviewed63-provenance.json` retains original generated
+ancestry, per-cell sources and native component edits. Mega Clefable's partial Dizzy
+eye geometry also credits Marill artists CHUNSOFT, Fearless-Quit and Jarleypeño,
+alongside Emmuffin. Coverage counts do not certify the entire art catalogue. Existing
+HTML exports must be re-exported to include these corrected portraits.
