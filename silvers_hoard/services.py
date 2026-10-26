@@ -1065,7 +1065,8 @@ class Services:
 
     def badge_upload(self, data: bytes, *, gym_id: str = "", remove_background: bool = False) -> dict[str, Any]:
         """A picture of your own for a gym badge (kept up to 256 px, transparent PNG). With gym_id it goes on that gym at once."""
-        name = self.sprites.save_avatar(data, stem=f"badge-{gym_id or 'gym'}", pixelate=False, remove_background=remove_background, max_side=256)
+        name = self.sprites.save_avatar(data, stem=f"badge-{gym_id or 'gym'}", pixelate=False, remove_background=remove_background,
+                                        max_side=256, folder=self.sprites.assets_dir)
         image = f"file:{name}"
         if gym_id:
             self.store.update_gym(gym_id, {"badge_image": image})
@@ -1109,7 +1110,8 @@ class Services:
         ids = [a for a in (job.get("asset_ids") or [a.get("id") for a in job.get("assets") or []]) if a][:4]
         for n, aid in enumerate(ids):
             data, matted = self._prospero_cutout(base, aid, cancelled)
-            name = self.sprites.save_avatar(data, stem=f"badge-{gym_id or 'gym'}-ai", pixelate=False, remove_background=not matted, max_side=256)
+            name = self.sprites.save_avatar(data, stem=f"badge-{gym_id or 'gym'}-ai", pixelate=False, remove_background=not matted,
+                                            max_side=256, folder=self.sprites.assets_dir)
             files.append({"file": name, "url": f"/api/avatars/{name}", "badge_image": f"file:{name}", "prospero_asset": aid})
             progress(0.8 + 0.2 * (n + 1) / len(ids))
         if not files:
@@ -2931,7 +2933,7 @@ class Services:
     def _import_badge(self, payload: Any, stem: str) -> str:
         if isinstance(payload, dict) and payload.get("kind") == "shape" and payload.get("shape") in BADGE_SHAPES:
             return f"shape:{payload['shape']}"
-        return self._import_avatar(payload, stem) if isinstance(payload, dict) and payload.get("kind") == "image" else ""
+        return self._import_avatar(payload, stem, folder=self.sprites.assets_dir) if isinstance(payload, dict) and payload.get("kind") == "image" else ""
 
     def _gym_payload(self, g: dict[str, Any]) -> dict[str, Any]:
         return {"name": g["name"], "city": g["city"], "type": g["type"], "badge": g["badge"], "badge_color": g["badge_color"],
@@ -3023,14 +3025,14 @@ class Services:
         (exports / filename).write_text(text, encoding="utf-8", newline="\n")
         return {"file": filename, "bytes": len(text.encode("utf-8")), "url": f"/api/exports/{filename}", "name": name}
 
-    def _import_avatar(self, av: dict[str, Any], stem: str) -> str:
+    def _import_avatar(self, av: dict[str, Any], stem: str, *, folder: Optional[Path] = None) -> str:
         if not isinstance(av, dict):
             return ""
         if av.get("kind") == "showdown" and av.get("name"):
             return f"sd:{str(av['name']).lower()}"
         if av.get("kind") == "image" and av.get("data"):
             try:
-                name = self.sprites.save_avatar(base64.b64decode(av["data"]), stem=stem, max_side=1024)
+                name = self.sprites.save_avatar(base64.b64decode(av["data"]), stem=stem, max_side=1024, folder=folder)
                 metadata = av.get("metadata")
                 if isinstance(metadata, dict):
                     fields = {k: metadata[k] for k in ("credit", "source", "title") if isinstance(metadata.get(k), str)}
@@ -4051,7 +4053,7 @@ class Services:
             name = item["file"]
             if name.startswith(("badge-", "backdrop-")):
                 continue
-            path = self.config.avatars_dir / name
+            path = self.sprites.avatar_path(name)
             known = self._digests.get(str(path))
             if not known or known[0] != item["modified"]:
                 try:
@@ -4077,14 +4079,15 @@ class Services:
             if q and not all(w in hay for w in q.split()):
                 continue
             modified = max(x["modified"] for x in same)
-            cached = self._img_sizes.get(str(self.config.avatars_dir / name))
+            path = self.sprites.avatar_path(name)
+            cached = self._img_sizes.get(str(path))
             if not cached or cached[0] != best["modified"]:
                 try:
-                    with Image.open(self.config.avatars_dir / name) as im:
+                    with Image.open(path) as im:
                         cached = (best["modified"], im.size)
                 except OSError:
                     cached = (best["modified"], (0, 0))
-                self._img_sizes[str(self.config.avatars_dir / name)] = cached
+                self._img_sizes[str(path)] = cached
             w, h = cached[1]
             out.append({"file": name, "avatar": f"file:{name}", "url": f"/api/avatars/{name}", "kind": k, "width": w, "height": h,
                         "trainers": names, "in_use": sorted({n for x in same for n in x["in_use"]}), "title": info.get("title", ""),
@@ -4118,8 +4121,9 @@ class Services:
         stem = trainer_id or "drawn"
         paths = []
         for i, data in enumerate(photos):
-            name = self.sprites.save_avatar(data, stem=f"{stem}-ref{i + 1}", pixelate=False, max_side=1024)
-            paths.append(str((self.config.avatars_dir / name).resolve()))
+            name = self.sprites.save_avatar(data, stem=f"{stem}-ref{i + 1}", pixelate=False, max_side=1024,
+                                            folder=self.sprites.references_dir)
+            paths.append(str(self.sprites.avatar_path(name).resolve()))
         count = max(1, min(int(count or 2), 4))
         styles = self.style_reference_paths(own_only=look == "art") if style else []
         what = "Arte dibujado" if look == "art" else "Sprite dibujado"

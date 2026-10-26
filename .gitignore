@@ -1,6 +1,11 @@
 node_modules/
 dist/
-data/
+# Custom trainer images and their source/prepared references; other assets remain versionable.
+/data/avatars/
+/data/avatar_refs/
+/data/style_refs/
+/data/cache/style_prepared/
+/data/cache/pose_refs/
 venv/
 .venv/
 __pycache__/
@@ -10,5 +15,4 @@ __pycache__/
 .env.*
 !.env.example
 *.log
-silvers_hoard/static/
 .faustus/
