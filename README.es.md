@@ -294,3 +294,22 @@ Los otros 252 registros y los demás mapeos quedan intactos. La procedencia mant
 la generación anterior y los componentes publicados, incluidos los créditos de
 geometría ocular parcial de Marill en Dizzy de Mega Clefable. Las cifras no acreditan
 calidad artística global. Los HTML anteriores necesitan reexportarse.
+
+
+## Reparación de retratos nativos (parcial 64)
+
+Golem de Alola shiny y Lapras Gigamax normal/shiny tienen 48 expresiones nativas
+de 40 píxeles seleccionadas. Se sustituyen 45 casillas generadas y se conservan los
+tres Normal publicados con prioridad y píxeles exactos. Lapras recupera detalle
+disponible del recorte original y corrige componentes locales de cabeza, paleta y
+ojos. Golem conserva sus piezas laterales aceptadas y materiales propios; su ojo
+Dizzy usa geometría parcial de Lairon acreditada. Lapras usa una pequeña curva
+manual; las pruebas descartadas de Marill e Igglybuff no son geometría seleccionada.
+Se han revisado las caras enteras y las hojas completas, conservando lo que estaba bien.
+
+La procedencia generada, las fuentes publicadas, los créditos y las operaciones por
+casilla siguen documentados. La cobertura no aumenta: 2.060 completos, 814 parciales
+y 64 ausentes; 34.156 mapeos, 32.974 PNG y 14 packs. Los otros 253 registros y 32.929
+PNG retenidos permanecen exactos. Los atlas nativos conservan fondos y símbolos de
+expresión en la app y el HTML. Los HTML anteriores necesitan reexportarse. No es una
+aprobación de todo el catálogo; Fearow, Garbodor y Eevee pendientes no se incluyen.
