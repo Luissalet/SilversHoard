@@ -273,3 +273,23 @@ Mega Baxcalibur and Gigantamax Butterfree now have repaired individual expressio
 Mega Charizard Y now has four individually repaired faces: Determined and Dizzy in normal and shiny palettes. Full-grid review keeps the other 28 faces, the own published Normal portraits, right-facing close framing and the smooth nose. Ordinary Mega Evolution in the app and standalone HTML loads the corrected portraits; a real Sweet Kiss also triggers the new shiny dizzy expression during confusion.
 
 All 2,938 installed normal/shiny variants now have indexed raster Pain and HitGround sequences, retaining published priority. The 2,425 reviewed raster exports include derived poses and explicit manual compositions; this is not a claim of independent new animation for every form. In real-time battles, a single hit removing more than 35% of maximum HP triggers Pain; a knockout plays HitGround and keeps the body down until withdrawal. Coverage distinguishes published sequences from reactions derived from the Pokémon's own artwork. The application, newly exported HTML and recorded MP4s share this behavior; older HTML needs re-exporting. See [reactions and their limits](BATTLE_REACTIONS.md).
+
+
+## Portrait material corrections (partial 63)
+
+Raticate and Mega Clefable now use 64 reviewed normal/shiny expression portraits.
+The correction replaces 56 previously generated cells and preserves eight published
+portraits exactly. Raticate keeps its own fur, muzzle, teeth and shiny palette;
+Mega Clefable keeps its native pink materials, green shiny details and wing shape.
+Individual eye, tear and sigh components were corrected without regenerating the
+good cells. Every selected face was inspected at native 40 px and enlarged with
+nearest sampling, including both complete expression sheets.
+
+This improves existing art and adds no coverage: 2,060 complete, 814 partial and
+64 missing normal/shiny sets; 34,156 mappings, 32,974 PNGs and 14 installed packs.
+All other 252 registry records and other portrait mappings remain exact. Published
+art has priority. `art/portraits/reviewed63-provenance.json` retains original generated
+ancestry, per-cell sources and native component edits. Mega Clefable's partial Dizzy
+eye geometry also credits Marill artists CHUNSOFT, Fearless-Quit and Jarleypeño,
+alongside Emmuffin. Coverage counts do not certify the entire art catalogue. Existing
+HTML exports must be re-exported to include these corrected portraits.
