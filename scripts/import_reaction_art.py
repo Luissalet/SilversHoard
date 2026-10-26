@@ -202,7 +202,7 @@ def extract(record: dict, library: PmdLibrary, art: Path = ART, *, shiny=False):
                 raise ValueError(f"Too few distinct drawn poses: {record['id']}:{name}:{row}")
             hashes.append(len(distinct))
         source_info = {"kind": "generated-shiny-pmd-reaction" if shiny else "generated-pmd-reaction",
-                       "record": record["id"], "tool": "builtin-imagegen",
+                       "record": record["id"], "tool": record.get("tool", "builtin-imagegen"),
                        "source_sha256": hashlib.sha256(raw).hexdigest(),
                        "authored_directions": directions - len(record.get("row_sources", {})),
                        "authored_frames": frame_count * (directions - len(record.get("row_sources", {}))),
@@ -210,7 +210,13 @@ def extract(record: dict, library: PmdLibrary, art: Path = ART, *, shiny=False):
                            s["action"] == name for s in record.get("native_frames", [])),
                        "distinct_frames_per_direction": hashes,
                        "reference": {"num": record["num"], "form": record.get("form", ""), "key": normal["key"]}}
-        assembly = {k: record[k] for k in ("row_sources", "mirror_frames", "native_frames", "composition", "baseline_offsets") if record.get(k)}
+        if record.get("tool") == "manual-pixel-composition":
+            source_info.update(kind="manually-composed-pmd-reaction", authored_directions=0,
+                               authored_frames=0, generated_frames=0,
+                               derived_directions=directions,
+                               reused_pose_frames=frame_count * directions,
+                               derivation=record["derivation"])
+        assembly = {k: record[k] for k in ("row_sources", "mirror_frames", "native_frames", "composition", "baseline_offsets", "shiny_palette_overrides") if record.get(k)}
         if assembly:
             source_info["assembly"] = assembly
         if record.get("composition"):
@@ -316,6 +322,14 @@ def compile_one(record, library, art=ART):
                         pair.append(png(tile.crop(bbox)))
                     if len(pair) == 2:
                         palette.update(palette_pair(*pair))
+    overrides = record.get("shiny_palette_overrides", [])
+    if overrides:
+        normal_colors = set(native_palette(library, normal))
+        shiny_colors = set(native_palette(library, shiny))
+        for source, target in overrides:
+            if tuple(source) not in normal_colors or tuple(target) not in shiny_colors:
+                raise ValueError(f"Recolor override outside native palettes: {record['id']}")
+            palette[tuple(source)] = tuple(target)
     shiny_geometry, shiny_images = {}, {}
     if record.get("shiny_image"):
         shiny_geometry, shiny_images = extract(record, library, art, shiny=True)
@@ -348,6 +362,9 @@ def compile_one(record, library, art=ART):
             source = shiny_geometry[name]["source"]
             source.update(kind="shiny-composed-pmd-reaction" if record.get("composition") else "shiny-generated-pmd-reaction", palette_from=shiny["key"],
                           sha256=hashlib.sha256(shiny_images[name]).hexdigest())
+            if record.get("tool") == "manual-pixel-composition":
+                source.update(kind="palette-derived-pmd-reaction", tool="palette-recolor",
+                              parent=copy.deepcopy(geometry[name]["source"]))
     output = art / "compiled" / record["id"]
     for name, raw in images.items():
         output.mkdir(parents=True, exist_ok=True)
@@ -355,10 +372,12 @@ def compile_one(record, library, art=ART):
         if name in shiny_images:
             (output / (name + "-shiny.png")).write_bytes(shiny_images[name])
     provenance = {"id": record["id"], "num": record["num"], "form": record.get("form", ""),
-                  "tool": "builtin-imagegen", "prompt": record.get("prompt_template", record.get("prompt", "")),
+                  "tool": record.get("tool", "builtin-imagegen"), "prompt": record.get("prompt_template", record.get("prompt", "")),
                   "source_image": record.get("image", record["id"] + ".png"),
                   "source_sha256": geometry["Pain"]["source"]["source_sha256"]}
-    provenance.update({k: record[k] for k in ("row_sources", "mirror_frames", "native_frames", "composition", "baseline_offsets") if record.get(k)})
+    provenance.update({k: record[k] for k in ("row_sources", "mirror_frames", "native_frames", "composition", "baseline_offsets", "shiny_palette_overrides") if record.get(k)})
+    if record.get("tool") == "manual-pixel-composition":
+        provenance["derivation"] = record["derivation"]
     if record.get("source_record"):
         provenance["source_record"] = record["source_record"]
     if record.get("shiny_image"):
