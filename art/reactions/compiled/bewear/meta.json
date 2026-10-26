@@ -1,0 +1,393 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "bewear",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e0367cf36990cf14e674551a63e1e3d3528d4040ded3aa621b7c512ef7798efb",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 12,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 760,
+          "form": "",
+          "key": "lib-bewear-n-f516015cfc2f"
+        },
+        "assembly": {
+          "native_frames": [
+            {
+              "action": "Pain",
+              "direction": 0,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 0,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 1,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 2,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 2,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 4,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 3,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 6,
+              "index": 0
+            }
+          ]
+        },
+        "sha256": "98d1db7443a1c6dc9ca1100632693eaba3b0550333cc3bbfcca6c24e85f5a195"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "bewear",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e0367cf36990cf14e674551a63e1e3d3528d4040ded3aa621b7c512ef7798efb",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 760,
+          "form": "",
+          "key": "lib-bewear-n-f516015cfc2f"
+        },
+        "assembly": {
+          "native_frames": [
+            {
+              "action": "Pain",
+              "direction": 0,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 0,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 1,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 2,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 2,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 4,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 3,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 6,
+              "index": 0
+            }
+          ]
+        },
+        "sha256": "293df402666be2413e4694db9c8d4b9108f4fffacaa6e67271e7d1712f7eed52"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "bewear",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e0367cf36990cf14e674551a63e1e3d3528d4040ded3aa621b7c512ef7798efb",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 12,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 760,
+            "form": "",
+            "key": "lib-bewear-n-f516015cfc2f"
+          },
+          "assembly": {
+            "native_frames": [
+              {
+                "action": "Pain",
+                "direction": 0,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 0,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 1,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 2,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 2,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 4,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 3,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 6,
+                "index": 0
+              }
+            ]
+          },
+          "sha256": "c9bc3435c232ab0184b9845a730038f6fe5c57f082687355ac9f464218accaab",
+          "palette_from": "lib-bewear-s-3ae986072993"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "bewear",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e0367cf36990cf14e674551a63e1e3d3528d4040ded3aa621b7c512ef7798efb",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 760,
+            "form": "",
+            "key": "lib-bewear-n-f516015cfc2f"
+          },
+          "assembly": {
+            "native_frames": [
+              {
+                "action": "Pain",
+                "direction": 0,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 0,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 1,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 2,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 2,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 4,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 3,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 6,
+                "index": 0
+              }
+            ]
+          },
+          "sha256": "39ca1551ce71b313cd9a50c369845c1ff3adc081eacadc087099113a07c17f5e",
+          "palette_from": "lib-bewear-s-3ae986072993"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "bewear",
+    "num": 760,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Bewear, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "bewear-cardinal.png",
+    "source_sha256": "e0367cf36990cf14e674551a63e1e3d3528d4040ded3aa621b7c512ef7798efb",
+    "native_frames": [
+      {
+        "action": "Pain",
+        "direction": 0,
+        "frame": 0,
+        "animation": "Idle",
+        "row": 0,
+        "index": 0
+      },
+      {
+        "action": "Pain",
+        "direction": 1,
+        "frame": 0,
+        "animation": "Idle",
+        "row": 2,
+        "index": 0
+      },
+      {
+        "action": "Pain",
+        "direction": 2,
+        "frame": 0,
+        "animation": "Idle",
+        "row": 4,
+        "index": 0
+      },
+      {
+        "action": "Pain",
+        "direction": 3,
+        "frame": 0,
+        "animation": "Idle",
+        "row": 6,
+        "index": 0
+      }
+    ],
+    "source_record": "bewear-assembled.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

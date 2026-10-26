@@ -1,0 +1,19 @@
+{
+  "id": "cobalion",
+  "name": "Cobalion",
+  "num": 638,
+  "form": "",
+  "directions": 4,
+  "frames": 4,
+  "image": "cobalion-cardinal-v2.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Use case: precise-object-edit. Correct only NORTH row3, columns5-8 ground poses of atlas image1 using exact rear anatomy in native reference image2. Keep EVERY sprite in rows1,2,4 and row3columns1-4 unchanged. The FOUR row3 ground poses must keep a strictly NORTH/REAR camera throughout: back of head/neck faces viewer, face/muzzle/beak/eyes completely hidden. Body settles straight away from camera, back and tail remain centred, no profile or diagonal turning in any frame. Last two are visibly fully prone, retaining native horns/wings/tail/markings and full anatomy. Preserve all32sprites8columns4rows, crisp pixel art, palette and transparent gutters. No text, scenery, shadows or effects.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-corrections22.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

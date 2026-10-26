@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "aromatisse",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b1fe2551e12f5be5dc5d5e7a804f2f935d4dd0b8e305bb5318f7f21ba752539f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 683,
+          "form": "",
+          "key": "lib-aromatisse-n-999032688b82"
+        },
+        "sha256": "6f42acf0c4dea8023c650f34fc192973525078b8432b31ba3cb60f282b326dfe"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "aromatisse",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b1fe2551e12f5be5dc5d5e7a804f2f935d4dd0b8e305bb5318f7f21ba752539f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 683,
+          "form": "",
+          "key": "lib-aromatisse-n-999032688b82"
+        },
+        "sha256": "5fef294992aca772b14161abd2fde4b7024509e4b773a7fd520ed0e1d64f9f31"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "aromatisse",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b1fe2551e12f5be5dc5d5e7a804f2f935d4dd0b8e305bb5318f7f21ba752539f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 683,
+            "form": "",
+            "key": "lib-aromatisse-n-999032688b82"
+          },
+          "sha256": "8e7dc3ecbc24fa5f4da79b630d659d1d89d98adaf5716a528c25f39fd2f1c118",
+          "palette_from": "lib-aromatisse-s-14f21a936580"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "aromatisse",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b1fe2551e12f5be5dc5d5e7a804f2f935d4dd0b8e305bb5318f7f21ba752539f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 683,
+            "form": "",
+            "key": "lib-aromatisse-n-999032688b82"
+          },
+          "sha256": "6376b9b50f64a9f7f000382d31305e06b3e904e83f2c0529e86643e3dadd08c6",
+          "palette_from": "lib-aromatisse-s-14f21a936580"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "aromatisse",
+    "num": 683,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Aromatisse, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "aromatisse-cardinal.png",
+    "source_sha256": "b1fe2551e12f5be5dc5d5e7a804f2f935d4dd0b8e305bb5318f7f21ba752539f",
+    "source_record": "aromatisse-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

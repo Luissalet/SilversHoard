@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "crabominable",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5eec0a4a778214b2bcf6f471b81a7f134a4097f5b8abb6c7b0de0eff31f38674",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 740,
+          "form": "",
+          "key": "lib-crabominable-n-f2c369f0b174"
+        },
+        "sha256": "a890e536d940fcd32c648852b7748b119d768efddb6e1c4d09a8d9eb1fff3097"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "crabominable",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5eec0a4a778214b2bcf6f471b81a7f134a4097f5b8abb6c7b0de0eff31f38674",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 740,
+          "form": "",
+          "key": "lib-crabominable-n-f2c369f0b174"
+        },
+        "sha256": "aafebb10220730f03b5186e8725b57084335d2ec7f9e71666949314699f1223b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "crabominable",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5eec0a4a778214b2bcf6f471b81a7f134a4097f5b8abb6c7b0de0eff31f38674",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 740,
+            "form": "",
+            "key": "lib-crabominable-n-f2c369f0b174"
+          },
+          "sha256": "4258a4ee6695c2bd68a854e4b585b6cb671b86481abc1c12ac52898b2dc3b5bf",
+          "palette_from": "lib-crabominable-s-8ac0a39bc31c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "crabominable",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5eec0a4a778214b2bcf6f471b81a7f134a4097f5b8abb6c7b0de0eff31f38674",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 740,
+            "form": "",
+            "key": "lib-crabominable-n-f2c369f0b174"
+          },
+          "sha256": "a6766c7703501efe6403b7b72cabdcbe32165f994cde4de122e53f2dd3432eb7",
+          "palette_from": "lib-crabominable-s-8ac0a39bc31c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "crabominable",
+    "num": 740,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Crabominable, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "crabominable-cardinal.png",
+    "source_sha256": "5eec0a4a778214b2bcf6f471b81a7f134a4097f5b8abb6c7b0de0eff31f38674",
+    "source_record": "crabominable-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

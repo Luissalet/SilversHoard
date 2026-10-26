@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 96,
+      "h": 88,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 48.0,
+      "ay": 82,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dialgaorigin",
+        "tool": "builtin-imagegen",
+        "source_sha256": "294fb695f31ce43c8eda1a05febc84bab3a6ebf2d5c135d4893cacc944e70521",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 483,
+          "form": "Origin",
+          "key": "lib-dialgaorigin-n-0ee0c76fb06c"
+        },
+        "sha256": "37d3232bb1701e5fbf58b8e9170f0b689b6074309b4d30d11d72100ee0174abe"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 96,
+      "h": 88,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 48.0,
+      "ay": 82,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dialgaorigin",
+        "tool": "builtin-imagegen",
+        "source_sha256": "294fb695f31ce43c8eda1a05febc84bab3a6ebf2d5c135d4893cacc944e70521",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 483,
+          "form": "Origin",
+          "key": "lib-dialgaorigin-n-0ee0c76fb06c"
+        },
+        "sha256": "68669ae516f16b35ac45af252e5e15a9ffa07e16befcbea190d90c0a9e2c2702"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 96,
+        "h": 88,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 48.0,
+        "ay": 82,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dialgaorigin",
+          "tool": "builtin-imagegen",
+          "source_sha256": "294fb695f31ce43c8eda1a05febc84bab3a6ebf2d5c135d4893cacc944e70521",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 483,
+            "form": "Origin",
+            "key": "lib-dialgaorigin-n-0ee0c76fb06c"
+          },
+          "sha256": "5fe56ea031d4d16c377dbf85db61df75f8c72066c3b3f32f2ba5df39fac33c36",
+          "palette_from": "lib-dialgaorigin-s-60f10e33b67c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 96,
+        "h": 88,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 48.0,
+        "ay": 82,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dialgaorigin",
+          "tool": "builtin-imagegen",
+          "source_sha256": "294fb695f31ce43c8eda1a05febc84bab3a6ebf2d5c135d4893cacc944e70521",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 483,
+            "form": "Origin",
+            "key": "lib-dialgaorigin-n-0ee0c76fb06c"
+          },
+          "sha256": "ccf63967a7510b9b86b7d46f272eadec48523f30166e33a3e23284b902d1e8b4",
+          "palette_from": "lib-dialgaorigin-s-60f10e33b67c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "dialgaorigin",
+    "num": 483,
+    "form": "Origin",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Dialga-Origin, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "dialgaorigin-cardinal.png",
+    "source_sha256": "294fb695f31ce43c8eda1a05febc84bab3a6ebf2d5c135d4893cacc944e70521",
+    "source_record": "dialgaorigin-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

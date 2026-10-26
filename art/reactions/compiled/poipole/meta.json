@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "poipole",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f5cc901114404a388797d1332a2b295a6c9009b91a2e38c29d412cbb580a2cfe",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 803,
+          "form": "",
+          "key": "lib-poipole-n-717808235662"
+        },
+        "sha256": "a4cf5140d48fd1a2456c137d6cda3f38ac7157303812d74eba3aa06913a4bc66"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "poipole",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f5cc901114404a388797d1332a2b295a6c9009b91a2e38c29d412cbb580a2cfe",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 803,
+          "form": "",
+          "key": "lib-poipole-n-717808235662"
+        },
+        "sha256": "8938c9e77c9e198c9a038a2e27f13213d9f297180cad445914c230d61174edce"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "poipole",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f5cc901114404a388797d1332a2b295a6c9009b91a2e38c29d412cbb580a2cfe",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 803,
+            "form": "",
+            "key": "lib-poipole-n-717808235662"
+          },
+          "sha256": "c577ef8e506136409e185a30283c79795808ea518477f38e66fc3e4e6df4fbbf",
+          "palette_from": "lib-poipole-s-e9fb0bb5d25e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "poipole",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f5cc901114404a388797d1332a2b295a6c9009b91a2e38c29d412cbb580a2cfe",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 803,
+            "form": "",
+            "key": "lib-poipole-n-717808235662"
+          },
+          "sha256": "3bfdf7df9fbc1a67a3c736303cb173c5cea8ff6e2bc2e1d3b997a4ed9ca3fc6c",
+          "palette_from": "lib-poipole-s-e9fb0bb5d25e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "poipole",
+    "num": 803,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Poipole, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "poipole-cardinal.png",
+    "source_sha256": "f5cc901114404a388797d1332a2b295a6c9009b91a2e38c29d412cbb580a2cfe",
+    "source_record": "poipole-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

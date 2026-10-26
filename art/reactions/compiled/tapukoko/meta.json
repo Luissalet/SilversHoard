@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tapukoko",
+        "tool": "builtin-imagegen",
+        "source_sha256": "3f58ac6cdc4f4e408e4de47d81ed243576c70d2d8c97ced289087f98c8f63c8c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 785,
+          "form": "",
+          "key": "lib-tapukoko-n-79632c83bf0b"
+        },
+        "sha256": "f6a528a1049a0b1cf7702afbaa4f32c62a3e5946e0c50a0df4af70548ed652fa"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tapukoko",
+        "tool": "builtin-imagegen",
+        "source_sha256": "3f58ac6cdc4f4e408e4de47d81ed243576c70d2d8c97ced289087f98c8f63c8c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 785,
+          "form": "",
+          "key": "lib-tapukoko-n-79632c83bf0b"
+        },
+        "sha256": "0b953d5d3efc5e20f9682c05ae09fe1add391abdff12bd620a0a314b085dd7aa"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tapukoko",
+          "tool": "builtin-imagegen",
+          "source_sha256": "3f58ac6cdc4f4e408e4de47d81ed243576c70d2d8c97ced289087f98c8f63c8c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 785,
+            "form": "",
+            "key": "lib-tapukoko-n-79632c83bf0b"
+          },
+          "sha256": "b68ff0fdd1f22f58e5a415996241e1ff0f01cb43a5cd3441bd8fb3e30612aa79",
+          "palette_from": "lib-tapukoko-s-a8581c35520a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tapukoko",
+          "tool": "builtin-imagegen",
+          "source_sha256": "3f58ac6cdc4f4e408e4de47d81ed243576c70d2d8c97ced289087f98c8f63c8c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 785,
+            "form": "",
+            "key": "lib-tapukoko-n-79632c83bf0b"
+          },
+          "sha256": "2e5bcdcaa284f9e841c6023952d3d404bb1c4fd5db76c1a2ce4d20116d44b2ab",
+          "palette_from": "lib-tapukoko-s-a8581c35520a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "tapukoko",
+    "num": 785,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Tapu Koko, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "tapukoko-cardinal.png",
+    "source_sha256": "3f58ac6cdc4f4e408e4de47d81ed243576c70d2d8c97ced289087f98c8f63c8c",
+    "source_record": "tapukoko-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "inkay",
+        "tool": "builtin-imagegen",
+        "source_sha256": "188e79328d4fede794bc2a67b38987ecbe295cada14a582f07457f1bc9f2f1d5",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 686,
+          "form": "",
+          "key": "lib-inkay-n-6c6a02c09a56"
+        },
+        "sha256": "101f8ee548d5e102213df4296ceb53f9fe6e41e2e8cb034aa771c4c26b06d583"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "inkay",
+        "tool": "builtin-imagegen",
+        "source_sha256": "188e79328d4fede794bc2a67b38987ecbe295cada14a582f07457f1bc9f2f1d5",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 686,
+          "form": "",
+          "key": "lib-inkay-n-6c6a02c09a56"
+        },
+        "sha256": "f1b067c863c1c4332b60a7b4529a06c00005298c726ecef5a6adb2acb62f1c36"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "inkay",
+          "tool": "builtin-imagegen",
+          "source_sha256": "188e79328d4fede794bc2a67b38987ecbe295cada14a582f07457f1bc9f2f1d5",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 686,
+            "form": "",
+            "key": "lib-inkay-n-6c6a02c09a56"
+          },
+          "sha256": "964aaa25b4c724af5b8664c63c4e51895312c84e13566860fe6a21e6bc41a494",
+          "palette_from": "lib-inkay-s-b8087ac769a3"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "inkay",
+          "tool": "builtin-imagegen",
+          "source_sha256": "188e79328d4fede794bc2a67b38987ecbe295cada14a582f07457f1bc9f2f1d5",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 686,
+            "form": "",
+            "key": "lib-inkay-n-6c6a02c09a56"
+          },
+          "sha256": "23f2d8f757928bb3ae8eb7e70fb3e309848b4bcc7deb96c8771f205213262ca0",
+          "palette_from": "lib-inkay-s-b8087ac769a3"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "inkay",
+    "num": 686,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Inkay, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "inkay-cardinal.png",
+    "source_sha256": "188e79328d4fede794bc2a67b38987ecbe295cada14a582f07457f1bc9f2f1d5",
+    "source_record": "inkay-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

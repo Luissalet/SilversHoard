@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 96,
+      "h": 72,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 48.0,
+      "ay": 66,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "yveltal",
+        "tool": "builtin-imagegen",
+        "source_sha256": "64c9af4ea2d190fbeabc87bbfb8e9907baddba1c9550cf39f5dcda356a78a4d3",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 717,
+          "form": "",
+          "key": "lib-yveltal-n-e4fa28401ebb"
+        },
+        "sha256": "670ede91e0e5c910e49f58d030a6773ee765fb514d4f78a168dcf8c8065d7611"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 96,
+      "h": 72,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 48.0,
+      "ay": 66,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "yveltal",
+        "tool": "builtin-imagegen",
+        "source_sha256": "64c9af4ea2d190fbeabc87bbfb8e9907baddba1c9550cf39f5dcda356a78a4d3",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 717,
+          "form": "",
+          "key": "lib-yveltal-n-e4fa28401ebb"
+        },
+        "sha256": "fd312cae9f53a80c00e7325f7b0da0a78b02f09471d6bcdc8ab57299a0028ca3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 96,
+        "h": 72,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 48.0,
+        "ay": 66,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "yveltal",
+          "tool": "builtin-imagegen",
+          "source_sha256": "64c9af4ea2d190fbeabc87bbfb8e9907baddba1c9550cf39f5dcda356a78a4d3",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 717,
+            "form": "",
+            "key": "lib-yveltal-n-e4fa28401ebb"
+          },
+          "sha256": "6fecd7ebb305d0d791dd68dab3356634a68075447af0dd6544cd79b4001e4bc1",
+          "palette_from": "lib-yveltal-s-480042489043"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 96,
+        "h": 72,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 48.0,
+        "ay": 66,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "yveltal",
+          "tool": "builtin-imagegen",
+          "source_sha256": "64c9af4ea2d190fbeabc87bbfb8e9907baddba1c9550cf39f5dcda356a78a4d3",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 717,
+            "form": "",
+            "key": "lib-yveltal-n-e4fa28401ebb"
+          },
+          "sha256": "a58c5532e937112b01c16ef571997e3e8073cd9659b4d3bbcc5e224a9264ab0d",
+          "palette_from": "lib-yveltal-s-480042489043"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "yveltal",
+    "num": 717,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Yveltal, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "yveltal-cardinal.png",
+    "source_sha256": "64c9af4ea2d190fbeabc87bbfb8e9907baddba1c9550cf39f5dcda356a78a4d3",
+    "source_record": "yveltal-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

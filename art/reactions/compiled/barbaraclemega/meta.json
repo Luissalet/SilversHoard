@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "barbaraclemega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "56b2c16e5e1e34972f8147aa0cbbdf9288d46022e95c8b67bfbb608b81c0ab18",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 689,
+          "form": "Mega",
+          "key": "lib-barbaraclemega-n-8efcd5d4afc3"
+        },
+        "sha256": "947ee229850559992933ee255cd53874af7cdcb3b4d0d7300c7d9bf6c8309b18"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "barbaraclemega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "56b2c16e5e1e34972f8147aa0cbbdf9288d46022e95c8b67bfbb608b81c0ab18",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 689,
+          "form": "Mega",
+          "key": "lib-barbaraclemega-n-8efcd5d4afc3"
+        },
+        "sha256": "c822a5ee52f58ea87fb17fdbdd598770acbcdad474dcf37a1c8f113a72b7b857"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "barbaraclemega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "56b2c16e5e1e34972f8147aa0cbbdf9288d46022e95c8b67bfbb608b81c0ab18",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 689,
+            "form": "Mega",
+            "key": "lib-barbaraclemega-n-8efcd5d4afc3"
+          },
+          "sha256": "6ba8996f1994c1fef519a9c9bf40cc5d25555306448dd867499bc69b07b44e55",
+          "palette_from": "lib-barbaraclemega-s-a7a946bfb86b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "barbaraclemega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "56b2c16e5e1e34972f8147aa0cbbdf9288d46022e95c8b67bfbb608b81c0ab18",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 689,
+            "form": "Mega",
+            "key": "lib-barbaraclemega-n-8efcd5d4afc3"
+          },
+          "sha256": "33567dbf1a8ad9c4ee75716d1244da68d34484d0acd615c6c5aa9aff35d4a3ec",
+          "palette_from": "lib-barbaraclemega-s-a7a946bfb86b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "barbaraclemega",
+    "num": 689,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Barbaracle-Mega, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "barbaraclemega-cardinal.png",
+    "source_sha256": "56b2c16e5e1e34972f8147aa0cbbdf9288d46022e95c8b67bfbb608b81c0ab18",
+    "source_record": "barbaraclemega-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

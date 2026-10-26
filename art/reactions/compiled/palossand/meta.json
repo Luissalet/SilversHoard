@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "palossand",
+        "tool": "builtin-imagegen",
+        "source_sha256": "45b9bec3adc213b644f78197e9e7773302ea9eb96b1f27ecbfbb3bdc6f1c34b8",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 770,
+          "form": "",
+          "key": "lib-palossand-n-78fc26b0434a"
+        },
+        "sha256": "14b96a9ecea558715e7e1ed8b4d2b9ab2cd027ea5ca2c3e9ed076da6c482c228"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "palossand",
+        "tool": "builtin-imagegen",
+        "source_sha256": "45b9bec3adc213b644f78197e9e7773302ea9eb96b1f27ecbfbb3bdc6f1c34b8",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 770,
+          "form": "",
+          "key": "lib-palossand-n-78fc26b0434a"
+        },
+        "sha256": "38b781433d80480fe2da1e503f88635e5a52359ce429ee40ff2f34e20fc1b76e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "palossand",
+          "tool": "builtin-imagegen",
+          "source_sha256": "45b9bec3adc213b644f78197e9e7773302ea9eb96b1f27ecbfbb3bdc6f1c34b8",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 770,
+            "form": "",
+            "key": "lib-palossand-n-78fc26b0434a"
+          },
+          "sha256": "2fa6ba52d0bab9d7689594c7f0eeb92b83b1f84096e98f7256d88149167c885a",
+          "palette_from": "lib-palossand-s-beb22bd4d1a9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "palossand",
+          "tool": "builtin-imagegen",
+          "source_sha256": "45b9bec3adc213b644f78197e9e7773302ea9eb96b1f27ecbfbb3bdc6f1c34b8",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 770,
+            "form": "",
+            "key": "lib-palossand-n-78fc26b0434a"
+          },
+          "sha256": "89547fef40540b40af951f244fbd7b5e1eea3d583d50ccf947e5af42e3d440df",
+          "palette_from": "lib-palossand-s-beb22bd4d1a9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "palossand",
+    "num": 770,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Palossand, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "palossand-cardinal.png",
+    "source_sha256": "45b9bec3adc213b644f78197e9e7773302ea9eb96b1f27ecbfbb3bdc6f1c34b8",
+    "source_record": "palossand-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": false
+}

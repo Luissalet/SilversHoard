@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "floette",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8a2124d5732ffe9626f996253af4bb48db0be34da30817903a02adae0257d9cf",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 670,
+          "form": "",
+          "key": "lib-floette-n-57794bbb8fce"
+        },
+        "sha256": "159e92dc402159dbe6591637b912274cc46cca6414acfb326e23231864e969ac"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "floette",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8a2124d5732ffe9626f996253af4bb48db0be34da30817903a02adae0257d9cf",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 670,
+          "form": "",
+          "key": "lib-floette-n-57794bbb8fce"
+        },
+        "sha256": "8de3d2c8c434800b4034899c6a60a77a32b61a964280f6d3f868ff5f007cad36"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "floette",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8a2124d5732ffe9626f996253af4bb48db0be34da30817903a02adae0257d9cf",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 670,
+            "form": "",
+            "key": "lib-floette-n-57794bbb8fce"
+          },
+          "sha256": "34cbfad15e6d57c0b631ea937034ec28ce7f9f9b2188bbe89982440d4c54a8c1",
+          "palette_from": "lib-floette-s-800272b09ca6"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "floette",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8a2124d5732ffe9626f996253af4bb48db0be34da30817903a02adae0257d9cf",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 670,
+            "form": "",
+            "key": "lib-floette-n-57794bbb8fce"
+          },
+          "sha256": "bb1e55a1618b1b9453851069f8d1e827d177f21efb595bc08b99631dfc5211ce",
+          "palette_from": "lib-floette-s-800272b09ca6"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "floette",
+    "num": 670,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Floette, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "floette-cardinal.png",
+    "source_sha256": "8a2124d5732ffe9626f996253af4bb48db0be34da30817903a02adae0257d9cf",
+    "source_record": "floette-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

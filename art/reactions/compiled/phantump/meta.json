@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "phantump",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5014a9fcb0d9b00afaf1cf06bd91162d0a6c9ada09dac16c9a9552e092878edd",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 708,
+          "form": "",
+          "key": "lib-phantump-n-372ee4e850f6"
+        },
+        "sha256": "4af1c979ed522c7c17ded0049bb9716fbaf28633e057cd409df2057913076853"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "phantump",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5014a9fcb0d9b00afaf1cf06bd91162d0a6c9ada09dac16c9a9552e092878edd",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 708,
+          "form": "",
+          "key": "lib-phantump-n-372ee4e850f6"
+        },
+        "sha256": "7e7dcd7e5ae88fe3ad93f6d603872e7ba05f1e6812fd315ed01ade36200e954e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "phantump",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5014a9fcb0d9b00afaf1cf06bd91162d0a6c9ada09dac16c9a9552e092878edd",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 708,
+            "form": "",
+            "key": "lib-phantump-n-372ee4e850f6"
+          },
+          "sha256": "d7ba9cddcc802814e61899694a1673bb0e7e217af49d1044d558bbac0476a132",
+          "palette_from": "lib-phantump-s-09c895e3681b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "phantump",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5014a9fcb0d9b00afaf1cf06bd91162d0a6c9ada09dac16c9a9552e092878edd",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 708,
+            "form": "",
+            "key": "lib-phantump-n-372ee4e850f6"
+          },
+          "sha256": "6783c0390a6b4b1791f96386330f6c135c201f1c8bc27bd6c1900440c49e274a",
+          "palette_from": "lib-phantump-s-09c895e3681b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "phantump",
+    "num": 708,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Phantump, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "phantump-cardinal.png",
+    "source_sha256": "5014a9fcb0d9b00afaf1cf06bd91162d0a6c9ada09dac16c9a9552e092878edd",
+    "source_record": "phantump-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

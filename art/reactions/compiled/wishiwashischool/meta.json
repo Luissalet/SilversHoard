@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 112,
+      "h": 88,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 56.0,
+      "ay": 82,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "wishiwashischool",
+        "tool": "builtin-imagegen",
+        "source_sha256": "03e253538e070ffba65d075454a3770788a808efc762db24a851894cf68f0f83",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 746,
+          "form": "School",
+          "key": "lib-wishiwashischool-n-cf7cd59de5e2"
+        },
+        "sha256": "e48548e0bd347bfc2fde3bec075d30f5f97cb12ff9c6642cb5b7bdf4be7a9e40"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 112,
+      "h": 88,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 56.0,
+      "ay": 82,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "wishiwashischool",
+        "tool": "builtin-imagegen",
+        "source_sha256": "03e253538e070ffba65d075454a3770788a808efc762db24a851894cf68f0f83",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 746,
+          "form": "School",
+          "key": "lib-wishiwashischool-n-cf7cd59de5e2"
+        },
+        "sha256": "79fc1294c18d6667da1f234a375c58d42452bda799cce8af7f1a6fd0b3713037"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 112,
+        "h": 88,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 56.0,
+        "ay": 82,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "wishiwashischool",
+          "tool": "builtin-imagegen",
+          "source_sha256": "03e253538e070ffba65d075454a3770788a808efc762db24a851894cf68f0f83",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 746,
+            "form": "School",
+            "key": "lib-wishiwashischool-n-cf7cd59de5e2"
+          },
+          "sha256": "00e54025cd8c1bdb5783584ee336129411ab9147b12d46374167c1e438c14d90",
+          "palette_from": "lib-wishiwashischool-s-c4a751f4455b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 112,
+        "h": 88,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 56.0,
+        "ay": 82,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "wishiwashischool",
+          "tool": "builtin-imagegen",
+          "source_sha256": "03e253538e070ffba65d075454a3770788a808efc762db24a851894cf68f0f83",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 746,
+            "form": "School",
+            "key": "lib-wishiwashischool-n-cf7cd59de5e2"
+          },
+          "sha256": "2da9a630376287c223604102911ea8b7f17d68fddce880824f701f25e5eb654e",
+          "palette_from": "lib-wishiwashischool-s-c4a751f4455b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "wishiwashischool",
+    "num": 746,
+    "form": "School",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Wishiwashi-School, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "wishiwashischool-cardinal.png",
+    "source_sha256": "03e253538e070ffba65d075454a3770788a808efc762db24a851894cf68f0f83",
+    "source_record": "wishiwashischool-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": false
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 104,
+      "h": 88,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 52.0,
+      "ay": 82,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "kyuremblack",
+        "tool": "builtin-imagegen",
+        "source_sha256": "97fb6fa6a9385f640e757e67344ed896f0548c43c9d8a1603c602b43f2fdbc22",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 646,
+          "form": "Black",
+          "key": "lib-kyuremblack-n-2b64725e0fb5"
+        },
+        "sha256": "322f3c63db0ace86f9e79448e79e7929bc2b426fbf8d68b8357e44162b048ec0"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 104,
+      "h": 88,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 52.0,
+      "ay": 82,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "kyuremblack",
+        "tool": "builtin-imagegen",
+        "source_sha256": "97fb6fa6a9385f640e757e67344ed896f0548c43c9d8a1603c602b43f2fdbc22",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 646,
+          "form": "Black",
+          "key": "lib-kyuremblack-n-2b64725e0fb5"
+        },
+        "sha256": "45724ccc009f3ef49e28441f6fed01c2cceb542a645819ce986cdc274ab1712a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 104,
+        "h": 88,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 52.0,
+        "ay": 82,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "kyuremblack",
+          "tool": "builtin-imagegen",
+          "source_sha256": "97fb6fa6a9385f640e757e67344ed896f0548c43c9d8a1603c602b43f2fdbc22",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 646,
+            "form": "Black",
+            "key": "lib-kyuremblack-n-2b64725e0fb5"
+          },
+          "sha256": "b47906bdcf3182179c0061469e2a9f3f91ba9ac51ed8b41905e80c178ce90485",
+          "palette_from": "lib-kyuremblack-s-59e23033edd0"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 104,
+        "h": 88,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 52.0,
+        "ay": 82,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "kyuremblack",
+          "tool": "builtin-imagegen",
+          "source_sha256": "97fb6fa6a9385f640e757e67344ed896f0548c43c9d8a1603c602b43f2fdbc22",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 646,
+            "form": "Black",
+            "key": "lib-kyuremblack-n-2b64725e0fb5"
+          },
+          "sha256": "37f3ff3d7e75f6f1c17016a9a79c038629185d27f1ce26df44835212e9a5d7cc",
+          "palette_from": "lib-kyuremblack-s-59e23033edd0"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "kyuremblack",
+    "num": 646,
+    "form": "Black",
+    "tool": "builtin-imagegen",
+    "prompt": "Use case: precise-object-edit. Edit transparent8column4row32sprite pixel-art atlas image1, using native exact identity reference image2. Correct only the WEST/left-facing row4 wing material in ALL eight poses: the large wing surface must be broad LIGHT ICY WHITE/CYAN, matching the native WEST silhouette of image2. Do not copy the dark-facing EAST wing. Keep the separate icy left arm and black torso correctly distinct. Preserve exact native asymmetric wing anatomy and full pose. All other cells, materials, camera directions and anatomy must stay unchanged. Keep exact grid/32sprites, consistent crisp pixel scale, native palette and transparent background. No extra objects, scenery, effects or text.",
+    "source_image": "kyuremblack-cardinal-v2.png",
+    "source_sha256": "97fb6fa6a9385f640e757e67344ed896f0548c43c9d8a1603c602b43f2fdbc22",
+    "source_record": "kyuremblack-cardinal-v2.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

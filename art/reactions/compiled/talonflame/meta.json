@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "talonflame",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0e225750edf30409c46914bbe7cb058b9a153aa6704edb61de7daa3c6a08f2d7",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 663,
+          "form": "",
+          "key": "lib-talonflame-n-684c9618a748"
+        },
+        "sha256": "9765d55f26251164af51b728f6198d0747f33a450bd433c76f3862022c1cbaec"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "talonflame",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0e225750edf30409c46914bbe7cb058b9a153aa6704edb61de7daa3c6a08f2d7",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 663,
+          "form": "",
+          "key": "lib-talonflame-n-684c9618a748"
+        },
+        "sha256": "c2601c59c40af71bc88b935474a84afbcc4c0bb9aa808db7d5701b3986a08ce6"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "talonflame",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0e225750edf30409c46914bbe7cb058b9a153aa6704edb61de7daa3c6a08f2d7",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 663,
+            "form": "",
+            "key": "lib-talonflame-n-684c9618a748"
+          },
+          "sha256": "b2693c0c66c95d2d04c7397bd8f44f4b489b400e618d6067868ea3f658ab5851",
+          "palette_from": "lib-talonflame-s-4285772930a1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "talonflame",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0e225750edf30409c46914bbe7cb058b9a153aa6704edb61de7daa3c6a08f2d7",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 663,
+            "form": "",
+            "key": "lib-talonflame-n-684c9618a748"
+          },
+          "sha256": "146ab048af1867362eb75245b9e842ab967f3959b091c0b33baab6a4ee242702",
+          "palette_from": "lib-talonflame-s-4285772930a1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "talonflame",
+    "num": 663,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Use case: precise-object-edit. Correct only NORTH row3, columns5-8 ground poses of atlas image1 using exact rear anatomy in native reference image2. Keep EVERY sprite in rows1,2,4 and row3columns1-4 unchanged. The FOUR row3 ground poses must keep a strictly NORTH/REAR camera throughout: back of head/neck faces viewer, face/muzzle/beak/eyes completely hidden. Body settles straight away from camera, back and tail remain centred, no profile or diagonal turning in any frame. Last two are visibly fully prone, retaining native horns/wings/tail/markings and full anatomy. Preserve all32sprites8columns4rows, crisp pixel art, palette and transparent gutters. No text, scenery, shadows or effects.",
+    "source_image": "talonflame-cardinal-v2.png",
+    "source_sha256": "0e225750edf30409c46914bbe7cb058b9a153aa6704edb61de7daa3c6a08f2d7",
+    "source_record": "talonflame-cardinal-v2.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

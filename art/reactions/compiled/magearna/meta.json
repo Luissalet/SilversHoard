@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "magearna",
+        "tool": "builtin-imagegen",
+        "source_sha256": "869ee3bc2cc4c4626ce5ff5262c19e81927cbe37e6859b8e81408bf3a0b5a540",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 801,
+          "form": "",
+          "key": "lib-magearna-n-1fef9f2d59fb"
+        },
+        "sha256": "3b4711419d2376c1e54cfceb6878eefc6f2a6b8828aefae5e3c3a4d173b458c4"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "magearna",
+        "tool": "builtin-imagegen",
+        "source_sha256": "869ee3bc2cc4c4626ce5ff5262c19e81927cbe37e6859b8e81408bf3a0b5a540",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 801,
+          "form": "",
+          "key": "lib-magearna-n-1fef9f2d59fb"
+        },
+        "sha256": "b7560cafa5dbe5dfd0ee299164093fe3f55a66fba51c4087d240541f031b9206"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "magearna",
+          "tool": "builtin-imagegen",
+          "source_sha256": "869ee3bc2cc4c4626ce5ff5262c19e81927cbe37e6859b8e81408bf3a0b5a540",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 801,
+            "form": "",
+            "key": "lib-magearna-n-1fef9f2d59fb"
+          },
+          "sha256": "6e3e506906dc8533463c7ca25dc02c0cc1b15fcdee753d4e111f699aa9c8263c",
+          "palette_from": "lib-magearna-s-5416a85e84cc"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "magearna",
+          "tool": "builtin-imagegen",
+          "source_sha256": "869ee3bc2cc4c4626ce5ff5262c19e81927cbe37e6859b8e81408bf3a0b5a540",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 801,
+            "form": "",
+            "key": "lib-magearna-n-1fef9f2d59fb"
+          },
+          "sha256": "245d3dd1decff1448843992219f119fa5bff5ef478fd7f30b98eacf25ae12ebc",
+          "palette_from": "lib-magearna-s-5416a85e84cc"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "magearna",
+    "num": 801,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Magearna, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "magearna-cardinal.png",
+    "source_sha256": "869ee3bc2cc4c4626ce5ff5262c19e81927cbe37e6859b8e81408bf3a0b5a540",
+    "source_record": "magearna-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

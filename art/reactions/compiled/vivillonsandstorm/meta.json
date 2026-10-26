@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "vivillonsandstorm",
+        "tool": "builtin-imagegen",
+        "source_sha256": "2357d00982f85d0505f8a2153c1e64c0abb559eb3b0bac2f082a6175230d87ef",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 666,
+          "form": "Sandstorm",
+          "key": "lib-vivillonsandstorm-n-58045d5445d2"
+        },
+        "sha256": "fbde03623b3c4a644b9444e2ad4f56eb27598884d65f438476d1fc219c386d49"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "vivillonsandstorm",
+        "tool": "builtin-imagegen",
+        "source_sha256": "2357d00982f85d0505f8a2153c1e64c0abb559eb3b0bac2f082a6175230d87ef",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 666,
+          "form": "Sandstorm",
+          "key": "lib-vivillonsandstorm-n-58045d5445d2"
+        },
+        "sha256": "559de80a3a0f94d7406ef0fad1467e27b4fdf38c589e4c298e474cf6a164c16a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "vivillonsandstorm",
+          "tool": "builtin-imagegen",
+          "source_sha256": "2357d00982f85d0505f8a2153c1e64c0abb559eb3b0bac2f082a6175230d87ef",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 666,
+            "form": "Sandstorm",
+            "key": "lib-vivillonsandstorm-n-58045d5445d2"
+          },
+          "sha256": "8d6ca5412ec9b21327a3438ecc3450eb12e5851a9c4941b44c73dfa18222a60b",
+          "palette_from": "lib-vivillonsandstorm-s-2c6bc1d25a66"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "vivillonsandstorm",
+          "tool": "builtin-imagegen",
+          "source_sha256": "2357d00982f85d0505f8a2153c1e64c0abb559eb3b0bac2f082a6175230d87ef",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 666,
+            "form": "Sandstorm",
+            "key": "lib-vivillonsandstorm-n-58045d5445d2"
+          },
+          "sha256": "23114acd0fe9c86a854f93485a6ed7701af6bf6024d0197c7798dc7871b8a0bc",
+          "palette_from": "lib-vivillonsandstorm-s-2c6bc1d25a66"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "vivillonsandstorm",
+    "num": 666,
+    "form": "Sandstorm",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Vivillon-Sandstorm, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "vivillonsandstorm-cardinal.png",
+    "source_sha256": "2357d00982f85d0505f8a2153c1e64c0abb559eb3b0bac2f082a6175230d87ef",
+    "source_record": "vivillonsandstorm-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "florgesblue",
+        "tool": "builtin-imagegen",
+        "source_sha256": "3e23a9aebc2f8ca033e886d28e3b263e8495319dbc30c77bf1cf405545684fce",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 671,
+          "form": "Blue",
+          "key": "lib-florgesblue-n-ca51d48439c9"
+        },
+        "sha256": "0f0722002e2e26da54f4142583cb7eea78ca16ab8fcf2af207bab8cb39c31a34"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "florgesblue",
+        "tool": "builtin-imagegen",
+        "source_sha256": "3e23a9aebc2f8ca033e886d28e3b263e8495319dbc30c77bf1cf405545684fce",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 671,
+          "form": "Blue",
+          "key": "lib-florgesblue-n-ca51d48439c9"
+        },
+        "sha256": "ef06df067e5f0c1ab1b98c450a35bca03067968c23911642fda2204bd4d2349f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "florgesblue",
+          "tool": "builtin-imagegen",
+          "source_sha256": "3e23a9aebc2f8ca033e886d28e3b263e8495319dbc30c77bf1cf405545684fce",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 671,
+            "form": "Blue",
+            "key": "lib-florgesblue-n-ca51d48439c9"
+          },
+          "sha256": "ff78c2330938260acb9b9dc59e45328447accb4cfbaca724d6d73b179eea64ed",
+          "palette_from": "lib-florgesblue-s-e68b5d6ea7fc"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "florgesblue",
+          "tool": "builtin-imagegen",
+          "source_sha256": "3e23a9aebc2f8ca033e886d28e3b263e8495319dbc30c77bf1cf405545684fce",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 671,
+            "form": "Blue",
+            "key": "lib-florgesblue-n-ca51d48439c9"
+          },
+          "sha256": "4f82ea84fc84ac32f4b13597a5e9901a5fdf20a0cd3181163e70f7ba829d635b",
+          "palette_from": "lib-florgesblue-s-e68b5d6ea7fc"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "florgesblue",
+    "num": 671,
+    "form": "Blue",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Florges-Blue, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "florgesblue-cardinal.png",
+    "source_sha256": "3e23a9aebc2f8ca033e886d28e3b263e8495319dbc30c77bf1cf405545684fce",
+    "source_record": "florgesblue-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

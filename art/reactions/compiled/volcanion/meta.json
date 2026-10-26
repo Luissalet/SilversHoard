@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "volcanion",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ba2a8f87264969a6fe136903474a12c931d8b1eb9451c69ad35fbba7fe5770f1",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 721,
+          "form": "",
+          "key": "lib-volcanion-n-bd548e1affd5"
+        },
+        "sha256": "1d9bbe8ae7ce9d57d4aed7ce6561f59dfde0e3183b9c972dd9e4bc5d6ae59de7"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "volcanion",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ba2a8f87264969a6fe136903474a12c931d8b1eb9451c69ad35fbba7fe5770f1",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 721,
+          "form": "",
+          "key": "lib-volcanion-n-bd548e1affd5"
+        },
+        "sha256": "206f45d9cc9040a5ad2be300a502ee1f497dffc50a1660ad1f13c20a2895ceb0"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "volcanion",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ba2a8f87264969a6fe136903474a12c931d8b1eb9451c69ad35fbba7fe5770f1",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 721,
+            "form": "",
+            "key": "lib-volcanion-n-bd548e1affd5"
+          },
+          "sha256": "c74e716287aa90fdadd5e35ac7938f68ae3d18044ee803799fc6d2d53201d1de",
+          "palette_from": "lib-volcanion-s-a291c450124e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "volcanion",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ba2a8f87264969a6fe136903474a12c931d8b1eb9451c69ad35fbba7fe5770f1",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 721,
+            "form": "",
+            "key": "lib-volcanion-n-bd548e1affd5"
+          },
+          "sha256": "d889206ea3916ed7dfb07995364340d86b0048c5b700ae9eceecdaf533e345a1",
+          "palette_from": "lib-volcanion-s-a291c450124e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "volcanion",
+    "num": 721,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Volcanion, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "volcanion-cardinal.png",
+    "source_sha256": "ba2a8f87264969a6fe136903474a12c931d8b1eb9451c69ad35fbba7fe5770f1",
+    "source_record": "volcanion-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

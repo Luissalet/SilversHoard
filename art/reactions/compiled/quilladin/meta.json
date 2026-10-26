@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "quilladin",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9e286ed9a5d952e9130f7fce22eeb879e88a99d0d57c7361339dc38d63a23f34",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 651,
+          "form": "",
+          "key": "lib-quilladin-n-63733f3a8bc3"
+        },
+        "sha256": "6d47b2991a5181b92a1103ab90a44e3f6a5f134bee88ff78c0ce75a7601ca89e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "quilladin",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9e286ed9a5d952e9130f7fce22eeb879e88a99d0d57c7361339dc38d63a23f34",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 651,
+          "form": "",
+          "key": "lib-quilladin-n-63733f3a8bc3"
+        },
+        "sha256": "96393dbc4fb2039ba62a7803cce0f30f7f946e5b68ee8400fdbbc9695b142eb7"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "quilladin",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9e286ed9a5d952e9130f7fce22eeb879e88a99d0d57c7361339dc38d63a23f34",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 651,
+            "form": "",
+            "key": "lib-quilladin-n-63733f3a8bc3"
+          },
+          "sha256": "e7ce38d70907bdd1ccc62d3ff8952c635d33aaf6f5a280ca70fe79945a4da35b",
+          "palette_from": "lib-quilladin-s-1db093a9fee4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "quilladin",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9e286ed9a5d952e9130f7fce22eeb879e88a99d0d57c7361339dc38d63a23f34",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 651,
+            "form": "",
+            "key": "lib-quilladin-n-63733f3a8bc3"
+          },
+          "sha256": "17707a038ea287d9e58dd65d0640eb2f455162e39410e5ac88018ce5554ae536",
+          "palette_from": "lib-quilladin-s-1db093a9fee4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "quilladin",
+    "num": 651,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Quilladin, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "quilladin-cardinal.png",
+    "source_sha256": "9e286ed9a5d952e9130f7fce22eeb879e88a99d0d57c7361339dc38d63a23f34",
+    "source_record": "quilladin-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "pyukumuku",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4fef6f9106667083585141b8277a51f58b053d30a2265c72df89913693fcee7e",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 771,
+          "form": "",
+          "key": "lib-pyukumuku-n-9ea043cb98aa"
+        },
+        "sha256": "a9197033b44a5762f8e57049443f5b8b4e39a4f5a50f436240271e0f5a49bbb3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "pyukumuku",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4fef6f9106667083585141b8277a51f58b053d30a2265c72df89913693fcee7e",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 771,
+          "form": "",
+          "key": "lib-pyukumuku-n-9ea043cb98aa"
+        },
+        "sha256": "015000860cb843f7f73b56258fa4e73f3e13fa532bb8079d35e6ad987df70cac"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "pyukumuku",
+          "tool": "builtin-imagegen",
+          "source_sha256": "4fef6f9106667083585141b8277a51f58b053d30a2265c72df89913693fcee7e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 771,
+            "form": "",
+            "key": "lib-pyukumuku-n-9ea043cb98aa"
+          },
+          "sha256": "91a8ec25614ccb54a53ddad10327e238078b0531aded56cfe7d0300700be1796",
+          "palette_from": "lib-pyukumuku-s-79719969ef1d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "pyukumuku",
+          "tool": "builtin-imagegen",
+          "source_sha256": "4fef6f9106667083585141b8277a51f58b053d30a2265c72df89913693fcee7e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 771,
+            "form": "",
+            "key": "lib-pyukumuku-n-9ea043cb98aa"
+          },
+          "sha256": "26834f183e2467b340d74f439e704124c852475615ca2dc07be9cd1e415c3312",
+          "palette_from": "lib-pyukumuku-s-79719969ef1d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "pyukumuku",
+    "num": 771,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Pyukumuku, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "pyukumuku-cardinal.png",
+    "source_sha256": "4fef6f9106667083585141b8277a51f58b053d30a2265c72df89913693fcee7e",
+    "source_record": "pyukumuku-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

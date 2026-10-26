@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 88,
+      "h": 80,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 44.0,
+      "ay": 74,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "celesteela",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8ff496398afa7447fa0b1c510700071a19f13698e58260fbadbe152449fff657",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 797,
+          "form": "",
+          "key": "lib-celesteela-n-3e0acb401537"
+        },
+        "sha256": "3ccbd788a2cf4a5f124e6cb900df98e9f38e8dba4fe7d626e7a1d8a87cd38cab"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 88,
+      "h": 80,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 44.0,
+      "ay": 74,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "celesteela",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8ff496398afa7447fa0b1c510700071a19f13698e58260fbadbe152449fff657",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 797,
+          "form": "",
+          "key": "lib-celesteela-n-3e0acb401537"
+        },
+        "sha256": "0b29f68a09b1866bd483035f32882eb0892119224b0bab4aa31a2b5ec651133b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 88,
+        "h": 80,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 44.0,
+        "ay": 74,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "celesteela",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8ff496398afa7447fa0b1c510700071a19f13698e58260fbadbe152449fff657",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 797,
+            "form": "",
+            "key": "lib-celesteela-n-3e0acb401537"
+          },
+          "sha256": "c5ce0c0f41337a8d1d3ee0aff97bf4e52f98a4e83de0715f98324229a782fbe4",
+          "palette_from": "lib-celesteela-s-73337f780b00"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 88,
+        "h": 80,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 44.0,
+        "ay": 74,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "celesteela",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8ff496398afa7447fa0b1c510700071a19f13698e58260fbadbe152449fff657",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 797,
+            "form": "",
+            "key": "lib-celesteela-n-3e0acb401537"
+          },
+          "sha256": "a0fe1bec5eba8726c29eb64ee63384050316a111a3822b124c340bca2297c082",
+          "palette_from": "lib-celesteela-s-73337f780b00"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "celesteela",
+    "num": 797,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Celesteela, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "celesteela-cardinal.png",
+    "source_sha256": "8ff496398afa7447fa0b1c510700071a19f13698e58260fbadbe152449fff657",
+    "source_record": "celesteela-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

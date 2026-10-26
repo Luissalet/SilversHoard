@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "landorus",
+        "tool": "builtin-imagegen",
+        "source_sha256": "bd1df4e8df023d52674c00a1f16c775de1015e6d8971fbf41142314037f3755b",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 645,
+          "form": "",
+          "key": "lib-landorus-n-0be0da6ecb1b"
+        },
+        "sha256": "72ff998a881a487cefd8d1514b26bdd4fe327684966478d725bc9d252843e32d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "landorus",
+        "tool": "builtin-imagegen",
+        "source_sha256": "bd1df4e8df023d52674c00a1f16c775de1015e6d8971fbf41142314037f3755b",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 645,
+          "form": "",
+          "key": "lib-landorus-n-0be0da6ecb1b"
+        },
+        "sha256": "5d47db9ec80679d67ae9206ba98cc2eeda50678bf499ab6c108b7934f53af7b2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "landorus",
+          "tool": "builtin-imagegen",
+          "source_sha256": "bd1df4e8df023d52674c00a1f16c775de1015e6d8971fbf41142314037f3755b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 645,
+            "form": "",
+            "key": "lib-landorus-n-0be0da6ecb1b"
+          },
+          "sha256": "f074a520dd5cdc65b05e2bea3c6801b7f1ea60665bc6993104f5b4d73471afc2",
+          "palette_from": "lib-landorus-s-47501f400f4a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "landorus",
+          "tool": "builtin-imagegen",
+          "source_sha256": "bd1df4e8df023d52674c00a1f16c775de1015e6d8971fbf41142314037f3755b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 645,
+            "form": "",
+            "key": "lib-landorus-n-0be0da6ecb1b"
+          },
+          "sha256": "b8f10f6700ac6c96c3a6b730c473e70306c28748e3448eb94fc07f1d05e991c7",
+          "palette_from": "lib-landorus-s-47501f400f4a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "landorus",
+    "num": 645,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Landorus, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "landorus-cardinal.png",
+    "source_sha256": "bd1df4e8df023d52674c00a1f16c775de1015e6d8971fbf41142314037f3755b",
+    "source_record": "landorus-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "decidueyehisui",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7009be949f5afa53dc5d791b4116cac52954e69e0b05eb735cd2a3e621d9423c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 724,
+          "form": "Hisui",
+          "key": "lib-decidueyehisui-n-5f7575128dd2"
+        },
+        "sha256": "850ec9d6dacd907ef946316ce1cab60663a6878c96bb8c4522bf42c2f1e99517"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "decidueyehisui",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7009be949f5afa53dc5d791b4116cac52954e69e0b05eb735cd2a3e621d9423c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 724,
+          "form": "Hisui",
+          "key": "lib-decidueyehisui-n-5f7575128dd2"
+        },
+        "sha256": "c8bd14dbd0932c5354c27380d6a6f20383f52778d94ef11d5377d695d1dc3ef0"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "decidueyehisui",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7009be949f5afa53dc5d791b4116cac52954e69e0b05eb735cd2a3e621d9423c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 724,
+            "form": "Hisui",
+            "key": "lib-decidueyehisui-n-5f7575128dd2"
+          },
+          "sha256": "52b0385ccc2735ee84460e07682dd5c40b4b424eb8a12e12a382d02a8ccf6578",
+          "palette_from": "lib-decidueyehisui-s-7db81fa93d38"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "decidueyehisui",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7009be949f5afa53dc5d791b4116cac52954e69e0b05eb735cd2a3e621d9423c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 724,
+            "form": "Hisui",
+            "key": "lib-decidueyehisui-n-5f7575128dd2"
+          },
+          "sha256": "6c16530d01476d01c5dba9155b1ea85496cd12790b9303cc691e0bd6e9c9e7cc",
+          "palette_from": "lib-decidueyehisui-s-7db81fa93d38"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "decidueyehisui",
+    "num": 724,
+    "form": "Hisui",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Decidueye-Hisui, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "decidueyehisui-cardinal.png",
+    "source_sha256": "7009be949f5afa53dc5d791b4116cac52954e69e0b05eb735cd2a3e621d9423c",
+    "source_record": "decidueyehisui-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

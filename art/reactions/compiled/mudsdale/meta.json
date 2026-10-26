@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "mudsdale",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a87075bf9ffe9a2d712939de9dcd5d67150b64203aacef09df132da3a820a58a",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 750,
+          "form": "",
+          "key": "lib-mudsdale-n-331e644e923c"
+        },
+        "sha256": "192966772bdd3016fb288b8c88a9b239d0f3321ebe46f79b8423683cd71a1d2b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "mudsdale",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a87075bf9ffe9a2d712939de9dcd5d67150b64203aacef09df132da3a820a58a",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 750,
+          "form": "",
+          "key": "lib-mudsdale-n-331e644e923c"
+        },
+        "sha256": "616bfeeb5661522aa03abb50aa2be0692e942d2dbde81fd8ad68a073f6b748b3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "mudsdale",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a87075bf9ffe9a2d712939de9dcd5d67150b64203aacef09df132da3a820a58a",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 750,
+            "form": "",
+            "key": "lib-mudsdale-n-331e644e923c"
+          },
+          "sha256": "82d1f71ce9b275215bd4afed0f5be2083cfe10699896a2919dd7994e7843dc33",
+          "palette_from": "lib-mudsdale-s-243de46b3dd5"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "mudsdale",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a87075bf9ffe9a2d712939de9dcd5d67150b64203aacef09df132da3a820a58a",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 750,
+            "form": "",
+            "key": "lib-mudsdale-n-331e644e923c"
+          },
+          "sha256": "f7a8d1bbdd375f69718924930440d358c346703cf153f3c4e0e342f2cce59d75",
+          "palette_from": "lib-mudsdale-s-243de46b3dd5"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "mudsdale",
+    "num": 750,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Mudsdale, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "mudsdale-cardinal.png",
+    "source_sha256": "a87075bf9ffe9a2d712939de9dcd5d67150b64203aacef09df132da3a820a58a",
+    "source_record": "mudsdale-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

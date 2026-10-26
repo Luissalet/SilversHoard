@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "golisopodmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "51811546779a2ff6d9bdbe1e6e41c21e4cd1983915dbe2dce5ed6b39f1271ea7",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 768,
+          "form": "Mega",
+          "key": "lib-golisopodmega-n-4aac391049c0"
+        },
+        "sha256": "5b4db9f991b2cb772b2bfe68811988247bcbdc0e899b26ff6d41be91f45c2fd4"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "golisopodmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "51811546779a2ff6d9bdbe1e6e41c21e4cd1983915dbe2dce5ed6b39f1271ea7",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 768,
+          "form": "Mega",
+          "key": "lib-golisopodmega-n-4aac391049c0"
+        },
+        "sha256": "37f8c6a3eecbdb67a18b1ca4d2aad6aa59c1845080690415d6e3cb15c02bfa74"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "golisopodmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "51811546779a2ff6d9bdbe1e6e41c21e4cd1983915dbe2dce5ed6b39f1271ea7",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 768,
+            "form": "Mega",
+            "key": "lib-golisopodmega-n-4aac391049c0"
+          },
+          "sha256": "9854d1102ea8d75fa2817dc59b227094aaa023e2972ca37b8d8a8fab4ee8367b",
+          "palette_from": "lib-golisopodmega-s-cbc069676040"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "golisopodmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "51811546779a2ff6d9bdbe1e6e41c21e4cd1983915dbe2dce5ed6b39f1271ea7",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 768,
+            "form": "Mega",
+            "key": "lib-golisopodmega-n-4aac391049c0"
+          },
+          "sha256": "b77ddf02a23becf750185a647d22ba4c646a2cee9e669aabe3181a2b0d5ef01b",
+          "palette_from": "lib-golisopodmega-s-cbc069676040"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "golisopodmega",
+    "num": 768,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Golisopod-Mega, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "golisopodmega-cardinal.png",
+    "source_sha256": "51811546779a2ff6d9bdbe1e6e41c21e4cd1983915dbe2dce5ed6b39f1271ea7",
+    "source_record": "golisopodmega-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

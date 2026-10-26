@@ -1,0 +1,19 @@
+{
+  "id": "aegislashblade",
+  "name": "Aegislash-Blade",
+  "num": 681,
+  "form": "Blade",
+  "directions": 4,
+  "frames": 4,
+  "image": "aegislashblade-cardinal-v2.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Use case: precise-object-edit. Edit transparent8column4row32sprite pixel-art atlas image1, using native exact identity reference image2. Remove ALL isolated floating impact/anger symbols, golden sparkles and black detached motion strokes around the character in Pain columns1 AND2, in EVERY row. Restore clean transparent gutters around the complete character. Keep the actual sword blade, hilt, purple cloth arm, eye, shield, and all legitimate connected anatomy untouched. Columns3-8 poses stay unchanged. No particle effects in any frame. All other cells, materials, camera directions and anatomy must stay unchanged. Keep exact grid/32sprites, consistent crisp pixel scale, native palette and transparent background. No extra objects, scenery, effects or text.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-corrections26.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

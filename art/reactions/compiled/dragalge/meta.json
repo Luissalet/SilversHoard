@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dragalge",
+        "tool": "builtin-imagegen",
+        "source_sha256": "1f7e86174eb41eff843d72dd216887f3ad2b6cbb511a64a1409e334e83383885",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 691,
+          "form": "",
+          "key": "lib-dragalge-n-c1aa35958ec8"
+        },
+        "sha256": "18b07048230ab0029e5e1a8498d8bdde0153faa785d2d21ddae37babb05f63a1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dragalge",
+        "tool": "builtin-imagegen",
+        "source_sha256": "1f7e86174eb41eff843d72dd216887f3ad2b6cbb511a64a1409e334e83383885",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 691,
+          "form": "",
+          "key": "lib-dragalge-n-c1aa35958ec8"
+        },
+        "sha256": "4cbe22ed4ecd5f077386ceb7432365b8e0b4b22b2dc9fe0986b7a9f2943e10bd"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dragalge",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1f7e86174eb41eff843d72dd216887f3ad2b6cbb511a64a1409e334e83383885",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 691,
+            "form": "",
+            "key": "lib-dragalge-n-c1aa35958ec8"
+          },
+          "sha256": "6137e28bbbdda3a2702b8d074e8fc5a0cf751c76e1b7acc4cbe9843e2bb3d641",
+          "palette_from": "lib-dragalge-s-f0ab4538c9f2"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dragalge",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1f7e86174eb41eff843d72dd216887f3ad2b6cbb511a64a1409e334e83383885",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 691,
+            "form": "",
+            "key": "lib-dragalge-n-c1aa35958ec8"
+          },
+          "sha256": "7d6739f8f8763a6f17b5f64ee86950e853aadecced58fd008ffdd6c89748b928",
+          "palette_from": "lib-dragalge-s-f0ab4538c9f2"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "dragalge",
+    "num": 691,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Use case: precise-object-edit. Edit transparent8column4row32sprite pixel-art atlas image1, using native exact identity reference image2. Correct only NORTH/rear row3, columns5-8 ground poses. All four poses must stay strictly NORTH/REAR: show the back of the head/neck, no face, muzzle, eye or front throat. Body settles straight away from camera, no side-profile rotation. Preserve native dorsal wings/horns/crest/tail/markings as image2, last two poses fully prone. All other cells, materials, camera directions and anatomy must stay unchanged. Keep exact grid/32sprites, consistent crisp pixel scale, native palette and transparent background. No extra objects, scenery, effects or text.",
+    "source_image": "dragalge-cardinal-v2.png",
+    "source_sha256": "1f7e86174eb41eff843d72dd216887f3ad2b6cbb511a64a1409e334e83383885",
+    "source_record": "dragalge-cardinal-v2.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

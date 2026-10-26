@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "spewpa",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d6aa125b8f5d7af01b257d6405ed92d420e4b28681b660fb1311fea759a6f1d1",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 665,
+          "form": "",
+          "key": "lib-spewpa-n-793aef3bba4f"
+        },
+        "sha256": "cdbf754e0f41986ebdf3ae58b3088de76d3f18fcfd14eded24d938421f84ded0"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "spewpa",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d6aa125b8f5d7af01b257d6405ed92d420e4b28681b660fb1311fea759a6f1d1",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 665,
+          "form": "",
+          "key": "lib-spewpa-n-793aef3bba4f"
+        },
+        "sha256": "c6d345bb07c6d619903f8ea50171901129d07d0849655ecdfbf37665747d1bbb"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "spewpa",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d6aa125b8f5d7af01b257d6405ed92d420e4b28681b660fb1311fea759a6f1d1",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 665,
+            "form": "",
+            "key": "lib-spewpa-n-793aef3bba4f"
+          },
+          "sha256": "c741b1c9354007f6ff2f4fa51c027eb0a46b8f0afc1e98cfe2f77db1cb21ce94",
+          "palette_from": "lib-spewpa-s-40c3228e0da1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "spewpa",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d6aa125b8f5d7af01b257d6405ed92d420e4b28681b660fb1311fea759a6f1d1",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 665,
+            "form": "",
+            "key": "lib-spewpa-n-793aef3bba4f"
+          },
+          "sha256": "8f75fbc62bdacf856345786c2bc1d71016bca4b31c89c653b629ec046de62577",
+          "palette_from": "lib-spewpa-s-40c3228e0da1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "spewpa",
+    "num": 665,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Spewpa, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "spewpa-cardinal.png",
+    "source_sha256": "d6aa125b8f5d7af01b257d6405ed92d420e4b28681b660fb1311fea759a6f1d1",
+    "source_record": "spewpa-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

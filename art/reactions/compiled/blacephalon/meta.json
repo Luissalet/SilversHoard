@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "blacephalon",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b2b9ee240a64f4ca098c4f98fdcf5d69fb9d7601feaf9226179a304b70113d79",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 806,
+          "form": "",
+          "key": "lib-blacephalon-n-aaa6a2c1c64c"
+        },
+        "sha256": "1a7af5c53b8d7f9e7eb36c401fd7c9c0f0be395a497fa666deeceb80737bb819"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "blacephalon",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b2b9ee240a64f4ca098c4f98fdcf5d69fb9d7601feaf9226179a304b70113d79",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 806,
+          "form": "",
+          "key": "lib-blacephalon-n-aaa6a2c1c64c"
+        },
+        "sha256": "a3f7b1315672933144ac7d53c844b6b89531bd0c47150cf9780aa4ce4bea6552"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "blacephalon",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b2b9ee240a64f4ca098c4f98fdcf5d69fb9d7601feaf9226179a304b70113d79",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 806,
+            "form": "",
+            "key": "lib-blacephalon-n-aaa6a2c1c64c"
+          },
+          "sha256": "5554e8639e8e372847cf1963ca43b6143523713697ecd24200c18a7f725c1e33",
+          "palette_from": "lib-blacephalon-s-39ba5dd26eb1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "blacephalon",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b2b9ee240a64f4ca098c4f98fdcf5d69fb9d7601feaf9226179a304b70113d79",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 806,
+            "form": "",
+            "key": "lib-blacephalon-n-aaa6a2c1c64c"
+          },
+          "sha256": "48c5d60e7a6af7432f7692534880c80b345872b82fd2669f32c2af6c4af22271",
+          "palette_from": "lib-blacephalon-s-39ba5dd26eb1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "blacephalon",
+    "num": 806,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Blacephalon, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "blacephalon-cardinal.png",
+    "source_sha256": "b2b9ee240a64f4ca098c4f98fdcf5d69fb9d7601feaf9226179a304b70113d79",
+    "source_record": "blacephalon-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

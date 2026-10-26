@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tapufini",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ade13a68ac0ffcee5318d03c1f1e8024bdc594899f3487a0667fd6c9be742528",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 788,
+          "form": "",
+          "key": "lib-tapufini-n-9a074f2df2b8"
+        },
+        "sha256": "d7b94c443a72425fec9fbee7b3e5cc65c16056fd5f1db0c0a0f3113d1d446beb"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tapufini",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ade13a68ac0ffcee5318d03c1f1e8024bdc594899f3487a0667fd6c9be742528",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 788,
+          "form": "",
+          "key": "lib-tapufini-n-9a074f2df2b8"
+        },
+        "sha256": "e486be763d970578befce421d556b26c9acda7ec04a9ac808451c2a6b8335069"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tapufini",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ade13a68ac0ffcee5318d03c1f1e8024bdc594899f3487a0667fd6c9be742528",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 788,
+            "form": "",
+            "key": "lib-tapufini-n-9a074f2df2b8"
+          },
+          "sha256": "5742192b13d50a3d78e3124919749e59397f26d08008c7afb4a1fa9f544ed80c",
+          "palette_from": "lib-tapufini-s-41bd250679e4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tapufini",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ade13a68ac0ffcee5318d03c1f1e8024bdc594899f3487a0667fd6c9be742528",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 788,
+            "form": "",
+            "key": "lib-tapufini-n-9a074f2df2b8"
+          },
+          "sha256": "2054481d5b747202e633a6827ec0acadc5c4d51813b3b50aa0851629571c89ab",
+          "palette_from": "lib-tapufini-s-41bd250679e4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "tapufini",
+    "num": 788,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Tapu Fini, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "tapufini-cardinal.png",
+    "source_sha256": "ade13a68ac0ffcee5318d03c1f1e8024bdc594899f3487a0667fd6c9be742528",
+    "source_record": "tapufini-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

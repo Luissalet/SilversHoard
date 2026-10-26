@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "braviary",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ff58594ce0461dcac72dc249c146e83a88490539caee6c28410e34dc956cfd9d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 628,
+          "form": "",
+          "key": "lib-braviary-n-610a5e30273b"
+        },
+        "sha256": "45313109a4a7c62753832c20e810496013a29341e89ca7114c5e09d03261ee10"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "braviary",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ff58594ce0461dcac72dc249c146e83a88490539caee6c28410e34dc956cfd9d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 628,
+          "form": "",
+          "key": "lib-braviary-n-610a5e30273b"
+        },
+        "sha256": "fe56de123464f3ddb682ca133fac5118519ac9a4d32c4119e2bf541abeff52ef"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "braviary",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ff58594ce0461dcac72dc249c146e83a88490539caee6c28410e34dc956cfd9d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 628,
+            "form": "",
+            "key": "lib-braviary-n-610a5e30273b"
+          },
+          "sha256": "ad1efb41c9bcd90655d484fbbeb870ed90c7c07754440d6a3fdc1e790f56a2a1",
+          "palette_from": "lib-braviary-s-4b8b5d34170e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "braviary",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ff58594ce0461dcac72dc249c146e83a88490539caee6c28410e34dc956cfd9d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 628,
+            "form": "",
+            "key": "lib-braviary-n-610a5e30273b"
+          },
+          "sha256": "b6b72aed79eb4e61177e12c66ccb8e8ef3919d19080ad1caeb3cf6800e4ec4e6",
+          "palette_from": "lib-braviary-s-4b8b5d34170e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "braviary",
+    "num": 628,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Use case: precise-object-edit. Correct only NORTH row3, columns5-8 ground poses of atlas image1 using exact rear anatomy in native reference image2. Keep EVERY sprite in rows1,2,4 and row3columns1-4 unchanged. The FOUR row3 ground poses must keep a strictly NORTH/REAR camera throughout: back of head/neck faces viewer, face/muzzle/beak/eyes completely hidden. Body settles straight away from camera, back and tail remain centred, no profile or diagonal turning in any frame. Last two are visibly fully prone, retaining native horns/wings/tail/markings and full anatomy. Preserve all32sprites8columns4rows, crisp pixel art, palette and transparent gutters. No text, scenery, shadows or effects.",
+    "source_image": "braviary-cardinal-v2.png",
+    "source_sha256": "ff58594ce0461dcac72dc249c146e83a88490539caee6c28410e34dc956cfd9d",
+    "source_record": "braviary-cardinal-v2.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

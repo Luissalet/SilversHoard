@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "araquanidtotem",
+        "tool": "builtin-imagegen",
+        "source_sha256": "866ecc500a1a85f6fbd3043dcef4a3a0804f1f285048af025b100018199f60cd",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 752,
+          "form": "Totem",
+          "key": "lib-araquanidtotem-n-74f7164c4cdc"
+        },
+        "sha256": "9d8dc3ecc25b19fc1c8e74b51fb6b907c7dea0cf01496f0f8a203aa2c6c57ef7"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "araquanidtotem",
+        "tool": "builtin-imagegen",
+        "source_sha256": "866ecc500a1a85f6fbd3043dcef4a3a0804f1f285048af025b100018199f60cd",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 752,
+          "form": "Totem",
+          "key": "lib-araquanidtotem-n-74f7164c4cdc"
+        },
+        "sha256": "1f70ed12c81811e4bdeed3cd0febb3b256a1c561fc7877eef76effe2071e212e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "araquanidtotem",
+          "tool": "builtin-imagegen",
+          "source_sha256": "866ecc500a1a85f6fbd3043dcef4a3a0804f1f285048af025b100018199f60cd",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 752,
+            "form": "Totem",
+            "key": "lib-araquanidtotem-n-74f7164c4cdc"
+          },
+          "sha256": "db609353f73f339adc199c90767ed211108a131690df5b555609955a5ad1e2f1",
+          "palette_from": "lib-araquanidtotem-s-c4162d9c6432"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "araquanidtotem",
+          "tool": "builtin-imagegen",
+          "source_sha256": "866ecc500a1a85f6fbd3043dcef4a3a0804f1f285048af025b100018199f60cd",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 752,
+            "form": "Totem",
+            "key": "lib-araquanidtotem-n-74f7164c4cdc"
+          },
+          "sha256": "752c6cb1c624faa748f9a7a8a1d5aa8f868ff2c86cc82a49e756b2c3cd4b2ee8",
+          "palette_from": "lib-araquanidtotem-s-c4162d9c6432"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "araquanidtotem",
+    "num": 752,
+    "form": "Totem",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Araquanid-Totem, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "araquanidtotem-cardinal.png",
+    "source_sha256": "866ecc500a1a85f6fbd3043dcef4a3a0804f1f285048af025b100018199f60cd",
+    "source_record": "araquanidtotem-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

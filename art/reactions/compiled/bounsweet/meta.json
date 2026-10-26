@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "bounsweet",
+        "tool": "builtin-imagegen",
+        "source_sha256": "57e359fa12b149dd0d9309f2c09aeaa784f7bf0df9463bebae6ba9fa48cbcb86",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 761,
+          "form": "",
+          "key": "lib-bounsweet-n-6a2768610828"
+        },
+        "sha256": "09b7d7d951dc7737d98b07f4d70dd64e52c5ac310ade60b9a6211f61771a92f3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "bounsweet",
+        "tool": "builtin-imagegen",
+        "source_sha256": "57e359fa12b149dd0d9309f2c09aeaa784f7bf0df9463bebae6ba9fa48cbcb86",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 761,
+          "form": "",
+          "key": "lib-bounsweet-n-6a2768610828"
+        },
+        "sha256": "34d77458640f1feb6d446573862fd1b51bb0acf1a68c1331be5bc76ca422f06b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "bounsweet",
+          "tool": "builtin-imagegen",
+          "source_sha256": "57e359fa12b149dd0d9309f2c09aeaa784f7bf0df9463bebae6ba9fa48cbcb86",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 761,
+            "form": "",
+            "key": "lib-bounsweet-n-6a2768610828"
+          },
+          "sha256": "b1d6a47ed9b026c70f1dad08701a12732a0b8856c2a5b7e98cb82a713c1a534e",
+          "palette_from": "lib-bounsweet-s-c590fd14ce5c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "bounsweet",
+          "tool": "builtin-imagegen",
+          "source_sha256": "57e359fa12b149dd0d9309f2c09aeaa784f7bf0df9463bebae6ba9fa48cbcb86",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 761,
+            "form": "",
+            "key": "lib-bounsweet-n-6a2768610828"
+          },
+          "sha256": "d5bcab5458d6d556d9c1cc409b1f526efa1b4092d947c8ccfd04f0ddbfedb44b",
+          "palette_from": "lib-bounsweet-s-c590fd14ce5c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "bounsweet",
+    "num": 761,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Bounsweet, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "bounsweet-cardinal.png",
+    "source_sha256": "57e359fa12b149dd0d9309f2c09aeaa784f7bf0df9463bebae6ba9fa48cbcb86",
+    "source_record": "bounsweet-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

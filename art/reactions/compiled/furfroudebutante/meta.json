@@ -1,0 +1,393 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "furfroudebutante",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e2618e7839bb83714495c2274f516b46712c79d35b54586e25d3c93d5652abd7",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 12,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 676,
+          "form": "Debutante",
+          "key": "lib-furfroudebutante-n-80de5c41428a"
+        },
+        "assembly": {
+          "native_frames": [
+            {
+              "action": "Pain",
+              "direction": 0,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 0,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 1,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 1,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 2,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 2,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 3,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 3,
+              "index": 0
+            }
+          ]
+        },
+        "sha256": "39b2ea9a12732d659a9f049e65744a194ebd74e58c2b5f6a903a199f72ebd6fd"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "furfroudebutante",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e2618e7839bb83714495c2274f516b46712c79d35b54586e25d3c93d5652abd7",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 676,
+          "form": "Debutante",
+          "key": "lib-furfroudebutante-n-80de5c41428a"
+        },
+        "assembly": {
+          "native_frames": [
+            {
+              "action": "Pain",
+              "direction": 0,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 0,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 1,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 1,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 2,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 2,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 3,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 3,
+              "index": 0
+            }
+          ]
+        },
+        "sha256": "f53ed0795820751257025e5ac78cc2d276585fa773618972788c26c587056253"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "furfroudebutante",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e2618e7839bb83714495c2274f516b46712c79d35b54586e25d3c93d5652abd7",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 12,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 676,
+            "form": "Debutante",
+            "key": "lib-furfroudebutante-n-80de5c41428a"
+          },
+          "assembly": {
+            "native_frames": [
+              {
+                "action": "Pain",
+                "direction": 0,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 0,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 1,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 1,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 2,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 2,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 3,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 3,
+                "index": 0
+              }
+            ]
+          },
+          "sha256": "17cfa43af1eb612bfd2a2fe253b823142143cb9366a3011383719b600fadd71e",
+          "palette_from": "lib-furfroudebutante-s-f5d20711cc26"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "furfroudebutante",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e2618e7839bb83714495c2274f516b46712c79d35b54586e25d3c93d5652abd7",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 676,
+            "form": "Debutante",
+            "key": "lib-furfroudebutante-n-80de5c41428a"
+          },
+          "assembly": {
+            "native_frames": [
+              {
+                "action": "Pain",
+                "direction": 0,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 0,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 1,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 1,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 2,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 2,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 3,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 3,
+                "index": 0
+              }
+            ]
+          },
+          "sha256": "d28ac5625c4b0fb895c85ceafbe155a2bf380c25ca46d87ad218ea1fcd42d77d",
+          "palette_from": "lib-furfroudebutante-s-f5d20711cc26"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "furfroudebutante",
+    "num": 676,
+    "form": "Debutante",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Furfrou-Debutante, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "furfroudebutante-cardinal.png",
+    "source_sha256": "e2618e7839bb83714495c2274f516b46712c79d35b54586e25d3c93d5652abd7",
+    "native_frames": [
+      {
+        "action": "Pain",
+        "direction": 0,
+        "frame": 0,
+        "animation": "Idle",
+        "row": 0,
+        "index": 0
+      },
+      {
+        "action": "Pain",
+        "direction": 1,
+        "frame": 0,
+        "animation": "Idle",
+        "row": 1,
+        "index": 0
+      },
+      {
+        "action": "Pain",
+        "direction": 2,
+        "frame": 0,
+        "animation": "Idle",
+        "row": 2,
+        "index": 0
+      },
+      {
+        "action": "Pain",
+        "direction": 3,
+        "frame": 0,
+        "animation": "Idle",
+        "row": 3,
+        "index": 0
+      }
+    ],
+    "source_record": "furfroudebutante-assembled.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

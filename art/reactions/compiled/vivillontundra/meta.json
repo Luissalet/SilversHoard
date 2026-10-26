@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "vivillontundra",
+        "tool": "builtin-imagegen",
+        "source_sha256": "89d75256f03f220c7a0a2ba74204e2b782770b9f61ad450412521b316635916d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 666,
+          "form": "Tundra",
+          "key": "lib-vivillontundra-n-fbca8e139108"
+        },
+        "sha256": "f3f33aae9624a7b11de016a458d968dd109d31ea92ae23bccb97284ba9c568fd"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "vivillontundra",
+        "tool": "builtin-imagegen",
+        "source_sha256": "89d75256f03f220c7a0a2ba74204e2b782770b9f61ad450412521b316635916d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 666,
+          "form": "Tundra",
+          "key": "lib-vivillontundra-n-fbca8e139108"
+        },
+        "sha256": "70b82e5fa619215b0945990b0fcecf590cfca5189928c5026098183aba74e462"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "vivillontundra",
+          "tool": "builtin-imagegen",
+          "source_sha256": "89d75256f03f220c7a0a2ba74204e2b782770b9f61ad450412521b316635916d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 666,
+            "form": "Tundra",
+            "key": "lib-vivillontundra-n-fbca8e139108"
+          },
+          "sha256": "b647dfb8b89e5e0e91c1da827a1b76c3b8af662c479cac3524ed4f3e12a125c1",
+          "palette_from": "lib-vivillontundra-s-b871600b665f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "vivillontundra",
+          "tool": "builtin-imagegen",
+          "source_sha256": "89d75256f03f220c7a0a2ba74204e2b782770b9f61ad450412521b316635916d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 666,
+            "form": "Tundra",
+            "key": "lib-vivillontundra-n-fbca8e139108"
+          },
+          "sha256": "acf3c9013f4648ec85e477fc1b4c85d7937792df41d8a2d506262225c938cd4f",
+          "palette_from": "lib-vivillontundra-s-b871600b665f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "vivillontundra",
+    "num": 666,
+    "form": "Tundra",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Vivillon-Tundra, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "vivillontundra-cardinal.png",
+    "source_sha256": "89d75256f03f220c7a0a2ba74204e2b782770b9f61ad450412521b316635916d",
+    "source_record": "vivillontundra-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

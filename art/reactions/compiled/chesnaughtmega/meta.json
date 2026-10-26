@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "chesnaughtmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d0f3570c183de2139befea7f1b55241c5b54d10314bde839e4b3481a9409f6ec",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 652,
+          "form": "Mega",
+          "key": "lib-chesnaughtmega-n-81951d24064a"
+        },
+        "sha256": "de0444efa2645cd69e8cafe81aee0df852c5991365d703b5d1b00c533400eac3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "chesnaughtmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d0f3570c183de2139befea7f1b55241c5b54d10314bde839e4b3481a9409f6ec",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 652,
+          "form": "Mega",
+          "key": "lib-chesnaughtmega-n-81951d24064a"
+        },
+        "sha256": "5c6ddf150d3eb08a8d3977daab0cbac014803c27c1225e1ce8d8cd9aeb10c2a2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "chesnaughtmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d0f3570c183de2139befea7f1b55241c5b54d10314bde839e4b3481a9409f6ec",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 652,
+            "form": "Mega",
+            "key": "lib-chesnaughtmega-n-81951d24064a"
+          },
+          "sha256": "945cfc7fad171dd8f462279ee9f06bf35875480678ab5d1808c5716fa0c9ae16",
+          "palette_from": "lib-chesnaughtmega-s-0cf6956e9b9f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "chesnaughtmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d0f3570c183de2139befea7f1b55241c5b54d10314bde839e4b3481a9409f6ec",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 652,
+            "form": "Mega",
+            "key": "lib-chesnaughtmega-n-81951d24064a"
+          },
+          "sha256": "661416af5f5822784dafb924c4c90fddc68bc052684ab04d529201f6c83da026",
+          "palette_from": "lib-chesnaughtmega-s-0cf6956e9b9f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "chesnaughtmega",
+    "num": 652,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Chesnaught-Mega, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "chesnaughtmega-cardinal.png",
+    "source_sha256": "d0f3570c183de2139befea7f1b55241c5b54d10314bde839e4b3481a9409f6ec",
+    "source_record": "chesnaughtmega-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

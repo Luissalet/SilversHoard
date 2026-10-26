@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "pyroarmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "115d8e97020ada6d676a3ab6ecf8d8bf40db0aea11d15b3935b83193fe25a944",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 668,
+          "form": "Mega",
+          "key": "lib-pyroarmega-n-57c2cc102fef"
+        },
+        "sha256": "18eae9ededb652cad55ed5a63402a587f620693f07645170211b6d7ddd68948d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "pyroarmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "115d8e97020ada6d676a3ab6ecf8d8bf40db0aea11d15b3935b83193fe25a944",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 668,
+          "form": "Mega",
+          "key": "lib-pyroarmega-n-57c2cc102fef"
+        },
+        "sha256": "5047b93909a6187cbc17b79bdfe038ef516e69172e9024c61cc75182ea8e419d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "pyroarmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f60df38ea7ac89caa514dfcba47da25f2c8f81e0ce1ff73ffc13d188b2290358",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 668,
+            "form": "Mega",
+            "key": "lib-pyroarmega-s-64ad2fcc1374"
+          },
+          "sha256": "2b6630564659b2adfa62cfef01bfb7d274f9a3d5d452dcc9e63697e8249c5f83"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "pyroarmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f60df38ea7ac89caa514dfcba47da25f2c8f81e0ce1ff73ffc13d188b2290358",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 668,
+            "form": "Mega",
+            "key": "lib-pyroarmega-s-64ad2fcc1374"
+          },
+          "sha256": "1fff9661837b1f0e4474bc9fe484e6f042bf7842edad303d273c38ad195fd6de"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "pyroarmega",
+    "num": 668,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Pyroar-Mega, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "pyroarmega-cardinal.png",
+    "source_sha256": "115d8e97020ada6d676a3ab6ecf8d8bf40db0aea11d15b3935b83193fe25a944",
+    "source_record": "pyroarmega-cardinal.json",
+    "shiny_source_image": "pyroarmega-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Recolour transparent32sprite8column4row pixel-art atlas image1 to EXACT native SHINY colours of image2. The ENTIRE large swirling mane becomes WHITE AND BRIGHT GOLDEN YELLOW, no original red/orange mane remains. Body and limbs pale golden tan. Preserve the large asymmetric sweeping mane shape and its white/gold material zones exactly as image2, with red/pink eyes and dark outlines. Preserve all32poses, complete anatomy, each fixed row camera(front/right/rear/left), exact grid, crisp pixels and transparency. No new objects, scenery, effects or text."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

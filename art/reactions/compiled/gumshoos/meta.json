@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "gumshoos",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6683a99d34284427d882a80a61b754fe418b1b353ed6a5bf3f9c90e09019cd5b",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 735,
+          "form": "",
+          "key": "lib-gumshoos-n-45dee2e9747c"
+        },
+        "sha256": "0fc9578e181268eca1f6df4ba26daa47b9aae65ed34ae2f881904d8585df868a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "gumshoos",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6683a99d34284427d882a80a61b754fe418b1b353ed6a5bf3f9c90e09019cd5b",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 735,
+          "form": "",
+          "key": "lib-gumshoos-n-45dee2e9747c"
+        },
+        "sha256": "1b81180df6abe47b0c68655da35de0a732dcb07ba15bef2b1587129dd069bbc3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "gumshoos",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6683a99d34284427d882a80a61b754fe418b1b353ed6a5bf3f9c90e09019cd5b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 735,
+            "form": "",
+            "key": "lib-gumshoos-n-45dee2e9747c"
+          },
+          "sha256": "09a71257a5874f5f43202354641aba3dd74931ba029ccae7fdcbc39f96699d57",
+          "palette_from": "lib-gumshoos-s-f5fa40b9f12c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "gumshoos",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6683a99d34284427d882a80a61b754fe418b1b353ed6a5bf3f9c90e09019cd5b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 735,
+            "form": "",
+            "key": "lib-gumshoos-n-45dee2e9747c"
+          },
+          "sha256": "c85dc19d947c659563d73ee3082eb83dad237b6ea934dcec42eb93d6680b48c3",
+          "palette_from": "lib-gumshoos-s-f5fa40b9f12c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "gumshoos",
+    "num": 735,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Gumshoos, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "gumshoos-cardinal.png",
+    "source_sha256": "6683a99d34284427d882a80a61b754fe418b1b353ed6a5bf3f9c90e09019cd5b",
+    "source_record": "gumshoos-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

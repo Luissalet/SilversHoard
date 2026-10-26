@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "noivern",
+        "tool": "builtin-imagegen",
+        "source_sha256": "43dd85581f4c08bc609d7e3a8b5a4e747c18ca471a1f9ac877d1dacb466d4e22",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 715,
+          "form": "",
+          "key": "lib-noivern-n-f9481ea801b8"
+        },
+        "sha256": "d920fd40646d55889f2da8bac59575e9ba77497b84e8f921f4cce6ead3bf1afa"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "noivern",
+        "tool": "builtin-imagegen",
+        "source_sha256": "43dd85581f4c08bc609d7e3a8b5a4e747c18ca471a1f9ac877d1dacb466d4e22",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 715,
+          "form": "",
+          "key": "lib-noivern-n-f9481ea801b8"
+        },
+        "sha256": "d97ce8401f63f16239b4b57e109ea26b3de1ea95e9c1ea2a27ef8e40dd4a4388"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "noivern",
+          "tool": "builtin-imagegen",
+          "source_sha256": "43dd85581f4c08bc609d7e3a8b5a4e747c18ca471a1f9ac877d1dacb466d4e22",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 715,
+            "form": "",
+            "key": "lib-noivern-n-f9481ea801b8"
+          },
+          "sha256": "7c3f3bcc60389b279e192e84f4c6a65b4c82ff64de88e0c476dc2edc5eaf8690",
+          "palette_from": "lib-noivern-s-155451172e9d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "noivern",
+          "tool": "builtin-imagegen",
+          "source_sha256": "43dd85581f4c08bc609d7e3a8b5a4e747c18ca471a1f9ac877d1dacb466d4e22",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 715,
+            "form": "",
+            "key": "lib-noivern-n-f9481ea801b8"
+          },
+          "sha256": "0c627f49a667955c9592b57f7c91dc9f082da75e24992feb233a4e0cc1a0c299",
+          "palette_from": "lib-noivern-s-155451172e9d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "noivern",
+    "num": 715,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Noivern, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "noivern-cardinal.png",
+    "source_sha256": "43dd85581f4c08bc609d7e3a8b5a4e747c18ca471a1f9ac877d1dacb466d4e22",
+    "source_record": "noivern-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

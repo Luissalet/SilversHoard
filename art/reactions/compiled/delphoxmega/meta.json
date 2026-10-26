@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "delphoxmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6c65775a09428682ce22984c0a6b57248daa46fd1391127aa2d0dc0b06b0fa04",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 655,
+          "form": "Mega",
+          "key": "lib-delphoxmega-n-0c627a9b6d54"
+        },
+        "sha256": "516b459cf8b905e4da7e9abd7209c47caa869cef93e23a61b96df3ca6a547d5e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "delphoxmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6c65775a09428682ce22984c0a6b57248daa46fd1391127aa2d0dc0b06b0fa04",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 655,
+          "form": "Mega",
+          "key": "lib-delphoxmega-n-0c627a9b6d54"
+        },
+        "sha256": "9e01f564c5e28d474f8df7818da5a089f4c21dcefaca0e9fbeed5e521e43c885"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "delphoxmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "976d871050dd08f556d2069b70d0f04282298f779ed643066008c0b7d27a56d4",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 655,
+            "form": "Mega",
+            "key": "lib-delphoxmega-s-71c8c11e5ab4"
+          },
+          "sha256": "3aaff4e02dd3a6dfb1ce6af87d438c8f85ab9bb8b00600789845ca3d5033d386"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "delphoxmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "976d871050dd08f556d2069b70d0f04282298f779ed643066008c0b7d27a56d4",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 655,
+            "form": "Mega",
+            "key": "lib-delphoxmega-s-71c8c11e5ab4"
+          },
+          "sha256": "4e6a2a90a79a12089564e729322770d9a4cf7c0736a41c3e9912ed56ee0f3e75"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "delphoxmega",
+    "num": 655,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Delphox-Mega, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "delphoxmega-cardinal.png",
+    "source_sha256": "6c65775a09428682ce22984c0a6b57248daa46fd1391127aa2d0dc0b06b0fa04",
+    "source_record": "delphoxmega-cardinal.json",
+    "shiny_source_image": "delphoxmega-reaction-shiny-v1.png",
+    "shiny_prompt": "Use case: precise-object-edit. Recolour transparent32sprite8column4row pixel-art atlas image1 to EXACT native SHINY colours of image2. The complete head, forehead, nape and muzzle become SILVER GREY/WHITE, with NO broad yellow head/neck patch. Keep two dark horn-like ear tips, deep pink/red ear tufts, violet/black robe and orange/yellow fire as image2. The NORTH row3 back of head must be SILVER GREY. Preserve all32poses, complete anatomy, each fixed row camera(front/right/rear/left), exact grid, crisp pixels and transparency. No new objects, scenery, effects or text."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

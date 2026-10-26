@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "scatterbug",
+        "tool": "builtin-imagegen",
+        "source_sha256": "36d002b348a8c251fdf871df2edded1ca42b52c52d3565df910ff4caf62a3b0d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 664,
+          "form": "",
+          "key": "lib-scatterbug-n-cfcf505f1098"
+        },
+        "sha256": "4aed39cebcd3969313ae2d7b55e663c76359eb2f27d3475db270b8bdfc9a4ac3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "scatterbug",
+        "tool": "builtin-imagegen",
+        "source_sha256": "36d002b348a8c251fdf871df2edded1ca42b52c52d3565df910ff4caf62a3b0d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 664,
+          "form": "",
+          "key": "lib-scatterbug-n-cfcf505f1098"
+        },
+        "sha256": "9bc6ccb27835f41eaa55dec927cde612005d8049f87157f4e39fec937fc8d771"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "scatterbug",
+          "tool": "builtin-imagegen",
+          "source_sha256": "36d002b348a8c251fdf871df2edded1ca42b52c52d3565df910ff4caf62a3b0d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 664,
+            "form": "",
+            "key": "lib-scatterbug-n-cfcf505f1098"
+          },
+          "sha256": "c00b88054a798485335d02fc9499638838d5a1f16f9c5f4312bbb45ce784c056",
+          "palette_from": "lib-scatterbug-s-935c154bcb4a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "scatterbug",
+          "tool": "builtin-imagegen",
+          "source_sha256": "36d002b348a8c251fdf871df2edded1ca42b52c52d3565df910ff4caf62a3b0d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 664,
+            "form": "",
+            "key": "lib-scatterbug-n-cfcf505f1098"
+          },
+          "sha256": "dd48fbcd1d0f6845871f366e2acc47771e1765340cec8e63d98fdb94864fd7c2",
+          "palette_from": "lib-scatterbug-s-935c154bcb4a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "scatterbug",
+    "num": 664,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Scatterbug, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "scatterbug-cardinal.png",
+    "source_sha256": "36d002b348a8c251fdf871df2edded1ca42b52c52d3565df910ff4caf62a3b0d",
+    "source_record": "scatterbug-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

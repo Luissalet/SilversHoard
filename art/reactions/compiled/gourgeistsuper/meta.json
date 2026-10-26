@@ -1,0 +1,393 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "gourgeistsuper",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5d991b3de81f290fc6b368fa37c7e36cf15e35fa9422161a62bf57cf10c271a3",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 12,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 711,
+          "form": "Super",
+          "key": "lib-gourgeistsuper-n-37751cd9b6b4"
+        },
+        "assembly": {
+          "native_frames": [
+            {
+              "action": "Pain",
+              "direction": 0,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 0,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 1,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 2,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 2,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 4,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 3,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 6,
+              "index": 0
+            }
+          ]
+        },
+        "sha256": "66cd1e04a06eb6ae3cc95c8538e8ad730dfe5553e3e9f16482e6ff20f90fe4e8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "gourgeistsuper",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5d991b3de81f290fc6b368fa37c7e36cf15e35fa9422161a62bf57cf10c271a3",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 711,
+          "form": "Super",
+          "key": "lib-gourgeistsuper-n-37751cd9b6b4"
+        },
+        "assembly": {
+          "native_frames": [
+            {
+              "action": "Pain",
+              "direction": 0,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 0,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 1,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 2,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 2,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 4,
+              "index": 0
+            },
+            {
+              "action": "Pain",
+              "direction": 3,
+              "frame": 0,
+              "animation": "Idle",
+              "row": 6,
+              "index": 0
+            }
+          ]
+        },
+        "sha256": "348e10103a8e685f818cd226735ce9aec17b21d13770acfbaa9282397645892a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "gourgeistsuper",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5d991b3de81f290fc6b368fa37c7e36cf15e35fa9422161a62bf57cf10c271a3",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 12,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 711,
+            "form": "Super",
+            "key": "lib-gourgeistsuper-n-37751cd9b6b4"
+          },
+          "assembly": {
+            "native_frames": [
+              {
+                "action": "Pain",
+                "direction": 0,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 0,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 1,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 2,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 2,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 4,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 3,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 6,
+                "index": 0
+              }
+            ]
+          },
+          "sha256": "49c00c7238a25b8da8c572c974f6c9be320fedefbc65f72944eca1c0852a80fc",
+          "palette_from": "lib-gourgeistsuper-s-30b17aa11822"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "gourgeistsuper",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5d991b3de81f290fc6b368fa37c7e36cf15e35fa9422161a62bf57cf10c271a3",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 711,
+            "form": "Super",
+            "key": "lib-gourgeistsuper-n-37751cd9b6b4"
+          },
+          "assembly": {
+            "native_frames": [
+              {
+                "action": "Pain",
+                "direction": 0,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 0,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 1,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 2,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 2,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 4,
+                "index": 0
+              },
+              {
+                "action": "Pain",
+                "direction": 3,
+                "frame": 0,
+                "animation": "Idle",
+                "row": 6,
+                "index": 0
+              }
+            ]
+          },
+          "sha256": "579e2844988d15cc4301746484530e4aec3dd5757dd19e9256cd94e452d53675",
+          "palette_from": "lib-gourgeistsuper-s-30b17aa11822"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "gourgeistsuper",
+    "num": 711,
+    "form": "Super",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Gourgeist-Super, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "gourgeistsuper-cardinal.png",
+    "source_sha256": "5d991b3de81f290fc6b368fa37c7e36cf15e35fa9422161a62bf57cf10c271a3",
+    "native_frames": [
+      {
+        "action": "Pain",
+        "direction": 0,
+        "frame": 0,
+        "animation": "Idle",
+        "row": 0,
+        "index": 0
+      },
+      {
+        "action": "Pain",
+        "direction": 1,
+        "frame": 0,
+        "animation": "Idle",
+        "row": 2,
+        "index": 0
+      },
+      {
+        "action": "Pain",
+        "direction": 2,
+        "frame": 0,
+        "animation": "Idle",
+        "row": 4,
+        "index": 0
+      },
+      {
+        "action": "Pain",
+        "direction": 3,
+        "frame": 0,
+        "animation": "Idle",
+        "row": 6,
+        "index": 0
+      }
+    ],
+    "source_record": "gourgeistsuper-assembled.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

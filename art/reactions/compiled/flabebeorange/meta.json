@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "flabebeorange",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0a324b90ca9dafd403ef05f1f3a035ae80351d3c7c3fe1929a3666e5d1ccb4cc",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 669,
+          "form": "Orange",
+          "key": "lib-flabebeorange-n-aa8b32dd4bb5"
+        },
+        "sha256": "95e4f71e018ea12964c10bee671c47540f2f5c32ef01fe83bb5ffb927599ecb7"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "flabebeorange",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0a324b90ca9dafd403ef05f1f3a035ae80351d3c7c3fe1929a3666e5d1ccb4cc",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 669,
+          "form": "Orange",
+          "key": "lib-flabebeorange-n-aa8b32dd4bb5"
+        },
+        "sha256": "522093d0f6305dad0ee4f630b17783d9ac1ef448f30fc73214e7940b1a96013d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "flabebeorange",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0a324b90ca9dafd403ef05f1f3a035ae80351d3c7c3fe1929a3666e5d1ccb4cc",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 669,
+            "form": "Orange",
+            "key": "lib-flabebeorange-n-aa8b32dd4bb5"
+          },
+          "sha256": "17063602a731f27928dbb37b10c3e00833b896c8e6ed2ecc2c9a5adc8d9a8856",
+          "palette_from": "lib-flabebeorange-s-27d9db65c422"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "flabebeorange",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0a324b90ca9dafd403ef05f1f3a035ae80351d3c7c3fe1929a3666e5d1ccb4cc",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 669,
+            "form": "Orange",
+            "key": "lib-flabebeorange-n-aa8b32dd4bb5"
+          },
+          "sha256": "09411842989353bd227a39fc0802be9247fe6b39f4c7b41f402288709b160619",
+          "palette_from": "lib-flabebeorange-s-27d9db65c422"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "flabebeorange",
+    "num": 669,
+    "form": "Orange",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Flabe\u0301be\u0301-Orange, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "flabebeorange-cardinal.png",
+    "source_sha256": "0a324b90ca9dafd403ef05f1f3a035ae80351d3c7c3fe1929a3666e5d1ccb4cc",
+    "source_record": "flabebeorange-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

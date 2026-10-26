@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "lycanrocmidnight",
+        "tool": "builtin-imagegen",
+        "source_sha256": "beb86f5949a9af17e66ee4e710c4690c532cd861e74613b5738c71ebbfd44cca",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 745,
+          "form": "Midnight",
+          "key": "lib-lycanrocmidnight-n-7dcb416fb504"
+        },
+        "sha256": "52d60d23a86b9757f927b120a16045975fe2ba1590aebefac059cd5e1113fee8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "lycanrocmidnight",
+        "tool": "builtin-imagegen",
+        "source_sha256": "beb86f5949a9af17e66ee4e710c4690c532cd861e74613b5738c71ebbfd44cca",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 745,
+          "form": "Midnight",
+          "key": "lib-lycanrocmidnight-n-7dcb416fb504"
+        },
+        "sha256": "c5019764fba4d3379faf055cfa38c4bcef9886b512e162cb1748ac002c8a4393"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "lycanrocmidnight",
+          "tool": "builtin-imagegen",
+          "source_sha256": "beb86f5949a9af17e66ee4e710c4690c532cd861e74613b5738c71ebbfd44cca",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 745,
+            "form": "Midnight",
+            "key": "lib-lycanrocmidnight-n-7dcb416fb504"
+          },
+          "sha256": "359e2d34c5c2761dc87215f1c1394c3ac67051bd80db436fc2c297fe3c395660",
+          "palette_from": "lib-lycanrocmidnight-s-d821c61b6b8c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "lycanrocmidnight",
+          "tool": "builtin-imagegen",
+          "source_sha256": "beb86f5949a9af17e66ee4e710c4690c532cd861e74613b5738c71ebbfd44cca",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 745,
+            "form": "Midnight",
+            "key": "lib-lycanrocmidnight-n-7dcb416fb504"
+          },
+          "sha256": "16e73cec430fc8794503d9f7f651accc186a316ec7ac54dadaef21a62881dc85",
+          "palette_from": "lib-lycanrocmidnight-s-d821c61b6b8c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "lycanrocmidnight",
+    "num": 745,
+    "form": "Midnight",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Lycanroc-Midnight, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "lycanrocmidnight-cardinal.png",
+    "source_sha256": "beb86f5949a9af17e66ee4e710c4690c532cd861e74613b5738c71ebbfd44cca",
+    "source_record": "lycanrocmidnight-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

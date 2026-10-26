@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "barbaracle",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f834926af951a25b4878d5ba5cd794aa44494519fa7919d077dc07a9b38bdcfb",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 689,
+          "form": "",
+          "key": "lib-barbaracle-n-072e43d5708b"
+        },
+        "sha256": "b1b3ad0b2b2c03e88b8031ea7e957aee0e5d25c2128341fb9e296b34ca3c9e72"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "barbaracle",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f834926af951a25b4878d5ba5cd794aa44494519fa7919d077dc07a9b38bdcfb",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 689,
+          "form": "",
+          "key": "lib-barbaracle-n-072e43d5708b"
+        },
+        "sha256": "0d4e372c4c96c82523d6f0fc143683e8cca9771c67a3e6d21dc240d373a21500"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "barbaracle",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f834926af951a25b4878d5ba5cd794aa44494519fa7919d077dc07a9b38bdcfb",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 689,
+            "form": "",
+            "key": "lib-barbaracle-n-072e43d5708b"
+          },
+          "sha256": "3183aecbc657170508a4dc0d187b69706b5b85a7a0b5d539c6a76a35e052129c",
+          "palette_from": "lib-barbaracle-s-749abe91ac00"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "barbaracle",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f834926af951a25b4878d5ba5cd794aa44494519fa7919d077dc07a9b38bdcfb",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 689,
+            "form": "",
+            "key": "lib-barbaracle-n-072e43d5708b"
+          },
+          "sha256": "b783933b83f01bf16a6b2e5f211b21eec237df5a7487e7b0c64faab080eabe39",
+          "palette_from": "lib-barbaracle-s-749abe91ac00"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "barbaracle",
+    "num": 689,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Barbaracle, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "barbaracle-cardinal.png",
+    "source_sha256": "f834926af951a25b4878d5ba5cd794aa44494519fa7919d077dc07a9b38bdcfb",
+    "source_record": "barbaracle-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

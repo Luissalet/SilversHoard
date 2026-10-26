@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tapubulu",
+        "tool": "builtin-imagegen",
+        "source_sha256": "db8850cfe4510a125b335fd78b19c91c21627b5c00e609388b2064e24f26a46e",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 787,
+          "form": "",
+          "key": "lib-tapubulu-n-113e54eca1b4"
+        },
+        "sha256": "52ca38a0df7504546951325d8a06eca221131f77fadb613905ee6c16d4e8c15d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tapubulu",
+        "tool": "builtin-imagegen",
+        "source_sha256": "db8850cfe4510a125b335fd78b19c91c21627b5c00e609388b2064e24f26a46e",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 787,
+          "form": "",
+          "key": "lib-tapubulu-n-113e54eca1b4"
+        },
+        "sha256": "3285cf22116158eb7e94e1af96081c5b5f3617d9b12d1d3ea007cba0f1496ae2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tapubulu",
+          "tool": "builtin-imagegen",
+          "source_sha256": "db8850cfe4510a125b335fd78b19c91c21627b5c00e609388b2064e24f26a46e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 787,
+            "form": "",
+            "key": "lib-tapubulu-n-113e54eca1b4"
+          },
+          "sha256": "c380e2207fc8bb5342261f8a6f8f7d1c8bd2a6adb1d0720779625dbb8cd477a9",
+          "palette_from": "lib-tapubulu-s-4ecc8b6d1055"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tapubulu",
+          "tool": "builtin-imagegen",
+          "source_sha256": "db8850cfe4510a125b335fd78b19c91c21627b5c00e609388b2064e24f26a46e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 787,
+            "form": "",
+            "key": "lib-tapubulu-n-113e54eca1b4"
+          },
+          "sha256": "a335861a196764e14db0b9e97b27f4f2ffa1de043d22274aa66e39eeac3a25af",
+          "palette_from": "lib-tapubulu-s-4ecc8b6d1055"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "tapubulu",
+    "num": 787,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Tapu Bulu, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "tapubulu-cardinal.png",
+    "source_sha256": "db8850cfe4510a125b335fd78b19c91c21627b5c00e609388b2064e24f26a46e",
+    "source_record": "tapubulu-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

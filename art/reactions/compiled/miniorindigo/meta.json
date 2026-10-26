@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "miniorindigo",
+        "tool": "builtin-imagegen",
+        "source_sha256": "33bfa13d9a198539683ccbb6bcfe06486db2ddf90d27e2e8be9a07353ffe6cc3",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 774,
+          "form": "Indigo",
+          "key": "lib-miniorindigo-n-7bfa1f30bdc8"
+        },
+        "sha256": "002de082928b1764a1edaaf996ac9d3e91e5a8c90f719bc9daf3e839cee2ac3d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "miniorindigo",
+        "tool": "builtin-imagegen",
+        "source_sha256": "33bfa13d9a198539683ccbb6bcfe06486db2ddf90d27e2e8be9a07353ffe6cc3",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 774,
+          "form": "Indigo",
+          "key": "lib-miniorindigo-n-7bfa1f30bdc8"
+        },
+        "sha256": "73402440d2cb7521acf9b6c0d02e00fefccdcf38d8b93bb43ddbf50d59130231"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "miniorindigo",
+          "tool": "builtin-imagegen",
+          "source_sha256": "33bfa13d9a198539683ccbb6bcfe06486db2ddf90d27e2e8be9a07353ffe6cc3",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 774,
+            "form": "Indigo",
+            "key": "lib-miniorindigo-n-7bfa1f30bdc8"
+          },
+          "sha256": "1858c8f1f24bd50884ab64a8bfd5ba775c08d13c126fc6070585cbd712f6b80c",
+          "palette_from": "lib-miniorindigo-s-2d1e6a3000d9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "miniorindigo",
+          "tool": "builtin-imagegen",
+          "source_sha256": "33bfa13d9a198539683ccbb6bcfe06486db2ddf90d27e2e8be9a07353ffe6cc3",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 774,
+            "form": "Indigo",
+            "key": "lib-miniorindigo-n-7bfa1f30bdc8"
+          },
+          "sha256": "427b798f6a1b55a0d5ca7ea34293ea28ef47d3fb4125ce509f7e64bb715fb789",
+          "palette_from": "lib-miniorindigo-s-2d1e6a3000d9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "miniorindigo",
+    "num": 774,
+    "form": "Indigo",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Minior-Indigo, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "miniorindigo-cardinal.png",
+    "source_sha256": "33bfa13d9a198539683ccbb6bcfe06486db2ddf90d27e2e8be9a07353ffe6cc3",
+    "source_record": "miniorindigo-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

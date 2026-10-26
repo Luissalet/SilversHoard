@@ -1,0 +1,19 @@
+{
+  "id": "kyuremblack",
+  "name": "Kyurem-Black",
+  "num": 646,
+  "form": "Black",
+  "directions": 4,
+  "frames": 4,
+  "image": "kyuremblack-cardinal-v2.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Use case: precise-object-edit. Edit transparent8column4row32sprite pixel-art atlas image1, using native exact identity reference image2. Correct only the WEST/left-facing row4 wing material in ALL eight poses: the large wing surface must be broad LIGHT ICY WHITE/CYAN, matching the native WEST silhouette of image2. Do not copy the dark-facing EAST wing. Keep the separate icy left arm and black torso correctly distinct. Preserve exact native asymmetric wing anatomy and full pose. All other cells, materials, camera directions and anatomy must stay unchanged. Keep exact grid/32sprites, consistent crisp pixel scale, native palette and transparent background. No extra objects, scenery, effects or text.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-corrections26.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}
