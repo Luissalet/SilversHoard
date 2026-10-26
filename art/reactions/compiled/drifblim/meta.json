@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "drifblim",
+        "tool": "builtin-imagegen",
+        "source_sha256": "99bfd4da660281848907f62f1f69c6b0774dc0315e337397dd24bee1c4581ec2",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 426,
+          "form": "",
+          "key": "lib-drifblim-n-1f4d50e68429"
+        },
+        "sha256": "19409f68b27cff2a35acf6c958ea9c5188bafb25d7cac3a69a3417235f276631"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "drifblim",
+        "tool": "builtin-imagegen",
+        "source_sha256": "99bfd4da660281848907f62f1f69c6b0774dc0315e337397dd24bee1c4581ec2",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 426,
+          "form": "",
+          "key": "lib-drifblim-n-1f4d50e68429"
+        },
+        "sha256": "e781678a6d118bc2925361880c0950860c513406cc737150e94cc2212fa1b4b2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "drifblim",
+          "tool": "builtin-imagegen",
+          "source_sha256": "99bfd4da660281848907f62f1f69c6b0774dc0315e337397dd24bee1c4581ec2",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 426,
+            "form": "",
+            "key": "lib-drifblim-n-1f4d50e68429"
+          },
+          "sha256": "05a03b2434146e19d16aca59ec1264eb34f80354651d63586e71e78554045cba",
+          "palette_from": "lib-drifblim-s-6ad9e73a3ce7"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "drifblim",
+          "tool": "builtin-imagegen",
+          "source_sha256": "99bfd4da660281848907f62f1f69c6b0774dc0315e337397dd24bee1c4581ec2",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 426,
+            "form": "",
+            "key": "lib-drifblim-n-1f4d50e68429"
+          },
+          "sha256": "d7907c46b1a5c9bc549450a883843c87ac665fa2eec081763098e52f34d0a645",
+          "palette_from": "lib-drifblim-s-6ad9e73a3ce7"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "drifblim",
+    "num": 426,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Drifblim, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "drifblim-retry-r4.png",
+    "source_sha256": "99bfd4da660281848907f62f1f69c6b0774dc0315e337397dd24bee1c4581ec2",
+    "source_record": "drifblim-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

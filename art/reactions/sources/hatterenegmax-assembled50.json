@@ -1,0 +1,43 @@
+{
+  "id": "hatterenegmax",
+  "name": "Hatterene-Gmax",
+  "num": 858,
+  "form": "Gmax",
+  "directions": 4,
+  "frames": 2,
+  "image": "hatterenegmax-assembled50.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Repack existing genuinely drawn poses without repainting or warping: use the declared same-identity same-camera braced/prone pose to replace the erroneously side-facing pose. Other pixels retain exact original binary-alpha crops.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "assembly_sources": [
+    {
+      "image": "hatterenegmax-compact-r5.png",
+      "sha256": "da8de3711cdca6ca78ec02dd61d68fec5005281c51e4b21f1d0b6297ae8daba6"
+    }
+  ],
+  "assembly_recipe": {
+    "base": "hatterenegmax-compact-r5.png",
+    "copy_existing_authored_pose": [
+      [
+        0,
+        1,
+        0,
+        2
+      ],
+      [
+        2,
+        1,
+        2,
+        2
+      ]
+    ],
+    "no_new_drawing": true
+  },
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-corrections50.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

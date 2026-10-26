@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 80,
+      "h": 64,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 40.0,
+      "ay": 58,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "zaciancrowned",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7b02389ab369858a7c8cdc0e708ede390cb47119138a812d827cb7f5db89c094",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 888,
+          "form": "Crowned",
+          "key": "lib-zaciancrowned-n-2c119064bfde"
+        },
+        "sha256": "9185315e5e9b56a1a70d28e6eff84d4b25d3262b8c9fd42773576c6f12dd706d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 80,
+      "h": 64,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 40.0,
+      "ay": 58,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "zaciancrowned",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7b02389ab369858a7c8cdc0e708ede390cb47119138a812d827cb7f5db89c094",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 888,
+          "form": "Crowned",
+          "key": "lib-zaciancrowned-n-2c119064bfde"
+        },
+        "sha256": "b91a73ee0eb81737eae079b3afccf45afbddbb867ec53360c90c3c575490ac39"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 80,
+        "h": 64,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 40.0,
+        "ay": 58,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "zaciancrowned",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7b02389ab369858a7c8cdc0e708ede390cb47119138a812d827cb7f5db89c094",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 888,
+            "form": "Crowned",
+            "key": "lib-zaciancrowned-n-2c119064bfde"
+          },
+          "sha256": "75789b943298d708730b469a22fe8b510694ba317369fd198acd4b28c8f3e69a",
+          "palette_from": "lib-zaciancrowned-s-bffac70f6750"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 80,
+        "h": 64,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 40.0,
+        "ay": 58,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "zaciancrowned",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7b02389ab369858a7c8cdc0e708ede390cb47119138a812d827cb7f5db89c094",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 888,
+            "form": "Crowned",
+            "key": "lib-zaciancrowned-n-2c119064bfde"
+          },
+          "sha256": "91dd14196e3ee276fa829bced6d9536daed1884f7f1e5c8dcc4247d736b55abc",
+          "palette_from": "lib-zaciancrowned-s-bffac70f6750"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "zaciancrowned",
+    "num": 888,
+    "form": "Crowned",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Zacian-Crowned, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "zaciancrowned-cardinal.png",
+    "source_sha256": "7b02389ab369858a7c8cdc0e708ede390cb47119138a812d827cb7f5db89c094",
+    "source_record": "zaciancrowned-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

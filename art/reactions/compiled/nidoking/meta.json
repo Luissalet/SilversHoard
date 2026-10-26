@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "nidoking",
+        "tool": "builtin-imagegen",
+        "source_sha256": "2d4d3188db0c13dd65990db2704fbb18ab0ccf9d4173218b2cb5110a8bdb011c",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 34,
+          "form": "",
+          "key": "lib-nidoking-n-f510993c08bd"
+        },
+        "sha256": "2ce55ae7904baa6b82724f754d35512cdb2a6f939307903e97195e03bc058e50"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "nidoking",
+        "tool": "builtin-imagegen",
+        "source_sha256": "2d4d3188db0c13dd65990db2704fbb18ab0ccf9d4173218b2cb5110a8bdb011c",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 34,
+          "form": "",
+          "key": "lib-nidoking-n-f510993c08bd"
+        },
+        "sha256": "0f39a5e2d168d87ab1b8f2a0db6c7f6c1e2ccc1e613578bf04d1f11c3a39891a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "nidoking",
+          "tool": "builtin-imagegen",
+          "source_sha256": "2d4d3188db0c13dd65990db2704fbb18ab0ccf9d4173218b2cb5110a8bdb011c",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 34,
+            "form": "",
+            "key": "lib-nidoking-n-f510993c08bd"
+          },
+          "sha256": "357084725974751d084c88692732740cac67690438aae222465f7fb3c467994c",
+          "palette_from": "lib-nidoking-s-60ea1a2123d3"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "nidoking",
+          "tool": "builtin-imagegen",
+          "source_sha256": "2d4d3188db0c13dd65990db2704fbb18ab0ccf9d4173218b2cb5110a8bdb011c",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 34,
+            "form": "",
+            "key": "lib-nidoking-n-f510993c08bd"
+          },
+          "sha256": "9269b9198dad1bce30c92eb1c5637bf034c4b32f6ab44ee10d597801a1ac9170",
+          "palette_from": "lib-nidoking-s-60ea1a2123d3"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "nidoking",
+    "num": 34,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a transparent pixel-art game sprite atlas for Nidoking using the exact native form and colours in the reference. EXACTLY SIXTEEN complete sprites in FOUR columns and FOUR rows. Rows: front/SOUTH, right profile/EAST, back/NORTH with no face, left profile/WEST. Columns1\u20132 are two distinct expressive flinch poses (blink and bend/braced wince). Columns3\u20134 are lowering to rest and fully lying down; final column has body and head resting flat with eyes closed. Keep all characteristic body parts, tails, wings, markings and accessories. Draw new body and limb poses, consistent pixel scale, crisp original palette. Broad transparent gutters, no text, marks, symbols or scenery. This is a nonviolent game character animation.",
+    "source_image": "nidoking-compact-r6.png",
+    "source_sha256": "2d4d3188db0c13dd65990db2704fbb18ab0ccf9d4173218b2cb5110a8bdb011c",
+    "source_record": "nidoking-compact-r6.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

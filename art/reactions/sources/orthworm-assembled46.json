@@ -1,0 +1,44 @@
+{
+  "id": "orthworm",
+  "name": "Orthworm",
+  "num": 968,
+  "form": "",
+  "directions": 4,
+  "frames": 4,
+  "image": "orthworm-assembled46.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Mechanically pack the existing built-in drawn atlas with only the explicitly listed corrected cells from correction44. Other original cells preserved as raw pixels. New source uniformly registered by unchanged SOUTH Pain0 height. No repainting or warping. Both source PNGs and generation prompt retained.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "assembly_sources": [
+    {
+      "image": "orthworm-cardinal.png",
+      "sha256": "491653d23f54d4b586d71b35fe9fb1dd05f74a83c94aea086cfe86cdcbc7e7cb"
+    },
+    {
+      "image": "orthworm-correction44.png",
+      "sha256": "0083cb4e7e54c790c8eba6ce71e2194ef4433555cfad47257e049511ceddf339"
+    }
+  ],
+  "assembly_recipe": {
+    "base": "orthworm-cardinal.png",
+    "edited": "orthworm-correction44.png",
+    "replace_row_col": [
+      [
+        2,
+        6
+      ],
+      [
+        2,
+        7
+      ]
+    ],
+    "uniform_scale": 1.0193236714975846
+  },
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-corrections46.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

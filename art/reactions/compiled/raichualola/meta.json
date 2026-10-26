@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "raichualola",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ba888213aecf3489691b164335b0c0cd87287e367aa675089f1c6670e4dda0a8",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 26,
+          "form": "Alola",
+          "key": "lib-raichualola-n-ee3de0ad2371"
+        },
+        "sha256": "6762b3f10faba0d4aab5c9eb97127bcb9152ac8b9c354e4e43d333621010be00"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "raichualola",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ba888213aecf3489691b164335b0c0cd87287e367aa675089f1c6670e4dda0a8",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 26,
+          "form": "Alola",
+          "key": "lib-raichualola-n-ee3de0ad2371"
+        },
+        "sha256": "eab28ece18af2f33d391a5de10eafdb8631e2ade050175ed84808531157eeabf"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "raichualola",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ba888213aecf3489691b164335b0c0cd87287e367aa675089f1c6670e4dda0a8",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 26,
+            "form": "Alola",
+            "key": "lib-raichualola-n-ee3de0ad2371"
+          },
+          "sha256": "d97cd849d440f2a19c75c1860e5591a546aa314c46b2129c599091cecb34835a",
+          "palette_from": "lib-raichualola-s-ee1828e96182"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "raichualola",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ba888213aecf3489691b164335b0c0cd87287e367aa675089f1c6670e4dda0a8",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 26,
+            "form": "Alola",
+            "key": "lib-raichualola-n-ee3de0ad2371"
+          },
+          "sha256": "b6f8b4b87b690f1d6ada1329cdf745248fbc99b967569438846c75d4363386b4",
+          "palette_from": "lib-raichualola-s-ee1828e96182"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "raichualola",
+    "num": 26,
+    "form": "Alola",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a transparent pixel-art game sprite atlas for Raichu-Alola using the exact native form and colours in the reference. EXACTLY SIXTEEN complete sprites in FOUR columns and FOUR rows. Rows: front/SOUTH, right profile/EAST, back/NORTH with no face, left profile/WEST. Columns1\u20132 are two distinct expressive flinch poses (blink and bend/braced wince). Columns3\u20134 are lowering to rest and fully lying down; final column has body and head resting flat with eyes closed. Keep all characteristic body parts, tails, wings, markings and accessories. Draw new body and limb poses, consistent pixel scale, crisp original palette. Broad transparent gutters, no text, marks, symbols or scenery. This is a nonviolent game character animation.",
+    "source_image": "raichualola-compact-r5.png",
+    "source_sha256": "ba888213aecf3489691b164335b0c0cd87287e367aa675089f1c6670e4dda0a8",
+    "source_record": "raichualola-compact-r5.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

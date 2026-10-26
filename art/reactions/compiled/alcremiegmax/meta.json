@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 120,
+      "h": 128,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 60.0,
+      "ay": 122,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "alcremiegmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5f8f4829573f58b70b75239fb222126e7d110ee978b53058f9b124d1b7185743",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 869,
+          "form": "Gmax",
+          "key": "lib-alcremiegmax-n-201dfda46702"
+        },
+        "sha256": "aa8ed0cd96743627aec84c84b5de40cc911edf820cdb7e1e25d3873bb28834ca"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 120,
+      "h": 128,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 60.0,
+      "ay": 122,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "alcremiegmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5f8f4829573f58b70b75239fb222126e7d110ee978b53058f9b124d1b7185743",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 869,
+          "form": "Gmax",
+          "key": "lib-alcremiegmax-n-201dfda46702"
+        },
+        "sha256": "8ccae722279661569bf2a74b7c0fb6b5edce613e3ad9c7db0c4e3a9fbd1e84c8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 120,
+        "h": 128,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 60.0,
+        "ay": 122,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "alcremiegmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "da468c633a4de0e7211e220cf8132d96f4cdb303291c8fd7fc0fd6884e31b08d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 869,
+            "form": "Gmax",
+            "key": "lib-alcremiegmax-s-5b23b4caf4d9"
+          },
+          "sha256": "fff3b853ce51dae322da89953b5dd1071fefe8893686fb330f71aeee98f42759"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 120,
+        "h": 128,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 60.0,
+        "ay": 122,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "alcremiegmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "da468c633a4de0e7211e220cf8132d96f4cdb303291c8fd7fc0fd6884e31b08d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 869,
+            "form": "Gmax",
+            "key": "lib-alcremiegmax-s-5b23b4caf4d9"
+          },
+          "sha256": "5e5de77057013ce4d2a9d27cd60077030d00473291c3c1d7dc2b04aa5a430191"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "alcremiegmax",
+    "num": 869,
+    "form": "Gmax",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Alcremie-Gmax, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "alcremiegmax-cardinal.png",
+    "source_sha256": "5f8f4829573f58b70b75239fb222126e7d110ee978b53058f9b124d1b7185743",
+    "source_record": "alcremiegmax-cardinal.json",
+    "shiny_source_image": "alcremiegmax-shiny47-v1.png",
+    "shiny_prompt": "Use case identity-preserve. Recolour all32sprites of transparent8column4row atlas IMAGE1 to exact native SHINY colours in IMAGE2. Preserve already corrected black cake/base and yellow star ornaments. Fix only band ornament assignments: LOWER PURPLE band carries GREEN X/bow motifs, UPPER GRAY band carries PINK HEART motifs, as exact native reference. Never swap these two bands. Preserve face/body/frosting and every pose. Preserve every pose, geometry, camera and distinctive part. NORTH remains rear. Finalgroundposesremainfullydown. Crisp exact limited native pixel palette, transparent background, broad gutters. No new effects,text,objects or scenery."
+  },
+  "reviewed": true,
+  "shiny_reviewed": false
+}

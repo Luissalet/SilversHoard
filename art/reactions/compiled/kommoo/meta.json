@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 72,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "kommoo",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9cb459a23f197181640c11ef3f93f3bdee9d50b84196d231b965b3fa3c4c4047",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 784,
+          "form": "",
+          "key": "lib-kommoo-n-7e5945244dcc"
+        },
+        "sha256": "89afce24afacfb7f1014e1257a1eb31bdec4ab88e890db347b26ccf3e0ee3525"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 72,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "kommoo",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9cb459a23f197181640c11ef3f93f3bdee9d50b84196d231b965b3fa3c4c4047",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          3,
+          4
+        ],
+        "reference": {
+          "num": 784,
+          "form": "",
+          "key": "lib-kommoo-n-7e5945244dcc"
+        },
+        "sha256": "95dab3964864adb079c4f71c3c9a653b851753f8bf98348adceb10bc5ac4308e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 72,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "kommoo",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9cb459a23f197181640c11ef3f93f3bdee9d50b84196d231b965b3fa3c4c4047",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 784,
+            "form": "",
+            "key": "lib-kommoo-n-7e5945244dcc"
+          },
+          "sha256": "bf47aa4a3ef05218ef9f60e2062cf3f904e74849ba6d3d0622599ef7d01fd554",
+          "palette_from": "lib-kommoo-s-5e9b9653ac88"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 72,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "kommoo",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9cb459a23f197181640c11ef3f93f3bdee9d50b84196d231b965b3fa3c4c4047",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            3,
+            4
+          ],
+          "reference": {
+            "num": 784,
+            "form": "",
+            "key": "lib-kommoo-n-7e5945244dcc"
+          },
+          "sha256": "2a9fef33341b34c055509cd96f1f09e70791ec0467d954a7a95afd77fd2634af",
+          "palette_from": "lib-kommoo-s-5e9b9653ac88"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "kommoo",
+    "num": 784,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Mechanically pack the existing built-in generated v2 atlas, replacing only NORTH HitGround2-3 with the newly drawn north-prone-v2 strip frames2-3, uniformly registered with first prone width = 1.4 times existing NORTH standing width, allowing folded/splayed limbs while keeping both new frames at the same pixel scale. All other30 drawn poses are preserved; no repainting, rotating standing poses or nonuniform warping.",
+    "source_image": "kommoo-assembled48.png",
+    "source_sha256": "9cb459a23f197181640c11ef3f93f3bdee9d50b84196d231b965b3fa3c4c4047",
+    "source_record": "kommoo-assembled48.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

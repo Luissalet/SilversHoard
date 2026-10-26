@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "florgesorange",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ed3a73d1bc7f07a77426d5d62738cf7ee7451319d6fe85d02c44c52f543d9aff",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 671,
+          "form": "Orange",
+          "key": "lib-florgesorange-n-9b43482974bc"
+        },
+        "sha256": "870c03b5178ee868be901093f911a57415f545427a985f339291384946d394ac"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "florgesorange",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ed3a73d1bc7f07a77426d5d62738cf7ee7451319d6fe85d02c44c52f543d9aff",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 671,
+          "form": "Orange",
+          "key": "lib-florgesorange-n-9b43482974bc"
+        },
+        "sha256": "f5370033709772072a4b7c25c02fb5fea922cb0d384daeacc0657ae7a1028a9d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "florgesorange",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ed3a73d1bc7f07a77426d5d62738cf7ee7451319d6fe85d02c44c52f543d9aff",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 671,
+            "form": "Orange",
+            "key": "lib-florgesorange-n-9b43482974bc"
+          },
+          "sha256": "b36fe8965392633b260301bb0e766bd1cc6109362ae2616bb488d3ad87b3dcdb",
+          "palette_from": "lib-florgesorange-s-9c197811458f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "florgesorange",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ed3a73d1bc7f07a77426d5d62738cf7ee7451319d6fe85d02c44c52f543d9aff",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 671,
+            "form": "Orange",
+            "key": "lib-florgesorange-n-9b43482974bc"
+          },
+          "sha256": "2b81c303f53d82cafb34656d7f65731b705addceec4aa1f6b1070abc26bc7bbb",
+          "palette_from": "lib-florgesorange-s-9c197811458f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "florgesorange",
+    "num": 671,
+    "form": "Orange",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Florges-Orange, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "florgesorange-retry-r4.png",
+    "source_sha256": "ed3a73d1bc7f07a77426d5d62738cf7ee7451319d6fe85d02c44c52f543d9aff",
+    "source_record": "florgesorange-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

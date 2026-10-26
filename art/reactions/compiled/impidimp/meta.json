@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "impidimp",
+        "tool": "builtin-imagegen",
+        "source_sha256": "64d8f340b2d431825dd1e240a68774dcf91a8b2ef798d494a4e37565bdff655f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 859,
+          "form": "",
+          "key": "lib-impidimp-n-cb16fae38d8e"
+        },
+        "sha256": "f6d4f4ed4d928600db51965707c02836ba60d38219bb23d8e293d8711c526662"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "impidimp",
+        "tool": "builtin-imagegen",
+        "source_sha256": "64d8f340b2d431825dd1e240a68774dcf91a8b2ef798d494a4e37565bdff655f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 859,
+          "form": "",
+          "key": "lib-impidimp-n-cb16fae38d8e"
+        },
+        "sha256": "217a41656d0bd856369106bdbc098489850aadd6e6a20b6ef1b4719ed0dc3afa"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "impidimp",
+          "tool": "builtin-imagegen",
+          "source_sha256": "64d8f340b2d431825dd1e240a68774dcf91a8b2ef798d494a4e37565bdff655f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 859,
+            "form": "",
+            "key": "lib-impidimp-n-cb16fae38d8e"
+          },
+          "sha256": "8a3b2ff575cc47ea2d8f8e559b0d96843ae65121984b3a63d58519bba9ca8247",
+          "palette_from": "lib-impidimp-s-51ce7af6a704"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "impidimp",
+          "tool": "builtin-imagegen",
+          "source_sha256": "64d8f340b2d431825dd1e240a68774dcf91a8b2ef798d494a4e37565bdff655f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 859,
+            "form": "",
+            "key": "lib-impidimp-n-cb16fae38d8e"
+          },
+          "sha256": "b34f458f90f6b344d4015b1e0805bc2dd33b622aa5cd66c426b61244ce2c2648",
+          "palette_from": "lib-impidimp-s-51ce7af6a704"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "impidimp",
+    "num": 859,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Impidimp, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "impidimp-cardinal.png",
+    "source_sha256": "64d8f340b2d431825dd1e240a68774dcf91a8b2ef798d494a4e37565bdff655f",
+    "source_record": "impidimp-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

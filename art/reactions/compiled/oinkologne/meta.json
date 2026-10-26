@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "oinkologne",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7c1de1747a4f3460a47a05260d0f17d8190b94fc318b8e6a10ceabcd1ea7741a",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 916,
+          "form": "",
+          "key": "lib-oinkologne-n-287bcff478ee"
+        },
+        "sha256": "fefc1cd0b9675d1578e7e9e1465281b1313f13320f547d8a286c9f3ef98a014f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "oinkologne",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7c1de1747a4f3460a47a05260d0f17d8190b94fc318b8e6a10ceabcd1ea7741a",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 916,
+          "form": "",
+          "key": "lib-oinkologne-n-287bcff478ee"
+        },
+        "sha256": "d34327bd247f37ba28e319e27e692b8c8c66d0a2c0085f345b1a14c861d81b83"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "oinkologne",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7c1de1747a4f3460a47a05260d0f17d8190b94fc318b8e6a10ceabcd1ea7741a",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 916,
+            "form": "",
+            "key": "lib-oinkologne-n-287bcff478ee"
+          },
+          "sha256": "d62e6bdfb07303bfd44d93d63325410fe155891897e07da08c8ba64ea0bf47b2",
+          "palette_from": "lib-oinkologne-s-39861c617b03"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "oinkologne",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7c1de1747a4f3460a47a05260d0f17d8190b94fc318b8e6a10ceabcd1ea7741a",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 916,
+            "form": "",
+            "key": "lib-oinkologne-n-287bcff478ee"
+          },
+          "sha256": "b1756c1617fda1e7f901d34b134100e3e58a4bc5ff9c3607700d112eaad7bab0",
+          "palette_from": "lib-oinkologne-s-39861c617b03"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "oinkologne",
+    "num": 916,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Oinkologne, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "oinkologne-cardinal.png",
+    "source_sha256": "7c1de1747a4f3460a47a05260d0f17d8190b94fc318b8e6a10ceabcd1ea7741a",
+    "source_record": "oinkologne-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

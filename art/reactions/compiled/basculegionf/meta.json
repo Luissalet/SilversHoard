@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "basculegionf",
+        "tool": "builtin-imagegen",
+        "source_sha256": "2528507f59f4939a1781330cbae1a378189a840f878a64be82b1045f0751e0c1",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 902,
+          "form": "F",
+          "key": "lib-basculegionf-n-4f72f1440b0f"
+        },
+        "sha256": "dbbbec6e4021f92acfbeb1c2bb89a3f7fff41ad8275e95306c48924b669b9052"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "basculegionf",
+        "tool": "builtin-imagegen",
+        "source_sha256": "2528507f59f4939a1781330cbae1a378189a840f878a64be82b1045f0751e0c1",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 902,
+          "form": "F",
+          "key": "lib-basculegionf-n-4f72f1440b0f"
+        },
+        "sha256": "5fb2857bd708b2a112ffaee884485fba7263519cc66a7a4a91e381552d2d02d3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "basculegionf",
+          "tool": "builtin-imagegen",
+          "source_sha256": "2528507f59f4939a1781330cbae1a378189a840f878a64be82b1045f0751e0c1",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 902,
+            "form": "F",
+            "key": "lib-basculegionf-n-4f72f1440b0f"
+          },
+          "sha256": "489e2d221b73c402571d6554cb9cc8a987139f6bf8631cb142cee74263b307dc",
+          "palette_from": "lib-basculegionf-s-e1a67e2a7bf0"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "basculegionf",
+          "tool": "builtin-imagegen",
+          "source_sha256": "2528507f59f4939a1781330cbae1a378189a840f878a64be82b1045f0751e0c1",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 902,
+            "form": "F",
+            "key": "lib-basculegionf-n-4f72f1440b0f"
+          },
+          "sha256": "e4076b8ffdd7daa0a966ef9c33bde6338106176490694f92a671e87753899ca2",
+          "palette_from": "lib-basculegionf-s-e1a67e2a7bf0"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "basculegionf",
+    "num": 902,
+    "form": "F",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Basculegion-F, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "basculegionf-cardinal.png",
+    "source_sha256": "2528507f59f4939a1781330cbae1a378189a840f878a64be82b1045f0751e0c1",
+    "source_record": "basculegionf-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

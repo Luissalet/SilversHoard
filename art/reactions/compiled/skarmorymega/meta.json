@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "skarmorymega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "1972ba2461b94d3223190873b48dda48865b6959e6c164ec5b8098549eff6911",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 227,
+          "form": "Mega",
+          "key": "lib-skarmorymega-n-e3b7a50ad444"
+        },
+        "sha256": "01eafbb7825202ea4794c1dc4b7f359665e94aa38990bb2b57954d61c5b8a523"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "skarmorymega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "1972ba2461b94d3223190873b48dda48865b6959e6c164ec5b8098549eff6911",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 227,
+          "form": "Mega",
+          "key": "lib-skarmorymega-n-e3b7a50ad444"
+        },
+        "sha256": "5762fbd38aca7b48fdb9ac62fc7a58d66a115e74cc8e9496ebf009da1d415a1a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "skarmorymega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1972ba2461b94d3223190873b48dda48865b6959e6c164ec5b8098549eff6911",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 227,
+            "form": "Mega",
+            "key": "lib-skarmorymega-n-e3b7a50ad444"
+          },
+          "sha256": "030d2bf2957b3aa332b8672fa65211ddc9f47448253b3a7dfb8b98b67a1e8cac",
+          "palette_from": "lib-skarmorymega-s-e22d11331f0b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "skarmorymega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1972ba2461b94d3223190873b48dda48865b6959e6c164ec5b8098549eff6911",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 227,
+            "form": "Mega",
+            "key": "lib-skarmorymega-n-e3b7a50ad444"
+          },
+          "sha256": "84412d74eb4bef67330fcd74a8253933612c21702e87b532eef68417f6fa0077",
+          "palette_from": "lib-skarmorymega-s-e22d11331f0b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "skarmorymega",
+    "num": 227,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Skarmory-Mega, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "skarmorymega-retry-r4.png",
+    "source_sha256": "1972ba2461b94d3223190873b48dda48865b6959e6c164ec5b8098549eff6911",
+    "source_record": "skarmorymega-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

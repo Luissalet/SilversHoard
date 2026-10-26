@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "nymble",
+        "tool": "builtin-imagegen",
+        "source_sha256": "be697dbb36305dd64aca60afbee489ce69b0759e0a16911ee8ea0e771d18d1fc",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 919,
+          "form": "",
+          "key": "lib-nymble-n-5770817737c9"
+        },
+        "sha256": "04ea02d0b0b50a4c4722ca462463029c6df37bbb1866d27a853104da9aef034d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "nymble",
+        "tool": "builtin-imagegen",
+        "source_sha256": "be697dbb36305dd64aca60afbee489ce69b0759e0a16911ee8ea0e771d18d1fc",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 919,
+          "form": "",
+          "key": "lib-nymble-n-5770817737c9"
+        },
+        "sha256": "3782e73612a0598e27ec3f0ca6c3eb9f37504f01bfde4930f9fa6a6cef685511"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "nymble",
+          "tool": "builtin-imagegen",
+          "source_sha256": "be697dbb36305dd64aca60afbee489ce69b0759e0a16911ee8ea0e771d18d1fc",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 919,
+            "form": "",
+            "key": "lib-nymble-n-5770817737c9"
+          },
+          "sha256": "977f85642d98a21fbe8b27ceadd2ac74aeed5faf226ff69e26ab38171c036288",
+          "palette_from": "lib-nymble-s-4777a5109833"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "nymble",
+          "tool": "builtin-imagegen",
+          "source_sha256": "be697dbb36305dd64aca60afbee489ce69b0759e0a16911ee8ea0e771d18d1fc",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 919,
+            "form": "",
+            "key": "lib-nymble-n-5770817737c9"
+          },
+          "sha256": "24b6b06f8baf7f8e0e087dde6055e40e4210bec6912f2f0565e7274516dc9ccf",
+          "palette_from": "lib-nymble-s-4777a5109833"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "nymble",
+    "num": 919,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Nymble, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "nymble-cardinal.png",
+    "source_sha256": "be697dbb36305dd64aca60afbee489ce69b0759e0a16911ee8ea0e771d18d1fc",
+    "source_record": "nymble-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

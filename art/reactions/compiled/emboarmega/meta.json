@@ -1,0 +1,114 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "emboarmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "14507cbaa080cd9384dc7e6aef862ac841063353bbdb10d0b3aaeac148c438a3",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 500,
+          "form": "Mega",
+          "key": "lib-emboarmega-n-38a412b08df8"
+        },
+        "sha256": "1cab2011029f5b4fb08f6ade1857011b208aded695010e0778d1b9e7e00b5c4e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "emboarmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "14507cbaa080cd9384dc7e6aef862ac841063353bbdb10d0b3aaeac148c438a3",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 500,
+          "form": "Mega",
+          "key": "lib-emboarmega-n-38a412b08df8"
+        },
+        "sha256": "4f59faec37af384b739f347ff315d0215dd6e16995df2cf9875392ad78b258e0"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {}
+  },
+  "pending": [
+    "shiny"
+  ],
+  "provenance": {
+    "id": "emboarmega",
+    "num": 500,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a transparent pixel-art game sprite atlas for Emboar-Mega using the exact native form and colours in the reference. EXACTLY SIXTEEN complete sprites in FOUR columns and FOUR rows. Rows: front/SOUTH, right profile/EAST, back/NORTH with no face, left profile/WEST. Columns1\u20132 are two distinct expressive flinch poses (blink and bend/braced wince). Columns3\u20134 are lowering to rest and fully lying down; final column has body and head resting flat with eyes closed. Keep all characteristic body parts, tails, wings, markings and accessories. Draw new body and limb poses, consistent pixel scale, crisp original palette. Broad transparent gutters, no text, marks, symbols or scenery. This is a nonviolent game character animation.",
+    "source_image": "emboarmega-compact-r5.png",
+    "source_sha256": "14507cbaa080cd9384dc7e6aef862ac841063353bbdb10d0b3aaeac148c438a3",
+    "source_record": "emboarmega-compact-r5.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": false
+}

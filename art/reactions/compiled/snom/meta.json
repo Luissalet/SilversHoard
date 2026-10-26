@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "snom",
+        "tool": "builtin-imagegen",
+        "source_sha256": "eca4df4e7d5ebc3a7e600033e2866acc712301e58767a02ee7c4df5d002ba2fb",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 872,
+          "form": "",
+          "key": "lib-snom-n-e7a7f3778717"
+        },
+        "sha256": "6f9f8ea8e280886dc80cb56dabcb6f12b95f370d616e5b1d98d8b6db313c3101"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "snom",
+        "tool": "builtin-imagegen",
+        "source_sha256": "eca4df4e7d5ebc3a7e600033e2866acc712301e58767a02ee7c4df5d002ba2fb",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 872,
+          "form": "",
+          "key": "lib-snom-n-e7a7f3778717"
+        },
+        "sha256": "05db325b49f099a43adb8048029b4841d656c04d9630df806fcc1476fb49f6d5"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "snom",
+          "tool": "builtin-imagegen",
+          "source_sha256": "eca4df4e7d5ebc3a7e600033e2866acc712301e58767a02ee7c4df5d002ba2fb",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 872,
+            "form": "",
+            "key": "lib-snom-n-e7a7f3778717"
+          },
+          "sha256": "7e3e1ea7e958fa1964111c2e058967db4a500c178a35733773340a710cce7ed7",
+          "palette_from": "lib-snom-s-e1322adbd270"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "snom",
+          "tool": "builtin-imagegen",
+          "source_sha256": "eca4df4e7d5ebc3a7e600033e2866acc712301e58767a02ee7c4df5d002ba2fb",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 872,
+            "form": "",
+            "key": "lib-snom-n-e7a7f3778717"
+          },
+          "sha256": "119cf19b6125271ce1e9a2b13f917b044a0efc69fd3b788c4f1852ebf98e547b",
+          "palette_from": "lib-snom-s-e1322adbd270"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "snom",
+    "num": 872,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Snom, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "snom-cardinal.png",
+    "source_sha256": "eca4df4e7d5ebc3a7e600033e2866acc712301e58767a02ee7c4df5d002ba2fb",
+    "source_record": "snom-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "blitzle",
+        "tool": "builtin-imagegen",
+        "source_sha256": "40013d2eefd90a6e5a9121c7f2fdb58999907787569eddf04873c81d394b49cb",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 522,
+          "form": "",
+          "key": "lib-blitzle-n-ac125e3c4dd8"
+        },
+        "sha256": "a83874f9950c741fb7ac49165f2b847f4c16c9f713afc80d459170ecbce52287"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "blitzle",
+        "tool": "builtin-imagegen",
+        "source_sha256": "40013d2eefd90a6e5a9121c7f2fdb58999907787569eddf04873c81d394b49cb",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 522,
+          "form": "",
+          "key": "lib-blitzle-n-ac125e3c4dd8"
+        },
+        "sha256": "6eaf11e2bd176454a695435ef692b3a464cc933dd64962ceb8b97d7d3db84bda"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "blitzle",
+          "tool": "builtin-imagegen",
+          "source_sha256": "40013d2eefd90a6e5a9121c7f2fdb58999907787569eddf04873c81d394b49cb",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 522,
+            "form": "",
+            "key": "lib-blitzle-n-ac125e3c4dd8"
+          },
+          "sha256": "a4de66dc829d7cac891a0b9e8c644d255b450201b8e842d46ea0dbedc04b9dd3",
+          "palette_from": "lib-blitzle-s-6ebafc863ac1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "blitzle",
+          "tool": "builtin-imagegen",
+          "source_sha256": "40013d2eefd90a6e5a9121c7f2fdb58999907787569eddf04873c81d394b49cb",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 522,
+            "form": "",
+            "key": "lib-blitzle-n-ac125e3c4dd8"
+          },
+          "sha256": "7e44ca03e13325d7c5dc56c926658fd1de9a91dc550cf9a66429460a292e1576",
+          "palette_from": "lib-blitzle-s-6ebafc863ac1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "blitzle",
+    "num": 522,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Blitzle, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "blitzle-retry-r4.png",
+    "source_sha256": "40013d2eefd90a6e5a9121c7f2fdb58999907787569eddf04873c81d394b49cb",
+    "source_record": "blitzle-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

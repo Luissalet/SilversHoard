@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dugtrio",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0b29a2a342ac00bc7030937f3c94b7ab4c9383f68c535a5cc4f4fc7ef549c3e2",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 51,
+          "form": "",
+          "key": "lib-dugtrio-n-e36cc45060a4"
+        },
+        "sha256": "c7b4f6b85b66d52a1edff22ac9d8e4f7093c8cff25369d2eb65b7a5fad41d84b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dugtrio",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0b29a2a342ac00bc7030937f3c94b7ab4c9383f68c535a5cc4f4fc7ef549c3e2",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 51,
+          "form": "",
+          "key": "lib-dugtrio-n-e36cc45060a4"
+        },
+        "sha256": "223957866ec0d31fc54d7a46298da4cb0ce8ba5218ed05cbedc6dc045b0a4bf9"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dugtrio",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0b29a2a342ac00bc7030937f3c94b7ab4c9383f68c535a5cc4f4fc7ef549c3e2",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 51,
+            "form": "",
+            "key": "lib-dugtrio-n-e36cc45060a4"
+          },
+          "sha256": "8b80187a5b35a6fd10d0ccb2145bab69edb1268785b58c74ae1c815f2464e7af",
+          "palette_from": "lib-dugtrio-s-c1a29ff121b6"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dugtrio",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0b29a2a342ac00bc7030937f3c94b7ab4c9383f68c535a5cc4f4fc7ef549c3e2",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 51,
+            "form": "",
+            "key": "lib-dugtrio-n-e36cc45060a4"
+          },
+          "sha256": "b3f3ff12d15d70945f814107b20bc8638b472fab34b55cd5b3b5ec2210dd63ff",
+          "palette_from": "lib-dugtrio-s-c1a29ff121b6"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "dugtrio",
+    "num": 51,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Dugtrio, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "dugtrio-retry-r4.png",
+    "source_sha256": "0b29a2a342ac00bc7030937f3c94b7ab4c9383f68c535a5cc4f4fc7ef549c3e2",
+    "source_record": "dugtrio-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

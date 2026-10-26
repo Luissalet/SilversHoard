@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "oinkolognef",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d1e517bed231bd33fcef42fb241899d0fb4cdfbeacc4a429b09545df6f80407a",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 916,
+          "form": "F",
+          "key": "lib-oinkolognef-n-ad9be8302421"
+        },
+        "sha256": "9032579cc58c187c359caf4e551597e99526ce26d6f16de919f5a32149a6bf27"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "oinkolognef",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d1e517bed231bd33fcef42fb241899d0fb4cdfbeacc4a429b09545df6f80407a",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 916,
+          "form": "F",
+          "key": "lib-oinkolognef-n-ad9be8302421"
+        },
+        "sha256": "35c17fc8de3259de5989de2ffa0125e8a909134f4fd90ec2f8e1c9d268d125c3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "oinkolognef",
+          "tool": "builtin-imagegen",
+          "source_sha256": "c3f0b35ab4bf4ef7b87bc0677c823e4d2d17e4a38f0374e23ee8c3675343b0f9",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 916,
+            "form": "F",
+            "key": "lib-oinkolognef-s-a9865da8cbfa"
+          },
+          "sha256": "2895fff796e95aa0bd3852b0162e38cfa516f0a1c5a5929e2e0e5c1aeccc946d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "oinkolognef",
+          "tool": "builtin-imagegen",
+          "source_sha256": "c3f0b35ab4bf4ef7b87bc0677c823e4d2d17e4a38f0374e23ee8c3675343b0f9",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 916,
+            "form": "F",
+            "key": "lib-oinkolognef-s-a9865da8cbfa"
+          },
+          "sha256": "225c3dec4cc1628bc1339987cd9f7a33540a3a0d1c6a737d9989f6063cf6ff9e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "oinkolognef",
+    "num": 916,
+    "form": "F",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Oinkologne-F, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "oinkolognef-cardinal.png",
+    "source_sha256": "d1e517bed231bd33fcef42fb241899d0fb4cdfbeacc4a429b09545df6f80407a",
+    "source_record": "oinkolognef-cardinal.json",
+    "shiny_source_image": "oinkolognef-shiny-r6.png",
+    "shiny_prompt": "Use case identity-preserve. Recolour all32 sprites of the existing transparent8column4row game atlas image1 to the EXACT native SHINY palette of image2. Body pink with BLACK outlines on torso/legs/belly; light beige ONLY on face, no golden body contours. Keep all poses, camera directions, body parts and geometry unchanged. Match each MATERIAL/REGION individually, no global hue shift or colour spill into neighbouring parts. NORTH remains back-only. Final ground poses stay fully prone. Crisp native pixel palette and transparent background. No new effects marks text or objects."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

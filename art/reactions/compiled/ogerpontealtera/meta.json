@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 72,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ogerpontealtera",
+        "tool": "builtin-imagegen",
+        "source_sha256": "c503b253e8e3730fa50c5855abac1422e74b7a4a27d017e3336e9ce5ec3d3be5",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 1017,
+          "form": "Teal-Tera",
+          "key": "lib-ogerpontealtera-n-071b0b6db6ee"
+        },
+        "sha256": "b8e12ddf54c175511e64f0a9c7077689acc958617d2357b25e3150173a1e9ae1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 72,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ogerpontealtera",
+        "tool": "builtin-imagegen",
+        "source_sha256": "c503b253e8e3730fa50c5855abac1422e74b7a4a27d017e3336e9ce5ec3d3be5",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 1017,
+          "form": "Teal-Tera",
+          "key": "lib-ogerpontealtera-n-071b0b6db6ee"
+        },
+        "sha256": "1942d797279c2bb68e20d65bc2d7e278a42d55cc254cee34e6dda20918db0920"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 72,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ogerpontealtera",
+          "tool": "builtin-imagegen",
+          "source_sha256": "c503b253e8e3730fa50c5855abac1422e74b7a4a27d017e3336e9ce5ec3d3be5",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 1017,
+            "form": "Teal-Tera",
+            "key": "lib-ogerpontealtera-n-071b0b6db6ee"
+          },
+          "sha256": "8d18c257c819131c49f515bbdb2ce242b1bd8c4740ceee97b47885e91132b3c3",
+          "palette_from": "lib-ogerpontealtera-s-1b46cc9f5c90"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 72,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ogerpontealtera",
+          "tool": "builtin-imagegen",
+          "source_sha256": "c503b253e8e3730fa50c5855abac1422e74b7a4a27d017e3336e9ce5ec3d3be5",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 1017,
+            "form": "Teal-Tera",
+            "key": "lib-ogerpontealtera-n-071b0b6db6ee"
+          },
+          "sha256": "026ac21cc867666939e7f17efbc43e6eff533386d5524f8707c9b904142c9d0e",
+          "palette_from": "lib-ogerpontealtera-s-1b46cc9f5c90"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "ogerpontealtera",
+    "num": 1017,
+    "form": "Teal-Tera",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Ogerpon-Teal-Tera, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "ogerpontealtera-cardinal.png",
+    "source_sha256": "c503b253e8e3730fa50c5855abac1422e74b7a4a27d017e3336e9ce5ec3d3be5",
+    "source_record": "ogerpontealtera-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

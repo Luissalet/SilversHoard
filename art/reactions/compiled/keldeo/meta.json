@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "keldeo",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0b1ce9c43e2dd49c83085920f327a9e8827923be3307d7addddef2e75e90f62c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 647,
+          "form": "",
+          "key": "lib-keldeo-n-8ad19e610788"
+        },
+        "sha256": "837f9bad3c789255cd0a5191dc7333f5f24996d6ce0d6ad508aed58149f21f40"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "keldeo",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0b1ce9c43e2dd49c83085920f327a9e8827923be3307d7addddef2e75e90f62c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 647,
+          "form": "",
+          "key": "lib-keldeo-n-8ad19e610788"
+        },
+        "sha256": "b3742f2ec5446f9a468e44d624bc0a77a36579433adadc971c7a9942c6e49e9b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "keldeo",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0b1ce9c43e2dd49c83085920f327a9e8827923be3307d7addddef2e75e90f62c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 647,
+            "form": "",
+            "key": "lib-keldeo-n-8ad19e610788"
+          },
+          "sha256": "fcd845766e55e8b7d4310cd8b2b382a55488377340e10b61211e3d4d4b9e89fa",
+          "palette_from": "lib-keldeo-s-d0905a1d0115"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "keldeo",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0b1ce9c43e2dd49c83085920f327a9e8827923be3307d7addddef2e75e90f62c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 647,
+            "form": "",
+            "key": "lib-keldeo-n-8ad19e610788"
+          },
+          "sha256": "f19b7d9665ac4fbfc08b5c25d2c0637ed8a3075abc5cca352a8192221905ccdc",
+          "palette_from": "lib-keldeo-s-d0905a1d0115"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "keldeo",
+    "num": 647,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Mechanically pack the existing built-in generated v2 atlas, replacing only NORTH HitGround2-3 with the newly drawn north-prone-v4 strip frames2-3, uniformly registered with first prone width = 1.4 times existing NORTH standing width, allowing folded/splayed limbs while keeping both new frames at the same pixel scale. All other30 drawn poses are preserved; no repainting, rotating standing poses or nonuniform warping.",
+    "source_image": "keldeo-assembled-v4.png",
+    "source_sha256": "0b1ce9c43e2dd49c83085920f327a9e8827923be3307d7addddef2e75e90f62c",
+    "source_record": "keldeo-assembled-v4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

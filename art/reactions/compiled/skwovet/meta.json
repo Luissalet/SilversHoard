@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "skwovet",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8481ad1dc96fa964189a5dad3418f273b63f4377f43f4fee1d3adf8bae21b4a2",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 819,
+          "form": "",
+          "key": "lib-skwovet-n-c91796bd3888"
+        },
+        "sha256": "18ddc9fc99df4c52955bd38a7babbedd4874dd6b000da7cd28e3af2f06b3dfce"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "skwovet",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8481ad1dc96fa964189a5dad3418f273b63f4377f43f4fee1d3adf8bae21b4a2",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 819,
+          "form": "",
+          "key": "lib-skwovet-n-c91796bd3888"
+        },
+        "sha256": "d5a708c00e8e249411232533b781aed11cd25349ea44449351a380f40dcbe5cf"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "skwovet",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8481ad1dc96fa964189a5dad3418f273b63f4377f43f4fee1d3adf8bae21b4a2",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 819,
+            "form": "",
+            "key": "lib-skwovet-n-c91796bd3888"
+          },
+          "sha256": "7294fe683026f0101919629a39464f3ad7c6ce8d24d167c8859e4e9929d6f8a3",
+          "palette_from": "lib-skwovet-s-f64b122d5a3d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "skwovet",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8481ad1dc96fa964189a5dad3418f273b63f4377f43f4fee1d3adf8bae21b4a2",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 819,
+            "form": "",
+            "key": "lib-skwovet-n-c91796bd3888"
+          },
+          "sha256": "163274812d16a0dd81f91305a164d423ba212d4b8e85c40ee692efb74775f63a",
+          "palette_from": "lib-skwovet-s-f64b122d5a3d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "skwovet",
+    "num": 819,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Skwovet, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "skwovet-cardinal.png",
+    "source_sha256": "8481ad1dc96fa964189a5dad3418f273b63f4377f43f4fee1d3adf8bae21b4a2",
+    "source_record": "skwovet-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

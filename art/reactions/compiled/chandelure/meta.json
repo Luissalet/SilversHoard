@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "chandelure",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7a04eb84d764b49cf1b6f5ee4b6ce5afc62d53958e816a83a8c80870407dd963",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 609,
+          "form": "",
+          "key": "lib-chandelure-n-ba3b5d43b089"
+        },
+        "sha256": "43d44780047efc7dff20ecc8dfeb743c2f4f8534b27a1fc888848f4729745ca2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "chandelure",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7a04eb84d764b49cf1b6f5ee4b6ce5afc62d53958e816a83a8c80870407dd963",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 609,
+          "form": "",
+          "key": "lib-chandelure-n-ba3b5d43b089"
+        },
+        "sha256": "223c5b90386fe23fb3516ae711fb63be74a340a32785b5d2746871ab4a71b743"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "chandelure",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7a04eb84d764b49cf1b6f5ee4b6ce5afc62d53958e816a83a8c80870407dd963",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 609,
+            "form": "",
+            "key": "lib-chandelure-n-ba3b5d43b089"
+          },
+          "sha256": "1b88d51e8755e331aad1d17166466f3234eb73ff1f0c705ec20f4ae9dedc3367",
+          "palette_from": "lib-chandelure-s-6751eb43e258"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "chandelure",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7a04eb84d764b49cf1b6f5ee4b6ce5afc62d53958e816a83a8c80870407dd963",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 609,
+            "form": "",
+            "key": "lib-chandelure-n-ba3b5d43b089"
+          },
+          "sha256": "afb0d46e3c8538a05fc6c98cc512de0a1276a4f62cfb6967c9beac1cdeb8ec96",
+          "palette_from": "lib-chandelure-s-6751eb43e258"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "chandelure",
+    "num": 609,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Chandelure, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "chandelure-retry-r4.png",
+    "source_sha256": "7a04eb84d764b49cf1b6f5ee4b6ce5afc62d53958e816a83a8c80870407dd963",
+    "source_record": "chandelure-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

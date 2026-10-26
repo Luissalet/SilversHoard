@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "nacli",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6bd8b83f99d2bdc09e1cf21dba604a54ceca09ea27850afc588edbbbf46cd925",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 932,
+          "form": "",
+          "key": "lib-nacli-n-805e7755d638"
+        },
+        "sha256": "fd3dc2bbab81d74e78f0f0a5575ad6b19b34597f561cd0efcca03787aa85d68a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "nacli",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6bd8b83f99d2bdc09e1cf21dba604a54ceca09ea27850afc588edbbbf46cd925",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 932,
+          "form": "",
+          "key": "lib-nacli-n-805e7755d638"
+        },
+        "sha256": "86a45a9bac1c0069e98a0908476830f05716ba7dddb97aba4abc678fa6609d2b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "nacli",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6bd8b83f99d2bdc09e1cf21dba604a54ceca09ea27850afc588edbbbf46cd925",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 932,
+            "form": "",
+            "key": "lib-nacli-n-805e7755d638"
+          },
+          "sha256": "e57483afb79d5abeb26c6ef2732afc7f3049a11cc01d89dff125fe30b2d5a57d",
+          "palette_from": "lib-nacli-s-8830b58c3aea"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "nacli",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6bd8b83f99d2bdc09e1cf21dba604a54ceca09ea27850afc588edbbbf46cd925",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 932,
+            "form": "",
+            "key": "lib-nacli-n-805e7755d638"
+          },
+          "sha256": "317242157926a96170b314c39bda00c483b596ce62130207875c6410df66dae6",
+          "palette_from": "lib-nacli-s-8830b58c3aea"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "nacli",
+    "num": 932,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Nacli, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "nacli-cardinal.png",
+    "source_sha256": "6bd8b83f99d2bdc09e1cf21dba604a54ceca09ea27850afc588edbbbf46cd925",
+    "source_record": "nacli-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

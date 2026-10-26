@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "polteageistantique",
+        "tool": "builtin-imagegen",
+        "source_sha256": "fc52e08a96a1c5edee4e4c4cebf107c830d6d23ca4c034c02fcc53fdb6e87aa3",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 855,
+          "form": "Antique",
+          "key": "lib-polteageistantique-n-68be01adf822"
+        },
+        "sha256": "f445d71c53d5ee63d024673c25aaca01d1bb959915981a99513fd2b7f0bde26f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "polteageistantique",
+        "tool": "builtin-imagegen",
+        "source_sha256": "fc52e08a96a1c5edee4e4c4cebf107c830d6d23ca4c034c02fcc53fdb6e87aa3",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 855,
+          "form": "Antique",
+          "key": "lib-polteageistantique-n-68be01adf822"
+        },
+        "sha256": "2e814769a53d89adb5e266ad01a169471e0c4f464a0f7375582a58b349cd3daa"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "polteageistantique",
+          "tool": "builtin-imagegen",
+          "source_sha256": "fc52e08a96a1c5edee4e4c4cebf107c830d6d23ca4c034c02fcc53fdb6e87aa3",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 855,
+            "form": "Antique",
+            "key": "lib-polteageistantique-n-68be01adf822"
+          },
+          "sha256": "0f9985b43c8cdddb779dcdd9eb3721b2dbc1c45a639b0308e32f6c28ef275736",
+          "palette_from": "lib-polteageistantique-s-e70d38a2c828"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "polteageistantique",
+          "tool": "builtin-imagegen",
+          "source_sha256": "fc52e08a96a1c5edee4e4c4cebf107c830d6d23ca4c034c02fcc53fdb6e87aa3",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 855,
+            "form": "Antique",
+            "key": "lib-polteageistantique-n-68be01adf822"
+          },
+          "sha256": "27975683279642beeab47ae5e94b3820fd248725105b7d4168a0b9f3796e2496",
+          "palette_from": "lib-polteageistantique-s-e70d38a2c828"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "polteageistantique",
+    "num": 855,
+    "form": "Antique",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Polteageist-Antique, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "polteageistantique-cardinal.png",
+    "source_sha256": "fc52e08a96a1c5edee4e4c4cebf107c830d6d23ca4c034c02fcc53fdb6e87aa3",
+    "source_record": "polteageistantique-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

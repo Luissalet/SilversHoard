@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "coalossalgmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "35d4f33a80f9b3a429af3b44e3e14c83054337c9e300c37ab43f61d94532f90d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 839,
+          "form": "Gmax",
+          "key": "lib-coalossalgmax-n-603075b3048e"
+        },
+        "sha256": "674943f8ed9998c23257f687069664d74005395d23f7dc6ededda9baeaac1d48"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "coalossalgmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "35d4f33a80f9b3a429af3b44e3e14c83054337c9e300c37ab43f61d94532f90d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 839,
+          "form": "Gmax",
+          "key": "lib-coalossalgmax-n-603075b3048e"
+        },
+        "sha256": "960947eed2530aa5773e32d79576bf492b10437d399c904427f96c131092301d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "coalossalgmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "35d4f33a80f9b3a429af3b44e3e14c83054337c9e300c37ab43f61d94532f90d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 839,
+            "form": "Gmax",
+            "key": "lib-coalossalgmax-n-603075b3048e"
+          },
+          "sha256": "00f982c522edb5312acbc64839a9ae46069c5f1651818a782ad80a2f321d157a",
+          "palette_from": "lib-coalossalgmax-s-b4657a50d14d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "coalossalgmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "35d4f33a80f9b3a429af3b44e3e14c83054337c9e300c37ab43f61d94532f90d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 839,
+            "form": "Gmax",
+            "key": "lib-coalossalgmax-n-603075b3048e"
+          },
+          "sha256": "569bdc030a53929e3bb031d9822d7527c97d448f3cdb5310ee57a3f730bc8aa4",
+          "palette_from": "lib-coalossalgmax-s-b4657a50d14d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "coalossalgmax",
+    "num": 839,
+    "form": "Gmax",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Coalossal-Gmax, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "coalossalgmax-cardinal.png",
+    "source_sha256": "35d4f33a80f9b3a429af3b44e3e14c83054337c9e300c37ab43f61d94532f90d",
+    "source_record": "coalossalgmax-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "wugtrio",
+        "tool": "builtin-imagegen",
+        "source_sha256": "585415fe04213b6f9a8af229278a95348ac0e433741c5f41c377281ec97777a5",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 961,
+          "form": "",
+          "key": "lib-wugtrio-n-a47661b599ce"
+        },
+        "sha256": "4d28512b0a9e5c5a47506ef39bdc217790bf79cd8d10b2ced1702731505d22a0"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "wugtrio",
+        "tool": "builtin-imagegen",
+        "source_sha256": "585415fe04213b6f9a8af229278a95348ac0e433741c5f41c377281ec97777a5",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 961,
+          "form": "",
+          "key": "lib-wugtrio-n-a47661b599ce"
+        },
+        "sha256": "5f51ebb986ec2d369a8ef7fa0026b2c0feb74ddf77162e25c8152680a4eb9bbb"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "wugtrio",
+          "tool": "builtin-imagegen",
+          "source_sha256": "bf1c82c03b49c5ac32b33af5fec246bd1d1d6cac060ca11d84b4ccd8f07f1846",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 961,
+            "form": "",
+            "key": "lib-wugtrio-s-fe0df22f2229"
+          },
+          "sha256": "6e72eac81377c28a22de088a3a9cd3f9d96288044003def8f03c3d54fde25164"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "wugtrio",
+          "tool": "builtin-imagegen",
+          "source_sha256": "bf1c82c03b49c5ac32b33af5fec246bd1d1d6cac060ca11d84b4ccd8f07f1846",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 961,
+            "form": "",
+            "key": "lib-wugtrio-s-fe0df22f2229"
+          },
+          "sha256": "cd079c51d0b9975f4b27393c40e9eb4991e9d8a1b7c4a00020e9d7e9d6a5685d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "wugtrio",
+    "num": 961,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Wugtrio, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "wugtrio-cardinal.png",
+    "source_sha256": "585415fe04213b6f9a8af229278a95348ac0e433741c5f41c377281ec97777a5",
+    "source_record": "wugtrio-cardinal.json",
+    "shiny_source_image": "wugtrio-shiny47-v1.png",
+    "shiny_prompt": "Use case identity-preserve. Recolour all32sprites of transparent8column4row atlas IMAGE1 to exact native SHINY colours in IMAGE2. Use exact native SHINY: all THREE bodies BLUE, all THREE noses YELLOW, rock stays native gray. Preserve all three heads and exact formation/order in all32poses. Preserve every pose, geometry, camera and distinctive part. NORTH remains rear. Finalgroundposesremainfullydown. Crisp exact limited native pixel palette, transparent background, broad gutters. No new effects,text,objects or scenery."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

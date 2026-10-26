@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "toxtricitylowkeygmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d28fc30822a39be83de4654f352df51dbb8a94ed7813caa70f9e82e837b0ad9c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 849,
+          "form": "Low-Key-Gmax",
+          "key": "lib-toxtricitylowkeygmax-n-71d681bceaa1"
+        },
+        "sha256": "fb9332d52643efa04c9f649f93f23246c4a2fbdb3fc0953694dd9cd4ba8b31ec"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "toxtricitylowkeygmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d28fc30822a39be83de4654f352df51dbb8a94ed7813caa70f9e82e837b0ad9c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 849,
+          "form": "Low-Key-Gmax",
+          "key": "lib-toxtricitylowkeygmax-n-71d681bceaa1"
+        },
+        "sha256": "c94e884e9fe10f0638e5a1d6443899586be721fd0a4c33e3786033cdaa0ff9c2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "toxtricitylowkeygmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d28fc30822a39be83de4654f352df51dbb8a94ed7813caa70f9e82e837b0ad9c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 849,
+            "form": "Low-Key-Gmax",
+            "key": "lib-toxtricitylowkeygmax-n-71d681bceaa1"
+          },
+          "sha256": "68754e37ff21d664314ec7825022167e84128f4a46e522348432644d61581574",
+          "palette_from": "lib-toxtricitylowkeygmax-s-a544926f237d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "toxtricitylowkeygmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d28fc30822a39be83de4654f352df51dbb8a94ed7813caa70f9e82e837b0ad9c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 849,
+            "form": "Low-Key-Gmax",
+            "key": "lib-toxtricitylowkeygmax-n-71d681bceaa1"
+          },
+          "sha256": "f298c2bef1b2c600241dd150ed134ccb68f3c410bded15c67124386241a96b52",
+          "palette_from": "lib-toxtricitylowkeygmax-s-a544926f237d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "toxtricitylowkeygmax",
+    "num": 849,
+    "form": "Low-Key-Gmax",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Toxtricity-Low-Key-Gmax, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "toxtricitylowkeygmax-cardinal.png",
+    "source_sha256": "d28fc30822a39be83de4654f352df51dbb8a94ed7813caa70f9e82e837b0ad9c",
+    "source_record": "toxtricitylowkeygmax-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

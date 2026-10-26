@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "hypno",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9e956798795569a11e191eb5f42d108d2f868fc400b0958a61b0566de7ccf55d",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 97,
+          "form": "",
+          "key": "lib-hypno-n-a00da279399d"
+        },
+        "sha256": "6d350b11d9f7853bd63c8bb218c5967fa11cefaf4077a1ac07e2ddc0655080c3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "hypno",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9e956798795569a11e191eb5f42d108d2f868fc400b0958a61b0566de7ccf55d",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 97,
+          "form": "",
+          "key": "lib-hypno-n-a00da279399d"
+        },
+        "sha256": "f9b195799abb9f79300e44d313364a227771dc29fc3e3c2264b68587b17d5327"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "hypno",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9e956798795569a11e191eb5f42d108d2f868fc400b0958a61b0566de7ccf55d",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 97,
+            "form": "",
+            "key": "lib-hypno-n-a00da279399d"
+          },
+          "sha256": "229663dd26005d44d1125b4272d7da71dc3c0fe6d8d2ff69beb794b4de082359",
+          "palette_from": "lib-hypno-s-f41c8fefdbc8"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "hypno",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9e956798795569a11e191eb5f42d108d2f868fc400b0958a61b0566de7ccf55d",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 97,
+            "form": "",
+            "key": "lib-hypno-n-a00da279399d"
+          },
+          "sha256": "6ea38fbe2e6d5a98344c301b6341b1d69bd053f13b0fb1f9a76f8695745d7b9a",
+          "palette_from": "lib-hypno-s-f41c8fefdbc8"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "hypno",
+    "num": 97,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a transparent pixel-art game sprite atlas for Hypno using the exact native form and colours in the reference. EXACTLY SIXTEEN complete sprites in FOUR columns and FOUR rows. Rows: front/SOUTH, right profile/EAST, back/NORTH with no face, left profile/WEST. Columns1\u20132 are two distinct expressive flinch poses (blink and bend/braced wince). Columns3\u20134 are lowering to rest and fully lying down; final column has body and head resting flat with eyes closed. Keep all characteristic body parts, tails, wings, markings and accessories. Draw new body and limb poses, consistent pixel scale, crisp original palette. Broad transparent gutters, no text, marks, symbols or scenery. This is a nonviolent game character animation.",
+    "source_image": "hypno-compact-r6.png",
+    "source_sha256": "9e956798795569a11e191eb5f42d108d2f868fc400b0958a61b0566de7ccf55d",
+    "source_record": "hypno-compact-r6.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

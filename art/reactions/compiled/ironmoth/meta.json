@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ironmoth",
+        "tool": "builtin-imagegen",
+        "source_sha256": "054b5ec00f8318077807d778c7f9fba24d074979288c65f4d8fe7c92d1636c33",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 994,
+          "form": "",
+          "key": "lib-ironmoth-n-934ee3831816"
+        },
+        "sha256": "be71c3cffab6aa9b38c33057455bff42dffcbaea4570f9581a127ecb6f8f24f5"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ironmoth",
+        "tool": "builtin-imagegen",
+        "source_sha256": "054b5ec00f8318077807d778c7f9fba24d074979288c65f4d8fe7c92d1636c33",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 994,
+          "form": "",
+          "key": "lib-ironmoth-n-934ee3831816"
+        },
+        "sha256": "7b82bd6cb1d311ca07d5c2169eefd95e8aa253fdae44e2e74ca2a06abdd8b027"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ironmoth",
+          "tool": "builtin-imagegen",
+          "source_sha256": "054b5ec00f8318077807d778c7f9fba24d074979288c65f4d8fe7c92d1636c33",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 994,
+            "form": "",
+            "key": "lib-ironmoth-n-934ee3831816"
+          },
+          "sha256": "b603b7a211bb838e7ea414569a87cd383f670be6db72e25a0ef646c23f96f4d1",
+          "palette_from": "lib-ironmoth-s-b4f1985bfe44"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ironmoth",
+          "tool": "builtin-imagegen",
+          "source_sha256": "054b5ec00f8318077807d778c7f9fba24d074979288c65f4d8fe7c92d1636c33",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 994,
+            "form": "",
+            "key": "lib-ironmoth-n-934ee3831816"
+          },
+          "sha256": "6b0d9fbb1f6757f93575b6579c158f5a906bb121b578a50c5a85a4d65e4a4f1d",
+          "palette_from": "lib-ironmoth-s-b4f1985bfe44"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "ironmoth",
+    "num": 994,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Iron Moth, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "ironmoth-cardinal.png",
+    "source_sha256": "054b5ec00f8318077807d778c7f9fba24d074979288c65f4d8fe7c92d1636c33",
+    "source_record": "ironmoth-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

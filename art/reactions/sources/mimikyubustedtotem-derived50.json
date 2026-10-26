@@ -1,0 +1,32 @@
+{
+  "id": "mimikyubustedtotem",
+  "name": "Mimikyu-Busted-Totem",
+  "num": 778,
+  "form": "Busted-Totem",
+  "directions": 4,
+  "frames": 4,
+  "image": "mimikyubusted-retry-r4.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Reuse the genuinely built-in drawn Busted-form atlas for Busted-Totem. All eight installed native animation geometries and cropped RGBA are exactly identical for both normal and shiny forms, independently audited. This is an explicit identical-form derivation, not a claim that new target drawings were generated.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "assembly_sources": [
+    {
+      "image": "mimikyubusted-retry-r4.png",
+      "sha256": "e6d378e2c1d9d7bc7432b82a16399dfb84eff0ca56f63f279c0ab2b3d0e62156"
+    }
+  ],
+  "derivation": {
+    "kind": "native-equivalent-form",
+    "source_identity": "mimikyubusted",
+    "target_identity": "mimikyubustedtotem",
+    "normal_and_shiny_native_actions_verified_exact": 8,
+    "audit": "native-family-reuse-audit.json"
+  },
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-corrections50.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

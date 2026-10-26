@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "coalossal",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a05b0d174b3fea813cbb6051bb7312ca3985a459e63d39b8bfdba628b5db0577",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 839,
+          "form": "",
+          "key": "lib-coalossal-n-0628686e87d7"
+        },
+        "sha256": "99365459a413c3750b143dc7348b3d1bcaaf154ebd53dec642e016096dac7cb7"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "coalossal",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a05b0d174b3fea813cbb6051bb7312ca3985a459e63d39b8bfdba628b5db0577",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 839,
+          "form": "",
+          "key": "lib-coalossal-n-0628686e87d7"
+        },
+        "sha256": "7f1992492f65a13d8a43bacc635c6f7708db3c113d3f76715a67ca4c8e5bfefa"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "coalossal",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a05b0d174b3fea813cbb6051bb7312ca3985a459e63d39b8bfdba628b5db0577",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 839,
+            "form": "",
+            "key": "lib-coalossal-n-0628686e87d7"
+          },
+          "sha256": "b6b0f3f586fe2645886d87350aa8042879905183d1172de73a476947519b9dfa",
+          "palette_from": "lib-coalossal-s-f2cb0ff484f1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "coalossal",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a05b0d174b3fea813cbb6051bb7312ca3985a459e63d39b8bfdba628b5db0577",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 839,
+            "form": "",
+            "key": "lib-coalossal-n-0628686e87d7"
+          },
+          "sha256": "a7f46b1331f8b46af89778b29c0bea0e3e262c0d0586f9c30d56a172a63c9cd9",
+          "palette_from": "lib-coalossal-s-f2cb0ff484f1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "coalossal",
+    "num": 839,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Coalossal, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "coalossal-cardinal.png",
+    "source_sha256": "a05b0d174b3fea813cbb6051bb7312ca3985a459e63d39b8bfdba628b5db0577",
+    "source_record": "coalossal-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

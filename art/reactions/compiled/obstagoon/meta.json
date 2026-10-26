@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "obstagoon",
+        "tool": "builtin-imagegen",
+        "source_sha256": "acdc2484a74d28b7a24b267b3164db43b765fe77485d6ee64f64817d39db5408",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 862,
+          "form": "",
+          "key": "lib-obstagoon-n-e88bef03db07"
+        },
+        "sha256": "df748090efd4d96568edfcd82869819e4c2d3e6bdfb9f1eb75003b2718714ec9"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "obstagoon",
+        "tool": "builtin-imagegen",
+        "source_sha256": "acdc2484a74d28b7a24b267b3164db43b765fe77485d6ee64f64817d39db5408",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 862,
+          "form": "",
+          "key": "lib-obstagoon-n-e88bef03db07"
+        },
+        "sha256": "72e075b0299579ea43bea84b83e3835a188f6f28be263ee29d023ded6483c104"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "obstagoon",
+          "tool": "builtin-imagegen",
+          "source_sha256": "acdc2484a74d28b7a24b267b3164db43b765fe77485d6ee64f64817d39db5408",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 862,
+            "form": "",
+            "key": "lib-obstagoon-n-e88bef03db07"
+          },
+          "sha256": "8bd3ee3cf3fe679011e8dc01f3719168ccbba065d94d1f5916f5bd7763a18691",
+          "palette_from": "lib-obstagoon-s-29b7201bcd21"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "obstagoon",
+          "tool": "builtin-imagegen",
+          "source_sha256": "acdc2484a74d28b7a24b267b3164db43b765fe77485d6ee64f64817d39db5408",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 862,
+            "form": "",
+            "key": "lib-obstagoon-n-e88bef03db07"
+          },
+          "sha256": "88c623799f078855fb624b105a8c84264218e032244bbf97a9a968e8f6713064",
+          "palette_from": "lib-obstagoon-s-29b7201bcd21"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "obstagoon",
+    "num": 862,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Obstagoon, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "obstagoon-cardinal.png",
+    "source_sha256": "acdc2484a74d28b7a24b267b3164db43b765fe77485d6ee64f64817d39db5408",
+    "source_record": "obstagoon-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

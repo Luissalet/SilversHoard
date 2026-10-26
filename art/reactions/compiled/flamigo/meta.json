@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "flamigo",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d6288f5fb06234a445f7fe4079c6de16e375e54ff63f6bec9a8b596342f6fcb7",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 973,
+          "form": "",
+          "key": "lib-flamigo-n-5ae087e4a49b"
+        },
+        "sha256": "0098192992e20ea1751e6648bf76bbbb7ffd743e9a989f19e25363208d98ed69"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "flamigo",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d6288f5fb06234a445f7fe4079c6de16e375e54ff63f6bec9a8b596342f6fcb7",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 973,
+          "form": "",
+          "key": "lib-flamigo-n-5ae087e4a49b"
+        },
+        "sha256": "f606e0cc16e8ff97838c7eec3f094f458d7a687d1fb045b14bfe00528fb379e8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "flamigo",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d6288f5fb06234a445f7fe4079c6de16e375e54ff63f6bec9a8b596342f6fcb7",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 973,
+            "form": "",
+            "key": "lib-flamigo-n-5ae087e4a49b"
+          },
+          "sha256": "d09637f7f1f922da051a8fa6acbc0b3e3cab2f550673ec897e218af592f132c6",
+          "palette_from": "lib-flamigo-s-898e5b684a7f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "flamigo",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d6288f5fb06234a445f7fe4079c6de16e375e54ff63f6bec9a8b596342f6fcb7",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 973,
+            "form": "",
+            "key": "lib-flamigo-n-5ae087e4a49b"
+          },
+          "sha256": "94fd6f5def460c6aef86a220d8b10a36bfb8e162b1b22d48d96b6be9ce952acc",
+          "palette_from": "lib-flamigo-s-898e5b684a7f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "flamigo",
+    "num": 973,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Flamigo, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "flamigo-cardinal.png",
+    "source_sha256": "d6288f5fb06234a445f7fe4079c6de16e375e54ff63f6bec9a8b596342f6fcb7",
+    "source_record": "flamigo-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

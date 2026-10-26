@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "polteageist",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b321bf1f60a25b586f064c217bbed6e30f413197175f26e1d7c0897a03eaa517",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 855,
+          "form": "",
+          "key": "lib-polteageist-n-363031c3bb62"
+        },
+        "sha256": "0df2447cf61fa3ced2513d29208e08275d25e3c0e56407f1763156828ddebce7"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "polteageist",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b321bf1f60a25b586f064c217bbed6e30f413197175f26e1d7c0897a03eaa517",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 855,
+          "form": "",
+          "key": "lib-polteageist-n-363031c3bb62"
+        },
+        "sha256": "7973536da0e38580116a1a90547fc30d0aae6f1142e06cd443088d6e1acc3f3f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "polteageist",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b321bf1f60a25b586f064c217bbed6e30f413197175f26e1d7c0897a03eaa517",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 855,
+            "form": "",
+            "key": "lib-polteageist-n-363031c3bb62"
+          },
+          "sha256": "bb0d0618e7392dd8b1caac38fa4012d77dc91d6c2027be800292754388d01566",
+          "palette_from": "lib-polteageist-s-336e8b8e9e34"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "polteageist",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b321bf1f60a25b586f064c217bbed6e30f413197175f26e1d7c0897a03eaa517",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 855,
+            "form": "",
+            "key": "lib-polteageist-n-363031c3bb62"
+          },
+          "sha256": "5d6a4dae12625043b2d86afbb5a511a133941dd5472062fec48a275e981d1665",
+          "palette_from": "lib-polteageist-s-336e8b8e9e34"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "polteageist",
+    "num": 855,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Polteageist, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "polteageist-cardinal.png",
+    "source_sha256": "b321bf1f60a25b586f064c217bbed6e30f413197175f26e1d7c0897a03eaa517",
+    "source_record": "polteageist-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ursalunabloodmoon",
+        "tool": "builtin-imagegen",
+        "source_sha256": "abd698edf2ab8722de6639c6be852ab7f44b97ae7586dd696eddba3937e49322",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 901,
+          "form": "Bloodmoon",
+          "key": "lib-ursalunabloodmoon-n-7ebc3e7d1fb0"
+        },
+        "sha256": "e4ba49a94dcb36ba69f7733048dcdc5f80146056079f34500d69c584e078a786"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ursalunabloodmoon",
+        "tool": "builtin-imagegen",
+        "source_sha256": "abd698edf2ab8722de6639c6be852ab7f44b97ae7586dd696eddba3937e49322",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 901,
+          "form": "Bloodmoon",
+          "key": "lib-ursalunabloodmoon-n-7ebc3e7d1fb0"
+        },
+        "sha256": "f98abfc12a14522223a3786c27db7baa4781072ee2f56dcd2c8d8fdece865a30"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ursalunabloodmoon",
+          "tool": "builtin-imagegen",
+          "source_sha256": "abd698edf2ab8722de6639c6be852ab7f44b97ae7586dd696eddba3937e49322",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 901,
+            "form": "Bloodmoon",
+            "key": "lib-ursalunabloodmoon-n-7ebc3e7d1fb0"
+          },
+          "sha256": "a94c0665e9d77f2d455b9485a05cb8ccaac05e9fc3025ac85b78e39b93d789ff",
+          "palette_from": "lib-ursalunabloodmoon-s-b3329329ad82"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ursalunabloodmoon",
+          "tool": "builtin-imagegen",
+          "source_sha256": "abd698edf2ab8722de6639c6be852ab7f44b97ae7586dd696eddba3937e49322",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 901,
+            "form": "Bloodmoon",
+            "key": "lib-ursalunabloodmoon-n-7ebc3e7d1fb0"
+          },
+          "sha256": "32135ae09b1e8be05dcf07e0a67b877ee72e06b40719238187dece57489dbd69",
+          "palette_from": "lib-ursalunabloodmoon-s-b3329329ad82"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "ursalunabloodmoon",
+    "num": 901,
+    "form": "Bloodmoon",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Ursaluna-Bloodmoon, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "ursalunabloodmoon-cardinal.png",
+    "source_sha256": "abd698edf2ab8722de6639c6be852ab7f44b97ae7586dd696eddba3937e49322",
+    "source_record": "ursalunabloodmoon-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 80,
+      "h": 56,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 40.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "aggronmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d6818ceac0ef0d0a5bee92dcc21fb6e24e136e1dfef20fb129006860b1819cd4",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 306,
+          "form": "Mega",
+          "key": "lib-aggronmega-n-0e3843aeef21"
+        },
+        "sha256": "3e4b16918b67338d07ef7298577e01ae0e8147f81fc7fff1f3abee92ece502c8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 80,
+      "h": 56,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 40.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "aggronmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d6818ceac0ef0d0a5bee92dcc21fb6e24e136e1dfef20fb129006860b1819cd4",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 306,
+          "form": "Mega",
+          "key": "lib-aggronmega-n-0e3843aeef21"
+        },
+        "sha256": "ca75f72403c4fc6f81c569ba10b9dc651cf83e860a660dfd133d7e8390401e8a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 80,
+        "h": 56,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 40.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "aggronmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d6818ceac0ef0d0a5bee92dcc21fb6e24e136e1dfef20fb129006860b1819cd4",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 306,
+            "form": "Mega",
+            "key": "lib-aggronmega-n-0e3843aeef21"
+          },
+          "sha256": "8b21d38e18a5587e247339846b9009688ee0a6d72d8a9c0ee3a9d1e29c001dd6",
+          "palette_from": "lib-aggronmega-s-6b784924b57b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 80,
+        "h": 56,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 40.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "aggronmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d6818ceac0ef0d0a5bee92dcc21fb6e24e136e1dfef20fb129006860b1819cd4",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 306,
+            "form": "Mega",
+            "key": "lib-aggronmega-n-0e3843aeef21"
+          },
+          "sha256": "22478b0c8f520775090bf11e6d4fd39f4a1d8fcd3350bf5732ed58db3ab21003",
+          "palette_from": "lib-aggronmega-s-6b784924b57b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "aggronmega",
+    "num": 306,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a transparent pixel-art game sprite atlas for Aggron-Mega using the exact native form and colours in the reference. EXACTLY SIXTEEN complete sprites in FOUR columns and FOUR rows. Rows: front/SOUTH, right profile/EAST, back/NORTH with no face, left profile/WEST. Columns1\u20132 are two distinct expressive flinch poses (blink and bend/braced wince). Columns3\u20134 are lowering to rest and fully lying down; final column has body and head resting flat with eyes closed. Keep all characteristic body parts, tails, wings, markings and accessories. Draw new body and limb poses, consistent pixel scale, crisp original palette. Broad transparent gutters, no text, marks, symbols or scenery. This is a nonviolent game character animation.",
+    "source_image": "aggronmega-compact-r5.png",
+    "source_sha256": "d6818ceac0ef0d0a5bee92dcc21fb6e24e136e1dfef20fb129006860b1819cd4",
+    "source_record": "aggronmega-compact-r5.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

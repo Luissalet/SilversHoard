@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "mimikyubusted",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e6d378e2c1d9d7bc7432b82a16399dfb84eff0ca56f63f279c0ab2b3d0e62156",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 778,
+          "form": "Busted",
+          "key": "lib-mimikyubusted-n-b755566cb29c"
+        },
+        "sha256": "f9fbcc7632e395d7064b4e482b9a33422661405dffadbb621e329df292b0768b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "mimikyubusted",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e6d378e2c1d9d7bc7432b82a16399dfb84eff0ca56f63f279c0ab2b3d0e62156",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 778,
+          "form": "Busted",
+          "key": "lib-mimikyubusted-n-b755566cb29c"
+        },
+        "sha256": "b6c57897d1c538d190a35ecf8002eb1752576de1f16a1b34fb20d71f23860ff3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "mimikyubusted",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e6d378e2c1d9d7bc7432b82a16399dfb84eff0ca56f63f279c0ab2b3d0e62156",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 778,
+            "form": "Busted",
+            "key": "lib-mimikyubusted-n-b755566cb29c"
+          },
+          "sha256": "d21cf529adb852a7e4987c3a75b41130ad112f7f862b9c8dd35e5d5dfeaeb6be",
+          "palette_from": "lib-mimikyubusted-s-1bd97334b7ed"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "mimikyubusted",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e6d378e2c1d9d7bc7432b82a16399dfb84eff0ca56f63f279c0ab2b3d0e62156",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 778,
+            "form": "Busted",
+            "key": "lib-mimikyubusted-n-b755566cb29c"
+          },
+          "sha256": "8889f8a305dd62eec9eaac812fc2ece3cb4420a950b63cfec12404bd2fb4195a",
+          "palette_from": "lib-mimikyubusted-s-1bd97334b7ed"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "mimikyubusted",
+    "num": 778,
+    "form": "Busted",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Mimikyu-Busted, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "mimikyubusted-retry-r4.png",
+    "source_sha256": "e6d378e2c1d9d7bc7432b82a16399dfb84eff0ca56f63f279c0ab2b3d0e62156",
+    "source_record": "mimikyubusted-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

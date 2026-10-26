@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 112,
+      "h": 80,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 56.0,
+      "ay": 74,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "lugia",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ab9ed92fe56724349552d9f68a068262fa6393ec7cb6cfd5bb535580007e4d99",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 249,
+          "form": "",
+          "key": "lib-lugia-n-9532429c2365"
+        },
+        "sha256": "3e7308c89c82206ff198595a39e3b90506c5b7c1a618d118f8bcbae541a3e81f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 112,
+      "h": 80,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 56.0,
+      "ay": 74,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "lugia",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ab9ed92fe56724349552d9f68a068262fa6393ec7cb6cfd5bb535580007e4d99",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 249,
+          "form": "",
+          "key": "lib-lugia-n-9532429c2365"
+        },
+        "sha256": "3ea2d8e8b5d038857aef32120bf7785b4b7a4a1d12706e796b8a06956735bd98"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 112,
+        "h": 80,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 56.0,
+        "ay": 74,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "lugia",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ab9ed92fe56724349552d9f68a068262fa6393ec7cb6cfd5bb535580007e4d99",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 249,
+            "form": "",
+            "key": "lib-lugia-n-9532429c2365"
+          },
+          "sha256": "8a6f0fa4d1321ea44fb6e6743fa6a47762d74ba923b2d124acb1536242291f30",
+          "palette_from": "lib-lugia-s-3278c7953a75"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 112,
+        "h": 80,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 56.0,
+        "ay": 74,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "lugia",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ab9ed92fe56724349552d9f68a068262fa6393ec7cb6cfd5bb535580007e4d99",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 249,
+            "form": "",
+            "key": "lib-lugia-n-9532429c2365"
+          },
+          "sha256": "74dea324d23f380a47390c5db75c9f49f775dee6d7ff6a473bc6e35db20195fd",
+          "palette_from": "lib-lugia-s-3278c7953a75"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "lugia",
+    "num": 249,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a transparent pixel-art game sprite atlas for Lugia using the exact native form and colours in the reference. EXACTLY SIXTEEN complete sprites in FOUR columns and FOUR rows. Rows: front/SOUTH, right profile/EAST, back/NORTH with no face, left profile/WEST. Columns1\u20132 are two distinct expressive flinch poses (blink and bend/braced wince). Columns3\u20134 are lowering to rest and fully lying down; final column has body and head resting flat with eyes closed. Keep all characteristic body parts, tails, wings, markings and accessories. Draw new body and limb poses, consistent pixel scale, crisp original palette. Broad transparent gutters, no text, marks, symbols or scenery. This is a nonviolent game character animation.",
+    "source_image": "lugia-compact-r5.png",
+    "source_sha256": "ab9ed92fe56724349552d9f68a068262fa6393ec7cb6cfd5bb535580007e4d99",
+    "source_record": "lugia-compact-r5.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

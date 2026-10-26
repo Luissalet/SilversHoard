@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dudunsparce",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5c25d03fd251cbf44d7cd4e5cf74904e1075f9e45b68b862d4ee811e2560471e",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 982,
+          "form": "",
+          "key": "lib-dudunsparce-n-7968e9a21cd8"
+        },
+        "sha256": "f918d17c76510b87d1c8026b22dd93be9c60a9e10bddba3abb904ee9256dc851"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dudunsparce",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5c25d03fd251cbf44d7cd4e5cf74904e1075f9e45b68b862d4ee811e2560471e",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 982,
+          "form": "",
+          "key": "lib-dudunsparce-n-7968e9a21cd8"
+        },
+        "sha256": "7a6cc48f1ae69ac196fe0e91e0f9d56a10b10a683ad429475ffe1d6ef417d645"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dudunsparce",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5c25d03fd251cbf44d7cd4e5cf74904e1075f9e45b68b862d4ee811e2560471e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 982,
+            "form": "",
+            "key": "lib-dudunsparce-n-7968e9a21cd8"
+          },
+          "sha256": "6414abe8fa266f103354a0098c11fb9bbcbbd609922b86cc790b8797b903f503",
+          "palette_from": "lib-dudunsparce-s-4b34b7a4e7bf"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dudunsparce",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5c25d03fd251cbf44d7cd4e5cf74904e1075f9e45b68b862d4ee811e2560471e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 982,
+            "form": "",
+            "key": "lib-dudunsparce-n-7968e9a21cd8"
+          },
+          "sha256": "2d89094400eb9c7a3631aca8464163c26ff624ecf18aabd48688257227706699",
+          "palette_from": "lib-dudunsparce-s-4b34b7a4e7bf"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "dudunsparce",
+    "num": 982,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Dudunsparce, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "dudunsparce-cardinal.png",
+    "source_sha256": "5c25d03fd251cbf44d7cd4e5cf74904e1075f9e45b68b862d4ee811e2560471e",
+    "source_record": "dudunsparce-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

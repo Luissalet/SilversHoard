@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "mewtwomegax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "62d7adf89df3bcbbff23920260c3afdf0e938c26fb53ea627a80b2894d8b130b",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 150,
+          "form": "Mega-X",
+          "key": "lib-mewtwomegax-n-03030f637976"
+        },
+        "sha256": "5c2e97f5431b42befafd37a50a082648a198f72e5c1c9458968c5872419d62a0"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "mewtwomegax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "62d7adf89df3bcbbff23920260c3afdf0e938c26fb53ea627a80b2894d8b130b",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 150,
+          "form": "Mega-X",
+          "key": "lib-mewtwomegax-n-03030f637976"
+        },
+        "sha256": "ce7584cf2c7f75c98784676fda94cd33531796cb677705616d587866eee29a5e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "mewtwomegax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "62d7adf89df3bcbbff23920260c3afdf0e938c26fb53ea627a80b2894d8b130b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 150,
+            "form": "Mega-X",
+            "key": "lib-mewtwomegax-n-03030f637976"
+          },
+          "sha256": "ca3311538b1a5f0c1baeae020a9cc674b2f00cd06ff7a9ebb6d522e294688694",
+          "palette_from": "lib-mewtwomegax-s-66476e176f7f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "mewtwomegax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "62d7adf89df3bcbbff23920260c3afdf0e938c26fb53ea627a80b2894d8b130b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 150,
+            "form": "Mega-X",
+            "key": "lib-mewtwomegax-n-03030f637976"
+          },
+          "sha256": "f4df3c8a245641a6fbb71ebbf855315ff2f98affbbc5a535555934a09b25d440",
+          "palette_from": "lib-mewtwomegax-s-66476e176f7f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "mewtwomegax",
+    "num": 150,
+    "form": "Mega-X",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Mewtwo-Mega-X, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "mewtwomegax-retry-r4.png",
+    "source_sha256": "62d7adf89df3bcbbff23920260c3afdf0e938c26fb53ea627a80b2894d8b130b",
+    "source_record": "mewtwomegax-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

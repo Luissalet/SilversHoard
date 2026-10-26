@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "machoke",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f386fea1e8a36e0b6b2719102fbaf98ae952dc2d19bbbd146bfb372a991d3f17",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 67,
+          "form": "",
+          "key": "lib-machoke-n-32a9bb630180"
+        },
+        "sha256": "f354992485c769c1138c02eea523d5fc5cc467c20d70413a5d268a68acd2a40a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "machoke",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f386fea1e8a36e0b6b2719102fbaf98ae952dc2d19bbbd146bfb372a991d3f17",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 67,
+          "form": "",
+          "key": "lib-machoke-n-32a9bb630180"
+        },
+        "sha256": "e4cfa6648a59a1eee9be170471027696d9c32d4d558d221d52d9bd22a88ef1ee"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "machoke",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f386fea1e8a36e0b6b2719102fbaf98ae952dc2d19bbbd146bfb372a991d3f17",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 67,
+            "form": "",
+            "key": "lib-machoke-n-32a9bb630180"
+          },
+          "sha256": "1bb72b4a0f013e0ec83c75cce420fb16a573e3b706827ce6b1357f307d6ba1a7",
+          "palette_from": "lib-machoke-s-6afd24c3adbf"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "machoke",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f386fea1e8a36e0b6b2719102fbaf98ae952dc2d19bbbd146bfb372a991d3f17",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 67,
+            "form": "",
+            "key": "lib-machoke-n-32a9bb630180"
+          },
+          "sha256": "be7ee563575faea5c3f85f95314cead98d52c54c69c8732fab6c4dbbdac1fc4e",
+          "palette_from": "lib-machoke-s-6afd24c3adbf"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "machoke",
+    "num": 67,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Machoke, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "machoke-retry-r4.png",
+    "source_sha256": "f386fea1e8a36e0b6b2719102fbaf98ae952dc2d19bbbd146bfb372a991d3f17",
+    "source_record": "machoke-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

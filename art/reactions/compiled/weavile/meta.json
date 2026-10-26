@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "weavile",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d1ed025d15a3c24c9f68ecc99e6bbf9b318ee45ec74f286431cff4875213adad",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 461,
+          "form": "",
+          "key": "lib-weavile-n-8f7b32181667"
+        },
+        "sha256": "45f773b51eff19ae3292eb2358148618af4ae743555bb4b0cfbdd9436c2e1799"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "weavile",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d1ed025d15a3c24c9f68ecc99e6bbf9b318ee45ec74f286431cff4875213adad",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 461,
+          "form": "",
+          "key": "lib-weavile-n-8f7b32181667"
+        },
+        "sha256": "f562dc6230de43e7e06d593d3e1c990ff06f456151c5fdbcf60dfd68fcd4c905"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "weavile",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d1ed025d15a3c24c9f68ecc99e6bbf9b318ee45ec74f286431cff4875213adad",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 461,
+            "form": "",
+            "key": "lib-weavile-n-8f7b32181667"
+          },
+          "sha256": "c30e08874a37b3fd5f5eb205bffc5393b609d11c8c0f01a10a8d75fe1e35d760",
+          "palette_from": "lib-weavile-s-7edfc846dbb4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "weavile",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d1ed025d15a3c24c9f68ecc99e6bbf9b318ee45ec74f286431cff4875213adad",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 461,
+            "form": "",
+            "key": "lib-weavile-n-8f7b32181667"
+          },
+          "sha256": "bf10d2168015ef114c932f3c9e38d85dd4a739ce932a4c264a22d5ccb3463020",
+          "palette_from": "lib-weavile-s-7edfc846dbb4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "weavile",
+    "num": 461,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Weavile, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "weavile-retry-r4.png",
+    "source_sha256": "d1ed025d15a3c24c9f68ecc99e6bbf9b318ee45ec74f286431cff4875213adad",
+    "source_record": "weavile-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

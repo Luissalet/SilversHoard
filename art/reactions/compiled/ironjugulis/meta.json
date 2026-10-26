@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ironjugulis",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9f61809c115e37d991f7bfe79ba62841e665f6f505f8ea3823697119c747a2e5",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 993,
+          "form": "",
+          "key": "lib-ironjugulis-n-e93a410c9ae9"
+        },
+        "sha256": "d8ae63d2561966d10c021c4a0347acc836e590a5afe8c604163b280c619db854"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ironjugulis",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9f61809c115e37d991f7bfe79ba62841e665f6f505f8ea3823697119c747a2e5",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 993,
+          "form": "",
+          "key": "lib-ironjugulis-n-e93a410c9ae9"
+        },
+        "sha256": "c85123317346b0488c771fe93d218c892073c7f8ed486ae15465dc35198af9f3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ironjugulis",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9f61809c115e37d991f7bfe79ba62841e665f6f505f8ea3823697119c747a2e5",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 993,
+            "form": "",
+            "key": "lib-ironjugulis-n-e93a410c9ae9"
+          },
+          "sha256": "5617b09ee9efde79e9f237e1b70c7ce2c02b18d0585998ecae0ed68fe3332f56",
+          "palette_from": "lib-ironjugulis-s-06f842ed7d8f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ironjugulis",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9f61809c115e37d991f7bfe79ba62841e665f6f505f8ea3823697119c747a2e5",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 993,
+            "form": "",
+            "key": "lib-ironjugulis-n-e93a410c9ae9"
+          },
+          "sha256": "6cf7828b59e66a1a5fd296be007d837871a1b3f0901a8a26ef15466a7edbee05",
+          "palette_from": "lib-ironjugulis-s-06f842ed7d8f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "ironjugulis",
+    "num": 993,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Iron Jugulis, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "ironjugulis-cardinal.png",
+    "source_sha256": "9f61809c115e37d991f7bfe79ba62841e665f6f505f8ea3823697119c747a2e5",
+    "source_record": "ironjugulis-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

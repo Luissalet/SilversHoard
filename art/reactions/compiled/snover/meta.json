@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "snover",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a2f8c00d9ce6b50a7d26282c979105ffb1b8079f762264e5e29952f4ca0fe906",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 459,
+          "form": "",
+          "key": "lib-snover-n-86a772519060"
+        },
+        "sha256": "939c7bfead3e501b29e89c36be80be83edbe23c161bb866853a5e85cf776cc2c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "snover",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a2f8c00d9ce6b50a7d26282c979105ffb1b8079f762264e5e29952f4ca0fe906",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 459,
+          "form": "",
+          "key": "lib-snover-n-86a772519060"
+        },
+        "sha256": "d80913448d243d4fb8e06d248d0bf5eda075f5c1f72972c57e262d2df86bab8c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "snover",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a2f8c00d9ce6b50a7d26282c979105ffb1b8079f762264e5e29952f4ca0fe906",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 459,
+            "form": "",
+            "key": "lib-snover-n-86a772519060"
+          },
+          "sha256": "55d57b47f2189efe939b85225fac83190a12d6d6123abdf495b0efc991b2c0e4",
+          "palette_from": "lib-snover-s-074931496894"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "snover",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a2f8c00d9ce6b50a7d26282c979105ffb1b8079f762264e5e29952f4ca0fe906",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 459,
+            "form": "",
+            "key": "lib-snover-n-86a772519060"
+          },
+          "sha256": "0ba430c685a5e107630a45a280d59c8b46353b59f62f0a811d41d34b9a142d09",
+          "palette_from": "lib-snover-s-074931496894"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "snover",
+    "num": 459,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Snover, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "snover-retry-r4.png",
+    "source_sha256": "a2f8c00d9ce6b50a7d26282c979105ffb1b8079f762264e5e29952f4ca0fe906",
+    "source_record": "snover-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

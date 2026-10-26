@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "meganiummega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "74ef476be563e845b85b039f32626c2f5762518f03f9d187bdc4c33d10aac5a2",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 154,
+          "form": "Mega",
+          "key": "lib-meganiummega-n-ed8e3854e1d6"
+        },
+        "sha256": "201b0724a15b9c33567001a8fb838e14db5ac0c6ab27933f14120120495ab8eb"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "meganiummega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "74ef476be563e845b85b039f32626c2f5762518f03f9d187bdc4c33d10aac5a2",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 154,
+          "form": "Mega",
+          "key": "lib-meganiummega-n-ed8e3854e1d6"
+        },
+        "sha256": "a214ffac42120b07f435c59da0d55d430b4bcf1d87067d7be015b20f4c93d2cc"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "meganiummega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "74ef476be563e845b85b039f32626c2f5762518f03f9d187bdc4c33d10aac5a2",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 154,
+            "form": "Mega",
+            "key": "lib-meganiummega-n-ed8e3854e1d6"
+          },
+          "sha256": "d831380173e25135fecdd27fd6cfe052dc6e3593ccaa912a14dc09aeafb5ee42",
+          "palette_from": "lib-meganiummega-s-cded66cc4987"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "meganiummega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "74ef476be563e845b85b039f32626c2f5762518f03f9d187bdc4c33d10aac5a2",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 154,
+            "form": "Mega",
+            "key": "lib-meganiummega-n-ed8e3854e1d6"
+          },
+          "sha256": "6f13858771dc94c475163861dc6f75c8528d98442550062d1b71a0d200b6abf5",
+          "palette_from": "lib-meganiummega-s-cded66cc4987"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "meganiummega",
+    "num": 154,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Meganium-Mega, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "meganiummega-retry-r4.png",
+    "source_sha256": "74ef476be563e845b85b039f32626c2f5762518f03f9d187bdc4c33d10aac5a2",
+    "source_record": "meganiummega-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

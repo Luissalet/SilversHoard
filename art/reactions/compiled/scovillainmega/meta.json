@@ -1,0 +1,448 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "scovillainmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e543ef79eb6dbcead0cf833094706deeb6da2720609a4347c9151c7edf91c419",
+        "authored_directions": 3,
+        "authored_frames": 12,
+        "generated_frames": 12,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 952,
+          "form": "Mega",
+          "key": "lib-scovillainmega-n-f94468698acc"
+        },
+        "assembly": {
+          "row_sources": {
+            "3": 1
+          },
+          "mirror_frames": [
+            [
+              "Pain",
+              3,
+              0
+            ],
+            [
+              "Pain",
+              3,
+              1
+            ],
+            [
+              "Pain",
+              3,
+              2
+            ],
+            [
+              "Pain",
+              3,
+              3
+            ],
+            [
+              "HitGround",
+              3,
+              0
+            ],
+            [
+              "HitGround",
+              3,
+              1
+            ],
+            [
+              "HitGround",
+              3,
+              2
+            ],
+            [
+              "HitGround",
+              3,
+              3
+            ]
+          ]
+        },
+        "sha256": "26811db6d6a38cb8afe1701049c8c9fca6f025eded8181c9c1a5ddea19b6d5cb"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "scovillainmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e543ef79eb6dbcead0cf833094706deeb6da2720609a4347c9151c7edf91c419",
+        "authored_directions": 3,
+        "authored_frames": 12,
+        "generated_frames": 12,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 952,
+          "form": "Mega",
+          "key": "lib-scovillainmega-n-f94468698acc"
+        },
+        "assembly": {
+          "row_sources": {
+            "3": 1
+          },
+          "mirror_frames": [
+            [
+              "Pain",
+              3,
+              0
+            ],
+            [
+              "Pain",
+              3,
+              1
+            ],
+            [
+              "Pain",
+              3,
+              2
+            ],
+            [
+              "Pain",
+              3,
+              3
+            ],
+            [
+              "HitGround",
+              3,
+              0
+            ],
+            [
+              "HitGround",
+              3,
+              1
+            ],
+            [
+              "HitGround",
+              3,
+              2
+            ],
+            [
+              "HitGround",
+              3,
+              3
+            ]
+          ]
+        },
+        "sha256": "0cd1695dab4390b254acb6b0c6df2781527b3dcba8932bd01c69546f3036106c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "scovillainmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "c1469f37ec5f1b1ec13d1fd4f130bca1d30cb1d0a5b1e0399940a8170e273f41",
+          "authored_directions": 3,
+          "authored_frames": 12,
+          "generated_frames": 12,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 952,
+            "form": "Mega",
+            "key": "lib-scovillainmega-s-0754257c240f"
+          },
+          "assembly": {
+            "row_sources": {
+              "3": 1
+            },
+            "mirror_frames": [
+              [
+                "Pain",
+                3,
+                0
+              ],
+              [
+                "Pain",
+                3,
+                1
+              ],
+              [
+                "Pain",
+                3,
+                2
+              ],
+              [
+                "Pain",
+                3,
+                3
+              ],
+              [
+                "HitGround",
+                3,
+                0
+              ],
+              [
+                "HitGround",
+                3,
+                1
+              ],
+              [
+                "HitGround",
+                3,
+                2
+              ],
+              [
+                "HitGround",
+                3,
+                3
+              ]
+            ]
+          },
+          "sha256": "952de9695d21ff68e3d87721ee9e14e023aca9c57ea61775c5bb6154758c4f0d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "scovillainmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "c1469f37ec5f1b1ec13d1fd4f130bca1d30cb1d0a5b1e0399940a8170e273f41",
+          "authored_directions": 3,
+          "authored_frames": 12,
+          "generated_frames": 12,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 952,
+            "form": "Mega",
+            "key": "lib-scovillainmega-s-0754257c240f"
+          },
+          "assembly": {
+            "row_sources": {
+              "3": 1
+            },
+            "mirror_frames": [
+              [
+                "Pain",
+                3,
+                0
+              ],
+              [
+                "Pain",
+                3,
+                1
+              ],
+              [
+                "Pain",
+                3,
+                2
+              ],
+              [
+                "Pain",
+                3,
+                3
+              ],
+              [
+                "HitGround",
+                3,
+                0
+              ],
+              [
+                "HitGround",
+                3,
+                1
+              ],
+              [
+                "HitGround",
+                3,
+                2
+              ],
+              [
+                "HitGround",
+                3,
+                3
+              ]
+            ]
+          },
+          "sha256": "d4eb967bb2c197b10aac2e336a8fef28049d2b2fe1280c10ea4a91bc8655ab15"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "scovillainmega",
+    "num": 952,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Scovillain-Mega, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "scovillainmega-cardinal.png",
+    "source_sha256": "e543ef79eb6dbcead0cf833094706deeb6da2720609a4347c9151c7edf91c419",
+    "row_sources": {
+      "3": 1
+    },
+    "mirror_frames": [
+      [
+        "Pain",
+        3,
+        0
+      ],
+      [
+        "Pain",
+        3,
+        1
+      ],
+      [
+        "Pain",
+        3,
+        2
+      ],
+      [
+        "Pain",
+        3,
+        3
+      ],
+      [
+        "HitGround",
+        3,
+        0
+      ],
+      [
+        "HitGround",
+        3,
+        1
+      ],
+      [
+        "HitGround",
+        3,
+        2
+      ],
+      [
+        "HitGround",
+        3,
+        3
+      ]
+    ],
+    "source_record": "scovillainmega-assembled.json",
+    "shiny_source_image": "scovillainmega-shiny47-v1.png",
+    "shiny_prompt": "Use case identity-preserve. Recolour all32sprites of transparent8column4row atlas IMAGE1 to exact native SHINY colours in IMAGE2. Use exact native SHINY: lower body/trouser/tail region BLUE, each native head remains RED or GREEN with its own beige horns and proper left/right ordering. Do not recolour heads as body or swap red/green. Preserve every pose, geometry, camera and distinctive part. NORTH remains rear. Finalgroundposesremainfullydown. Crisp exact limited native pixel palette, transparent background, broad gutters. No new effects,text,objects or scenery."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

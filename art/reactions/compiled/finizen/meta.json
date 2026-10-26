@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "finizen",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6fe1f805be78fe3e5046e9c2e3b6b384c0522586b857d7cb55dfff99817a2950",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 963,
+          "form": "",
+          "key": "lib-finizen-n-36ed92cebbc2"
+        },
+        "sha256": "3008688609e61002ffe24085b9ff390eee0d0091ca32c34f37c7018ee5531142"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "finizen",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6fe1f805be78fe3e5046e9c2e3b6b384c0522586b857d7cb55dfff99817a2950",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 963,
+          "form": "",
+          "key": "lib-finizen-n-36ed92cebbc2"
+        },
+        "sha256": "f3361ebb084474fa1c58e9ce8c4dc0319b03221d5fae6d625807a5c54c24d3f7"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "finizen",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6fe1f805be78fe3e5046e9c2e3b6b384c0522586b857d7cb55dfff99817a2950",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 963,
+            "form": "",
+            "key": "lib-finizen-n-36ed92cebbc2"
+          },
+          "sha256": "cbc4b8b3578e5a36a13dc4d6f82203dd7ebcafc6d53c3605fd945053c24902e8",
+          "palette_from": "lib-finizen-s-a25d4efa2b50"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "finizen",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6fe1f805be78fe3e5046e9c2e3b6b384c0522586b857d7cb55dfff99817a2950",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 963,
+            "form": "",
+            "key": "lib-finizen-n-36ed92cebbc2"
+          },
+          "sha256": "fa0cb86e0445cacdf7941a91aad1b7af31b94e6710b1e8f460ebf853b76c5275",
+          "palette_from": "lib-finizen-s-a25d4efa2b50"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "finizen",
+    "num": 963,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Finizen, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "finizen-cardinal.png",
+    "source_sha256": "6fe1f805be78fe3e5046e9c2e3b6b384c0522586b857d7cb55dfff99817a2950",
+    "source_record": "finizen-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "samurott",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a23cc16c2efd7ed19ea071ec7c485523231a17ec4c0d7fbaced9163ea48d098a",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 503,
+          "form": "",
+          "key": "lib-samurott-n-30dadb54559e"
+        },
+        "sha256": "1cab4d172b74f9c53aea9eaa84554a45c60ea3c9993b9d9b2d9f5b2b521f4e0b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "samurott",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a23cc16c2efd7ed19ea071ec7c485523231a17ec4c0d7fbaced9163ea48d098a",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 503,
+          "form": "",
+          "key": "lib-samurott-n-30dadb54559e"
+        },
+        "sha256": "28bb4a2cbfc53c0fd78ec67a39bc5889854bd3c2556f0cde542e52a7f535fce1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "samurott",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a23cc16c2efd7ed19ea071ec7c485523231a17ec4c0d7fbaced9163ea48d098a",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 503,
+            "form": "",
+            "key": "lib-samurott-n-30dadb54559e"
+          },
+          "sha256": "13f549d9b9ea3916b6d56f70cb8ce231bb878c5b0498ea14d8ed8d8eed8bf6ec",
+          "palette_from": "lib-samurott-s-a44b27c43656"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "samurott",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a23cc16c2efd7ed19ea071ec7c485523231a17ec4c0d7fbaced9163ea48d098a",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 503,
+            "form": "",
+            "key": "lib-samurott-n-30dadb54559e"
+          },
+          "sha256": "965445d77caa8bb0af7d334c00a210d7e2fbfbca77b93dbe4b2e21708677b61c",
+          "palette_from": "lib-samurott-s-a44b27c43656"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "samurott",
+    "num": 503,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a transparent pixel-art game sprite atlas for Samurott using the exact native form and colours in the reference. EXACTLY SIXTEEN complete sprites in FOUR columns and FOUR rows. Rows: front/SOUTH, right profile/EAST, back/NORTH with no face, left profile/WEST. Columns1\u20132 are two distinct expressive flinch poses (blink and bend/braced wince). Columns3\u20134 are lowering to rest and fully lying down; final column has body and head resting flat with eyes closed. Keep all characteristic body parts, tails, wings, markings and accessories. Draw new body and limb poses, consistent pixel scale, crisp original palette. Broad transparent gutters, no text, marks, symbols or scenery. This is a nonviolent game character animation.",
+    "source_image": "samurott-compact-r5.png",
+    "source_sha256": "a23cc16c2efd7ed19ea071ec7c485523231a17ec4c0d7fbaced9163ea48d098a",
+    "source_record": "samurott-compact-r5.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,19 @@
+{
+  "id": "pikachusinnoh",
+  "name": "Pikachu-Sinnoh",
+  "num": 25,
+  "form": "Sinnoh",
+  "directions": 4,
+  "frames": 2,
+  "image": "pikachusinnoh-compact-r5.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Create a transparent pixel-art game sprite atlas for Pikachu-Sinnoh using the exact native form and colours in the reference. EXACTLY SIXTEEN complete sprites in FOUR columns and FOUR rows. Rows: front/SOUTH, right profile/EAST, back/NORTH with no face, left profile/WEST. Columns1\u20132 are two distinct expressive flinch poses (blink and bend/braced wince). Columns3\u20134 are lowering to rest and fully lying down; final column has body and head resting flat with eyes closed. Keep all characteristic body parts, tails, wings, markings and accessories. Draw new body and limb poses, consistent pixel scale, crisp original palette. Broad transparent gutters, no text, marks, symbols or scenery. This is a nonviolent game character animation.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": false,
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-bulk160.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

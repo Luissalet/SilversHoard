@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "boltund",
+        "tool": "builtin-imagegen",
+        "source_sha256": "111ec61e333ef5d8de6d689198012ee927ca6380ee1d01ac0899cc1c8ba3078e",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 836,
+          "form": "",
+          "key": "lib-boltund-n-c72b159ae312"
+        },
+        "sha256": "5fab7acdad91558dc99aba5f3e7ae40372e58e17d38341621537daf5690a9cc9"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "boltund",
+        "tool": "builtin-imagegen",
+        "source_sha256": "111ec61e333ef5d8de6d689198012ee927ca6380ee1d01ac0899cc1c8ba3078e",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 836,
+          "form": "",
+          "key": "lib-boltund-n-c72b159ae312"
+        },
+        "sha256": "4b2902b059caa2f2245385173a2af43215940afada11da4117be902e5c613c6e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "boltund",
+          "tool": "builtin-imagegen",
+          "source_sha256": "111ec61e333ef5d8de6d689198012ee927ca6380ee1d01ac0899cc1c8ba3078e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 836,
+            "form": "",
+            "key": "lib-boltund-n-c72b159ae312"
+          },
+          "sha256": "1d408f4fc1ff56b0490ae4291512e1d718025ac0afb9238c4928d542a26c41b1",
+          "palette_from": "lib-boltund-s-e85dca8c03bd"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "boltund",
+          "tool": "builtin-imagegen",
+          "source_sha256": "111ec61e333ef5d8de6d689198012ee927ca6380ee1d01ac0899cc1c8ba3078e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 836,
+            "form": "",
+            "key": "lib-boltund-n-c72b159ae312"
+          },
+          "sha256": "d264a6dbe31babc710bef153284fcccd3ed236209536f871e82447c38b3804b3",
+          "palette_from": "lib-boltund-s-e85dca8c03bd"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "boltund",
+    "num": 836,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Boltund, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "boltund-cardinal.png",
+    "source_sha256": "111ec61e333ef5d8de6d689198012ee927ca6380ee1d01ac0899cc1c8ba3078e",
+    "source_record": "boltund-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

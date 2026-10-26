@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 80,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 40.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "copperajah",
+        "tool": "builtin-imagegen",
+        "source_sha256": "581bf4e38ee927f7cb8924a106949578cf1dedbba0139435618f111e1e38cee7",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 879,
+          "form": "",
+          "key": "lib-copperajah-n-f3e02688a463"
+        },
+        "sha256": "ad30ab2313bbe86f82b51be05a3cc6980259ccc07f8649e1cbd76b02c66cfc9d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 80,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 40.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "copperajah",
+        "tool": "builtin-imagegen",
+        "source_sha256": "581bf4e38ee927f7cb8924a106949578cf1dedbba0139435618f111e1e38cee7",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 879,
+          "form": "",
+          "key": "lib-copperajah-n-f3e02688a463"
+        },
+        "sha256": "8549a297f49a4e4a9df726ea6e0faf32dc16016d605c1ace049b397c6a63340b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 80,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 40.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "copperajah",
+          "tool": "builtin-imagegen",
+          "source_sha256": "581bf4e38ee927f7cb8924a106949578cf1dedbba0139435618f111e1e38cee7",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 879,
+            "form": "",
+            "key": "lib-copperajah-n-f3e02688a463"
+          },
+          "sha256": "f03fe8d1b1ff29ef783fac539caf4367747926e4c06ef7f505a1845ba9b44f70",
+          "palette_from": "lib-copperajah-s-c23fcbf721c0"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 80,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 40.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "copperajah",
+          "tool": "builtin-imagegen",
+          "source_sha256": "581bf4e38ee927f7cb8924a106949578cf1dedbba0139435618f111e1e38cee7",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 879,
+            "form": "",
+            "key": "lib-copperajah-n-f3e02688a463"
+          },
+          "sha256": "414bf090b12db488758d097f53ffac6f7bfa78cf87d96311791d96ca362d34a7",
+          "palette_from": "lib-copperajah-s-c23fcbf721c0"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "copperajah",
+    "num": 879,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Copperajah, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "copperajah-cardinal.png",
+    "source_sha256": "581bf4e38ee927f7cb8924a106949578cf1dedbba0139435618f111e1e38cee7",
+    "source_record": "copperajah-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

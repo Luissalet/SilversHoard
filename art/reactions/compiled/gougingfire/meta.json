@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 112,
+      "h": 80,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 56.0,
+      "ay": 74,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "gougingfire",
+        "tool": "builtin-imagegen",
+        "source_sha256": "01f2d24f2fdd4f13cd26bc4c20219811e2ab2fe41c1d2f344b16a44b82febead",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 1020,
+          "form": "",
+          "key": "lib-gougingfire-n-b454ccdd0d51"
+        },
+        "sha256": "aeaac4b6bf922086ea6eaf7d23e8993db8e735467f2cfe40725799929f74aae7"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 112,
+      "h": 80,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 56.0,
+      "ay": 74,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "gougingfire",
+        "tool": "builtin-imagegen",
+        "source_sha256": "01f2d24f2fdd4f13cd26bc4c20219811e2ab2fe41c1d2f344b16a44b82febead",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 1020,
+          "form": "",
+          "key": "lib-gougingfire-n-b454ccdd0d51"
+        },
+        "sha256": "d21bb05eeee76f956b249e044ac617046d0870c412a1aaf8cc2a6a808deb383e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 112,
+        "h": 80,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 56.0,
+        "ay": 74,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "gougingfire",
+          "tool": "builtin-imagegen",
+          "source_sha256": "01f2d24f2fdd4f13cd26bc4c20219811e2ab2fe41c1d2f344b16a44b82febead",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 1020,
+            "form": "",
+            "key": "lib-gougingfire-n-b454ccdd0d51"
+          },
+          "sha256": "614a34f7af3b4cf36722a1fdfbfe87c20dc2e8826003b7810a2b21398eadfb52",
+          "palette_from": "lib-gougingfire-s-b6dc92a8730d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 112,
+        "h": 80,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 56.0,
+        "ay": 74,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "gougingfire",
+          "tool": "builtin-imagegen",
+          "source_sha256": "01f2d24f2fdd4f13cd26bc4c20219811e2ab2fe41c1d2f344b16a44b82febead",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 1020,
+            "form": "",
+            "key": "lib-gougingfire-n-b454ccdd0d51"
+          },
+          "sha256": "95e3968447d7ed50ecfa9b4994bed179f3a6675069722b6d5d95e9985f316858",
+          "palette_from": "lib-gougingfire-s-b6dc92a8730d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "gougingfire",
+    "num": 1020,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Gouging Fire, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "gougingfire-cardinal.png",
+    "source_sha256": "01f2d24f2fdd4f13cd26bc4c20219811e2ab2fe41c1d2f344b16a44b82febead",
+    "source_record": "gougingfire-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

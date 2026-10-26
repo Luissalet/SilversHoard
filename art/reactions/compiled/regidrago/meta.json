@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 72,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "regidrago",
+        "tool": "builtin-imagegen",
+        "source_sha256": "45ece868c33cdc78a7752794eb3640b4143fa19956802d88b2ffe42ef54cc7d8",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 895,
+          "form": "",
+          "key": "lib-regidrago-n-713fb738eb03"
+        },
+        "sha256": "e146ce799476eb9e707a4bbc6458d7f04af64fcf1935d9868fde37ee9a92b336"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 72,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "regidrago",
+        "tool": "builtin-imagegen",
+        "source_sha256": "45ece868c33cdc78a7752794eb3640b4143fa19956802d88b2ffe42ef54cc7d8",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 895,
+          "form": "",
+          "key": "lib-regidrago-n-713fb738eb03"
+        },
+        "sha256": "9be23ac3c8d9f6864042b4c5d59325aaa9d059a90f0fe6805afeebc78687dfe1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 72,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "regidrago",
+          "tool": "builtin-imagegen",
+          "source_sha256": "45ece868c33cdc78a7752794eb3640b4143fa19956802d88b2ffe42ef54cc7d8",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 895,
+            "form": "",
+            "key": "lib-regidrago-n-713fb738eb03"
+          },
+          "sha256": "cd517a95c27d800546dcd6cbcde0d7e8497e20badabf023523b8200467195691",
+          "palette_from": "lib-regidrago-s-89ef9ea2edca"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 72,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "regidrago",
+          "tool": "builtin-imagegen",
+          "source_sha256": "45ece868c33cdc78a7752794eb3640b4143fa19956802d88b2ffe42ef54cc7d8",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 895,
+            "form": "",
+            "key": "lib-regidrago-n-713fb738eb03"
+          },
+          "sha256": "30833fd7840ecb330b0d44292fc6efb272d70dfadc344c407f61d61383652bf7",
+          "palette_from": "lib-regidrago-s-89ef9ea2edca"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "regidrago",
+    "num": 895,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Regidrago, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "regidrago-cardinal.png",
+    "source_sha256": "45ece868c33cdc78a7752794eb3640b4143fa19956802d88b2ffe42ef54cc7d8",
+    "source_record": "regidrago-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

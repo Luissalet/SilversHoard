@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "toxtricity",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ac11a92f0d6edc180b120a8c35ebeb5ca357f0dfde44a1aa17f4e29b830ea424",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 849,
+          "form": "",
+          "key": "lib-toxtricity-n-852867a32468"
+        },
+        "sha256": "185acf28d7b44e7c851f7bc7b6d8f9c8d5b03b0ea38349e7ee0c34cc538702f7"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "toxtricity",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ac11a92f0d6edc180b120a8c35ebeb5ca357f0dfde44a1aa17f4e29b830ea424",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 849,
+          "form": "",
+          "key": "lib-toxtricity-n-852867a32468"
+        },
+        "sha256": "c8d2a6716887c5253838ba7c62ba46b7e616045ed8dcb59aab1986e254c2a7df"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "toxtricity",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ac11a92f0d6edc180b120a8c35ebeb5ca357f0dfde44a1aa17f4e29b830ea424",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 849,
+            "form": "",
+            "key": "lib-toxtricity-n-852867a32468"
+          },
+          "sha256": "fc4f2a1200b0dfd5d3be9e95d0e214e8d1631f063c0486aaa3097d5737a9f4e2",
+          "palette_from": "lib-toxtricity-s-edf62a9216ce"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "toxtricity",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ac11a92f0d6edc180b120a8c35ebeb5ca357f0dfde44a1aa17f4e29b830ea424",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 849,
+            "form": "",
+            "key": "lib-toxtricity-n-852867a32468"
+          },
+          "sha256": "89cdc18a5a71e48141378e44986bdcdc1193739c6954e594a90f24d1dab48e38",
+          "palette_from": "lib-toxtricity-s-edf62a9216ce"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "toxtricity",
+    "num": 849,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Toxtricity, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "toxtricity-cardinal.png",
+    "source_sha256": "ac11a92f0d6edc180b120a8c35ebeb5ca357f0dfde44a1aa17f4e29b830ea424",
+    "source_record": "toxtricity-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

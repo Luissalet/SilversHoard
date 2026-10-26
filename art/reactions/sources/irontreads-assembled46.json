@@ -1,0 +1,52 @@
+{
+  "id": "irontreads",
+  "name": "Iron Treads",
+  "num": 990,
+  "form": "",
+  "directions": 4,
+  "frames": 4,
+  "image": "irontreads-assembled46.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Mechanically pack the existing built-in drawn atlas with only the explicitly listed corrected cells from correction44. Other original cells preserved as raw pixels. New source uniformly registered by unchanged SOUTH Pain0 height. No repainting or warping. Both source PNGs and generation prompt retained.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "assembly_sources": [
+    {
+      "image": "irontreads-cardinal.png",
+      "sha256": "80cf02aae1bd9280148adcec1a5816a4ed23f477aa71bed2345c4716e2ac3a92"
+    },
+    {
+      "image": "irontreads-correction44.png",
+      "sha256": "33e872e521faf36bb5c9153d3105397deecf9faefc7bd7e27e0bc883f192c0e4"
+    }
+  ],
+  "assembly_recipe": {
+    "base": "irontreads-cardinal.png",
+    "edited": "irontreads-correction44.png",
+    "replace_row_col": [
+      [
+        1,
+        6
+      ],
+      [
+        1,
+        7
+      ],
+      [
+        3,
+        6
+      ],
+      [
+        3,
+        7
+      ]
+    ],
+    "uniform_scale": 1.2162162162162162
+  },
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-corrections46.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

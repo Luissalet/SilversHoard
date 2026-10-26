@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "drizzile",
+        "tool": "builtin-imagegen",
+        "source_sha256": "cd87b6b38d673046358cbc160a81ebe3533956db0303fd4fa790f5147a47802a",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 817,
+          "form": "",
+          "key": "lib-drizzile-n-daba5e025065"
+        },
+        "sha256": "d7313ee03068812d7c629b0a1ebdb6bcbdf95290dfac8ca5aa8db5dc569ade53"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "drizzile",
+        "tool": "builtin-imagegen",
+        "source_sha256": "cd87b6b38d673046358cbc160a81ebe3533956db0303fd4fa790f5147a47802a",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 817,
+          "form": "",
+          "key": "lib-drizzile-n-daba5e025065"
+        },
+        "sha256": "897315cfc11ac19492e43eeae44b1a1769fd54d1fbb97c1bbcd5c3db9b61bcac"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "drizzile",
+          "tool": "builtin-imagegen",
+          "source_sha256": "cd87b6b38d673046358cbc160a81ebe3533956db0303fd4fa790f5147a47802a",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 817,
+            "form": "",
+            "key": "lib-drizzile-n-daba5e025065"
+          },
+          "sha256": "57e4df79f5c47875630605e9e937b7da7e421c494250644d6c508e3a96580534",
+          "palette_from": "lib-drizzile-s-067809512ddf"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "drizzile",
+          "tool": "builtin-imagegen",
+          "source_sha256": "cd87b6b38d673046358cbc160a81ebe3533956db0303fd4fa790f5147a47802a",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 817,
+            "form": "",
+            "key": "lib-drizzile-n-daba5e025065"
+          },
+          "sha256": "18095059d6a39655bae1973c0457628f444a16fae7fe7632e96aa3e00b08bd1d",
+          "palette_from": "lib-drizzile-s-067809512ddf"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "drizzile",
+    "num": 817,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Drizzile, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "drizzile-cardinal.png",
+    "source_sha256": "cd87b6b38d673046358cbc160a81ebe3533956db0303fd4fa790f5147a47802a",
+    "source_record": "drizzile-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

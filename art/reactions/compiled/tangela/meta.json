@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tangela",
+        "tool": "builtin-imagegen",
+        "source_sha256": "291bf05c2760984044446c9a68f8625a1a0314d3168282e69d520c5dfa4ae800",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 114,
+          "form": "",
+          "key": "lib-tangela-n-91325e1c21d3"
+        },
+        "sha256": "c26d92f43d85917aac77380f1eb2b59277c279b63fda459def641bf058b9481d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tangela",
+        "tool": "builtin-imagegen",
+        "source_sha256": "291bf05c2760984044446c9a68f8625a1a0314d3168282e69d520c5dfa4ae800",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 114,
+          "form": "",
+          "key": "lib-tangela-n-91325e1c21d3"
+        },
+        "sha256": "c28eebcaadf786a02054231b53f5a5f4eb1b31b7d5c5a304d8c9f49206738191"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tangela",
+          "tool": "builtin-imagegen",
+          "source_sha256": "291bf05c2760984044446c9a68f8625a1a0314d3168282e69d520c5dfa4ae800",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 114,
+            "form": "",
+            "key": "lib-tangela-n-91325e1c21d3"
+          },
+          "sha256": "d53fb110b23c513d2139404e63ebb05713bf9ed16688cab55cfd96a81ab32338",
+          "palette_from": "lib-tangela-s-adb6d09b50a3"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tangela",
+          "tool": "builtin-imagegen",
+          "source_sha256": "291bf05c2760984044446c9a68f8625a1a0314d3168282e69d520c5dfa4ae800",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 114,
+            "form": "",
+            "key": "lib-tangela-n-91325e1c21d3"
+          },
+          "sha256": "0a006bf902d35fc65d209a17f16cae715295a2e439f0f8dbaad313d0255a7cab",
+          "palette_from": "lib-tangela-s-adb6d09b50a3"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "tangela",
+    "num": 114,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Tangela, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "tangela-retry-r4.png",
+    "source_sha256": "291bf05c2760984044446c9a68f8625a1a0314d3168282e69d520c5dfa4ae800",
+    "source_record": "tangela-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

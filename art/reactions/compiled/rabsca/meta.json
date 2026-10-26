@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "rabsca",
+        "tool": "builtin-imagegen",
+        "source_sha256": "44a1c305763b130092bb0c9ce6095cd4e1146a5f4ddc9720d59436ab29c0d42d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 954,
+          "form": "",
+          "key": "lib-rabsca-n-e5388a7f90eb"
+        },
+        "sha256": "1c56dac50f016614c37d6e0a5eafde238db9b57e71574fa29c235083b3f34eec"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "rabsca",
+        "tool": "builtin-imagegen",
+        "source_sha256": "44a1c305763b130092bb0c9ce6095cd4e1146a5f4ddc9720d59436ab29c0d42d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 954,
+          "form": "",
+          "key": "lib-rabsca-n-e5388a7f90eb"
+        },
+        "sha256": "b37f91616588529c3577cafdfdcde5f29abcc6d9177cc9efd06d98ff6fd0c677"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "rabsca",
+          "tool": "builtin-imagegen",
+          "source_sha256": "44a1c305763b130092bb0c9ce6095cd4e1146a5f4ddc9720d59436ab29c0d42d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 954,
+            "form": "",
+            "key": "lib-rabsca-n-e5388a7f90eb"
+          },
+          "sha256": "eac4c834f1f28a17297b88528698ec2fbe94a20dba9650621e84c1cc80a4ef09",
+          "palette_from": "lib-rabsca-s-0f68be213cca"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "rabsca",
+          "tool": "builtin-imagegen",
+          "source_sha256": "44a1c305763b130092bb0c9ce6095cd4e1146a5f4ddc9720d59436ab29c0d42d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 954,
+            "form": "",
+            "key": "lib-rabsca-n-e5388a7f90eb"
+          },
+          "sha256": "fee4be09df801fb8d1679dbeb5fd7cdc413a79c4186fd4934932e83c507522f5",
+          "palette_from": "lib-rabsca-s-0f68be213cca"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "rabsca",
+    "num": 954,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Rabsca, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "rabsca-cardinal.png",
+    "source_sha256": "44a1c305763b130092bb0c9ce6095cd4e1146a5f4ddc9720d59436ab29c0d42d",
+    "source_record": "rabsca-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

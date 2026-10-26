@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tyranitar",
+        "tool": "builtin-imagegen",
+        "source_sha256": "803ee34c74d0b525d672fd7914f91e2a266bac9625824059d22bb56f19254fe5",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 248,
+          "form": "",
+          "key": "lib-tyranitar-n-2b1a83baaeca"
+        },
+        "sha256": "b1535f0f86d88e9d1a21796b0d35ee51b38bda1e1969248b36c1f3ca50b35009"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tyranitar",
+        "tool": "builtin-imagegen",
+        "source_sha256": "803ee34c74d0b525d672fd7914f91e2a266bac9625824059d22bb56f19254fe5",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 248,
+          "form": "",
+          "key": "lib-tyranitar-n-2b1a83baaeca"
+        },
+        "sha256": "049d8fd4dc124e842a675a56d31de977402915745e6330d9dbcb4e9815706c3a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tyranitar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "803ee34c74d0b525d672fd7914f91e2a266bac9625824059d22bb56f19254fe5",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 248,
+            "form": "",
+            "key": "lib-tyranitar-n-2b1a83baaeca"
+          },
+          "sha256": "b1614c811a7199bbd682dfb75864bd4539a403897307f660173a470d726dc0d7",
+          "palette_from": "lib-tyranitar-s-77188a1ffa7d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tyranitar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "803ee34c74d0b525d672fd7914f91e2a266bac9625824059d22bb56f19254fe5",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 248,
+            "form": "",
+            "key": "lib-tyranitar-n-2b1a83baaeca"
+          },
+          "sha256": "4ca18cab69c77265e1045d2d943f922751bccc8e2237a06a4c062bb3e3ba40a8",
+          "palette_from": "lib-tyranitar-s-77188a1ffa7d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "tyranitar",
+    "num": 248,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Tyranitar, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "tyranitar-retry-r4.png",
+    "source_sha256": "803ee34c74d0b525d672fd7914f91e2a266bac9625824059d22bb56f19254fe5",
+    "source_record": "tyranitar-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

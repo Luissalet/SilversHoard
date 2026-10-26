@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "orthworm",
+        "tool": "builtin-imagegen",
+        "source_sha256": "dca0bb5facda6e8aa85db10886ef8d833f6a61b1e2195b7df0e38730129851ed",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 968,
+          "form": "",
+          "key": "lib-orthworm-n-7e83c3d3bbec"
+        },
+        "sha256": "568309d028b779cc0478079930444e88b0ad246f37b8cd53fb088f23247c9bbf"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "orthworm",
+        "tool": "builtin-imagegen",
+        "source_sha256": "dca0bb5facda6e8aa85db10886ef8d833f6a61b1e2195b7df0e38730129851ed",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 968,
+          "form": "",
+          "key": "lib-orthworm-n-7e83c3d3bbec"
+        },
+        "sha256": "77444383f64a8b0c52419f51843538ed5f3c82458e6e8791dc14c81408d9e14b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "orthworm",
+          "tool": "builtin-imagegen",
+          "source_sha256": "dca0bb5facda6e8aa85db10886ef8d833f6a61b1e2195b7df0e38730129851ed",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 968,
+            "form": "",
+            "key": "lib-orthworm-n-7e83c3d3bbec"
+          },
+          "sha256": "44547339a7347ccd6d03548a1a01822e9a358e7de879a2576fb4b1ee3535f75a",
+          "palette_from": "lib-orthworm-s-9189eafc102b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "orthworm",
+          "tool": "builtin-imagegen",
+          "source_sha256": "dca0bb5facda6e8aa85db10886ef8d833f6a61b1e2195b7df0e38730129851ed",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 968,
+            "form": "",
+            "key": "lib-orthworm-n-7e83c3d3bbec"
+          },
+          "sha256": "9ac122c274b59da60e725c6013b92c96ae910a9238b2773997ec8b0e1e9c08b9",
+          "palette_from": "lib-orthworm-s-9189eafc102b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "orthworm",
+    "num": 968,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Mechanically pack the existing built-in drawn atlas with only the explicitly listed corrected cells from correction44. Other original cells preserved as raw pixels. New source uniformly registered by unchanged SOUTH Pain0 height. No repainting or warping. Both source PNGs and generation prompt retained.",
+    "source_image": "orthworm-assembled46.png",
+    "source_sha256": "dca0bb5facda6e8aa85db10886ef8d833f6a61b1e2195b7df0e38730129851ed",
+    "source_record": "orthworm-assembled46.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

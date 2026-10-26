@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ceruledge",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b7b964e810011482779ff584b997f043aece1cd1afe0f99241e18e0597b679bc",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 937,
+          "form": "",
+          "key": "lib-ceruledge-n-218e3dac3887"
+        },
+        "sha256": "7f22b96218dadc2b8e1161765e3fe58b42ab6768c0f1a4668cdf9a6b0f86ea06"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ceruledge",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b7b964e810011482779ff584b997f043aece1cd1afe0f99241e18e0597b679bc",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 937,
+          "form": "",
+          "key": "lib-ceruledge-n-218e3dac3887"
+        },
+        "sha256": "d26e5c80eacbd1cdb1673609446f796e9ed5dcde70a24f3ae227c96b16c79c00"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ceruledge",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b7b964e810011482779ff584b997f043aece1cd1afe0f99241e18e0597b679bc",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 937,
+            "form": "",
+            "key": "lib-ceruledge-n-218e3dac3887"
+          },
+          "sha256": "f7ec28f51d5916fe6328b67eee7d48b8537540f62788710cb2b837fd40b70fc5",
+          "palette_from": "lib-ceruledge-s-5dfc9b89b5db"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ceruledge",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b7b964e810011482779ff584b997f043aece1cd1afe0f99241e18e0597b679bc",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 937,
+            "form": "",
+            "key": "lib-ceruledge-n-218e3dac3887"
+          },
+          "sha256": "45d2568f0bc4658b0fc20f565d03d49b15db956e462748f597873053149602a2",
+          "palette_from": "lib-ceruledge-s-5dfc9b89b5db"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "ceruledge",
+    "num": 937,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Ceruledge, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "ceruledge-cardinal.png",
+    "source_sha256": "b7b964e810011482779ff584b997f043aece1cd1afe0f99241e18e0597b679bc",
+    "source_record": "ceruledge-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

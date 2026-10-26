@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "rapidash",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6d25889ba999b02d3ab6712020500df5ea87af904075c7f54cd8b92e49568b30",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 78,
+          "form": "",
+          "key": "lib-rapidash-n-e16a5632950f"
+        },
+        "sha256": "fe6948f682759e9aff77fe4506a14d5122ade1979e01543fa68ec04cf089fffd"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "rapidash",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6d25889ba999b02d3ab6712020500df5ea87af904075c7f54cd8b92e49568b30",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 78,
+          "form": "",
+          "key": "lib-rapidash-n-e16a5632950f"
+        },
+        "sha256": "a558a3021acac5729a0cde3f62b4e1005709b05994a4c7ef28d401aa1e2be2eb"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "rapidash",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6d25889ba999b02d3ab6712020500df5ea87af904075c7f54cd8b92e49568b30",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 78,
+            "form": "",
+            "key": "lib-rapidash-n-e16a5632950f"
+          },
+          "sha256": "b310e3f8ad63e4474a8fbc2c6907212b19528db294bab2af81dacdd90c07d06a",
+          "palette_from": "lib-rapidash-s-74cb4d0a00a7"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "rapidash",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6d25889ba999b02d3ab6712020500df5ea87af904075c7f54cd8b92e49568b30",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 78,
+            "form": "",
+            "key": "lib-rapidash-n-e16a5632950f"
+          },
+          "sha256": "c6ff7fbb0cc4aac9c7399881feba84addcdb7cdef8cd2f471f94dc1ca3045fcd",
+          "palette_from": "lib-rapidash-s-74cb4d0a00a7"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "rapidash",
+    "num": 78,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Rapidash, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "rapidash-retry-r4.png",
+    "source_sha256": "6d25889ba999b02d3ab6712020500df5ea87af904075c7f54cd8b92e49568b30",
+    "source_record": "rapidash-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

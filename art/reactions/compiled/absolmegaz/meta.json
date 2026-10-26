@@ -1,0 +1,118 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "absolmegaz",
+        "tool": "builtin-imagegen",
+        "source_sha256": "637f210daed61e56f36093a67404b4b19a0d9d438445313c49d0f033c8ad1fb2",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 359,
+          "form": "Mega-Z",
+          "key": "lib-absolmegaz-n-2d85c98df1e5"
+        },
+        "sha256": "624201ce1a0ee4a59936be3927ebc397b7399764ee5f8a15cd6896f47b29c2b6"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "absolmegaz",
+        "tool": "builtin-imagegen",
+        "source_sha256": "637f210daed61e56f36093a67404b4b19a0d9d438445313c49d0f033c8ad1fb2",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 359,
+          "form": "Mega-Z",
+          "key": "lib-absolmegaz-n-2d85c98df1e5"
+        },
+        "sha256": "d3664fb73b3c50118ba05b7c1004623cfa8bb39e27d7d0ab33e51b44259eedab"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {}
+  },
+  "pending": [
+    "shiny"
+  ],
+  "provenance": {
+    "id": "absolmegaz",
+    "num": 359,
+    "form": "Mega-Z",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Absol-Mega-Z, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "absolmegaz-retry-r4.png",
+    "source_sha256": "637f210daed61e56f36093a67404b4b19a0d9d438445313c49d0f033c8ad1fb2",
+    "source_record": "absolmegaz-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": false
+}

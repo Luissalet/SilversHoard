@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "malamar",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6ffcecb5d77370563ed6669277187e757cad952e657899848f2be433a6dfca0d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 687,
+          "form": "",
+          "key": "lib-malamar-n-47413ebf9963"
+        },
+        "sha256": "0141521d2148bc05aa0dd7f77566740a881970ae5a6645bd2b3884fdf5db32cf"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "malamar",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6ffcecb5d77370563ed6669277187e757cad952e657899848f2be433a6dfca0d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 687,
+          "form": "",
+          "key": "lib-malamar-n-47413ebf9963"
+        },
+        "sha256": "82303a701e3a964891ed1be68ef223acc257f343939409912f9bfb63448703ee"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "malamar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6ffcecb5d77370563ed6669277187e757cad952e657899848f2be433a6dfca0d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 687,
+            "form": "",
+            "key": "lib-malamar-n-47413ebf9963"
+          },
+          "sha256": "68b9a1cb37a7875c9271c382a9cffa824757d25d5a96e21774524263cdae3d1e",
+          "palette_from": "lib-malamar-s-17c2905411d7"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "malamar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6ffcecb5d77370563ed6669277187e757cad952e657899848f2be433a6dfca0d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 687,
+            "form": "",
+            "key": "lib-malamar-n-47413ebf9963"
+          },
+          "sha256": "6679d5c7134b79aa22b08612512ee6c5a79c7a412c2d42fe68a93e0ee50c4761",
+          "palette_from": "lib-malamar-s-17c2905411d7"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "malamar",
+    "num": 687,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Malamar, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "malamar-retry-r4.png",
+    "source_sha256": "6ffcecb5d77370563ed6669277187e757cad952e657899848f2be433a6dfca0d",
+    "source_record": "malamar-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": false
+}

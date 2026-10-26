@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "sceptilemega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "cc8d16938a37b7e86c1488761de25ddb97b5771579e78242913555c1870fcb8e",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 254,
+          "form": "Mega",
+          "key": "lib-sceptilemega-n-20ad04915bae"
+        },
+        "sha256": "c6fadcd6d3d03ae68d091cb7d720b04bdc3c3f009a1a6bd7d64043815985e2f1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "sceptilemega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "cc8d16938a37b7e86c1488761de25ddb97b5771579e78242913555c1870fcb8e",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 254,
+          "form": "Mega",
+          "key": "lib-sceptilemega-n-20ad04915bae"
+        },
+        "sha256": "2e86687b8a80dfdba9dfae855dfc58b44c8433d88d54c07ef8cdf3191acbc51b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "sceptilemega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "cc8d16938a37b7e86c1488761de25ddb97b5771579e78242913555c1870fcb8e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 254,
+            "form": "Mega",
+            "key": "lib-sceptilemega-n-20ad04915bae"
+          },
+          "sha256": "943d8db99b78f9ad5bd289fe4f672f0f65bd50e5e0ea24ce943a460d68b456fb",
+          "palette_from": "lib-sceptilemega-s-b4ac7d75df46"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "sceptilemega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "cc8d16938a37b7e86c1488761de25ddb97b5771579e78242913555c1870fcb8e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 254,
+            "form": "Mega",
+            "key": "lib-sceptilemega-n-20ad04915bae"
+          },
+          "sha256": "391d85ce9151721527d050bc4751e551cf4c8ac92a21ef51411b5ef23a0a567d",
+          "palette_from": "lib-sceptilemega-s-b4ac7d75df46"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "sceptilemega",
+    "num": 254,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Sceptile-Mega, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "sceptilemega-retry-r4.png",
+    "source_sha256": "cc8d16938a37b7e86c1488761de25ddb97b5771579e78242913555c1870fcb8e",
+    "source_record": "sceptilemega-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

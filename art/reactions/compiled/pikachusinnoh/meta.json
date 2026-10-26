@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "pikachusinnoh",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a30f01e04b01b71dc7f8db5cb889affaa0df4df9bad6e10cba8d32b1f48190e6",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 25,
+          "form": "Sinnoh",
+          "key": "lib-pikachusinnoh-n-bbfbb5bf6c7d"
+        },
+        "sha256": "4bfdd8f10503b86d905e1de9ee7cee6b1e8b006047b22db5bf5a37bb54c2cb07"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "pikachusinnoh",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a30f01e04b01b71dc7f8db5cb889affaa0df4df9bad6e10cba8d32b1f48190e6",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 25,
+          "form": "Sinnoh",
+          "key": "lib-pikachusinnoh-n-bbfbb5bf6c7d"
+        },
+        "sha256": "3e2925217a9e93dd293a0cc6debc4221cbbc50dcfd269e00d46e280dafbd2b1c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "pikachusinnoh",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a30f01e04b01b71dc7f8db5cb889affaa0df4df9bad6e10cba8d32b1f48190e6",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 25,
+            "form": "Sinnoh",
+            "key": "lib-pikachusinnoh-n-bbfbb5bf6c7d"
+          },
+          "sha256": "424b0fa176d73ab8ae3de173fe73c2a2cd1243a657c9455a2c2aab9bfedc1a05",
+          "palette_from": "lib-pikachusinnoh-s-6cd7cefeec54"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "pikachusinnoh",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a30f01e04b01b71dc7f8db5cb889affaa0df4df9bad6e10cba8d32b1f48190e6",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 25,
+            "form": "Sinnoh",
+            "key": "lib-pikachusinnoh-n-bbfbb5bf6c7d"
+          },
+          "sha256": "dc99253537a6e7a1e3193152b47f1d3bcd8936d5fade314f9b614f82d408e972",
+          "palette_from": "lib-pikachusinnoh-s-6cd7cefeec54"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "pikachusinnoh",
+    "num": 25,
+    "form": "Sinnoh",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a transparent pixel-art game sprite atlas for Pikachu-Sinnoh using the exact native form and colours in the reference. EXACTLY SIXTEEN complete sprites in FOUR columns and FOUR rows. Rows: front/SOUTH, right profile/EAST, back/NORTH with no face, left profile/WEST. Columns1\u20132 are two distinct expressive flinch poses (blink and bend/braced wince). Columns3\u20134 are lowering to rest and fully lying down; final column has body and head resting flat with eyes closed. Keep all characteristic body parts, tails, wings, markings and accessories. Draw new body and limb poses, consistent pixel scale, crisp original palette. Broad transparent gutters, no text, marks, symbols or scenery. This is a nonviolent game character animation.",
+    "source_image": "pikachusinnoh-compact-r5.png",
+    "source_sha256": "a30f01e04b01b71dc7f8db5cb889affaa0df4df9bad6e10cba8d32b1f48190e6",
+    "source_record": "pikachusinnoh-compact-r5.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": false
+}

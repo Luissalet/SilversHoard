@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "horsea",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f0edf0a9da7e21bc7983726732af9a5cf4fe8f03b8a2b63c340f0449146e3191",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 116,
+          "form": "",
+          "key": "lib-horsea-n-b5771eef9ea5"
+        },
+        "sha256": "b386d17b2ade23a80a856062c859f892283c8504e3794fd11c993dc19574c39b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "horsea",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f0edf0a9da7e21bc7983726732af9a5cf4fe8f03b8a2b63c340f0449146e3191",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 116,
+          "form": "",
+          "key": "lib-horsea-n-b5771eef9ea5"
+        },
+        "sha256": "bb9d7a581b95d28581d5c6edc796ec0d0341c8aea9731ea6f7bcd3870bb45a43"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "horsea",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f0edf0a9da7e21bc7983726732af9a5cf4fe8f03b8a2b63c340f0449146e3191",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 116,
+            "form": "",
+            "key": "lib-horsea-n-b5771eef9ea5"
+          },
+          "sha256": "b4a7f2de6747ed750342935fefb95c6b1b748ed78f0f8cb5a1be22979d03fa95",
+          "palette_from": "lib-horsea-s-9c9d63125943"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "horsea",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f0edf0a9da7e21bc7983726732af9a5cf4fe8f03b8a2b63c340f0449146e3191",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 116,
+            "form": "",
+            "key": "lib-horsea-n-b5771eef9ea5"
+          },
+          "sha256": "4c5e7292f149ac53f90f91f2f80ab5421fcd174572d2325367692af7dda629d3",
+          "palette_from": "lib-horsea-s-9c9d63125943"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "horsea",
+    "num": 116,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Horsea, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "horsea-retry-r4.png",
+    "source_sha256": "f0edf0a9da7e21bc7983726732af9a5cf4fe8f03b8a2b63c340f0449146e3191",
+    "source_record": "horsea-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

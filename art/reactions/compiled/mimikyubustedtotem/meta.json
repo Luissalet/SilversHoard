@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "mimikyubustedtotem",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e6d378e2c1d9d7bc7432b82a16399dfb84eff0ca56f63f279c0ab2b3d0e62156",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 778,
+          "form": "Busted-Totem",
+          "key": "lib-mimikyubustedtotem-n-9fbed4123d07"
+        },
+        "sha256": "f9fbcc7632e395d7064b4e482b9a33422661405dffadbb621e329df292b0768b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "mimikyubustedtotem",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e6d378e2c1d9d7bc7432b82a16399dfb84eff0ca56f63f279c0ab2b3d0e62156",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 778,
+          "form": "Busted-Totem",
+          "key": "lib-mimikyubustedtotem-n-9fbed4123d07"
+        },
+        "sha256": "b6c57897d1c538d190a35ecf8002eb1752576de1f16a1b34fb20d71f23860ff3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "mimikyubustedtotem",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e6d378e2c1d9d7bc7432b82a16399dfb84eff0ca56f63f279c0ab2b3d0e62156",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 778,
+            "form": "Busted-Totem",
+            "key": "lib-mimikyubustedtotem-n-9fbed4123d07"
+          },
+          "sha256": "d21cf529adb852a7e4987c3a75b41130ad112f7f862b9c8dd35e5d5dfeaeb6be",
+          "palette_from": "lib-mimikyubustedtotem-s-29396cb9ca02"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "mimikyubustedtotem",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e6d378e2c1d9d7bc7432b82a16399dfb84eff0ca56f63f279c0ab2b3d0e62156",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 778,
+            "form": "Busted-Totem",
+            "key": "lib-mimikyubustedtotem-n-9fbed4123d07"
+          },
+          "sha256": "8889f8a305dd62eec9eaac812fc2ece3cb4420a950b63cfec12404bd2fb4195a",
+          "palette_from": "lib-mimikyubustedtotem-s-29396cb9ca02"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "mimikyubustedtotem",
+    "num": 778,
+    "form": "Busted-Totem",
+    "tool": "builtin-imagegen",
+    "prompt": "Reuse the genuinely built-in drawn Busted-form atlas for Busted-Totem. All eight installed native animation geometries and cropped RGBA are exactly identical for both normal and shiny forms, independently audited. This is an explicit identical-form derivation, not a claim that new target drawings were generated.",
+    "source_image": "mimikyubusted-retry-r4.png",
+    "source_sha256": "e6d378e2c1d9d7bc7432b82a16399dfb84eff0ca56f63f279c0ab2b3d0e62156",
+    "source_record": "mimikyubustedtotem-derived50.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

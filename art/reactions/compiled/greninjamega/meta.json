@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "greninjamega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "55b58bf5aebac7c57f535480b0d9b58782cfb941ff6908d7241f8190c27cfa83",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 658,
+          "form": "Mega",
+          "key": "lib-greninjamega-n-2067d0a42081"
+        },
+        "sha256": "e4978b793cd645a2eb55975b50d1aecd6030371904c028b61f378f7e9b171667"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "greninjamega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "55b58bf5aebac7c57f535480b0d9b58782cfb941ff6908d7241f8190c27cfa83",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 658,
+          "form": "Mega",
+          "key": "lib-greninjamega-n-2067d0a42081"
+        },
+        "sha256": "a7a7776725d4718e198447701dd284e678673fab78c6b1a03898089b90f6fdec"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "greninjamega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "55b58bf5aebac7c57f535480b0d9b58782cfb941ff6908d7241f8190c27cfa83",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 658,
+            "form": "Mega",
+            "key": "lib-greninjamega-n-2067d0a42081"
+          },
+          "sha256": "d98ab09669cc7e758a6ea7f9dd848e24742510fe6dac52b05a55f95dc9022e66",
+          "palette_from": "lib-greninjamega-s-c11a2261670e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "greninjamega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "55b58bf5aebac7c57f535480b0d9b58782cfb941ff6908d7241f8190c27cfa83",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 658,
+            "form": "Mega",
+            "key": "lib-greninjamega-n-2067d0a42081"
+          },
+          "sha256": "587cda2871e2d979ab59d309d75fbb68013ce81dd699e49996136e6a9a805e3e",
+          "palette_from": "lib-greninjamega-s-c11a2261670e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "greninjamega",
+    "num": 658,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a transparent pixel-art game sprite atlas for Greninja-Mega using the exact native form and colours in the reference. EXACTLY SIXTEEN complete sprites in FOUR columns and FOUR rows. Rows: front/SOUTH, right profile/EAST, back/NORTH with no face, left profile/WEST. Columns1\u20132 are two distinct expressive flinch poses (blink and bend/braced wince). Columns3\u20134 are lowering to rest and fully lying down; final column has body and head resting flat with eyes closed. Keep all characteristic body parts, tails, wings, markings and accessories. Draw new body and limb poses, consistent pixel scale, crisp original palette. Broad transparent gutters, no text, marks, symbols or scenery. This is a nonviolent game character animation.",
+    "source_image": "greninjamega-compact-r5.png",
+    "source_sha256": "55b58bf5aebac7c57f535480b0d9b58782cfb941ff6908d7241f8190c27cfa83",
+    "source_record": "greninjamega-compact-r5.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

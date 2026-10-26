@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tinkatink",
+        "tool": "builtin-imagegen",
+        "source_sha256": "01b719c838ed8de880e6d999d820fd3e2102e9dda7948f244736fbc4f31714d1",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 957,
+          "form": "",
+          "key": "lib-tinkatink-n-4ce0237d41a6"
+        },
+        "sha256": "91908d6213aa3ace546cd1696f5b6c6455949b9decee35e14b1757bd0e465560"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tinkatink",
+        "tool": "builtin-imagegen",
+        "source_sha256": "01b719c838ed8de880e6d999d820fd3e2102e9dda7948f244736fbc4f31714d1",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 957,
+          "form": "",
+          "key": "lib-tinkatink-n-4ce0237d41a6"
+        },
+        "sha256": "3292acabd653dc1637863e2f3543c2f12452b069a8271f029483323434a48836"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tinkatink",
+          "tool": "builtin-imagegen",
+          "source_sha256": "01b719c838ed8de880e6d999d820fd3e2102e9dda7948f244736fbc4f31714d1",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 957,
+            "form": "",
+            "key": "lib-tinkatink-n-4ce0237d41a6"
+          },
+          "sha256": "a0558b1268d4a2b706a3738aad544df17dfd4799e6683980ad5ab210372afcf2",
+          "palette_from": "lib-tinkatink-s-297bcc7a5771"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tinkatink",
+          "tool": "builtin-imagegen",
+          "source_sha256": "01b719c838ed8de880e6d999d820fd3e2102e9dda7948f244736fbc4f31714d1",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 957,
+            "form": "",
+            "key": "lib-tinkatink-n-4ce0237d41a6"
+          },
+          "sha256": "68dc4db7cd9a181af8798ccd90938a465f611eccd4e313ff4075f3ad891c4bb0",
+          "palette_from": "lib-tinkatink-s-297bcc7a5771"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "tinkatink",
+    "num": 957,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Tinkatink, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "tinkatink-cardinal.png",
+    "source_sha256": "01b719c838ed8de880e6d999d820fd3e2102e9dda7948f244736fbc4f31714d1",
+    "source_record": "tinkatink-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

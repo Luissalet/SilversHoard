@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "gyaradosmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "387c18ccbe91cdb5a09971d4252cdedcf3779b73bdb1f2c3047c928f98072ed2",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 130,
+          "form": "Mega",
+          "key": "lib-gyaradosmega-n-e9a05625a495"
+        },
+        "sha256": "9539c03e42e7ad6bbe27334da23f87054e6ba4e0c282bfb16ee0f619e3ce8cf7"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "gyaradosmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "387c18ccbe91cdb5a09971d4252cdedcf3779b73bdb1f2c3047c928f98072ed2",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 130,
+          "form": "Mega",
+          "key": "lib-gyaradosmega-n-e9a05625a495"
+        },
+        "sha256": "50041b68b6740564b0fa44f25adf995ae5d8f1e4ce7362c1e295de5cf3644ada"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "gyaradosmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "387c18ccbe91cdb5a09971d4252cdedcf3779b73bdb1f2c3047c928f98072ed2",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 130,
+            "form": "Mega",
+            "key": "lib-gyaradosmega-n-e9a05625a495"
+          },
+          "sha256": "25319bbe990dba94fc8b7e41ba696e794c1cd6df09c71206989185cff64c41c7",
+          "palette_from": "lib-gyaradosmega-s-323e3cab4fe8"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "gyaradosmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "387c18ccbe91cdb5a09971d4252cdedcf3779b73bdb1f2c3047c928f98072ed2",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 130,
+            "form": "Mega",
+            "key": "lib-gyaradosmega-n-e9a05625a495"
+          },
+          "sha256": "7d425c272cbaa46f1aa4e629764393b3608190ba749622f138c0dc0a442ba437",
+          "palette_from": "lib-gyaradosmega-s-323e3cab4fe8"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "gyaradosmega",
+    "num": 130,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Gyarados-Mega, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "gyaradosmega-retry-r4.png",
+    "source_sha256": "387c18ccbe91cdb5a09971d4252cdedcf3779b73bdb1f2c3047c928f98072ed2",
+    "source_record": "gyaradosmega-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "meloettapirouette",
+        "tool": "builtin-imagegen",
+        "source_sha256": "673ea3844b92e1d24e566d4ee59d27b7be3447fc7e1073637f6c5dad9d603d1d",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 648,
+          "form": "Pirouette",
+          "key": "lib-meloettapirouette-n-a287587e369b"
+        },
+        "sha256": "0e6bfdc7b9d46a291dd824ef4f93bc6677f820e69055e7dadd07f4dedd40f32c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "meloettapirouette",
+        "tool": "builtin-imagegen",
+        "source_sha256": "673ea3844b92e1d24e566d4ee59d27b7be3447fc7e1073637f6c5dad9d603d1d",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 648,
+          "form": "Pirouette",
+          "key": "lib-meloettapirouette-n-a287587e369b"
+        },
+        "sha256": "1327b1ef1630b054155ee14dfdba8ad26bf82f08ff32607b483ebe1f2984e436"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "meloettapirouette",
+          "tool": "builtin-imagegen",
+          "source_sha256": "673ea3844b92e1d24e566d4ee59d27b7be3447fc7e1073637f6c5dad9d603d1d",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 648,
+            "form": "Pirouette",
+            "key": "lib-meloettapirouette-n-a287587e369b"
+          },
+          "sha256": "4c253cb8c82ce7c65fc4bd3f301b22eb874248f83a46ebee5c288217e550f983",
+          "palette_from": "lib-meloettapirouette-s-077d9a4b8b39"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "meloettapirouette",
+          "tool": "builtin-imagegen",
+          "source_sha256": "673ea3844b92e1d24e566d4ee59d27b7be3447fc7e1073637f6c5dad9d603d1d",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 648,
+            "form": "Pirouette",
+            "key": "lib-meloettapirouette-n-a287587e369b"
+          },
+          "sha256": "042a3f3122cf21ce9367ef146861387bdf670b5b446dd967b60d29f069f19c52",
+          "palette_from": "lib-meloettapirouette-s-077d9a4b8b39"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "meloettapirouette",
+    "num": 648,
+    "form": "Pirouette",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a transparent pixel-art game sprite atlas for Meloetta-Pirouette using the exact native form and colours in the reference. EXACTLY SIXTEEN complete sprites in FOUR columns and FOUR rows. Rows: front/SOUTH, right profile/EAST, back/NORTH with no face, left profile/WEST. Columns1\u20132 are two distinct expressive flinch poses (blink and bend/braced wince). Columns3\u20134 are lowering to rest and fully lying down; final column has body and head resting flat with eyes closed. Keep all characteristic body parts, tails, wings, markings and accessories. Draw new body and limb poses, consistent pixel scale, crisp original palette. Broad transparent gutters, no text, marks, symbols or scenery. This is a nonviolent game character animation.",
+    "source_image": "meloettapirouette-compact-r5.png",
+    "source_sha256": "673ea3844b92e1d24e566d4ee59d27b7be3447fc7e1073637f6c5dad9d603d1d",
+    "source_record": "meloettapirouette-compact-r5.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

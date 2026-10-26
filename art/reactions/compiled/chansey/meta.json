@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "chansey",
+        "tool": "builtin-imagegen",
+        "source_sha256": "2a2c9712b6376ff4199b1a8bff5aee2bfec298178076618ca2eb6f69f26a0828",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 113,
+          "form": "",
+          "key": "lib-chansey-n-6972ea6b778b"
+        },
+        "sha256": "916c3c92855568e9ed66987ad52dfa3b8acc8ae25c4ff32bffe4d3b20eb89914"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "chansey",
+        "tool": "builtin-imagegen",
+        "source_sha256": "2a2c9712b6376ff4199b1a8bff5aee2bfec298178076618ca2eb6f69f26a0828",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 113,
+          "form": "",
+          "key": "lib-chansey-n-6972ea6b778b"
+        },
+        "sha256": "cc7607a69a382881d086a4e41029e809b696a1ce741e3445dc7b24a0cc130dd1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "chansey",
+          "tool": "builtin-imagegen",
+          "source_sha256": "2a2c9712b6376ff4199b1a8bff5aee2bfec298178076618ca2eb6f69f26a0828",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 113,
+            "form": "",
+            "key": "lib-chansey-n-6972ea6b778b"
+          },
+          "sha256": "7df09e263b3741eabf6210dd325c7b0660aa055f4ee39ce3b979037f334b05d4",
+          "palette_from": "lib-chansey-s-daf376bf6040"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "chansey",
+          "tool": "builtin-imagegen",
+          "source_sha256": "2a2c9712b6376ff4199b1a8bff5aee2bfec298178076618ca2eb6f69f26a0828",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 113,
+            "form": "",
+            "key": "lib-chansey-n-6972ea6b778b"
+          },
+          "sha256": "56a33e37a0c236e01a92ff59562df5fc80fd5d54ab6b80bbe9005145d057e97e",
+          "palette_from": "lib-chansey-s-daf376bf6040"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "chansey",
+    "num": 113,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Chansey, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "chansey-retry-r4.png",
+    "source_sha256": "2a2c9712b6376ff4199b1a8bff5aee2bfec298178076618ca2eb6f69f26a0828",
+    "source_record": "chansey-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

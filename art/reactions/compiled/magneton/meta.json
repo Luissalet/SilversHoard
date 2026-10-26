@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "magneton",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ef81b98c0ea85f3bc735801e81dece620a1d04bdd8b2ef58458edb80eb76b65d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 82,
+          "form": "",
+          "key": "lib-magneton-n-50864880718c"
+        },
+        "sha256": "eddf134cf12edfc2b618c6e61477bbf103ad7f8479430446e4445f5ced5f2a5f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "magneton",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ef81b98c0ea85f3bc735801e81dece620a1d04bdd8b2ef58458edb80eb76b65d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 82,
+          "form": "",
+          "key": "lib-magneton-n-50864880718c"
+        },
+        "sha256": "7a3bd45e6710d33b5831aa4f678a565cebfcb9778132a20dd33b40ac9cf00e27"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "magneton",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ef81b98c0ea85f3bc735801e81dece620a1d04bdd8b2ef58458edb80eb76b65d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 82,
+            "form": "",
+            "key": "lib-magneton-n-50864880718c"
+          },
+          "sha256": "1acdf68653dd8a8f6c16e89f384431cb97ba95327d82fafe6d40418306d4fd68",
+          "palette_from": "lib-magneton-s-1a0e7075cb24"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "magneton",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ef81b98c0ea85f3bc735801e81dece620a1d04bdd8b2ef58458edb80eb76b65d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 82,
+            "form": "",
+            "key": "lib-magneton-n-50864880718c"
+          },
+          "sha256": "dc1102045d5d8da952544b0bc61f04d99f7e7230ae82393deccb720a52d96eab",
+          "palette_from": "lib-magneton-s-1a0e7075cb24"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "magneton",
+    "num": 82,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Magneton, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "magneton-retry-r4.png",
+    "source_sha256": "ef81b98c0ea85f3bc735801e81dece620a1d04bdd8b2ef58458edb80eb76b65d",
+    "source_record": "magneton-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

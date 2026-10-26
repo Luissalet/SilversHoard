@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "spidops",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6cb111630218dd6b6f453be73ccd07441aabf9cd14c4cf44e756d908988bcb24",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 918,
+          "form": "",
+          "key": "lib-spidops-n-0b0b69c64eec"
+        },
+        "sha256": "7f41439d5c3618be27b21e3cd28be90fe42aaeea735e998b1b96f887d13207a4"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "spidops",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6cb111630218dd6b6f453be73ccd07441aabf9cd14c4cf44e756d908988bcb24",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 918,
+          "form": "",
+          "key": "lib-spidops-n-0b0b69c64eec"
+        },
+        "sha256": "7afe6d157c83ae5570d3e4a45d807bdf47409f85102849a6e632f9d20874beda"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "spidops",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6cb111630218dd6b6f453be73ccd07441aabf9cd14c4cf44e756d908988bcb24",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 918,
+            "form": "",
+            "key": "lib-spidops-n-0b0b69c64eec"
+          },
+          "sha256": "22515bbb212b14d88ec787ba9e435143c28c811020c1d2675478c6ab33859990",
+          "palette_from": "lib-spidops-s-a94196ce3ddd"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "spidops",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6cb111630218dd6b6f453be73ccd07441aabf9cd14c4cf44e756d908988bcb24",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 918,
+            "form": "",
+            "key": "lib-spidops-n-0b0b69c64eec"
+          },
+          "sha256": "5d52617de4978be2eff87e46708018f3750282839432f6ce0e557683c7d07ad3",
+          "palette_from": "lib-spidops-s-a94196ce3ddd"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "spidops",
+    "num": 918,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Spidops, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "spidops-cardinal.png",
+    "source_sha256": "6cb111630218dd6b6f453be73ccd07441aabf9cd14c4cf44e756d908988bcb24",
+    "source_record": "spidops-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

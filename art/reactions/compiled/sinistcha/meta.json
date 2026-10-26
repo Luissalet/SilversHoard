@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "sinistcha",
+        "tool": "builtin-imagegen",
+        "source_sha256": "1c4bca28fb82cc893d8261a22091f2bc6a457bb06dbd34e2abf56eba5dac0552",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 1013,
+          "form": "",
+          "key": "lib-sinistcha-n-073c94874a0c"
+        },
+        "sha256": "d7e3ef06155b6c110465ce4439fdde3fcef9f64ca071643cc708fd9d02d37912"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "sinistcha",
+        "tool": "builtin-imagegen",
+        "source_sha256": "1c4bca28fb82cc893d8261a22091f2bc6a457bb06dbd34e2abf56eba5dac0552",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 1013,
+          "form": "",
+          "key": "lib-sinistcha-n-073c94874a0c"
+        },
+        "sha256": "8cf16ca110372140d71db3c0ec20acf1f2f49870ad77b4aae0e37ea56db39fbc"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "sinistcha",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1c4bca28fb82cc893d8261a22091f2bc6a457bb06dbd34e2abf56eba5dac0552",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 1013,
+            "form": "",
+            "key": "lib-sinistcha-n-073c94874a0c"
+          },
+          "sha256": "6675a6d28c4ff05797c4221fd8270bdcae12e69ea0844d9b5361050197aef7ad",
+          "palette_from": "lib-sinistcha-s-e3a538bd8eed"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "sinistcha",
+          "tool": "builtin-imagegen",
+          "source_sha256": "1c4bca28fb82cc893d8261a22091f2bc6a457bb06dbd34e2abf56eba5dac0552",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 1013,
+            "form": "",
+            "key": "lib-sinistcha-n-073c94874a0c"
+          },
+          "sha256": "e90f947bbe19f16baf75a5c2d2f9759c30dde401fb14d0ee7c9e43962734fc38",
+          "palette_from": "lib-sinistcha-s-e3a538bd8eed"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "sinistcha",
+    "num": 1013,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Sinistcha, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "sinistcha-cardinal.png",
+    "source_sha256": "1c4bca28fb82cc893d8261a22091f2bc6a457bb06dbd34e2abf56eba5dac0552",
+    "source_record": "sinistcha-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

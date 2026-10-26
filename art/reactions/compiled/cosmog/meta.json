@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "cosmog",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d8844994d42461e84a27d7fbed5cc52b54cead92d2c6af216667c43de5abae44",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 789,
+          "form": "",
+          "key": "lib-cosmog-n-3953eac86b45"
+        },
+        "sha256": "44272957dca65dd01bba3048bca2b685ccc6848ad9e532d66a83178e95b7398d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "cosmog",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d8844994d42461e84a27d7fbed5cc52b54cead92d2c6af216667c43de5abae44",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 789,
+          "form": "",
+          "key": "lib-cosmog-n-3953eac86b45"
+        },
+        "sha256": "848f197f6146e289cf2b5c8cea7a757da4d8811aef0d0a088c4d794296aba5c2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "cosmog",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d8844994d42461e84a27d7fbed5cc52b54cead92d2c6af216667c43de5abae44",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 789,
+            "form": "",
+            "key": "lib-cosmog-n-3953eac86b45"
+          },
+          "sha256": "bcae37934c1467c4d9d3a9b396c2006f9a958abb9c6b889e6760caebef97e6f8",
+          "palette_from": "lib-cosmog-s-437ec93ccc63"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "cosmog",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d8844994d42461e84a27d7fbed5cc52b54cead92d2c6af216667c43de5abae44",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 789,
+            "form": "",
+            "key": "lib-cosmog-n-3953eac86b45"
+          },
+          "sha256": "958bb93c9d4bb80e7367e19f3ced9bf61efe484eea40590cf2f4b3037537bd44",
+          "palette_from": "lib-cosmog-s-437ec93ccc63"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "cosmog",
+    "num": 789,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Cosmog, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "cosmog-retry-r4.png",
+    "source_sha256": "d8844994d42461e84a27d7fbed5cc52b54cead92d2c6af216667c43de5abae44",
+    "source_record": "cosmog-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

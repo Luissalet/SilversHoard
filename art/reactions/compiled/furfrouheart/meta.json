@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "furfrouheart",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f4cf5b01063d6f3ea6e2f4ad948b435e103306e6e60750a664fdb6de97f22278",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 676,
+          "form": "Heart",
+          "key": "lib-furfrouheart-n-aae087f6e842"
+        },
+        "sha256": "a82248a0653eaa9deda7e87a2a02ed9ef69f1490adf9b577e038b028d4007692"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "furfrouheart",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f4cf5b01063d6f3ea6e2f4ad948b435e103306e6e60750a664fdb6de97f22278",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 676,
+          "form": "Heart",
+          "key": "lib-furfrouheart-n-aae087f6e842"
+        },
+        "sha256": "14633be160fa10dde0452739f819907a697297d27102d013d0b5dac2d462c058"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "furfrouheart",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f4cf5b01063d6f3ea6e2f4ad948b435e103306e6e60750a664fdb6de97f22278",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 676,
+            "form": "Heart",
+            "key": "lib-furfrouheart-n-aae087f6e842"
+          },
+          "sha256": "d5490d42370fb49a3b6910462c451fe9ed0cd9617af1142d2990d64d59f5f47d",
+          "palette_from": "lib-furfrouheart-s-91c867173886"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "furfrouheart",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f4cf5b01063d6f3ea6e2f4ad948b435e103306e6e60750a664fdb6de97f22278",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 676,
+            "form": "Heart",
+            "key": "lib-furfrouheart-n-aae087f6e842"
+          },
+          "sha256": "ab35bc634a1e023bf9e44da107e953106c5f9042b82a51431febbc4d350c3523",
+          "palette_from": "lib-furfrouheart-s-91c867173886"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "furfrouheart",
+    "num": 676,
+    "form": "Heart",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Furfrou-Heart, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "furfrouheart-retry-r4.png",
+    "source_sha256": "f4cf5b01063d6f3ea6e2f4ad948b435e103306e6e60750a664fdb6de97f22278",
+    "source_record": "furfrouheart-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

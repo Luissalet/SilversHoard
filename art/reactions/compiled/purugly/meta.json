@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "purugly",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e08e27168a57671e3aea684823c477ca0d4d9847fd38aee45bab7abd0c25b0d5",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 432,
+          "form": "",
+          "key": "lib-purugly-n-7bdf04847d84"
+        },
+        "sha256": "5901794751e4d2915a330ba1f2e04a38314ac5b9afc81f95cf667772fa32b819"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "purugly",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e08e27168a57671e3aea684823c477ca0d4d9847fd38aee45bab7abd0c25b0d5",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 432,
+          "form": "",
+          "key": "lib-purugly-n-7bdf04847d84"
+        },
+        "sha256": "1f9780ac0a9c8f7621642eba99583a90651a33925a1401904e6f87ba68075a49"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "purugly",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e08e27168a57671e3aea684823c477ca0d4d9847fd38aee45bab7abd0c25b0d5",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 432,
+            "form": "",
+            "key": "lib-purugly-n-7bdf04847d84"
+          },
+          "sha256": "20ffbccf36f1e65b299fb7efd138a3e256a5a6f2f02c8c5f4df1082e4ed31edb",
+          "palette_from": "lib-purugly-s-1be1982d63bd"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "purugly",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e08e27168a57671e3aea684823c477ca0d4d9847fd38aee45bab7abd0c25b0d5",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 432,
+            "form": "",
+            "key": "lib-purugly-n-7bdf04847d84"
+          },
+          "sha256": "41cd8d71fad6f3b2358185d754743a7dda6f6559d3aaed01650753af7a3392bd",
+          "palette_from": "lib-purugly-s-1be1982d63bd"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "purugly",
+    "num": 432,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Purugly, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "purugly-retry-r4.png",
+    "source_sha256": "e08e27168a57671e3aea684823c477ca0d4d9847fd38aee45bab7abd0c25b0d5",
+    "source_record": "purugly-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

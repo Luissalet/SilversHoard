@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "cramorant",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9278dbe106b8e399814417c87eb568dcffa3dd593199c320fa7c00d53132de7a",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 845,
+          "form": "",
+          "key": "lib-cramorant-n-e2c4be1d97e9"
+        },
+        "sha256": "86237f049c3e8c6e248203091ad805bcac29a4a7be2a286791ce027d75d403c3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "cramorant",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9278dbe106b8e399814417c87eb568dcffa3dd593199c320fa7c00d53132de7a",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 845,
+          "form": "",
+          "key": "lib-cramorant-n-e2c4be1d97e9"
+        },
+        "sha256": "63b7aee04630824c08c61760870f3379657ad7cc0bfb78e00953f0dc84e93bd2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "cramorant",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9278dbe106b8e399814417c87eb568dcffa3dd593199c320fa7c00d53132de7a",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 845,
+            "form": "",
+            "key": "lib-cramorant-n-e2c4be1d97e9"
+          },
+          "sha256": "390d5ffe04fbb92724618b6b2600a8546c7687d27651bb7d5225509f28c1bb3a",
+          "palette_from": "lib-cramorant-s-0a0b846815cf"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "cramorant",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9278dbe106b8e399814417c87eb568dcffa3dd593199c320fa7c00d53132de7a",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 845,
+            "form": "",
+            "key": "lib-cramorant-n-e2c4be1d97e9"
+          },
+          "sha256": "4479b0a61d5d206a42b64567810174ef0373d277ffa45646001bcaf8c81eba1b",
+          "palette_from": "lib-cramorant-s-0a0b846815cf"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "cramorant",
+    "num": 845,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Cramorant, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "cramorant-cardinal.png",
+    "source_sha256": "9278dbe106b8e399814417c87eb568dcffa3dd593199c320fa7c00d53132de7a",
+    "source_record": "cramorant-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

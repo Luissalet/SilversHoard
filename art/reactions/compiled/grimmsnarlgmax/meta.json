@@ -1,0 +1,118 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "grimmsnarlgmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4032d7d0b2e52a8d019f5e97cb9c8e8d89b1e0af870f492a58fbc47581fe6cfe",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 861,
+          "form": "Gmax",
+          "key": "lib-grimmsnarlgmax-n-e098f669c1c3"
+        },
+        "sha256": "5eed57525fcf605d3de93568bd41e5cc9764b1410a1743d46462d2bed4ae5e56"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "grimmsnarlgmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4032d7d0b2e52a8d019f5e97cb9c8e8d89b1e0af870f492a58fbc47581fe6cfe",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 861,
+          "form": "Gmax",
+          "key": "lib-grimmsnarlgmax-n-e098f669c1c3"
+        },
+        "sha256": "764ee2d88f33ad58bedee07b954b221df042e391b376bfac5816323294ddf4a2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {}
+  },
+  "pending": [
+    "shiny"
+  ],
+  "provenance": {
+    "id": "grimmsnarlgmax",
+    "num": 861,
+    "form": "Gmax",
+    "tool": "builtin-imagegen",
+    "prompt": "Mechanically pack the existing built-in drawn atlas with only the explicitly listed corrected cells from correction44. Other original cells preserved as raw pixels. New source uniformly registered by unchanged SOUTH Pain0 height. No repainting or warping. Both source PNGs and generation prompt retained.",
+    "source_image": "grimmsnarlgmax-assembled46.png",
+    "source_sha256": "4032d7d0b2e52a8d019f5e97cb9c8e8d89b1e0af870f492a58fbc47581fe6cfe",
+    "source_record": "grimmsnarlgmax-assembled46.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": false
+}

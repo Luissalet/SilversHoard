@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "thwackey",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b2773e45194c91f7e8a015736aa0ed155059faf142b074cc50821b347f7bfa2d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 811,
+          "form": "",
+          "key": "lib-thwackey-n-561ba43f8a85"
+        },
+        "sha256": "24f4bd67a0c0aae6f9d2f07bad0573db044057af98ff0d92512ac2d02ea1e0cd"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "thwackey",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b2773e45194c91f7e8a015736aa0ed155059faf142b074cc50821b347f7bfa2d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 811,
+          "form": "",
+          "key": "lib-thwackey-n-561ba43f8a85"
+        },
+        "sha256": "de11c0d14b3903a4247989ce0e856cc4b577be5c80962cf3b72b73074d8314be"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "thwackey",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b2773e45194c91f7e8a015736aa0ed155059faf142b074cc50821b347f7bfa2d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 811,
+            "form": "",
+            "key": "lib-thwackey-n-561ba43f8a85"
+          },
+          "sha256": "b75ff2730e116b1f03cae71aece3cc2f0a3749e5db3f14622c203afda02ebac2",
+          "palette_from": "lib-thwackey-s-a4861b261da0"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "thwackey",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b2773e45194c91f7e8a015736aa0ed155059faf142b074cc50821b347f7bfa2d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 811,
+            "form": "",
+            "key": "lib-thwackey-n-561ba43f8a85"
+          },
+          "sha256": "ed7077d24bbb0b23da3ebeef22daec2cfb1f354efa9ead570c1e4d5bca026449",
+          "palette_from": "lib-thwackey-s-a4861b261da0"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "thwackey",
+    "num": 811,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Thwackey, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "thwackey-retry-r4.png",
+    "source_sha256": "b2773e45194c91f7e8a015736aa0ed155059faf142b074cc50821b347f7bfa2d",
+    "source_record": "thwackey-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}
