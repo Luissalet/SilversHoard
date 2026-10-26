@@ -44,6 +44,9 @@ class Sprites:
     def __init__(self, cache_dir: Path, avatars_dir: Path, settings: Any, http_get: Optional[Callable[[str], tuple[int, bytes, str]]] = None):
         self.cache_dir = Path(cache_dir)
         self.avatars_dir = Path(avatars_dir)
+        self.references_dir = self.avatars_dir.parent / "avatar_refs"
+        self.assets_dir = self.avatars_dir.parent / "assets"
+        self.separate_legacy_images()
         self.settings = settings
         self._http_get = http_get or _http_get
         self._locks: dict[str, threading.Lock] = {}
@@ -228,16 +231,28 @@ class Sprites:
                 "downloads_on": bool(self.settings.get("sprite_downloads", True))}
 
     # ------------------------------------------------------------ avatars
+    def separate_legacy_images(self) -> None:
+        """Keep existing file names and URLs while separating references and shared gym art."""
+        for path in self.avatars_dir.glob("*.png"):
+            folder = (self.assets_dir if path.name.startswith(("badge-", "backdrop-")) else
+                      self.references_dir if re.search(r"-ref[1-4]-\d+\.png$", path.name) else None)
+            if folder is not None:
+                folder.mkdir(parents=True, exist_ok=True)
+                dest = folder / path.name
+                if not dest.exists():
+                    path.rename(dest)
+
     def avatar_path(self, filename: str) -> Path:
         if not AVATAR_FILE.match(filename):
             raise SilverError("invalid", f"Not an avatar file: {filename}")
-        path = self.avatars_dir / filename
-        if not path.exists():
-            raise SilverError("not_found", f"Avatar not found: {filename}")
-        return path
+        for folder in (self.avatars_dir, self.references_dir, self.assets_dir):
+            path = folder / filename
+            if path.is_file():
+                return path
+        raise SilverError("not_found", f"Avatar not found: {filename}")
 
     def save_avatar(self, data: bytes, *, stem: str, pixelate: bool = False, remove_background: bool = False, size: int = 96,
-                    max_side: int = 256) -> str:
+                    max_side: int = 256, folder: Optional[Path] = None) -> str:
         """Store an uploaded picture as a PNG avatar (optionally turned into pixel art). Returns the file name."""
         if not data:
             raise SilverError("invalid", "The picture is empty.")
@@ -250,15 +265,16 @@ class Sprites:
         buf = io.BytesIO()
         img.save(buf, "PNG", optimize=True)
         name = f"{re.sub(r'[^A-Za-z0-9_-]', '', stem)[:60] or 'avatar'}-{int(time.time() * 1000) % 10**10}.png"
-        self.avatars_dir.mkdir(parents=True, exist_ok=True)
-        write_bytes_atomic(self.avatars_dir / name, buf.getvalue(), fsync=False)
+        folder = self.avatars_dir if folder is None else folder
+        folder.mkdir(parents=True, exist_ok=True)
+        write_bytes_atomic(folder / name, buf.getvalue(), fsync=False)
         return name
 
     BACKDROP_BYTES = 400_000
 
     def save_backdrop(self, data: bytes, *, stem: str) -> str:
         """Store a picture of your own as a battle backdrop: up to 800 px wide, no transparency, colours reduced until the PNG is
-        small enough to travel inside a gym file or a playable page (BACKDROP_BYTES). Returns the file name (with the avatars)."""
+        small enough to travel inside a gym file or a playable page (BACKDROP_BYTES). Stored with shared gym assets."""
         if not data:
             raise SilverError("invalid", "The picture is empty.")
         if len(data) > MAX_IMAGE_BYTES:
@@ -275,14 +291,14 @@ class Sprites:
             if len(out) <= self.BACKDROP_BYTES:
                 break
         name = f"{re.sub(r'[^A-Za-z0-9_-]', '', stem)[:60] or 'backdrop'}-{int(time.time() * 1000) % 10**10}.png"
-        self.avatars_dir.mkdir(parents=True, exist_ok=True)
-        write_bytes_atomic(self.avatars_dir / name, out, fsync=False)
+        self.assets_dir.mkdir(parents=True, exist_ok=True)
+        write_bytes_atomic(self.assets_dir / name, out, fsync=False)
         return name
 
     def avatars(self) -> list[dict[str, Any]]:
-        if not self.avatars_dir.exists():
-            return []
-        out = [{"file": p.name, "bytes": p.stat().st_size, "modified": p.stat().st_mtime} for p in self.avatars_dir.glob("*.png") if p.is_file()]
+        out = [{"file": p.name, "bytes": p.stat().st_size, "modified": p.stat().st_mtime}
+               for folder in (self.avatars_dir, self.references_dir, self.assets_dir)
+               for p in folder.glob("*.png") if p.is_file()]
         return sorted(out, key=lambda x: -x["modified"])
 
 
