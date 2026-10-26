@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "cyclizar",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a106e2a7603690fd38f8582cc9a51770a175b0ba6805e526d366e08a69b4ccaa",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 967,
+          "form": "",
+          "key": "lib-cyclizar-n-ae196b882da7"
+        },
+        "sha256": "aff6cd8a7de5831da570fd614e094dd1ac0f705452f537b52e50a704dea24f91"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "cyclizar",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a106e2a7603690fd38f8582cc9a51770a175b0ba6805e526d366e08a69b4ccaa",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          3,
+          4
+        ],
+        "reference": {
+          "num": 967,
+          "form": "",
+          "key": "lib-cyclizar-n-ae196b882da7"
+        },
+        "sha256": "516836972925d2fa07cc46738ca637137389bb8b59856c50b05e696c502f8b3e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "cyclizar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a106e2a7603690fd38f8582cc9a51770a175b0ba6805e526d366e08a69b4ccaa",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 967,
+            "form": "",
+            "key": "lib-cyclizar-n-ae196b882da7"
+          },
+          "sha256": "5c73ec2489812b74f40bc5f2b66f1a0175f5eddb3c721eefadbc92032df430e5",
+          "palette_from": "lib-cyclizar-s-b20cbb028ca8"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "cyclizar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a106e2a7603690fd38f8582cc9a51770a175b0ba6805e526d366e08a69b4ccaa",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            3,
+            4
+          ],
+          "reference": {
+            "num": 967,
+            "form": "",
+            "key": "lib-cyclizar-n-ae196b882da7"
+          },
+          "sha256": "4b18a1753e77cb50d7f91a7b03f7f3358e334bd7903e20d1dbf1c6f7c4aad550",
+          "palette_from": "lib-cyclizar-s-b20cbb028ca8"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "cyclizar",
+    "num": 967,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Repack existing genuinely drawn poses without repainting or warping: use the declared same-identity same-camera braced/prone pose to replace the erroneously side-facing pose. Other pixels retain exact original binary-alpha crops.",
+    "source_image": "cyclizar-assembled53.png",
+    "source_sha256": "a106e2a7603690fd38f8582cc9a51770a175b0ba6805e526d366e08a69b4ccaa",
+    "source_record": "cyclizar-assembled53.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

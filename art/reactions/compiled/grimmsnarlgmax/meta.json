@@ -98,11 +98,106 @@
     }
   },
   "shiny": {
-    "a": {}
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "grimmsnarlgmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "42abcf477bcd6eb3f83249a461644d8eec3baa3071f037400194b65ac9456791",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 861,
+            "form": "Gmax",
+            "key": "lib-grimmsnarlgmax-s-3f9a2b430ddd"
+          },
+          "sha256": "98205cfe051c2650827c722d2abc0c02873d15854b473f50d88a30dd8268a929"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "grimmsnarlgmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "42abcf477bcd6eb3f83249a461644d8eec3baa3071f037400194b65ac9456791",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 861,
+            "form": "Gmax",
+            "key": "lib-grimmsnarlgmax-s-3f9a2b430ddd"
+          },
+          "sha256": "7040761694860c9b96b71a2a0351dbeedd08f469580556ad793cd7139cfae66c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
   },
-  "pending": [
-    "shiny"
-  ],
+  "pending": [],
   "provenance": {
     "id": "grimmsnarlgmax",
     "num": 861,
@@ -111,8 +206,10 @@
     "prompt": "Mechanically pack the existing built-in drawn atlas with only the explicitly listed corrected cells from correction44. Other original cells preserved as raw pixels. New source uniformly registered by unchanged SOUTH Pain0 height. No repainting or warping. Both source PNGs and generation prompt retained.",
     "source_image": "grimmsnarlgmax-assembled46.png",
     "source_sha256": "4032d7d0b2e52a8d019f5e97cb9c8e8d89b1e0af870f492a58fbc47581fe6cfe",
-    "source_record": "grimmsnarlgmax-assembled46.json"
+    "source_record": "grimmsnarlgmax-assembled46.json",
+    "shiny_source_image": "grimmsnarlgmax-shiny49-v1.png",
+    "shiny_prompt": "Use case identity-preserve. Recolour the entire transparent 8column4row atlas IMAGE1 to EXACT native SHINY reference IMAGE2. Use native SHINY hair/body dark purple with characteristic PALE GRAY/WHITE limb regions exactly as native shiny, pink energy details. Keep rear and side limbs region-specific. Keep every pose, camera, geometry, body part and grid unchanged. NORTH is back-only and final ground poses stay fully prone. Crisp limited native pixel palette, binary transparent background and broad transparent gutters. No new effects, text, marks, scenery or objects."
   },
   "reviewed": true,
-  "shiny_reviewed": false
+  "shiny_reviewed": true
 }

@@ -1,0 +1,83 @@
+{
+  "id": "roaringmoon",
+  "name": "Roaring Moon",
+  "num": 1005,
+  "form": "",
+  "directions": 4,
+  "frames": 4,
+  "image": "roaringmoon-assembled55.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Mechanically repack genuine native/built-in drawn poses. Binary alpha before tight crop; register new prone strip by one uniform factor for both frames, preserving every unrelated crop and pixel. No painting, standing-pose warping or camera rotation. Exact recipe and source hashes included.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "native_frames": [
+    {
+      "action": "Pain",
+      "direction": 0,
+      "frame": 0,
+      "animation": "Idle",
+      "row": 0,
+      "index": 0
+    },
+    {
+      "action": "Pain",
+      "direction": 1,
+      "frame": 0,
+      "animation": "Idle",
+      "row": 2,
+      "index": 0
+    },
+    {
+      "action": "Pain",
+      "direction": 2,
+      "frame": 0,
+      "animation": "Idle",
+      "row": 4,
+      "index": 0
+    },
+    {
+      "action": "Pain",
+      "direction": 3,
+      "frame": 0,
+      "animation": "Idle",
+      "row": 6,
+      "index": 0
+    }
+  ],
+  "assembly_reason": "Use clean native Idle entry frames instead of generated entry poses containing detached particles; all remaining twelve Pain and sixteen HitGround poses are the newly drawn art.",
+  "assembly_sources": [
+    {
+      "image": "roaringmoon-cardinal.png",
+      "sha256": "db2d6623ed8e3e9f3b8daf45518ebfdc27219934f1c56f743bb1a084bc96f07f"
+    },
+    {
+      "image": "roaringmoon-south55-v1.png",
+      "sha256": "41bda370dd4a2c292d100c77412ef23b18f30e238fa4371707c9ac9e57fb1a17"
+    }
+  ],
+  "assembly_recipe": {
+    "base": "roaringmoon-cardinal.png",
+    "strip": "roaringmoon-south55-v1.png",
+    "replace_cells": [
+      [
+        0,
+        6,
+        0,
+        0
+      ],
+      [
+        0,
+        7,
+        0,
+        1
+      ]
+    ],
+    "strip_uniform_scale": 0.25263157894736843
+  },
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-corrections55.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

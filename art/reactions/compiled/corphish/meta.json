@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "corphish",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d9369fa54c4508b802ac6fd0ed63ba758f57f48bba89dab906b7f7f129fa0bd4",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 341,
+          "form": "",
+          "key": "lib-corphish-n-6907ca66cdbb"
+        },
+        "sha256": "cd7f085883be142bc24866c567d44a7841e74dc34fb0907dadaa4a0379cf352e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "corphish",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d9369fa54c4508b802ac6fd0ed63ba758f57f48bba89dab906b7f7f129fa0bd4",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 341,
+          "form": "",
+          "key": "lib-corphish-n-6907ca66cdbb"
+        },
+        "sha256": "929bbc998146389f68850b53a6d71186a7bdb0d418b50c7ad798dd3f1defd5c3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "corphish",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d9369fa54c4508b802ac6fd0ed63ba758f57f48bba89dab906b7f7f129fa0bd4",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 341,
+            "form": "",
+            "key": "lib-corphish-s-4dd68b7b78f3"
+          },
+          "sha256": "bf2b8b217719dd1eb95c1173713e80e44f47108947c6e642db85e713a4df91e4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "corphish",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d9369fa54c4508b802ac6fd0ed63ba758f57f48bba89dab906b7f7f129fa0bd4",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 341,
+            "form": "",
+            "key": "lib-corphish-s-4dd68b7b78f3"
+          },
+          "sha256": "21b1a365842da35860b5e81dbf06b4ab923e98c0ae79a1c3a1c591c69fb93037"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "corphish",
+    "num": 341,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a transparent pixel-art game atlas of the EXACT SHINY character/form/palette in the reference. Exactly SIXTEEN complete sprites, FOUR columns FOUR rows. Rows SOUTH/front,EAST/right,NORTH/back with no face,WEST/left. Columns1-2 two distinct expressive braced wincing poses: blink/head lowered and bent legs/tense body. Columns3-4 lower onto ground then fully lie flat resting head/body with legs folded and eyes closed. Keep each camera fixed, characteristic body parts/tail/wings/outfit/markings intact, exact shiny regional materials, consistent native pixel scale and crisp limited palette. New anatomical body and limb poses, not rotated/scaled standing copies. Broad transparent gutters and background; no text/grid/effects/marks/scenery/shadow. Identity corphish.",
+    "source_image": "corphish-shiny-only-v1.png",
+    "source_sha256": "d9369fa54c4508b802ac6fd0ed63ba758f57f48bba89dab906b7f7f129fa0bd4",
+    "source_record": "corphish-shiny-only-v1.json",
+    "shiny_source_image": "corphish-shiny-only-v1.png",
+    "shiny_prompt": "Draw a transparent pixel-art game atlas of the EXACT SHINY character/form/palette in the reference. Exactly SIXTEEN complete sprites, FOUR columns FOUR rows. Rows SOUTH/front,EAST/right,NORTH/back with no face,WEST/left. Columns1-2 two distinct expressive braced wincing poses: blink/head lowered and bent legs/tense body. Columns3-4 lower onto ground then fully lie flat resting head/body with legs folded and eyes closed. Keep each camera fixed, characteristic body parts/tail/wings/outfit/markings intact, exact shiny regional materials, consistent native pixel scale and crisp limited palette. New anatomical body and limb poses, not rotated/scaled standing copies. Broad transparent gutters and background; no text/grid/effects/marks/scenery/shadow. Identity corphish."
+  },
+  "reviewed": false,
+  "shiny_reviewed": true
+}

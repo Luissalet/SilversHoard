@@ -1,0 +1,34 @@
+{
+  "id": "clefable",
+  "name": "Clefable",
+  "num": 36,
+  "form": "",
+  "directions": 4,
+  "frames": 2,
+  "image": "clefable-reordered54.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Mechanically repack genuine native/built-in drawn poses. Binary alpha before tight crop; register new prone strip by one uniform factor for both frames, preserving every unrelated crop and pixel. No painting, standing-pose warping or camera rotation. Exact recipe and source hashes included.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "assembly_sources": [
+    {
+      "image": "clefable-compact-r8.png",
+      "sha256": "a221302120b74564f1c987dd4c35f6958d543ec53a62a083aa577db5bca4681e"
+    }
+  ],
+  "assembly_recipe": {
+    "base": "clefable-compact-r8.png",
+    "swap_east_west_columns": [
+      0,
+      2,
+      3
+    ],
+    "reason": "Existing genuinely drawn E/W poses were assigned to the opposite row. Pain frame1 already correct and preserved."
+  },
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-corrections54.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

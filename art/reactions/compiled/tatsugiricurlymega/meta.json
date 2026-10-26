@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tatsugiricurlymega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "834db0c9e1d03eefe2e9090761d356c2e9f9f7aa5e65c9e1f01162964eee2d31",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 978,
+          "form": "Curly-Mega",
+          "key": "lib-tatsugiricurlymega-n-839ac4422930"
+        },
+        "sha256": "03bdfea43112c2ba9b3f52a64f245502715fee48fc151c1365e7e6f583957860"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tatsugiricurlymega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "834db0c9e1d03eefe2e9090761d356c2e9f9f7aa5e65c9e1f01162964eee2d31",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 978,
+          "form": "Curly-Mega",
+          "key": "lib-tatsugiricurlymega-n-839ac4422930"
+        },
+        "sha256": "ddf65fd561424dc7846bc0812887f553d9b6755f3d6814dd0dacb5f0e72860cf"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tatsugiricurlymega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "834db0c9e1d03eefe2e9090761d356c2e9f9f7aa5e65c9e1f01162964eee2d31",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 978,
+            "form": "Curly-Mega",
+            "key": "lib-tatsugiricurlymega-n-839ac4422930"
+          },
+          "sha256": "8e969f5177db6bb08db396acf7cb111c84fc30f0210b2eeb36d003d448a87464",
+          "palette_from": "lib-tatsugiricurlymega-s-d7040639ff46"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tatsugiricurlymega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "834db0c9e1d03eefe2e9090761d356c2e9f9f7aa5e65c9e1f01162964eee2d31",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 978,
+            "form": "Curly-Mega",
+            "key": "lib-tatsugiricurlymega-n-839ac4422930"
+          },
+          "sha256": "4b0a00439ec08dae7ee4e2a651ee582c014b7354e3d796e6c03141e3c21ec115",
+          "palette_from": "lib-tatsugiricurlymega-s-d7040639ff46"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "tatsugiricurlymega",
+    "num": 978,
+    "form": "Curly-Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Mechanically repack genuine native/built-in drawn poses. Binary alpha before tight crop; register new prone strip by one uniform factor for both frames, preserving every unrelated crop and pixel. No painting, standing-pose warping or camera rotation. Exact recipe and source hashes included.",
+    "source_image": "tatsugiricurlymega-assembled55.png",
+    "source_sha256": "834db0c9e1d03eefe2e9090761d356c2e9f9f7aa5e65c9e1f01162964eee2d31",
+    "source_record": "tatsugiricurlymega-assembled55.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

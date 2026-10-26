@@ -98,11 +98,106 @@
     }
   },
   "shiny": {
-    "a": {}
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "urshifurapidstrikegmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d64b7c150e01951b020a6f9f5f0ad13c0655e0ba8c25ddd38d5cc07957677239",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 892,
+            "form": "Rapid-Strike-Gmax",
+            "key": "lib-urshifurapidstrikegmax-s-558099a5624b"
+          },
+          "sha256": "d3a27cd34684b3357f912e1d3ea5f13c56331e13d6a8414a13c1ecfce3349176"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "urshifurapidstrikegmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d64b7c150e01951b020a6f9f5f0ad13c0655e0ba8c25ddd38d5cc07957677239",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 892,
+            "form": "Rapid-Strike-Gmax",
+            "key": "lib-urshifurapidstrikegmax-s-558099a5624b"
+          },
+          "sha256": "a2a37a0bc543ad4a3e20032cbdb6f7e239cc9899d24ddc007e107d9aa6126401"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
   },
-  "pending": [
-    "shiny"
-  ],
+  "pending": [],
   "provenance": {
     "id": "urshifurapidstrikegmax",
     "num": 892,
@@ -111,8 +206,10 @@
     "prompt": "Mechanically pack the existing built-in generated v2 atlas, replacing only NORTH HitGround2-3 with the newly drawn north-prone-v2 strip frames2-3, uniformly registered with first prone width = 1.4 times existing NORTH standing width, allowing folded/splayed limbs while keeping both new frames at the same pixel scale. All other30 drawn poses are preserved; no repainting, rotating standing poses or nonuniform warping.",
     "source_image": "urshifurapidstrikegmax-assembled48.png",
     "source_sha256": "c1e3f9d70bee04891296230c93958b2a67240dbff79a0d3ca84dcdf57aea7669",
-    "source_record": "urshifurapidstrikegmax-assembled48.json"
+    "source_record": "urshifurapidstrikegmax-assembled48.json",
+    "shiny_source_image": "urshifurapidstrikegmax-shiny49-v1.png",
+    "shiny_prompt": "Use case identity-preserve. Recolour the entire transparent 8column4row atlas IMAGE1 to EXACT native SHINY reference IMAGE2. Match exact native SHINY materials region-by-region for this Rapid-Strike-Gmax form: deep blues, white/light bands, face/limb accents and pink energy. Preserve correct rear prone body anatomy. Keep every pose, camera, geometry, body part and grid unchanged. NORTH is back-only and final ground poses stay fully prone. Crisp limited native pixel palette, binary transparent background and broad transparent gutters. No new effects, text, marks, scenery or objects."
   },
   "reviewed": true,
-  "shiny_reviewed": false
+  "shiny_reviewed": true
 }

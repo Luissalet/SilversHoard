@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "sandshrewalola",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6f1e133dcccfb447fce2647657d7af9caa183904bf42a70b3c17c92c959e37c0",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 27,
+          "form": "alola",
+          "key": "lib-sandshrewalola-n-0ff616b530fe"
+        },
+        "sha256": "f764100a84ec564146a413ca34c83e1ab5da2b7dfba449a2139bf0d419ff6c56"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "sandshrewalola",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6f1e133dcccfb447fce2647657d7af9caa183904bf42a70b3c17c92c959e37c0",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 27,
+          "form": "alola",
+          "key": "lib-sandshrewalola-n-0ff616b530fe"
+        },
+        "sha256": "173c43372893ba43cb397315c05bb2d58359dd1a608abb93695b46dd1d9b260b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "sandshrewalola",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6f1e133dcccfb447fce2647657d7af9caa183904bf42a70b3c17c92c959e37c0",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 27,
+            "form": "alola",
+            "key": "lib-sandshrewalola-s-5a618e11e5ed"
+          },
+          "sha256": "be32b12b995de2458cc1080b0750bf4f28304b617038da8216dae984c3c66526"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "sandshrewalola",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6f1e133dcccfb447fce2647657d7af9caa183904bf42a70b3c17c92c959e37c0",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 27,
+            "form": "alola",
+            "key": "lib-sandshrewalola-s-5a618e11e5ed"
+          },
+          "sha256": "3e6857bccb99f6298b261f415fb0f7f23c3179efa466c0b1ff4de5e9e6c84f68"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "sandshrewalola",
+    "num": 27,
+    "form": "alola",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a transparent pixel-art game atlas of the EXACT SHINY character/form/palette in the reference. Exactly SIXTEEN complete sprites, FOUR columns FOUR rows. Rows SOUTH/front,EAST/right,NORTH/back with no face,WEST/left. Columns1-2 two distinct expressive braced wincing poses: blink/head lowered and bent legs/tense body. Columns3-4 lower onto ground then fully lie flat resting head/body with legs folded and eyes closed. Keep each camera fixed, characteristic body parts/tail/wings/outfit/markings intact, exact shiny regional materials, consistent native pixel scale and crisp limited palette. New anatomical body and limb poses, not rotated/scaled standing copies. Broad transparent gutters and background; no text/grid/effects/marks/scenery/shadow. Identity sandshrewalola.",
+    "source_image": "sandshrewalola-shiny-only-v1.png",
+    "source_sha256": "6f1e133dcccfb447fce2647657d7af9caa183904bf42a70b3c17c92c959e37c0",
+    "source_record": "sandshrewalola-shiny-only-v1.json",
+    "shiny_source_image": "sandshrewalola-shiny-only-v1.png",
+    "shiny_prompt": "Draw a transparent pixel-art game atlas of the EXACT SHINY character/form/palette in the reference. Exactly SIXTEEN complete sprites, FOUR columns FOUR rows. Rows SOUTH/front,EAST/right,NORTH/back with no face,WEST/left. Columns1-2 two distinct expressive braced wincing poses: blink/head lowered and bent legs/tense body. Columns3-4 lower onto ground then fully lie flat resting head/body with legs folded and eyes closed. Keep each camera fixed, characteristic body parts/tail/wings/outfit/markings intact, exact shiny regional materials, consistent native pixel scale and crisp limited palette. New anatomical body and limb poses, not rotated/scaled standing copies. Broad transparent gutters and background; no text/grid/effects/marks/scenery/shadow. Identity sandshrewalola."
+  },
+  "reviewed": false,
+  "shiny_reviewed": true
+}

@@ -113,10 +113,10 @@
         "ax": 24.0,
         "ay": 42,
         "source": {
-          "kind": "shiny-generated-pmd-reaction",
+          "kind": "generated-shiny-pmd-reaction",
           "record": "inteleon",
           "tool": "builtin-imagegen",
-          "source_sha256": "2a91f7a0676df858d61984a911a318eb9e51973359e27181204b6ab6e14bed83",
+          "source_sha256": "5f94402906bd6ca9088e813a9f30208eab54ec2b6b22dfae80c7261ffe4c2763",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -129,10 +129,9 @@
           "reference": {
             "num": 818,
             "form": "",
-            "key": "lib-inteleon-n-7c7674a47843"
+            "key": "lib-inteleon-s-c5579fddad2d"
           },
-          "sha256": "a9d54aa7874c37b18ccb6e3b6ee69ef5babdf8d653742b57c728c2a54d173db8",
-          "palette_from": "lib-inteleon-s-c5579fddad2d"
+          "sha256": "884579e1a38d5143db88313ef13d3def66b5b59be97cb684d2cb42d523c1f32b"
         },
         "row_map": [
           0,
@@ -159,10 +158,10 @@
         "ax": 24.0,
         "ay": 42,
         "source": {
-          "kind": "shiny-generated-pmd-reaction",
+          "kind": "generated-shiny-pmd-reaction",
           "record": "inteleon",
           "tool": "builtin-imagegen",
-          "source_sha256": "2a91f7a0676df858d61984a911a318eb9e51973359e27181204b6ab6e14bed83",
+          "source_sha256": "5f94402906bd6ca9088e813a9f30208eab54ec2b6b22dfae80c7261ffe4c2763",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -175,10 +174,9 @@
           "reference": {
             "num": 818,
             "form": "",
-            "key": "lib-inteleon-n-7c7674a47843"
+            "key": "lib-inteleon-s-c5579fddad2d"
           },
-          "sha256": "35ee3b20c00256c938037b0df46927744123ff051d855c005afdbda9f35b6dad",
-          "palette_from": "lib-inteleon-s-c5579fddad2d"
+          "sha256": "c43541123e56f1588fecd45a5cfabb24b4f8f3b30b06f0c171a380fd56590373"
         },
         "row_map": [
           0,
@@ -208,8 +206,10 @@
     "prompt": "Mechanically pack the existing built-in drawn atlas with only the explicitly listed corrected cells from correction44. Other original cells preserved as raw pixels. New source uniformly registered by unchanged SOUTH Pain0 height. No repainting or warping. Both source PNGs and generation prompt retained.",
     "source_image": "inteleon-assembled46.png",
     "source_sha256": "2a91f7a0676df858d61984a911a318eb9e51973359e27181204b6ab6e14bed83",
-    "source_record": "inteleon-assembled46.json"
+    "source_record": "inteleon-assembled46.json",
+    "shiny_source_image": "inteleon-shiny49-v1.png",
+    "shiny_prompt": "Use case identity-preserve. Recolour the entire transparent 8column4row atlas IMAGE1 to EXACT native SHINY reference IMAGE2. Torso/shirt and arms keep native NEAR-BLACK material, not bright cyan. Crest and dorsal cape are PINK/purple, tail CYAN. Keep each material separate, including the dark torso in every crouched/prone cell. Keep every pose, camera, geometry, body part and grid unchanged. NORTH is back-only and final ground poses stay fully prone. Crisp limited native pixel palette, binary transparent background and broad transparent gutters. No new effects, text, marks, scenery or objects."
   },
   "reviewed": true,
-  "shiny_reviewed": false
+  "shiny_reviewed": true
 }

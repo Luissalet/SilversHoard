@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 96,
+      "h": 64,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 48.0,
+      "ay": 58,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ragingbolt",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ac85542d87faec0f71872e48536bf339450f7504a4f101acd492d6a7ad5711c3",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 1021,
+          "form": "",
+          "key": "lib-ragingbolt-n-b09607b83a98"
+        },
+        "sha256": "2342ec2fff16efbb0f66b5b4346ff0567c4720475b2dc295c5b2e1a80e169344"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 96,
+      "h": 64,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 48.0,
+      "ay": 58,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ragingbolt",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ac85542d87faec0f71872e48536bf339450f7504a4f101acd492d6a7ad5711c3",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 1021,
+          "form": "",
+          "key": "lib-ragingbolt-n-b09607b83a98"
+        },
+        "sha256": "54372cba6f2414e4800fd809b4f0c18330d10d26ac548169d12e913518eed6c8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 96,
+        "h": 64,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 48.0,
+        "ay": 58,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ragingbolt",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ac85542d87faec0f71872e48536bf339450f7504a4f101acd492d6a7ad5711c3",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 1021,
+            "form": "",
+            "key": "lib-ragingbolt-n-b09607b83a98"
+          },
+          "sha256": "1bdd19f3ee1c409d2c48875824185683e1ac345fd0342dc2db95e32b8d4d3767",
+          "palette_from": "lib-ragingbolt-s-c17a6306844e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 96,
+        "h": 64,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 48.0,
+        "ay": 58,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ragingbolt",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ac85542d87faec0f71872e48536bf339450f7504a4f101acd492d6a7ad5711c3",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 1021,
+            "form": "",
+            "key": "lib-ragingbolt-n-b09607b83a98"
+          },
+          "sha256": "a42184dc2707b380a3754fa11bfec168f239b841af02da786b2d572345f131cd",
+          "palette_from": "lib-ragingbolt-s-c17a6306844e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "ragingbolt",
+    "num": 1021,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Mechanically repack genuine native/built-in drawn poses. Binary alpha before tight crop; register new prone strip by one uniform factor for both frames, preserving every unrelated crop and pixel. No painting, standing-pose warping or camera rotation. Exact recipe and source hashes included.",
+    "source_image": "ragingbolt-assembled55.png",
+    "source_sha256": "ac85542d87faec0f71872e48536bf339450f7504a4f101acd492d6a7ad5711c3",
+    "source_record": "ragingbolt-assembled55.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

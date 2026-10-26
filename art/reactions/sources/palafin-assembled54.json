@@ -1,0 +1,73 @@
+{
+  "id": "palafin",
+  "name": "Palafin",
+  "num": 964,
+  "form": "",
+  "directions": 4,
+  "frames": 4,
+  "image": "palafin-assembled54.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Mechanically repack genuine native/built-in drawn poses. Binary alpha before tight crop; register new prone strip by one uniform factor for both frames, preserving every unrelated crop and pixel. No painting, standing-pose warping or camera rotation. Exact recipe and source hashes included.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "assembly_sources": [
+    {
+      "image": "palafin-cardinal.png",
+      "sha256": "1f1193e5822b8c699c605914dd227d8dfcf622e2c942fbc171a087d8c5ce28f4"
+    },
+    {
+      "image": "palafin-correction44.png",
+      "sha256": "cf455e542fe35e41a5d2d0d8dd13838f440556201237469d9120ec4be7504707"
+    },
+    {
+      "image": "palafin-assembled46.png",
+      "sha256": "57d7b38a3edaa06c66083e878e97fd48dc6c4e346d661dbcd19c19710356df85"
+    },
+    {
+      "image": "palafin-north-prone54-v1.png",
+      "sha256": "c56b407afc600ffc2a053d575c9c8cea7c590ba031b575d87b666157f5dc5d5f"
+    }
+  ],
+  "assembly_recipe": {
+    "base": "palafin-assembled46.png",
+    "replace_north_ground": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "strip": "palafin-north-prone54-v1.png",
+    "strip_uniform_scale": 0.2597101449275362,
+    "palafin_first_two_from_pain": true,
+    "parent_recipe": {
+      "base": "palafin-cardinal.png",
+      "edited": "palafin-correction44.png",
+      "replace_row_col": [
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          2,
+          7
+        ]
+      ],
+      "uniform_scale": 1.050420168067227
+    },
+    "parent_record": "palafin-assembled46.json"
+  },
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-corrections54.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

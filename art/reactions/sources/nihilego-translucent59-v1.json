@@ -1,0 +1,18 @@
+{
+  "id": "nihilego",
+  "name": "Nihilego",
+  "num": 793,
+  "form": "",
+  "directions": 4,
+  "frames": 2,
+  "image": "nihilego-translucent59-v1.png",
+  "prompt": "Precise material correction, preserve all16 existing poses and4x4grid of IMAGE1. IMAGE2 TOP ROW is the exact native NORMAL material reference on a gray checkerboard; its lower two rows are the WRONG opaque candidate, do not copy them. Correct every sprite's upper bell/cap: all large BLACK PATCHES INSIDE THE CAP are a mistake. Those locations should be TRANSPARENT HOLES revealing background through a pale white/cyan translucent membrane, like the TOP ROW of IMAGE2. Preserve the pale cyan central FOUR-POINT STAR on the bell, thin white rim and tiny black OUTLINE only. No black filled regions, black eyes or face inside cap. Keep tendrils and genuinely flat final ground poses, exact geometry/cameras and native pale cyan palette. Background and interior cap holes fully transparent, generous gutters, crisp native pixel art. No glow/checkerboard painted into asset/scenery/text.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-corrections59.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

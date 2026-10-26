@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "quaxly",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b06db844fea9b5b14b74bd2d3790263f1ee4b30ed1b87c1f18ebe1a6e2a99712",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 912,
+          "form": "",
+          "key": "lib-quaxly-n-e7ee4d4170af"
+        },
+        "sha256": "a2e67091ac934011bf320667494336611911ea9f59a5bbf74f3461e7ae09e880"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "quaxly",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b06db844fea9b5b14b74bd2d3790263f1ee4b30ed1b87c1f18ebe1a6e2a99712",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 912,
+          "form": "",
+          "key": "lib-quaxly-n-e7ee4d4170af"
+        },
+        "sha256": "aa65298375153ddca2e8eefa656b6359402f8f61d77f86bfa1263ae86edbb887"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "quaxly",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b06db844fea9b5b14b74bd2d3790263f1ee4b30ed1b87c1f18ebe1a6e2a99712",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 912,
+            "form": "",
+            "key": "lib-quaxly-s-1ef92e3db142"
+          },
+          "sha256": "e0e5a58efeb97473ca28f03fdf631c8aa0a5c8ac53ac283c87090dd09d56dd98"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "quaxly",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b06db844fea9b5b14b74bd2d3790263f1ee4b30ed1b87c1f18ebe1a6e2a99712",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 912,
+            "form": "",
+            "key": "lib-quaxly-s-1ef92e3db142"
+          },
+          "sha256": "d709340831b1960b3f12f3648a5d02f8fbd0055a6cc452d5aa252b7901de9cff"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "quaxly",
+    "num": 912,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a transparent pixel-art game atlas of the EXACT SHINY character/form/palette in the reference. Exactly SIXTEEN complete sprites, FOUR columns FOUR rows. Rows SOUTH/front,EAST/right,NORTH/back with no face,WEST/left. Columns1-2 two distinct expressive braced wincing poses: blink/head lowered and bent legs/tense body. Columns3-4 lower onto ground then fully lie flat resting head/body with legs folded and eyes closed. Keep each camera fixed, characteristic body parts/tail/wings/outfit/markings intact, exact shiny regional materials, consistent native pixel scale and crisp limited palette. New anatomical body and limb poses, not rotated/scaled standing copies. Broad transparent gutters and background; no text/grid/effects/marks/scenery/shadow. Identity quaxly.",
+    "source_image": "quaxly-shiny-only-v1.png",
+    "source_sha256": "b06db844fea9b5b14b74bd2d3790263f1ee4b30ed1b87c1f18ebe1a6e2a99712",
+    "source_record": "quaxly-shiny-only-v1.json",
+    "shiny_source_image": "quaxly-shiny-only-v1.png",
+    "shiny_prompt": "Draw a transparent pixel-art game atlas of the EXACT SHINY character/form/palette in the reference. Exactly SIXTEEN complete sprites, FOUR columns FOUR rows. Rows SOUTH/front,EAST/right,NORTH/back with no face,WEST/left. Columns1-2 two distinct expressive braced wincing poses: blink/head lowered and bent legs/tense body. Columns3-4 lower onto ground then fully lie flat resting head/body with legs folded and eyes closed. Keep each camera fixed, characteristic body parts/tail/wings/outfit/markings intact, exact shiny regional materials, consistent native pixel scale and crisp limited palette. New anatomical body and limb poses, not rotated/scaled standing copies. Broad transparent gutters and background; no text/grid/effects/marks/scenery/shadow. Identity quaxly."
+  },
+  "reviewed": false,
+  "shiny_reviewed": true
+}

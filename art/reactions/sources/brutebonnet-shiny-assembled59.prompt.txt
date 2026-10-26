@@ -1,0 +1,2 @@
+Mechanically repack genuine native/built-in drawn poses. Binary alpha before tight crop; register new prone strip by one uniform factor for both frames, preserving every unrelated crop and pixel. No painting, standing-pose warping or camera rotation. Exact recipe and source hashes included.
+{"base":"brutebonnet-shiny58-v1.png","supplement":"brutebonnet-shiny58-v2.png","replace_north_ground":[1,2,3],"strip_uniform_scale":1.13125,"preserved_other_rows":24,"strict_gutters_not_merged_if_narrow":true}

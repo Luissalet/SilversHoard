@@ -1,0 +1,265 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "happiny",
+        "tool": "builtin-imagegen",
+        "source_sha256": "3826343c2eeb1da9231e04196a900c904c07913a6aa8707babdbd821f2311e62",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 7,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 440,
+          "form": "",
+          "key": "lib-happiny-n-c789fac1e7db"
+        },
+        "assembly": {
+          "native_frames": [
+            {
+              "action": "Pain",
+              "direction": 0,
+              "frame": 1,
+              "animation": "Idle",
+              "row": 0,
+              "index": 0
+            }
+          ]
+        },
+        "sha256": "4fb7c0902090b456a76d06aa400e8082b7f689ed62fef5dcf9dd94f514086d0f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "happiny",
+        "tool": "builtin-imagegen",
+        "source_sha256": "3826343c2eeb1da9231e04196a900c904c07913a6aa8707babdbd821f2311e62",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 440,
+          "form": "",
+          "key": "lib-happiny-n-c789fac1e7db"
+        },
+        "assembly": {
+          "native_frames": [
+            {
+              "action": "Pain",
+              "direction": 0,
+              "frame": 1,
+              "animation": "Idle",
+              "row": 0,
+              "index": 0
+            }
+          ]
+        },
+        "sha256": "33198e5b2421471115c606ce378b75a9e22fbe35709a772150349bdde5c3d2b5"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "happiny",
+          "tool": "builtin-imagegen",
+          "source_sha256": "3826343c2eeb1da9231e04196a900c904c07913a6aa8707babdbd821f2311e62",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 7,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 440,
+            "form": "",
+            "key": "lib-happiny-s-eed6efdaaf7e"
+          },
+          "assembly": {
+            "native_frames": [
+              {
+                "action": "Pain",
+                "direction": 0,
+                "frame": 1,
+                "animation": "Idle",
+                "row": 0,
+                "index": 0
+              }
+            ]
+          },
+          "sha256": "67217841a377550b28e1802e2b759ee90888dbcde9a230e34fa8e24eae64e9fc"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "happiny",
+          "tool": "builtin-imagegen",
+          "source_sha256": "3826343c2eeb1da9231e04196a900c904c07913a6aa8707babdbd821f2311e62",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 440,
+            "form": "",
+            "key": "lib-happiny-s-eed6efdaaf7e"
+          },
+          "assembly": {
+            "native_frames": [
+              {
+                "action": "Pain",
+                "direction": 0,
+                "frame": 1,
+                "animation": "Idle",
+                "row": 0,
+                "index": 0
+              }
+            ]
+          },
+          "sha256": "d8495864dd30204823afddbb44fda96cc11f97ffec834e79dc335a3a8e3ae799"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "happiny",
+    "num": 440,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Mechanically repack genuine native/built-in drawn poses. Binary alpha before tight crop; register new prone strip by one uniform factor for both frames, preserving every unrelated crop and pixel. No painting, standing-pose warping or camera rotation. Exact recipe and source hashes included.",
+    "source_image": "happiny-assembled56.png",
+    "source_sha256": "3826343c2eeb1da9231e04196a900c904c07913a6aa8707babdbd821f2311e62",
+    "native_frames": [
+      {
+        "action": "Pain",
+        "direction": 0,
+        "frame": 1,
+        "animation": "Idle",
+        "row": 0,
+        "index": 0
+      }
+    ],
+    "source_record": "happiny-assembled56.json",
+    "shiny_source_image": "happiny-assembled56.png",
+    "shiny_prompt": "Mechanically repack genuine native/built-in drawn poses. Binary alpha before tight crop; register new prone strip by one uniform factor for both frames, preserving every unrelated crop and pixel. No painting, standing-pose warping or camera rotation. Exact recipe and source hashes included."
+  },
+  "reviewed": false,
+  "shiny_reviewed": true
+}

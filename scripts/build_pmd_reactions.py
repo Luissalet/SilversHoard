@@ -31,11 +31,10 @@ def load_generated(library, art):
     generated = {}
     for path in sorted((art / "compiled").glob("*/meta.json")):
         record = json.loads(path.read_text("utf8"))
-        if not record.get("reviewed"):
-            continue
         provenance = record["provenance"]
         for shiny in (False, True):
-            if shiny and not record.get("shiny_reviewed", record["reviewed"]):
+            reviewed = record.get("reviewed", False)
+            if not (record.get("shiny_reviewed", reviewed) if shiny else reviewed):
                 continue
             actions = record.get("shiny", {}).get("a", {}) if shiny else record["a"]
             target = library.resolve(provenance["num"], provenance["form"], shiny=shiny)

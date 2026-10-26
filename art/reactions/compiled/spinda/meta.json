@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "spinda",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f9feb4235c2a72f50b74ad94ad5f1e91a0e707e6c6979d7fa0e22e02f13af8ef",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 327,
+          "form": "",
+          "key": "lib-spinda-n-afda977265c1"
+        },
+        "sha256": "3c8bda04169a189022e54a6e5b12225602b3cedbccdf0f6cf1e16e2aa502783b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "spinda",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f9feb4235c2a72f50b74ad94ad5f1e91a0e707e6c6979d7fa0e22e02f13af8ef",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 327,
+          "form": "",
+          "key": "lib-spinda-n-afda977265c1"
+        },
+        "sha256": "bc47a0989e9d0576ab21f8673d2c62e3497afdb8b8174fb68b0c72b0b88694cb"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "spinda",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f9feb4235c2a72f50b74ad94ad5f1e91a0e707e6c6979d7fa0e22e02f13af8ef",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 327,
+            "form": "",
+            "key": "lib-spinda-s-7891b33d9175"
+          },
+          "sha256": "f260e4f3b1842c72f3b7f0b94f2844281f1e36fabb6c8bcb69cda711bc65b923"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "spinda",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f9feb4235c2a72f50b74ad94ad5f1e91a0e707e6c6979d7fa0e22e02f13af8ef",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 327,
+            "form": "",
+            "key": "lib-spinda-s-7891b33d9175"
+          },
+          "sha256": "132e164aa8f2449400b8184f3e2c6e582a4e55417f0b42494422ed43b5c85c67"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "spinda",
+    "num": 327,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a transparent pixel-art game atlas of the EXACT SHINY character/form/palette in the reference. Exactly SIXTEEN complete sprites, FOUR columns FOUR rows. Rows SOUTH/front,EAST/right,NORTH/back with no face,WEST/left. Columns1-2 two distinct expressive braced wincing poses: blink/head lowered and bent legs/tense body. Columns3-4 lower onto ground then fully lie flat resting head/body with legs folded and eyes closed. Keep each camera fixed, characteristic body parts/tail/wings/outfit/markings intact, exact shiny regional materials, consistent native pixel scale and crisp limited palette. New anatomical body and limb poses, not rotated/scaled standing copies. Broad transparent gutters and background; no text/grid/effects/marks/scenery/shadow. Identity spinda.",
+    "source_image": "spinda-shiny-only-v1.png",
+    "source_sha256": "f9feb4235c2a72f50b74ad94ad5f1e91a0e707e6c6979d7fa0e22e02f13af8ef",
+    "source_record": "spinda-shiny-only-v1.json",
+    "shiny_source_image": "spinda-shiny-only-v1.png",
+    "shiny_prompt": "Draw a transparent pixel-art game atlas of the EXACT SHINY character/form/palette in the reference. Exactly SIXTEEN complete sprites, FOUR columns FOUR rows. Rows SOUTH/front,EAST/right,NORTH/back with no face,WEST/left. Columns1-2 two distinct expressive braced wincing poses: blink/head lowered and bent legs/tense body. Columns3-4 lower onto ground then fully lie flat resting head/body with legs folded and eyes closed. Keep each camera fixed, characteristic body parts/tail/wings/outfit/markings intact, exact shiny regional materials, consistent native pixel scale and crisp limited palette. New anatomical body and limb poses, not rotated/scaled standing copies. Broad transparent gutters and background; no text/grid/effects/marks/scenery/shadow. Identity spinda."
+  },
+  "reviewed": false,
+  "shiny_reviewed": true
+}
