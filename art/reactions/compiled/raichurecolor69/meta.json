@@ -1,0 +1,393 @@
+{
+  "a": {},
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 48,
+        "n": 12,
+        "d": [
+          4,
+          1,
+          1,
+          1,
+          2,
+          1,
+          4,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "r": 8,
+        "ax": 19.5,
+        "ay": 27.5,
+        "source": {
+          "kind": "palette-derived-pmd-reaction",
+          "tool": "palette-recolor",
+          "record": "raichurecolor69",
+          "parent": {
+            "kind": "published-pmd-reaction",
+            "sha": "341342d7ef2ed3e4427c760e829a417b501be17c",
+            "folder": "0026",
+            "animation": "Pain",
+            "sha256": "544121e8cf38ca5831d713c689af4813f119b0c263b6a31ba7e65c0fef2f6afe"
+          },
+          "source_sha256": "544121e8cf38ca5831d713c689af4813f119b0c263b6a31ba7e65c0fef2f6afe",
+          "palette_from": "lib-raichu-s-af1a1e6f1744",
+          "sha256": "9908fd40ac3b83d37ab088400997eb4a639e12ead79580a63ce6e9ca499b27a3"
+        }
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "n": 8,
+        "d": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          6,
+          4,
+          4
+        ],
+        "r": 1,
+        "ax": 19.5,
+        "ay": 23.5,
+        "ground_frames": [
+          2
+        ],
+        "source": {
+          "kind": "palette-derived-pmd-reaction",
+          "tool": "palette-recolor",
+          "record": "raichurecolor69",
+          "parent": {
+            "kind": "published-pmd-reaction",
+            "sha": "341342d7ef2ed3e4427c760e829a417b501be17c",
+            "folder": "0026",
+            "animation": "HitGround",
+            "sha256": "4b1a83ab9dac8abe84b5c87b0eb069d47eb0e520979020c93cb6745f83040ccc"
+          },
+          "source_sha256": "4b1a83ab9dac8abe84b5c87b0eb069d47eb0e520979020c93cb6745f83040ccc",
+          "palette_from": "lib-raichu-s-af1a1e6f1744",
+          "sha256": "96a6cfbbad7682ea634c3fb6818411dc5510376b06608d1e5b2aa0ff98a41249"
+        }
+      }
+    }
+  },
+  "pending": [],
+  "reviewed": false,
+  "shiny_reviewed": true,
+  "provenance": {
+    "id": "raichurecolor69",
+    "num": 26,
+    "form": "",
+    "tool": "palette-recolor",
+    "source_record": "raichu-recolor69.json",
+    "source_image": "raichu-source69-Pain.png",
+    "source_sha256": "544121e8cf38ca5831d713c689af4813f119b0c263b6a31ba7e65c0fef2f6afe",
+    "recolor": {
+      "target_shiny": true,
+      "source_key": "lib-raichu-n-27b13a173ca5",
+      "source_shiny": false,
+      "palette": [
+        [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        [
+          [
+            119,
+            63,
+            0
+          ],
+          [
+            135,
+            79,
+            23
+          ]
+        ],
+        [
+          [
+            167,
+            95,
+            31
+          ],
+          [
+            167,
+            119,
+            79
+          ]
+        ],
+        [
+          [
+            167,
+            111,
+            0
+          ],
+          [
+            167,
+            111,
+            0
+          ]
+        ],
+        [
+          [
+            183,
+            135,
+            39
+          ],
+          [
+            183,
+            135,
+            39
+          ]
+        ],
+        [
+          [
+            215,
+            191,
+            103
+          ],
+          [
+            215,
+            191,
+            103
+          ]
+        ],
+        [
+          [
+            223,
+            135,
+            31
+          ],
+          [
+            223,
+            111,
+            31
+          ]
+        ],
+        [
+          [
+            223,
+            183,
+            0
+          ],
+          [
+            183,
+            151,
+            103
+          ]
+        ],
+        [
+          [
+            231,
+            63,
+            103
+          ],
+          [
+            255,
+            143,
+            175
+          ]
+        ],
+        [
+          [
+            255,
+            143,
+            175
+          ],
+          [
+            255,
+            143,
+            175
+          ]
+        ],
+        [
+          [
+            255,
+            175,
+            71
+          ],
+          [
+            255,
+            151,
+            71
+          ]
+        ],
+        [
+          [
+            255,
+            199,
+            215
+          ],
+          [
+            255,
+            143,
+            175
+          ]
+        ],
+        [
+          [
+            255,
+            247,
+            0
+          ],
+          [
+            223,
+            191,
+            143
+          ]
+        ],
+        [
+          [
+            255,
+            247,
+            159
+          ],
+          [
+            255,
+            247,
+            159
+          ]
+        ],
+        [
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ]
+      ],
+      "references": [
+        {
+          "animation": "Attack",
+          "source_file": "pmd:27109b8809fd843831076ead5d52494623d02407820f2d2c917046a6291bf612",
+          "target_file": "pmd:ea5ddf73bf14a1fe3ed7b9e530409bcd558f3dd5f82a74dcc2e853ed5ef8d15f",
+          "matched_poses": 80
+        },
+        {
+          "animation": "Charge",
+          "source_file": "pmd:7fcfbfd889fb660085303049cf04054f72128ef115524e4e081750ad181ab6fc",
+          "target_file": "pmd:ea2579fc5d705c5317b68f32e67c04c365f4ff757191ce8e00353e511d485d58",
+          "matched_poses": 80
+        },
+        {
+          "animation": "Hurt",
+          "source_file": "pmd:6e5a611b19c325cbfc71a2ef3054a5b3b8367ca03ba42fa5db7ef95ea3ca967c",
+          "target_file": "pmd:4cdd4cb43686e0b23e2c46efdabbc7f6050ef9df27d2f068b58122d018ead9c1",
+          "matched_poses": 16
+        },
+        {
+          "animation": "Idle",
+          "source_file": "pmd:c277a1f7e44ec7e0ca5744a8e3a7a81bd266c5ac78357c3ff947e968c8e300f1",
+          "target_file": "pmd:dbe3411623892f84cd31d55116f55b93b0cb429d17e50773fa332e1a146b5861",
+          "matched_poses": 48
+        },
+        {
+          "animation": "Shoot",
+          "source_file": "pmd:61ae4d0c6d4d7018fa1013b4045cf2f6d5d74232acb179291837569c2a504cb8",
+          "target_file": "pmd:48836ad0978ac4e9c6c2085f24c7aabef8815c2a638af8fc9d6c216a97e8545a",
+          "matched_poses": 88
+        },
+        {
+          "animation": "Sleep",
+          "source_file": "pmd:ef791ca9aad16e26fd8f80051bff0e91ea0af34298c1e6074655b3d415f92fa8",
+          "target_file": "pmd:942be15c3a5cee04e81a78c314455f4b1505876ed101e9342fc0421149e6b99e",
+          "matched_poses": 2
+        },
+        {
+          "animation": "Walk",
+          "source_file": "pmd:db4602bd9e34ac58e161c5c26bc59eda79756d1b43f71ec99eecb61be7f2eba6",
+          "target_file": "pmd:3c08d9780eafd0e5f1a60a76fdcfffa2779bd3bdddbe58269013c2beb4154dda",
+          "matched_poses": 32
+        }
+      ],
+      "region_preservation_overrides": [],
+      "actions": {
+        "Pain": {
+          "image": "raichu-source69-Pain.png",
+          "sha256": "544121e8cf38ca5831d713c689af4813f119b0c263b6a31ba7e65c0fef2f6afe",
+          "geometry": {
+            "w": 40,
+            "h": 48,
+            "n": 12,
+            "d": [
+              4,
+              1,
+              1,
+              1,
+              2,
+              1,
+              4,
+              2,
+              2,
+              2,
+              2,
+              2
+            ],
+            "r": 8,
+            "ax": 19.5,
+            "ay": 27.5,
+            "source": {
+              "kind": "published-pmd-reaction",
+              "sha": "341342d7ef2ed3e4427c760e829a417b501be17c",
+              "folder": "0026",
+              "animation": "Pain",
+              "sha256": "544121e8cf38ca5831d713c689af4813f119b0c263b6a31ba7e65c0fef2f6afe"
+            },
+            "file": "pmd:544121e8cf38ca5831d713c689af4813f119b0c263b6a31ba7e65c0fef2f6afe"
+          }
+        },
+        "HitGround": {
+          "image": "raichu-source69-HitGround.png",
+          "sha256": "4b1a83ab9dac8abe84b5c87b0eb069d47eb0e520979020c93cb6745f83040ccc",
+          "geometry": {
+            "w": 40,
+            "h": 40,
+            "n": 8,
+            "d": [
+              4,
+              4,
+              4,
+              4,
+              4,
+              6,
+              4,
+              4
+            ],
+            "r": 1,
+            "ax": 19.5,
+            "ay": 23.5,
+            "source": {
+              "kind": "published-pmd-reaction",
+              "sha": "341342d7ef2ed3e4427c760e829a417b501be17c",
+              "folder": "0026",
+              "animation": "HitGround",
+              "sha256": "4b1a83ab9dac8abe84b5c87b0eb069d47eb0e520979020c93cb6745f83040ccc"
+            },
+            "ground_frames": [
+              2
+            ],
+            "file": "pmd:4b1a83ab9dac8abe84b5c87b0eb069d47eb0e520979020c93cb6745f83040ccc"
+          }
+        }
+      }
+    }
+  }
+}

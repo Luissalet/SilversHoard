@@ -19,9 +19,9 @@ All 1,469 installed species/form identities in normal and shiny variants have
 both animations: **2,938 variants**. The supplemental collection contains 531
 authored Pain and 516 authored HitGround variants from the same pinned
 SpriteCollab revision as the original library. Reviewed raster exports now cover
-2,409 normal/shiny variants; the supplement uses 2,391 new Pain and 2,406 new HitGround
+2,413 normal/shiny variants; the supplement uses 2,395 additional Pain and 2,410 additional HitGround
 sequences, preserving published reactions where already available. The remaining
-16 Pain and 16 HitGround variants use explicitly marked runtime acting of their own
+12 Pain and 12 HitGround variants use explicitly marked runtime acting of their own
 installed artwork. These are derived reactions, not newly authored sprite
 sequences. Imported walking sheets and static battle-art fallbacks also have
 pain and a held prone pose; they never borrow another species' art. Artwork
@@ -40,6 +40,11 @@ all directions. The importer supports two or four distinct poses per action.
 Shiny-only reviewed art can publish while the normal variant keeps its original
 authored reactions. Separate variant records can share an exact species/form
 target without replacing the other variant's approved exports.
+Explicit palette recolors reuse authored poses without changing any pixel's alpha,
+frame geometry, timing or held ground frame. Their source PNGs and palette maps
+are pinned in the source record and reviewed for the target variant. Raichu and
+Pikachu Libre shiny reuse their published normal reactions; Hoenn and Pop-Star
+normal reuse their reviewed shiny poses with the inverse native palette.
 `--require-raster` rejects an incomplete collection before writing a new pack.
 Task 1503 is still creating the missing raster sequences; the current collection
 does not yet provide newly drawn art for the entire roster.

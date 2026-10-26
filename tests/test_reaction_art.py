@@ -7,11 +7,63 @@ from pathlib import Path
 import pytest
 from PIL import Image, ImageDraw
 
-from scripts.import_reaction_art import grid_cuts, extract, native_palette
+from scripts.import_reaction_art import grid_cuts, extract, native_palette, compile_one
 from silvers_hoard.pmd_library import PmdLibrary
 from scripts.build_pmd_reactions import compile_reactions, load_generated
 
 ART = Path(__file__).resolve().parents[1] / "art" / "reactions"
+
+
+@pytest.mark.parametrize("identity", ["raichu", "pikachulibre", "pikachuhoenn", "pikachupopstar"])
+def test_recolor_preserves_authored_poses_timing_alpha_and_source_bytes(tmp_path, identity):
+    record = json.loads((ART / "sources" / f"{identity}-recolor69.json").read_text("utf8"))
+    record["source_record"] = f"{identity}-recolor69.json"
+    record.update(reviewed=False, shiny_reviewed=False)
+    (tmp_path / "sources").mkdir()
+    originals = {}
+    for action, source in record["recolor"]["actions"].items():
+        raw = (ART / "sources" / source["image"]).read_bytes()
+        (tmp_path / "sources" / source["image"]).write_bytes(raw)
+        originals[action] = raw
+    library = PmdLibrary(ART.parents[1] / "silvers_hoard" / "presets" / "pmd", with_reactions=False)
+    geometry = compile_one(record, library, tmp_path)
+    shiny = record["recolor"]["target_shiny"]
+    meta = json.loads((tmp_path / "compiled" / record["id"] / "meta.json").read_text("utf8"))
+    assert not meta["reviewed"] and not meta["shiny_reviewed"]
+    assert (meta["a"] == {}) if shiny else (meta["shiny"]["a"] == {})
+    for action, source in record["recolor"]["actions"].items():
+        assert (tmp_path / "sources" / source["image"]).read_bytes() == originals[action]
+        before = Image.open(io.BytesIO(originals[action])).convert("RGBA")
+        after = Image.open(tmp_path / "compiled" / record["id"] /
+                           (action + ("-shiny" if shiny else "") + ".png")).convert("RGBA")
+        assert before.size == after.size
+        assert before.getchannel("A").tobytes() == after.getchannel("A").tobytes()
+        assert before.tobytes() != after.tobytes()
+        expected = {k: v for k, v in source["geometry"].items() if k not in ("source", "file")}
+        assert {k: v for k, v in geometry[action].items() if k != "source"} == expected
+        assert geometry[action]["source"]["parent"] == source["geometry"]["source"]
+
+
+@pytest.mark.parametrize("damage", ["changed-source", "runtime-pose", "unmapped-colour", "foreign-palette"])
+def test_recolor_rejects_invalid_sources_before_writing_exports(tmp_path, damage):
+    record = json.loads((ART / "sources" / "raichu-recolor69.json").read_text("utf8"))
+    record["source_record"] = "raichu-recolor69.json"
+    (tmp_path / "sources").mkdir()
+    for source in record["recolor"]["actions"].values():
+        (tmp_path / "sources" / source["image"]).write_bytes((ART / "sources" / source["image"]).read_bytes())
+    source = record["recolor"]["actions"]["Pain"]
+    if damage == "changed-source":
+        source["sha256"] = "0" * 64
+    elif damage == "runtime-pose":
+        source["geometry"]["reaction"] = "pain"
+    elif damage == "unmapped-colour":
+        record["recolor"]["palette"] = record["recolor"]["palette"][1:]
+    else:
+        record["recolor"]["palette"][0][1] = [1, 2, 3]
+    with pytest.raises(ValueError):
+        compile_one(record, PmdLibrary(ART.parents[1] / "silvers_hoard" / "presets" / "pmd",
+                                       with_reactions=False), tmp_path)
+    assert not (tmp_path / "compiled").exists()
 
 
 def test_gutters_follow_content_even_with_asymmetric_margins():

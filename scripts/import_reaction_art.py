@@ -1,4 +1,4 @@
-"""Extract generated, genuinely redrawn reaction poses into registered PMD PNGs.
+"""Register drawn reaction poses and explicitly declared palette recolors as PNGs.
 
 This importer only crops, scales uniformly and transfers the installed palette.
 It never invents poses by warping, rotating or translating a standing sprite.
@@ -230,7 +230,64 @@ def extract(record: dict, library: PmdLibrary, art: Path = ART, *, shiny=False):
     return geometry, images
 
 
+def compile_recolor(record, library, art=ART):
+    """Transfer an explicit native palette without changing authored pose pixels."""
+    spec = record["recolor"]
+    target_shiny = spec["target_shiny"]
+    target = library.resolve(record["num"], record.get("form", ""), shiny=target_shiny)
+    if not target:
+        raise ValueError(f"Missing native recolor target: {record['id']}")
+    allowed = set(native_palette(library, target))
+    for g in target["a"].values():
+        sheet = Image.open(io.BytesIO(library.image_bytes(g["file"]))).convert("RGBA")
+        allowed.update(c[:3] for c in sheet.getdata() if c[3])
+    palette = {tuple(a): tuple(b) for a, b in spec["palette"]}
+    if not palette or not set(palette.values()) <= allowed:
+        raise ValueError(f"Recolor outside target palette: {record['id']}")
+    geometry = {}
+    output = art / "compiled" / record["id"]
+    exports = {}
+    for name in ("Pain", "HitGround"):
+        source = spec["actions"][name]
+        raw = (art / "sources" / source["image"]).read_bytes()
+        if hashlib.sha256(raw).hexdigest() != source["sha256"]:
+            raise ValueError(f"Changed recolor source: {record['id']}:{name}")
+        image = Image.open(io.BytesIO(raw)).convert("RGBA")
+        g = copy.deepcopy(source["geometry"])
+        if "reaction" in g or g.get("source", {}).get("kind") == "runtime-pmd-acting":
+            raise ValueError(f"Recolor requires authored poses: {record['id']}:{name}")
+        if image.size != (g["w"] * g["n"], g["h"] * g["r"]):
+            raise ValueError(f"Invalid recolor dimensions: {record['id']}:{name}")
+        visible = {c[:3] for c in image.getdata() if c[3]}
+        if not visible <= palette.keys():
+            raise ValueError(f"Unmapped recolor colours: {record['id']}:{name}")
+        image.putdata([(*palette[c[:3]], c[3]) if c[3] else c for c in image.getdata()])
+        exports[name] = png(image)
+        g.pop("file", None)
+        parent = g.pop("source")
+        g["source"] = {"kind": "palette-derived-pmd-reaction", "tool": "palette-recolor",
+                       "record": record["id"], "parent": parent,
+                       "source_sha256": source["sha256"], "palette_from": target["key"],
+                       "sha256": hashlib.sha256(exports[name]).hexdigest()}
+        geometry[name] = g
+    output.mkdir(parents=True, exist_ok=True)
+    for name, raw in exports.items():
+        (output / (name + ("-shiny" if target_shiny else "") + ".png")).write_bytes(raw)
+    first = spec["actions"]["Pain"]
+    meta = {"a": {} if target_shiny else geometry, "shiny": {"a": geometry if target_shiny else {}},
+            "pending": [], "reviewed": record.get("reviewed", False),
+            "shiny_reviewed": record.get("shiny_reviewed", False),
+            "provenance": {"id": record["id"], "num": record["num"], "form": record.get("form", ""),
+                           "tool": "palette-recolor", "source_record": record["source_record"],
+                           "source_image": first["image"], "source_sha256": first["sha256"],
+                           "recolor": spec}}
+    (output / "meta.json").write_text(json.dumps(meta, indent=2) + "\n", encoding="utf8", newline="\n")
+    return geometry
+
+
 def compile_one(record, library, art=ART):
+    if record.get("recolor"):
+        return compile_recolor(record, library, art)
     geometry, images = extract(record, library, art)
     normal = library.resolve(record["num"], record.get("form", ""))
     shiny = library.resolve(record["num"], record.get("form", ""), shiny=True)
