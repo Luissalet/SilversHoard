@@ -1,5 +1,8 @@
 import copy
+import hashlib
 import importlib.util
+import io
+import json
 from pathlib import Path
 
 import pytest
@@ -73,3 +76,97 @@ def test_ice_rider_uses_its_own_portrait_and_does_not_invent_shiny_or_shadow():
     assert ice["folder"] == "0898/0001" and ice["shiny_folder"] is None
     assert ice["form"] == "Ice" and "equivalent" not in ice
     assert shadow["folder"] is None and shadow["shiny_folder"] is None
+
+
+def flower_frames(tmp_path):
+    from PIL import Image
+
+    stage = tmp_path / "stage"
+    plan = {"source": "reviewed-test-pin", "entries": [], "folders": {},
+            "visible_frame_equivalences": []}
+    expected = {}
+    for number, species in enumerate(("flabebe", "floette")):
+        row = {"id": species, "folder": species, "shiny_folder": species + "/shiny"}
+        plan["entries"].append(row)
+        group = {"kind": "visible-frame-equivalence", "species": species,
+                 "source_pin": "reviewed-test-pin", "targets": [], "source_sha256": {}}
+        for shiny in (0, 1):
+            folder = row["shiny_folder" if shiny else "folder"]
+            plan["folders"][folder] = {"emotions": builder.EMOTIONS,
+                                        "credit": {"primary": folder + " artist"},
+                                        "artists": [folder + " artist"]}
+            directory = stage / "published" / folder
+            directory.mkdir(parents=True)
+            hashes = {}
+            for index, emotion in enumerate(builder.EMOTIONS):
+                image = Image.new("RGBA", (40, 40), (40 + number * 70, 60 + shiny * 80, index * 10, 255))
+                data = io.BytesIO(); image.save(data, format="PNG")
+                raw = data.getvalue()
+                (directory / (emotion + ".png")).write_bytes(raw)
+                hashes[emotion] = hashlib.sha256(raw).hexdigest()
+            group["source_sha256"][str(shiny)] = hashes
+            expected[f"{species}|{shiny}"] = hashes
+        for color in ("blue", "orange", "white", "yellow"):
+            target = species + color
+            group["targets"].append(target)
+            plan["entries"].append({"id": target, "folder": None, "shiny_folder": None})
+        plan["visible_frame_equivalences"].append(group)
+    for target in ("florgesblue", "floetteeternal", "floettemega", "flabebepink"):
+        plan["entries"].append({"id": target, "folder": None, "shiny_folder": None})
+    return plan, stage, expected
+
+
+def test_reviewed_flower_frames_fill_all_sixteen_forms_and_keep_source_credits(tmp_path):
+    plan, stage, expected = flower_frames(tmp_path)
+    output = tmp_path / "output"
+    builder.compile_library(plan, stage, output, allow_missing=True)
+    manifest = json.loads((output / "manifest.json").read_text("utf8"))
+    for group in plan["visible_frame_equivalences"]:
+        for target in group["targets"]:
+            for shiny in (0, 1):
+                key = f"{target}|{shiny}"
+                assert manifest["entries"][key] == {
+                    emotion: f"portraits/{sha}.png"
+                    for emotion, sha in expected[f"{group['species']}|{shiny}"].items()}
+                for emotion, file in manifest["entries"][key].items():
+                    provenance = manifest["sources"][key + ":" + emotion]
+                    folder = group["species"] + ("/shiny" if shiny else "")
+                    assert provenance["kind"] == "visible-frame-equivalence"
+                    assert provenance["species"] == group["species"]
+                    assert provenance["source_sha256"] == manifest["files"][file]["sha256"]
+                    assert provenance["folder"] == folder
+                    assert provenance["credit"] == plan["folders"][folder]["credit"]
+                    assert provenance["artists"] == plan["folders"][folder]["artists"]
+    for target in ("florgesblue", "floetteeternal", "floettemega", "flabebepink"):
+        assert manifest["entries"][target + "|0"] == manifest["entries"][target + "|1"] == {}
+    assert len(manifest["files"]) == 64  # No duplicate or newly drawn PNGs.
+
+
+def test_changed_flower_frame_does_not_inherit_old_visual_approval(tmp_path):
+    plan, stage, _ = flower_frames(tmp_path)
+    path = stage / "published/flabebe/Normal.png"
+    from PIL import Image
+    Image.new("RGBA", (40, 40), (255, 0, 0, 255)).save(path)
+    output = tmp_path / "output"
+    builder.compile_library(plan, stage, output, allow_missing=True)
+    manifest = json.loads((output / "manifest.json").read_text("utf8"))
+    assert "Normal" not in manifest["entries"]["flabebeblue|0"]
+    assert "Normal" in manifest["entries"]["flabebeblue|1"]
+    assert "Happy" in manifest["entries"]["flabebeblue|0"]
+
+
+def test_a_forms_own_published_frame_wins_over_visible_equivalence(tmp_path):
+    plan, stage, _ = flower_frames(tmp_path)
+    own = stage / "published/flabebe-blue-own"
+    own.mkdir()
+    from PIL import Image
+    Image.new("RGBA", (40, 40), (1, 2, 3, 255)).save(own / "Normal.png")
+    next(row for row in plan["entries"] if row["id"] == "flabebeblue")["folder"] = "flabebe-blue-own"
+    plan["folders"]["flabebe-blue-own"] = {"emotions": ["Normal"], "credit": {"primary": "own artist"}}
+    output = tmp_path / "output"
+    builder.compile_library(plan, stage, output, allow_missing=True)
+    manifest = json.loads((output / "manifest.json").read_text("utf8"))
+    sha = hashlib.sha256((own / "Normal.png").read_bytes()).hexdigest()
+    assert manifest["entries"]["flabebeblue|0"]["Normal"] == f"portraits/{sha}.png"
+    assert "flabebeblue|0:Normal" not in manifest["sources"]
+    assert "Happy" in manifest["entries"]["flabebeblue|0"]
