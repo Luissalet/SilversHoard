@@ -18,12 +18,11 @@ larger replacement cannot completely conceal the downed Pokémon.
 All 1,469 installed species/form identities in normal and shiny variants have
 both animations: **2,938 variants**. The supplemental collection contains 531
 authored Pain and 516 authored HitGround variants from the same pinned
-SpriteCollab revision as the original library. Reviewed raster exports now cover
-2,413 normal/shiny variants; the supplement uses 2,395 additional Pain and 2,410 additional HitGround
-sequences, preserving published reactions where already available. The remaining
-12 Pain and 12 HitGround variants use explicitly marked runtime acting of their own
-installed artwork. These are derived reactions, not newly authored sprite
-sequences. Imported walking sheets and static battle-art fallbacks also have
+SpriteCollab revision as the original library. Reviewed raster exports cover
+2,425 normal/shiny variants; the supplement uses 2,407 additional Pain and 2,422
+additional HitGround sequences, preserving published reactions where available.
+All 2,938 installed variants have actual raster sequences for both actions;
+none uses a runtime acting fallback in the installed roster. Imported walking sheets and static battle-art fallbacks also have
 pain and a held prone pose; they never borrow another species' art. Artwork
 keeps its proportions and palette.
 
@@ -46,8 +45,11 @@ are pinned in the source record and reviewed for the target variant. Raichu and
 Pikachu Libre shiny reuse their published normal reactions; Hoenn and Pop-Star
 normal reuse their reviewed shiny poses with the inverse native palette.
 `--require-raster` rejects an incomplete collection before writing a new pack.
-Task 1503 is still creating the missing raster sequences; the current collection
-does not yet provide newly drawn art for the entire roster.
+The six final Pikachu forms use explicitly declared manual pixel composition:
+five native caps on reviewed Hoenn reaction bodies, and Rock Star materials on
+reviewed Pop-Star reaction bodies. All six shiny forms derive by recolor from
+normal, with native accessory colours retained. Reused bodies and native entries
+are recorded as derivations, not independently generated poses.
 
 The ordinary real-time app, newly exported standalone pages and recorded MP4s
 share this renderer. Existing HTML must be re-exported. Pause freezes poses and

@@ -27,6 +27,10 @@ python scripts/make_icon.py --family "../Icons"                                 
 - `hoard_link/` is vendored and byte-identical to upstream HoardLink: never edit it here.
 - User-facing text in `client/src/i18n.js`, `client/src/battle/strings.js` and `client/src/play/strings.js` (castellano de España first, English second). No taglines.
 - Deletes of trainers, gyms and leagues go to the trash (`trash` tool with restore and purge).
+- Custom trainer PNGs live in `data/avatars`, photo references in `data/avatar_refs`, and style references in `data/style_refs`.
+  These folders and prepared style/pose references are ignored by Git. Gym badges and backdrops live in `data/assets` and
+  remain versionable, as do the other asset collections. Existing image names and `/api/avatars` URLs are retained when
+  legacy reference and gym images are moved out of `data/avatars` on startup.
 
 ## Before finishing a change
 

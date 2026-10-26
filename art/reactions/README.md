@@ -35,19 +35,18 @@ library routes, portable export and status MCP consume that same pack. Use
 `--require-raster` to check complete coverage: it fails before writing a pack
 while any identity still needs the explicitly marked runtime fallback.
 
-Pose creation tool: built-in image generation. The inputs use each exact form's
-installed sprite art as its identity reference. Published art and its existing
-credits remain unchanged.
+Pose sources include built-in image generation and explicitly declared manual
+pixel composition. Each exact form uses its installed sprite art as its identity
+reference. Published art and its existing credits remain unchanged.
 
-Task 1503 is in progress. The initial audit found 1,201 normal forms needing at
-least one new reaction; shiny palettes must also be derived and checked before
-installation. There are reviewed raster exports for 2,413 normal/shiny variants,
-with both actions (1,195 normal and 1,218 shiny). The pack uses 2,395 additional Pain and 2,410 additional HitGround sequences;
-existing published reactions take priority where already available. Pain still
-has 12 variants using the previous runtime fallback, and HitGround has 12.
-This directory does not establish complete
-roster coverage. Source prompts and per-frame provenance accompany each accepted
-export. Rejected candidates remain outside the generated pack.
+The initial audit found 1,201 normal forms needing at least one new reaction.
+Reviewed raster exports cover 2,425 normal/shiny variants, with both actions
+(1,201 normal and 1,224 shiny). The pack uses 2,407 additional Pain and 2,422
+additional HitGround sequences; existing published reactions take priority.
+All 2,938 installed variants have both raster actions, with zero runtime acting
+routes in the installed roster. Source prompts, composition operations and
+per-frame provenance accompany each accepted export. Rejected candidates stay
+outside the pack.
 
 Compact sources can contain one newly drawn wince and one newly drawn prone
 pose per direction. Pain enters from exact native Idle; HitGround transitions
@@ -65,3 +64,13 @@ reactions. Hoenn and Pop-Star normal use the inverse palette of their accepted
 shiny exports. Libre retains the red/black costume through declared overrides
 because native RGB correspondence is ambiguous across body and costume regions.
 These recolors add no independently drawn poses or camera angles.
+
+Original, Unova, Kalos, Alola and Partner Pikachu reuse the reviewed Hoenn wince
+and prone bodies, with their own native cap materials and distinct emblems.
+Rock Star reuses reviewed Pop-Star body poses, removes bows and manually retouches
+its bare head, silver collar, dark/red garment and green buckle. These are
+reused poses with accessory pixel edits, not independent full-body generations.
+Source records pin every donor, native reference, edit and cleanup. All six shiny
+forms are palette recolors of their normal poses; explicit native colour overrides
+retain unchanged accessory materials such as Rock Star's green buckle. Normal and
+shiny acceptance remains separate.
