@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "eiscuenoice",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d1479a88d0185f724874051b5d9895017a480fe41ca0ff4ced2f4f41449f68f8",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 875,
+          "form": "Noice",
+          "key": "lib-eiscuenoice-n-a9ddb019fb2c"
+        },
+        "sha256": "c812b33afdc4b79a5c3fee7946ee44b09e9ae0c76f67811d95957621bf4e0b1b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "eiscuenoice",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d1479a88d0185f724874051b5d9895017a480fe41ca0ff4ced2f4f41449f68f8",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 875,
+          "form": "Noice",
+          "key": "lib-eiscuenoice-n-a9ddb019fb2c"
+        },
+        "sha256": "8a2c559ca7bed003c0389e579799af46a2acfe8a7f0cd526e3c074b403934818"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "eiscuenoice",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d1479a88d0185f724874051b5d9895017a480fe41ca0ff4ced2f4f41449f68f8",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 875,
+            "form": "Noice",
+            "key": "lib-eiscuenoice-n-a9ddb019fb2c"
+          },
+          "sha256": "93be2c8686a561a20b133b423018a93ef19af16750b64957c6d6fb2c9f7b315f",
+          "palette_from": "lib-eiscuenoice-s-7a393fba9968"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "eiscuenoice",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d1479a88d0185f724874051b5d9895017a480fe41ca0ff4ced2f4f41449f68f8",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 875,
+            "form": "Noice",
+            "key": "lib-eiscuenoice-n-a9ddb019fb2c"
+          },
+          "sha256": "d14bfe3a5ff5229a465d78ab71292d0f801c2a75db313d7632193dfa405b493c",
+          "palette_from": "lib-eiscuenoice-s-7a393fba9968"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "eiscuenoice",
+    "num": 875,
+    "form": "Noice",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Eiscue-Noice, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "eiscuenoice-cardinal.png",
+    "source_sha256": "d1479a88d0185f724874051b5d9895017a480fe41ca0ff4ced2f4f41449f68f8",
+    "source_record": "eiscuenoice-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

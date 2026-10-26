@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tadbulb",
+        "tool": "builtin-imagegen",
+        "source_sha256": "64728ddcbfd3e342205c9d03e0cadbe648ceb338f2d38f8e4f0a24adfaa01579",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 938,
+          "form": "",
+          "key": "lib-tadbulb-n-460a177df56e"
+        },
+        "sha256": "ad6b90ec4cdea0a3ef017a8705c13a54d5951f5e7c67b836beb9ff872f8a7dbb"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "tadbulb",
+        "tool": "builtin-imagegen",
+        "source_sha256": "64728ddcbfd3e342205c9d03e0cadbe648ceb338f2d38f8e4f0a24adfaa01579",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 938,
+          "form": "",
+          "key": "lib-tadbulb-n-460a177df56e"
+        },
+        "sha256": "9435ac9bbdb89c27dfa5d25d8490d5f76509737a32e2d8dc01c0c87c56cc4852"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tadbulb",
+          "tool": "builtin-imagegen",
+          "source_sha256": "64728ddcbfd3e342205c9d03e0cadbe648ceb338f2d38f8e4f0a24adfaa01579",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 938,
+            "form": "",
+            "key": "lib-tadbulb-n-460a177df56e"
+          },
+          "sha256": "947734b52eaa591ad3c83f54eee5d648e2852f7ce2a25e42edee24289733cc8f",
+          "palette_from": "lib-tadbulb-s-c9b5bb409135"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "tadbulb",
+          "tool": "builtin-imagegen",
+          "source_sha256": "64728ddcbfd3e342205c9d03e0cadbe648ceb338f2d38f8e4f0a24adfaa01579",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 938,
+            "form": "",
+            "key": "lib-tadbulb-n-460a177df56e"
+          },
+          "sha256": "312f2a7b49f9ae5760de6f4940fa273b51462171d29d7f2927c742754aa3f036",
+          "palette_from": "lib-tadbulb-s-c9b5bb409135"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "tadbulb",
+    "num": 938,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Tadbulb, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "tadbulb-cardinal.png",
+    "source_sha256": "64728ddcbfd3e342205c9d03e0cadbe648ceb338f2d38f8e4f0a24adfaa01579",
+    "source_record": "tadbulb-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "inteleon",
+        "tool": "builtin-imagegen",
+        "source_sha256": "2a91f7a0676df858d61984a911a318eb9e51973359e27181204b6ab6e14bed83",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 818,
+          "form": "",
+          "key": "lib-inteleon-n-7c7674a47843"
+        },
+        "sha256": "d42e7fd6cb48544373e4a2beeccfcba0e1499aa986f2196bbbeeec191e941f65"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "inteleon",
+        "tool": "builtin-imagegen",
+        "source_sha256": "2a91f7a0676df858d61984a911a318eb9e51973359e27181204b6ab6e14bed83",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 818,
+          "form": "",
+          "key": "lib-inteleon-n-7c7674a47843"
+        },
+        "sha256": "5a2d6cd4cba206d742b30dc3519504b2997639e2669024c0c56f3ba7e8dac607"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "inteleon",
+          "tool": "builtin-imagegen",
+          "source_sha256": "2a91f7a0676df858d61984a911a318eb9e51973359e27181204b6ab6e14bed83",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 818,
+            "form": "",
+            "key": "lib-inteleon-n-7c7674a47843"
+          },
+          "sha256": "a9d54aa7874c37b18ccb6e3b6ee69ef5babdf8d653742b57c728c2a54d173db8",
+          "palette_from": "lib-inteleon-s-c5579fddad2d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "inteleon",
+          "tool": "builtin-imagegen",
+          "source_sha256": "2a91f7a0676df858d61984a911a318eb9e51973359e27181204b6ab6e14bed83",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 818,
+            "form": "",
+            "key": "lib-inteleon-n-7c7674a47843"
+          },
+          "sha256": "35ee3b20c00256c938037b0df46927744123ff051d855c005afdbda9f35b6dad",
+          "palette_from": "lib-inteleon-s-c5579fddad2d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "inteleon",
+    "num": 818,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Mechanically pack the existing built-in drawn atlas with only the explicitly listed corrected cells from correction44. Other original cells preserved as raw pixels. New source uniformly registered by unchanged SOUTH Pain0 height. No repainting or warping. Both source PNGs and generation prompt retained.",
+    "source_image": "inteleon-assembled46.png",
+    "source_sha256": "2a91f7a0676df858d61984a911a318eb9e51973359e27181204b6ab6e14bed83",
+    "source_record": "inteleon-assembled46.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": false
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "cherrimsunshine",
+        "tool": "builtin-imagegen",
+        "source_sha256": "38053b9ec2eea1b7c48afb09b1f933f8d3d1b9e0aa63c54f80f8aeaf2cc93e30",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 421,
+          "form": "Sunshine",
+          "key": "lib-cherrimsunshine-n-0e5d10301f99"
+        },
+        "sha256": "7ed737a0c8d82d4ea635b66b665363d4bfcd922d42962291422cdc3c987ce873"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "cherrimsunshine",
+        "tool": "builtin-imagegen",
+        "source_sha256": "38053b9ec2eea1b7c48afb09b1f933f8d3d1b9e0aa63c54f80f8aeaf2cc93e30",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 421,
+          "form": "Sunshine",
+          "key": "lib-cherrimsunshine-n-0e5d10301f99"
+        },
+        "sha256": "3b85f3d77b18eaf62be54f996471907166c7e068aed039d26ed093096c1e76ff"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "cherrimsunshine",
+          "tool": "builtin-imagegen",
+          "source_sha256": "38053b9ec2eea1b7c48afb09b1f933f8d3d1b9e0aa63c54f80f8aeaf2cc93e30",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 421,
+            "form": "Sunshine",
+            "key": "lib-cherrimsunshine-n-0e5d10301f99"
+          },
+          "sha256": "b1f7faae3ee9b8b503dd9b284c4a96ae9dbf2cf31043b39dad4f2e767c5f8cc6",
+          "palette_from": "lib-cherrimsunshine-s-bbfc4b1d4604"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "cherrimsunshine",
+          "tool": "builtin-imagegen",
+          "source_sha256": "38053b9ec2eea1b7c48afb09b1f933f8d3d1b9e0aa63c54f80f8aeaf2cc93e30",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 421,
+            "form": "Sunshine",
+            "key": "lib-cherrimsunshine-n-0e5d10301f99"
+          },
+          "sha256": "601984ad1b1755469fe3118b5ebd455ec9c7f1796471cef00d152d2252b07ddc",
+          "palette_from": "lib-cherrimsunshine-s-bbfc4b1d4604"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "cherrimsunshine",
+    "num": 421,
+    "form": "Sunshine",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Cherrim-Sunshine, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "cherrimsunshine-retry-r4.png",
+    "source_sha256": "38053b9ec2eea1b7c48afb09b1f933f8d3d1b9e0aa63c54f80f8aeaf2cc93e30",
+    "source_record": "cherrimsunshine-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

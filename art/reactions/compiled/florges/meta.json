@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "florges",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a562aa684f659a823859a795280144699111b2b7c5152671793e1b1633196401",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 671,
+          "form": "",
+          "key": "lib-florges-n-1edfd4041e49"
+        },
+        "sha256": "ae1da0aa0bf51ef355143edb862e31d723ef743c5be8efa471e6be565d3879a8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "florges",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a562aa684f659a823859a795280144699111b2b7c5152671793e1b1633196401",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 671,
+          "form": "",
+          "key": "lib-florges-n-1edfd4041e49"
+        },
+        "sha256": "ad66d915c358647e366e223bc77c1e78647d1af3b4b740b38824fb6f2d1e17a1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "florges",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a562aa684f659a823859a795280144699111b2b7c5152671793e1b1633196401",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 671,
+            "form": "",
+            "key": "lib-florges-n-1edfd4041e49"
+          },
+          "sha256": "9ac29139d0a002352f9fa46d61948c9d8d74564aae2a72a01a1066d8f5fe99e7",
+          "palette_from": "lib-florges-s-82623da2f175"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "florges",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a562aa684f659a823859a795280144699111b2b7c5152671793e1b1633196401",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 671,
+            "form": "",
+            "key": "lib-florges-n-1edfd4041e49"
+          },
+          "sha256": "b033e1383fdbcd4fd0cc5802ea8623db0d329cdb669b4ddd2fba7da28b8c5437",
+          "palette_from": "lib-florges-s-82623da2f175"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "florges",
+    "num": 671,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Florges, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "florges-retry-r4.png",
+    "source_sha256": "a562aa684f659a823859a795280144699111b2b7c5152671793e1b1633196401",
+    "source_record": "florges-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

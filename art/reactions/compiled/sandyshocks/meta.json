@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "sandyshocks",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5e1e92c4483f0045a2777a8f29a6386f7c03cbd07610c7835f4b5860bd08f0c7",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 989,
+          "form": "",
+          "key": "lib-sandyshocks-n-53eec202a6ac"
+        },
+        "sha256": "b1583175c0344bf575eebe597076507f7c57642e98237aa99e92d702d3aaa11e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "sandyshocks",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5e1e92c4483f0045a2777a8f29a6386f7c03cbd07610c7835f4b5860bd08f0c7",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 989,
+          "form": "",
+          "key": "lib-sandyshocks-n-53eec202a6ac"
+        },
+        "sha256": "327613db602ac7fa840876d86294c4f594da804ece23479bf11ee87f4cc5b9e9"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "sandyshocks",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5e1e92c4483f0045a2777a8f29a6386f7c03cbd07610c7835f4b5860bd08f0c7",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 989,
+            "form": "",
+            "key": "lib-sandyshocks-n-53eec202a6ac"
+          },
+          "sha256": "c09e2f1e7e4b27742e72f6881cdbd95998effc9b8d677d491bf4ed0519fcc6e3",
+          "palette_from": "lib-sandyshocks-s-0383a8e470c2"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "sandyshocks",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5e1e92c4483f0045a2777a8f29a6386f7c03cbd07610c7835f4b5860bd08f0c7",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 989,
+            "form": "",
+            "key": "lib-sandyshocks-n-53eec202a6ac"
+          },
+          "sha256": "c7c5f54d6cdc3a7500ebb71117e47d676ed13343c1ef7572ae9a2e84e88b90ba",
+          "palette_from": "lib-sandyshocks-s-0383a8e470c2"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "sandyshocks",
+    "num": 989,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Sandy Shocks, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "sandyshocks-cardinal.png",
+    "source_sha256": "5e1e92c4483f0045a2777a8f29a6386f7c03cbd07610c7835f4b5860bd08f0c7",
+    "source_record": "sandyshocks-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "zarude",
+        "tool": "builtin-imagegen",
+        "source_sha256": "855b866cfeda08a92da36a0689f8985697eb688aaeab0ddc761a43e5198b1b91",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 893,
+          "form": "",
+          "key": "lib-zarude-n-54853022ad06"
+        },
+        "sha256": "4365fce02eded524e039ed44e5d96ff56be8f8ba431ac1c01654f62f591089ee"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "zarude",
+        "tool": "builtin-imagegen",
+        "source_sha256": "855b866cfeda08a92da36a0689f8985697eb688aaeab0ddc761a43e5198b1b91",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 893,
+          "form": "",
+          "key": "lib-zarude-n-54853022ad06"
+        },
+        "sha256": "0b1fafb6bc873ce111836d1ba7f1a7ed3bb98cfc010608c0a54ddb3ca6e1c507"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "zarude",
+          "tool": "builtin-imagegen",
+          "source_sha256": "855b866cfeda08a92da36a0689f8985697eb688aaeab0ddc761a43e5198b1b91",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 893,
+            "form": "",
+            "key": "lib-zarude-n-54853022ad06"
+          },
+          "sha256": "fd845562f202bd4812772ce76118e5b8bd0e5e7b225c26aaa2d8c895bcfba75e",
+          "palette_from": "lib-zarude-s-73f3bd8844ae"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "zarude",
+          "tool": "builtin-imagegen",
+          "source_sha256": "855b866cfeda08a92da36a0689f8985697eb688aaeab0ddc761a43e5198b1b91",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 893,
+            "form": "",
+            "key": "lib-zarude-n-54853022ad06"
+          },
+          "sha256": "ecdd41c0408a1c50645c7f7911447fa55015004d4f35f22550fe1fa9f31744bd",
+          "palette_from": "lib-zarude-s-73f3bd8844ae"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "zarude",
+    "num": 893,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Zarude, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "zarude-cardinal.png",
+    "source_sha256": "855b866cfeda08a92da36a0689f8985697eb688aaeab0ddc761a43e5198b1b91",
+    "source_record": "zarude-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

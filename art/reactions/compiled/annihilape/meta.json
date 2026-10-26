@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "annihilape",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a567bbf952681e3cb96c9b93e72b38f3598acb86befa5e1ff04c766afd2b66ce",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 979,
+          "form": "",
+          "key": "lib-annihilape-n-aad8bd8fce7a"
+        },
+        "sha256": "551e966627aae027cbbf88f4e1f8f84aa3893583551220d23b4f30ad2d18cf61"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "annihilape",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a567bbf952681e3cb96c9b93e72b38f3598acb86befa5e1ff04c766afd2b66ce",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 979,
+          "form": "",
+          "key": "lib-annihilape-n-aad8bd8fce7a"
+        },
+        "sha256": "ecf47afe8fefff3ae4167e79b5f285253f08a1f6e4d05fc700e8e5b6a268da5d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "annihilape",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a567bbf952681e3cb96c9b93e72b38f3598acb86befa5e1ff04c766afd2b66ce",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 979,
+            "form": "",
+            "key": "lib-annihilape-n-aad8bd8fce7a"
+          },
+          "sha256": "61f3cf8bb686ff0bcf1f95de452bf22940910b2baab449941e0467e1d8b7c6b4",
+          "palette_from": "lib-annihilape-s-9f5206722ece"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "annihilape",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a567bbf952681e3cb96c9b93e72b38f3598acb86befa5e1ff04c766afd2b66ce",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 979,
+            "form": "",
+            "key": "lib-annihilape-n-aad8bd8fce7a"
+          },
+          "sha256": "c29ef05458c55c5e75260076912b33f3ab2028b01ede0cb740fbe04d8a1f2d16",
+          "palette_from": "lib-annihilape-s-9f5206722ece"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "annihilape",
+    "num": 979,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Annihilape, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "annihilape-cardinal.png",
+    "source_sha256": "a567bbf952681e3cb96c9b93e72b38f3598acb86befa5e1ff04c766afd2b66ce",
+    "source_record": "annihilape-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "banette",
+        "tool": "builtin-imagegen",
+        "source_sha256": "517f28a6b57df5cba5972186084608f5f1202ac2b51b89c0de6c21203b851ef7",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 354,
+          "form": "",
+          "key": "lib-banette-n-7d88732aa625"
+        },
+        "sha256": "bb8ee9274008e917be1b9907163d4e2229c7a71ecca97d242f565c44bda173c1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "banette",
+        "tool": "builtin-imagegen",
+        "source_sha256": "517f28a6b57df5cba5972186084608f5f1202ac2b51b89c0de6c21203b851ef7",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 354,
+          "form": "",
+          "key": "lib-banette-n-7d88732aa625"
+        },
+        "sha256": "d3718395361cbdad5ca43ee3a5316f52aa97ebdc2ac68732807eb220be23eb77"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "banette",
+          "tool": "builtin-imagegen",
+          "source_sha256": "517f28a6b57df5cba5972186084608f5f1202ac2b51b89c0de6c21203b851ef7",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 354,
+            "form": "",
+            "key": "lib-banette-n-7d88732aa625"
+          },
+          "sha256": "352f0a2799f69878edb7cf1241c565a64dfbf59111e7429489bc8643818e8bb4",
+          "palette_from": "lib-banette-s-749f1406bd97"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "banette",
+          "tool": "builtin-imagegen",
+          "source_sha256": "517f28a6b57df5cba5972186084608f5f1202ac2b51b89c0de6c21203b851ef7",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 354,
+            "form": "",
+            "key": "lib-banette-n-7d88732aa625"
+          },
+          "sha256": "abb3d2514275b59e9c232654700dcb4267a89d778dcf66a2480509b2094f190b",
+          "palette_from": "lib-banette-s-749f1406bd97"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "banette",
+    "num": 354,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Banette, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "banette-retry-r4.png",
+    "source_sha256": "517f28a6b57df5cba5972186084608f5f1202ac2b51b89c0de6c21203b851ef7",
+    "source_record": "banette-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

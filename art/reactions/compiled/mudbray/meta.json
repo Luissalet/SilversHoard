@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "mudbray",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d1337209fa42cebbceb80b0d256ff0967b6d921b15f0d2432a4dfbe7b9d26efc",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 749,
+          "form": "",
+          "key": "lib-mudbray-n-80fa49d6103b"
+        },
+        "sha256": "b0c7085705cbe6a9b8ad114e7ca5a1d2212450b0a72c6d22c56081d728ca975a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "mudbray",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d1337209fa42cebbceb80b0d256ff0967b6d921b15f0d2432a4dfbe7b9d26efc",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          3,
+          4
+        ],
+        "reference": {
+          "num": 749,
+          "form": "",
+          "key": "lib-mudbray-n-80fa49d6103b"
+        },
+        "sha256": "2d18869520ad73e08754854a08d34cbea46f3ac2b842c5ceb875106074399635"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "mudbray",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d1337209fa42cebbceb80b0d256ff0967b6d921b15f0d2432a4dfbe7b9d26efc",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 749,
+            "form": "",
+            "key": "lib-mudbray-n-80fa49d6103b"
+          },
+          "sha256": "6d67fb3c1f09b780b9371762849af6addd506268b3b256cd71a816514b4ad1c1",
+          "palette_from": "lib-mudbray-s-14e4e0a22dc0"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "mudbray",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d1337209fa42cebbceb80b0d256ff0967b6d921b15f0d2432a4dfbe7b9d26efc",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            3,
+            4
+          ],
+          "reference": {
+            "num": 749,
+            "form": "",
+            "key": "lib-mudbray-n-80fa49d6103b"
+          },
+          "sha256": "4b2b54de8643b8dededca1673dc72681020339cc4dc970ce68878a6b9cc4e724",
+          "palette_from": "lib-mudbray-s-14e4e0a22dc0"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "mudbray",
+    "num": 749,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Repack existing genuinely drawn poses without repainting or warping: use the declared same-identity same-camera braced/prone pose to replace the erroneously side-facing pose. Other pixels retain exact original binary-alpha crops.",
+    "source_image": "mudbray-assembled50.png",
+    "source_sha256": "d1337209fa42cebbceb80b0d256ff0967b6d921b15f0d2432a4dfbe7b9d26efc",
+    "source_record": "mudbray-assembled50.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

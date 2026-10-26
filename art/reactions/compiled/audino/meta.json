@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "audino",
+        "tool": "builtin-imagegen",
+        "source_sha256": "abb7c9bbbb1d119506d3341c30c7b79b6d387a6b9ca6ccd6a3425986c92aa89c",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 531,
+          "form": "",
+          "key": "lib-audino-n-0d9bc61555de"
+        },
+        "sha256": "f4a4d66633507fd3af5d2dcb515ce3bd43a2cd2ad61b0acb690b94640cb3976d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "audino",
+        "tool": "builtin-imagegen",
+        "source_sha256": "abb7c9bbbb1d119506d3341c30c7b79b6d387a6b9ca6ccd6a3425986c92aa89c",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 531,
+          "form": "",
+          "key": "lib-audino-n-0d9bc61555de"
+        },
+        "sha256": "f78d0fc1b1990bf46dd8c20152d1b6e4916b3a5ad69233f7c427faec5230a414"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "audino",
+          "tool": "builtin-imagegen",
+          "source_sha256": "abb7c9bbbb1d119506d3341c30c7b79b6d387a6b9ca6ccd6a3425986c92aa89c",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 531,
+            "form": "",
+            "key": "lib-audino-n-0d9bc61555de"
+          },
+          "sha256": "6d0378e0d285685639db1c764630a664e8778c2ab84973243b37898acffae472",
+          "palette_from": "lib-audino-s-cc8e152f682e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "audino",
+          "tool": "builtin-imagegen",
+          "source_sha256": "abb7c9bbbb1d119506d3341c30c7b79b6d387a6b9ca6ccd6a3425986c92aa89c",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 531,
+            "form": "",
+            "key": "lib-audino-n-0d9bc61555de"
+          },
+          "sha256": "dc255afeb0f3b54e025ed53a778b9f3f149797e58e325709bb693444db782592",
+          "palette_from": "lib-audino-s-cc8e152f682e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "audino",
+    "num": 531,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a transparent pixel-art game sprite atlas for Audino using the exact native form and colours in the reference. EXACTLY SIXTEEN complete sprites in FOUR columns and FOUR rows. Rows: front/SOUTH, right profile/EAST, back/NORTH with no face, left profile/WEST. Columns1\u20132 are two distinct expressive flinch poses (blink and bend/braced wince). Columns3\u20134 are lowering to rest and fully lying down; final column has body and head resting flat with eyes closed. Keep all characteristic body parts, tails, wings, markings and accessories. Draw new body and limb poses, consistent pixel scale, crisp original palette. Broad transparent gutters, no text, marks, symbols or scenery. This is a nonviolent game character animation.",
+    "source_image": "audino-compact-r5.png",
+    "source_sha256": "abb7c9bbbb1d119506d3341c30c7b79b6d387a6b9ca6ccd6a3425986c92aa89c",
+    "source_record": "audino-compact-r5.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

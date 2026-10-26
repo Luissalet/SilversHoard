@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "corviknightgmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b135df9d2fbc76c6a4d06e474739c7c3d08027570d266c9c0fc391a7848e0340",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 823,
+          "form": "Gmax",
+          "key": "lib-corviknightgmax-n-f04fed794d80"
+        },
+        "sha256": "c10744360599619f8cde52ddb1c2540cffd96c30e7d7b5aa95761d2774e3f6b9"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "corviknightgmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b135df9d2fbc76c6a4d06e474739c7c3d08027570d266c9c0fc391a7848e0340",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 823,
+          "form": "Gmax",
+          "key": "lib-corviknightgmax-n-f04fed794d80"
+        },
+        "sha256": "b9f50068b7e9afc4a401601958192529e94b5e2ab4f15da0d951efa76d7ef1b6"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "corviknightgmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b135df9d2fbc76c6a4d06e474739c7c3d08027570d266c9c0fc391a7848e0340",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 823,
+            "form": "Gmax",
+            "key": "lib-corviknightgmax-n-f04fed794d80"
+          },
+          "sha256": "118b7e90e87214d270ab39970ece321f53021c244dc039b935347fe4db946fb1",
+          "palette_from": "lib-corviknightgmax-s-0c442943f854"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "corviknightgmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b135df9d2fbc76c6a4d06e474739c7c3d08027570d266c9c0fc391a7848e0340",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 823,
+            "form": "Gmax",
+            "key": "lib-corviknightgmax-n-f04fed794d80"
+          },
+          "sha256": "a7a8e4f2c1a36cb80af57a201fa8fc8f2b803e079e7d0a559e1d32af80c24197",
+          "palette_from": "lib-corviknightgmax-s-0c442943f854"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "corviknightgmax",
+    "num": 823,
+    "form": "Gmax",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Corviknight-Gmax, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "corviknightgmax-cardinal.png",
+    "source_sha256": "b135df9d2fbc76c6a4d06e474739c7c3d08027570d266c9c0fc391a7848e0340",
+    "source_record": "corviknightgmax-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

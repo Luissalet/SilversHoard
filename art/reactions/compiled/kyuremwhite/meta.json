@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 144,
+      "h": 88,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 72.0,
+      "ay": 82,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "kyuremwhite",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7b09dcba1f75261d2a140604ed1e3fb66226786c115682e001b543cfc8a67162",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 646,
+          "form": "White",
+          "key": "lib-kyuremwhite-n-128a934a86f5"
+        },
+        "sha256": "01add99519cc86946a7cbd4ad058f91d0c6d103aa0b04fef184066983527cb12"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 144,
+      "h": 88,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 72.0,
+      "ay": 82,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "kyuremwhite",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7b09dcba1f75261d2a140604ed1e3fb66226786c115682e001b543cfc8a67162",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 646,
+          "form": "White",
+          "key": "lib-kyuremwhite-n-128a934a86f5"
+        },
+        "sha256": "40a31226459393713affa050c4ea5af0e4c67991b50ca9ebe028be7c14c53f2b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 144,
+        "h": 88,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 72.0,
+        "ay": 82,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "kyuremwhite",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7b09dcba1f75261d2a140604ed1e3fb66226786c115682e001b543cfc8a67162",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 646,
+            "form": "White",
+            "key": "lib-kyuremwhite-n-128a934a86f5"
+          },
+          "sha256": "ea1afbbd5f1ac81eb18aad7fdfd6cc067ff23e382334e5de72643e90aa6348e1",
+          "palette_from": "lib-kyuremwhite-s-694be0c32171"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 144,
+        "h": 88,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 72.0,
+        "ay": 82,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "kyuremwhite",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7b09dcba1f75261d2a140604ed1e3fb66226786c115682e001b543cfc8a67162",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 646,
+            "form": "White",
+            "key": "lib-kyuremwhite-n-128a934a86f5"
+          },
+          "sha256": "7ec5dfc3f1960ff0f7cc83c2a862aa4f6ae2e1aafab459cb2a641c4e1d246c4d",
+          "palette_from": "lib-kyuremwhite-s-694be0c32171"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "kyuremwhite",
+    "num": 646,
+    "form": "White",
+    "tool": "builtin-imagegen",
+    "prompt": "Mechanically pack the existing built-in generated v2 atlas, replacing only NORTH HitGround2-3 with the newly drawn north-prone-v2 strip frames2-3, uniformly registered with first prone width = 1.4 times existing NORTH standing width, allowing folded/splayed limbs while keeping both new frames at the same pixel scale. All other30 drawn poses are preserved; no repainting, rotating standing poses or nonuniform warping.",
+    "source_image": "kyuremwhite-assembled48.png",
+    "source_sha256": "7b09dcba1f75261d2a140604ed1e3fb66226786c115682e001b543cfc8a67162",
+    "source_record": "kyuremwhite-assembled48.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

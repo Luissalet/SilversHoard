@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dragonite",
+        "tool": "builtin-imagegen",
+        "source_sha256": "af1d5c54e91b9bca04ae9565080f1b5b0d98b3585c89191c208188eb5df64a78",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 149,
+          "form": "",
+          "key": "lib-dragonite-n-b2653ca4a008"
+        },
+        "sha256": "e89b7a2a28c2335fb017d6e67d4ed5c39db27837b10d3608083ddcbf9c81cf5e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dragonite",
+        "tool": "builtin-imagegen",
+        "source_sha256": "af1d5c54e91b9bca04ae9565080f1b5b0d98b3585c89191c208188eb5df64a78",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 149,
+          "form": "",
+          "key": "lib-dragonite-n-b2653ca4a008"
+        },
+        "sha256": "898228563946acb713a6502d2abca5a3a2b7408a986557fceb7e2c593afbe114"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dragonite",
+          "tool": "builtin-imagegen",
+          "source_sha256": "af1d5c54e91b9bca04ae9565080f1b5b0d98b3585c89191c208188eb5df64a78",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 149,
+            "form": "",
+            "key": "lib-dragonite-n-b2653ca4a008"
+          },
+          "sha256": "59be2ee3257ce8fca83fe9d9e2aa1617171a275a7890f7bea17562f4b20452e8",
+          "palette_from": "lib-dragonite-s-7c24afaac624"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dragonite",
+          "tool": "builtin-imagegen",
+          "source_sha256": "af1d5c54e91b9bca04ae9565080f1b5b0d98b3585c89191c208188eb5df64a78",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 149,
+            "form": "",
+            "key": "lib-dragonite-n-b2653ca4a008"
+          },
+          "sha256": "bb0a71f139c01dd9ec9fd929c8e73464caac76e96015ac049aef9c4fcc685cd5",
+          "palette_from": "lib-dragonite-s-7c24afaac624"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "dragonite",
+    "num": 149,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Dragonite, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "dragonite-retry-r4.png",
+    "source_sha256": "af1d5c54e91b9bca04ae9565080f1b5b0d98b3585c89191c208188eb5df64a78",
+    "source_record": "dragonite-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

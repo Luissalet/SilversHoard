@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "hattrem",
+        "tool": "builtin-imagegen",
+        "source_sha256": "2d0aa39cec40bdbe06b7464408ffac6a3bc02a8d9ce4935b71fdb4a750f6c490",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 857,
+          "form": "",
+          "key": "lib-hattrem-n-989fb4720414"
+        },
+        "sha256": "5652cc80520377dd4726048e278847cb8c16aee887fbd7f7384f3aa3eea45a2a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "hattrem",
+        "tool": "builtin-imagegen",
+        "source_sha256": "2d0aa39cec40bdbe06b7464408ffac6a3bc02a8d9ce4935b71fdb4a750f6c490",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 857,
+          "form": "",
+          "key": "lib-hattrem-n-989fb4720414"
+        },
+        "sha256": "707c8d27d24dadc5ebf9461b79477bb7e9c773e419ee25642cedce0b748cd26e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "hattrem",
+          "tool": "builtin-imagegen",
+          "source_sha256": "2d0aa39cec40bdbe06b7464408ffac6a3bc02a8d9ce4935b71fdb4a750f6c490",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 857,
+            "form": "",
+            "key": "lib-hattrem-n-989fb4720414"
+          },
+          "sha256": "43c0cd6665301a5ed4a68f1e2d99e9baa37cdbd8f9ff376f9506a9c5f75ca60d",
+          "palette_from": "lib-hattrem-s-66e0784fadf9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "hattrem",
+          "tool": "builtin-imagegen",
+          "source_sha256": "2d0aa39cec40bdbe06b7464408ffac6a3bc02a8d9ce4935b71fdb4a750f6c490",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 857,
+            "form": "",
+            "key": "lib-hattrem-n-989fb4720414"
+          },
+          "sha256": "856dd1429c20a6bb1ddee599aec39d5a62150e5ca08590fdb8eac6e69109c739",
+          "palette_from": "lib-hattrem-s-66e0784fadf9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "hattrem",
+    "num": 857,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Hattrem, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "hattrem-cardinal.png",
+    "source_sha256": "2d0aa39cec40bdbe06b7464408ffac6a3bc02a8d9ce4935b71fdb4a750f6c490",
+    "source_record": "hattrem-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

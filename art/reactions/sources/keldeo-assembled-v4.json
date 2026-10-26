@@ -1,0 +1,48 @@
+{
+  "id": "keldeo",
+  "name": "Keldeo",
+  "num": 647,
+  "form": "",
+  "directions": 4,
+  "frames": 4,
+  "image": "keldeo-assembled-v4.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Mechanically pack the existing built-in generated v2 atlas, replacing only NORTH HitGround2-3 with the newly drawn north-prone-v4 strip frames2-3, uniformly registered with first prone width = 1.4 times existing NORTH standing width, allowing folded/splayed limbs while keeping both new frames at the same pixel scale. All other30 drawn poses are preserved; no repainting, rotating standing poses or nonuniform warping.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "assembly_sources": [
+    {
+      "image": "keldeo-cardinal-v2.png",
+      "sha256": "7b7295328b2be28c7e583be0bfc5799c2b03ebc3799323327b5cf4a7178acc10"
+    },
+    {
+      "image": "keldeo-north-prone-v4.png",
+      "sha256": "f00392ce074dde7e8dceaf4886baca776689e065656e5fa16d8a0138b481d5f5"
+    }
+  ],
+  "assembly_recipe": {
+    "base": "keldeo-cardinal-v2.png",
+    "replace": [
+      {
+        "action": "HitGround",
+        "direction": 2,
+        "frames": [
+          2,
+          3
+        ],
+        "strip": "keldeo-north-prone-v4.png",
+        "strip_frames": [
+          0,
+          1
+        ]
+      }
+    ],
+    "strip_scale": 0.17572614107883816
+  },
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-corrections44.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

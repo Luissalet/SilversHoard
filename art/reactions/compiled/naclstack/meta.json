@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "naclstack",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6b983d67ac8f2316215fbdb230488e2e587595e68fa935c972ec1aa443c0d6be",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 933,
+          "form": "",
+          "key": "lib-naclstack-n-228c47708810"
+        },
+        "sha256": "2664ab446a3cdff882f1d4acc8dae3ef1ed386b675517f45307254c05fdfceb8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "naclstack",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6b983d67ac8f2316215fbdb230488e2e587595e68fa935c972ec1aa443c0d6be",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 933,
+          "form": "",
+          "key": "lib-naclstack-n-228c47708810"
+        },
+        "sha256": "097075e1492c3207f4e3f329defd6a55d7997900382d9603ac96df7dbaf37076"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "naclstack",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6b983d67ac8f2316215fbdb230488e2e587595e68fa935c972ec1aa443c0d6be",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 933,
+            "form": "",
+            "key": "lib-naclstack-n-228c47708810"
+          },
+          "sha256": "39c890e4ab2800bd8b63dd6922ea0b5892a7fdbee4ee6111d2c4c537f0b450ca",
+          "palette_from": "lib-naclstack-s-61cf508ae7a7"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "naclstack",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6b983d67ac8f2316215fbdb230488e2e587595e68fa935c972ec1aa443c0d6be",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 933,
+            "form": "",
+            "key": "lib-naclstack-n-228c47708810"
+          },
+          "sha256": "e385a1454d4d8b58f7aea61cd61c069233ef0379b91c92461fb8d38ccd99e9ca",
+          "palette_from": "lib-naclstack-s-61cf508ae7a7"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "naclstack",
+    "num": 933,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Naclstack, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "naclstack-cardinal.png",
+    "source_sha256": "6b983d67ac8f2316215fbdb230488e2e587595e68fa935c972ec1aa443c0d6be",
+    "source_record": "naclstack-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dudunsparcethreesegment",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0658c13e2075ba19a9d2f40dc1002287fdc4a26bcd3636a4acd766655c11dac1",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 982,
+          "form": "Three-Segment",
+          "key": "lib-dudunsparcethreesegment-n-40c4f113e1c9"
+        },
+        "sha256": "715933bdcbb6bdf28894797ced4c7edb7fff8710885340ceba2f897d7d4c425a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dudunsparcethreesegment",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0658c13e2075ba19a9d2f40dc1002287fdc4a26bcd3636a4acd766655c11dac1",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 982,
+          "form": "Three-Segment",
+          "key": "lib-dudunsparcethreesegment-n-40c4f113e1c9"
+        },
+        "sha256": "cddaa747864fa4f242c0abac70368af1fa41fc3cee3524db3da444cfec584dae"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dudunsparcethreesegment",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0658c13e2075ba19a9d2f40dc1002287fdc4a26bcd3636a4acd766655c11dac1",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 982,
+            "form": "Three-Segment",
+            "key": "lib-dudunsparcethreesegment-n-40c4f113e1c9"
+          },
+          "sha256": "495c906e9766b8b763d2778d8fded61860da556a51ed8639da06d9198eea668a",
+          "palette_from": "lib-dudunsparcethreesegment-s-b82d7c21d1cf"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dudunsparcethreesegment",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0658c13e2075ba19a9d2f40dc1002287fdc4a26bcd3636a4acd766655c11dac1",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 982,
+            "form": "Three-Segment",
+            "key": "lib-dudunsparcethreesegment-n-40c4f113e1c9"
+          },
+          "sha256": "0f8d8b9fc913ead804c9d24e138ad96031012ef2edccadbd227580cf1933419d",
+          "palette_from": "lib-dudunsparcethreesegment-s-b82d7c21d1cf"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "dudunsparcethreesegment",
+    "num": 982,
+    "form": "Three-Segment",
+    "tool": "builtin-imagegen",
+    "prompt": "Mechanically pack the existing built-in drawn atlas with only the explicitly listed corrected cells from correction44. Other original cells preserved as raw pixels. New source uniformly registered by original NORTH Pain0 height so the importer global first-pose maximum stays identical and all24 other cells remain pixel exact. No repainting or warping. Both source PNGs and generation prompt retained.",
+    "source_image": "dudunsparcethreesegment-assembled46-v3.png",
+    "source_sha256": "0658c13e2075ba19a9d2f40dc1002287fdc4a26bcd3636a4acd766655c11dac1",
+    "source_record": "dudunsparcethreesegment-assembled46-v3.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

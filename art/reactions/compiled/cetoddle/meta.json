@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "cetoddle",
+        "tool": "builtin-imagegen",
+        "source_sha256": "64364883713f9a4bd676cf3bea82476dbdc31f1e1a3e90797a4cc987ffeed442",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 974,
+          "form": "",
+          "key": "lib-cetoddle-n-f317e94b2d94"
+        },
+        "sha256": "b2adfa83e48c49d8359cf39f8fd3ebf576149062044f6db3a93dcf8cec08da85"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "cetoddle",
+        "tool": "builtin-imagegen",
+        "source_sha256": "64364883713f9a4bd676cf3bea82476dbdc31f1e1a3e90797a4cc987ffeed442",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 974,
+          "form": "",
+          "key": "lib-cetoddle-n-f317e94b2d94"
+        },
+        "sha256": "ca94b94dda06c3405b9873e4482cf1f869d16d3d1db675ecebc73625edb1b5d1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "cetoddle",
+          "tool": "builtin-imagegen",
+          "source_sha256": "64364883713f9a4bd676cf3bea82476dbdc31f1e1a3e90797a4cc987ffeed442",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 974,
+            "form": "",
+            "key": "lib-cetoddle-n-f317e94b2d94"
+          },
+          "sha256": "c7587abd34846cd57544fb19fccba0c3e18fc058aa355f22118576af7319e87d",
+          "palette_from": "lib-cetoddle-s-db4540e8c01a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "cetoddle",
+          "tool": "builtin-imagegen",
+          "source_sha256": "64364883713f9a4bd676cf3bea82476dbdc31f1e1a3e90797a4cc987ffeed442",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 974,
+            "form": "",
+            "key": "lib-cetoddle-n-f317e94b2d94"
+          },
+          "sha256": "5076458c30be9d8d00dae09c61f9829a35b7a6517576818e45d14a0a5fe4ef5e",
+          "palette_from": "lib-cetoddle-s-db4540e8c01a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "cetoddle",
+    "num": 974,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Cetoddle, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "cetoddle-retry-r4.png",
+    "source_sha256": "64364883713f9a4bd676cf3bea82476dbdc31f1e1a3e90797a4cc987ffeed442",
+    "source_record": "cetoddle-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

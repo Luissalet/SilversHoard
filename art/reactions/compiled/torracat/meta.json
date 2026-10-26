@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "torracat",
+        "tool": "builtin-imagegen",
+        "source_sha256": "dd053c52a5f1a06c21c6051032ce2ac62fb9be47ae4ac1a2175aab107a533a94",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 726,
+          "form": "",
+          "key": "lib-torracat-n-0586ed4907b9"
+        },
+        "sha256": "4f8070e60fcca70c4b0af7318c8dbd08990e98cbf1008d441aae72c0b91a0fe1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "torracat",
+        "tool": "builtin-imagegen",
+        "source_sha256": "dd053c52a5f1a06c21c6051032ce2ac62fb9be47ae4ac1a2175aab107a533a94",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 726,
+          "form": "",
+          "key": "lib-torracat-n-0586ed4907b9"
+        },
+        "sha256": "2a46c89e84d3353c76fda0afedc4826504be69e539a6a9545c2e392c91fd3ba3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "torracat",
+          "tool": "builtin-imagegen",
+          "source_sha256": "dd053c52a5f1a06c21c6051032ce2ac62fb9be47ae4ac1a2175aab107a533a94",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 726,
+            "form": "",
+            "key": "lib-torracat-n-0586ed4907b9"
+          },
+          "sha256": "bcfbc5cb6e2b0b31a2a74022996b95b1c4a135dc98019bd44d5e0860b02220ad",
+          "palette_from": "lib-torracat-s-05209c76a2fa"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "torracat",
+          "tool": "builtin-imagegen",
+          "source_sha256": "dd053c52a5f1a06c21c6051032ce2ac62fb9be47ae4ac1a2175aab107a533a94",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 726,
+            "form": "",
+            "key": "lib-torracat-n-0586ed4907b9"
+          },
+          "sha256": "f840f9494e728411734f3f860b825e1311cb869518abd7c661187be6697507e9",
+          "palette_from": "lib-torracat-s-05209c76a2fa"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "torracat",
+    "num": 726,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Torracat, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "torracat-retry-r4.png",
+    "source_sha256": "dd053c52a5f1a06c21c6051032ce2ac62fb9be47ae4ac1a2175aab107a533a94",
+    "source_record": "torracat-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

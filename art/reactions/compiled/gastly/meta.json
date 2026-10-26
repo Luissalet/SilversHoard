@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "gastly",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f6ed96f92a60fcc62e5cb49fe85acf5d0994a8d942810bb8a58a3f48c5618e8f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 92,
+          "form": "",
+          "key": "lib-gastly-n-f66b3c857451"
+        },
+        "sha256": "4f41253bd98526ad4f72920c5ba4d13baabdcb14f9b203214b640cf18d9991ec"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "gastly",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f6ed96f92a60fcc62e5cb49fe85acf5d0994a8d942810bb8a58a3f48c5618e8f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 92,
+          "form": "",
+          "key": "lib-gastly-n-f66b3c857451"
+        },
+        "sha256": "de46fa3452ae21f0fbfd70f53a843ba7e5e7687ab26c4520f66792770e40f5b6"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "gastly",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f6ed96f92a60fcc62e5cb49fe85acf5d0994a8d942810bb8a58a3f48c5618e8f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 92,
+            "form": "",
+            "key": "lib-gastly-n-f66b3c857451"
+          },
+          "sha256": "2143e0e9314f4e5b3245c87cb0119e6a8d490f15e9e96bc7ff64cf760efeaedb",
+          "palette_from": "lib-gastly-s-c97d197273e1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "gastly",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f6ed96f92a60fcc62e5cb49fe85acf5d0994a8d942810bb8a58a3f48c5618e8f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 92,
+            "form": "",
+            "key": "lib-gastly-n-f66b3c857451"
+          },
+          "sha256": "6f5bf4acd395499254e083b64f2ca11395b38b95bd9350c4d81fa4573b77bc65",
+          "palette_from": "lib-gastly-s-c97d197273e1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "gastly",
+    "num": 92,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Gastly, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "gastly-retry-r4.png",
+    "source_sha256": "f6ed96f92a60fcc62e5cb49fe85acf5d0994a8d942810bb8a58a3f48c5618e8f",
+    "source_record": "gastly-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "capsakid",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e5975792a8b91548e7e53a584e82a44b857afa20a9341e7f6f1f6383c97f9608",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 951,
+          "form": "",
+          "key": "lib-capsakid-n-bc2142530917"
+        },
+        "sha256": "0f66dc1ef08845ebc015a3ac508ef853381e9c27336e13f53e13059b1cc18575"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "capsakid",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e5975792a8b91548e7e53a584e82a44b857afa20a9341e7f6f1f6383c97f9608",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 951,
+          "form": "",
+          "key": "lib-capsakid-n-bc2142530917"
+        },
+        "sha256": "fe69a43b2d7401364a6c45dbdaf7a93fcacf74077d635d644a60e8bf6f8e8b58"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "capsakid",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e5975792a8b91548e7e53a584e82a44b857afa20a9341e7f6f1f6383c97f9608",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 951,
+            "form": "",
+            "key": "lib-capsakid-n-bc2142530917"
+          },
+          "sha256": "c35bf9a28c098c2e20c498625cc5bcbd5fa47ed04e8af588620bcf50a76a0f5d",
+          "palette_from": "lib-capsakid-s-5f6942fa9e0b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "capsakid",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e5975792a8b91548e7e53a584e82a44b857afa20a9341e7f6f1f6383c97f9608",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 951,
+            "form": "",
+            "key": "lib-capsakid-n-bc2142530917"
+          },
+          "sha256": "cf6583f8d08e7eb5b0ca9cd32238b2e424fb77dca4f8a4cc2f93b245978062c9",
+          "palette_from": "lib-capsakid-s-5f6942fa9e0b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "capsakid",
+    "num": 951,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Capsakid, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "capsakid-cardinal.png",
+    "source_sha256": "e5975792a8b91548e7e53a584e82a44b857afa20a9341e7f6f1f6383c97f9608",
+    "source_record": "capsakid-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

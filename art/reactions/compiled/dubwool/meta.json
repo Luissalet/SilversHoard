@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dubwool",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6b3e9e2686fecb0aa0d2eb3e7f8c19f8a101ebe3c73f09b41cc882e641a269e8",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 832,
+          "form": "",
+          "key": "lib-dubwool-n-57a00d1f17b9"
+        },
+        "sha256": "d379989f0a4b6fcac139414470adf21afe2e7028898f4dfa5d0fb7cd49a64d6d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dubwool",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6b3e9e2686fecb0aa0d2eb3e7f8c19f8a101ebe3c73f09b41cc882e641a269e8",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 832,
+          "form": "",
+          "key": "lib-dubwool-n-57a00d1f17b9"
+        },
+        "sha256": "e1d74b1a285bf9a8bc28f103f8e367e5b88e36ae49a9c6cfa2e20af74cd2f498"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dubwool",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6b3e9e2686fecb0aa0d2eb3e7f8c19f8a101ebe3c73f09b41cc882e641a269e8",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 832,
+            "form": "",
+            "key": "lib-dubwool-n-57a00d1f17b9"
+          },
+          "sha256": "17b87661d09a2bc3e3b4d761fa6a6a14a7c8e31133069198ccdf538e5dbf4749",
+          "palette_from": "lib-dubwool-s-a4fd2f49981c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dubwool",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6b3e9e2686fecb0aa0d2eb3e7f8c19f8a101ebe3c73f09b41cc882e641a269e8",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 832,
+            "form": "",
+            "key": "lib-dubwool-n-57a00d1f17b9"
+          },
+          "sha256": "cdb9853bff01ab9a6954029ea555e9b114b9215f27364e71aa9e1ece220ef086",
+          "palette_from": "lib-dubwool-s-a4fd2f49981c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "dubwool",
+    "num": 832,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Dubwool, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "dubwool-cardinal.png",
+    "source_sha256": "6b3e9e2686fecb0aa0d2eb3e7f8c19f8a101ebe3c73f09b41cc882e641a269e8",
+    "source_record": "dubwool-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

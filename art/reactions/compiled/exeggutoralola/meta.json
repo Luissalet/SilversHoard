@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 80,
+      "h": 72,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 40.0,
+      "ay": 66,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "exeggutoralola",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0b1c728ba777a230acea43d47999ac2abd2af71c958e0c8424592466d364046c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 103,
+          "form": "Alola",
+          "key": "lib-exeggutoralola-n-e41daef3307e"
+        },
+        "sha256": "3013e2501a91707a883aa02fc3d12408970af9877e8a330c89bb8494cee09d0b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 80,
+      "h": 72,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 40.0,
+      "ay": 66,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "exeggutoralola",
+        "tool": "builtin-imagegen",
+        "source_sha256": "0b1c728ba777a230acea43d47999ac2abd2af71c958e0c8424592466d364046c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 103,
+          "form": "Alola",
+          "key": "lib-exeggutoralola-n-e41daef3307e"
+        },
+        "sha256": "3442d450e2b564abf6cfd869627a8893cbd6ea32808db0a79979e4f3c110b692"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 80,
+        "h": 72,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 40.0,
+        "ay": 66,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "exeggutoralola",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0b1c728ba777a230acea43d47999ac2abd2af71c958e0c8424592466d364046c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 103,
+            "form": "Alola",
+            "key": "lib-exeggutoralola-n-e41daef3307e"
+          },
+          "sha256": "256b15cf15c960d4b56b816fa34f8b8008ee7d6d426db7066945a7dc2b1420e3",
+          "palette_from": "lib-exeggutoralola-s-ab3b61c963a5"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 80,
+        "h": 72,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 40.0,
+        "ay": 66,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "exeggutoralola",
+          "tool": "builtin-imagegen",
+          "source_sha256": "0b1c728ba777a230acea43d47999ac2abd2af71c958e0c8424592466d364046c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 103,
+            "form": "Alola",
+            "key": "lib-exeggutoralola-n-e41daef3307e"
+          },
+          "sha256": "fc74bcd3959d5a283130a12d774cc587f5c584afbef4b7932efda1e46253d220",
+          "palette_from": "lib-exeggutoralola-s-ab3b61c963a5"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "exeggutoralola",
+    "num": 103,
+    "form": "Alola",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Exeggutor-Alola, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "exeggutoralola-retry-r4.png",
+    "source_sha256": "0b1c728ba777a230acea43d47999ac2abd2af71c958e0c8424592466d364046c",
+    "source_record": "exeggutoralola-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

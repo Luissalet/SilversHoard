@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "diggersby",
+        "tool": "builtin-imagegen",
+        "source_sha256": "db1d116fbcfde730c13c821c10992074e39d0b54f58268cf259431c5d5585be6",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 660,
+          "form": "",
+          "key": "lib-diggersby-n-ca10c1adf589"
+        },
+        "sha256": "88bc2568237a2fa11531768cd7f3dcc88a20a479fdcd1711998e6c81dbda0a57"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "diggersby",
+        "tool": "builtin-imagegen",
+        "source_sha256": "db1d116fbcfde730c13c821c10992074e39d0b54f58268cf259431c5d5585be6",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 660,
+          "form": "",
+          "key": "lib-diggersby-n-ca10c1adf589"
+        },
+        "sha256": "e8042db1ef13aa348aad230f6081dab3ba4cc12936224f1ef970f96fa3106304"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "diggersby",
+          "tool": "builtin-imagegen",
+          "source_sha256": "db1d116fbcfde730c13c821c10992074e39d0b54f58268cf259431c5d5585be6",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 660,
+            "form": "",
+            "key": "lib-diggersby-n-ca10c1adf589"
+          },
+          "sha256": "e3582e40e4a12c7420fc56144d61f06f9874c45def448c361bae1d56d0a08c3e",
+          "palette_from": "lib-diggersby-s-fbb24dd5ab68"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "diggersby",
+          "tool": "builtin-imagegen",
+          "source_sha256": "db1d116fbcfde730c13c821c10992074e39d0b54f58268cf259431c5d5585be6",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 660,
+            "form": "",
+            "key": "lib-diggersby-n-ca10c1adf589"
+          },
+          "sha256": "307dab3bf22072a3b3ac0498a98594fbf644938f2444efa5229a45bb2c1d1d93",
+          "palette_from": "lib-diggersby-s-fbb24dd5ab68"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "diggersby",
+    "num": 660,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Diggersby, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "diggersby-retry-r4.png",
+    "source_sha256": "db1d116fbcfde730c13c821c10992074e39d0b54f58268cf259431c5d5585be6",
+    "source_record": "diggersby-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

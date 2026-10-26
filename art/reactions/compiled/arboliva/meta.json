@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "arboliva",
+        "tool": "builtin-imagegen",
+        "source_sha256": "cdb0fdd8e60d7aa8c6d87bb30bb7504a51896e39f6933e06cc3430eda8966cc6",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 930,
+          "form": "",
+          "key": "lib-arboliva-n-072c44b2c227"
+        },
+        "sha256": "44730cf9c5209de18c32ed7d8936281b1232ff6bf32089d4f02f6517a4d87023"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "arboliva",
+        "tool": "builtin-imagegen",
+        "source_sha256": "cdb0fdd8e60d7aa8c6d87bb30bb7504a51896e39f6933e06cc3430eda8966cc6",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 930,
+          "form": "",
+          "key": "lib-arboliva-n-072c44b2c227"
+        },
+        "sha256": "06ce192dd32b2bcd6a4535b85289fa5365aca274022b1c0b720a1df407391402"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "arboliva",
+          "tool": "builtin-imagegen",
+          "source_sha256": "cdb0fdd8e60d7aa8c6d87bb30bb7504a51896e39f6933e06cc3430eda8966cc6",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 930,
+            "form": "",
+            "key": "lib-arboliva-n-072c44b2c227"
+          },
+          "sha256": "70c37b7a662b511b00e32aebc9742ba9028d69f1c562a9e6fe26b030905ebc36",
+          "palette_from": "lib-arboliva-s-b80f9db89b60"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "arboliva",
+          "tool": "builtin-imagegen",
+          "source_sha256": "cdb0fdd8e60d7aa8c6d87bb30bb7504a51896e39f6933e06cc3430eda8966cc6",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 930,
+            "form": "",
+            "key": "lib-arboliva-n-072c44b2c227"
+          },
+          "sha256": "e435372712999a44ce011463843356eef188af6ba2b7811e5fa3759e552e4d10",
+          "palette_from": "lib-arboliva-s-b80f9db89b60"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "arboliva",
+    "num": 930,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Arboliva, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "arboliva-retry-r4.png",
+    "source_sha256": "cdb0fdd8e60d7aa8c6d87bb30bb7504a51896e39f6933e06cc3430eda8966cc6",
+    "source_record": "arboliva-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

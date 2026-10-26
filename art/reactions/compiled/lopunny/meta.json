@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "lopunny",
+        "tool": "builtin-imagegen",
+        "source_sha256": "611848217786992af5abdff7c380412dedfab225c58d5888effb31bb9b279256",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 428,
+          "form": "",
+          "key": "lib-lopunny-n-4cf0567b6ef2"
+        },
+        "sha256": "d357e0d08b45a715573bf4dd8d80ba877a787be242d33baa6a1bdebd3b4fc04b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "lopunny",
+        "tool": "builtin-imagegen",
+        "source_sha256": "611848217786992af5abdff7c380412dedfab225c58d5888effb31bb9b279256",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 428,
+          "form": "",
+          "key": "lib-lopunny-n-4cf0567b6ef2"
+        },
+        "sha256": "b73da8efefc15d0559c3543503caf4e76b13b32d847453c8331aef351cd064bb"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "lopunny",
+          "tool": "builtin-imagegen",
+          "source_sha256": "611848217786992af5abdff7c380412dedfab225c58d5888effb31bb9b279256",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 428,
+            "form": "",
+            "key": "lib-lopunny-n-4cf0567b6ef2"
+          },
+          "sha256": "3cc5d4e4571baca11d6eda594ec4bd4b92702275f9389fff51bbf6971d37c773",
+          "palette_from": "lib-lopunny-s-e2e0f87d2400"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "lopunny",
+          "tool": "builtin-imagegen",
+          "source_sha256": "611848217786992af5abdff7c380412dedfab225c58d5888effb31bb9b279256",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 428,
+            "form": "",
+            "key": "lib-lopunny-n-4cf0567b6ef2"
+          },
+          "sha256": "947bc64ac2e33e35bc3e9b79031f854326898b75841a2ce7b772ae6cca6b2564",
+          "palette_from": "lib-lopunny-s-e2e0f87d2400"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "lopunny",
+    "num": 428,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Lopunny, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "lopunny-retry-r4.png",
+    "source_sha256": "611848217786992af5abdff7c380412dedfab225c58d5888effb31bb9b279256",
+    "source_record": "lopunny-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

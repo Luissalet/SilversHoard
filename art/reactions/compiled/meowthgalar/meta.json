@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "meowthgalar",
+        "tool": "builtin-imagegen",
+        "source_sha256": "642dc4288dddff591108c4122b6c972f7cc929f5f06e22fba894da4dde53c489",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 52,
+          "form": "Galar",
+          "key": "lib-meowthgalar-n-eb086da28e42"
+        },
+        "sha256": "11d7ffa7209236e9800f246a2e6f75f0097b0a9be4cbf185c9d902f6af5932ad"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "meowthgalar",
+        "tool": "builtin-imagegen",
+        "source_sha256": "642dc4288dddff591108c4122b6c972f7cc929f5f06e22fba894da4dde53c489",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 52,
+          "form": "Galar",
+          "key": "lib-meowthgalar-n-eb086da28e42"
+        },
+        "sha256": "15cf2209968f23e359de82b99d0d8ef42e2cbee2975e27cf7028ca17d0689254"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "meowthgalar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "642dc4288dddff591108c4122b6c972f7cc929f5f06e22fba894da4dde53c489",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 52,
+            "form": "Galar",
+            "key": "lib-meowthgalar-n-eb086da28e42"
+          },
+          "sha256": "cd92179bc1d3d8a8c28a6ef11f95e6b7ff32f9b56247e3d94694cfd494b0595d",
+          "palette_from": "lib-meowthgalar-s-cfd5718116ce"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "meowthgalar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "642dc4288dddff591108c4122b6c972f7cc929f5f06e22fba894da4dde53c489",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 52,
+            "form": "Galar",
+            "key": "lib-meowthgalar-n-eb086da28e42"
+          },
+          "sha256": "2128e8b9f828722c5d8c07a138b2ee1d99f3c6cf206d60819720ea1b1a4f144f",
+          "palette_from": "lib-meowthgalar-s-cfd5718116ce"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "meowthgalar",
+    "num": 52,
+    "form": "Galar",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a transparent pixel-art game sprite atlas for Meowth-Galar using the exact native form and colours in the reference. EXACTLY SIXTEEN complete sprites in FOUR columns and FOUR rows. Rows: front/SOUTH, right profile/EAST, back/NORTH with no face, left profile/WEST. Columns1\u20132 are two distinct expressive flinch poses (blink and bend/braced wince). Columns3\u20134 are lowering to rest and fully lying down; final column has body and head resting flat with eyes closed. Keep all characteristic body parts, tails, wings, markings and accessories. Draw new body and limb poses, consistent pixel scale, crisp original palette. Broad transparent gutters, no text, marks, symbols or scenery. This is a nonviolent game character animation.",
+    "source_image": "meowthgalar-compact-r5.png",
+    "source_sha256": "642dc4288dddff591108c4122b6c972f7cc929f5f06e22fba894da4dde53c489",
+    "source_record": "meowthgalar-compact-r5.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

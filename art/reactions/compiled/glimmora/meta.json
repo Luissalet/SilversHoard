@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "glimmora",
+        "tool": "builtin-imagegen",
+        "source_sha256": "87c3ddbcc32b26af4d504d1067a01de3906cfbb05678d36c971131cf6eb04173",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 970,
+          "form": "",
+          "key": "lib-glimmora-n-8f98ab6103e7"
+        },
+        "sha256": "7fffe2c6da7674b6edf822c97509dd008056dcd9f2939920d4877d70a2f26a5f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "glimmora",
+        "tool": "builtin-imagegen",
+        "source_sha256": "87c3ddbcc32b26af4d504d1067a01de3906cfbb05678d36c971131cf6eb04173",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 970,
+          "form": "",
+          "key": "lib-glimmora-n-8f98ab6103e7"
+        },
+        "sha256": "52ffb29e07af66ff3ff217dfaac37f5b1ca01254f7f5e625dbfe3dce6ae69e4c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "glimmora",
+          "tool": "builtin-imagegen",
+          "source_sha256": "87c3ddbcc32b26af4d504d1067a01de3906cfbb05678d36c971131cf6eb04173",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 970,
+            "form": "",
+            "key": "lib-glimmora-n-8f98ab6103e7"
+          },
+          "sha256": "e7c0bd230b7a4ed1090366da46c56e5b1130fefe4995931c9c613d02ad43696a",
+          "palette_from": "lib-glimmora-s-4a0f1de5e29f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "glimmora",
+          "tool": "builtin-imagegen",
+          "source_sha256": "87c3ddbcc32b26af4d504d1067a01de3906cfbb05678d36c971131cf6eb04173",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 970,
+            "form": "",
+            "key": "lib-glimmora-n-8f98ab6103e7"
+          },
+          "sha256": "9fa4a6253604a2215ab9bd4febcc1414964ed55a82cff7a4d69bb8776fb4b0a1",
+          "palette_from": "lib-glimmora-s-4a0f1de5e29f"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "glimmora",
+    "num": 970,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Glimmora, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "glimmora-cardinal.png",
+    "source_sha256": "87c3ddbcc32b26af4d504d1067a01de3906cfbb05678d36c971131cf6eb04173",
+    "source_record": "glimmora-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

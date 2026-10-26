@@ -1,0 +1,118 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "urshifurapidstrikegmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "c1e3f9d70bee04891296230c93958b2a67240dbff79a0d3ca84dcdf57aea7669",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 892,
+          "form": "Rapid-Strike-Gmax",
+          "key": "lib-urshifurapidstrikegmax-n-56be14b75682"
+        },
+        "sha256": "45ec2fa4c4161b8274d3cc1a3eec1c716d6efe75c1148580cd271d8bf0c67ba2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "urshifurapidstrikegmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "c1e3f9d70bee04891296230c93958b2a67240dbff79a0d3ca84dcdf57aea7669",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 892,
+          "form": "Rapid-Strike-Gmax",
+          "key": "lib-urshifurapidstrikegmax-n-56be14b75682"
+        },
+        "sha256": "f563268b567461b286e8ac88cf1b509897b492c01ea6fd9e5f072098c3155b94"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {}
+  },
+  "pending": [
+    "shiny"
+  ],
+  "provenance": {
+    "id": "urshifurapidstrikegmax",
+    "num": 892,
+    "form": "Rapid-Strike-Gmax",
+    "tool": "builtin-imagegen",
+    "prompt": "Mechanically pack the existing built-in generated v2 atlas, replacing only NORTH HitGround2-3 with the newly drawn north-prone-v2 strip frames2-3, uniformly registered with first prone width = 1.4 times existing NORTH standing width, allowing folded/splayed limbs while keeping both new frames at the same pixel scale. All other30 drawn poses are preserved; no repainting, rotating standing poses or nonuniform warping.",
+    "source_image": "urshifurapidstrikegmax-assembled48.png",
+    "source_sha256": "c1e3f9d70bee04891296230c93958b2a67240dbff79a0d3ca84dcdf57aea7669",
+    "source_record": "urshifurapidstrikegmax-assembled48.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": false
+}

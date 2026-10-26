@@ -1,0 +1,52 @@
+{
+  "id": "grimmsnarlgmax",
+  "name": "Grimmsnarl-Gmax",
+  "num": 861,
+  "form": "Gmax",
+  "directions": 4,
+  "frames": 4,
+  "image": "grimmsnarlgmax-assembled46.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Mechanically pack the existing built-in drawn atlas with only the explicitly listed corrected cells from correction44. Other original cells preserved as raw pixels. New source uniformly registered by unchanged SOUTH Pain0 height. No repainting or warping. Both source PNGs and generation prompt retained.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": false,
+  "assembly_sources": [
+    {
+      "image": "grimmsnarlgmax-cardinal.png",
+      "sha256": "0d2f1dcb57339ce060b6084335e2975668c7a070444c6eeea6adc949e0bd45fc"
+    },
+    {
+      "image": "grimmsnarlgmax-correction44.png",
+      "sha256": "fa176d8162a7e987015fce82a33d75f82198293163dd2c09856b809514596cf9"
+    }
+  ],
+  "assembly_recipe": {
+    "base": "grimmsnarlgmax-cardinal.png",
+    "edited": "grimmsnarlgmax-correction44.png",
+    "replace_row_col": [
+      [
+        2,
+        4
+      ],
+      [
+        2,
+        5
+      ],
+      [
+        2,
+        6
+      ],
+      [
+        2,
+        7
+      ]
+    ],
+    "uniform_scale": 1.1047120418848169
+  },
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-corrections46.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

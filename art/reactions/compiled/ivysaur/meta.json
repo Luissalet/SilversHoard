@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ivysaur",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ca58c372b3ec8a9455640e0eb7823cd850771e8ce11f9c7e960a8b262537e535",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 2,
+          "form": "",
+          "key": "lib-ivysaur-n-3ad1dd8b7928"
+        },
+        "sha256": "8bc9a26a1e1d737037a05e57c4b32f96ac82bd0eeb7932de439fcc04f1b4897f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ivysaur",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ca58c372b3ec8a9455640e0eb7823cd850771e8ce11f9c7e960a8b262537e535",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 2,
+          "form": "",
+          "key": "lib-ivysaur-n-3ad1dd8b7928"
+        },
+        "sha256": "d53642cbd0a201c37dcdfe85b25e06fa459c6505611a3dfd5b3b45e637cb4068"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ivysaur",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ca58c372b3ec8a9455640e0eb7823cd850771e8ce11f9c7e960a8b262537e535",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 2,
+            "form": "",
+            "key": "lib-ivysaur-n-3ad1dd8b7928"
+          },
+          "sha256": "0d20985863a314e7e897a9ca4ce3681a3eb4c4d222404e76fd8ee2ca6db36c38",
+          "palette_from": "lib-ivysaur-s-1c48a949241a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ivysaur",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ca58c372b3ec8a9455640e0eb7823cd850771e8ce11f9c7e960a8b262537e535",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 2,
+            "form": "",
+            "key": "lib-ivysaur-n-3ad1dd8b7928"
+          },
+          "sha256": "13641af0a88895456abda73f88c0b32b38c0436a9262eaf208029b7160c976b0",
+          "palette_from": "lib-ivysaur-s-1c48a949241a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "ivysaur",
+    "num": 2,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a transparent pixel-art game sprite atlas for Ivysaur using the exact native form and colours in the reference. EXACTLY SIXTEEN complete sprites in FOUR columns and FOUR rows. Rows: front/SOUTH, right profile/EAST, back/NORTH with no face, left profile/WEST. Columns1\u20132 are two distinct expressive flinch poses (blink and bend/braced wince). Columns3\u20134 are lowering to rest and fully lying down; final column has body and head resting flat with eyes closed. Keep all characteristic body parts, tails, wings, markings and accessories. Draw new body and limb poses, consistent pixel scale, crisp original palette. Broad transparent gutters, no text, marks, symbols or scenery. This is a nonviolent game character animation.",
+    "source_image": "ivysaur-compact-r5.png",
+    "source_sha256": "ca58c372b3ec8a9455640e0eb7823cd850771e8ce11f9c7e960a8b262537e535",
+    "source_record": "ivysaur-compact-r5.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

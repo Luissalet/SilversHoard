@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "heracrossmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "30951f081a53da27b9c08a1d1ef147e7a6a8f0852383570aeb5f3f218842ba2b",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 214,
+          "form": "Mega",
+          "key": "lib-heracrossmega-n-214be0b3a7e0"
+        },
+        "sha256": "483a0374f447ba74ed432054f7231ab544b7d701958654b87ccbe353c4b5974f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "heracrossmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "30951f081a53da27b9c08a1d1ef147e7a6a8f0852383570aeb5f3f218842ba2b",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 214,
+          "form": "Mega",
+          "key": "lib-heracrossmega-n-214be0b3a7e0"
+        },
+        "sha256": "4fb8b3616058a3f6a95d87cd8caf3641e8e8a263a6530e139364536f0b99dcb9"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "heracrossmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "30951f081a53da27b9c08a1d1ef147e7a6a8f0852383570aeb5f3f218842ba2b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 214,
+            "form": "Mega",
+            "key": "lib-heracrossmega-n-214be0b3a7e0"
+          },
+          "sha256": "8640a3ce4a30f9b5aef2050de3eeb2b8cc6351cf1995416ea2e72585b0cccd53",
+          "palette_from": "lib-heracrossmega-s-5389b8950e23"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "heracrossmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "30951f081a53da27b9c08a1d1ef147e7a6a8f0852383570aeb5f3f218842ba2b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 214,
+            "form": "Mega",
+            "key": "lib-heracrossmega-n-214be0b3a7e0"
+          },
+          "sha256": "8dc398cb75d921a4f49a48d1f3aeb86afe5704f74d545012268e6f32ef827f87",
+          "palette_from": "lib-heracrossmega-s-5389b8950e23"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "heracrossmega",
+    "num": 214,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Heracross-Mega, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "heracrossmega-retry-r4.png",
+    "source_sha256": "30951f081a53da27b9c08a1d1ef147e7a6a8f0852383570aeb5f3f218842ba2b",
+    "source_record": "heracrossmega-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "maractus",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d7402774986b62ec7310a879ab457dd74c14baa0b3696f8d8f2bf5cfe89bd8c8",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 556,
+          "form": "",
+          "key": "lib-maractus-n-655fe60a3915"
+        },
+        "sha256": "68eb6e8b0d644b1924a32941defd3aa3110180eb95d376e1ccc49074f757952d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "maractus",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d7402774986b62ec7310a879ab457dd74c14baa0b3696f8d8f2bf5cfe89bd8c8",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 556,
+          "form": "",
+          "key": "lib-maractus-n-655fe60a3915"
+        },
+        "sha256": "ff37dd4e865b07b76e710c8dd4684c468174c67d29e1cbc1eea662604f17ade5"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "maractus",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d7402774986b62ec7310a879ab457dd74c14baa0b3696f8d8f2bf5cfe89bd8c8",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 556,
+            "form": "",
+            "key": "lib-maractus-n-655fe60a3915"
+          },
+          "sha256": "d78715983148452d3b19cc6274dd4f636b4c54f44225baec6f37e654211e115d",
+          "palette_from": "lib-maractus-s-b15b29482bfe"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "maractus",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d7402774986b62ec7310a879ab457dd74c14baa0b3696f8d8f2bf5cfe89bd8c8",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 556,
+            "form": "",
+            "key": "lib-maractus-n-655fe60a3915"
+          },
+          "sha256": "875e5c76cce14c991ef2d0c015b32a42224b6e751d513f15a5a5e04daddad351",
+          "palette_from": "lib-maractus-s-b15b29482bfe"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "maractus",
+    "num": 556,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Maractus, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "maractus-retry-r4.png",
+    "source_sha256": "d7402774986b62ec7310a879ab457dd74c14baa0b3696f8d8f2bf5cfe89bd8c8",
+    "source_record": "maractus-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

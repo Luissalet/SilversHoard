@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 88,
+      "h": 80,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 44.0,
+      "ay": 74,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "steelix",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f87bd2ff28c310948f22988ac9875bdbe9ac4037929da7fded0f2d25babb0e12",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 208,
+          "form": "",
+          "key": "lib-steelix-n-a5488fe02ede"
+        },
+        "sha256": "32ae66c0309ee508f9792df30d92afb89bf2014ac14465107f96b1ff2adb0ff5"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 88,
+      "h": 80,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 44.0,
+      "ay": 74,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "steelix",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f87bd2ff28c310948f22988ac9875bdbe9ac4037929da7fded0f2d25babb0e12",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 208,
+          "form": "",
+          "key": "lib-steelix-n-a5488fe02ede"
+        },
+        "sha256": "5e59468241d47b597caf929b383a3fadb115b532ab6d6dbfa9d846ced627f34a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 88,
+        "h": 80,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 44.0,
+        "ay": 74,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "steelix",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f87bd2ff28c310948f22988ac9875bdbe9ac4037929da7fded0f2d25babb0e12",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 208,
+            "form": "",
+            "key": "lib-steelix-n-a5488fe02ede"
+          },
+          "sha256": "3ac45c900c174f1e0638dda57f71965378d601057a3dd670b8a1f0f7a1d2a612",
+          "palette_from": "lib-steelix-s-7a67f5855664"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 88,
+        "h": 80,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 44.0,
+        "ay": 74,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "steelix",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f87bd2ff28c310948f22988ac9875bdbe9ac4037929da7fded0f2d25babb0e12",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 208,
+            "form": "",
+            "key": "lib-steelix-n-a5488fe02ede"
+          },
+          "sha256": "e94023738e51589b061ea33adaa23de195c6dddc26936dfc16a3a806f96dbb12",
+          "palette_from": "lib-steelix-s-7a67f5855664"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "steelix",
+    "num": 208,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Steelix, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "steelix-retry-r4.png",
+    "source_sha256": "f87bd2ff28c310948f22988ac9875bdbe9ac4037929da7fded0f2d25babb0e12",
+    "source_record": "steelix-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "greedent",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e6a8f2c29caad987a23c4fa5a8f4928568688af6a82b2a8a2e4f1e55c2d8c195",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 820,
+          "form": "",
+          "key": "lib-greedent-n-4ad724391e44"
+        },
+        "sha256": "988680d7ed7bb2f7b69984ac8e85de4ea97aca7efb18427b297471e333852772"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "greedent",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e6a8f2c29caad987a23c4fa5a8f4928568688af6a82b2a8a2e4f1e55c2d8c195",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 820,
+          "form": "",
+          "key": "lib-greedent-n-4ad724391e44"
+        },
+        "sha256": "348e8295cbb1524972c7b956d0762980e6af2d7f4ffeeaff90079d2b07abee9f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "greedent",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e6a8f2c29caad987a23c4fa5a8f4928568688af6a82b2a8a2e4f1e55c2d8c195",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 820,
+            "form": "",
+            "key": "lib-greedent-n-4ad724391e44"
+          },
+          "sha256": "1d653db2168dd2260f34121a03c4b1adf53ff96f4fb47e60d7937166e78a3017",
+          "palette_from": "lib-greedent-s-2006bf792d15"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "greedent",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e6a8f2c29caad987a23c4fa5a8f4928568688af6a82b2a8a2e4f1e55c2d8c195",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 820,
+            "form": "",
+            "key": "lib-greedent-n-4ad724391e44"
+          },
+          "sha256": "0f55d387bdebf6aa496f36deaa9710d246158cae4d3bacd0b76f2e558fde619d",
+          "palette_from": "lib-greedent-s-2006bf792d15"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "greedent",
+    "num": 820,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Greedent, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "greedent-cardinal.png",
+    "source_sha256": "e6a8f2c29caad987a23c4fa5a8f4928568688af6a82b2a8a2e4f1e55c2d8c195",
+    "source_record": "greedent-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ogerponhearthflame",
+        "tool": "builtin-imagegen",
+        "source_sha256": "c8c0797ecf2d925935d26ed3be938da3a783f3a011afc13242fd02fbf5f244be",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 1017,
+          "form": "Hearthflame",
+          "key": "lib-ogerponhearthflame-n-a9a036392cdb"
+        },
+        "sha256": "01ccd6e244b83d5779b80b84cc250409c5158542872985dc27277b08fabd31d4"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ogerponhearthflame",
+        "tool": "builtin-imagegen",
+        "source_sha256": "c8c0797ecf2d925935d26ed3be938da3a783f3a011afc13242fd02fbf5f244be",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 1017,
+          "form": "Hearthflame",
+          "key": "lib-ogerponhearthflame-n-a9a036392cdb"
+        },
+        "sha256": "7eb736596177ec92efff3a26266ec566d425ef5eb96e9145a44b94eedce57e47"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ogerponhearthflame",
+          "tool": "builtin-imagegen",
+          "source_sha256": "c8c0797ecf2d925935d26ed3be938da3a783f3a011afc13242fd02fbf5f244be",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 1017,
+            "form": "Hearthflame",
+            "key": "lib-ogerponhearthflame-n-a9a036392cdb"
+          },
+          "sha256": "b85d7dc794580afa854bf6150d513bae82e7d207966d99b813461ba7d3491c49",
+          "palette_from": "lib-ogerponhearthflame-s-2a2a3a515781"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ogerponhearthflame",
+          "tool": "builtin-imagegen",
+          "source_sha256": "c8c0797ecf2d925935d26ed3be938da3a783f3a011afc13242fd02fbf5f244be",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 1017,
+            "form": "Hearthflame",
+            "key": "lib-ogerponhearthflame-n-a9a036392cdb"
+          },
+          "sha256": "12ea13b0df01a91a873d5fd8f4c00015090c1c830dc9f665c0d2b5f3295f1d9f",
+          "palette_from": "lib-ogerponhearthflame-s-2a2a3a515781"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "ogerponhearthflame",
+    "num": 1017,
+    "form": "Hearthflame",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Ogerpon-Hearthflame, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "ogerponhearthflame-cardinal.png",
+    "source_sha256": "c8c0797ecf2d925935d26ed3be938da3a783f3a011afc13242fd02fbf5f244be",
+    "source_record": "ogerponhearthflame-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

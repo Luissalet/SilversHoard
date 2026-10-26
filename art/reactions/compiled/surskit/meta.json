@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "surskit",
+        "tool": "builtin-imagegen",
+        "source_sha256": "18b9d4ceeb13bec2f505555bc298cc1af90a43d20302f2c21d65ed54429fc238",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 283,
+          "form": "",
+          "key": "lib-surskit-n-e235b25c00cb"
+        },
+        "sha256": "c699f3d7c7e7b1b36263e8d185408dd205e59ee57b9f5201cb1c341e0118a466"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "surskit",
+        "tool": "builtin-imagegen",
+        "source_sha256": "18b9d4ceeb13bec2f505555bc298cc1af90a43d20302f2c21d65ed54429fc238",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 283,
+          "form": "",
+          "key": "lib-surskit-n-e235b25c00cb"
+        },
+        "sha256": "9b1b18dd52926b08cb8716f33f088508781673ca2c72fdbaac109347f2e98974"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "surskit",
+          "tool": "builtin-imagegen",
+          "source_sha256": "18b9d4ceeb13bec2f505555bc298cc1af90a43d20302f2c21d65ed54429fc238",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 283,
+            "form": "",
+            "key": "lib-surskit-n-e235b25c00cb"
+          },
+          "sha256": "38afc851f4425eeae1842f4e4dd9da3b38a510347acd513a45f1982215b4caf8",
+          "palette_from": "lib-surskit-s-fb1384f0f437"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "surskit",
+          "tool": "builtin-imagegen",
+          "source_sha256": "18b9d4ceeb13bec2f505555bc298cc1af90a43d20302f2c21d65ed54429fc238",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 283,
+            "form": "",
+            "key": "lib-surskit-n-e235b25c00cb"
+          },
+          "sha256": "b2a4efab25ca94644570055e9835e484f368d49c7d8d1decb8f03b163bed4790",
+          "palette_from": "lib-surskit-s-fb1384f0f437"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "surskit",
+    "num": 283,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a transparent pixel-art game sprite atlas for Surskit using the exact native form and colours in the reference. EXACTLY SIXTEEN complete sprites in FOUR columns and FOUR rows. Rows: front/SOUTH, right profile/EAST, back/NORTH with no face, left profile/WEST. Columns1\u20132 are two distinct expressive flinch poses (blink and bend/braced wince). Columns3\u20134 are lowering to rest and fully lying down; final column has body and head resting flat with eyes closed. Keep all characteristic body parts, tails, wings, markings and accessories. Draw new body and limb poses, consistent pixel scale, crisp original palette. Broad transparent gutters, no text, marks, symbols or scenery. This is a nonviolent game character animation.",
+    "source_image": "surskit-compact-r5.png",
+    "source_sha256": "18b9d4ceeb13bec2f505555bc298cc1af90a43d20302f2c21d65ed54429fc238",
+    "source_record": "surskit-compact-r5.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

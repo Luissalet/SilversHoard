@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "bellossom",
+        "tool": "builtin-imagegen",
+        "source_sha256": "3f280fd47602676215bfdc4e6664fdd8be1ea7e862a4607c1368bf66d4967b78",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 182,
+          "form": "",
+          "key": "lib-bellossom-n-1ca5c6314926"
+        },
+        "sha256": "fc0794f467afb8a55d10ed45406b8935fdea59bf6b51724e063dbc91ffea0024"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "bellossom",
+        "tool": "builtin-imagegen",
+        "source_sha256": "3f280fd47602676215bfdc4e6664fdd8be1ea7e862a4607c1368bf66d4967b78",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 182,
+          "form": "",
+          "key": "lib-bellossom-n-1ca5c6314926"
+        },
+        "sha256": "d209e7d43766dc830d934392fe1767c85278574dc8d5b2150407024c774e5ff4"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "bellossom",
+          "tool": "builtin-imagegen",
+          "source_sha256": "3f280fd47602676215bfdc4e6664fdd8be1ea7e862a4607c1368bf66d4967b78",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 182,
+            "form": "",
+            "key": "lib-bellossom-n-1ca5c6314926"
+          },
+          "sha256": "ca2ef814d96befd8954fe1dee2431372473b59f16d24f5a84a5a8406cdb92df5",
+          "palette_from": "lib-bellossom-s-3b743ab15a49"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "bellossom",
+          "tool": "builtin-imagegen",
+          "source_sha256": "3f280fd47602676215bfdc4e6664fdd8be1ea7e862a4607c1368bf66d4967b78",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 182,
+            "form": "",
+            "key": "lib-bellossom-n-1ca5c6314926"
+          },
+          "sha256": "4467559568bd6af3da92f080f8ee197dffc38f994b6674257a9248523d77cd41",
+          "palette_from": "lib-bellossom-s-3b743ab15a49"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "bellossom",
+    "num": 182,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Bellossom, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "bellossom-retry-r4.png",
+    "source_sha256": "3f280fd47602676215bfdc4e6664fdd8be1ea7e862a4607c1368bf66d4967b78",
+    "source_record": "bellossom-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": false
+}

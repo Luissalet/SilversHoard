@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "urshifugmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "dd865615ae932aa01b4df8fce55fcbe590f8ce0389d2acadf682af1dbe5be237",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 892,
+          "form": "Gmax",
+          "key": "lib-urshifugmax-n-be48367ccb68"
+        },
+        "sha256": "d295ffd2cc0be9d2de33865460a52be242e9b522fef62aeea246679f268ded1f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "urshifugmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "dd865615ae932aa01b4df8fce55fcbe590f8ce0389d2acadf682af1dbe5be237",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 892,
+          "form": "Gmax",
+          "key": "lib-urshifugmax-n-be48367ccb68"
+        },
+        "sha256": "ae59983fde345c084e9c5fc9f4d99f9474b25f9fd170d575a89442f2e5b3255f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "urshifugmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "56e30bc4ee69b0a5352dd50a858a0b78428751ceb8f77c0f5d27a6df2024141a",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 892,
+            "form": "Gmax",
+            "key": "lib-urshifugmax-s-14fd06c46799"
+          },
+          "sha256": "00e30ae1e8702ead32d6e38aee313416f122a021cb8d34814b40b3af3ba9a2bf"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "urshifugmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "56e30bc4ee69b0a5352dd50a858a0b78428751ceb8f77c0f5d27a6df2024141a",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 892,
+            "form": "Gmax",
+            "key": "lib-urshifugmax-s-14fd06c46799"
+          },
+          "sha256": "a647719c06970ef40c01252d32381e6be2009a3a14bbb09b6c90cffb30005eee"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "urshifugmax",
+    "num": 892,
+    "form": "Gmax",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Urshifu-Gmax, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "urshifugmax-cardinal.png",
+    "source_sha256": "dd865615ae932aa01b4df8fce55fcbe590f8ce0389d2acadf682af1dbe5be237",
+    "source_record": "urshifugmax-cardinal.json",
+    "shiny_source_image": "urshifugmax-shiny-r6.png",
+    "shiny_prompt": "Use case identity-preserve. Recolour all32 sprites of the existing transparent8column4row game atlas image1 to the EXACT native SHINY palette of image2. Use exact native shiny regional palette including the characteristic dark/light markings and red energy details. Keep all poses, camera directions, body parts and geometry unchanged. Match each MATERIAL/REGION individually, no global hue shift or colour spill into neighbouring parts. NORTH remains back-only. Final ground poses stay fully prone. Crisp native pixel palette and transparent background. No new effects marks text or objects."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

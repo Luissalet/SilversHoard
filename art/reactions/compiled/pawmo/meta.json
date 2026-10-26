@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "pawmo",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4be5f5ab2cd93bd0397a9f26f027bff385df4becba21e634dc24cf93c95988b9",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 922,
+          "form": "",
+          "key": "lib-pawmo-n-d7d808594069"
+        },
+        "sha256": "0175605bd0dd70184689162a22ee349b04015ac5c6042fd0da457bed2cad5a06"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "pawmo",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4be5f5ab2cd93bd0397a9f26f027bff385df4becba21e634dc24cf93c95988b9",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 922,
+          "form": "",
+          "key": "lib-pawmo-n-d7d808594069"
+        },
+        "sha256": "a6fc194f8767f4415103641fc02419ad3dfcf332703105e8fb689e297c5515d4"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "pawmo",
+          "tool": "builtin-imagegen",
+          "source_sha256": "4be5f5ab2cd93bd0397a9f26f027bff385df4becba21e634dc24cf93c95988b9",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 922,
+            "form": "",
+            "key": "lib-pawmo-n-d7d808594069"
+          },
+          "sha256": "63c27d4ad56ef8f62e5af64aff8e8fe4fcfc55eaffe93cba2b745d637df79f9e",
+          "palette_from": "lib-pawmo-s-858189fbdd95"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "pawmo",
+          "tool": "builtin-imagegen",
+          "source_sha256": "4be5f5ab2cd93bd0397a9f26f027bff385df4becba21e634dc24cf93c95988b9",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 922,
+            "form": "",
+            "key": "lib-pawmo-n-d7d808594069"
+          },
+          "sha256": "640af39bc3d2421582bffa12fbe70d03b934f01c155558853b0b52924eedd1a9",
+          "palette_from": "lib-pawmo-s-858189fbdd95"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "pawmo",
+    "num": 922,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Pawmo, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "pawmo-retry-r4.png",
+    "source_sha256": "4be5f5ab2cd93bd0397a9f26f027bff385df4becba21e634dc24cf93c95988b9",
+    "source_record": "pawmo-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

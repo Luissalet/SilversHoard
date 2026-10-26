@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "morpekohangry",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f3cee2b82ed84898ccd4be910065cf6fe2f381423481b6f84ad7f5186e98cfab",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 877,
+          "form": "Hangry",
+          "key": "lib-morpekohangry-n-76b9feb10aa8"
+        },
+        "sha256": "ea3fe49847a49fe3c671ff7d12a55769e1b6aa815be8f2030af73a71848153e4"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "morpekohangry",
+        "tool": "builtin-imagegen",
+        "source_sha256": "f3cee2b82ed84898ccd4be910065cf6fe2f381423481b6f84ad7f5186e98cfab",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 877,
+          "form": "Hangry",
+          "key": "lib-morpekohangry-n-76b9feb10aa8"
+        },
+        "sha256": "83077c2b6897f22b55db3ec7a159794fc815c20e4d96362bb12d67762f412422"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "morpekohangry",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f3cee2b82ed84898ccd4be910065cf6fe2f381423481b6f84ad7f5186e98cfab",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 877,
+            "form": "Hangry",
+            "key": "lib-morpekohangry-n-76b9feb10aa8"
+          },
+          "sha256": "66b3e4a083ff8a0a9aaf1b4536f3dfc63be6bfaf4d161a8fdd755d0fae16756e",
+          "palette_from": "lib-morpekohangry-s-81cc20bfde59"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "morpekohangry",
+          "tool": "builtin-imagegen",
+          "source_sha256": "f3cee2b82ed84898ccd4be910065cf6fe2f381423481b6f84ad7f5186e98cfab",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 877,
+            "form": "Hangry",
+            "key": "lib-morpekohangry-n-76b9feb10aa8"
+          },
+          "sha256": "882def876ec5d5800bb2794782fd9095c237893591523b16e1ecd3c99c4b65d6",
+          "palette_from": "lib-morpekohangry-s-81cc20bfde59"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "morpekohangry",
+    "num": 877,
+    "form": "Hangry",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Morpeko-Hangry, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "morpekohangry-cardinal.png",
+    "source_sha256": "f3cee2b82ed84898ccd4be910065cf6fe2f381423481b6f84ad7f5186e98cfab",
+    "source_record": "morpekohangry-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "glastrier",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6c00b1920ae9e5891673f6d8fe3758892096d62a99b96adfbda794cb788dd00f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 896,
+          "form": "",
+          "key": "lib-glastrier-n-18602452e65e"
+        },
+        "sha256": "217e7d0cf2d0bd0cd6d8d98b92506945fbf5898c4b975ddfa171d05fcde839bb"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "glastrier",
+        "tool": "builtin-imagegen",
+        "source_sha256": "6c00b1920ae9e5891673f6d8fe3758892096d62a99b96adfbda794cb788dd00f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 896,
+          "form": "",
+          "key": "lib-glastrier-n-18602452e65e"
+        },
+        "sha256": "892095c4134ee7c37b94eb58bd28a7a24e999a643a8f8b14de607cf2b8b7aefa"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "glastrier",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6c00b1920ae9e5891673f6d8fe3758892096d62a99b96adfbda794cb788dd00f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 896,
+            "form": "",
+            "key": "lib-glastrier-n-18602452e65e"
+          },
+          "sha256": "02a6a3b708f4e7357385783fffda2ef196a87ed881d68ece3f31331371645319",
+          "palette_from": "lib-glastrier-s-e622ed8e9c56"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "glastrier",
+          "tool": "builtin-imagegen",
+          "source_sha256": "6c00b1920ae9e5891673f6d8fe3758892096d62a99b96adfbda794cb788dd00f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 896,
+            "form": "",
+            "key": "lib-glastrier-n-18602452e65e"
+          },
+          "sha256": "fa0995f9ecb657dc189a57610c1a5a083663eab8d8993517f0a50f1f58603743",
+          "palette_from": "lib-glastrier-s-e622ed8e9c56"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "glastrier",
+    "num": 896,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Glastrier, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "glastrier-cardinal.png",
+    "source_sha256": "6c00b1920ae9e5891673f6d8fe3758892096d62a99b96adfbda794cb788dd00f",
+    "source_record": "glastrier-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

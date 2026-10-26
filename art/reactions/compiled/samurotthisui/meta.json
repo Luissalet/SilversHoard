@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "samurotthisui",
+        "tool": "builtin-imagegen",
+        "source_sha256": "edd81f7cf2b17b26eb2578b3b40fb945d6a3aa8f3cedf31f5e88244eddf36797",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 503,
+          "form": "Hisui",
+          "key": "lib-samurotthisui-n-e6838dea9715"
+        },
+        "sha256": "b8dfd8f646f98922fdad9b0e3f0167025395378282c1ee267e7ef0f8888423ae"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "samurotthisui",
+        "tool": "builtin-imagegen",
+        "source_sha256": "edd81f7cf2b17b26eb2578b3b40fb945d6a3aa8f3cedf31f5e88244eddf36797",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 503,
+          "form": "Hisui",
+          "key": "lib-samurotthisui-n-e6838dea9715"
+        },
+        "sha256": "144043adc9eba5a14aef245e940f0e7e57b0c23cbf5f30422dba3fff7f52c657"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "samurotthisui",
+          "tool": "builtin-imagegen",
+          "source_sha256": "edd81f7cf2b17b26eb2578b3b40fb945d6a3aa8f3cedf31f5e88244eddf36797",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 503,
+            "form": "Hisui",
+            "key": "lib-samurotthisui-n-e6838dea9715"
+          },
+          "sha256": "0ff62326e3a2ef2dfaaafdaed65085d6283ba7c41e215bf572d765502634802c",
+          "palette_from": "lib-samurotthisui-s-2af9be40b71e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "samurotthisui",
+          "tool": "builtin-imagegen",
+          "source_sha256": "edd81f7cf2b17b26eb2578b3b40fb945d6a3aa8f3cedf31f5e88244eddf36797",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 503,
+            "form": "Hisui",
+            "key": "lib-samurotthisui-n-e6838dea9715"
+          },
+          "sha256": "f6cd1c8a2ea70b794781017da76f2289d4b9844401bf7f1b4f71b71162d0f68c",
+          "palette_from": "lib-samurotthisui-s-2af9be40b71e"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "samurotthisui",
+    "num": 503,
+    "form": "Hisui",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a transparent pixel-art game sprite atlas for Samurott-Hisui using the exact native form and colours in the reference. EXACTLY SIXTEEN complete sprites in FOUR columns and FOUR rows. Rows: front/SOUTH, right profile/EAST, back/NORTH with no face, left profile/WEST. Columns1\u20132 are two distinct expressive flinch poses (blink and bend/braced wince). Columns3\u20134 are lowering to rest and fully lying down; final column has body and head resting flat with eyes closed. Keep all characteristic body parts, tails, wings, markings and accessories. Draw new body and limb poses, consistent pixel scale, crisp original palette. Broad transparent gutters, no text, marks, symbols or scenery. This is a nonviolent game character animation.",
+    "source_image": "samurotthisui-compact-r5.png",
+    "source_sha256": "edd81f7cf2b17b26eb2578b3b40fb945d6a3aa8f3cedf31f5e88244eddf36797",
+    "source_record": "samurotthisui-compact-r5.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

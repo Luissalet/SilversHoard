@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "wochien",
+        "tool": "builtin-imagegen",
+        "source_sha256": "af4c0fdaa59c9010e7ebb0579fd8f43ddf74bba27b97e31aea654a75bab03b86",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 1001,
+          "form": "",
+          "key": "lib-wochien-n-c95235bc885e"
+        },
+        "sha256": "258100b48526453e27cb90d117b6f5652d7f444e70e59401f5048890a578d44b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "wochien",
+        "tool": "builtin-imagegen",
+        "source_sha256": "af4c0fdaa59c9010e7ebb0579fd8f43ddf74bba27b97e31aea654a75bab03b86",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 1001,
+          "form": "",
+          "key": "lib-wochien-n-c95235bc885e"
+        },
+        "sha256": "3aff93d1a0e10f9f0612f92569953eecfcb439934b697f429fba9413b48cd142"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "wochien",
+          "tool": "builtin-imagegen",
+          "source_sha256": "af4c0fdaa59c9010e7ebb0579fd8f43ddf74bba27b97e31aea654a75bab03b86",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 1001,
+            "form": "",
+            "key": "lib-wochien-n-c95235bc885e"
+          },
+          "sha256": "a14bdc0d26e34d286d6c7bcd49dd5fdefca66c881b8796b43f3699a520f3eb14",
+          "palette_from": "lib-wochien-s-dc2faa7d785b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "wochien",
+          "tool": "builtin-imagegen",
+          "source_sha256": "af4c0fdaa59c9010e7ebb0579fd8f43ddf74bba27b97e31aea654a75bab03b86",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 1001,
+            "form": "",
+            "key": "lib-wochien-n-c95235bc885e"
+          },
+          "sha256": "e842543018df1c4d4ed024f3cb70b18a68b3e92b949014f23c8212cf1096235c",
+          "palette_from": "lib-wochien-s-dc2faa7d785b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "wochien",
+    "num": 1001,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Wo-Chien, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "wochien-cardinal.png",
+    "source_sha256": "af4c0fdaa59c9010e7ebb0579fd8f43ddf74bba27b97e31aea654a75bab03b86",
+    "source_record": "wochien-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

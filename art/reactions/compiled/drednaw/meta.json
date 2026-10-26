@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "drednaw",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a77e063b8654548881a58a5afad25e70eda2c45a0267d49a3730968317058faf",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 834,
+          "form": "",
+          "key": "lib-drednaw-n-a3df9fcccb63"
+        },
+        "sha256": "b6489665c1afc777f07bc7b18f84426dd770298e9b7589a7421e7c86bd5fc028"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "drednaw",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a77e063b8654548881a58a5afad25e70eda2c45a0267d49a3730968317058faf",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 834,
+          "form": "",
+          "key": "lib-drednaw-n-a3df9fcccb63"
+        },
+        "sha256": "3316202f44304996114c2e2c92d05c513b720c35fb77ca17712605ffd9b76c89"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "drednaw",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a77e063b8654548881a58a5afad25e70eda2c45a0267d49a3730968317058faf",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 834,
+            "form": "",
+            "key": "lib-drednaw-n-a3df9fcccb63"
+          },
+          "sha256": "7c62571f4912e57c61ce90067a48e8a287a2649e622d392c43730d53dd2527c8",
+          "palette_from": "lib-drednaw-s-2a9facc57f6c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "drednaw",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a77e063b8654548881a58a5afad25e70eda2c45a0267d49a3730968317058faf",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 834,
+            "form": "",
+            "key": "lib-drednaw-n-a3df9fcccb63"
+          },
+          "sha256": "410bb8b6f376d9e5b48ea7318ad5cd938d6f10b74f04a29135e2567e281aaf26",
+          "palette_from": "lib-drednaw-s-2a9facc57f6c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "drednaw",
+    "num": 834,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Mechanically pack the existing built-in drawn atlas with only the explicitly listed corrected cells from correction44. Other original cells preserved as raw pixels. New source uniformly registered by unchanged SOUTH Pain0 height. No repainting or warping. Both source PNGs and generation prompt retained.",
+    "source_image": "drednaw-assembled46.png",
+    "source_sha256": "a77e063b8654548881a58a5afad25e70eda2c45a0267d49a3730968317058faf",
+    "source_record": "drednaw-assembled46.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ogerponcornerstone",
+        "tool": "builtin-imagegen",
+        "source_sha256": "3872909ab973f745eb10c32b65b25bd5006035f71e6c39f6f040613c0fafc1fd",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 1017,
+          "form": "Cornerstone",
+          "key": "lib-ogerponcornerstone-n-751c711de29e"
+        },
+        "sha256": "b6f7d0e036661005f108d245b7ad6d64bda7d234de4b5dd9341fd65a712f0bf9"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ogerponcornerstone",
+        "tool": "builtin-imagegen",
+        "source_sha256": "3872909ab973f745eb10c32b65b25bd5006035f71e6c39f6f040613c0fafc1fd",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 1017,
+          "form": "Cornerstone",
+          "key": "lib-ogerponcornerstone-n-751c711de29e"
+        },
+        "sha256": "71d4bc5b454ff155ab3a49a7736eb7d54efbb77cd5543a9f975615d54e4b6164"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ogerponcornerstone",
+          "tool": "builtin-imagegen",
+          "source_sha256": "3872909ab973f745eb10c32b65b25bd5006035f71e6c39f6f040613c0fafc1fd",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 1017,
+            "form": "Cornerstone",
+            "key": "lib-ogerponcornerstone-n-751c711de29e"
+          },
+          "sha256": "736642a1b9bbeda78ed14256cd836a490065b0172d1979513dee70b2b9a90d8c",
+          "palette_from": "lib-ogerponcornerstone-s-c140fd0f17c2"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ogerponcornerstone",
+          "tool": "builtin-imagegen",
+          "source_sha256": "3872909ab973f745eb10c32b65b25bd5006035f71e6c39f6f040613c0fafc1fd",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 1017,
+            "form": "Cornerstone",
+            "key": "lib-ogerponcornerstone-n-751c711de29e"
+          },
+          "sha256": "f916de5e132591126eeee2e52f8a998a58a45f650dc05577b41344b249af78c4",
+          "palette_from": "lib-ogerponcornerstone-s-c140fd0f17c2"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "ogerponcornerstone",
+    "num": 1017,
+    "form": "Cornerstone",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Ogerpon-Cornerstone, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "ogerponcornerstone-cardinal.png",
+    "source_sha256": "3872909ab973f745eb10c32b65b25bd5006035f71e6c39f6f040613c0fafc1fd",
+    "source_record": "ogerponcornerstone-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

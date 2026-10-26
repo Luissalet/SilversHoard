@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "milcery",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9200e73bd4df20af415c7a276d1f647f8ceebad93cbdac8c0ca5207f8b574e16",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 868,
+          "form": "",
+          "key": "lib-milcery-n-6a94ef8a5896"
+        },
+        "sha256": "1f8961aa2dff87c8168b524a1dcebfc3a9ebc6219e3861e27f2d535cc92ecc9c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "milcery",
+        "tool": "builtin-imagegen",
+        "source_sha256": "9200e73bd4df20af415c7a276d1f647f8ceebad93cbdac8c0ca5207f8b574e16",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 868,
+          "form": "",
+          "key": "lib-milcery-n-6a94ef8a5896"
+        },
+        "sha256": "df9ec499abb88e517a6e96e284c4081a8d74941f86a0efce469a293d74518e63"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "milcery",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9200e73bd4df20af415c7a276d1f647f8ceebad93cbdac8c0ca5207f8b574e16",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 868,
+            "form": "",
+            "key": "lib-milcery-n-6a94ef8a5896"
+          },
+          "sha256": "3eac109c18419c403a7000180d539bb5af1a1aaaacbb44291aeea25ca854b82c",
+          "palette_from": "lib-milcery-s-e5ac8c0897a0"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "milcery",
+          "tool": "builtin-imagegen",
+          "source_sha256": "9200e73bd4df20af415c7a276d1f647f8ceebad93cbdac8c0ca5207f8b574e16",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 868,
+            "form": "",
+            "key": "lib-milcery-n-6a94ef8a5896"
+          },
+          "sha256": "9f469119d116e8f47efdf73149230a3da2fecd5a05027f02cabe970529908d51",
+          "palette_from": "lib-milcery-s-e5ac8c0897a0"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "milcery",
+    "num": 868,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Milcery, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "milcery-cardinal.png",
+    "source_sha256": "9200e73bd4df20af415c7a276d1f647f8ceebad93cbdac8c0ca5207f8b574e16",
+    "source_record": "milcery-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dragapult",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4e7ed76bab89a74c17adf9c5ed6a330bc84748f089550b29da1bf1e1823cb78c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 887,
+          "form": "",
+          "key": "lib-dragapult-n-0f240d0785cb"
+        },
+        "sha256": "4fb29ef4c065ba622c886aef70996926abd2020eecc23d8187a3240219045994"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dragapult",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4e7ed76bab89a74c17adf9c5ed6a330bc84748f089550b29da1bf1e1823cb78c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 887,
+          "form": "",
+          "key": "lib-dragapult-n-0f240d0785cb"
+        },
+        "sha256": "1d2231a39ffd2e7682c76c46660db2bcdf78c4bb03d8d8238ed55c8bbb02bb34"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "dragapult",
+          "tool": "builtin-imagegen",
+          "source_sha256": "bb5d38299bd9521b839177ee94285346e67b33ad94c35f842d94602c8876e190",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 887,
+            "form": "",
+            "key": "lib-dragapult-s-334b371330c3"
+          },
+          "sha256": "8efd1735d3be4494b2f0b843fa6093319ccdf648fc56c77c3f7a38b07737f1d5"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "dragapult",
+          "tool": "builtin-imagegen",
+          "source_sha256": "bb5d38299bd9521b839177ee94285346e67b33ad94c35f842d94602c8876e190",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 887,
+            "form": "",
+            "key": "lib-dragapult-s-334b371330c3"
+          },
+          "sha256": "69d0c4da5edc2036d0e86231b7e5ba0ca45be9a25e0c622f2abb33c7a1fb49d7"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "dragapult",
+    "num": 887,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Dragapult, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "dragapult-cardinal.png",
+    "source_sha256": "4e7ed76bab89a74c17adf9c5ed6a330bc84748f089550b29da1bf1e1823cb78c",
+    "source_record": "dragapult-cardinal.json",
+    "shiny_source_image": "dragapult-shiny-r6.png",
+    "shiny_prompt": "Use case identity-preserve. Recolour all32 sprites of the existing transparent8column4row game atlas image1 to the EXACT native SHINY palette of image2. Head fin tips are YELLOW; do not retain any broad coral-red normal fin segments. Keep dark center and turquoise body/tail. Keep all poses, camera directions, body parts and geometry unchanged. Match each MATERIAL/REGION individually, no global hue shift or colour spill into neighbouring parts. NORTH remains back-only. Final ground poses stay fully prone. Crisp native pixel palette and transparent background. No new effects marks text or objects."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

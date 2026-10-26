@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "grapploct",
+        "tool": "builtin-imagegen",
+        "source_sha256": "19f8d637f5e6a1e02d8b66244c447507bde49ee3a35ec8ff831ac784e1b0f725",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 853,
+          "form": "",
+          "key": "lib-grapploct-n-b5df7f4f9888"
+        },
+        "sha256": "3314433f1e4de13b8f1813675c7a1c1e7a1d05665b1b83df1c6329ecd43688b1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "grapploct",
+        "tool": "builtin-imagegen",
+        "source_sha256": "19f8d637f5e6a1e02d8b66244c447507bde49ee3a35ec8ff831ac784e1b0f725",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 853,
+          "form": "",
+          "key": "lib-grapploct-n-b5df7f4f9888"
+        },
+        "sha256": "111e367f224c969361a1f945461f4ecfa2c52ade0dc52f997da0e2969222b796"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "grapploct",
+          "tool": "builtin-imagegen",
+          "source_sha256": "19f8d637f5e6a1e02d8b66244c447507bde49ee3a35ec8ff831ac784e1b0f725",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 853,
+            "form": "",
+            "key": "lib-grapploct-n-b5df7f4f9888"
+          },
+          "sha256": "ce784ff3342195e4d180f43a6e6648b1219a81b739de537eed7a3f918ae63d19",
+          "palette_from": "lib-grapploct-s-3c0cba8e8552"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "grapploct",
+          "tool": "builtin-imagegen",
+          "source_sha256": "19f8d637f5e6a1e02d8b66244c447507bde49ee3a35ec8ff831ac784e1b0f725",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 853,
+            "form": "",
+            "key": "lib-grapploct-n-b5df7f4f9888"
+          },
+          "sha256": "bf84b24f125d7e07801003a3659998796632b026d15005901b50d4af031ca918",
+          "palette_from": "lib-grapploct-s-3c0cba8e8552"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "grapploct",
+    "num": 853,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Grapploct, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "grapploct-cardinal.png",
+    "source_sha256": "19f8d637f5e6a1e02d8b66244c447507bde49ee3a35ec8ff831ac784e1b0f725",
+    "source_record": "grapploct-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

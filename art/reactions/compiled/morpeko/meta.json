@@ -1,0 +1,353 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "morpeko",
+        "tool": "builtin-imagegen",
+        "source_sha256": "aa7f1edcf45abca5ab5b0723730926037973da88bc808f3f7aa213e86dd3b11e",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 15,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 877,
+          "form": "",
+          "key": "lib-morpeko-n-038e50c5bc36"
+        },
+        "assembly": {
+          "native_frames": [
+            {
+              "action": "Pain",
+              "direction": 3,
+              "frame": 2,
+              "animation": "Hurt",
+              "row": 6,
+              "index": 1
+            },
+            {
+              "action": "HitGround",
+              "direction": 3,
+              "frame": 0,
+              "animation": "Hurt",
+              "row": 6,
+              "index": 0
+            },
+            {
+              "action": "HitGround",
+              "direction": 3,
+              "frame": 1,
+              "animation": "Hurt",
+              "row": 6,
+              "index": 1
+            }
+          ]
+        },
+        "sha256": "b9dbf56a5d527566b41d05942bdfdd312286ca73a2d16d8a8e869243ae4e9a6c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "morpeko",
+        "tool": "builtin-imagegen",
+        "source_sha256": "aa7f1edcf45abca5ab5b0723730926037973da88bc808f3f7aa213e86dd3b11e",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 14,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          3
+        ],
+        "reference": {
+          "num": 877,
+          "form": "",
+          "key": "lib-morpeko-n-038e50c5bc36"
+        },
+        "assembly": {
+          "native_frames": [
+            {
+              "action": "Pain",
+              "direction": 3,
+              "frame": 2,
+              "animation": "Hurt",
+              "row": 6,
+              "index": 1
+            },
+            {
+              "action": "HitGround",
+              "direction": 3,
+              "frame": 0,
+              "animation": "Hurt",
+              "row": 6,
+              "index": 0
+            },
+            {
+              "action": "HitGround",
+              "direction": 3,
+              "frame": 1,
+              "animation": "Hurt",
+              "row": 6,
+              "index": 1
+            }
+          ]
+        },
+        "sha256": "85a41ce437ddb6605bd4a95a6a38cf36e78db15bba6dc71b7ec8375672ad94f5"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "morpeko",
+          "tool": "builtin-imagegen",
+          "source_sha256": "aa7f1edcf45abca5ab5b0723730926037973da88bc808f3f7aa213e86dd3b11e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 15,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 877,
+            "form": "",
+            "key": "lib-morpeko-n-038e50c5bc36"
+          },
+          "assembly": {
+            "native_frames": [
+              {
+                "action": "Pain",
+                "direction": 3,
+                "frame": 2,
+                "animation": "Hurt",
+                "row": 6,
+                "index": 1
+              },
+              {
+                "action": "HitGround",
+                "direction": 3,
+                "frame": 0,
+                "animation": "Hurt",
+                "row": 6,
+                "index": 0
+              },
+              {
+                "action": "HitGround",
+                "direction": 3,
+                "frame": 1,
+                "animation": "Hurt",
+                "row": 6,
+                "index": 1
+              }
+            ]
+          },
+          "sha256": "c8bc6702318d78d240388eacf1487231ef0f66396545f1ceae0b299f1b73bbb3",
+          "palette_from": "lib-morpeko-s-036a874d8806"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "morpeko",
+          "tool": "builtin-imagegen",
+          "source_sha256": "aa7f1edcf45abca5ab5b0723730926037973da88bc808f3f7aa213e86dd3b11e",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 14,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            3
+          ],
+          "reference": {
+            "num": 877,
+            "form": "",
+            "key": "lib-morpeko-n-038e50c5bc36"
+          },
+          "assembly": {
+            "native_frames": [
+              {
+                "action": "Pain",
+                "direction": 3,
+                "frame": 2,
+                "animation": "Hurt",
+                "row": 6,
+                "index": 1
+              },
+              {
+                "action": "HitGround",
+                "direction": 3,
+                "frame": 0,
+                "animation": "Hurt",
+                "row": 6,
+                "index": 0
+              },
+              {
+                "action": "HitGround",
+                "direction": 3,
+                "frame": 1,
+                "animation": "Hurt",
+                "row": 6,
+                "index": 1
+              }
+            ]
+          },
+          "sha256": "938db3087462fd4d8152620a1c2496c03957b4eaa4881e3f47dee0c4a7d5d5b9",
+          "palette_from": "lib-morpeko-s-036a874d8806"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "morpeko",
+    "num": 877,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Morpeko, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "morpeko-cardinal.png",
+    "source_sha256": "aa7f1edcf45abca5ab5b0723730926037973da88bc808f3f7aa213e86dd3b11e",
+    "native_frames": [
+      {
+        "action": "Pain",
+        "direction": 3,
+        "frame": 2,
+        "animation": "Hurt",
+        "row": 6,
+        "index": 1
+      },
+      {
+        "action": "HitGround",
+        "direction": 3,
+        "frame": 0,
+        "animation": "Hurt",
+        "row": 6,
+        "index": 0
+      },
+      {
+        "action": "HitGround",
+        "direction": 3,
+        "frame": 1,
+        "animation": "Hurt",
+        "row": 6,
+        "index": 1
+      }
+    ],
+    "source_record": "morpeko-assembled.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

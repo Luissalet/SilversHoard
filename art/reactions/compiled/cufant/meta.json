@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "cufant",
+        "tool": "builtin-imagegen",
+        "source_sha256": "22a8465e284c731c4843168734ebd644549bd261fec4196910e4c6c0da5cc3c6",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 878,
+          "form": "",
+          "key": "lib-cufant-n-b8c78909724e"
+        },
+        "sha256": "f911892d3137b44a285009deb9af7ff07d312ccbb6357f3dd00ac8968df79f1a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "cufant",
+        "tool": "builtin-imagegen",
+        "source_sha256": "22a8465e284c731c4843168734ebd644549bd261fec4196910e4c6c0da5cc3c6",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 878,
+          "form": "",
+          "key": "lib-cufant-n-b8c78909724e"
+        },
+        "sha256": "cd98f673a6a33bf0fefd2f229405fdf706da64b9f081de4e1e37dff6af5c9d00"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "cufant",
+          "tool": "builtin-imagegen",
+          "source_sha256": "22a8465e284c731c4843168734ebd644549bd261fec4196910e4c6c0da5cc3c6",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 878,
+            "form": "",
+            "key": "lib-cufant-n-b8c78909724e"
+          },
+          "sha256": "48f6a3119ca8a4c515f72d44d79ff0c1edb008240b77ff053fd067035cd735f0",
+          "palette_from": "lib-cufant-s-7de4a8835e91"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "cufant",
+          "tool": "builtin-imagegen",
+          "source_sha256": "22a8465e284c731c4843168734ebd644549bd261fec4196910e4c6c0da5cc3c6",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 878,
+            "form": "",
+            "key": "lib-cufant-n-b8c78909724e"
+          },
+          "sha256": "82d64913b304d7e954b5050669826f3402d47c02ae0c98932d1892bcf18b072b",
+          "palette_from": "lib-cufant-s-7de4a8835e91"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "cufant",
+    "num": 878,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Cufant, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "cufant-cardinal.png",
+    "source_sha256": "22a8465e284c731c4843168734ebd644549bd261fec4196910e4c6c0da5cc3c6",
+    "source_record": "cufant-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

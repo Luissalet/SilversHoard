@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "unownz",
+        "tool": "builtin-imagegen",
+        "source_sha256": "dd529d371ceca94b481c061bb190b5048e5d113965c42d0b08fc302c03e40714",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 201,
+          "form": "Z",
+          "key": "lib-unownz-n-e3985a93e04a"
+        },
+        "sha256": "d47e554cbd58f9aa8718b794b6cd5e2e3d6c8254df52b76d40ee202683c6514d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 16.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "unownz",
+        "tool": "builtin-imagegen",
+        "source_sha256": "dd529d371ceca94b481c061bb190b5048e5d113965c42d0b08fc302c03e40714",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 201,
+          "form": "Z",
+          "key": "lib-unownz-n-e3985a93e04a"
+        },
+        "sha256": "81ad825263d9ca1025cb492d95a342f1c9f7a95ccf26692ae4540b35ba18c712"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "unownz",
+          "tool": "builtin-imagegen",
+          "source_sha256": "dd529d371ceca94b481c061bb190b5048e5d113965c42d0b08fc302c03e40714",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 201,
+            "form": "Z",
+            "key": "lib-unownz-n-e3985a93e04a"
+          },
+          "sha256": "712141a4494bc5c7cb5200a2b679fb0e6c6df0dff38609ff2c66dd6d8adbf510",
+          "palette_from": "lib-unownz-s-c40e7b0c122b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 16.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "unownz",
+          "tool": "builtin-imagegen",
+          "source_sha256": "dd529d371ceca94b481c061bb190b5048e5d113965c42d0b08fc302c03e40714",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 201,
+            "form": "Z",
+            "key": "lib-unownz-n-e3985a93e04a"
+          },
+          "sha256": "9a46c371bb952e82dcdc4446d4b7cf2844c2cc626715f30f327547345639ef71",
+          "palette_from": "lib-unownz-s-c40e7b0c122b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "unownz",
+    "num": 201,
+    "form": "Z",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Unown-Z, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "unownz-retry-r4.png",
+    "source_sha256": "dd529d371ceca94b481c061bb190b5048e5d113965c42d0b08fc302c03e40714",
+    "source_record": "unownz-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

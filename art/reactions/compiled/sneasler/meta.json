@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "sneasler",
+        "tool": "builtin-imagegen",
+        "source_sha256": "49c2418e325708e9edaa0746562d2bc6e16ec01110c1b62aca2801bae4bcad84",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 903,
+          "form": "",
+          "key": "lib-sneasler-n-78fe9c0a8587"
+        },
+        "sha256": "7986e9c5ff3cc44438d84817e9296216eceb7990d1a95069032f0c03a44ded51"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "sneasler",
+        "tool": "builtin-imagegen",
+        "source_sha256": "49c2418e325708e9edaa0746562d2bc6e16ec01110c1b62aca2801bae4bcad84",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 903,
+          "form": "",
+          "key": "lib-sneasler-n-78fe9c0a8587"
+        },
+        "sha256": "f8ca2a24c5fca0eb4614feab7eee5707e6b3e974b9cb67ff6dafd79f6b691e74"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "sneasler",
+          "tool": "builtin-imagegen",
+          "source_sha256": "504028e915a9bb8b1df44a09f21c0cec9b784e69e2530bf2f749e5e0fbd5205b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 903,
+            "form": "",
+            "key": "lib-sneasler-s-b29c91becb6e"
+          },
+          "sha256": "e51119f96a5ecafc670b81fd421a81532c1c76f4a1510ff498c74617d8868ab1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "sneasler",
+          "tool": "builtin-imagegen",
+          "source_sha256": "504028e915a9bb8b1df44a09f21c0cec9b784e69e2530bf2f749e5e0fbd5205b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 903,
+            "form": "",
+            "key": "lib-sneasler-s-b29c91becb6e"
+          },
+          "sha256": "fa33faeaa1c06964ce639499fbbac75bc834820f34a2b8555b32f135fd23dc02"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "sneasler",
+    "num": 903,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Sneasler, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "sneasler-cardinal.png",
+    "source_sha256": "49c2418e325708e9edaa0746562d2bc6e16ec01110c1b62aca2801bae4bcad84",
+    "source_record": "sneasler-cardinal.json",
+    "shiny_source_image": "sneasler-shiny-r6.png",
+    "shiny_prompt": "Use case identity-preserve. Recolour all32 sprites of the existing transparent8column4row game atlas image1 to the EXACT native SHINY palette of image2. Native shiny crest stripe and hands/claw materials GOLD/ochre, not normal burgundy/pink. Keep all poses, camera directions, body parts and geometry unchanged. Match each MATERIAL/REGION individually, no global hue shift or colour spill into neighbouring parts. NORTH remains back-only. Final ground poses stay fully prone. Crisp native pixel palette and transparent background. No new effects marks text or objects."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ogerponwellspringtera",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e605e04e01e8b5af7b6afcb99838accff479ce10d976aec1c2fc65bb436f02ee",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 1017,
+          "form": "Wellspring-Tera",
+          "key": "lib-ogerponwellspringtera-n-1040326ce898"
+        },
+        "sha256": "b829c769090ee325694848bb4bbabd80fbb477efa40dc5c22864f04caff3c082"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "ogerponwellspringtera",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e605e04e01e8b5af7b6afcb99838accff479ce10d976aec1c2fc65bb436f02ee",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 1017,
+          "form": "Wellspring-Tera",
+          "key": "lib-ogerponwellspringtera-n-1040326ce898"
+        },
+        "sha256": "16e0eafb1c6b3ab01dc3c35e00131588bfa68490c7f1e1c9ae9f8cd87955fc55"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ogerponwellspringtera",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e605e04e01e8b5af7b6afcb99838accff479ce10d976aec1c2fc65bb436f02ee",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 1017,
+            "form": "Wellspring-Tera",
+            "key": "lib-ogerponwellspringtera-n-1040326ce898"
+          },
+          "sha256": "53e0967cbbeac5c49b985e435439451ac60ca6cae30bae659109cc6054d00db5",
+          "palette_from": "lib-ogerponwellspringtera-s-6202a076134c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "ogerponwellspringtera",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e605e04e01e8b5af7b6afcb99838accff479ce10d976aec1c2fc65bb436f02ee",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 1017,
+            "form": "Wellspring-Tera",
+            "key": "lib-ogerponwellspringtera-n-1040326ce898"
+          },
+          "sha256": "7a0c4c409d6dc092929a849f68930364350228c87c52936d78ab2d820de08269",
+          "palette_from": "lib-ogerponwellspringtera-s-6202a076134c"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "ogerponwellspringtera",
+    "num": 1017,
+    "form": "Wellspring-Tera",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Ogerpon-Wellspring-Tera, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "ogerponwellspringtera-cardinal.png",
+    "source_sha256": "e605e04e01e8b5af7b6afcb99838accff479ce10d976aec1c2fc65bb436f02ee",
+    "source_record": "ogerponwellspringtera-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

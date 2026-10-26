@@ -113,10 +113,10 @@
         "ax": 24.0,
         "ay": 42,
         "source": {
-          "kind": "shiny-generated-pmd-reaction",
+          "kind": "generated-shiny-pmd-reaction",
           "record": "lickilicky",
           "tool": "builtin-imagegen",
-          "source_sha256": "4d542f9c4e3be2beb83117cf56abe29f4bcd1796609c335edd647fb2ad25e47b",
+          "source_sha256": "7c5619ba10a0cab6f676da0c626070b4ecb030dd2c6bc28daf8365a86eaf614a",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -129,10 +129,9 @@
           "reference": {
             "num": 463,
             "form": "",
-            "key": "lib-lickilicky-n-95a8a9fb09e4"
+            "key": "lib-lickilicky-s-eb60faa4c5ba"
           },
-          "sha256": "c112426c5c52fea0c114484b1a1e35a2adc7c895f969f83755d5912aebdbda4e",
-          "palette_from": "lib-lickilicky-s-eb60faa4c5ba"
+          "sha256": "b68eff32f8ff0b2132ad1c1b3e129dda56c405e89a43fbd32c0b5e9efec2aea1"
         },
         "row_map": [
           0,
@@ -159,10 +158,10 @@
         "ax": 24.0,
         "ay": 42,
         "source": {
-          "kind": "shiny-generated-pmd-reaction",
+          "kind": "generated-shiny-pmd-reaction",
           "record": "lickilicky",
           "tool": "builtin-imagegen",
-          "source_sha256": "4d542f9c4e3be2beb83117cf56abe29f4bcd1796609c335edd647fb2ad25e47b",
+          "source_sha256": "7c5619ba10a0cab6f676da0c626070b4ecb030dd2c6bc28daf8365a86eaf614a",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -175,10 +174,9 @@
           "reference": {
             "num": 463,
             "form": "",
-            "key": "lib-lickilicky-n-95a8a9fb09e4"
+            "key": "lib-lickilicky-s-eb60faa4c5ba"
           },
-          "sha256": "d6407db6393889b8e4d8b03612dd0c34a1365e5434e4f29a4d28a9e934f9296a",
-          "palette_from": "lib-lickilicky-s-eb60faa4c5ba"
+          "sha256": "85c9b72335b51c6bc82db336c80426fcc3f37b8b5ac63baaa847aa40f0f06fd7"
         },
         "row_map": [
           0,
@@ -208,8 +206,10 @@
     "prompt": "Create a new pixel-art game animation sheet for Lickilicky, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
     "source_image": "lickilicky-cardinal.png",
     "source_sha256": "4d542f9c4e3be2beb83117cf56abe29f4bcd1796609c335edd647fb2ad25e47b",
-    "source_record": "lickilicky-cardinal.json"
+    "source_record": "lickilicky-cardinal.json",
+    "shiny_source_image": "lickilicky-shiny-r6.png",
+    "shiny_prompt": "Use case identity-preserve. Recolour all32 sprites of the existing transparent8column4row game atlas image1 to the EXACT native SHINY palette of image2. Main body GOLD/YELLOW, pink tongue, pale cream apron/bib matching native. Keep all poses, camera directions, body parts and geometry unchanged. Match each MATERIAL/REGION individually, no global hue shift or colour spill into neighbouring parts. NORTH remains back-only. Final ground poses stay fully prone. Crisp native pixel palette and transparent background. No new effects marks text or objects."
   },
   "reviewed": true,
-  "shiny_reviewed": false
+  "shiny_reviewed": true
 }

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dugtrioalola",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8521b2676ab7b4b24d2184aba74d53fc0ee1ce558223ebe2cb388b8da838c9db",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 51,
+          "form": "Alola",
+          "key": "lib-dugtrioalola-n-9d7caac847ec"
+        },
+        "sha256": "79f664241e883164c5bc6bef3a857843e26805a95cf4215fe4f3d0640ffb1e47"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dugtrioalola",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8521b2676ab7b4b24d2184aba74d53fc0ee1ce558223ebe2cb388b8da838c9db",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 51,
+          "form": "Alola",
+          "key": "lib-dugtrioalola-n-9d7caac847ec"
+        },
+        "sha256": "cafa9445c361ed323d4a96d6b884bc5d9d2638f887815056d018ab12ce7c240d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dugtrioalola",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8521b2676ab7b4b24d2184aba74d53fc0ee1ce558223ebe2cb388b8da838c9db",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 51,
+            "form": "Alola",
+            "key": "lib-dugtrioalola-n-9d7caac847ec"
+          },
+          "sha256": "e1399c265ccebf1e121d1c865caee476f24c99f51a6751d106609ea3b8ac4dc5",
+          "palette_from": "lib-dugtrioalola-s-ae0317aa18c9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dugtrioalola",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8521b2676ab7b4b24d2184aba74d53fc0ee1ce558223ebe2cb388b8da838c9db",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 51,
+            "form": "Alola",
+            "key": "lib-dugtrioalola-n-9d7caac847ec"
+          },
+          "sha256": "80a69f14057e511af19b5e28561b3d144476efa094d936732f4bd9e4486179f1",
+          "palette_from": "lib-dugtrioalola-s-ae0317aa18c9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "dugtrioalola",
+    "num": 51,
+    "form": "Alola",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Dugtrio-Alola, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "dugtrioalola-retry-r4.png",
+    "source_sha256": "8521b2676ab7b4b24d2184aba74d53fc0ee1ce558223ebe2cb388b8da838c9db",
+    "source_record": "dugtrioalola-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

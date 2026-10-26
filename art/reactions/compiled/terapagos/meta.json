@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "terapagos",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ee37e88d6ecb4a549487a2326570760743d3f2aeee51c4d7d2806e37f4aecb83",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 1024,
+          "form": "",
+          "key": "lib-terapagos-n-b5bc37323f4f"
+        },
+        "sha256": "016568aab6990326b8396a750a73fc86f26ee38d971f1f0fbb8b6448edabf100"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "terapagos",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ee37e88d6ecb4a549487a2326570760743d3f2aeee51c4d7d2806e37f4aecb83",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 1024,
+          "form": "",
+          "key": "lib-terapagos-n-b5bc37323f4f"
+        },
+        "sha256": "c9ad045895727127afa9131c80d86a8519a4195e29ae0ebc849ad52e0ae059ea"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "terapagos",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ee37e88d6ecb4a549487a2326570760743d3f2aeee51c4d7d2806e37f4aecb83",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 1024,
+            "form": "",
+            "key": "lib-terapagos-n-b5bc37323f4f"
+          },
+          "sha256": "c9ac89a34ca55cc6e88f8d07b443e980bcc35222e11c9ecbf03b7b49df0881cd",
+          "palette_from": "lib-terapagos-s-ba4c391963aa"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "terapagos",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ee37e88d6ecb4a549487a2326570760743d3f2aeee51c4d7d2806e37f4aecb83",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 1024,
+            "form": "",
+            "key": "lib-terapagos-n-b5bc37323f4f"
+          },
+          "sha256": "3a642c6527926e5fb51c70acfcad85cd6bc9bb02f8395f6e80ac0cf637663be5",
+          "palette_from": "lib-terapagos-s-ba4c391963aa"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "terapagos",
+    "num": 1024,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Terapagos, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "terapagos-cardinal.png",
+    "source_sha256": "ee37e88d6ecb4a549487a2326570760743d3f2aeee51c4d7d2806e37f4aecb83",
+    "source_record": "terapagos-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

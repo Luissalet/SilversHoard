@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "toxtricitygmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5f6762d8c3f6ca7655fba8ac5b98904b2c88ac9affa168f5116bdde30a332bb2",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 849,
+          "form": "Gmax",
+          "key": "lib-toxtricitygmax-n-6f4f53476d32"
+        },
+        "sha256": "b6d6764dd21f8a2873b6318dbe3a4937368d838de6a3386edf0a94c799eeb688"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "toxtricitygmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5f6762d8c3f6ca7655fba8ac5b98904b2c88ac9affa168f5116bdde30a332bb2",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 849,
+          "form": "Gmax",
+          "key": "lib-toxtricitygmax-n-6f4f53476d32"
+        },
+        "sha256": "9897faa4e7e7112d78baaca65d70bb445414d0fa1bff89248de66787afef92de"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "toxtricitygmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5f6762d8c3f6ca7655fba8ac5b98904b2c88ac9affa168f5116bdde30a332bb2",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 849,
+            "form": "Gmax",
+            "key": "lib-toxtricitygmax-n-6f4f53476d32"
+          },
+          "sha256": "cf3dd618a662ca9ce3fbb766562f7153d3bd5223875533b710caa937efabdc04",
+          "palette_from": "lib-toxtricitygmax-s-372f5fa01bb4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "toxtricitygmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5f6762d8c3f6ca7655fba8ac5b98904b2c88ac9affa168f5116bdde30a332bb2",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 849,
+            "form": "Gmax",
+            "key": "lib-toxtricitygmax-n-6f4f53476d32"
+          },
+          "sha256": "f6253653bee82c864cbbc41bc706780ff58cac241438e892f269329379d24b5b",
+          "palette_from": "lib-toxtricitygmax-s-372f5fa01bb4"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "toxtricitygmax",
+    "num": 849,
+    "form": "Gmax",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Toxtricity-Gmax, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "toxtricitygmax-cardinal.png",
+    "source_sha256": "5f6762d8c3f6ca7655fba8ac5b98904b2c88ac9affa168f5116bdde30a332bb2",
+    "source_record": "toxtricitygmax-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "feebas",
+        "tool": "builtin-imagegen",
+        "source_sha256": "85fd6e0d450212f8828919dabb10f6ce133e41554ac0a9c165f5973bc6220663",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 349,
+          "form": "",
+          "key": "lib-feebas-n-bb2aaaac922e"
+        },
+        "sha256": "203dacb865b279828f852d4a0aa6d51df80cf5a51ea2207f72e34bf1d9992231"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "feebas",
+        "tool": "builtin-imagegen",
+        "source_sha256": "85fd6e0d450212f8828919dabb10f6ce133e41554ac0a9c165f5973bc6220663",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 349,
+          "form": "",
+          "key": "lib-feebas-n-bb2aaaac922e"
+        },
+        "sha256": "acbcacbed905e4d7f79247d216ef1a5c14f768edef6e6c1d51af61723e8b836d"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "feebas",
+          "tool": "builtin-imagegen",
+          "source_sha256": "85fd6e0d450212f8828919dabb10f6ce133e41554ac0a9c165f5973bc6220663",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 349,
+            "form": "",
+            "key": "lib-feebas-n-bb2aaaac922e"
+          },
+          "sha256": "09b8783bacc0792c9861235b51f888e958afb47d1d848a1994dbdb0cf0d81eab",
+          "palette_from": "lib-feebas-s-b91f458b8c95"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "feebas",
+          "tool": "builtin-imagegen",
+          "source_sha256": "85fd6e0d450212f8828919dabb10f6ce133e41554ac0a9c165f5973bc6220663",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 349,
+            "form": "",
+            "key": "lib-feebas-n-bb2aaaac922e"
+          },
+          "sha256": "097a680f4fa1ee30df4e566b93470dcce179095b297d72b25f9ef521632cede3",
+          "palette_from": "lib-feebas-s-b91f458b8c95"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "feebas",
+    "num": 349,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Feebas, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "feebas-retry-r4.png",
+    "source_sha256": "85fd6e0d450212f8828919dabb10f6ce133e41554ac0a9c165f5973bc6220663",
+    "source_record": "feebas-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

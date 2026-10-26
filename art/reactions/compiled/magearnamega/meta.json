@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "magearnamega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b31e9d96b62315000cc39256cde65175b0fc426b776f5f38fb7a232c2a825932",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 801,
+          "form": "Mega",
+          "key": "lib-magearnamega-n-5a8d2ac5072b"
+        },
+        "sha256": "f1fa29f9fa863c252d72de6e4cbac260dfceb853c837ec88e27f2c78760fe15c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "magearnamega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b31e9d96b62315000cc39256cde65175b0fc426b776f5f38fb7a232c2a825932",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 801,
+          "form": "Mega",
+          "key": "lib-magearnamega-n-5a8d2ac5072b"
+        },
+        "sha256": "6babaea91da72a65dd8d327e4e3b4dbbbfbce36b89441bee34e3ff6d8b22bb6e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "magearnamega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b31e9d96b62315000cc39256cde65175b0fc426b776f5f38fb7a232c2a825932",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 801,
+            "form": "Mega",
+            "key": "lib-magearnamega-n-5a8d2ac5072b"
+          },
+          "sha256": "7595d64078ef4b20337ad8216f54447bcb5dfeb6c052b4483cffb9f217a34d9a",
+          "palette_from": "lib-magearnamega-s-be897ead2dc9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "magearnamega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b31e9d96b62315000cc39256cde65175b0fc426b776f5f38fb7a232c2a825932",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 801,
+            "form": "Mega",
+            "key": "lib-magearnamega-n-5a8d2ac5072b"
+          },
+          "sha256": "4a4366dfb33f2f8c888ec3da98664886291626df214bca8c0dc4daae01cac935",
+          "palette_from": "lib-magearnamega-s-be897ead2dc9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "magearnamega",
+    "num": 801,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Mechanically pack the existing built-in generated v2 atlas, replacing only NORTH HitGround2-3 with the newly drawn north-prone-v2 strip frames2-3, uniformly registered with first prone width = 1.4 times existing NORTH standing width, allowing folded/splayed limbs while keeping both new frames at the same pixel scale. All other30 drawn poses are preserved; no repainting, rotating standing poses or nonuniform warping.",
+    "source_image": "magearnamega-assembled48.png",
+    "source_sha256": "b31e9d96b62315000cc39256cde65175b0fc426b776f5f38fb7a232c2a825932",
+    "source_record": "magearnamega-assembled48.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

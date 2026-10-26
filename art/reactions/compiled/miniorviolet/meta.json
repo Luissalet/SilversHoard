@@ -113,10 +113,10 @@
         "ax": 20.0,
         "ay": 34,
         "source": {
-          "kind": "shiny-generated-pmd-reaction",
+          "kind": "generated-shiny-pmd-reaction",
           "record": "miniorviolet",
           "tool": "builtin-imagegen",
-          "source_sha256": "0dd48503ff8b8c31efda854736b5e228a9abdfc6319dcf7632eef8e304fff704",
+          "source_sha256": "b9c2a0ba9c6681568ec4a026b732e925f5595d4e2105b139ee2c9f889bad9869",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -129,10 +129,9 @@
           "reference": {
             "num": 774,
             "form": "Violet",
-            "key": "lib-miniorviolet-n-30a668593fc9"
+            "key": "lib-miniorviolet-s-2c994d7f1690"
           },
-          "sha256": "665fab0b1a338bdb36d583834e23dfd5a5dd597db6ba4997a67542484dc12acd",
-          "palette_from": "lib-miniorviolet-s-2c994d7f1690"
+          "sha256": "684a8784f8a9fd92a41b1da870a9a57e1d47ec2fe4bd3054793a8fad351f530a"
         },
         "row_map": [
           0,
@@ -159,10 +158,10 @@
         "ax": 20.0,
         "ay": 34,
         "source": {
-          "kind": "shiny-generated-pmd-reaction",
+          "kind": "generated-shiny-pmd-reaction",
           "record": "miniorviolet",
           "tool": "builtin-imagegen",
-          "source_sha256": "0dd48503ff8b8c31efda854736b5e228a9abdfc6319dcf7632eef8e304fff704",
+          "source_sha256": "b9c2a0ba9c6681568ec4a026b732e925f5595d4e2105b139ee2c9f889bad9869",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -175,10 +174,9 @@
           "reference": {
             "num": 774,
             "form": "Violet",
-            "key": "lib-miniorviolet-n-30a668593fc9"
+            "key": "lib-miniorviolet-s-2c994d7f1690"
           },
-          "sha256": "0e3ed6d5dd7031b77e7d6488b482992b4751ba06e9fa5fe6a875010ee8597aec",
-          "palette_from": "lib-miniorviolet-s-2c994d7f1690"
+          "sha256": "c05c77f1e0076edccd5664ac5f0d7d9b0dd3b20a60f4f06a7b461d575a9654e4"
         },
         "row_map": [
           0,
@@ -208,8 +206,10 @@
     "prompt": "Create a new pixel-art game animation sheet for Minior-Violet, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
     "source_image": "miniorviolet-cardinal.png",
     "source_sha256": "0dd48503ff8b8c31efda854736b5e228a9abdfc6319dcf7632eef8e304fff704",
-    "source_record": "miniorviolet-cardinal.json"
+    "source_record": "miniorviolet-cardinal.json",
+    "shiny_source_image": "miniorviolet-shiny-r6.png",
+    "shiny_prompt": "Use case identity-preserve. Recolour all32 sprites of the existing transparent8column4row game atlas image1 to the EXACT native SHINY palette of image2. Main round core nearly entirely very DARK with only narrow thin golden/yellow line details; do NOT fill broad sectors yellow. Keep all poses, camera directions, body parts and geometry unchanged. Match each MATERIAL/REGION individually, no global hue shift or colour spill into neighbouring parts. NORTH remains back-only. Final ground poses stay fully prone. Crisp native pixel palette and transparent background. No new effects marks text or objects."
   },
   "reviewed": true,
-  "shiny_reviewed": false
+  "shiny_reviewed": true
 }

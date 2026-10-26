@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "irontreads",
+        "tool": "builtin-imagegen",
+        "source_sha256": "dbef7c7b4a21c448dbc89f853212ba49bfaff0fde5c3af0fcc32961f6da64f62",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 990,
+          "form": "",
+          "key": "lib-irontreads-n-aec0aa1f795b"
+        },
+        "sha256": "3e1f19b74fe70e196607957c1c4593cd4d854a95fea743b0f9239ced1a4d14a8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "irontreads",
+        "tool": "builtin-imagegen",
+        "source_sha256": "dbef7c7b4a21c448dbc89f853212ba49bfaff0fde5c3af0fcc32961f6da64f62",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 990,
+          "form": "",
+          "key": "lib-irontreads-n-aec0aa1f795b"
+        },
+        "sha256": "b123403530718746e80a9dde5429754ea140b06d142eb6751a0f81caed9e1c21"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "irontreads",
+          "tool": "builtin-imagegen",
+          "source_sha256": "dbef7c7b4a21c448dbc89f853212ba49bfaff0fde5c3af0fcc32961f6da64f62",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 990,
+            "form": "",
+            "key": "lib-irontreads-n-aec0aa1f795b"
+          },
+          "sha256": "dd7bc204cc710ebc9a9a6fde2cb7281a06f746e337744dad8f0554c824f38c17",
+          "palette_from": "lib-irontreads-s-7a100ccde96d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "irontreads",
+          "tool": "builtin-imagegen",
+          "source_sha256": "dbef7c7b4a21c448dbc89f853212ba49bfaff0fde5c3af0fcc32961f6da64f62",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 990,
+            "form": "",
+            "key": "lib-irontreads-n-aec0aa1f795b"
+          },
+          "sha256": "ab51ef5fd64d8350d23fc49f9a5422cb0b93d8c8833e564ee800ea078abbe1dc",
+          "palette_from": "lib-irontreads-s-7a100ccde96d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "irontreads",
+    "num": 990,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Mechanically pack the existing built-in drawn atlas with only the explicitly listed corrected cells from correction44. Other original cells preserved as raw pixels. New source uniformly registered by unchanged SOUTH Pain0 height. No repainting or warping. Both source PNGs and generation prompt retained.",
+    "source_image": "irontreads-assembled46.png",
+    "source_sha256": "dbef7c7b4a21c448dbc89f853212ba49bfaff0fde5c3af0fcc32961f6da64f62",
+    "source_record": "irontreads-assembled46.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

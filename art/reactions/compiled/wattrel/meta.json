@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "wattrel",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8f908c9ea7275fd997d5a67951ca6925227be4012e939affea0f22c155143b25",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 940,
+          "form": "",
+          "key": "lib-wattrel-n-10e140436565"
+        },
+        "sha256": "4eb1a8eef6909351f66f57bbf015fa3887e0d5345fc2e92501105321592f2e9c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "wattrel",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8f908c9ea7275fd997d5a67951ca6925227be4012e939affea0f22c155143b25",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 940,
+          "form": "",
+          "key": "lib-wattrel-n-10e140436565"
+        },
+        "sha256": "7bb4e66b171e22f0eeddb429c7c905390c894820de2ac6ccb20e971dbca0f0f3"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "wattrel",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8f908c9ea7275fd997d5a67951ca6925227be4012e939affea0f22c155143b25",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 940,
+            "form": "",
+            "key": "lib-wattrel-n-10e140436565"
+          },
+          "sha256": "ad936220b4af542057495a96153293b8a92111ae0111a9d73dd99616156302c8",
+          "palette_from": "lib-wattrel-s-464bad5f6f36"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "wattrel",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8f908c9ea7275fd997d5a67951ca6925227be4012e939affea0f22c155143b25",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 940,
+            "form": "",
+            "key": "lib-wattrel-n-10e140436565"
+          },
+          "sha256": "fea738242d3bb8da1952a396a2e9cb4a8190bc162b4e360ae3393c339be9c525",
+          "palette_from": "lib-wattrel-s-464bad5f6f36"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "wattrel",
+    "num": 940,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Wattrel, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "wattrel-cardinal.png",
+    "source_sha256": "8f908c9ea7275fd997d5a67951ca6925227be4012e939affea0f22c155143b25",
+    "source_record": "wattrel-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

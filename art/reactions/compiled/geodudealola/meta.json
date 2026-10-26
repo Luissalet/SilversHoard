@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "geodudealola",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d77d905c183fa389516af9e77f4814b4d04c7f957064e0569dbfc7d59caaaa8b",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 74,
+          "form": "Alola",
+          "key": "lib-geodudealola-n-a00fdeea5223"
+        },
+        "sha256": "5d885cc61b1d2fe309def887ba2b7e219222640fa33d5280ec29951e5f834224"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "geodudealola",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d77d905c183fa389516af9e77f4814b4d04c7f957064e0569dbfc7d59caaaa8b",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 74,
+          "form": "Alola",
+          "key": "lib-geodudealola-n-a00fdeea5223"
+        },
+        "sha256": "766008b8014d0e26a51eb9bf49bab54d39d286aa08e71b0f7922c2db94151883"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "geodudealola",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d77d905c183fa389516af9e77f4814b4d04c7f957064e0569dbfc7d59caaaa8b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 74,
+            "form": "Alola",
+            "key": "lib-geodudealola-n-a00fdeea5223"
+          },
+          "sha256": "05a6fce9dde1d8913986ba0ab8d1138161bbeef41416bbd11b7a67b520bdebbe",
+          "palette_from": "lib-geodudealola-s-568b72352660"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "geodudealola",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d77d905c183fa389516af9e77f4814b4d04c7f957064e0569dbfc7d59caaaa8b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 74,
+            "form": "Alola",
+            "key": "lib-geodudealola-n-a00fdeea5223"
+          },
+          "sha256": "002563fa9f982ac45fc45c95527886063ca09aabcbb26795adaaf4165cf37e6f",
+          "palette_from": "lib-geodudealola-s-568b72352660"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "geodudealola",
+    "num": 74,
+    "form": "Alola",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Geodude-Alola, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "geodudealola-retry-r4.png",
+    "source_sha256": "d77d905c183fa389516af9e77f4814b4d04c7f957064e0569dbfc7d59caaaa8b",
+    "source_record": "geodudealola-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

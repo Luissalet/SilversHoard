@@ -113,10 +113,10 @@
         "ax": 68.0,
         "ay": 114,
         "source": {
-          "kind": "shiny-generated-pmd-reaction",
+          "kind": "generated-shiny-pmd-reaction",
           "record": "zygardemega",
           "tool": "builtin-imagegen",
-          "source_sha256": "7851a2ed3d5b92e23e56c648a411bdfe9a30bce1073dcd2698ed147516f7269f",
+          "source_sha256": "242c14f84f3f0260a3846fe9c2b433fde1bbb62474a72a85f4cac6d96ff1010e",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -129,10 +129,9 @@
           "reference": {
             "num": 718,
             "form": "Mega",
-            "key": "lib-zygardemega-n-0a9c5479ed19"
+            "key": "lib-zygardemega-s-0f84b3d1b93a"
           },
-          "sha256": "5cc7d7884bc95bdb79b6784fe082137bdc4ea8e754996bfcde94ce1455e7a41d",
-          "palette_from": "lib-zygardemega-s-0f84b3d1b93a"
+          "sha256": "c60dca80d059d94f38281511735f9ee00b6ec8ad692b3456350f43f68836ceed"
         },
         "row_map": [
           0,
@@ -159,10 +158,10 @@
         "ax": 68.0,
         "ay": 114,
         "source": {
-          "kind": "shiny-generated-pmd-reaction",
+          "kind": "generated-shiny-pmd-reaction",
           "record": "zygardemega",
           "tool": "builtin-imagegen",
-          "source_sha256": "7851a2ed3d5b92e23e56c648a411bdfe9a30bce1073dcd2698ed147516f7269f",
+          "source_sha256": "242c14f84f3f0260a3846fe9c2b433fde1bbb62474a72a85f4cac6d96ff1010e",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -175,10 +174,9 @@
           "reference": {
             "num": 718,
             "form": "Mega",
-            "key": "lib-zygardemega-n-0a9c5479ed19"
+            "key": "lib-zygardemega-s-0f84b3d1b93a"
           },
-          "sha256": "25a202d4a82d0a6d145cb713d58ed1422e4755a59cd5b99a2a42b6175ca46dfb",
-          "palette_from": "lib-zygardemega-s-0f84b3d1b93a"
+          "sha256": "86539a303c26ec9d1cb56c50cf9e041e13a2e03fd622009edb96dff8c0a8feff"
         },
         "row_map": [
           0,
@@ -208,8 +206,10 @@
     "prompt": "Create a new pixel-art game animation sheet for Zygarde-Mega, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
     "source_image": "zygardemega-cardinal.png",
     "source_sha256": "7851a2ed3d5b92e23e56c648a411bdfe9a30bce1073dcd2698ed147516f7269f",
-    "source_record": "zygardemega-cardinal.json"
+    "source_record": "zygardemega-cardinal.json",
+    "shiny_source_image": "zygardemega-shiny-v1.png",
+    "shiny_prompt": "Use case identity-preserve. Recolour exact existing32sprite transparent8column4row pixel atlas to native SHINY Mega Zygarde image2. Main body/large fin plates white and light gray, red/blue markings retained as reference. Thin distal tail appendage is TURQUOISE/CYAN, never lime green; keep lime-green only where native small fronds/limbs are green. All rear/profile settling poses preserve visible turquoise tail. Preserve all32poses, shape, cameras, grid, pixel scale and anatomy. Transparent background, no effects or symbols or text."
   },
   "reviewed": true,
-  "shiny_reviewed": false
+  "shiny_reviewed": true
 }

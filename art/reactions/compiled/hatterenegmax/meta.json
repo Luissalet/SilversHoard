@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "hatterenegmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "918dbb5b8a7f71ff69293c4a78fb215fcf4f03891820f63274b1245c6cfe34ec",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 858,
+          "form": "Gmax",
+          "key": "lib-hatterenegmax-n-151968f0a2a3"
+        },
+        "sha256": "59e0345f4746818873c36b4fecdb8b0706bdc65ab9e8359adc3de419ea906074"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "hatterenegmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "918dbb5b8a7f71ff69293c4a78fb215fcf4f03891820f63274b1245c6cfe34ec",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 858,
+          "form": "Gmax",
+          "key": "lib-hatterenegmax-n-151968f0a2a3"
+        },
+        "sha256": "cfe287538b915eb7a7385eb9e62f034372ee3bbbf1ca05102ef327ca7b34479c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "hatterenegmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "918dbb5b8a7f71ff69293c4a78fb215fcf4f03891820f63274b1245c6cfe34ec",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 858,
+            "form": "Gmax",
+            "key": "lib-hatterenegmax-n-151968f0a2a3"
+          },
+          "sha256": "4a3358379e30c4751f41ea206090a6e78aa7829ae5ed0e5f732c079fb08360c7",
+          "palette_from": "lib-hatterenegmax-s-bb2f376d4e29"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "hatterenegmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "918dbb5b8a7f71ff69293c4a78fb215fcf4f03891820f63274b1245c6cfe34ec",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 858,
+            "form": "Gmax",
+            "key": "lib-hatterenegmax-n-151968f0a2a3"
+          },
+          "sha256": "2b7216316bec546c3d1164c7c0cbfdc9657da4bd9ec69b3d33c233b531e1ce2c",
+          "palette_from": "lib-hatterenegmax-s-bb2f376d4e29"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "hatterenegmax",
+    "num": 858,
+    "form": "Gmax",
+    "tool": "builtin-imagegen",
+    "prompt": "Repack existing genuinely drawn poses without repainting or warping: use the declared same-identity same-camera braced/prone pose to replace the erroneously side-facing pose. Other pixels retain exact original binary-alpha crops.",
+    "source_image": "hatterenegmax-assembled50.png",
+    "source_sha256": "918dbb5b8a7f71ff69293c4a78fb215fcf4f03891820f63274b1245c6cfe34ec",
+    "source_record": "hatterenegmax-assembled50.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

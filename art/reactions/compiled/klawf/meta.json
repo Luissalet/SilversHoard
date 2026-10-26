@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "klawf",
+        "tool": "builtin-imagegen",
+        "source_sha256": "161c616e6c04a0b7ddf170a6fc6897ed65ffe816acbe507432420797a95309fd",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 950,
+          "form": "",
+          "key": "lib-klawf-n-c044918fef1c"
+        },
+        "sha256": "3744f8f95da7128088e6bf0c8c160814db9d6ee9ba650da8043e0617e2343e53"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 32,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 26,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "klawf",
+        "tool": "builtin-imagegen",
+        "source_sha256": "161c616e6c04a0b7ddf170a6fc6897ed65ffe816acbe507432420797a95309fd",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 950,
+          "form": "",
+          "key": "lib-klawf-n-c044918fef1c"
+        },
+        "sha256": "f1b8c21d05b7774fafdf2a0bb7e6b3920158053482cb7bed657da24af69864f8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "klawf",
+          "tool": "builtin-imagegen",
+          "source_sha256": "161c616e6c04a0b7ddf170a6fc6897ed65ffe816acbe507432420797a95309fd",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 950,
+            "form": "",
+            "key": "lib-klawf-n-c044918fef1c"
+          },
+          "sha256": "fa76e1ce6f9899cc6d274a1a12680e957cfd5933ff0e7ee0719719bc2917de4d",
+          "palette_from": "lib-klawf-s-ecc0899c3762"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 32,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 26,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "klawf",
+          "tool": "builtin-imagegen",
+          "source_sha256": "161c616e6c04a0b7ddf170a6fc6897ed65ffe816acbe507432420797a95309fd",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 950,
+            "form": "",
+            "key": "lib-klawf-n-c044918fef1c"
+          },
+          "sha256": "3c7a9e73f3ad750069b7afb5ae045dfaa92ea8d5bfd10ec2697f1a2b7204b81a",
+          "palette_from": "lib-klawf-s-ecc0899c3762"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "klawf",
+    "num": 950,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Klawf, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "klawf-retry-r4.png",
+    "source_sha256": "161c616e6c04a0b7ddf170a6fc6897ed65ffe816acbe507432420797a95309fd",
+    "source_record": "klawf-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": false
+}

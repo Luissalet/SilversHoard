@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dragonair",
+        "tool": "builtin-imagegen",
+        "source_sha256": "faaf0dac7446d13c923c8974d767a066d258d5d8a09fda9ffb11a1c4d7cdd9b5",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 148,
+          "form": "",
+          "key": "lib-dragonair-n-2ae6b9c3fbc1"
+        },
+        "sha256": "1097de3f35234dd3016aff8f0750b5f07223344f156d8d03dd39cca0ff943fb4"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dragonair",
+        "tool": "builtin-imagegen",
+        "source_sha256": "faaf0dac7446d13c923c8974d767a066d258d5d8a09fda9ffb11a1c4d7cdd9b5",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 148,
+          "form": "",
+          "key": "lib-dragonair-n-2ae6b9c3fbc1"
+        },
+        "sha256": "a96cedd2403f5b71ecd74a5722ffe33f231dc34ac1e613fbc528326b13d1ca25"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dragonair",
+          "tool": "builtin-imagegen",
+          "source_sha256": "faaf0dac7446d13c923c8974d767a066d258d5d8a09fda9ffb11a1c4d7cdd9b5",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 148,
+            "form": "",
+            "key": "lib-dragonair-n-2ae6b9c3fbc1"
+          },
+          "sha256": "176618fd2681cf29f67a286f4877b5d396110ce464153738cc610b8da4affa11",
+          "palette_from": "lib-dragonair-s-67b0b5a2f66d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dragonair",
+          "tool": "builtin-imagegen",
+          "source_sha256": "faaf0dac7446d13c923c8974d767a066d258d5d8a09fda9ffb11a1c4d7cdd9b5",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 148,
+            "form": "",
+            "key": "lib-dragonair-n-2ae6b9c3fbc1"
+          },
+          "sha256": "7d28750afa1454bcec228095683598292ee67db417a496ef5d8e13524ca4ea61",
+          "palette_from": "lib-dragonair-s-67b0b5a2f66d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "dragonair",
+    "num": 148,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Dragonair, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "dragonair-retry-r4.png",
+    "source_sha256": "faaf0dac7446d13c923c8974d767a066d258d5d8a09fda9ffb11a1c4d7cdd9b5",
+    "source_record": "dragonair-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

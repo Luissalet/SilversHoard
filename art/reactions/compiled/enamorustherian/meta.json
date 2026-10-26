@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 80,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 40.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "enamorustherian",
+        "tool": "builtin-imagegen",
+        "source_sha256": "03974ad3d38a0e3e54ed5e84b0d83c42470c0b4aecea718340a8621d5c6ad5f9",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 905,
+          "form": "Therian",
+          "key": "lib-enamorustherian-n-6a861999e430"
+        },
+        "sha256": "bedf93999c31c5d54ad92f263b3617c88f6a98205fc86c742fe57797a50f91a8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 80,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 40.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "enamorustherian",
+        "tool": "builtin-imagegen",
+        "source_sha256": "03974ad3d38a0e3e54ed5e84b0d83c42470c0b4aecea718340a8621d5c6ad5f9",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 905,
+          "form": "Therian",
+          "key": "lib-enamorustherian-n-6a861999e430"
+        },
+        "sha256": "fecd819ddc9dd401abe9e65e0ac5b0451711c93579f34c56b7745a4e3e7f480a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 80,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 40.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "enamorustherian",
+          "tool": "builtin-imagegen",
+          "source_sha256": "03974ad3d38a0e3e54ed5e84b0d83c42470c0b4aecea718340a8621d5c6ad5f9",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 905,
+            "form": "Therian",
+            "key": "lib-enamorustherian-n-6a861999e430"
+          },
+          "sha256": "a1711746c1135f71687c262aee4cd1ac3db050a36866d1a1857db3beb57f5aae",
+          "palette_from": "lib-enamorustherian-s-b800a8f80cb2"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 80,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 40.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "enamorustherian",
+          "tool": "builtin-imagegen",
+          "source_sha256": "03974ad3d38a0e3e54ed5e84b0d83c42470c0b4aecea718340a8621d5c6ad5f9",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 905,
+            "form": "Therian",
+            "key": "lib-enamorustherian-n-6a861999e430"
+          },
+          "sha256": "5e47399a6af33cb1e6b8b7ab1654bafeec54bf7623005cbf637c3857fd4061a1",
+          "palette_from": "lib-enamorustherian-s-b800a8f80cb2"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "enamorustherian",
+    "num": 905,
+    "form": "Therian",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Enamorus-Therian, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "enamorustherian-cardinal.png",
+    "source_sha256": "03974ad3d38a0e3e54ed5e84b0d83c42470c0b4aecea718340a8621d5c6ad5f9",
+    "source_record": "enamorustherian-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

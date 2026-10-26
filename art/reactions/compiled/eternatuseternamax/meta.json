@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 176,
+      "h": 136,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 88.0,
+      "ay": 130,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "eternatuseternamax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b3517facd26af51409b3a4d9424df6c389be88680b80173f25d4a3d554382f7c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 890,
+          "form": "Eternamax",
+          "key": "lib-eternatuseternamax-n-27b681ff64ac"
+        },
+        "sha256": "03680c492743b47ccc7bbfb77f70504359b52aae8bc24cd7db753fe6ab460b7b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 176,
+      "h": 136,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 88.0,
+      "ay": 130,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "eternatuseternamax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "b3517facd26af51409b3a4d9424df6c389be88680b80173f25d4a3d554382f7c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 890,
+          "form": "Eternamax",
+          "key": "lib-eternatuseternamax-n-27b681ff64ac"
+        },
+        "sha256": "3bccb60e09d30db9744d9b9657ccf9a7816c8a41482fa0572850e4c71b1184fe"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 176,
+        "h": 136,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 88.0,
+        "ay": 130,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "eternatuseternamax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b3517facd26af51409b3a4d9424df6c389be88680b80173f25d4a3d554382f7c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 890,
+            "form": "Eternamax",
+            "key": "lib-eternatuseternamax-n-27b681ff64ac"
+          },
+          "sha256": "d831bd8e5512fe4d47b64d79d678a78b6c869846b5f31712f2e31f77645fe85a",
+          "palette_from": "lib-eternatuseternamax-s-165e9598dbbf"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 176,
+        "h": 136,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 88.0,
+        "ay": 130,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "eternatuseternamax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "b3517facd26af51409b3a4d9424df6c389be88680b80173f25d4a3d554382f7c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 890,
+            "form": "Eternamax",
+            "key": "lib-eternatuseternamax-n-27b681ff64ac"
+          },
+          "sha256": "60618f61867166fe5e860964cfcacfb385cb01b80c2e91d66042221ce5f08e23",
+          "palette_from": "lib-eternatuseternamax-s-165e9598dbbf"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "eternatuseternamax",
+    "num": 890,
+    "form": "Eternamax",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Eternatus-Eternamax, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "eternatuseternamax-cardinal.png",
+    "source_sha256": "b3517facd26af51409b3a4d9424df6c389be88680b80173f25d4a3d554382f7c",
+    "source_record": "eternatuseternamax-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

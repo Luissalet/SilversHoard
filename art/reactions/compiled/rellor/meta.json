@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "rellor",
+        "tool": "builtin-imagegen",
+        "source_sha256": "12bd851246bacb43f4d72b191838a059b30cb534942e1949c5b16b009d5bf4ba",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 953,
+          "form": "",
+          "key": "lib-rellor-n-79ea875cfa6e"
+        },
+        "sha256": "08ad1398dcb86a89aa70e99726a883c037ddc620063db491cf25a3b21164db0b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "rellor",
+        "tool": "builtin-imagegen",
+        "source_sha256": "12bd851246bacb43f4d72b191838a059b30cb534942e1949c5b16b009d5bf4ba",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 953,
+          "form": "",
+          "key": "lib-rellor-n-79ea875cfa6e"
+        },
+        "sha256": "b9462b926f3256d4b108f648efd11250556d20caa1b85e60da6ccbe0faf24cf9"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "rellor",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d6e5660992b696146041d752cffe987cca26bae4a4c6ec94f97e4345a5e561c4",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 953,
+            "form": "",
+            "key": "lib-rellor-s-5008d853dd03"
+          },
+          "sha256": "bd480916f01a042bd40c3d7739b8ae89753ee7e535d9c230a37fd8b642d536c7"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "generated-shiny-pmd-reaction",
+          "record": "rellor",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d6e5660992b696146041d752cffe987cca26bae4a4c6ec94f97e4345a5e561c4",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 953,
+            "form": "",
+            "key": "lib-rellor-s-5008d853dd03"
+          },
+          "sha256": "5f511d98442a522e374d15e4ada7252f94dc6a096ce2ad00446b03efc7c8eab1"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "rellor",
+    "num": 953,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Rellor, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "rellor-cardinal.png",
+    "source_sha256": "12bd851246bacb43f4d72b191838a059b30cb534942e1949c5b16b009d5bf4ba",
+    "source_record": "rellor-cardinal.json",
+    "shiny_source_image": "rellor-shiny47-v1.png",
+    "shiny_prompt": "Use case identity-preserve. Recolour all32sprites of transparent8column4row atlas IMAGE1 to exact native SHINY colours in IMAGE2. Use exact native SHINY: ball is bright metallic GOLD/YELLOW, beetle body gray/dun (no normal brown ball). Preserve tiny beetle versus sphere regions separately. Preserve every pose, geometry, camera and distinctive part. NORTH remains rear. Finalgroundposesremainfullydown. Crisp exact limited native pixel palette, transparent background, broad gutters. No new effects,text,objects or scenery."
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

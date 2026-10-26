@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "gallademega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5bb1ab22eec39abd598c2fa6f0dfde081ec96dc3a5a2a78cc732af2d1ffb8764",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 475,
+          "form": "Mega",
+          "key": "lib-gallademega-n-d158e64d2620"
+        },
+        "sha256": "c2336a1bba07f08bc945aed22150f2a5165363251b6d2db21bfa471acb7fc40f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "gallademega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "5bb1ab22eec39abd598c2fa6f0dfde081ec96dc3a5a2a78cc732af2d1ffb8764",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 475,
+          "form": "Mega",
+          "key": "lib-gallademega-n-d158e64d2620"
+        },
+        "sha256": "e6adf6a751e21938f40c2cb93eeb7955a88fc4c4bc0a1e1c71137b84b08a6557"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "gallademega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5bb1ab22eec39abd598c2fa6f0dfde081ec96dc3a5a2a78cc732af2d1ffb8764",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 475,
+            "form": "Mega",
+            "key": "lib-gallademega-n-d158e64d2620"
+          },
+          "sha256": "5b27b8fa62a850b66352913ba7ad65ad575630296467b2e61db62746c3ac0556",
+          "palette_from": "lib-gallademega-s-9bcb925a2aa5"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "gallademega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "5bb1ab22eec39abd598c2fa6f0dfde081ec96dc3a5a2a78cc732af2d1ffb8764",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 475,
+            "form": "Mega",
+            "key": "lib-gallademega-n-d158e64d2620"
+          },
+          "sha256": "bc3008dea8d666232484662914665a3f8c0909f2de7a79a5e10f4d90e2dd2b0d",
+          "palette_from": "lib-gallademega-s-9bcb925a2aa5"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "gallademega",
+    "num": 475,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Gallade-Mega, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "gallademega-retry-r4.png",
+    "source_sha256": "5bb1ab22eec39abd598c2fa6f0dfde081ec96dc3a5a2a78cc732af2d1ffb8764",
+    "source_record": "gallademega-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

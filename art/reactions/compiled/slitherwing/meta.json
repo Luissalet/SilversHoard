@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 72,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "slitherwing",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e8ebf3ea9458da42375c7e1d8ec46e76726fc1b602a8886bd45a417ecd2a599d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 988,
+          "form": "",
+          "key": "lib-slitherwing-n-3b4000df3d9b"
+        },
+        "sha256": "450e67bc5d59ed8c76795e678a63e0965ee5b9be2b4e6c08a8b570410f5d68ee"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 72,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "slitherwing",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e8ebf3ea9458da42375c7e1d8ec46e76726fc1b602a8886bd45a417ecd2a599d",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 988,
+          "form": "",
+          "key": "lib-slitherwing-n-3b4000df3d9b"
+        },
+        "sha256": "085938f2b3d8b4e6dbcc76ea477d3c8a584b73bb3ee542a6566b7eadc34d8fb6"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 72,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "slitherwing",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e8ebf3ea9458da42375c7e1d8ec46e76726fc1b602a8886bd45a417ecd2a599d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 988,
+            "form": "",
+            "key": "lib-slitherwing-n-3b4000df3d9b"
+          },
+          "sha256": "34832676fba83642d18bed3f2306cd004dc82fec7cf45d3bf27e5e1dc7a2eede",
+          "palette_from": "lib-slitherwing-s-2424de1b7211"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 72,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "slitherwing",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e8ebf3ea9458da42375c7e1d8ec46e76726fc1b602a8886bd45a417ecd2a599d",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 988,
+            "form": "",
+            "key": "lib-slitherwing-n-3b4000df3d9b"
+          },
+          "sha256": "caebeeef052c5f9362671e3fd3723f5129e0322679ba830ac9d145bd234006bd",
+          "palette_from": "lib-slitherwing-s-2424de1b7211"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "slitherwing",
+    "num": 988,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Slither Wing, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "slitherwing-cardinal.png",
+    "source_sha256": "e8ebf3ea9458da42375c7e1d8ec46e76726fc1b602a8886bd45a417ecd2a599d",
+    "source_record": "slitherwing-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

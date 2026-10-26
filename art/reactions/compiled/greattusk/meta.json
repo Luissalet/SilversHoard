@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 80,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 40.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "greattusk",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7fc1fd375f31e2688ee73bfe5274fde8033bb70eae004639118701f1a13a56e6",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 984,
+          "form": "",
+          "key": "lib-greattusk-n-3160156b5535"
+        },
+        "sha256": "86c01fcaf7b9d9a25613f7e5e08fc62858f8be4a88b590e915e46bf9733c2f4c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 80,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 40.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "greattusk",
+        "tool": "builtin-imagegen",
+        "source_sha256": "7fc1fd375f31e2688ee73bfe5274fde8033bb70eae004639118701f1a13a56e6",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 984,
+          "form": "",
+          "key": "lib-greattusk-n-3160156b5535"
+        },
+        "sha256": "ae6d34f590814edfa83fb95b9eb54460a2846edb845e45c0c00dc79223e29b66"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 80,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 40.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "greattusk",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7fc1fd375f31e2688ee73bfe5274fde8033bb70eae004639118701f1a13a56e6",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 984,
+            "form": "",
+            "key": "lib-greattusk-n-3160156b5535"
+          },
+          "sha256": "fc27ac8d8487a0f08cd283ea63d7903ae10674a3c2ba824a5d37c6b874cb6cb6",
+          "palette_from": "lib-greattusk-s-8ff4cb21eabc"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 80,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 40.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "greattusk",
+          "tool": "builtin-imagegen",
+          "source_sha256": "7fc1fd375f31e2688ee73bfe5274fde8033bb70eae004639118701f1a13a56e6",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 984,
+            "form": "",
+            "key": "lib-greattusk-n-3160156b5535"
+          },
+          "sha256": "f3d11f5984820eb48bdbd2eaa3b5f6e41a37f4ea29f111846fa578fe596a0ebd",
+          "palette_from": "lib-greattusk-s-8ff4cb21eabc"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "greattusk",
+    "num": 984,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Great Tusk, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "greattusk-cardinal.png",
+    "source_sha256": "7fc1fd375f31e2688ee73bfe5274fde8033bb70eae004639118701f1a13a56e6",
+    "source_record": "greattusk-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

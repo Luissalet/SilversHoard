@@ -113,10 +113,10 @@
         "ax": 20.0,
         "ay": 34,
         "source": {
-          "kind": "shiny-generated-pmd-reaction",
+          "kind": "generated-shiny-pmd-reaction",
           "record": "komala",
           "tool": "builtin-imagegen",
-          "source_sha256": "631284c755e7f662cc1dd5332e1003510bf0089575ee208d8e1d53fd16f1b533",
+          "source_sha256": "92ca9437d211a2eb05c051d9d78c343c207819890520b958bc67344210d553c5",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -129,10 +129,9 @@
           "reference": {
             "num": 775,
             "form": "",
-            "key": "lib-komala-n-bafd4cea0c59"
+            "key": "lib-komala-s-736600ff9827"
           },
-          "sha256": "efa93f0c53d06a84f64abf6f264e719b19d0ffcee60abcb867bdcb78578ab14b",
-          "palette_from": "lib-komala-s-736600ff9827"
+          "sha256": "3b3f5b44c581cb7df53875934c0ed23aef2e788b661ec0a02f842f420d2d3616"
         },
         "row_map": [
           0,
@@ -159,10 +158,10 @@
         "ax": 20.0,
         "ay": 34,
         "source": {
-          "kind": "shiny-generated-pmd-reaction",
+          "kind": "generated-shiny-pmd-reaction",
           "record": "komala",
           "tool": "builtin-imagegen",
-          "source_sha256": "631284c755e7f662cc1dd5332e1003510bf0089575ee208d8e1d53fd16f1b533",
+          "source_sha256": "92ca9437d211a2eb05c051d9d78c343c207819890520b958bc67344210d553c5",
           "authored_directions": 4,
           "authored_frames": 16,
           "generated_frames": 16,
@@ -175,10 +174,9 @@
           "reference": {
             "num": 775,
             "form": "",
-            "key": "lib-komala-n-bafd4cea0c59"
+            "key": "lib-komala-s-736600ff9827"
           },
-          "sha256": "b6a1ff918d22cb2b6b4b6a921e71c9001781bf1b2acff0f541b70d79ea7f9e63",
-          "palette_from": "lib-komala-s-736600ff9827"
+          "sha256": "1fa4fc9d0279c088058b34a2c261d6aac1cb871193743f46c220cb2a80ff3ec3"
         },
         "row_map": [
           0,
@@ -208,8 +206,10 @@
     "prompt": "Create a new pixel-art game animation sheet for Komala, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
     "source_image": "komala-cardinal.png",
     "source_sha256": "631284c755e7f662cc1dd5332e1003510bf0089575ee208d8e1d53fd16f1b533",
-    "source_record": "komala-cardinal.json"
+    "source_record": "komala-cardinal.json",
+    "shiny_source_image": "komala-shiny-r6.png",
+    "shiny_prompt": "Use case identity-preserve. Recolour all32 sprites of the existing transparent8column4row game atlas image1 to the EXACT native SHINY palette of image2. Inner ears stay ORANGE; held log cut surface becomes pink and white. Do not turn ears pink. Keep all poses, camera directions, body parts and geometry unchanged. Match each MATERIAL/REGION individually, no global hue shift or colour spill into neighbouring parts. NORTH remains back-only. Final ground poses stay fully prone. Crisp native pixel palette and transparent background. No new effects marks text or objects."
   },
   "reviewed": true,
-  "shiny_reviewed": false
+  "shiny_reviewed": true
 }

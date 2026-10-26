@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "clefairy",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8e14ad696e69c7f9aa6f3a8ca10d0fb812a0382c11b32041ed0d9cb98ca002a2",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 35,
+          "form": "",
+          "key": "lib-clefairy-n-0d1a1a7f8402"
+        },
+        "sha256": "78c703184feea74d2e95759f098fb1553f0e2f04c6cbb13f402965b6003df659"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "clefairy",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8e14ad696e69c7f9aa6f3a8ca10d0fb812a0382c11b32041ed0d9cb98ca002a2",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 35,
+          "form": "",
+          "key": "lib-clefairy-n-0d1a1a7f8402"
+        },
+        "sha256": "a6ebbc48fa4ab7e3fc73dccba34a0ec98d6aaa1a4049275ced55ca625f81de8f"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "clefairy",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8e14ad696e69c7f9aa6f3a8ca10d0fb812a0382c11b32041ed0d9cb98ca002a2",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 35,
+            "form": "",
+            "key": "lib-clefairy-n-0d1a1a7f8402"
+          },
+          "sha256": "4c0a2ce697d89fcf59a3d3f89babacf9ca88b7d43a46f8b52b09e28dd60ac378",
+          "palette_from": "lib-clefairy-s-d2969bd29c69"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "clefairy",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8e14ad696e69c7f9aa6f3a8ca10d0fb812a0382c11b32041ed0d9cb98ca002a2",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 35,
+            "form": "",
+            "key": "lib-clefairy-n-0d1a1a7f8402"
+          },
+          "sha256": "411b3cc905037580cb7a0d4447a179f970e6f1c8a5ab25cab89a18b6a97c31b1",
+          "palette_from": "lib-clefairy-s-d2969bd29c69"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "clefairy",
+    "num": 35,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Clefairy, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "clefairy-retry-r4.png",
+    "source_sha256": "8e14ad696e69c7f9aa6f3a8ca10d0fb812a0382c11b32041ed0d9cb98ca002a2",
+    "source_record": "clefairy-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

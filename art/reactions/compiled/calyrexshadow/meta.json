@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "calyrexshadow",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4f26e1a120c339b5fcbe6aed02424d7e8a27807844a17340b6d0cc992bdfab2b",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 898,
+          "form": "Shadow",
+          "key": "lib-calyrexshadow-n-c34a9b75c17d"
+        },
+        "sha256": "f0219507e7b530ec3bb91477f44af69eb7c617b690b08002c6951fb4c16265fd"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "calyrexshadow",
+        "tool": "builtin-imagegen",
+        "source_sha256": "4f26e1a120c339b5fcbe6aed02424d7e8a27807844a17340b6d0cc992bdfab2b",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 898,
+          "form": "Shadow",
+          "key": "lib-calyrexshadow-n-c34a9b75c17d"
+        },
+        "sha256": "68dba22b493536ca67980af0db2cb32a3fcd9fb869025f7f704debbcb32627f5"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "calyrexshadow",
+          "tool": "builtin-imagegen",
+          "source_sha256": "4f26e1a120c339b5fcbe6aed02424d7e8a27807844a17340b6d0cc992bdfab2b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 898,
+            "form": "Shadow",
+            "key": "lib-calyrexshadow-n-c34a9b75c17d"
+          },
+          "sha256": "77a0325c15a37a890d44e83862a8d796d815d386e253bdd9cf53e5c3507436b6",
+          "palette_from": "lib-calyrexshadow-s-8964ec9442bc"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "calyrexshadow",
+          "tool": "builtin-imagegen",
+          "source_sha256": "4f26e1a120c339b5fcbe6aed02424d7e8a27807844a17340b6d0cc992bdfab2b",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 898,
+            "form": "Shadow",
+            "key": "lib-calyrexshadow-n-c34a9b75c17d"
+          },
+          "sha256": "7e789bb2116950ae2fe27d5ad571c6daaf5872406e85e679f01fb4196a7c9d22",
+          "palette_from": "lib-calyrexshadow-s-8964ec9442bc"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "calyrexshadow",
+    "num": 898,
+    "form": "Shadow",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Calyrex-Shadow, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "calyrexshadow-cardinal.png",
+    "source_sha256": "4f26e1a120c339b5fcbe6aed02424d7e8a27807844a17340b6d0cc992bdfab2b",
+    "source_record": "calyrexshadow-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

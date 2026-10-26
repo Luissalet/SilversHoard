@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 72,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "cetitan",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ec59ad611c373d1bb6c51d1d318d2d95b1aa0d345f102d32272939326ddb7a4c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 975,
+          "form": "",
+          "key": "lib-cetitan-n-a77d906c680c"
+        },
+        "sha256": "d0767f51d6e56b9ec7ef0636634728d953795d63a8d926fcbdf4fd99555a4c31"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 72,
+      "h": 56,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "cetitan",
+        "tool": "builtin-imagegen",
+        "source_sha256": "ec59ad611c373d1bb6c51d1d318d2d95b1aa0d345f102d32272939326ddb7a4c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 975,
+          "form": "",
+          "key": "lib-cetitan-n-a77d906c680c"
+        },
+        "sha256": "bde7e76e70d87b455f823d6f53ca7942ca8676f2a8d873ecd1ca53f3ef20c24c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 72,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "cetitan",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ec59ad611c373d1bb6c51d1d318d2d95b1aa0d345f102d32272939326ddb7a4c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 975,
+            "form": "",
+            "key": "lib-cetitan-n-a77d906c680c"
+          },
+          "sha256": "bf1adedec642c3110d5104e7a8fa26e9f927994549181d6b836e30198aa26542",
+          "palette_from": "lib-cetitan-s-49be072d07ee"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 72,
+        "h": 56,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "cetitan",
+          "tool": "builtin-imagegen",
+          "source_sha256": "ec59ad611c373d1bb6c51d1d318d2d95b1aa0d345f102d32272939326ddb7a4c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 975,
+            "form": "",
+            "key": "lib-cetitan-n-a77d906c680c"
+          },
+          "sha256": "0c2ae72d9bbab3f3a74c05c5364327aeeba9e12ac399edd95cb9922e562061a4",
+          "palette_from": "lib-cetitan-s-49be072d07ee"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "cetitan",
+    "num": 975,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Cetitan, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "cetitan-cardinal.png",
+    "source_sha256": "ec59ad611c373d1bb6c51d1d318d2d95b1aa0d345f102d32272939326ddb7a4c",
+    "source_record": "cetitan-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

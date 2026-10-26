@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 80,
+      "h": 64,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 40.0,
+      "ay": 58,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "kyogre",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a5dcfe6e357fd53571c3981253889ab3980031adcfb5fa47691ea20fa2cd46c3",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 382,
+          "form": "",
+          "key": "lib-kyogre-n-aade3a8af39c"
+        },
+        "sha256": "c54f082d1d3ad9becc51b7bf86fc2c8f46e8add3a1a2aa83ffedb21da0d42b59"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 80,
+      "h": 64,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 40.0,
+      "ay": 58,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "kyogre",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a5dcfe6e357fd53571c3981253889ab3980031adcfb5fa47691ea20fa2cd46c3",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 382,
+          "form": "",
+          "key": "lib-kyogre-n-aade3a8af39c"
+        },
+        "sha256": "1b00b8f04cd4c9ab0f6c26733b94589db6c85e05b5bd90fe49c56fc484d81a18"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 80,
+        "h": 64,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 40.0,
+        "ay": 58,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "kyogre",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a5dcfe6e357fd53571c3981253889ab3980031adcfb5fa47691ea20fa2cd46c3",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 382,
+            "form": "",
+            "key": "lib-kyogre-n-aade3a8af39c"
+          },
+          "sha256": "51c234d3e5cba16e05cd8aa317f56eda5e19d214a6293ccc394186eeadc13c50",
+          "palette_from": "lib-kyogre-s-7674888328d9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 80,
+        "h": 64,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 40.0,
+        "ay": 58,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "kyogre",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a5dcfe6e357fd53571c3981253889ab3980031adcfb5fa47691ea20fa2cd46c3",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 382,
+            "form": "",
+            "key": "lib-kyogre-n-aade3a8af39c"
+          },
+          "sha256": "103551c01f89b427f2f1159452d97c8468243c2e658732dbe665be8bb52cba15",
+          "palette_from": "lib-kyogre-s-7674888328d9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "kyogre",
+    "num": 382,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Kyogre, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "kyogre-retry-r4.png",
+    "source_sha256": "a5dcfe6e357fd53571c3981253889ab3980031adcfb5fa47691ea20fa2cd46c3",
+    "source_record": "kyogre-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

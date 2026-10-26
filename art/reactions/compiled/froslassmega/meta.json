@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "froslassmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "3ec7f491698740df92c19877b4407cce7d4178d114830e7ce6275c66552e78a0",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 478,
+          "form": "Mega",
+          "key": "lib-froslassmega-n-ce53f5c6f695"
+        },
+        "sha256": "ae35b74fcfe66542c6a57549e2bf171771415b30e961072f77606fc317b51a90"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 64,
+      "h": 56,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 32.0,
+      "ay": 50,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "froslassmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "3ec7f491698740df92c19877b4407cce7d4178d114830e7ce6275c66552e78a0",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 478,
+          "form": "Mega",
+          "key": "lib-froslassmega-n-ce53f5c6f695"
+        },
+        "sha256": "a8a648c92b2b039c82e9923f038119616e3c76d083422b2bdc3fea050d8dd87b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "froslassmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "3ec7f491698740df92c19877b4407cce7d4178d114830e7ce6275c66552e78a0",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 478,
+            "form": "Mega",
+            "key": "lib-froslassmega-n-ce53f5c6f695"
+          },
+          "sha256": "72ac4cd1d0c6ff08c9724b91e9272d0c956619f994b395e24877affb94f77a2b",
+          "palette_from": "lib-froslassmega-s-e31efe24f313"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 64,
+        "h": 56,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 32.0,
+        "ay": 50,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "froslassmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "3ec7f491698740df92c19877b4407cce7d4178d114830e7ce6275c66552e78a0",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 478,
+            "form": "Mega",
+            "key": "lib-froslassmega-n-ce53f5c6f695"
+          },
+          "sha256": "cfb83e655139ce0ac9e1691d4427c5ac791c1e10bfc97fe55b696e64a5536512",
+          "palette_from": "lib-froslassmega-s-e31efe24f313"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "froslassmega",
+    "num": 478,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a transparent pixel-art game sprite atlas for Froslass-Mega using the exact native form and colours in the reference. EXACTLY SIXTEEN complete sprites in FOUR columns and FOUR rows. Rows: front/SOUTH, right profile/EAST, back/NORTH with no face, left profile/WEST. Columns1\u20132 are two distinct expressive flinch poses (blink and bend/braced wince). Columns3\u20134 are lowering to rest and fully lying down; final column has body and head resting flat with eyes closed. Keep all characteristic body parts, tails, wings, markings and accessories. Draw new body and limb poses, consistent pixel scale, crisp original palette. Broad transparent gutters, no text, marks, symbols or scenery. This is a nonviolent game character animation.",
+    "source_image": "froslassmega-compact-r5.png",
+    "source_sha256": "3ec7f491698740df92c19877b4407cce7d4178d114830e7ce6275c66552e78a0",
+    "source_record": "froslassmega-compact-r5.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

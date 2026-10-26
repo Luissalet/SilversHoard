@@ -1,0 +1,45 @@
+{
+  "id": "mudbray",
+  "name": "Mudbray",
+  "num": 749,
+  "form": "",
+  "directions": 4,
+  "frames": 4,
+  "image": "mudbray-assembled50.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Repack existing genuinely drawn poses without repainting or warping: use the declared same-identity same-camera braced/prone pose to replace the erroneously side-facing pose. Other pixels retain exact original binary-alpha crops.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "assembly_sources": [
+    {
+      "image": "mudbray-cardinal.png",
+      "sha256": "e07347825bce1d7d0b75f5debe517704da22573ee6587c8d53165fb6e3bfe047"
+    },
+    {
+      "image": "mudbray-north-prone-v2.png",
+      "sha256": "16be55891374d596c596e5d1366be429607d3e50d51ff028b31accb20c47b0e7"
+    },
+    {
+      "image": "mudbray-assembled48.png",
+      "sha256": "2be3a4a265420d13e963237a7251b58df1a546c3a96b7d73d26dae0926686abd"
+    }
+  ],
+  "assembly_recipe": {
+    "base": "mudbray-assembled48.png",
+    "copy_existing_authored_pose": [
+      [
+        2,
+        5,
+        2,
+        6
+      ]
+    ],
+    "no_new_drawing": true
+  },
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-corrections50.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

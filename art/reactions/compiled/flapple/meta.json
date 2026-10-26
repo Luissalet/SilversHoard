@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "flapple",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d489061f18308f7e8dd1d2b76ea12d74b3a603bb803f73e212d21bc999fc100c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 841,
+          "form": "",
+          "key": "lib-flapple-n-e99d5670f7fc"
+        },
+        "sha256": "79718663295b51221b66b88ddf58f674d0ac50177682d4bb87bb092720409a6a"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "flapple",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d489061f18308f7e8dd1d2b76ea12d74b3a603bb803f73e212d21bc999fc100c",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 841,
+          "form": "",
+          "key": "lib-flapple-n-e99d5670f7fc"
+        },
+        "sha256": "ae3e45b476a5a3c727999b11a9fd4dfd5444b002dcfb22be3cc00260cca81721"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "flapple",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d489061f18308f7e8dd1d2b76ea12d74b3a603bb803f73e212d21bc999fc100c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 841,
+            "form": "",
+            "key": "lib-flapple-n-e99d5670f7fc"
+          },
+          "sha256": "2a2820ce7ab4ddf3ff85f9ef030b06eaaf6811dbcdcf1fa51acd917eccc1bd29",
+          "palette_from": "lib-flapple-s-fff7a90ca9d3"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "flapple",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d489061f18308f7e8dd1d2b76ea12d74b3a603bb803f73e212d21bc999fc100c",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 841,
+            "form": "",
+            "key": "lib-flapple-n-e99d5670f7fc"
+          },
+          "sha256": "b1cb9a5c2d982c989ee7ca898d32872d8868189c59ccbf441a7e22c15dd930f3",
+          "palette_from": "lib-flapple-s-fff7a90ca9d3"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "flapple",
+    "num": 841,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Flapple, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "flapple-cardinal.png",
+    "source_sha256": "d489061f18308f7e8dd1d2b76ea12d74b3a603bb803f73e212d21bc999fc100c",
+    "source_record": "flapple-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

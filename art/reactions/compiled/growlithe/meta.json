@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "growlithe",
+        "tool": "builtin-imagegen",
+        "source_sha256": "246c33ac04286f5c0e04a0a29fbe5197c05047c20ef0053ee6797532a89f6832",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 58,
+          "form": "",
+          "key": "lib-growlithe-n-cacbda745e26"
+        },
+        "sha256": "ed72c8cc164b47ac44721f81a82db54a1aad94a8f063fc1fde9397b654467dba"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "growlithe",
+        "tool": "builtin-imagegen",
+        "source_sha256": "246c33ac04286f5c0e04a0a29fbe5197c05047c20ef0053ee6797532a89f6832",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 58,
+          "form": "",
+          "key": "lib-growlithe-n-cacbda745e26"
+        },
+        "sha256": "03157efe46cefbad7550eaab699dd888e0be8051597a610661e14e50368f68a6"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "growlithe",
+          "tool": "builtin-imagegen",
+          "source_sha256": "246c33ac04286f5c0e04a0a29fbe5197c05047c20ef0053ee6797532a89f6832",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 58,
+            "form": "",
+            "key": "lib-growlithe-n-cacbda745e26"
+          },
+          "sha256": "e288535118917daba11bc849621b59f9a9aa836134b6329b569e6254ee2dc892",
+          "palette_from": "lib-growlithe-s-3f9363defd17"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "growlithe",
+          "tool": "builtin-imagegen",
+          "source_sha256": "246c33ac04286f5c0e04a0a29fbe5197c05047c20ef0053ee6797532a89f6832",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 58,
+            "form": "",
+            "key": "lib-growlithe-n-cacbda745e26"
+          },
+          "sha256": "f4c960fe6a53ad3543cb9de6eb1b6c30d7351e7948a2ba6e7bec41e7db1bf4f0",
+          "palette_from": "lib-growlithe-s-3f9363defd17"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "growlithe",
+    "num": 58,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Growlithe, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "growlithe-retry-r4.png",
+    "source_sha256": "246c33ac04286f5c0e04a0a29fbe5197c05047c20ef0053ee6797532a89f6832",
+    "source_record": "growlithe-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

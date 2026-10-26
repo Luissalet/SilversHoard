@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "snorlax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e9ec02d5a7a4cb6fb692bd9d842284216be389c6e30ea2ceec19d851c773bfe6",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 143,
+          "form": "",
+          "key": "lib-snorlax-n-4afa2fbb3ba5"
+        },
+        "sha256": "7823e39fcc3c4cab16eaa1b9e21c82257fcb08ee7243a094a2c52d0975e4fd52"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "snorlax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e9ec02d5a7a4cb6fb692bd9d842284216be389c6e30ea2ceec19d851c773bfe6",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 143,
+          "form": "",
+          "key": "lib-snorlax-n-4afa2fbb3ba5"
+        },
+        "sha256": "cdaa04cc929f82a8f8252e6325cdc70f4c10ccca1e78fd606cbd79a01e700fda"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "snorlax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e9ec02d5a7a4cb6fb692bd9d842284216be389c6e30ea2ceec19d851c773bfe6",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 143,
+            "form": "",
+            "key": "lib-snorlax-n-4afa2fbb3ba5"
+          },
+          "sha256": "fede8f680782e3c32d992f6c2fae484212aa59d5adc7c2641c55ead37c8ec941",
+          "palette_from": "lib-snorlax-s-ed1265a51da9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "snorlax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e9ec02d5a7a4cb6fb692bd9d842284216be389c6e30ea2ceec19d851c773bfe6",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 143,
+            "form": "",
+            "key": "lib-snorlax-n-4afa2fbb3ba5"
+          },
+          "sha256": "556d0c723e92d9f29b71eee88473813aa92d14233ab36fe6474c5593153b5932",
+          "palette_from": "lib-snorlax-s-ed1265a51da9"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "snorlax",
+    "num": 143,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a transparent pixel-art game sprite atlas for Snorlax using the exact native form and colours in the reference. EXACTLY SIXTEEN complete sprites in FOUR columns and FOUR rows. Rows: front/SOUTH, right profile/EAST, back/NORTH with no face, left profile/WEST. Columns1\u20132 are two distinct expressive flinch poses (blink and bend/braced wince). Columns3\u20134 are lowering to rest and fully lying down; final column has body and head resting flat with eyes closed. Keep all characteristic body parts, tails, wings, markings and accessories. Draw new body and limb poses, consistent pixel scale, crisp original palette. Broad transparent gutters, no text, marks, symbols or scenery. This is a nonviolent game character animation.",
+    "source_image": "snorlax-compact-r5.png",
+    "source_sha256": "e9ec02d5a7a4cb6fb692bd9d842284216be389c6e30ea2ceec19d851c773bfe6",
+    "source_record": "snorlax-compact-r5.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

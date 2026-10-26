@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "toedscool",
+        "tool": "builtin-imagegen",
+        "source_sha256": "50243ed933fe02aed34e4a3c46f57d03e5261007015543dab0aa4868c1ca7d99",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 948,
+          "form": "",
+          "key": "lib-toedscool-n-da991fe3cbb6"
+        },
+        "sha256": "782ab7bf50cf9b9a6e12b5bd5223b689ff54ac48a644a3cb8ec8f6abf4aaada4"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "toedscool",
+        "tool": "builtin-imagegen",
+        "source_sha256": "50243ed933fe02aed34e4a3c46f57d03e5261007015543dab0aa4868c1ca7d99",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 948,
+          "form": "",
+          "key": "lib-toedscool-n-da991fe3cbb6"
+        },
+        "sha256": "c85ba6c4ac724e6020cb4608fd9a2c9a3596317d56e0dc0071f73b96f2136fa8"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "toedscool",
+          "tool": "builtin-imagegen",
+          "source_sha256": "50243ed933fe02aed34e4a3c46f57d03e5261007015543dab0aa4868c1ca7d99",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 948,
+            "form": "",
+            "key": "lib-toedscool-n-da991fe3cbb6"
+          },
+          "sha256": "2168c13bebcff29620bc449c5b680c90a3a93fb52549f098073db8cf8b9e69c9",
+          "palette_from": "lib-toedscool-s-9221267f5836"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "toedscool",
+          "tool": "builtin-imagegen",
+          "source_sha256": "50243ed933fe02aed34e4a3c46f57d03e5261007015543dab0aa4868c1ca7d99",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 948,
+            "form": "",
+            "key": "lib-toedscool-n-da991fe3cbb6"
+          },
+          "sha256": "dc8fb93d2b5c8070b97a1cc0a9e42d5f2344e93178d56bb3f7849c0f7be586b3",
+          "palette_from": "lib-toedscool-s-9221267f5836"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "toedscool",
+    "num": 948,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Toedscool, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "toedscool-cardinal.png",
+    "source_sha256": "50243ed933fe02aed34e4a3c46f57d03e5261007015543dab0aa4868c1ca7d99",
+    "source_record": "toedscool-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

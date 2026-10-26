@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 72,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 36.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "necrozmadawnwings",
+        "tool": "builtin-imagegen",
+        "source_sha256": "42a502e4b7132742a9236b3f9c5fa614896fcbc185b62c9db99b8d6e6d558d0c",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 800,
+          "form": "Dawn-Wings",
+          "key": "lib-necrozmadawnwings-n-efb1e29e76b8"
+        },
+        "sha256": "ec3753608bf580f1d49abadb89bf07ddb0abde8bc3e24fd1752692b25d2d0caa"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 72,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 36.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "necrozmadawnwings",
+        "tool": "builtin-imagegen",
+        "source_sha256": "42a502e4b7132742a9236b3f9c5fa614896fcbc185b62c9db99b8d6e6d558d0c",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 800,
+          "form": "Dawn-Wings",
+          "key": "lib-necrozmadawnwings-n-efb1e29e76b8"
+        },
+        "sha256": "7455d0507febb907537c1a26042135b4648791419f02657e755f7e7acc10b045"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 72,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 36.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "necrozmadawnwings",
+          "tool": "builtin-imagegen",
+          "source_sha256": "42a502e4b7132742a9236b3f9c5fa614896fcbc185b62c9db99b8d6e6d558d0c",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 800,
+            "form": "Dawn-Wings",
+            "key": "lib-necrozmadawnwings-n-efb1e29e76b8"
+          },
+          "sha256": "fba6eb1a4637e875883c919ea6237bfeb17f9879ae0a355f2c2aa9173a9ed3e8",
+          "palette_from": "lib-necrozmadawnwings-s-16508defc033"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 72,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 36.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "necrozmadawnwings",
+          "tool": "builtin-imagegen",
+          "source_sha256": "42a502e4b7132742a9236b3f9c5fa614896fcbc185b62c9db99b8d6e6d558d0c",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 800,
+            "form": "Dawn-Wings",
+            "key": "lib-necrozmadawnwings-n-efb1e29e76b8"
+          },
+          "sha256": "29b7a7d1cd1dfc7cec2f2e1ccec458670d5c12bbb099a3d0de0b34bf91056970",
+          "palette_from": "lib-necrozmadawnwings-s-16508defc033"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "necrozmadawnwings",
+    "num": 800,
+    "form": "Dawn-Wings",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a transparent pixel-art game sprite atlas for Necrozma-Dawn-Wings using the exact native form and colours in the reference. EXACTLY SIXTEEN complete sprites in FOUR columns and FOUR rows. Rows: front/SOUTH, right profile/EAST, back/NORTH with no face, left profile/WEST. Columns1\u20132 are two distinct expressive flinch poses (blink and bend/braced wince). Columns3\u20134 are lowering to rest and fully lying down; final column has body and head resting flat with eyes closed. Keep all characteristic body parts, tails, wings, markings and accessories. Draw new body and limb poses, consistent pixel scale, crisp original palette. Broad transparent gutters, no text, marks, symbols or scenery. This is a nonviolent game character animation.",
+    "source_image": "necrozmadawnwings-compact-r5.png",
+    "source_sha256": "42a502e4b7132742a9236b3f9c5fa614896fcbc185b62c9db99b8d6e6d558d0c",
+    "source_record": "necrozmadawnwings-compact-r5.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

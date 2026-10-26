@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "meganium",
+        "tool": "builtin-imagegen",
+        "source_sha256": "55d5968e6c9d5a4576d4b751e2f4d94ae28739ea72449c7e0e669cfdce3522bf",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 154,
+          "form": "",
+          "key": "lib-meganium-n-c3e722ebca77"
+        },
+        "sha256": "e902001be7b14c8f746f2bb863d34b22f20be21e1543863513cb70d7c1a164a1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "meganium",
+        "tool": "builtin-imagegen",
+        "source_sha256": "55d5968e6c9d5a4576d4b751e2f4d94ae28739ea72449c7e0e669cfdce3522bf",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 154,
+          "form": "",
+          "key": "lib-meganium-n-c3e722ebca77"
+        },
+        "sha256": "b543d31624b8df759068f859c83f9048c34e49fcbf94a22d043037cb462b5ba1"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "meganium",
+          "tool": "builtin-imagegen",
+          "source_sha256": "55d5968e6c9d5a4576d4b751e2f4d94ae28739ea72449c7e0e669cfdce3522bf",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 154,
+            "form": "",
+            "key": "lib-meganium-n-c3e722ebca77"
+          },
+          "sha256": "20ed3ed0d975a0399d63c0c8cdea728a2102dd1b25daa118891ffe06f22c7d5f",
+          "palette_from": "lib-meganium-s-6d040d292957"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "meganium",
+          "tool": "builtin-imagegen",
+          "source_sha256": "55d5968e6c9d5a4576d4b751e2f4d94ae28739ea72449c7e0e669cfdce3522bf",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 154,
+            "form": "",
+            "key": "lib-meganium-n-c3e722ebca77"
+          },
+          "sha256": "d9a594df3903e0c8c8d1a38571e742d487f522860d8a9a1448a5ce28aca7e709",
+          "palette_from": "lib-meganium-s-6d040d292957"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "meganium",
+    "num": 154,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Meganium, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "meganium-retry-r4.png",
+    "source_sha256": "55d5968e6c9d5a4576d4b751e2f4d94ae28739ea72449c7e0e669cfdce3522bf",
+    "source_record": "meganium-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

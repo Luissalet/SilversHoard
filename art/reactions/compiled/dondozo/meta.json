@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 88,
+      "h": 72,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 44.0,
+      "ay": 66,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dondozo",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d9cc35131a5017ed4295b85628e5173929ada71504dd37940f959234d7f6120a",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 977,
+          "form": "",
+          "key": "lib-dondozo-n-d899001c28cd"
+        },
+        "sha256": "5a54c34d85f670285b23cae628d6ffc9ad5b19872d6579daa418eb8a03774e62"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 88,
+      "h": 72,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 44.0,
+      "ay": 66,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "dondozo",
+        "tool": "builtin-imagegen",
+        "source_sha256": "d9cc35131a5017ed4295b85628e5173929ada71504dd37940f959234d7f6120a",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 977,
+          "form": "",
+          "key": "lib-dondozo-n-d899001c28cd"
+        },
+        "sha256": "65b0ca7f21b7e94bd36dfd996233c01e2bd499ad3848b32d9416127445d472ca"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 88,
+        "h": 72,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 44.0,
+        "ay": 66,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dondozo",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d9cc35131a5017ed4295b85628e5173929ada71504dd37940f959234d7f6120a",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 977,
+            "form": "",
+            "key": "lib-dondozo-n-d899001c28cd"
+          },
+          "sha256": "17d4923519d277b7806c3e5c95aa2d4ef62a450bb9a9952cd3ff7f316b30df65",
+          "palette_from": "lib-dondozo-s-43d86d7ff380"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 88,
+        "h": 72,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 44.0,
+        "ay": 66,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "dondozo",
+          "tool": "builtin-imagegen",
+          "source_sha256": "d9cc35131a5017ed4295b85628e5173929ada71504dd37940f959234d7f6120a",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 977,
+            "form": "",
+            "key": "lib-dondozo-n-d899001c28cd"
+          },
+          "sha256": "4aade8bab2634b89df722af38e7c9a61b233791228ddbdbd75312ceda12d8671",
+          "palette_from": "lib-dondozo-s-43d86d7ff380"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "dondozo",
+    "num": 977,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Dondozo, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "dondozo-cardinal.png",
+    "source_sha256": "d9cc35131a5017ed4295b85628e5173929ada71504dd37940f959234d7f6120a",
+    "source_record": "dondozo-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

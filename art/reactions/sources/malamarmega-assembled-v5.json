@@ -1,0 +1,87 @@
+{
+  "id": "malamarmega",
+  "name": "Malamar-Mega",
+  "num": 687,
+  "form": "Mega",
+  "directions": 4,
+  "frames": 4,
+  "image": "malamarmega-assembled-v5.png",
+  "layout": "direction-rows-action-columns",
+  "prompt": "Mechanically pack existing built-in generated poses without repainting or warping: SOUTH and NORTH rows from v3; WEST Pain0-3 and HitGround0-1 from v4; WEST HitGround2-3 from the newly generated west-ground-v1 strip, uniformly registered to the existing pixel scale. EAST explicitly mirrors the complete WEST animation. The three original source images and their exact prompts are retained; three headings authored, one derived mirror. All distinct lower-body and limb poses come from the built-in generator.",
+  "tool": "builtin-imagegen",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "row_sources": {
+    "1": 3
+  },
+  "mirror_frames": [
+    [
+      "Pain",
+      1,
+      0
+    ],
+    [
+      "Pain",
+      1,
+      1
+    ],
+    [
+      "Pain",
+      1,
+      2
+    ],
+    [
+      "Pain",
+      1,
+      3
+    ],
+    [
+      "HitGround",
+      1,
+      0
+    ],
+    [
+      "HitGround",
+      1,
+      1
+    ],
+    [
+      "HitGround",
+      1,
+      2
+    ],
+    [
+      "HitGround",
+      1,
+      3
+    ]
+  ],
+  "assembly_sources": [
+    {
+      "image": "malamarmega-cardinal-v3.png",
+      "sha256": "c0437e0c532c8aecf197b37bbb402548c6ec9857a9de1ba5b6e1ce71298c8e03"
+    },
+    {
+      "image": "malamarmega-cardinal-v4.png",
+      "sha256": "5b54e9190adcbefbfe8e7982af601228aa23f634d63028d21f84691a97a8b956"
+    },
+    {
+      "image": "malamarmega-west-ground-v1.png",
+      "sha256": "d26d5bf0ce0c66b649d4245ed5d5617c1e8c8cf7ecb49a2e3ec8f9241f36a751"
+    }
+  ],
+  "assembly_recipe": {
+    "south": "v3 row0",
+    "north": "v3 row2",
+    "west_pain": "v4 row3 columns0-3",
+    "west_ground_start": "v4 row3 columns4-5",
+    "west_ground_end": "west-ground-v1 columns2-3",
+    "east": "declared horizontal mirror of west",
+    "strip_scale": 0.3351851851851852
+  },
+  "review": {
+    "reviewer": "codex-silver-pain-r1502",
+    "report": "review-corrections34.json",
+    "scope": "Independent visual review, normal and shiny separately; exact PNG hashes checked"
+  }
+}

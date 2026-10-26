@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 72,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "kommoototem",
+        "tool": "builtin-imagegen",
+        "source_sha256": "181a02786261f64370b41c3258c3cca76e5ccd1f569d6e4df8e0fd28b3236855",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 784,
+          "form": "Totem",
+          "key": "lib-kommoototem-n-43e0c3807e9b"
+        },
+        "sha256": "125c510be1e5b6cc21ee90cb9315a306e518842401b9acdda3d402750e0d47df"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 72,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 36.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "kommoototem",
+        "tool": "builtin-imagegen",
+        "source_sha256": "181a02786261f64370b41c3258c3cca76e5ccd1f569d6e4df8e0fd28b3236855",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 784,
+          "form": "Totem",
+          "key": "lib-kommoototem-n-43e0c3807e9b"
+        },
+        "sha256": "667e21bc6476e4a93d50f17dde78844e19f417f5e4225e7179fee857afe2e7d2"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 72,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "kommoototem",
+          "tool": "builtin-imagegen",
+          "source_sha256": "181a02786261f64370b41c3258c3cca76e5ccd1f569d6e4df8e0fd28b3236855",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 784,
+            "form": "Totem",
+            "key": "lib-kommoototem-n-43e0c3807e9b"
+          },
+          "sha256": "aa5142cb7214cdb9d4dd0a013216e22181c1a5430a58262c504b3ad15fc917c1",
+          "palette_from": "lib-kommoototem-s-a8cdb39b769b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 72,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 36.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "kommoototem",
+          "tool": "builtin-imagegen",
+          "source_sha256": "181a02786261f64370b41c3258c3cca76e5ccd1f569d6e4df8e0fd28b3236855",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 784,
+            "form": "Totem",
+            "key": "lib-kommoototem-n-43e0c3807e9b"
+          },
+          "sha256": "9cf1d22c37419b9972dcfe00770220410f765a51fc77b71443e6483af797bd4e",
+          "palette_from": "lib-kommoototem-s-a8cdb39b769b"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "kommoototem",
+    "num": 784,
+    "form": "Totem",
+    "tool": "builtin-imagegen",
+    "prompt": "Mechanically pack the existing built-in generated v2 atlas, replacing only NORTH HitGround2-3 with the newly drawn north-prone-v2 strip frames2-3, uniformly registered with first prone width = 1.4 times existing NORTH standing width, allowing folded/splayed limbs while keeping both new frames at the same pixel scale. All other30 drawn poses are preserved; no repainting, rotating standing poses or nonuniform warping.",
+    "source_image": "kommoototem-assembled48.png",
+    "source_sha256": "181a02786261f64370b41c3258c3cca76e5ccd1f569d6e4df8e0fd28b3236855",
+    "source_record": "kommoototem-assembled48.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

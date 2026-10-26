@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "slowbro",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e8e03246564b525ae02e7dbf4a977dbf083cc71d07df87ac8934a733232c04bb",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 80,
+          "form": "",
+          "key": "lib-slowbro-n-50c97d122bb6"
+        },
+        "sha256": "adc58096a9a1a29fa6fe9f2da4db2adfe66652cc24d9fad9980d72cca170543b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "slowbro",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e8e03246564b525ae02e7dbf4a977dbf083cc71d07df87ac8934a733232c04bb",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 80,
+          "form": "",
+          "key": "lib-slowbro-n-50c97d122bb6"
+        },
+        "sha256": "e399dd31f2d6305b5558204920c97e45294d80fcd44b1995bc365a48e6d92a72"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "slowbro",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e8e03246564b525ae02e7dbf4a977dbf083cc71d07df87ac8934a733232c04bb",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 80,
+            "form": "",
+            "key": "lib-slowbro-n-50c97d122bb6"
+          },
+          "sha256": "ac9b190da11de819f84bd91d1ec38f3c4a6d46968e34e8e15070654c3d134389",
+          "palette_from": "lib-slowbro-s-9f39cb420995"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "slowbro",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e8e03246564b525ae02e7dbf4a977dbf083cc71d07df87ac8934a733232c04bb",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 80,
+            "form": "",
+            "key": "lib-slowbro-n-50c97d122bb6"
+          },
+          "sha256": "695038b8380b31ccc1610f0822d225cb2f42693310ced6daaea1182a67fd2126",
+          "palette_from": "lib-slowbro-s-9f39cb420995"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "slowbro",
+    "num": 80,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a transparent pixel-art game sprite atlas for Slowbro using the exact native form and colours in the reference. EXACTLY SIXTEEN complete sprites in FOUR columns and FOUR rows. Rows: front/SOUTH, right profile/EAST, back/NORTH with no face, left profile/WEST. Columns1\u20132 are two distinct expressive flinch poses (blink and bend/braced wince). Columns3\u20134 are lowering to rest and fully lying down; final column has body and head resting flat with eyes closed. Keep all characteristic body parts, tails, wings, markings and accessories. Draw new body and limb poses, consistent pixel scale, crisp original palette. Broad transparent gutters, no text, marks, symbols or scenery. This is a nonviolent game character animation.",
+    "source_image": "slowbro-compact-r5.png",
+    "source_sha256": "e8e03246564b525ae02e7dbf4a977dbf083cc71d07df87ac8934a733232c04bb",
+    "source_record": "slowbro-compact-r5.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

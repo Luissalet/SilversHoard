@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "gible",
+        "tool": "builtin-imagegen",
+        "source_sha256": "43b9420bb64112078e95a1518e278aa99b7134845aef644de1f978cddfb00db1",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 443,
+          "form": "",
+          "key": "lib-gible-n-c435e534166e"
+        },
+        "sha256": "97daabf9bec763267960fec1e7c48b04c67df9d15b69c1d2587e2e0b9f782e40"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 20.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "gible",
+        "tool": "builtin-imagegen",
+        "source_sha256": "43b9420bb64112078e95a1518e278aa99b7134845aef644de1f978cddfb00db1",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 443,
+          "form": "",
+          "key": "lib-gible-n-c435e534166e"
+        },
+        "sha256": "4212f49959df709073777da305c57fb788ab783bc9e70eefbf7518826a726b71"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "gible",
+          "tool": "builtin-imagegen",
+          "source_sha256": "43b9420bb64112078e95a1518e278aa99b7134845aef644de1f978cddfb00db1",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 443,
+            "form": "",
+            "key": "lib-gible-n-c435e534166e"
+          },
+          "sha256": "d310fb2ac530b2ace96eaad2c88c506a53f06cb68832308678a04281da7b8ebb",
+          "palette_from": "lib-gible-s-a9d814131c0a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 20.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "gible",
+          "tool": "builtin-imagegen",
+          "source_sha256": "43b9420bb64112078e95a1518e278aa99b7134845aef644de1f978cddfb00db1",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 443,
+            "form": "",
+            "key": "lib-gible-n-c435e534166e"
+          },
+          "sha256": "2bf7325fbf0a958925d5b463a632472d60ee1d6ab8beca4ea816c56b5ba27688",
+          "palette_from": "lib-gible-s-a9d814131c0a"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "gible",
+    "num": 443,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a transparent pixel-art game sprite atlas for Gible using the exact native form and colours in the reference. EXACTLY SIXTEEN complete sprites in FOUR columns and FOUR rows. Rows: front/SOUTH, right profile/EAST, back/NORTH with no face, left profile/WEST. Columns1\u20132 are two distinct expressive flinch poses (blink and bend/braced wince). Columns3\u20134 are lowering to rest and fully lying down; final column has body and head resting flat with eyes closed. Keep all characteristic body parts, tails, wings, markings and accessories. Draw new body and limb poses, consistent pixel scale, crisp original palette. Broad transparent gutters, no text, marks, symbols or scenery. This is a nonviolent game character animation.",
+    "source_image": "gible-compact-r6.png",
+    "source_sha256": "43b9420bb64112078e95a1518e278aa99b7134845aef644de1f978cddfb00db1",
+    "source_record": "gible-compact-r6.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

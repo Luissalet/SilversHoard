@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "slowbrogalar",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e66afdab7bb1798a8c4315228d2b8b78086273c13db49ab382d345f243389bd1",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 80,
+          "form": "Galar",
+          "key": "lib-slowbrogalar-n-6676d8ee040d"
+        },
+        "sha256": "3f752857027739fd66fe13e04fb006e15f76e972c8bbedbd93a09cb767e62e85"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 48,
+      "h": 40,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 24.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "slowbrogalar",
+        "tool": "builtin-imagegen",
+        "source_sha256": "e66afdab7bb1798a8c4315228d2b8b78086273c13db49ab382d345f243389bd1",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 80,
+          "form": "Galar",
+          "key": "lib-slowbrogalar-n-6676d8ee040d"
+        },
+        "sha256": "46f133164ce544771656a7760419f8ae2893f006b85c11cf2398eb199019814b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "slowbrogalar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e66afdab7bb1798a8c4315228d2b8b78086273c13db49ab382d345f243389bd1",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 80,
+            "form": "Galar",
+            "key": "lib-slowbrogalar-n-6676d8ee040d"
+          },
+          "sha256": "59f5c8cc4d760d5373d9f3c93ec8cc0c14673a08f3cbedacb1c0431cdb5433ed",
+          "palette_from": "lib-slowbrogalar-s-f7a92a179e53"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 48,
+        "h": 40,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 24.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "slowbrogalar",
+          "tool": "builtin-imagegen",
+          "source_sha256": "e66afdab7bb1798a8c4315228d2b8b78086273c13db49ab382d345f243389bd1",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 80,
+            "form": "Galar",
+            "key": "lib-slowbrogalar-n-6676d8ee040d"
+          },
+          "sha256": "ac29a4ba4e9e7e0d7f02d3acade2f822f12430fdf14b2adfe5a71e6a83aa896c",
+          "palette_from": "lib-slowbrogalar-s-f7a92a179e53"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "slowbrogalar",
+    "num": 80,
+    "form": "Galar",
+    "tool": "builtin-imagegen",
+    "prompt": "Draw a new transparent pixel-art game animation atlas of Slowbro-Galar, matching the exact form, anatomy and palette in the reference. Exactly32 full-body sprites in an8column4row grid with broad empty gutters, no text or effects. Fixed cameras per row: SOUTH front, EAST right profile, NORTH back with no face, WEST left profile. Columns1\u20134 form a four-pose flinch sequence: blink, wince with bent legs, lower/braced body, return to ready. Columns5\u20138 form a four-pose settling-to-rest sequence: fold legs, lower body, fully lie flat with head resting, remain flat. Last two poses must be fully lying down with closed eyes, keeping the original tail, wings, leaves, accessories and all characteristic parts. Redraw body and limbs for each pose; keep crisp pixels, consistent scale and original colours. Do not rotate standing copies.",
+    "source_image": "slowbrogalar-retry-r4.png",
+    "source_sha256": "e66afdab7bb1798a8c4315228d2b8b78086273c13db49ab382d345f243389bd1",
+    "source_record": "slowbrogalar-retry-r4.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

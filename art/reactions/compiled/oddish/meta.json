@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "oddish",
+        "tool": "builtin-imagegen",
+        "source_sha256": "150fb963f3e1284a2ffae18ed9e66484553578dce9d05ef2817e4e969efe63a2",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 43,
+          "form": "",
+          "key": "lib-oddish-n-3f81487dbd53"
+        },
+        "sha256": "c246b280a25452a8c3cd94321822df78eead1bcf7aba388d4104475634d4a262"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 32,
+      "h": 40,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 16.0,
+      "ay": 34,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "oddish",
+        "tool": "builtin-imagegen",
+        "source_sha256": "150fb963f3e1284a2ffae18ed9e66484553578dce9d05ef2817e4e969efe63a2",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 43,
+          "form": "",
+          "key": "lib-oddish-n-3f81487dbd53"
+        },
+        "sha256": "88cfbcdeb93aceb419c916a814b9bd1f76eabf5747c3b56d0159af37ff478e7e"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "oddish",
+          "tool": "builtin-imagegen",
+          "source_sha256": "150fb963f3e1284a2ffae18ed9e66484553578dce9d05ef2817e4e969efe63a2",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 43,
+            "form": "",
+            "key": "lib-oddish-n-3f81487dbd53"
+          },
+          "sha256": "51ffd393d09d3e8cd3eacbe63e4510a0f29558618ecf1fa39ac80e0cbd697e03",
+          "palette_from": "lib-oddish-s-f2cb7c371b70"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 32,
+        "h": 40,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 16.0,
+        "ay": 34,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "oddish",
+          "tool": "builtin-imagegen",
+          "source_sha256": "150fb963f3e1284a2ffae18ed9e66484553578dce9d05ef2817e4e969efe63a2",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 43,
+            "form": "",
+            "key": "lib-oddish-n-3f81487dbd53"
+          },
+          "sha256": "d0d42888635dab92002f3060439372c6e9aa3e8f80f5539500cfe68cbb8d87d0",
+          "palette_from": "lib-oddish-s-f2cb7c371b70"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "oddish",
+    "num": 43,
+    "form": "",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a transparent pixel-art game sprite atlas for Oddish using the exact native form and colours in the reference. EXACTLY SIXTEEN complete sprites in FOUR columns and FOUR rows. Rows: front/SOUTH, right profile/EAST, back/NORTH with no face, left profile/WEST. Columns1\u20132 are two distinct expressive flinch poses (blink and bend/braced wince). Columns3\u20134 are lowering to rest and fully lying down; final column has body and head resting flat with eyes closed. Keep all characteristic body parts, tails, wings, markings and accessories. Draw new body and limb poses, consistent pixel scale, crisp original palette. Broad transparent gutters, no text, marks, symbols or scenery. This is a nonviolent game character animation.",
+    "source_image": "oddish-compact-r5.png",
+    "source_sha256": "150fb963f3e1284a2ffae18ed9e66484553578dce9d05ef2817e4e969efe63a2",
+    "source_record": "oddish-compact-r5.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

@@ -1,0 +1,215 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "rillaboomgmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8c9e9c6f469b57be2d017b16c2e50ccf99a5c9b7dd6faf666aed68f7fc714e0f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 812,
+          "form": "Gmax",
+          "key": "lib-rillaboomgmax-n-6e61d2591dc5"
+        },
+        "sha256": "52dce39a2232ef02d685471b61b9ac130edcf34d21154ed9ab6398c7c59c9e5c"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 4,
+      "d": [
+        8,
+        9,
+        12,
+        10
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "rillaboomgmax",
+        "tool": "builtin-imagegen",
+        "source_sha256": "8c9e9c6f469b57be2d017b16c2e50ccf99a5c9b7dd6faf666aed68f7fc714e0f",
+        "authored_directions": 4,
+        "authored_frames": 16,
+        "generated_frames": 16,
+        "distinct_frames_per_direction": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "reference": {
+          "num": 812,
+          "form": "Gmax",
+          "key": "lib-rillaboomgmax-n-6e61d2591dc5"
+        },
+        "sha256": "b97be3878db66e86316a317f0906ca2b47a352ad7791c46eed12f0de826a903b"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "rillaboomgmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8c9e9c6f469b57be2d017b16c2e50ccf99a5c9b7dd6faf666aed68f7fc714e0f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 812,
+            "form": "Gmax",
+            "key": "lib-rillaboomgmax-n-6e61d2591dc5"
+          },
+          "sha256": "1e45f5040c08f2a7abfd4927076d936cd2349ee10256c1500ea7f638a402115a",
+          "palette_from": "lib-rillaboomgmax-s-b4990849fc65"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 4,
+        "d": [
+          8,
+          9,
+          12,
+          10
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "rillaboomgmax",
+          "tool": "builtin-imagegen",
+          "source_sha256": "8c9e9c6f469b57be2d017b16c2e50ccf99a5c9b7dd6faf666aed68f7fc714e0f",
+          "authored_directions": 4,
+          "authored_frames": 16,
+          "generated_frames": 16,
+          "distinct_frames_per_direction": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "reference": {
+            "num": 812,
+            "form": "Gmax",
+            "key": "lib-rillaboomgmax-n-6e61d2591dc5"
+          },
+          "sha256": "d441aa97696fdc0509e3d286dcf484ab4558cb794e27d0a1df1a3fe23017c102",
+          "palette_from": "lib-rillaboomgmax-s-b4990849fc65"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "rillaboomgmax",
+    "num": 812,
+    "form": "Gmax",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a new pixel-art game animation sheet for Rillaboom-Gmax, using this image as the exact identity, palette, camera and layout reference. Transparent background, exactly eight columns and four rows, wide empty transparent gutters; no text, no scenery, no effects. Preserve all anatomy, form and visible parts.\nEach row has a fixed camera: row1 SOUTH/front (face visible), row2 EAST/right profile (points right), row3 NORTH/rear (back visible, face hidden), row4 WEST/left profile (points left). Never turn the character toward the camera during an animation. The NORTH row must show only the back; do not draw a front face there.\nColumns1-4: four distinct, expressive flinch poses for a cartoon game impact: surprised wince, lowered head with tense/braced body, sustained closed-eye wince, return to ready stance. Columns5-8: four distinct resting-on-ground poses: knees/body lower, limbs fold as body settles sideways/down, fully flat with closed eyes, final still-flat resting pose. Last two columns must clearly show a prone body on the ground, with characteristic wings/tails/flower/markings intact. This is a nonviolent family video game: no injury, blood, wounds or damage marks. Keep consistent pixel scale, hard-edged pixel clusters and limited original palette. Each full-body sprite must be complete and remain inside its cell. Actual redraws of body and limbs rather than rotated or resized standing copies.",
+    "source_image": "rillaboomgmax-cardinal.png",
+    "source_sha256": "8c9e9c6f469b57be2d017b16c2e50ccf99a5c9b7dd6faf666aed68f7fc714e0f",
+    "source_record": "rillaboomgmax-cardinal.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}

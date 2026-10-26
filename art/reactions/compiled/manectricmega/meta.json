@@ -1,0 +1,207 @@
+{
+  "a": {
+    "Pain": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "manectricmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a7a6008d9b28a2f8ad5ac953e85b0d1ed8d5ee27ae1d5553227186bf7cd83d13",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 310,
+          "form": "Mega",
+          "key": "lib-manectricmega-n-9bb3a8225849"
+        },
+        "sha256": "16eb36d7bcedc4e80f3c767c9bbbbb3e83b96897602e600701b283bd892d0c07"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ]
+    },
+    "HitGround": {
+      "w": 56,
+      "h": 48,
+      "r": 4,
+      "n": 2,
+      "d": [
+        12,
+        20
+      ],
+      "ax": 28.0,
+      "ay": 42,
+      "source": {
+        "kind": "generated-pmd-reaction",
+        "record": "manectricmega",
+        "tool": "builtin-imagegen",
+        "source_sha256": "a7a6008d9b28a2f8ad5ac953e85b0d1ed8d5ee27ae1d5553227186bf7cd83d13",
+        "authored_directions": 4,
+        "authored_frames": 8,
+        "generated_frames": 8,
+        "distinct_frames_per_direction": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "reference": {
+          "num": 310,
+          "form": "Mega",
+          "key": "lib-manectricmega-n-9bb3a8225849"
+        },
+        "sha256": "1825af9aba59e7614a37e9f60309ee32737c88bcfcd8e63fcbe5685a748f89a9"
+      },
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "ground_frames": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "manectricmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a7a6008d9b28a2f8ad5ac953e85b0d1ed8d5ee27ae1d5553227186bf7cd83d13",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 310,
+            "form": "Mega",
+            "key": "lib-manectricmega-n-9bb3a8225849"
+          },
+          "sha256": "958e1eb3ac9e51f61320fb5830168bce15889aa632eb0e9a853b406898886e57",
+          "palette_from": "lib-manectricmega-s-4b3520bea21d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ]
+      },
+      "HitGround": {
+        "w": 56,
+        "h": 48,
+        "r": 4,
+        "n": 2,
+        "d": [
+          12,
+          20
+        ],
+        "ax": 28.0,
+        "ay": 42,
+        "source": {
+          "kind": "shiny-generated-pmd-reaction",
+          "record": "manectricmega",
+          "tool": "builtin-imagegen",
+          "source_sha256": "a7a6008d9b28a2f8ad5ac953e85b0d1ed8d5ee27ae1d5553227186bf7cd83d13",
+          "authored_directions": 4,
+          "authored_frames": 8,
+          "generated_frames": 8,
+          "distinct_frames_per_direction": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "reference": {
+            "num": 310,
+            "form": "Mega",
+            "key": "lib-manectricmega-n-9bb3a8225849"
+          },
+          "sha256": "cae225df2eef173e2b1b304355dcf0cae5eec55ed95e0cb354ea205422760fed",
+          "palette_from": "lib-manectricmega-s-4b3520bea21d"
+        },
+        "row_map": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          0
+        ],
+        "ground_frames": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "pending": [],
+  "provenance": {
+    "id": "manectricmega",
+    "num": 310,
+    "form": "Mega",
+    "tool": "builtin-imagegen",
+    "prompt": "Create a transparent pixel-art game sprite atlas for Manectric-Mega using the exact native form and colours in the reference. EXACTLY SIXTEEN complete sprites in FOUR columns and FOUR rows. Rows: front/SOUTH, right profile/EAST, back/NORTH with no face, left profile/WEST. Columns1\u20132 are two distinct expressive flinch poses (blink and bend/braced wince). Columns3\u20134 are lowering to rest and fully lying down; final column has body and head resting flat with eyes closed. Keep all characteristic body parts, tails, wings, markings and accessories. Draw new body and limb poses, consistent pixel scale, crisp original palette. Broad transparent gutters, no text, marks, symbols or scenery. This is a nonviolent game character animation.",
+    "source_image": "manectricmega-compact-r5.png",
+    "source_sha256": "a7a6008d9b28a2f8ad5ac953e85b0d1ed8d5ee27ae1d5553227186bf7cd83d13",
+    "source_record": "manectricmega-compact-r5.json"
+  },
+  "reviewed": true,
+  "shiny_reviewed": true
+}
