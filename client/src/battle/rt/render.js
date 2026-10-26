@@ -456,8 +456,8 @@ export class ArenaRenderer {
         this.hitstop = Math.max(this.hitstop, 0.15);
         const w = this.unitOf(battle, s, 0);
         const m = w.mons[w.active];
-        const url = m ? this.sprites.portrait?.(m.species, "Angry", { num: m.num || 0 }) : "";
-        this.cutin = { t: 0, life: 2.6, si: s, img: url ? image(url) : null, fall: m && url ? image(this.sprites.portrait(m.species, "Normal", { num: m.num || 0 })) : null,
+        const url = m ? this.sprites.portrait?.(m.species, "Angry", { num: m.num || 0, shiny: !!m.shiny }) : "";
+        this.cutin = { t: 0, life: 2.6, si: s, img: url ? image(url) : null, fall: m && url ? image(this.sprites.portrait(m.species, "Normal", { num: m.num || 0, shiny: !!m.shiny })) : null,
           text: e.line || T.phase, name: battle.sides[s]?.name || "", small: !!e.line };
         break;
       }
@@ -466,8 +466,8 @@ export class ArenaRenderer {
         this.hitstop = Math.max(this.hitstop, 0.2);
         const w = this.unitOf(battle, s, u);
         const m = w.mons[e.slot ?? w.active];
-        const url = m ? this.sprites.portrait?.(m.species, "Shouting", { num: m.num || 0 }) : "";
-        this.cutin = { t: 0, life: 1.3, si: s, img: url ? image(url) : null, fall: m && url ? image(this.sprites.portrait(m.species, "Normal", { num: m.num || 0 })) : null,
+        const url = m ? this.sprites.portrait?.(m.species, "Shouting", { num: m.num || 0, shiny: !!m.shiny }) : "";
+        this.cutin = { t: 0, life: 1.3, si: s, img: url ? image(url) : null, fall: m && url ? image(this.sprites.portrait(m.species, "Normal", { num: m.num || 0, shiny: !!m.shiny })) : null,
           text: T.ultimate || "!", name: m?.species || "" };
         this.vfx.shake = Math.max(this.vfx.shake, 0.2);
         break;

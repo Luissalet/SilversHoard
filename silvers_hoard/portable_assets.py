@@ -89,6 +89,8 @@ def bundle(services: Any) -> dict[str, Any]:
                 f"https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/{services.reborn.ref}/{folder}/{component}",
                 f"/api/reborn/{kind}/{quote(name, safe='')}", f"/api/reborn/{kind}/{component_name}"])
     library = services.pmd.library.portable()
+    portraits = services.pmd.portrait_library.portable(offset=len(library["chunks"]))
+    files.update(portraits["files"])
     files.update(library["files"])
     urls.update(library["urls"])
     pmd["metas"].update(library["metas"])
@@ -96,4 +98,6 @@ def bundle(services: Any) -> dict[str, Any]:
         pmd["entries"] = library["entries"]
         pmd["species"] = library["species"]
         pmd["notices"] = library["notices"]
-    return {"version": 1, "files": files, "urls": urls, "pmd": pmd, "pmd_chunks": library["chunks"]}
+    return {"version": 1, "files": files, "urls": urls, "pmd": pmd,
+            "portraits": {k: v for k, v in portraits.items() if k not in ("files", "chunks")},
+            "pmd_chunks": [*library["chunks"], *portraits["chunks"]]}

@@ -22,6 +22,7 @@ from typing import Any, Callable, Optional
 from .errors import SilverError
 from .hoard_link.atomic import write_bytes_atomic
 from .pmd_library import PmdLibrary
+from .pmd_portraits import PmdPortraits
 
 log = logging.getLogger("silver.pmd")
 
@@ -109,6 +110,7 @@ class PmdSprites:
         self.cache_dir = Path(cache_dir)
         self.settings = settings
         self.library = PmdLibrary()
+        self.portrait_library = PmdPortraits()
         self._http_get = http_get
         self._locks: dict[str, threading.Lock] = {}
         self._guard = threading.Lock()
@@ -234,12 +236,17 @@ class PmdSprites:
                 except SilverError:
                     continue
 
-    def portrait(self, species: str, emotion: str = "Normal") -> Path:
+    def portrait(self, species: str, emotion: str = "Normal", shiny: bool = False) -> Path:
         """A Pokémon's 40 px portrait with an emotion (SpriteCollab, CC BY-NC 4.0), downloaded the first time and cached."""
         if emotion not in EMOTIONS:
             raise SilverError("invalid", f"emotion is one of {', '.join(EMOTIONS)}")
         if not self.settings.get("pmd_sprites", True):
             raise SilverError("not_found", "Mystery Dungeon sprites are off in the settings.")
+        file = self.portrait_library.resolve(species, [emotion, *EMOTION_FALLBACK.get(emotion, []), "Normal"], shiny)
+        if file:
+            return self.portrait_library.extract(file, self.cache_dir)
+        if shiny:
+            raise SilverError("not_found", f"No shiny portrait for {species}")
         target = self._portrait_target(species, emotion)
         if not target:
             raise SilverError("not_found", f"No portrait for {species}")

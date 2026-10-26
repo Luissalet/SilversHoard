@@ -18,6 +18,8 @@ import { rtT } from "./strings.js";
 import { NetLink, battleHash, packFrame, unpackFrame } from "./netplay.js";
 import { worldInput } from "./portrait-camera.js";
 import { buildBattleLog, freshActives, logLine, trackActive } from "./rt-log.js";
+import BattleHud, {BallIcon, HealthBar} from '../BattleHud.jsx';
+import {realtimePortraitReleases} from '../portrait-reaction.js';
 import "./rt.css";
 
 const SAVE_EVERY_TICKS = 5 * TPS;
@@ -33,32 +35,14 @@ function replayTime(tick) {
   return `${Math.floor(hundredths / 6000)}:${String(Math.floor(hundredths / 100) % 60).padStart(2, "0")}.${String(hundredths % 100).padStart(2, "0")}`;
 }
 
-function HpBar({ mon }) {
-  const frac = mon?.maxhp ? Math.max(0, mon.hp) / mon.maxhp : 0;
-  // the white chunk is the HP just lost: it stays a moment and then drains after the bar (CSS transition)
-  return (
-    <div className="rt-hp" role="meter" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(frac * 100)}>
-      <i className="rt-hp-lag" style={{ width: `${frac * 100}%` }} />
-      <span style={{ width: `${frac * 100}%`, background: frac > 0.5 ? "var(--hp-ok)" : frac > 0.2 ? "var(--hp-mid)" : "var(--hp-low)" }} />
-    </div>
-  );
+function HpBar({mon}) { return <HealthBar mon={mon} compact/>; }
+
+function hudSnapshot(battle, renderer) {
+  const view = battle.view();
+  view.portraitReleases = realtimePortraitReleases(view,renderer?.reactions,renderer?.time || 0);
+  return view;
 }
 
-/** The Pokémon's face (SpriteCollab portrait) by its name in the bars; grey once it has fainted. */
-function MonFace({ mon, sprites, offline }) {
-  if (!mon || !sprites) return null;
-  return <MonFaceImage key={`${mon.species}:${sprites.server}`} mon={mon} sprites={sprites} />;
-}
-
-function MonFaceImage({ mon, sprites }) {
-  const [step, setStep] = useState(0);
-  const src = step === 0 ? sprites.portrait?.(mon.species, "Normal", { num: mon.num || 0 }) || sprites.fallback(mon.species) : sprites.fallback(mon.species);
-  const className = `rt-face ${mon.fainted || mon.hp <= 0 ? "is-out" : ""}`;
-  if (step > 1 || !src) return <span className={className} aria-label={mon.species}>{mon.species.slice(0, 2)}</span>;
-  return <img key={`${step}:${src}`} className={className} src={src} alt="" onError={() => setStep((s) => s + 1)} />;
-}
-
-/** The trainer's Mega Power gauge: three segments; all three for Mega Evolution (and, in rules versions 2-3, one pays for a Plus move). */
 function Gauge({ side, tr }) {
   const segs = [0, 1, 2].map((i) => Math.max(0, Math.min(1, (side.gauge || 0) - i)));
   return (
@@ -70,70 +54,50 @@ function Gauge({ side, tr }) {
   );
 }
 
-/** Doubles: the two Pokémon on a trainer's side of the field, each with its slot letter, HP and state. */
-function DoublesMons({ side, lang, tr, human }) {
-  return (
-    <div className="rt-duo">
-      {side.units.map((u) => {
-        const mon = u.vacant ? null : side.mons[u.active];
-        const mine = human && u.pos === side.ctl;
-        return (
-          <div key={u.pos} className={`rt-mon rt-duo-mon ${mine ? "is-ctl" : ""}`} title={mine ? tr("rt_you_control") : human ? tr("rt_partner_ai") : ""}>
-            <span className="rt-slot">{u.pos ? "b" : "a"}</span>
-            {mon ? (
-              <>
-                <b className="trunc">{mon.name}</b>
-                {mine && <span className="rt-tag rt-tag-ctl">{tr("rt_you_control")}</span>}
-                {mon.is_mega && <span className="rt-tag rt-tag-mega">{tr("rt_mega_on")}</span>}
-                {mon.is_dynamax && <span className="rt-tag rt-tag-mega">{tr("rt_dynamax_left",{n:Math.ceil(mon.dynamax_left)})}</span>}
-                {mon.status && <span className="rt-status" style={{ background: STATUS_COLORS[mon.status] }}>{L(STATUS_NAMES[mon.status], lang)}</span>}
-                {u.follow && <span className="rt-tag">{tr("rt_follow_float")}</span>}
-                {u.helped && <span className="rt-tag up">×1,5</span>}
-                <HpBar mon={mon} />
-                <span className="rt-hp-num num">{mon.fainted ? 0 : mon.hp}/{mon.maxhp}</span>
-              </>
-            ) : <span className="help">{tr("rt_empty_slot")}</span>}
-          </div>
-        );
-      })}
-    </div>
-  );
+function MonTags({mon, unit, lang, tr, mine = false}) {
+  const boosts = Object.entries(mon.boosts || {}).filter(([,v])=>v);
+  return <>
+    {mine && <span className="rt-tag rt-tag-ctl">{tr("rt_you_control")}</span>}
+    {mon.is_mega && <span className="rt-tag rt-tag-mega">{tr("rt_mega_on")}</span>}
+    {mon.is_ultra && <span className="rt-tag rt-tag-mega">Ultra</span>}
+    {mon.is_dynamax && <span className="rt-tag rt-tag-mega">{tr("rt_dynamax_left",{n:Math.ceil(mon.dynamax_left)})}</span>}
+    {mon.status && <span className="rt-status" style={{background:STATUS_COLORS[mon.status]}}>{L(STATUS_NAMES[mon.status],lang)}</span>}
+    {unit.confused && <span className="rt-tag">{tr("rt_confused")}</span>}
+    {unit.trapped && <span className="rt-tag">{tr("rt_trapped")}</span>}
+    {unit.taunt && <span className="rt-tag">{tr("rt_taunted")}</span>}
+    {unit.sub && <span className="rt-tag">{tr("rt_sub")}</span>}
+    {unit.follow && <span className="rt-tag">{tr("rt_follow_float")}</span>}
+    {unit.helped && <span className="rt-tag up">×1,5</span>}
+    {boosts.map(([k,v])=><span key={k} className={`rt-tag ${v>0?'up':'down'}`}>{L(STAT_SHORT[k],lang)} {v>0?'↑':'↓'}</span>)}
+  </>;
 }
 
-function SideBar({ side, align, lang, tr, avatarUrl, gauge, human = false, sprites = null, offline = false }) {
-  const mon = side.mons[side.active];
-  const boosts = Object.entries(mon?.boosts || {}).filter(([, v]) => v);
-  const onField = (m, i) => (side.units ? m.field >= 0 : i === side.active);
-  return (
-    <div className={`rt-sidebar ${align}`}>
-      {avatarUrl ? <img className="rt-avatar" src={avatarUrl} alt="" /> : null}
-      <div className="min-w-0 flex-1">
-        <div className="rt-name trunc">{side.name}</div>
-        <div className="rt-party" aria-label={tr("rt_party")}>
-          {side.mons.map((m, i) => <span key={i} className={`rt-ball ${m.fainted ? "is-out" : ""} ${onField(m, i) ? "is-on" : ""}`} title={`${m.name} ${m.hp}/${m.maxhp}`} />)}
-          <span className="rt-switches" title={tr("rt_switches_help")}>{"⇄".repeat(side.switches_left)}<span className="rt-switches-off">{"⇄".repeat(Math.max(0, 3 - side.switches_left))}</span></span>
-        </div>
-        {gauge && <Gauge side={side} tr={tr} />}
-        {side.units && <DoublesMons side={side} lang={lang} tr={tr} human={human} />}
-        {!side.units && mon && (
-          <div className="rt-mon">
-            <MonFace mon={mon} sprites={sprites} offline={offline} />
-            <b className="trunc">{mon.name}</b> <span className="help">{tr("rt_lv")}{mon.level}</span>
-            {mon.is_mega && <span className="rt-tag rt-tag-mega">{tr("rt_mega_on")}</span>}
-                {mon.is_dynamax && <span className="rt-tag rt-tag-mega">{tr("rt_dynamax_left",{n:Math.ceil(mon.dynamax_left)})}</span>}
-            {mon.status && <span className="rt-status" style={{ background: STATUS_COLORS[mon.status] }}>{L(STATUS_NAMES[mon.status], lang)}</span>}
-            {side.confused && <span className="rt-tag">{tr("rt_confused")}</span>}
-            {side.trapped && <span className="rt-tag">{tr("rt_trapped")}</span>}
-            {side.taunt && <span className="rt-tag">{tr("rt_taunted")}</span>}
-            {side.sub && <span className="rt-tag">{tr("rt_sub")}</span>}
-            {boosts.map(([k, v]) => <span key={k} className={`rt-tag ${v > 0 ? "up" : "down"}`}>{L(STAT_SHORT[k], lang)} {v > 0 ? "↑" : "↓"}</span>)}
-            <HpBar mon={mon} />
-            <span className="rt-hp-num num">{mon.hp}/{mon.maxhp}</span>
-          </div>
-        )}
-      </div>
+function SideBar({side, align, lang, tr, avatarUrl, gauge, human = false, sprites = null, clock = 0, epoch = 0, outcome = '', releases = []}) {
+  const units = side.units || [{...side,pos:0}];
+  const onField = (m,i)=>side.units ? m.field >= 0 : i === side.active;
+  const party = <>{side.mons.map((m,i)=><BallIcon key={i} ball={m.pokeball} lang={lang}
+    state={`${m.fainted?'is-out':''} ${onField(m,i)?'is-on':''}`} title={`${m.name} · ${m.hp}/${m.maxhp}`}/>)}</>;
+  return <div className={`rt-sidebar hud-sidebar ${align}`}>
+    <div className="hud-trainer">
+      {avatarUrl && <img className="rt-avatar" src={avatarUrl} alt=""/>}
+      <div className="rt-name trunc" title={side.name}>{side.name}</div>
+      <span className="rt-switches" title={tr('rt_switches_help')}>{'⇄'.repeat(side.switches_left)}<span className="rt-switches-off">{'⇄'.repeat(Math.max(0,3-side.switches_left))}</span></span>
     </div>
-  );
+    <div className="rt-duo">
+      {units.map((unit,index)=>{
+        const mon = unit.vacant ? null : side.mons[unit.active];
+        const mine = human && (!side.units || unit.pos === side.ctl);
+        return mon ? <BattleHud key={unit.pos} {...{mon,sprites,lang,outcome,epoch}} corner={align}
+          event={releases[unit.pos] === unit.active ? 'move' : null}
+          identity={`${side.id}:${unit.active}`} time={clock} action={unit.act?.kind} confused={unit.confused}
+          levelLabel={tr('rt_lv')} healthLabel={lang==='es'?'PS':'HP'} party={index===0?party:null}>
+          {side.units && <span className="rt-slot">{unit.pos?'b':'a'}</span>}
+          <MonTags {...{mon,unit,lang,tr,mine}}/>
+        </BattleHud> : <div key={unit.pos} className="help">{tr('rt_empty_slot')}</div>;
+      })}
+    </div>
+    {gauge && <Gauge side={side} tr={tr}/>}
+  </div>;
 }
 
 function MoveButton({ m, i, lang, tr, onUse, keyHint, disabled, pos = "", plus = false }) {
@@ -505,7 +469,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     state.renderer = renderer;
     state.logIndex = 0;
     state.logActive = freshActives();
-    setHud(view);
+    setHud(hudSnapshot(state.b,renderer));
     // walk events with historical actives so a seek/?tick=N log keeps earlier mon names
     setLog(buildBattleLog(state.b.events, state.b, lang, tr, state.logActive).slice(-200));
     state.logIndex = state.b.events.length;
@@ -656,7 +620,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
       st.renderer.draw(st.b, running ? (held ? dt * 0.1 : dt) * (live ? 1 : speed) : 0, running ? dt : 0);
       if (now - lastHud > HUD_MS) {
         lastHud = now;
-        setHud(st.b.view());
+        setHud(hudSnapshot(st.b,st.renderer));
         setMegaNotice(st.renderer.megas.current);
         if (running && st.abilityIndex < st.b.events.length) {
           const fresh = [];
@@ -765,7 +729,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
     setAbilities([]); setAbilityEpoch(old=>old+1);
     setMegaNotice(null);
     setLog(lines.slice(-200));
-    setHud(st.b.view());
+    setHud(hudSnapshot(st.b,st.renderer));
     setResult(null);
     setSeekDraft(null);
     setPhase(st.b.ended ? "done" : playing ? "playing" : "replay-paused");
@@ -802,7 +766,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
       <div className="b-main">
         {view && (
           <div className="rt-top">
-            <SideBar side={view.sides[0]} align="left" lang={lang} tr={tr} avatarUrl={seats?.p1?.avatarUrl} gauge={view.version >= 2} human={live && humans[0]} sprites={sprites} offline={offline} />
+            <SideBar side={view.sides[0]} align="left" lang={lang} tr={tr} avatarUrl={seats?.p1?.avatarUrl} gauge={view.version >= 2} human={live && humans[0]} sprites={sprites} releases={view.portraitReleases?.[0]} clock={view.seconds} epoch={abilityEpoch} outcome={view.ended && view.winner < 2 ? (view.winner === 0 ? 'win' : 'lose') : ''} />
             <div className="rt-clock">
               <div className="rt-time num" aria-label={tr("rt_time")}>{fmtTime(view.time_limit - view.seconds)}</div>
               {view.doubles && <span className="chip">{tr("rt_doubles")}</span>}
@@ -811,7 +775,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
               {view.fog && <span className="chip">{tr("rt_fog")}</span>}
               {view.terrain && <span className="chip">{nameOf("move", { electricterrain: "Electric Terrain", grassyterrain: "Grassy Terrain", psychicterrain: "Psychic Terrain", mistyterrain: "Misty Terrain" }[view.terrain.id] || view.terrain.id, lang)} {Math.ceil(view.terrain.left)} s</span>}
             </div>
-            <SideBar side={view.sides[1]} align="right" lang={lang} tr={tr} avatarUrl={seats?.p2?.avatarUrl} gauge={view.version >= 2} human={live && humans[1]} sprites={sprites} offline={offline} />
+            <SideBar side={view.sides[1]} align="right" lang={lang} tr={tr} avatarUrl={seats?.p2?.avatarUrl} gauge={view.version >= 2} human={live && humans[1]} sprites={sprites} releases={view.portraitReleases?.[1]} clock={view.seconds} epoch={abilityEpoch} outcome={view.ended && view.winner < 2 ? (view.winner === 1 ? 'win' : 'lose') : ''} />
           </div>
         )}
         <div className="rt-stage" ref={wrapRef}>

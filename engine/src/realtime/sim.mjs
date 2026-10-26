@@ -258,6 +258,7 @@ export function prepareRtTeam(sets, {format = 'gen9customgame', levelRules = {},
       nfe: !!(sp.evos && sp.evos.length), item: item?.exists ? item.id : '', item_name: item?.exists ? item.name : '',
       ability: ability?.exists ? ability.id : '', ability_name: ability?.exists ? ability.name : '', shiny: !!set.shiny,
       gender: set.gender || '', sprite_id: sp.spriteid, mega: megaOf(dex, sp, set, item, champions),
+      pokeball: set.pokeball,
       dynamax_info: dynamaxInfo(sp, set, gen),
       ...(ultra ? {ultra: {species:ultra.name, forme:ultra.forme, num:ultra.num, sprite_id:ultra.spriteid, types:ultra.types.slice(), stats:calcStats(dex,ultra,set,champions),
         ability:'neuroforce', ability_name:dex.abilities.get('neuroforce').name, base_speed:ultra.baseStats.spe, heightm:ultra.heightm, weightkg:ultra.weightkg}} : {}),
@@ -2469,7 +2470,7 @@ export class RtBattle {
           mons: s.mons.map((x, i) => {
             const u = holder(i);
             const on = u && !x.fainted;
-            const mon = {slot: i, species: x.species, name: x.name, num: x.num, forme: x.forme, sprite_id: x.sprite_id, shiny: x.shiny, level: x.level,
+            const mon = {slot: i, species: x.species, name: x.name, num: x.num, forme: x.forme, sprite_id: x.sprite_id, shiny: x.shiny, level: x.level, pokeball: x.pokeball || 'pokeball',
               base_look: {species: (x.dynamaxBase?.look || x.ultraBase || x.base || x).species, forme: (x.dynamaxBase?.look || x.ultraBase || x.base || x).forme, sprite_id: (x.dynamaxBase?.look || x.ultraBase || x.base || x).sprite_id}, is_mega: !!x.megaOn,
               ...(x.ultra && this.version >= 14 ? {ultra_info:{species:x.ultra.species,forme:x.ultra.forme,num:x.ultra.num,sprite_id:x.ultra.sprite_id},is_ultra:!!x.ultraOn} : {}),
               ...(this.version >= 13 ? {dynamax_info:x.dynamax_info, is_dynamax:!!x.dynamaxUntil, dynamax_left:Math.max(0,(x.dynamaxUntil || 0)-this.t)/TPS, display_scale:x.dynamaxUntil ? DYNAMAX_SCALE : 1} : {}),

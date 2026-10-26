@@ -1,6 +1,6 @@
 // One battle: two trainers (people or AI), the simulator, and the log seen from each seat. Runs in the engine process and in the
 // playable page; the AI sides choose by themselves, a person's side waits for `choose`.
-import {Battle, PRNG} from '@pkmn/sim';
+import {Battle, PRNG, toID} from '@pkmn/sim';
 import {applyLevelRules, buildFormatId, completeSets, EngineError, formatInfo, packTeam, seedArray} from './core.mjs';
 import {chooseFor, makeRng} from './ai.mjs';
 import {newBattle, ownerOf, prepareFrontierDex, useOwners} from './frontier.mjs';
@@ -63,21 +63,64 @@ export function prepareTeam(sets, formatId, levelRules) {
   return packTeam(applyLevelRules(completeSets(sets, formatId), levelRules || {}));
 }
 
+const ballTracked = new WeakSet();
+/** Remember the actual revealed Pokémon at emission time, independently of its
+ * nickname, team order or later transformations. Only public cosmetic metadata
+ * is exposed; the simulator log and choices remain unchanged. */
+export function trackPokeballs(battle, initial = false) {
+  if (ballTracked.has(battle)) return battle;
+  ballTracked.add(battle);
+  battle.silverBallLines ||= {};
+  const remember = (index, mon) => {
+    if (!mon?.side) return;
+    battle.silverBallLines[index] = toID(mon.pokeball) || 'pokeball';
+  };
+  if (initial) battle.log.forEach((line,index) => {
+    const match = /^\|(switch|drag|replace)\|(p[12])([a-c]):/.exec(line);
+    if (match) remember(index,battle.sides.find(s=>s?.id === match[2])?.active[match[3].charCodeAt(0)-97]);
+  });
+  const add = battle.add;
+  Object.defineProperty(battle,'add',{configurable:true,writable:true,value:function (...parts) {
+    const start = this.log.length;
+    const result = add.apply(this,parts);
+    if (['switch','drag','replace'].includes(parts[0]) && parts[1]?.side) {
+      for (let index=start;index<this.log.length;index++) {
+        if (/^\|(switch|drag|replace)\|/.test(this.log[index])) remember(index,parts[1]);
+      }
+    }
+    return result;
+  }});
+  return battle;
+}
+
 /** The lines of `log` from `from` on as one seat sees them: `|split|pN` blocks show the exact line to pN (and to "omniscient")
  * and the public one to everybody else. */
-export function viewLines(log, from, view) {
+export function viewLines(log, from, view, battle = null) {
   const out = [];
+  const decorate = (line,index) => {
+    if (!battle || line.includes('|[pokeball]')) return line;
+    const match = /^\|(switch|drag|replace)\|(p[12])[a-c]: ([^|]+)\|/.exec(line);
+    if (!match) return line;
+    const known = battle.silverBallLines?.[index];
+    if (typeof known === 'string') return `${line}|[pokeball]${known}`;
+    // Older snapshots have no emission metadata. Never guess an ambiguous name.
+    const side = battle.sides.find(s => s?.id === match[2]);
+    const candidates = side?.pokemon.filter(p => p.name === match[3]) || [];
+    const ball = candidates.length === 1 ? toID(candidates[0].pokeball) : '';
+    return ball && ball !== 'pokeball' ? `${line}|[pokeball]${ball}` : line;
+  };
   for (let i = from; i < log.length; i++) {
     const line = log[i];
     if (line.startsWith('|split|')) {
       const who = line.slice(7);
       const secret = log[i + 1];
       const pub = log[i + 2];
-      out.push(view === 'omniscient' || view === who ? secret : pub);
+      const offset = view === 'omniscient' || view === who ? 1 : 2;
+      out.push(decorate(offset === 1 ? secret : pub,i+offset));
       i += 2;
       continue;
     }
-    out.push(line);
+    out.push(decorate(line,i));
   }
   return out;
 }
@@ -152,6 +195,7 @@ export class Match {
       }
       this.battle = newBattle(options, multi ? {...(spec.start || {}), owners: multi} : spec.start);
     }
+    trackPokeballs(this.battle,!snapshot);
     this.battle.send = () => {};
     // a change of tactics happens once; a battle picked up from a snapshot finds it in its log
     this.phased = Object.fromEntries(['p1', 'p2'].map((id) => [id, this.battle.log.some((l) => l.startsWith(`|silverphase|${id}`))]));
@@ -310,7 +354,7 @@ export class Match {
     return {
       id: this.id, format: this.format, turn: b.turn, ended: !!b.ended, winner: b.ended ? (b.winner || '') : null,
       winner_side: b.ended ? (b.sides.find((s) => s && s.name === b.winner)?.id || '') : null,
-      log_length: b.log.length, lines: viewLines(b.log, Math.max(0, since), view === 'host' ? 'omniscient' : view), requests,
+      log_length: b.log.length, lines: viewLines(b.log, Math.max(0, since), view === 'host' ? 'omniscient' : view, b), requests,
       errors: this.errors.slice(-5),
     };
   }
