@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import {Battle} from '@pkmn/sim';
 import {importTeam, packTeam} from '../src/core.mjs';
 import {LEVELS, chooseFor, makeRng, setMasterSearch} from '../src/ai.mjs';
-import {masterAvailable, masterChoice, masterState} from '../src/master.mjs';
+import {masterAvailable, masterChoice, masterState, volatileDuration} from '../src/master.mjs';
 import {playOut} from '../src/stats.mjs';
 
 const MINE = 'Garchomp @ Choice Scarf\nAbility: Rough Skin\nTera Type: Steel\nEVs: 252 Atk / 252 Spe\nJolly Nature\n- Earthquake\n- Outrage\n'
@@ -44,6 +44,65 @@ test('the battle as poke-engine state', () => {
   assert.deepEqual(mine.map((m) => m.disabled), [true, true, true, false]);
   assert.equal(masterState(b, 'p1').side_one.last_used_move, 'move:3');
   assert.equal(s.weather, 'none');
+});
+
+// poke-engine counts the turns that have PASSED of Taunt, Encore and a rampage move (0, 1, 2; 3 or more panics in generate_instructions);
+// the simulator keeps the turns that REMAIN. The durations below are what the simulator really holds on each turn of these battles.
+function duel(a, b, moves1, moves2, turns, target) {
+  const bt = new Battle({formatid: 'gen9customgame', seed: [5, 6, 7, 8]});
+  bt.setPlayer('p1', {name: 'A', team: packTeam(importTeam(a))});
+  bt.setPlayer('p2', {name: 'B', team: packTeam(importTeam(b))});
+  bt.makeChoices('default', 'default');
+  const seen = [];
+  for (let i = 0; i < turns; i++) {
+    const s = masterState(bt, 'p1');
+    seen.push((target === 'p1' ? s.side_one : s.side_two).volatile_status_durations);
+    bt.makeChoices(moves1[i], moves2[i]);
+  }
+  return seen;
+}
+
+const QUICK = 'Jolteon\nAbility: Volt Absorb\nEVs: 252 Spe\n- Taunt\n- Encore\n- Yawn\n- Confuse Ray';
+const SLOW = 'Snorlax\nAbility: Immunity\nEVs: 252 HP\n- Taunt\n- Encore\n- Yawn\n- Confuse Ray';
+const FOE = 'Jolteon\nAbility: Volt Absorb\nEVs: 252 Spe\n- Tackle\n- Recover\n- Protect';
+const WALL = 'Chansey\nAbility: Natural Cure\nLevel: 100\nEVs: 252 HP / 252 Def\n- Tackle\n- Recover\n- Softboiled\n- Protect';
+const same = (n, m) => Array(n).fill(m);
+
+test('Taunt and Encore reach poke-engine as turns passed, never 3 or more', () => {
+  // Taunt from the faster side: 2 turns remain on the next turn, then 1; the target had not moved yet, so it lasts the 3 turns
+  assert.deepEqual(duel(QUICK, WALL, ['move 1', 'move 3', 'move 3', 'move 3'], same(4, 'move 1'), 4, 'p2').map((d) => d.taunt),
+    [undefined, 1, 2, undefined]);
+  // Taunt from the slower side: the target had already moved, 3 turns remain on the next turn (poke-engine panics on a 3)
+  assert.deepEqual(duel(SLOW, FOE, ['move 1', 'move 3', 'move 3', 'move 3', 'move 3'], same(5, 'move 1'), 5, 'p2').map((d) => d.taunt),
+    [undefined, 0, 1, 2, undefined]);
+  assert.deepEqual(duel(SLOW, FOE, ['move 2', 'move 3', 'move 3', 'move 3', 'move 3'], same(5, 'move 1'), 5, 'p2').map((d) => d.encore),
+    [undefined, 0, 1, 2, undefined]);
+});
+
+test('a rampage move, Yawn and Slow Start reach poke-engine in its own counting', () => {
+  const rampage = duel('Dragonite\nAbility: Inner Focus\nEVs: 252 Atk\n- Outrage\n- Tackle', WALL, same(3, 'move 1'), same(3, 'move 2'), 3, 'p1');
+  assert.equal(rampage[0].lockedmove, undefined);
+  assert.equal(rampage[1].lockedmove, 2);                // the simulator has 1 turn left, poke-engine ends the lock at 2
+  const yawn = duel(QUICK, WALL, ['move 3', 'move 1', 'move 1'], same(3, 'move 1'), 3, 'p2');
+  assert.deepEqual(yawn.map((d) => d.yawn), [undefined, 1, undefined]);
+  const regi = duel('Regigigas\nAbility: Slow Start\n- Tackle\n- Recover', WALL, same(4, 'move 1'), same(4, 'move 2'), 4, 'p1');
+  assert.deepEqual(regi.map((d) => d.slowstart), [5, 4, 3, 2]);
+  const b = new Battle({formatid: 'gen9customgame', seed: [5, 6, 7, 8]});
+  b.setPlayer('p1', {name: 'A', team: packTeam(importTeam('Regigigas\nAbility: Slow Start\n- Tackle'))});
+  b.setPlayer('p2', {name: 'B', team: packTeam(importTeam(WALL))});
+  b.makeChoices('default', 'default');
+  assert.ok(masterState(b, 'p1').side_one.volatile_statuses.includes('slowstart'));
+});
+
+test('the translation of every counter', () => {
+  const left = (n) => ({duration: n});
+  for (const id of ['taunt', 'encore', 'lockedmove']) {
+    assert.deepEqual([4, 3, 2, 1, 0].map((n) => volatileDuration(id, left(n))), [0, 0, 1, 2, 2]);
+  }
+  assert.equal(volatileDuration('lockedmove', {duration: 1, trueDuration: 2}), 1);   // a rampage's `duration` is a constant, trueDuration counts
+  assert.deepEqual([3, 2, 1, 0].map((n) => volatileDuration('yawn', left(n))), [1, 1, 1, 0]);
+  assert.equal(volatileDuration('confusion', {time: 3}), 3);
+  assert.equal(volatileDuration('substitute', left(1)), null);
 });
 
 test('a search answer becomes a legal choice and the expert covers when it fails', () => {

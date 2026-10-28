@@ -52,17 +52,23 @@ in the middle of a turn; Mega Evolution; PP; the turn after a forced switch; the
 the search itself (which move the AI picks), only the rules it searches over; items poke-engine has no name for (it plays them as
 `unknownitem`, the oracle keeps the real one). Abilities are not compared by name, only through what they do.
 
-## What it found (run of 2026-10-28: 1180 of 1404 turns match, 84.0%; 224 diverge)
+## What it found (run of 2026-10-28 after the fix of item 1: 1209 of 1404 turns match, 86.1%; 195 diverge; before it 1180, 84.0%)
 
 REPORT.md is the generated table; this is the reading. Confirmed means reproduced in isolation with `explain.py`/`show.mjs` or by changing
 the input state.
 
-1. **Duration counters of Taunt and Encore (confirmed).** poke-engine counts the turns that have *passed* (0, 1, 2; the volatile is removed
-   when it reaches 2, and any value of 3 or more makes `generate_instructions` panic with "Taunt duration cannot be 3 when taunt volatile is
-   active"). `engine/src/master.mjs` passes the simulator's `duration`, the turns that *remain* (3 right after the move, 4 when the target had
-   already moved). The AI therefore believes Taunt and Encore end a turn early (or too late), and when the value is 3 or more
-   poke-engine panics, so `master_ai.py` has no answer for that turn. The fix is `passed = clamp(3 - remaining, 0, 2)`; confusion, Yawn, Slow Start and the locked
-   moves have to be checked the same way. Seen in 46 `volatile` turns and 2 `probe_error` turns.
+1. **Duration counters of Taunt and Encore (confirmed, fixed in `engine/src/master.mjs`).** poke-engine counts the turns that have *passed*
+   (0, 1, 2; the volatile is removed when it reaches 2, and any value of 3 or more makes `generate_instructions` panic with "Taunt duration
+   cannot be 3 when taunt volatile is active"). The master state passed the simulator's `duration`, the turns that *remain* (3 on the turn
+   after a Taunt from the slower side, 2 from the faster side), so the AI believed the volatile ended a turn early and, from 3 up,
+   poke-engine panicked and `master_ai.py` had no answer for that turn. `volatileDuration()` now sends `passed = clamp(3 - remaining, 0, 2)`
+   for Taunt, Encore and the rampage moves (whose simulator `duration` is a constant 1 or 2: the real count is `trueDuration`, which the old
+   code never read, so a rampage never looked like ending), 0 or 1 for Yawn, and the Slow Start counter, which the simulator keeps in the
+   ability and not as a volatile, now reaches poke-engine as the volatile `slowstart`. Confusion keeps the simulator's number: poke-engine
+   reads it without failing and does not use it in a turn. The fix took the `volatile` divergences from 48 to 26 and the `probe_error` rows
+   from 2 to 0; the 26 left are other volatiles (Curse, Throat Chop, Heal Block, Disable, Unburden, see 8). Tests: `engine/test/master.test.mjs`
+   (what the simulator holds on each turn of real Taunt, Encore, Outrage, Yawn and Slow Start battles, and the translation table) and
+   `tests/test_master.py` (poke-engine keeps the volatile before the end value and ends it at it, and never panics).
 2. **Order of the end-of-turn effects (confirmed, `hp`, 83 turns).** The simulator heals with Leftovers before the status damage (a full
    Pokemon with Leftovers that is burned ends at -1/16); poke-engine does the damage first and then the heal, so it ends at full health
    (e005t1: 360 against 384). The other `hp` divergences are of the same kind
