@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "artifacts": {
+    "pkmn-sim": {
+      "path": "node_modules/@pkmn/sim/package.json",
+      "sha256": "fd8a69ce6e69638e11f15cd6e3127a40a48faf02437806936611b8e3c29ea113"
+    }
+  },
+  "tools": {
+    "node": "v22.19.0",
+    "poke-engine": "0.0.48"
+  }
+}

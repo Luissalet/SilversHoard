@@ -1,0 +1,115 @@
+// The hand-written edge cases: one short scripted battle each, every scripted turn becomes a case. They cover what a random battle
+// reaches rarely: weather, statuses, priority, multi-hit moves, fixed critical hits, hazards, screens, terrain, items and abilities.
+// A turn is [choice of p1, choice of p2, crit] where crit is none | p1 | p2 | both (who lands critical hits in that turn).
+
+const mon = (name, o = {}) => [name + (o.item ? ` @ ${o.item}` : ''), o.ability ? `Ability: ${o.ability}` : '', o.tera ? `Tera Type: ${o.tera}` : '',
+  `EVs: ${o.evs || '252 HP / 4 Atk / 252 Spe'}`, `${o.nature || 'Hardy'} Nature`, ...o.moves.map((m) => `- ${m}`)].filter(Boolean).join('\n');
+
+const t = (c1, c2, crit = 'none') => [c1, c2, crit];
+const M = (n) => `move ${n}`;
+
+export const EDGES = [
+  // weather
+  {name: 'sun-fire-boost', p1: [mon('Torkoal', {ability: 'Drought', moves: ['Flamethrower', 'Earth Power', 'Protect']})],
+    p2: [mon('Venusaur', {ability: 'Overgrow', moves: ['Giga Drain', 'Sludge Bomb', 'Protect']})], turns: [t(M(1), M(1)), t(M(1), M(2))]},
+  {name: 'rain-water-boost', p1: [mon('Pelipper', {ability: 'Drizzle', moves: ['Hydro Pump', 'Surf', 'Protect']})],
+    p2: [mon('Charizard', {ability: 'Blaze', moves: ['Flamethrower', 'Air Slash', 'Protect']})], turns: [t(M(1), M(1)), t(M(2), M(2))]},
+  {name: 'rain-thunder-accuracy', p1: [mon('Pelipper', {ability: 'Drizzle', moves: ['Hydro Pump', 'Protect']})],
+    p2: [mon('Zapdos', {ability: 'Static', moves: ['Thunder', 'Hurricane', 'Protect']})], turns: [t(M(1), M(1)), t(M(1), M(2))]},
+  {name: 'sand-chip', p1: [mon('Tyranitar', {ability: 'Sand Stream', moves: ['Crunch', 'Rock Slide', 'Protect']})],
+    p2: [mon('Blissey', {ability: 'Natural Cure', moves: ['Seismic Toss', 'Soft-Boiled', 'Protect']})], turns: [t(M(1), M(1)), t(M(2), M(2)), t(M(1), M(1))]},
+  {name: 'snow-blizzard', p1: [mon('Abomasnow', {ability: 'Snow Warning', moves: ['Blizzard', 'Wood Hammer', 'Protect']})],
+    p2: [mon('Garchomp', {ability: 'Rough Skin', moves: ['Earthquake', 'Outrage', 'Protect']})], turns: [t(M(1), M(1)), t(M(1), M(1))]},
+  // statuses
+  {name: 'burn-halves-attack', p1: [mon('Gengar', {ability: 'Cursed Body', moves: ['Will-O-Wisp', 'Shadow Ball', 'Protect']})],
+    p2: [mon('Machamp', {ability: 'Guts', item: 'Leftovers', moves: ['Close Combat', 'Knock Off', 'Protect']})], turns: [t(M(1), M(2)), t(M(2), M(2)), t(M(2), M(2))]},
+  {name: 'paralysis-speed', p1: [mon('Raichu', {ability: 'Static', moves: ['Thunder Wave', 'Thunderbolt', 'Protect']})],
+    p2: [mon('Dragapult', {ability: 'Clear Body', moves: ['Dragon Darts', 'Shadow Ball', 'Protect']})], turns: [t(M(1), M(2)), t(M(2), M(1)), t(M(2), M(1))]},
+  {name: 'toxic-counter', p1: [mon('Toxapex', {ability: 'Regenerator', moves: ['Toxic', 'Recover', 'Protect']})],
+    p2: [mon('Blissey', {ability: 'Natural Cure', moves: ['Seismic Toss', 'Soft-Boiled', 'Protect']})], turns: [t(M(1), M(1)), t(M(3), M(1)), t(M(3), M(1)), t(M(2), M(2))]},
+  {name: 'sleep-turns', p1: [mon('Breloom', {ability: 'Technician', moves: ['Spore', 'Mach Punch', 'Protect']})],
+    p2: [mon('Slowbro', {ability: 'Regenerator', moves: ['Scald', 'Slack Off', 'Protect']})], turns: [t(M(1), M(1)), t(M(2), M(1)), t(M(2), M(1))]},
+  {name: 'confusion', p1: [mon('Gengar', {ability: 'Cursed Body', moves: ['Confuse Ray', 'Shadow Ball', 'Protect']})],
+    p2: [mon('Machamp', {ability: 'No Guard', moves: ['Close Combat', 'Knock Off', 'Protect']})], turns: [t(M(1), M(3)), t(M(2), M(2)), t(M(2), M(2))]},
+  {name: 'leech-seed', p1: [mon('Venusaur', {ability: 'Overgrow', item: 'Leftovers', moves: ['Leech Seed', 'Giga Drain', 'Protect']})],
+    p2: [mon('Swampert', {ability: 'Torrent', moves: ['Earthquake', 'Waterfall', 'Protect']})], turns: [t(M(1), M(1)), t(M(3), M(1)), t(M(2), M(1))]},
+  // priority
+  {name: 'priority-ice-shard', p1: [mon('Weavile', {ability: 'Pressure', moves: ['Ice Shard', 'Knock Off', 'Protect']})],
+    p2: [mon('Starmie', {ability: 'Analytic', moves: ['Surf', 'Psychic', 'Protect']})], turns: [t(M(1), M(1)), t(M(2), M(2))]},
+  {name: 'priority-aqua-jet', p1: [mon('Azumarill', {ability: 'Huge Power', moves: ['Aqua Jet', 'Play Rough', 'Protect']})],
+    p2: [mon('Dragapult', {ability: 'Clear Body', moves: ['Dragon Darts', 'Shadow Ball', 'Protect']})], turns: [t(M(1), M(1)), t(M(1), M(2))]},
+  {name: 'priority-extreme-speed', p1: [mon('Dragonite', {ability: 'Multiscale', moves: ['Extreme Speed', 'Dragon Claw', 'Protect']})],
+    p2: [mon('Regieleki', {ability: 'Transistor', moves: ['Thunderbolt', 'Volt Switch', 'Protect']})], turns: [t(M(1), M(1)), t(M(2), M(1))]},
+  {name: 'fake-out-flinch', p1: [mon('Incineroar', {ability: 'Intimidate', moves: ['Fake Out', 'Flare Blitz', 'Protect']})],
+    p2: [mon('Gengar', {ability: 'Cursed Body', moves: ['Shadow Ball', 'Sludge Bomb', 'Protect']})], turns: [t(M(1), M(1)), t(M(2), M(2))]},
+  {name: 'protect-blocks', p1: [mon('Corviknight', {ability: 'Pressure', moves: ['Protect', 'Brave Bird', 'Roost']})],
+    p2: [mon('Garchomp', {ability: 'Rough Skin', moves: ['Earthquake', 'Outrage', 'Protect']})], turns: [t(M(1), M(1)), t(M(2), M(1))]},
+  {name: 'sucker-punch', p1: [mon('Kingambit', {ability: 'Defiant', moves: ['Sucker Punch', 'Kowtow Cleave', 'Protect']})],
+    p2: [mon('Garchomp', {ability: 'Rough Skin', moves: ['Earthquake', 'Swords Dance', 'Protect']})], turns: [t(M(1), M(1)), t(M(1), M(2))]},
+  // multi-hit
+  {name: 'multihit-bullet-seed', p1: [mon('Breloom', {ability: 'Technician', moves: ['Bullet Seed', 'Rock Blast', 'Protect']})],
+    p2: [mon('Swampert', {ability: 'Torrent', moves: ['Earthquake', 'Waterfall', 'Protect']})], turns: [t(M(1), M(1)), t(M(2), M(2))]},
+  {name: 'multihit-icicle-spear', p1: [mon('Cloyster', {ability: 'Skill Link', moves: ['Icicle Spear', 'Rock Blast', 'Protect']})],
+    p2: [mon('Garchomp', {ability: 'Rough Skin', moves: ['Earthquake', 'Outrage', 'Protect']})], turns: [t(M(1), M(1)), t(M(2), M(2))]},
+  {name: 'multihit-dual-wingbeat', p1: [mon('Dragonite', {ability: 'Inner Focus', moves: ['Dual Wingbeat', 'Dragon Claw', 'Protect']})],
+    p2: [mon('Blissey', {ability: 'Natural Cure', moves: ['Seismic Toss', 'Soft-Boiled', 'Protect']})], turns: [t(M(1), M(1)), t(M(2), M(2))]},
+  // fixed critical hits
+  {name: 'crit-p1', p1: [mon('Machamp', {ability: 'No Guard', moves: ['Close Combat', 'Knock Off', 'Protect']})],
+    p2: [mon('Garchomp', {ability: 'Rough Skin', moves: ['Earthquake', 'Outrage', 'Protect']})], turns: [t(M(1), M(1), 'p1'), t(M(2), M(2), 'p1')]},
+  {name: 'crit-p2', p1: [mon('Garchomp', {ability: 'Rough Skin', moves: ['Earthquake', 'Outrage', 'Protect']})],
+    p2: [mon('Machamp', {ability: 'No Guard', moves: ['Close Combat', 'Knock Off', 'Protect']})], turns: [t(M(1), M(1), 'p2'), t(M(2), M(2), 'p2')]},
+  {name: 'crit-both', p1: [mon('Machamp', {ability: 'No Guard', moves: ['Close Combat', 'Knock Off', 'Protect']})],
+    p2: [mon('Garchomp', {ability: 'Rough Skin', moves: ['Earthquake', 'Outrage', 'Protect']})], turns: [t(M(1), M(1), 'both'), t(M(2), M(2), 'both')]},
+  {name: 'crit-high-ratio', p1: [mon('Mew', {ability: 'Synchronize', moves: ['Stone Edge', 'Psychic', 'Protect']})],
+    p2: [mon('Charizard', {ability: 'Blaze', moves: ['Flamethrower', 'Air Slash', 'Protect']})], turns: [t(M(1), M(1), 'p1'), t(M(2), M(2))]},
+  // boosts, hazards, screens, field
+  {name: 'swords-dance-then-hit', p1: [mon('Garchomp', {ability: 'Rough Skin', moves: ['Swords Dance', 'Earthquake', 'Protect']})],
+    p2: [mon('Heatran', {ability: 'Flash Fire', moves: ['Magma Storm', 'Earth Power', 'Protect']})], turns: [t(M(1), M(2)), t(M(2), M(2))]},
+  {name: 'stealth-rock-then-switch', p1: [mon('Landorus-Therian', {ability: 'Intimidate', moves: ['Stealth Rock', 'Earthquake', 'Protect']}),
+    mon('Corviknight', {ability: 'Pressure', moves: ['Brave Bird', 'Roost']})],
+    p2: [mon('Gyarados', {ability: 'Moxie', moves: ['Waterfall', 'Dragon Dance', 'Protect']}), mon('Charizard', {ability: 'Blaze', moves: ['Flamethrower', 'Roost']})],
+    turns: [t(M(1), M(2)), t(M(2), 'switch 2'), t('switch 2', M(1))]},
+  {name: 'reflect-screen', p1: [mon('Alakazam', {ability: 'Magic Guard', moves: ['Reflect', 'Psychic', 'Protect']})],
+    p2: [mon('Machamp', {ability: 'No Guard', moves: ['Close Combat', 'Knock Off', 'Protect']})], turns: [t(M(1), M(2)), t(M(2), M(1)), t(M(2), M(1))]},
+  {name: 'light-screen', p1: [mon('Alakazam', {ability: 'Magic Guard', moves: ['Light Screen', 'Psychic', 'Protect']})],
+    p2: [mon('Starmie', {ability: 'Analytic', moves: ['Surf', 'Thunderbolt', 'Protect']})], turns: [t(M(1), M(1)), t(M(2), M(1))]},
+  {name: 'trick-room-order', p1: [mon('Hatterene', {ability: 'Magic Bounce', evs: '252 HP / 252 SpA', nature: 'Quiet', moves: ['Trick Room', 'Dazzling Gleam', 'Protect']})],
+    p2: [mon('Dragapult', {ability: 'Clear Body', moves: ['Dragon Darts', 'Shadow Ball', 'Protect']})], turns: [t(M(1), M(1)), t(M(2), M(2)), t(M(2), M(2))]},
+  {name: 'electric-terrain', p1: [mon('Tapu Koko', {ability: 'Electric Surge', moves: ['Thunderbolt', 'Dazzling Gleam', 'Protect']})],
+    p2: [mon('Gyarados', {ability: 'Intimidate', moves: ['Waterfall', 'Dragon Dance', 'Protect']})], turns: [t(M(1), M(1)), t(M(1), M(2))]},
+  // items, abilities, other mechanics
+  {name: 'choice-band', p1: [mon('Garchomp', {item: 'Choice Band', ability: 'Rough Skin', moves: ['Earthquake', 'Outrage', 'Protect']})],
+    p2: [mon('Heatran', {ability: 'Flash Fire', moves: ['Magma Storm', 'Earth Power', 'Protect']})], turns: [t(M(1), M(2)), t(M(1), M(2))]},
+  {name: 'life-orb-recoil', p1: [mon('Lucario', {item: 'Life Orb', ability: 'Inner Focus', moves: ['Close Combat', 'Meteor Mash', 'Protect']})],
+    p2: [mon('Blissey', {ability: 'Natural Cure', moves: ['Seismic Toss', 'Soft-Boiled', 'Protect']})], turns: [t(M(1), M(1)), t(M(2), M(2))]},
+  {name: 'leftovers-heal', p1: [mon('Blissey', {item: 'Leftovers', ability: 'Natural Cure', moves: ['Seismic Toss', 'Soft-Boiled', 'Protect']})],
+    p2: [mon('Toxapex', {ability: 'Regenerator', moves: ['Toxic', 'Recover', 'Protect']})], turns: [t(M(1), M(2)), t(M(1), M(2))]},
+  {name: 'intimidate-start', p1: [mon('Landorus-Therian', {ability: 'Intimidate', moves: ['Earthquake', 'Stone Edge', 'Protect']})],
+    p2: [mon('Machamp', {ability: 'No Guard', moves: ['Close Combat', 'Knock Off', 'Protect']})], turns: [t(M(1), M(1)), t(M(1), M(1))]},
+  {name: 'levitate-immune', p1: [mon('Rotom-Wash', {ability: 'Levitate', moves: ['Hydro Pump', 'Volt Switch', 'Protect']})],
+    p2: [mon('Garchomp', {ability: 'Rough Skin', moves: ['Earthquake', 'Outrage', 'Protect']})], turns: [t(M(1), M(1)), t(M(1), M(2))]},
+  {name: 'flash-fire-absorb', p1: [mon('Heatran', {ability: 'Flash Fire', moves: ['Magma Storm', 'Earth Power', 'Protect']})],
+    p2: [mon('Charizard', {ability: 'Blaze', moves: ['Flamethrower', 'Air Slash', 'Protect']})], turns: [t(M(1), M(1)), t(M(2), M(1))]},
+  {name: 'tera-stab', p1: [mon('Garchomp', {ability: 'Rough Skin', tera: 'Dragon', moves: ['Outrage', 'Earthquake', 'Protect']})],
+    p2: [mon('Heatran', {ability: 'Flash Fire', moves: ['Magma Storm', 'Earth Power', 'Protect']})], turns: [t('move 2 terastallize', M(2)), t(M(1), M(2))]},
+  {name: 'recoil-move', p1: [mon('Staraptor', {ability: 'Intimidate', moves: ['Brave Bird', 'Close Combat', 'Protect']})],
+    p2: [mon('Blissey', {ability: 'Natural Cure', moves: ['Seismic Toss', 'Soft-Boiled', 'Protect']})], turns: [t(M(1), M(1)), t(M(2), M(2))]},
+  {name: 'drain-move', p1: [mon('Venusaur', {ability: 'Overgrow', moves: ['Giga Drain', 'Sludge Bomb', 'Protect']})],
+    p2: [mon('Swampert', {ability: 'Torrent', moves: ['Earthquake', 'Waterfall', 'Protect']})], turns: [t(M(1), M(1)), t(M(1), M(2))]},
+  {name: 'fixed-damage', p1: [mon('Chansey', {ability: 'Natural Cure', moves: ['Seismic Toss', 'Soft-Boiled', 'Protect']})],
+    p2: [mon('Garchomp', {ability: 'Rough Skin', moves: ['Earthquake', 'Outrage', 'Protect']})], turns: [t(M(1), M(1)), t(M(2), M(1))]},
+  {name: 'focus-sash', p1: [mon('Alakazam', {item: 'Focus Sash', ability: 'Magic Guard', moves: ['Psychic', 'Shadow Ball', 'Protect']})],
+    p2: [mon('Garchomp', {ability: 'Rough Skin', moves: ['Earthquake', 'Outrage', 'Protect']})], turns: [t(M(1), M(1)), t(M(1), M(1))]},
+  {name: 'substitute', p1: [mon('Gengar', {ability: 'Cursed Body', moves: ['Substitute', 'Shadow Ball', 'Protect']})],
+    p2: [mon('Machamp', {ability: 'No Guard', moves: ['Close Combat', 'Knock Off', 'Protect']})], turns: [t(M(1), M(2)), t(M(2), M(2)), t(M(2), M(2))]},
+  {name: 'knock-off-item', p1: [mon('Weavile', {ability: 'Pressure', moves: ['Knock Off', 'Ice Shard', 'Protect']})],
+    p2: [mon('Blissey', {item: 'Leftovers', ability: 'Natural Cure', moves: ['Seismic Toss', 'Soft-Boiled', 'Protect']})], turns: [t(M(1), M(1)), t(M(1), M(1))]},
+  {name: 'switch-into-attack', p1: [mon('Gengar', {ability: 'Cursed Body', moves: ['Shadow Ball', 'Sludge Bomb', 'Protect']}), mon('Blissey', {ability: 'Natural Cure', moves: ['Seismic Toss', 'Soft-Boiled']})],
+    p2: [mon('Machamp', {ability: 'No Guard', moves: ['Close Combat', 'Knock Off', 'Protect']})], turns: [t('switch 2', M(1)), t(M(1), M(2))]},
+];
+
+/** The packed teams of an edge battle. */
+export function edgeTeams(edge, importTeam, packTeam) {
+  const team = (list) => packTeam(importTeam(list.join('\n\n')));
+  return {p1: team(edge.p1), p2: team(edge.p2)};
+}

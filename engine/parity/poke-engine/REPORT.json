@@ -1,0 +1,401 @@
+{
+ "cases": 1404,
+ "corpus": {
+  "cases": 1404,
+  "sha256": "37250bf240c02bdecea713ae88327b6c7fbbd5ca43ab09d3c8886f8cc575d637"
+ },
+ "divergence": {
+  "actual": 384,
+  "case_id": "e005t1",
+  "context": {
+   "actual": [
+    [
+     "state",
+     "after",
+     {
+      "p1": {
+       "active": "gengar",
+       "boosts": {
+        "accuracy": 0,
+        "attack": 0,
+        "defense": 0,
+        "evasion": 0,
+        "special_attack": 0,
+        "special_defense": 0,
+        "speed": 0
+       },
+       "hp": {
+        "gengar": 35
+       },
+       "item": {
+        "gengar": "none"
+       },
+       "side": {},
+       "status": {},
+       "sub": 0,
+       "tera": [],
+       "volatile": []
+      },
+      "p2": {
+       "active": "machamp",
+       "boosts": {
+        "accuracy": 0,
+        "attack": 0,
+        "defense": 0,
+        "evasion": 0,
+        "special_attack": 0,
+        "special_defense": 0,
+        "speed": 0
+       },
+       "hp": {
+        "machamp": 384
+       },
+       "item": {
+        "machamp": "leftovers"
+       },
+       "side": {},
+       "status": {
+        "machamp": "burn"
+       },
+       "sub": 0,
+       "tera": [],
+       "volatile": []
+      },
+      "terrain": "none",
+      "terrain_turns": 0,
+      "trick_room": false,
+      "trick_room_turns": 0,
+      "weather": "none",
+      "weather_turns": 0
+     }
+    ]
+   ],
+   "expected": [
+    [
+     "state",
+     "after",
+     {
+      "p1": {
+       "active": "gengar",
+       "boosts": {
+        "accuracy": 0,
+        "attack": 0,
+        "defense": 0,
+        "evasion": 0,
+        "special_attack": 0,
+        "special_defense": 0,
+        "speed": 0
+       },
+       "hp": {
+        "gengar": {
+         "$approx": [
+          34.375,
+          3.174
+         ]
+        }
+       },
+       "item": {
+        "gengar": "none"
+       },
+       "side": {},
+       "status": {},
+       "sub": 0,
+       "tera": [],
+       "volatile": []
+      },
+      "p2": {
+       "active": "machamp",
+       "boosts": {
+        "accuracy": 0,
+        "attack": 0,
+        "defense": 0,
+        "evasion": 0,
+        "special_attack": 0,
+        "special_defense": 0,
+        "speed": 0
+       },
+       "hp": {
+        "machamp": {
+         "$approx": [
+          360,
+          1.5
+         ]
+        }
+       },
+       "item": {
+        "machamp": "leftovers"
+       },
+       "side": {},
+       "status": {
+        "machamp": "burn"
+       },
+       "sub": 0,
+       "tera": [],
+       "volatile": []
+      },
+      "terrain": "none",
+      "terrain_turns": 0,
+      "trick_room": false,
+      "trick_room_turns": 0,
+      "weather": "none",
+      "weather_turns": 0
+     }
+    ]
+   ]
+  },
+  "event_index": 0,
+  "event_kind": "state",
+  "event_name": "after",
+  "expected": {
+   "$approx": [
+    360,
+    1.5
+   ]
+  },
+  "input": {
+   "a": "willowisp",
+   "b": "knockoff",
+   "choice": [
+    "move 1",
+    "move 2"
+   ],
+   "crit": "none",
+   "ends": false,
+   "family": "edge",
+   "flags": {
+    "damage_p1": false,
+    "damage_p2": true,
+    "order": false
+   },
+   "format": "gen9customgame",
+   "history": [],
+   "id": "e005t1",
+   "modal": true,
+   "name": "burn-halves-attack turn 1",
+   "seed": [
+    16,
+    22,
+    33,
+    44
+   ],
+   "state": {
+    "side_one": {
+     "active_index": "0",
+     "boosts": {
+      "accuracy": 0,
+      "attack": 0,
+      "defense": 0,
+      "evasion": 0,
+      "special_attack": 0,
+      "special_defense": 0,
+      "speed": 0
+     },
+     "can_tera": true,
+     "force_switch": false,
+     "force_trapped": false,
+     "last_used_move": "move:none",
+     "pokemon": [
+      {
+       "ability": "cursedbody",
+       "attack": 167,
+       "base_ability": "cursedbody",
+       "base_types": [
+        "ghost",
+        "poison"
+       ],
+       "defense": 156,
+       "evs": [
+        252,
+        4,
+        0,
+        0,
+        0,
+        252
+       ],
+       "hp": 324,
+       "id": "gengar",
+       "item": "none",
+       "level": 100,
+       "maxhp": 324,
+       "mega_evolved": false,
+       "moves": [
+        {
+         "disabled": false,
+         "id": "willowisp",
+         "pp": 24
+        },
+        {
+         "disabled": false,
+         "id": "shadowball",
+         "pp": 24
+        },
+        {
+         "disabled": false,
+         "id": "protect",
+         "pp": 16
+        }
+       ],
+       "nature": "hardy",
+       "rest_turns": 0,
+       "sleep_turns": 0,
+       "special_attack": 296,
+       "special_defense": 186,
+       "speed": 319,
+       "status": "none",
+       "tera_type": "ghost",
+       "terastallized": false,
+       "types": [
+        "ghost",
+        "poison"
+       ],
+       "weight_kg": 40.5
+      }
+     ],
+     "side_conditions": {},
+     "substitute_health": 0,
+     "volatile_status_durations": {},
+     "volatile_statuses": [],
+     "wish": [
+      0,
+      0
+     ]
+    },
+    "side_two": {
+     "active_index": "0",
+     "boosts": {
+      "accuracy": 0,
+      "attack": 0,
+      "defense": 0,
+      "evasion": 0,
+      "special_attack": 0,
+      "special_defense": 0,
+      "speed": 0
+     },
+     "can_tera": true,
+     "force_switch": false,
+     "force_trapped": false,
+     "last_used_move": "move:none",
+     "pokemon": [
+      {
+       "ability": "guts",
+       "attack": 297,
+       "base_ability": "guts",
+       "base_types": [
+        "fighting",
+        "typeless"
+       ],
+       "defense": 196,
+       "evs": [
+        252,
+        4,
+        0,
+        0,
+        0,
+        252
+       ],
+       "hp": 384,
+       "id": "machamp",
+       "item": "leftovers",
+       "level": 100,
+       "maxhp": 384,
+       "mega_evolved": false,
+       "moves": [
+        {
+         "disabled": false,
+         "id": "closecombat",
+         "pp": 8
+        },
+        {
+         "disabled": false,
+         "id": "knockoff",
+         "pp": 32
+        },
+        {
+         "disabled": false,
+         "id": "protect",
+         "pp": 16
+        }
+       ],
+       "nature": "hardy",
+       "rest_turns": 0,
+       "sleep_turns": 0,
+       "special_attack": 166,
+       "special_defense": 206,
+       "speed": 209,
+       "status": "none",
+       "tera_type": "fighting",
+       "terastallized": false,
+       "types": [
+        "fighting",
+        "typeless"
+       ],
+       "weight_kg": 130
+      }
+     ],
+     "side_conditions": {},
+     "substitute_health": 0,
+     "volatile_status_durations": {},
+     "volatile_statuses": [],
+     "wish": [
+      0,
+      0
+     ]
+    },
+    "terrain": "none",
+    "terrain_turns_remaining": 0,
+    "trick_room": false,
+    "trick_room_turns_remaining": 0,
+    "weather": "none",
+    "weather_turns_remaining": 0
+   },
+   "teams": {
+    "p1": "Gengar|||CursedBody|WillOWisp,ShadowBall,Protect|Hardy|252,4,,,,252|||||",
+    "p2": "Machamp||Leftovers|Guts|CloseCombat,KnockOff,Protect|Hardy|252,4,,,,252|||||"
+   }
+  },
+  "kind": "event",
+  "line": 8,
+  "path": ".ev[0][2].p2.hp.machamp",
+  "summary": "case e005t1 (line 8), event 0 (state after), at .ev[0][2].p2.hp.machamp: expected {'$approx': [360, 1.5]}, got 384"
+ },
+ "divergent": 224,
+ "duration_s": 13.325,
+ "families": {
+  "edge": {
+   "cases": 84,
+   "matching": 79
+  },
+  "random": {
+   "cases": 1320,
+   "matching": 1101
+  }
+ },
+ "finished_at": "2026-10-28T20:45:12+00:00",
+ "kinds": {
+  "active": 7,
+  "boosts.attack": 1,
+  "boosts.defense": 3,
+  "boosts.evasion": 12,
+  "boosts.special_attack": 2,
+  "boosts.speed": 3,
+  "damage.first": 27,
+  "hp": 83,
+  "item": 6,
+  "order": 4,
+  "probe_error": 2,
+  "side.aurora_veil": 1,
+  "side.reflect": 1,
+  "side.stealth_rock": 2,
+  "side.sticky_web": 2,
+  "side.toxic_count": 9,
+  "status": 9,
+  "sub": 2,
+  "volatile": 48
+ },
+ "matching": 1180,
+ "probe_errors": {
+  "PanicException: Taunt duration cannot be N when taunt volatile is active": 2
+ },
+ "scope": "Singles of the 9th generation, one turn at a time, from states of seeded random sets (up to 6 turns of each of PARITY_PE_BATTLES battles, switches and Terastallization included) and about 40 scripted edge battles (weather, statuses, priority, multi-hit, fixed critical hits, hazards, screens, terrain, items, abilities). Compared: who hit first, the damage of that hit, and after the turn the hit points, statuses, items, Terastallization, boosts, side conditions, volatile statuses, substitute, weather, terrain and Trick Room. Not covered: doubles and other generations; pivot moves (U-turn and the like stop the turn half way in the simulator) and anything that needs a choice in the middle of a turn; Mega Evolution; PP; the turn after a forced switch; the end-of-turn effects of a turn that ends the battle (only hit points are compared there); the unlikely branch of a chance (the simulator is played with the likeliest result of every chance, a duration at its longest, and poke-engine's likeliest branch is compared) except the critical hits the edge cases force; the simulator's damage roll is covered as an interval or as its mean; items poke-engine has no name for are treated as inert; abilities are not compared by name, only through what they do; the move choice of the AI itself (the search) is not compared, only the rules it searches over.",
+ "status": "fail"
+}
