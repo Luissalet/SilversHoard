@@ -486,7 +486,7 @@ export default function RtScreen({ battle, lang = "es", sprites, seats, onFinish
       setPhase(live ? (state.b.ended ? "ended" : "ready") : seekTick !== null || videoRef.current && !videoRef.current.playing ? "replay-paused" : "playing");
       videoRef.current?.onReady?.();
     }).catch((e) => { if (!cancelled) { setError(e); videoRef.current?.onError?.(e); } });
-    return () => { cancelled = true; };
+    return () => { cancelled = true; renderer.vfx.dispose(); };
   }, [battle.id, modsReady]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // the log follows the battle unless it was scrolled up to read

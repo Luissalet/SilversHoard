@@ -10,6 +10,7 @@ import { MPW_FX } from "./mpw-fx.gen.js";
 import { drawFireSprite } from "./move-art.js";
 import { drawIceSprite } from "./ice-art.js";
 import { SuppliedEffects } from './supplied-fx.js';
+import { PixelEffects } from './pixel-fx.js';
 
 const H = 0.6;          // projectiles fly this many meters over the ground
 const TAU = Math.PI * 2;
@@ -153,7 +154,13 @@ export class Vfx {
     this.statusT = 0;
     this.pendingDrop = {};
     this.lastBalls = new Map();
+    // Ordinary RT and its portable page share this owner. The classic adapter
+    // has no sprite capture hook and retains its existing effect lifecycle.
+    this.pixel = typeof renderer.animOf === 'function' ? new PixelEffects(renderer) : null;
+    this.pixelStyle = particleStyle();
   }
+
+  dispose() { this.pixel?.dispose(); this.parts.length = 0; this.fx.length = 0; this.rays.clear(); this.lastBalls.clear(); }
 
   px(x) { return this.r.px(x); }
   py(y, z = 0) { return this.r.py(y) - z * this.r.scale; }
@@ -224,6 +231,8 @@ export class Vfx {
   // ------------------------------------------------------------ events
   onEvent(e, battle) {
     this.supplied?.event(e,battle);
+    const nativeContact = this.pixel && particleStyle() !== 'plain'
+      ? this.pixel.onEvent(e, battle, TYPE_COLORS[e.type] || '#f3cd69') : false;
     // the Pokémon of an event: the side's in singles, the slot's (e.u) in doubles; its foe: the other side's, or the one it aims at
     const side = (i) => (battle.doubles ? battle.sides[i].units[e.u || 0] : battle.sides[i]);
     const foeOf = (i) => (battle.doubles ? battle.foe(side(i)) : battle.sides[1 - i]);
@@ -294,7 +303,7 @@ export class Vfx {
         if (GEARS.has(e.move)) this.fx.push({ kind: "gears", x: d.x, y: d.y, t: 0, life: 0.5, color: "#c9cfdc" });
         if (first && CHAINS.has(e.move)) this.fx.push({ kind: "chains", x: d.x, y: d.y, t: 0, life: 0.75, color: e.move === "hex" || e.move === "spiritshackle" || e.move === "meanlook" ? "#8a5cd6" : "#b8a77a" });
         if (first && (e.move === "dracometeor" || e.move === "meteorbeam")) for (let i = 0; i < 4; i++) this.fx.push({ kind: "meteor", x: d.x + rnd(-1.4, 1.4), y: d.y + rnd(-0.7, 0.7), t: -i * 0.09, life: 0.45, color: e.move === "dracometeor" ? "#ff8a3c" : "#ffe08a" });
-        this.burst(e.type, d.x, d.y, { power: e.crit || e.eff > 1 ? 1.5 : 1 });
+        if (!nativeContact) this.burst(e.type, d.x, d.y, { power: e.crit || e.eff > 1 ? 1.5 : 1 });
         const px = pixelHits && (e.hit === 0 || e.hit === undefined) ? pixelHitOf(e.move, e.type) : "";
         if (px) this.fx.push({ kind: "pixel", sheet: px, x: d.x, y: d.y, t: 0, life: 0.36, big: e.crit || e.eff > 1 });
         if (e.crit || e.eff > 1) this.shake = Math.max(this.shake, e.crit ? 0.18 : 0.1);
@@ -471,6 +480,11 @@ export class Vfx {
 
   // ------------------------------------------------------------ per frame
   update(dt, view) {
+    const style = particleStyle();
+    if (style !== this.pixelStyle && this.pixel) {
+      this.pixel.dispose(); this.pixel = new PixelEffects(this.r); this.pixelStyle = style;
+    }
+    this.pixel?.update(dt, view);
     this.supplied?.update(dt,view);
     this.animateParticles = dt > 0;
     if (!this.animateParticles) return;
@@ -585,6 +599,8 @@ export class Vfx {
   // ------------------------------------------------------------ drawing
   /** Ground marks: cracks, flat rings and cones, under the Pokémon. */
   drawUnder(ctx) {
+    this.pixel?.begin(ctx);
+    this.pixel?.draw(ctx, 'back', particleStyle(), !!this.reducedMotion?.matches);
     const s = this.r.scale;
     for (const f of this.fx) {
       if (f.t < 0) continue;
@@ -649,6 +665,7 @@ export class Vfx {
 
   /** Rays, projectiles, melee marks, bolts and particles over the Pokémon. */
   drawOver(ctx, view, battle) {
+    this.pixel?.draw(ctx, 'front', particleStyle(), !!this.reducedMotion?.matches);
     const s = this.r.scale;
     ctx.save();
     // rays
