@@ -189,6 +189,7 @@ export class ArenaRenderer {
   }
 
   resetReplay(battle) {
+    this.vfx?.dispose?.();
     clearMoveCards(this);
     this.eventIndex = 0;
     this.time = 0;
@@ -964,6 +965,16 @@ export class ArenaRenderer {
       const facing = this.portrait ? portraitFacing(side.fx, side.fy) : side;
       const row = dirRow(facing.fx, facing.fy);
       drawn = a.draw(ctx, x, y, row, this.k * displayScale, { alpha: bodyAlpha, flash: bodyFlash, reduced:!!this.reducedMotion?.matches });
+      if (drawn) {
+        const geometry = a.meta?.a?.[a.cur] || a.meta?.a?.Idle || a.meta?.a?.Walk;
+        if (geometry) {
+          // Imported four-direction sheets normalize their cell width to48, unlike PMD.
+          const k = this.k * displayScale * (a instanceof OverworldAnimator ? 48 / geometry.w : a.meta?.display_scale || 1);
+          this.vfx.pixel?.captureActor(si, side.pos || 0, side.active, ctx,
+            {x:x-geometry.ax*k,y:y-geometry.ay*k,w:geometry.w*k,h:geometry.h*k},
+            matte => a.draw(matte,x,y,row,this.k*displayScale,{alpha:bodyAlpha,reduced:!!this.reducedMotion?.matches}));
+        }
+      }
       headY = y - a.height(this.k * displayScale) - 0.3 * s;
     }
     if (!drawn) {
@@ -982,6 +993,8 @@ export class ArenaRenderer {
         ctx.globalAlpha = bodyAlpha;
         if (!this.portrait && side.fx > 0) { ctx.translate(x, 0); ctx.scale(-1, 1); ctx.translate(-x, 0); }
         ctx.drawImage(img.img, x - w / 2, y - h * 0.92, w, h);
+        this.vfx.pixel?.captureActor(si,side.pos || 0,side.active,ctx,
+          {x:x-w/2,y:y-h*.92,w,h},matte => {matte.globalAlpha=bodyAlpha;matte.drawImage(img.img,x-w/2,y-h*.92,w,h);});
         if (bodyFlash > 0) {
           ctx.globalAlpha = bodyAlpha * bodyFlash;
           ctx.drawImage(white(img.img), x - w / 2, y - h * 0.92, w, h);
