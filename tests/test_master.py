@@ -82,3 +82,22 @@ def test_a_battle_against_the_master(call):
     s = searched[0]["search"]
     assert s["iterations"] > 100 and s["options"][0]["share"] > 0 and s["options"][0]["label"]
     assert any("possible futures" in t for t in r["text"])
+
+
+@needs_pe
+@pytest.mark.parametrize("volatile,ends_at", [("taunt", 2), ("encore", 2), ("lockedmove", 2), ("yawn", 1)])
+def test_poke_engine_reads_the_turns_passed_that_the_state_builder_sends(volatile, ends_at):
+    """engine/src/master.mjs sends the turns that have passed (Taunt, Encore and a rampage move: 0 to 2; Yawn: 0 or 1), the only values
+    poke-engine's turn generator accepts: it ends the volatile at `ends_at` and keeps it before."""
+    import poke_engine as pe
+
+    from silvers_hoard.master_ai import build_state
+
+    for passed in range(ends_at + 1):
+        foe = side([mon("snorlax", ["normal", "typeless"], ["tackle"])], can_tera=False, volatile_statuses=[volatile], last_used_move="move:0",
+                   volatile_status_durations={volatile: passed})
+        state = {"side_one": side([mon("garchomp", ["dragon", "ground"], ["earthquake"])], can_tera=False), "side_two": foe,
+                 "weather": "none", "terrain": "none"}
+        branches = pe.generate_instructions(build_state(pe, state), "earthquake", "tackle")
+        removed = [any(f"RemoveVolatileStatus SideTwo: {volatile.upper()}" in str(i) for i in b.instruction_list) for b in branches]
+        assert branches and all(removed) == (passed == ends_at) and any(removed) == (passed == ends_at), (volatile, passed)

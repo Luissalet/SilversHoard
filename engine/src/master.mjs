@@ -67,6 +67,21 @@ function pokemon(p) {
   };
 }
 
+/**
+ * What poke-engine's `volatile_status_durations` holds for a volatile of the simulator, or null when it keeps no counter for it.
+ * The simulator stores the turns that REMAIN (its `duration`, `time`, or `trueDuration` for a rampage move, whose `duration` is a
+ * constant). poke-engine counts the turns that have PASSED: Taunt, Encore and a rampage move run 0, 1, 2 and end at 2 (any value of 3
+ * or more makes `generate_instructions` panic, and the master AI has no answer that turn); Yawn is 0 or 1 and puts the Pokémon to
+ * sleep at 1. Confusion keeps the simulator's number, which poke-engine reads without failing.
+ */
+export function volatileDuration(id, v) {
+  const left = Number(v?.trueDuration ?? v?.time ?? v?.duration ?? 0) || 0;
+  if (id === 'taunt' || id === 'encore' || id === 'lockedmove') return Math.min(2, Math.max(0, 3 - left));
+  if (id === 'yawn') return Math.min(1, Math.max(0, left));
+  if (id === 'confusion' || id === 'slowstart') return left;
+  return null;
+}
+
 function side(battle, s, req, {forceSwitch = false} = {}) {
   const active = s.active[0];
   const idx = Math.max(0, s.pokemon.indexOf(active));
@@ -97,7 +112,13 @@ function side(battle, s, req, {forceSwitch = false} = {}) {
       if (id === 'perishsong' && v.duration) vols.add(`perish${Math.min(4, Math.max(1, v.duration))}`);
       if ((id === 'protosynthesis' || id === 'quarkdrive') && v.bestStat) vols.add(`${id}${v.bestStat}`);
       if (id === 'substitute') out.substitute_health = v.hp || 0;
-      if (['confusion', 'encore', 'lockedmove', 'slowstart', 'taunt', 'yawn'].includes(id)) durations[id] = v.time ?? v.duration ?? 0;
+      const d = volatileDuration(id, v);
+      if (d !== null) durations[id] = d;
+    }
+    // Slow Start is an ability counter in the simulator (turns left, 5 on entry), a volatile with a countdown in poke-engine
+    if (active.ability === 'slowstart' && active.abilityState?.counter > 0) {
+      vols.add('slowstart');
+      durations.slowstart = active.abilityState.counter;
     }
     if (active.status === 'tox') out.side_conditions.toxic_count = active.statusState?.stage || 0;
     out.volatile_statuses = [...vols];
