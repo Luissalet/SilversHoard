@@ -5,6 +5,7 @@ Teams, codes and files that come from friends are data: tools import them and ne
 from __future__ import annotations
 
 import base64
+import json
 from pathlib import Path
 from typing import Annotated, Any, Literal, Optional, Union
 
@@ -38,6 +39,7 @@ palmares_get returns one palmarés card for Medallas: gym badges, Pokéathlon me
 sets_popular gives Smogon's sets and the ladder usage of a species (for the team builder); team_popular_sets gives a trainer a whole team of named Pokémon with their popular sets in one call (names such as Mega Delphox or Shaymin Forma Cielo work); usage_top and sample_team rank the format's Pokémon and build a team from them.
 Mass battles: mass_start runs one (up to 1100 Pokémon, each with its AI); a person can play one of its Pokémon on its page and mass_play records a run from an input log; mass_export makes a page a friend watches or plays (their SILVERMASS1- code goes to import); mass_video records a battle or a run as a clip.
 damage_calc measures one Pokémon's moves against another (rolls, crits, KOs) with the game's own formula.
+engine_parity_status reads the last differential test of the master AI's engine (poke-engine) against the simulator: turns compared, how many match, the divergences by kind, what is not covered and how to run it again.
 battle_video records a finished battle's replay as an MP4 clip with its sound (a job; lumiere=true sends it to the video editor).
 Move animations: the turn-based screen plays Pokémon Showdown's own animation of each move (934) or Silver's effects, as the viewer picks in Settings; fx_cache shows the cached effect pictures and prefetch=true downloads them all for battles without internet.
 battle_explain says why the AI chose each move (the options it weighed with expected damage and KOs, the threat it was under, the expert's play-outs) and, in a live battle, what the expert would do now on your side.
@@ -160,6 +162,25 @@ class TypeChallengeArgs(BaseModel):
 
 class TypeChallengeScoreArgs(TypeChallengeArgs):
     answers: list[str] = Field(default_factory=list, max_length=10, description="Chosen attack types (attack) or canonical defender species names (defend), in question order.")
+
+
+_PARITY_DIR = Path(__file__).resolve().parents[1] / "engine" / "parity" / "poke-engine"
+PARITY_HOW_TO_RUN = "python scripts/parity_poke_engine.py [--battles N] [--json]  (needs Node.js, the master AI's venv with poke-engine and the Hoard Link repository next to this one)"
+
+
+def _engine_parity(s: Services, a: Empty) -> Any:
+    """The summary the last run of scripts/parity_poke_engine.py left (REPORT.json next to REPORT.md); nothing here runs the test."""
+    path = _PARITY_DIR / "REPORT.json"
+    if not path.is_file():
+        return {"available": False, "reason": "no report in this installation (the differential test lives in the source tree)", "how_to_run": PARITY_HOW_TO_RUN}
+    data = json.loads(path.read_text(encoding="utf-8"))
+    cases = int(data.get("cases") or 0)
+    lock = _PARITY_DIR / "lock.json"
+    return {"available": True, "report": "engine/parity/poke-engine/REPORT.md", "finished_at": data.get("finished_at"),
+            "cases": cases, "matching": data.get("matching"), "divergent": data.get("divergent"),
+            "match_rate": round(int(data.get("matching") or 0) / cases, 4) if cases else None, "families": data.get("families"),
+            "divergences_by_kind": data.get("kinds"), "probe_errors": data.get("probe_errors"), "first_divergence": data.get("divergence"),
+            "pinned": json.loads(lock.read_text(encoding="utf-8")) if lock.is_file() else None, "scope": data.get("scope"), "how_to_run": PARITY_HOW_TO_RUN}
 
 
 def _team_analysis(s: Services, a: TeamAnalysisArgs) -> Any:
@@ -1184,6 +1205,9 @@ TOOLS: list[Tool] = [
     Tool("damage_calc", _d("Damage of each move of one Pokémon against another: rolls, multi-hit, crits, KOs. Calculadora de daño.",
                            "Measured with the simulator's own formula of the format's generation: abilities (type-changing ones too), items, stat boosts, Tera, Mega Evolution, weather, terrain and screens count; weather and terrain left out = what the abilities set. Each move: per-strike rolls (39 in gen 1–2), multi-hit min–max (Skill Link, Loaded Dice, 2–5), crit range, OHKO chance.",
                            synonyms="calculadora, cuánto quita, rango de daño, ohko, 2hko, cálculo de daño"), DamageCalcArgs, R, _damage_calc),
+    Tool("engine_parity_status", _d("Last differential test of the master AI's engine (poke-engine) against the simulator. Paridad del motor.",
+                                    "Read-only: turns compared and matching, divergences by kind (order, damage, hit points, statuses, volatile statuses, boosts, side conditions), poke-engine panics, the pinned versions and how to run it again. Nothing is run here.",
+                                    synonyms="paridad, prueba diferencial, poke-engine, IA maestra, divergencias"), Empty, R, _engine_parity),
     Tool("team_import", _d("Parse a team (Showdown text, packed or JSON) into sets and back to clean text. Leer equipo.",
                            synonyms="importar equipo, pokepaste, showdown"), TeamTextArgs, R, lambda s, a: s.import_team(a.text)),
     Tool("team_validate", _d("Check a team against a format's rules (Showdown's validator). Validar equipo.",
