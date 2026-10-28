@@ -1,5 +1,12 @@
 # Silver's Hoard
 
+**Source80 portraits (29 October 2026; Main integration pending).** Slaking and Cloyster each gain their fifteen missing shiny expressions. The four published Normal N/S portraits keep their exact PNGs, complete source objects and priority. All 329 previous registry records, 35,314 mappings and 34,069 PNGs remain exact. Source totals are 2,137 complete sets, 779 partial and 22 missing, with 35,344 mappings, 34,099 PNGs and fifteen packs.
+
+The source passes 729 Python tests with eleven skips, 672 engine tests with one skip, and both application builds. ROOT checked two native AI battles, four paused application replay views and two separate human HTML rounds. Each new HTML verifies 70,121 binary assets, forty chunks and zero inline images. Sixteen visible PNGs match the library; portraits display at 96 pixels from native 40, assigned Balls at 18, with correct HP bars and empty consoles. All temporary QA tabs, eight process identities and four leases are closed. Slaking's human round includes living Dynamax expiry; Cloyster's human round ends by KO before expiry.
+
+Full source authority: `qa-two80-source-delivery-root-v1.json` SHA `7fac9d9691ea885b8f4d2fee744bcca8d29b22be2ecbef949a43f7adcbef64a8`. Main80 integration and QA remain pending. Earlier Main79 sections retain their historical scope; the catalogue remains unfinished. Re-export older HTML after integration.
+
+
 **Main79 expression portraits (29 October 2026).** Wooper of Paldea and Meditite now have their fifteen missing shiny expressions; Ludicolo has the reviewed shiny set and fifteen normal exterior repairs. Published portraits keep priority. This delivery adds 45 shiny mappings and repairs 15 normal mappings, retaining 36 previous mappings across the six normal/shiny sets. Coverage is 2,135 complete sets, 781 partial and 22 missing; the library has 35,314 mappings, 34,069 PNGs and fifteen packs.
 
 Main QA passes at `fb89c26f1596c0cbdd488ef95ab98bf30c68c87a`, after two exact CAS1372r29 approvals of `ce1a2d82`/`f7a64f22`. Main app/play builds pass in 9.36/30.01 s. ROOT checked two saved AI battles, paused app replays and three separate human HTML rounds. The new Main HTMLs each contain 70,091 verified binary assets, forty chunks and zero inline images; the historical source exports retain ten inline fallback images each. Source results (729 Python passed/seven skipped; 669 engine passed/one skipped) remain attributed to source 19117188, not a fresh suite for the later Main commit. See [Main79 delivery details](docs/PMD_LIBRARY.md).
