@@ -162,7 +162,7 @@ def main() -> int:
     summary = {"status": status, "finished_at": report.get("finished_at"), "duration_s": report.get("duration_s"),
                "corpus": report.get("corpus"), "divergence": report.get("divergence"), "scope": report.get("scope"),
                **{k: stats[k] for k in ("cases", "matching", "divergent", "kinds", "families", "probe_errors")}}
-    a.report.with_suffix(".json").write_text(json.dumps(summary, ensure_ascii=False, indent=1, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
+    a.report.with_suffix(".json").write_text(json.dumps(summary, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
     if a.json:
         print(json.dumps({"status": status, "report": str(a.report), **{k: stats[k] for k in ("cases", "matching", "divergent", "kinds", "families", "probe_errors")}},
                          ensure_ascii=False, indent=1))
