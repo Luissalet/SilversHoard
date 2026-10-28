@@ -11,6 +11,19 @@ import {championsPoints} from '../points.mjs';
 import {Dex, toID} from '@pkmn/sim';
 import {RtError as EngineError, rtFormatId as buildFormatId, rtGen as genOf, rtSets} from './team.mjs';
 import {makeRng} from '../ai.mjs';
+
+// A tap on the battle's random sources, for the differential tests (engine/parity): tapRng((stream, value, battle) => ...) sees every
+// call of the streams of the battles and arenas created afterwards, in order. The tap sees the value; it cannot change it.
+let rngTap = null;
+export function tapRng(fn) {
+  const before = rngTap;
+  rngTap = fn || null;
+  return before;
+}
+const tapped = (raw, stream, battle) => {
+  const tap = rngTap;
+  return tap ? () => { const v = raw(); tap(stream, v, battle); return v; } : raw;
+};
 import {finalCooldown, rtMove, TPS} from './moves.mjs';
 import {think} from './brain.mjs';
 import {dynamaxInfo, maxProfile, zProfile, DYNAMAX_SECONDS, DYNAMAX_SCALE} from './mechanics.mjs';
@@ -175,7 +188,7 @@ function megaOf(dex, sp, set, item, champions = false) {
 /** Rocks of the `rocks` arena: 3 to 6 circles from the battle's seed, mirrored left to right so both trainers get the same field,
  * clear of the band the Pokémon come in on and walk along at first, with room to walk between them and around them. */
 export function placeRocks(seed) {
-  const rng = makeRng(`${seed}:arena`);
+  const rng = tapped(makeRng(`${seed}:arena`), 'arena', null);
   const n = 3 + Math.floor(rng() * 4);
   const cy = ARENA.h / 2;
   const rocks = [];
@@ -283,7 +296,7 @@ export class RtBattle {
     this.dex = Dex.forGen(this.gen);
     this.seed = String(spec.seed || this.id);
     this.spec.seed = this.seed;
-    this.rng = makeRng(`${this.seed}:battle`);
+    this.rng = tapped(makeRng(`${this.seed}:battle`), 'battle', this);
     this.timeLimit = Math.max(30, Math.min(1800, Number(spec.time_limit) || DEFAULT_TIME_LIMIT)) * TPS;
     this.version = Math.max(1, Math.min(RULES_VERSION, Math.floor(Number(spec.version) || 1)));
     this.silverSpecial = this.version >= 5 && (this.version < 11 || spec.silver_special === true);
@@ -448,7 +461,7 @@ export class RtBattle {
     const owners = this.version >= 9 && Array.isArray(seat.owners) && seat.owners.length === mons.length ? seat.owners.map((o) => (o ? 1 : 0)) : null;
     return {id, index, name: String(seat.name || (index ? 'Player 2' : 'Player 1')).slice(0, 40), ai: seat.ai || null,
       ...(owners ? {owners, partner: !!seat.partner} : {}),
-      aiRng: makeRng(`${this.seed}:${id}:ai`), mons, active: 0, x: HOME[index].x, y: HOME[index].y, fx: index ? -1 : 1, fy: 0,
+      aiRng: tapped(makeRng(`${this.seed}:${id}:ai`), `ai:${id}`, this), mons, active: 0, x: HOME[index].x, y: HOME[index].y, fx: index ? -1 : 1, fy: 0,
       act: null, rollReady: 0, switchesLeft: MAX_SWITCHES, need: false, needSince: 0, vol: {}, cond: {}, hazards: {}, wish: null,
       lastInput: null, brain: {}, moving: false, focus: true, gauge: 0, mega: -1, megaUsed: false, ult: 0,
       ...(this.version >= 13 ? {dynamaxUsed: false, zUsed: false} : {}), ...(this.version >= 14 ? {ultraUsed:false} : {})};
