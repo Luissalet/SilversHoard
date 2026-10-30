@@ -1,5 +1,7 @@
 # Silver's Hoard — architecture
 
+**Source96 data candidate.** Two literal native160 atlases supply32 portraits through the existing reader, frontend and standalone export. There are no engine or interface changes. [Consumer checks](PMD_LIBRARY.md#source96-candidate); Main93 remains delivered.
+
 **Main93 data delivery.** The exact forty Source93 files approved at revision 40 are integrated. All 118 fresh Main readers pass; both existing UI entry files equal the tested builds reused in Source93. Engine, frontend, reader and export contracts remain unchanged. [Evidence and limits](PMD_LIBRARY.md#main93-current-delivery). Earlier candidate wording is historical.
 
 **Source93 portrait data candidate.** The unchanged reader, frontend, engine and export consume seventeen literal containers of native 40-pixel portraits. There are 101 new mappings and 43 retained selections, including seventeen Normal portraits. [Actual checks and limits](PMD_LIBRARY.md#source93-candidate). Main91 remains delivered.
