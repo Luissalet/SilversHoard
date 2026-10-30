@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+**Candidata Source88.** Mega Raichu Y y Tauros de Paldea ardiente/acuático completan sus15 expresiones shiny ausentes; se corrigen15 selecciones normales de fondos. Fuente:2.155 completos/771 parciales/12 ausentes,35.628 mapeos y34.383 PNG. Main87 sigue entregada hasta revisión e integración. [Comprobaciones de Source88](docs/PMD_LIBRARY.md#source88-candidate).
+
 **Main87 entregada (30 de octubre de 2026).** El producto revisado0b82ba47 añade Urshifu Estilo Brusco Gigamax N/S16, 45 expresiones Mega shiny y diez reparaciones locales. Cobertura:2.152 completos/774 parciales/12 ausentes. Main lee112 retratos y seis Normal publicados byteexactos y compila app/play en6,77/10,24s. [Entrega y límites de las pruebas de fuente](docs/PMD_LIBRARY.md#main87-current-delivery). Las notas anteriores de candidatura son históricas; reexporta los HTML existentes.
 
 **Candidata Source87 (30 de octubre de 2026; Main86 sigue entregada).** Añade los retratos Gigantamax de Urshifu Estilo Brusco en ambas paletas, 45 expresiones shiny de Mega Gyarados, Mega Heracross y Mega Meganium, y diez reparaciones locales. Cobertura: 2.152 completos, 774 parciales y 12 ausentes; 35.583 mapeos y 34.338 PNG en 15 packs. Pasan las comprobaciones de app, HTML portátil y retratos reactivos de fuente; quedan revisión formal e integración en Main. [Pruebas y límites de Source87](docs/PMD_LIBRARY.md#source87-candidate).
