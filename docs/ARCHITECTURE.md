@@ -1,8 +1,16 @@
 # Silver's Hoard — architecture
 
+**Source87 candidate, data only (30 October 2026).** The existing reader, engine and portable contract are unchanged. Seven reviewed atlases and thirteen new active packs add 77 mappings and replace ten selected mappings; previous physical files remain available. Source QA exercises the actual reader and HTML payload. [Source87 evidence and limits](PMD_LIBRARY.md#source87-candidate); Main86 remains the delivered version.
+
+**Current Main86 architecture (30 October 2026, Europe/Madrid).** Product `f1a8736be839f8fa325c82f3455f6fb5b4ab742c` integrates the reviewed portrait containers and versioned background-v2 pipeline. The reader and portable export still consume composed native 40-pixel PNGs, with published priorities and historical source objects preserved; existing HTML needs re-export to receive these assets. No gameplay or separate portable-background contract changes. [Main86 QA and delivery limits](PMD_LIBRARY.md#main86-current-delivery) are centralised in the portrait-library document; the candidate state below is an earlier source snapshot.
+
+**Historical Source86 snapshot (29 October 2026, before formal review, Main integration and Main QA).** The following source note is retained verbatim; its candidate/pending and Main85-delivered states describe that earlier observation, not the current Main86 delivery.
+
 **Source86 background pipeline (candidate; Main85 remains delivered).** `build_portrait_backgrounds.py` selects corrected Crying, Shouting, Determined, Inspired and Dizzy fields through `manifest.json` v2 and immutable `<Emotion>-v2-<sha[:12]>.png` files. Eleven other active templates keep their PNG bytes and full metadata objects; all sixteen earlier PNGs and SHA-linked manifest history remain available. Before writing outputs, preflight validates positive published samples, checks the SHAs of referenced active/historical PNGs, and recursively verifies each referenced historical manifest, including inactive old fields. The source area receipt includes eight background checks within 46 Python checks; these are recorded results, not a new run here.
 
 Portrait compilation resolves backgrounds into the selected 40-pixel PNGs. Portable export introduces no separate background contract. Eleven legacy records use literal baked containers with no active colour key, so they cannot be accidentally recomposed; their 55 old-background cases remain HOLD. Source QA and later Main integration are separate; see `qa-next86-source-delivery-root-v1.json` and the provenance scope in `art/portraits/reviewed86-provenance.json`.
+
+**End of the historical Source86 snapshot.**
 
 **Main85 integrated and checked (29 October 2026).** Product commit 94a0e532e92246a088cd20b10130234c089ee379 passed two exact CAS35 reviews. Paldean Combat Tauros shiny and both Hatterene Gigantamax sets have sixteen expressions; Grimmsnarl Gigantamax shiny has its recovered Normal only. Counts remain 2,144 complete sets, 780 partial and 14 absent: 344 records, 35,461 mappings, 34,216 PNGs and 15 packs. Existing source objects, component credits, historical flags and retired physical packs remain preserved.
 

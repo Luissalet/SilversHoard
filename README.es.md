@@ -1,6 +1,14 @@
 # Silver's Hoard
 
+**Candidata Source87 (30 de octubre de 2026; Main86 sigue entregada).** Añade los retratos Gigantamax de Urshifu Estilo Brusco en ambas paletas, 45 expresiones shiny de Mega Gyarados, Mega Heracross y Mega Meganium, y diez reparaciones locales. Cobertura: 2.152 completos, 774 parciales y 12 ausentes; 35.583 mapeos y 34.338 PNG en 15 packs. Pasan las comprobaciones de app, HTML portátil y retratos reactivos de fuente; quedan revisión formal e integración en Main. [Pruebas y límites de Source87](docs/PMD_LIBRARY.md#source87-candidate).
+
+**Main86 integrada y comprobada (30 de octubre de 2026, Europe/Madrid).** El producto `f1a8736be839f8fa325c82f3455f6fb5b4ab742c` añade 45 expresiones shiny de Mega Gengar, Weezing de Galar y Mega Pinsir y corrige 218 mapeos de fondos existentes. La biblioteca tiene 347 registros, 35.506 mapeos y 34.261 PNG en 15 packs: 2.147 conjuntos completos, 777 parciales y 14 ausentes. Se conservan la prioridad de los Normal publicados y las fuentes históricas; los 55 casos de fondos legacy congelados siguen HOLD. La [entrega Main86, su QA y sus límites](docs/PMD_LIBRARY.md#main86-current-delivery) quedan separados del snapshot anterior de fuente que se conserva debajo.
+
+**Snapshot histórico Source86 (29 de octubre de 2026, anterior a revisión formal, integración y QA de Main).** La nota de fuente siguiente se conserva literal; sus estados de candidata/pendiente y Main85 entregada describen aquella observación, no la entrega Main86 actual.
+
 **Candidata Source86 (29 de octubre de 2026; Main85 sigue entregada).** La fuente revisada añade 45 expresiones shiny de Mega Gengar, Weezing de Galar y Mega Pinsir, y corrige 218 mapeos de fondos existentes. Cobertura: 2.147 conjuntos completos, 777 parciales y 14 ausentes; 35.506 mapeos y 34.261 PNG en 15 packs. La QA acotada de fuente está terminada; siguen pendientes envío formal, integración y QA nueva de Main86. Los 55 casos de fondos legacy congelados conservan HOLD, sin aprobación artística global. Autoridad: `qa-next86-source-delivery-root-v1.json`; [detalle de biblioteca](docs/PMD_LIBRARY.md) con límites del export y las rondas humanas.
+
+**Fin del snapshot histórico Source86.**
 
 **Main85 integrado y comprobado (29 de octubre de 2026).** El producto 94a0e532e92246a088cd20b10130234c089ee379 recibió dos revisiones exactas CAS35. Tauros-Paldea-Combat shiny y ambos conjuntos de Hatterene Gigamax completan 16 expresiones; Grimmsnarl Gigamax shiny tiene sólo su Normal recuperado. Permanecen 2.144 conjuntos completos, 780 parciales y 14 ausentes: 344 registros, 35.461 mapeos, 34.216 PNG y 15 packs. Se conservan objetos fuente, créditos por componente, flags históricos y packs físicos retirados.
 
