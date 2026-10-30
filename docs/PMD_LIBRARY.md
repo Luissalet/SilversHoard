@@ -1,5 +1,18 @@
 # Installed PMD sprite library
 
+## Main100 current delivery
+
+Source100 product02f7e9956ba217a26ce372ad01bc97a7f7926f00,25 exact reviewed files, is integrated after task1372 revision44 approval. Ninety-six fresh actual Main readers reproduce PNG/RGBA for90 H/J/K additions and six published Normal keepers. Both existing Main UI entries equal the tested Source88 entries reused by Source100. No new Main build, battle, export or live UI is claimed.
+
+The library has382 records,35,911 mappings,34,666 PNG and15 packs:2,174 complete form/palette sets,754 partial and10 absent. Earlier35,821 mappings/376 records and all aliases remain exact. H/J/K now have16 expressions per palette;17 Unown forms remain incomplete, including F. These counts do not approve the whole catalogue. Own glyph geometry, camera and native40 scale remain intact. New masks are distinct from historical alpha; acting and positive A water donors retain separate complete objects/credits and original flags in reviewed100 provenance. No licence inferred.
+
+Exact assets and unchanged code retain the consumed source QA below:26 existing tests,900tick native/time and saved-input parity, HTML70,688 binaries/40chunks/zero inline fallback entries in its portable library/96HTTP. Root saw native paused replay5s Hshiny/Jnormal Dizzy600/600; one human HTML KO50.33s (modal0:51) with KshinySad0/300 and JnormalJoyous300/300; same human completed replay5s KshinyDizzy556/600 and JpublishedNormal600/600 during Dynamax. Six cached instances match40native/96display, assigned Balls18 and HP/aria, not all96 live expressions. FaintedK uses the existing grayscale display without changing the shiny PNG. Observations are separate, not atomic.
+
+Initial HTML sample namedlive was intro0.00s with Normal HUDs and an unpainted right VS picture; it is kept diagnostically, not used to approve full VS readiness. Actual accepted human actions were Dynamax/MaxGuard0.0s; no landed humanConfuseRay or healing claimed. A lateRecover attempt found no control after KO. Logs show K/J returning to normal size18.0/21.0s while the round continues. No human live pause, result import, reroll, state injection or new full lifecycle animation review. Appconsole empty; HTML one Zotero extension64MiB error.
+
+Authority:qa-main100-delivery-root-v1.json and qa-source100-delivery-root-v1.json. Source QA tabs/services closed,59002/59003 off and temporary leases released. Main foreign.gitignore and untracked list preserved; merge lease released after documentary closure. Task1372 remains open for completion and historical art review. Re-export older HTML. Earlier candidate/delivery passages remain historical.
+
+
 ## Source100 candidate
 
 H/J/K complete16 expressions per palette:90 new mappings and PNG, six published Normal portraits retained byteexact. Earlier35,821 mappings,376 records and all aliases remain exact. The library reaches382 records,35,911 mappings,34,666 PNG and15 packs:2,174 complete form/palette sets,754 partial and10 absent. Seventeen other Unown forms remain incomplete, including F. These counts do not certify the historical artwork or whole catalogue.

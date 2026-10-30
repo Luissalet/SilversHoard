@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+**Main100 entregada.** Unown H, J y K completan16 expresiones en ambas paletas con90 retratos nuevos y seis neutros originales conservados. Pasan las96 lecturas nuevas de Main. [Alcance](docs/PMD_LIBRARY.md#main100-current-delivery). Reexporta los HTML anteriores; las candidaturas previas son históricas.
+
 **Candidatura Source100.** Unown H, J y K completan16 expresiones por paleta con90 retratos nuevos y sus seis neutros publicados conservados. [Pruebas y alcance](docs/PMD_LIBRARY.md#source100-candidate). Main99 sigue entregada.
 
 **Main99 entregada.** Unown I completa16 expresiones por paleta con30 retratos nuevos y sus neutros publicados conservados. Pasan las32 lecturas nuevas de Main. [Alcance](docs/PMD_LIBRARY.md#main99-current-delivery). Reexporta los HTML anteriores; las candidaturas siguientes son históricas.

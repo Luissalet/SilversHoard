@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+**Main100 delivered.** Unown H, J and K complete16 expressions in both palettes with90 additions and six original Normal keepers. All96 fresh Main reader checks pass. [Delivery scope](docs/PMD_LIBRARY.md#main100-current-delivery). Re-export earlier HTML; prior candidate notes are historical.
+
 **Source100 portrait candidate.** Unown H, J and K complete16 expressions in both palettes with90 additions and six published Normal keepers. [Checks and scope](docs/PMD_LIBRARY.md#source100-candidate). Main99 remains delivered.
 
 **Main99 delivered.** Unown I completes16 expressions per palette with30 additions and published Normal keepers. All32 fresh Main reader checks pass. [Scope](docs/PMD_LIBRARY.md#main99-current-delivery). Re-export earlier HTML; candidate notes below are historical.
