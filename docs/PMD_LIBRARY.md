@@ -1,5 +1,14 @@
 # Installed PMD sprite library
 
+## Main93 current delivery
+
+Source93 product cf376535835718bed13c67c26936561a2ee6bc2d, comprising forty exact reviewed files, is integrated after approval at task 1372 revision 40. Fresh Main readers confirm 101 new shiny portraits and seventeen retained Normal portraits against their expected PNG and RGBA bytes. Both existing Main UI entry files equal the tested files reused by Source93. No new Main build, battle, export or live UI is claimed.
+
+The unchanged code and identical assets preserve the actual Source93 evidence below: 26 tests, one 900-tick native battle and saved-input parity, a full-library HTML containing 70,506 binaries in forty chunks with no inline assets, 118 HTTP checks, and complete native/HTML visual samples. The human HTML sample is paused, not a terminal game. Its console includes one Zotero extension error concerning the 64 MiB message limit. Authority: qa-main93-delivery-root-v1.json with qa-source93-delivery-root-v1.json.
+
+There are 370 records, 35,729 mappings, 34,484 PNG descriptors and fifteen active packs; 2,162 complete sets, 764 partial and twelve missing. All earlier mappings remain exact. Seven shiny sets now have all sixteen expressions: Ariados, Dustox, Illumise, Makuhita, Politoed, Slakoth and Staryu. The other ten sets in the batch remain partial. Five Makuhita backgrounds without authentic foreground retain their old field and explicit HOLD; other historical background HOLD cases remain outside this batch. The independent 34-pixel oral fix resolves the one held V4 material region without rewriting the original author submission or its vote. Catalogue task 1372 remains open, with no global anatomy or art approval. Re-export earlier HTML to receive these portraits. Older candidate and Main91 notes below are historical snapshots.
+
+
 ## Source93 candidate
 
 Source93 adds 101 shiny mappings in seventeen containers of native 40-pixel portraits, preserving 43 previous selections, including seventeen Normal portraits. There are 370 records, 35,729 mappings, 34,484 PNG descriptors and fifteen active packs; coverage becomes 2,162 complete sets, 764 partial and twelve missing. Ariados, Dustox, Illumise, Makuhita, Politoed, Slakoth and Staryu gain complete shiny expression sets. The other ten sets remain partial. No earlier mapping changes, and no inherited alias is added by this batch.
