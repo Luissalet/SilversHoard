@@ -1,5 +1,7 @@
 # Silver's Hoard — architecture
 
+**Main91 data delivery.** The exact Source91 assets approved at revision 39 are integrated. All 713 fresh Main reader checks pass; both existing UI entry files equal the tested builds used in Source91. Engine, frontend, reader and export contracts remain unchanged. [Evidence and limits](PMD_LIBRARY.md#main91-current-delivery). Candidate notes below are historical.
+
 **Source91 background data candidate.** The existing builder composes the accepted background changes into143 literal native40 containers; no engine, frontend, reader or export contract changes. Published priorities and1712 keeper selections are preserved. [Actual consumer scope](PMD_LIBRARY.md#source91-candidate). Main88 remains delivered.
 
 **Main88 data delivery.** Exact Source88 assets approved at revision38 are integrated. Engine/frontend/reader contracts remain unchanged. Actual Main102 reader checks pass; existing Main app/play entries are byte-identical to the tested source builds. [Source/native/HTML evidence and limits](PMD_LIBRARY.md#main88-current-delivery). Candidate notes below are historical.
