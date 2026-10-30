@@ -1,5 +1,18 @@
 # Installed PMD sprite library
 
+## Source99 candidate
+
+Unown I completes16 expressions per palette:30 new mappings/PNG, both published Normal portraits retained byteexact. Earlier35,791 mappings,374 records and all aliases remain unchanged. The library reaches376 records,35,821 mappings,34,576 PNG and15 packs:2,168 complete form/palette sets,760 partial and10 absent. The other20 incomplete Unown forms remain outside this delivery; counts do not certify historical artwork.
+
+Four received pilots select Happy localV2 and AngryV1. Twenty-six further received expressions preserve the narrow I oval, own camera, top/bottom strokes and native40 scale. Own new authored mask418 and eye97 are distinct from D geometry and historical alpha recovery. The two former Happy iris remnants are repaired only by positive own corneal donors. Thirteen legitimate rim shadows remain by role;20 old iris witnesses are treated by gesture, with the open Teary iris deliberately retained. Body and physical water are separate; only Crying extends alpha at16 explicit drop positions per palette. Installed source pin8088249 and complete I CHUNSOFT/Emmuffin plus A CHUNSOFT/Magu objects and scoped reviews remain in reviewed99-provenance.json. The old inputs22 global observations resolve to Source96 Git bytes; current global files may differ without rewriting history. No new licence or catalogue-wide GO is inferred.
+
+Actual validation: one unchanged builder invocation,26 existing tests, two Custom teams imported and validated through MCP before two isolated trainer writes, one native battle naturally reaching900ticks/time and saved-input summary parity. One exported HTML contains70,598 exact binaries in40 chunks, zero inline assets, with32 current HTTP checks. UI entry files equal the tested Source88 builds; no new build.
+
+Root saw native finished replay paused at5s: new Dizzy N/S, both Dynamax,600/600 HP. Root also saw an ordinary human HTML live sample around16s: new Shouting N/S,332/600 and600/600 HP, both Dynamax. Human Confuse Ray accepted15.5s and Dynamax16s after a failed initial selector based on textContent; reading the actual aria label corrected that locator. No reroll or game-state injection. Four cached instances match native40/display96, assigned Balls18 and HP/aria; captures are not atomic. No successful human pause, KO, replay import or new full transformation lifecycle is claimed. App console empty; HTML records one Zotero extension64MiB error.
+
+Own tabs and two services closed gracefully,59000/59001 off and four temporary leases released. Authority:qa-source99-delivery-root-v1.json. Two QA preparation filename errors and one test collection path error occurred before their respective executions; these are recorded without turning them into compiler/test reruns. Main97 remains delivered pending exact formal review/integration. Task1372 stays open. Re-export older HTML after integration.
+
+
 ## Main97 current delivery
 
 Source97 product8f6f79e6d3a3c938d083f36d83d5dfcf5aa85422,21 exact reviewed files, is integrated after approval at task1372 revision42. Thirty-two fresh actual Main readers reproduce the PNG and RGBA of30 new Unown D expressions and two retained published Normal portraits. Both Main UI entry files equal the tested entries reused by Source97. No new Main build, battle, export or live UI is claimed.

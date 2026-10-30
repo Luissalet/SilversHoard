@@ -1,5 +1,7 @@
 # Silver's Hoard — architecture
 
+**Source99 data candidate.** Two literal native160 atlases add30 Unown I expressions through the unchanged reader and standalone export. Published Normal priorities remain exact. [Consumer checks](PMD_LIBRARY.md#source99-candidate); Main97 remains delivered.
+
 **Main97 data delivery.** The exact21 Source97 files approved at revision42 are integrated. All32 fresh Main reader checks pass, including both published Normal portraits; the existing UI entry files equal the tested source entries. Reader, engine, frontend and portable contracts remain unchanged. [Evidence and limits](PMD_LIBRARY.md#main97-current-delivery).
 
 **Source97 data candidate.** Two literal native160 atlases add30 Unown D expressions through the unchanged reader and standalone export; published Normal priorities remain exact. No engine or interface change. [Consumer checks](PMD_LIBRARY.md#source97-candidate); Main96 remains delivered.
