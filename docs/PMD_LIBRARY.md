@@ -1,5 +1,20 @@
 # Installed PMD sprite library
 
+## Source100 candidate
+
+H/J/K complete16 expressions per palette:90 new mappings and PNG, six published Normal portraits retained byteexact. Earlier35,821 mappings,376 records and all aliases remain exact. The library reaches382 records,35,911 mappings,34,666 PNG and15 packs:2,174 complete form/palette sets,754 partial and10 absent. Seventeen other Unown forms remain incomplete, including F. These counts do not certify the historical artwork or whole catalogue.
+
+Root received12 pilots (H/JV1, KHappyV1/KAngrylocalV2),26 H and52 J/K new native expressions after complete visual and independent pixel review. Six glyphs keep their own masks, camera, materials, scale40 and iris roles, rather than transferring D/I geometry. Masks are newly authored over opaque sources, not recovered historical alpha. KAngryV2 changes11 RGB positions per palette only; H retains31 legitimate corneal shadows. Crying and Teary keep separate physical water with positive A donors. Only Crying extends alpha by16 explicit positions per case; body remains intact underneath. Complete published objects, credits CHUNSOFT/Emmuffin and A CHUNSOFT/Magu, new native authorship, original flags and scoped reviews remain in reviewed100-provenance.json. Historical Source96 observations resolve to Gitcdbfb046 without treating old offsets as current. Installed pin8088249 unchanged; no licence or global art GO inferred.
+
+Actual QA: one unchanged builder call,26 existing tests, two Custom teams imported/validated through MCP before two isolated trainer writes, one native battle naturally900ticks/time with saved-input summary parity. One HTML contains70,688 exact binaries in40 chunks, zero inline fallback entries in the portable library, and96 current HTTP checks. UI entry files equal the tested Source88 builds; no new build.
+
+Root saw three complete captures: finished native replay5s with H shiny/J normal Dizzy600/600; human HTML terminalKO at50.33s (modal rounds0:51), K shinySad0/300 and J normalJoyous300/300; same human finished replay5s, K shinyDizzy556/600 and J publishedNormal600/600, both Dynamax. Six cache instances equal native40/display96, assigned Balls18 and HP/aria; they do not cover all96 expressions live. Fainted K uses the existing display grayscale; its cached shiny PNG remains exact. Captures are separate, not atomic.
+
+The first HTML image originally namedlive was actually VS intro at0.00s with publishedNormal HUDs and an unpainted right VS picture; it remains diagnostic, not proof of full VS readiness. Accepted human actions were Dynamax/MaxGuard at0.0s, not a landed human ConfuseRay. A late Recover attempt found no control after KO; no healing claimed. The log shows K/J returning to normal size at18.0/21.0s while the round continues. No human live pause, result import or new frame-by-frame transformation review is claimed. No reroll or game-state injection. Appconsole empty; HTML one Zotero extension64MiB error.
+
+Own tabs and services closed gracefully,59002/59003 off and four temporary leases released. Authority:qa-source100-delivery-root-v1.json. Main99 remains delivered pending exact formal review/integration. F4 is received separately with26 still outside this batch. Task1372 stays open; re-export older HTML after integration.
+
+
 ## Main99 current delivery
 
 Source99 productbe2db7ce7969f5d951fe34a3c644b7667cc1baa8,21 exact reviewed files, is integrated after task1372 revision43 approval. Thirty-two fresh actual Main readers reproduce30 new Unown I expressions and two published Normal keepers in PNG/RGBA. Main UI entry files equal the Source88 builds reused by Source99. No new Main build, battle, export or live UI is claimed.
