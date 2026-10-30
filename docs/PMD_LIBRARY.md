@@ -1,5 +1,16 @@
 # Installed PMD sprite library
 
+## Main99 current delivery
+
+Source99 productbe2db7ce7969f5d951fe34a3c644b7667cc1baa8,21 exact reviewed files, is integrated after task1372 revision43 approval. Thirty-two fresh actual Main readers reproduce30 new Unown I expressions and two published Normal keepers in PNG/RGBA. Main UI entry files equal the Source88 builds reused by Source99. No new Main build, battle, export or live UI is claimed.
+
+The library contains376 records,35,821 mappings,34,576 PNG and15 packs:2,168 complete form/palette sets,760 partial and10 absent. Earlier35,791 mappings and all aliases remain unchanged. I now has16 expressions per palette;20 other Unown forms remain incomplete. Own narrow glyph, mask418, eye97, legitimate corneal shading, separate water components and local HappyV2 repair are retained. Complete I CHUNSOFT/Emmuffin and positive A CHUNSOFT/Magu donor objects, pin8088249, original flags and scoped reviews remain in reviewed99 provenance. No new licence or whole-catalogue art approval.
+
+Exact source data and unchanged code retain the consumed QA below:26 tests,900tick native/time with replay parity, HTML70,598 binaries/40chunks/zero inline and32HTTP. Root saw native paused replay5s with Dizzy N/S and600/600 HP, and an ordinary human HTML live sample16s with Shouting N/S,332/600 and600/600 HP, both Dynamax. Four actual cached instances match native40/display96, assigned Balls18 and HP/aria. Capture parts are not atomic; no human pause, KO, replay import or new complete transformation lifecycle is claimed. App console empty; HTML one Zotero extension64MiB error. Preparation, collection and initial aria locator incidents remain explicit below, without being mistaken for reruns or gameplay defects.
+
+Authority:qa-main99-delivery-root-v1.json and qa-source99-delivery-root-v1.json. Own QA tabs/services are closed,59000/59001 off and temporary leases released. Task1372 remains open for completion and historical art review. Re-export older HTML. Earlier candidate/delivery passages remain historical.
+
+
 ## Source99 candidate
 
 Unown I completes16 expressions per palette:30 new mappings/PNG, both published Normal portraits retained byteexact. Earlier35,791 mappings,374 records and all aliases remain unchanged. The library reaches376 records,35,821 mappings,34,576 PNG and15 packs:2,168 complete form/palette sets,760 partial and10 absent. The other20 incomplete Unown forms remain outside this delivery; counts do not certify historical artwork.

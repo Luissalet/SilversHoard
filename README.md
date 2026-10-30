@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+**Main99 delivered.** Unown I completes16 expressions per palette with30 additions and published Normal keepers. All32 fresh Main reader checks pass. [Scope](docs/PMD_LIBRARY.md#main99-current-delivery). Re-export earlier HTML; candidate notes below are historical.
+
 **Source99 portrait candidate.** Unown I completes sixteen expressions in both palettes with thirty additions, retaining published Normal portraits. [Checks and scope](docs/PMD_LIBRARY.md#source99-candidate). Main97 remains delivered.
 
 **Main97 delivered.** Unown D has all sixteen expressions in both palettes, with thirty additions and its published Normal portraits retained. All32 fresh Main reader checks pass. [Delivery scope](docs/PMD_LIBRARY.md#main97-current-delivery). Re-export earlier HTML; candidate notes below are historical.
