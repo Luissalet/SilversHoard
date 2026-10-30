@@ -1,5 +1,7 @@
 # Silver's Hoard — architecture
 
+**Main87 data delivery (30 October 2026).** Approved product0b82ba47 is integrated; the112 selected plus six published Normal reader checks pass in actual Main. Reader/engine/frontend contracts are unchanged. Fresh Main app/play builds pass; detailed battle/HTML evidence belongs to the exact reviewed Source87 data and code, not another Main session. [Delivery scope](PMD_LIBRARY.md#main87-current-delivery). Candidate and Main86 notes below are historical.
+
 **Source87 candidate, data only (30 October 2026).** The existing reader, engine and portable contract are unchanged. Seven reviewed atlases and thirteen new active packs add 77 mappings and replace ten selected mappings; previous physical files remain available. Source QA exercises the actual reader and HTML payload. [Source87 evidence and limits](PMD_LIBRARY.md#source87-candidate); Main86 remains the delivered version.
 
 **Current Main86 architecture (30 October 2026, Europe/Madrid).** Product `f1a8736be839f8fa325c82f3455f6fb5b4ab742c` integrates the reviewed portrait containers and versioned background-v2 pipeline. The reader and portable export still consume composed native 40-pixel PNGs, with published priorities and historical source objects preserved; existing HTML needs re-export to receive these assets. No gameplay or separate portable-background contract changes. [Main86 QA and delivery limits](PMD_LIBRARY.md#main86-current-delivery) are centralised in the portrait-library document; the candidate state below is an earlier source snapshot.
