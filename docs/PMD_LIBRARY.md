@@ -1,5 +1,16 @@
 # Installed PMD sprite library
 
+## Main87 current delivery
+
+**30 October 2026.** Product0b82ba47cfd45b075bfcb9ec4b25773b12b320ea integrates the exact28 paths approved by two peers at1372 revision37. This delivers the Source87 selections described below:352 records,35,583 mappings,34,338 PNGs,fifteen packs;2,152 complete sets,774 partial and twelve missing. All28 physical files match the reviewed source. Foreign Main changes remain preserved.
+
+Fresh Main checks use its actual PmdPortraits module:112 target selections and six published Normal selections resolve to the received exact PNG bytes. Main app/play builds pass in6.77/10.24s. The source's18 area checks, one native saved battle/replay, one whole-library HTML export, one human HTML round and eight HUD observations remain source evidence. They are reused through identical data and unchanged reader/engine/frontend code; this is not another Main battle, export or live UI session.
+
+Authority: qa-next87-main-delivery-root-v1.json. Own source QA services/tabs are closed, no Main services/tabs were started, and the build-only static lease is released. Task1372 remains open for774partial/12missing sets and historical quality. Claude88's60 accepted proposals are OUT only, pending separate compilation and delivery. The55legacy-background cases remain HOLD. Re-export existing HTML to receive these assets.
+
+**Historical Source87 preparation and Main86 delivery.** Candidate/pending wording below records earlier observations and does not describe the current Main87 integration.
+
+
 ## Source87 candidate
 
 **30 October 2026.** Source87 is tested in the isolated worktree; Main86 remains delivered pending formal review and integration. It adds both 16-expression palettes for Urshifu Single Strike Gigantamax and 45 shiny expressions for Mega Gyarados, Mega Heracross and Mega Meganium. Ten existing mappings receive nine background-only repairs and one Gyarados Dizzy foreground repair. The six published Mega Normal selections retain priority. Totals: 352 records, 35,583 mappings, 34,338 PNGs, fifteen packs; 2,152 complete sets, 774 partial and twelve missing. Delta: 77 new mappings, ten replacements and 87 unique new PNGs; earlier physical files and contracts remain available.
