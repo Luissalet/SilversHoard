@@ -1,5 +1,18 @@
 # Installed PMD sprite library
 
+## Source97 candidate
+
+Unown D completes sixteen expressions per palette, adding30 mappings and30 PNG descriptors while retaining both published Normal portraits byte for byte. Earlier35,761 mappings and all existing aliases remain exact. The library has374 records,35,791 mappings,34,546 PNG descriptors and fifteen packs:2,166 complete form/palette sets,762 partial and ten absent. These figures do not certify the entire catalogue or the other21 pending Unown forms.
+
+Four received Happy/Angry pilots and26 separately reviewed expressions preserve the D glyph, own camera and native40 scale. The figure masks are newly authored over opaque sources, not recovered historical alpha. Explicit local material edits remove inherited exterior cyan/green while keeping corneal shading. Each emotion acts through one eye, with no invented mouth or second eye; Dizzy selects the separate localV2 coil. Crying and Teary-Eyed keep physical water components and published positive A donors; only Crying extends alpha at16 explicit positions per palette. Complete source objects, component credits, original flags and scoped reviews remain in art/portraits/reviewed97-provenance.json. Published Normal uses installed pin8088249; upstream42a63 remains a separate reference context, not a global pin update. The inputs22 global observations are Source96 data bytes and match Gitcdbfb046 even though extraction preceded that commit. No new licence or catalogue-wide art approval is inferred.
+
+Actual validation: one unchanged data-builder invocation,26 existing tests, two Custom teams checked through MCP before two isolated trainer writes, and one native battle ending naturally at900ticks/time with saved-input summary parity. One HTML includes70,568 exact binaries in40 chunks, no inline fallback assets, and32 HTTP checks for30 additions plus two Normal keepers. The existing app/play entries equal the previously tested Source88 builds; no new build is claimed.
+
+Root saw the complete native replay paused at5s with both new Dizzy portraits and a separate ordinary human HTML live sample around6s with shiny Dizzy and the retained normal-colour Normal portrait during Dynamax. Four actual cached instances match native40/display96, assigned Balls18 and HP/aria. The capture parts are separate, not atomic. No successful HTML pause, terminal KO, replay import or new full transformation lifecycle is claimed. A targeted HUD read refreshed an initially stale observation; there was no game-state injection or reroll. App console is empty; HTML has one Zotero extension64MiB error. Own two tabs and two services are closed gracefully;58998/58999 are off and four QA leases are released.
+
+Authority:qa-source97-delivery-root-v1.json. Main96 remains delivered until exact formal review/integration. Unown I Happy remains a separate local repair proposal and is outside this delivery. Task1372 stays open. Re-export older HTML after integration; earlier passages retain their historical scope.
+
+
 ## Main96 current delivery
 
 Source96 product cdbfb046e1ce5743368d43d3064c5384f6941e10, twelve exact reviewed files, is integrated after approval at task1372 revision41. Thirty-two fresh actual Main reader checks reproduce the expected PNG and RGBA of all Rapid Strike Gigantamax Urshifu expressions, N and S. Both existing Main UI entry files equal the tested entries reused by Source96. No new Main build, battle, export or live UI is claimed.
