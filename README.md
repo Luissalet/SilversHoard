@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+**Source91 candidate.** Corrects expression backgrounds in564 portraits, preserving the original faces, semi-transparent pixels and143 Normal selections. Six existing derived selections follow the same corrected images. Coverage remains2,155 complete/771 partial/12 missing. [Checks and limits](docs/PMD_LIBRARY.md#source91-candidate). Main88 remains delivered; re-export HTML after integration.
+
 **Main88 delivered.** Mega Raichu Y and Paldean Blaze/Aqua Tauros complete their shiny expressions;15 normal backgrounds are corrected. Coverage:2,155 complete/771 partial/12 missing. Main's102 reader checks pass and its UI entries match the tested Source88 builds. [Delivery scope](docs/PMD_LIBRARY.md#main88-current-delivery). Earlier candidate wording below is historical. Re-export existing HTML.
 
 **Source88 candidate.** Mega Raichu Y and Paldean Blaze/Aqua Tauros now have15 missing shiny expressions each;15 normal background selections are corrected. Source coverage:2,155 complete/771 partial/12 missing,35,628 mappings and34,383 PNGs. Main87 remains delivered pending formal review/integration. [Source88 checks](docs/PMD_LIBRARY.md#source88-candidate).

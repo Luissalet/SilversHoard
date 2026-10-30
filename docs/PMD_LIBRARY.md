@@ -1,5 +1,18 @@
 # Installed PMD sprite library
 
+## Source91 candidate
+
+Source91 replaces564 received expression backgrounds and six existing Toxtricity Low Key Gigamax derived selections. It adds no mapping:355 records,35,628 mappings,34,383 PNG descriptors,15 active packs;2,155 complete sets,771 partial,twelve missing.143 native160px containers hold2,276 selected native40 tiles;1,712 keepers and143 Normal selections are preserved.298 selected published priorities remain authoritative. The existing builder was called once. Full parent records, component credits and retained physical sources are recorded in art/portraits/reviewed91-provenance.json. No new anatomy or global art approval is implied.
+
+The564 compositions reuse the exact historical foreground, including alpha and hidden RGB, with the active expression field.451 earlier cases without recoverable historical foreground remain HOLD; fifty other frozen legacy background cases also remain. The author v1 rejection is retained in history; v2 is the received source. Claude89's eight material repairs are separate and uninstalled.
+
+Actual Source91 checks:26 existing tests pass; two Custom teams validated before two isolated trainer writes; one native battle naturally ends at900 ticks/time and reproduces its summary from saved inputs. One newly exported HTML embeds the current full library:70,405 binaries,40 chunks,zero inline,all descriptors verified;707 HTTP checks cover564 targets plus143 Normal selections, with six derived bindings verified separately. Engine/frontend/reader/export code and both existing UI entry files remain byte-identical to Source88's tested builds; no new build is claimed.
+
+Root saw the complete native finished replay at5s and a separate ordinary human HTML round paused after a hit. Four actual cached Dizzy portraits match installed PNG bytes,40px displayed96 with pixelated rendering; four assigned Balls are18px and displayed HP/aria agree. Human HTML is a limited visual sample, not a terminal KO or replay-import claim. App console is empty; HTML records one Zotero extension64MiB error and bounded DOM/CDP inspection after oversized AX/locator responses. Native captures were saved under the prior QA directory by the reused helper; their58992 URL binds them to Source91, not Source88 QA.
+
+Authority: qa-source91-delivery-root-v1.json. Both own tabs and services are closed gracefully;58992/58993 are off and four QA leases released. Main88 remains the delivered product until the exact Source91 review and integration. Existing standalone HTML needs re-export. The catalogue task1372 remains open. Older candidate/delivery notes below are historical snapshots.
+
+
 ## Main88 current delivery
 
 The exact29-file Source88 product is approved at1372 revision38 and integrated. Main reads96 target portraits plus six published Normal selections byte-exact; existing Main app/play entry files equal the fresh Source88 builds. Source's18 tests, native5400-tick battle/replay, whole-library70405-binary HTML and humanKO8188/272.9333s remain source evidence, reused through identical assets and unchanged code. No new Main battle, export, live UI or build is claimed.

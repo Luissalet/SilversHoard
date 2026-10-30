@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+**Candidata91.** Corrige los fondos de564 retratos respetando las caras, los píxeles semitransparentes y143 selecciones Normal. Seis selecciones derivadas existentes reciben la misma imagen corregida. Cobertura:2.155 completos/771 parciales/12 ausentes. [Pruebas y límites](docs/PMD_LIBRARY.md#source91-candidate). Main88 sigue entregada; reexporta el HTML tras la integración.
+
 **Main88 entregada.** Mega Raichu Y y Tauros de Paldea ardiente/acuático completan sus expresiones shiny; se corrigen15 fondos normales. Cobertura:2.155 completos/771 parciales/12 ausentes. Pasan102 lecturas en Main y sus archivos de interfaz coinciden con la fuente probada. [Alcance](docs/PMD_LIBRARY.md#main88-current-delivery). Las candidaturas siguientes son históricas. Reexporta los HTML existentes.
 
 **Candidata Source88.** Mega Raichu Y y Tauros de Paldea ardiente/acuático completan sus15 expresiones shiny ausentes; se corrigen15 selecciones normales de fondos. Fuente:2.155 completos/771 parciales/12 ausentes,35.628 mapeos y34.383 PNG. Main87 sigue entregada hasta revisión e integración. [Comprobaciones de Source88](docs/PMD_LIBRARY.md#source88-candidate).
