@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+**Main96 entregada.** Urshifu Gigamax fluido tiene las16 expresiones en ambas paletas. Pasan las32 lecturas nuevas de Main. [Alcance](docs/PMD_LIBRARY.md#main96-current-delivery). Reexporta los HTML anteriores; las candidaturas siguientes son históricas.
+
 **Candidatura Source96.** Urshifu Gigamax fluido tiene las16 expresiones en ambas paletas, con retratos nativos40, fondos por emoción y revisión independiente de materiales. Añade32 mapeos sin alterar los anteriores. [Pruebas y alcance](docs/PMD_LIBRARY.md#source96-candidate). Main93 sigue entregada.
 
 **Main93 entregada.** Añade 101 retratos shiny y completa las expresiones de Ariados, Dustox, Illumise, Makuhita, Politoed, Slakoth y Staryu. Cobertura: 2.162 conjuntos completos, 764 parciales y doce ausentes. Pasan las 118 lecturas nuevas en Main. [Alcance](docs/PMD_LIBRARY.md#main93-current-delivery). Reexporta los HTML anteriores; las candidaturas siguientes son históricas.
