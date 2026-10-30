@@ -1,5 +1,7 @@
 # Silver's Hoard — architecture
 
+**Source91 background data candidate.** The existing builder composes the accepted background changes into143 literal native40 containers; no engine, frontend, reader or export contract changes. Published priorities and1712 keeper selections are preserved. [Actual consumer scope](PMD_LIBRARY.md#source91-candidate). Main88 remains delivered.
+
 **Main88 data delivery.** Exact Source88 assets approved at revision38 are integrated. Engine/frontend/reader contracts remain unchanged. Actual Main102 reader checks pass; existing Main app/play entries are byte-identical to the tested source builds. [Source/native/HTML evidence and limits](PMD_LIBRARY.md#main88-current-delivery). Candidate notes below are historical.
 
 **Source88 candidate, portrait data only.** Six literal native40 containers preserve published Normal priorities and received cell geometry. Engine, reader, frontend and portable contract remain unchanged. [Actual source checks and limits](PMD_LIBRARY.md#source88-candidate); Main87 remains delivered.
