@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+**Candidata93.** Añade 101 retratos shiny y completa las expresiones de Ariados, Dustox, Illumise, Makuhita, Politoed, Slakoth y Staryu. La cobertura pasaría a 2.162 conjuntos completos, 764 parciales y doce ausentes. [Pruebas](docs/PMD_LIBRARY.md#source93-candidate). Main91 sigue entregada; las notas anteriores se conservan debajo.
+
 **Main91 entregada.** Corregidos los fondos de 564 retratos, conservando las caras y 143 selecciones Normal. Seis selecciones derivadas existentes reciben las mismas imágenes corregidas. Cobertura: 2.155 conjuntos completos, 771 parciales y 12 ausentes. Pasan las 713 lecturas en Main. [Alcance](docs/PMD_LIBRARY.md#main91-current-delivery). Reexporta los HTML existentes; las candidaturas siguientes son históricas.
 
 **Candidata91.** Corrige los fondos de564 retratos respetando las caras, los píxeles semitransparentes y143 selecciones Normal. Seis selecciones derivadas existentes reciben la misma imagen corregida. Cobertura:2.155 completos/771 parciales/12 ausentes. [Pruebas y límites](docs/PMD_LIBRARY.md#source91-candidate). Main88 sigue entregada; reexporta el HTML tras la integración.

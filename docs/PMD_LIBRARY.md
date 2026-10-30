@@ -1,5 +1,18 @@
 # Installed PMD sprite library
 
+## Source93 candidate
+
+Source93 adds 101 shiny mappings in seventeen containers of native 40-pixel portraits, preserving 43 previous selections, including seventeen Normal portraits. There are 370 records, 35,729 mappings, 34,484 PNG descriptors and fifteen active packs; coverage becomes 2,162 complete sets, 764 partial and twelve missing. Ariados, Dustox, Illumise, Makuhita, Politoed, Slakoth and Staryu gain complete shiny expression sets. The other ten sets remain partial. No earlier mapping changes, and no inherited alias is added by this batch.
+
+The received selection combines 100 Claude89 V4 cases with one local Makuhita Joyous correction: 34 demonstrated oral foreground samples return to their original N RGBA because the closed Normal S provides no oral donor. The other 1,566 foreground samples remain V4 literal. Its current metrics are additive; original V4 metrics and its changes vote at 1834 revision 3 remain historical. Another peer approved the local delta. All 33 received active-background variants use the same authentic S foreground and one composition. The five Makuhita cases without authentic foreground retain their old field and explicit background HOLD. Grapploct Happy is outside this received batch. Full parent objects, credits, original documents, historical plans and the new before-PNG delta are preserved in art/portraits/reviewed93-provenance.json. No new licence or global anatomy approval is inferred.
+
+Actual source checks: 26 existing tests pass, and two Custom teams are validated before two isolated trainer writes. One native battle naturally ends at 900 ticks/time; saved inputs reproduce its summary. One HTML includes the complete current library: 70,506 binaries, forty chunks, zero inline assets and 118 HTTP checks covering 101 targets plus seventeen Normal selections. The asset receipt retains an inherited JSON field label saying direct564; a separate read-only reconciliation binds its actual 118 rows without rerunning the check. The unchanged UI entries match the tested Source88 builds; no new build is claimed.
+
+Root saw the complete native replay at five seconds and one ordinary human HTML round paused after both Staryu became confused. Four actual cached Dizzy PNGs match installed bytes at 40 pixels, displayed at 96 with pixelated rendering; four assigned Balls are 18 pixels and HP/aria agree. Native AI Dynamax at three seconds on both sides and HTML AI Dynamax at three seconds are observations, not a new full transformation test. The human sample is not a terminal KO or replay import. An initial observer wait timed out; a later bounded DOM read observed both Dizzy portraits before capture. App console is empty; HTML records one Zotero extension error concerning the 64 MiB message limit.
+
+Authority: qa-source93-delivery-root-v1.json. Both own tabs and services are closed gracefully, ports 58994/58995 are off and four QA leases are released. Main91 remains delivered until formal Source93 review and integration. Existing HTML needs re-export after integration. Catalogue task 1372 remains open; older notes below are historical snapshots.
+
+
 ## Main91 current delivery
 
 Source91 product 863547db2590c88b841e403a76e36030ff435146, comprising 166 exact reviewed files, is integrated after approval at task 1372 revision 39. Main's fresh reader checks cover 564 corrected portraits, 143 retained Normal selections and six existing derived selections: 713 exact PNG checks, with RGBA checks on the 707 direct/Normal cases. Both existing Main UI entry files equal the tested files reused by Source91. No new Main build, battle, export or live UI is claimed.

@@ -1,5 +1,7 @@
 # Silver's Hoard — architecture
 
+**Source93 portrait data candidate.** The unchanged reader, frontend, engine and export consume seventeen literal containers of native 40-pixel portraits. There are 101 new mappings and 43 retained selections, including seventeen Normal portraits. [Actual checks and limits](PMD_LIBRARY.md#source93-candidate). Main91 remains delivered.
+
 **Main91 data delivery.** The exact Source91 assets approved at revision 39 are integrated. All 713 fresh Main reader checks pass; both existing UI entry files equal the tested builds used in Source91. Engine, frontend, reader and export contracts remain unchanged. [Evidence and limits](PMD_LIBRARY.md#main91-current-delivery). Candidate notes below are historical.
 
 **Source91 background data candidate.** The existing builder composes the accepted background changes into143 literal native40 containers; no engine, frontend, reader or export contract changes. Published priorities and1712 keeper selections are preserved. [Actual consumer scope](PMD_LIBRARY.md#source91-candidate). Main88 remains delivered.
