@@ -1,5 +1,16 @@
 # Installed PMD sprite library
 
+## Main97 current delivery
+
+Source97 product8f6f79e6d3a3c938d083f36d83d5dfcf5aa85422,21 exact reviewed files, is integrated after approval at task1372 revision42. Thirty-two fresh actual Main readers reproduce the PNG and RGBA of30 new Unown D expressions and two retained published Normal portraits. Both Main UI entry files equal the tested entries reused by Source97. No new Main build, battle, export or live UI is claimed.
+
+The library contains374 records,35,791 mappings,34,546 PNG descriptors and fifteen packs:2,166 complete form/palette sets,762 partial and ten absent. Earlier mappings and aliases remain unchanged. Unown D now has16 expressions per palette; the other21 incomplete Unown forms are not covered by this delivery. Source provenance keeps newly authored masks distinct from historical alpha, the own D body and iris donors separate from A water samples, and the installed8088249 pin distinct from the upstream42a63 reference. No new licence or catalogue-wide art approval is inferred.
+
+Exact assets and unchanged code retain the source evidence below:26 existing tests, one900tick native battle and saved-input summary parity, a complete70,568binary/40chunk/zero-inline HTML and32 HTTP checks. Root saw native Dizzy N/S at5s and a live human HTML sample with shiny Dizzy and the retained normal-colour Normal portrait. Four cached instances match native40/display96, assigned Balls18 and HP/aria. These are separate non-atomic observations; no successful human HTML pause, KO, replay import or new complete transformation lifecycle is claimed. App console is empty; HTML records one Zotero extension64MiB error.
+
+Authority:qa-main97-delivery-root-v1.json and qa-source97-delivery-root-v1.json. Source QA services and tabs are closed and four temporary leases released. Task1372 remains open for catalogue completion and historical quality review. Unown I proposals remain outside Main97. Re-export older HTML to receive these portraits. Earlier candidate and delivery passages remain historical.
+
+
 ## Source97 candidate
 
 Unown D completes sixteen expressions per palette, adding30 mappings and30 PNG descriptors while retaining both published Normal portraits byte for byte. Earlier35,761 mappings and all existing aliases remain exact. The library has374 records,35,791 mappings,34,546 PNG descriptors and fifteen packs:2,166 complete form/palette sets,762 partial and ten absent. These figures do not certify the entire catalogue or the other21 pending Unown forms.
