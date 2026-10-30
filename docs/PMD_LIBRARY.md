@@ -1,5 +1,16 @@
 # Installed PMD sprite library
 
+## Source88 candidate
+
+Source88 adds45 shiny mappings and replaces15 normal backgrounds for Mega Raichu Y and Paldean Blaze/Aqua Tauros.355 records,35,628 mappings,34,383 PNGs and15 packs;2,155 complete sets,771 partial,twelve missing. Six published Normal selections keep priority. Six native40 containers copy the received cells literally. Full R1–R5 ancestry and the additive final-review pin correction are retained. The single builder call completed; a mistaken postcheck equating all descriptors with referenced entries was corrected read-only, retaining the two historical unreferenced published buffers.
+
+Eighteen existing consumer checks pass; source app/play builds10.02/9.40s. Actual MCP validates both three-Pokémon Custom teams before writes. One native battle reaches time at5400ticks with saved-input parity. One portable HTML verifies the whole installed library and102selected/Normal HTTP reads; exact counts are in assets.json. ROOT sees six complete captures and twelve actual cached40px portraits at96px, assigned Luxury/Dive18px Balls and exact HP text/rounded aria.
+
+One ordinary human HTML round ends by natural KO at8188ticks/272.9333s. All three shiny portraits appear; Confuse Ray is used at0.0 and93.8s, Tauros Aqua enters93.6s and Recover heals177 at174.0s. A Happy heal-frame was not captured. The public791-character result is decoded only. These are four paused human views and one terminal view, plus one native finished-replay view; no all16live-emotions, allN3live, MegaEvolution, nativeHTMLreplay/import or MP4 claim.
+
+Automatic HTML AX observation hit a64MiB limit; ordinary UI actions continued with bounded visible-DOM/cache CDP reads. App console is empty; HTML retains a Zotero extension error. Two own tabs and services are closed gracefully,58990/58991off,four QA leases released. Authority: qa-source88-delivery-root-v1.json. Main87 remains delivered pending formal review/integration. Fifty other frozen legacy-background cases remain HOLD; BG91 and Claude89 are separate proposals. Catalogue quality/coverage is not complete.
+
+
 ## Main87 current delivery
 
 **30 October 2026.** Product0b82ba47cfd45b075bfcb9ec4b25773b12b320ea integrates the exact28 paths approved by two peers at1372 revision37. This delivers the Source87 selections described below:352 records,35,583 mappings,34,338 PNGs,fifteen packs;2,152 complete sets,774 partial and twelve missing. All28 physical files match the reviewed source. Foreign Main changes remain preserved.
