@@ -1,5 +1,14 @@
 # Installed PMD sprite library
 
+## Main91 current delivery
+
+Source91 product 863547db2590c88b841e403a76e36030ff435146, comprising 166 exact reviewed files, is integrated after approval at task 1372 revision 39. Main's fresh reader checks cover 564 corrected portraits, 143 retained Normal selections and six existing derived selections: 713 exact PNG checks, with RGBA checks on the 707 direct/Normal cases. Both existing Main UI entry files equal the tested files reused by Source91. No new Main build, battle, export or live UI is claimed.
+
+The actual Source91 evidence below remains applicable through identical assets and unchanged code: 26 tests, one 900-tick native battle and saved-input parity, a full-library HTML containing 70,405 binaries in 40 chunks with no inline assets, 707 HTTP checks, and complete native/HTML visual samples. The human HTML sample is paused, not a terminal game; its console includes one Zotero extension error concerning the 64 MiB message limit. Authority: qa-main91-delivery-root-v1.json with qa-source91-delivery-root-v1.json.
+
+There are 355 records, 35,628 mappings, 34,383 PNG descriptors and 15 active packs; 2,155 complete sets, 771 partial and twelve missing. The 570 changed mappings comprise 564 direct background replacements and six existing derived selections; no mapping is added. Original foregrounds, alpha, hidden RGB and 143 Normal selections are preserved. The 451 earlier cases without historical foregrounds and fifty other frozen legacy backgrounds remain HOLD. Claude89 material repairs are not installed. Catalogue task 1372 remains open, with no global anatomy or art approval. Re-export earlier HTML files to receive the corrected assets. Earlier candidate and Main88 notes below are historical snapshots.
+
+
 ## Source91 candidate
 
 Source91 replaces564 received expression backgrounds and six existing Toxtricity Low Key Gigamax derived selections. It adds no mapping:355 records,35,628 mappings,34,383 PNG descriptors,15 active packs;2,155 complete sets,771 partial,twelve missing.143 native160px containers hold2,276 selected native40 tiles;1,712 keepers and143 Normal selections are preserved.298 selected published priorities remain authoritative. The existing builder was called once. Full parent records, component credits and retained physical sources are recorded in art/portraits/reviewed91-provenance.json. No new anatomy or global art approval is implied.
