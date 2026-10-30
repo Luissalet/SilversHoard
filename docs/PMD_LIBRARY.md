@@ -1,5 +1,16 @@
 # Installed PMD sprite library
 
+## Source96 candidate
+
+Rapid Strike Gigantamax Urshifu receives all sixteen expressions in both normal and shiny palettes, adding32 direct mappings and32 PNG descriptors without altering earlier mappings or aliases. The library contains372 records,35,761 mappings,34,516 PNG descriptors and fifteen packs:2,164 complete sets,764 partial and ten absent. These are form/palette sets, not a count of Pokémon. Task1372 and the historical art review remain open.
+
+The two Normal masters are retained literally. New acting was reviewed in whole native portraits against official identity and gameplay references. Normalised materials keep hair and pale fur consistent, with own published PMD shiny muzzle donors recorded separately. Independent review accepted28 material V2 proposals and the two local Sigh V3 corrections: only the omitted oral-edge pixel(26,35) returns to its original RGBA. The original V2 HOLD is retained. Foregrounds retain geometry and alpha, and are composed exactly once over active emotion templates. Complete source metadata, historical flags and distinct generated/material credits are preserved in art/portraits/reviewed96-provenance.json. No new licence or whole-catalogue art approval is inferred.
+
+Actual source validation: one unchanged data-builder invocation,26 existing tests, two Custom teams checked through MCP before two isolated trainer writes, and one native battle ending naturally at900ticks/time with saved-input summary parity. One standalone HTML contains70,538 exact binary assets in40 chunks, zero inline fallback assets, and all32 new portrait responses match the current reader. Existing app/play entry files equal the previously tested Source88 builds; no new UI build is claimed.
+
+Root saw the complete native replay paused at five seconds with both Gigamax Dizzy portraits, and a separate ordinary human HTML live sample with shiny Pain and normal Shouting during Gigamax. Four actual cached PNGs match installed bytes at native40/display96; assigned Balls display at18 and HP/aria agree. The live capture parts are separate, not atomic. Observer keyboard calls failed, so no successful HTML pause, terminal KO, replay import or new full transformation lifecycle is claimed. App console is empty; HTML retains one Zotero extension64MiB error. Both own tabs and services are closed gracefully,58996/58997 are off, and four QA leases are released. Authority:qa-source96-delivery-root-v1.json. Main93 remains delivered until exact formal review/integration. Re-export older HTML after integration. Earlier passages are historical.
+
+
 ## Main93 current delivery
 
 Source93 product cf376535835718bed13c67c26936561a2ee6bc2d, comprising forty exact reviewed files, is integrated after approval at task 1372 revision 40. Fresh Main readers confirm 101 new shiny portraits and seventeen retained Normal portraits against their expected PNG and RGBA bytes. Both existing Main UI entry files equal the tested files reused by Source93. No new Main build, battle, export or live UI is claimed.
