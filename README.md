@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+**Main88 delivered.** Mega Raichu Y and Paldean Blaze/Aqua Tauros complete their shiny expressions;15 normal backgrounds are corrected. Coverage:2,155 complete/771 partial/12 missing. Main's102 reader checks pass and its UI entries match the tested Source88 builds. [Delivery scope](docs/PMD_LIBRARY.md#main88-current-delivery). Earlier candidate wording below is historical. Re-export existing HTML.
+
 **Source88 candidate.** Mega Raichu Y and Paldean Blaze/Aqua Tauros now have15 missing shiny expressions each;15 normal background selections are corrected. Source coverage:2,155 complete/771 partial/12 missing,35,628 mappings and34,383 PNGs. Main87 remains delivered pending formal review/integration. [Source88 checks](docs/PMD_LIBRARY.md#source88-candidate).
 
 **Main87 delivered (30 October 2026).** Reviewed product0b82ba47 adds Urshifu Single Strike Gigantamax N/S16, 45 Mega shiny expressions and ten local repairs. Coverage is2,152 complete/774 partial/12 missing. Main reads112 target portraits plus six published Normal selections byteexact and builds app/play in6.77/10.24s. [Delivery and source-QA limits](docs/PMD_LIBRARY.md#main87-current-delivery). Earlier candidate notes below are historical; re-export existing HTML.

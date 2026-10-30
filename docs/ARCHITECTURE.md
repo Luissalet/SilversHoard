@@ -1,5 +1,7 @@
 # Silver's Hoard — architecture
 
+**Main88 data delivery.** Exact Source88 assets approved at revision38 are integrated. Engine/frontend/reader contracts remain unchanged. Actual Main102 reader checks pass; existing Main app/play entries are byte-identical to the tested source builds. [Source/native/HTML evidence and limits](PMD_LIBRARY.md#main88-current-delivery). Candidate notes below are historical.
+
 **Source88 candidate, portrait data only.** Six literal native40 containers preserve published Normal priorities and received cell geometry. Engine, reader, frontend and portable contract remain unchanged. [Actual source checks and limits](PMD_LIBRARY.md#source88-candidate); Main87 remains delivered.
 
 **Main87 data delivery (30 October 2026).** Approved product0b82ba47 is integrated; the112 selected plus six published Normal reader checks pass in actual Main. Reader/engine/frontend contracts are unchanged. Fresh Main app/play builds pass; detailed battle/HTML evidence belongs to the exact reviewed Source87 data and code, not another Main session. [Delivery scope](PMD_LIBRARY.md#main87-current-delivery). Candidate and Main86 notes below are historical.

@@ -1,5 +1,14 @@
 # Installed PMD sprite library
 
+## Main88 current delivery
+
+The exact29-file Source88 product is approved at1372 revision38 and integrated. Main reads96 target portraits plus six published Normal selections byte-exact; existing Main app/play entry files equal the fresh Source88 builds. Source's18 tests, native5400-tick battle/replay, whole-library70405-binary HTML and humanKO8188/272.9333s remain source evidence, reused through identical assets and unchanged code. No new Main battle, export, live UI or build is claimed.
+
+Authority: qa-main88-delivery-root-v1.json.355 records,35,628 mappings,34,383 PNGs,15packs;2,155 complete sets,771 partial,twelve missing.45 shiny additions and15 normal replacements are delivered; six published Normal selections retain priority. Fifty other frozen background cases remain HOLD. BG91's564 accepted compositions and Claude89's pending repairs are not installed here. Existing HTML requires re-export. Catalogue1372 stays open.
+
+**Historical Source88 preparation and Main87 notes follow.** Their candidate/pending wording records earlier observations.
+
+
 ## Source88 candidate
 
 Source88 adds45 shiny mappings and replaces15 normal backgrounds for Mega Raichu Y and Paldean Blaze/Aqua Tauros.355 records,35,628 mappings,34,383 PNGs and15 packs;2,155 complete sets,771 partial,twelve missing. Six published Normal selections keep priority. Six native40 containers copy the received cells literally. Full R1–R5 ancestry and the additive final-review pin correction are retained. The single builder call completed; a mistaken postcheck equating all descriptors with referenced entries was corrected read-only, retaining the two historical unreferenced published buffers.
