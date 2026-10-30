@@ -1,5 +1,14 @@
 # Installed PMD sprite library
 
+## Main96 current delivery
+
+Source96 product cdbfb046e1ce5743368d43d3064c5384f6941e10, twelve exact reviewed files, is integrated after approval at task1372 revision41. Thirty-two fresh actual Main reader checks reproduce the expected PNG and RGBA of all Rapid Strike Gigantamax Urshifu expressions, N and S. Both existing Main UI entry files equal the tested entries reused by Source96. No new Main build, battle, export or live UI is claimed.
+
+There are372 records,35,761 mappings,34,516 PNG descriptors and fifteen packs:2,164 complete sets,764 partial and ten absent. Every earlier mapping is retained. The unchanged code and exact assets preserve the actual source evidence below:26 tests, one900tick native battle with saved-input parity, complete70538binary/40chunk/zero-inline HTML,32HTTP checks and whole native/HTML visual samples. The human HTML sample is live, not successfully paused or terminal. No new full transformation lifecycle, KO or replay import is claimed. App console is empty; HTML records one Zotero extension64MiB error.
+
+Authority:qa-main96-delivery-root-v1.json and qa-source96-delivery-root-v1.json. Both source QA services and tabs are closed; four temporary leases are released. Portrait task1372 remains open and this delivery does not certify catalogue-wide art quality. The four Unown D pilots and pending letter work remain outside Main96. Re-export older HTML to receive the new portraits. Earlier candidate and delivery passages remain historical.
+
+
 ## Source96 candidate
 
 Rapid Strike Gigantamax Urshifu receives all sixteen expressions in both normal and shiny palettes, adding32 direct mappings and32 PNG descriptors without altering earlier mappings or aliases. The library contains372 records,35,761 mappings,34,516 PNG descriptors and fifteen packs:2,164 complete sets,764 partial and ten absent. These are form/palette sets, not a count of Pokémon. Task1372 and the historical art review remain open.

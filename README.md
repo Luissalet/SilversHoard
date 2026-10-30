@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+**Main96 delivered.** Rapid Strike Gigantamax Urshifu has all sixteen expression portraits in both palettes. All32 fresh Main reader checks pass. [Delivery scope](docs/PMD_LIBRARY.md#main96-current-delivery). Re-export earlier HTML; candidate notes below are historical.
+
 **Source96 portrait candidate.** Rapid Strike Gigantamax Urshifu gains sixteen expressions in each palette, with native40 portraits, emotion fields and independent material review. Adds32 mappings without changing prior portraits. [Checks and scope](docs/PMD_LIBRARY.md#source96-candidate). Main93 remains delivered.
 
 **Main93 delivered.** Adds 101 shiny expression portraits, completing Ariados, Dustox, Illumise, Makuhita, Politoed, Slakoth and Staryu. Coverage is 2,162 complete sets, 764 partial and twelve missing. All 118 fresh Main reader checks pass. [Delivery scope](docs/PMD_LIBRARY.md#main93-current-delivery). Re-export earlier HTML; candidate notes below are historical.
