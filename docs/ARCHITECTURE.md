@@ -1,5 +1,7 @@
 # Silver's Hoard — architecture
 
+**Source97 data candidate.** Two literal native160 atlases add30 Unown D expressions through the unchanged reader and standalone export; published Normal priorities remain exact. No engine or interface change. [Consumer checks](PMD_LIBRARY.md#source97-candidate); Main96 remains delivered.
+
 **Main96 data delivery.** The exact twelve Source96 files approved at revision41 are integrated. Fresh Main readers confirm all32 Rapid Gmax portraits; both existing UI entry files equal the tested source entries. Engine, frontend, reader and export contracts remain unchanged. [Evidence and limits](PMD_LIBRARY.md#main96-current-delivery).
 
 **Source96 data candidate.** Two literal native160 atlases supply32 portraits through the existing reader, frontend and standalone export. There are no engine or interface changes. [Consumer checks](PMD_LIBRARY.md#source96-candidate); Main93 remains delivered.

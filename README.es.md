@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+**Candidatura Source97.** Unown D completa las16 expresiones en ambas paletas y conserva sus retratos neutros publicados. Añade30 mapeos sin alterar los anteriores. [Pruebas y alcance](docs/PMD_LIBRARY.md#source97-candidate). Main96 sigue entregada.
+
 **Main96 entregada.** Urshifu Gigamax fluido tiene las16 expresiones en ambas paletas. Pasan las32 lecturas nuevas de Main. [Alcance](docs/PMD_LIBRARY.md#main96-current-delivery). Reexporta los HTML anteriores; las candidaturas siguientes son históricas.
 
 **Candidatura Source96.** Urshifu Gigamax fluido tiene las16 expresiones en ambas paletas, con retratos nativos40, fondos por emoción y revisión independiente de materiales. Añade32 mapeos sin alterar los anteriores. [Pruebas y alcance](docs/PMD_LIBRARY.md#source96-candidate). Main93 sigue entregada.
