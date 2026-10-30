@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+**Source93 candidate.** Adds 101 shiny expression portraits, completing Ariados, Dustox, Illumise, Makuhita, Politoed, Slakoth and Staryu. Coverage would become 2,162 complete sets, 764 partial and 12 missing. [Source checks](docs/PMD_LIBRARY.md#source93-candidate). Main91 remains delivered; older notes below are historical.
+
 **Main91 delivered.** Expression backgrounds are corrected in 564 portraits, preserving the original faces and 143 Normal selections. Six existing derived selections receive the same corrected images. Coverage remains 2,155 complete sets, 771 partial and 12 missing. All 713 Main reader checks pass. [Delivery scope](docs/PMD_LIBRARY.md#main91-current-delivery). Re-export existing HTML; candidate notes below are historical.
 
 **Source91 candidate.** Corrects expression backgrounds in564 portraits, preserving the original faces, semi-transparent pixels and143 Normal selections. Six existing derived selections follow the same corrected images. Coverage remains2,155 complete/771 partial/12 missing. [Checks and limits](docs/PMD_LIBRARY.md#source91-candidate). Main88 remains delivered; re-export HTML after integration.
