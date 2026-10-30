@@ -1,6 +1,14 @@
 # Silver's Hoard
 
+**Source87 candidate (30 October 2026; Main86 remains delivered).** Adds Urshifu Single Strike Gigantamax portraits in both palettes, 45 shiny expressions for Mega Gyarados, Mega Heracross and Mega Meganium, and ten local repairs. Coverage: 2,152 complete, 774 partial, 12 missing; 35,583 mappings and 34,338 PNGs in 15 packs. Source app, portable HTML and reactive HUD checks pass; formal review and Main integration remain pending. [Source87 evidence and limits](docs/PMD_LIBRARY.md#source87-candidate).
+
+**Main86 integrated and checked (30 October 2026, Europe/Madrid).** Product `f1a8736be839f8fa325c82f3455f6fb5b4ab742c` adds 45 shiny expression mappings for Mega Gengar, Galarian Weezing and Mega Pinsir and corrects 218 existing background mappings. The library has 347 records, 35,506 mappings and 34,261 PNGs in 15 packs: 2,147 complete sets, 777 partial and 14 missing. Published Normal priority and historical sources remain preserved; the 55 frozen legacy-background cases remain HOLD. [Current Main86 delivery, QA and limits](docs/PMD_LIBRARY.md#main86-current-delivery) are recorded separately from the earlier source snapshot below.
+
+**Historical Source86 snapshot (29 October 2026, before formal review, Main integration and Main QA).** The following source note is retained verbatim; its candidate/pending and Main85-delivered states describe that earlier observation, not the current Main86 delivery.
+
 **Source86 candidate (29 October 2026; Main85 remains delivered).** The reviewed source adds 45 shiny expression mappings for Mega Gengar, Galarian Weezing and Mega Pinsir, and corrects 218 existing background mappings. Coverage is 2,147 complete sets, 777 partial and 14 missing: 35,506 mappings and 34,261 PNGs in 15 packs. Scoped source QA is complete; formal submission, integration and fresh Main86 QA remain pending. The 55 frozen legacy-background cases remain HOLD, without a catalogue-wide art approval. Authority: `qa-next86-source-delivery-root-v1.json`; [portrait-library details](docs/PMD_LIBRARY.md) retain the export and human-round limits.
+
+**End of the historical Source86 snapshot.**
 
 **Main85 integrated and checked (29 October 2026).** Product commit 94a0e532e92246a088cd20b10130234c089ee379 passed two exact CAS35 reviews. Paldean Combat Tauros shiny and both Hatterene Gigantamax sets have sixteen expressions; Grimmsnarl Gigantamax shiny has its recovered Normal only. Counts remain 2,144 complete sets, 780 partial and 14 absent: 344 records, 35,461 mappings, 34,216 PNGs and 15 packs. Existing source objects, component credits, historical flags and retired physical packs remain preserved.
 
