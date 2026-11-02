@@ -1,3 +1,13 @@
+# PMD portraits · Source107 · 2 November 2026
+
+Adds120 reviewed Unown Q/R/W/X expressions in normal/shiny palettes and preserves eight published Normal PNGs exactly. All128 final cells retain native40-pixel geometry, framing and own glyphs, with canonical expression backgrounds. Per-cell independent review and Root visual reception cover this batch only.
+
+Current library:398records,36,151bindings,34,906PNGs,15packs;2,190complete palette sets,738partial and10absent. All36,031previous bindings,390prior records, source objects, aliases and eightNormal keepers remain exact. Coverage is not global anatomy approval.
+
+Validation:128real readers/204,800RGBA,28portrait tests, MCP prewrite validation,900native ticks/time and saved-input replay parity; portable HTML70,928binaries/40chunks/zero inline and128exact portraitHTTP responses. Root observed Qshiny/Wnormal replay paused20s and one actual Xshiny/Wnormal HTML round paused33s at95/600 vs300/300,Dmax11s. Human ConfuseRay executed25.6s before Dynamax26.1s. Actual HUD PNGs match shinyX Dizzy and normalW Normal. No cold-VS,newmobile,KO,resultimport orMP4 claim. UI/engine unchanged fromMain106; no repeated builds or full suites. Own isolated services/tabs closed, ports59016/59017off; shared app not started. No push.
+
+Full provenance/plans: art/portraits/reviewed107-provenance.json. Local authorities under research-inbox/silver-portraits1372: ROOT-Claude-QRWX120-expressions-received-root-v1.json, Source107-QRWX-actual-compile-root-v1/receipt.json and qa107-QRWX-data-consumer-root-v1/data-and-visible-consumer-result.json. Other portraits remain pending; task1372 stays open.
+
 # Silver's Hoard — architecture
 
 **Main106 delivered.** Eight commits approved1372r45 plus the verified N glyph-description erratum are fast-forward integrated. The68 product/data/document paths match source;120 new bindings and eight published Normal keepers pass128 fresh Main readers. Main app/play builds reproduce the exact Source104 UI entries previously tested. New Main MCP/native/portable and visible checks pass in isolated data; the normal Hub Silver app was left stopped. No simulation, builder or reader change.

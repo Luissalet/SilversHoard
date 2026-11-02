@@ -1,3 +1,13 @@
+# Retratos PMD · Source107 · 2 de noviembre de 2026
+
+Se añaden120 expresiones de Unown Q/R/W/X, normal y shiny, conservando ocho Normal publicados exactos. Las128 casillas finales mantienen40 píxeles nativos, encuadre y silueta propios; fondos y símbolos por expresión se componen desde la plantilla canónica. Lascaras nuevas tienen revisión independiente porcasilla y recepciónvisual deRoot, sin aprobar porherencia las demásletras.
+
+Biblioteca actual:398registros,36.151vinculaciones,34.906PNG,15packs;2.190conjuntos completos,738parciales y10ausentes.120vinculaciones nuevas; las36.031anteriores,390registros previos, fuentes, aliases y ochoNormal siguen exactos. Son recuentos de cobertura, no unGOanatómico global.
+
+Verificado:128lectores reales/204.800RGBA,28pruebas delárea, MCP con validación anterior a escrituras,900ticks/time nativos y paridad delreplay, HTMLcon70.928binarios/40chunks/cero inline y128retratosHTTP exactos. Root vio repetición Qshiny/Wnormal pausada20s y unapartida humanaHTML Xshiny/Wnormal pausada33s:95/600 frentea300/300, Dmax11s; ConfuseRay25,6s antesdeDmax26,1s. LosPNG reales delHUD coinciden conXshinyDizzy/WnormalNormal. No se afirma unVS frío, nuevo móvil, KO, importación oMP4. UI/motor permanecenidénticos aMain106; no se repiten builds o suites generales sin cambios. Instanciasaisladas/pestañas propias cerradas, puertos59016/59017 apagados; appcompartida sinarrancar. Sinpush.
+
+Procedencia completa y planes: art/portraits/reviewed107-provenance.json. Autoridades locales: ROOT-Claude-QRWX120-expressions-received-root-v1.json, Source107-QRWX-actual-compile-root-v1/receipt.json y qa107-QRWX-data-consumer-root-v1/data-and-visible-consumer-result.json en research-inbox/silver-portraits1372. Los restantesretratos continúanpendientes; la1372 sigueabierta.
+
 # Silver's Hoard
 
 **Main106 entregada.** Unown F/N/M/S añaden120 expresiones revisadas y conservan ocho Normal publicados.1.091 formas tienen16 expresiones en ambas paletas; quedan378 formas incompletas. Fuente aprobada y errata menor del créditoN integradas, compiladas y comprobadas con128 lecturas/HTTP, MCP/repetición nativa y HTML completo. [Alcance](docs/PMD_LIBRARY.md#main106-current-delivery). Reexporta los HTML anteriores; las candidaturas inferiores son históricas.
