@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+**Pending source change: VS portraits.** The real-time renderer now preloads and decodes each team member's exact Determined portrait before its intro, including form and shiny selection. Regression tests, full suites, builds, MCP/native replay and portable asset checks pass; cold-intro HTML and narrow-viewport visual verification are still pending. Main100 remains delivered.
+
 **Main100 delivered.** Unown H, J and K complete16 expressions in both palettes with90 additions and six original Normal keepers. All96 fresh Main reader checks pass. [Delivery scope](docs/PMD_LIBRARY.md#main100-current-delivery). Re-export earlier HTML; prior candidate notes are historical.
 
 **Source100 portrait candidate.** Unown H, J and K complete16 expressions in both palettes with90 additions and six published Normal keepers. [Checks and scope](docs/PMD_LIBRARY.md#source100-candidate). Main99 remains delivered.

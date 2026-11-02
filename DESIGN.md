@@ -186,6 +186,8 @@ Each shortcut pairs an enlarged supplied sprite with a condensed uppercase label
 
 ### Battle Presentation and Motion
 
+The existing real-time preparation now includes each exact Determined portrait used by the VS cards and waits for its image decoding. Successful portraits are ready before the intro starts; a failed image settles through the existing fallback path. This loading refinement uses the same art, controls and presentation clocks.
+
 Classic and ordinary real-time combat inherit the sharper slate/gold controls and cyan/coral side information. Existing HUD content, move typing, settings, keyboard controls, log, replay inspection and modes remain available. Existing atlases, source rectangles, material scales and reduced-motion still frames remain authoritative; this visual pass does not change simulation geometry, damage, RNG or saved replay rules.
 
 The ordinary real-time show renderer adds target-anchored elliptical contact rings beneath the sprites. Positive damage on the first hit triggers a type-colored ring; critical, super-effective and KO hits use a larger ring with short radial marks. Normal rings last (320ms); strong rings (480ms). The Show clock advances their age only during playback, so paused playback does not accumulate motion. Reduced motion uses a fixed ring shape and omits the radial burst. Existing camera and impact-frame settings keep their prior behavior. This accent layer belongs to ordinary real-time Show presentation; it is not a new mass-battle or classic effect implementation.
