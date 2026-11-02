@@ -1,5 +1,8 @@
 # Silver's Hoard
 
+**Main106 entregada.** Unown F/N/M/S añaden120 expresiones revisadas y conservan ocho Normal publicados.1.091 formas tienen16 expresiones en ambas paletas; quedan378 formas incompletas. Fuente aprobada y errata menor del créditoN integradas, compiladas y comprobadas con128 lecturas/HTTP, MCP/repetición nativa y HTML completo. [Alcance](docs/PMD_LIBRARY.md#main106-current-delivery). Reexporta los HTML anteriores; las candidaturas inferiores son históricas.
+
+
 **Candidatura106.** Unown S se une a F/N/M:120 expresiones nuevas desde Main100, conservando ocho Normal publicados. La fuente tiene1.091 formas completas en ambas paletas,378 incompletas y36.031 expresiones vinculadas. S pasa32 lecturas/HTTP,28 pruebas y entrega MCP/nativa/HTML completa. M tiene comprobación visual nativa y HTML. Main100 no cambia; falta revisión formal e integración. Las candidaturas anteriores son históricas.
 
 
