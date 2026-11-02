@@ -1,5 +1,8 @@
 # Silver's Hoard
 
+**Candidatura105 de retratos.** Unown M añade treinta expresiones revisadas y conserva sus dos Normal publicados; F/N/M tienen16 por paleta en la fuente aislada. Pasan32 lecturas/HTTP,28 pruebas, MCP/repetición nativa y HTML con70.778 binarios. Main100 sigue intacta; faltan revisión formal e integración.
+
+
 **Candidatura104 de presentación.** Si falta la imagen del entrenador en un HTML, el VS muestra el retrato PMD exacto. Comprobados VS frío, conservación del entrenador disponible, móvil390px y repetición nativa; compilaciones y suites Python/motor pasan. Los datosF/N de103 siguen exactos. Main100 no cambia; faltan revisión e integración. Las notas de candidaturas anteriores son históricas.
 
 

@@ -1,5 +1,8 @@
 # Silver's Hoard — architecture
 
+**Source105 portrait candidate.** Two literal native160 M atlases add30 bindings through the existing unchanged reader/builder. All35,971 earlier bindings,386 registry objects, sources and aliases stay exact. The received metadata retains full M/D/A component ancestry and sparse plans, including own Normal donor witnesses. Source104 presentation code/builds are reused; there is no105 engine or frontend change.
+
+
 **Source104 candidate.** The trainer sprite adapter selects an empty missing asset in portable mode, allowing the renderer to choose its already decoded exact PMD portrait. Embedded/custom trainer images and native routes retain their existing behavior; the general transparent placeholder remains available to other consumers. Source101 preload and source104 fallback are complementary fixes. No simulation or portrait-data changes.
 
 
