@@ -1,3 +1,13 @@
+# PMD portraits · Source108 · 2 November 2026
+
+Adds 270 expressions for Unown O/P/T/U/V/Y/Z/!/?, in normal and shiny palettes, preserving 18 published Normal PNGs. All 288 final cells retain native 40-pixel geometry, framing, glyphs and own materials with canonical expression backgrounds and symbols. Per-cell independent review, Root inspection of all 18 complete grids and local material, iris and eyelid corrections cover this batch only.
+
+Library: 416 records, 36,421 bindings, 35,176 PNGs and 15 packs; 2,208 complete palette sets, 720 partial and 10 absent. All 36,151 prior bindings, 398 records, sources, aliases, 18 Normal keepers and 15 physical packs remain exact. Coverage is not global anatomy approval.
+
+Validation: 288 real readers/460,800 RGBA positions and 28 portrait tests; MCP prewrite validation, 900 native ticks ending by time and saved-input replay parity. Portable HTML contains 71,198 binaries, 40 chunks, zero inline assets and 288 exact portrait HTTP responses. Root observed native replay paused at 9.43s and one actual human HTML ! shiny versus ? normal round ending by KO at 54.63s. Both Dynamax states expired alive at 18s/21s. Actual result HUD PNGs match ! Sad and ? Joyous at native 40/display 96 with assigned Luxury/Dive balls at 18. No cold-VS or new mobile claim. UI/engine unchanged; no repeated builds or full suites. Own services/tabs closed, ports 59018/59019 off; shared app not started. No push.
+
+Full provenance: art/portraits/reviewed108-provenance.json. Local authorities under research-inbox/silver-portraits1372: ROOT-Claude-remainingUnown270-expressions-received-root-v1.json, Source108-remainingUnown-actual-compile-root-v1/receipt.json and qa108-remainingUnown-data-consumer-root-v1/data-and-visible-consumer-result.json. Task 1372 remains open for the rest of the catalogue.
+
 # PMD portraits · Source107 · 2 November 2026
 
 Adds120 reviewed Unown Q/R/W/X expressions in normal/shiny palettes and preserves eight published Normal PNGs exactly. All128 final cells retain native40-pixel geometry, framing and own glyphs, with canonical expression backgrounds. Per-cell independent review and Root visual reception cover this batch only.
