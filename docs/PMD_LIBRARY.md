@@ -1,5 +1,12 @@
 # Installed PMD sprite library
 
+## Source104 VS confirmation
+
+Missing offline trainer images previously decoded as a transparent1px placeholder, taking priority over the correct PMD face. The trainer adapter now returns an empty missing value. A real regression was red before the correction and green afterwards. The first full engine run exposed an older expectation for that placeholder; updating this intentional contract yields675 passed/one skipped. Full Python passes737/eleven skipped; app/play builds pass.
+
+ROOT saw a cold standalone VS with both shiny/normal Determined N portraits when the deliberately missing trainer was not embedded, a cached Cynthia trainer preserved at390px, and a native replay paused2.8s with reacting40px portraits displayed96 and assigned Balls18. Two new exports verify70,748 binary payloads/40chunks plus ten genuinely cached inline pictures each. Source103 original export is retained. The separate desktop human round ends naturally KO36.633s, with human Protect26.1 and Dynamax26.7, rival Dynamax3 and alive expiry21; a Recover attempt after KO found no control and is not a healing proof. The first screenshot only caught entering cards and is not settled VS evidence. Viewport reset; no MP4/import/global art approval. Full receipts: research-inbox/silver-portraits1372/qa104-avatar-fallback-root-v1. Main100 remains delivered; review/integration pending.
+
+
 ## Source103 Unown N candidate
 
 N now has sixteen expressions in both palettes in the isolated source. Its four received pilots and26 remaining proposals passed separate independent reviews; Root read both reports and saw allsix complete active/grey/magenta sheets. Literal S-magenta halves and actual RGBA resolved an apparent missing-eye discrepancy without editing any art or asserting a technical cause. N retains its own872-pixel figure and102-pixel eye. Crying uses six contact pixels and two complete positive eight-pixel A drops perpalette; Teary uses15 inner water samples with its own iris. Body and water remain separate in provenance.

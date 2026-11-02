@@ -116,7 +116,7 @@ export function makeSprites({ base = "", server = "", set = "gen5ani", dexNum = 
   };
   return { pokemon: (species, options) => portableAsset(pokemon(species, options), { fallback: portablePmdPreview(species,options) || fallback(species, options), label: species }),
     fallback: (species, options) => portablePmdPreview(species,options) || portableAsset(fallback(species, options), { label: species }),
-    trainer: (avatar) => portableAsset(trainer(avatar)),
+    trainer: (avatar) => portableAsset(trainer(avatar), { missing: "" }),
     portrait: (species, emotion, options) => portableAsset(portrait(species, emotion, options), { fallback: portablePmdPreview(species,options) || fallback(species,options), label: species }),
     walking, pixelated, scale: SCALE[set] || SCALE.gen5, server };
 }

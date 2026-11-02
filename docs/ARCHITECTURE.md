@@ -1,5 +1,8 @@
 # Silver's Hoard — architecture
 
+**Source104 candidate.** The trainer sprite adapter selects an empty missing asset in portable mode, allowing the renderer to choose its already decoded exact PMD portrait. Embedded/custom trainer images and native routes retain their existing behavior; the general transparent placeholder remains available to other consumers. Source101 preload and source104 fallback are complementary fixes. No simulation or portrait-data changes.
+
+
 **Source103 N portrait data candidate.** Two literal native160 atlases add30 N bindings through the unchanged builder/reader. All35,941 prior bindings,384 registry objects, sources and aliases stay exact. MCP validates teams before isolated writes; a900-tick native replay matches saved inputs and portable binary delivery passes. Frontend101 visual verification and Main integration remain separate pending work.
 
 **Source102 data delivery check.** Existing MCP/API/native/portable consumers validate the F assets without a rebuild. Both reused UI entry files remain byteexact to the completed101 builds; no102 browser playback is claimed. Main100 is unchanged.

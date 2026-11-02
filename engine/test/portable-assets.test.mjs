@@ -38,7 +38,8 @@ test("standalone sprites use their cached fallback and every missing presentatio
   try {
     const sprites = makeSprites({ server: SERVER });
     assert.equal(sprites.pokemon("Mew"), DATA); // animated absent, static cached
-    for (const url of [sprites.pokemon("Uncached"), sprites.fallback("Uncached"), sprites.trainer("sd:uncached"),
+    assert.equal(sprites.trainer("sd:uncached"), ""); // allow the PMD portrait fallback
+    for (const url of [sprites.pokemon("Uncached"), sprites.fallback("Uncached"),
       sprites.portrait("Mew", "Happy", { num: 151 }), fxUrl("missing.png", { local: false }), fxUrl("missing.png")]) {
       assert.match(url, /^data:image\//);
       assert.doesNotMatch(url, /^https?:/);
