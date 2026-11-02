@@ -1,5 +1,16 @@
 # Installed PMD sprite library
 
+## Main106 current delivery
+
+Source106 eight-commit stack approvedCAS1372r45 through77374908 is integrated with the independently verified minor erratum9dc35b11 (four source-description fields F→N across registry/manifest, no art/binding/pack changes). All68 paths match that combined source.120 new F/N/M/S expressions and eight publishedNormal keepers remain literal; totals390registry,36,031bindings,34,786PNG and15packs. Coverage2,182complete palette sets/746partial/10absent;1,091forms both palettes complete,378incomplete and10,977bindings absent. Coverage does not approve the historical catalogue globally.
+
+Main builds app/play once and both entries match the tested Source104 builds exactly.128 fresh Main readers reproduce204,800RGBA and all35,911 old bindings remain exact. A new isolated Main MCP run validates both teams before writes, has native900ticks/time and saved-input parity, and exports70,808 exact binaries/40chunks/zeroinline with128 exact F/N/M/S HTTP portraits. Full737Python/11skip and675engine/1skip belong to104 withdata103; focused current-data checks pass and no redundant fullsuite is attributed toMain.
+
+Root saw fresh Main native replay at20.0s after ending30s and stepping back twice: giantPMD,425/600 shiny and422/600 normal, Normal portraits. MainHTML coldVS has both exact Determined faces; one actual human round is paused38s with71/300vs300/300. Its queued move becomesMaxGuard0 afterDmax0; alive expiries18/21 are logged. Actual browser PNGs match installed shinyDizzy/normalNormal; native40/display96 and assignedLuxury/DiveBalls18. No humanKO/result/import/healing/MP4 claim. Source104 mobile/Cynthia preservation is backed by identical Main UI bytes, not a new Main mobile observation. Appconsoleempty; HTML oneZotero extension64MiB error and HTTPfavicon404 recorded.
+
+Own Main QA processes stoppedexit0,ports59014/59015off,own2tabsclosed andtemporaryleasesreleased. The shared Silver app was observed down and was left stopped. Foreign.gitignore and untracked files outside explicitly rebuilt static outputs remain intact; no push. The five current-delivery paragraphs are documentation only. Authorities: Main106-current-delivery-root-v1/{integration-receipt,build-receipt,readers128-receipt,documentary-close}.json and qa-main106-fresh-consumers-root-v1/data-and-visible-consumer-result.json under research-inbox/silver-portraits1372.1372 stays open; re-export old HTML.
+
+
 ## Source106 S candidate
 
 30 reviewed S expressions complete16 per normal/shiny palette with published Normal2 exact. Root read author/independent MDs, saw six whole contexts, eight literal grey/magenta halves and both final16 grids. A full-sheet view appeared to omit eyes; the literal halves and192 exact region checks resolve that observation without changing art or asserting a cause. Native40 silhouette/camera/orientation/frame stay fixed. Own505figure/92eye/25iris,28 material edges and12 legitimate corneal greens are preserved; no global shiny LUT. Crying has6 contact samples plus two complete8px physical drops,16 exterior alpha samples per palette; Teary15internal. Separate underlying body and water retain full source/credit ancestry.

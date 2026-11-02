@@ -1,5 +1,8 @@
 # Silver's Hoard — architecture
 
+**Main106 delivered.** Eight commits approved1372r45 plus the verified N glyph-description erratum are fast-forward integrated. The68 product/data/document paths match source;120 new bindings and eight published Normal keepers pass128 fresh Main readers. Main app/play builds reproduce the exact Source104 UI entries previously tested. New Main MCP/native/portable and visible checks pass in isolated data; the normal Hub Silver app was left stopped. No simulation, builder or reader change.
+
+
 **Source106 candidate.** Two native160 S atlases add30 bindings through the unchanged builder/reader; all36,001 previous bindings,388 registry objects, sources and aliases remain exact. The new own505figure/92eye/25iris and protected12cornealgreens are S-specific. Source104 builds/code remain unchanged. Source105 M visible consumption is recorded separately, including two actual browser blob PNGs matched to installed images.
 
 
