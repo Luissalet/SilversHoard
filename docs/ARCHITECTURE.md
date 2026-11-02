@@ -1,5 +1,7 @@
 # Silver's Hoard — architecture
 
+**Source102 portrait data candidate.** The existing builder and reader consume two literal native160 F atlases. Thirty new bindings and two published Normal keepers pass32 actual reader checks, with all35,911 previous bindings, sources and aliases unchanged. Engine and frontend changes remain limited to the separately documented pending101 preload fix; Main100 remains delivered.
+
 **Pending source101 presentation change.** ArenaRenderer.preload warms the same image cache and exact Determined URLs used by the VS intro, waiting for decoding; failed portraits settle through the existing fallback. Simulation, saved inputs and portrait data remain unchanged. Source checks pass, but cold-intro HTML/mobile verification, formal review and Main integration remain pending.
 
 **Main100 data delivery.** The exact25 Source100 files approved at revision44 are integrated. All96 fresh Main readers reproduce90 additions and six published Normal keepers. Existing UI entries equal tested Source88 builds. [Evidence and limits](PMD_LIBRARY.md#main100-current-delivery). No engine, reader or frontend change.

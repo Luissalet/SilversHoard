@@ -1,5 +1,14 @@
 # Installed PMD sprite library
 
+## Source102 Unown F art candidate
+
+F has sixteen expressions per normal/shiny palette in the isolated source. Four pilots and24 other expressions remain as independently received; Crying uses the exact ClaudeV2 pair approved at1855 revision3. Its17 changes perpalette comprise12 completed tear outlines andfive ownNormal restorations; the old claim that the entire water trail stays unchanged is corrected in the receipt. Two inner water samples and two complete physical drops remain. The Root12 alternative is preserved outside product and is not selected.
+
+Two literal native160 atlases add30 bindings through one call to the unchanged builder, retaining both published Normal priorities. All35,911 prior bindings,382 registry objects, source objects and aliases remain exact, and all15 previous active packs remain physically available. Source totals:384 records,35,941 bindings,34,696 distinct PNGs,15 active packs;2,176 complete sets,752 partial and10 absent. These are coverage counts, not catalogue-wide quality approval. All32 fresh actual reader checks and28 portrait/alias/flip tests pass. Full737 Python and674 engine passes and app/play builds belong to the earlier101 code check with100 portrait data, not a rerun against102.
+
+Root saw both complete16-expression context sheets. Seventeen complete provenance documents, source objects, credit lineage and earlier flags are retained in `art/portraits/reviewed102-provenance.json`; no new licence or recovered historical alpha is inferred. Main100 remains delivered. No new102 MCP/browser/HTML execution is claimed, and the separate101 cold-first-VS app/HTML/mobile inspection is pending. Evidence: `D:/LocalAI/research-inbox/silver-portraits1372/Source102-UnownF-actual-compile-root-v1/receipt.json`.
+
+
 ## Source101 pending VS preload verification
 
 The renderer now waits for the exact form/shiny Determined portraits to decode before the intro. Two regression tests distinguish decoded readiness from onload and verify error fallback. Full Python and engine suites and app/play builds pass. MCP validates two Custom teams before their isolated writes; the native round reaches 900 ticks/time with saved-input summary parity. One fresh HTML verifies 70,688 binaries, forty chunks, zero inline entries and 96 portrait HTTP responses. Root saw both native HUD portraits and body sprites at replay 11s. Computer Use then stopped because it could not verify the browser URL; cold first-VS cards, human HTML play and narrow-viewport inspection are not claimed. All twenty Source100 art/data files remain exact, and Main100 stays delivered. Evidence: `D:/LocalAI/research-inbox/silver-portraits1372/qa101-intro-preload-root-v1/resume-nov2-result.json`. The isolated services stopped gracefully; 59004/59005 are off.

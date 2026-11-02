@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+**Source102 art candidate.** Unown F now has all sixteen expressions in normal and shiny palettes in the isolated source: thirty new portraits retain both published Normal faces. Native32 reader checks and28 portrait tests pass. Main100 remains delivered; frontend101 cold-intro HTML/mobile checks and integration are pending.
+
 **Pending source change: VS portraits.** The real-time renderer now preloads and decodes each team member's exact Determined portrait before its intro, including form and shiny selection. Regression tests, full suites, builds, MCP/native replay and portable asset checks pass; cold-intro HTML and narrow-viewport visual verification are still pending. Main100 remains delivered.
 
 **Main100 delivered.** Unown H, J and K complete16 expressions in both palettes with90 additions and six original Normal keepers. All96 fresh Main reader checks pass. [Delivery scope](docs/PMD_LIBRARY.md#main100-current-delivery). Re-export earlier HTML; prior candidate notes are historical.
