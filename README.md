@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+**Source102 data consumer check.** MCP validates both F teams before isolated writes; the native900-tick round matches its saved-input replay. The new HTML verifies all70,718 binary assets, forty chunks and32 exact F portrait responses. Browser playback and Main integration remain pending.
+
 **Source102 art candidate.** Unown F now has all sixteen expressions in normal and shiny palettes in the isolated source: thirty new portraits retain both published Normal faces. Native32 reader checks and28 portrait tests pass. Main100 remains delivered; frontend101 cold-intro HTML/mobile checks and integration are pending.
 
 **Pending source change: VS portraits.** The real-time renderer now preloads and decodes each team member's exact Determined portrait before its intro, including form and shiny selection. Regression tests, full suites, builds, MCP/native replay and portable asset checks pass; cold-intro HTML and narrow-viewport visual verification are still pending. Main100 remains delivered.

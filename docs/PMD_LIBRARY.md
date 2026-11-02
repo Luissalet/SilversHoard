@@ -1,5 +1,12 @@
 # Installed PMD sprite library
 
+## Source102 later data consumer check
+
+The isolated MCP route imports and validates both Unown F Custom teams before two trainer writes. One native battle ends naturally at900ticks/time and its saved-input replay reproduces the exact summary. A single new HTML (`QA102-N---Silver.html`, SHA3b9b0a58e9ab5ce7db6c3787b41e84b9c78ca6ff7e3c570a8289343668ee5252) verifies all70,718 binary assets, forty chunks, zero inline fallback entries and32 actual portrait HTTP responses. This includes both published Normal priorities and allthirty new F expressions, independently of an optional sprite cache.
+
+App/play entry files are exact to the previously completed101 builds, so no rebuild was run. No new browser playback, first-VS or mobile visual check is claimed. The single isolated service PID49512 stopped gracefully through STOP, exec79654 returned0,59006 is off and its two temporary leases are released. Main100 remains unchanged. Authority: `D:/LocalAI/research-inbox/silver-portraits1372/qa102-UnownF-data-consumer-root-v1/data-consumer-result.json`. Earlier candidate wording records the state before this check.
+
+
 ## Source102 Unown F art candidate
 
 F has sixteen expressions per normal/shiny palette in the isolated source. Four pilots and24 other expressions remain as independently received; Crying uses the exact ClaudeV2 pair approved at1855 revision3. Its17 changes perpalette comprise12 completed tear outlines andfive ownNormal restorations; the old claim that the entire water trail stays unchanged is corrected in the receipt. Two inner water samples and two complete physical drops remain. The Root12 alternative is preserved outside product and is not selected.
