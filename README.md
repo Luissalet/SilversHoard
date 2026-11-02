@@ -1,3 +1,15 @@
+# PMD portraits · Source109 · 2 November 2026
+
+Adds 60 reviewed Linoone and Seadra expressions across normal/shiny palettes, preserving four published Normal PNGs. Four original Ogerpon Tera Normal portraits now resolve through their own published mask folders; the four additive form-name mappings fix the former missing routes. Their other expressions and shiny portraits remain pending. No existing portrait is replaced.
+
+All 64 Linoone/Seadra cells retain native 40-pixel framing, anatomy and own materials, using the canonical expression backgrounds and symbols. Per-cell review and Root inspection of all four final grids include local Dizzy, Shouting and Inspired corrections; rejected drafts are not selected. Full plans, original source/credit objects, new oral-material roles and separate water effects are preserved in 120 provenance documents. Coverage is not global anatomy or animation approval.
+
+Library: 420 records, 36,485 bindings, 35,240 PNGs and 15 active packs; 2,212 complete palette sets, 720 partial and six absent. Of 1,469 forms, 1,106 have both complete palettes; 363 remain incomplete, with 10,523 missing bindings. All 36,421 prior bindings, 416 records, sources, aliases and 15 old physical packs remain exact.
+
+Validation: 68 real readers/108,800 RGBA positions; 29 portrait tests pass after the four-route regression failed before the fix. MCP validates teams before isolated writes. A 900-tick native battle ends by time with saved-input replay parity. Portable HTML has 71,262 binaries, 40 chunks, zero inline assets and 68 exact portrait HTTP responses. Root observed actual native Dizzy/Normal/Determined HUD faces, the paused HTML VS with both Determined portraits, and one human Linoone shiny versus Seadra normal HTML round paused near 28s. Normal Tackle hit at 4.1s; rival Dynamax expired alive at 21s and own Dynamax activated at 21.5s. Six actual HUD PNGs and assigned Luxury/Dive balls match exact compiled bytes at native40/display96 and ball18. No new mobile, KO, import, healing, MP4 or Tera-transformation claim. UI/engine unchanged; no new frontend build or repeated full suites. Isolated services/tabs closed, ports59020/59021 off; shared app not started. No push.
+
+Full provenance: art/portraits/reviewed109-provenance.json. Local authorities under research-inbox/silver-portraits1372: Source109-two-species-Tera-actual-compile-root-v1/receipt.json and qa109-two-species-Tera-data-consumer-root-v1/data-and-visible-consumer-result.json. Main108 remains delivered while formal review/integration109 is pending. Task1372 stays open.
+
 # PMD portraits · Source108 · 2 November 2026
 
 Adds 270 expressions for Unown O/P/T/U/V/Y/Z/!/?, in normal and shiny palettes, preserving 18 published Normal PNGs. All 288 final cells retain native 40-pixel geometry, framing, glyphs and own materials with canonical expression backgrounds and symbols. Per-cell independent review, Root inspection of all 18 complete grids and local material, iris and eyelid corrections cover this batch only.

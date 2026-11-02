@@ -78,6 +78,50 @@ def test_ice_rider_uses_its_own_portrait_and_does_not_invent_shiny_or_shadow():
     assert shadow["folder"] is None and shadow["shiny_folder"] is None
 
 
+def test_ogerpon_tera_masks_compile_their_own_published_faces_without_replacing_base_forms(tmp_path):
+    from PIL import Image
+    from silvers_hoard.pmd_portraits import PmdPortraits
+
+    forms = [("ogerpon", "", "", "1017"),
+             ("ogerponwellspring", "Wellspring", "Wellspring", "1017/0001"),
+             ("ogerponhearthflame", "Hearthflame", "Hearthflame", "1017/0002"),
+             ("ogerponcornerstone", "Cornerstone", "Cornerstone", "1017/0003"),
+             ("ogerpontealtera", "Teal-Tera", "Teal_Mask", "1017/0004"),
+             ("ogerponwellspringtera", "Wellspring-Tera", "Wellspring_Mask", "1017/0005"),
+             ("ogerponhearthflametera", "Hearthflame-Tera", "Hearthflame_Mask", "1017/0006"),
+             ("ogerponcornerstonetera", "Cornerstone-Tera", "Cornerstone_Mask", "1017/0007")]
+    roster = [{"id": key, "num": 1017, "base": "Ogerpon", "form": form}
+              for key, form, label, folder in forms]
+    tracker = {"1017": {"name": "Ogerpon", "portrait_files": {"Normal": True},
+                         "portrait_credit": {"primary": "base artist"}, "subgroups": {}}}
+    for key, form, label, folder in forms[1:]:
+        tracker["1017"]["subgroups"][folder.split("/")[-1]] = {
+            "name": label, "portrait_files": {"Normal": True},
+            "portrait_credit": {"primary": key + " artist"}}
+    before = copy.deepcopy(tracker)
+    plan = builder.portrait_inventory(roster, tracker)
+    plan["source"] = "portrait-mask-routing-regression"
+    stage = tmp_path / "stage"
+    expected = {}
+    for index, (key, form, label, folder) in enumerate(forms):
+        row = next(row for row in plan["entries"] if row["id"] == key)
+        assert row["folder"] == folder and row["form"] == form
+        assert row["shiny_folder"] is None
+        target = stage / "published" / folder / "Normal.png"
+        target.parent.mkdir(parents=True)
+        Image.new("RGBA", (40, 40), (index * 25, 50, 130, 255)).save(target)
+        expected[key] = target.read_bytes()
+    assert tracker == before
+    output = tmp_path / "portraits"
+    builder.compile_library(plan, stage, output, allow_missing=True)
+    reader = PmdPortraits(output)
+    for key, form, label, folder in forms:
+        selected = reader.resolve(key, ["Normal"], False)
+        assert reader.image_bytes(selected) == expected[key]
+        assert reader.manifest["entries"][key + "|1"] == {}
+        assert reader.manifest["sources"][folder]["credit"] == plan["folders"][folder]["credit"]
+
+
 def flower_frames(tmp_path):
     from PIL import Image
 
