@@ -1,5 +1,7 @@
 # Silver's Hoard — architecture
 
+**Source103 N portrait data candidate.** Two literal native160 atlases add30 N bindings through the unchanged builder/reader. All35,941 prior bindings,384 registry objects, sources and aliases stay exact. MCP validates teams before isolated writes; a900-tick native replay matches saved inputs and portable binary delivery passes. Frontend101 visual verification and Main integration remain separate pending work.
+
 **Source102 data delivery check.** Existing MCP/API/native/portable consumers validate the F assets without a rebuild. Both reused UI entry files remain byteexact to the completed101 builds; no102 browser playback is claimed. Main100 is unchanged.
 
 **Source102 portrait data candidate.** The existing builder and reader consume two literal native160 F atlases. Thirty new bindings and two published Normal keepers pass32 actual reader checks, with all35,911 previous bindings, sources and aliases unchanged. Engine and frontend changes remain limited to the separately documented pending101 preload fix; Main100 remains delivered.

@@ -1,5 +1,16 @@
 # Installed PMD sprite library
 
+## Source103 Unown N candidate
+
+N now has sixteen expressions in both palettes in the isolated source. Its four received pilots and26 remaining proposals passed separate independent reviews; Root read both reports and saw allsix complete active/grey/magenta sheets. Literal S-magenta halves and actual RGBA resolved an apparent missing-eye discrepancy without editing any art or asserting a technical cause. N retains its own872-pixel figure and102-pixel eye. Crying uses six contact pixels and two complete positive eight-pixel A drops perpalette; Teary uses15 inner water samples with its own iris. Body and water remain separate in provenance.
+
+One existing builder call adds30 bindings, preserving two published Normal priorities and all35,941 old mappings,384 registry objects, sources and aliases. All15 prior active packs remain physically present. Source totals:386 records,35,971 bindings,34,726 distinct PNGs,15 packs,2,178 complete sets/750partial/10absent. Thirty-two actual reader checks reproduce51,200RGBA and28 portrait/alias/flip tests pass. These are scoped checks and coverage counts, not catalogue-wide quality approval. Complete documents and original flags remain in `art/portraits/reviewed103-provenance.json`.
+
+MCP imports and validates both N Custom teams before two isolated writes. One900-tick native round matches its saved-input summary. One fresh HTML (`QA103-N---Silver.html`, SHA1e2b4ab6eda33ac8d5442d84bfc6e6e643acbe256a0888af7d501e98d3f90ea6) verifies70,748 binaries,40chunks,zero inline fallback entries and32 actual N portrait HTTP responses. UI entries reuse the completed101 build; no new build or browser playback is claimed here. The adapted runner retained a102 status label; only that label was corrected with its original saved and all other fields exact. No phase was repeated.
+
+Own servicePID45096 stopped gracefully; exec63762 returned0,59008 is off and its two leases are released. Main100 remains unchanged;101 cold-first-VS app/HTML/mobile inspection and formal review/integration are pending. Authority: `D:/LocalAI/research-inbox/silver-portraits1372/qa103-UnownN-data-consumer-root-v1/data-consumer-result.json`.
+
+
 ## Source102 later data consumer check
 
 The isolated MCP route imports and validates both Unown F Custom teams before two trainer writes. One native battle ends naturally at900ticks/time and its saved-input replay reproduces the exact summary. A single new HTML (`QA102-N---Silver.html`, SHA3b9b0a58e9ab5ce7db6c3787b41e84b9c78ca6ff7e3c570a8289343668ee5252) verifies all70,718 binary assets, forty chunks, zero inline fallback entries and32 actual portrait HTTP responses. This includes both published Normal priorities and allthirty new F expressions, independently of an optional sprite cache.
