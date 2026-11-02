@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+**Comprobación de recursos Source102.** MCP valida ambos equipos F antes de escribirlos en la instancia aislada; el combate nativo de900ticks coincide con su replay guardado. El nuevo HTML verifica los70.718 recursos binarios, cuarenta bloques y32 respuestas exactas de retratos F. La reproducción visual en navegador y la integración enMain siguen pendientes.
+
 **Candidatura de arte Source102.** Unown F tiene las dieciséis expresiones normales y shiny en la fuente aislada: treinta retratos nuevos conservan los dos Normal publicados. Pasan32 lecturas nativas y28 pruebas de retratos. Main100 sigue siendo la entrega integrada; faltan la comprobación del primer VS en HTML/móvil de la interfaz101 y la integración.
 
 **Cambio pendiente en la fuente: retratos VS.** El renderizador en tiempo real precarga y decodifica el retrato Determined exacto de cada miembro antes de la presentación, respetando forma y shiny. Pasan las regresiones, las suites completas, los builds, MCP/replay nativo y los recursos portables; falta la comprobación visual del primer VS en HTML y en pantalla estrecha. Main100 sigue siendo la entrega integrada.
