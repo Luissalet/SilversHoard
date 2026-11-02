@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+**Candidatura de arte Source102.** Unown F tiene las dieciséis expresiones normales y shiny en la fuente aislada: treinta retratos nuevos conservan los dos Normal publicados. Pasan32 lecturas nativas y28 pruebas de retratos. Main100 sigue siendo la entrega integrada; faltan la comprobación del primer VS en HTML/móvil de la interfaz101 y la integración.
+
 **Cambio pendiente en la fuente: retratos VS.** El renderizador en tiempo real precarga y decodifica el retrato Determined exacto de cada miembro antes de la presentación, respetando forma y shiny. Pasan las regresiones, las suites completas, los builds, MCP/replay nativo y los recursos portables; falta la comprobación visual del primer VS en HTML y en pantalla estrecha. Main100 sigue siendo la entrega integrada.
 
 **Main100 entregada.** Unown H, J y K completan16 expresiones en ambas paletas con90 retratos nuevos y seis neutros originales conservados. Pasan las96 lecturas nuevas de Main. [Alcance](docs/PMD_LIBRARY.md#main100-current-delivery). Reexporta los HTML anteriores; las candidaturas previas son históricas.
