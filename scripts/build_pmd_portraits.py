@@ -87,6 +87,8 @@ def portrait_inventory(roster, tracker):
         "pikachupartner": "Partner Cap", "pikachuworld": "World Cap",
         "dudunsparcethreesegment": "Three",
         "meowsticmmega": "Mega", "calyrexice": "Ice Rider",
+        "ogerpontealtera": "Teal_Mask", "ogerponwellspringtera": "Wellspring_Mask",
+        "ogerponhearthflametera": "Hearthflame_Mask", "ogerponcornerstonetera": "Cornerstone_Mask",
     }
     portrait_roster = [{**mon, "form": form_names.get(mon["id"], mon["form"])} for mon in roster]
     plan = inventory(portrait_roster, tracker)
