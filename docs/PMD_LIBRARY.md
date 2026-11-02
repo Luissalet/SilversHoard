@@ -1,5 +1,14 @@
 # Installed PMD sprite library
 
+## Source105 M candidate
+
+30 M expressions complete16 normal/shiny while published Normal2 remain exact. Root has read author/independent reports, viewed six rest13 contexts and both final16 grids. Peer reconstruction checks41,600RGBA; letter/camera/frame remain native40. The1048figure/552exterior and122N/121S positive edge donors are M-specific. N is CHUNSOFT, S Emmuffin; full original M/D/A credit objects and plan provenance are retained in reviewed105-provenance.json. Crying has7 contact samples and two complete8px external drops per palette; clearance is four-neighbour with five diagonal contacts, not uniform eight-neighbour clearance. Teary has16 internal water samples and an open iris.
+
+Registry388/bindings36,001/PNG34,756/15 active packs; coverage2,180 complete palette sets,748 partial,10 absent. Of1,469 forms,1,090 have both palettes complete;379 remain incomplete and11,007 expression bindings are absent. Coverage is not a global art approval. All previous mappings/registry objects/sources/aliases and15 old physical packs are retained. Thirty-two actual readers reproduce51,200RGBA.
+
+28 portrait tests pass. MCP validates both teams before two isolated writes, native900ticks/time matches saved-input replay, and the new standalone carries70,778 verified binaries/40chunks/zero inline images plus32 exact M HTTP responses. Builds/full737 Python+675 engine passes belong to104 with data103;105 only changes portrait data. Reused104 builds have their own native/HTML visible confirmation. Main100 remains unchanged; formal review/integration pending. Receipts: Source105-UnownM-actual-compile-root-v1 and qa105-UnownM-data-consumer-root-v1 under research-inbox/silver-portraits1372.
+
+
 ## Source104 VS confirmation
 
 Missing offline trainer images previously decoded as a transparent1px placeholder, taking priority over the correct PMD face. The trainer adapter now returns an empty missing value. A real regression was red before the correction and green afterwards. The first full engine run exposed an older expectation for that placeholder; updating this intentional contract yields675 passed/one skipped. Full Python passes737/eleven skipped; app/play builds pass.

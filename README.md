@@ -1,5 +1,8 @@
 # Silver's Hoard
 
+**Source105 art candidate.** Unown M adds thirty reviewed expressions and retains both published Normal faces; F/N/M now have16 per palette in the isolated source. Thirty-two fresh reader/HTTP checks,28 portrait tests, MCP/native replay and a70,778-binary standalone export pass. Main100 remains unchanged; formal review/integration are pending.
+
+
 **Source104 presentation candidate.** Missing offline trainer images now leave the exact PMD portrait visible in the VS intro. Cold standalone VS, cached-trainer preservation,390px mobile and native replay were inspected; both builds and full Python/engine suites pass. F/N source103 data remain exact. Main100 is unchanged; review and integration are pending. Earlier candidate notes below are historical.
 
 
