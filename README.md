@@ -1,5 +1,8 @@
 # Silver's Hoard
 
+**Source106 candidate.** Unown S joins F/N/M:120 new expressions since Main100, retaining eight published Normal portraits. The source has1,091 forms complete in both palettes,378 incomplete and36,031 expression bindings. S passes32 current reader/HTTP checks,28 portrait tests and MCP/native/full portable delivery. M also has native/HTML visible confirmation. Main100 remains unchanged; formal review/integration pending. Older candidate notes are historical.
+
+
 **Source105 art candidate.** Unown M adds thirty reviewed expressions and retains both published Normal faces; F/N/M now have16 per palette in the isolated source. Thirty-two fresh reader/HTTP checks,28 portrait tests, MCP/native replay and a70,778-binary standalone export pass. Main100 remains unchanged; formal review/integration are pending.
 
 

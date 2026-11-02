@@ -1,5 +1,8 @@
 # Silver's Hoard — architecture
 
+**Source106 candidate.** Two native160 S atlases add30 bindings through the unchanged builder/reader; all36,001 previous bindings,388 registry objects, sources and aliases remain exact. The new own505figure/92eye/25iris and protected12cornealgreens are S-specific. Source104 builds/code remain unchanged. Source105 M visible consumption is recorded separately, including two actual browser blob PNGs matched to installed images.
+
+
 **Source105 portrait candidate.** Two literal native160 M atlases add30 bindings through the existing unchanged reader/builder. All35,971 earlier bindings,386 registry objects, sources and aliases stay exact. The received metadata retains full M/D/A component ancestry and sparse plans, including own Normal donor witnesses. Source104 presentation code/builds are reused; there is no105 engine or frontend change.
 
 

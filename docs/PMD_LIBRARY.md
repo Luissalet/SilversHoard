@@ -1,5 +1,14 @@
 # Installed PMD sprite library
 
+## Source106 S candidate
+
+30 reviewed S expressions complete16 per normal/shiny palette with published Normal2 exact. Root read author/independent MDs, saw six whole contexts, eight literal grey/magenta halves and both final16 grids. A full-sheet view appeared to omit eyes; the literal halves and192 exact region checks resolve that observation without changing art or asserting a cause. Native40 silhouette/camera/orientation/frame stay fixed. Own505figure/92eye/25iris,28 material edges and12 legitimate corneal greens are preserved; no global shiny LUT. Crying has6 contact samples plus two complete8px physical drops,16 exterior alpha samples per palette; Teary15internal. Separate underlying body and water retain full source/credit ancestry.
+
+Source totals390registry/36,031bindings/34,786PNG/15activepacks;2,182 complete palette sets,746 partial,10 absent. Of1,469 forms,1,091 have both palettes complete;378 forms and10,977 possible bindings remain incomplete. This is coverage, not global art approval. All previous registry objects/mappings/sources/aliases and15 former active physical packs remain exact.32 current readers reproduce51,200RGBA;28 portrait tests pass. MCP validates teams before isolated writes;900ticks/time and saved-input replay match. Fresh standalone verifies70,808binaries/40chunks/zero inline pictures and32 exact S HTTP responses. Source104 builds/full suites are retained; no106frontend change. S visible checks and formal review/integration pending at this commit.
+
+M105 visible checks are separately complete: native paused0/5s and HTML coldVS plus one human round ending naturally KO54.033s. The queued move becomes Max Guard0 after Dynamax0, with alive expiry18 and rival21; no human normal Confuse Ray claim. Actual final HUD blobs match installed shinySad and normalJoyous PNGs. HUD native40/display96, assignedBalls18; app consoleempty, HTML Zotero extension errors noted. Own105services stoppedexit0/ports59010–11off. Authorities: qa105-UnownM-data-consumer-root-v1/data-and-visible-consumer-result.json and Source106-UnownS-actual-compile-root-v1 under research-inbox/silver-portraits1372. Main100 unchanged.
+
+
 ## Source105 M candidate
 
 30 M expressions complete16 normal/shiny while published Normal2 remain exact. Root has read author/independent reports, viewed six rest13 contexts and both final16 grids. Peer reconstruction checks41,600RGBA; letter/camera/frame remain native40. The1048figure/552exterior and122N/121S positive edge donors are M-specific. N is CHUNSOFT, S Emmuffin; full original M/D/A credit objects and plan provenance are retained in reviewed105-provenance.json. Crying has7 contact samples and two complete8px external drops per palette; clearance is four-neighbour with five diagonal contacts, not uniform eight-neighbour clearance. Teary has16 internal water samples and an open iris.
