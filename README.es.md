@@ -1,3 +1,13 @@
+# Retratos PMD · Source108 · 2 de noviembre de 2026
+
+Se añaden 270 expresiones de Unown O/P/T/U/V/Y/Z/!/?, en normal y shiny, conservando sus 18 Normal publicados. Las 288 casillas finales mantienen los 40 píxeles nativos, silueta, encuadre y materiales de cada letra; usan los fondos y símbolos canónicos de cada expresión. La recepción combina revisión independiente por casilla, inspección de las 18 cuadrículas completas y correcciones locales de material, iris y párpados. No se rehacen los originales ni las caras buenas.
+
+Biblioteca: 416 registros, 36.421 vinculaciones, 35.176 PNG y 15 packs; 2.208 conjuntos de paleta completos, 720 parciales y 10 ausentes. Las 36.151 vinculaciones anteriores, 398 registros, fuentes, aliases, 18 Normal y 15 packs físicos anteriores siguen exactos. Son cifras de cobertura; no constituyen aprobación anatómica global.
+
+Verificación: 288 lectores reales/460.800 posiciones RGBA y 28 pruebas del área. MCP valida antes de escribir; batalla nativa de 900 ticks terminada por tiempo y paridad de inputs guardados. HTML con 71.198 binarios, 40 fragmentos, cero recursos inline y 288 respuestas HTTP exactas. Root vio repetición nativa pausada a 9,43 s y una partida humana HTML de ! shiny contra ? normal, terminada por KO a 54,63 s. Ambos Dynamax expiraron con el Pokémon vivo, a 18 y 21 s. Los retratos reales de resultado, ! Sad y ? Joyous, coinciden con los PNG compilados; se muestran a 96 píxeles desde su resolución nativa de 40, con Luxury/Dive Ball a 18. No se afirma un VS frío ni nuevas pruebas móviles. UI y motor no cambian; no se repiten builds o suites generales. Instancias y pestañas propias cerradas, puertos 59018/59019 apagados; app compartida sin arrancar. Sin push.
+
+Procedencia completa: art/portraits/reviewed108-provenance.json. Autoridades locales en research-inbox/silver-portraits1372: ROOT-Claude-remainingUnown270-expressions-received-root-v1.json, Source108-remainingUnown-actual-compile-root-v1/receipt.json y qa108-remainingUnown-data-consumer-root-v1/data-and-visible-consumer-result.json. La tarea 1372 continúa abierta para el resto del catálogo.
+
 # Retratos PMD · Source107 · 2 de noviembre de 2026
 
 Se añaden120 expresiones de Unown Q/R/W/X, normal y shiny, conservando ocho Normal publicados exactos. Las128 casillas finales mantienen40 píxeles nativos, encuadre y silueta propios; fondos y símbolos por expresión se componen desde la plantilla canónica. Lascaras nuevas tienen revisión independiente porcasilla y recepciónvisual deRoot, sin aprobar porherencia las demásletras.
