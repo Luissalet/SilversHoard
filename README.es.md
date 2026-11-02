@@ -1,5 +1,8 @@
 # Silver's Hoard
 
+**Candidatura104 de presentación.** Si falta la imagen del entrenador en un HTML, el VS muestra el retrato PMD exacto. Comprobados VS frío, conservación del entrenador disponible, móvil390px y repetición nativa; compilaciones y suites Python/motor pasan. Los datosF/N de103 siguen exactos. Main100 no cambia; faltan revisión e integración. Las notas de candidaturas anteriores son históricas.
+
+
 **Candidatura de arte Source103.** Unown N se une a F con dieciséis expresiones normales y shiny, conservando sus dos Normal publicados y añadiendo treinta retratos. Pasan32 lecturas,28 pruebas y una comprobación MCP/nativa/portable; el nuevo HTML verifica70.748 binarios y32 respuestas N. Main100 sigue integrado; faltan la reproducción visual y la revisión/integración.
 
 **Comprobación de recursos Source102.** MCP valida ambos equipos F antes de escribirlos en la instancia aislada; el combate nativo de900ticks coincide con su replay guardado. El nuevo HTML verifica los70.718 recursos binarios, cuarenta bloques y32 respuestas exactas de retratos F. La reproducción visual en navegador y la integración enMain siguen pendientes.

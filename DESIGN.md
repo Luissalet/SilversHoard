@@ -1,4 +1,7 @@
 ---
+
+Missing portable trainer pictures must leave the exact PMD face fallback available in the VS card. Use an empty trainer URL when absent; an opaque or transparent placeholder that reports ready must not hide the Pokémon portrait. Preserve embedded and explicitly supplied trainer images. Native40 portraits retain nearest-neighbor rendering and the original frame.
+
 name: Silver's Hoard
 description: Slate and silver game menus with gold selection and cyan/coral battle corners.
 colors:

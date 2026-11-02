@@ -54,6 +54,21 @@ function introFixture(tag) {
   return {renderer,pictures,calls,Picture};
 }
 
+test('an uncached offline trainer cannot hide the exact PMD portrait behind a transparent placeholder',()=>{
+  const portrait='data:image/png;base64,portrait';
+  const trainer='data:image/png;base64,trainer';
+  installPortableAssets({files:{face:portrait,trainer},urls:{'/trainers/cached.png':'trainer'},
+    portraits:{entries:{'unownn|0':{Determined:'face'}}}});
+  try {
+    const sprites=makeSprites({server:'https://play.pokemonshowdown.com/sprites'});
+    assert.equal(sprites.trainer('sd:uncached'),'','the VS card must use its PMD fallback when no trainer was embedded');
+    assert.equal(sprites.portrait('Unown-N','Determined'),portrait);
+    const local=makeSprites();
+    assert.equal(local.trainer('/trainers/cached.png'),trainer,'an embedded trainer retains its own image');
+    assert.equal(local.trainer({kind:'image',mime:'image/png',data:'custom'}),'data:image/png;base64,custom');
+  } finally {installPortableAssets(null);}
+});
+
 test('the VS intro waits for both exact portraits to finish decoding',async()=>{
   const old=globalThis.Image,fixture=introFixture('decode');let done=false;
   globalThis.Image=fixture.Picture;
