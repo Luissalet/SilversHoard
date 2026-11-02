@@ -109,10 +109,14 @@ export class ArenaRenderer {
     this.resize(canvas.clientWidth || 900);
   }
 
-  /** Wait for decoded walking sheets within the metadata deadline, and always settle base/Mega fallback images. */
+  /** Wait for decoded walking sheets within the metadata deadline, and settle fallback and VS portrait images. */
   async preload(onProgress = () => {}, timeout = 15000) {
+    const introPortraits = this.sides.flatMap(s => s.mons.map(m => {
+      const url = this.sprites?.portrait?.(m.species, "Determined", { num: m.num || 0, shiny: !!m.shiny });
+      return url ? image(url) : null;
+    }));
     const fallbackImages = [...this.fallbacks.flat(), ...this.megaFallbacks.flat(), ...(this.dynamaxFallbacks?.flat() || []), ...(this.ultraFallbacks?.flat() || []),
-      ...(this.portraitFallbacks?.flat() || []), ...(this.portraitMegaFallbacks?.flat() || [])].filter(Boolean);
+      ...(this.portraitFallbacks?.flat() || []), ...(this.portraitMegaFallbacks?.flat() || []), ...introPortraits].filter(Boolean);
     const fallbackReady = Promise.all(fallbackImages.map(s => s.loaded));
     const jobs = [];
     this.sides.forEach((s, si) => s.mons.forEach((m, mi) => {

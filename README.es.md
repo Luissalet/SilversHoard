@@ -1,5 +1,7 @@
 # Silver's Hoard
 
+**Cambio pendiente en la fuente: retratos VS.** El renderizador en tiempo real precarga y decodifica el retrato Determined exacto de cada miembro antes de la presentación, respetando forma y shiny. Pasan las regresiones, las suites completas, los builds, MCP/replay nativo y los recursos portables; falta la comprobación visual del primer VS en HTML y en pantalla estrecha. Main100 sigue siendo la entrega integrada.
+
 **Main100 entregada.** Unown H, J y K completan16 expresiones en ambas paletas con90 retratos nuevos y seis neutros originales conservados. Pasan las96 lecturas nuevas de Main. [Alcance](docs/PMD_LIBRARY.md#main100-current-delivery). Reexporta los HTML anteriores; las candidaturas previas son históricas.
 
 **Candidatura Source100.** Unown H, J y K completan16 expresiones por paleta con90 retratos nuevos y sus seis neutros publicados conservados. [Pruebas y alcance](docs/PMD_LIBRARY.md#source100-candidate). Main99 sigue entregada.

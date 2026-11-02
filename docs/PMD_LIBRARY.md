@@ -1,5 +1,10 @@
 # Installed PMD sprite library
 
+## Source101 pending VS preload verification
+
+The renderer now waits for the exact form/shiny Determined portraits to decode before the intro. Two regression tests distinguish decoded readiness from onload and verify error fallback. Full Python and engine suites and app/play builds pass. MCP validates two Custom teams before their isolated writes; the native round reaches 900 ticks/time with saved-input summary parity. One fresh HTML verifies 70,688 binaries, forty chunks, zero inline entries and 96 portrait HTTP responses. Root saw both native HUD portraits and body sprites at replay 11s. Computer Use then stopped because it could not verify the browser URL; cold first-VS cards, human HTML play and narrow-viewport inspection are not claimed. All twenty Source100 art/data files remain exact, and Main100 stays delivered. Evidence: `D:/LocalAI/research-inbox/silver-portraits1372/qa101-intro-preload-root-v1/resume-nov2-result.json`. The isolated services stopped gracefully; 59004/59005 are off.
+
+
 ## Main100 current delivery
 
 Source100 product02f7e9956ba217a26ce372ad01bc97a7f7926f00,25 exact reviewed files, is integrated after task1372 revision44 approval. Ninety-six fresh actual Main readers reproduce PNG/RGBA for90 H/J/K additions and six published Normal keepers. Both existing Main UI entries equal the tested Source88 entries reused by Source100. No new Main build, battle, export or live UI is claimed.
