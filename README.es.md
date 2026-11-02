@@ -1,5 +1,8 @@
 # Silver's Hoard
 
+**Candidatura106.** Unown S se une a F/N/M:120 expresiones nuevas desde Main100, conservando ocho Normal publicados. La fuente tiene1.091 formas completas en ambas paletas,378 incompletas y36.031 expresiones vinculadas. S pasa32 lecturas/HTTP,28 pruebas y entrega MCP/nativa/HTML completa. M tiene comprobación visual nativa y HTML. Main100 no cambia; falta revisión formal e integración. Las candidaturas anteriores son históricas.
+
+
 **Candidatura105 de retratos.** Unown M añade treinta expresiones revisadas y conserva sus dos Normal publicados; F/N/M tienen16 por paleta en la fuente aislada. Pasan32 lecturas/HTTP,28 pruebas, MCP/repetición nativa y HTML con70.778 binarios. Main100 sigue intacta; faltan revisión formal e integración.
 
 
