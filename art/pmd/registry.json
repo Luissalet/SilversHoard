@@ -1872,6 +1872,22 @@
           "149a887ebf92b82994dad7f535844aab10e66facc8e9ad20f86453c0b1b1086e"
         ]
       }
+    },
+    "layout": "native-pmd-animation-sheets",
+    "variants": {
+      "normal": "butterfree-gmax-native/normal",
+      "shiny": "butterfree-gmax-native/shiny"
+    },
+    "credit": [
+      "Silver — generated original art"
+    ],
+    "licence": "Project-generated fan art",
+    "cloud_correction": {
+      "scope": "All 96 normal and shiny native battle poses in five actions; keeps wings, body frames, and original motion geometry. Small red clouds separated from two teal antennae.",
+      "record": "butterfree-gmax-native/provenance.json",
+      "review_task": 2061,
+      "native_pose_count": 96,
+      "body_sheet_count": 10
     }
   },
   "crustle": {

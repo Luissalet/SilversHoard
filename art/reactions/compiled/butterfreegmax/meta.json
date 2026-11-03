@@ -30,9 +30,11 @@
         "reference": {
           "num": 12,
           "form": "Gmax",
-          "key": "lib-butterfreegmax-n-f8ee4ff43177"
+          "key": "lib-butterfreegmax-n-efee9b1c3cfc"
         },
-        "sha256": "5113edfdbe3fea37f5f37ba3709285f7cbdb60561cee73c5fcab30a290248205"
+        "sha256": "415dd53c491621990ff865de72d806af4d15c932843c7a67ed3d14487c0dd424",
+        "native_cloud_correction": "0f9656dd2495c77f71dd256b0847b89d240bf079bb0aa12e2b35b1fb0b74eaf5",
+        "prior_reaction_sha256": "5113edfdbe3fea37f5f37ba3709285f7cbdb60561cee73c5fcab30a290248205"
       },
       "row_map": [
         0,
@@ -75,9 +77,11 @@
         "reference": {
           "num": 12,
           "form": "Gmax",
-          "key": "lib-butterfreegmax-n-f8ee4ff43177"
+          "key": "lib-butterfreegmax-n-efee9b1c3cfc"
         },
-        "sha256": "d4789dda4f1b637421ae51899888ce82e588e90ff157e3e05aaf08385fe553f8"
+        "sha256": "8c61043586dc168ca4f91ce797e2c9364ad40fd3b6d3c0577d88a47b2ff0d89f",
+        "native_cloud_correction": "0f9656dd2495c77f71dd256b0847b89d240bf079bb0aa12e2b35b1fb0b74eaf5",
+        "prior_reaction_sha256": "d4789dda4f1b637421ae51899888ce82e588e90ff157e3e05aaf08385fe553f8"
       },
       "row_map": [
         0,
@@ -129,9 +133,11 @@
           "reference": {
             "num": 12,
             "form": "Gmax",
-            "key": "lib-butterfreegmax-s-14fff52f0fd0"
+            "key": "lib-butterfreegmax-s-07174c822d7b"
           },
-          "sha256": "90fcd5d32bb4fae2cf280f28ee8eb83a35d4801f465639664ef523d300ed6cd7"
+          "sha256": "37997b3ddcb25a1a49f9da20fc7616c1cbaaa9837d4c906d66292f81ea3c1c1b",
+          "native_cloud_correction": "0f9656dd2495c77f71dd256b0847b89d240bf079bb0aa12e2b35b1fb0b74eaf5",
+          "prior_reaction_sha256": "90fcd5d32bb4fae2cf280f28ee8eb83a35d4801f465639664ef523d300ed6cd7"
         },
         "row_map": [
           0,
@@ -174,9 +180,11 @@
           "reference": {
             "num": 12,
             "form": "Gmax",
-            "key": "lib-butterfreegmax-s-14fff52f0fd0"
+            "key": "lib-butterfreegmax-s-07174c822d7b"
           },
-          "sha256": "91ec8eb06b7b89d2c186ae8cab081daedb12d8362a93117e0f4ccf2c08f584f6"
+          "sha256": "78b4bf945453aeebaad211b095945a67cbd43b3e43c93afa21e7a9aee72f2b56",
+          "native_cloud_correction": "0f9656dd2495c77f71dd256b0847b89d240bf079bb0aa12e2b35b1fb0b74eaf5",
+          "prior_reaction_sha256": "91ec8eb06b7b89d2c186ae8cab081daedb12d8362a93117e0f4ccf2c08f584f6"
         },
         "row_map": [
           0,

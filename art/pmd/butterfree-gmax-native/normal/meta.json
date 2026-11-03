@@ -1,0 +1,125 @@
+{
+  "s": 1,
+  "credit": [
+    "Silver — generated original art"
+  ],
+  "licence": "Project-generated fan art",
+  "source": {
+    "kind": "generated",
+    "record": "butterfreegmax",
+    "directions": 4,
+    "poses": 16,
+    "column_order": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "row_orders": {},
+    "mirrored_tiles": [],
+    "mirrored_columns": [],
+    "drawn_directions": 4,
+    "component_edit": {
+      "uniform_scale": 0.9915254237288136,
+      "replaced_tiles": [
+        [
+          2,
+          0
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "unchanged_tiles": 12,
+      "edit_source_sha256": "a6982b8f2950668328d39fe0a334b8522460429fdf4cd2fc295849e177f8e3b3"
+    },
+    "tool": "built-in image_gen",
+    "variant": "normal",
+    "source_sha256": "dcbd4aa8331fefeff7d9f373f56c21bc67c79cf8ab8b2be6ce61ac8cd40c84f1",
+    "native_cloud_components": {
+      "review_task": 2061,
+      "parent_key": "lib-butterfreegmax-n-f8ee4ff43177",
+      "selection_sha256": "0f9656dd2495c77f71dd256b0847b89d240bf079bb0aa12e2b35b1fb0b74eaf5",
+      "review_sha256": "930f1eb1bfca450d24db4b4f15dd190f4f8d25fe185eb120f8c7ec5b3eac33ab",
+      "scope": "detached clouds and rooted antennae in original pixel frame"
+    }
+  },
+  "a": {
+    "Idle": {
+      "w": 64,
+      "h": 64,
+      "n": 1,
+      "r": 4,
+      "d": [
+        40
+      ],
+      "ax": 32,
+      "ay": 52,
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "file": "Idle.png"
+    },
+    "Walk": {
+      "w": 64,
+      "h": 64,
+      "n": 2,
+      "r": 4,
+      "d": [
+        7,
+        7
+      ],
+      "ax": 32,
+      "ay": 52,
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "file": "Walk.png"
+    },
+    "Attack": {
+      "w": 64,
+      "h": 64,
+      "n": 1,
+      "r": 4,
+      "d": [
+        12
+      ],
+      "ax": 32,
+      "ay": 52,
+      "row_map": [
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        0
+      ],
+      "file": "Attack.png"
+    }
+  }
+}
