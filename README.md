@@ -1,3 +1,9 @@
+# PMD portraits: Source125 (2026-11-03)
+
+Simisear and Patrat now have all 16 expressions in normal and shiny. Four atlases add 60 native 40x40 PNGs and retain four published portraits pixel for pixel. The reviewed changes distinguish concern and dizziness on Simisear, and refine Patrat's smile, shout and gaze while preserving its teeth and shiny palette. The full provenance includes 169 documents.
+
+Of 1,469 forms, 1,158 have all 16 expressions in both palettes. 311 forms and 9,179 expression bindings remain incomplete. The portrait tests and both full suites passed. All 64 portraits matched through the Silver and portable HTML readers. The live checks showed both Dizzy portraits, a Max Strike that connected, both Dynamax scale changes, and a recorded Recover.
+
 # PMD portraits · Source124 · 3 November 2026
 
 Tangrowth and Alolan Exeggutor now have all 16 expressions in both palettes. Four atlases add 60 native 40×40 PNGs and retain four published Normal portraits. Tangrowth restores its original anatomy and separates four pairs of expressions using the eyes. Alolan Exeggutor clears the opening between its leaves and gets a distinct Dizzy gaze. The full provenance contains 242 documents.

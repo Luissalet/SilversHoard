@@ -1,3 +1,9 @@
+# Retratos PMD: Source125 (3 de noviembre de 2026)
+
+Simisear y Patrat tienen las 16 expresiones en normal y shiny. Cuatro atlas añaden 60 PNG nativos de 40x40 y conservan cuatro retratos publicados píxel por píxel. Los cambios revisados distinguen la preocupación y el mareo en Simisear y afinan la sonrisa, el grito y la mirada de Patrat, conservando sus dientes y su paleta shiny. La procedencia íntegra incluye 169 documentos.
+
+Hay 1.158 de 1.469 formas con las 16 expresiones en ambas paletas. Quedan 311 formas y 9.179 enlaces pendientes. Pasaron las pruebas de retratos y las dos suites completas. Los 64 retratos coincidieron en Silver y el HTML portátil. La comprobación mostró ambos retratos de mareo, un Max Strike acertado, ambos cambios de escala Dynamax y una Recuperación grabada.
+
 # Retratos PMD · Source124 · 3 de noviembre de 2026
 
 Tangrowth y Exeggutor de Alola tienen las 16 expresiones en normal y shiny. Cuatro atlas añaden 60 PNG nativos de 40×40 y conservan cuatro Normal publicados. Tangrowth recupera su anatomía original y diferencia cuatro pares de expresiones mediante los ojos. Exeggutor de Alola recupera el hueco de cielo entre las hojas y tiene una mirada de mareo propia. La procedencia íntegra contiene 242 documentos.
