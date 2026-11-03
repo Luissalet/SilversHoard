@@ -1,3 +1,9 @@
+# Retratos PMD: Source132 (04-11-2026)
+
+Scream Tail, Bewear y Pecharunt tienen las 16 expresiones en normal y shiny. Seis atlas añaden 90 retratos de 40×40 y conservan intactos los seis Normal publicados. Scream Tail mantiene los dientes superiores y las lágrimas salen de los párpados. Bewear mantiene la nariz separada de la boca y tiene el contorno del pelaje limpio. Pecharunt conserva los dos colmillos y la silueta de su caparazón en las expresiones retocadas. La procedencia reúne 188 documentos.
+
+Hay 1.169 de 1.469 formas completas en ambas paletas. Quedan 300 formas y 8.849 expresiones por completar. Los 96 retratos coincidieron en Silver y en el HTML portátil. Scream Tail y Bewear mostraron los retratos de confusión durante Dynamax en Silver. La repetición del HTML mostró a Pecharunt y Bewear a escala Dynamax y a ambos con retratos de confusión tras volver a su tamaño normal. Pasaron las pruebas de retratos y las dos suites completas.
+
 # Retratos PMD: Source131 (03-11-2026)
 
 Komala tiene las 16 expresiones en normal y shiny. Dos atlas añaden 30 retratos de 40×40 y conservan intactos los dos Normal publicados. Los nuevos gestos usan los párpados cerrados debajo de las cejas claras. La boca queda debajo de la nariz y las lágrimas nacen de los párpados. Se mantienen el encuadre y el tronco de cada paleta. La procedencia completa reúne 101 documentos.
