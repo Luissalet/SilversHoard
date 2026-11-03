@@ -1,3 +1,9 @@
+# PMD portraits: Source129 (2026-11-03)
+
+Darumaka and Darumaka-Galar now have all 16 expressions in both palettes. Four atlases add 60 native 40×40 portraits and preserve the four published Normal portraits byte for byte. Closed lids no longer leave the old eye rings on Darumaka. Both forms distinguish worry, inspiration, shouting and laughter; their tears connect to the lids. Galar keeps its tooth and the colored rims around its open eyes. The complete provenance includes 131 documents.
+
+Both palettes are complete for 1,163 of 1,469 forms. There are 306 forms and 9,029 expressions left to complete. All 64 portraits matched Silver and the portable HTML. Both combatants displayed Dizzy in both clients. The HTML replay showed their two Dynamax scales, Max Strike landing and Recover restoring health. The portrait tests and both full suites passed.
+
 # PMD portraits: Source128 (2026-11-03)
 
 Pawmot has all 16 expressions in normal and shiny. Two atlases add 30 native 40×40 portraits and preserve both published Normal portraits byte for byte. The new portraits restore the outer pixel edge, keep both ears and preserve the tears and sweat. Worry and inspiration have their own eye and mouth shapes. The complete provenance includes 113 documents.

@@ -1,3 +1,9 @@
+# Retratos PMD: Source129 (03-11-2026)
+
+Darumaka y Darumaka de Galar tienen las 16 expresiones en ambas paletas. Cuatro atlas añaden 60 retratos de 40×40 y conservan intactos los cuatro Normal publicados. En Darumaka los párpados cerrados ya no dejan visibles los arcos de los ojos abiertos. En ambas formas se distinguen la preocupación, el entusiasmo, el grito y la risa. Las lágrimas nacen de los párpados. En Galar se conservan el diente y los bordes de color de los ojos abiertos. La procedencia completa reúne 131 documentos.
+
+Hay 1.163 de 1.469 formas completas en ambas paletas. Quedan 306 formas y 9.029 expresiones por completar. Los 64 retratos coincidieron en Silver y en el HTML portátil. En ambos se vieron los dos retratos de confusión a la vez. La repetición del HTML mostró las dos escalas de Dynamax, un impacto de Max Strike y una curación con Recover. Pasaron las pruebas de retratos y las dos suites completas.
+
 # Retratos PMD: Source128 (03-11-2026)
 
 Pawmot tiene las 16 expresiones en normal y shiny. Dos atlas añaden 30 retratos de 40×40 y conservan intactos los dos retratos Normal publicados. Los retratos nuevos limpian el borde exterior sin alterar las orejas, las lágrimas ni el sudor. La preocupación y el entusiasmo se distinguen en los ojos y la boca. La procedencia completa reúne 113 documentos.
