@@ -1,3 +1,9 @@
+# PMD portraits: Source127 (2026-11-03)
+
+Pawmo now has all 16 expressions in normal and shiny. Two atlases add 30 native 40x40 portraits and preserve both published Normal portraits pixel for pixel. Six local edits distinguish worry, inspiration and dizziness. The shiny portraits restore the cheek and shoulder shadow while keeping the teal ears and original silhouette. The full provenance contains 86 documents.
+
+Of 1,469 forms, 1,160 have all 16 expressions in both palettes. 309 forms and 9,119 expression bindings remain incomplete. All 32 portraits matched through the Silver and portable HTML readers. Replays showed reactive Dizzy portraits and both Dynamax scales; the portable match recorded a landed Max Strike and a successful Recover. The portrait tests and both full suites passed.
+
 # PMD portraits: Source126 (2026-11-03)
 
 Simisage now has all 16 expressions in normal and shiny. Two atlases add 30 native 40x40 portraits and preserve the two published Normal portraits pixel for pixel. The reviewed masks remove the old background around the ears and shoulders; six local changes distinguish worry, inspiration and dizziness. The full provenance contains 110 documents.
