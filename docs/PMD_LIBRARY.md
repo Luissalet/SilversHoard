@@ -1,3 +1,11 @@
+# PMD portraits · Source122 · 3 November 2026
+
+Completes all sixteen expressions for Rotom Heat and Rotom Wash in both palettes. The four atlases use native 40×40 cells and add 60 PNGs while retaining the four published Normal portraits exactly. Local corrections remove old eye outlines in 38 cells. Heat’s two Shouting portraits have a newly drawn open mouth over the existing eyes. Wash retains its own face, lid shadows, circular door and reflection. The canonical emotion backgrounds and palette materials are recorded in 217 complete provenance documents.
+
+The library has 506 records, 37,649 bindings, 36,380 PNG descriptors and 16 active packs. Both palettes have all sixteen expressions for 1,152 of 1,469 forms, leaving 317 forms and 9,359 bindings incomplete. All 502 previous records and sources, 37,589 bindings, 36,320 PNG payloads and 16 prior physical packs are preserved.
+
+Verified 64 readers, 102,400 RGBA positions, 29 area tests and the full Python and engine suites (engine: 675 passed, one skipped). The native replay showed both Dizzy portraits at 5.06 s. The portable HTML embeds 72,402 binaries in 41 chunks, and all 64 selected portraits matched the exact HTTP responses. The HTML battle recorded a landed Max Strike and a successful Recover. The portrait remained Dizzy while confusion was still active. The replay shows Wash enlarged at 19.93 s and back to normal at 22.06 s. The four browser-cached HUD portraits and four assigned ball icons matched the library bytes. This release covers portraits for these two forms.
+
 # PMD portraits · Source121 · 3 November 2026
 
 Completes all sixteen expressions for Rotom Frost and Alolan Muk in both palettes. The four native 40×40 atlases add 60 PNGs and preserve four published Normal portraits byte for byte. Frost retains Claude’s expression work with 22 local corrections that remove old eye outlines without changing alpha. Muk keeps 20 Claude expressions, eight art30 expressions and two local Dizzy revisions. Dizzy is accepted as a complete portrait with its effects. Crying retains detached cheek drops. Each cell uses its canonical expression background, with 259 complete provenance documents recording the sources and edits.
