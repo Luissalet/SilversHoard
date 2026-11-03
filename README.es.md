@@ -1,3 +1,9 @@
+# Retratos PMD · Source123 · 3 de noviembre de 2026
+
+Rotom Corte y Rotom Ventilador tienen las 16 expresiones en normal y shiny. Cuatro atlas añaden 60 PNG nativos de 40×40 y conservan los cuatro Normal publicados. Se han limpiado restos del contorno ocular en 44 caras. Inspiración y sorpresa de Rotom Ventilador tienen ahora miradas y bocas propias. La procedencia íntegra contiene 221 documentos.
+
+Hay 1.154 de 1.469 formas con las 16 expresiones en ambas paletas. Quedan 315 formas y 9.299 enlaces pendientes. Pasaron las 29 pruebas de retratos y las dos suites completas. Los 64 retratos coincidieron en Silver y el HTML portátil. La repetición de Silver mostró el grito de Rotom Corte shiny; el combate HTML registró un Max Strike acertado y el cambio de tamaño de ambos Pokémon.
+
 # Retratos PMD · Source122 · 3 de noviembre de 2026
 
 Completa las dieciséis expresiones de Rotom Calor y Rotom Lavado en normal y shiny. Los cuatro atlas usan casillas nativas de 40×40, añaden 60 PNG y conservan intactos los cuatro retratos Normal publicados. Se ha limpiado el contorno anterior de los ojos en 38 caras. Los dos gritos de Rotom Calor tienen una boca abierta redibujada sobre los ojos existentes. Rotom Lavado mantiene la sombra de la tapa, la puerta circular y su reflejo. Los fondos canónicos y las muestras de ambas paletas quedan documentados en 217 registros completos de procedencia.

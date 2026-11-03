@@ -1,3 +1,9 @@
+# PMD portraits · Source123 · 3 November 2026
+
+Rotom Mow and Rotom Fan now have all 16 expressions in both palettes. Four atlases add 60 native 40×40 PNGs and preserve the four published Normal portraits. Old eye outlines were cleaned up in 44 faces. The two Inspired and two Surprised portraits of Rotom Fan now have their own eye and mouth poses. The full provenance contains 221 documents.
+
+Both palettes have all 16 expressions for 1,154 of 1,469 forms, leaving 315 forms and 9,299 bindings pending. The 29 portrait tests and both full test suites passed. All 64 selected portraits matched in Silver and the portable HTML. The native replay showed shiny Rotom Mow Shouting; the HTML match recorded a landed Max Strike and both size changes.
+
 # PMD portraits · Source122 · 3 November 2026
 
 Completes all sixteen expressions for Rotom Heat and Rotom Wash in both palettes. The four atlases use native 40×40 cells and add 60 PNGs while retaining the four published Normal portraits exactly. Local corrections remove old eye outlines in 38 cells. Heat’s two Shouting portraits have a newly drawn open mouth over the existing eyes. Wash retains its own face, lid shadows, circular door and reflection. The canonical emotion backgrounds and palette materials are recorded in 217 complete provenance documents.
