@@ -1,3 +1,9 @@
+# PMD portraits: Source132 (2026-11-04)
+
+Scream Tail, Bewear and Pecharunt now have all 16 expressions in both normal and shiny palettes. Six atlases add 90 portraits at 40×40 and keep the six published Normal portraits unchanged. Scream Tail keeps its upper teeth and uses the eyelids as the source of its tears. Bewear keeps a distinct nose and mouth, with clean fur edges. Pecharunt keeps both fangs and its shell silhouette across the edited expressions. The provenance records 188 supporting documents.
+
+There are 1,169 of 1,469 forms with both palettes complete, leaving 300 forms and 8,849 expression bindings to fill. All 96 portraits matched the native and portable readers. Scream Tail and Bewear showed confusion portraits during Dynamax in Silver. The portable replay showed Pecharunt and Bewear at Dynamax scale and both showing confusion after returning to normal size. The portrait checks and both full suites passed.
+
 # PMD portraits: Source131 (2026-11-03)
 
 Komala has all 16 expressions in normal and shiny. Two atlases add 30 native 40×40 portraits and keep both published Normal portraits intact. The new expressions use the closed eyelids below the pale eyebrows. The mouth sits under the nose, and tears now start from the actual lids. Both log palettes and the published framing are retained. The complete provenance contains 101 documents.
