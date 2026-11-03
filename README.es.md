@@ -1,3 +1,11 @@
+# Retratos PMD · Source122 · 3 de noviembre de 2026
+
+Completa las dieciséis expresiones de Rotom Calor y Rotom Lavado en normal y shiny. Los cuatro atlas usan casillas nativas de 40×40, añaden 60 PNG y conservan intactos los cuatro retratos Normal publicados. Se ha limpiado el contorno anterior de los ojos en 38 caras. Los dos gritos de Rotom Calor tienen una boca abierta redibujada sobre los ojos existentes. Rotom Lavado mantiene la sombra de la tapa, la puerta circular y su reflejo. Los fondos canónicos y las muestras de ambas paletas quedan documentados en 217 registros completos de procedencia.
+
+La biblioteca contiene 506 registros, 37.649 enlaces, 36.380 descriptores PNG y 16 paquetes activos. Hay 1.152 de 1.469 formas con las 16 expresiones en ambas paletas. Quedan 317 formas y 9.359 enlaces pendientes. Se conservan los 502 registros y fuentes anteriores, 37.589 enlaces, 36.320 PNG y 16 paquetes físicos previos.
+
+Se comprobaron 64 lectores y 102.400 posiciones RGBA, las 29 pruebas del área y las suites completas de Python y del motor (675 correctas y una omitida). La repetición nativa mostró ambos retratos de mareo a los 5,06 s. El HTML portátil incluye 72.402 binarios en 41 bloques, con las 64 respuestas HTTP exactas. El combate HTML registró un Max Strike acertado y una Recuperación efectiva. La cara siguió mostrando mareo mientras duró la confusión. La repetición muestra a Rotom Lavado agrandado a los 19,93 s y a tamaño normal a los 22,06 s. Los cuatro retratos del HUD y las cuatro Poké Balls asignadas coincidieron con sus archivos. Esta entrega cubre los retratos de estas dos formas.
+
 # Retratos PMD · Source121 · 3 de noviembre de 2026
 
 Completa las dieciséis expresiones de Rotom Frío y Muk de Alola en normal y shiny. Los cuatro atlas nativos de 40×40 añaden 60 PNG y conservan cuatro retratos Normal publicados byte por byte. Rotom conserva los gestos de Claude con 22 retoques que limpian el contorno antiguo de los ojos sin tocar el alfa. Muk reúne 20 expresiones de Claude, ocho de art30 y dos revisiones locales de Dizzy. Dizzy se aprueba como retrato completo con sus efectos. Crying conserva gotas separadas en la mejilla. Cada casilla usa el fondo canónico de su expresión; 259 documentos completos registran fuentes y ediciones.
