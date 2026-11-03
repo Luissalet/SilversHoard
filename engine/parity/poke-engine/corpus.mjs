@@ -93,8 +93,11 @@ function main() {
   const args = process.argv.slice(2);
   const out = args.find((a) => !a.startsWith('--'));
   const flag = (name, d) => { const i = args.indexOf(`--${name}`); return i >= 0 ? Number(args[i + 1]) : d; };
-  if (!out) { console.error('usage: node corpus.mjs <out.jsonl> [--battles N] [--seed N] [--turns N]'); process.exit(2); }
-  const cases = buildCorpus({battles: flag('battles', 220), seed: flag('seed', 1), turns: flag('turns', 6)});
+  if (!out) { console.error('usage: node corpus.mjs <out.jsonl> [--battles N] [--seed N] [--turns N] [--only <edge name prefix>]'); process.exit(2); }
+  // --only rule-: just the edge battles whose name starts with it (what tests/test_master_rules.py plays)
+  const only = args.includes('--only') ? args[args.indexOf('--only') + 1] : null;
+  const cases = only !== null ? edgeCases().filter((c) => c.name.startsWith(only))
+    : buildCorpus({battles: flag('battles', 220), seed: flag('seed', 1), turns: flag('turns', 6)});
   const stream = createWriteStream(out);
   for (const c of cases) stream.write(JSON.stringify({id: c.id, input: c}) + '\n');
   stream.end(() => console.log(`${cases.length} cases (${cases.filter((c) => c.family === 'edge').length} edge) -> ${out}`));

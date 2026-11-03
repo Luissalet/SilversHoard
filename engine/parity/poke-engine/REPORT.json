@@ -1,24 +1,24 @@
 {
  "status": "fail",
- "finished_at": "2026-10-28T22:29:10+00:00",
- "duration_s": 119.466,
+ "finished_at": "2026-11-03T23:33:17+00:00",
+ "duration_s": 10.139,
  "corpus": {
-  "cases": 1404,
-  "sha256": "c9e78cad2e10afcc2fb1b025170ca849f2ee1de43186b0522f979f59b9cebe1e"
+  "cases": 1427,
+  "sha256": "c417aa60b87a4fadb7806681232964bdcfa93320c656ea36baa65725ecbdf44e"
  },
  "divergence": {
-  "line": 8,
-  "case_id": "e005t1",
-  "path": ".ev[0][2].p2.hp.machamp",
+  "line": 13,
+  "case_id": "e007t2",
+  "path": ".ev[0][2].p1.hp.toxapex",
   "kind": "event",
   "expected": {
    "$approx": [
-    360,
+    204,
     1.5
    ]
   },
-  "actual": 384,
-  "summary": "case e005t1 (line 8), event 0 (state after), at .ev[0][2].p2.hp.machamp: expected {'$approx': [360, 1.5]}, got 384",
+  "actual": 104,
+  "summary": "case e007t2 (line 13), event 0 (state after), at .ev[0][2].p1.hp.toxapex: expected {'$approx': [204, 1.5]}, got 104",
   "event_index": 0,
   "event_kind": "state",
   "event_name": "after",
@@ -29,7 +29,7 @@
      "after",
      {
       "p1": {
-       "active": "gengar",
+       "active": "toxapex",
        "boosts": {
         "accuracy": 0,
         "attack": 0,
@@ -40,15 +40,15 @@
         "speed": 0
        },
        "hp": {
-        "gengar": {
+        "toxapex": {
          "$approx": [
-          34.375,
-          3.174
+          204,
+          1.5
          ]
         }
        },
        "item": {
-        "gengar": "none"
+        "toxapex": "none"
        },
        "side": {},
        "status": {},
@@ -57,7 +57,7 @@
        "volatile": []
       },
       "p2": {
-       "active": "machamp",
+       "active": "blissey",
        "boosts": {
         "accuracy": 0,
         "attack": 0,
@@ -68,19 +68,21 @@
         "speed": 0
        },
        "hp": {
-        "machamp": {
+        "blissey": {
          "$approx": [
-          360,
+          582,
           1.5
          ]
         }
        },
        "item": {
-        "machamp": "leftovers"
+        "blissey": "none"
        },
-       "side": {},
+       "side": {
+        "toxic_count": 2
+       },
        "status": {
-        "machamp": "burn"
+        "blissey": "toxic"
        },
        "sub": 0,
        "tera": [],
@@ -101,7 +103,7 @@
      "after",
      {
       "p1": {
-       "active": "gengar",
+       "active": "toxapex",
        "boosts": {
         "accuracy": 0,
         "attack": 0,
@@ -112,10 +114,10 @@
         "speed": 0
        },
        "hp": {
-        "gengar": 35
+        "toxapex": 104
        },
        "item": {
-        "gengar": "none"
+        "toxapex": "none"
        },
        "side": {},
        "status": {},
@@ -124,7 +126,7 @@
        "volatile": []
       },
       "p2": {
-       "active": "machamp",
+       "active": "blissey",
        "boosts": {
         "accuracy": 0,
         "attack": 0,
@@ -135,14 +137,16 @@
         "speed": 0
        },
        "hp": {
-        "machamp": 384
+        "blissey": 582
        },
        "item": {
-        "machamp": "leftovers"
+        "blissey": "none"
        },
-       "side": {},
+       "side": {
+        "toxic_count": 2
+       },
        "status": {
-        "machamp": "burn"
+        "blissey": "toxic"
        },
        "sub": 0,
        "tera": [],
@@ -159,29 +163,35 @@
    ]
   },
   "input": {
-   "id": "e005t1",
+   "id": "e007t2",
    "family": "edge",
-   "name": "burn-halves-attack turn 1",
+   "name": "toxic-counter turn 2",
    "format": "gen9customgame",
    "seed": [
-    16,
+    18,
     22,
     33,
     44
    ],
    "teams": {
-    "p1": "Gengar|||CursedBody|WillOWisp,ShadowBall,Protect|Hardy|252,4,,,,252|||||",
-    "p2": "Machamp||Leftovers|Guts|CloseCombat,KnockOff,Protect|Hardy|252,4,,,,252|||||"
+    "p1": "Toxapex|||Regenerator|Toxic,Recover,Protect|Hardy|252,4,,,,252|||||",
+    "p2": "Blissey|||NaturalCure|SeismicToss,SoftBoiled,Protect|Hardy|252,4,,,,252|||||"
    },
    "modal": true,
-   "history": [],
+   "history": [
+    [
+     "move 1",
+     "move 1",
+     "none"
+    ]
+   ],
    "choice": [
-    "move 1",
-    "move 2"
+    "move 3",
+    "move 1"
    ],
    "crit": "none",
-   "a": "willowisp",
-   "b": "knockoff",
+   "a": "protect",
+   "b": "seismictoss",
    "ends": false,
    "flags": {
     "order": false,
@@ -192,20 +202,20 @@
     "side_one": {
      "pokemon": [
       {
-       "id": "gengar",
+       "id": "toxapex",
        "level": 100,
        "types": [
-        "ghost",
-        "poison"
+        "poison",
+        "water"
        ],
        "base_types": [
-        "ghost",
-        "poison"
+        "poison",
+        "water"
        ],
-       "hp": 324,
-       "maxhp": 324,
-       "ability": "cursedbody",
-       "base_ability": "cursedbody",
+       "hp": 204,
+       "maxhp": 304,
+       "ability": "regenerator",
+       "base_ability": "regenerator",
        "item": "none",
        "nature": "hardy",
        "evs": [
@@ -216,27 +226,27 @@
         0,
         252
        ],
-       "attack": 167,
-       "defense": 156,
-       "special_attack": 296,
-       "special_defense": 186,
-       "speed": 319,
+       "attack": 163,
+       "defense": 340,
+       "special_attack": 142,
+       "special_defense": 320,
+       "speed": 169,
        "status": "none",
        "rest_turns": 0,
        "sleep_turns": 0,
-       "weight_kg": 40.5,
+       "weight_kg": 14.5,
        "terastallized": false,
-       "tera_type": "ghost",
+       "tera_type": "poison",
        "mega_evolved": false,
        "moves": [
         {
-         "id": "willowisp",
-         "pp": 24,
+         "id": "toxic",
+         "pp": 15,
          "disabled": false
         },
         {
-         "id": "shadowball",
-         "pp": 24,
+         "id": "recover",
+         "pp": 8,
          "disabled": false
         },
         {
@@ -263,7 +273,7 @@
       "evasion": 0
      },
      "substitute_health": 0,
-     "last_used_move": "move:none",
+     "last_used_move": "move:0",
      "wish": [
       0,
       0
@@ -273,21 +283,21 @@
     "side_two": {
      "pokemon": [
       {
-       "id": "machamp",
+       "id": "blissey",
        "level": 100,
        "types": [
-        "fighting",
+        "normal",
         "typeless"
        ],
        "base_types": [
-        "fighting",
+        "normal",
         "typeless"
        ],
-       "hp": 384,
-       "maxhp": 384,
-       "ability": "guts",
-       "base_ability": "guts",
-       "item": "leftovers",
+       "hp": 670,
+       "maxhp": 714,
+       "ability": "naturalcure",
+       "base_ability": "naturalcure",
+       "item": "none",
        "nature": "hardy",
        "evs": [
         252,
@@ -297,27 +307,27 @@
         0,
         252
        ],
-       "attack": 297,
-       "defense": 196,
-       "special_attack": 166,
-       "special_defense": 206,
+       "attack": 57,
+       "defense": 56,
+       "special_attack": 186,
+       "special_defense": 306,
        "speed": 209,
-       "status": "none",
+       "status": "toxic",
        "rest_turns": 0,
        "sleep_turns": 0,
-       "weight_kg": 130,
+       "weight_kg": 46.8,
        "terastallized": false,
-       "tera_type": "fighting",
+       "tera_type": "normal",
        "mega_evolved": false,
        "moves": [
         {
-         "id": "closecombat",
-         "pp": 8,
+         "id": "seismictoss",
+         "pp": 31,
          "disabled": false
         },
         {
-         "id": "knockoff",
-         "pp": 32,
+         "id": "softboiled",
+         "pp": 8,
          "disabled": false
         },
         {
@@ -331,7 +341,9 @@
      "active_index": "0",
      "force_switch": false,
      "force_trapped": false,
-     "side_conditions": {},
+     "side_conditions": {
+      "toxic_count": 1
+     },
      "volatile_statuses": [],
      "volatile_status_durations": {},
      "boosts": {
@@ -344,7 +356,7 @@
       "evasion": 0
      },
      "substitute_health": 0,
-     "last_used_move": "move:none",
+     "last_used_move": "move:0",
      "wish": [
       0,
       0
@@ -361,18 +373,14 @@
   }
  },
  "scope": "Singles of the 9th generation, one turn at a time, from states of seeded random sets (up to 6 turns of each of PARITY_PE_BATTLES battles, switches and Terastallization included) and about 40 scripted edge battles (weather, statuses, priority, multi-hit, fixed critical hits, hazards, screens, terrain, items, abilities). Compared: who hit first, the damage of that hit, and after the turn the hit points, statuses, items, Terastallization, boosts, side conditions, volatile statuses, substitute, weather, terrain and Trick Room. Not covered: doubles and other generations; pivot moves (U-turn and the like stop the turn half way in the simulator) and anything that needs a choice in the middle of a turn; Mega Evolution; PP; the turn after a forced switch; the end-of-turn effects of a turn that ends the battle (only hit points are compared there); the unlikely branch of a chance (the simulator is played with the likeliest result of every chance, a duration at its longest, and poke-engine's likeliest branch is compared) except the critical hits the edge cases force; the simulator's damage roll is covered as an interval or as its mean; items poke-engine has no name for are treated as inert; abilities are not compared by name, only through what they do; the move choice of the AI itself (the search) is not compared, only the rules it searches over.",
- "cases": 1404,
- "matching": 1209,
- "divergent": 195,
+ "cases": 1427,
+ "matching": 1313,
+ "divergent": 114,
  "kinds": {
-  "hp": 79,
-  "damage.first": 27,
-  "volatile": 26,
-  "boosts.evasion": 12,
-  "side.toxic_count": 9,
-  "status": 9,
-  "active": 7,
-  "item": 6,
+  "hp": 59,
+  "volatile": 23,
+  "damage.first": 7,
+  "status": 4,
   "boosts.defense": 3,
   "order": 3,
   "boosts.speed": 3,
@@ -382,16 +390,17 @@
   "boosts.special_attack": 2,
   "boosts.attack": 1,
   "side.aurora_veil": 1,
-  "side.reflect": 1
+  "side.reflect": 1,
+  "item": 1
  },
  "families": {
   "edge": {
-   "cases": 84,
-   "matching": 79
+   "cases": 107,
+   "matching": 106
   },
   "random": {
    "cases": 1320,
-   "matching": 1130
+   "matching": 1207
   }
  },
  "probe_errors": {}

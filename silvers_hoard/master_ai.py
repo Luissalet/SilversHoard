@@ -84,7 +84,14 @@ def check(pe) -> dict:
     st = pe.State(side_one=pe.Side(pokemon=[mon("pikachu", "electric", "thunderbolt")]),
                   side_two=pe.Side(pokemon=[mon("squirtle", "water", "watergun")]))
     r = pe.monte_carlo_tree_search(st, iterations=200)
-    return {"ok": True, "tera": any(str(x.move_choice).endswith("-tera") for x in r.side_one)}
+    try:
+        from importlib.metadata import version
+        ver = version("poke-engine")
+    except Exception:  # noqa: BLE001 - a build without metadata
+        ver = None
+    # Silver's build (scripts/build_poke_engine.py) is versioned 0.0.48+silver.N: its rules match the simulator where upstream's do not
+    return {"ok": True, "tera": any(str(x.move_choice).endswith("-tera") for x in r.side_one), "version": ver,
+            "silver_build": bool(ver and "+silver" in ver)}
 
 
 def main() -> None:

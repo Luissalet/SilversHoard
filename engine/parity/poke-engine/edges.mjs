@@ -106,6 +106,32 @@ export const EDGES = [
     p2: [mon('Blissey', {item: 'Leftovers', ability: 'Natural Cure', moves: ['Seismic Toss', 'Soft-Boiled', 'Protect']})], turns: [t(M(1), M(1)), t(M(1), M(1))]},
   {name: 'switch-into-attack', p1: [mon('Gengar', {ability: 'Cursed Body', moves: ['Shadow Ball', 'Sludge Bomb', 'Protect']}), mon('Blissey', {ability: 'Natural Cure', moves: ['Seismic Toss', 'Soft-Boiled']})],
     p2: [mon('Machamp', {ability: 'No Guard', moves: ['Close Combat', 'Knock Off', 'Protect']})], turns: [t('switch 2', M(1)), t(M(1), M(2))]},
+  // rules Silver's build of poke-engine corrects (engine/poke-engine/patches); tests/test_master_rules.py plays these in both engines
+  {name: 'rule-leftovers-before-burn', p1: [mon('Gengar', {ability: 'Cursed Body', moves: ['Will-O-Wisp', 'Protect']})],
+    p2: [mon('Snorlax', {ability: 'Thick Fat', item: 'Leftovers', moves: ['Calm Mind', 'Body Slam']})], turns: [t(M(1), M(1)), t(M(2), M(1))]},
+  {name: 'rule-leftovers-before-toxic', p1: [mon('Toxapex', {ability: 'Regenerator', moves: ['Toxic', 'Protect']})],
+    p2: [mon('Blissey', {ability: 'Natural Cure', item: 'Leftovers', moves: ['Calm Mind', 'Seismic Toss']})],
+    turns: [t(M(1), M(1)), t(M(2), M(1)), t(M(2), M(1))]},
+  {name: 'rule-black-sludge-non-poison', p1: [mon('Garchomp', {ability: 'Sand Veil', item: 'Black Sludge', moves: ['Swords Dance', 'Earthquake']})],
+    p2: [mon('Blissey', {ability: 'Natural Cure', moves: ['Calm Mind', 'Seismic Toss']})], turns: [t(M(1), M(1)), t(M(1), M(2))]},
+  {name: 'rule-defog-evasion', p1: [mon('Corviknight', {ability: 'Pressure', moves: ['Defog', 'Roost']})],
+    p2: [mon('Blissey', {ability: 'Natural Cure', moves: ['Calm Mind', 'Soft-Boiled']})], turns: [t(M(1), M(1)), t(M(1), M(1))]},
+  {name: 'rule-rest-at-full-hp', p1: [mon('Snorlax', {ability: 'Thick Fat', moves: ['Rest', 'Curse']})],
+    p2: [mon('Blissey', {ability: 'Natural Cure', moves: ['Calm Mind', 'Seismic Toss']})], turns: [t(M(1), M(1)), t(M(2), M(2)), t(M(1), M(1))]},
+  {name: 'rule-rest-clears-toxic', p1: [mon('Toxapex', {ability: 'Regenerator', moves: ['Toxic', 'Protect']})],
+    p2: [mon('Snorlax', {ability: 'Thick Fat', moves: ['Curse', 'Rest']})], turns: [t(M(1), M(1)), t(M(2), M(1)), t(M(2), M(2))]},
+  {name: 'rule-shed-skin-likeliest', p1: [mon('Toxapex', {ability: 'Regenerator', moves: ['Toxic', 'Protect']})],
+    p2: [mon('Dragonite', {ability: 'Shed Skin', moves: ['Dragon Dance', 'Roost']})], turns: [t(M(1), M(1)), t(M(2), M(1))]},
+  {name: 'rule-heal-block-leftovers', p1: [mon('Alakazam', {ability: 'Magic Guard', moves: ['Psychic Noise', 'Protect']})],
+    // one turn: poke-engine keeps no duration for Heal Block (the simulator ends Psychic Noise's after two turns)
+    p2: [mon('Blissey', {ability: 'Natural Cure', item: 'Leftovers', moves: ['Calm Mind', 'Seismic Toss']})], turns: [t(M(1), M(1))]},
+  {name: 'rule-ghost-curse', p1: [mon('Gengar', {ability: 'Cursed Body', moves: ['Curse', 'Protect']})],
+    p2: [mon('Slowbro', {ability: 'Oblivious', moves: ['Calm Mind', 'Slack Off']})], turns: [t(M(1), M(1)), t(M(2), M(1))]},
+  {name: 'rule-weakness-policy-ko', p1: [mon('Machamp', {ability: 'No Guard', item: 'Choice Band', nature: 'Adamant', evs: '252 Atk / 4 Def / 252 Spe',
+    moves: ['Close Combat']})], p2: [mon('Tyranitar', {ability: 'Unnerve', item: 'Weakness Policy', evs: '4 HP / 252 Atk / 252 Spe', moves: ['Crunch']}),
+    mon('Blissey', {ability: 'Natural Cure', moves: ['Calm Mind']})], turns: [t(M(1), M(1), 'p1')]},
+  {name: 'rule-multihit-sum', p1: [mon('Cinccino', {ability: 'Technician', item: 'Loaded Dice', moves: ['Tail Slap', 'Bullet Seed']})],
+    p2: [mon('Blissey', {ability: 'Natural Cure', moves: ['Calm Mind', 'Soft-Boiled']})], turns: [t(M(1), M(1)), t(M(2), M(1))]},
 ];
 
 /** The packed teams of an edge battle. */
