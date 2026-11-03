@@ -5,6 +5,7 @@ import base64
 import hashlib
 import json
 import re
+import threading
 from pathlib import Path
 from typing import Any
 
@@ -32,7 +33,9 @@ class PmdLibrary:
         self.metas = dict(self.manifest.get("metas", {}))
         self.metas.update((m["crowd"]["key"], m["crowd"]) for m in self.manifest.get("metas", {}).values() if m.get("crowd"))
         self.species = {m["id"]: m for m in self.manifest.get("roster", [])}
-        self._extracted: set[Path] = set()
+        self._extracted: dict[Path, tuple[int, int]] = {}
+        self._locks: dict[Path, threading.Lock] = {}
+        self._locks_guard = threading.Lock()
 
     def resolve(self, num: int, form: str = "", shiny: bool = False) -> dict[str, Any] | None:
         form = re.sub(r"[^a-z0-9]", "", form.lower())
@@ -53,6 +56,25 @@ class PmdLibrary:
         mon = self.species.get(re.sub(r"[^a-z0-9]", "", name.lower()))
         return self.resolve(mon["num"], mon["form"]) if mon else None
 
+    def _cached(self, dest: Path, asset: dict[str, Any]) -> bool:
+        """Whether ``dest`` already holds this asset's exact bytes; hashed once per file version (size and mtime)."""
+        try:
+            st = dest.stat()
+        except OSError:
+            return False
+        if st.st_size != asset["size"]:
+            return False
+        signature = (st.st_size, st.st_mtime_ns)
+        if self._extracted.get(dest) == signature:
+            return True
+        try:
+            ok = hashlib.sha256(dest.read_bytes()).hexdigest() == asset["sha256"]
+        except OSError:
+            return False
+        if ok:
+            self._extracted[dest] = signature
+        return ok
+
     def sheet(self, key: str, animation: str, cache: Path) -> Path | None:
         geom = self.metas.get(key, {}).get("a", {}).get(animation)
         file = geom["file"] if geom else self.metas.get(key, {}).get("previews", {}).get(animation)
@@ -61,10 +83,22 @@ class PmdLibrary:
         asset = self.manifest["files"][file]
         extension = ".webp" if asset["mime"] == "image/webp" else ".png"
         dest = cache / "library" / (asset["sha256"] + extension)
-        if dest not in self._extracted or not dest.is_file():
-            raw = self.image_bytes(file)
-            write_bytes_atomic(dest, raw, fsync=False)
-            self._extracted.add(dest)
+        # Animations that share one picture (Hurt and Faint, previews) share this content-addressed file. A file that already
+        # holds the right bytes is never replaced: on Windows, replacing a file another request is reading (or opening it while
+        # it is replaced) fails with PermissionError. Extraction runs once per file under its own lock; a missing or damaged
+        # copy is still written again.
+        with self._locks_guard:
+            lock = self._locks.setdefault(dest, threading.Lock())
+        with lock:
+            if not self._cached(dest, asset):
+                raw = self.image_bytes(file)
+                try:
+                    write_bytes_atomic(dest, raw, fsync=False)
+                except PermissionError:
+                    # another process wrote the same file first and is serving it: theirs has the same bytes
+                    if not self._cached(dest, asset):
+                        raise
+                self._cached(dest, asset)
         return dest
 
     def portable(self) -> dict[str, Any]:

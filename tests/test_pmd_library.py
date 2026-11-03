@@ -505,3 +505,58 @@ def test_published_overworld_credits_and_full_notices_travel_offline(services,tm
     services.pmd.library=library
     assert services.credits_get(species='Charizard-Mega-Y')['source']=='Published overworld pixel art'
     assert portable_assets.bundle(services)['pmd']['notices']==library.manifest['notices']
+
+
+def test_concurrent_alias_requests_extract_once_and_never_replace_a_file_being_read(tmp_path, monkeypatch):
+    """#2072: Hurt and Faint (or previews) share one cached file; on Windows a second extraction replaced it while another
+    request had it open, and opening or replacing it raised PermissionError."""
+    import threading
+    import time
+    from silvers_hoard import pmd_library
+    library, png, _ = library_fixture(tmp_path / "library")
+    cache = tmp_path / "cache"
+    writes = []
+    real_write = pmd_library.write_bytes_atomic
+
+    def slow_write(path, data, **kw):
+        writes.append(path)
+        time.sleep(0.02)  # widen the window in which a second request could start another extraction
+        real_write(path, data, **kw)
+
+    monkeypatch.setattr(pmd_library, "write_bytes_atomic", slow_write)
+    aliases = ["Idle", "PreviewFront", "PreviewBack"]
+    barrier = threading.Barrier(12)
+    errors, served = [], []
+
+    def worker(i):
+        barrier.wait()
+        for _ in range(5):
+            try:
+                path = library.sheet("lib-mega", aliases[i % len(aliases)], cache)
+                with open(path, "rb") as fh:  # what FileResponse does, holding the file open while it streams
+                    time.sleep(0.002)
+                    served.append(fh.read())
+            except Exception as exc:  # noqa: BLE001
+                errors.append(repr(exc))
+
+    threads = [threading.Thread(target=worker, args=(i,)) for i in range(12)]
+    [t.start() for t in threads]
+    [t.join() for t in threads]
+    assert errors == []
+    assert len(writes) == 1 and len(served) == 60 and set(served) == {png}
+
+
+def test_body_cache_recovers_a_deleted_or_damaged_copy_with_the_packed_bytes(tmp_path):
+    library, png, _ = library_fixture(tmp_path / "library")
+    cache = tmp_path / "cache"
+    path = library.sheet("lib-mega", "Idle", cache)
+    path.unlink()
+    assert library.sheet("lib-mega", "PreviewBack", cache).read_bytes() == png
+    path.write_bytes(png[:-3])  # truncated
+    assert library.sheet("lib-mega", "Idle", cache).read_bytes() == png
+    path.write_bytes(bytes(len(png)))  # same size, wrong bytes
+    assert library.sheet("lib-mega", "Idle", cache).read_bytes() == png
+    # an intact copy written by someone else (another process) is kept as it is
+    stamp = path.stat().st_mtime_ns
+    fresh = PmdLibrary(library.root)
+    assert fresh.sheet("lib-mega", "PreviewFront", cache) == path and path.stat().st_mtime_ns == stamp
