@@ -1,3 +1,9 @@
+# PMD portraits: Source126 (2026-11-03)
+
+Simisage now has all 16 expressions in normal and shiny. Two atlases add 30 native 40x40 portraits and preserve the two published Normal portraits pixel for pixel. The reviewed masks remove the old background around the ears and shoulders; six local changes distinguish worry, inspiration and dizziness. The full provenance contains 110 documents.
+
+Of 1,469 forms, 1,159 have all 16 expressions in both palettes. 310 forms and 9,149 expression bindings remain incomplete. All 32 portraits matched through the Silver and portable HTML readers. The replays show the reactive Dizzy portraits and Dynamax scale changes, and the portable combat records a landed Max Strike and a successful Recover. The portrait tests and both full suites passed.
+
 # PMD portraits: Source125 (2026-11-03)
 
 Simisear and Patrat now have all 16 expressions in normal and shiny. Four atlases add 60 native 40x40 PNGs and retain four published portraits pixel for pixel. The reviewed changes distinguish concern and dizziness on Simisear, and refine Patrat's smile, shout and gaze while preserving its teeth and shiny palette. The full provenance includes 169 documents.

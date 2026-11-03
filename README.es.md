@@ -1,3 +1,9 @@
+# Retratos PMD: Source126 (3 de noviembre de 2026)
+
+Simisage tiene las 16 expresiones en normal y shiny. Dos atlas añaden 30 retratos nativos de 40x40 y conservan los dos Normal publicados píxel por píxel. Se retiran los restos del fondo anterior alrededor de orejas y hombros. Seis ajustes locales distinguen la preocupación, la inspiración y el mareo. La procedencia íntegra contiene 110 documentos.
+
+Hay 1.159 de 1.469 formas con las 16 expresiones en ambas paletas. Quedan 310 formas y 9.149 enlaces pendientes. Los 32 retratos coincidieron en Silver y el HTML portátil. Las repeticiones muestran retratos de mareo reactivos y los cambios de escala Dynamax. El combate portátil registra un Max Strike acertado y una Recuperación efectiva. Pasaron las pruebas de retratos y las dos suites completas.
+
 # Retratos PMD: Source125 (3 de noviembre de 2026)
 
 Simisear y Patrat tienen las 16 expresiones en normal y shiny. Cuatro atlas añaden 60 PNG nativos de 40x40 y conservan cuatro retratos publicados píxel por píxel. Los cambios revisados distinguen la preocupación y el mareo en Simisear y afinan la sonrisa, el grito y la mirada de Patrat, conservando sus dientes y su paleta shiny. La procedencia íntegra incluye 169 documentos.
