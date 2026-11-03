@@ -13,7 +13,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parent.parent
 HERE = ROOT / "engine" / "parity" / "poke-engine"
-HOARD_LINK = ROOT.parent / "HoardLink"
+HOARD_LINK = next((ROOT.parent / name for name in ("Hoard Hub", "HoardLink") if (ROOT.parent / name).exists()), ROOT.parent / "Hoard Hub")
 
 
 def _load(name: str, path: Path):
