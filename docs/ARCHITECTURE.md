@@ -1,3 +1,9 @@
+# PMD portraits: Source131 (2026-11-03)
+
+Komala has all 16 expressions in normal and shiny. Two atlases add 30 native 40×40 portraits and keep both published Normal portraits intact. The new expressions use the closed eyelids below the pale eyebrows. The mouth sits under the nose, and tears now start from the actual lids. Both log palettes and the published framing are retained. The complete provenance contains 101 documents.
+
+Both palettes are complete for 1,166 of 1,469 forms. There are 303 forms and 8,939 expression bindings left to complete. All 32 portraits matched in Silver and the portable HTML. Both Komala displayed their confusion portraits together. The HTML replay showed both Dynamax scales and their return to normal size, and the match recorded Max Strike landing. The portrait tests and both full suites passed.
+
 # PMD portraits: Source130 (2026-11-03)
 
 Arctibax and male Unfezant have all 16 expressions in normal and shiny. Four atlases add 60 native 40×40 portraits and preserve all four published Normal portraits. The tears now connect to the eyelids. Unfezant opens its beak when shouting and distinguishes worry from sadness and shock from surprise. Arctibax retains its ice mask and Unfezant retains the opening inside its crest. The complete provenance contains 96 documents.

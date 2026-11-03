@@ -1,3 +1,9 @@
+# Retratos PMD: Source131 (03-11-2026)
+
+Komala tiene las 16 expresiones en normal y shiny. Dos atlas añaden 30 retratos de 40×40 y conservan intactos los dos Normal publicados. Los nuevos gestos usan los párpados cerrados debajo de las cejas claras. La boca queda debajo de la nariz y las lágrimas nacen de los párpados. Se mantienen el encuadre y el tronco de cada paleta. La procedencia completa reúne 101 documentos.
+
+Hay 1.166 de 1.469 formas completas en ambas paletas. Quedan 303 formas y 8.939 expresiones por completar. Los 32 retratos coincidieron en Silver y en el HTML portátil. En ambos, los dos Komala mostraron a la vez el retrato de confusión. La repetición del HTML mostró las dos escalas de Dynamax, el retorno al tamaño normal y un impacto de Max Strike. Pasaron las pruebas de retratos y las dos suites completas.
+
 # Retratos PMD: Source130 (03-11-2026)
 
 Arctibax y Unfezant macho tienen las 16 expresiones en normal y shiny. Cuatro atlas añaden 60 retratos de 40×40 y conservan intactos los cuatro Normal publicados. Las lágrimas nacen de los párpados. Unfezant abre el pico al gritar y distingue la preocupación de la tristeza y el aturdimiento de la sorpresa. Arctibax conserva su máscara de hielo y Unfezant mantiene el hueco dentro de la cresta. La procedencia completa reúne 96 documentos.
