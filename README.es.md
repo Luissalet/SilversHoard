@@ -1,3 +1,9 @@
+# Retratos PMD: Source127 (3 de noviembre de 2026)
+
+Pawmo tiene las 16 expresiones en normal y shiny. Dos atlas añaden 30 retratos nativos de 40x40 y conservan los dos Normal publicados píxel por píxel. Seis ajustes locales distinguen la preocupación, la inspiración y el mareo. Los retratos shiny recuperan la sombra de la mejilla y el hombro y conservan el turquesa de las orejas y la silueta original. La procedencia íntegra contiene 86 documentos.
+
+Hay 1.160 de 1.469 formas con las 16 expresiones en ambas paletas. Quedan 309 formas y 9.119 enlaces pendientes. Los 32 retratos coincidieron en Silver y el HTML portátil. Las repeticiones mostraron retratos de mareo reactivos y los dos tamaños de Dynamax. El combate portátil registró un Max Strike acertado y una Recuperación efectiva. Pasaron las pruebas de retratos y las dos suites completas.
+
 # Retratos PMD: Source126 (3 de noviembre de 2026)
 
 Simisage tiene las 16 expresiones en normal y shiny. Dos atlas añaden 30 retratos nativos de 40x40 y conservan los dos Normal publicados píxel por píxel. Se retiran los restos del fondo anterior alrededor de orejas y hombros. Seis ajustes locales distinguen la preocupación, la inspiración y el mareo. La procedencia íntegra contiene 110 documentos.
