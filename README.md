@@ -1,3 +1,9 @@
+# PMD portraits: Source128 (2026-11-03)
+
+Pawmot has all 16 expressions in normal and shiny. Two atlases add 30 native 40×40 portraits and preserve both published Normal portraits byte for byte. The new portraits restore the outer pixel edge, keep both ears and preserve the tears and sweat. Worry and inspiration have their own eye and mouth shapes. The complete provenance includes 113 documents.
+
+Both palettes are complete for 1,161 of 1,469 forms. There are 308 forms and 9,089 expression bindings left to complete. All 32 portraits matched Silver's reader and the portable HTML. In the native replay both Pawmot displayed Dizzy. In the portable replay both changed size during Dynamax and returned to their original scale. The portrait tests and both full suites passed.
+
 # PMD portraits: Source127 (2026-11-03)
 
 Pawmo now has all 16 expressions in normal and shiny. Two atlases add 30 native 40x40 portraits and preserve both published Normal portraits pixel for pixel. Six local edits distinguish worry, inspiration and dizziness. The shiny portraits restore the cheek and shoulder shadow while keeping the teal ears and original silhouette. The full provenance contains 86 documents.

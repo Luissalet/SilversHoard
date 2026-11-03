@@ -1,3 +1,9 @@
+# Retratos PMD: Source128 (03-11-2026)
+
+Pawmot tiene las 16 expresiones en normal y shiny. Dos atlas añaden 30 retratos de 40×40 y conservan intactos los dos retratos Normal publicados. Los retratos nuevos limpian el borde exterior sin alterar las orejas, las lágrimas ni el sudor. La preocupación y el entusiasmo se distinguen en los ojos y la boca. La procedencia completa reúne 113 documentos.
+
+Hay 1.161 de 1.469 formas completas en ambas paletas. Quedan 308 formas y 9.089 expresiones por completar. Los 32 retratos coincidieron en Silver y en el HTML portátil. En la repetición de Silver los dos Pawmot mostraron el retrato de confusión. En el HTML ambos cambiaron de tamaño con Dynamax y volvieron a su escala normal. Pasaron las pruebas de retratos y las dos suites completas.
+
 # Retratos PMD: Source127 (3 de noviembre de 2026)
 
 Pawmo tiene las 16 expresiones en normal y shiny. Dos atlas añaden 30 retratos nativos de 40x40 y conservan los dos Normal publicados píxel por píxel. Seis ajustes locales distinguen la preocupación, la inspiración y el mareo. Los retratos shiny recuperan la sombra de la mejilla y el hombro y conservan el turquesa de las orejas y la silueta original. La procedencia íntegra contiene 86 documentos.
