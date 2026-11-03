@@ -24,8 +24,10 @@ from .hoard_link.proc import kill_tree, no_window_kwargs
 log = logging.getLogger("silver.engine")
 
 MASTER_SCRIPT = Path(__file__).with_name("master_ai.py")
-MASTER_HINT = ('pip install -r requirements-master.txt with MATURIN_PEP517_ARGS="--no-default-features --features '
-               'poke-engine/terastallization" set and a Rust toolchain (rustup.rs) installed; then restart the app.')
+MASTER_HINT = ('python scripts/build_poke_engine.py (needs a Rust toolchain from rustup.rs and git): it builds poke-engine with the '
+               "9th generation's rules and Silver's corrections; then restart the app.")
+UPSTREAM_HINT = ("poke-engine is the upstream build: python scripts/build_poke_engine.py installs Silver's build, whose end-of-turn order, "
+                 "Defog, Rest, Curse, Black Sludge, Heal Block and toxic damage match the simulator (docs/MASTER_AI_RULES.md).")
 _master: dict[str, Any] = {}
 
 
@@ -45,8 +47,10 @@ def master_status(refresh: bool = False) -> dict[str, Any]:
             except Exception as exc:  # noqa: BLE001 - a broken install
                 out = {"ok": False, "error": str(exc)[:200]}
         ok = bool(out.get("ok") and out.get("tera"))
+        corrected = bool(out.get("silver_build"))
         _master.update(available=ok, reason="" if ok else str(out.get("error") or "poke-engine was built without the 9th generation's rules"),
-                       hint="" if ok else MASTER_HINT)
+                       hint=MASTER_HINT if not ok else "" if corrected else UPSTREAM_HINT,
+                       engine_version=out.get("version"), simulator_rules="corrected" if corrected else "upstream" if ok else None)
     return dict(_master)
 
 

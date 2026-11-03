@@ -1,0 +1,398 @@
+Silver's corrections to poke-engine 0.0.48 (pmariglia, MIT): rules where the upstream engine differed from the
+simulator, found by engine/parity/poke-engine (task #1727). Applied by scripts/build_poke_engine.py.
+
+diff --git a/src/genx/abilities.rs b/src/genx/abilities.rs
+index e9d42ff..abdf885 100644
+--- a/src/genx/abilities.rs
++++ b/src/genx/abilities.rs
+@@ -1339,9 +1339,10 @@ pub fn ability_end_of_turn(
+                 );
+             }
+         }
+-        // Shed skin only has a 1/3 chance of activating at the end of the turn
+-        // but I'm not going to branch on that here
+-        Abilities::SHEDSKIN => {
++        // Shed skin only has a 1/3 chance of activating at the end of the turn and the end of the
++        // turn does not branch: it plays the likeliest outcome (no cure) instead of a certain cure,
++        // which made Rest + Shed Skin a full heal with no sleep and Toxic look useless
++        Abilities::SHEDSKIN if false => {
+             if active_pkmn.status != PokemonStatus::NONE {
+                 let attacking_side = state.get_side(side_ref);
+                 let active_index = attacking_side.active_index;
+diff --git a/src/genx/choice_effects.rs b/src/genx/choice_effects.rs
+index 92f844b..27d6372 100644
+--- a/src/genx/choice_effects.rs
++++ b/src/genx/choice_effects.rs
+@@ -47,6 +47,26 @@ pub fn modify_choice(
+                 attacker_choice.volatile_status = None
+             }
+         }
++        // the simulator's Curse: a Ghost (Terastallized included) curses the target for half its own
++        // HP; anyone else only gets the stat changes, with no curse on itself
++        Choices::CURSE => {
++            if attacking_side
++                .get_active_immutable()
++                .has_type(&PokemonType::GHOST)
++            {
++                attacker_choice.boost = None;
++                attacker_choice.volatile_status = Some(crate::choices::VolatileStatus {
++                    target: MoveTarget::Opponent,
++                    volatile_status: PokemonVolatileStatus::CURSE,
++                });
++                attacker_choice.heal = Some(Heal {
++                    target: MoveTarget::User,
++                    amount: -0.5,
++                });
++            } else {
++                attacker_choice.volatile_status = None;
++            }
++        }
+         Choices::ELECTROSHOT => {
+             if state.weather_is_active(&Weather::RAIN) {
+                 attacker_choice.flags.charge = false;
+@@ -1086,6 +1106,22 @@ pub fn choice_hazard_clear(
+         Choices::DEFOG
+             if defending_side.get_active_immutable().ability != Abilities::GOODASGOLD =>
+         {
++            // the simulator lowers the target's evasion by one stage (not through a substitute)
++            let target_side_ref = attacking_side_ref.get_other_side();
++            let target_side = state.get_side(&target_side_ref);
++            if !target_side
++                .volatile_statuses
++                .contains(&PokemonVolatileStatus::SUBSTITUTE)
++            {
++                apply_boost_instruction(
++                    target_side,
++                    &PokemonBoostableStat::Evasion,
++                    &-1,
++                    attacking_side_ref,
++                    &target_side_ref,
++                    instructions,
++                );
++            }
+             if state.terrain.terrain_type != Terrain::NONE {
+                 instructions
+                     .instruction_list
+@@ -1395,7 +1431,15 @@ pub fn choice_special_effect(
+             let attacking_side = state.get_side(attacking_side_ref);
+             let active_index = attacking_side.active_index;
+             let active_pkmn = attacking_side.get_active();
+-            if active_pkmn.status != PokemonStatus::SLEEP && !electric_terrain_active {
++            // the simulator's Rest fails at full HP and for Insomnia, Vital Spirit and Comatose
++            if active_pkmn.status != PokemonStatus::SLEEP
++                && !electric_terrain_active
++                && active_pkmn.hp < active_pkmn.maxhp
++                && active_pkmn.ability != Abilities::INSOMNIA
++                && active_pkmn.ability != Abilities::VITALSPIRIT
++                && active_pkmn.ability != Abilities::COMATOSE
++            {
++                let was_toxic = active_pkmn.status == PokemonStatus::TOXIC;
+                 let heal_amount = active_pkmn.maxhp - active_pkmn.hp;
+                 instructions
+                     .instruction_list
+@@ -1422,6 +1466,20 @@ pub fn choice_special_effect(
+                 active_pkmn.hp = active_pkmn.maxhp;
+                 active_pkmn.status = PokemonStatus::SLEEP;
+                 active_pkmn.rest_turns = 3;
++                // sleep replaces badly poisoned: its counter goes with it
++                let toxic_count = attacking_side.side_conditions.toxic_count;
++                if was_toxic && toxic_count != 0 {
++                    instructions
++                        .instruction_list
++                        .push(Instruction::ChangeSideCondition(
++                            ChangeSideConditionInstruction {
++                                side_ref: *attacking_side_ref,
++                                side_condition: PokemonSideCondition::ToxicCount,
++                                amount: -1 * toxic_count,
++                            },
++                        ));
++                    attacking_side.side_conditions.toxic_count = 0;
++                }
+             }
+         }
+         Choices::TRICKROOM => {
+diff --git a/src/genx/generate_instructions.rs b/src/genx/generate_instructions.rs
+index 3b173fe..429067b 100644
+--- a/src/genx/generate_instructions.rs
++++ b/src/genx/generate_instructions.rs
+@@ -28,7 +28,8 @@ use crate::instruction::{DecrementPPInstruction, SetLastUsedMoveInstruction};
+ use super::damage_calc::calculate_futuresight_damage;
+ use super::damage_calc::{calculate_damage, type_effectiveness_modifier, DamageRolls};
+ use super::items::{
+-    item_before_move, item_end_of_turn, item_modify_attack_against, item_modify_attack_being_used,
++    item_before_move, item_end_of_turn, item_end_of_turn_residual_heal, item_modify_attack_against,
++    item_modify_attack_being_used,
+     item_on_switch_in, Items,
+ };
+ use super::state::{MoveChoice, PokemonVolatileStatus, Terrain, Weather};
+@@ -1125,14 +1126,18 @@ fn get_instructions_from_secondaries(
+                             }
+                         }
+                         let target_pkmn = state.get_side(&secondary_target_side_ref).get_active();
+-                        secondary_hit_instructions
+-                            .instruction_list
+-                            .push(Instruction::ChangeItem(ChangeItemInstruction {
+-                                side_ref: secondary_target_side_ref,
+-                                current_item: target_pkmn.item.clone(),
+-                                new_item: Items::NONE,
+-                            }));
+-                        target_pkmn.item = Items::NONE;
++                        // a target the hit knocked out keeps its item (Weakness Policy, Absorb Bulb...
++                        // trigger on a damaging hit the holder survives), as in the simulator
++                        if !(secondary.target == MoveTarget::Opponent && target_pkmn.hp == 0) {
++                            secondary_hit_instructions
++                                .instruction_list
++                                .push(Instruction::ChangeItem(ChangeItemInstruction {
++                                    side_ref: secondary_target_side_ref,
++                                    current_item: target_pkmn.item.clone(),
++                                    new_item: Items::NONE,
++                                }));
++                            target_pkmn.item = Items::NONE;
++                        }
+                     }
+                 }
+                 state.reverse_instructions(&secondary_hit_instructions.instruction_list);
+@@ -3073,6 +3078,53 @@ fn add_end_of_turn_instructions(
+         }
+     }
+ 
++    // Leftovers / Black Sludge (residual order 5 in the simulator, before Leech Seed and status damage)
++    for side_ref in sides {
++        if state.get_side(side_ref).get_active().hp == 0 {
++            continue;
++        }
++        item_end_of_turn_residual_heal(state, side_ref, &mut incoming_instructions);
++    }
++
++    // leechseed sap (residual order 8 in the simulator, before poison (9) and burn (10))
++    for side_ref in sides {
++        let (leechseed_side, other_side) = state.get_both_sides(side_ref);
++        if leechseed_side
++            .volatile_statuses
++            .contains(&PokemonVolatileStatus::LEECHSEED)
++        {
++            let active_pkmn = leechseed_side.get_active();
++            let other_active_pkmn = other_side.get_active();
++            if active_pkmn.hp == 0
++                || other_active_pkmn.hp == 0
++                || active_pkmn.ability == Abilities::MAGICGUARD
++            {
++                continue;
++            }
++
++            let health_sapped = cmp::min((active_pkmn.maxhp as f32 * 0.125) as i16, active_pkmn.hp);
++            let damage_ins = Instruction::Damage(DamageInstruction {
++                side_ref: *side_ref,
++                damage_amount: health_sapped,
++            });
++            active_pkmn.hp -= health_sapped;
++            incoming_instructions.instruction_list.push(damage_ins);
++
++            let health_recovered = cmp::min(
++                health_sapped,
++                other_active_pkmn.maxhp - other_active_pkmn.hp,
++            );
++            if health_recovered > 0 {
++                let heal_ins = Instruction::Heal(HealInstruction {
++                    side_ref: side_ref.get_other_side(),
++                    heal_amount: health_recovered,
++                });
++                other_active_pkmn.hp += health_recovered;
++                incoming_instructions.instruction_list.push(heal_ins);
++            }
++        }
++    }
++
+     // status damage
+     for side_ref in sides {
+         let (side, other_side) = state.get_both_sides(side_ref);
+@@ -3125,10 +3177,10 @@ fn add_end_of_turn_instructions(
+                 if active_pkmn.ability != Abilities::POISONHEAL
+                     || other_side_active.ability == Abilities::NEUTRALIZINGGAS
+                 {
+-                    let toxic_multiplier = (1.0 / 16.0) * toxic_count + (1.0 / 16.0);
++                    // the simulator: max(1, floor(maxhp / 16)) * stage, the stage counting this turn
+                     let damage_amount = cmp::max(
+                         cmp::min(
+-                            (active_pkmn.maxhp as f32 * toxic_multiplier) as i16,
++                            cmp::max(active_pkmn.maxhp / 16, 1) * (toxic_count as i16 + 1),
+                             active_pkmn.hp,
+                         ),
+                         1,
+@@ -3160,6 +3212,26 @@ fn add_end_of_turn_instructions(
+         }
+     }
+ 
++    // a Ghost's curse: 1/4 of the maximum HP (residual order 12 in the simulator, after burn)
++    for side_ref in sides {
++        let side = state.get_side(side_ref);
++        if !side.volatile_statuses.contains(&PokemonVolatileStatus::CURSE) {
++            continue;
++        }
++        let active_pkmn = side.get_active();
++        if active_pkmn.hp == 0 || active_pkmn.ability == Abilities::MAGICGUARD {
++            continue;
++        }
++        let damage_amount = cmp::min(cmp::max(active_pkmn.maxhp / 4, 1), active_pkmn.hp);
++        active_pkmn.hp -= damage_amount;
++        incoming_instructions
++            .instruction_list
++            .push(Instruction::Damage(DamageInstruction {
++                side_ref: *side_ref,
++                damage_amount,
++            }));
++    }
++
+     // ability/item end-of-turn effects
+     for side_ref in sides {
+         let side = state.get_side(side_ref);
+@@ -3172,45 +3244,6 @@ fn add_end_of_turn_instructions(
+         ability_end_of_turn(state, side_ref, &mut incoming_instructions);
+     }
+ 
+-    // leechseed sap
+-    for side_ref in sides {
+-        let (leechseed_side, other_side) = state.get_both_sides(side_ref);
+-        if leechseed_side
+-            .volatile_statuses
+-            .contains(&PokemonVolatileStatus::LEECHSEED)
+-        {
+-            let active_pkmn = leechseed_side.get_active();
+-            let other_active_pkmn = other_side.get_active();
+-            if active_pkmn.hp == 0
+-                || other_active_pkmn.hp == 0
+-                || active_pkmn.ability == Abilities::MAGICGUARD
+-            {
+-                continue;
+-            }
+-
+-            let health_sapped = cmp::min((active_pkmn.maxhp as f32 * 0.125) as i16, active_pkmn.hp);
+-            let damage_ins = Instruction::Damage(DamageInstruction {
+-                side_ref: *side_ref,
+-                damage_amount: health_sapped,
+-            });
+-            active_pkmn.hp -= health_sapped;
+-            incoming_instructions.instruction_list.push(damage_ins);
+-
+-            let health_recovered = cmp::min(
+-                health_sapped,
+-                other_active_pkmn.maxhp - other_active_pkmn.hp,
+-            );
+-            if health_recovered > 0 {
+-                let heal_ins = Instruction::Heal(HealInstruction {
+-                    side_ref: side_ref.get_other_side(),
+-                    heal_amount: health_recovered,
+-                });
+-                other_active_pkmn.hp += health_recovered;
+-                incoming_instructions.instruction_list.push(heal_ins);
+-            }
+-        }
+-    }
+-
+     // volatile statuses
+     for side_ref in sides {
+         let side = state.get_side(side_ref);
+diff --git a/src/genx/items.rs b/src/genx/items.rs
+index 7600f99..83cb637 100644
+--- a/src/genx/items.rs
++++ b/src/genx/items.rs
+@@ -867,6 +867,50 @@ pub fn item_on_switch_in(
+     }
+ }
+ 
++// Leftovers and Black Sludge act at residual order 5 in the simulator, before Leech Seed (8),
++// poison (9) and burn (10): a full Pokemon with Leftovers that is burned ends the turn at -1/16.
++// Black Sludge damages a holder that is not Poison type by 1/8 of its maximum HP.
++pub fn item_end_of_turn_residual_heal(
++    state: &mut State,
++    side_ref: &SideReference,
++    instructions: &mut StateInstructions,
++) {
++    let heal_blocked = state
++        .get_side_immutable(side_ref)
++        .volatile_statuses
++        .contains(&super::state::PokemonVolatileStatus::HEALBLOCK);
++    let active_pkmn = state.get_side(side_ref).get_active();
++    let heals = match active_pkmn.item {
++        Items::LEFTOVERS => true,
++        Items::BLACKSLUDGE => active_pkmn.has_type(&PokemonType::POISON),
++        _ => return,
++    };
++    if heals {
++        // Heal Block (Psychic Noise) stops Leftovers and Black Sludge too
++        if active_pkmn.hp < active_pkmn.maxhp && !heal_blocked {
++            let heal_amount = cmp::min(active_pkmn.maxhp / 16, active_pkmn.maxhp - active_pkmn.hp);
++            active_pkmn.hp += heal_amount;
++            instructions
++                .instruction_list
++                .push(Instruction::Heal(HealInstruction {
++                    side_ref: side_ref.clone(),
++                    heal_amount,
++                }));
++        }
++    } else if active_pkmn.ability != Abilities::MAGICGUARD {
++        let damage_amount = cmp::min(cmp::max(active_pkmn.maxhp / 8, 1), active_pkmn.hp);
++        if damage_amount > 0 {
++            active_pkmn.hp -= damage_amount;
++            instructions
++                .instruction_list
++                .push(Instruction::Damage(DamageInstruction {
++                    side_ref: side_ref.clone(),
++                    damage_amount,
++                }));
++        }
++    }
++}
++
+ pub fn item_end_of_turn(
+     state: &mut State,
+     side_ref: &SideReference,
+@@ -884,29 +928,6 @@ pub fn item_end_of_turn(
+         Items::CHESTOBERRY if active_pkmn.status == PokemonStatus::SLEEP => {
+             chesto_berry(side_ref, attacking_side, instructions)
+         }
+-        Items::BLACKSLUDGE => {
+-            if active_pkmn.has_type(&PokemonType::POISON) {
+-                if active_pkmn.hp < active_pkmn.maxhp {
+-                    let heal_amount =
+-                        cmp::min(active_pkmn.maxhp / 16, active_pkmn.maxhp - active_pkmn.hp);
+-                    let ins = Instruction::Heal(HealInstruction {
+-                        side_ref: side_ref.clone(),
+-                        heal_amount: heal_amount,
+-                    });
+-                    active_pkmn.hp += heal_amount;
+-                    instructions.instruction_list.push(ins);
+-                }
+-            } else {
+-                let damage_amount =
+-                    cmp::min(active_pkmn.maxhp / 16, active_pkmn.maxhp - active_pkmn.hp);
+-                let ins = Instruction::Damage(DamageInstruction {
+-                    side_ref: side_ref.clone(),
+-                    damage_amount: damage_amount,
+-                });
+-                active_pkmn.hp -= damage_amount;
+-                instructions.instruction_list.push(ins);
+-            }
+-        }
+         Items::FLAMEORB => {
+             if !immune_to_status(state, &MoveTarget::User, side_ref, &PokemonStatus::BURN) {
+                 let side = state.get_side(side_ref);
+@@ -920,18 +941,6 @@ pub fn item_end_of_turn(
+                 instructions.instruction_list.push(ins);
+             }
+         }
+-        Items::LEFTOVERS => {
+-            let attacker = state.get_side(side_ref).get_active();
+-            if attacker.hp < attacker.maxhp {
+-                let heal_amount = cmp::min(attacker.maxhp / 16, attacker.maxhp - attacker.hp);
+-                let ins = Instruction::Heal(HealInstruction {
+-                    side_ref: side_ref.clone(),
+-                    heal_amount: heal_amount,
+-                });
+-                attacker.hp += heal_amount;
+-                instructions.instruction_list.push(ins);
+-            }
+-        }
+         Items::TOXICORB => {
+             if !immune_to_status(state, &MoveTarget::User, side_ref, &PokemonStatus::TOXIC) {
+                 let side = state.get_side(side_ref);

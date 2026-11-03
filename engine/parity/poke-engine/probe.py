@@ -27,13 +27,15 @@ STATUS_NAMES = {"burn": "burn", "paralyze": "paralyze", "paralysis": "paralyze",
                 "toxic": "toxic"}
 
 
-def side_summary(side) -> dict:
+def side_summary(side, names: list[str] | None = None) -> dict:
+    """`names`: the ids of the side's Pokémon before the turn, by slot. The oracle names every Pokémon by the id it had when the turn
+    started (a form change during the turn, as Hunger Switch, Ice Face or Gulp Missile make, keeps its key), so the probe does the same."""
     mons = [p for p in side.pokemon if str(p.id).lower() != "none"]
-    ids = [str(p.id).lower() for p in mons]
+    ids = [names[i] if names and i < len(names) else str(p.id).lower() for i, p in enumerate(mons)]
     out: dict = {"active": None, "hp": {}, "status": {}, "item": {}, "tera": []}
     active = int(str(side.active_index))
     if 0 <= active < len(side.pokemon):
-        out["active"] = str(side.pokemon[active].id).lower()
+        out["active"] = ids[active] if active < len(ids) else str(side.pokemon[active].id).lower()
     for p, pid in zip(mons, ids):
         out["hp"][pid] = int(p.hp)
         status = str(p.status).lower()
@@ -47,7 +49,9 @@ def side_summary(side) -> dict:
     fainted = 0 <= active < len(side.pokemon) and side.pokemon[active].hp <= 0
     out["boosts"] = {k: 0 if fainted else int(getattr(side, attr)) for k, attr in BOOSTS.items()}
     conds = side.side_conditions
-    out["side"] = {k: int(getattr(conds, k)) for k in SIDE_KEYS if int(getattr(conds, k, 0))}
+    # the toxic counter is the active Pokémon's (the simulator keeps it in its status, which a fainted Pokémon loses); poke-engine keeps it
+    # on the side until the next one comes in
+    out["side"] = {k: int(getattr(conds, k)) for k in SIDE_KEYS if int(getattr(conds, k, 0)) and not (fainted and k == "toxic_count")}
     out["volatile"] = [] if fainted else sorted(str(v).lower() for v in side.volatile_statuses)
     out["sub"] = 0 if fainted else int(side.substitute_health)
     return out
@@ -56,7 +60,7 @@ def side_summary(side) -> dict:
 def summary(state, raw: dict | None = None) -> dict:
     """The shape the oracle writes. poke-engine turns an item it has no name for into `unknownitem`; the battle's own item is kept for
     those, so only the items it does know can differ."""
-    out = _summary(state)
+    out = _summary(state, raw)
     if raw:
         for key, side in (("p1", "side_one"), ("p2", "side_two")):
             for mon in raw[side]["pokemon"]:
@@ -66,12 +70,13 @@ def summary(state, raw: dict | None = None) -> dict:
     return out
 
 
-def _summary(state) -> dict:
+def _summary(state, raw: dict | None = None) -> dict:
+    names = {k: [m["id"] for m in raw[k]["pokemon"]] if raw else None for k in ("side_one", "side_two")}
     return {
         "weather": str(state.weather).lower(), "weather_turns": int(state.weather_turns_remaining),
         "terrain": str(state.terrain).lower(), "terrain_turns": int(state.terrain_turns_remaining),
         "trick_room": bool(state.trick_room), "trick_room_turns": int(state.trick_room_turns_remaining),
-        "p1": side_summary(state.side_one), "p2": side_summary(state.side_two),
+        "p1": side_summary(state.side_one, names["side_one"]), "p2": side_summary(state.side_two, names["side_two"]),
     }
 
 
@@ -89,23 +94,51 @@ def first_damage(instructions: list[str]) -> dict:
     return {"p1_damaged": hit["One"], "p2_damaged": hit["Two"], "first_hit": first}
 
 
-def direct_hits(instructions: list[str], calc, hp: dict) -> list[tuple[str, int]]:
+# poke-engine's multi-hit moves (Choices::multi_hit in its choices.rs) and how many hits it plays: every hit is its own Damage
+# instruction, while the simulator's damage of the move is the sum of its hits
+TWO_TO_FIVE = {"armthrust", "barrage", "bonerush", "bulletseed", "cometpunch", "doubleslap", "furyattack", "furyswipes", "iciclespear",
+               "pinmissile", "rockblast", "scaleshot", "spikecannon", "tailslap", "watershuriken"}
+THREE = {"surgingstrikes", "tripledive", "tripleaxel"}
+TWO = {"bonemerang", "doublehit", "doubleironbash", "doublekick", "dragondarts", "dualchop", "dualwingbeat", "geargrind", "tachyoncutter",
+       "twinbeam", "twineedle"}
+
+
+def hit_count(move: str | None, mon: dict) -> int:
+    """How many hits poke-engine plays for `move` used by `mon` (the state's Pokémon)."""
+    m = (move or "").removesuffix("-tera")
+    if m in TWO_TO_FIVE:
+        return 5 if mon.get("ability") == "skilllink" else 4 if mon.get("item") == "loadeddice" else 3
+    if m == "populationbomb":
+        return 9 if mon.get("item") == "widelens" else 6
+    return 3 if m in THREE else 2 if m in TWO else 1
+
+
+def direct_hits(instructions: list[str], calc, hp: dict, hits: dict | None = None) -> list[tuple[str, int]]:
     """The moves that did direct damage, in order, as (side, amount). poke-engine does not say where a Damage instruction comes from;
     one that is about the size of the move's own damage (between the lowest roll and the highest, or whatever was left of the target) is
-    the move's, anything else (a trap, a status, hazards, recoil, a rough skin) is not."""
+    the move's, anything else (a trap, a status, hazards, recoil, a rough skin) is not. `hits` gives each side's number of hits: the
+    next Damage instructions against the same target after the first hit of a multi-hit move are its other hits and are added to it."""
     left = dict(hp)
     out: list[tuple[str, int]] = []
+    pending = {}  # target -> [index in out, hits still to come]
     for text in instructions:
         m = DAMAGE.match(text)
         if not m:
             continue
         target, amount = m.group(1), int(m.group(2))
         attacker = "p2" if target == "One" else "p1"
+        more = pending.get(target)
+        if more and more[1] > 0:
+            out[more[0]] = (attacker, out[more[0]][1] + amount)
+            more[1] -= 1
+            left[target] = max(0, left[target] - amount)
+            continue
         rolls = calc[1 if attacker == "p2" else 0]
         high = max(rolls)
         low = rolls[0]
         if attacker not in [side for side, _ in out] and high > 0 and amount <= high + 1 and (amount >= 0.85 * low - 1 or amount >= left[target]):
             out.append((attacker, amount))
+            pending[target] = [len(out) - 1, (hits or {}).get(attacker, 1) - 1]
         left[target] = max(0, left[target] - amount)
     return out
 
@@ -163,7 +196,8 @@ def play(pe, build_state, case: dict) -> dict:
     # (its last argument is whether the first side moves first, which a move that needs to go first, as Sucker Punch does, depends on:
     # each side's damage is read from the order in which its move can work)
     calc = merged_calc(pe, calc_state, a, b)
-    hits = direct_hits(texts, calc, hp)
+    active = {k: raw[s]["pokemon"][int(raw[s]["active_index"])] for k, s in (("p1", "side_one"), ("p2", "side_two"))}
+    hits = direct_hits(texts, calc, hp, {"p1": hit_count(case["a"], active["p1"]), "p2": hit_count(case["b"], active["p2"])})
     after = state.apply_instructions(branch)
     ev = []
     if flags["order"]:

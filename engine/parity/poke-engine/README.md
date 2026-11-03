@@ -52,6 +52,17 @@ in the middle of a turn; Mega Evolution; PP; the turn after a forced switch; the
 the search itself (which move the AI picks), only the rules it searches over; items poke-engine has no name for (it plays them as
 `unknownitem`, the oracle keeps the real one). Abilities are not compared by name, only through what they do.
 
+## Silver's build of poke-engine (task #1727, 2026-11-04)
+
+Items 2 to 7 below led to `engine/poke-engine/patches` (built by `scripts/build_poke_engine.py`, installed as 0.0.48+silver.1; the
+table of what changed is in `docs/MASTER_AI_RULES.md`): end-of-turn order (Leftovers / Black Sludge, Leech Seed, status, Curse), toxic
+rounding, Black Sludge damage, Heal Block on Leftovers, Defog's evasion drop, Rest (fails at full HP, clears the toxic counter), Curse of a
+Ghost, items of a knocked-out holder, Shed Skin's likeliest outcome. The probe now sums the hits of a multi-hit move (item 3 was the
+probe's: poke-engine writes one Damage instruction per hit), keeps the pre-turn key of a Pokémon that changes form (item 6: both engines
+change Morpeko, Eiscue and Cramorant at the same moment; the oracle names them by their id before the turn) and ignores a fainted
+Pokémon's toxic counter. `corpus.mjs --only rule-` writes the 23 scripted `rule-*` turns that `tests/test_master_rules.py` plays in both
+engines. Run of 2026-11-04: 1313 of 1427 turns match (92.0%); on the previous 1404 turns, 1290 (91.9%) against 1209.
+
 ## What it found (run of 2026-10-28 after the fix of item 1: 1209 of 1404 turns match, 86.1%; 195 diverge; before it 1180, 84.0%)
 
 REPORT.md is the generated table; this is the reading. Confirmed means reproduced in isolation with `explain.py`/`show.mjs` or by changing

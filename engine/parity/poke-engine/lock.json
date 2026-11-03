@@ -8,6 +8,6 @@
   },
   "tools": {
     "node": "v22.19.0",
-    "poke-engine": "0.0.48"
+    "poke-engine": "0.0.48+silver.1"
   }
 }

@@ -1,5 +1,7 @@
 # The master AI level (optional): poke-engine's Monte Carlo tree search, built from source for the 9th generation's rules.
-# It needs a Rust toolchain (https://rustup.rs) and these build options, set before installing:
+# Recommended: python scripts/build_poke_engine.py — it builds this same version with Silver's corrections (rules where upstream
+# differs from the simulator, engine/poke-engine/patches; docs/MASTER_AI_RULES.md) and installs it as 0.0.48+silver.N.
+# It needs a Rust toolchain (https://rustup.rs) and git. The plain upstream build still works (the app reports its rules as "upstream"):
 #   PowerShell:  $env:MATURIN_PEP517_ARGS="--no-default-features --features poke-engine/terastallization"
 #   bash:        export MATURIN_PEP517_ARGS="--no-default-features --features poke-engine/terastallization"
 # then: pip install -r requirements-master.txt   (without the options it builds the 4th generation's rules and the app ignores it)
