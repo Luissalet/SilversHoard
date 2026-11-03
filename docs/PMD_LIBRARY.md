@@ -1,3 +1,9 @@
+# PMD portraits: Source130 (2026-11-03)
+
+Arctibax and male Unfezant have all 16 expressions in normal and shiny. Four atlases add 60 native 40×40 portraits and preserve all four published Normal portraits. The tears now connect to the eyelids. Unfezant opens its beak when shouting and distinguishes worry from sadness and shock from surprise. Arctibax retains its ice mask and Unfezant retains the opening inside its crest. The complete provenance contains 96 documents.
+
+Both palettes are complete for 1,165 of 1,469 forms. There are 304 forms and 8,969 expression bindings left to complete. All 64 portraits matched in Silver and the portable HTML. Both displayed their Dizzy portraits together; the portable replay also showed their return to normal size, Max Strike landing and Recover restoring health. The portrait tests and both full suites passed.
+
 # PMD portraits: Source129 (2026-11-03)
 
 Darumaka and Darumaka-Galar now have all 16 expressions in both palettes. Four atlases add 60 native 40×40 portraits and preserve the four published Normal portraits byte for byte. Closed lids no longer leave the old eye rings on Darumaka. Both forms distinguish worry, inspiration, shouting and laughter; their tears connect to the lids. Galar keeps its tooth and the colored rims around its open eyes. The complete provenance includes 131 documents.
