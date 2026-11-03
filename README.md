@@ -1,3 +1,9 @@
+# PMD portraits · Source124 · 3 November 2026
+
+Tangrowth and Alolan Exeggutor now have all 16 expressions in both palettes. Four atlases add 60 native 40×40 PNGs and retain four published Normal portraits. Tangrowth restores its original anatomy and separates four pairs of expressions using the eyes. Alolan Exeggutor clears the opening between its leaves and gets a distinct Dizzy gaze. The full provenance contains 242 documents.
+
+Both palettes have all 16 expressions for 1,156 of 1,469 forms, leaving 313 forms and 9,239 bindings pending. The 29 portrait tests and both full test suites passed. All 64 portraits matched in Silver and the portable HTML. The native replay showed both Dizzy portraits; the HTML match recorded a landed Max Strike, both size changes and a successful Recover. A separate Windows body sprite cache read failure is tracked in task 2072.
+
 # PMD portraits · Source123 · 3 November 2026
 
 Rotom Mow and Rotom Fan now have all 16 expressions in both palettes. Four atlases add 60 native 40×40 PNGs and preserve the four published Normal portraits. Old eye outlines were cleaned up in 44 faces. The two Inspired and two Surprised portraits of Rotom Fan now have their own eye and mouth poses. The full provenance contains 221 documents.

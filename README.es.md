@@ -1,3 +1,9 @@
+# Retratos PMD · Source124 · 3 de noviembre de 2026
+
+Tangrowth y Exeggutor de Alola tienen las 16 expresiones en normal y shiny. Cuatro atlas añaden 60 PNG nativos de 40×40 y conservan cuatro Normal publicados. Tangrowth recupera su anatomía original y diferencia cuatro pares de expresiones mediante los ojos. Exeggutor de Alola recupera el hueco de cielo entre las hojas y tiene una mirada de mareo propia. La procedencia íntegra contiene 242 documentos.
+
+Hay 1.156 de 1.469 formas con las 16 expresiones en ambas paletas. Quedan 313 formas y 9.239 enlaces pendientes. Pasaron las 29 pruebas de retratos y las dos suites completas. Los 64 retratos coincidieron en Silver y el HTML portátil. La repetición de Silver mostró ambos retratos de mareo; en el HTML se registraron un Max Strike acertado, ambos cambios de escala y una Recuperación efectiva. El fallo separado de lectura de caché de sprites corporales en Windows queda en la tarea 2072.
+
 # Retratos PMD · Source123 · 3 de noviembre de 2026
 
 Rotom Corte y Rotom Ventilador tienen las 16 expresiones en normal y shiny. Cuatro atlas añaden 60 PNG nativos de 40×40 y conservan los cuatro Normal publicados. Se han limpiado restos del contorno ocular en 44 caras. Inspiración y sorpresa de Rotom Ventilador tienen ahora miradas y bocas propias. La procedencia íntegra contiene 221 documentos.
