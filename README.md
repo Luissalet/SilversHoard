@@ -1,3 +1,9 @@
+# PMD portraits: Source135 (2026-11-04)
+
+Toxel and Heatran have 16 expressions in normal and shiny. Four atlases add 58 portraits and retain the six published Normal and Pain portraits. Toxel's new expressions follow the dark contour without source background pixels. Heatran's shouting pose keeps the face plates and places the darker opening below them.
+
+Both palettes are complete for 1,180 of 1,469 forms; 289 forms and 8,517 bindings remain. All 64 portraits matched the native reader, the HTTP endpoint and the bytes embedded in the portable HTML. Both Pokémon showed their confused expressions in Silver and in the portable HTML played after the test servers stopped. The portrait and full test suites passed.
+
 # PMD portraits: Source134 (2026-11-04)
 
 Frigibax, Nacli, Tandemaus, Wiglett and Wugtrio have all 16 expressions in normal and shiny. Ten 40×40 atlases add 150 expression bindings and preserve their ten published Normal portraits. Local retouches remove stray background pixels, separate nearby expressions and retain the three noses in Wugtrio.
