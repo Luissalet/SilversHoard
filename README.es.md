@@ -1,3 +1,9 @@
+# Retratos PMD de Source145 (04-11-2026)
+
+Squawkabilly azul, amarillo y blanco tienen las 16 expresiones en normal y variocolor. Seis atlas añaden 90 retratos y conservan seis Normal publicados. Cada forma conserva el plumaje y los reflejos de su retrato Normal publicado. En las expresiones de amarillo y blanco se ha corregido el borde cian con el color de contorno de cada paleta.
+
+Hay 1.209 de 1.469 formas con ambas paletas completas. Los 96 retratos coincidieron en el lector de Silver, sus rutas HTTP y el HTML portátil. Squawkabilly azul y amarillo mostraron confusión durante Dynamax en Silver. El HTML portátil se jugó con los servidores de prueba apagados. Pasaron las pruebas de retratos y las suites completas.
+
 # Retratos PMD de Source144 (04-11-2026)
 
 Eiscue Cara Deshielo, Squawkabilly verde y Galvantula tienen las 16 expresiones en normal y variocolor. Seis atlas añaden 90 retratos y conservan seis Normal publicados. Eiscue conserva la forma del ojo y del pico, Squawkabilly separa las dos partes del pico al gritar y la lágrima de Galvantula nace del párpado.
