@@ -1,3 +1,9 @@
+# Retratos PMD: Source135 (04-11-2026)
+
+Toxel y Heatran tienen las 16 expresiones en normal y shiny. Cuatro atlas añaden 58 retratos y conservan los seis Normal y Pain publicados. Las nuevas expresiones de Toxel respetan el contorno oscuro sin restos del fondo original. En Heatran, el grito conserva las placas de la cara y sitúa la abertura oscura por debajo.
+
+Hay 1.180 de 1.469 formas con las dos paletas completas; quedan 289 formas y 8.517 expresiones. Los 64 retratos coincidieron en el lector de Silver, sus rutas HTTP y el HTML portátil. Los dos Pokémon mostraron sus caras de confusión en Silver y en el HTML, jugado con los servidores de prueba apagados. Pasaron las pruebas de retratos y las suites completas.
+
 # Retratos PMD: Source134 (04-11-2026)
 
 Frigibax, Nacli, Tandemaus, Wiglett y Wugtrio tienen las 16 expresiones en normal y shiny. Diez atlas de 40×40 añaden 150 expresiones y conservan los diez retratos Normal publicados. Los retoques eliminan restos de fondo, diferencian los gestos que se parecían y mantienen las tres narices de Wugtrio.
