@@ -1,3 +1,9 @@
+# Retratos PMD de Source149 (04-11-2026)
+
+Gogoat, Okidogi y Dondozo tienen las 16 expresiones en normal y variocolor. Seis atlas añaden 84 retratos y conservan doce publicados. Gogoat mantiene Normal, Alegría, Dolor y Determinación publicados en ambas paletas. Las bocas se distinguen por su forma y abertura. Gogoat y Dondozo tienen una mirada propia de Confusión y Okidogi tiene el párpado más firme en Determinación.
+
+Hay 1.221 de 1.469 formas con ambas paletas completas. Los 96 retratos coincidieron en el lector de Silver, sus rutas HTTP y el HTML portátil. Dondozo mostró el retrato nuevo de confusión mientras estaba en Dynamax en el combate portátil. Pasaron las pruebas de retratos y las suites completas.
+
 # Retratos PMD de Source148 (04-11-2026)
 
 Beartic, Zebstrika y Oinkologne macho tienen las 16 expresiones en normal y variocolor. Seis atlas añaden 90 retratos y conservan seis Normal publicados. Beartic distingue la mirada aturdida de la sorprendida. Zebstrika usa el color propio del iris para Inspiración y Determinación. El contorno de Oinkologne deja ver los fondos de cada expresión.
