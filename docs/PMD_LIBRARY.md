@@ -1,3 +1,9 @@
+# PMD portraits: Source133 (2026-11-04)
+
+All four Ogerpon Tera forms have 16 expressions in both normal and shiny palettes. Eight atlases add 124 bindings at 40×40 while keeping the four published Normal portraits unchanged. The edited expressions preserve the frontal pose and silhouette. Wellspring's smaller background symbols fit in the existing clear corner. The shiny portraits follow Silver's battle sprite palettes; Cornerstone retains the same visible colors in both sets.
+
+There are 1,173 of 1,469 forms with both portrait palettes complete, leaving 296 forms and 8,725 expression bindings to fill. All 128 portraits matched the native routes and the assets embedded in the portable HTML. In Silver, shiny Teal and normal Wellspring displayed their confusion portraits during Dynamax. The offline portable replay showed shiny Hearthflame and normal Cornerstone at Dynamax scale, and both confusion portraits after returning to normal size. The portrait checks and both full suites passed.
+
 # PMD portraits: Source132 (2026-11-04)
 
 Scream Tail, Bewear and Pecharunt now have all 16 expressions in both normal and shiny palettes. Six atlases add 90 portraits at 40×40 and keep the six published Normal portraits unchanged. Scream Tail keeps its upper teeth and uses the eyelids as the source of its tears. Bewear keeps a distinct nose and mouth, with clean fur edges. Pecharunt keeps both fangs and its shell silhouette across the edited expressions. The provenance records 188 supporting documents.
