@@ -1,3 +1,9 @@
+# Source145 PMD portraits (2026-11-04)
+
+Blue, yellow and white Squawkabilly have all 16 expressions in normal and shiny. Six atlases add 90 portraits and retain six published Normal portraits. Each form uses the plumage and highlights of its own published Normal. The yellow and white portraits use their own darker contour instead of the inherited cyan edge.
+
+Both palettes are complete for 1,209 of 1,469 forms. All 96 portraits matched the Silver reader, HTTP responses and the portable HTML. Blue and yellow Squawkabilly displayed confusion during Dynamax in Silver. The portable HTML ran after the test servers stopped. The portrait and full test suites passed.
+
 # Source144 PMD portraits (2026-11-04)
 
 Noice Eiscue, green Squawkabilly and Galvantula have all 16 expressions in normal and shiny. Six atlases add 90 portraits and retain six published Normal portraits. Eiscue keeps the shape of its eyes and beak, Squawkabilly opens both sides of the beak in Shouting, and Galvantula keeps its tear connected to the eyelid.
