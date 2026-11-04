@@ -1,3 +1,9 @@
+# Retratos PMD de Source138 (04-11-2026)
+
+Rhyperior y Veluza tienen las 16 expresiones en normal y variocolor. Cuatro atlas añaden 58 retratos y conservan seis publicados. Las expresiones nuevas de Rhyperior conservan sus dientes superiores pequeños y desplazan el iris al confundirse. En el grito de Veluza se abre un hueco entre ambas mandíbulas y se mantienen el hocico superior y la aleta.
+
+Hay 1.187 de 1.469 formas con ambas paletas completas. Los 64 retratos coincidieron en el lector de Silver, sus rutas HTTP y el HTML portátil. Las expresiones de confusión aparecieron en un combate en Silver. El HTML portátil se jugó con los servidores de prueba apagados y ambos Pokémon crecieron y volvieron a su tamaño normal. Pasaron las pruebas de retratos y las suites completas.
+
 # Retratos PMD: Source137 (04-11-2026)
 
 Maushold, familia de cuatro, y Chewtle tienen las 16 expresiones en normal y variocolor. Cuatro atlas añaden 60 retratos y conservan cuatro retratos Normal publicados. En el grito de Maushold los dos adultos abren la boca. Chewtle conserva su único incisivo superior y muestra los párpados desiguales al confundirse.
