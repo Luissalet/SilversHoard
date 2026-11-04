@@ -1,3 +1,9 @@
+# PMD portraits: Source136 (2026-11-04)
+
+Tynamo, Swadloon and Mabosstiff have all 16 expressions in normal and shiny. Six atlases add 88 portraits and retain eight published originals. Tynamo keeps the star-shaped mouth, Swadloon shows distinct tear tracks, and Mabosstiff's shouting portrait has a deeper mouth under its nose and beard.
+
+Both palettes are complete for 1,183 of 1,469 forms. All 96 portraits matched the native reader, HTTP responses and the portable HTML. The confused portraits appeared during Dynamax in Silver and in the portable HTML played after the test servers stopped. The portrait and full test suites passed.
+
 # PMD portraits: Source135 (2026-11-04)
 
 Toxel and Heatran have 16 expressions in normal and shiny. Four atlases add 58 portraits and retain the six published Normal and Pain portraits. Toxel's new expressions follow the dark contour without source background pixels. Heatran's shouting pose keeps the face plates and places the darker opening below them.
