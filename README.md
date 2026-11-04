@@ -1,3 +1,9 @@
+# Source148 PMD portraits (2026-11-04)
+
+Beartic, Zebstrika and male Oinkologne have all 16 expressions in normal and shiny. Six atlases add 90 portraits and retain six published Normal portraits. Beartic's Stunned eye reads separately from Surprised. Zebstrika's Inspired and Determined eyes use their own iris colours. Oinkologne's outlines let each expression background show through.
+
+Both palettes are complete for 1,218 of 1,469 forms. All 96 portraits matched the Silver reader, HTTP responses and the portable HTML. The portrait and full test suites passed.
+
 # Source147 PMD portraits (2026-11-04)
 
 Greedent, Copperajah and Great Tusk have all 16 expressions in normal and shiny. Six atlases add 90 portraits and retain six published Normal portraits. Greedent and Great Tusk use clean outlines against each expression background. Copperajah has distinct Sigh, Inspired and Stunned expressions.
