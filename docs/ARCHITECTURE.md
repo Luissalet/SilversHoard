@@ -1,3 +1,9 @@
+# Source147 PMD portraits (2026-11-04)
+
+Greedent, Copperajah and Great Tusk have all 16 expressions in normal and shiny. Six atlases add 90 portraits and retain six published Normal portraits. Greedent and Great Tusk use clean outlines against each expression background. Copperajah has distinct Sigh, Inspired and Stunned expressions.
+
+Both palettes are complete for 1,215 of 1,469 forms. All 96 portraits matched the Silver reader, HTTP responses and the portable HTML. Copperajah showed confusion during Dynamax in the HTML with both test servers stopped. The portrait and full test suites passed.
+
 # Source146 PMD portraits (2026-11-04)
 
 Mega Raichu X, Mega Sceptile and Gigantamax Pikachu have all 16 expressions in normal and shiny. Six atlases add 86 portraits and retain ten published portraits. The new Pikachu expressions keep the red clouds and lightning tail clear of the old background. Mega Sceptile keeps its three published expressions in each palette.

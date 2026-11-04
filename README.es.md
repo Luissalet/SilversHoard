@@ -1,3 +1,9 @@
+# Retratos PMD de Source147 (04-11-2026)
+
+Greedent, Copperajah y Great Tusk tienen las 16 expresiones en normal y variocolor. Seis atlas añaden 90 retratos y conservan seis Normal publicados. Se limpió el contorno de Greedent y Great Tusk sobre los fondos de expresión. Se distinguieron Suspiro, Inspiración y Aturdimiento de Copperajah.
+
+Hay 1.215 de 1.469 formas con ambas paletas completas. Los 96 retratos coincidieron en el lector de Silver, sus rutas HTTP y el HTML portátil. Copperajah mostró confusión durante Dynamax en el HTML con ambos servidores de prueba apagados. Pasaron las pruebas de retratos y las suites completas.
+
 # Retratos PMD de Source146 (04-11-2026)
 
 Mega-Raichu X, Mega-Sceptile y Pikachu Gigamax tienen las 16 expresiones en normal y variocolor. Seis atlas añaden 86 retratos y conservan diez publicados. En las expresiones nuevas de Pikachu se distinguen las nubes rojas y la cola luminosa al limpiar el fondo. Mega-Sceptile conserva tres expresiones publicadas por paleta.
