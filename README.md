@@ -1,3 +1,9 @@
+# PMD portraits: Source134 (2026-11-04)
+
+Frigibax, Nacli, Tandemaus, Wiglett and Wugtrio have all 16 expressions in normal and shiny. Ten 40×40 atlases add 150 expression bindings and preserve their ten published Normal portraits. Local retouches remove stray background pixels, separate nearby expressions and retain the three noses in Wugtrio.
+
+Both palettes are complete for 1,178 of 1,469 forms; 291 forms and 8,575 bindings remain. All 160 portraits matched the native reader, the HTTP endpoint and the bytes embedded in the portable HTML. The real-time checks showed confused Wiglett and Wugtrio during Dynamax in Silver, and confused Nacli and Frigibax in the standalone HTML after the test servers stopped. The portrait and full test suites passed.
+
 # PMD portraits: Source133 (2026-11-04)
 
 All four Ogerpon Tera forms have 16 expressions in both normal and shiny palettes. Eight atlases add 124 bindings at 40×40 while keeping the four published Normal portraits unchanged. The edited expressions preserve the frontal pose and silhouette. Wellspring's smaller background symbols fit in the existing clear corner. The shiny portraits follow Silver's battle sprite palettes; Cornerstone retains the same visible colors in both sets.

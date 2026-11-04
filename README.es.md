@@ -1,3 +1,9 @@
+# Retratos PMD: Source134 (04-11-2026)
+
+Frigibax, Nacli, Tandemaus, Wiglett y Wugtrio tienen las 16 expresiones en normal y shiny. Diez atlas de 40×40 añaden 150 expresiones y conservan los diez retratos Normal publicados. Los retoques eliminan restos de fondo, diferencian los gestos que se parecían y mantienen las tres narices de Wugtrio.
+
+Hay 1.178 de 1.469 formas con las dos paletas completas; quedan 291 formas y 8.575 expresiones. Los 160 retratos coincidieron en el lector de Silver, sus rutas HTTP y los archivos incrustados en el HTML portátil. En Silver, Wiglett y Wugtrio mostraron sus caras de confusión durante Dynamax. Nacli y Frigibax también reaccionaron en el HTML con los servidores de prueba apagados. Pasaron las pruebas de retratos y las suites completas.
+
 # Retratos PMD: Source133 (04-11-2026)
 
 Las cuatro formas Teracristal de Ogerpon tienen 16 expresiones en normal y shiny. Ocho atlas añaden 124 enlaces de 40×40 y conservan los cuatro Normal publicados intactos. Los gestos mantienen el encuadre frontal y la silueta. En Wellspring, los símbolos pequeños del fondo aprovechan la esquina que deja libre la máscara. Los shiny siguen las paletas de los sprites de combate de Silver; Cornerstone mantiene los mismos colores visibles en ambas.
