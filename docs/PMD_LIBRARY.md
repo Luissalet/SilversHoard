@@ -1,3 +1,9 @@
+# Source140 PMD portraits (2026-11-04)
+
+Vanilluxe, male Frillish and Phony Polteageist have all 16 expressions in normal and shiny. Six atlases add 90 portraits and retain six published Normal portraits. Vanilluxe's two heads react differently, Frillish's tears connect to the eyelids, and Polteageist's expressions preserve the teapot's design. The existing Antique equivalence adds 30 bindings for the same visible portrait and preserves both prior Normal portraits.
+
+Both palettes are complete for 1,194 of 1,469 forms. All 96 direct portraits and 32 equivalent Antique portraits matched the Silver reader, HTTP responses and the portable HTML. Vanilluxe and Polteageist displayed confusion during Dynamax in Silver. The portable HTML ran after the test servers stopped. The portrait and full test suites passed.
+
 # Source139 PMD portraits (2026-11-04)
 
 Garbodor, Trumbeak and Flittle have all 16 expressions in normal and shiny. Six atlases add 90 portraits and retain six published Normal portraits. Garbodor shows separate groups of fangs, Trumbeak opens both parts of its beak from the hinge, and Flittle keeps its small beak and tilts its eyelids when confused.
