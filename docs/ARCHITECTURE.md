@@ -1,3 +1,9 @@
+# Source142 PMD portraits (2026-11-04)
+
+Incarnate Tornadus, Thundurus and Landorus have all 16 expressions in normal and shiny. Six atlases add 90 portraits and retain six published Normal portraits. The generated cells use the expression templates and preserve each original silhouette and palette.
+
+Both palettes are complete for 1,200 of 1,469 forms. All 96 portraits matched the Silver reader, HTTP responses and the portable HTML. Tornadus and Thundurus displayed confusion during Dynamax in Silver. The portable HTML ran after the test servers stopped. The portrait and full test suites passed.
+
 # Source141 PMD portraits (2026-11-04)
 
 Karrablast, Stunfisk and Tadbulb have all 16 expressions in normal and shiny. Six atlases add 90 portraits and retain six published Normal portraits. The generated cells use the expression templates and preserve each original silhouette and palette.
