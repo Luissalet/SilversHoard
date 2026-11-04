@@ -1,3 +1,9 @@
+# Retratos PMD de Source151 (04-11-2026)
+
+Conkeldurr, Throh y Sawk tienen las 16 expresiones en normal y variocolor. Seis atlas añaden 90 retratos y conservan seis Normal publicados. Los gestos de boca abierta tienen formas propias. La abertura de Sawk queda debajo del puente de la nariz. Se limpió el borde superior de Conkeldurr y los retoques oculares mantienen la paleta de cada forma.
+
+Hay 1.227 de 1.469 formas con ambas paletas completas. Los 96 retratos coincidieron en el lector de Silver, sus rutas HTTP y el HTML portátil. En el HTML sin conexión, Sawk mostró preocupación tras un golpe fuerte y el retrato gris tras el KO. Pasaron las pruebas de retratos y las suites completas.
+
 # Retratos PMD de Source150 (04-11-2026)
 
 Diggersby, Perrserker y Mr. Rime tienen las 16 expresiones en normal y variocolor. Seis atlas añaden 90 retratos y conservan seis Normal publicados. Las cuatro expresiones de boca abierta tienen contornos propios. Se limpiaron los bordes del pelo de Perrserker y del sombrero de Mr. Rime. Se conserva la paleta de la mano y el hielo.
