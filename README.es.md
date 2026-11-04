@@ -1,3 +1,9 @@
+# Retratos PMD de Source144 (04-11-2026)
+
+Eiscue Cara Deshielo, Squawkabilly verde y Galvantula tienen las 16 expresiones en normal y variocolor. Seis atlas añaden 90 retratos y conservan seis Normal publicados. Eiscue conserva la forma del ojo y del pico, Squawkabilly separa las dos partes del pico al gritar y la lágrima de Galvantula nace del párpado.
+
+Hay 1.206 de 1.469 formas con ambas paletas completas. Los 96 retratos coincidieron en el lector de Silver, sus rutas HTTP y el HTML portátil. Eiscue y Galvantula mostraron confusión durante Dynamax en Silver. El HTML portátil se jugó con los servidores de prueba apagados. Pasaron las pruebas de retratos y las suites completas.
+
 # Retratos PMD de Source143 (04-11-2026)
 
 Goodra de Hisui, Ursaluna y Arrokuda tienen las 16 expresiones en normal y variocolor. Seis atlas añaden 90 retratos y conservan seis Normal publicados. En los retratos nuevos de Ursaluna se ven los fondos de expresión alrededor de su silueta. Goodra de Hisui conserva un solo ojo visible y Arrokuda mantiene el perfil y el colmillo.
