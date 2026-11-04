@@ -1,3 +1,9 @@
+# Retratos PMD de Source140 (04-11-2026)
+
+Vanilluxe, Frillish macho y Polteageist Forma Falsificada tienen las 16 expresiones en normal y variocolor. Seis atlas añaden 90 retratos y conservan seis Normal publicados. Las dos cabezas de Vanilluxe reaccionan de forma distinta, las lágrimas de Frillish salen de los párpados y Polteageist conserva el dibujo de la tetera. La equivalencia existente de Forma Genuina añade 30 enlaces a los mismos retratos y conserva los dos Normal anteriores.
+
+Hay 1.194 de 1.469 formas con ambas paletas completas. Los 96 retratos directos y 32 equivalentes de la Forma Genuina coincidieron en el lector de Silver, sus rutas HTTP y el HTML portátil. Vanilluxe y Polteageist mostraron confusión durante Dynamax en Silver. El HTML portátil se jugó con los servidores de prueba apagados. Pasaron las pruebas de retratos y las suites completas.
+
 # Retratos PMD de Source139 (04-11-2026)
 
 Garbodor, Trumbeak y Flittle tienen las 16 expresiones en normal y variocolor. Seis atlas añaden 90 retratos y conservan seis Normal publicados. Garbodor muestra grupos de colmillos, Trumbeak abre las dos partes del pico desde la unión y Flittle conserva el pico pequeño e inclina los párpados al confundirse.
