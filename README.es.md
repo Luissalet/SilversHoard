@@ -1,3 +1,9 @@
+# Retratos PMD de Source143 (04-11-2026)
+
+Goodra de Hisui, Ursaluna y Arrokuda tienen las 16 expresiones en normal y variocolor. Seis atlas añaden 90 retratos y conservan seis Normal publicados. En los retratos nuevos de Ursaluna se ven los fondos de expresión alrededor de su silueta. Goodra de Hisui conserva un solo ojo visible y Arrokuda mantiene el perfil y el colmillo.
+
+Hay 1.203 de 1.469 formas con ambas paletas completas. Los 96 retratos coincidieron en el lector de Silver, sus rutas HTTP y el HTML portátil. Goodra de Hisui y Arrokuda mostraron confusión durante Dynamax en Silver. El HTML portátil se jugó con los servidores de prueba apagados. Pasaron las pruebas de retratos y las suites completas.
+
 # Retratos PMD de Source142 (04-11-2026)
 
 Tornadus, Thundurus y Landorus Forma Avatar tienen las 16 expresiones en normal y variocolor. Seis atlas añaden 90 retratos y conservan seis Normal publicados. Las casillas nuevas usan las plantillas de expresión y conservan la silueta y paleta de los originales.
