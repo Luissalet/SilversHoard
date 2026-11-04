@@ -1,3 +1,9 @@
+# PMD portraits: Source137 (2026-11-04)
+
+Family-of-four Maushold and Chewtle now have all 16 expressions in normal and shiny. Four atlases add 60 portraits and retain four published Normal portraits. Maushold's shouting portraits show both adults opening their mouths. Chewtle's confusion portraits keep the single upper incisor and use uneven eyelids.
+
+Both palettes are complete for 1,185 of 1,469 forms. All 64 portraits matched the native reader, HTTP responses and the portable HTML. Chewtle's confused expression appeared during Dynamax and at normal size in the portable HTML after the test servers stopped. The portrait and full test suites passed.
+
 # PMD portraits: Source136 (2026-11-04)
 
 Tynamo, Swadloon and Mabosstiff have all 16 expressions in normal and shiny. Six atlases add 88 portraits and retain eight published originals. Tynamo keeps the star-shaped mouth, Swadloon shows distinct tear tracks, and Mabosstiff's shouting portrait has a deeper mouth under its nose and beard.

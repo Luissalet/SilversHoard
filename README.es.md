@@ -1,3 +1,9 @@
+# Retratos PMD: Source137 (04-11-2026)
+
+Maushold, familia de cuatro, y Chewtle tienen las 16 expresiones en normal y variocolor. Cuatro atlas añaden 60 retratos y conservan cuatro retratos Normal publicados. En el grito de Maushold los dos adultos abren la boca. Chewtle conserva su único incisivo superior y muestra los párpados desiguales al confundirse.
+
+Hay 1.185 de 1.469 formas con ambas paletas completas. Los 64 retratos coincidieron en el lector de Silver, sus rutas HTTP y el HTML portátil. Chewtle mostró su expresión de confusión durante Dynamax y a tamaño normal en el HTML, jugado con los servidores de prueba apagados. Pasaron las pruebas de retratos y las suites completas.
+
 # Retratos PMD: Source136 (04-11-2026)
 
 Tynamo, Swadloon y Mabosstiff tienen las 16 expresiones en normal y shiny. Seis atlas añaden 88 retratos y conservan ocho originales publicados. Tynamo mantiene la boca de estrella, Swadloon muestra lágrimas conectadas a los párpados y la abertura del grito de Mabosstiff gana profundidad bajo la nariz y la barba.
