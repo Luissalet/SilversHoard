@@ -1,3 +1,9 @@
+# Retratos PMD de Source148 (04-11-2026)
+
+Beartic, Zebstrika y Oinkologne macho tienen las 16 expresiones en normal y variocolor. Seis atlas añaden 90 retratos y conservan seis Normal publicados. Beartic distingue la mirada aturdida de la sorprendida. Zebstrika usa el color propio del iris para Inspiración y Determinación. El contorno de Oinkologne deja ver los fondos de cada expresión.
+
+Hay 1.218 de 1.469 formas con ambas paletas completas. Los 96 retratos coincidieron en el lector de Silver, sus rutas HTTP y el HTML portátil. Pasaron las pruebas de retratos y las suites completas.
+
 # Retratos PMD de Source147 (04-11-2026)
 
 Greedent, Copperajah y Great Tusk tienen las 16 expresiones en normal y variocolor. Seis atlas añaden 90 retratos y conservan seis Normal publicados. Se limpió el contorno de Greedent y Great Tusk sobre los fondos de expresión. Se distinguieron Suspiro, Inspiración y Aturdimiento de Copperajah.
