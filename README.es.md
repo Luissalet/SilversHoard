@@ -1,3 +1,9 @@
+# Retratos PMD: Source136 (04-11-2026)
+
+Tynamo, Swadloon y Mabosstiff tienen las 16 expresiones en normal y shiny. Seis atlas añaden 88 retratos y conservan ocho originales publicados. Tynamo mantiene la boca de estrella, Swadloon muestra lágrimas conectadas a los párpados y la abertura del grito de Mabosstiff gana profundidad bajo la nariz y la barba.
+
+Hay 1.183 de 1.469 formas con ambas paletas completas. Los 96 retratos coincidieron en el lector de Silver, sus rutas HTTP y el HTML portátil. Las caras de confusión aparecieron durante Dynamax en Silver y en el HTML, jugado con los servidores de prueba apagados. Pasaron las pruebas de retratos y las suites completas.
+
 # Retratos PMD: Source135 (04-11-2026)
 
 Toxel y Heatran tienen las 16 expresiones en normal y shiny. Cuatro atlas añaden 58 retratos y conservan los seis Normal y Pain publicados. Las nuevas expresiones de Toxel respetan el contorno oscuro sin restos del fondo original. En Heatran, el grito conserva las placas de la cara y sitúa la abertura oscura por debajo.
