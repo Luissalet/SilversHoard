@@ -1,3 +1,9 @@
+# Source150 PMD portraits (2026-11-04)
+
+Diggersby, Perrserker and Mr. Rime have all 16 expressions in normal and shiny. Six atlases add 90 portraits and retain six published Normal portraits. The four open-mouth expressions have individual contours. Perrserker's fur and Mr. Rime's hat use clean edges against each expression background. The lower hand and ice palette remains as drawn.
+
+Both palettes are complete for 1,224 of 1,469 forms. All 96 portraits matched the Silver reader, HTTP responses and the portable HTML. Mr. Rime showed a worried expression after a heavy hit and a gray portrait after the KO in the offline HTML. The portrait and full test suites passed.
+
 # Source149 PMD portraits (2026-11-04)
 
 Gogoat, Okidogi and Dondozo have all 16 expressions in normal and shiny. Six atlases add 84 portraits and retain twelve published portraits. Gogoat keeps its published Normal, Happy, Pain and Determined in both palettes. New mouth shapes separate the four open-mouth gestures. Gogoat and Dondozo have a distinct Dizzy gaze. Okidogi uses a flatter eyelid for Determined.

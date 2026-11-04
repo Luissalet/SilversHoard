@@ -1,3 +1,9 @@
+# Retratos PMD de Source150 (04-11-2026)
+
+Diggersby, Perrserker y Mr. Rime tienen las 16 expresiones en normal y variocolor. Seis atlas añaden 90 retratos y conservan seis Normal publicados. Las cuatro expresiones de boca abierta tienen contornos propios. Se limpiaron los bordes del pelo de Perrserker y del sombrero de Mr. Rime. Se conserva la paleta de la mano y el hielo.
+
+Hay 1.224 de 1.469 formas con ambas paletas completas. Los 96 retratos coincidieron en el lector de Silver, sus rutas HTTP y el HTML portátil. En el HTML sin conexión, Mr. Rime mostró preocupación tras un golpe fuerte y el retrato gris tras el KO. Pasaron las pruebas de retratos y las suites completas.
+
 # Retratos PMD de Source149 (04-11-2026)
 
 Gogoat, Okidogi y Dondozo tienen las 16 expresiones en normal y variocolor. Seis atlas añaden 84 retratos y conservan doce publicados. Gogoat mantiene Normal, Alegría, Dolor y Determinación publicados en ambas paletas. Las bocas se distinguen por su forma y abertura. Gogoat y Dondozo tienen una mirada propia de Confusión y Okidogi tiene el párpado más firme en Determinación.
