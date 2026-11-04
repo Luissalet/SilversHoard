@@ -1,3 +1,9 @@
+# Retratos PMD: Source133 (04-11-2026)
+
+Las cuatro formas Teracristal de Ogerpon tienen 16 expresiones en normal y shiny. Ocho atlas añaden 124 enlaces de 40×40 y conservan los cuatro Normal publicados intactos. Los gestos mantienen el encuadre frontal y la silueta. En Wellspring, los símbolos pequeños del fondo aprovechan la esquina que deja libre la máscara. Los shiny siguen las paletas de los sprites de combate de Silver; Cornerstone mantiene los mismos colores visibles en ambas.
+
+Hay 1.173 de 1.469 formas con ambas paletas de retratos completas. Quedan 296 formas y 8.725 expresiones por completar. Los 128 retratos coincidieron en las rutas de Silver y en los archivos incrustados en el HTML portátil. En Silver, Teal shiny y Wellspring normal mostraron sus caras de confusión durante Dynamax. La repetición del HTML sin conexión mostró a Hearthflame shiny y Cornerstone normal a escala Dynamax y sus caras de confusión al volver a tamaño normal. Pasaron las pruebas de retratos y las dos suites completas.
+
 # Retratos PMD: Source132 (04-11-2026)
 
 Scream Tail, Bewear y Pecharunt tienen las 16 expresiones en normal y shiny. Seis atlas añaden 90 retratos de 40×40 y conservan intactos los seis Normal publicados. Scream Tail mantiene los dientes superiores y las lágrimas salen de los párpados. Bewear mantiene la nariz separada de la boca y tiene el contorno del pelaje limpio. Pecharunt conserva los dos colmillos y la silueta de su caparazón en las expresiones retocadas. La procedencia reúne 188 documentos.
