@@ -1,3 +1,9 @@
+# Source151 PMD portraits (2026-11-04)
+
+Conkeldurr, Throh and Sawk have all 16 expressions in normal and shiny. Six atlases add 90 portraits and retain six published Normal portraits. The open-mouth gestures use their own shapes. Sawk's opening is beneath the bridge of its nose. Conkeldurr has a clean upper outline and the eye changes retain each form's palette.
+
+Both palettes are complete for 1,227 of 1,469 forms. All 96 portraits matched the Silver reader, HTTP responses and the portable HTML. Sawk showed a worried expression after a heavy hit and a gray portrait after the KO in the offline HTML. The portrait and full test suites passed.
+
 # Source150 PMD portraits (2026-11-04)
 
 Diggersby, Perrserker and Mr. Rime have all 16 expressions in normal and shiny. Six atlases add 90 portraits and retain six published Normal portraits. The four open-mouth expressions have individual contours. Perrserker's fur and Mr. Rime's hat use clean edges against each expression background. The lower hand and ice palette remains as drawn.
