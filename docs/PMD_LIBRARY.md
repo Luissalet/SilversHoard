@@ -1,3 +1,9 @@
+# Source138 PMD portraits (2026-11-04)
+
+Rhyperior and Veluza have all 16 expressions in normal and shiny. Four atlases add 58 portraits and retain six published portraits. Rhyperior's new expressions keep its small upper teeth and shift the iris to one side when confused. Veluza's Shouting opens a gap between the jaws and keeps the upper snout and fin in place.
+
+Both palettes are complete for 1,187 of 1,469 forms. All 64 portraits matched the Silver reader, HTTP responses and the portable HTML. The confused expressions appeared during a battle in Silver. The portable HTML ran after both test servers stopped, with both Pokémon growing and returning to normal size. The portrait and full test suites passed.
+
 # PMD portraits: Source137 (2026-11-04)
 
 Family-of-four Maushold and Chewtle now have all 16 expressions in normal and shiny. Four atlases add 60 portraits and retain four published Normal portraits. Maushold's shouting portraits show both adults opening their mouths. Chewtle's confusion portraits keep the single upper incisor and use uneven eyelids.
