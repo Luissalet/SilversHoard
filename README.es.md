@@ -1,3 +1,9 @@
+# Retratos PMD de Source146 (04-11-2026)
+
+Mega-Raichu X, Mega-Sceptile y Pikachu Gigamax tienen las 16 expresiones en normal y variocolor. Seis atlas añaden 86 retratos y conservan diez publicados. En las expresiones nuevas de Pikachu se distinguen las nubes rojas y la cola luminosa al limpiar el fondo. Mega-Sceptile conserva tres expresiones publicadas por paleta.
+
+Hay 1.212 de 1.469 formas con ambas paletas completas. Los 96 retratos coincidieron en el lector de Silver, sus rutas HTTP y el HTML portátil. Mega-Raichu X y Mega-Sceptile mostraron confusión en Silver. El HTML portátil se jugó con los servidores de prueba apagados. Pasaron las pruebas de retratos y las suites completas.
+
 # Retratos PMD de Source145 (04-11-2026)
 
 Squawkabilly azul, amarillo y blanco tienen las 16 expresiones en normal y variocolor. Seis atlas añaden 90 retratos y conservan seis Normal publicados. Cada forma conserva el plumaje y los reflejos de su retrato Normal publicado. En las expresiones de amarillo y blanco se ha corregido el borde cian con el color de contorno de cada paleta.

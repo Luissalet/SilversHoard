@@ -1,3 +1,9 @@
+# Source146 PMD portraits (2026-11-04)
+
+Mega Raichu X, Mega Sceptile and Gigantamax Pikachu have all 16 expressions in normal and shiny. Six atlases add 86 portraits and retain ten published portraits. The new Pikachu expressions keep the red clouds and lightning tail clear of the old background. Mega Sceptile keeps its three published expressions in each palette.
+
+Both palettes are complete for 1,212 of 1,469 forms. All 96 portraits matched the Silver reader, HTTP responses and the portable HTML. Mega Raichu X and Mega Sceptile displayed confusion in Silver. The portable HTML ran after the test servers stopped. The portrait and full test suites passed.
+
 # Source145 PMD portraits (2026-11-04)
 
 Blue, yellow and white Squawkabilly have all 16 expressions in normal and shiny. Six atlases add 90 portraits and retain six published Normal portraits. Each form uses the plumage and highlights of its own published Normal. The yellow and white portraits use their own darker contour instead of the inherited cyan edge.
