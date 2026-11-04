@@ -1,3 +1,9 @@
+# Source149 PMD portraits (2026-11-04)
+
+Gogoat, Okidogi and Dondozo have all 16 expressions in normal and shiny. Six atlases add 84 portraits and retain twelve published portraits. Gogoat keeps its published Normal, Happy, Pain and Determined in both palettes. New mouth shapes separate the four open-mouth gestures. Gogoat and Dondozo have a distinct Dizzy gaze. Okidogi uses a flatter eyelid for Determined.
+
+Both palettes are complete for 1,221 of 1,469 forms. All 96 portraits matched the Silver reader, HTTP responses and the portable HTML. Dondozo displayed its new confusion portrait while Dynamaxed in the portable battle. The portrait and full test suites passed.
+
 # Source148 PMD portraits (2026-11-04)
 
 Beartic, Zebstrika and male Oinkologne have all 16 expressions in normal and shiny. Six atlases add 90 portraits and retain six published Normal portraits. Beartic's Stunned eye reads separately from Surprised. Zebstrika's Inspired and Determined eyes use their own iris colours. Oinkologne's outlines let each expression background show through.
