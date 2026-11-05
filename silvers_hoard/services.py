@@ -31,6 +31,7 @@ from .hoard_link.atomic import write_bytes_atomic, write_json_atomic
 from .hoard_link.tokens import read_or_create_token
 from .credits import Credits
 from .arenas import CUSTOM as ARENA_CUSTOM, Arenas, same as arenas_same
+from .pokeathlon import Pokeathlon
 from .benchmarks import Benchmarks
 from .cups import Cups
 from . import gymmap
@@ -125,6 +126,7 @@ class Services:
         self.reborn = RebornCache(config.sprites_dir.parent / "reborn", self.settings, http_get=http_get)
         self.cups = Cups(self)
         self.arenas = Arenas(self)
+        self.pokeathlon = Pokeathlon(self)
         self.benchmarks = Benchmarks(self)
         self.training = Training(self)
         self.pvp = Pvp(self)
