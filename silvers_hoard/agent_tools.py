@@ -601,6 +601,18 @@ class PracticeArgs(BaseModel):
     lang: Literal["es", "en"] = Field("en", description="Language of new AI commentary.")
 
 
+class ScoutEncounter(BaseModel):
+    id: str = IdField
+    rival_side: Literal["p1", "p2"]
+
+
+class RivalScoutArgs(BaseModel):
+    id: str = IdField
+    rival_side: Literal["p1", "p2"] = "p2"
+    encounters: list[ScoutEncounter] = Field(default_factory=list, description="Extra finished encounters and rival sides, for direct seats without trainer IDs.")
+    size: int = Field(0, ge=0, le=6, description="0 keeps the rival's current team size (up to six and the format limit).")
+
+
 class PracticeSuggestionsArgs(BaseModel):
     id: str = IdField
     side: Literal["p1", "p2"] = "p1"
@@ -1288,6 +1300,13 @@ TOOLS: list[Tool] = [
          IdArg, R, lambda s, a: s.battle_abilities(a.id), 600.0),
     Tool("battle_get", _d("A battle: protocol log (from since), pending choices of person seats, result. Ver combate.",
                           synonyms="estado del combate, log, repetición"), BattleGetArgs, R, lambda s, a: s.battle_get(a.id, since=a.since)),
+    Tool("rival_scout", _d("Draft a rival's rematch team from public observations of finished encounters. Explorar revancha.",
+         "Returns a background job: job_get contains public species and source battles, type-coverage reasons and a legal popular-set draft. "
+         "Both trainer IDs identify a rivalry across seat changes; direct seats use explicitly selected encounter sides. "
+         "Legacy records without public evidence remain partial or empty. Does not save trainers, start battles or predict wins; "
+         "edit the draft, then explicitly trainer_update or battle_start. Deleted history is not retained.",
+         synonyms="rival adaptativo, memoria rival, reconstruir equipo, exploración"), RivalScoutArgs, W,
+         lambda s, a: s.rival_scout(a.id, a.rival_side, encounters=[x.model_dump() for x in a.encounters], size=a.size)),
     Tool("battle_choose", _d("Send a person seat's choice: 'move 1', 'move 2 terastallize', 'switch 3', 'team 123456'. Elegir.",
                              synonyms="atacar, cambiar pokémon, movimiento"), ChooseArgs, W,
          lambda s, a: s.battle_choose(a.id, a.side, a.choice, since=a.since), 120.0),
