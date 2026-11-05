@@ -3,6 +3,7 @@ import {Match, viewLines} from './match.mjs';
 import {makeRng} from './ai.mjs';
 import {endState} from './frontier.mjs';
 import {eventLines, rtRun} from './realtime/sim.mjs';
+import {publicSpecies} from './scouting.mjs';
 
 function nameOf(ident) {
   // "p1a: Garchomp" -> ["p1", "Garchomp"]
@@ -76,6 +77,7 @@ export function playOut(spec, {keepLog = true} = {}) {
   m.advance(100000);
   const lines = viewLines(m.battle.log, 0, 'omniscient', m.battle);
   return {summary: summarize(lines), lines: keepLog ? lines : null, input_log: keepLog ? m.inputLog() : undefined, errors: m.errors, seed: m.spec.seed, turns: m.battle.turn,
+    ...(keepLog ? {scouting: publicSpecies(viewLines(m.battle.log, 0, 'spectator'))} : {}),
     end: endState(m.battle),
     ...(spec.trace ? {notes: m.notes} : {})};
 }
