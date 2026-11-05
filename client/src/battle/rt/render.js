@@ -947,6 +947,7 @@ export class ArenaRenderer {
       ctx.ellipse(x, y, side.r * s * k, side.r * s * 0.5 * k, 0, 0, Math.PI * 2);
       ctx.stroke();
     }
+    this.megas.drawBurst(ctx,x,y,s,si,side.pos || 0,side.active,!!this.reducedMotion?.matches);
     const a = this.animOf(si, side.active, artMega, artDynamax, artUltra);
     let headY = y - 1.6 * s;
     let drawn = false;
