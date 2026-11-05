@@ -1508,7 +1508,8 @@ class Services:
                                                "winner_name": (r.get("summary") or {}).get("winner", ""), "turns": r.get("turns") or 0,
                                                "seed": str(r.get("seed") or ""), "replay": {**(self.store.battle(bid).get("replay") or {}),
                                                                                             **({"start": spec["start"]} if spec.get("start") else {}),
-                                                                                            "input": r.get("input_log") or []}})
+                                                                                            "input": r.get("input_log") or [],
+                                                                                            "scouting": r.get("scouting") or {}}})
                     self._after_end(bid)
                 self._banter_later(bid, r.get("notes") or [])
             except Exception as exc:  # noqa: BLE001 - the battle row says what happened
@@ -1667,12 +1668,14 @@ class Services:
         if b["status"] != "live":
             return
         log_ = self.engine.call("match_log", {"id": id_, "view": "omniscient"})
+        from .scouting import public_species
+        observed = public_species(self.engine.call("match_log", {"id": id_, "view": "spectator"}).get("lines") or [])
         summary = log_.get("summary") or {}
         summary["ai_notes"] = [*((b.get("summary") or {}).get("ai_notes") or []), *(log_.get("notes") or [])][-self.MAX_NOTES:]
         if log_.get("end"):   # each Pokémon's HP, PP, status and item at the end (the Battle Castle carries them on)
             summary["end"] = log_["end"]
         self.store.update_battle(id_, {"status": "ended", "log_text": "\n".join(log_.get("lines") or []), "summary": summary,
-                                       "replay": {**(b.get("replay") or {}), "input": log_.get("input_log") or []},
+                                       "replay": {**(b.get("replay") or {}), "input": log_.get("input_log") or [], "scouting": observed},
                                        "winner_side": summary.get("winner_side", ""), "winner_name": summary.get("winner", ""),
                                        "turns": summary.get("turns", 0), "snapshot": ""})
         try:
@@ -1684,6 +1687,10 @@ class Services:
     def practice_suggestions(self, id_: str, **options) -> dict[str, Any]:
         from .practice_suggestions import suggest
         return suggest(self, id_, **options)
+
+    def rival_scout(self, id_: str, rival_side: str = "p2", *, encounters=None, size: int = 0) -> dict[str, Any]:
+        from .scouting import start
+        return start(self, id_, rival_side, encounters=encounters, size=size)
 
     def battle_abilities(self, id_: str) -> dict[str, Any]:
         b = self.store.battle(id_)
