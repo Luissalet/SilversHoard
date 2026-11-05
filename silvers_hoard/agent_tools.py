@@ -16,6 +16,7 @@ from .hoard_link.agentkit import call_tool as _call_tool
 from .hoard_link.agentkit import tool_catalog as _catalog
 from .hoard_link.agentkit import uncapped  # noqa: F401 - re-exported for the UI routes
 from . import gymmap
+from .pokeathlon import HistoryArgs as AthlonHistoryArgs, RecordsArgs as AthlonRecordsArgs, RivalsArgs as AthlonRivalsArgs, SaveArgs as AthlonSaveArgs, StatsArgs as AthlonStatsArgs
 from .services import Services
 
 AGENT_INSTRUCTIONS = """Silver's Hoard is a Pokémon battle simulator (Pokémon Showdown's engine, every generation). It keeps trainers (a name, a team, an AI level and style, an avatar and battle lines), gyms (a leader plus optional gym trainers, a badge and rules), leagues (gyms, an Elite Four and a champion) and every battle with its full log.
@@ -1392,6 +1393,28 @@ TOOLS: list[Tool] = [
                             "use and stay in data/cache/reborn; prefetch downloads all of them (about 60 MB).",
                             synonyms="animaciones reborn, pokemon reborn, pokerogue, descargar animaciones, sin conexión"), FxCacheArgs, W,
          lambda s, a: s.reborn.prefetch() if a.prefetch else s.reborn.stats(), 600.0),
+    Tool("pokeathlon_stats", _d("Pokéathlon stars of any Pokémon (Speed, Power, Skill, Stamina, Jump). Estrellas del Pokéathlon.",
+                                "Five stars (1-5) with the range the game's daily form moves them in. The game's own table covers generations 1-4 and the "
+                                "HeartGold / SoulSilver formes; every other Pokémon is predicted (estimated=true). Give names or a query.",
+                                synonyms="estrellas, velocidad fortaleza precisión resistencia salto, pokéathlon, atletismo"),
+         AthlonStatsArgs, R, lambda s, a: s.pokeathlon.stats(a)),
+    Tool("pokeathlon_courses", _d("The Pokéathlon's courses, events, medals and rules. Competiciones del Pokéathlon.",
+                                  "Courses 0-4 (3 events), 5-9 (two medals, 4 events) and 10 (Supreme); each event with its stats, target score and trophy score.",
+                                  synonyms="eventos, saltaobstáculos, atrapabanderas, carrera de relevos, rompelosas, pisacírculos, insignias"),
+         Empty, R, lambda s, a: s.pokeathlon.courses()),
+    Tool("pokeathlon_rivals", _d("Draw a course's rival teams (the game's 100 teams or random Pokémon) and its events. Rivales del Pokéathlon.",
+                                 "The same seed gives the same rivals; the Supreme Cup uses the game's harder teams; course 10 also draws its four events.",
+                                 synonyms="equipos rivales, copa suprema, competición suprema, cualquier pokémon"), AthlonRivalsArgs, R,
+         lambda s, a: s.pokeathlon.rivals(a)),
+    Tool("pokeathlon_result_save", _d("Save a finished Pokéathlon course: scores, bonuses, winner, medals and records. Guardar competición.",
+                                      "Points, totals and the winner are computed here from the raw scores. A win gives the course's badge to the winning "
+                                      "team's species; mode=watch (the CPU played your team) is kept in the history only.",
+                                      synonyms="resultado, récord, insignias, puntos de atleta"), AthlonSaveArgs, W, lambda s, a: s.pokeathlon.save(a)),
+    Tool("pokeathlon_records", _d("A trainer's Pokéathlon records: best course totals, top 5 per event, badges, points. Récords del Pokéathlon.",
+                                  synonyms="mejores marcas, medallas, insignias por pokémon, estadísticas"), AthlonRecordsArgs, R,
+         lambda s, a: s.pokeathlon.records(a)),
+    Tool("pokeathlon_history", _d("Saved Pokéathlon courses, or one with every round, team and bonus. Historial del Pokéathlon.",
+                                  synonyms="competiciones jugadas, ver competición"), AthlonHistoryArgs, R, lambda s, a: s.pokeathlon.history(a)),
     Tool("settings_get", _d("Settings: your name, default format and AI, sprites, playback speed. Ajustes.", synonyms="configuración"),
          Empty, R, lambda s, a: s.settings.snapshot()),
     Tool("settings_set", _d("Change settings. Cambiar ajustes.", synonyms="configurar, nombre del jugador"), SettingsSetArgs, W,
