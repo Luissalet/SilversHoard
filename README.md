@@ -1,3 +1,11 @@
+# Source156 PMD portraits (2026-11-09)
+
+Aerodactyl, Toxapex and Eelektross have all 16 expressions in normal and shiny. Six foreground atlases add 72 missing portraits and retain all 24 published originals byte-for-byte. Both palettes are complete for 1,241 of 1,469 forms; 228 forms and 6,759 expression bindings remain incomplete.
+
+Individual native-pixel edits preserve reference anatomy, rightward orientation, close framing and each palette. Two Aerodactyl Dizzy cells were corrected to a readable dark cross within the original orbit; their other thirty selections remain unchanged. Geometry masks preserve true teeth, eye glints and spike highlights. Expression templates supply gradients and symbols. Local provenance retains the real transparent figures,190 literal authoring/reference documents, five full independent art reports and all six source credits. The current upstream files match the 24 retained originals. Media follow the existing local policy outside public Git.
+
+All 96 selections match the product reader, HTTP and embedded HTML. Native Silver shows shiny Aerodactyl and normal Toxapex as Dizzy during Dynamax. In the already-loaded HTML, both servers were stopped after team Check and before Start the challenge/arena setup: the same page completed a real KO at12.73s without reload or restart. Shiny Eelektross returns to base size with a gray Sad portrait at0/311; Toxapex shows Joyous and Dynamax at482/482. Two accepted screenshots verify native and terminal states; an optional intermediate replay screenshot was not completed and is not presented as a live impact capture. Full checks: 763 Python tests and 680 engine tests passed. This batch changes portrait data, with no gameplay or UI code changes.
+
 # Source155 PMD portraits (2026-11-09)
 
 Hydreigon, Iron Thorns and Munkidori have all 16 expressions in normal and shiny: 68 missing expression bindings, four reviewed Munkidori Normal/Happy pixel repairs, and 24 unchanged published keepers. Both palettes are complete for 1,238 of 1,469 forms; 231 forms and 6,831 bindings remain incomplete. All four original published PNGs remain addressable and credited.

@@ -1,3 +1,11 @@
+# Retratos PMD de Source156 (09-11-2026)
+
+Aerodactyl, Toxapex y Eelektross tienen las 16 expresiones en normal y variocolor. Seis atlas añaden 72 retratos que faltaban y conservan los 24 originales publicados sin cambiar sus bytes. Hay 1.241 de 1.469 formas con ambas paletas completas; quedan 228 formas y 6.759 expresiones pendientes.
+
+Los retoques individuales a resolución nativa conservan anatomía, orientación hacia la derecha, primer plano y paletas propias. Se corrigieron únicamente las dos celdas Dizzy de Aerodactyl para que su X oscura se lea dentro de la órbita original; sus otras treinta selecciones siguen intactas. Las máscaras conservan dientes, brillos oculares y púas reales. Las plantillas aportan gradientes y símbolos por expresión. La procedencia local conserva las figuras transparentes reales,190 documentos literales de autoría/referencia, cinco informes artísticos independientes completos y los seis créditos de origen. Los archivos actuales de SpriteCollab coinciden con los 24 originales conservados. Se mantiene la política de medios locales fuera del código Git público.
+
+Las 96 selecciones coinciden en lector, HTTP y HTML embebido. Silver muestra a Aerodactyl variocolor y Toxapex normal como Dizzy durante Dynamax. En el HTML ya cargado se apagaron ambos servidores después de Check y antes de Start the challenge/preparar la arena: la misma página terminó por KO real a12,73s sin recarga ni reinicio. Eelektross variocolor vuelve a tamaño base con retrato Sad gris y0/311; Toxapex muestra Joyous y Dynamax con482/482. Dos capturas aceptadas verifican los estados nativo y final; no se completó una captura intermedia opcional de la repetición y no se presenta como un golpe observado en vivo. Pasan 763 pruebas de Python y 680 del motor. Este lote cambia datos de retratos, sin cambios de código de gameplay o interfaz.
+
 # Retratos PMD de Source155 (09-11-2026)
 
 Hydreigon, Iron Thorns y Munkidori tienen las 16 expresiones en normal y variocolor: 68 expresiones que faltaban, cuatro retoques revisados de Normal/Happy de Munkidori y 24 retratos publicados conservados sin cambios. Hay 1.238 de 1.469 formas con ambas paletas completas; quedan 231 formas y 6.831 expresiones pendientes. Los cuatro PNG originales de los retoques siguen disponibles y acreditados.
