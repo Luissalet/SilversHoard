@@ -57,13 +57,16 @@ def test_trainer_reference_badge_and_backdrop_storage(services, client, monkeypa
     assert any(item["file"] == refs[0].name for item in services.avatar_images()["images"])
 
 
-def test_git_ignores_only_private_image_folders():
+def test_git_ignores_only_private_image_folders(tmp_path):
     root = Path(__file__).resolve().parents[1]
+    # Test the shared rules independently of this checkout's local media policy.
+    (tmp_path / ".gitignore").write_bytes((root / ".gitignore").read_bytes())
+    subprocess.run(["git", "init", "-q", str(tmp_path)], check=True, capture_output=True)
     private = ["data/avatars/trainer.png", "data/avatar_refs/photo.png", "data/style_refs/style.png",
                "data/cache/style_prepared/sheet.png", "data/cache/pose_refs/back.png"]
     shared = ["data/assets/badge.png", "data/cache/sprites/trainers/red.png", "data/overworld/custom.png",
               "silvers_hoard/static/icon.png", "silvers_hoard/presets/pmd/source.png", "art/portraits/source.png"]
     result = subprocess.run(["git", "check-ignore", "--no-index", "-z", "--stdin"], input="\0".join(private + shared).encode() + b"\0",
-                            cwd=root, capture_output=True, check=False)
+                            cwd=tmp_path, capture_output=True, check=False)
     assert result.returncode == 0, result.stderr
     assert result.stdout.decode().rstrip("\0").split("\0") == private
