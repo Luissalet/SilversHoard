@@ -1,3 +1,11 @@
+# Source152 PMD portraits (2026-11-09)
+
+Zarude Dada, Impidimp and Cottonee have all 16 expressions in normal and shiny. Six atlases add 90 expression portraits and retain the six published Normal PNGs. Both palettes are complete for 1,230 of 1,469 forms; 239 forms and 7,031 expression bindings remain incomplete.
+
+The final reviewed grids from the previous session were recovered losslessly from this chat's saved PNG. All 96 native cells round-trip through their exact 2× pixel blocks. This recovers the final portraits with their expression backgrounds, rather than the lost editable foreground layers. Independent review covered anatomy, orientation, framing, palette and expression changes. The preview, pixel proof and review accompany the local art assets in `art/portraits/source152-*`.
+
+All 96 images match the installed reader, HTTP responses and exported HTML. Native Silver displays the shiny Dada confusion portrait during Dynamax. The standalone page runs with both test servers stopped, including shiny Cottonee's confusion, Dynamax and return to normal size at KO. The existing local media policy is preserved; these assets remain outside the public Git source.
+
 # Source151 PMD portraits (2026-11-04)
 
 Conkeldurr, Throh and Sawk have all 16 expressions in normal and shiny. Six atlases add 90 portraits and retain six published Normal portraits. The open-mouth gestures use their own shapes. Sawk's opening is beneath the bridge of its nose. Conkeldurr has a clean upper outline and the eye changes retain each form's palette.
