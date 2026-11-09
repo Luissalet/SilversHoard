@@ -1,3 +1,11 @@
+# Source153 PMD portraits (2026-11-09)
+
+Tranquill and Gurdurr have all 16 expressions in normal and shiny. Four foreground atlases add 56 expression portraits. Tranquill keeps both published Normal portraits; Gurdurr keeps its six published Normal, Happy and Determined portraits. Both palettes are complete for 1,232 of 1,469 forms; 237 forms and 6,975 expression bindings remain incomplete.
+
+Individual native-pixel edits preserve the original anatomy, orientation, framing and palette. The expression templates supply their gradients and symbols. Tranquill's lower beak opens for shouting. Gurdurr's protected nose remains unchanged; the mouth sits below it, and its muted tongue colours stay pink in both palettes. New transparent foregrounds, plans, deltas and four independent art reports accompany the local provenance file.
+
+All 64 portraits match the product reader, HTTP and embedded HTML. Native Silver shows shiny Gurdurr's confusion during Dynamax. The HTML runs with both test servers stopped: shiny Tranquill shows Worried at 37/530 HP during Dynamax, then returns to base size with a gray 0/265 portrait after the KO. Local media remain outside the public Git source under the existing media policy.
+
 # Source152 PMD portraits (2026-11-09)
 
 Zarude Dada, Impidimp and Cottonee have all 16 expressions in normal and shiny. Six atlases add 90 expression portraits and retain the six published Normal PNGs. Both palettes are complete for 1,230 of 1,469 forms; 239 forms and 7,031 expression bindings remain incomplete.

@@ -1,3 +1,11 @@
+# Retratos PMD de Source153 (09-11-2026)
+
+Tranquill y Gurdurr tienen las 16 expresiones en normal y variocolor. Cuatro atlas de personaje añaden 56 retratos. Tranquill conserva sus dos Normal publicados; Gurdurr conserva sus seis Normal, Happy y Determined. Hay 1.232 de 1.469 formas con ambas paletas completas. Quedan 237 formas y 6.975 expresiones pendientes.
+
+Los retoques individuales a resolución nativa conservan anatomía, orientación, encuadre y paleta. Las plantillas aportan los gradientes y símbolos por expresión. Tranquill abre la parte inferior del pico al gritar. La nariz protegida de Gurdurr no cambia; la boca queda debajo y la lengua mantiene sus rosas apagados en ambas paletas. Se conservan las figuras transparentes nuevas, los planes, los deltas y cuatro informes artísticos independientes en la procedencia local.
+
+Los 64 retratos coinciden en lector, HTTP y HTML embebido. Silver muestra a Gurdurr variocolor confundido durante Dynamax. El HTML funciona con ambos servidores apagados: Tranquill variocolor muestra Worried con 37/530 PS durante Dynamax y vuelve a tamaño base, con retrato gris y 0/265, tras el KO. Se conserva la política existente de medios locales fuera del código Git público.
+
 # Retratos PMD de Source152 (09-11-2026)
 
 Zarude Dada, Impidimp y Cottonee tienen las 16 expresiones en normal y variocolor. Seis atlas añaden 90 retratos y conservan los seis PNG Normal publicados. Hay 1.230 de 1.469 formas con ambas paletas completas. Quedan 239 formas y 7.031 expresiones pendientes.
