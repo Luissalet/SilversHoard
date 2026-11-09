@@ -1,3 +1,11 @@
+# Source154 PMD portraits (2026-11-09)
+
+Crocalor, Quaxwell and Lechonk have all 16 expressions in normal and shiny. Six foreground atlases add 76 portraits while keeping all twenty existing published expressions byte-for-byte. Both palettes are complete for 1,235 of 1,469 forms; 234 forms and 6,899 expression bindings remain incomplete.
+
+Individual native-pixel edits preserve their reference anatomy, rightward orientation, close framing and own palettes. Expression templates provide their gradients and symbols. Geometry masks preserve legitimate shiny highlights whose colours also occur in the background. Transparent figures, pixel plans, deltas, support references and six independent art reports accompany the local provenance file.
+
+All 96 selections match the product reader, HTTP and embedded HTML. Native Silver shows shiny Quaxwell and normal Crocalor confused during Dynamax. In a fresh HTML test, both servers were stopped after arena setup and before Fight: shiny Lechonk shows Dizzy at 91/498 HP, then returns to base size with a gray Sad portrait at 0/249 after the KO; Quaxwell shows Joyous. This batch verifies offline combat after arena setup; initial offline challenge setup remains unverified. Local media remain outside public Git under the existing media policy.
+
 # Source153 PMD portraits (2026-11-09)
 
 Tranquill and Gurdurr have all 16 expressions in normal and shiny. Four foreground atlases add 56 expression portraits. Tranquill keeps both published Normal portraits; Gurdurr keeps its six published Normal, Happy and Determined portraits. Both palettes are complete for 1,232 of 1,469 forms; 237 forms and 6,975 expression bindings remain incomplete.

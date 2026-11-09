@@ -1,3 +1,11 @@
+# Retratos PMD de Source154 (09-11-2026)
+
+Crocalor, Quaxwell y Lechonk tienen las 16 expresiones en normal y variocolor. Seis atlas de personaje añaden 76 retratos y conservan los veinte originales publicados sin cambiar sus bytes. Hay 1.235 de 1.469 formas con ambas paletas completas; quedan 234 formas y 6.899 expresiones pendientes.
+
+Los retoques individuales a resolución nativa conservan anatomía, orientación hacia la derecha, primer plano y paletas de referencia. Las plantillas aportan gradientes y símbolos por expresión. Las máscaras geométricas conservan brillos variocolor legítimos cuyo color coincide con el fondo. La procedencia local conserva las figuras transparentes, planes de píxeles, deltas, referencias de apoyo y seis informes artísticos independientes.
+
+Las 96 selecciones coinciden en lector, HTTP y HTML embebido. Silver muestra a Quaxwell variocolor y Crocalor normal confundidos durante Dynamax. En una prueba nueva del HTML se apagaron ambos servidores después de preparar la arena y antes de Fight: Lechonk variocolor muestra Dizzy con 91/498 PS y vuelve a tamaño base, con retrato Sad gris y 0/249, tras el KO; Quaxwell muestra Joyous. Este lote verifica el combate sin servidores después de preparar la arena; no queda verificado el inicio del desafío desde cero sin servidores. Se conserva la política existente de medios locales fuera del código Git público.
+
 # Retratos PMD de Source153 (09-11-2026)
 
 Tranquill y Gurdurr tienen las 16 expresiones en normal y variocolor. Cuatro atlas de personaje añaden 56 retratos. Tranquill conserva sus dos Normal publicados; Gurdurr conserva sus seis Normal, Happy y Determined. Hay 1.232 de 1.469 formas con ambas paletas completas. Quedan 237 formas y 6.975 expresiones pendientes.
