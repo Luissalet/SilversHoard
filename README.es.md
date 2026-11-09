@@ -1,3 +1,11 @@
+# Retratos PMD de Source152 (09-11-2026)
+
+Zarude Dada, Impidimp y Cottonee tienen las 16 expresiones en normal y variocolor. Seis atlas añaden 90 retratos y conservan los seis PNG Normal publicados. Hay 1.230 de 1.469 formas con ambas paletas completas. Quedan 239 formas y 7.031 expresiones pendientes.
+
+Se recuperaron sin pérdida las cuadrículas finales revisadas que este chat conservaba como PNG. Las 96 casillas nativas coinciden con sus bloques exactos de 2×. Son los retratos finales con sus fondos por expresión; las capas editables del personaje no se han recuperado. La revisión independiente cubrió anatomía, orientación, encuadre, paleta y gestos. El montaje, la prueba de píxeles y el informe acompañan los archivos locales `art/portraits/source152-*`.
+
+Los 96 retratos coinciden en el lector, las respuestas HTTP y el HTML exportado. Silver muestra la confusión de Dada variocolor durante Dynamax. El HTML funciona con ambos servidores de prueba apagados, incluida la confusión de Cottonee variocolor, Dynamax y su vuelta al tamaño normal al caer. Se conserva la política local de medios; estos archivos siguen fuera del código Git público.
+
 # Retratos PMD de Source151 (04-11-2026)
 
 Conkeldurr, Throh y Sawk tienen las 16 expresiones en normal y variocolor. Seis atlas añaden 90 retratos y conservan seis Normal publicados. Los gestos de boca abierta tienen formas propias. La abertura de Sawk queda debajo del puente de la nariz. Se limpió el borde superior de Conkeldurr y los retoques oculares mantienen la paleta de cada forma.

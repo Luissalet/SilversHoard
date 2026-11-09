@@ -121,7 +121,7 @@ test('bounded owners expire, cancel recalled party slots, and plain/style change
 test('ordinary renderer captures the current animator without advancing it twice',()=>{
  const r=Object.create(ArenaRenderer.prototype),b=new RtBattle(spec()),pool=canvases();let updates=0,draws=0;
  const a={meta:{a:{Idle:{w:20,h:20,ax:10,ay:20}}},cur:'Idle',busy:()=>false,start(){},loop(){},update(){updates++;},draw(){draws++;return true;},height:()=>20};
- Object.assign(r,{ctx:context(),scale:24,k:1,time:0,portrait:false,reducedMotion:{matches:false},show:{hides:()=>false,on:false},specials:{bodyPhase:()=>({alpha:1,flash:0}),drawBody(){}},reactions:{sample:()=>({x:0,y:0,lift:0,turn:0,sx:1,sy:1})},tosses:{},flash:[0,0],lastActive:[],heads:[],labels:[null,null],animOf:()=>a});
+ Object.assign(r,{ctx:context(),scale:24,k:1,time:0,portrait:false,reducedMotion:{matches:false},show:{hides:()=>false,on:false},megas:{drawBurst(){}},specials:{bodyPhase:()=>({alpha:1,flash:0}),drawBody(){}},reactions:{sample:()=>({x:0,y:0,lift:0,turn:0,sx:1,sy:1})},tosses:{},flash:[0,0],lastActive:[],heads:[],labels:[null,null],animOf:()=>a});
  r.vfx={pixel:new PixelEffects(r,pool.factory)};r.vfx.pixel.update(0,b.view());r.vfx.pixel.onEvent({k:'boost',s:0,stage:1},b);r.vfx.pixel.begin(r.ctx);r.drawUprightMon(b.view(),b.view().sides[0],0,.03);
  assert.equal(updates,1);assert.equal(draws,2,'one actual draw plus one exact-alpha draw');assert.equal(r.vfx.pixel.mattes.size,1);
 });
@@ -129,7 +129,7 @@ test('ordinary renderer captures the current animator without advancing it twice
 test('imported walking sheets use their real normalized geometry for alpha capture',()=>{
  const r=Object.create(ArenaRenderer.prototype),b=new RtBattle(spec());let bounds;
  const a=Object.assign(Object.create(OverworldAnimator.prototype),{meta:{a:{Idle:{w:16,h:32,ax:8,ay:30.4}}},cur:'Idle',busy:()=>false,start(){},loop(){},update(){},draw:()=>true,height:()=>91.2});
- Object.assign(r,{ctx:context(),scale:24,k:1,time:0,portrait:false,reducedMotion:{matches:false},show:{hides:()=>false,on:false},specials:{bodyPhase:()=>({alpha:1,flash:0}),drawBody(){}},reactions:{sample:()=>({x:0,y:0,lift:0,turn:0,sx:1,sy:1})},tosses:{},flash:[0,0],lastActive:[],heads:[],labels:[null,null],animOf:()=>a,vfx:{pixel:{captureActor(s,u,slot,c,rect){bounds=rect;}}}});
+ Object.assign(r,{ctx:context(),scale:24,k:1,time:0,portrait:false,reducedMotion:{matches:false},show:{hides:()=>false,on:false},megas:{drawBurst(){}},specials:{bodyPhase:()=>({alpha:1,flash:0}),drawBody(){}},reactions:{sample:()=>({x:0,y:0,lift:0,turn:0,sx:1,sy:1})},tosses:{},flash:[0,0],lastActive:[],heads:[],labels:[null,null],animOf:()=>a,vfx:{pixel:{captureActor(s,u,slot,c,rect){bounds=rect;}}}});
  r.drawUprightMon(b.view(),b.view().sides[0],0,.03);assert.equal(bounds.w,48);assert.equal(bounds.h,96);
 });
 
@@ -144,7 +144,7 @@ test('seek disposes the previous owner and buffers before creating a clean repla
 test('static fallback captures its actual image and keeps original geometry/material outside the mask',()=>{
  const r=Object.create(ArenaRenderer.prototype),b=new RtBattle(spec());let source,bounds;
  const img={width:96,height:64};
- Object.assign(r,{ctx:context(),scale:24,k:1,time:0,portrait:false,reducedMotion:{matches:false},show:{hides:()=>false,on:false},specials:{bodyPhase:()=>({alpha:1,flash:0}),drawBody(){}},reactions:{sample:()=>({x:0,y:0,lift:0,turn:0,sx:1,sy:1})},tosses:{},pains:[],flash:[0,0],lastActive:[],heads:[],labels:[null,null],animOf:()=>null,fallbacks:[[{ready:true,img}]],vfx:{pixel:{captureActor(s,u,slot,c,rect,draw){bounds=rect;draw({drawImage(image){source=image;}});}}}});
+ Object.assign(r,{ctx:context(),scale:24,k:1,time:0,portrait:false,reducedMotion:{matches:false},show:{hides:()=>false,on:false},megas:{drawBurst(){}},specials:{bodyPhase:()=>({alpha:1,flash:0}),drawBody(){}},reactions:{sample:()=>({x:0,y:0,lift:0,turn:0,sx:1,sy:1})},tosses:{},pains:[],flash:[0,0],lastActive:[],heads:[],labels:[null,null],animOf:()=>null,fallbacks:[[{ready:true,img}]],vfx:{pixel:{captureActor(s,u,slot,c,rect,draw){bounds=rect;draw({drawImage(image){source=image;}});}}}});
  r.drawUprightMon(b.view(),b.view().sides[0],0,.03);assert.equal(source,img);assert.ok(Math.abs(bounds.w/bounds.h-1.5)<1e-9);assert.equal(img.width,96);assert.equal(img.height,64);
 });
 
