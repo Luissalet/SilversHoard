@@ -1,3 +1,11 @@
+# Source157 PMD portraits (2026-11-10)
+
+Tirtouga, Carracosta and Blipbug have all 16 expressions in normal and shiny. Six foreground atlases add 90 missing portraits while retaining all six published Normal portraits byte-for-byte. Both palettes are complete for 1,244 of 1,469 forms; 225 forms and 6,669 expression bindings remain incomplete.
+
+Individual edits at the native 40-pixel resolution preserve rightward reference orientation, close framing, anatomy and each palette. Separate corrections softened Tirtouga's Worried lid, opened its oral crescent, lowered Carracosta's Sad lid and moved Blipbug's reflection transition with the white facet. Blipbug retains compound eyes without invented pupils. Geometry masks preserve real eye pigments that share sky colours. Existing expression templates supply gradients and symbols. Local provenance retains real transparent figures, 242 literal authoring/reference documents, eight complete independent art reports and six published source credits. Atlas cells follow explicit emotion keys; all original entries and packs remain unchanged. Media retain the established local policy outside public Git.
+
+All 96 selections match the reader, HTTP and embedded HTML. Native Silver shows shiny Tirtouga and normal Carracosta as Dizzy during Dynamax. In the HTTP-loaded HTML, both servers were stopped after team Check and before Start the challenge/arena setup; the same page completed a real KO at 2.90 s. Shiny Blipbug returns to base size with a gray Sad portrait at 0/191, while Carracosta shows Joyous at 289/289. A paused replay at 1.50 s shows Blipbug Worried at 8/382 during Dynamax; this is not presented as a live impact capture. Four accepted screenshots verify native, initial, terminal and replay states. Direct disk opening remains unverified because the browser tool rejects file:// navigation. Full checks: 763 Python tests and 680 engine tests passed; build passed. This batch changes portrait data and documentation, with no gameplay or UI code changes.
+
 # Source156 PMD portraits (2026-11-09)
 
 Aerodactyl, Toxapex and Eelektross have all 16 expressions in normal and shiny. Six foreground atlases add 72 missing portraits and retain all 24 published originals byte-for-byte. Both palettes are complete for 1,241 of 1,469 forms; 228 forms and 6,759 expression bindings remain incomplete.
