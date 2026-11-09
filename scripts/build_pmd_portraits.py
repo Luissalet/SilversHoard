@@ -1,7 +1,7 @@
 """Collect pinned published PMD portraits and inventory exact expression gaps.
 
 Original published portraits keep priority, with explicit reviewed per-cell mirrors
-retaining their source bytes and credit. Generated sheets are separate reviewed
+and pixel repairs retaining their source bytes and credit. Generated sheets are separate reviewed
 inputs; a neutral face is never counted as a newly drawn expression.
 """
 from __future__ import annotations
@@ -25,6 +25,30 @@ from silvers_hoard.pmd import EMOTIONS, EMOTION_FALLBACK
 from silvers_hoard.hoard_link.atomic import write_bytes_atomic
 from silvers_hoard.credits import parse_credit_names, pmd_credits
 from build_portrait_backgrounds import edge_region
+
+
+def patch_published_pixels(raw, patch):
+    """Apply a reviewed, source-pinned set of native pixels before any mirror."""
+    from PIL import Image
+    if hashlib.sha256(raw).hexdigest() != patch.get('source_sha256'):
+        raise ValueError('Published portrait pixel source changed')
+    image = Image.open(io.BytesIO(raw)).convert('RGBA')
+    pixels = patch.get('pixels')
+    if not isinstance(pixels, list):
+        raise ValueError('Published portrait pixel repairs must be a list')
+    for change in pixels:
+        point, before, color = change.get('pixel'), change.get('before'), change.get('rgba')
+        if (not isinstance(point, (list, tuple)) or len(point) != 2
+                or any(type(n) is not int for n in point)
+                or not (0 <= point[0] < image.width and 0 <= point[1] < image.height)):
+            raise ValueError('Published portrait pixel repair is outside the source')
+        if (not isinstance(color, (list, tuple)) or len(color) != 4
+                or any(type(n) is not int or not 0 <= n <= 255 for n in color)):
+            raise ValueError('Published portrait pixel repair needs an RGBA colour')
+        if not isinstance(before, (list, tuple)) or tuple(before) != image.getpixel(tuple(point)):
+            raise ValueError('Published portrait pixel state changed')
+        image.putpixel(tuple(point), tuple(color))
+    return image
 
 
 def atlas_tile(image, record, cell, background=None):
@@ -209,16 +233,21 @@ def compile_library(plan, stage, destination, registry=None, allow_missing=False
             for emotion in plan["folders"][folder]["emotions"]:
                 raw = published_bytes(folder,emotion)
                 mirror_source = record.get("published_flips", {}).get(emotion) if record and record.get("reviewed") is True else None
-                if mirror_source:
-                    if hashlib.sha256(raw).hexdigest() != mirror_source:
+                pixel_patch = record.get("published_pixel_patches", {}).get(emotion) if record and record.get("reviewed") is True else None
+                if mirror_source or pixel_patch:
+                    source_sha = hashlib.sha256(raw).hexdigest()
+                    if mirror_source and source_sha != mirror_source:
                         raise ValueError(f"Published portrait mirror source changed: {row['id']} / {emotion}")
                     original = add(raw)
-                    tile = Image.open(io.BytesIO(raw)).convert("RGBA").transpose(Image.Transpose.FLIP_LEFT_RIGHT)
+                    tile = patch_published_pixels(raw, pixel_patch) if pixel_patch else Image.open(io.BytesIO(raw)).convert("RGBA")
+                    if mirror_source:
+                        tile = tile.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
                     buffer = io.BytesIO(); tile.save(buffer, format="PNG")
                     raw = buffer.getvalue()
                     sources[f"{row['id']}|{int(shiny)}:{emotion}"] = {
-                        "kind": "published_derivative", "operation": "flip_x", "folder": folder,
-                        "source_file": original, "source_sha256": mirror_source,
+                        "kind": "published_derivative", "operation": "pixels+flip_x" if pixel_patch and mirror_source else "pixels" if pixel_patch else "flip_x", "folder": folder,
+                        "source_file": original, "source_sha256": source_sha,
+                        **({"pixels": copy.deepcopy(pixel_patch['pixels'])} if pixel_patch else {}),
                         "credit": plan["folders"][folder]["credit"],
                         "artists": plan["folders"][folder].get("artists", [])}
                 result[emotion] = add(raw)

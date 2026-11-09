@@ -1,3 +1,11 @@
+# Source155 PMD portraits (2026-11-09)
+
+Hydreigon, Iron Thorns and Munkidori have all 16 expressions in normal and shiny: 68 missing expression bindings, four reviewed Munkidori Normal/Happy pixel repairs, and 24 unchanged published keepers. Both palettes are complete for 1,238 of 1,469 forms; 231 forms and 6,831 bindings remain incomplete. All four original published PNGs remain addressable and credited.
+
+Six native foreground atlases preserve reference anatomy, rightward orientation, close framing and each palette. Geometry masks retain real body highlights and remove only reviewed background gaps. Expression templates supply gradients and symbols. Local provenance records the pixel plans and eleven independent art reports. The builder supports hash-pinned, per-expression published pixel patches with exact original RGBA checks, applied before any optional flip; unlisted originals and other forms retain their priority and credits. Seven focused tests cover the patch behavior.
+
+All 96 selections match the reader, HTTP and embedded HTML. Native Silver shows shiny Hydreigon and normal Iron Thorns as Dizzy during Dynamax. With both servers stopped before Start the challenge and arena setup, the exported HTML completes a KO: shiny Munkidori shows Dizzy at 362/634 HP, then returns to base size with a gray Sad portrait at 0/317; Iron Thorns shows Joyous. Early VS observations appeared stationary; the same tab subsequently confirmed the KO without reload or server restart. The cause of that observation discrepancy remains unestablished. Full checks: 763 Python tests and 680 engine tests passed. Media follow the existing local-only policy outside public Git.
+
 # Source154 PMD portraits (2026-11-09)
 
 Crocalor, Quaxwell and Lechonk have all 16 expressions in normal and shiny. Six foreground atlases add 76 portraits while keeping all twenty existing published expressions byte-for-byte. Both palettes are complete for 1,235 of 1,469 forms; 234 forms and 6,899 expression bindings remain incomplete.

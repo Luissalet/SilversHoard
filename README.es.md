@@ -1,3 +1,11 @@
+# Retratos PMD de Source155 (09-11-2026)
+
+Hydreigon, Iron Thorns y Munkidori tienen las 16 expresiones en normal y variocolor: 68 expresiones que faltaban, cuatro retoques revisados de Normal/Happy de Munkidori y 24 retratos publicados conservados sin cambios. Hay 1.238 de 1.469 formas con ambas paletas completas; quedan 231 formas y 6.831 expresiones pendientes. Los cuatro PNG originales de los retoques siguen disponibles y acreditados.
+
+Los seis atlas a resolución nativa conservan anatomía, orientación hacia la derecha, primer plano y paletas propias. Las máscaras geométricas conservan brillos reales y eliminan solo huecos de fondo revisados. Las plantillas aportan gradientes y símbolos por expresión. La procedencia local conserva planes de píxeles y once informes artísticos independientes. El compilador comprueba hash y RGBA original para aplicar los retoques declarados de cada expresión antes de un posible flip; conserva la prioridad y los créditos del resto de originales y formas. Siete pruebas específicas verifican esos retoques.
+
+Las 96 selecciones coinciden en lector, HTTP y HTML embebido. Silver muestra a Hydreigon variocolor e Iron Thorns normal como Dizzy durante Dynamax. Con ambos servidores apagados desde antes de Start the challenge y de preparar la arena, el HTML termina por KO: Munkidori variocolor muestra Dizzy con 362/634 PS y vuelve a tamaño base con retrato Sad gris y 0/317; Iron Thorns muestra Joyous. Las primeras observaciones del VS parecían estáticas; la misma pestaña confirmó después el KO sin recarga ni reinicio de servidores. La causa de esa discrepancia de observación sigue sin establecerse. Pasan 763 pruebas de Python y 680 del motor. Se conserva la política de medios locales fuera del código Git público.
+
 # Retratos PMD de Source154 (09-11-2026)
 
 Crocalor, Quaxwell y Lechonk tienen las 16 expresiones en normal y variocolor. Seis atlas de personaje añaden 76 retratos y conservan los veinte originales publicados sin cambiar sus bytes. Hay 1.235 de 1.469 formas con ambas paletas completas; quedan 234 formas y 6.899 expresiones pendientes.
