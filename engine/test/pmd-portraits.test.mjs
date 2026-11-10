@@ -21,7 +21,7 @@ test('installed portrait selection keeps form, emotion, shiny and lazy binary of
     assert.equal(portablePortrait('Charizard-Mega-Y','Joyous'),normal);
     assert.equal(portablePortrait('Charizard','Normal'),'');
     installPortableAssets(null);assert.deepEqual(revoked,[normal,shiny]);
-    assert.equal(makeSprites().portrait('Mew','Pain',{shiny:true}),'/api/sprites/portrait?species=Mew&emotion=Pain&shiny=1');
+    assert.equal(makeSprites().portrait('Mew','Pain',{shiny:true}),'/api/sprites/portrait?species=Mew&emotion=Pain&shiny=1&portrait_version=2');
   }finally{installPortableAssets(null);URL.createObjectURL=create;URL.revokeObjectURL=revoke;}
 });
 
@@ -37,7 +37,7 @@ test('a missing exact portable portrait cannot borrow a cached base normal portr
       assert.ok(source.startsWith('data:image/svg+xml,'));
     }
   } finally {installPortableAssets(null);}
-  assert.equal(makeSprites().portrait('Mew','Pain',{shiny:true}),'/api/sprites/portrait?species=Mew&emotion=Pain&shiny=1');
+  assert.equal(makeSprites().portrait('Mew','Pain',{shiny:true}),'/api/sprites/portrait?species=Mew&emotion=Pain&shiny=1&portrait_version=2');
 });
 
 function introFixture(tag) {

@@ -123,7 +123,8 @@ def overworld_sheet(request: Request, key: str):
 @router.get("/sprites/portrait")
 def pmd_portrait(request: Request, species: str = "", emotion: str = "Normal", shiny: bool = False):
     """Installed form/colour expression portrait, then the legacy published cache for ordinary colours."""
-    return _file(services(request).pmd.portrait(species[:60], emotion, shiny))
+    # The same emotion URL may resolve to a fallback before its art is installed.
+    return _file(services(request).pmd.portrait(species[:60], emotion, shiny), cache=False)
 
 
 @router.get("/sprites/pmd-sheet/{key}/{anim}")

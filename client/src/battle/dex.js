@@ -98,7 +98,8 @@ export function makeSprites({ base = "", server = "", set = "gen5ani", dexNum = 
     if (!species) return "";
     const installed = portablePortrait(species, emotion, {shiny});
     if (installed !== undefined) return installed;
-    if (!server) return `${base}/api/sprites/portrait?species=${encodeURIComponent(species)}&emotion=${encodeURIComponent(emotion)}${shiny ? '&shiny=1' : ''}`;
+    // Escape fallback images cached for a week by older app versions.
+    if (!server) return `${base}/api/sprites/portrait?species=${encodeURIComponent(species)}&emotion=${encodeURIComponent(emotion)}${shiny ? '&shiny=1' : ''}&portrait_version=2`;
     const n = num || (dexNum ? dexNum(species) : 0);
     return n > 0 ? `${PORTRAITS}/${String(n).padStart(4, "0")}/${emotion}.png` : "";
   };

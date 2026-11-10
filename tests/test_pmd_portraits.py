@@ -200,6 +200,52 @@ def test_missing_shiny_never_fetches_or_returns_a_normal_colour_portrait(service
     assert calls == []
 
 
+def test_running_portrait_service_and_exports_see_atomic_installs_without_restart(tmp_path, services, client):
+    from silvers_hoard.hoard_link.atomic import write_bytes_atomic
+
+    _, _, output, _, original = collection(tmp_path)
+    path = output / "manifest.json"
+    complete = path.read_bytes()
+    partial = json.loads(complete)
+    partial["entries"] = {key: {"Normal": entry["Normal"]} for key, entry in partial["entries"].items()}
+    partial["coverage"] = {"partial": 2}
+    write_bytes_atomic(path, json.dumps(partial).encode("utf8"))
+    services.pmd.portrait_library = PmdPortraits(output)
+    export_reader, status_reader = PmdPortraits(output), PmdPortraits(output)
+    params = {"species": "Charizard-Mega-Y", "emotion": "Angry", "portrait_version": 2}
+    before = client.get("/api/sprites/portrait", params=params)
+    assert before.content == original
+    assert before.headers["cache-control"] == "no-store"
+    assert status_reader.status()["coverage"] == {"partial": 2}
+
+    write_bytes_atomic(path, complete)
+
+    # Keep all three objects alive: API, export and status must each refresh.
+    after = client.get("/api/sprites/portrait", params=params)
+    expected = PmdPortraits(output)
+    angry = expected.resolve("Charizard-Mega-Y", ["Angry"])
+    assert after.status_code == 200 and after.content == expected.image_bytes(angry) != before.content
+    assert after.headers["cache-control"] == "no-store"
+    portable = export_reader.portable()
+    assert portable["entries"]["charizardmegay|0"]["Angry"] == angry
+    meta = portable["files"][angry]
+    pack = base64.b64decode(portable["chunks"][meta["pmd"]])
+    assert pack[meta["offset"]:meta["offset"] + meta["size"]] == after.content
+    assert status_reader.status()["coverage"] == {"complete": 2}
+
+
+def test_reader_started_before_first_install_picks_up_the_new_library(tmp_path):
+    library = PmdPortraits(tmp_path / "installed")
+    assert library.resolve("Charizard-Mega-Y", ["Normal"]) is None
+    assert library.portable()["chunks"] == []
+
+    _, _, _, _, original = collection(tmp_path)
+
+    assert library.image_bytes(library.resolve("Charizard-Mega-Y", ["Normal"])) == original
+    assert library.status()["coverage"] == {"complete": 2}
+    assert "Angry" in library.portable()["entries"]["charizardmegay|1"]
+
+
 def test_portrait_pack_corruption_is_detected_before_extraction(tmp_path):
     _, _, output, _, _ = collection(tmp_path)
     library = PmdPortraits(output)
