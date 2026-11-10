@@ -514,7 +514,10 @@ export class Vfx {
     this.pixel?.update(dt, view);
     this.supplied?.update(dt,view);
     this.wantPixelfx();
-    if (this.pixelfx) { if (pixelfxStyleOn()) this.pixelfx.update(dt, view); else if (this.pixelfx.busy()) this.pixelfx.clear(); }
+    if (this.pixelfx) {
+      this.pixelfx.area = this.weatherArea || null;
+      if (pixelfxStyleOn()) this.pixelfx.update(dt, view); else if (this.pixelfx.busy()) this.pixelfx.clear();
+    }
     this.animateParticles = dt > 0;
     if (!this.animateParticles) return;
     this.shake = Math.max(0, this.shake - dt * 0.9);
@@ -601,8 +604,11 @@ export class Vfx {
   }
 
   weather(dt, view) {
-    const w = view.weather?.id;
+    // the engine names some weathers as the move data does ("RainDance", "SunnyDay"), others in lower case ("snow")
+    const w = String(view.weather?.id || "").toLowerCase();
     if (!w) return;
+    // the pixelfx style plays the weather itself (rain, snow, sand, sun over the whole field)
+    if (this.pf()?.hasWeather()) return;
     this.weatherT += dt;
     const A = this.weatherArea || { w: 28, h: 17 };   // the turn-based screen sets its own (smaller) field
     const rate = { raindance: 70, primordialsea: 110, snow: 30, hail: 30, sandstorm: 60, sunnyday: 4, desolateland: 6 }[w] || 0;

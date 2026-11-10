@@ -33,6 +33,7 @@ import Campal from "./pages/Campal.jsx";
 import Video from "./pages/Video.jsx";
 import Compartir from "./pages/Compartir.jsx";
 import Ajustes from "./pages/Ajustes.jsx";
+import EfectosPixel from "./pages/EfectosPixel.jsx";
 import Pokeathlon from "./pages/Pokeathlon.jsx";
 import Concursos from "./pages/Concursos.jsx";
 import Bases from "./pages/Bases.jsx";
@@ -91,6 +92,7 @@ const PAGES = [
   { path: "amigos", key: "nav_friends", icon: I.podium, component: Amigos },
   { path: "progreso", key: "nav_progress", icon: I.chart, component: Progreso },
   { path: "creditos", key: "nav_settings", component: Creditos, hidden: true, parent: "ajustes" },
+  { path: "efectos", key: "nav_settings", component: EfectosPixel, hidden: true, parent: "ajustes" },
   { path: "compartir", key: "nav_share", icon: I.share, component: Compartir },
   { path: "ajustes", key: "nav_settings", icon: I.settings, component: Ajustes },
   // a battle's replay alone on a 16:9 stage, recorded as a clip by battle_video: no sidebar, no page chrome
