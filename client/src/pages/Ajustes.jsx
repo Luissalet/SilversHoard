@@ -64,6 +64,10 @@ export default function Ajustes() {
             <option value="pixelfx">{t("fx_style_pixelfx")}</option>
           </select>
         </Field>
+        <p className="help">
+          <a className="btn" href="#/efectos" data-testid="pixelfx-explorer-link">{lang === "en" ? "Explore the pixel-art effects" : "Explorar los efectos pixel art"}</a>
+          {" "}{lang === "en" ? "All 244 animated: try them with a type's palette and pin one to a move." : "Los 244, animados: pruébalos con la paleta de un tipo y fija uno a un movimiento."}
+        </p>
         <Field label={t("rt_particles")} hint={`${t("rt_particles_help")} ${t("rt_particles_help_pixel")}`}>
           <select className="field" defaultValue={particleStyle()} onChange={(e) => setParticleStyle(e.target.value)}>
             <option value="textured">{t("rt_particles_textured")}</option>

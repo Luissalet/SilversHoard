@@ -21,7 +21,7 @@ from . import pokeathlon as pk
 from . import pokeathlon_rooms as pkr
 from . import battle_search, battle_journal
 from .audio_settings import AudioSettings
-from .pixelfx import pixelfx_map
+from .pixelfx import pin_remove, pin_set, pins_list, pixelfx_effects, pixelfx_map, pixelfx_moves
 from .services import Services
 
 AGENT_INSTRUCTIONS = """Silver's Hoard is a Pokémon battle simulator (Pokémon Showdown's engine, every generation). It keeps trainers (a name, a team, an AI level and style, an avatar and battle lines), gyms (a leader plus optional gym trainers, a badge and rules), leagues (gyms, an Elite Four and a champion) and every battle with its full log.
@@ -42,7 +42,7 @@ Mass battles: mass_start runs one (up to 1100 Pokémon, each with its AI); a per
 damage_calc measures one Pokémon's moves against another (rolls, crits, KOs) with the game's own formula.
 engine_parity_status reads the last differential test of the master AI's engine (poke-engine) against the simulator: turns compared, how many match, the divergences by kind, what is not covered and how to run it again.
 battle_video records a finished battle's replay as an MP4 clip with its sound (a job; lumiere=true sends it to the video editor).
-Move animations: the turn-based screen plays Pokémon Showdown's own animation of each move (934) or Silver's effects, as the viewer picks in Settings; fx_cache shows the cached effect pictures and prefetch=true downloads them all for battles without internet; pixelfx_map says which pixel-art effect (style "Pixel art (pixelfx)") a move, type or status plays.
+Move animations: the turn-based screen plays Pokémon Showdown's own animation of each move (934) or Silver's effects, as the viewer picks in Settings; fx_cache shows the cached effect pictures and prefetch=true downloads them all for battles without internet; pixelfx_map says which pixel-art effect (style "Pixel art (pixelfx)") a move, type, status, weather or terrain plays, pixelfx_effects lists all 244, pixelfx_pin / pixelfx_unpin fix one to a move by hand.
 battle_explain says why the AI chose each move (the options it weighed with expected damage and KOs, the threat it was under, the expert's play-outs) and, in a live battle, what the expert would do now on your side.
 Avatars: trainer_sprites_search (Showdown trainer sprites), official_art_search (the games' official artwork from the Pokémon Wiki), avatar_images (your own pictures), avatar_from_url (a picture on the internet, as it is), avatar_from_photo (a picture on this computer: as it is, or into pixel art here) or avatar_draw (Prospero's Hoard draws one from up to 4 photos and/or a description in the games' art style, with the references of avatar_style_get; a background job). avatar_poses_draw draws a trainer's own sprite again from behind (shown on the player's side of a battle) and in a victory pose (shown when it wins); avatar_pose_set picks another candidate."""
 
@@ -1085,6 +1085,35 @@ class PixelfxMapArgs(BaseModel):
     category: Literal["", "Physical", "Special", "Status"] = ""
     shape: str = Field("", max_length=20, description="strike, dash, shot, beam, wave, cone, burst, drop, self or field.")
     status: str = Field("", max_length=10, description="A status (brn, par, psn, tox, frz, slp): its effect.")
+    weather: str = Field("", max_length=20, description="A weather (raindance, sunnyday, sandstorm, snow, hail...): its looping effect.")
+    terrain: str = Field("", max_length=20, description="A terrain (electricterrain, grassyterrain, mistyterrain, psychicterrain): its effect.")
+
+
+class PixelfxEffectsArgs(BaseModel):
+    category: str = Field("", max_length=20, description="One category (fire, water, ice, lightning, melee, status, weather, ui, critters...).")
+    query: str = Field("", max_length=60, description="Words to find in an effect's id, name, description or tags (\"slash\", \"heal\").")
+    limit: int = Field(0, ge=0, le=300, description="At most this many (0 = all).")
+
+
+class PixelfxMovesArgs(BaseModel):
+    type: str = Field("", max_length=20, description="Only moves of this type (\"Fire\").")
+    source: Literal["", "pin", "move", "type"] = Field("", description="pin: chosen by hand; move: its own effect; type: its type's.")
+    effect: str = Field("", max_length=60, description="Only moves that play this effect id.")
+    query: str = Field("", max_length=60, description="Words of the move's name.")
+    limit: int = Field(0, ge=0, le=1000, description="At most this many (0 = all).")
+
+
+class PixelfxPinArgs(BaseModel):
+    move: str = Field(..., min_length=1, max_length=80, description="The move (\"Tackle\", \"thunderbolt\").")
+    effect: str = Field(..., min_length=3, max_length=60, description="The effect id from pixelfx_effects (\"melee/claw-swipe\").")
+    tint: bool = Field(False, description="Recolour the effect with the move's type colours.")
+    color: str = Field("", max_length=7, description="Recolour it around this colour instead (#rrggbb).")
+    role: Literal["", "impact", "projectile", "beam", "area", "drop", "self"] = Field(
+        "", description="Where it plays: on the target, along the shot, from the user towards the target, on the area, from the sky, on the user. Empty: the move's own.")
+
+
+class PixelfxUnpinArgs(BaseModel):
+    move: str = Field(..., min_length=1, max_length=80, description="The move whose pinned effect is dropped.")
 
 
 class SettingsSetArgs(BaseModel):
@@ -1770,11 +1799,35 @@ TOOLS: list[Tool] = [
          lambda s, a: s.fx.prefetch() if a.prefetch else s.fx.stats(), 120.0),
     Tool("pixelfx_map", _d("Which pixel-art effect a move, type or status plays in the pixelfx style. Mapa de efectos pixelfx.",
                            "The style 'Pixel art (pixelfx)' of the animation setting (turn-based screen and real time) plays effects of the pixelfx library "
-                           "(MIT): physical moves hit the target, special ones throw a projectile or a beam, status ones surround the user, in the type's "
-                           "colour. Give a move, or a type with a category or shape, or a status; with nothing, the catalog. The style is picked in the "
-                           "browser's Settings and never changes a battle's result.",
-                           synonyms="animaciones pixel art, pixelfx, efectos de movimientos, estilo de animación"), PixelfxMapArgs, R,
-         lambda s, a: pixelfx_map(move=a.move, type=a.type, category=a.category, shape=a.shape, status=a.status)),
+                           "(MIT): an effect pinned by hand to the move first (pixelfx_pin), then the move's own (over 500 moves: Flamethrower a flamethrower, "
+                           "Thunder a lightning strike, Earthquake a quake, the claws claw), then its type's: physical moves hit the target, special "
+                           "ones throw a projectile or a beam, status ones surround the user, in the type's colour. Statuses play on the Pokemon itself "
+                           "(frozen, burning) in real time; weather and terrains loop over the field. Give a move, a type with a category or shape, a "
+                           "status, a weather or a terrain; with nothing, the coverage and the pins. Never changes a battle's result.",
+                           synonyms="animaciones pixel art, pixelfx, efectos de movimientos, estilo de animación, clima, campo"), PixelfxMapArgs, R,
+         lambda s, a: pixelfx_map(move=a.move, type=a.type, category=a.category, shape=a.shape, status=a.status, weather=a.weather,
+                                  terrain=a.terrain, data_dir=s.config.data_dir)),
+    Tool("pixelfx_effects", _d("Every pixel-art effect of the pixelfx style (244), by category or words. Catálogo de efectos pixelfx.",
+                               "Id, category, what it does, loop or one-shot, length, size, whether it plays on the Pokemon's body, its options, and how "
+                               "many moves use it. The effects explorer of the app (Ajustes > Explorar efectos) shows them animated.",
+                               synonyms="explorador de efectos, catálogo pixelfx, efectos disponibles"), PixelfxEffectsArgs, R,
+         lambda s, a: pixelfx_effects(category=a.category, query=a.query, limit=a.limit)),
+    Tool("pixelfx_moves", _d("Every move with the pixel-art effect it plays now: pinned, its own or its type's. Efectos por movimiento.",
+                             "Filter by type, source (pin, move, type), effect id or words of the name.",
+                             synonyms="qué efecto tiene cada movimiento, movimientos con efecto propio"), PixelfxMovesArgs, R,
+         lambda s, a: pixelfx_moves(s.config.data_dir, type=a.type, source=a.source, effect=a.effect, query=a.query, limit=a.limit)),
+    Tool("pixelfx_pins", _d("The pixel-art effects pinned to moves by hand. Efectos fijados a movimientos.",
+                            "Each with the automatic effect it replaces.", synonyms="efectos fijados, efectos a mano"), Empty, R,
+         lambda s, a: pins_list(s.config.data_dir)),
+    Tool("pixelfx_pin", _d("Pin a pixel-art effect to a move: it plays instead of the automatic one. Fijar efecto a un movimiento.",
+                           "Applies in every battle screen with the pixelfx style (real time, turn-based, mass battles), for every viewer, and "
+                           "pixelfx_map reports it. tint recolours it with the move's type, color with a colour of your own; role moves it (on the "
+                           "target, along the shot, from the user, on the area, from the sky, on the user).",
+                           synonyms="fijar efecto, cambiar animación de un movimiento"), PixelfxPinArgs, W,
+         lambda s, a: pin_set(s.config.data_dir, a.move, a.effect, tint=a.tint, color=a.color, role=a.role)),
+    Tool("pixelfx_unpin", _d("Drop the pixel-art effect pinned to a move: the automatic one plays again. Quitar efecto fijado.",
+                             synonyms="quitar efecto fijado, volver al automático"), PixelfxUnpinArgs, W,
+         lambda s, a: pin_remove(s.config.data_dir, a.move)),
     Tool("reborn_cache", _d("Pokémon Reborn's move animations: what is cached; prefetch downloads them all. Animaciones Reborn.",
                             "The turn-based screen plays Pokémon Reborn's animation of each move (748 moves and 12 statuses, by The Pokémon Reborn "
                             "Team) when the animation style setting is Reborn's. Their frames, sheets and sounds come from pokerogue-assets on first "

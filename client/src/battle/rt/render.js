@@ -978,6 +978,10 @@ export class ArenaRenderer {
           this.vfx.pixel?.captureActor(si, side.pos || 0, side.active, ctx,
             {x:x-geometry.ax*k,y:y-geometry.ay*k,w:geometry.w*k,h:geometry.h*k},
             matte => a.draw(matte,x,y,row,this.k*displayScale,{alpha:bodyAlpha,reduced:!!this.reducedMotion?.matches}));
+          // the pixelfx style reads the Pokemon's pixels for effects that play on its body (frozen, burning, a halo)
+          this.vfx.pf?.()?.captureActor(si, side.pos || 0, ctx,
+            {x:x-geometry.ax*k,y:y-geometry.ay*k,w:geometry.w*k,h:geometry.h*k},
+            c => a.draw(c,x,y,row,this.k*displayScale,{alpha:1,reduced:true}));
         }
       }
       headY = y - a.height(this.k * displayScale) - 0.3 * s;
@@ -1000,6 +1004,7 @@ export class ArenaRenderer {
         ctx.drawImage(img.img, x - w / 2, y - h * 0.92, w, h);
         this.vfx.pixel?.captureActor(si,side.pos || 0,side.active,ctx,
           {x:x-w/2,y:y-h*.92,w,h},matte => {matte.globalAlpha=bodyAlpha;matte.drawImage(img.img,x-w/2,y-h*.92,w,h);});
+        this.vfx.pf?.()?.captureActor(si, side.pos || 0, ctx, {x:x-w/2,y:y-h*.92,w,h}, c => c.drawImage(img.img,x-w/2,y-h*.92,w,h));
         if (bodyFlash > 0) {
           ctx.globalAlpha = bodyAlpha * bodyFlash;
           ctx.drawImage(white(img.img), x - w / 2, y - h * 0.92, w, h);
