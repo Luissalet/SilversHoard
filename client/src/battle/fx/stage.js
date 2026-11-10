@@ -228,6 +228,7 @@ export class FxStage {
     this.queue.length = 0;
     this.flights.length = 0;
     this.vfx.rays.clear();
+    this.vfx.pixelfx?.clear();
     this.view.projectiles = [];
   }
 
@@ -267,7 +268,7 @@ export class FxStage {
 
   busy() {
     const v = this.vfx;
-    return moveCardActive(this,this.clock) || !!this.ps?.busy() || this.queue.length > 0 || this.flights.length > 0 || v.parts.length > 0 || v.fx.length > 0 || v.rays.size > 0 || !!this.view.weather.id || this.view.sides.length > 0;
+    return moveCardActive(this,this.clock) || !!this.ps?.busy() || this.queue.length > 0 || this.flights.length > 0 || v.parts.length > 0 || v.fx.length > 0 || v.rays.size > 0 || !!v.pixelfx?.busy() || !!this.view.weather.id || this.view.sides.length > 0;
   }
 
   frame(now) {
