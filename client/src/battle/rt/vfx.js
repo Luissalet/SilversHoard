@@ -11,6 +11,7 @@ import { drawFireSprite } from "./move-art.js";
 import { drawIceSprite } from "./ice-art.js";
 import { SuppliedEffects } from './supplied-fx.js';
 import { PixelEffects } from './pixel-fx.js';
+import { loadPixelfx, pixelfxStyleOn } from '../pixelfx/gate.js';
 
 const H = 0.6;          // projectiles fly this many meters over the ground
 const TAU = Math.PI * 2;
@@ -158,9 +159,25 @@ export class Vfx {
     // has no sprite capture hook and retains its existing effect lifecycle.
     this.pixel = typeof renderer.animOf === 'function' ? new PixelEffects(renderer) : null;
     this.pixelStyle = particleStyle();
+    // The "pixelfx" animation style (pixelfx/): its layer loads the first time the style is on and paints over everything else.
+    this.pixelfx = null;
+    this.wantPixelfx();
   }
 
-  dispose() { this.pixel?.dispose(); this.parts.length = 0; this.fx.length = 0; this.rays.clear(); this.lastBalls.clear(); }
+  /** Starts loading the pixelfx layer when the animation style asks for it (once). */
+  wantPixelfx() {
+    if (this.pixelfx || this.pixelfxLoading || this.disposed || typeof window === 'undefined' || !pixelfxStyleOn()) return;
+    this.pixelfxLoading = loadPixelfx().then((m) => {
+      if (this.disposed) return;
+      this.pixelfx = new m.PixelfxLayer(this.r);
+      this.pixelfx.reduced = () => !!this.reducedMotion?.matches;
+    }).catch(() => { this.pixelfxLoading = null; /* the painter's own effects carry on */ });
+  }
+
+  /** The pixelfx layer while the style is on, else null. */
+  pf() { return this.pixelfx && pixelfxStyleOn() ? this.pixelfx : null; }
+
+  dispose() { this.disposed = true; this.pixelfx?.dispose(); this.pixel?.dispose(); this.parts.length = 0; this.fx.length = 0; this.rays.clear(); this.lastBalls.clear(); }
 
   px(x) { return this.r.px(x); }
   py(y, z = 0) { return this.r.py(y) - z * this.r.scale; }
@@ -233,6 +250,8 @@ export class Vfx {
     this.supplied?.event(e,battle);
     const nativeContact = this.pixel && particleStyle() !== 'plain'
       ? this.pixel.onEvent(e, battle, TYPE_COLORS[e.type] || '#f3cd69') : false;
+    // pixelfx style: the layer plays its effect and says which of the painter's own looks it replaces ({ray, ball, melee, aura, burst, area})
+    const pf = this.pf()?.event(e, battle) || null;
     // the Pokémon of an event: the side's in singles, the slot's (e.u) in doubles; its foe: the other side's, or the one it aims at
     const side = (i) => (battle.doubles ? battle.sides[i].units[e.u || 0] : battle.sides[i]);
     const foeOf = (i) => (battle.doubles ? battle.foe(side(i)) : battle.sides[1 - i]);
@@ -240,7 +259,7 @@ export class Vfx {
     switch (e.k) {
       case "shot": {
         const ray = RAYS[e.move] || (e.shape === "beam" && !BALLS[e.move] ? "generic" : null);
-        if (ray) this.rays.set(e.id, { kind: ray, ox: e.x, oy: e.y, hx: e.x, hy: e.y, type: e.type, t: 0, gone: -1, s: e.s });
+        if (ray && !pf?.ray) this.rays.set(e.id, { kind: ray, ox: e.x, oy: e.y, hx: e.x, hy: e.y, type: e.type, t: 0, gone: -1, s: e.s });
         break;
       }
       case "impact": case "fizzle": {
@@ -254,7 +273,8 @@ export class Vfx {
         if (e.move === "doubleteam" || e.move === "minimize") this.fx.push({ kind: "clones", s: e.s, u: e.u || 0, t: 0, life: 0.9 });
         if (e.move === "willowisp") { const f = foeOf(e.s); for (let i = 0; i < 3; i++) this.fx.push({ kind: "wisp", x0: a.x, y0: a.y, x1: f.x + rnd(-0.4, 0.4), y1: f.y + rnd(-0.2, 0.2), t: -i * 0.1, life: 0.65, ph: i * 2.1 }); }
         if (GEARS.has(e.move) && e.shape === "self") this.fx.push({ kind: "gears", x: a.x, y: a.y, t: 0, life: 0.9, color: "#9db8e0" });
-        if (e.shape === "strike" || e.shape === "dash") {
+        if (pf?.melee || pf?.aura) { /* the pixelfx style plays its own effect for this move */ }
+        else if (e.shape === "strike" || e.shape === "dash") {
           const kind = melee(e.move);
           const reach = e.shape === "dash" ? 1.2 : 1.4;
           this.fx.push({ kind: `melee-${kind}`, x: a.x + a.fx * reach, y: a.y + a.fy * reach, fx: a.fx, fy: a.fy, z: H, t: 0, life: kind === "bite" ? 0.35 : 0.3,
@@ -289,7 +309,8 @@ export class Vfx {
         const isDrop = this.pendingDrop[dropKey] === e.move;
         if (isDrop) this.pendingDrop[dropKey] = null;
         const kind = isDrop ? DROPS[e.move] || "ring" : e.arc === -1 ? BURSTS[e.move] || "ring" : BURSTS[e.move] || "cone";
-        this.area(kind, e, isDrop);
+        if (pf?.area) this.shake = Math.max(this.shake, kind === "quake" ? 0.28 : kind === "explode" ? 0.3 : 0.1);
+        else this.area(kind, e, isDrop);
         break;
       }
       case "hit": {
@@ -303,8 +324,8 @@ export class Vfx {
         if (GEARS.has(e.move)) this.fx.push({ kind: "gears", x: d.x, y: d.y, t: 0, life: 0.5, color: "#c9cfdc" });
         if (first && CHAINS.has(e.move)) this.fx.push({ kind: "chains", x: d.x, y: d.y, t: 0, life: 0.75, color: e.move === "hex" || e.move === "spiritshackle" || e.move === "meanlook" ? "#8a5cd6" : "#b8a77a" });
         if (first && (e.move === "dracometeor" || e.move === "meteorbeam")) for (let i = 0; i < 4; i++) this.fx.push({ kind: "meteor", x: d.x + rnd(-1.4, 1.4), y: d.y + rnd(-0.7, 0.7), t: -i * 0.09, life: 0.45, color: e.move === "dracometeor" ? "#ff8a3c" : "#ffe08a" });
-        if (!nativeContact) this.burst(e.type, d.x, d.y, { power: e.crit || e.eff > 1 ? 1.5 : 1 });
-        const px = pixelHits && (e.hit === 0 || e.hit === undefined) ? pixelHitOf(e.move, e.type) : "";
+        if (!nativeContact && !pf?.burst) this.burst(e.type, d.x, d.y, { power: e.crit || e.eff > 1 ? 1.5 : 1 });
+        const px = !pf?.burst && pixelHits && (e.hit === 0 || e.hit === undefined) ? pixelHitOf(e.move, e.type) : "";
         if (px) this.fx.push({ kind: "pixel", sheet: px, x: d.x, y: d.y, t: 0, life: 0.36, big: e.crit || e.eff > 1 });
         if (e.crit || e.eff > 1) this.shake = Math.max(this.shake, e.crit ? 0.18 : 0.1);
         break;
@@ -325,7 +346,7 @@ export class Vfx {
       case "status": {
         const d = side(e.s);
         const col = { brn: "Fire", par: "Electric", psn: "Poison", tox: "Poison", frz: "Ice", slp: "Psychic" }[e.status];
-        if (col) this.burst(col, d.x, d.y, { power: 0.7 });
+        if (col && !pf?.burst) this.burst(col, d.x, d.y, { power: 0.7 });
         break;
       }
       case "faint": {
@@ -451,6 +472,7 @@ export class Vfx {
   areaAt(move, type, x, y, r, { arc = -1, fx = 1, fy = 0, drop = false } = {}) {
     this.supplied?.area(move,type,x,y,r,arc,fx,fy,drop);
     const kind = drop ? DROPS[move] || "ring" : arc === -1 ? BURSTS[move] || "ring" : BURSTS[move] || "cone";
+    if (this.pf()?.area(move, type, x, y, r, arc, fx, fy, drop)) { this.shake = Math.max(this.shake, kind === "quake" ? 0.28 : 0.1); return; }
     this.area(kind, { x, y, r, arc, fx, fy, type }, drop);
   }
   /** Which look an area move around the user has: "wave", "quake", "electric"... (BURSTS), "ring" when it has none of its own. */
@@ -458,6 +480,7 @@ export class Vfx {
   /** A strike's (or a dash's) mark in front of (x, y), facing (fx, fy). */
   meleeAt(move, type, x, y, fx, fy, { dash = false } = {}) {
     this.supplied?.contact(move,type,x,y,fx,fy,dash);
+    if (this.pf()?.contact()) return;
     const kind = melee(move);
     const reach = dash ? 1.2 : 1.4;
     const len = Math.hypot(fx, fy);   // a direction: a dash's whole path may come in, the mark stays just ahead of the Pokémon
@@ -468,11 +491,13 @@ export class Vfx {
   /** A beam from (x0, y0) to (x1, y1), with the move's own ray (ice crystals, flames, lightning...), fading at once. */
   rayAt(key, move, type, x0, y0, x1, y1) {
     this.supplied?.beam(move,type,x0,y0,x1,y1);
+    if (this.pf()?.beam(move, type, x0, y0, x1, y1)) return;
     this.rays.set(key, { kind: RAYS[move] || "generic", ox: x0, oy: y0, hx: x1, hy: y1, type, t: 0, gone: 0, s: 0 });
   }
   /** A hit on whoever stands at (x, y): the type's burst and, with the pixel-art style, its impact. */
   hitAt(move, type, x, y, { strong = false } = {}) {
     this.supplied?.impact(move,type,x,y);
+    if (this.pf()?.impact(move, type, x, y, { strong })) return;
     this.burst(type, x, y, { power: strong ? 1.5 : 1 });
     const px = pixelHits ? pixelHitOf(move, type) : "";
     if (px) this.fx.push({ kind: "pixel", sheet: px, x, y, t: 0, life: 0.36, big: strong });
@@ -486,6 +511,8 @@ export class Vfx {
     }
     this.pixel?.update(dt, view);
     this.supplied?.update(dt,view);
+    this.wantPixelfx();
+    if (this.pixelfx) { if (pixelfxStyleOn()) this.pixelfx.update(dt, view); else if (this.pixelfx.busy()) this.pixelfx.clear(); }
     this.animateParticles = dt > 0;
     if (!this.animateParticles) return;
     this.shake = Math.max(0, this.shake - dt * 0.9);
@@ -519,7 +546,7 @@ export class Vfx {
     }
     // trails behind shaped projectiles
     for (const p of view.projectiles) {
-      if (this.rays.has(p.id)) continue;
+      if (this.rays.has(p.id) || this.pf()?.owns(p.id)) continue;
       const kind = BALLS[p.move] || (p.shape === "wave" ? "wave" : "orb");
       const back = { x: p.x - p.vx * 0.02, y: p.y - p.vy * 0.02 };
       if (["fire", "electric", "shadow", "sludge", "aura", "energy", "moon", "drop", "mud", "orb", "snow", "ice"].includes(kind) || kind === "wave") {
@@ -601,6 +628,7 @@ export class Vfx {
   drawUnder(ctx) {
     this.pixel?.begin(ctx);
     this.pixel?.draw(ctx, 'back', particleStyle(), !!this.reducedMotion?.matches);
+    this.pf()?.draw(ctx, 'back');
     const s = this.r.scale;
     for (const f of this.fx) {
       if (f.t < 0) continue;
@@ -671,7 +699,9 @@ export class Vfx {
     // rays
     for (const ray of this.rays.values()) this.drawRay(ctx, ray, battle);
     // projectiles that are not rays
-    for (const p of view.projectiles) if (!this.rays.has(p.id)) this.drawBall(ctx, p);
+    const owned = this.pf();
+    for (const p of view.projectiles) if (!this.rays.has(p.id) && !owned?.owns(p.id)) this.drawBall(ctx, p);
+    owned?.draw(ctx, 'front');
     // timed effects
     for (const f of this.fx) {
       if (f.t < 0) continue;

@@ -21,6 +21,7 @@ from . import pokeathlon as pk
 from . import pokeathlon_rooms as pkr
 from . import battle_search, battle_journal
 from .audio_settings import AudioSettings
+from .pixelfx import pixelfx_map
 from .services import Services
 
 AGENT_INSTRUCTIONS = """Silver's Hoard is a Pokémon battle simulator (Pokémon Showdown's engine, every generation). It keeps trainers (a name, a team, an AI level and style, an avatar and battle lines), gyms (a leader plus optional gym trainers, a badge and rules), leagues (gyms, an Elite Four and a champion) and every battle with its full log.
@@ -41,7 +42,7 @@ Mass battles: mass_start runs one (up to 1100 Pokémon, each with its AI); a per
 damage_calc measures one Pokémon's moves against another (rolls, crits, KOs) with the game's own formula.
 engine_parity_status reads the last differential test of the master AI's engine (poke-engine) against the simulator: turns compared, how many match, the divergences by kind, what is not covered and how to run it again.
 battle_video records a finished battle's replay as an MP4 clip with its sound (a job; lumiere=true sends it to the video editor).
-Move animations: the turn-based screen plays Pokémon Showdown's own animation of each move (934) or Silver's effects, as the viewer picks in Settings; fx_cache shows the cached effect pictures and prefetch=true downloads them all for battles without internet.
+Move animations: the turn-based screen plays Pokémon Showdown's own animation of each move (934) or Silver's effects, as the viewer picks in Settings; fx_cache shows the cached effect pictures and prefetch=true downloads them all for battles without internet; pixelfx_map says which pixel-art effect (style "Pixel art (pixelfx)") a move, type or status plays.
 battle_explain says why the AI chose each move (the options it weighed with expected damage and KOs, the threat it was under, the expert's play-outs) and, in a live battle, what the expert would do now on your side.
 Avatars: trainer_sprites_search (Showdown trainer sprites), official_art_search (the games' official artwork from the Pokémon Wiki), avatar_images (your own pictures), avatar_from_url (a picture on the internet, as it is), avatar_from_photo (a picture on this computer: as it is, or into pixel art here) or avatar_draw (Prospero's Hoard draws one from up to 4 photos and/or a description in the games' art style, with the references of avatar_style_get; a background job). avatar_poses_draw draws a trainer's own sprite again from behind (shown on the player's side of a battle) and in a victory pose (shown when it wins); avatar_pose_set picks another candidate."""
 
@@ -1078,6 +1079,14 @@ class FxCacheArgs(BaseModel):
     prefetch: bool = Field(False, description="Download every picture the move animations use now (for battles without internet later).")
 
 
+class PixelfxMapArgs(BaseModel):
+    move: str = Field("", max_length=80, description="A move's name or id (\"Flamethrower\"): the effect it plays.")
+    type: str = Field("", max_length=20, description="A type (\"Fire\"): its effects, by category and by shape (with category or shape, just that one).")
+    category: Literal["", "Physical", "Special", "Status"] = ""
+    shape: str = Field("", max_length=20, description="strike, dash, shot, beam, wave, cone, burst, drop, self or field.")
+    status: str = Field("", max_length=10, description="A status (brn, par, psn, tox, frz, slp): its effect.")
+
+
 class SettingsSetArgs(BaseModel):
     player_name: Optional[str] = Field(None, max_length=60)
     default_format: Optional[str] = Field(None, max_length=120)
@@ -1759,6 +1768,13 @@ TOOLS: list[Tool] = [
                         "on first use and stay in data/cache/fx.",
                         synonyms="animaciones de movimientos, efectos visuales, descargar efectos, sin conexión, showdown"), FxCacheArgs, W,
          lambda s, a: s.fx.prefetch() if a.prefetch else s.fx.stats(), 120.0),
+    Tool("pixelfx_map", _d("Which pixel-art effect a move, type or status plays in the pixelfx style. Mapa de efectos pixelfx.",
+                           "The style 'Pixel art (pixelfx)' of the animation setting (turn-based screen and real time) plays effects of the pixelfx library "
+                           "(MIT): physical moves hit the target, special ones throw a projectile or a beam, status ones surround the user, in the type's "
+                           "colour. Give a move, or a type with a category or shape, or a status; with nothing, the catalog. The style is picked in the "
+                           "browser's Settings and never changes a battle's result.",
+                           synonyms="animaciones pixel art, pixelfx, efectos de movimientos, estilo de animación"), PixelfxMapArgs, R,
+         lambda s, a: pixelfx_map(move=a.move, type=a.type, category=a.category, shape=a.shape, status=a.status)),
     Tool("reborn_cache", _d("Pokémon Reborn's move animations: what is cached; prefetch downloads them all. Animaciones Reborn.",
                             "The turn-based screen plays Pokémon Reborn's animation of each move (748 moves and 12 statuses, by The Pokémon Reborn "
                             "Team) when the animation style setting is Reborn's. Their frames, sheets and sounds come from pokerogue-assets on first "

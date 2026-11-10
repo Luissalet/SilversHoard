@@ -56,11 +56,12 @@ export default function Ajustes() {
         </div>
         <label className="flex items-center gap-2"><Switch checked={moveFx} onChange={setMoveFx} label={t("move_fx")} /> {t("move_fx")}</label>
         <p className="help">{t("move_fx_help")}</p>
-        <Field label={t("fx_style")} hint={`${t("fx_style_help")} ${t("fx_style_help_reborn")}`}>
+        <Field label={t("fx_style")} hint={`${t("fx_style_help")} ${t("fx_style_help_reborn")} ${t("fx_style_help_pixelfx")}`}>
           <select className="field" value={fxStyle} disabled={!moveFx} onChange={(e) => setFxStyle(e.target.value)}>
             <option value="showdown">{t("fx_style_showdown")}</option>
             <option value="reborn">{t("fx_style_reborn")}</option>
             <option value="silver">{t("fx_style_silver")}</option>
+            <option value="pixelfx">{t("fx_style_pixelfx")}</option>
           </select>
         </Field>
         <Field label={t("rt_particles")} hint={`${t("rt_particles_help")} ${t("rt_particles_help_pixel")}`}>
