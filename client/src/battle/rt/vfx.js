@@ -167,11 +167,13 @@ export class Vfx {
   /** Starts loading the pixelfx layer when the animation style asks for it (once). */
   wantPixelfx() {
     if (this.pixelfx || this.pixelfxLoading || this.disposed || typeof window === 'undefined' || !pixelfxStyleOn()) return;
+    // After a failed load, wait before trying again instead of re-importing on every frame.
+    if (this.pixelfxFailedAt && Date.now() - this.pixelfxFailedAt < 30000) return;
     this.pixelfxLoading = loadPixelfx().then((m) => {
       if (this.disposed) return;
       this.pixelfx = new m.PixelfxLayer(this.r);
       this.pixelfx.reduced = () => !!this.reducedMotion?.matches;
-    }).catch(() => { this.pixelfxLoading = null; /* the painter's own effects carry on */ });
+    }).catch(() => { this.pixelfxLoading = null; this.pixelfxFailedAt = Date.now(); /* the painter's own effects carry on */ });
   }
 
   /** The pixelfx layer while the style is on, else null. */
