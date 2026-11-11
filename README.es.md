@@ -1,3 +1,7 @@
+# Biblioteca completa de retratos PMD de combate (11-11-2026)
+
+Las 1.469 formas tienen las 16 expresiones PMD en normal y variocolor, con 47.008 asignaciones de retratos. Las últimas 324 celdas se retocaron a 40×40. Se conservaron los trajes de Pikachu y la armadura de Mega Chesnaught, que ocupa todo su encuadre. Pikachu Coqueta sin disfraz reutiliza las caras originales con la marca oscura de la cola donde aparece en el recorte. Los nuevos HTML autónomos incorporan esta biblioteca.
+
 # Retratos PMD recuperados y Maushold (11-11-2026)
 
 La biblioteca incorpora 118 retratos recuperados de 40×40 con los fondos de cada expresión. Mega Swampert, Keldeo Resolute e Iron Boulder tienen las 16 expresiones en normal y variocolor. El total es de 1.457 de 1.469 formas completas y quedan 324 expresiones por cubrir.
