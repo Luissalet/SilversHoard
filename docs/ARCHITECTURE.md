@@ -1,3 +1,7 @@
+# Complete PMD battle portrait library (2026-11-11)
+
+All 1,469 forms have the 16 PMD expressions in normal and shiny palettes, for 47,008 portrait assignments. The final 324 cells were retouched at the original 40×40 resolution. Pikachu's outfits and Mega Chesnaught's full-frame armour retain their published shapes. Uncostumed Cosplay Pikachu reuses the original facial art with the dark tail marking where it is visible. Newly exported standalone HTML embeds this library.
+
 # Recovered PMD expressions and Maushold (2026-11-11)
 
 The PMD library adds 118 recovered 40×40 portraits with the expression-specific backgrounds. Mega Swampert, Resolute Keldeo and Iron Boulder now have all 16 expressions in both palettes. Overall, 1,457 of 1,469 forms are complete and 324 expressions remain.
