@@ -1,15 +1,27 @@
 import React, { useEffect, useRef, useState } from "react";
+import { listFormats } from "../../../engine/src/core.mjs";
 import Arena from "../battle/Arena.jsx";
 import Controls from "../battle/Controls.jsx";
 import { makeSprites } from "../battle/dex.js";
 import { useBattlePlayer } from "../battle/player.js";
 import { installSmoothArt } from "../smooth-art.js";
-import { friendsText } from "./strings.js";
+import { friendsText, initialWebLang } from "./strings.js";
 import { decodeSignal, DuelPeer, encodeSignal } from "./peer.js";
 import { duelRules, duelTeam, HostedDuel } from "./duel.js";
 
 const sprites = makeSprites({ server: "https://play.pokemonshowdown.com/sprites", set: "gen5" });
 const baseFormat = "gen9customgame";
+const formatOptions = listFormats().filter((format) => !format.random && ["singles", "doubles"].includes(format.game_type));
+const savedRulesKey = "silver-web-rulesets";
+
+function readSavedRules() {
+  try {
+    const items = JSON.parse(localStorage.getItem(savedRulesKey) || "[]");
+    return items.map(({ id, settings }) => ({ id, settings: duelRules(settings) }));
+  } catch {
+    return [];
+  }
+}
 
 function Field({ label, children }) {
   return <label className="friends-field"><span className="label">{label}</span>{children}</label>;
@@ -56,14 +68,15 @@ function Battle({ view, side, lang, pending, choose, t }) {
 }
 
 export default function Friends({ artReady }) {
-  const [lang, setLang] = useState(() => navigator.language.startsWith("es") ? "es" : "en");
+  const [lang, setLang] = useState(initialWebLang);
   const t = (key, params) => friendsText(lang, key, params);
   const [role, setRole] = useState(location.hash ? "guest" : "host");
   const [name, setName] = useState("");
   const [paste, setPaste] = useState("");
-  const [format, setFormat] = useState(baseFormat);
+  const [selection, setSelection] = useState(baseFormat);
+  const [savedRules, setSavedRules] = useState(readSavedRules);
   const [level, setLevel] = useState("");
-  const [custom, setCustom] = useState(null);
+  const custom = savedRules.find((item) => item.id === selection)?.settings;
   const [invite, setInvite] = useState(location.hash ? location.href : "");
   const [reply, setReply] = useState("");
   const [share, setShare] = useState("");
@@ -134,7 +147,8 @@ export default function Friends({ artReady }) {
     try {
       const incoming = role === "guest" ? decodeSignal(invite, "offer") : null;
       const settings = duelRules(incoming?.settings || custom || {
-        name: format, format, rules: [], level_rules: level ? { level: Number(level) } : {},
+        name: formatOptions.find((item) => item.id === selection)?.name || selection,
+        format: selection, rules: [], level_rules: level ? { level: Number(level) } : {},
       });
       const own = duelTeam(settings, name, paste);
       const active = makeRoom(incoming?.id || crypto.randomUUID(), settings, own);
@@ -201,7 +215,14 @@ export default function Friends({ artReady }) {
       if (file.size > 64000) throw new Error();
       const document = JSON.parse(await file.text());
       if (document.kind !== "silver.ruleset" || document.version !== 1) throw new Error();
-      setCustom(duelRules(document.ruleset));
+      const settings = duelRules(document.ruleset);
+      const same = savedRules.find((item) => JSON.stringify(item.settings) === JSON.stringify(settings));
+      if (same) { setSelection(same.id); return; }
+      const id = `saved-${crypto.randomUUID()}`;
+      const next = [...savedRules, { id, settings }];
+      setSavedRules(next);
+      setSelection(id);
+      try { localStorage.setItem(savedRulesKey, JSON.stringify(next)); } catch { /* the current tab can still use it */ }
     } catch {
       setError("invalidRules");
     }
@@ -213,7 +234,7 @@ export default function Friends({ artReady }) {
   const side = role === "host" ? "p1" : "p2";
   return <main className={`p-wrap friends ${view ? "" : "friends-lobby"}`}>
     <header className="friends-head">
-      <div><p className="friends-brand">Silver's Hoard</p><h1>{t("title")}</h1></div>
+      <div><a className="friends-brand" href={`../?lang=${lang}`}>Silver's Hoard</a><h1>{t("title")}</h1></div>
       <button type="button" className="btn btn-sm" onClick={() => setLang(lang === "es" ? "en" : "es")}>{lang === "es" ? "English" : "Español"}</button>
     </header>
     {artStatus === false && <p className="help" role="status">{t("artFailed")}</p>}
@@ -246,19 +267,23 @@ export default function Friends({ artReady }) {
           <Field label={t("name")}><input className="field" required maxLength={40} autoComplete="nickname" value={name} onChange={(e) => setName(e.target.value)} /></Field>
           <Field label={t("team")}><textarea className="field friends-team" rows={6} required maxLength={16000} value={paste} onChange={(e) => setPaste(e.target.value)} /></Field>
           {role === "host" && <>
-            {!custom && <div className="friends-options">
-              <Field label={t("format")}><input className="field" required maxLength={120} value={format} onChange={(e) => setFormat(e.target.value)} /></Field>
-              <Field label={t("fixed")}><input className="field" type="number" min="1" max="100" value={level} onChange={(e) => setLevel(e.target.value)} /></Field>
-            </div>}
-            <div className="friends-import">
-              <Field label={t("custom")}><input type="file" className="field" accept=".json,application/json" onChange={importRules} /></Field>
-              {custom && <button type="button" className="btn" aria-label={t("clearRules")} onClick={() => setCustom(null)}>×</button>}
-            </div>
+            <Field label={t("ruleset")}>
+              <select className="field" value={selection} onChange={(e) => setSelection(e.target.value)}>
+                {!!savedRules.length && <optgroup label={t("saved")}>
+                  {savedRules.map(({ id, settings }) => <option key={id} value={id}>{settings.name}</option>)}
+                </optgroup>}
+                <optgroup label={t("builtIn")}>
+                  {formatOptions.map(({ id, name }) => <option key={id} value={id}>{name}</option>)}
+                </optgroup>
+              </select>
+            </Field>
+            {!custom && <Field label={t("fixed")}><input className="field friends-level" type="number" min="1" max="100" value={level} onChange={(e) => setLevel(e.target.value)} /></Field>}
+            <Field label={t("custom")}><input type="file" className="field" accept=".json,application/json" onChange={importRules} /></Field>
           </>}
           <button className="btn btn-primary" disabled={busy || artStatus === null}>{t(busy ? "preparing" : role === "host" ? "host" : "join")}</button>
         </form>
       </>}
     </section>}
-    {artStatus && <footer><a className="help" href="./art/CREDITS.md" target="_blank" rel="noreferrer">{t("credits")}</a></footer>}
+    {artStatus && <footer><a className="help" href="../art/CREDITS.md" target="_blank" rel="noreferrer">{t("credits")}</a></footer>}
   </main>;
 }
