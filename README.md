@@ -1,3 +1,9 @@
+# PMD battle portraits (2026-11-11)
+
+This snapshot adds 5,377 missing PMD expression portraits. Both normal and shiny have all 16 expressions for 1,454 of 1,469 forms. The remaining 15 forms lack 442 expressions. The library also corrects two Avalugg portrait orientations and the background of shiny Toucannon's Determined portrait. The Family of Three Maushold portrait correction needs matching body sprites before it can ship.
+
+Fresh HTML exports embed the complete installed library at export time. Existing HTML files keep the portraits embedded when they were exported. The worktree library, HTTP endpoint and new standalone export returned matching bytes for all 5,760 reviewed selections. The exported Falinks gym opened from disk without a network connection. Shiny Exeggcute Dynamaxed from 148 to 296 HP, then returned to normal size and showed its Sad portrait at KO. Falinks showed Joyous. Local media and review provenance are stored outside public Git.
+
 # PMD expressions for fifteen more forms (2026-11-10)
 
 Ambipom, Guzzlord, Centiskorch Gigantamax, Combee, Dipplin, Greavard, Grimmsnarl, Mamoswine, Annihilape, Magmortar, Flapple, Dottler, Clodsire, Garganacl and Lokix have all 16 expressions in normal and shiny in this library snapshot. The update adds 400 missing expressions, corrects eight previously generated Centiskorch Gigantamax portraits and keeps 72 published portraits byte-for-byte. Both palettes are complete for 1,274 of 1,469 forms; 195 forms and 5,819 expression bindings remain incomplete. Native 40-pixel references retain their orientation, close framing, anatomy and palette materials, with expression backgrounds, gradients and symbols. New HTML exports include this snapshot; existing exported files retain their embedded snapshot. Gameplay and UI code are unchanged by this portrait update. Media remain local, outside public Git.
