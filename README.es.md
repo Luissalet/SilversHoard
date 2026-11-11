@@ -1,3 +1,9 @@
+# Retratos PMD de combate (11-11-2026)
+
+Esta biblioteca añade 5.377 retratos de expresión PMD que faltaban. 1.454 de 1.469 formas tienen las 16 expresiones en normal y variocolor. A las otras 15 formas les faltan 442 expresiones. También se corrige la orientación de dos retratos de Avalugg y el fondo de Determined de Toucannon variocolor. La corrección de los retratos de Maushold Familia de Tres requiere los sprites de combate correspondientes.
+
+Cada nuevo HTML incorpora la biblioteca instalada al exportarlo. Los HTML anteriores conservan los retratos de su exportación. Los 5.760 retratos seleccionados coinciden en el lector, en HTTP y en los PNG incrustados. El gimnasio de Falinks se abrió desde disco sin conexión. Exeggcute variocolor pasó de 148 a 296 PS con Dynamax y mostró su retrato Sad tras volver a su tamaño normal al caer por KO. Falinks mostró Joyous. Los archivos de imagen y su procedencia se guardan localmente, fuera del Git público.
+
 # Expresiones PMD para otras quince formas (10-11-2026)
 
 Ambipom, Guzzlord, Centiskorch Gigamax, Combee, Dipplin, Greavard, Grimmsnarl, Mamoswine, Annihilape, Magmortar, Flapple, Dottler, Clodsire, Garganacl y Lokix tienen las 16 expresiones en normal y variocolor en esta biblioteca. El lote añade 400 expresiones que faltaban, corrige ocho retratos generados anteriormente de Centiskorch Gigamax y conserva los 72 retratos publicados con sus bytes exactos. Ambas paletas están completas para 1.274 de 1.469 formas; quedan 195 formas y 5.819 expresiones incompletas. Los retratos mantienen los 40 píxeles nativos, la orientación, el encuadre cercano, la anatomía y los materiales de cada paleta, con fondos, gradientes y símbolos según la expresión. Las nuevas exportaciones HTML incluyen esta biblioteca; los archivos exportados anteriormente conservan su propia copia embebida. Este lote de retratos no cambia el gameplay ni el código de la interfaz. Los medios siguen siendo locales, fuera del Git público.
