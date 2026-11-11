@@ -1,0 +1,154 @@
+{
+  "id": "mausholdthree-native",
+  "reviewed": true,
+  "shiny_reviewed": true,
+  "a": {
+    "Pain": {
+      "w": 40,
+      "h": 56,
+      "n": 2,
+      "r": 8,
+      "d": [
+        2,
+        8
+      ],
+      "ax": 19.5,
+      "ay": 29.5,
+      "source": {
+        "kind": "manually-composed-pmd-reaction",
+        "author": "G〜",
+        "source": {
+          "kind": "published-pmd",
+          "folder": "0925/0001",
+          "sha": "341342d7ef2ed3e4427c760e829a417b501be17c"
+        },
+        "authored_frames": 0,
+        "generated_frames": 0,
+        "derived_directions": 8,
+        "input_assets": {
+          "Hurt": "pmd:96d48351b1a2cd07abdedab5b00ba0cddfbb92c067a0784bac515e47a83eee7f"
+        },
+        "sha256": "c3e64b143484d314c6a996a3ee599509c10145933a2e31633270f3f34a6c804d"
+      }
+    },
+    "HitGround": {
+      "w": 40,
+      "h": 56,
+      "n": 3,
+      "r": 8,
+      "d": [
+        2,
+        8,
+        24
+      ],
+      "ax": 19.5,
+      "ay": 29.5,
+      "ground_frames": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "source": {
+        "kind": "manually-composed-pmd-reaction",
+        "author": "G〜",
+        "source": {
+          "kind": "published-pmd",
+          "folder": "0925/0001",
+          "sha": "341342d7ef2ed3e4427c760e829a417b501be17c"
+        },
+        "authored_frames": 0,
+        "generated_frames": 0,
+        "derived_directions": 8,
+        "input_assets": {
+          "Hurt": "pmd:96d48351b1a2cd07abdedab5b00ba0cddfbb92c067a0784bac515e47a83eee7f",
+          "Sleep": "pmd:159593673673636a4c0ab539448b2e6836d224d251d96ee5c5446ce9f08f0854"
+        },
+        "sha256": "3a6455021a3157411e9628d03b182e4a81e382f4fc862db4c8a1a26ff4e6952c"
+      }
+    }
+  },
+  "shiny": {
+    "a": {
+      "Pain": {
+        "w": 40,
+        "h": 56,
+        "n": 2,
+        "r": 8,
+        "d": [
+          2,
+          8
+        ],
+        "ax": 19.5,
+        "ay": 29.5,
+        "source": {
+          "kind": "manually-composed-pmd-reaction",
+          "author": "G〜",
+          "source": {
+            "kind": "published-pmd",
+            "folder": "0925/0001/0001",
+            "sha": "341342d7ef2ed3e4427c760e829a417b501be17c"
+          },
+          "authored_frames": 0,
+          "generated_frames": 0,
+          "derived_directions": 8,
+          "input_assets": {
+            "Hurt": "pmd:c796a6e575ce8d6b40e2948cd3caee7b9f7dd838bd1f3db075b63edc760f6c25"
+          },
+          "sha256": "17d27230299a03dc27fdc6c41673ed179b2f057ca8587903bb3451f36346c845"
+        }
+      },
+      "HitGround": {
+        "w": 40,
+        "h": 56,
+        "n": 3,
+        "r": 8,
+        "d": [
+          2,
+          8,
+          24
+        ],
+        "ax": 19.5,
+        "ay": 29.5,
+        "ground_frames": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "source": {
+          "kind": "manually-composed-pmd-reaction",
+          "author": "G〜",
+          "source": {
+            "kind": "published-pmd",
+            "folder": "0925/0001/0001",
+            "sha": "341342d7ef2ed3e4427c760e829a417b501be17c"
+          },
+          "authored_frames": 0,
+          "generated_frames": 0,
+          "derived_directions": 8,
+          "input_assets": {
+            "Hurt": "pmd:c796a6e575ce8d6b40e2948cd3caee7b9f7dd838bd1f3db075b63edc760f6c25",
+            "Sleep": "pmd:8b782fc30e59f20eff8613a1b17ccf897b039e64db98a6eeba1d8595616eb3ae"
+          },
+          "sha256": "9462eed355ec6948be4bb21b2ff61be5249736412ce26257fdd0ecccfabb7bc0"
+        }
+      }
+    }
+  },
+  "provenance": {
+    "num": 925,
+    "form": "",
+    "tool": "native-pose-composition",
+    "credit": "G〜",
+    "derivation": "Hurt uses its original two frames. HitGround lands in the authored Sleep pose."
+  }
+}

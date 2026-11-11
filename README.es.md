@@ -1,3 +1,9 @@
+# Retratos PMD recuperados y Maushold (11-11-2026)
+
+La biblioteca incorpora 118 retratos recuperados de 40×40 con los fondos de cada expresión. Mega Swampert, Keldeo Resolute e Iron Boulder tienen las 16 expresiones en normal y variocolor. El total es de 1.457 de 1.469 formas completas y quedan 324 expresiones por cubrir.
+
+Maushold Familia de Tres usa sus propias animaciones publicadas en normal y variocolor, sus vistas previas y los 32 retratos correspondientes. Sus reacciones al golpe y al caer usan fotogramas nativos de daño y reposo. Familia de Cuatro conserva sus imágenes publicadas. Se probó un combate en el HTML sin conexión y se compararon sus imágenes con las de la aplicación.
+
 # Retratos PMD de combate (11-11-2026)
 
 Esta biblioteca añade 5.377 retratos de expresión PMD que faltaban. 1.454 de 1.469 formas tienen las 16 expresiones en normal y variocolor. A las otras 15 formas les faltan 442 expresiones. También se corrige la orientación de dos retratos de Avalugg y el fondo de Determined de Toucannon variocolor. La corrección de los retratos de Maushold Familia de Tres requiere los sprites de combate correspondientes.

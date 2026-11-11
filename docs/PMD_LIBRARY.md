@@ -1,3 +1,9 @@
+# Recovered PMD expressions and Maushold (2026-11-11)
+
+The PMD library adds 118 recovered 40×40 portraits with the expression-specific backgrounds. Mega Swampert, Resolute Keldeo and Iron Boulder now have all 16 expressions in both palettes. Overall, 1,457 of 1,469 forms are complete and 324 expressions remain.
+
+Family of Three Maushold uses its own published normal and shiny animation sheets, previews and 32 matching portraits. The hit and fall sequences reuse native Hurt and Sleep frames. Family of Four retains its published art. A standalone export was played offline and checked against the application endpoint.
+
 # PMD battle portraits (2026-11-11)
 
 This snapshot adds 5,377 missing PMD expression portraits. Both normal and shiny have all 16 expressions for 1,454 of 1,469 forms. The remaining 15 forms lack 442 expressions. The library also corrects two Avalugg portrait orientations and the background of shiny Toucannon's Determined portrait. The Family of Three Maushold portrait correction needs matching body sprites before it can ship.
