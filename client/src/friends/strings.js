@@ -34,6 +34,7 @@ const copy = {
   invalidChoice: ["Esa acción ya no está disponible. Vuelve a elegir.", "That choice is no longer available. Choose again."],
   noBrowser: ["Abre la página por HTTPS o desde localhost en un navegador compatible con WebRTC.", "Open this page over HTTPS or localhost in a browser that supports WebRTC."],
   artFailed: ["No se pudo cargar la biblioteca PMD de esta página.", "This page's PMD library could not be loaded."],
+  credits: ["Créditos de los recursos", "Asset credits"],
   forfeit: ["¿Te rindes?", "Forfeit?"],
   won: ["Ha ganado {name}", "{name} won"],
   tied: ["Empate", "Tie"],

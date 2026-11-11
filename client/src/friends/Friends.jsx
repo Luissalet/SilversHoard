@@ -259,5 +259,6 @@ export default function Friends({ artReady }) {
         </form>
       </>}
     </section>}
+    {artStatus && <footer><a className="help" href="./art/CREDITS.md" target="_blank" rel="noreferrer">{t("credits")}</a></footer>}
   </main>;
 }
