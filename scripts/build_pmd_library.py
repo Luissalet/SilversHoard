@@ -46,7 +46,7 @@ def inventory(roster, tracker):
     explicit = {
         "pichuspikyeared": "spiky", "taurospaldeacombat": "paldea",
         "meowsticf": "female", "indeedeef": "female", "basculegionf": "female", "oinkolognef": "female",
-        "mausholdfour": "", "tatsugiricurlymega": "mega",
+        "maushold": "three", "mausholdfour": "", "tatsugiricurlymega": "mega",
         "minior": "red", "miniormeteor": "",
     }
     exterior = {"pikachustarter": ("pikachu", 1), "eeveestarter": ("eevee", 1),
