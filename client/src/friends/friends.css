@@ -49,13 +49,22 @@
 .friends-stack, .friends-field { display: grid; gap: 8px; min-width: 0; }
 .friends-stack { gap: 13px; }
 .friends-stack > button, .friends-exit { justify-self: start; align-self: flex-start; }
-.friends-code, .friends-import { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 8px; }
-.friends-options { display: grid; grid-template-columns: minmax(0, 2fr) minmax(92px, 1fr); gap: 10px; }
+.friends-code { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 8px; }
+.friends-level { max-width: 120px; }
 .friends-team, .friends-code textarea { font-family: var(--hoard-font-mono), monospace; }
 .friends-code textarea { color: #cfe8ed; }
 .friends-rules { color: #bacbd1; }
 .friends-rules strong { color: #f3cd69; margin-inline: 4px; }
 .friends-result { color: #f3cd69; font-size: clamp(1.35rem, 4vw, 2rem); }
+.silver-web-home { gap: 22px; }
+.silver-web-brand { display: flex; align-items: center; gap: 12px; }
+.silver-web-brand img { width: clamp(40px, 9vw, 64px); height: auto; flex: none; }
+.silver-web-menu { display: grid; gap: 10px; }
+.silver-web-option { display: grid; gap: 3px; padding: 16px 18px; text-decoration: none; }
+.silver-web-option strong { color: #f3cd69; font-size: 1.2rem; }
+.silver-web-option span { color: #bacbd1; }
+.silver-web-option:hover, .silver-web-option:focus-visible { border-color: #f3cd69; background: #243541; }
+.silver-web-footer { display: flex; gap: 16px; flex-wrap: wrap; }
 
 @media (max-width: 480px) {
   .friends-modes { display: flex; width: 100%; }
