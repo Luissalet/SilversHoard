@@ -9,6 +9,7 @@
     "build": "vite build && vite build --config vite.play.config.js",
     "build:app": "vite build",
     "build:play": "vite build --config vite.play.config.js",
+    "build:friends": "vite build --config vite.friends.config.js",
     "start": "python -m silvers_hoard",
     "test": "python -m pytest -q && node --test \"engine/test/*.test.mjs\"",
     "test:engine": "node --test \"engine/test/*.test.mjs\"",
