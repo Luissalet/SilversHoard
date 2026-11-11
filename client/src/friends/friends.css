@@ -1,0 +1,63 @@
+.friends {
+  --friends-corner: #6cd6ec;
+  color: #f0f4ed;
+  padding-block: clamp(22px, 5vw, 58px);
+}
+
+.friends-lobby { max-width: 680px; }
+
+.friends-head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.friends-head h1 {
+  margin: 4px 0 0;
+  font: italic 800 clamp(2.6rem, 7vw, 4.4rem)/0.94 "Barlow Condensed", "Arial Narrow", sans-serif;
+  text-transform: uppercase;
+  color: #f3cd69;
+  text-wrap: balance;
+}
+
+.friends-brand {
+  font-size: .9rem;
+  font-weight: 700;
+  letter-spacing: .045em;
+  color: #bacbd1;
+}
+
+.friends-room {
+  display: grid;
+  gap: 14px;
+  width: min(100%, 610px);
+  padding: clamp(16px, 3vw, 26px);
+  border: 1px solid #415360;
+  border-top-color: var(--friends-corner);
+  border-radius: 8px;
+  background: #192631;
+  box-shadow: 0 12px 28px #080d1280;
+}
+
+.friends-modes { justify-self: start; }
+.friends-modes button, .friends button.btn { min-height: 40px; }
+.friends .field { min-height: 40px; }
+.friends .field[type="file"] { padding-block: 8px; }
+.friends .field:focus-visible, .friends button:focus-visible { outline: 2px solid #ffe4a1; outline-offset: 2px; }
+.friends .field::selection { background: #f3cd69; color: #101922; }
+.friends-stack, .friends-field { display: grid; gap: 8px; min-width: 0; }
+.friends-stack { gap: 13px; }
+.friends-stack > button, .friends-exit { justify-self: start; align-self: flex-start; }
+.friends-code, .friends-import { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 8px; }
+.friends-options { display: grid; grid-template-columns: minmax(0, 2fr) minmax(92px, 1fr); gap: 10px; }
+.friends-team, .friends-code textarea { font-family: var(--hoard-font-mono), monospace; }
+.friends-code textarea { color: #cfe8ed; }
+.friends-rules { color: #bacbd1; }
+.friends-rules strong { color: #f3cd69; margin-inline: 4px; }
+.friends-result { color: #f3cd69; font-size: clamp(1.35rem, 4vw, 2rem); }
+
+@media (max-width: 480px) {
+  .friends-modes { display: flex; width: 100%; }
+  .friends-modes button { flex: 1; padding-inline: 8px; }
+}
