@@ -1,8 +1,10 @@
-# Duelo privado en una página estática
+# Silver en GitHub Pages
+
+La raíz abre el inicio de Silver's Hoard. **Combate contra la IA** abre un combate de práctica por turnos con un equipo propio o aleatorio. **Jugar con un amigo** abre el duelo privado en `amigos/`. La gestión de entrenadores, gimnasios e historial se realiza en la aplicación de escritorio.
 
 **Jugar con un amigo** ejecuta un combate por turnos en dos navegadores. El anfitrión ejecuta el motor de Silver y envía al invitado la vista de su lado. El anfitrión recibe ambos equipos, por lo que esta sala está pensada para partidas privadas de confianza.
 
-1. Crea una sala con tu nombre, un equipo de Showdown y un formato. Puedes importar un reglamento JSON de Silver que incluya cláusulas y niveles.
+1. Crea una sala con tu nombre y un equipo de Showdown. Elige un formato o un reglamento guardado en el desplegable. Si importas un reglamento JSON, el navegador lo guarda para partidas posteriores.
 2. Envía el enlace de invitación a tu amigo y deja abierta la pestaña.
 3. Tu amigo abre el enlace, introduce su nombre y su equipo y pulsa **Generar respuesta**.
 4. Pega su código de respuesta y pulsa **Conectar**. Una vez conectados, ambos eligen sus movimientos desde la arena.

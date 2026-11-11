@@ -1,4 +1,10 @@
 const copy = {
+  home: ["Inicio de Silver", "Silver home"],
+  playMenu: ["Modos de juego", "Game modes"],
+  practice: ["Combate contra la IA", "Battle the AI"],
+  practiceHelp: ["Trae tu equipo o prueba uno aleatorio.", "Bring your own team or try a random one."],
+  friendsHelp: ["Crea una sala privada por invitación.", "Create a private room by invitation."],
+  desktop: ["Proyecto y aplicación de escritorio", "Project and desktop app"],
   title: ["Jugar con un amigo", "Play with a friend"],
   description: ["Un duelo por turnos desde dos navegadores.", "A turn-based duel from two browsers."],
   host: ["Crear sala", "Create room"],
@@ -6,11 +12,11 @@ const copy = {
   guest: ["Unirme", "Join"],
   name: ["Tu nombre", "Your name"],
   team: ["Tu equipo de Showdown", "Your Showdown team"],
-  format: ["Formato base", "Base format"],
   fixed: ["Nivel fijo", "Fixed level"],
   ruleset: ["Reglamento", "Ruleset"],
+  builtIn: ["Formatos de Silver", "Silver formats"],
+  saved: ["Reglamentos importados", "Imported rulesets"],
   custom: ["Importar reglamento JSON", "Import ruleset JSON"],
-  clearRules: ["Quitar reglamento", "Remove ruleset"],
   offer: ["Invitación", "Invitation"],
   offer_help: ["Envíale esta invitación a tu amigo y deja la pestaña abierta. Cuando te responda, pega su código aquí.", "Send this invitation to your friend and keep this tab open. When they reply, paste their code here."],
   response: ["Código de respuesta", "Response code"],
@@ -42,4 +48,9 @@ const copy = {
 
 export function friendsText(lang, key, params = {}) {
   return copy[key][lang === "en" ? 1 : 0].replace(/\{(\w+)\}/g, (match, id) => params[id] ?? match);
+}
+
+export function initialWebLang() {
+  const requested = new URLSearchParams(location.search).get("lang");
+  return requested === "es" || requested === "en" ? requested : navigator.language.startsWith("es") ? "es" : "en";
 }
