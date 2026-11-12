@@ -23,7 +23,7 @@ Funciona en local (puerto 5230 por defecto), guarda sus datos en SQLite y tambi�
 
 ### Personajes y ligas de los juegos
 - 214 líderes de gimnasio, miembros del Alto Mando, campeones, rivales, villanos, Cerebros de la Frontera y jefes de instalaciones, de Rojo/Azul a Escarlata/Púrpura, con sus equipos combate a combate (primeros combates, revanchas, torneos, instalaciones, combates múltiples).
-- Ligas completas de los juegos listas para instalar: gimnasios con medallas, Alto Mando y campeón. Cristal, Rojo Fuego/Verde Hoja, Esmeralda y Oro HeartGold/Plata SoulSilver usan equipos leídos del código de los juegos; el resto se construye con los equipos de los personajes.
+- Ligas completas de los juegos listas para instalar: gimnasios con medallas, Alto Mando y campeón. Cristal, Rojo Fuego/Verde Hoja, Esmeralda y HeartGold/SoulSilver usan equipos leídos del código de los juegos; el resto se construye con los equipos de los personajes.
 - Instalaciones de combate con rachas (Torres Batalla, Metro, Maison, Árbol, Frontera Batalla de HeartGold/SoulSilver) y los diez eventos del Pokéathlon.
 
 ### Combates
