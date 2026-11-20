@@ -2597,7 +2597,7 @@
     "num": 25,
     "form": "Unova",
     "tool": "manual-pixel-composition",
-    "prompt": "Luis authorized manual pixel composition and retouching after built-in generator rejections; shiny is a recolor.",
+    "prompt": "Manual pixel composition and retouching were authorised after built-in generator rejections; shiny is a recolor.",
     "source_image": "pikachuunova-manual71-assembled.png",
     "source_sha256": "65a369fa9ef7a3f1e5ca52059dbffb743d4cb99ec55e4ea70c35080ba2b892c6",
     "native_frames": [

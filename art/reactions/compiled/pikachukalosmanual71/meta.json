@@ -2597,7 +2597,7 @@
     "num": 25,
     "form": "Kalos",
     "tool": "manual-pixel-composition",
-    "prompt": "Luis authorized manual pixel composition and retouching after built-in generator rejections; shiny is a recolor.",
+    "prompt": "Manual pixel composition and retouching were authorised after built-in generator rejections; shiny is a recolor.",
     "source_image": "pikachukalos-manual71-assembled.png",
     "source_sha256": "95ed99dcbbfc7b7d38629d722a38198ba92903ac109feaf2cec668ecf76ffe64",
     "native_frames": [

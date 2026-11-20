@@ -1,4 +1,4 @@
-"""Add inspected motifs from Luis's local PMD Time/Darkness sheets. No downloads.
+"""Add inspected motifs from the local PMD Time/Darkness sheets. No downloads.
 
 The selected rows are source material for the existing RT renderer, not cartridge
 emitter programs. Source rectangles and atlas offsets preserve every selected pixel.

@@ -15,7 +15,7 @@
       "sha256": "4b1a83ab9dac8abe84b5c87b0eb069d47eb0e520979020c93cb6745f83040ccc"
     }
   ],
-  "prompt": "Luis requested mechanical recolor from existing authored reaction poses; no new generation.",
+  "prompt": "The task called for a mechanical recolour from existing authored reaction poses; no new generation.",
   "recolor": {
     "target_shiny": true,
     "source_key": "lib-raichu-n-27b13a173ca5",

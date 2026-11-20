@@ -6,14 +6,14 @@ import {battleTitle, loc, seatNames, winnerName} from '../../client/src/loc.js';
 
 const seat = (name, en) => ({trainer_id: 'tr_x', name, i18n: en ? {es: {name}, en: {name: en}} : undefined});
 const geeta = 'Ságita (Escarlata y Púrpura · Combates en Paldea)';
-const battle = {p1: seat('Luis'), p2: seat(geeta, 'Geeta (Scarlet and Violet · Paldea battles)'), winner_side: 'p2',
-  winner_name: geeta.slice(0, 40), title: `Copa · Luis vs ${geeta}`};
+const battle = {p1: seat('Player A'), p2: seat(geeta, 'Geeta (Scarlet and Violet · Paldea battles)'), winner_side: 'p2',
+  winner_name: geeta.slice(0, 40), title: `Copa · Player A vs ${geeta}`};
 
 test('the log says the seat names in the reader\'s language, even cut to 40 characters', () => {
   const names = seatNames(battle, 'en');
   assert.equal(renameLine(`|player|p2|${geeta.slice(0, 40)}|sd:geeta|`, names), '|player|p2|Geeta (Scarlet and Violet · Paldea battles)|sd:geeta|');
   assert.equal(renameLine(`|win|${geeta.slice(0, 40)}`, names), '|win|Geeta (Scarlet and Violet · Paldea battles)');
-  assert.equal(renameLine('|player|p1|Luis|', names), '|player|p1|Luis|');
+  assert.equal(renameLine('|player|p1|Player A|', names), '|player|p1|Player A|');
   // another name on that side (a typed one), short prefixes and other lines stay as they are
   assert.equal(renameLine('|player|p2|Otra|', names), '|player|p2|Otra|');
   assert.equal(renameLine('|player|p2|Ságita|', names), '|player|p2|Ságita|');
@@ -27,15 +27,15 @@ test('the log says the seat names in the reader\'s language, even cut to 40 char
 });
 
 test('title, winner and names without a translation', () => {
-  assert.equal(battleTitle(battle, 'en'), 'Copa · Luis vs Geeta (Scarlet and Violet · Paldea battles)');
-  assert.equal(battleTitle({...battle, title: ''}, 'es'), `Luis vs ${geeta}`);
+  assert.equal(battleTitle(battle, 'en'), 'Copa · Player A vs Geeta (Scarlet and Violet · Paldea battles)');
+  assert.equal(battleTitle({...battle, title: ''}, 'es'), `Player A vs ${geeta}`);
   assert.equal(winnerName(battle, 'en'), 'Geeta (Scarlet and Violet · Paldea battles)');
   assert.equal(winnerName({...battle, winner_side: 'p1'}, 'en'), geeta.slice(0, 40));
   assert.equal(winnerName({winner_name: 'Alguien'}, 'en'), 'Alguien');
-  assert.equal(loc(battle.p1, 'en'), 'Luis');
+  assert.equal(loc(battle.p1, 'en'), 'Player A');
   assert.equal(seatNames(null, 'en'), null);
   // a facility battle: the facility's name and the rival's
-  const facility = {p1: seat('Luis'), p2: {trainer_id: '', name: 'Entrenadora Guay Nora', i18n: {es: {name: 'Entrenadora Guay Nora'}, en: {name: 'Ace Trainer Nora'}}},
+  const facility = {p1: seat('Player A'), p2: {trainer_id: '', name: 'Entrenadora Guay Nora', i18n: {es: {name: 'Entrenadora Guay Nora'}, en: {name: 'Ace Trainer Nora'}}},
     title: 'Metro Batalla: trenes individuales · 11 · Entrenadora Guay Nora',
     run: {target_name: 'Metro Batalla: trenes individuales', i18n: {en: {target_name: 'Battle Subway: Single Trains'}}}};
   assert.equal(battleTitle(facility, 'en'), 'Battle Subway: Single Trains · 11 · Ace Trainer Nora');

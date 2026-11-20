@@ -14,7 +14,7 @@ def test_own_trainers_include_the_random_ones_you_rolled(call):
     # renaming, re-teaming or re-drawing a random trainer makes it yours; a star does not
     fav = call("trainer_random", {"seed": "fav"})
     assert call("trainer_update", {"id": fav["id"], "favorite": True})["origin"] == "random"
-    up = call("trainer_update", {"id": rnd["id"], "name": "Luis"})
+    up = call("trainer_update", {"id": rnd["id"], "name": "Player A"})
     assert up["origin"] == "own"
     assert rnd["id"] not in {t["id"] for t in call("trainers_list", {"origin": "random"})["trainers"]}
     assert rnd["id"] in {t["id"] for t in call("trainers_list", {"origin": "own"})["trainers"]}

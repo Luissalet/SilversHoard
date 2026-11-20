@@ -1,6 +1,6 @@
 # Original real-time arena floors
 
-Generated on 16 October 2026 with the built-in image generation tool for Luis's Silver polish request. These are original environment illustrations; no creature art, sprites, logos or third-party textures were used as input. The original generated PNGs were encoded to WebP (ImageMagick, quality 88) and embedded as data URLs in arena-art.js, so the app and exported playable pages use identical self-contained images. Only the floor appearance changes; collision geometry, battle rules and stored results remain unchanged.
+Generated on 16 October 2026 with the built-in image generation tool for the visual refinement. These are original environment illustrations; no creature art, sprites, logos or third-party textures were used as input. The original generated PNGs were encoded to WebP (ImageMagick, quality 88) and embedded as data URLs in arena-art.js, so the app and exported playable pages use identical self-contained images. Only the floor appearance changes; collision geometry, battle rules and stored results remain unchanged.
 
 Champion: 409358 bytes WebP. Summit: 284718 bytes WebP. The procedural floor remains available while an image loads or if decoding fails. Court lines, rocks, trainers, audiences and atmospheric effects are drawn separately. Surface wear in the images is cosmetic and never implies additional obstacles.
 

@@ -7,7 +7,7 @@ pytestmark = needs_engine
 
 
 def test_trainer_code_file_paste_roundtrip(call):
-    tr = call("trainer_create", {"name": "Luis", "paste": TEAM, "avatar": "sd:red", "dialogue": {"win": "¡Toma!"}})
+    tr = call("trainer_create", {"name": "Player A", "paste": TEAM, "avatar": "sd:red", "dialogue": {"win": "¡Toma!"}})
     code = call("export", {"kind": "trainer", "id": tr["id"], "fmt": "code"})["code"]
     assert code.startswith(sharing.CODE_PREFIX) and len(code) < 4000
     got = call("import", {"content": f"mira esto: {code} :)"})
@@ -84,8 +84,8 @@ def test_parse_any_and_codes():
 
 
 def test_settings_and_catalogue(call, client):
-    s = call("settings_set", {"player_name": "Luis", "sprite_set": "gen5", "playback_ms": 500})
-    assert s["player_name"] == "Luis" and call("settings_get")["sprite_set"] == "gen5"
+    s = call("settings_set", {"player_name": "Player A", "sprite_set": "gen5", "playback_ms": 500})
+    assert s["player_name"] == "Player A" and call("settings_get")["sprite_set"] == "gen5"
     call("settings_set", {"default_ai_level": "godlike"}, status=400)
     cat = client.get("/api/agent/tools").json()
     names = {t["name"] for t in cat["tools"]}

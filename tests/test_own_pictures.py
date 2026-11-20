@@ -33,7 +33,7 @@ def size_of(services, avatar):
 
 
 def test_upload_keeps_the_picture_as_it_is(services):
-    t = services.trainer_create(name="Luis", paste="Pikachu\n- Thunderbolt\n")
+    t = services.trainer_create(name="Player A", paste="Pikachu\n- Thunderbolt\n")
     out = services.avatar_from_photo(png((600, 1200)), trainer_id=t["id"], mode="upload", kind="photo")
     assert size_of(services, out["avatar"]) == (512, 1024)          # up to 1024 px, not a 256 px thumbnail
     assert services.store.trainer(t["id"])["avatar"] == out["avatar"]
@@ -104,7 +104,7 @@ def test_character_with_its_official_art(services):
 
 
 def test_drawing_in_the_official_art_look(services, prospero):
-    t = services.trainer_create(name="Luis", paste="Sceptile\n- Leaf Blade\n")
+    t = services.trainer_create(name="Player A", paste="Sceptile\n- Leaf Blade\n")
     j = run_job(services, services.avatar_draw([picture()], description="black jacket", trainer_id=t["id"], look="art"))
     assert j["status"] == "done", j
     res = j["result"]

@@ -38,13 +38,13 @@ def test_presets_and_a_battle_royale(call, services):
 
 
 def test_teams_with_a_trainer_and_giants(call):
-    me = call("trainer_create", {"name": "Luis", "paste": TEAM})
+    me = call("trainer_create", {"name": "Player A", "paste": TEAM})
     out = call("mass_start", {"mode": "teams", "level": 50, "seed": "armies", "teams": [
         {"kind": "trainer", "trainer_id": me["id"]},
         {"kind": "top", "gens": [1], "count": 3, "name": "Kanto"},
     ]})
     names = [t["name"] for t in out["summary"]["teams"]]
-    assert names == ["Luis", "Kanto"]
+    assert names == ["Player A", "Kanto"]
     assert out["spec"]["teams"][0]["units"][0]["set"]["species"] == "Garchomp"
     assert out["spec"]["level_rules"] == {"level": 50}
     boss = call("mass_start", {"mode": "boss", "seed": "giant", "teams": [
