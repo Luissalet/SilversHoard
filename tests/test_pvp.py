@@ -26,7 +26,7 @@ def rooms(services):
 
 
 def test_turn_by_turn_room(call, rooms, services):
-    me = call("trainer_create", {"name": "Luis", "paste": TEAM})
+    me = call("trainer_create", {"name": "Player A", "paste": TEAM})
     room = call("pvp_open", {"trainer_id": me["id"], "format": "gen9customgame"})
     assert room["status"] == "waiting" and room["links"]["path"].startswith(f"/r/{room['id']}?k=")
     key = room["links"]["path"].split("k=")[1]
@@ -76,7 +76,7 @@ def test_turn_by_turn_room(call, rooms, services):
 
 
 def test_real_time_lockstep_relay(call, rooms):
-    me = call("trainer_create", {"name": "Luis", "paste": TEAM})
+    me = call("trainer_create", {"name": "Player A", "paste": TEAM})
     room = call("pvp_open", {"trainer_id": me["id"], "mode": "realtime", "rt_arena": "open", "time_limit": 60})
     key = room["links"]["path"].split("k=")[1]
     rooms.post(f"/api/room/{room['id']}/join", json={"k": key, "name": "Ana", "paste": FRIEND})
@@ -111,7 +111,7 @@ def test_real_time_lockstep_relay(call, rooms):
 
 
 def test_room_checks(call):
-    me = call("trainer_create", {"name": "Luis", "paste": TEAM})
+    me = call("trainer_create", {"name": "Player A", "paste": TEAM})
     call("pvp_open", {"trainer_id": me["id"], "mode": "turns"}, status=400)
     empty = call("trainer_create", {"name": "Nadie"})
     call("pvp_open", {"trainer_id": empty["id"]}, status=400)
@@ -124,7 +124,7 @@ def test_room_checks(call):
 
 
 def test_spectators_watch_without_playing(call, rooms):
-    me = call("trainer_create", {"name": "Luis", "paste": TEAM})
+    me = call("trainer_create", {"name": "Player A", "paste": TEAM})
     room = call("pvp_open", {"trainer_id": me["id"], "mode": "realtime", "rt_arena": "open", "time_limit": 60})
     key = room["links"]["path"].split("k=")[1]
     wkey = room["watch_links"]["path"].split("k=")[1]
@@ -173,7 +173,7 @@ def test_lobby_and_friends(call, rooms, services, monkeypatch):
 
     services.pvp.port = 0       # no room yet: the lobby address still names the rooms port
     assert call("pvp_lobby", {})["port"] == 5240 and ":5240/lobby?c=" in call("pvp_lobby", {})["local"]
-    me = call("trainer_create", {"name": "Luis", "paste": TEAM})
+    me = call("trainer_create", {"name": "Player A", "paste": TEAM})
     room = call("pvp_open", {"trainer_id": me["id"], "format": "gen9customgame"})
     hidden = call("pvp_open", {"trainer_id": me["id"], "format": "gen9customgame", "listed": False})
     lobby = call("pvp_lobby", {})
@@ -184,7 +184,7 @@ def test_lobby_and_friends(call, rooms, services, monkeypatch):
     ids = [r["id"] for r in got["rooms"]]
     assert room["id"] in ids and hidden["id"] not in ids
     row = got["rooms"][ids.index(room["id"])]
-    assert row["join"].startswith(f"/r/{room['id']}?k=") and row["watch"].startswith(f"/w/{room['id']}?k=") and row["host"] == "Luis"
+    assert row["join"].startswith(f"/r/{room['id']}?k=") and row["watch"].startswith(f"/w/{room['id']}?k=") and row["host"] == "Player A"
     page = rooms.get("/lobby", params={"c": code}, headers={"Accept-Language": "es"})
     assert page.status_code == 200 and row["join"].replace("&", "&amp;") in page.text and "Unirme" in page.text
     # once the friend joined, the room is no longer offered to join, only to watch

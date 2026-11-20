@@ -1,6 +1,6 @@
 # Local Red Rescue Team Dark motifs
 
-Five selected motifs use Luis's local `Game Boy Advance - Pokemon Mystery Dungeon_ Red Rescue Team - Attacks - Dark-Type Moves.png` sheet, credited to redblueyellow. The builder checks its original inventory SHA256 before writing anything. It removes the teal colour key, preserves exact source pixels and pads each crop into square transparent cells without rescaling.
+Five selected motifs use the local `Game Boy Advance - Pokemon Mystery Dungeon_ Red Rescue Team - Attacks - Dark-Type Moves.png` sheet, credited to redblueyellow. The builder checks its original inventory SHA256 before writing anything. It removes the teal colour key, preserves exact source pixels and pads each crop into square transparent cells without rescaling.
 
 | Move | Manifest ID | Frames | Drawing scale |
 | --- | --- | ---: | ---: |

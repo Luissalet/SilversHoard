@@ -14,7 +14,7 @@ def first_choice(req):
 
 
 def test_play_against_ai_to_the_end(call, services):
-    me = call("trainer_create", {"name": "Luis", "paste": TEAM})
+    me = call("trainer_create", {"name": "Player A", "paste": TEAM})
     foe = call("trainer_random", {"ai_level": "hard", "seed": "foe"})
     b = call("battle_start", {"p1": {"trainer_id": me["id"], "human": True}, "p2": {"trainer_id": foe["id"]}, "seed": "1"})
     assert b["status"] == "live" and "p1" in b["requests"] and b["requests"]["p1"]["teamPreview"]
@@ -94,7 +94,7 @@ def test_watch_series_tournament(call):
 
 
 def test_gym_challenge_and_league(call):
-    me = call("trainer_create", {"name": "Luis", "paste": TEAM, "ai_level": "hard"})
+    me = call("trainer_create", {"name": "Player A", "paste": TEAM, "ai_level": "hard"})
     leader = call("trainer_random", {"seed": "leader", "ai_level": "easy"})
     gt = call("trainer_random", {"seed": "gymtrainer", "ai_level": "easy"})
     gym = call("gym_save", {"name": "Gimnasio Prueba", "type": "Fire", "badge": "Medalla Prueba", "leader_id": leader["id"], "trainers": [gt["id"]],

@@ -8,7 +8,7 @@
   "reviewed": true,
   "shiny_reviewed": true,
   "tool": "manual-pixel-composition",
-  "prompt": "Luis explicitly authorized manual pixel composition/retouching; shiny is derived by recolor.",
+  "prompt": "Manual pixel composition and retouching were explicitly authorised; shiny is derived by recolor.",
   "assembly_sources": [
     {
       "image": "manual71-popstar-Pain.png",

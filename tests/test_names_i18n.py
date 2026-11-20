@@ -54,7 +54,7 @@ def test_random_and_cartridge_trainers(call, services):
     n = names_i18n.trainer(services.store.trainer(rnd["id"]), services)
     num = rnd["name"].split()[-1]
     assert n == {"es": {"name": f"Entrenador {num}"}, "en": {"name": f"Trainer {num}"}}
-    own = call("trainer_create", {"name": "Luis", "paste": TEAM})
+    own = call("trainer_create", {"name": "Player A", "paste": TEAM})
     assert names_i18n.trainer(services.store.trainer(own["id"]), services) is None
     lance = call("canon_install", {"trainer_key": "gsc-lance"})["trainer"]
     n = names_i18n.trainer(services.store.trainer(lance["id"]), services)
@@ -110,7 +110,7 @@ def test_the_screens_get_both_languages(call, services):
     card = next(x for x in call("battles_list", {})["battles"] if x["id"] == b["id"])
     assert card["p1"]["i18n"]["en"]["name"] == "Trainer " + rnd["name"].split()[-1]
     assert card["p2"]["i18n"]["en"]["name"] == got["champion"]["i18n"]["en"]["name"]
-    own = call("trainer_create", {"name": "Luis", "paste": TEAM})
+    own = call("trainer_create", {"name": "Player A", "paste": TEAM})
     assert "i18n" not in call("trainer_get", {"id": own["id"]})
 
 
@@ -144,7 +144,7 @@ def test_facility_seats_without_a_saved_trainer(services):
     from silvers_hoard import frontier
 
     assert names_i18n.facility_seat("Entrenadora Guay Nora") == {"es": {"name": "Entrenadora Guay Nora"}, "en": {"name": "Ace Trainer Nora"}}
-    assert names_i18n.facility_seat("Luis") is None and names_i18n.facility_seat("Veterano") is None
+    assert names_i18n.facility_seat("Player A") is None and names_i18n.facility_seat("Veterano") is None
     tid = next(t for t in frontier.BRAINS if frontier.BRAINS[t][0] == "palmer")
     brain = frontier.trainer_card(tid)
     assert names_i18n.facility_seat(brain["name"])["en"]["name"] == brain["name_en"]
@@ -170,7 +170,7 @@ def test_facility_stages(services):
     assert names_i18n.facility_stage({"number": 21, "boss": True, "name": card["name"], "title": ""}, services)["en"]["name"] == card["name_en"]
     # the Frontier's stages carry both languages; a stage of a saved trainer goes by the trainer; a typed name stays as it is
     assert names_i18n.facility_stage({"number": 1, "boss": False, **{k: card[k] for k in ("name", "name_en", "title", "title_en")}}, services)["en"] == {"name": card["name_en"], "title": card["title_en"]}
-    assert names_i18n.facility_stage({"number": 1, "boss": False, "name": "Luis", "title": "Yo"}, services) is None
+    assert names_i18n.facility_stage({"number": 1, "boss": False, "name": "Player A", "title": "Yo"}, services) is None
     run = {"stages": [dict(stage)]}
     names_i18n.annotate(run, services)
     assert run["stages"][0]["i18n"]["en"]["name"] == "Hiker Marco"
