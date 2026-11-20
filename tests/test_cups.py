@@ -43,7 +43,7 @@ def test_ai_cup_fills_in_to_a_champion(call):
 
 @needs_engine
 def test_your_matches_wait_for_you_and_the_rest_goes_on(call):
-    me = call("trainer_create", {"name": "Luis", "paste": TEAM})["id"]
+    me = call("trainer_create", {"name": "Player A", "paste": TEAM})["id"]
     rivals = _trainers(call, 3)
     c = call("cup_start", {"trainer_ids": rivals, "human_id": me, "seeding": "chosen", "ai_level": "easy", "pace": 0})
     assert c["entrants"][0]["id"] == me and c["entrants"][0]["human"]
@@ -64,7 +64,7 @@ def test_your_matches_wait_for_you_and_the_rest_goes_on(call):
 
 @needs_engine
 def test_simulate_your_match_and_random_draw(call):
-    me = call("trainer_create", {"name": "Luis", "paste": TEAM, "ai_level": "easy"})["id"]
+    me = call("trainer_create", {"name": "Player A", "paste": TEAM, "ai_level": "easy"})["id"]
     _trainers(call, 4)
     c = call("cup_start", {"human_id": me, "random_count": 4, "ai_level": "easy", "pace": 0, "best_of": 3})
     assert len(c["entrants"]) == 4 and me in [e["id"] for e in c["entrants"]] and c["spec"]["best_of"] == 3

@@ -8,7 +8,7 @@
   "reviewed": true,
   "shiny_reviewed": true,
   "tool": "manual-pixel-composition",
-  "prompt": "Luis authorized manual pixel composition and retouching after built-in generator rejections; shiny is a recolor.",
+  "prompt": "Manual pixel composition and retouching were authorised after built-in generator rejections; shiny is a recolor.",
   "assembly_sources": [
     {
       "image": "manual71-hoenn-Pain.png",

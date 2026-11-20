@@ -65,7 +65,7 @@ def test_a_gym_keeps_its_map_and_takes_it_along(call, client):
 
 @needs_engine
 def test_walking_the_map_fights_whoever_you_meet_and_the_leader_last(call):
-    me = call("trainer_create", {"name": "Luis", "paste": TEAM})
+    me = call("trainer_create", {"name": "Player A", "paste": TEAM})
     leader = call("trainer_create", {"name": "Erika", "paste": TEAM, "ai_level": "easy"})
     t1 = call("trainer_create", {"name": "Uno", "paste": TEAM, "ai_level": "easy"})
     t2 = call("trainer_create", {"name": "Dos", "paste": TEAM, "ai_level": "easy"})

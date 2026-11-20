@@ -5,7 +5,7 @@ from silvers_hoard.battle_search import search
 
 def classic(id_='old', **changes):
     return {'id': id_, 'status': 'ended', 'kind': 'watch', 'mode': 'classic', 'format': 'gen9customgame',
-            'p1': {'name': 'Ágata', 'trainer_id': 'a'}, 'p2': {'name': 'Luis', 'trainer_id': 'b'},
+            'p1': {'name': 'Ágata', 'trainer_id': 'a'}, 'p2': {'name': 'Player A', 'trainer_id': 'b'},
             'winner_side': 'p1', 'log_text': '\n'.join(['|start', '|switch|p1a: Bolt|Pikachu, L50|100/100',
             '|switch|p2a: Fish|Magikarp, L50|100/100', '|turn|1', '|move|p2a: Fish|Splash|p2a: Fish',
             '|turn|2', '|move|p1a: Bolt|Thunderbolt|p2a: Fish', '|win|Ágata']), **changes}
@@ -28,8 +28,8 @@ def test_combined_filters_refer_to_the_same_actor_and_its_move_turn():
     assert result['total'] == 1
     assert result['battles'][0]['matches'] == [{'side': 'p1', 'species': 'Pikachu', 'move': 'Thunderbolt', 'turn': 2}]
     assert find(source, species='Magikarp', move='Thunderbolt')['total'] == 0
-    assert find(source, trainer='Luis', move='Thunderbolt')['total'] == 0
-    assert find(source, trainer='Luis', result='lost', move='Splash')['total'] == 1
+    assert find(source, trainer='Player A', move='Thunderbolt')['total'] == 0
+    assert find(source, trainer='Player A', result='lost', move='Splash')['total'] == 1
     assert source == before
 
 

@@ -1,4 +1,4 @@
-"""Cut Luis's supplied game sheets into named, transparent sprites. No source files are changed.
+"""Cut the supplied game sheets into named, transparent sprites. No source files are changed.
 
 Usage: python scripts/build_supplied_sprites.py <Sprites for Silvers folder>
 The crop manifest keeps original filenames, SHA256 hashes and credits. Pillow is build-only.
@@ -190,7 +190,7 @@ def build(folder: Path) -> dict:
     for n,name in enumerate(("Poke", "Great", "Ultra", "Master")):
         cut(balls,"ball-"+name.lower(),(22+n*14,0,36+n*14,17),name+" Ball Display","Expositor "+name+" Ball","decoration",
             background=[balls[1].getpixel((0,0))[:3]],solid=True,footprint=[1,1])
-    hisui=source("*Hisuian*.png", "Original custom sheet supplied by Luis; author not identified on sheet")
+    hisui=source("*Hisuian*.png", "Original custom sheet supplied by the project owner; author not identified on sheet")
     for n,name in enumerate(("Poke", "Great", "Ultra")):
         cut(hisui,"hisui-"+name.lower(),(n*28,0,n*28+27,26),"Hisuian "+name+" Ball","Poké Ball de Hisui: "+name,"decoration",
             background=[hisui[1].getpixel((0,0))[:3]],solid=True,footprint=[1,1])

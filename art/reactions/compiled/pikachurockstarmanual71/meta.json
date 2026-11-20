@@ -7307,7 +7307,7 @@
     "num": 25,
     "form": "Rock-Star",
     "tool": "manual-pixel-composition",
-    "prompt": "Luis explicitly authorized manual pixel composition/retouching; shiny is derived by recolor.",
+    "prompt": "Manual pixel composition and retouching were explicitly authorised; shiny is derived by recolor.",
     "source_image": "pikachurockstar-manual71-v3-assembled.png",
     "source_sha256": "e27d922c13e7d245904906deb30231883432b05779317b5fc37676b696c06b5d",
     "native_frames": [

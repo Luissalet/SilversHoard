@@ -31,12 +31,12 @@ def test_random_team_and_dex(call):
 
 
 def test_trainer_crud_and_trash(call):
-    tr = call("trainer_create", {"name": "Luis", "paste": TEAM, "ai_level": "hard", "dialogue": {"intro": "¡Vamos!"}, "tags": ["yo"]})
+    tr = call("trainer_create", {"name": "Player A", "paste": TEAM, "ai_level": "hard", "dialogue": {"intro": "¡Vamos!"}, "tags": ["yo"]})
     assert tr["summary"][0]["species"] == "Garchomp" and tr["dialogue"]["intro"] == "¡Vamos!"
     up = call("trainer_update", {"id": tr["id"], "title": "Campeón", "favorite": True, "ai_style": "aggressive"})
     assert up["title"] == "Campeón" and up["favorite"] == 1 and up["ai_style"] == "aggressive"
     dup = call("trainer_duplicate", {"id": tr["id"]})
-    assert dup["name"].startswith("Luis") and dup["id"] != tr["id"]
+    assert dup["name"].startswith("Player A") and dup["id"] != tr["id"]
     rnd = call("trainer_random", {"seed": "x"})
     assert len(rnd["team"]) == 6 and rnd["avatar"].startswith("sd:")
     listed = call("trainers_list", {"query": "Garchomp"})["trainers"]

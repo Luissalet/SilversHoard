@@ -66,12 +66,12 @@ def url(room, key):
 
 
 def test_the_tools_open_list_get_and_close_a_room(call):
-    room = call("pokeathlon_room_open", {"course": "speed", "host_name": "Luis", "team": TEAM})
+    room = call("pokeathlon_room_open", {"course": "speed", "host_name": "Player A", "team": TEAM})
     assert room["status"] == "waiting" and room["events"] == ["hurdle_dash", "pennant_capture", "relay_run"] and room["medal"] == "speed"
     assert room["links"]["path"].startswith(f"/p/{room['id']}?k=") and room["watch_links"]["path"].startswith(f"/pw/{room['id']}?k=")
     host, jk, wk = keys(room)
     assert len({host, jk, wk}) == 3 and room["free"] == 3 and room["max_friends"] == 3
-    assert room["seats"][0]["name"] == "Luis" and room["seats"][0]["species"] == ["Pikachu", "Machamp", "Gyarados"]
+    assert room["seats"][0]["name"] == "Player A" and room["seats"][0]["species"] == ["Pikachu", "Machamp", "Gyarados"]
     got = call("pokeathlon_room_get", {"room": room["id"]})
     assert got["id"] == room["id"] and call("pokeathlon_room_get")["rooms"][0]["id"] == room["id"]
     assert call("pokeathlon_room_close", {"room": room["id"]}) == {"closed": room["id"]}
@@ -334,10 +334,10 @@ def test_only_the_host_starts_from_the_websocket_and_checksums_that_differ_are_r
 def test_the_lobby_lists_pokeathlon_rooms_with_a_link_to_join_or_to_watch(call, rooms):
     lobby = call("pvp_lobby")
     code = lobby["path"].split("c=")[1]
-    room = call("pokeathlon_room_open", {"course": "power", "host_name": "Luis"})
+    room = call("pokeathlon_room_open", {"course": "power", "host_name": "Player A"})
     rows = rooms.get("/api/lobby", params={"c": code}).json()["rooms"]
     row = next(r for r in rows if r["id"] == room["id"])
-    assert row["kind"] == "pokeathlon" and row["mode"] == "pokeathlon" and row["format"] == "power" and row["host"] == "Luis"
+    assert row["kind"] == "pokeathlon" and row["mode"] == "pokeathlon" and row["format"] == "power" and row["host"] == "Player A"
     assert row["join"].startswith(f"/p/{room['id']}?k=") and row["watch"].startswith(f"/pw/{room['id']}?k=") and row["status"] == "waiting"
     page = rooms.get("/lobby", params={"c": code}, headers={"accept-language": "es"})
     assert "Pokéathlon" in page.text and f"/p/{room['id']}" in page.text

@@ -7,7 +7,7 @@ related_targets: ["client/src/music/MusicPlayer.jsx","client/src/music/music.css
 
 # Music library
 
-Operate. Luis wants to import personal MP3s easily, listen in a dedicated Music tab, and manage queues and saved playlists. Extend Silver's existing palette, typography, navigation and native controls. All real data remains on the local service; QA uses synthetic tone files in a separate data directory.
+Operate. The Music tab supports importing local MP3s, listening, and managing queues and playlists. Extend Silver's existing palette, typography, navigation and native controls. All real data remains on the local service; QA uses synthetic tone files in a separate data directory.
 
 ## Direction contract
 
