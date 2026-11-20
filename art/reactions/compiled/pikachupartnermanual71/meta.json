@@ -2597,7 +2597,7 @@
     "num": 25,
     "form": "Partner",
     "tool": "manual-pixel-composition",
-    "prompt": "Luis authorized manual pixel composition and retouching after built-in generator rejections; shiny is a recolor.",
+    "prompt": "Manual pixel composition and retouching were authorised after built-in generator rejections; shiny is a recolor.",
     "source_image": "pikachupartner-manual71-assembled.png",
     "source_sha256": "306b8cb024067634ce5b34d9f574cf6ebdf7d83b35f75d780fbb9386db76f77e",
     "native_frames": [

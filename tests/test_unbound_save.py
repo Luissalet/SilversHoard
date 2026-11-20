@@ -44,7 +44,7 @@ def _section(sid, counter, payload=b""):
     return bytes(sec)
 
 
-def make_save(party, *, player="LUIS", older=None, rtc=False):
+def make_save(party, *, player="PLAY", older=None, rtc=False):
     """Copy A holds ``older`` (an earlier party) with counter 7, copy B the current ``party`` with counter 8."""
     def copy(mons, counter):
         trainer = bytearray(SECTION)
@@ -84,7 +84,7 @@ def test_reads_the_newest_party():
     ]
     old = [_record(RAICHU_ALOLA, 0, [int(eq)], pid=3)]
     out = ub.read_party(make_save(party, older=old, rtc=True))
-    assert out["player"] == "LUIS"
+    assert out["player"] == "PLAY"
     assert [s["species"] for s in out["sets"]] == ["Garchomp", "Charizard", "Raichu-Alola"]   # the newer copy; no egg
     g = out["sets"][0]
     assert g["item"] == "Choice Scarf" and g["moves"] == ["Earthquake", "Draco Meteor"] and g["level"] == 62 and g["nature"] == "Jolly"

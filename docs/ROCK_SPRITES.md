@@ -1,6 +1,6 @@
 # Local Rock move motifs
 
-Four motifs select 29 clearly delimited interior frames from Luis's supplied
+Four motifs select 29 clearly delimited interior frames from the supplied
 Pokémon Mystery Dungeon: Red Rescue Team Rock-Type Moves sheet, ripped by
 redblueyellow. They cover Ancient Power (6), Rock Blast (7), Rock Tomb (9) and
 Rollout (7). These are composed visual motifs in Silver's existing renderer,

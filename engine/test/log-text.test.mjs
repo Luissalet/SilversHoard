@@ -8,7 +8,7 @@ import { BattleText } from "../../client/src/battle/text/battle-text.gen.js";
 import { nameOf } from "../../client/src/battle/dex.js";
 
 const LOG = [
-  "|player|p1|Luis|", "|player|p2|Lance|", "|gametype|singles", "|gen|9", "|start",
+  "|player|p1|Player A|", "|player|p2|Lance|", "|gametype|singles", "|gen|9", "|start",
   "|switch|p1a: Venusaur|Venusaur, L50, M|100/100", "|switch|p2a: Dragonite|Dragonite, L50, M|100/100", "|turn|1",
   "|move|p1a: Venusaur|Leech Seed|p2a: Dragonite", "|-start|p2a: Dragonite|move: Leech Seed",
   "|-weather|Sandstorm|[from] ability: Sand Stream|[of] p2a: Dragonite",

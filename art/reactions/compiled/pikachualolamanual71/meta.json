@@ -2597,7 +2597,7 @@
     "num": 25,
     "form": "Alola",
     "tool": "manual-pixel-composition",
-    "prompt": "Luis authorized manual pixel composition and retouching after built-in generator rejections; shiny is a recolor.",
+    "prompt": "Manual pixel composition and retouching were authorised after built-in generator rejections; shiny is a recolor.",
     "source_image": "pikachualola-manual71-assembled.png",
     "source_sha256": "5be031c5666c6ca6eb9f981dff4c85e57c0f7afa7a88e8767f875bd12c325c6f",
     "native_frames": [

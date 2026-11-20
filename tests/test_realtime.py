@@ -25,7 +25,7 @@ def test_watch_and_rules(call):
 
 
 def test_play_forfeit_and_finish(call):
-    me = call("trainer_create", {"name": "Luis", "paste": TEAM})
+    me = call("trainer_create", {"name": "Player A", "paste": TEAM})
     foe = call("trainer_random", {"ai_level": "easy", "seed": "rt-foe"})
     bt = call("battle_start", {"p1": {"trainer_id": me["id"], "human": True}, "p2": {"trainer_id": foe["id"]}, "mode": "realtime", "time_limit": 40})
     assert bt["status"] == "live" and bt["rt"]["human"] == [True, False]
@@ -47,7 +47,7 @@ def test_arena_rules_version_and_old_battles(call, services):
     import json
     from pathlib import Path
 
-    me = call("trainer_create", {"name": "Luis", "paste": TEAM})
+    me = call("trainer_create", {"name": "Player A", "paste": TEAM})
     foe = call("trainer_random", {"ai_level": "easy", "seed": "rt-arena"})
     seats = {"p1": {"trainer_id": me["id"], "human": True}, "p2": {"trainer_id": foe["id"]}, "mode": "realtime"}
     bt = call("battle_start", seats)
@@ -123,7 +123,7 @@ Ability: Flash Fire
 
 
 def test_doubles_in_real_time(call, services):
-    me = call("trainer_create", {"name": "Luis", "paste": DOUBLES_TEAM, "format": "gen9doublescustomgame"})
+    me = call("trainer_create", {"name": "Player A", "paste": DOUBLES_TEAM, "format": "gen9doublescustomgame"})
     foe = call("trainer_random", {"ai_level": "hard", "seed": "rt-dbl"})
     seats = {"p1": {"trainer_id": me["id"], "human": True}, "p2": {"trainer_id": foe["id"]}, "mode": "realtime"}
     bt = call("battle_start", {**seats, "format": "gen9doublescustomgame", "seed": "dbl-api", "time_limit": 40})
@@ -134,7 +134,7 @@ def test_doubles_in_real_time(call, services):
     done = call("battle_rt_finish", {"id": bt["id"], "inputs": inputs, "tick": 1200})
     assert done["status"] == "ended" and done["summary"]["reason"] in ("ko", "time")
     assert done["lines"][0].endswith("|doubles")
-    assert sum(1 for line in done["lines"][:6] if "Luis sent out" in line) == 2, "two Pokémon per trainer at the start"
+    assert sum(1 for line in done["lines"][:6] if "Player A sent out" in line) == 2, "two Pokémon per trainer at the start"
     again = services.engine.call("rt_replay", {"spec": done["rt"]["spec"], "inputs": inputs}, timeout=120)
     assert again["summary"] == done["summary"] and again["lines"] == done["lines"]
     # random doubles formats play as the doubles custom game of their generation; version 2 battles keep doubles as singles

@@ -32,12 +32,12 @@ test('settings: the show is on by default, numbers in percent', () => {
 
 test('a recorded intro prepares a readable VS card before the battle clock starts', () => {
   const s = spec('prepared-video');
-  s.p1.name = 'Luis'; s.p2.name = 'Red (HeartGold and SoulSilver)';
+  s.p1.name = 'Player A'; s.p2.name = 'Red (HeartGold and SoulSilver)';
   const b = new RtBattle(s), show = new Show(stubRenderer());
   const events = JSON.stringify(b.events);
   assert.equal(show.startIntro(b, {prepared: true}), true);
   assert.equal(show.intro.t, 0.7, 'the panels and VS are already fully visible in the first recorded picture');
-  assert.deepEqual(show.intro.sides.map(x => x.name), ['Luis', 'Red']);
+  assert.deepEqual(show.intro.sides.map(x => x.name), ['Player A', 'Red']);
   for (let i = 0; i < 120; i++) show.update(0, b);
   assert.equal(show.intro.t, 0.7, 'capture warmup keeps the card visible');
   assert.equal(show.holding, true);
