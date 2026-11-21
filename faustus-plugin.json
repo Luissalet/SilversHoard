@@ -55,6 +55,10 @@
     "picture-viewer"
   ],
   "x-family": {
+    "isolated_instance": {
+      "data_env": "SILVER_DATA_DIR",
+      "port_env": "SILVER_PORT"
+    },
     "copilot": true
   },
   "placeholders": [
