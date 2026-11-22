@@ -28,6 +28,6 @@ silvers_hoard = ["static/**/*", "presets/*.json", "presets/pmd/*", "presets/port
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-q"
+addopts = "-q -rs"
 asyncio_mode = "auto"
 filterwarnings = ["ignore::DeprecationWarning"]

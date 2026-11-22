@@ -881,6 +881,25 @@ Front/back UI previews come from actual PMD poses, so cold team selectors and HU
 
 `engine/scripts/build_pmd_roster.mjs` derives the roster from the same engine data as the playable page. `scripts/build_pmd_library.py` inventories the pinned tracker, collects published art and aligned shiny palette references, and compiles the installed manifest/packs. Generated art is an explicit reviewed input, never a silent placeholder. A strict compile rejects unresolved normal/shiny requests; `--allow-missing` creates an explicitly partial QA collection whose coverage remains visible.
 
+### Optional media audits
+
+The pytest summary names any missing audit inputs. Set the relevant variable
+to a separate audit directory with the matching release media before running
+the test. Use a directory with all files referenced by the manifests.
+
+| Variable | Directory contents |
+| --- | --- |
+| `SILVER_TEST_PMD_ROOT` | The PMD release's `manifest.json`, `reactions.json` and packs. |
+| `SILVER_TEST_REACTION_ART_ROOT` | The historical reaction art's `sources/` and `compiled/` directories. |
+| `SILVER_TEST_PORTRAIT_ROOT` | The published portrait library's `manifest.json` and packs from the reference release. |
+
+`test_real_published_exterior_points` reads the published Bulbasaur portraits
+and checks the recorded exterior pixels against the rebuilt backgrounds.
+`test_preserves_recorded_exterior_points` checks those output pixels on
+synthetic inputs and runs in a fresh checkout.
+
+### Released media
+
 The staging directory contains downloaded art and encoded image caches, not a checkout or user data. Model servers and generation services are build-time authoring tools; opening an exported HTML does not call them. See [portable assets](PORTABLE_ASSETS.md) for the other embedded material and its existing limits.
 
 Reviewed generated sources can include a separately authored `shiny_file` when automatic palette transfer confuses differently coloured regions. Both variants require their own anatomy, movement and palette review. Normal repacking/component receipts are scoped to `source.normal_parent` for that shiny variant, while its active source hash identifies the selected shiny image. Existing suitable supplied art keeps priority.

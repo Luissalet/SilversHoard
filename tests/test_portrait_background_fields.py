@@ -7,8 +7,9 @@ from pathlib import Path
 
 import pytest
 from PIL import Image
+from silvers_hoard.pmd_portraits import PmdPortraits
 
-from portrait_fixtures import png_bytes
+from portrait_fixtures import audit_directory, png_bytes
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = 'synthetic-reference'
@@ -95,6 +96,29 @@ def test_preserves_recorded_exterior_points(generated):
         with Image.open(active_path(output, emotion)) as result:
             for xy in points:
                 assert result.getpixel(xy) == (*OBSERVATIONS[emotion][xy], 255)
+
+
+def test_real_published_exterior_points(tmp_path):
+    root = audit_directory(
+        "SILVER_TEST_PORTRAIT_ROOT", ("manifest.json",), "Published portrait exterior audit",
+    )
+    library = PmdPortraits(root)
+    published = tmp_path / "published"
+    folder = published / "0001"
+    folder.mkdir(parents=True)
+    for emotion in KEEPER_PNG_SHA256.keys() | PROTOTYPE_RGBA_SHA256.keys():
+        name = library.resolve("Bulbasaur", [emotion])
+        assert name is not None, emotion
+        (folder / f"{emotion}.png").write_bytes(library.image_bytes(name))
+
+    output = tmp_path / "backgrounds"
+    load_builder().build(published, output, SOURCE)
+    for emotion, points in OUTPUT_POINTS.items():
+        with Image.open(folder / f"{emotion}.png") as original, Image.open(active_path(output, emotion)) as result:
+            for xy in points:
+                expected = (*OBSERVATIONS[emotion][xy], 255)
+                assert original.convert("RGBA").getpixel(xy) == expected, (emotion, xy)
+                assert result.convert("RGBA").getpixel(xy) == expected, (emotion, xy)
 
 
 def test_full_native_fields_and_eleven_literal_keepers(generated):
