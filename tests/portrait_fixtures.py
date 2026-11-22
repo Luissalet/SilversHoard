@@ -21,10 +21,14 @@ def png_bytes(image):
 def audit_directory(variable, required, purpose):
     configured = os.environ.get(variable)
     if not configured:
-        pytest.skip(f"{purpose} uses unversioned media; set {variable} to an audit directory")
+        pytest.skip(
+            f"{purpose}: unversioned media required. Set {variable} "
+            f"to a directory containing {', '.join(required)}."
+        )
     root = Path(configured)
-    if not all((root / name).exists() for name in required):
-        pytest.fail(f"{variable} must contain {', '.join(required)}")
+    missing = [name for name in required if not (root / name).exists()]
+    if missing:
+        pytest.fail(f"{purpose}: {variable} is missing {', '.join(missing)}")
     return root
 
 
