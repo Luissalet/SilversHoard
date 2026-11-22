@@ -15,6 +15,16 @@ builder = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(builder)
 
 
+@pytest.fixture(autouse=True)
+def visible_frame_catalog(tmp_path, monkeypatch):
+    # Routing tests supply their own roster and tracker. Equivalence tests below
+    # supply pinned synthetic frames, independent of the release catalog.
+    catalog = tmp_path / "art/portraits/visible-frame-equivalences.json"
+    catalog.parent.mkdir(parents=True)
+    catalog.write_text('{"groups": []}', encoding="utf8")
+    monkeypatch.setattr(builder, "ROOT", tmp_path)
+
+
 @pytest.mark.parametrize("form,label,num", [
     ("Original", "Original Cap", 25),
     ("Hoenn", "Hoenn Cap", 25),

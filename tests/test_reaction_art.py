@@ -2,7 +2,7 @@
 import hashlib
 import io
 import json
-from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 from PIL import Image, ImageDraw
@@ -11,11 +11,18 @@ from scripts.import_reaction_art import grid_cuts, extract, native_palette, comp
 from silvers_hoard.pmd_library import PmdLibrary
 from scripts.build_pmd_reactions import compile_reactions, load_generated
 
-ART = Path(__file__).resolve().parents[1] / "art" / "reactions"
+from portrait_fixtures import (
+    png_bytes, reaction_art_root, release_pmd_root, synthetic_reaction_library,
+)
 
 
-def test_complete_roster_has_raster_reactions_instead_of_runtime_pose_fallbacks():
-    library = PmdLibrary(ART.parents[1] / "silvers_hoard" / "presets" / "pmd")
+@pytest.fixture
+def release_base_library(release_pmd_root):
+    return PmdLibrary(release_pmd_root, with_reactions=False)
+
+
+def test_complete_roster_has_raster_reactions_instead_of_runtime_pose_fallbacks(release_pmd_root):
+    library = PmdLibrary(release_pmd_root)
     pending = [(key, action) for key, meta in library.manifest["metas"].items()
                for action in ("Pain", "HitGround")
                if action not in meta["a"] or meta["a"][action].get("reaction")]
@@ -25,8 +32,8 @@ def test_complete_roster_has_raster_reactions_instead_of_runtime_pose_fallbacks(
 
 @pytest.mark.parametrize("identity", ["pikachuoriginal", "pikachuunova", "pikachukalos",
                                      "pikachualola", "pikachupartner", "pikachurockstar"])
-def test_manual_compositions_declare_reused_poses_and_recolor_shiny(identity):
-    root = ART / "compiled" / (identity + "manual71")
+def test_manual_compositions_declare_reused_poses_and_recolor_shiny(identity, reaction_art_root):
+    root = reaction_art_root / "compiled" / (identity + "manual71")
     meta = json.loads((root / "meta.json").read_text("utf8"))
     assert meta["provenance"]["tool"] == "manual-pixel-composition"
     assert meta["provenance"]["derivation"]["independently_generated_poses"] == 0
@@ -43,8 +50,8 @@ def test_manual_compositions_declare_reused_poses_and_recolor_shiny(identity):
         assert a.getchannel("A").tobytes() == b.getchannel("A").tobytes()
 
 
-def test_rockstar_shiny_keeps_the_native_green_buckle():
-    folder = ART / "compiled" / "pikachurockstarmanual71"
+def test_rockstar_shiny_keeps_the_native_green_buckle(reaction_art_root):
+    folder = reaction_art_root / "compiled" / "pikachurockstarmanual71"
     meta = json.loads((folder / "meta.json").read_text("utf8"))
     for action in ("Pain", "HitGround"):
         geometry = meta["a"][action]
@@ -55,34 +62,33 @@ def test_rockstar_shiny_keeps_the_native_green_buckle():
 
 
 @pytest.mark.parametrize("stem", ["mimikyu-derived62", "mimikyubustedtotem-derived50"])
-def test_existing_native_equivalence_derivations_keep_their_provenance(tmp_path, stem):
-    record = json.loads((ART / "sources" / (stem + ".json")).read_text("utf8"))
+def test_existing_native_equivalence_derivations_keep_their_provenance(tmp_path, stem, reaction_art_root, release_base_library):
+    record = json.loads((reaction_art_root / "sources" / (stem + ".json")).read_text("utf8"))
     record["source_record"] = stem + ".json"
     (tmp_path / "sources").mkdir()
     for name in {record["image"], *(s["image"] for s in record.get("assembly_sources", []))}:
-        (tmp_path / "sources" / name).write_bytes((ART / "sources" / name).read_bytes())
-    expected = json.loads((ART / "compiled" / record["id"] / "meta.json").read_text("utf8"))
-    compile_one(record, PmdLibrary(ART.parents[1] / "silvers_hoard" / "presets" / "pmd",
-                                  with_reactions=False), tmp_path)
+        (tmp_path / "sources" / name).write_bytes((reaction_art_root / "sources" / name).read_bytes())
+    expected = json.loads((reaction_art_root / "compiled" / record["id"] / "meta.json").read_text("utf8"))
+    compile_one(record, release_base_library, tmp_path)
     actual = json.loads((tmp_path / "compiled" / record["id"] / "meta.json").read_text("utf8"))
     assert actual["a"] == expected["a"]
     assert actual["shiny"]["a"] == expected["shiny"]["a"]
     for name in ("Pain.png", "HitGround.png", "Pain-shiny.png", "HitGround-shiny.png"):
-        assert (tmp_path / "compiled" / record["id"] / name).read_bytes() == (ART / "compiled" / record["id"] / name).read_bytes()
+        assert (tmp_path / "compiled" / record["id"] / name).read_bytes() == (reaction_art_root / "compiled" / record["id"] / name).read_bytes()
 
 
 @pytest.mark.parametrize("identity", ["raichu", "pikachulibre", "pikachuhoenn", "pikachupopstar"])
-def test_recolor_preserves_authored_poses_timing_alpha_and_source_bytes(tmp_path, identity):
-    record = json.loads((ART / "sources" / f"{identity}-recolor69.json").read_text("utf8"))
+def test_recolor_preserves_authored_poses_timing_alpha_and_source_bytes(tmp_path, identity, reaction_art_root, release_base_library):
+    record = json.loads((reaction_art_root / "sources" / f"{identity}-recolor69.json").read_text("utf8"))
     record["source_record"] = f"{identity}-recolor69.json"
     record.update(reviewed=False, shiny_reviewed=False)
     (tmp_path / "sources").mkdir()
     originals = {}
     for action, source in record["recolor"]["actions"].items():
-        raw = (ART / "sources" / source["image"]).read_bytes()
+        raw = (reaction_art_root / "sources" / source["image"]).read_bytes()
         (tmp_path / "sources" / source["image"]).write_bytes(raw)
         originals[action] = raw
-    library = PmdLibrary(ART.parents[1] / "silvers_hoard" / "presets" / "pmd", with_reactions=False)
+    library = release_base_library
     geometry = compile_one(record, library, tmp_path)
     shiny = record["recolor"]["target_shiny"]
     meta = json.loads((tmp_path / "compiled" / record["id"] / "meta.json").read_text("utf8"))
@@ -101,25 +107,44 @@ def test_recolor_preserves_authored_poses_timing_alpha_and_source_bytes(tmp_path
         assert geometry[action]["source"]["parent"] == source["geometry"]["source"]
 
 
-@pytest.mark.parametrize("damage", ["changed-source", "runtime-pose", "unmapped-colour", "foreign-palette"])
-def test_recolor_rejects_invalid_sources_before_writing_exports(tmp_path, damage):
-    record = json.loads((ART / "sources" / "raichu-recolor69.json").read_text("utf8"))
-    record["source_record"] = "raichu-recolor69.json"
-    (tmp_path / "sources").mkdir()
-    for source in record["recolor"]["actions"].values():
-        (tmp_path / "sources" / source["image"]).write_bytes((ART / "sources" / source["image"]).read_bytes())
-    source = record["recolor"]["actions"]["Pain"]
+@pytest.mark.parametrize(("damage", "message"), [
+    ("changed-source", "Changed recolor source"),
+    ("runtime-pose", "Recolor requires authored poses"),
+    ("unmapped-colour", "Unmapped recolor colours"),
+    ("foreign-palette", "Recolor outside target palette"),
+])
+def test_recolor_rejects_invalid_sources_before_writing_exports(tmp_path, damage, message, synthetic_reaction_library):
+    sources = tmp_path / "sources"
+    sources.mkdir()
+    first_color = (30, 50, 70)
+    image = Image.new("RGBA", (2, 2), (*first_color, 255))
+    image.putpixel((1, 1), (40, 60, 80, 255))
+    raw = png_bytes(image)
+    actions = {}
+    for action in ("Pain", "HitGround"):
+        filename = f"{action}.png"
+        (sources / filename).write_bytes(raw)
+        actions[action] = {
+            "image": filename, "sha256": hashlib.sha256(raw).hexdigest(),
+            "geometry": {"w": 2, "h": 2, "n": 1, "r": 1, "d": [8], "source": {"kind": "fixture"}},
+        }
+    target_color = (110, 120, 130)
+    palette = [[first_color, target_color], [(40, 60, 80), target_color]]
+    record = {
+        "id": "fixture", "num": 1, "source_record": "fixture.json",
+        "recolor": {"target_shiny": True, "palette": palette, "actions": actions},
+    }
+    source = actions["Pain"]
     if damage == "changed-source":
         source["sha256"] = "0" * 64
     elif damage == "runtime-pose":
         source["geometry"]["reaction"] = "pain"
     elif damage == "unmapped-colour":
-        record["recolor"]["palette"] = record["recolor"]["palette"][1:]
+        palette.pop(0)
     else:
-        record["recolor"]["palette"][0][1] = [1, 2, 3]
-    with pytest.raises(ValueError):
-        compile_one(record, PmdLibrary(ART.parents[1] / "silvers_hoard" / "presets" / "pmd",
-                                       with_reactions=False), tmp_path)
+        palette[0][1] = (1, 2, 3)
+    with pytest.raises(ValueError, match=message):
+        compile_one(record, synthetic_reaction_library, tmp_path)
     assert not (tmp_path / "compiled").exists()
 
 
@@ -140,13 +165,13 @@ def test_gutters_follow_content_even_with_asymmetric_margins():
 
 
 @pytest.mark.parametrize("identity", ["baxcalibur", "charizardmegax"])
-def test_drawn_pilot_frames_keep_registered_dimensions_palette_and_ground_hold(identity):
-    record = json.loads((ART / "sources" / f"{identity}-v2.json").read_text("utf8"))
-    library = PmdLibrary(ART.parents[1] / "silvers_hoard" / "presets" / "pmd", with_reactions=False)
+def test_drawn_pilot_frames_keep_registered_dimensions_palette_and_ground_hold(identity, reaction_art_root, release_base_library):
+    record = json.loads((reaction_art_root / "sources" / f"{identity}-v2.json").read_text("utf8"))
+    library = release_base_library
     before = hashlib.sha256(library.root.joinpath("manifest.json").read_bytes()).hexdigest()
     original = library.resolve(record["num"], record.get("form", ""))
     palette = set(native_palette(library, original))
-    geometry, images = extract(record, library)
+    geometry, images = extract(record, library, reaction_art_root)
     for name, geom in geometry.items():
         assert "reaction" not in geom
         assert geom["r"] == 8 and geom["n"] == 4
@@ -167,12 +192,12 @@ def test_drawn_pilot_frames_keep_registered_dimensions_palette_and_ground_hold(i
 
 
 @pytest.mark.parametrize("identity", ["baxcalibur", "charizardmegax", "magnemite"])
-def test_reviewed_shiny_exports_keep_pose_pixels_and_exact_installed_colors(identity):
-    root = ART / "compiled" / identity
+def test_reviewed_shiny_exports_keep_pose_pixels_and_exact_installed_colors(identity, reaction_art_root, release_base_library):
+    root = reaction_art_root / "compiled" / identity
     meta = json.loads((root / "meta.json").read_text("utf8"))
     assert meta["reviewed"]
     reference = meta["provenance"]
-    library = PmdLibrary(ART.parents[1] / "silvers_hoard" / "presets" / "pmd", with_reactions=False)
+    library = release_base_library
     palette = set(native_palette(library, library.resolve(reference["num"], reference["form"], shiny=True)))
     for name in ("Pain", "HitGround"):
         normal = Image.open(root / f"{name}.png").convert("RGBA")
@@ -185,7 +210,6 @@ def test_reviewed_shiny_exports_keep_pose_pixels_and_exact_installed_colors(iden
 
 
 def test_complete_raster_build_cannot_report_runtime_acting_as_drawn(tmp_path):
-    from types import SimpleNamespace
     fixture = Image.new("RGBA", (8, 8), (10, 20, 30, 255))
     buffer = io.BytesIO()
     fixture.save(buffer, "PNG")
@@ -203,10 +227,10 @@ def test_complete_raster_build_cannot_report_runtime_acting_as_drawn(tmp_path):
     assert all("reaction" not in action for action in result["metas"]["normal"].values())
 
 
-def test_mega_venusaur_start_uses_exact_native_back_pixels_then_drawn_prone_frames():
-    record = json.loads((ART / "sources" / "venusaurmega-v2.json").read_text("utf8"))
-    library = PmdLibrary(ART.parents[1] / "silvers_hoard" / "presets" / "pmd", with_reactions=False)
-    geometry, images = extract(record, library)
+def test_mega_venusaur_start_uses_exact_native_back_pixels_then_drawn_prone_frames(reaction_art_root, release_base_library):
+    record = json.loads((reaction_art_root / "sources" / "venusaurmega-v2.json").read_text("utf8"))
+    library = release_base_library
+    geometry, images = extract(record, library, reaction_art_root)
     g = geometry["HitGround"]
     sheet = Image.open(io.BytesIO(images["HitGround"])).convert("RGBA")
     first = sheet.crop((0, 2*g["h"], g["w"], 3*g["h"]))
@@ -219,10 +243,10 @@ def test_mega_venusaur_start_uses_exact_native_back_pixels_then_drawn_prone_fram
     assert g["source"]["generated_frames"] == 15
 
 
-def test_compact_atlas_keeps_two_drawn_frames_and_last_ground_pose():
-    record = json.loads((ART / "sources" / "metagross-compact.json").read_text("utf8"))
-    library = PmdLibrary(ART.parents[1] / "silvers_hoard" / "presets" / "pmd", with_reactions=False)
-    geometry, images = extract(record, library)
+def test_compact_atlas_keeps_two_drawn_frames_and_last_ground_pose(reaction_art_root, release_base_library):
+    record = json.loads((reaction_art_root / "sources" / "metagross-compact.json").read_text("utf8"))
+    library = release_base_library
+    geometry, images = extract(record, library, reaction_art_root)
     for action, g in geometry.items():
         assert g["n"] == 2 and g["r"] == 4 and len(g["d"]) == 2
         assert g["row_map"] == [0, 1, 1, 2, 2, 3, 3, 0]
@@ -238,46 +262,53 @@ def test_compact_atlas_keeps_two_drawn_frames_and_last_ground_pose():
             assert last.getbbox()[3] - last.getbbox()[1] < first.getbbox()[3] - first.getbbox()[1]
 
 
-def test_pending_shiny_does_not_publish_normal_pixels_as_shiny(tmp_path):
-    from types import SimpleNamespace
-    normal = ART / "compiled" / "magnemite"
-    target = tmp_path / "compiled" / "magnemite"
+@pytest.fixture
+def raster_approval(tmp_path):
+    target = tmp_path / "compiled" / "fixture"
     target.mkdir(parents=True)
-    record = json.loads((normal / "meta.json").read_text("utf8"))
+    record = {"provenance": {"num": 1, "form": ""}, "a": {}, "shiny": {"a": {}}}
+    for shiny, color in ((False, (10, 20, 30)), (True, (110, 120, 130))):
+        raw = png_bytes(Image.new("RGBA", (2, 2), (*color, 255)))
+        actions = record["shiny"]["a"] if shiny else record["a"]
+        for action in ("Pain", "HitGround"):
+            suffix = "-shiny" if shiny else ""
+            (target / f"{action}{suffix}.png").write_bytes(raw)
+            actions[action] = {
+                "w": 2, "h": 2, "n": 1, "r": 1, "d": [8],
+                "source": {"sha256": hashlib.sha256(raw).hexdigest()},
+            }
+    return target, record
+
+
+def test_pending_shiny_does_not_publish_normal_pixels_as_shiny(tmp_path, raster_approval, synthetic_reaction_library):
+    target, record = raster_approval
+    for path in target.glob("*-shiny.png"):
+        path.unlink()
     record.update(reviewed=True, shiny_reviewed=False)
-    for action in ("Pain", "HitGround"):
-        (target / f"{action}.png").write_bytes((normal / f"{action}.png").read_bytes())
     (target / "meta.json").write_text(json.dumps(record), "utf8")
-    lib = SimpleNamespace(resolve=lambda num, form, shiny=False: {"key": "shiny" if shiny else "normal"})
-    loaded = load_generated(lib, tmp_path)
-    assert set(loaded) == {"normal"}
-    assert set(loaded["normal"]) == {"Pain", "HitGround"}
-    # A later approval must read the actual shiny files, never use a normal fallback.
+    loaded = load_generated(synthetic_reaction_library, tmp_path)
+    assert set(loaded) == {"normal-fixture"}
+    assert set(loaded["normal-fixture"]) == {"Pain", "HitGround"}
+    # Approval requires the actual shiny files.
     record["shiny_reviewed"] = True
     (target / "meta.json").write_text(json.dumps(record), "utf8")
     with pytest.raises(FileNotFoundError):
-        load_generated(lib, tmp_path)
+        load_generated(synthetic_reaction_library, tmp_path)
 
 
-def test_reviewed_shiny_can_publish_without_replacing_a_native_normal(tmp_path):
-    from types import SimpleNamespace
-    source = ART / "compiled" / "magnemite"
-    target = tmp_path / "compiled" / "magnemite"
-    target.mkdir(parents=True)
-    record = json.loads((source / "meta.json").read_text("utf8"))
+def test_reviewed_shiny_can_publish_without_replacing_a_native_normal(
+    tmp_path, raster_approval, synthetic_reaction_library,
+):
+    target, record = raster_approval
     record.update(reviewed=False, shiny_reviewed=True)
-    for action in ("Pain", "HitGround"):
-        (target / f"{action}-shiny.png").write_bytes((source / f"{action}-shiny.png").read_bytes())
     (target / "meta.json").write_text(json.dumps(record), "utf8")
-    lib = SimpleNamespace(resolve=lambda num, form, shiny=False: {"key": "shiny" if shiny else "normal"})
-    loaded = load_generated(lib, tmp_path)
-    assert set(loaded) == {"shiny"}
+    loaded = load_generated(synthetic_reaction_library, tmp_path)
+    assert set(loaded) == {"shiny-fixture"}
     for action in ("Pain", "HitGround"):
-        assert loaded["shiny"][action][1] == (source / f"{action}-shiny.png").read_bytes()
+        assert loaded["shiny-fixture"][action][1] == (target / f"{action}-shiny.png").read_bytes()
 
 
 def test_shiny_delta_transfer_cannot_introduce_unregistered_colours(tmp_path, monkeypatch):
-    from types import SimpleNamespace
     from scripts import import_reaction_art as importer
 
     def pixels(colors):
@@ -308,13 +339,13 @@ def test_shiny_delta_transfer_cannot_introduce_unregistered_colours(tmp_path, mo
         assert exported.getpixel((0, 0))[:3] in shiny_colors
 
 
-def test_generated_shiny_preserves_native_entry_pixels(tmp_path):
+def test_generated_shiny_preserves_native_entry_pixels(tmp_path, reaction_art_root, release_base_library):
     from scripts.import_reaction_art import compile_one
 
-    record = json.loads((ART / "sources" / "yamaskgalar-assembled.json").read_text("utf8"))
+    record = json.loads((reaction_art_root / "sources" / "yamaskgalar-assembled.json").read_text("utf8"))
     (tmp_path / "sources").mkdir()
-    (tmp_path / "sources" / record["image"]).write_bytes((ART / "sources" / record["image"]).read_bytes())
-    library = PmdLibrary(ART.parents[1] / "silvers_hoard" / "presets" / "pmd", with_reactions=False)
+    (tmp_path / "sources" / record["image"]).write_bytes((reaction_art_root / "sources" / record["image"]).read_bytes())
+    library = release_base_library
     compile_one(record, library, tmp_path)
     meta = json.loads((tmp_path / "compiled" / record["id"] / "meta.json").read_text("utf8"))
     for shiny in (False, True):
@@ -335,13 +366,13 @@ def test_generated_shiny_preserves_native_entry_pixels(tmp_path):
             assert actual.tobytes() == expected.tobytes(), (shiny, row, frame)
 
 
-def test_drawn_falinks_components_keep_six_members_and_native_formation_anchor():
-    record = json.loads((ART / "sources" / "falinks-assembled.json").read_text("utf8"))
+def test_drawn_falinks_components_keep_six_members_and_native_formation_anchor(reaction_art_root, release_base_library):
+    record = json.loads((reaction_art_root / "sources" / "falinks-assembled.json").read_text("utf8"))
     members = record["composition"]["members"]
     assert [m["component"] for m in members].count(0) == 1
     assert [m["component"] for m in members].count(1) == 5
-    library = PmdLibrary(ART.parents[1] / "silvers_hoard" / "presets" / "pmd", with_reactions=False)
-    geometry, images = extract(record, library)
+    library = release_base_library
+    geometry, images = extract(record, library, reaction_art_root)
     native = library.resolve(870, "")["a"]["Idle"]
     idle = Image.open(io.BytesIO(library.image_bytes(native["file"]))).convert("RGBA")
     for action, g in geometry.items():

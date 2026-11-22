@@ -1030,6 +1030,23 @@ from saved props only while its draft matches the prior saved baseline; editors
 are keyed by trainer ID. Native API/MCP tools and persistence are unchanged.
 See [the behavior and verification](COPILOT_LIVE_REFRESH.md).
 
+## Testing PMD art
+
+The clean-checkout tests generate tiny PMD packs, portrait references and a
+visible-frame catalog in pytest temporary directories. The tests cover reaction
+pack merging and URLs, portable pack offsets, form routing, background history
+and raster approval through the regular readers and builders.
+
+Release audits for exact roster coverage and historical reaction pixels use
+unversioned media. To run them, provide audit inputs in scratch directories.
+Set `SILVER_TEST_PMD_ROOT` to the directory containing `manifest.json`,
+`reactions.json` and their referenced packs. Set
+`SILVER_TEST_REACTION_ART_ROOT` to the directory containing the historical
+`sources/` and `compiled/` trees. Run
+`python -m pytest -ra tests/test_pmd_reactions.py tests/test_reaction_art.py`.
+Media-dependent cases report which input is required when it is unset. A
+configured directory with missing inputs fails the corresponding audit.
+
 ## Default RT sprite material
 
 `SuppliedEffects` is owned by `Vfx` for standard RT and mass renderers, independently of particle style. It reads public move events, immutable views and the battle clock; physics never reads it. Shared `areaAt`/`rayAt`/`meleeAt`/`hitAt` hooks cover mass presentation. Beam origins follow actual shot IDs and heads; cones, bursts and drops retain event geometry. Actor/slot anchors distinguish doubles. Queues expire, cancel interrupted charges and are recreated on replay reset; old events retain their timestamps so seeking does not replay past hits. Public `view.seconds` synchronizes 0.5x/1x/2x/4x; reduced motion fixes frame and decorative geometry. Image fallback remains until decode; queues cap at128 and each draw at256 sprite stamps.
