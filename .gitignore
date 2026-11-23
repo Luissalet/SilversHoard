@@ -16,3 +16,14 @@ __pycache__/
 !.env.example
 *.log
 .faustus/
+PENDIENTES.md
+OBJETIVOS.md
+docs/
+# Local agent and tool state (created per user at runtime)
+.odysseus/
+.claude/
+.agents/
+.codex/
+.playwright-mcp/
+.hoard-integration.json
+.impeccable/
